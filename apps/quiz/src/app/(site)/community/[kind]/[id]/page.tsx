@@ -6,10 +6,11 @@ import { UxPage } from '@/components/ux-v1/page';
 import { safeFetch } from '@/lib/error-handling';
 import { UX_V1 } from '@/lib/ux-v1';
 import { getP8Features, NO_FEATURES } from '@/lib/ux-v1/p8/features';
-import { feedSources, mergeFeed } from '@/lib/ux-v1/p8/feed';
+import { feedSources, getP8Groups, mergeFeed } from '@/lib/ux-v1/p8/feed';
 import { excerpt } from '@/lib/ux-v1/p8/format';
 import { getPost } from '@/lib/ux-v1/p8/post';
 import { isPostKind } from '@/lib/ux-v1/p8/types';
+import { verseScope } from '@/lib/ux-v1/p8/verse-gate';
 
 import type { FeedPost } from '@/lib/ux-v1/p8/types';
 import type { Metadata } from 'next';
@@ -18,7 +19,8 @@ import type { Metadata } from 'next';
 // prototype #postview). Flag OFF: unknown to the middleware (301 to / like today),
 // notFound() backstop. Flag ON: new URLs, noindex + out of the sitemap until the owner
 // decides (threads and blogs duplicate their /verse pages). Real rows only; a post
-// that is hidden, unpublished or whose store is not live is a 404.
+// that is hidden, unpublished or whose store is not live is a 404, and so is a thread
+// or blog the Verse gates do not allow (hidden Verse, parked space: lib/ux-v1/p8/verse-gate).
 
 interface Params { kind: string; id: string }
 
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 /** Three other posts for "More from the community" (same group first). */
 async function loadMore(features: Awaited<ReturnType<typeof getP8Features>>, post: FeedPost): Promise<FeedPost[]> {
   const now = Date.now();
-  const src = feedSources(features, now);
+  const src = feedSources(features, verseScope(await safeFetch(getP8Groups(), [], '[p8] more groups')), now);
   const lists = await Promise.all([
     safeFetch(src.threads, [], '[p8] more threads'),
     safeFetch(src.blogs, [], '[p8] more blogs'),

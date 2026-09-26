@@ -11,7 +11,7 @@ import { guardWrites } from './helpers/guard';
 import { compareLandmarks } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
-import type { Page, Route } from '@playwright/test';
+import type { APIRequestContext, Page, Route } from '@playwright/test';
 import type { StubbedCall } from './helpers/guard';
 import type { Landmark } from './helpers/landmarks';
 import type { Theme } from './helpers/setup-page';
@@ -25,6 +25,10 @@ import type { Theme } from './helpers/setup-page';
 // The GET paths of these pages write nothing (cookie-free server reads; client reads
 // /api/auth/me, /api/ux-v1/p8/viewer, /api/debate/me, /api/verse/membership). Real
 // data changes (posts, votes), so counts are checked for shape, not for value.
+// Verse gates (privacy fail-closed): threads and blogs are Verse content and follow the
+// /verse gates (VERSE_PUBLIC, LIVE_SPACES). The server's mode is read from the server
+// itself (verseMode); tests that read Verse content skip while it is hidden, and the
+// "Verse gates" block has one case per mode (run the server twice, see reports/P8.md).
 
 const env = loadTestEnv();
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -153,13 +157,28 @@ const isPhone = (page: Page): boolean => widthOf(page) < 500;
 const bodyOf = (w: StubbedCall): Record<string, unknown> => JSON.parse(w.body ?? '{}') as Record<string, unknown>;
 const pathOf = (w: StubbedCall): string => new URL(w.url).pathname;
 
+// ---- Verse gates: the server's VERSE_PUBLIC, read from the server itself -----------------
+let verseModeP: Promise<'open' | 'hidden'> | null = null;
+/** 'hidden' when the server runs with VERSE_PUBLIC not exactly 'true': a gated Verse path
+ *  then redirects to the /verse teaser (the middleware for a guest, the space layout for a
+ *  signed-in non-admin). One probe per worker. */
+function verseMode(request: APIRequestContext): Promise<'open' | 'hidden'> {
+  verseModeP ??= request.get('/verse/bts', { maxRedirects: 0, timeout: 150_000 })
+    .then((r) => (r.status() >= 300 && r.status() < 400 && /\/verse\/?$/.test(r.headers().location ?? '') ? 'hidden' : 'open'));
+  return verseModeP;
+}
+const VERSE_OPEN_ONLY = 'reads Verse content: this server runs with VERSE_PUBLIC off (the "Verse gates" block covers it)';
+/** lib/verse/visibility LIVE_SPACES (today 'bts' only), by display name. */
+const LIVE_SPACE_NAMES = ['BTS'];
+
 // ---- specs ---------------------------------------------------------------------------------
 
 for (const theme of THEMES) {
   test.describe(`community feed ${theme}`, () => {
     test.describe.configure({ timeout: 120_000 });
 
-    test('guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write', async ({ page }, info) => {
+    test('guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write', async ({ page, request }, info) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       await expect(page).toHaveTitle(/Community/);
@@ -206,7 +225,8 @@ for (const theme of THEMES) {
       expect(h.writes, 'the feed writes nothing').toEqual([]);
     });
 
-    test('tabs (click + arrow keys), the group menu, Following asks a guest to sign in', async ({ page }) => {
+    test('tabs (click + arrow keys), the group menu, Following asks a guest to sign in', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const tabs = page.locator('.p8-fctl [role="tab"]');
@@ -271,7 +291,8 @@ for (const theme of THEMES) {
       expect(h.writes).toEqual([]);
     });
 
-    test('editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in', async ({ page }, info) => {
+    test('editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in', async ({ page, request }, info) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const prompt = page.locator('.p8-composer-in');
@@ -290,13 +311,15 @@ for (const theme of THEMES) {
       await expect(sheet.getByText('Add a title first.')).toBeVisible();
       await expect(sheet.getByLabel('Title')).toHaveAttribute('aria-invalid', 'true');
 
-      // Group picker: a listbox, arrow + Enter picks, the chip removes.
+      // Group picker: a listbox, arrow + Enter picks, the chip removes. Thread and Blog
+      // post to the Verse: the list has the live spaces only (Verse gates).
       const g = sheet.getByRole('combobox', { name: 'Group' });
       await g.fill('stray');
-      await expect(sheet.getByRole('listbox', { name: 'Groups' })).toBeVisible();
+      await expect(sheet.getByRole('listbox', { name: 'Groups' })).toContainText('No open fandom space matches.');
+      await g.fill('bts');
       await g.press('Enter');
-      await expect(sheet.locator('.p8-gchip')).toContainText('Stray Kids');
-      await sheet.getByRole('button', { name: 'Remove Stray Kids' }).click();
+      await expect(sheet.locator('.p8-gchip')).toContainText('BTS');
+      await sheet.getByRole('button', { name: 'Remove BTS' }).click();
       await expect(sheet.locator('.p8-gchip')).toHaveCount(0);
       await g.fill('bts');
       await g.press('Enter');
@@ -361,7 +384,8 @@ for (const theme of THEMES) {
       expect(h.writes, 'a guest posts nothing').toEqual([]);
     });
 
-    test('compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in', async ({ page }) => {
+    test('compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       const results: string[] = [];
       await page.route((u) => u.pathname === '/api/ux-v1/p8/my-results', async (route) => { results.push(route.request().url()); await route.fallback(); });
@@ -380,7 +404,8 @@ for (const theme of THEMES) {
       expect(h.writes).toEqual([]);
     });
 
-    test('rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet', async ({ page }) => {
+    test('rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const scope = isPhone(page) ? page.locator('.p8-mine') : page.locator('.p8-rail');
@@ -421,7 +446,8 @@ for (const theme of THEMES) {
   test.describe(`community posts ${theme}`, () => {
     test.describe.configure({ timeout: 120_000 });
 
-    test('blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles', async ({ page }, info) => {
+    test('blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles', async ({ page, request }, info) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const blog = page.locator('.p8-card-blog .ux-ptt a').first();
@@ -472,7 +498,8 @@ for (const theme of THEMES) {
       expect(h.writes).toEqual([]);
     });
 
-    test('thread post: report asks to sign in, replies point at the thread', async ({ page }) => {
+    test('thread post: report asks to sign in, replies point at the thread', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const thread = page.locator('.p8-feed article.ux-post').filter({ has: page.locator('.ux-ptype', { hasText: /^Thread/ }) }).locator('.ux-ptt a').first();
@@ -565,7 +592,8 @@ for (const theme of THEMES) {
     signedInTest.beforeEach(() => { skipUnlessSignedIn(); });
     const signedIn = async (page: Page): Promise<void> => { await expect(page.locator('.ux-avabtn').first()).toBeAttached({ timeout: 20_000 }); };
 
-    signedInTest('composer avatar, Following tab, thread post payload, blog heart payload', async ({ page }) => {
+    signedInTest('composer avatar, Following tab, thread post payload, blog heart payload', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme, {
         'POST /api/verse/threads': { ok: true, id: 1, slug: 'fixture' },
         'POST /api/verse/essays/reactions': { ok: true, count: 1, mine: true },
@@ -636,7 +664,8 @@ for (const theme of THEMES) {
       expect(h.writes.filter((w) => !['/api/debate/vote', '/api/cheer'].includes(pathOf(w)))).toEqual([]);
     });
 
-    signedInTest('blog reply payload', async ({ page }) => {
+    signedInTest('blog reply payload', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme, { 'POST /api/verse/discussions': { ok: true, id: 987654 } });
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const blog = page.locator('.p8-card-blog .ux-ptt a').first();
@@ -655,7 +684,8 @@ for (const theme of THEMES) {
       expect(h.writes.filter((w) => pathOf(w) !== '/api/verse/discussions')).toEqual([]);
     });
 
-    signedInTest('thread report payload, thread reply payload', async ({ page }) => {
+    signedInTest('thread report payload, thread reply payload', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme, {
         'POST /api/verse/discussions': { ok: true, id: 987654 },
         'POST /api/verse/flags': { ok: true },
@@ -680,7 +710,8 @@ for (const theme of THEMES) {
       expect(h.writes.filter((w) => !known.includes(pathOf(w)))).toEqual([]);
     });
 
-    signedInTest('compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request', async ({ page }) => {
+    signedInTest('compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request', async ({ page, request }) => {
+      test.skip((await verseMode(request)) === 'hidden', VERSE_OPEN_ONLY);
       const h = await harness(page, theme);
       const asked: string[] = [];
       const run = (id: string, label: string): Record<string, unknown> => ({ id, label, sub: '2h ago', thumb: null });
@@ -708,3 +739,57 @@ for (const theme of THEMES) {
     });
   });
 }
+
+// ---- Verse gates (privacy fail-closed): one case per server mode --------------------------
+// Run the server once with VERSE_PUBLIC=true (the local default) and once with
+// VERSE_PUBLIC=false; each case skips on the other mode (see reports/P8.md, section 5).
+test.describe('Verse gates', () => {
+  test.describe.configure({ timeout: 240_000 });
+
+  test('VERSE_PUBLIC=true: threads and blogs of live spaces only; Thread and Blog list live spaces only; debates list every group', async ({ page, request }) => {
+    test.skip((await verseMode(request)) === 'hidden', 'this server runs with VERSE_PUBLIC off: the next case');
+    const h = await harness(page, 'light');
+    test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
+    const types = (await page.locator('.p8-feed article.ux-post .ux-ptype').allTextContents()).map((t) => t.replace(/\s+/g, ' ').trim());
+    const verse = types.filter((t) => /^(Thread|Blog)\b/.test(t));
+    expect(verse.length, 'live-space threads and blogs are shown').toBeGreaterThan(0);
+    const live = new RegExp(`· (${LIVE_SPACE_NAMES.join('|')})( ·|$)`);
+    for (const t of verse) expect(t, 'every thread and blog is in a live space').toMatch(live);
+    await expect(page.getByRole('tab', { name: 'Blogs' })).toBeVisible();
+
+    await page.locator('.p8-composer-in').click();
+    const sheet = page.getByRole('dialog', { name: 'New thread' });
+    await expect(sheet.locator('.p8-modes4 button')).toHaveText(['Thread', 'Blog', 'Debate', 'Challenge']);
+    const g = sheet.getByRole('combobox', { name: 'Group' });
+    await g.fill('stray');
+    await expect(sheet.getByRole('listbox', { name: 'Groups' })).toContainText('No open fandom space matches.');
+    await sheet.locator('.p8-modes4').getByRole('button', { name: 'Debate' }).click();
+    const debate = page.getByRole('dialog', { name: 'New debate' });
+    await debate.getByRole('combobox', { name: 'Group' }).fill('stray');
+    await expect(debate.getByRole('option', { name: 'Stray Kids' })).toBeVisible();
+    expect(h.writes).toEqual([]);
+  });
+
+  test('VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode', async ({ page, request }) => {
+    test.skip((await verseMode(request)) === 'open', 'this server runs with VERSE_PUBLIC=true: the case above');
+    const h = await harness(page, 'light');
+    test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
+    const types = (await page.locator('.p8-feed article.ux-post .ux-ptype').allTextContents()).map((t) => t.replace(/\s+/g, ' ').trim());
+    expect(types.filter((t) => /^(Thread|Blog)\b/.test(t)), 'no Verse post in the feed').toEqual([]);
+    expect(await page.locator('a[href^="/community/thread/"], a[href^="/community/blog/"]').count(), 'no link to a Verse post').toBe(0);
+    await expect(page.locator('[role="tab"]').first()).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'Blogs' })).toHaveCount(0);
+    if (await page.locator('.p8-composer').count()) {
+      await expect(page.locator('.p8-composer-in')).toHaveText('Start a debate or a challenge');
+      await page.locator('.p8-composer-in').click();
+      await expect(page.getByRole('dialog').locator('.p8-modes4 button')).toHaveText(['Debate', 'Challenge']);
+      await page.keyboard.press('Escape');
+    }
+    // Real live-space rows (thread 1 and blog 2 are BTS): 404 like the Verse, noindex.
+    for (const p of ['/community/thread/1', '/community/blog/2']) expect((await request.get(p, { timeout: 120_000 })).status(), p).toBe(404);
+    // A compose URL for a Verse mode opens nothing.
+    await open(page, '/community?compose=thread');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    expect(h.writes).toEqual([]);
+  });
+});

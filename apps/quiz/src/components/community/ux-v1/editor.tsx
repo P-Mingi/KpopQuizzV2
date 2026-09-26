@@ -10,12 +10,13 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
-import { draftToDoc, validateDraft } from '@/lib/ux-v1/p8/draft';
+import { draftToDoc, editorModes, validateDraft } from '@/lib/ux-v1/p8/draft';
 
 import { useP8Viewer } from './viewer';
 
 import type { Draft, EditorMode } from '@/lib/ux-v1/p8/draft';
 import type { P8Features } from '@/lib/ux-v1/p8/types';
+import type { VerseScope } from '@/lib/ux-v1/p8/verse-gate';
 
 // The New post editor (DESIGN-SPEC 13.3 + 17.9, prototype sheet #editor): one sheet,
 // four modes. Writes go through the EXISTING endpoints with their existing payloads:
@@ -26,6 +27,8 @@ import type { P8Features } from '@/lib/ux-v1/p8/types';
 //   Debate   POST /api/ux-v1/p8/debates      (pending store: disabled until applied)
 //   Challenge POST /api/ux-v1/p8/challenges  (pending store: disabled until applied)
 // A guest gets the sign-in sheet at Post; the draft is kept and posting continues.
+// Verse gates (lib/ux-v1/p8/verse-gate): Thread and Blog write to the Verse, so they exist
+// only while the Verse is public, and their group picker lists the live spaces only.
 // /community?compose=<mode> opens the sheet in that mode on arrival; with
 // compose=challenge&quiz=<slug> (P5's create done link) the score picker lists the
 // fan's runs of that quiz and preselects the latest one.
@@ -44,8 +47,8 @@ const HEAD: Record<EditorMode, [string, string]> = {
 };
 const DAYS: { value: '1' | '3' | '7'; label: string }[] = [{ value: '1', label: '1 day' }, { value: '3', label: '3 days' }, { value: '7', label: '7 days' }];
 
-interface EditorCtx { open: (mode?: EditorMode) => void }
-const Ctx = createContext<EditorCtx>({ open: () => {} });
+interface EditorCtx { open: (mode?: EditorMode) => void; modes: EditorMode[] }
+const Ctx = createContext<EditorCtx>({ open: () => {}, modes: [] });
 export function useEditor(): EditorCtx { return useContext(Ctx); }
 
 interface Result { id: string; label: string; sub: string; thumb: string | null }
@@ -78,7 +81,9 @@ function errorLine(status: number, code: unknown): string {
   return 'That did not post. Try again.';
 }
 
-export function EditorProvider({ children, groups, features }: { children: React.ReactNode; groups: EditorGroup[]; features: P8Features }): React.ReactElement {
+const isVerseMode = (m: EditorMode): boolean => m === 'thread' || m === 'blog';
+
+export function EditorProvider({ children, groups, features, verse }: { children: React.ReactNode; groups: EditorGroup[]; features: P8Features; verse: VerseScope }): React.ReactElement {
   const [mode, setMode] = useState<EditorMode | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft('thread', null));
   const v = useP8Viewer();
@@ -96,16 +101,23 @@ export function EditorProvider({ children, groups, features }: { children: React
   const resumed = useRef(false);
   const composed = useRef(false);
 
+  const verseIds = useMemo(() => new Set(verse.groupIds), [verse.groupIds]);
+  const modes = useMemo(() => editorModes(verse.open && verse.groupIds.length > 0, features), [verse.open, verse.groupIds.length, features]);
+  const modeOptions = useMemo(() => MODES.filter((x) => modes.includes(x.value)), [modes]);
+  /** A group a mode may post to: Thread and Blog only in a live space. */
+  const groupFor = useCallback((m: EditorMode, id: number | null): number | null => (id !== null && isVerseMode(m) && !verseIds.has(id) ? null : id), [verseIds]);
   const defaultGroup = useMemo(() => groups.find((g) => g.slug === v.mainGroup)?.id ?? null, [groups, v.mainGroup]);
 
-  const open = useCallback((m: EditorMode = 'thread') => {
+  const open = useCallback((want?: EditorMode) => {
+    const m = want && modes.includes(want) ? want : modes[0];
+    if (!m) return; // nothing can be posted: the composer is hidden too
     setErrors({});
     setJoinFor(null);
-    setDraft((d) => ({ ...d, mode: m, groupId: d.groupId ?? defaultGroup }));
+    setDraft((d) => ({ ...d, mode: m, groupId: groupFor(m, d.groupId ?? defaultGroup) }));
     setMode(m);
-  }, [defaultGroup]);
+  }, [modes, groupFor, defaultGroup]);
   const close = useCallback(() => { setMode(null); setBusy(false); }, []);
-  const ctx = useMemo(() => ({ open }), [open]);
+  const ctx = useMemo(() => ({ open, modes }), [open, modes]);
   const set = <K extends keyof Draft>(k: K, val: Draft[K]): void => { setDraft((d) => ({ ...d, [k]: val })); setErrors((e) => ({ ...e, [k]: undefined })); };
 
   // Arrival with ?compose=<mode>[&quiz=<slug>]: open the sheet in that mode once, then
@@ -114,8 +126,8 @@ export function EditorProvider({ children, groups, features }: { children: React
     if (composed.current) return;
     composed.current = true;
     const q = new URLSearchParams(window.location.search);
-    const m = MODES.find((x) => x.value === q.get('compose'))?.value;
-    if (!m) return;
+    const m = modes.find((x) => x === q.get('compose'));
+    if (!m) return; // unknown, or not available (a Verse mode while the Verse is hidden)
     const slug = m === 'challenge' ? q.get('quiz') : null;
     q.delete('compose');
     q.delete('quiz');
@@ -123,7 +135,7 @@ export function EditorProvider({ children, groups, features }: { children: React
     window.history.replaceState(window.history.state, '', `${window.location.pathname}${rest ? `?${rest}` : ''}${window.location.hash}`);
     // Read from the address (an external source), applied outside the effect body.
     queueMicrotask(() => { if (slug && QUIZ_SLUG.test(slug)) setAttach(slug); open(m); });
-  }, [open]);
+  }, [open, modes]);
 
   // Challenge mode: the fan's recent quiz runs (their own plays, read only); with an
   // attached quiz, only the runs of that quiz, the latest one preselected.
@@ -149,6 +161,8 @@ export function EditorProvider({ children, groups, features }: { children: React
 
   const submit = useCallback(async (d: Draft): Promise<void> => {
     const errs = validateDraft(d);
+    // A Verse mode posts only to a live space (a kept draft may predate a gate change).
+    if (isVerseMode(d.mode) && d.groupId !== null && groupFor(d.mode, d.groupId) === null) errs.groupId = 'Pick a group.';
     setErrors(errs);
     if (Object.keys(errs).length) return;
     if (!v.signedIn) {
@@ -198,7 +212,7 @@ export function EditorProvider({ children, groups, features }: { children: React
     setDraft(emptyDraft('challenge', d.groupId));
     toast('Challenge posted');
     router.push(`/community/challenge/${String(r.data.id)}`);
-  }, [v.signedIn, groups, signIn, toast, close, router]);
+  }, [v.signedIn, groups, signIn, toast, close, router, groupFor]);
 
   // Back from sign-in: reopen with the kept draft and continue posting (16.6).
   useEffect(() => {
@@ -206,10 +220,10 @@ export function EditorProvider({ children, groups, features }: { children: React
     resumed.current = true;
     const p = takePendingAction('p8-post');
     const d = p?.payload as Draft | undefined;
-    if (!d || !d.mode) return;
+    if (!d || !d.mode || !modes.includes(d.mode)) return;
     // Continue from the stored action (an external store), outside the effect body.
     queueMicrotask(() => { setDraft(d); setMode(d.mode); void submit(d); });
-  }, [v.signedIn, submit]);
+  }, [v.signedIn, submit, modes]);
 
   const join = async (): Promise<void> => {
     if (!joinFor) return;
@@ -227,12 +241,13 @@ export function EditorProvider({ children, groups, features }: { children: React
     <Ctx value={ctx}>
       {children}
       <Sheet open={mode !== null} onClose={close} title={HEAD[m][0]} width={640} className="p8-ed">
-        <Segmented options={MODES} value={m} onChange={(x) => { setDraft((d) => ({ ...d, mode: x })); setMode(x); setErrors({}); setJoinFor(null); }} label="Post type" className="p8-modes4" />
+        <Segmented options={modeOptions} value={m} onChange={(x) => { setDraft((d) => ({ ...d, mode: x, groupId: groupFor(x, d.groupId) })); setMode(x); setErrors({}); setJoinFor(null); }} label="Post type" className="p8-modes4" />
         <p className="p8-help">{HEAD[m][1]}</p>
 
         <div className="ux-field">
           <label htmlFor={`p8-g-${uid}`}>Group</label>
-          <GroupPicker id={`p8-g-${uid}`} groups={groups} value={draft.groupId} onChange={(id) => set('groupId', id)} invalid={!!errors.groupId} />
+          <GroupPicker id={`p8-g-${uid}`} groups={isVerseMode(m) ? groups.filter((g) => verseIds.has(g.id)) : groups} value={draft.groupId} onChange={(id) => set('groupId', id)} invalid={!!errors.groupId}
+            empty={isVerseMode(m) ? 'No open fandom space matches.' : 'No group matches.'} />
           {errors.groupId ? <p className="p8-ed-err">{errors.groupId}</p> : null}
         </div>
 
@@ -338,7 +353,7 @@ export function EditorProvider({ children, groups, features }: { children: React
 
 /* ------------------------------------------------------------ group picker --- */
 
-function GroupPicker({ id, groups, value, onChange, invalid }: { id: string; groups: EditorGroup[]; value: number | null; onChange: (id: number | null) => void; invalid: boolean }): React.ReactElement {
+function GroupPicker({ id, groups, value, onChange, invalid, empty }: { id: string; groups: EditorGroup[]; value: number | null; onChange: (id: number | null) => void; invalid: boolean; empty: string }): React.ReactElement {
   const [q, setQ] = useState('');
   const [openList, setOpenList] = useState(false);
   const [active, setActive] = useState(0);
@@ -396,7 +411,7 @@ function GroupPicker({ id, groups, value, onChange, invalid }: { id: string; gro
               <span className="ux-gav" aria-hidden="true" style={groupPhotoUrl(g.slug) ? { backgroundImage: `url("${groupPhotoUrl(g.slug)}")` } : undefined}>{groupPhotoUrl(g.slug) ? null : g.name.charAt(0)}</span>
               {g.name}
             </div>
-          )) : <p className="p8-glist-empty">No group matches.</p>}
+          )) : <p className="p8-glist-empty">{empty}</p>}
         </div>
       ) : null}
     </div>

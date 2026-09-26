@@ -4,6 +4,25 @@
 
 export type EditorMode = 'thread' | 'blog' | 'debate' | 'challenge';
 
+const ALL_MODES: EditorMode[] = ['thread', 'blog', 'debate', 'challenge'];
+
+/** The editor's modes. Thread and Blog write to the Verse (verse_threads, verse_essays), so
+ *  they exist only while the Verse is open with at least one live space (the Verse gates,
+ *  lib/ux-v1/p8/verse-gate). No mode at all when nothing can be posted: the composer hides
+ *  (no dead door); a pending store is shown next to a live one with its honest line. */
+export function editorModes(verseOpen: boolean, f: { fanDebates: boolean; challenges: boolean }): EditorMode[] {
+  if (verseOpen) return ALL_MODES;
+  return f.fanDebates || f.challenges ? ['debate', 'challenge'] : [];
+}
+
+/** The composer's prompt for the available modes ("Start a thread, a blog, a debate or a
+ *  challenge"). */
+export function composerLine(modes: readonly EditorMode[]): string {
+  const words = modes.map((m) => `a ${m}`);
+  if (!words.length) return '';
+  return `Start ${words.length > 1 ? `${words.slice(0, -1).join(', ')} or ${words[words.length - 1]}` : words[0]}`;
+}
+
 export interface Draft {
   mode: EditorMode;
   groupId: number | null;

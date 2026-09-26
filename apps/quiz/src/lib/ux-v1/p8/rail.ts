@@ -7,6 +7,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { dayAgo, timeAgo } from './format';
 import { getP8Groups, readDailyDebates } from './feed';
 import { readPeople } from './people';
+import { badgeShown } from './verse-gate';
 
 import type { BadgeWatchRow, HappeningRow, P8Features, Pulse, TodayDebate, WarEntry } from './types';
 
@@ -136,7 +137,7 @@ export async function getHappening(limit = 5, now: number = Date.now()): Promise
 
 /* ------------------------------------------------------------------ pulse --- */
 
-async function readPulse(today: string, f: P8Features): Promise<Pulse> {
+async function readPulse(today: string, f: P8Features, verseGroupIds: number[]): Promise<Pulse> {
   const db = createPublicReadClient();
   const weekAgo = new Date(Date.parse(`${today}T00:00:00Z`) - 6 * 24 * 3600_000).toISOString();
   const count = async (q: PromiseLike<{ count: number | null; error: { message: string } | null }>, what: string): Promise<number> => {
@@ -146,9 +147,11 @@ async function readPulse(today: string, f: P8Features): Promise<Pulse> {
   };
   // Exact counts through GET limit(1) + count (never HEAD: a HEAD on a missing
   // table answers 204 without an error).
+  // Threads and blogs count only in live spaces, and not at all while the Verse is hidden
+  // (verseGroupIds from verseScope: empty then), like the feed (verse-gate.ts).
   const [threads, blogs, debates, votes, quizzes, fanDebates, challenges] = await Promise.all([
-    count(db.from('verse_threads').select('id', { count: 'exact' }).eq('status', 'visible').limit(1), 'threads'),
-    count(db.from('verse_essays').select('id', { count: 'exact' }).eq('status', 'featured').limit(1), 'essays'),
+    verseGroupIds.length ? count(db.from('verse_threads').select('id', { count: 'exact' }).eq('status', 'visible').in('group_id', verseGroupIds).limit(1), 'threads') : Promise.resolve(0),
+    verseGroupIds.length ? count(db.from('verse_essays').select('id', { count: 'exact' }).eq('status', 'featured').in('group_id', verseGroupIds).limit(1), 'essays') : Promise.resolve(0),
     count(db.from('daily_debates').select('date', { count: 'exact' }).lte('date', today).limit(1), 'debates'),
     count(db.from('debate_votes').select('id', { count: 'exact' }).eq('date', today).limit(1), 'votes today'),
     count(db.from('quizzes').select('id', { count: 'exact' }).eq('status', 'published').gte('created_at', weekAgo).limit(1), 'new quizzes'),
@@ -159,17 +162,19 @@ async function readPulse(today: string, f: P8Features): Promise<Pulse> {
 }
 
 /** The pulse line: posts, votes today, new quizzes this week (all real counts). */
-export const getPulse = unstable_cache(readPulse, ['ux-v1:p8:pulse:v1'], { revalidate: 300, tags: ['community'] });
+export const getPulse = unstable_cache(readPulse, ['ux-v1:p8:pulse:v2'], { revalidate: 300, tags: ['community'] });
 
 /* ------------------------------------------------------------ badge watch --- */
 
-async function readBadgeWatch(limit: number, today: string): Promise<BadgeWatchRow[]> {
+async function readBadgeWatch(limit: number, today: string, verseOpen: boolean): Promise<BadgeWatchRow[]> {
   const db = createPublicReadClient();
   const since = new Date(Date.parse(`${today}T00:00:00Z`) - 6 * 24 * 3600_000).toISOString();
   // Earns this week. founding_fan is excluded like components/community/badge-showcase
   // (the mig 104 backfill stamped every account at once; it can never be earned again).
-  const earns = await fetchAllRows<{ badge_id: string; user_id: string; earned_at: string }>(() => db.from('user_badges')
-    .select('badge_id, user_id, earned_at').gte('earned_at', since).neq('badge_id', 'founding_fan').order('earned_at', { ascending: false }));
+  // While the Verse is hidden only Play badges show (verse-gate.ts badgeShown).
+  const earns = (await fetchAllRows<{ badge_id: string; user_id: string; earned_at: string }>(() => db.from('user_badges')
+    .select('badge_id, user_id, earned_at').gte('earned_at', since).neq('badge_id', 'founding_fan').order('earned_at', { ascending: false })))
+    .filter((e) => badgeShown(e.badge_id, verseOpen));
   if (!earns.length) return [];
   const byBadge = new Map<string, { n: number; latest: { user_id: string; earned_at: string } }>();
   for (const e of earns) {
@@ -197,7 +202,7 @@ async function readBadgeWatch(limit: number, today: string): Promise<BadgeWatchR
 }
 
 /** Badge watch: the latest 3 badges earned this week, with how many fans earned each. */
-export const getBadgeWatch = unstable_cache(readBadgeWatch, ['ux-v1:p8:badges:v2'], { revalidate: 300, tags: ['community'] });
+export const getBadgeWatch = unstable_cache(readBadgeWatch, ['ux-v1:p8:badges:v3'], { revalidate: 300, tags: ['community'] });
 
 /* ------------------------------------------------------------- fandom war --- */
 

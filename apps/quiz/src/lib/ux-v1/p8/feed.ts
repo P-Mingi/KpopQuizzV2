@@ -8,9 +8,11 @@ import { plainTextExcerpt, splitTipTapForFold } from '@/lib/verse/render-content
 
 import { excerpt, readingMinutes, timeAgo, utcDate } from './format';
 import { readPeople } from './people';
+import { gateVersePosts } from './verse-gate';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group } from './types';
+import type { VerseScope } from './verse-gate';
 
 // The /community feed (DESIGN-SPEC 16.7 community, 13.1, 17.7): every post is a real
 // row of an existing table, newest first.
@@ -24,6 +26,10 @@ import type { FeedPost, P8Features, P8Group } from './types';
 // tables (likes and fan votes: service role, counts only). Each source is cached on
 // its own and THROWS on a read error, so a DB blip is never baked into the cache;
 // the page wraps each one in safeFetch (fail closed to "no posts from that source").
+// Threads and blogs are Verse content: they follow the /verse gates (verse-gate.ts).
+// Hidden Verse = no query at all; open = only rows of live spaces (the query filters by
+// the live group ids, passed in so they are part of the cache key), and gateVersePosts
+// filters again outside the cache.
 
 export const FEED_CAP = 60;
 const SRC_CAP = 50;
@@ -71,14 +77,15 @@ async function likeCounts(targetType: string, ids: string[], live: boolean): Pro
 
 /* ---------------------------------------------------------------- threads --- */
 
-async function readThreads(live: boolean): Promise<FeedPost[]> {
+async function readThreads(live: boolean, liveGroupIds: number[]): Promise<FeedPost[]> {
+  if (!liveGroupIds.length) return []; // hidden Verse or no live space: nothing is read
   const db = createPublicReadClient();
   // Three rounds at most (groups + threads, then comments + people + hearts, then the
   // opening bodies): the page must render fast even when the database is slow.
   const [groupList, threadRes] = await Promise.all([
     getP8Groups(),
     db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at')
-      .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP),
+      .eq('status', 'visible').in('group_id', liveGroupIds).order('created_at', { ascending: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
   const threads = (must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string }[];
@@ -134,12 +141,13 @@ export function blogCover(cover: unknown, groupSlug: string | null): string | nu
   return groupPhotoUrl(groupSlug);
 }
 
-async function readBlogs(): Promise<FeedPost[]> {
+async function readBlogs(liveGroupIds: number[]): Promise<FeedPost[]> {
+  if (!liveGroupIds.length) return []; // hidden Verse or no live space: nothing is read
   const db = createPublicReadClient();
   const [groupList, essayRes] = await Promise.all([
     getP8Groups(),
     db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at')
-      .eq('status', 'featured').order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
+      .eq('status', 'featured').in('group_id', liveGroupIds).order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
   const essays = (must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string }[];
@@ -333,8 +341,8 @@ async function replyScores(db: Db, rows: { id: number; quiz_id: string }[], repl
 
 /* ------------------------------------------------------------------- feed --- */
 
-const cachedThreads = unstable_cache((live: boolean) => readThreads(live), ['ux-v1:p8:threads:v2'], { revalidate: 120, tags: ['community'] });
-const cachedBlogs = unstable_cache(() => readBlogs(), ['ux-v1:p8:blogs:v2'], { revalidate: 120, tags: ['community'] });
+const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[]) => readThreads(live, liveGroupIds), ['ux-v1:p8:threads:v3'], { revalidate: 120, tags: ['community'] });
+const cachedBlogs = unstable_cache((liveGroupIds: number[]) => readBlogs(liveGroupIds), ['ux-v1:p8:blogs:v3'], { revalidate: 120, tags: ['community'] });
 const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v3'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
@@ -347,12 +355,15 @@ export interface FeedSources {
   challenges: Promise<FeedPost[]>;
 }
 
-/** The five sources (each cached, each throws on a read error: wrap in safeFetch). */
-export function feedSources(f: P8Features, now: number = Date.now()): FeedSources {
+/** The five sources (each cached, each throws on a read error: wrap in safeFetch).
+ *  Threads and blogs pass the Verse gates (scope from verseScope; gateVersePosts again
+ *  outside the cache). */
+export function feedSources(f: P8Features, verse: VerseScope, now: number = Date.now()): FeedSources {
   const today = utcDate(now);
+  const ids = verse.open ? verse.groupIds : [];
   return {
-    threads: cachedThreads(f.likes),
-    blogs: cachedBlogs(),
+    threads: ids.length ? cachedThreads(f.likes, ids).then(gateVersePosts) : Promise.resolve([]),
+    blogs: ids.length ? cachedBlogs(ids).then(gateVersePosts) : Promise.resolve([]),
     debates: cachedDebates(f.likes, today),
     fanDebates: cachedFanDebates(f),
     challenges: cachedChallenges(f),

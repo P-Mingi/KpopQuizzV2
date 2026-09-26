@@ -2,10 +2,12 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { plainTextExcerpt, renderTipTapJSON, splitTipTapForFold } from '@/lib/verse/render-content';
+import { verseHidden } from '@/lib/verse/visibility';
 
 import { blogCover, dailyClosesAt, getP8Groups, readDailyDebates } from './feed';
 import { DATE_RE, paragraphs, readingMinutes, timeAgo, utcDate } from './format';
 import { readPeople } from './people';
+import { isVerseKind, verseSpaceShown } from './verse-gate';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group, P8Person, PostKind } from './types';
@@ -113,6 +115,9 @@ async function threadPost(id: number, f: P8Features, now: number): Promise<P8Pos
     .eq('id', id).eq('status', 'visible').maybeSingle(), 'thread');
   const t = data as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string } | null;
   if (!t) return null;
+  // Verse gates before any other read: a parked space (or an unknown group) is a 404.
+  const group = (await getP8Groups()).find((g) => g.id === t.group_id) ?? null;
+  if (!verseSpaceShown(group?.slug)) return null;
   const rows = await fetchAllRows<DiscRow>(() => db.from('verse_discussions').select('id, author, body, parent_id, created_at')
     .eq('thread_id', t.id).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true }));
   const opening = rows.find((r) => r.parent_id == null) ?? null;
@@ -123,8 +128,7 @@ async function threadPost(id: number, f: P8Features, now: number): Promise<P8Pos
   const promotedIds = new Set(promoted.map((r) => String(r.id)));
   const tree = await discussionTree(db, [...promoted, ...rest].sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at) || a.id - b.id), t.created_by, f.likes, now);
   for (const c of tree) if (promotedIds.has(c.id)) c.canReply = false;
-  const [groups, people, likes] = await Promise.all([
-    getP8Groups(),
+  const [people, likes] = await Promise.all([
     readPeople(db, [t.created_by]),
     likeMap('thread', [String(t.id)], f.likes),
   ]);
@@ -133,7 +137,7 @@ async function threadPost(id: number, f: P8Features, now: number): Promise<P8Pos
   const n = countTree(tree);
   return {
     kind: 'thread', key: String(t.id), href: `/community/thread/${t.id}`, title: t.title,
-    excerpt: null, group: groups.find((g) => g.id === t.group_id) ?? null,
+    excerpt: null, group,
     author: t.created_by ? people.get(t.created_by) ?? null : null,
     at: t.created_at, ago: timeAgo(t.created_at, now), replies: n,
     likes: likes ? likes.get(String(t.id)) ?? 0 : null,
@@ -150,15 +154,16 @@ async function blogPost(id: number, f: P8Features, now: number): Promise<P8Post 
     .eq('id', id).eq('status', 'featured').maybeSingle(), 'essay');
   const e = data as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string } | null;
   if (!e) return null;
-  const [groups, people, reactions, rows] = await Promise.all([
-    getP8Groups(),
+  // Verse gates before any other read: a parked space (or an unknown group) is a 404.
+  const g = (await getP8Groups()).find((x) => x.id === e.group_id) ?? null;
+  if (!verseSpaceShown(g?.slug)) return null;
+  const [people, reactions, rows] = await Promise.all([
     readPeople(db, [e.author]),
     fetchAllRows<{ essay_id: number }>(() => db.from('verse_essay_reactions').select('essay_id').eq('essay_id', e.id)),
     fetchAllRows<DiscRow>(() => db.from('verse_discussions').select('id, author, body, parent_id, created_at')
       .eq('entity_type', 'essay').eq('entity_id', String(e.id)).eq('status', 'visible').is('thread_id', null)
       .order('created_at', { ascending: true }).order('id', { ascending: true })),
   ]);
-  const g = groups.find((x) => x.id === e.group_id) ?? null;
   const tree = await discussionTree(db, rows, e.author, f.likes, now);
   const n = countTree(tree);
   const at = e.featured_at ?? e.created_at;
@@ -337,11 +342,14 @@ export function parsePostKey(kind: PostKind, key: string): { daily: string } | {
   return Number.isSafeInteger(id) && id > 0 ? { id } : null;
 }
 
-/** The post, or null (unknown, hidden, not public, or its store is not live). Throws
- *  on a read error (the page shows its error boundary, never a fake 404). */
+/** The post, or null (unknown, hidden, not public, its store is not live, or Verse
+ *  content the Verse gates do not allow). Throws on a read error (the page shows its
+ *  error boundary, never a fake 404). */
 export async function getPost(kind: PostKind, key: string, f: P8Features, now: number = Date.now()): Promise<P8Post | null> {
   const k = parsePostKey(kind, key);
   if (!k) return null;
+  // Hidden Verse: a thread or blog URL is a 404 without a single read (verse-gate.ts).
+  if (isVerseKind(kind) && verseHidden()) return null;
   if (kind === 'thread' && 'id' in k) return threadPost(k.id, f, now);
   if (kind === 'blog' && 'id' in k) return blogPost(k.id, f, now);
   if (kind === 'debate') return 'daily' in k ? dailyDebatePost(k.daily, f, now) : fanDebatePost(k.id, f, now);

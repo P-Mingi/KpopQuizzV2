@@ -4,6 +4,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
+import { verseHidden } from '@/lib/verse/visibility';
 
 // GET /api/ux-v1/p8/viewer: the signed-in fan's OWN community state, read only:
 // who they follow (usernames, for the Following tab and the Follow buttons) and what
@@ -24,7 +25,8 @@ export async function GET(): Promise<NextResponse> {
   try {
     const [follows, essays] = await Promise.all([
       fetchAllRows<{ followed_id: string }>(() => svc.from('follows').select('followed_id').eq('follower_id', user.id).order('created_at', { ascending: false })),
-      fetchAllRows<{ essay_id: number }>(() => svc.from('verse_essay_reactions').select('essay_id').eq('user_id', user.id)),
+      // Blog hearts are Verse rows: not read while the Verse is hidden (verse-gate.ts).
+      verseHidden() ? Promise.resolve([] as { essay_id: number }[]) : fetchAllRows<{ essay_id: number }>(() => svc.from('verse_essay_reactions').select('essay_id').eq('user_id', user.id)),
     ]);
     const ids = follows.slice(0, CAP).map((f) => f.followed_id);
     const usernames: string[] = [];

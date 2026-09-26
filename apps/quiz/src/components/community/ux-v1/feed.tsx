@@ -8,6 +8,7 @@ import { UxPopover } from '@/components/ux-v1/popover';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { tabPanelProps } from '@/components/ux-v1/tab-panel';
 import { UxTabs } from '@/components/ux-v1/tabs';
+import { composerLine } from '@/lib/ux-v1/p8/draft';
 
 import { useEditor } from './editor';
 import { FeedCard } from './feed-card';
@@ -25,16 +26,19 @@ type Tab = 'all' | 'following' | 'blogs';
 const PAGE = 10;
 const TABS: { id: Tab; label: string }[] = [{ id: 'all', label: 'For you' }, { id: 'following', label: 'Following' }, { id: 'blogs', label: 'Blogs' }];
 
-export function Composer(): React.ReactElement {
+export function Composer(): React.ReactElement | null {
   const v = useP8Viewer();
-  const { open } = useEditor();
+  const { open, modes } = useEditor();
+  // No mode can post (hidden Verse and the pending stores): no composer, no dead door.
+  const first = modes[0];
+  if (!first) return null;
   return (
     <div className="p8-composer">
       {v.signedIn ? <UxAvatar name={v.displayName ?? v.username ?? 'You'} src={v.avatarUrl} size={40} /> : null}
-      <button type="button" className="p8-composer-in" onClick={() => open('thread')}>
-        <span>Start a thread, a blog, a debate or a challenge</span>
+      <button type="button" className="p8-composer-in" onClick={() => open(first)}>
+        <span>{composerLine(modes)}</span>
       </button>
-      <button type="button" className="ux-btn ux-btn-ghost" onClick={() => open('thread')}>
+      <button type="button" className="ux-btn ux-btn-ghost" onClick={() => open(first)}>
         <Icon name="pen" />New post
       </button>
     </div>
@@ -66,7 +70,7 @@ function GroupMenu({ groups, value, onChange }: { groups: { slug: string; name: 
   );
 }
 
-export function CommunityFeed({ posts, loadFailed = false, mtop, mrail }: { posts: FeedPost[]; loadFailed?: boolean; mtop?: React.ReactNode; mrail?: React.ReactNode }): React.ReactElement {
+export function CommunityFeed({ posts, loadFailed = false, blogs = true, mtop, mrail }: { posts: FeedPost[]; loadFailed?: boolean; blogs?: boolean; mtop?: React.ReactNode; mrail?: React.ReactNode }): React.ReactElement {
   const v = useP8Viewer();
   const signIn = useSignIn();
   const [tab, setTab] = useState<Tab>('all');
@@ -113,7 +117,7 @@ export function CommunityFeed({ posts, loadFailed = false, mtop, mrail }: { post
   return (
     <>
       <div className="p8-fctl">
-        <UxTabs items={TABS} value={tab} onChange={(t) => { setTab(t as Tab); setShown(PAGE); }} label="Feed" idPrefix="p8-feed" />
+        <UxTabs items={blogs ? TABS : TABS.filter((t) => t.id !== 'blogs')} value={tab} onChange={(t) => { setTab(t as Tab); setShown(PAGE); }} label="Feed" idPrefix="p8-feed" />
         {groups.length ? <GroupMenu groups={groups} value={group} onChange={(g) => { setGroup(g); setShown(PAGE); }} /> : null}
       </div>
       {mtop}
