@@ -11,7 +11,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | merged (2cad6a7, PR #45); resumed for the request queue (P4 x2, P10 x1) + streak test time bomb | 9b71ace | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | running (resumed 23:51 after usage limit; 7 commits, 4 unpushed at that time) | 5d423e0 | 0 | v11/reports/P1.md |
+| P1 | ux11/p1-home | PR #49 open; sent back: flag-on home lost 7 of 18 group hub links (incl. /cortis-quiz), SEO blocker | b6e6a23 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | running (spawned from 5e6db4e with briefs/COMMON.md + P2.md) | - | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | running (spawned from integration with briefs/COMMON.md + P3.md) | - | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
@@ -43,6 +43,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - Dev ports (Next 16 allows one `next dev` per directory; each worktree has its own): A0 3030, P1 3031, P2 3032, P3 3033,
   P4 3034, P5 3035, P6 3036, P7 3037, P8 3038, P9 3039, P10 3040, P11 3041, integration/checkers 3021.
   Start with `NEXT_PUBLIC_UX_V1=1 PORT=<port> pnpm --filter quiz dev` from the worktree. Stop it when done.
+- Checkers (from P1): on a local `next start`, a cold home load can hang AVIF image keys for good; warm the images one at a time before measuring. Vercel is not affected.
 - Ownership guard: hooks are installed per worktree only (`extensions.worktreeConfig` + `git config --worktree core.hooksPath`),
   never repo-wide; the guard is a no-op when `UX11_AGENT` is unset.
 
@@ -72,10 +73,13 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 12. P6: should every blindtest (not only the dailies) count for the streak; should free hub plays be recorded and earn XP (XP-farming risk); wire bt_players rank titles; blindtest challenge creation is open to guests (require sign-in or rate limit?); "challenges waiting" needs an invitee column; the Recent hits, Legends and Speed round mixes need generate support.
 13. P6: the Intro mode 301 (/blindtest/intro-challenge -> /blindtest) was not done in this run (SEO diff); owner go needed.
 14. P10: header storage: create the profile-headers bucket or reuse the avatars bucket; an email sender for the email switches; a "flat theme colour" band mode needs a new column; a real delete-account flow (today the confirm sheet sends the fan to /contact). Signed-in /me is NOT verified live (render test only) until decision 1.
-15. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+15. P1: QOTD rotation stopped because ensure_daily_quiz only publishes a bank row dated exactly today and nothing was scheduled after 2026-06-30 (the cron still answered ok). The fix ships behind the server env QOTD_ROTATION_FIX=1 (off by default, production cron unchanged); until it is set the home shows the real stored pick labelled "Picked on June 30".
+16. Security, existing (found by P1): quiz_bank (migration 018) and quiz_time_stats (032) have write-all RLS policies, so anyone with the anon key could insert a bank row the cron would then publish. Not tested. Tightening is an RLS change, owner call.
+17. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P1 finished (PR #49, guard ok 65 files, p1.spec 37/37) but NOT merged: its flag-on home server-renders 11 group hub links vs 18 on the live home (lost /cortis-quiz, /exo-quiz, /itzy-quiz, /ive-quiz, /le-sserafim-quiz, /txt-quiz + 1). Rule 6 blocker, sent back. COMMON.md done-when 5 now requires the full link-set diff; running agents told. P1's A0 request (focus H1 on client navigation) added to A0's queue.
 - 2026-09-26 P10 merged (2dd8f9f): guard ok (51 files), tsc clean, check:routes 318 both ways, flag-off diff identical on 8 pages (per P10), test user's rows unchanged since 2026-09-22. Unit run on integration: 240/242; the 2 failures are A0's streak-view tests, a time bomb (lib/streak.ts streakState reads the wall clock while the tests pin now to 2026-09-25); product behaviour is right; A0 fixes the test with a frozen system clock. P3 spawned in P10's slot; A0 resumed for its request queue.
 - 2026-09-26 P7 UI pass started (resumed agent) and P2 spawned. The blindtest mode-page bug was handed to the owner as a separate task chip (fix on main, outside this run). P1 told to read Continue playing through lib/ux-v1/p4/continue.ts.
 - 2026-09-26 P4 merged (7a13aa6) and P6 merged (bedaf6f): guard ok (66 and 51 files), tsc clean, check:routes 315 both ways, 84 unit tests green on integration. P4: quiz rules in lib/ux-v1/p4/engine.ts with a parity test that transpiles quiz-player.tsx and compares results and save-payload keys; making quiz-player.tsx import the engine is a flag-off change, left for the owner's cleanup. P6: challenges use `challenges`/`challenge_attempts`, P4's use `battles`, both as WIRING-MAP rows 79 and 255 say. A0 request queue: P4 (useUxMe null until mounted; ShareSheet on phones). Open: /pt/blindtest unowned; /g/[slug] unchanged (no prototype state).
