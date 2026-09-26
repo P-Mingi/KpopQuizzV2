@@ -32,10 +32,19 @@ export function UxNavScroll(): null {
   return null;
 }
 
+/** How long after a route change the H1 may still arrive: a loading.tsx skeleton
+ *  commits first and the page streams in behind it (a slow phone network, or a dev
+ *  server rendering /q/<slug> on demand, can take well over 10 s). */
+const H1_WAIT_MS = 30_000;
+
 /**
- * On client navigation, move focus to the new page's H1 (16.5: "focus the page H1,
- * tabindex -1, no focus ring"). Skipped on the first load so the skip link and
- * the browser's own focus handling stay as they are.
+ * On client navigation, move focus to the new page's H1 (16.5 / 16.9: "focus the
+ * page H1, tabindex -1, no focus ring"). Skipped on the first load (the skip link
+ * and the browser's own focus handling stay as they are) and on query-only changes
+ * (filters, tabs, ?page=2 keep the focus on the control that changed them).
+ * The H1 is awaited: routes with a loading.tsx commit their skeleton first and the
+ * page (and its H1) streams in later, so the new H1 is watched for, not polled
+ * once. Focus is never taken back from a fan who already moved it elsewhere.
  */
 export function UxRouteFocus(): null {
   const pathname = usePathname();
@@ -44,13 +53,30 @@ export function UxRouteFocus(): null {
     const was = prev.current;
     prev.current = pathname;
     if (was === null || was === pathname) return;
-    const t = window.setTimeout(() => {
-      const h1 = document.querySelector<HTMLElement>('#main h1');
-      if (!h1) return;
+    const main = document.getElementById('main');
+    if (!main) return;
+    // What had focus when the route changed (the link that was clicked, often gone).
+    const origin = document.activeElement;
+    const untouched = (): boolean => {
+      const a = document.activeElement;
+      return !a || a === document.body || a === main || a === origin || !a.isConnected;
+    };
+    let finished = false;
+    const obs = new MutationObserver(() => { attempt(); });
+    const timer = window.setTimeout(() => finish(), H1_WAIT_MS);
+    function finish(): void { finished = true; obs.disconnect(); window.clearTimeout(timer); }
+    function attempt(): void {
+      if (finished) return;
+      if (!untouched()) { finish(); return; }
+      const h1 = main?.querySelector<HTMLElement>('h1');
+      if (!h1) return; // not there yet: keep watching
       if (!h1.hasAttribute('tabindex')) h1.setAttribute('tabindex', '-1');
       h1.focus({ preventScroll: true });
-    }, 60);
-    return () => window.clearTimeout(t);
+      finish();
+    }
+    obs.observe(main, { childList: true, subtree: true });
+    attempt();
+    return () => { finish(); };
   }, [pathname]);
   return null;
 }

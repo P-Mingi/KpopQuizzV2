@@ -204,6 +204,68 @@ test.describe('keyboard + sign-in', () => {
   });
 });
 
+// P1 request 1 (DESIGN-SPEC 16.5 / 16.9): on a client navigation the new page's H1
+// takes the focus (tabindex -1, no ring) and the title updates; never on a first
+// load. /q/<slug> has a loading.tsx: its skeleton commits first, the H1 streams in.
+test.describe('client navigation', () => {
+  test('focus moves to the new page H1, no ring, title updates', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    // A dev server's Next.js badge sits over the Home tab at 390 (no-op on a build).
+    await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+    expect(await page.evaluate(() => document.activeElement === document.body), 'first load: focus untouched').toBe(true);
+
+    const desktop = widthOf(page) > 760;
+    const h1 = page.locator('#main h1').first();
+    const noRing = (): Promise<string> => h1.evaluate((el) => getComputedStyle(el).outlineStyle);
+    const steps: [string, RegExp][] = desktop
+      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="groups"]', /\/groups$/], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
+      : [['.ux-tab[href="/quizzes"]', /\/quizzes$/], ['.ux-tab[href="/blindtest"]', /\/blindtest$/], ['.ux-tab[href="/"]', /\/$/]];
+    for (const [link, url] of steps) {
+      const before = await page.title();
+      await page.locator(link).click();
+      await expect(page).toHaveURL(url, { timeout: 60_000 });
+      await expect(h1).toBeFocused({ timeout: 15_000 });
+      expect(await noRing()).toBe('none');
+      await expect.poll(() => page.title(), { timeout: 15_000 }).not.toBe(before);
+    }
+
+    // A route with a loading.tsx: open a quiz from the list.
+    await page.locator('.ux-links a[data-nav="quizzes"], .ux-tab[href="/quizzes"]').filter({ visible: true }).first().click();
+    await expect(page).toHaveURL(/\/quizzes$/, { timeout: 60_000 });
+    await expect(h1).toBeFocused({ timeout: 15_000 });
+    await page.locator('#main a[href^="/q/"]').first().click();
+    await expect(page).toHaveURL(/\/q\/[^/]+$/, { timeout: 60_000 });
+    // The URL changes with the skeleton; the H1 streams in later (up to 30 s is awaited).
+    await expect(h1).toBeFocused({ timeout: 35_000 });
+    expect(await noRing()).toBe('none');
+  });
+
+  test('keyboard: Enter on a nav link lands on the new H1', async ({ page }) => {
+    test.skip(widthOf(page) <= 760, 'desktop nav');
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const target = page.locator('.ux-links a[data-nav="groups"]');
+    let reached = false;
+    for (let i = 0; i < 15 && !reached; i++) {
+      await page.keyboard.press('Tab');
+      reached = await target.evaluate((el) => el === document.activeElement);
+    }
+    expect(reached).toBe(true);
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/\/groups$/, { timeout: 60_000 });
+    const h1 = page.locator('#main h1').first();
+    await expect(h1).toBeFocused({ timeout: 15_000 });
+    expect(await h1.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe('none');
+  });
+});
+
 test.describe('nav fits', () => {
   for (const w of [1440, 1280, 1100]) {
     test(`at ${w}px: one line, no overlap`, async ({ page }) => {
