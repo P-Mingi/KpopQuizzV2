@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **3** (fix loop 1 done; loop 2 re-check starting) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration-b at dcc3159 (P8 included, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
+- Phase: **3**, loop 2 (checkers re-running the affected states and rows on cc6c394). while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration at cc6c394 (after fix loop 1, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
 
 ## Agents
 
@@ -22,9 +22,9 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | fix merged (4a2fa44, PR #60): sharp tests 30 s timeout | 26e6e47 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | ux11/c1-check | loop 1 done, merged (69b3a47): 128 pass / 8 fail / 16 not verified of 152 | 4a4da49 | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | loop 1 done, merged (e95c0ef): 267 rows, 187 pass / 9 fail / 33 not verified / 7 pending P2 / 31 n/a | b89834e | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | own checks done (LOCAL branch, unpublished, waiting for the owner); REPORT.md draft, to refresh after C2 | edb382e | - | v11/REPORT.md |
+| C1 | ux11/c1-check | loop 2 running (affected states on cc6c394) | 4a4da49 | - | v11/checks/pixel/ |
+| C2 | ux11/c2-check | loop 2 running (issue rows + touched rows on cc6c394) | b89834e | - | v11/checks/backend/ |
+| C3 | ux11/c3-check | loop 2 running LOCALLY (full e2e, a11y, SEO, perf; then REPORT.md) | edb382e | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -108,6 +108,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 Loop 2: cc6c394 built (809/809) in .worktrees/ux11-integration and swapped onto :3021; C1, C2, C3 re-running only what fix loop 1 touched.
 - 2026-09-26 P5 fix merged (cc6c394): the live cover help line and the English language note restored (3 other live lines replaced by the prototype's equivalents, listed in P5.md); the draft card is A0's UxQuizCard preview. Fix loop 1 complete: all 17 filed issues fixed and merged (A0 2, P1 6, P3 5, P4 2, P5 1, P6 1, P8 1) plus the P10 test timeout. Integration: tsc 0, unit 823/823. Rebuilding the checker server in .worktrees/ux11-integration at cc6c394 for loop 2.
 - 2026-09-26 P4 fix merged (3650a27): the like race fixed (and the same race on Follow and on comment loading), Discord line + Brag back; e2e forces the late read. P3 fix merged (ad57928): tile 88x138, every quiz a real card link (12 visible + native <details> Show all, no <noscript>), fail-closed /groups reads proven on a production build, Verse links only when the gate allows, the empty state points to the top quiz for closed spaces. Integration: tsc 0, unit 823/823, check:routes 340 both ways. Only P5 left in fix loop 1, then one rebuild and the checkers' re-run of the affected states.
 - 2026-09-26 P6 fix loop 1 merged (982cf9c): no cached hub read stores a failure (today's players keyed by UTC day, song count, popularity, playable groups; the playable list now cached at the catalog TTL instead of re-reading 4,120 songs per render); failed ISR regeneration throws so the last good /blindtest stays. tsc 0, unit 817/817.
