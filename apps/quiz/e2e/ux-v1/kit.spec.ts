@@ -289,6 +289,17 @@ test.describe('kit interactions', () => {
     await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
   });
 
+  // P5 request 2: the sheet title is 18px / 1.6 (28.8px), letter-spacing -0.015em, as
+  // the prototype's `.sh-h h3` (it inherits body 16px/1.6; h1-h3 get -0.015em).
+  test('sheet title: 18px, line height 28.8px, letter-spacing -0.27px', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const h = page.locator('.ux-layer .ux-sheet .ux-sh-h h2');
+    await expect(h).toBeVisible();
+    expect(await h.evaluate((el) => { const cs = getComputedStyle(el); return [cs.fontSize, cs.lineHeight, cs.letterSpacing, cs.fontWeight]; })).toEqual(['18px', '28.8px', '-0.27px', '600']);
+    expect(Math.round((await h.boundingBox())?.height ?? 0)).toBe(29);
+  });
+
   // P11 request 5: the search field shows no outline ring and no native clear button
   // (prototype `.sov-in input{outline:0}`); focus shows as the row's line turning into
   // a 2px pink line (16.9: 2px pink), gone when focus moves on.

@@ -445,7 +445,7 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 @keyframes ux-sheetin { from { opacity: 0; transform: translate(-50%, -46%) scale(.98); } to { opacity: 1; transform: translate(-50%, -50%); } }
 @keyframes ux-sheetup { from { transform: translateY(100%); } to { transform: none; } }
 .ux-sh-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 20px 0 24px; }
-.ux-sh-h h2, .ux-sh-h h3 { font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
+.ux-sh-h h2, .ux-sh-h h3 { font-size: 18px; line-height: 1.6; font-weight: 600; letter-spacing: -0.015em; }
 .ux-sh-h.is-bare { padding-right: 24px; }
 .ux-sh-b { padding: 16px 24px 24px; }
 .ux-sh-b .ux-help { margin-top: 12px; }
