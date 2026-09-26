@@ -81,10 +81,15 @@ export function WarPin(): React.ReactElement | null {
       </PinnedRow>
     );
   }
-  const war = st.s.war;
+  const { war, me } = st.s;
   if (!war) {
     return (
-      <PinnedRow you className="p9-pin" end={<UxButton variant="ghost" size="sm" href="/settings">Settings</UxButton>}>
+      <PinnedRow
+        you
+        className="p9-pin"
+        lead={me ? <UxAvatar name={me.username} src={me.avatar.src} bg={me.avatar.bg} fg={me.avatar.fg} size={40} /> : undefined}
+        end={<UxButton variant="ghost" size="sm" href="/settings">Settings</UxButton>}
+      >
         Pick your main group in Settings to see your fandom here.
       </PinnedRow>
     );
@@ -96,9 +101,15 @@ export function WarPin(): React.ReactElement | null {
       lead={<GroupAvatar photo={groupPhotoUrl(war.slug)} initials={groupInitials(war.group)} size="row" />}
       end={<UxButton size="sm" href={war.href}>Play for {war.fandom}</UxButton>}
     >
-      <b className="p9-pin-b">{war.rank === null ? `${war.fandom} has no points this week` : `${war.fandom} is ${rankText(war.rank)}`}</b>
-      {' '}
-      <span className="p9-pin-s">· {addedLine(war.points)}</span>
+      {war.rank === null ? (
+        <b className="p9-pin-b">{war.fandom} has no points this week yet</b>
+      ) : (
+        <>
+          <b className="p9-pin-b">{war.fandom} is {rankText(war.rank)}</b>
+          {' '}
+          <span className="p9-pin-s">· {addedLine(war.points)}</span>
+        </>
+      )}
     </PinnedRow>
   );
 }
