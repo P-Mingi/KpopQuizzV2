@@ -44,7 +44,8 @@ const H1_WAIT_MS = 30_000;
  * (filters, tabs, ?page=2 keep the focus on the control that changed them).
  * The H1 is awaited: routes with a loading.tsx commit their skeleton first and the
  * page (and its H1) streams in later, so the new H1 is watched for, not polled
- * once. Focus is never taken back from a fan who already moved it elsewhere.
+ * once. Focus is never taken from a page that focused its own control on mount,
+ * nor back from a fan who already moved it elsewhere.
  */
 export function UxRouteFocus(): null {
   const pathname = usePathname();
@@ -55,8 +56,12 @@ export function UxRouteFocus(): null {
     if (was === null || was === pathname) return;
     const main = document.getElementById('main');
     if (!main) return;
-    // What had focus when the route changed (the link that was clicked, often gone).
+    // What has focus now: the link that was clicked (often gone, then <body>), or,
+    // when the new page committed together with the route change, whatever that page
+    // focused on mount (its effects ran before this one: the shell renders this
+    // after <main>). Focus the page placed itself stays where it is.
     const origin = document.activeElement;
+    if (origin && origin !== main && main.contains(origin)) return;
     const untouched = (): boolean => {
       const a = document.activeElement;
       return !a || a === document.body || a === main || a === origin || !a.isConnected;

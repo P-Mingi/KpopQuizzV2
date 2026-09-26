@@ -264,6 +264,27 @@ test.describe('client navigation', () => {
     await expect(h1).toBeFocused({ timeout: 15_000 });
     expect(await h1.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe('none');
   });
+
+  // A page that focuses its own control on mount keeps it: the H1 focus is only for
+  // pages that did not place the focus themselves (kit fixture /ux-v1/kit/focus).
+  test('a page that focuses its own field on mount keeps that focus', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    const res = await page.goto('/ux-v1/kit');
+    test.skip(!res || res.status() === 404 || !(await hasShell(page)), 'kit not served here (flag off)');
+    await waitHydrated(page);
+    await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+    await page.locator('[data-kit="route-focus-link"]').click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit\/focus$/, { timeout: 60_000 });
+    const field = page.locator('[data-kit="autofocus-field"]');
+    await expect(field).toBeFocused({ timeout: 15_000 });
+    await page.waitForTimeout(1500); // the shell's H1 watch must not take it back
+    await expect(field).toBeFocused();
+    // Back to the kit through a link inside the page: the kit's H1 takes the focus.
+    await page.locator('[data-kit="back-to-kit"]').click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit$/, { timeout: 60_000 });
+    await expect(page.locator('#main h1').first()).toBeFocused({ timeout: 35_000 });
+  });
 });
 
 test.describe('nav fits', () => {

@@ -322,6 +322,11 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
         <KitAuthProbeLate />
       </KitSection>
 
+      <KitSection id="route-focus" title="Route focus (client navigation)">
+        <p className="ux-help">A client navigation moves the focus to the new page H1, unless the page focuses one of its own controls when it opens.</p>
+        <p><UxLink href="/ux-v1/kit/focus" data-kit="route-focus-link">Open a page that focuses its own field</UxLink></p>
+      </KitSection>
+
       <KitSection id="icons" title="Icons (20px, 1.5 stroke)">
         <div className="ux-kit-icons">
           {(Object.keys(UX_ICONS) as UxIconName[]).filter((n) => n !== 'shield').map((n) => (

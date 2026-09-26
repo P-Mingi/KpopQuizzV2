@@ -17,7 +17,7 @@ import type { Page } from '@playwright/test';
 // (it needs '/ux-v1/' in lib/route-allowlist.ts, requested from ORCH).
 
 const env = loadTestEnv();
-const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'viewer', 'icons'];
+const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'viewer', 'route-focus', 'icons'];
 
 async function openKit(page: Page): Promise<boolean> {
   const res = await page.goto('/ux-v1/kit');
