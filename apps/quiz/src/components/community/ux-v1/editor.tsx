@@ -26,6 +26,9 @@ import type { P8Features } from '@/lib/ux-v1/p8/types';
 //   Debate   POST /api/ux-v1/p8/debates      (pending store: disabled until applied)
 //   Challenge POST /api/ux-v1/p8/challenges  (pending store: disabled until applied)
 // A guest gets the sign-in sheet at Post; the draft is kept and posting continues.
+// /community?compose=<mode> opens the sheet in that mode on arrival; with
+// compose=challenge&quiz=<slug> (P5's create done link) the score picker lists the
+// fan's runs of that quiz and preselects the latest one.
 
 export interface EditorGroup { id: number; name: string; slug: string }
 
@@ -46,6 +49,7 @@ const Ctx = createContext<EditorCtx>({ open: () => {} });
 export function useEditor(): EditorCtx { return useContext(Ctx); }
 
 interface Result { id: string; label: string; sub: string; thumb: string | null }
+const QUIZ_SLUG = /^[a-z0-9][a-z0-9-]{0,150}$/i;
 
 function emptyDraft(mode: EditorMode, groupId: number | null): Draft {
   return { mode, groupId, title: '', body: '', question: '', options: ['', ''], days: '3', playId: null, message: '' };
@@ -85,8 +89,12 @@ export function EditorProvider({ children, groups, features }: { children: React
   const [busy, setBusy] = useState(false);
   const [joinFor, setJoinFor] = useState<EditorGroup | null>(null);
   const [results, setResults] = useState<Result[] | null>(null);
+  // The quiz a challenge is attached to (?quiz=<slug>), and its title once read.
+  const [attach, setAttach] = useState<string | null>(null);
+  const [attachTitle, setAttachTitle] = useState<string | null>(null);
   const uid = useId().replace(/:/g, '');
   const resumed = useRef(false);
+  const composed = useRef(false);
 
   const defaultGroup = useMemo(() => groups.find((g) => g.slug === v.mainGroup)?.id ?? null, [groups, v.mainGroup]);
 
@@ -100,16 +108,42 @@ export function EditorProvider({ children, groups, features }: { children: React
   const ctx = useMemo(() => ({ open }), [open]);
   const set = <K extends keyof Draft>(k: K, val: Draft[K]): void => { setDraft((d) => ({ ...d, [k]: val })); setErrors((e) => ({ ...e, [k]: undefined })); };
 
-  // Challenge mode: the fan's recent quiz runs (their own plays, read only).
+  // Arrival with ?compose=<mode>[&quiz=<slug>]: open the sheet in that mode once, then
+  // drop the two params from the address so a reload or Back does not reopen it.
+  useEffect(() => {
+    if (composed.current) return;
+    composed.current = true;
+    const q = new URLSearchParams(window.location.search);
+    const m = MODES.find((x) => x.value === q.get('compose'))?.value;
+    if (!m) return;
+    const slug = m === 'challenge' ? q.get('quiz') : null;
+    q.delete('compose');
+    q.delete('quiz');
+    const rest = q.toString();
+    window.history.replaceState(window.history.state, '', `${window.location.pathname}${rest ? `?${rest}` : ''}${window.location.hash}`);
+    // Read from the address (an external source), applied outside the effect body.
+    queueMicrotask(() => { if (slug && QUIZ_SLUG.test(slug)) setAttach(slug); open(m); });
+  }, [open]);
+
+  // Challenge mode: the fan's recent quiz runs (their own plays, read only); with an
+  // attached quiz, only the runs of that quiz, the latest one preselected.
   useEffect(() => {
     if (mode !== 'challenge' || !v.signedIn || results !== null) return;
     let off = false;
-    fetch('/api/ux-v1/p8/my-results', { credentials: 'include' })
+    fetch(attach ? `/api/ux-v1/p8/my-results?quiz=${encodeURIComponent(attach)}` : '/api/ux-v1/p8/my-results', { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { results: [] }))
-      .then((d: { results?: Result[] }) => { if (!off) setResults(d.results ?? []); })
+      .then((d: { results?: Result[]; quiz?: { title: string } | null }) => {
+        if (off) return;
+        const list = d.results ?? [];
+        setResults(list);
+        setAttachTitle(d.quiz?.title ?? null);
+        const first = list[0];
+        if (attach && first) setDraft((x) => (x.playId ? x : { ...x, playId: first.id }));
+      })
       .catch(() => { if (!off) setResults([]); });
     return () => { off = true; };
-  }, [mode, v.signedIn, results]);
+  }, [mode, v.signedIn, results, attach]);
+  const allScores = (): void => { setAttach(null); setAttachTitle(null); setResults(null); set('playId', null); };
 
   const pending = (draft.mode === 'debate' && !features.fanDebates) || (draft.mode === 'challenge' && !features.challenges);
 
@@ -254,7 +288,9 @@ export function EditorProvider({ children, groups, features }: { children: React
               <div className="ux-flabel" id={`p8-r-${uid}`}>Your score to beat</div>
               {!v.signedIn ? <p className="p8-help">Sign in to pick one of your recent scores.</p>
                 : results === null ? <p className="p8-help">Loading your recent scores...</p>
-                  : !results.length ? <p className="p8-help">Play a quiz first: your recent scores show up here.</p>
+                  : !results.length ? (attach
+                    ? <p className="p8-help">No score on {attachTitle ?? 'this quiz'} yet. <a className="ux-lnk" href={`/q/${encodeURIComponent(attach)}`}>Play it once</a> and your score becomes the one to beat.</p>
+                    : <p className="p8-help">Play a quiz first: your recent scores show up here.</p>)
                     : (
                       <div className="p8-opts" role="radiogroup" aria-labelledby={`p8-r-${uid}`}>
                         {results.map((r) => (
@@ -270,6 +306,7 @@ export function EditorProvider({ children, groups, features }: { children: React
                         ))}
                       </div>
                     )}
+              {v.signedIn && attach && results !== null ? <button type="button" className="ux-lnk p8-allres" onClick={allScores}>Show all my recent scores</button> : null}
               {errors.playId ? <p className="p8-ed-err">{errors.playId}</p> : null}
             </div>
             <div className="ux-field">

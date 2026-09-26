@@ -174,6 +174,7 @@
 .p8-modes4 { margin-top: 4px; }
 .p8-ed .ux-field { margin-top: 20px; }
 .p8-ed .p8-help { margin-top: 12px; }
+.p8-allres { margin-top: 10px; font-size: 13px; padding: 0; background: none; border: 0; cursor: pointer; }
 .p8-gbox { display: flex; align-items: center; flex-wrap: nowrap; gap: 10px; min-height: 48px; width: 100%; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); color: var(--ux-ink); position: relative; }
 .p8-gbox:focus-within { border-color: var(--ux-pink); box-shadow: 0 0 0 3px var(--ux-pink-soft); }
 .p8-gbox input { flex: 1; min-width: 60px; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--ux-ink); height: 32px; -webkit-appearance: none; appearance: none; }

@@ -361,6 +361,25 @@ for (const theme of THEMES) {
       expect(h.writes, 'a guest posts nothing').toEqual([]);
     });
 
+    test('compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in', async ({ page }) => {
+      const h = await harness(page, theme);
+      const results: string[] = [];
+      await page.route((u) => u.pathname === '/api/ux-v1/p8/my-results', async (route) => { results.push(route.request().url()); await route.fallback(); });
+      test.skip(!(await open(page, '/community?compose=challenge&quiz=fixture-quiz')), 'UX v1 flag is OFF on this build');
+      const sheet = page.getByRole('dialog', { name: 'New challenge' });
+      await expect(sheet).toBeVisible();
+      await expect(sheet.locator('.p8-modes4 button').nth(3)).toHaveAttribute('aria-pressed', 'true');
+      await expect(sheet.getByText('Sign in to pick one of your recent scores.')).toBeVisible();
+      expect(new URL(page.url()).search).toBe('');
+      await page.keyboard.press('Escape');
+      await expect(sheet).toBeHidden();
+      // An unknown mode opens nothing.
+      await open(page, '/community?compose=poll');
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+      expect(results).toEqual([]); // a guest never asks for runs
+      expect(h.writes).toEqual([]);
+    });
+
     test('rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet', async ({ page }) => {
       const h = await harness(page, theme);
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
@@ -584,12 +603,10 @@ for (const theme of THEMES) {
       expect(h.writes.filter((w) => !['/api/verse/threads', '/api/verse/essays/reactions'].includes(pathOf(w)))).toEqual([]);
     });
 
-    signedInTest('rail vote + cheer payloads (or the saved vote), blog reply payload, thread report payload', async ({ page }) => {
+    signedInTest('rail vote + cheer payloads (or the saved vote)', async ({ page }) => {
       const h = await harness(page, theme, {
         'POST /api/debate/vote': { a: 3, b: 1 },
         'POST /api/cheer': { count: 1 },
-        'POST /api/verse/discussions': { ok: true, id: 987654 },
-        'POST /api/verse/flags': { ok: true },
       });
       test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       await signedIn(page);
@@ -616,7 +633,12 @@ for (const theme of THEMES) {
         const call = h.writes.find((w) => pathOf(w) === '/api/cheer');
         expect(call && bodyOf(call)).toEqual({ event_id: expect.any(Number) });
       }
+      expect(h.writes.filter((w) => !['/api/debate/vote', '/api/cheer'].includes(pathOf(w)))).toEqual([]);
+    });
 
+    signedInTest('blog reply payload', async ({ page }) => {
+      const h = await harness(page, theme, { 'POST /api/verse/discussions': { ok: true, id: 987654 } });
+      test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
       const blog = page.locator('.p8-card-blog .ux-ptt a').first();
       if (await blog.count()) {
         const href = (await blog.getAttribute('href'))!;
@@ -630,8 +652,16 @@ for (const theme of THEMES) {
         const call = h.writes.find((w) => pathOf(w) === '/api/verse/discussions');
         expect(call && bodyOf(call)).toEqual({ entity_type: 'essay', entity_id: href.split('/').pop(), body: 'Great read.' });
       }
+      expect(h.writes.filter((w) => pathOf(w) !== '/api/verse/discussions')).toEqual([]);
+    });
 
-      await page.goto('/community');
+    signedInTest('thread report payload, thread reply payload', async ({ page }) => {
+      const h = await harness(page, theme, {
+        'POST /api/verse/discussions': { ok: true, id: 987654 },
+        'POST /api/verse/flags': { ok: true },
+      });
+      test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
+      await signedIn(page);
       const thread = page.locator('.p8-feed article.ux-post').filter({ has: page.locator('.ux-ptype', { hasText: /^Thread/ }) }).locator('.ux-ptt a').first();
       if (await thread.count()) {
         const href = (await thread.getAttribute('href'))!;
@@ -646,8 +676,35 @@ for (const theme of THEMES) {
         const reply = h.writes.filter((w) => pathOf(w) === '/api/verse/discussions').pop();
         expect(reply && bodyOf(reply)).toEqual({ thread_id: Number(href.split('/').pop()), body: 'Wings, no question.' });
       }
-      const known = ['/api/debate/vote', '/api/cheer', '/api/verse/discussions', '/api/verse/flags'];
+      const known = ['/api/verse/discussions', '/api/verse/flags'];
       expect(h.writes.filter((w) => !known.includes(pathOf(w)))).toEqual([]);
+    });
+
+    signedInTest('compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request', async ({ page }) => {
+      const h = await harness(page, theme);
+      const asked: string[] = [];
+      const run = (id: string, label: string): Record<string, unknown> => ({ id, label, sub: '2h ago', thumb: null });
+      await page.route((u) => u.pathname === '/api/ux-v1/p8/my-results', async (route) => {
+        const u = new URL(route.request().url());
+        asked.push(u.search);
+        await json(route, u.searchParams.get('quiz')
+          ? { results: [run('p-2', '8/10 · Fixture quiz'), run('p-1', '6/10 · Fixture quiz')], quiz: { slug: 'fixture-quiz', title: 'Fixture quiz' } }
+          : { results: [run('p-3', '5/5 · Another quiz')] });
+      });
+      test.skip(!(await open(page, '/community?compose=challenge&quiz=fixture-quiz')), 'UX v1 flag is OFF on this build');
+      await signedIn(page);
+      const sheet = page.getByRole('dialog', { name: 'New challenge' });
+      await expect(sheet).toBeVisible();
+      const radios = sheet.getByRole('radio');
+      await expect(radios).toHaveCount(2);
+      await expect(radios.nth(0)).toBeChecked();
+      expect(asked[0]).toBe('?quiz=fixture-quiz');
+      await sheet.getByRole('button', { name: 'Show all my recent scores' }).click();
+      await expect(radios).toHaveCount(1);
+      await expect(radios.nth(0)).not.toBeChecked();
+      expect(asked.at(-1)).toBe('');
+      await expect(sheet.getByRole('button', { name: 'Show all my recent scores' })).toHaveCount(0);
+      expect(h.writes).toEqual([]);
     });
   });
 }
