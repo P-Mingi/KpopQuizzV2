@@ -24,7 +24,7 @@ const sharp = require('sharp');
 const BASE = process.env.BASE || 'http://localhost:3038';
 const REF_DIR = process.env.REF_DIR || '/Users/louis/IT/Dev/projects/KpopQuizzV2/docs/design/ux-dashboard-v1/v11/checks/reference';
 const today = new Date().toISOString().slice(0, 10);
-const OPEN_EDITOR = "(async()=>{document.querySelector('.p8-composer-in').click();await new Promise(r=>setTimeout(r,500));[...document.querySelectorAll('.p8-modes4 button')].find(b=>b.textContent==='Debate').click();await new Promise(r=>setTimeout(r,400));})()";
+const OPEN_EDITOR = "(async()=>{document.querySelector('.p8-composer-in').click();await new Promise(r=>setTimeout(r,500));[...document.querySelectorAll('.p8-modes4 button')].find(b=>b.textContent==='Debate').click();await new Promise(r=>setTimeout(r,400));document.activeElement&&document.activeElement.blur();})()";
 const STATES = [
   { state: 'community', path: '/community' },
   { state: 'post-blog', path: '/community/blog/2' },
