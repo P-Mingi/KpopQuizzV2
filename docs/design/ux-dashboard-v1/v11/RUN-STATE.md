@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **3** (checkers, loop 1) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration at 48189d5, served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz; rebuild + restart after each merge).
+- Phase: **3** (checkers, loop 1) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration-b at dcc3159 (P8 included, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
 
 ## Agents
 
@@ -103,6 +103,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 Server swapped to the dcc3159 build (809/809 pages; /community 200 noindex, follow). C1, C2, C3 told to check the community states and rows now.
 - 2026-09-26 P8 merged (dcc3159) after the Verse gate fix (no Verse table read while VERSE_PUBLIC is not 'true', parked spaces never shown, gated post URLs 404 before any read, gate applied outside every cache; 9 unit tests that fail without the gate; e2e in both VERSE_PUBLIC modes). Integration: tsc 0, unit 805/805, check:routes 340 both ways. All page agents merged except P2 (owner push). Rebuilding the flag-on build in .worktrees/ux11-integration-b to swap on :3021.
 - 2026-09-26 First combined flag-on production build of the integration branch (48189d5): compiled, 808/808 pages. Served on :3021 (flag on confirmed; / /quizzes /blindtest /leaderboard /groups /bts-quiz /create /blindtest/ranked /ux-v1/kit = 200; /community = 404 until P8). Phase 3 loop 1 started: C1, C2, C3 spawned; community states pending P8, quizzes pending P2.
 - 2026-09-26 A0 type fix merged (eed8a49): whole-app tsc 0. ORCH starts the first combined flag-on production build in .worktrees/ux11-integration.
