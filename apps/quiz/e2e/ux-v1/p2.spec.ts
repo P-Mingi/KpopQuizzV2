@@ -362,7 +362,8 @@ signedInTest.describe('quizzes signed in (test user, read only)', () => {
     skipUnlessSignedIn();
     const writes = await setup(page);
     test.skip(!(await openQuizzes(page)), 'UX v1 flag is OFF on this build');
-    await expect(page.locator('.ux-nav-signin')).toHaveCount(0);
+    // The account island shows a busy "Sign in" until /api/auth/me answers (A0's shell).
+    await expect(page.locator('.ux-nav-signin')).toHaveCount(0, { timeout: 45_000 });
     await expect(cards(page)).toHaveCount(PAGE);
     await page.locator('#p2-dd-level').click();
     await menu(page, 'p2-dd-level').getByRole('menuitemradio', { name: /^Easy/ }).click();
