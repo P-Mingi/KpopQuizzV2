@@ -2,8 +2,8 @@ import { ActivityTicker } from '@/components/home/activity-ticker';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
-import { safeFetch } from '@/lib/error-handling';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
+import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
 import { CommunityRows } from './community-rows';
 import { GroupsRail } from './groups-rail';
@@ -17,21 +17,22 @@ import { BestRows, NewRows } from './quiz-rows';
  * groups, trending, all time best | new, blindtest of the day band, community.
  * Server component, static/ISR: every read is public and cached, user state lives
  * in client islands (header greeting, continue, band played state). Each read is
- * fail-soft (safeFetch): a failing read hides its section (min-gate), never the page.
+ * fail-soft (safeFetch): a failing read hides its section (min-gate), never the page,
+ * and such a render is never kept in the page cache (render-health.ts, C3-003).
  */
 export async function UxHome({ head }: { head?: React.ReactNode }): Promise<React.ReactElement> {
   const now = new Date();
+  const health = new RenderHealth();
   const [qotd, groups, community, band] = await Promise.all([
-    safeFetch(getHomeQotd(now), null, '[ux-home] qotd'),
-    safeFetch(getHomeGroups(), { groups: [], visibleGroups: 0 }, '[ux-home] groups'),
-    safeFetch(getHomeCommunity(now), { rows: [], spaces: [] }, '[ux-home] community'),
-    safeFetch(getHomeBand(now), { date: now.toISOString().slice(0, 10), fans: 0 }, '[ux-home] band'),
+    health.read('qotd', getHomeQotd(now), null),
+    health.read('groups', getHomeGroups(), { groups: [], visibleGroups: 0 }),
+    health.read('community', getHomeCommunity(now), { rows: [], verse: null }),
+    health.read('band', getHomeBand(now), { date: now.toISOString().slice(0, 10), fans: 0 }),
   ]);
-  const lists = await safeFetch(
-    getHomeLists(qotd ? [qotd.id] : []),
-    { trending: [], best: [], fresh: [] },
-    '[ux-home] lists',
-  );
+  const lists = await health.read('lists', getHomeLists(qotd ? [qotd.id] : []), { trending: [], best: [], fresh: [] });
+  // A render that lost a read is not cached: at runtime it throws (the cached page
+  // stays), at build it is kept for 30 s only.
+  await settleRender(health);
 
   return (
     <UxPage width="wide" className="p1-home">
@@ -44,7 +45,9 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       {qotd ? <QotdRow qotd={qotd} /> : null}
 
-      <ContinuePlaying exclude={[qotd?.slug, ...lists.trending.map((q) => q.slug), ...lists.best.map((q) => q.slug), ...lists.fresh.map((q) => q.slug)].filter((x): x is string => !!x)} />
+      {/* Every run saved on this device shows here (C2-004), even when its quiz is
+          also in a list below: it is the fan's own run, with its resume link. */}
+      <ContinuePlaying />
 
       {groups.groups.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-groups-h">
@@ -93,7 +96,7 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
       {/* Always rendered: besides the rows it carries the live home's Discord links. */}
       <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">
         <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
-        <CommunityRows rows={community.rows} spaces={community.spaces} />
+        <CommunityRows rows={community.rows} verse={community.verse} />
       </section>
     </UxPage>
   );

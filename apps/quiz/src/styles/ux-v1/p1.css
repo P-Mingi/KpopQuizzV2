@@ -73,6 +73,7 @@
 
 /* shared: photos inside round / square thumbs */
 .p1-img { object-fit: cover; object-position: center 25%; }
+.p1-img-fix { display: block; width: 100%; height: 100%; }
 .p1-cthumb.is-ini, .p1-gav.is-ini, .p1-cav.is-ini { background: var(--ux-surface-2); color: var(--ux-muted); font-weight: 600; }
 .p1-cav { position: relative; }
 

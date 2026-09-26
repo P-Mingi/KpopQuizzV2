@@ -14,7 +14,7 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getEssayPage } from '@/lib/verse/essays';
 import { getVerseDirectory } from '@/lib/verse/space-data';
 import { listThreads } from '@/lib/verse/threads';
-import { verseHidden } from '@/lib/verse/visibility';
+import { spaceUnpublished, verseHidden } from '@/lib/verse/visibility';
 
 import { aboutMinutes, averagePct, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, spreadBy, utcDay } from './format';
 import { LIVE_HUB_ORDER } from './hubs';
@@ -62,16 +62,46 @@ async function readQotdExtras(id: string): Promise<{ featuredDate: string | null
 
 const readQotdExtrasCached = unstable_cache(readQotdExtras, ['ux-v1:p1:qotd-extras:v2'], { revalidate: CACHE_TTL.stats, tags: ['quizzes'] });
 
+type QotdSource = Pick<QuizCardData, 'id' | 'slug' | 'title' | 'quiz_type' | 'difficulty' | 'question_count' | 'total_score_sum' | 'total_completions'>;
+const QOTD_COLS = 'id, slug, title, quiz_type, difficulty, question_count, total_score_sum, total_completions';
+/** Day 0 of the live replay rotation (lib/db/queries/quizzes.ts getQuizOfTheDay). */
+const REPLAY_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
+
+/**
+ * The same pick as getQuizOfTheDay, from reads that THROW on error. The live read
+ * answers null when its reads fail and caches that null for the day's TTL; the home
+ * must not render (and then cache) a missing quiz of the day after a DB blip, so on
+ * null it asks this: today's published pick (exactly one), else the live replay
+ * rotation (every past pick ordered by quiz_of_the_day_date, index = days since
+ * 2026-06-18 modulo the pool size). null only when there is truly no pick.
+ */
+async function readQotdPick(today: string): Promise<QotdSource | null> {
+  const db = createPublicReadClient();
+  const todayRes = must(await db.from('quizzes').select(QOTD_COLS).eq('status', 'published')
+    .eq('is_quiz_of_the_day', true).eq('quiz_of_the_day_date', today).limit(2), 'qotd today');
+  const picked = (todayRes.data ?? []) as QotdSource[];
+  if (picked.length === 1) return picked[0]!;
+  const poolRes = must(await db.from('quizzes').select(QOTD_COLS).eq('status', 'published')
+    .not('quiz_of_the_day_date', 'is', null).order('quiz_of_the_day_date', { ascending: true }), 'qotd pool');
+  const pool = (poolRes.data ?? []) as QotdSource[];
+  if (pool.length === 0) return null;
+  const days = Math.max(0, Math.floor((Date.parse(`${today}T00:00:00Z`) - REPLAY_ANCHOR_MS) / 86_400_000));
+  return pool[days % pool.length] ?? null;
+}
+
+const readQotdPickCached = unstable_cache(readQotdPick, ['ux-v1:p1:qotd-pick:v1'], { revalidate: CACHE_TTL.stats, tags: ['quizzes'] });
+
 /**
  * The quiz of the day the whole site serves today: the SAME read as the live home
  * and /daily (getQuizOfTheDay), so both homes, the daily ritual and the streak agree.
  * It is today's pick when one was published for today; while the rotation is
  * stopped it is that read's replay of a past pick (a different one each UTC day),
  * and featuredDate says on which day it was first picked, so the UI labels it a
- * replay instead of presenting it as a new pick.
+ * replay instead of presenting it as a new pick. When the live read answers null
+ * (its failure value) the same pick is read again with reads that throw.
  */
 export async function getHomeQotd(now: Date = new Date()): Promise<HomeQotd | null> {
-  const q = await getQuizOfTheDay();
+  const q: QotdSource | null = (await getQuizOfTheDay()) ?? (await readQotdPickCached(utcDay(now)));
   if (!q) return null;
   const { featuredDate, seconds } = await readQotdExtrasCached(q.id);
   const questions = q.question_count ?? 0;
@@ -203,10 +233,14 @@ export async function getHomeLists(exclude: string[] = []): Promise<HomeLists> {
 
 export interface VerseSpaceLink { slug: string; label: string; name: string }
 
+/** The live home's Verse strip, kept while the Verse is public (verse-home-strip.tsx):
+ *  its sentence and its space links, only the spaces that are published. */
+export interface HomeVerse { spaces: VerseSpaceLink[] }
+
 export interface HomeCommunity {
   rows: CommunityRow[];
-  /** The live home's "Fandom spaces on Verse" links (only while the Verse is public). */
-  spaces: VerseSpaceLink[];
+  /** null when the live home shows no Verse strip (the Verse is hidden, or under 3 spaces). */
+  verse: HomeVerse | null;
 }
 
 export interface CommunityRow {
@@ -221,7 +255,6 @@ export interface CommunityRow {
 async function readCommunity(today: string): Promise<HomeCommunity> {
   const db = createPublicReadClient();
   const rows: CommunityRow[] = [];
-  const spaces: VerseSpaceLink[] = [];
 
   // Daily debate (read only: never ensure_daily_debate, which writes).
   const { data: dd } = must(await db.from('daily_debates').select('date, question_id').lte('date', today)
@@ -247,31 +280,36 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
 
   // Verse content only while the Verse is public (VERSE_PUBLIC, the same switch as
   // the live home's Verse strip: no Verse entry point on the Play home before that).
-  if (verseHidden()) return { rows, spaces };
+  if (verseHidden()) return { rows, verse: null };
 
-  // The live home's "Fandom spaces on Verse" strip: the first 4 directory tiles,
-  // shown when there are at least 3 (components/verse/verse-home-strip.tsx).
+  // The live home's "Fandom spaces on Verse" strip (components/verse/verse-home-strip.tsx):
+  // shown when the directory has at least 3 spaces. No dead doors (C2-005): only
+  // published spaces are linked (lib/verse/visibility spaceUnpublished; a parked
+  // space answers 404), up to 4.
   const tiles = await getVerseDirectory();
-  if (tiles.length >= 3) {
-    for (const t of tiles.slice(0, 4)) spaces.push({ slug: t.slug, label: t.fandom_name || t.name, name: t.name });
-  }
+  const verse: HomeVerse | null = tiles.length >= 3
+    ? { spaces: tiles.filter((t) => !spaceUnpublished(t.slug)).slice(0, 4).map((t) => ({ slug: t.slug, label: t.fandom_name || t.name, name: t.name })) }
+    : null;
 
   // Verse threads and essays: only spaces that opted into the cross-space feed
-  // (the same gate as lib/verse/feed.ts).
+  // (the same gate as lib/verse/feed.ts) and are published (no link to a parked space).
   const { data: opted } = must(await db.from('verse_spaces').select('group_id').eq('feed_opt_in', true).limit(500), 'verse_spaces');
-  const groupIds = [...new Set(((opted ?? []) as { group_id: number }[]).map((r) => r.group_id))];
+  const optedIds = [...new Set(((opted ?? []) as { group_id: number }[]).map((r) => r.group_id))];
+  const { data: optedGroups } = optedIds.length > 0
+    ? must(await db.from('groups').select('id, slug, name').in('id', optedIds), 'groups')
+    : { data: [] };
+  const published = ((optedGroups ?? []) as { id: number; slug: string; name: string }[]).filter((g) => !spaceUnpublished(g.slug));
+  const groupIds = published.map((g) => g.id);
   if (groupIds.length > 0) {
-    const [groupsRes, threadRes, essayRes] = await Promise.all([
-      db.from('groups').select('id, slug, name').in('id', groupIds),
+    const [threadRes, essayRes] = await Promise.all([
       db.from('verse_threads').select('id, group_id, slug, title, created_at').in('group_id', groupIds).eq('status', 'visible')
         .order('created_at', { ascending: false }).limit(1).maybeSingle(),
       db.from('verse_essays').select('id, group_id, featured_at').in('group_id', groupIds).eq('status', 'featured')
         .order('featured_at', { ascending: false, nullsFirst: false }).limit(1).maybeSingle(),
     ]);
-    const groups = must(groupsRes, 'groups').data;
     const thread = must(threadRes, 'verse_threads').data;
     const essay = must(essayRes, 'verse_essays').data;
-    const bySlug = new Map(((groups ?? []) as { id: number; slug: string; name: string }[]).map((g) => [g.id, g]));
+    const bySlug = new Map(published.map((g) => [g.id, g]));
 
     const t = thread as { id: number; group_id: number; slug: string; title: string; created_at: string } | null;
     const tg = t ? bySlug.get(t.group_id) : undefined;
@@ -304,13 +342,13 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
     }
   }
 
-  return { rows: rows.sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3), spaces };
+  return { rows: rows.sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3), verse };
 }
 
-const readCommunityCached = unstable_cache(readCommunity, ['ux-v1:p1:community:v2'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+const readCommunityCached = unstable_cache(readCommunity, ['ux-v1:p1:community:v3'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
 
 /** Up to 3 real community rows (daily debate; while the Verse is public, the latest
- *  thread and featured essay too), newest first, plus the Verse space links. Empty =
+ *  thread and featured essay too), newest first, plus the live Verse strip. Empty =
  *  the section hides (min-gate). */
 export function getHomeCommunity(now: Date = new Date()): Promise<HomeCommunity> {
   return readCommunityCached(utcDay(now));

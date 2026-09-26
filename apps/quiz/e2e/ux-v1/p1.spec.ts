@@ -240,6 +240,15 @@ for (const theme of THEMES) {
       }
       for (const h of hrefs) expect(h).toMatch(/^\/[a-z0-9-]+-quiz$/);
       expect(new Set(hrefs).size).toBe(hrefs.length);
+      // Photos (C3-008): a fixed 80 x 80 image with 1x / 2x candidates only (96 / 220 w),
+      // never a width list with `sizes` (a DPR 3 phone then took the 640 w file).
+      const srcsets = await sec.locator('.p1-gav img').evaluateAll((is) => is.map((i) => i.getAttribute('srcset') ?? ''));
+      expect(srcsets.length).toBeGreaterThan(0);
+      for (const set of srcsets) {
+        const cands = set.split(', ').map((c) => { const [u, d] = c.trim().split(' '); return `${new URL(u ?? '', 'http://x').searchParams.get('w')} ${d}`; });
+        expect(cands, set).toEqual(['96 1x', '220 2x']);
+      }
+      await expect(sec.locator('.p1-gav img[sizes]')).toHaveCount(0);
       // Counts are PUBLISHED quizzes (16.10), checked on the first two groups.
       for (const i of [0, 1]) {
         const slug = hrefs[i]!.slice(1, -'-quiz'.length);
@@ -334,12 +343,19 @@ for (const theme of THEMES) {
       for (const sub of await rows.locator('.ux-rs').allTextContents()) expect(sub).toMatch(/^(Debate|Thread|Blog) · /);
       const hrefs = await rows.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       for (const h of hrefs) expect(h).toMatch(/^\/(community|verse\/[a-z0-9-]+\/(community|essays)\/[A-Za-z0-9-]+)$/);
-      // While the Verse is public, the live home's Verse space links (one line).
-      const spaces = comm.locator('.p1-spaces', { hasText: 'Fandom spaces on Verse' }).locator('a');
-      if (await spaces.count()) {
-        const sh = await spaces.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+      // While the Verse is public, the live home's Verse strip in one line: its sentence
+      // (C3-006), the PUBLISHED spaces and Explore Verse (C2-005).
+      const verseLine = comm.locator('.p1-spaces', { hasText: 'Fandom spaces on Verse' });
+      if (await verseLine.count()) {
+        await expect(verseLine.locator('.p1-vs')).toHaveText("Each fandom's home: members, discography, timeline and community, built on open data and run by fans.");
+        const sh = await verseLine.locator('a').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
         expect(sh[sh.length - 1]).toBe('/verse');
         for (const h of sh.slice(0, -1)) expect(h).toMatch(/^\/verse\/[a-z0-9-]+$/);
+      }
+      // No dead door: every Verse link on the home opens (GET, no redirect).
+      const verseHrefs = await page.locator('.p1-home a[href^="/verse"]').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+      for (const h of new Set(verseHrefs)) {
+        expect((await page.request.get(h, { maxRedirects: 0 })).status(), `${h} opens`).toBe(200);
       }
       // The live home's two Discord links (community strip + daily quiz line).
       const discord = await comm.locator('.p1-spaces', { hasText: 'On Discord' }).locator('a').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
@@ -389,26 +405,28 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       for (let i = 0; i < 4 && !me.profile; i++) me = await (await page.request.get('/api/auth/me')).json() as typeof me;
       expect(me.profile, 'GET /api/auth/me with the storage state = the test user').not.toBeNull();
       const name = (me.profile?.display_name || me.profile?.username || '').trim();
-      // Two unfinished runs on this device: a quiz the home does not list (older than
-      // 60 days, least played: not new, not trending, not all time best) and the quiz
-      // of the day (already on the home: left out, 16.7).
+      // Three unfinished runs on this device (C2-004: a saved run always shows, also
+      // when its quiz is listed on the home): a quiz the home does not list (older than
+      // 60 days, least played), the quiz of the day, and the most liked quiz (All time
+      // best #1, or #2 when #1 is the quiz of the day).
       const q = await expectedQotd();
       const before = new Date(Date.now() - 60 * 86_400_000).toISOString();
       const { rows: oldest } = await rest<{ slug: string }[]>(`quizzes?select=slug&status=eq.published&created_at=lt.${before}&order=play_count.asc,id.asc&limit=1`);
+      const { rows: liked } = await rest<{ slug: string }[]>('quizzes?select=slug&status=eq.published&like_count=gt.0&order=like_count.desc,play_count.desc&limit=2');
       const runSlug = oldest[0]?.slug;
+      const listedSlug = liked.map((l) => l.slug).find((x) => x !== q?.slug) ?? null;
+      const expected = [runSlug, q?.slug, listedSlug].filter((x): x is string => !!x);
       if (runSlug) {
         // P4's stored format (lib/ux-v1/p4/continue.ts, key ux:continue:v1), as the quiz game writes it.
-        await page.addInitScript(([slug, qotdSlug]) => {
-          const entry = (s: string, title: string, answered: number, ago: number): Record<string, unknown> => ({
-            quizId: `q-${s}`, slug: s, title, groupName: 'Stray Kids', groupSlug: 'stray-kids', quizType: 'multiple_choice', difficulty: 'medium',
-            total: 8, answered, savedAt: Date.now() - ago,
-            run: { questionIndex: answered, score: answered - 1, answers: [], questions: [], settings: {}, quizType: 'multiple_choice', clueResults: [], elapsedMs: 0 },
+        await page.addInitScript((slugs) => {
+          const entry = (x: string, i: number): Record<string, unknown> => ({
+            quizId: `q-${x}`, slug: x, title: `Continue run ${i + 1}`, groupName: 'Stray Kids', groupSlug: 'stray-kids', quizType: 'multiple_choice', difficulty: 'medium',
+            total: 8, answered: 3 - i, savedAt: Date.now() - i * 1000,
+            run: { questionIndex: 3 - i, score: 2 - i, answers: [], questions: [], settings: {}, quizType: 'multiple_choice', clueResults: [], elapsedMs: 0 },
             perQuestionTimes: [], relaxed: false,
           });
-          const runs = [entry(slug, 'Continue run', 3, 0)];
-          if (qotdSlug) runs.push(entry(qotdSlug, 'Quiz of the day run', 2, 1000));
-          try { localStorage.setItem('ux:continue:v1', JSON.stringify(runs)); } catch { /* blocked */ }
-        }, [runSlug, q?.slug ?? null] as const);
+          try { localStorage.setItem('ux:continue:v1', JSON.stringify(slugs.map(entry))); } catch { /* blocked */ }
+        }, expected);
       }
       const band = page.waitForResponse((r) => r.url().includes('/api/ux-v1/p1/daily-band'));
       signedInTest.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
@@ -417,15 +435,19 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       await expect(h1).toHaveCount(1);
       await expect(h1).toHaveText(new RegExp(`^K-pop QuizGood (morning|afternoon|evening), ${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`));
       await expect(h1.locator('em')).toHaveText(name);
-      await expect(page.locator('.p1-hhead p.p1-hsub')).toHaveText(/streak/);
+      // The streak rule as it is (C2-002, A0's popover words): only the daily quiz or the daily blindtest.
+      await expect(page.locator('.p1-hhead p.p1-hsub')).toHaveText(/^(Your quiz of the day is ready\. Play the daily quiz or the daily blindtest today to (start a streak|keep your \d+-day streak)\.|Streak saved: \d+ days?\. Come back tomorrow to make it \d+\.)$/);
       await expect(page.locator('.p1-hcta'), 'no CTAs for a signed-in fan').toHaveCount(0);
 
       if (runSlug) {
         const cont = page.locator('section[aria-labelledby="p1-cont-h"]');
         await expect(cont.locator('h2')).toHaveText('Continue playing');
-        await expect(cont.locator('a.p1-citem'), 'the quiz of the day run is not listed twice').toHaveCount(1);
-        await expect(cont.locator('a.p1-citem'), 'resumes at the saved question (P4)').toHaveAttribute('href', `/q/${runSlug}?resume=1`);
-        await expect(cont.locator('.ux-rs')).toHaveText('3 of 8 answered');
+        const hrefs = await cont.locator('a.p1-citem').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+        expect(hrefs, 'every saved run, newest first, resuming at the saved question (P4)').toEqual(expected.map((x) => `/q/${x}?resume=1`));
+        await expect(cont.locator('.ux-rs')).toHaveText(expected.map((_, i) => `${3 - i} of 8 answered`));
+        if (listedSlug) {
+          await expect(page.locator(`.p1-trend a[href="/q/${listedSlug}"], .p1-two a[href="/q/${listedSlug}"]`), 'that quiz is also listed on the home').toHaveCount(1);
+        }
       }
 
       const res = (await (await band).json()) as { signedIn: boolean; today: { score: number; rank: number; of: number } | null; best: number | null };
