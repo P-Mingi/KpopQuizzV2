@@ -1,0 +1,269 @@
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 0.0.0.0 16ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 10.0.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 10.255.255.255 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 100.64.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 100.127.255.254 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 127.0.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 127.1.2.3 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 169.254.169.254 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 172.16.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 172.31.255.255 2ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 192.0.0.8 2ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 192.0.2.10 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 192.88.99.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 192.168.1.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 198.18.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 198.19.255.255 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 198.51.100.7 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 203.0.113.9 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 224.0.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 239.255.255.250 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 240.0.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > blocks 255.255.255.255 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 8.8.8.8 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 1.1.1.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 104.16.132.229 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 172.15.255.255 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 172.32.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 100.63.255.255 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 100.128.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 192.169.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > allows public 198.20.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > treats malformed "1.2.3" as blocked 17ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > treats malformed "1.2.3.4.5" as blocked 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > treats malformed "256.1.1.1" as blocked 136ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > treats malformed "01x.2.3.4" as blocked 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv4 ranges > treats malformed "" as blocked 5ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > expands compressed, zoned and dotted-tail forms 65ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks :: 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ::ffff:10.0.0.1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ::ffff:169.254.169.254 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ::ffff:7f00:1 2ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ::127.0.0.1 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks fc00::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks fd12:3456::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks fe80::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks fe80::1%lo0 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks fec0::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks ff02::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 64:ff9b::a00:1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 64:ff9b:1::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 2001:db8::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 2001::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 2001:10::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 2002:a00:1::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 100::1 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks 3fff::1 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > blocks [::1] 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > allows public 2606:4700:4700::1111 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > allows public 2a00:1450:4007:80e::200e 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > allows public ::ffff:8.8.8.8 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > IPv6 ranges > isBlockedAddress dispatches and blocks non-addresses 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses 123 (invalid_url) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "" (invalid_url) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "not a url" (invalid_url) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://a.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" (invalid_url) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "http://example.com/a.jpg" (not_https) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "ftp://example.com/a.jpg" (not_https) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "file:///etc/passwd" (not_https) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "javascript:alert(1)" (not_https) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "data:image/png;base64,AAAA" (not_https) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://user:pw@example.com/a.jpg" (credentials) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://user@example.com/a.jpg" (credentials) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://example.com:8443/a.jpg" (port) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://example.com:22/a.jpg" (port) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://localhost/a.jpg" (host) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://localhost./a.jpg" (host) 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://printer.local/a.jpg" (host) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://metadata.google.internal/x" (host) 5ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://intranet/a.jpg" (host) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://api.localhost/a" (host) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://127.0.0.1/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://169.254.169.254/latest/meta-data/" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://[::1]/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://[::ffff:10.0.0.1]/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://2130706433/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://0x7f.1/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > refuses "https://10.1/a.jpg" (private_address) 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > link URL checks (no network) > accepts a plain https link, explicit :443 included 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > fetches a public image, pinned to the vetted address 14ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a host that resolves to a private address, before connecting 21ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a DNS answer mixing public and private addresses (rebinding bait) 10ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses when the connected socket is not public (checked again after connect) 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > follows a redirect to another public host, re-checking it 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a redirect to a private IP literal 19ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a redirect to the cloud metadata address 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a redirect to a host resolving to a private address 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a redirect to localhost 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a relative redirect loop past the limit 6ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a redirect without a Location 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses Content-Type "text/html" 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses Content-Type "image/svg+xml" 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses Content-Type "image/gif" 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses Content-Type "" 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses Content-Type "application/octet-stream" 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > accepts image/jpeg; charset and normalises image/jpg 1ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a non-200 answer 0ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > refuses a declared Content-Length over the cap 6ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > stops streaming past the cap even when Content-Length lies 3ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > reports DNS failures and network errors 13ms
+✓ src/lib/ux-v1/p10/ssrf.test.ts > fetchImageLink > times out a slow server 48ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > today players: an error throws, is not stored, and the next call reads again 27ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > today players: 0 is a real count (early in the UTC day), a missing count throws 1ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > today players are keyed by the UTC day: a new day never reads yesterday's entry 21ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > song count: an error or 0 songs throws and is not stored 2ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > popularity: a PostgREST error or an empty groups read throws and is not stored 6ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > playable groups: the live read returns no group on an error; that throws and is not stored 1ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > settle: a failed or slow read gives the fail-soft value with ok = false; a good one ok = true 18ms
+✓ src/lib/ux-v1/p6/hub-data.test.ts > C3-009: a failed read is never cached > a production ISR regeneration with a failed read throws (Next keeps the last good copy); build and dev stay fail-soft 2ms
+✓ src/lib/ux-v1/p1/p1.test.ts > root cause: no bank row matches a day after 2026-06-30 > every open row is either a missed date or a date far in the future 31ms
+✓ src/lib/ux-v1/p1/p1.test.ts > root cause: no bank row matches a day after 2026-06-30 > the legacy scheduler cannot place same-category leftovers (they stay out or drift) 47ms
+✓ src/lib/ux-v1/p1/p1.test.ts > autoScheduleCompact > fills consecutive days with no gap, and respects neighbours when it can 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > autoScheduleCompact > never leaves a day empty, even when every quiz shares a category 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > autoScheduleCompact > skips days already taken 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > autoScheduleCompact > autoSchedule uses it only with the switch (default OFF) 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickBankEntryForDate > takes missed dates first (oldest), then undated, then the earliest future date 115ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickBankEntryForDate > avoids the previous day group or category when another row exists 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickBankEntryForDate > ignores published / draft rows and returns null on an empty bank 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickCatalogQotd > never repeats a quiz featured in the last 90 days 2ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickCatalogQotd > skips short, reported or never-played quizzes 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > pickCatalogQotd > prefers another group than the last 3 days, deterministic ties 4ms
+✓ src/lib/ux-v1/p1/p1.test.ts > rotateQotd > keeps an existing pick, publishes a scheduled bank row as today 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > rotateQotd > pulls the next open bank row, then falls back to the catalog, one pick per day 9ms
+✓ src/lib/ux-v1/p1/p1.test.ts > rotateQotd > reports none when bank and catalog are empty 19ms
+✓ src/lib/ux-v1/p1/p1.test.ts > format helpers > countdown to the UTC rollover 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > format helpers > picked-on labels never pretend an old pick is today 3ms
+✓ src/lib/ux-v1/p1/p1.test.ts > format helpers > average and time are real or absent 7ms
+✓ src/lib/ux-v1/p1/p1.test.ts > format helpers > labels 27ms
+✓ src/lib/ux-v1/p1/p1.test.ts > home link parity with the live home > the groups rail keeps every live hub, in the live order (home-group-pills.tsx ORDER) 107ms
+✓ src/lib/ux-v1/p1/p1.test.ts > home link parity with the live home > spreadBy keeps every item and avoids equal neighbours when it can 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > a render that lost a read is never kept in the page cache (C3-003) > knows the build, a runtime regeneration and dev apart 1ms
+✓ src/lib/ux-v1/p1/p1.test.ts > a render that lost a read is never kept in the page cache (C3-003) > throws at runtime (the cached page stays), renders briefly at build, gives up holding after the window 0ms
+✓ src/lib/ux-v1/p1/p1.test.ts > a render that lost a read is never kept in the page cache (C3-003) > records the reads that failed and returns their fallback 17ms
+✓ src/lib/ux-v1/p1/p1.test.ts > a render that lost a read is never kept in the page cache (C3-003) > settleRender: complete = no-op; runtime = throw; build = revalidate in 30 s 18ms
+✓ src/lib/ux-v1/p3/p3.test.ts > groups index > initials follow the prototype (two words -> two initials, else two letters, catch-all K) 8ms
+✓ src/lib/ux-v1/p3/p3.test.ts > groups index > hidden rows (zzz-*) are not groups 0ms
+✓ src/lib/ux-v1/p3/p3.test.ts > groups index > A to Z: "#" first, letters sorted, names case-insensitive, live anchor ids 42ms
+✓ src/lib/ux-v1/p3/p3.test.ts > groups index > most played: plays of published quizzes, no catch-all, no group without a quiz 0ms
+✓ src/lib/ux-v1/p3/p3.test.ts > groups index > filter is a case-insensitive substring; the count reads "N of M groups" while filtering 20ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > eyebrow: real fandom, generation in sentence case, label; placeholders fall back 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > facts: only what is known, in the prototype order 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > average score from the quiz totals, null before a finished play 0ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > the four sorts mirror the live group feed 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > filters by type and level; only the options the group has are offered 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > hub view model > comment rows: one clean line, coarse age 23ms
+✓ src/lib/ux-v1/p3/p3.test.ts > Questions fans ask (one list, today words) > dedupes on the question (the FAQ version wins, it is in the JSON-LD) and follows the prototype order 3ms
+✓ src/lib/ux-v1/p3/p3.test.ts > Questions fans ask (one list, today words) > a question it does not know keeps its place at the end; no FAQ means the chunks alone 0ms
+✓ src/lib/ux-v1/p3/p3.test.ts > Notify me route helpers > a missing table (pending migration) is recognised from Postgres or PostgREST 2ms
+✓ src/lib/ux-v1/p3/p3.test.ts > Notify me route helpers > group ids are positive integers only 2ms
+✓ src/lib/ux-v1/p3/p3.test.ts > /groups intro numbers = today's directory > counts every row with a published quiz (hidden rows too) and its known generation 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > fail-closed reads (a failed read is never cached) > a thrown read comes back as READ_FAILED, never as an empty value 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > fail-closed reads (a failed read is never cached) > at request time a failed read fails the render (the last good ISR page stays) 6ms
+✓ src/lib/ux-v1/p3/p3.test.ts > fail-closed reads (a failed read is never cached) > during next build it does not throw (a DB blip never fails a deploy) 8ms
+✓ src/lib/ux-v1/p3/p3.test.ts > verseSpaceOpen (C2-006 / C2-007) > while the Verse is hidden no space is a door (production today) 1ms
+✓ src/lib/ux-v1/p3/p3.test.ts > verseSpaceOpen (C2-006 / C2-007) > once public only a live space is a door; parked spaces (404) never are 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: filters and categories > has the four prototype filters in order 8ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: filters and categories > maps every live type to its settings category (lib/notification-types.ts) 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: filters and categories > All shows everything; the tabs show their category only 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: icons > every live type has an icon from the v11 set 4ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: icons > uses the prototype icons 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: targets (the live card rule, safe at the sink) > link_url first, then the quiz 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: targets (the live card rule, safe at the sink) > never links a dangerous or protocol-relative URL 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: targets (the live card rule, safe at the sink) > encodes the quiz slug 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: day groups and ages > Today / Yesterday / Earlier by the local calendar day 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: day groups and ages > groups consecutive rows, keeping the newest-first order 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: day groups and ages > compact ages match the prototype ("2h", "1d", "1w") 78ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: day groups and ages > bell and spoken ages 2ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: header and streak row > subtitle 11ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: header and streak row > at risk: the real rule (daily quiz or daily blindtest) and the daily link 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: header and streak row > saved (prototype "Streak saved: 13 days") 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: header and streak row > no streak, no row (min-gate) 2ms
+✓ src/lib/ux-v1/p11/p11.test.ts > notifications: header and streak row > counts unread rows 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > page <-> bell sync reducers > marks one or all read, same array when nothing changes 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > page <-> bell sync reducers > removes rows 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > normalises the query 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > LIKE pattern drops wildcards and filter syntax 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > compact form ignores spaces and punctuation 13ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > matches group names (contains, case-insensitive, compact), most quizzes first, max 4 9ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > the closest name wins over the quiz count; punctuation-free matching needs 3 characters 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > merges title and group matches, one row per quiz, most played first 1ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > the group typed and word starts rank before a title that only contains the query 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > merges song matches, max 3 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > the artist typed comes first, then word-start title matches 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > labels 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > a song opens its group playlist only when the playlist exists 0ms
+✓ src/lib/ux-v1/p11/p11.test.ts > search model > rows in display order and the spoken summary 0ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > profilePayload > round trip with nothing changed sends nothing 9ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > profilePayload > changing a value and changing it back sends nothing 1ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > profilePayload > Your look fields go out with the legacy keys and value shapes 1ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > profilePayload > empty strings become null, stan_since a number, ult_groups an array 1ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > profilePayload > defaults match the legacy page (null accent = default, null theme = default) 0ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > prefsPayload > absent means on; only real changes are sent 1ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > validation mirrors the server > usernames 1ms
+✓ src/lib/ux-v1/p10/settings-model.test.ts > validation mirrors the server > form limits 7ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > theme colours: prototype band tints, passport-themes swatches, unknown = default 26ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > band: https header image, else the main group photo, else flat 8ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > meta line and XP line use the real fields 34ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > stats: owner row (average hidden when unknown), public row (no play counts) 6ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > average score over every scored play 0ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > mastery: both plays and accuracy count, 100 only when mastered; catch-all groups skipped 2ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > badges: definitions order, earned first, pinned first on the overview (max 6), live counts 4ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > history and quiz lines 1ms
+✓ src/lib/ux-v1/p10/passport-model.test.ts > passport model > cssUrl only lets https / local paths through, escaped 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > sniffImage > recognises JPEG, PNG and WebP magic bytes 300ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > sniffImage > refuses GIF, SVG, HTML and short input 241ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > accepts a PNG under 5 MB 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses empty files 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses files over 5 MB 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > accepts exactly 5 MB 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses declared type image/gif 1ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses declared type image/svg+xml 0ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses declared type text/html 0ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses declared type application/pdf 0ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > checkHeaderFile > refuses bytes that are not an image even when the declared type says PNG 0ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > re-encodes a jpeg into a 1500 x 300 WebP 364ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > re-encodes a png into a 1500 x 300 WebP 204ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > one H1: the display name in the accent class, then the bias tag, the pinned medallion and the level chip 5ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > band: main group photo over the default theme tint, with Change header for the owner 3ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > meta, XP and the five owner stats (real fields, blindtests played replaces the dead rank) 1ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > four tabs, every panel in the HTML, only Overview visible 1ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > overview: fandom war strip, pinned badge first, groups mastered by progress, 3 recent plays 1ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > quizzes, history and badges panels 0ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, personal (/me props) > no em or en dash anywhere 0ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, public (/u/[username] props) > privacy fail-closed: no History tab, no recent activity, no play counts or average 4ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, public (/u/[username] props) > owner controls are not in the server HTML (resolved on the client) 2ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > v11 passport, public (/u/[username] props) > keeps the crawlable content: H1, bio, quiz links 1ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > band modes > uses the header image when set, the flat tint without a main group photo 64ms
+✓ src/lib/ux-v1/p10/passport-render.test.ts > band modes > never lets a stored URL break out of CSS url() 49ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > re-encodes a webp into a 1500 x 300 WebP 1359ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 0 ms = 100 8ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 1999 ms = 100 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 2000 ms = 100 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 2800 ms = 90 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 6000 ms = 50 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 9990 ms = 0 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 10000 ms = 0 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at 12000 ms = 0 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > speed bonus at -5 ms = 0 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > combo is x1.0 then +0.1 per right answer in a row, capped at x2.0 1ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > a right answer is (100 + speed) x combo; a miss scores 0 and resets the combo 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > a perfect fast 10-song run is 2,900 (15.4) 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > summarizes best streak, average and fastest over the right answers only 4ms
+✓ src/lib/ux-v1/p6/p6.test.ts > points (17.6 formula, display only) > labels use the live game thresholds 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > playlists > sends generate exactly the live game body 2ms
+✓ src/lib/ux-v1/p6/p6.test.ts > playlists > labels and fixed ids 8ms
+✓ src/lib/ux-v1/p6/p6.test.ts > playlists > filters by name, case-insensitive, and makes initials 22ms
+✓ src/lib/ux-v1/p6/p6.test.ts > playlists > popular six: blindtest plays first, then quiz plays, then the alphabetical order 3ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > accepts a real run and drops non-https media 2ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > rejects bad shapes 5ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > refuses a forged correct answer or reveal 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > codes are 6 unambiguous characters and links open the hub 8ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > attempts must match the frozen length 0ms
+✓ src/lib/ux-v1/p6/p6.test.ts > challenge > a tie beats the challenge, like the prototype 0ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > crops a small image up to the header size 254ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > drops EXIF metadata 313ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > refuses a GIF and garbage with the right status 184ms
+✓ src/lib/ux-v1/p10/header-image.test.ts > renderHeader > refuses a PNG whose header claims a gigantic canvas (decompression bomb) 5ms
+Test Files  10 passed (10)
+Tests  267 passed (267)
