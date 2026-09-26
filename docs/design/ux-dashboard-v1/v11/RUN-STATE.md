@@ -23,7 +23,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 1 done, merged (69b3a47): 128 pass / 8 fail / 16 not verified of 152 | 4a4da49 | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | running (loop 1; resumed 18:26; 3 commits pushed; issue C2-001 filed for A0) | 26b53ba | - | v11/checks/backend/ |
+| C2 | ux11/c2-check | loop 1 done, merged (e95c0ef): 267 rows, 187 pass / 9 fail / 33 not verified / 7 pending P2 / 31 n/a | b89834e | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | own checks done (LOCAL branch, unpublished, waiting for the owner); REPORT.md draft, to refresh after C2 | edb382e | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
@@ -59,6 +59,8 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
+
+SECURITY, LIVE SITE (found by C2, confirmed by ORCH in code): /auth/callback redirects to returnTo without checking it stays on the site (`NextResponse.redirect(new URL(returnTo, request.url))`): an open redirect after sign-in. Auth is out of this run's scope; handed to the owner as a separate task chip.
 
 FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the weekly board with made-up accounts from lib/weekly-leaderboard-padding.ts (FAKE_USERS). Handed to the owner as a separate task chip.
 
@@ -103,6 +105,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 C2 loop 1 done and merged (e95c0ef; issue files A0.md and P3.md were add/add conflicts with C1's, resolved as the union of both lists). Must-prove passes: QOTD pick/average/label, ticker, /groups counts and hub sorts, 79 playlists, daily one try, badge rarity, sign-in returns to the action, mark-read payloads, the Verse gate (VERSE_PUBLIC=false run too), ranked 233 unit tests + 503 before any write, P8 writes 503 not_live, header routes refuse private addresses + 503 bucket_missing, nested challenge attempt routes resolve on both prod build and dev (P8's dev 404 does not reproduce). Data guard: counts only grew, test user unchanged, no production write. New issues routed: P1 C2-002/004/005, P3 C2-006/007, P4 C2-003.
 - 2026-09-26 A0 fix loop 1 merged (eb09ce6): /api/quizzes/count 404 unless the flag is on (C2-001); drop zone resting look on open, 2px ring only for keyboard focus (C1-002). tsc 0, unit 805/805.
 - 2026-09-26 C3 own checks done (local branch edb382e): e2e 542 pass / 1 flaky (C3-004 race) / 0 fail / 8 skipped by design of 551; axe 0 serious/critical on all 190 v11 state runs (legacy contrast failures exist flag off too, fewer flag on); keyboard ok on 14 pages except C3-007; all 9 sheets pass; live regions ok; SEO fields equal on 34 URLs, robots.txt identical, sitemap 2998 both ways; LCP (390, 4x CPU, slow 4G, gzip as Vercel) home 2.22 vs 3.04 s, quiz 2.34 vs 2.42, hub 2.30 vs 3.25, blindtest 2.22 vs 2.05, CLS <= 0.0003; Lighthouse pending the owner. Issues: P1 C3-003/006/008, P3 C3-001/002, P4 C3-004, P5 C3-005 (low), P6 C3-009 (low), P8 C3-007. Fix loop 1 now: A0, P3, P1, P4, P8; P5 and P6 next.
 - 2026-09-26 C1 loop 1 done and merged (69b3a47): 152 checks, 128 pass, 8 fail (groups x4: P3 C1-001 tile 133.2 vs 138px; header-sheet x4: A0 C1-002 drop zone opens in hover look), 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). Nav fit, hover, focus, tokens (44), reduced motion, no horizontal scroll at 390: all pass. Fix loop 1 started for A0 (C2-001, C1-002) and P3 (C1-001 + C3's noscript links + cached failed reads) while C2 and C3 finish.
