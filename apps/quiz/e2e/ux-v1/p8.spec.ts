@@ -304,17 +304,21 @@ for (const theme of THEMES) {
         reached = await panel.evaluate((el) => el === document.activeElement);
       }
       expect(reached, 'the feed panel is reached with Tab').toBe(true);
-      const ring = await panel.evaluate((el) => {
+      const pink = await panel.evaluate((el) => {
         const probe = document.createElement('span');
         probe.style.color = 'var(--ux-pink)';
         el.parentElement!.appendChild(probe);
-        const pink = getComputedStyle(probe).color;
+        const c = getComputedStyle(probe).color;
         probe.remove();
-        const cs = getComputedStyle(el);
-        return { visible: el.matches(':focus-visible'), style: cs.outlineStyle, width: cs.outlineWidth, color: cs.outlineColor, offset: cs.outlineOffset, pink };
+        return c;
       });
-      expect(ring.visible).toBe(true);
-      expect(ring, 'A0 shared ring: 2px solid pink, 2px offset').toMatchObject({ style: 'solid', width: '2px', offset: '2px', color: ring.pink });
+      // Polled: under reduced motion A0 keeps a .001s transition on every property, so the
+      // ring settles one frame after focus.
+      await expect.poll(() => panel.evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return { visible: el.matches(':focus-visible'), style: cs.outlineStyle, width: cs.outlineWidth, color: cs.outlineColor, offset: cs.outlineOffset };
+      }), { message: 'A0 shared ring: 2px solid pink, 2px offset, on :focus-visible', timeout: 3000 })
+        .toEqual({ visible: true, style: 'solid', width: '2px', color: pink, offset: '2px' });
       // The ring as a fan sees it (report image): the panel's top edge, in the viewport.
       await panel.scrollIntoViewIfNeeded();
       const box = (await panel.boundingBox())!;
