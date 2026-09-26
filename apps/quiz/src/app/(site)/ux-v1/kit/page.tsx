@@ -47,6 +47,9 @@ async function realQuizzes(): Promise<QuizCardData[]> {
   }
 }
 
+// A draft cover as the create funnel holds it before publish: a data: URL (kit sample).
+const KIT_DRAFT_COVER = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 3"><rect width="4" height="3" fill="#F2CFDB"/><circle cx="2" cy="1.4" r="0.8" fill="#D13A6E"/></svg>')}`;
+
 const SWATCHES = ['page', 'surface', 'surface-2', 'raised', 'line', 'line-2', 'edge', 'pink-line', 'input', 'ink', 'muted', 'pink', 'pink-fill', 'pink-ink', 'pink-soft', 'pink-soft-ink', 'ok', 'no', 'warn', 'hl', 'bulb', 'qotd-edge', 'lav-soft', 'lav-ink'];
 
 // The 17.8 badge set, as in the prototype (earned = component state for the gallery).
@@ -208,6 +211,10 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
             <UxQuizGrid>{gridFill.map((q, i) => <UxQuizCard key={q.id} quiz={q} priority={i < 2} />)}</UxQuizGrid>
             <span className="ux-kit-label" style={{ marginTop: 32 }}>Stacked rows (phone lists)</span>
             <UxQuizGrid stack>{stackRows.map((q) => <UxQuizCard key={q.id} quiz={q} />)}</UxQuizGrid>
+            <span className="ux-kit-label" style={{ marginTop: 32 }}>Preview mode (create step 3): no link, a draft&apos;s data: cover</span>
+            <UxQuizGrid>
+              <UxQuizCard preview quiz={{ ...gridFill[0]!, slug: '', play_count: 0, cover_image_url: KIT_DRAFT_COVER }} titleAs="p" />
+            </UxQuizGrid>
           </>
         ) : <p className="ux-empty"><b>No quiz loaded</b>The read failed; the cards render when the DB answers.</p>}
         <div className="ux-kit-row" style={{ marginTop: 24 }}>

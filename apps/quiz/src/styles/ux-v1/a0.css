@@ -215,6 +215,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-msep { height: 1px; background: var(--ux-hair); margin: 6px 4px; }
 .ux-pop-h { padding: 12px 12px 8px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .ux-pop-h b { font-size: 15px; font-weight: 600; }
+.ux-pop-h .ux-lnk { display: flex; font-size: 14px; line-height: 1.6; }
 .ux-pop-id { display: flex; gap: 12px; align-items: center; padding: 10px 12px 12px; }
 .ux-pop-id b { font-weight: 600; display: block; }
 .ux-pop-id small { color: var(--ux-muted); font-size: 13px; }
@@ -235,6 +236,11 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-sov-in { display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 60px; border-bottom: 1px solid var(--ux-hair); }
 .ux-sov-in input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; -webkit-appearance: none; appearance: none; font: 400 17px var(--ux-font); color: var(--ux-ink); }
 .ux-sov-in input::placeholder { color: var(--ux-muted); }
+/* The field has no ring and no native clear button (prototype .sov-in input{outline:0});
+   its focus shows as the row's hairline turning into a 2px pink line (16.9: 2px pink). */
+.ux-sov-in input:focus-visible { outline: none; }
+.ux-sov-in input::-webkit-search-cancel-button, .ux-sov-in input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
+.ux-sov-in:has(input:focus-visible) { border-bottom-color: var(--ux-pink); box-shadow: inset 0 -1px 0 var(--ux-pink); }
 .ux-sov-b { padding: 12px 8px 16px; max-height: 60vh; overflow: auto; }
 .ux-sov-l { font-size: 13px; font-weight: 600; color: var(--ux-muted); padding: 12px 12px 6px; }
 .ux-srow { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 10px; font-size: 15px; }
@@ -305,6 +311,10 @@ button.ux-chip[aria-pressed="true"] { background: var(--ux-ink); color: var(--ux
 .ux-qcov-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform .5s var(--ux-ease); }
 .ux-qcard:hover .ux-qcov-img { transform: scale(1.035); }
 .ux-qcov-fb { position: absolute; inset: 0; display: grid; place-items: center; background: var(--ux-surface); }
+.ux-qcard.is-preview { cursor: default; }
+.ux-qcard.is-preview:hover { border-color: var(--ux-line); transform: none; box-shadow: none; }
+.ux-qcard.is-preview:hover .ux-qcov-img { transform: none; }
+.ux-qcard.is-preview:hover .ux-qt { color: inherit; }
 .ux-fbn { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; text-align: center; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ux-ink); opacity: .72; line-height: 1.15; }
 .ux-fbn .ux-ico { width: 22px; height: 22px; color: var(--ux-muted); }
 .ux-qb { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; min-width: 0; }
@@ -439,7 +449,7 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 @keyframes ux-sheetin { from { opacity: 0; transform: translate(-50%, -46%) scale(.98); } to { opacity: 1; transform: translate(-50%, -50%); } }
 @keyframes ux-sheetup { from { transform: translateY(100%); } to { transform: none; } }
 .ux-sh-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 20px 0 24px; }
-.ux-sh-h h2, .ux-sh-h h3 { font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
+.ux-sh-h h2, .ux-sh-h h3 { font-size: 18px; line-height: 1.6; font-weight: 600; letter-spacing: -0.015em; }
 .ux-sh-h.is-bare { padding-right: 24px; }
 .ux-sh-b { padding: 16px 24px 24px; }
 .ux-sh-b .ux-help { margin-top: 12px; }

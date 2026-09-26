@@ -279,6 +279,98 @@ test.describe('kit interactions', () => {
     }
   });
 
+  // P11 request 4: the at-risk streak popover states the real rule (only the daily
+  // quiz and the daily blindtest move the streak), as P11's streak row does.
+  test('streak popover: the real rule (daily quiz or daily blindtest)', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const risk = page.getByRole('dialog', { name: 'Streak at risk (static)' });
+    await expect(risk.locator('p')).toHaveText(/^Today is not played yet\. Play the daily quiz or the daily blindtest in the next \d+h \d+m to keep it\.$/);
+    await expect(risk.getByRole('link', { name: "Play today's quiz" })).toHaveAttribute('href', '/daily');
+    await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
+  });
+
+  // P5 request 2: the sheet title is 18px / 1.6 (28.8px), letter-spacing -0.015em, as
+  // the prototype's `.sh-h h3` (it inherits body 16px/1.6; h1-h3 get -0.015em).
+  test('sheet title: 18px, line height 28.8px, letter-spacing -0.27px', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const h = page.locator('.ux-layer .ux-sheet .ux-sh-h h2');
+    await expect(h).toBeVisible();
+    expect(await h.evaluate((el) => { const cs = getComputedStyle(el); return [cs.fontSize, cs.lineHeight, cs.letterSpacing, cs.fontWeight]; })).toEqual(['18px', '28.8px', '-0.27px', '600']);
+    expect(Math.round((await h.boundingBox())?.height ?? 0)).toBe(29);
+  });
+
+  // P11 request 5: the search field shows no outline ring and no native clear button
+  // (prototype `.sov-in input{outline:0}`); focus shows as the row's line turning into
+  // a 2px pink line (16.9: 2px pink), gone when focus moves on.
+  test('search field: no ring, no native clear button, a 2px pink line while focused', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="search"]').click();
+    const field = page.locator('#ux-sq');
+    await expect(field).toBeFocused();
+    await field.fill('bts');
+    const look = await field.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const row = getComputedStyle(el.closest('.ux-sov-in') as Element);
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink)';
+      document.body.appendChild(probe);
+      const pink = getComputedStyle(probe).color;
+      probe.remove();
+      return {
+        outline: cs.outlineStyle,
+        border: row.borderBottomColor === pink && row.borderBottomWidth === '1px',
+        inset: row.boxShadow.includes(pink) && row.boxShadow.includes('inset'),
+      };
+    });
+    expect(look).toEqual({ outline: 'none', border: true, inset: true });
+    // No native clear button: the focused, filled field paints exactly as the same
+    // field as a plain text input (which has none); forcing the button back makes
+    // the paint differ, so the comparison would see one.
+    await page.mouse.move(0, 0);
+    const shot = (): Promise<Buffer> => field.screenshot({ animations: 'disabled', caret: 'hide' });
+    const asSearch = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'text'; });
+    const asText = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'search'; });
+    expect(asSearch.equals(asText), 'no clear button drawn').toBe(true);
+    const back = await page.addStyleTag({ content: '#ux-sq::-webkit-search-cancel-button { display: block !important; -webkit-appearance: searchfield-cancel-button !important; appearance: auto !important; }' });
+    expect((await shot()).equals(asText), 'control: a forced clear button is visible to the check').toBe(false);
+    await back.evaluate((el) => el.remove());
+    // Focus leaves the field (Tab to the results): the line is the hairline again.
+    await page.locator('#ux-sov .ux-srow').first().waitFor({ timeout: 30_000 });
+    await page.keyboard.press('Tab');
+    await expect(field).not.toBeFocused();
+    expect(await page.locator('.ux-sov-in').evaluate((el) => getComputedStyle(el).boxShadow)).toBe('none');
+    await page.keyboard.press('Escape');
+  });
+
+  // P5 request 3: UxQuizCard preview mode (a draft on create step 3): the same card,
+  // no link, one named image for assistive tech, a data: cover as a plain <img>, no
+  // hover lift; same box styles as a linked card.
+  test('quiz card preview mode: no link, data: cover, same card styles', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    const card = sec.locator('.ux-qcard.is-preview');
+    test.skip((await card.count()) === 0, 'no quizzes to show (data unavailable)');
+    expect(await card.evaluate((el) => el.tagName)).toBe('DIV');
+    await expect(card).toHaveAttribute('role', 'img');
+    await expect(card).toHaveAttribute('aria-label', /^Preview: .+, .+, (Easy|Medium|Hard)$/);
+    await expect(card.locator('a')).toHaveCount(0);
+    expect(await card.locator('img').getAttribute('src')).toMatch(/^data:image\/svg\+xml,/);
+    await expect(card.locator('.ux-qpl')).toHaveText('New');
+    const linked = sec.locator('.ux-qgrid:not(.ux-qgrid-stack) > a.ux-qcard').first();
+    const props = ['border-top-width', 'border-top-color', 'border-radius', 'background-color', 'padding-top', 'width'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => { const cs = getComputedStyle(el); return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)])); }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(card)).toEqual(await styleOf(linked));
+    const before = await styleOf(card);
+    await card.hover();
+    await page.waitForTimeout(300);
+    expect(await styleOf(card), 'no hover state on a preview').toEqual(before);
+    expect(await card.evaluate((el) => getComputedStyle(el).transform)).toBe('none');
+  });
+
   // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
   test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
     test.skip(!(await openKit(page)), 'kit not served here');
