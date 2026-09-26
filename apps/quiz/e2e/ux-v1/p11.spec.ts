@@ -348,6 +348,7 @@ test.describe('P11 guest', () => {
       });
 
       test('typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row', async ({ page }) => {
+        test.slow(); // it navigates: a cold dev server compiles the target page first
         const writes = await setup(page, theme, false);
         test.skip(!(await openOverlay(page)), 'flag off, or the P11 SearchResults slot is not wired yet');
         await page.locator('#ux-sq').fill('bts');
@@ -380,6 +381,7 @@ test.describe('P11 guest', () => {
       });
 
       test('no results: a real empty state, Enter goes to the full search page', async ({ page }) => {
+        test.slow();
         await setup(page, theme, false);
         test.skip(!(await openOverlay(page)), 'flag off, or the P11 SearchResults slot is not wired yet');
         await page.locator('#ux-sq').fill('zzzzqx');
@@ -394,6 +396,7 @@ test.describe('P11 guest', () => {
       });
 
       test('a click on a row closes the overlay; Escape closes and returns focus', async ({ page }) => {
+        test.slow();
         await setup(page, theme, false);
         test.skip(!(await openOverlay(page)), 'flag off, or the P11 SearchResults slot is not wired yet');
         await page.keyboard.press('Escape');
