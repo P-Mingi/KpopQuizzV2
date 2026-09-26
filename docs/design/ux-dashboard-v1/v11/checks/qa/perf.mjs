@@ -92,16 +92,20 @@ async function measure(p, profile, warm) {
     .filter((im) => /idols/.test(decodeURIComponent(im.currentSrc || im.src)))
     .map(async (im) => {
       const r = im.getBoundingClientRect();
+      // a lazy image below the fold has no currentSrc yet: its `src` is Next's largest
+      // fallback, which the browser never chose; it is listed but not judged
+      const loaded = Boolean(im.currentSrc);
+      const density = /\s\d(\.\d+)?x\s*(,|$)/.test(im.getAttribute('srcset') ?? '');
       const url = im.currentSrc || im.src;
       const w = new URL(url, location.href).searchParams.get('w');
       let intrinsic = null;
-      try { const probe = new Image(); probe.src = url; await probe.decode(); intrinsic = probe.naturalWidth; } catch { intrinsic = null; }
+      if (loaded) { try { const probe = new Image(); probe.src = url; await probe.decode(); intrinsic = probe.naturalWidth; } catch { intrinsic = null; } }
       let source = null;
       try { const s = new URL(url, location.href).searchParams.get('url'); if (s) { const p2 = new Image(); p2.src = s; await p2.decode(); source = p2.naturalWidth; } } catch { source = null; }
       return {
         src: decodeURIComponent(url).replace(location.origin, '').replace(/^\/_next\/image\?url=/, '').slice(0, 80),
-        natural: intrinsic, sourceWidth: source, rendered: Math.round(r.width), needed: Math.round(r.width * dpr), servedW: w ? Number(w) : null,
-        sizes: im.getAttribute('sizes'), srcset: Boolean(im.getAttribute('srcset')), loading: im.getAttribute('loading'), inView: r.top < innerHeight && r.bottom > 0, complete: im.complete,
+        loaded, natural: intrinsic, sourceWidth: source, rendered: Math.round(r.width), needed: Math.round(r.width * dpr), servedW: loaded && w ? Number(w) : null,
+        sizes: im.getAttribute('sizes'), srcset: Boolean(im.getAttribute('srcset')), density, loading: im.getAttribute('loading'), inView: r.top < innerHeight && r.bottom > 0, complete: im.complete,
       };
     })), DPR);
   await ctx.close();
@@ -123,7 +127,8 @@ for (const p of PAGES) {
       idolImages: imgs,
       // too big: more than 2x the pixels needed at DPR 3; too small: under 2/3 of it while the
       // source file had more to give; no `sizes` on a srcset image (the browser assumes 100vw)
-      idolImageProblems: imgs.filter((im) => (im.srcset && !im.sizes) || (im.natural && im.natural > im.needed * 2) || (im.natural && im.sourceWidth && im.natural < im.needed * 0.66 && im.sourceWidth > im.natural)).map((im) => `${im.src}: served ${im.natural}px (source ${im.sourceWidth}px) for ${im.rendered}px x${DPR} = ${im.needed}px, sizes=${im.sizes ?? 'none'}`),
+      // (a density srcset, 1x / 2x of a fixed-size image, needs no `sizes`; an unloaded lazy image is not judged)
+      idolImageProblems: imgs.filter((im) => (im.srcset && !im.density && !im.sizes) || (im.loaded && im.natural && im.natural > im.needed * 2) || (im.loaded && im.natural && im.sourceWidth && im.natural < im.needed * 0.66 && im.sourceWidth > im.natural)).map((im) => `${im.src}: served ${im.natural}px (source ${im.sourceWidth}px) for ${im.rendered}px x${DPR} = ${im.needed}px, sizes=${im.sizes ?? (im.density ? 'density srcset' : 'none')}`),
     };
     const r = out.pages[p][profile];
     process.stdout.write(`${LABEL} ${p} [${profile}] LCP ${r.lcpMs} ms  CLS ${r.cls}  JS ${r.jsKB} KB  total ${r.totalKB} KB  idol imgs ${imgs.length}  problems ${r.idolImageProblems.length}  lcpEl ${r.lcpEl}\n`);
