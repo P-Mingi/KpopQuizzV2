@@ -275,6 +275,9 @@ for (const theme of THEMES) {
       await expect(page.locator('.p6-gt')).toHaveText('Ranked');
       await expect(page.locator('.p6-segs span')).toHaveCount(10);
       await expect(page.locator('.p6-lstate')).toContainText('Song 1 of 10');
+      await expect(page.locator('.p6-ans:not([disabled])')).toHaveCount(4);
+      const axeGame = await runAxe(page, { include: '.ux-page' });
+      if (axeGame) expect(axeGame, 'axe serious / critical in the ranked game').toEqual([]);
 
       const rightRounds = new Set([0, 1, 2, 4, 5, 6, 7, 9]); // 8 / 10, like the prototype
       for (let i = 0; i < 10; i++) {
