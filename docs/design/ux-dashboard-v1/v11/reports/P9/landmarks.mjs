@@ -29,10 +29,10 @@ const STANDING = {
 
 // [label, prototype selector, implementation selector]
 const MARKS = [
-  ['H1', '.ph h1', '.ux-ph h1'],
-  ['intro', '.ph p', '.ux-ph p'],
-  ['tabs', '.utabs', '.p9-tabs'],
-  ['selected tab', '.utabs button.on', '.p9-tabs [aria-selected="true"]'],
+  ['H1', '#leaderboard .ph h1', '.ux-ph h1'],
+  ['intro', '#leaderboard .ph p', '.ux-ph p'],
+  ['tabs', '#leaderboard .utabs', '.p9-tabs'],
+  ['selected tab', '#leaderboard .utabs button.on', '.p9-tabs [aria-selected="true"]'],
   ['podium', '.pane.on .podium', '.p9-pane:not([hidden]) .p9-podium'],
   ['podium #1', '.pane.on .pod.first', '.p9-pane:not([hidden]) .p9-pod[data-rank="1"]'],
   ['podium #1 photo', '.pane.on .pod.first .pav', '.p9-pane:not([hidden]) .p9-pod[data-rank="1"] .p9-pav'],
@@ -57,15 +57,16 @@ async function boxes(page, sels) {
   }), sels);
 }
 
-async function proto(w) {
+async function proto(w, guest) {
   const ctx = await browser.newContext({ viewport: { width: w, height: w < 500 ? 844 : 900 }, isMobile: w < 500, hasTouch: w < 500, colorScheme: 'light' });
   const page = await ctx.newPage();
   await page.goto(pathToFileURL(PROTO).href);
   await page.waitForTimeout(400);
   await page.addStyleTag({ content: '.notes-t,.guestbar,.notes{display:none!important}' });
-  await page.evaluate(() => { document.body.classList.remove('guest'); window.closeAll(); window.go('leaderboard'); });
+  await page.evaluate((g) => { document.body.classList.remove('guest'); window.closeAll(); if (g) document.body.classList.add('guest'); window.go('leaderboard'); }, guest);
   await page.waitForTimeout(700);
-  const out = await boxes(page, MARKS.map((m) => m[1]));
+  // the guest state shows the prototype's data-auth="out" pin
+  const out = await boxes(page, MARKS.map((m) => (guest ? m[1].replace('.pin[data-auth="in"]', '.pin[data-auth="out"]') : m[1])));
   await ctx.close();
   return out;
 }
@@ -90,13 +91,13 @@ const fmt = (b) => (b ? b.join(' / ') : 'n/a');
 const delta = (a, b) => (a && b ? Math.max(...a.map((v, i) => Math.abs(v - b[i]))) : null);
 
 for (const w of [1440, 390]) {
-  const [p, g, s] = [await proto(w), await impl(w, false), await impl(w, true)];
+  const [p, pg, g, s] = [await proto(w, false), await proto(w, true), await impl(w, false), await impl(w, true)];
   console.log(`\n### ${w} x ${w < 500 ? 844 : 900}, light (x / y / width / height, px)\n`);
-  console.log('| Landmark | Prototype (signed in) | Implementation, signed in (fixture) | max diff | Implementation, guest | max diff |');
-  console.log('|---|---|---|---:|---|---:|');
+  console.log('| Landmark | Prototype, signed in | Implementation, signed in (fixture) | max diff | Prototype, guest | Implementation, guest | max diff |');
+  console.log('|---|---|---|---:|---|---|---:|');
   MARKS.forEach(([label], i) => {
-    const ds = delta(p[i], s[i]); const dg = delta(p[i], g[i]);
-    console.log(`| ${label} | ${fmt(p[i])} | ${fmt(s[i])} | ${ds === null ? '-' : ds.toFixed(1)} | ${fmt(g[i])} | ${dg === null ? '-' : dg.toFixed(1)} |`);
+    const ds = delta(p[i], s[i]); const dg = delta(pg[i], g[i]);
+    console.log(`| ${label} | ${fmt(p[i])} | ${fmt(s[i])} | ${ds === null ? '-' : ds.toFixed(1)} | ${fmt(pg[i])} | ${fmt(g[i])} | ${dg === null ? '-' : dg.toFixed(1)} |`);
   });
 }
 await browser.close();
