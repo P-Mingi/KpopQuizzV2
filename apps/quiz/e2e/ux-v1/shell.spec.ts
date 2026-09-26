@@ -83,6 +83,7 @@ for (const theme of THEMES) {
       await trigger.click();
       const dlg = page.getByRole('dialog', { name: 'Search' });
       await expect(dlg).toBeVisible();
+      expect(new URL(page.url()).pathname, 'the plain click opened the overlay, not /search').toBe('/');
       await expect(page.locator('#ux-sq')).toBeFocused();
       await page.locator('#ux-sq').fill('bts');
       await expect(dlg.locator('a.ux-srow')).toHaveAttribute('href', '/search?q=bts');
@@ -99,6 +100,57 @@ for (const theme of THEMES) {
     });
   });
 }
+
+// P1 request 3, P2 request 1, P7 request 1 (link-set rule, COMMON done-when 5): the
+// nav search control is a real <a href="/search"> in the server HTML. Hydrated, a
+// plain click opens the overlay; modified clicks keep the browser's behaviour; and
+// without JavaScript the link reaches the search page.
+test.describe('search link', () => {
+  test('server HTML links to /search; only a plain click opens the overlay', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    const res = await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    const html = (await res?.text()) ?? '';
+    const tag = html.match(/<a\b[^>]*class="ux-sbtn"[^>]*>/)?.[0] ?? '';
+    expect(tag, 'server HTML: the search control is a link').toContain('href="/search"');
+    await waitHydrated(page);
+    const trigger = page.locator('.ux-sbtn');
+    await expect(trigger).toHaveAttribute('href', '/search');
+    // Which clicks does the page take over? Read defaultPrevented at the window (after
+    // React's listener), then cancel it there so the probe navigates nowhere.
+    const prevented = await trigger.evaluate((a) => {
+      const out: Record<string, boolean> = {};
+      for (const [name, init] of [['ctrl', { ctrlKey: true }], ['meta', { metaKey: true }], ['shift', { shiftKey: true }], ['alt', { altKey: true }], ['middle', { button: 1 }]] as const) {
+        let seen = true;
+        const on = (e: Event): void => { seen = e.defaultPrevented; e.preventDefault(); };
+        window.addEventListener('click', on);
+        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ...init }));
+        window.removeEventListener('click', on);
+        out[name] = seen;
+      }
+      return out;
+    });
+    expect(prevented, 'modified clicks are left to the browser').toEqual({ ctrl: false, meta: false, shift: false, alt: false, middle: false });
+    const dlg = page.getByRole('dialog', { name: 'Search' });
+    await expect(dlg).toBeHidden();
+    await trigger.click();
+    await expect(dlg).toBeVisible();
+    expect(new URL(page.url()).pathname).toBe('/');
+  });
+});
+
+test.describe('search link without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('the search link opens the search page', async ({ page }) => {
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    const trigger = page.locator('.ux-sbtn');
+    test.skip((await trigger.count()) === 0, 'UX v1 flag is OFF on this build');
+    await trigger.click();
+    await expect(page).toHaveURL(/\/search$/, { timeout: 60_000 });
+  });
+});
 
 test.describe('keyboard + sign-in', () => {
   test.beforeEach(async ({ page }) => { await preparePage(page, 'light'); });
@@ -201,6 +253,89 @@ test.describe('keyboard + sign-in', () => {
     expect(Math.round((box?.y ?? 0) + (box?.height ?? 0))).toBe(vh); // docked to the bottom
     expect(Math.round(box?.width ?? 0)).toBe(page.viewportSize()?.width);
     await expect(page).toHaveURL(/\/quizzes$/);
+  });
+});
+
+// P1 request 1 (DESIGN-SPEC 16.5 / 16.9): on a client navigation the new page's H1
+// takes the focus (tabindex -1, no ring) and the title updates; never on a first
+// load. /q/<slug> has a loading.tsx: its skeleton commits first, the H1 streams in.
+test.describe('client navigation', () => {
+  test('focus moves to the new page H1, no ring, title updates', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    // A dev server's Next.js badge sits over the Home tab at 390 (no-op on a build).
+    await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+    expect(await page.evaluate(() => document.activeElement === document.body), 'first load: focus untouched').toBe(true);
+
+    const desktop = widthOf(page) > 760;
+    const h1 = page.locator('#main h1').first();
+    const noRing = (): Promise<string> => h1.evaluate((el) => getComputedStyle(el).outlineStyle);
+    const steps: [string, RegExp][] = desktop
+      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="groups"]', /\/groups$/], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
+      : [['.ux-tab[href="/quizzes"]', /\/quizzes$/], ['.ux-tab[href="/blindtest"]', /\/blindtest$/], ['.ux-tab[href="/"]', /\/$/]];
+    for (const [link, url] of steps) {
+      const before = await page.title();
+      await page.locator(link).click();
+      await expect(page).toHaveURL(url, { timeout: 60_000 });
+      await expect(h1).toBeFocused({ timeout: 15_000 });
+      expect(await noRing()).toBe('none');
+      await expect.poll(() => page.title(), { timeout: 15_000 }).not.toBe(before);
+    }
+
+    // A route with a loading.tsx: open a quiz from the list.
+    await page.locator('.ux-links a[data-nav="quizzes"], .ux-tab[href="/quizzes"]').filter({ visible: true }).first().click();
+    await expect(page).toHaveURL(/\/quizzes$/, { timeout: 60_000 });
+    await expect(h1).toBeFocused({ timeout: 15_000 });
+    await page.locator('#main a[href^="/q/"]').first().click();
+    await expect(page).toHaveURL(/\/q\/[^/]+$/, { timeout: 60_000 });
+    // The URL changes with the skeleton; the H1 streams in later (up to 30 s is awaited).
+    await expect(h1).toBeFocused({ timeout: 35_000 });
+    expect(await noRing()).toBe('none');
+  });
+
+  test('keyboard: Enter on a nav link lands on the new H1', async ({ page }) => {
+    test.skip(widthOf(page) <= 760, 'desktop nav');
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const target = page.locator('.ux-links a[data-nav="groups"]');
+    let reached = false;
+    for (let i = 0; i < 15 && !reached; i++) {
+      await page.keyboard.press('Tab');
+      reached = await target.evaluate((el) => el === document.activeElement);
+    }
+    expect(reached).toBe(true);
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/\/groups$/, { timeout: 60_000 });
+    const h1 = page.locator('#main h1').first();
+    await expect(h1).toBeFocused({ timeout: 15_000 });
+    expect(await h1.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe('none');
+  });
+
+  // A page that focuses its own control on mount keeps it: the H1 focus is only for
+  // pages that did not place the focus themselves (kit fixture /ux-v1/kit/focus).
+  test('a page that focuses its own field on mount keeps that focus', async ({ page }) => {
+    await preparePage(page, 'light');
+    await guardWrites(page, env.supabaseUrl);
+    const res = await page.goto('/ux-v1/kit');
+    test.skip(!res || res.status() === 404 || !(await hasShell(page)), 'kit not served here (flag off)');
+    await waitHydrated(page);
+    await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+    await page.locator('[data-kit="route-focus-link"]').click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit\/focus$/, { timeout: 60_000 });
+    const field = page.locator('[data-kit="autofocus-field"]');
+    await expect(field).toBeFocused({ timeout: 15_000 });
+    await page.waitForTimeout(1500); // the shell's H1 watch must not take it back
+    await expect(field).toBeFocused();
+    // Back to the kit through a link inside the page: the kit's H1 takes the focus.
+    await page.locator('[data-kit="back-to-kit"]').click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit$/, { timeout: 60_000 });
+    await expect(page.locator('#main h1').first()).toBeFocused({ timeout: 35_000 });
   });
 });
 

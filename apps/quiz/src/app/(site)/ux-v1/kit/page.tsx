@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 import { UxButton, UxIconButton, UxLink } from '@/components/ux-v1/button';
@@ -17,7 +18,9 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { UX_ICONS } from '@/lib/ux-v1/a0/icons';
 import { RARITY_ORDER } from '@/lib/badges';
 
+import { KitAuthProbeLate } from './kit-auth-probe-late';
 import { KitControls, KitFeedback, KitForms, KitPopovers, KitSheets } from './kit-demos';
+import { KitLinkControls, KitLinkControlsView } from './kit-link-controls';
 
 import type { Metadata } from 'next';
 import type { QuizCardData } from '@/lib/db/types';
@@ -118,6 +121,10 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
   // every flag-off page)
   const picked = [...withPhoto.slice(0, 2), ...withCover.slice(0, 1), ...typographic.slice(0, 1)];
   const gridFill = picked.length < 4 ? [...picked, ...quizzes.filter((q) => picked.indexOf(q) < 0).slice(0, 4 - picked.length)] : picked;
+  // Stacked rows lead with the longest real title, so the gallery shows the two-line
+  // clamp (and kit.spec can hold a two-line row to the reference height).
+  const longest = [...quizzes].sort((a, b) => b.title.length - a.title.length)[0];
+  const stackRows = longest ? [longest, ...gridFill.filter((q) => q.id !== longest.id)].slice(0, 3) : gridFill.slice(0, 3);
 
   return (
     <UxPage width="wide">
@@ -190,6 +197,9 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
 
       <KitSection id="controls" title="Tabs, segmented, dropdowns, chips">
         <KitControls />
+        <Suspense fallback={<KitLinkControlsView sort="trending" type={null} />}>
+          <KitLinkControls />
+        </Suspense>
       </KitSection>
 
       <KitSection id="quiz-cards" title="Quiz cards v11.2 (real quizzes): cover, group photo, typographic cover">
@@ -197,7 +207,7 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
           <>
             <UxQuizGrid>{gridFill.map((q, i) => <UxQuizCard key={q.id} quiz={q} priority={i < 2} />)}</UxQuizGrid>
             <span className="ux-kit-label" style={{ marginTop: 32 }}>Stacked rows (phone lists)</span>
-            <UxQuizGrid stack>{gridFill.slice(0, 3).map((q) => <UxQuizCard key={q.id} quiz={q} />)}</UxQuizGrid>
+            <UxQuizGrid stack>{stackRows.map((q) => <UxQuizCard key={q.id} quiz={q} />)}</UxQuizGrid>
           </>
         ) : <p className="ux-empty"><b>No quiz loaded</b>The read failed; the cards render when the DB answers.</p>}
         <div className="ux-kit-row" style={{ marginTop: 24 }}>
@@ -315,6 +325,15 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
 
       <KitSection id="feedback" title="Toast and live region">
         <KitFeedback />
+      </KitSection>
+
+      <KitSection id="viewer" title="Viewer state (useUxMe), hydrated late on purpose">
+        <KitAuthProbeLate />
+      </KitSection>
+
+      <KitSection id="route-focus" title="Route focus (client navigation)">
+        <p className="ux-help">A client navigation moves the focus to the new page H1, unless the page focuses one of its own controls when it opens.</p>
+        <p><UxLink href="/ux-v1/kit/focus" data-kit="route-focus-link">Open a page that focuses its own field</UxLink></p>
       </KitSection>
 
       <KitSection id="icons" title="Icons (20px, 1.5 stroke)">

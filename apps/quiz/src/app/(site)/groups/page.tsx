@@ -5,6 +5,9 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
+import { UX_V1 } from '@/lib/ux-v1';
+import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
+import { getGroupsIndex } from '@/lib/ux-v1/p3/data';
 
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
@@ -69,6 +72,14 @@ export default async function GroupsDirectoryPage(): Promise<React.ReactElement>
     [] as DirectoryGroup[],
     '[groups-directory] getDirectoryGroups',
   );
+
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): same metadata, H1, intro and
+  // BreadcrumbList; every group of this list plus the groups without a quiz yet.
+  // Flag off renders exactly the page below.
+  if (UX_V1) {
+    const groups = await safeFetch(getGroupsIndex(), [], '[groups-directory v11] getGroupsIndex');
+    return <GroupsIndexV11 rows={rows} groups={groups} />;
+  }
 
   // A to Z. Letters with no group simply do not appear.
   const letters = new Map<string, DirectoryGroup[]>();
