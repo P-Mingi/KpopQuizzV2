@@ -1,4 +1,13 @@
-# C2 backend check (UX v11.2 run, Phase 3, loops 1 and 2)
+# C2 backend check (UX v11.2 run, Phase 3, loops 1 to 3)
+
+## Loop 3 (e54b847, targeted: C2-008)
+
+C2-008 (P4) FIXED. Signed in as the test user, saves stubbed: on a quiz with no stored play the results
+render with no rank line, no error page and no uncaught error for 8 s, and the share sheet shows the run
+(6/8) with no rank; on a quiz with a stored play the rank line shows ("#2 of 2 players · your best 5/10",
+share sheet "#2 of 2"). GET /api/ux-v1/p4/standing answers all 8 keys in every branch (signed in without a
+play: rank null; with a play: rank 2 of 2; guest: nulls). Data guard: counts only grew. Proofs:
+`proofs/loop3/`.
 
 ## Loop 2 (cc6c394, after fix loop 1)
 
@@ -15,7 +24,7 @@ user's rows are unchanged (`proofs/loop2/data-guard-diff.md`, `proofs/loop2/test
 | C2-005 home links parked Verse spaces | P1 | FIXED: only /verse/bts and bts posts (all 200); flag off unchanged | proofs/loop2/home-verse-links.txt |
 | C2-006 hub Verse link for parked spaces | P3 | FIXED: none on BLACKPINK / ATEEZ, /verse/bts kept on BTS | proofs/loop2/hub-guest-1440.json |
 | C2-007 hub empty-state door | P3 | FIXED: "Play the top quiz and leave the first comment" -> the top quiz | proofs/loop2/hub-guest-1440.json |
-| C2-008 (new) results crash, signed in, no stored play | P4 | OPEN: standing {played:false} has no rank; rank !== null passes, toLocaleString throws, "Something went wrong" | proofs/loop2/crash-user-skz-true-or-false-on.json |
+| C2-008 (new) results crash, signed in, no stored play | P4 | OPEN in loop 2, FIXED in loop 3 (e54b847): standing {played:false} has no rank; rank !== null passes, toLocaleString throws, "Something went wrong" | proofs/loop2/crash-user-skz-true-or-false-on.json |
 
 Rows touched by the other fixes, re-checked: P1 home reads (sections complete, rail = published counts,
 QOTD unchanged, 4 render-health unit tests pass); P3 /groups + hubs (90 groups, 10 most-played counts =
