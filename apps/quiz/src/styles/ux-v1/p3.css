@@ -116,6 +116,9 @@
 .p3-fan-top:hover { color: var(--ux-pink-ink); }
 .p3-rowico { width: 40px; height: 40px; border-radius: 50%; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); display: grid; place-items: center; flex: 0 0 auto; }
 .p3-rowico .ux-ico { width: 18px; height: 18px; }
+/* type glyph thumb of the newest-quizzes rows (prototype home "New quizzes": .thumb.glyph) */
+.p3-rowico.is-type { border-radius: 10px; background: var(--ux-surface-2); color: var(--ux-muted); }
+.p3-low-side time { font-variant-numeric: tabular-nums; }
 .p3-fans-top { margin-top: 8px; }
 
 /* ---------- responsive ---------- */

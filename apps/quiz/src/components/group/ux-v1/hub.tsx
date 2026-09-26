@@ -28,6 +28,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupComments, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
 import {
@@ -85,11 +86,12 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const relatedSlugs = RELATED_GROUPS[g.slug] ?? [];
 
   const [
-    initialQuizzes, allQuizLinks, relatedQuizzes, triviaAvailable, nameAllGame, blindtest,
+    initialQuizzes, newestQuizzes, allQuizLinks, relatedQuizzes, triviaAvailable, nameAllGame, blindtest,
     warRank, fanKnowledge, comeback, mvPulse, contentDate, quizzes, index, playable, comments,
   ] = await Promise.all([
     // Today's reads (same functions, same args): they feed the locked SEO parts.
     safeFetch(getQuizzesByGroup(g.id, 'popular', 0, 10), [], '[group-hub v11] getQuizzesByGroup'),
+    safeFetch(getQuizzesByGroup(g.id, 'newest', 0, 5), [], '[group-hub v11] getNewestByGroup'),
     safeFetch(getGroupQuizLinks(g.id), [], '[group-hub v11] getGroupQuizLinks'),
     safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-hub v11] getRelatedQuizzes'),
     safeFetch(hasTriviaPage(g.id, g.slug), false, '[group-hub v11] hasTriviaPage'),
@@ -154,6 +156,11 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
     })
     .filter((x): x is NonNullable<typeof x> => x !== null);
 
+  // SEO-3 U7 (today's hub): the 5 newest quizzes with their dates, a crawlable
+  // freshness signal, shown only when they differ from the popular top 10.
+  const popularSlugs = new Set(initialQuizzes.map((q) => q.slug));
+  const newestDistinct = newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
+
   const fk = fanKnowledge;
   const showMastered = fk.masteredCount >= 3;
   const showAccuracy = fk.avgAccuracy != null;
@@ -168,7 +175,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // "From the community" is a group-with-quizzes block (the prototype's empty hub
   // hides the lower band; what stays there on an empty hub is today's SEO text and
   // links only).
-  const hasSide = hasQuizzes || fans.length > 0 || Boolean(warRank) || articles.length > 0 || hasFk || Boolean(mvPulse);
+  const hasSide = hasQuizzes || fans.length > 0 || Boolean(warRank) || newestDistinct.length > 0 || articles.length > 0 || hasFk || Boolean(mvPulse);
   const hasLow = hasAbout || faqItems.length > 0 || hasSide;
 
   return (
@@ -368,6 +375,27 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
               <p className="p3-note p3-war">
                 {fandom ?? g.name} is <b>#{warRank.rank}</b> in this week&apos;s fandom war. <UxLink href="/leaderboard#fandom-war">See the war</UxLink>
               </p>
+            ) : null}
+
+            {newestDistinct.length > 0 ? (
+              <section className="p3-side-sec" aria-labelledby="p3-new-h">
+                <SectionHeader id="p3-new-h" title={`Newest ${g.name} quizzes`} />
+                <div className="ux-rows">
+                  {newestDistinct.map((q) => (
+                    <UxRow
+                      key={q.id}
+                      href={`/q/${q.slug}`}
+                      lead={<span className="p3-rowico is-type"><Icon name={QUIZ_TYPE_ICON[q.quiz_type] ?? 't-classic'} /></span>}
+                      title={q.title}
+                      end={(
+                        <time dateTime={q.created_at.slice(0, 10)}>
+                          {new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </time>
+                      )}
+                    />
+                  ))}
+                </div>
+              </section>
             ) : null}
 
             {articles.length > 0 ? (

@@ -6,7 +6,8 @@
 //   - the SEO-locked texts of the page: the intro (hub: the paragraph under the H1;
 //     /groups: the intro + generation line), the hub FAQ pairs (every flag-off
 //     question and answer must be visible flag on), the W8 answer-first lead and
-//     questions, the "Updated <month>" line, member photo alt texts;
+//     questions, the "Updated <month>" line, member photo alt texts, every dated
+//     <time> (freshness: the newest-quizzes rows);
 //   - the LINK SET: every <a href> of the served HTML (scripts off, so <noscript>
 //     links count), A must be a subset of B. Lost links fail; additions are listed.
 // Exit 1 on any difference that is not an addition.
@@ -78,7 +79,9 @@ async function dom(html) {
     const updated = t(document.querySelector('.p3-updated') ?? document.querySelector('.group-updated')) || null;
     const alts = all('img[alt]').map((i) => i.getAttribute('alt')).filter((a) => a && / of /.test(a)).sort();
     const hrefs = all('a[href]').map((a) => a.getAttribute('href'));
-    return { h1, intro, genline, faq, afLead, afPairs, updated, alts, hrefs };
+    // dated content (freshness): "Updated <month>" and the newest quizzes rows
+    const times = all('time[datetime]').map((x) => `${x.getAttribute('datetime')} ${t(x)}`).sort();
+    return { h1, intro, genline, faq, afLead, afPairs, updated, alts, hrefs, times };
   });
   await page.close();
   return out;
@@ -102,8 +105,9 @@ for (const p of pages) {
   row('status', ra.status, rb.status);
   for (const k of ['title', 'description', 'robots', 'canonical', 'hreflang', 'og', 'jsonld', 'h1', 'intro', 'genline', 'updated']) row(k, a[k], b[k]);
 
-  // FAQ: every flag-off pair visible flag on, word for word.
-  const bFaq = new Map(b.faq.map(([q, ans]) => [q, ans]));
+  // FAQ: every flag-off pair visible flag on, word for word. (A page that keeps
+  // today's layout flag on, like -trivia, keeps its W8 block: its pairs count too.)
+  const bFaq = new Map([...b.afPairs, ...b.faq].map(([q, ans]) => [q, ans]));
   const lostFaq = a.faq.filter(([q, ans]) => bFaq.get(q) !== ans);
   if (lostFaq.length) failed = true;
   log(`${lostFaq.length ? 'DIFF' : 'SAME'}  FAQ pairs: A ${a.faq.length}, B ${b.faq.length} (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing ${lostFaq.length}${lostFaq.length ? `: ${JSON.stringify(lostFaq)}` : ''}`);
@@ -125,6 +129,10 @@ for (const p of pages) {
   const lostAlt = a.alts.filter((x) => !b.alts.includes(x));
   if (lostAlt.length) failed = true;
   log(`${lostAlt.length ? 'DIFF' : 'SAME'}  member photo alt texts: A ${a.alts.length}, B ${b.alts.length}${lostAlt.length ? `; lost: ${lostAlt.join(' | ')}` : ''}`);
+
+  const lostTimes = a.times.filter((x) => !b.times.includes(x));
+  if (lostTimes.length) failed = true;
+  log(`${lostTimes.length ? 'DIFF' : 'SAME'}  dated content (<time>): A ${a.times.length}, B ${b.times.length}${lostTimes.length ? `; lost: ${lostTimes.join(' | ')}` : ''}`);
 
   // LINK SET (every <a href>, whole served document).
   const sa = new Set(a.hrefs); const sb = new Set(b.hrefs);

@@ -33,6 +33,9 @@ export const getGroupsIndex = unstable_cache(
       db.from('groups').select('id, slug, name'),
     ]);
     if (groupsRes.error) throw new Error(`groups index: ${groupsRes.error.message}`);
+    // Never cache an empty read for an hour (a failed request can come back as no
+    // rows): throwing keeps the previous entry and the next render tries again.
+    if (published.length === 0 || (groupsRes.data ?? []).length === 0) throw new Error('groups index: empty read');
     const count = new Map<number, number>();
     const plays = new Map<number, number>();
     for (const q of published) {
@@ -96,6 +99,9 @@ export const getHubQuizzes = unstable_cache(
 export const getPlayableSongs = unstable_cache(
   async (): Promise<Record<string, number>> => {
     const { groups } = await getAdvertisablePlaylists();
+    // getAdvertisablePlaylists reads through failed pages as "no rows": an empty
+    // list is a failed read, not a fact, so it is never cached.
+    if (groups.length === 0) throw new Error('playable songs: empty read');
     return Object.fromEntries(groups.map((g) => [g.slug, g.songs]));
   },
   ['db:ux-v1:p3:playable-songs:v1'],
