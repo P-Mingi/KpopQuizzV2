@@ -2,8 +2,8 @@
 // not exist yet. Every read is a cookie-free public read (the routes stay
 // Static / ISR) wrapped in unstable_cache, like the live group-hub queries
 // (FREE-VIABILITY: one DB read per TTL per key, never one per render). Reads
-// only: nothing here writes. Callers wrap each call in safeFetch so a DB blip
-// never 500s a page (verse-laws 6).
+// only: nothing here writes. Callers go through lib/ux-v1/p3/reads.ts (read +
+// failClosed): a failed read is never cached, neither here nor in the ISR page.
 
 import { unstable_cache } from 'next/cache';
 
@@ -13,24 +13,28 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
-import { isHiddenGroup } from './model';
+import { directoryStats, isHiddenGroup } from './model';
 
-import type { HubQuiz, IndexGroup } from './model';
+import type { GroupsIndex, HubQuiz } from './model';
 
 /**
  * Every visible group (90 of the 91 rows) with its real published-quiz count and
- * the plays of those quizzes. Counts come from `quizzes where status='published'`
- * read in full through fetchAllRows (PostgREST caps a select at 1000 rows), never
- * from the stale groups.quiz_count column.
+ * the plays of those quizzes, plus the directory numbers of the SEO-locked intro
+ * ("N groups", generation line) computed over the same rows exactly as today's
+ * getDirectoryGroups page does (every group row with a published quiz). Counts
+ * come from `quizzes where status='published'` read in full through
+ * fetchAllRows (PostgREST caps a select at 1000 rows), never from the stale
+ * groups.quiz_count column. A failed or empty read THROWS, so it is never cached
+ * (today's getDirectoryGroups caches [] when its groups read fails).
  */
 export const getGroupsIndex = unstable_cache(
-  async (): Promise<IndexGroup[]> => {
+  async (): Promise<GroupsIndex> => {
     const db = createPublicReadClient();
     const [published, groupsRes] = await Promise.all([
       fetchAllRows<{ group_id: number | null; play_count: number | null }>(
         () => db.from('quizzes').select('group_id, play_count').eq('status', 'published'),
       ),
-      db.from('groups').select('id, slug, name'),
+      db.from('groups').select('id, slug, name, generation'),
     ]);
     if (groupsRes.error) throw new Error(`groups index: ${groupsRes.error.message}`);
     // Never cache an empty read for an hour (a failed request can come back as no
@@ -43,17 +47,21 @@ export const getGroupsIndex = unstable_cache(
       count.set(q.group_id, (count.get(q.group_id) ?? 0) + 1);
       plays.set(q.group_id, (plays.get(q.group_id) ?? 0) + (q.play_count ?? 0));
     }
-    return ((groupsRes.data ?? []) as { id: number; slug: string; name: string }[])
-      .filter((g) => !isHiddenGroup(g.slug))
-      .map((g) => ({
-        slug: g.slug,
-        name: g.name,
-        quizzes: count.get(g.id) ?? 0,
-        plays: plays.get(g.id) ?? 0,
-        photo: groupPhotoUrl(g.slug),
-      }));
+    const rows = (groupsRes.data ?? []) as { id: number; slug: string; name: string; generation: string | null }[];
+    return {
+      groups: rows
+        .filter((g) => !isHiddenGroup(g.slug))
+        .map((g) => ({
+          slug: g.slug,
+          name: g.name,
+          quizzes: count.get(g.id) ?? 0,
+          plays: plays.get(g.id) ?? 0,
+          photo: groupPhotoUrl(g.slug),
+        })),
+      directory: directoryStats(rows.map((g) => ({ quizzes: count.get(g.id) ?? 0, generation: g.generation }))),
+    };
   },
-  ['db:ux-v1:p3:groups-index:v1'],
+  ['db:ux-v1:p3:groups-index:v2'],
   { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] },
 );
 

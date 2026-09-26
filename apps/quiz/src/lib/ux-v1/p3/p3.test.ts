@@ -1,6 +1,12 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('next/cache', () => ({ unstable_cache: (fn: () => unknown) => fn }));
+vi.mock('@/lib/error-handling', () => ({
+  safeFetch: async <T,>(p: Promise<T>, fallback: T): Promise<T> => { try { return await p; } catch { return fallback; } },
+}));
 
 import { isMissingTable, parseGroupId } from './alerts';
+import { FailedRenderError, READ_FAILED, failClosed, failedReads, read } from './reads';
 import { mergeHubFaqs } from './faq';
 import {
   averagePct,
@@ -9,6 +15,9 @@ import {
   coarseAge,
   commentLine,
   debutYearOf,
+  directoryGenLine,
+  directoryIntro,
+  directoryStats,
   filterHubQuizzes,
   genLabel,
   groupCountLabel,
@@ -209,5 +218,43 @@ describe('Notify me route helpers', () => {
     expect(parseGroupId(-1)).toBeNull();
     expect(parseGroupId(1.5)).toBeNull();
     expect(parseGroupId(null)).toBeNull();
+  });
+});
+
+describe('/groups intro numbers = today\'s directory', () => {
+  it('counts every row with a published quiz (hidden rows too) and its known generation', () => {
+    const d = directoryStats([
+      { quizzes: 27, generation: '3rd Gen' }, { quizzes: 24, generation: '3rd Gen' }, { quizzes: 13, generation: '4th Gen' },
+      { quizzes: 1, generation: '2nd Gen' }, { quizzes: 9, generation: null }, { quizzes: 2, generation: 'weird' },
+      { quizzes: 0, generation: '4th Gen' }, { quizzes: 0, generation: null },
+    ]);
+    expect(d).toEqual({ withQuizzes: 6, gens: [{ gen: '2nd Gen', n: 1 }, { gen: '3rd Gen', n: 2 }, { gen: '4th Gen', n: 1 }], noGen: 2 });
+    expect(directoryIntro(d)).toBe('Every group with at least one quiz on KpopQuiz. 6 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.');
+    expect(directoryGenLine(d)).toBe('1 2nd Gen · 2 3rd Gen · 1 4th Gen · 2 with no generation recorded');
+    expect(directoryGenLine(directoryStats([{ quizzes: 3, generation: null }]))).toBeNull();
+  });
+});
+
+describe('fail-closed reads (a failed read is never cached)', () => {
+  afterEach(() => { delete process.env.NEXT_PHASE; });
+
+  it('a thrown read comes back as READ_FAILED, never as an empty value', async () => {
+    expect(await read(Promise.resolve([]), 'ok')).toEqual([]);
+    expect(await read(Promise.reject(new Error('fetch failed')), 'x')).toBe(READ_FAILED);
+    expect(failedReads({ a: [], b: READ_FAILED, c: null, d: READ_FAILED })).toEqual(['b', 'd']);
+  });
+
+  it('at request time a failed read fails the render (the last good ISR page stays)', async () => {
+    await expect(failClosed('/groups', [])).resolves.toBeUndefined();
+    await expect(failClosed('/groups', ['getGroupsIndex'])).rejects.toBeInstanceOf(FailedRenderError);
+    await expect(failClosed('/bts-quiz', ['getHubQuizzes', 'getGroupsIndex'])).rejects.toThrow('getHubQuizzes, getGroupsIndex');
+  });
+
+  it('during next build it does not throw (a DB blip never fails a deploy)', async () => {
+    process.env.NEXT_PHASE = 'phase-production-build';
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    await expect(failClosed('/groups', ['getGroupsIndex'])).resolves.toBeUndefined();
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
   });
 });

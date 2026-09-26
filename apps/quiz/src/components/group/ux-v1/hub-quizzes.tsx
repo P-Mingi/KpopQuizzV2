@@ -1,7 +1,6 @@
 'use client';
 
 import { useId, useMemo, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 
 import { UxButton } from '@/components/ux-v1/button';
 import { UxDropdown } from '@/components/ux-v1/dropdown';
@@ -24,24 +23,35 @@ import type { HubQuiz, HubSort } from '@/lib/ux-v1/p3/model';
 
 interface HubQuizzesProps {
   groupName: string;
-  groupSlug: string;
   /** Every published quiz of the group (its length is the real count). */
   quizzes: HubQuiz[];
-  /** The group's published quiz count, when it is known apart from the list. */
-  total?: number;
 }
 
 const ALL = 'all';
+
+function Card({ q }: { q: HubQuiz }): React.ReactElement {
+  return (
+    <TextCard
+      href={`/q/${q.slug}`}
+      title={q.title}
+      quizType={q.quiz_type}
+      difficulty={q.difficulty}
+      plays={q.play_count}
+      averagePct={averagePct(q)}
+    />
+  );
+}
 
 /**
  * "<Group> quizzes" (prototype #hb-qs, DESIGN-SPEC 16.7): sort Popular / Newest /
  * Most liked / Hardest (the live group feed's four orders), Type and Level
  * dropdowns over the types and levels this group really has, 6 text cards, then
- * "Show all N": a real /<slug>-quiz?page=2 link that expands the list in place.
- * The server HTML carries the first 6 of Popular; every quiz of the group also
- * has a crawlable link in the hub's noscript list.
+ * "Show all N". Every quiz of the group is a real <a href> in the SERVER HTML:
+ * the first 6 as cards, the rest inside a native <details> whose summary is the
+ * "Show all N" button (crawlable, and it opens without JavaScript, like P6's
+ * "Show all 79 groups"). Nothing lives only in <noscript>.
  */
-export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesProps): React.ReactElement {
+export function HubQuizzes({ groupName, quizzes }: HubQuizzesProps): React.ReactElement {
   const uid = useId().replace(/:/g, '');
   const announce = useAnnounce();
   const live = useIsClient();
@@ -49,14 +59,15 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
   const [type, setType] = useState<string | null>(null);
   const [level, setLevel] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const gridRef = useRef<HTMLDivElement | null>(null);
+  const restRef = useRef<HTMLDivElement | null>(null);
 
   const options = useMemo(() => presentOptions(quizzes), [quizzes]);
   const list = useMemo(
     () => filterHubQuizzes(sortHubQuizzes(quizzes, sort), { type, level }),
     [quizzes, sort, type, level],
   );
-  const shown = expanded ? list : list.slice(0, HUB_FIRST_CARDS);
+  const first = list.slice(0, HUB_FIRST_CARDS);
+  const rest = list.slice(HUB_FIRST_CARDS);
   const filtered = type !== null || level !== null;
 
   const changed = (next: HubQuiz[]): void => {
@@ -82,9 +93,22 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
     changed(sortHubQuizzes(quizzes, sort));
   };
 
+  // The native toggle (click, Enter, Space, or no JavaScript at all). Once open the
+  // summary hides (the prototype's button goes away) and keyboard focus moves to the
+  // first card that just appeared.
+  const onToggle = (e: React.SyntheticEvent<HTMLDetailsElement>): void => {
+    const open = e.currentTarget.open;
+    if (open === expanded) return;
+    setExpanded(open);
+    if (open) {
+      restRef.current?.querySelector<HTMLElement>('.ux-tcard')?.focus();
+      announce(`${quizzesLabel(list.length)} shown`);
+    }
+  };
+
   return (
     <section className="ux-sec p3-qs" aria-labelledby={`${uid}-h`} data-live={live || undefined}>
-      <SectionHeader id={`${uid}-h`} title={`${groupName} quizzes`} sub={quizzesLabel(Math.max(total ?? 0, quizzes.length))} />
+      <SectionHeader id={`${uid}-h`} title={`${groupName} quizzes`} sub={quizzesLabel(quizzes.length)} />
       <div className="p3-qctl">
         <Segmented options={HUB_SORTS} value={sort} onChange={pickSort} label="Sort quizzes" />
         {options.types.length > 1 || options.levels.length > 1 ? (
@@ -125,43 +149,22 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
           )}
         </div>
       ) : (
-        <div ref={gridRef} id={`${uid}-grid`}>
+        <div id={`${uid}-grid`}>
           <TextCardGrid>
-            {shown.map((q) => (
-              <TextCard
-                key={q.slug}
-                href={`/q/${q.slug}`}
-                title={q.title}
-                quizType={q.quiz_type}
-                difficulty={q.difficulty}
-                plays={q.play_count}
-                averagePct={averagePct(q)}
-              />
-            ))}
+            {first.map((q) => <Card key={q.slug} q={q} />)}
           </TextCardGrid>
+          {rest.length > 0 ? (
+            <details className="p3-more" open={expanded} onToggle={onToggle}>
+              <summary className="ux-btn ux-btn-ghost">Show all {list.length.toLocaleString('en-US')}</summary>
+              <div ref={restRef}>
+                <TextCardGrid>
+                  {rest.map((q) => <Card key={q.slug} q={q} />)}
+                </TextCardGrid>
+              </div>
+            </details>
+          ) : null}
         </div>
       )}
-
-      {!expanded && list.length > HUB_FIRST_CARDS ? (
-        <div className="p3-all">
-          <a
-            href={`/${groupSlug}-quiz?page=2`}
-            className="ux-btn ux-btn-ghost"
-            aria-controls={`${uid}-grid`}
-            aria-expanded={false}
-            onClick={(e) => {
-              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-              e.preventDefault();
-              // Render the rest now, then move keyboard focus to the first new card.
-              flushSync(() => setExpanded(true));
-              gridRef.current?.querySelector<HTMLElement>(`.ux-tcard:nth-child(${HUB_FIRST_CARDS + 1})`)?.focus();
-              announce(`${quizzesLabel(list.length)} shown`);
-            }}
-          >
-            Show all {list.length.toLocaleString('en-US')}
-          </a>
-        </div>
-      ) : null}
     </section>
   );
 }

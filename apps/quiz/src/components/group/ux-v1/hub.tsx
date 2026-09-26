@@ -11,7 +11,6 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { buildGroupFaqs, generateDefaultIntro } from '@/app/(site)/[slug]/group-quiz-page';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { getLevelInfo } from '@/lib/constants';
-import { safeFetch } from '@/lib/error-handling';
 import { formatContentMonth, getGroupContentDate } from '@/lib/db/queries/group-freshness';
 import {
   getGroupActiveComeback,
@@ -21,7 +20,7 @@ import {
   getGroupNameAllGame,
   getGroupWarRank,
 } from '@/lib/db/queries/group-hub';
-import { getGroupQuizLinks, getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -31,6 +30,7 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupComments, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
+import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
 import {
   commentLine,
   coarseAge,
@@ -45,26 +45,9 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { GroupAvatar } from './group-avatar';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 
-import type { Group, QuizCardData } from '@/lib/db/types';
-import type { HubQuiz } from '@/lib/ux-v1/p3/model';
+import type { Group } from '@/lib/db/types';
 
 type GroupRow = Group & { inception_date?: string | null; record_label?: string | null };
-
-/** Today's card row as a hub quiz (fallback list when the full read failed). */
-function toHubQuiz(q: QuizCardData): HubQuiz {
-  return {
-    slug: q.slug,
-    title: q.title,
-    quiz_type: q.quiz_type,
-    difficulty: q.difficulty,
-    play_count: q.play_count,
-    like_count: q.like_count,
-    total_score_sum: q.total_score_sum,
-    total_completions: q.total_completions,
-    question_count: q.question_count,
-    created_at: q.created_at,
-  };
-}
 
 const PHOTO_SIZES = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px';
 
@@ -85,45 +68,56 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const g = group as GroupRow;
   const relatedSlugs = RELATED_GROUPS[g.slug] ?? [];
 
-  const [
-    initialQuizzes, newestQuizzes, allQuizLinks, relatedQuizzes, triviaAvailable, nameAllGame, blindtest,
-    warRank, fanKnowledge, comeback, mvPulse, contentDate, quizzes, index, playable, comments,
-  ] = await Promise.all([
+  // Every read fails closed (reads.ts): a read that failed or timed out never
+  // reaches the ISR cache as an empty block, a hub without its quizzes, an FAQ
+  // without its facts or a side column without today's links.
+  const r = {
     // Today's reads (same functions, same args): they feed the locked SEO parts.
-    safeFetch(getQuizzesByGroup(g.id, 'popular', 0, 10), [], '[group-hub v11] getQuizzesByGroup'),
-    safeFetch(getQuizzesByGroup(g.id, 'newest', 0, 5), [], '[group-hub v11] getNewestByGroup'),
-    safeFetch(getGroupQuizLinks(g.id), [], '[group-hub v11] getGroupQuizLinks'),
-    safeFetch(getRelatedQuizzes(relatedSlugs), [], '[group-hub v11] getRelatedQuizzes'),
-    safeFetch(hasTriviaPage(g.id, g.slug), false, '[group-hub v11] hasTriviaPage'),
-    safeFetch(getGroupNameAllGame(g.id), null, '[group-hub v11] getGroupNameAllGame'),
-    safeFetch(getGroupBlindtestInfo(g.id), { qualifies: false, songs: 0 }, '[group-hub v11] getGroupBlindtestInfo'),
-    safeFetch(getGroupWarRank(g.slug), null, '[group-hub v11] getGroupWarRank'),
-    safeFetch(getGroupFanKnowledge(g.id, g.slug), { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] }, '[group-hub v11] getGroupFanKnowledge'),
-    safeFetch(getGroupActiveComeback(g.id), null, '[group-hub v11] getGroupActiveComeback'),
-    safeFetch(getGroupMvPulse(g.id), null, '[group-hub v11] getGroupMvPulse'),
-    safeFetch(getGroupContentDate(g.id), null, '[group-hub v11] getGroupContentDate'),
+    initialQuizzes: read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
+    newestQuizzes: read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
+    relatedQuizzes: read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
+    triviaAvailable: read(hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
+    nameAllGame: read(getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
+    blindtest: read(getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
+    warRank: read(getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
+    fanKnowledge: read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
+    comeback: read(getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
+    mvPulse: read(getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
+    contentDate: read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
     // v11 reads (lib/ux-v1/p3/data.ts).
-    // null = the read failed (never mistaken for "no quiz yet").
-    safeFetch<HubQuiz[] | null>(getHubQuizzes(g.id), null, '[group-hub v11] getHubQuizzes'),
-    safeFetch(getGroupsIndex(), [], '[group-hub v11] getGroupsIndex'),
-    safeFetch(getPlayableSongs(), {} as Record<string, number>, '[group-hub v11] getPlayableSongs'),
-    safeFetch(getGroupComments(g.id), [], '[group-hub v11] getGroupComments'),
-  ]);
+    quizzes: read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
+    index: read(getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
+    playable: read(getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
+    comments: read(getGroupComments(g.id), '[group-hub v11] getGroupComments'),
+  };
+  const got = Object.fromEntries(await Promise.all(Object.entries(r).map(async ([k, p]) => [k, await p] as const))) as { [K in keyof typeof r]: Awaited<(typeof r)[K]> };
+  await failClosed(`/${g.slug}-quiz`, failedReads(got));
+  // Reached with a failed read only in a degraded `next build` prerender, which
+  // never happens for hubs (no build-time params); the fallbacks keep types sound.
+  const ok = <T,>(v: T | typeof READ_FAILED, fallback: T): T => (v === READ_FAILED ? fallback : v);
+  const initialQuizzes = ok(got.initialQuizzes, []);
+  const newestQuizzes = ok(got.newestQuizzes, []);
+  const relatedQuizzes = ok(got.relatedQuizzes, []);
+  const triviaAvailable = ok(got.triviaAvailable, false);
+  const nameAllGame = ok(got.nameAllGame, null);
+  const blindtest = ok(got.blindtest, { qualifies: false, songs: 0 });
+  const warRank = ok(got.warRank, null);
+  const fanKnowledge = ok(got.fanKnowledge, { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] });
+  const comeback = ok(got.comeback, null);
+  const mvPulse = ok(got.mvPulse, null);
+  const contentDate = ok(got.contentDate, null);
+  const quizzes = ok(got.quizzes, []);
+  const index = ok(got.index, { groups: [], directory: { withQuizzes: 0, gens: [], noGen: 0 } }).groups;
+  const playable = ok(got.playable, {} as Record<string, number>);
+  const comments = ok(got.comments, []);
 
   const intro = g.seo_intro || generateDefaultIntro(g);
   const memberCount = nameAllGame?.count ?? null;
-  // Fail closed: when the full list read failed but today's reads did not, the
-  // hub still lists what it has (never the empty state for a group with quizzes).
-  // getGroupQuizLinks is every published quiz of the group, so its length is the
-  // same real count as the full list.
-  const list: HubQuiz[] = quizzes && quizzes.length > 0 ? quizzes : initialQuizzes.map(toHubQuiz);
-  const published = Math.max(quizzes?.length ?? 0, allQuizLinks.length, list.length);
+  // The full published list (read fail-closed): its length is the real count.
+  const published = quizzes.length;
   const hasQuizzes = published > 0;
-  // The empty state when the full read answered "no published quiz"; when that read
-  // failed, only when the (over-counting) column also says 0: a DB blip must never
-  // turn a group with quizzes into "Make the first quiz".
-  const isEmptyGroup = !hasQuizzes && (quizzes !== null || g.quiz_count === 0);
-  const topSlug = initialQuizzes[0]?.slug ?? list[0]?.slug ?? null;
+  const isEmptyGroup = !hasQuizzes;
+  const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
   const songs = playable[g.slug] ?? 0;
   const photo = groupPhotoUrl(g.slug);
   const fandom = realFandomName(g.fandom_name);
@@ -248,26 +242,9 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         ) : null}
       </section>
 
-      {list.length > 0 ? (
-        <HubQuizzesLoader groupName={g.name} groupSlug={g.slug} quizzes={list} total={published} />
-      ) : !isEmptyGroup ? (
-        <p className="ux-sec ux-empty">The {g.name} quizzes could not be loaded right now.</p>
-      ) : null}
-
-      {/* SEO Fix 3 (today's markup): a crawlable link to EVERY quiz of the group. */}
-      {allQuizLinks.length > 0 && (
-        <noscript>
-          <nav aria-label={`All ${g.name} quizzes`}>
-            <ul>
-              {allQuizLinks.map((q) => (
-                <li key={q.slug}>
-                  <a href={`/q/${q.slug}`}>{q.title}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </noscript>
-      )}
+      {/* Every quiz of the group is a real, server-rendered <a href> (6 cards, the
+          rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
+      {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>

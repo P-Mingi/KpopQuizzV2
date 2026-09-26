@@ -31,7 +31,8 @@
 .p3-gitem:hover .p3-gav { transform: translateY(-3px); }
 .p3-gitem-n { display: block; font-size: 14px; font-weight: 500; line-height: 1.6; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .p3-gitem:hover .p3-gitem-n { color: var(--ux-pink-ink); }
-.p3-gitem-c { display: block; font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+/* inline in the tile's 16px / 1.6 line box, like the prototype .gitem .c (tile 88 x 138) */
+.p3-gitem-c { font-size: 13px; color: var(--ux-muted); }
 
 .p3-azcount { color: var(--ux-muted); font-size: 13px; }
 .p3-az { columns: 3; column-gap: 48px; margin-top: 8px; }
@@ -74,7 +75,13 @@
 /* ---------- hub: quizzes ---------- */
 .p3-qctl { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
 .p3-qdd { display: flex; gap: 8px; }
-.p3-all { text-align: center; margin-top: 32px; }
+/* "Show all N": a native <details> (every quiz link is in the server HTML); the
+   summary is the prototype's ghost button, centred 32 px under the grid; once
+   open it goes away and the rest of the cards continue the grid. */
+.p3-more > summary { list-style: none; display: flex; width: fit-content; margin: 32px auto 0; cursor: pointer; }
+.p3-more > summary::-webkit-details-marker { display: none; }
+.p3-more[open] > summary { display: none; }
+.p3-more[open] > div { margin-top: 16px; }
 .p3-qs .ux-empty > div { margin-top: 16px; }
 
 /* ---------- hub: about, questions, side column ---------- */
@@ -142,4 +149,6 @@
   .p3-facts span + span::before { display: none; }
   .p3-photo { border-radius: 20px; aspect-ratio: 16 / 9; }
   .p3-filter { max-width: none; }
+  .p3-more[open] > div { margin-top: 0; }
+  .p3-more .ux-tgrid .ux-tcard:first-child { border-top: 1px solid var(--ux-hair); }
 }
