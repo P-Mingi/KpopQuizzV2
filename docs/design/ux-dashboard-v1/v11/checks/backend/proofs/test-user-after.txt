@@ -1,0 +1,13 @@
+# C2 test user rows after the run (read only, 2026-09-26T17:45:09.119Z)
+profiles: {"xp":32,"daily_streak":0,"last_daily_date":null,"header_url":null,"name_accent":"default","name_font":"default","bias":null,"profile_theme":"default","pinned_badge_id":null,"ult_groups":[],"updated_at":"2026-09-22T11:45:00.74346+00:00"}
+plays: 3
+likes: 1
+follows: 2
+quiz_comments: 0
+creator_notifications: 0
+debate_votes: 1
+daily_blindtest_scores: 0
+user_badges: 1
+activity_cheers: 0
+notification_prefs: []
+Expected (start of run): xp 32, streak 0, header_url null, accent/font default, bias null, theme default, updated_at 2026-09-22T11:45:00; plays 3, likes 1, follows 2, comments 0, notifications 0, debate_votes 1, daily_blindtest_scores 0, user_badges 1, cheers 0.

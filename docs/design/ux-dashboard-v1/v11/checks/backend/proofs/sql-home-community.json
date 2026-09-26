@@ -1,0 +1,46 @@
+[
+ {
+  "q": {
+   "t": "debate_votes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "date": "2026-09-26"
+   }
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "debate_questions",
+   "s": "id,question",
+   "eq": {
+    "id": "b669babd-0d8f-4320-a841-117367ccf8de"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "id": "b669babd-0d8f-4320-a841-117367ccf8de",
+    "question": "Remixes are almost never better than the original"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "daily_debates",
+   "s": "date,question_id,created_at",
+   "eq": {
+    "date": "2026-09-26"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "date": "2026-09-26",
+    "question_id": "b669babd-0d8f-4320-a841-117367ccf8de",
+    "created_at": "2026-09-26T00:00:02.514335+00:00"
+   }
+  ]
+ }
+]

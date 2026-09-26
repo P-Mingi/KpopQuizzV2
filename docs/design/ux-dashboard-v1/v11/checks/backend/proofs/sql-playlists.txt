@@ -1,0 +1,7 @@
+# C2 playable groups (>= 10 clean active songs), read-only: 79 groups, 1400 clean songs
+blackpink: 18 songs
+ateez: 18 songs
+chungha: 18 songs
+bts: 18 songs
+general-kpop: 0 songs
+g-i-dle:18 2ne1:18 2pm:18 aespa:18 akmu:11 apink:18 artms:17 astro:18 ateez:18 babymonster:13 bibi:18 bigbang:18 billlie:18 blackpink:18 boynextdoor:18 btob:18 bts:18 chungha:18 cortis:13 day6:18 dreamcatcher:18 enhypen:18 exo:18 fx:18 fifty-fifty:18 fromis-9:18 girls-generation:18 got7:18 heize:18 hwasa:18 hyuna:18 ikon:18 illit:18 itzy:18 iu:18 ive:18 jay-park:18 jennie:18 jeon-somi:11 jimin:16 jungkook:18 kara:18 katseye:16 kep1er:18 kiss-of-life:18 le-sserafim:18 loona:18 mamamoo:18 monsta-x:18 nct-127:18 nct-dream:18 newjeans:18 nmixx:18 p1harmony:18 pentagon:18 purple-kiss:18 red-velvet:18 riize:18 rose:17 seventeen:18 shinee:18 sistar:18 stayc:18 stray-kids:18 sunmi:18 t-ara:18 taeyang:13 taeyeon:18 treasure:18 triples:18 twice:18 tws:18 txt:18 v-bts:18 winner:18 wonder-girls:18 xikers:18 zerobaseone:18 zico:18

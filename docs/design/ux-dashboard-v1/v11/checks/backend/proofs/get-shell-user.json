@@ -1,0 +1,35 @@
+[
+ {
+  "who": "user",
+  "path": "/api/auth/me",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "is_admin": false,
+   "profile": {
+    "username": "testtest",
+    "display_name": null,
+    "avatar_url": null,
+    "avatar_bg": "#E6F1FB",
+    "avatar_text": "#0C447C",
+    "xp": 32,
+    "level": 2,
+    "progress": 37,
+    "daily_streak": 0,
+    "last_daily_date": null,
+    "ult_groups": []
+   }
+  }
+ },
+ {
+  "who": "user",
+  "path": "/api/notifications?limit=1",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "notifications": [],
+   "unreadCount": 0,
+   "hasMore": false
+  }
+ }
+]

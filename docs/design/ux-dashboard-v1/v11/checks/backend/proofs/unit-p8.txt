@@ -1,0 +1,38 @@
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gate decisions (lib/verse/visibility rules) > VERSE_PUBLIC exactly "true": live spaces only; parked and unknown spaces never 7ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gate decisions (lib/verse/visibility rules) > VERSE_PUBLIC off, absent or not exactly "true": no Verse content at all 1ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gate decisions (lib/verse/visibility rules) > gateVersePosts: threads and blogs gated, play-side posts untouched 1ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gate decisions (lib/verse/visibility rules) > badge watch: Verse and cross-world badges only while the Verse is open 1ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gate decisions (lib/verse/visibility rules) > editor modes: Thread and Blog only while the Verse is open; no dead door 1ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gates in the reads (recording fake database) > feed, Verse hidden: threads and blogs are empty and no Verse table is read 16ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gates in the reads (recording fake database) > feed, Verse open: the query asks for live spaces only, and a parked row that slips through is dropped 2ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gates in the reads (recording fake database) > post view: a hidden Verse is a 404 without a single read 1ms
+✓ src/lib/ux-v1/p8/verse-gate.test.ts > Verse gates in the reads (recording fake database) > post view: a parked space is a 404 and its replies are never read; a live space renders 2ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > timeAgo follows the prototype copy 17ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > dayAgo is day granular (UTC days) 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > numbers: comma, compact, plural 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > closesIn 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > percents always add up to 100, ties have no leader 4ms
+✓ src/lib/ux-v1/p8/p8.test.ts > format > excerpt, paragraphs, utcDate, levelLine 2ms
+✓ src/lib/ux-v1/p8/p8.test.ts > people > maps a profile to a person with flair and level 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > people > the system account shows its label, no link, no flair 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > people > a missing profile is "a fan" 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > draft validation (same limits as the routes) > thread needs a group and a title of 140 max 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > draft validation (same limits as the routes) > blog needs text 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > draft validation (same limits as the routes) > debate: question 5 to 160, 2 to 4 distinct options 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > draft validation (same limits as the routes) > challenge needs a run 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > draft validation (same limits as the routes) > blog text becomes TipTap paragraphs; the renderer escapes it (XSS at the sink) 32ms
+✓ src/lib/ux-v1/p8/p8.test.ts > route payloads > checkLike shapes per target type 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > route payloads > checkDebate mirrors the migration checks 8ms
+✓ src/lib/ux-v1/p8/p8.test.ts > route payloads > checkVote, checkChallenge, checkReply, hasLink 6ms
+✓ src/lib/ux-v1/p8/p8.test.ts > route payloads > post keys 7ms
+✓ src/lib/ux-v1/p8/p8.test.ts > route payloads > a missing table is recognised (GET probe), other errors are not 1ms
+✓ src/lib/ux-v1/p8/p8.test.ts > Happening now phrases > bolds the numbers and the quiz, links the hub 5ms
+✓ src/lib/ux-v1/p8/p8.test.ts > Happening now phrases > collapses sprees: same person + same action once, 2 rows per person max 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed > merges newest first (mixed timestamp formats), caps, stamps ago 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed > blog cover: own asset, album art, else the group photo, else none 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed > a daily debate closes at the next UTC midnight 0ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed card render > a thread: flair name, real title link, replies link, no heart without a store 67ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed card render > a closed daily debate: the site as author, bars, no winner on a tie 7ms
+✓ src/lib/ux-v1/p8/p8.test.ts > feed card render > a blog with a heart: the essay heart and the cover 9ms
+Test Files  2 passed (2)
+Tests  36 passed (36)

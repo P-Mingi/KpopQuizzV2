@@ -289,6 +289,47 @@ test.describe('kit interactions', () => {
     await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
   });
 
+  // C1-002: the header picture sheet opens with its drop zone AT REST (prototype
+  // #hsheet .drop: dashed --edge border, no fill), although the sheet moves focus into
+  // the zone's file input. Measured without blurring anything. Keyboard focus still
+  // shows the 16.9 ring (2px pink) on the zone.
+  test('header picture sheet: the drop zone opens at rest; keyboard focus rings it', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const edge = await page.evaluate(() => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-edge)';
+      document.querySelector('.ux-page')?.appendChild(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const trigger = page.locator('[data-kit-open="header"]');
+    const drop = page.locator('.ux-layer .ux-sheet .ux-drop');
+    const look = (): Promise<Record<string, string>> => drop.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      return { border: cs.borderTopColor, style: cs.borderTopStyle, bg: cs.backgroundColor, outline: cs.outlineStyle, focusInside: String(el.contains(document.activeElement)) };
+    });
+    // Pointer: click the trigger, let the sheet move focus into the zone, pointer away.
+    await trigger.click();
+    await expect(drop).toBeVisible();
+    await expect.poll(async () => (await look()).focusInside).toBe('true');
+    await page.mouse.move(1, 1);
+    expect(await look()).toEqual({ border: edge, style: 'dashed', bg: 'rgba(0, 0, 0, 0)', outline: 'none', focusInside: 'true' });
+    await page.keyboard.press('Escape');
+    await expect(drop).toBeHidden();
+    // Keyboard: Enter on the trigger; the focused zone gets the 2px pink ring, still no fill.
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect.poll(async () => (await look()).focusInside).toBe('true');
+    await page.mouse.move(1, 1);
+    const kb = await drop.evaluate((el) => { const cs = getComputedStyle(el); return { outline: cs.outlineStyle, width: cs.outlineWidth, bg: cs.backgroundColor }; });
+    expect(kb).toEqual({ outline: 'solid', width: '2px', bg: 'rgba(0, 0, 0, 0)' });
+    // Pointer hover still shows the hover look.
+    await drop.hover();
+    await expect.poll(async () => (await look()).bg).not.toBe('rgba(0, 0, 0, 0)');
+    await page.keyboard.press('Escape');
+  });
+
   // P5 request 2: the sheet title is 18px / 1.6 (28.8px), letter-spacing -0.015em, as
   // the prototype's `.sh-h h3` (it inherits body 16px/1.6; h1-h3 get -0.015em).
   test('sheet title: 18px, line height 28.8px, letter-spacing -0.27px', async ({ page }) => {

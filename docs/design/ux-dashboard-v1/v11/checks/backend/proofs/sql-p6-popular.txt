@@ -1,0 +1,4 @@
+groups by total_plays: general-kpop 16518, bts 9887, stray-kids 7640, blackpink 4908, seventeen 3285, enhypen 2690, newjeans 2499, twice 2425
+blind_test_plays last 30 days: 0
+published quizzes read: 425
+top by published quiz plays: bts 8794, stray-kids 6496, blackpink 4908, newjeans 2499, twice 2425, seventeen 2107, aespa 1856, enhypen 1800

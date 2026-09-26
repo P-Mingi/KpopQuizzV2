@@ -1,0 +1,61 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:03:57.871Z",
+ "h1": "What's your quiz about?",
+ "groupsAttr": "91",
+ "titleHint": "",
+ "groupHint": "Your quiz appears on the BTS page and counts for ARMY in the fandom war.",
+ "types": [
+  "Classic [x]",
+  "True or false",
+  "Guess from clues",
+  "Image quiz",
+  "Find the intruder"
+ ],
+ "pasteStatus": "3 questions found",
+ "qlabel": "Questions 3 added · 3 needed to publish",
+ "draftKeys": [
+  "kq_create_draft_v1",
+  "kq_create_step_v1"
+ ],
+ "checklist": [
+  "Title\n: done",
+  "Type and group\n: done",
+  "3 complete questions\n: done",
+  "Cover image\n: recommended",
+  "Fun fact on every question\n: recommended"
+ ],
+ "note": "",
+ "card": "BTS C2 probe quiz, never published Medium New",
+ "afterPublish": "Sign in to publish Your quiz needs an owner so you can edit it and see its plays. Your draft is kept. G Continue with Google D Continue with Discord or Email Email me a sign-in link New here? The same buttons create your passport. We never post for you.",
+ "pending": null,
+ "errors": [
+  "load /create: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /create",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "title + title-check",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/title-check?title=BTS%20era%20quiz",
+   "status": 200
+  },
+  {
+   "step": "title + title-check",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/title-check?title=C2%20probe%20quiz%2C%20never%20published",
+   "status": 200
+  }
+ ]
+}
