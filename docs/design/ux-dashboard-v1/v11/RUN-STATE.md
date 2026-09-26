@@ -14,7 +14,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | fix loop 1 merged (ad57928, PR #63, branch ux11/p3-fix1): C1-001, C3-001, C3-002, C2-006, C2-007 | 11442da | 0 | v11/reports/P3.md |
-| P4 | ux11/p4-quiz | fix loop 1 merged (3650a27, PR #62): C3-004 (+ Follow and comment-load races), C2-003 | e764ca5 | 0 | v11/reports/P4.md |
+| P4 | ux11/p4-quiz | fix loop 2 running (C2-008 results crash) on ux11/p4-fix2 | e764ca5 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | fix loop 1 merged (cc6c394, PR #64, branch ux11/p5-fix1): C3-005 + a second lost live line, UxQuizCard preview | 70747b7 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | fix loop 1 merged (982cf9c, PR #61): C3-009 | 2c74301 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
@@ -23,7 +23,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P10 | ux11/p10-passport | fix merged (4a2fa44, PR #60): sharp tests 30 s timeout | 26e6e47 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
-| C2 | ux11/c2-check | loop 2 running (issue rows + touched rows on cc6c394) | b89834e | - | v11/checks/backend/ |
+| C2 | ux11/c2-check | loop 2 done, merged (7b910c1): 267 rows, 195 pass / 1 fail (C2-008) / 33 not verified / 7 pending P2 / 31 n/a | 9603f9b | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | loop 2 running LOCALLY (full e2e, a11y, SEO, perf; then REPORT.md) | edb382e | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
@@ -108,6 +108,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 C2 loop 2 merged (7b910c1; issue files A0.md and P3.md conflicted again with C1's appended status lines, resolved as the union): C2-001..007 all fixed; 195 pass / 1 fail / 33 not verified / 7 pending / 31 n/a. New C2-008 (P4): results crash for a signed-in fan with no stored play (standing answers without rank; `rank !== null` lets undefined through). Fix loop 2 started for P4. Not verifiable on the shared server: the runtime failure path of the P1, P3, P6 read fixes (needs a failing read on a production server; covered by unit tests and P1's DB-cut proof).
 - 2026-09-26 C1 loop 2 merged (0b5bbf8): the 20 changed states re-run, 80/80 pass; totals 136 pass, 0 fail, 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). C1-001 and C1-002 fixed. Known deviations recorded: P4's live Discord + Brag row on the end states, P5's restored help lines (+28.8px on create-1), P3 hubs longer (12 cards + Show all).
 - 2026-09-26 Loop 2: cc6c394 built (809/809) in .worktrees/ux11-integration and swapped onto :3021; C1, C2, C3 re-running only what fix loop 1 touched.
 - 2026-09-26 P5 fix merged (cc6c394): the live cover help line and the English language note restored (3 other live lines replaced by the prototype's equivalents, listed in P5.md); the draft card is A0's UxQuizCard preview. Fix loop 1 complete: all 17 filed issues fixed and merged (A0 2, P1 6, P3 5, P4 2, P5 1, P6 1, P8 1) plus the P10 test timeout. Integration: tsc 0, unit 823/823. Rebuilding the checker server in .worktrees/ux11-integration at cc6c394 for loop 2.
