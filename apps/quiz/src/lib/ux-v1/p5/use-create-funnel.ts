@@ -181,12 +181,14 @@ export function useCreateFunnel(groups: FunnelGroup[], validInitialGroup: string
     await publish();
   }, [username, publish]);
 
-  // Debounced autosave (screens 1-3).
+  // Debounced autosave (screens 1-3). Not once published: the legacy effect can
+  // re-save a draft it has just cleared when publish answers inside the 500 ms window
+  // (the resume flow flips `hydrated` right before publishing).
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || published) return;
     const t = window.setTimeout(() => { saveDraft(stateToDraft(data)); setSavedAt(Date.now()); }, 500);
     return () => window.clearTimeout(t);
-  }, [data, hydrated]);
+  }, [data, hydrated, published]);
 
   useEffect(() => { if (hydrated && step <= 3) saveStep(step); }, [step, hydrated]);
 

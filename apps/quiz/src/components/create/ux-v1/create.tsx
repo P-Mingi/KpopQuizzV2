@@ -144,7 +144,8 @@ export function P5Create({ groups, initialGroupSlug }: { groups: FunnelGroup[]; 
 
   return (
     <>
-      <div className="ux-col p5-col">
+      {/* data-ready: the mount effect (draft restore + session read) has run */}
+      <div className="ux-col p5-col" data-ready={f.hydrated ? '1' : undefined} data-groups={groups.length}>
         <header className="ux-ph p5-ph">
           <h1 ref={h1Ref} tabIndex={-1}>{HEAD[step].h1}</h1>
           <p>{HEAD[step].p}</p>

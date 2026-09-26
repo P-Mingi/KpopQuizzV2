@@ -101,7 +101,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
           describedBy="p5-group-h"
         />
         <p className={`ux-help${groupErr ? ' p5-err' : ''}`} id="p5-group-h" role={groupErr ? 'alert' : undefined}>
-          {groupErr ? 'Pick a group to continue.' : groupHelp(d, groups)}
+          {groupErr ? 'Pick a group to continue.' : groups.length === 0 ? 'The group list did not load. Reload the page to pick a group.' : groupHelp(d, groups)}
         </p>
       </div>
 

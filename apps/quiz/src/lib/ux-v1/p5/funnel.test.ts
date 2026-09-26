@@ -287,7 +287,9 @@ describe('the other calls and effects (textual cross-check with the hook)', () =
       expect(src).toContain('if (prof && !autoPubFired.current) { autoPubFired.current = true; void publish(); }');
       expect(src).toContain('const u = username.trim().toLowerCase();');
     }
-    // debounces: title check 500, autosave 500
+    // debounces: title check 500, autosave 500 (v11: no autosave once published)
+    expect(FUNNEL).toContain('}, [data, hydrated]);');
+    expect(HOOK).toContain('if (!hydrated || published) return;');
     expect((FUNNEL.match(/}, 500\);/g) ?? []).length).toBe(2);
     expect((HOOK.match(/}, 500\);/g) ?? []).length).toBe(2);
     // the sign-in return path

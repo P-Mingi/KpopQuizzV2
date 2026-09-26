@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { Sheet } from '@/components/ux-v1/sheet';
@@ -133,10 +133,18 @@ function P5QuestionRow({ q, i, total, quizType, open, dragging, onToggle, onPatc
       onDrop={(e) => { e.preventDefault(); onDrop(); }}
     >
       <div className="p5-qhead">
-        <span className="p5-drag" draggable onDragStart={onDragStart} onDragEnd={onDragEnd} aria-hidden="true" title="Drag to reorder">
+        <span
+          className="p5-drag"
+          draggable
+          // Firefox starts a drag only with data set
+          onDragStart={(e) => { e.dataTransfer?.setData('text/plain', String(i)); onDragStart(); }}
+          onDragEnd={onDragEnd}
+          aria-hidden="true"
+          title="Drag to reorder"
+        >
           <Icon name="drag" />
         </span>
-        <button type="button" id={`p5-qt-${i}`} className="p5-qtoggle" aria-expanded={open} aria-controls={`p5-qb-${i}`} onClick={onToggle}>
+        <button type="button" id={`p5-qt-${i}`} className="p5-qtoggle" aria-expanded={open} aria-controls={open ? `p5-qb-${i}` : undefined} onClick={onToggle}>
           <span className="p5-qn ux-num">{n}</span>
           <span className={`p5-qq${st.ok ? '' : ' is-w'}`}>{text}</span>
           <span className={`p5-qst${st.ok ? ' is-ok' : ' is-w'}`}>
@@ -154,11 +162,11 @@ function P5QuestionRow({ q, i, total, quizType, open, dragging, onToggle, onPatc
           <div className="p5-qfoot">
             {quizType === 'image' ? <ImagePick value={(q.image_url as string) || null} onChange={(url) => onPatch({ ...q, image_url: url })} label="Add an image" /> : <span />}
             <span className="p5-qmove">
-              <button type="button" className="ux-btn ux-btn-quiet ux-btn-sm" onClick={() => onMove(i - 1)} disabled={i === 0} aria-label={`Move question ${n} up`}>
-                <Icon name="chev" className="p5-up" />Up
+              <button type="button" className="ux-lnk p5-lnk" onClick={() => onMove(i - 1)} disabled={i === 0} aria-label={`Move question ${n} up`}>
+                <Icon name="chev" className="p5-up" />Move up
               </button>
-              <button type="button" className="ux-btn ux-btn-quiet ux-btn-sm" onClick={() => onMove(i + 1)} disabled={i === total - 1} aria-label={`Move question ${n} down`}>
-                <Icon name="chev" />Down
+              <button type="button" className="ux-lnk p5-lnk" onClick={() => onMove(i + 1)} disabled={i === total - 1} aria-label={`Move question ${n} down`}>
+                <Icon name="chev" />Move down
               </button>
             </span>
           </div>
@@ -174,18 +182,15 @@ function QuestionEditor({ q, i, quizType, onPatch }: { q: QuestionData; i: numbe
     <>
       <div className="ux-field p5-qf">
         <label htmlFor={`p5-q-${i}`}>Question</label>
-        {/* A one-line field that wraps long questions (the prototype's box); like the
-            EXISTS <input>, it holds no line breaks. */}
-        <textarea
+        {/* Wraps long questions like the prototype's box; like the EXISTS <input>, it
+            holds no line breaks. */}
+        <AutoText
           id={`p5-q-${i}`}
-          className="ux-inp p5-qtext"
-          rows={1}
           value={q.question}
-          onChange={(e) => onPatch({ ...q, question: e.target.value.replace(/\r?\n/g, ' ') })}
-          onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
+          onChange={(v) => onPatch({ ...q, question: v.replace(/\r?\n/g, ' ') })}
+          singleLine
           placeholder="Type your question..."
           maxLength={500}
-          autoComplete="off"
         />
       </div>
 
@@ -289,17 +294,51 @@ function QuestionEditor({ q, i, quizType, onPatch }: { q: QuestionData; i: numbe
 
       <div className="ux-field p5-qf">
         <label htmlFor={`p5-ff-${i}`}>Fun fact <small>Optional, shown after the answer</small></label>
-        <textarea
+        <AutoText
           id={`p5-ff-${i}`}
-          className="ux-inp p5-fact"
           value={q.fun_fact ?? ''}
-          onChange={(e) => onPatch({ ...q, fun_fact: e.target.value.slice(0, 280) })}
+          onChange={(v) => onPatch({ ...q, fun_fact: v.slice(0, 280) })}
           placeholder="e.g. Jin's Epiphany is the intro track to Love Yourself: Answer."
           maxLength={280}
-          rows={1}
         />
       </div>
     </>
+  );
+}
+
+/**
+ * The prototype's text box (.inp: 48 high with the line centred, growing with the
+ * text): a borderless textarea that sizes itself to its lines, inside the bordered box.
+ */
+function AutoText({ id, value, onChange, placeholder, maxLength, singleLine }: {
+  id: string; value: string; onChange: (v: string) => void; placeholder: string; maxLength: number; singleLine?: boolean;
+}): React.ReactElement {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const fit = (): void => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  };
+  useLayoutEffect(fit, [value]);
+  useEffect(() => {
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+  return (
+    <div className="ux-inp p5-auto">
+      <textarea
+        ref={ref}
+        id={id}
+        rows={1}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={singleLine ? (e) => { if (e.key === 'Enter') e.preventDefault(); } : undefined}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        autoComplete="off"
+      />
+    </div>
   );
 }
 
@@ -330,11 +369,11 @@ function ImagePick({ value, onChange, label, tile }: { value: string | null; onC
         <img src={value} alt={label} className="p5-img-th" />
       ) : tile ? <span className="p5-img-th is-empty" aria-hidden="true"><Icon name="img" /></span> : null}
       <span className="p5-img-a">
-        <label className="ux-lnk p5-img-l">
+        <label className="ux-lnk p5-lnk p5-img-l">
           {input}
           <Icon name="img" />{busy ? 'Preparing...' : value ? (tile ? 'Change' : 'Change the image') : label}
         </label>
-        {value ? <button type="button" className="ux-lnk p5-img-l" onClick={() => onChange(null)}>Remove</button> : null}
+        {value ? <button type="button" className="ux-lnk p5-lnk" onClick={() => onChange(null)}>Remove</button> : null}
       </span>
       {err ? <p className="ux-err" role="alert">{err}</p> : null}
     </div>
