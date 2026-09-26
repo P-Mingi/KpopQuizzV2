@@ -41,26 +41,40 @@ export function sampleRuns(now: Date): FinishedRun[] {
   ];
 }
 
-/** The prototype ladder (8 fans + "mingi" at #412 of 18,204), as ranked_ladder() rows. */
-export function sampleLadderRows(scope: LadderScope = 'global'): LadderDbRow[] {
-  const fans: Array<[string, number, number, string | null, string | null, string]> = [
-    ['kwangya_notes', 13_240, 1_400, 'purple', 'mono', 'Karina'],
-    ['hobi_sunshine', 12_880, 1_500, 'amber', null, 'j-hope'],
-    ['stay4life', 11_910, 1_600, 'teal', null, 'Felix'],
-    ['blink_edits', 11_240, 1_600, 'pink', 'serif', 'Lisa'],
-    ['carat_diary', 10_620, 1_700, 'blue', null, 'Hoshi'],
-    ['purple_ink', 10_110, 1_700, 'purple', 'serif', 'V'],
-    ['once_upon', 9_640, 1_800, 'coral', null, 'Nayeon'],
-    ['jk_golden', 8_720, 1_900, null, null, 'Jungkook'],
-  ];
-  const rows: LadderDbRow[] = fans.map(([u, score, avg, accent, font, bias], i) => ({
-    position: i + 1, scope_position: i + 1, scope_total: 18_204, season_score: score, avg_answer_ms: avg, runs_total: 9,
-    is_me: false, legend: false, username: u, display_name: null, avatar_url: null, name_accent: accent, name_font: font, bias,
-  }));
-  rows.push({
-    position: 412, scope_position: scope === 'global' ? 412 : 3, scope_total: 18_204, season_score: 8_290, avg_answer_ms: 2_100, runs_total: 7,
-    is_me: true, legend: false, username: 'mingi', display_name: null, avatar_url: null, name_accent: null, name_font: null, bias: null,
+const FANS: Array<[string, number, number, string | null, string | null, string]> = [
+  ['kwangya_notes', 13_240, 1_400, 'purple', 'mono', 'Karina'],
+  ['hobi_sunshine', 12_880, 1_500, 'amber', null, 'j-hope'],
+  ['stay4life', 11_910, 1_600, 'teal', null, 'Felix'],
+  ['blink_edits', 11_240, 1_600, 'pink', 'serif', 'Lisa'],
+  ['carat_diary', 10_620, 1_700, 'blue', null, 'Hoshi'],
+  ['purple_ink', 10_110, 1_700, 'purple', 'serif', 'V'],
+  ['once_upon', 9_640, 1_800, 'coral', null, 'Nayeon'],
+  ['jk_golden', 8_720, 1_900, null, null, 'Jungkook'],
+];
+/** Which sample fans are in a personal scope (global positions, 1-based). */
+const SCOPE_FANS: Record<LadderScope, number[]> = { global: [1, 2, 3, 4, 5, 6, 7, 8], fandom: [3, 6], following: [1, 4] };
+
+/**
+ * The prototype ladder as ranked_ladder() rows: Global = the 8 fans + "mingi" at #412
+ * of 18,204; My fandom / Following = a few of them and mingi, ranked inside the scope.
+ * `withMe` false = a guest (no own row, like p_user null in SQL).
+ */
+export function sampleLadderRows(scope: LadderScope = 'global', withMe = true): LadderDbRow[] {
+  const picked = SCOPE_FANS[scope];
+  const total = scope === 'global' ? 18_204 : picked.length + 1;
+  const rows: LadderDbRow[] = picked.map((pos, i) => {
+    const [u, score, avg, accent, font, bias] = FANS[pos - 1]!;
+    return {
+      position: pos, scope_position: i + 1, scope_total: total, season_score: score, avg_answer_ms: avg, runs_total: 9,
+      is_me: false, legend: false, username: u, display_name: null, avatar_url: null, name_accent: accent, name_font: font, bias,
+    };
   });
+  if (withMe) {
+    rows.push({
+      position: 412, scope_position: scope === 'global' ? 412 : picked.length + 1, scope_total: total, season_score: 8_290, avg_answer_ms: 2_100, runs_total: 7,
+      is_me: true, legend: false, username: 'mingi', display_name: null, avatar_url: null, name_accent: null, name_font: null, bias: null,
+    });
+  }
   return rows;
 }
 
@@ -85,7 +99,7 @@ export class SampleStore implements RankedStore {
     return n >= 5 ? { position: 412, total: 18_204 } : { position: null, total: 18_204 };
   }
   async isLegend(): Promise<boolean> { return false; }
-  async ladder(_season: number, scope: LadderScope): Promise<LadderDbRow[]> { return sampleLadderRows(scope); }
+  async ladder(_season: number, scope: LadderScope, userId: string | null): Promise<LadderDbRow[]> { return sampleLadderRows(scope, userId !== null); }
   async mainFandom(): Promise<string | null> { return this.opts.fandom === undefined ? 'stray-kids' : this.opts.fandom; }
   async expiredOpenRuns(): Promise<RunState[]> { return []; }
   async nightly(): Promise<unknown> { return null; }
