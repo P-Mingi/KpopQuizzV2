@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { UX_TOKENS_DARK, UX_TOKENS_LIGHT } from '@/lib/design-tokens';
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
@@ -149,6 +149,11 @@ describe('group photos (16.8)', () => {
 
 describe('streak view', () => {
   const now = new Date('2026-09-25T18:48:00Z'); // a Friday
+  // streakView() takes `now`, but the state comes from lib/streak.ts streakState(),
+  // which reads the wall clock (shared flag-off code, not changed here). Freeze the
+  // system clock on the same instant so the cases do not depend on the day they run.
+  beforeEach(() => { vi.useFakeTimers({ toFake: ['Date'] }); vi.setSystemTime(now); });
+  afterEach(() => { vi.useRealTimers(); });
   it('at risk: played yesterday', () => {
     const v = streakView(12, '2026-09-24', now);
     expect(v?.state).toBe('at_risk');
