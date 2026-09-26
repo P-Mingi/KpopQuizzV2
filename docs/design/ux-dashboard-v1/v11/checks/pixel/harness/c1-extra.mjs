@@ -66,7 +66,7 @@ async function styleOf(page, sel) {
     return Object.fromEntries(P.map((p) => [p, cs.getPropertyValue(p)]));
   }, { s: sel, P: STYLE });
 }
-const n = (v) => String(v ?? '').replace(/\s+/g, ' ').trim();
+const n = (v) => String(v ?? '').replace(/\s+/g, ' ').replace(/\s*([,()])\s*/g, '$1').trim().toLowerCase();
 function eq(a, b) {
   if (n(a) === n(b)) return true;
   const na = n(a).match(/-?[\d.]+/g); const nb = n(b).match(/-?[\d.]+/g);
@@ -141,7 +141,7 @@ if (ONLY.includes('hover')) {
       } catch (e) { err = String(e.message).split('\n')[0]; }
       await I.ctx.close();
       const mism = err ? [{ what: 'driver', expected: 'hovered', actual: err }] : subs.flatMap(([sub, props]) => diffStyles(pS[sub], iS[sub], props).map((m) => ({ ...m, what: `${sub.trim() || 'box'} ${m.what}` })));
-      V.hover[`${name}-${theme}`] = { verdict: mism.length ? 'fail' : 'pass', proto: psel, impl: isel, mismatches: mism, evidence: `_extra/hover-${name.replace(/\W+/g, '-')}-${theme}-{proto,impl}.png` };
+      V.hover[`${name}-${theme}`] = { verdict: mism.length ? 'fail' : 'pass', proto: psel, impl: isel, mismatches: mism, measured: { proto: pS, impl: iS }, evidence: `_extra/hover-${name.replace(/\W+/g, '-')}-${theme}-{proto,impl}.png` };
       save();
     }
   }
@@ -174,7 +174,7 @@ if (ONLY.includes('focus')) {
       await I.page.locator(isel).first().screenshot({ path: path.join(OUT, `focus-${name.replace(/\W+/g, '-')}-${theme}-impl.png`) }).catch(() => {});
       await I.ctx.close();
       const mism = diffStyles(pS, iS, ['fv', ...FPROPS]);
-      V.focus[`${name}-${theme}`] = { verdict: mism.length ? 'fail' : 'pass', proto: psel, impl: isel, mismatches: mism, evidence: `_extra/focus-${name.replace(/\W+/g, '-')}-${theme}-impl.png` };
+      V.focus[`${name}-${theme}`] = { verdict: mism.length ? 'fail' : 'pass', proto: psel, impl: isel, mismatches: mism, measured: { proto: pS, impl: iS }, evidence: `_extra/focus-${name.replace(/\W+/g, '-')}-${theme}-impl.png` };
       save();
     }
   }
@@ -198,12 +198,16 @@ if (ONLY.includes('tokens')) {
     const bodyBg = await I.page.evaluate(() => getComputedStyle(document.body).backgroundColor);
     await I.ctx.close();
     const compared = []; const mism = []; const noCounterpart = [];
+    // --theme-band is the viewer's passport theme colour (the prototype sets it from its
+    // sample user's settings at run time); its :root default is compared by the landmarks
+    const DATA = ['--theme-band'];
     for (const [k, v] of Object.entries(pt)) {
+      if (DATA.includes(k)) continue;
       if (!it[k]) { noCounterpart.push(k); continue; }
       compared.push(k);
       if (!eq(v.toLowerCase(), it[k].toLowerCase())) mism.push({ what: k, expected: v, actual: it[k] });
     }
-    V.tokens[theme] = { verdict: mism.length ? 'fail' : 'pass', compared: compared.length, mismatches: mism, noCounterpart, bodyBackground: bodyBg };
+    V.tokens[theme] = { verdict: mism.length ? 'fail' : 'pass', compared: compared.length, mismatches: mism, noCounterpart, noCounterpartNote: 'prototype --plum* feed only the base .band / .bthero rules, which later v11 rules override (their computed styles are compared as landmarks: pass)', skippedAsData: DATA, bodyBackground: bodyBg };
     save();
   }
   console.log('tokens', JSON.stringify(Object.fromEntries(Object.entries(V.tokens).map(([k, v]) => [k, `${v.verdict} ${v.compared} compared, ${v.mismatches.length} differ`]))));

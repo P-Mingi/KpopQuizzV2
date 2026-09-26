@@ -721,8 +721,8 @@ export const STATES = {
     ],
   },
   notifications: {
-    owner: 'P11', auth: 'user', shot: 'full', note: "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row at risk (12 days, last daily yesterday) as the reference draws it",
-    setup: (page) => p11Stub(page, 'at_risk'),
+    owner: 'P11', auth: 'user', shot: 'full', note: "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row saved (13 days, played today) as the reference PNG draws it (the capture reaches notifications after a finished quiz)",
+    setup: (page) => p11Stub(page, 'saved'),
     open: async (page) => { await openReady(page, '/notifications', '.p11-notifs'); await page.locator('.p11-nrow').first().waitFor({ timeout: 30_000 }); },
     lm: [...NAV,
       { name: 'header', proto: '#notifs .ph', impl: '.p11-nh', box: ['x', 'y', 'w', 'h'] },

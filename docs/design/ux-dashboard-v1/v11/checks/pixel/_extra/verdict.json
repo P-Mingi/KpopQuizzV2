@@ -1,0 +1,415 @@
+{
+ "nav": {
+  "1280-user": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 860.09375,
+   "rightLeft": 966.890625,
+   "rightRight": 1200,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1280-user.png"
+  },
+  "1280-guest": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 860.09375,
+   "rightLeft": 963.765625,
+   "rightRight": 1200,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1280-guest.png"
+  },
+  "1280-prototype": {
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "navH": 65
+  },
+  "1440-user": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 940.09375,
+   "rightLeft": 1046.890625,
+   "rightRight": 1280,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1440-user.png"
+  },
+  "1440-guest": {
+   "verdict": "pass",
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "oneLine": true,
+   "linksRight": 940.09375,
+   "rightLeft": 1043.765625,
+   "rightRight": 1280,
+   "overflow": 0,
+   "navH": 65,
+   "truncated": [],
+   "evidence": "_extra/nav-1440-guest.png"
+  },
+  "1440-prototype": {
+   "links": [
+    "Home",
+    "Quizzes",
+    "Groups",
+    "Blindtest",
+    "Community",
+    "Leaderboard"
+   ],
+   "navH": 65
+  }
+ },
+ "hover": {
+  "quiz card-light": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "evidence": "_extra/hover-quiz-card-light-{proto,impl}.png"
+  },
+  "primary button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "evidence": "_extra/hover-primary-button-light-{proto,impl}.png"
+  },
+  "ghost button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-ghost",
+   "impl": ".p1-hcta .ux-btn-ghost",
+   "mismatches": [],
+   "evidence": "_extra/hover-ghost-button-light-{proto,impl}.png"
+  },
+  "text card-light": {
+   "verdict": "pass",
+   "proto": ".tcard",
+   "impl": ".ux-tcard",
+   "mismatches": [],
+   "evidence": "_extra/hover-text-card-light-{proto,impl}.png"
+  },
+  "tab (off)-light": {
+   "verdict": "pass",
+   "proto": "#ptabs button:not(.on)",
+   "impl": ".p10-tabs [aria-selected=\"false\"]",
+   "mismatches": [],
+   "evidence": "_extra/hover-tab-off--light-{proto,impl}.png"
+  },
+  "nav link-light": {
+   "verdict": "pass",
+   "proto": ".links a:not(.on)",
+   "impl": ".ux-links a:not([aria-current])",
+   "mismatches": [],
+   "evidence": "_extra/hover-nav-link-light-{proto,impl}.png"
+  },
+  "row-light": {
+   "verdict": "pass",
+   "proto": "#h-best .row",
+   "impl": ".p1-home .ux-rows .ux-row",
+   "mismatches": [],
+   "evidence": "_extra/hover-row-light-{proto,impl}.png"
+  },
+  "quiz card-dark": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "evidence": "_extra/hover-quiz-card-dark-{proto,impl}.png"
+  },
+  "primary button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "evidence": "_extra/hover-primary-button-dark-{proto,impl}.png"
+  },
+  "ghost button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-ghost",
+   "impl": ".p1-hcta .ux-btn-ghost",
+   "mismatches": [],
+   "evidence": "_extra/hover-ghost-button-dark-{proto,impl}.png"
+  },
+  "text card-dark": {
+   "verdict": "pass",
+   "proto": ".tcard",
+   "impl": ".ux-tcard",
+   "mismatches": [],
+   "evidence": "_extra/hover-text-card-dark-{proto,impl}.png"
+  },
+  "tab (off)-dark": {
+   "verdict": "pass",
+   "proto": "#ptabs button:not(.on)",
+   "impl": ".p10-tabs [aria-selected=\"false\"]",
+   "mismatches": [],
+   "evidence": "_extra/hover-tab-off--dark-{proto,impl}.png"
+  },
+  "nav link-dark": {
+   "verdict": "pass",
+   "proto": ".links a:not(.on)",
+   "impl": ".ux-links a:not([aria-current])",
+   "mismatches": [],
+   "evidence": "_extra/hover-nav-link-dark-{proto,impl}.png"
+  },
+  "row-dark": {
+   "verdict": "pass",
+   "proto": "#h-best .row",
+   "impl": ".p1-home .ux-rows .ux-row",
+   "mismatches": [],
+   "evidence": "_extra/hover-row-dark-{proto,impl}.png"
+  }
+ },
+ "focus": {
+  "quiz card-light": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "evidence": "_extra/focus-quiz-card-light-impl.png"
+  },
+  "primary button-light": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "evidence": "_extra/focus-primary-button-light-impl.png"
+  },
+  "tab-light": {
+   "verdict": "pass",
+   "proto": "#ptabs button.on",
+   "impl": ".p10-tabs [aria-selected=\"true\"]",
+   "mismatches": [],
+   "evidence": "_extra/focus-tab-light-impl.png"
+  },
+  "nav link-light": {
+   "verdict": "pass",
+   "proto": ".links a.on",
+   "impl": ".ux-links a[aria-current=\"page\"]",
+   "mismatches": [],
+   "evidence": "_extra/focus-nav-link-light-impl.png"
+  },
+  "quiz card-dark": {
+   "verdict": "pass",
+   "proto": "#h-trend .qcard",
+   "impl": ".p1-trend .ux-qcard",
+   "mismatches": [],
+   "evidence": "_extra/focus-quiz-card-dark-impl.png"
+  },
+  "primary button-dark": {
+   "verdict": "pass",
+   "proto": ".hcta .btn-primary",
+   "impl": ".p1-hcta .ux-btn-primary",
+   "mismatches": [],
+   "evidence": "_extra/focus-primary-button-dark-impl.png"
+  },
+  "tab-dark": {
+   "verdict": "pass",
+   "proto": "#ptabs button.on",
+   "impl": ".p10-tabs [aria-selected=\"true\"]",
+   "mismatches": [],
+   "evidence": "_extra/focus-tab-dark-impl.png"
+  },
+  "nav link-dark": {
+   "verdict": "pass",
+   "proto": ".links a.on",
+   "impl": ".ux-links a[aria-current=\"page\"]",
+   "mismatches": [],
+   "evidence": "_extra/focus-nav-link-dark-impl.png"
+  }
+ },
+ "tokens": {
+  "light": {
+   "verdict": "fail",
+   "compared": 45,
+   "mismatches": [
+    {
+     "what": "--nav-bg",
+     "expected": "rgba(255,255,255,.86)",
+     "actual": "rgba(255, 255, 255, .86)"
+    },
+    {
+     "what": "--photo-edge",
+     "expected": "inset 0 0 0 1px rgba(31,27,23,.04)",
+     "actual": "inset 0 0 0 1px rgba(31, 27, 23, .04)"
+    },
+    {
+     "what": "--shadow-card",
+     "expected": "0 1px 2px rgba(31,27,23,.04),0 10px 30px rgba(31,27,23,.07)",
+     "actual": "0 1px 2px rgba(31, 27, 23, .04), 0 10px 30px rgba(31, 27, 23, .07)"
+    },
+    {
+     "what": "--shadow-ov",
+     "expected": "0 24px 64px rgba(31,27,23,.18),0 2px 8px rgba(31,27,23,.06)",
+     "actual": "0 24px 64px rgba(31, 27, 23, .18), 0 2px 8px rgba(31, 27, 23, .06)"
+    },
+    {
+     "what": "--scrim",
+     "expected": "rgba(20,18,16,.44)",
+     "actual": "rgba(20, 18, 16, .44)"
+    },
+    {
+     "what": "--theme-band",
+     "expected": "#FCE8EF",
+     "actual": "#FBE4D8"
+    },
+    {
+     "what": "--ease",
+     "expected": "cubic-bezier(.2,.7,.2,1)",
+     "actual": "cubic-bezier(.2, .7, .2, 1)"
+    },
+    {
+     "what": "--spring",
+     "expected": "cubic-bezier(.34,1.4,.64,1)",
+     "actual": "cubic-bezier(.34, 1.4, .64, 1)"
+    },
+    {
+     "what": "--qotd-bg",
+     "expected": "linear-gradient(110deg,#FBE1EA 0%,#FCEBF1 48%,#FEF6F8 100%)",
+     "actual": "linear-gradient(110deg, #FBE1EA 0%, #FCEBF1 48%, #FEF6F8 100%)"
+    },
+    {
+     "what": "--bt-bg",
+     "expected": "linear-gradient(120deg,#FCE8EF 0%,#F2EBFA 68%,#EAF1FB 100%)",
+     "actual": "linear-gradient(120deg, #FCE8EF 0%, #F2EBFA 68%, #EAF1FB 100%)"
+    }
+   ],
+   "noCounterpart": [
+    "--plum",
+    "--plum-2",
+    "--plum-3",
+    "--plum-ink",
+    "--plum-muted"
+   ],
+   "bodyBackground": "rgb(255, 255, 255)"
+  },
+  "dark": {
+   "verdict": "fail",
+   "compared": 45,
+   "mismatches": [
+    {
+     "what": "--nav-bg",
+     "expected": "rgba(20,19,18,.84)",
+     "actual": "rgba(20, 19, 18, .84)"
+    },
+    {
+     "what": "--photo-edge",
+     "expected": "inset 0 0 0 1px rgba(255,255,255,.06)",
+     "actual": "inset 0 0 0 1px rgba(255, 255, 255, .06)"
+    },
+    {
+     "what": "--shadow-card",
+     "expected": "0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)",
+     "actual": "0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35)"
+    },
+    {
+     "what": "--shadow-ov",
+     "expected": "0 24px 64px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.3)",
+     "actual": "0 24px 64px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .3)"
+    },
+    {
+     "what": "--scrim",
+     "expected": "rgba(0,0,0,.6)",
+     "actual": "rgba(0, 0, 0, .6)"
+    },
+    {
+     "what": "--theme-band",
+     "expected": "#FCE8EF",
+     "actual": "#3A2620"
+    },
+    {
+     "what": "--ease",
+     "expected": "cubic-bezier(.2,.7,.2,1)",
+     "actual": "cubic-bezier(.2, .7, .2, 1)"
+    },
+    {
+     "what": "--spring",
+     "expected": "cubic-bezier(.34,1.4,.64,1)",
+     "actual": "cubic-bezier(.34, 1.4, .64, 1)"
+    },
+    {
+     "what": "--qotd-bg",
+     "expected": "linear-gradient(110deg,#36202B 0%,#2B1D25 50%,#221B1F 100%)",
+     "actual": "linear-gradient(110deg, #36202B 0%, #2B1D25 50%, #221B1F 100%)"
+    },
+    {
+     "what": "--bt-bg",
+     "expected": "linear-gradient(120deg,#2A1B2E 0%,#221D31 68%,#1B2130 100%)",
+     "actual": "linear-gradient(120deg, #2A1B2E 0%, #221D31 68%, #1B2130 100%)"
+    },
+    {
+     "what": "--bulb-fill",
+     "expected": "rgba(245,197,66,.22)",
+     "actual": "rgba(245, 197, 66, .22)"
+    }
+   ],
+   "noCounterpart": [
+    "--plum",
+    "--plum-2",
+    "--plum-3",
+    "--plum-ink",
+    "--plum-muted"
+   ],
+   "bodyBackground": "rgb(20, 19, 18)"
+  }
+ },
+ "motion": {
+  "home": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "blindtest game": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "quiz game": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "prototype": {
+   "running": 0
+  }
+ }
+}

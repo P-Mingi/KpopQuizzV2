@@ -3,14 +3,14 @@
  "owner": "P1",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:32:11.755Z",
+   "at": "2026-09-26T17:05:48.872Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
    "signedIn": false,
    "counts": {
-    "landmarks": 18,
-    "pass": 17,
+    "landmarks": 20,
+    "pass": 19,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -26,7 +26,7 @@
      1440,
      3263
     ],
-    "diffPct": 10.41,
+    "diffPct": 10.4,
     "maskedPct": 19
    },
    "writes": [],
@@ -173,7 +173,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -184,19 +190,46 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
     }
    ],
-   "seconds": 6
+   "seconds": 5
   },
   "390-light": {
-   "at": "2026-09-26T16:32:39.737Z",
+   "at": "2026-09-26T17:06:13.412Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
    "signedIn": false,
    "counts": {
-    "landmarks": 18,
-    "pass": 17,
+    "landmarks": 20,
+    "pass": 19,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -212,7 +245,7 @@
      390,
      4695
     ],
-    "diffPct": 21.87,
+    "diffPct": 21.86,
     "maskedPct": 34
    },
    "writes": [],
@@ -352,7 +385,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -363,19 +402,46 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
     }
    ],
-   "seconds": 21
+   "seconds": 20
   },
   "1440-dark": {
-   "at": "2026-09-26T16:32:18.496Z",
+   "at": "2026-09-26T17:05:53.644Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
    "signedIn": false,
    "counts": {
-    "landmarks": 18,
-    "pass": 17,
+    "landmarks": 20,
+    "pass": 19,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -538,7 +604,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -549,19 +621,46 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
     }
    ],
-   "seconds": 7
+   "seconds": 5
   },
   "390-dark": {
-   "at": "2026-09-26T16:33:00.790Z",
+   "at": "2026-09-26T17:06:32.969Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
    "signedIn": false,
    "counts": {
-    "landmarks": 18,
-    "pass": 17,
+    "landmarks": 20,
+    "pass": 19,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -577,8 +676,8 @@
      390,
      4695
     ],
-    "diffPct": 23.36,
-    "maskedPct": 34.1
+    "diffPct": 23.35,
+    "maskedPct": 34
    },
    "writes": [],
    "landmarks": [
@@ -717,7 +816,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -728,9 +833,36 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": "#h-groups .gitem",
+     "impl": ".p1-gitem",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group photo",
+     "proto": "#h-groups .gitem .gav",
+     "impl": ".p1-gitem .p1-gav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
+     ],
+     "why": "photo"
     }
    ],
-   "seconds": 21
+   "seconds": 20
   }
  },
  "auth": "guest",

@@ -234,25 +234,42 @@ async function newCtx(width, theme, auth) {
   return ctx;
 }
 
-async function protoMeasure(width, theme, id, lms) {
+// The reference PNGs were captured on ONE prototype page per width and theme, every state in
+// the capture order (capture-prototype.mjs), so a state carries what earlier states left (a
+// finished quiz saves the streak, and so on). The live prototype measurement replays that
+// same sequence, once per width and theme, and caches every state's landmarks and masks.
+const CAPTURE_ORDER = [...CAPTURE_SRC.matchAll(/^\s*'([a-z0-9-]+)':\s*"/gm)].map((m) => m[1]);
+const protoCache = new Map();
+async function protoMeasureAll(width, theme) {
+  const key = `${width}-${theme}`;
+  if (protoCache.has(key)) return protoCache.get(key);
   const phone = width < 500;
   const ctx = await browser.newContext({ viewport: { width, height: phone ? 844 : 900 }, colorScheme: theme, isMobile: phone, hasTouch: phone });
   const page = await ctx.newPage();
   await page.goto(pathToFileURL(PROTO).href);
   await page.waitForTimeout(400);
   await page.addStyleTag({ content: '.notes-t,.guestbar,.notes{display:none!important}' });
-  await page.evaluate((code) => { document.body.classList.remove('guest'); closeAll(); if (window.btgFilter) { BTG_OPEN = false; $('btg-q').value = ''; btgFilter(''); } eval(code); }, stateJs(id));
-  await page.waitForTimeout(700);
-  const full = !isOverlay(id) && !isGame(id);
-  const scrollY = await page.evaluate(() => scrollY);
-  if (full) await page.evaluate(() => window.scrollTo(0, 0));
-  const m = await page.evaluate(measureInPage, { lms: lms.map((l) => ({ ...l, side: l.proto })), props: PROPS, scope: '.view.on' });
-  // masks in screenshot coordinates: a full-page shot starts at the top; a viewport shot at the current scroll
-  if (!full) await page.evaluate((y) => window.scrollTo(0, y), scrollY);
-  const masks = await page.evaluate(masksInPage);
-  const sy = full ? 0 : await page.evaluate(() => scrollY);
+  const out = {};
+  for (const id of CAPTURE_ORDER) {
+    await page.evaluate((code) => { document.body.classList.remove('guest'); closeAll(); if (window.btgFilter) { BTG_OPEN = false; $('btg-q').value = ''; btgFilter(''); } eval(code); }, stateJs(id));
+    await page.waitForTimeout(700);
+    const lms = STATES[id]?.lm ?? [];
+    const full = !isOverlay(id) && !isGame(id);
+    const scrollY = await page.evaluate(() => scrollY);
+    if (full) await page.evaluate(() => window.scrollTo(0, 0));
+    const m = await page.evaluate(measureInPage, { lms: lms.map((l) => ({ ...l, side: l.proto })), props: PROPS, scope: '.view.on' });
+    // masks in screenshot coordinates: a full-page shot starts at the top; a viewport shot at the current scroll
+    const masks = full ? await page.evaluate(masksInPage) : null;
+    await page.evaluate((y) => window.scrollTo(0, y), scrollY);
+    const vmasks = full ? masks : (await page.evaluate(masksInPage)).map(([x, y, w, h]) => [x, y - scrollY, w, h]);
+    out[id] = { m, masks: vmasks };
+  }
   await ctx.close();
-  return { m, masks: masks.map(([x, y, w, h]) => [x, y - sy, w, h]) };
+  protoCache.set(key, out);
+  return out;
+}
+async function protoMeasure(width, theme, id) {
+  return (await protoMeasureAll(width, theme))[id];
 }
 
 async function implRun(width, theme, id, st) {

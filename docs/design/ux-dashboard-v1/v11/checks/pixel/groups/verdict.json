@@ -3,15 +3,15 @@
  "owner": "P3",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:58:29.364Z",
+   "at": "2026-09-26T17:06:37.762Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 9,
-    "fail": 2,
+    "pass": 10,
+    "fail": 1,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -118,23 +118,20 @@
      "name": "group photo",
      "proto": ".gitem .gav",
      "impl": ".p3-gitem .p3-gav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgba(31, 27, 23, 0.04) 0px 0px 0px 1px inset",
-       "actual": "none"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
-      "line-height",
       "color",
-      "border-top-color"
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
-     "why": "photo (text colours only apply to the initials fallback)"
+     "why": "photo"
     },
     {
      "name": "A to Z columns",
@@ -145,18 +142,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
+   "seconds": 5
   },
   "1440-dark": {
-   "at": "2026-09-26T16:58:41.692Z",
+   "at": "2026-09-26T17:06:42.282Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 9,
-    "fail": 2,
+    "pass": 10,
+    "fail": 1,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -263,23 +260,20 @@
      "name": "group photo",
      "proto": ".gitem .gav",
      "impl": ".p3-gitem .p3-gav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
-       "actual": "none"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
-      "line-height",
       "color",
-      "border-top-color"
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
-     "why": "photo (text colours only apply to the initials fallback)"
+     "why": "photo"
     },
     {
      "name": "A to Z columns",
@@ -290,18 +284,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 12
+   "seconds": 5
   },
   "390-light": {
-   "at": "2026-09-26T16:58:50.587Z",
+   "at": "2026-09-26T17:06:48.342Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 9,
-    "fail": 2,
+    "pass": 10,
+    "fail": 1,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -408,23 +402,20 @@
      "name": "group photo",
      "proto": ".gitem .gav",
      "impl": ".p3-gitem .p3-gav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgba(31, 27, 23, 0.04) 0px 0px 0px 1px inset",
-       "actual": "none"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
-      "line-height",
       "color",
-      "border-top-color"
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
-     "why": "photo (text colours only apply to the initials fallback)"
+     "why": "photo"
     },
     {
      "name": "A to Z columns",
@@ -435,18 +426,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 10
+   "seconds": 6
   },
   "390-dark": {
-   "at": "2026-09-26T16:59:01.788Z",
+   "at": "2026-09-26T17:06:59.334Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
    "signedIn": true,
    "counts": {
     "landmarks": 12,
-    "pass": 9,
-    "fail": 2,
+    "pass": 10,
+    "fail": 1,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -553,23 +544,20 @@
      "name": "group photo",
      "proto": ".gitem .gav",
      "impl": ".p3-gitem .p3-gav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
-       "actual": "none"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
-      "line-height",
       "color",
-      "border-top-color"
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
-     "why": "photo (text colours only apply to the initials fallback)"
+     "why": "photo"
     },
     {
      "name": "A to Z columns",

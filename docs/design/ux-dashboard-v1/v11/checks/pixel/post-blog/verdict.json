@@ -3,7 +3,7 @@
  "owner": "P8",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:46:38.457Z",
+   "at": "2026-09-26T17:08:18.229Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community/blog/2",
@@ -85,7 +85,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -98,10 +104,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 9
+   "seconds": 5
   },
   "1440-dark": {
-   "at": "2026-09-26T16:46:47.723Z",
+   "at": "2026-09-26T17:08:22.916Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community/blog/2",
@@ -183,7 +189,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -196,10 +208,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 9
+   "seconds": 5
   },
   "390-light": {
-   "at": "2026-09-26T16:46:56.109Z",
+   "at": "2026-09-26T17:08:27.765Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community/blog/2",
@@ -281,7 +293,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -294,10 +312,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 9
+   "seconds": 5
   },
   "390-dark": {
-   "at": "2026-09-26T16:47:05.631Z",
+   "at": "2026-09-26T17:08:32.554Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community/blog/2",
@@ -379,7 +397,13 @@
      "mismatches": [],
      "skipped": [
       "background-image",
-      "background-color"
+      "background-color",
+      "color",
+      "border-top-color",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing"
      ],
      "why": "photo"
     },
@@ -392,7 +416,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
+   "seconds": 5
   }
  },
  "auth": "user",
