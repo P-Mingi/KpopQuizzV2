@@ -3,16 +3,17 @@
  "owner": "P4",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:08:23.348Z",
+   "at": "2026-09-26T16:39:05.484Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
    "counts": {
-    "landmarks": 2,
-    "pass": 1,
+    "landmarks": 5,
+    "pass": 5,
     "fail": 0,
     "missing": 0,
-    "extra": 1,
+    "extra": 0,
     "absent": 0
    },
    "overflowX": 0,
@@ -32,7 +33,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":5,\"max_score\":8,\"per_question_times\":[0.1,0.9,0.1,0.4,0.9,0.9,0.5,0.4],\"anon_id\":\"37cd7d83-3c8a-4b4f-9c6b-3f69b88c80eb\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":4,\"max_score\":8,\"per_question_times\":[0.4,0.1,0.1,1,0.4,0.1,0.1,0.1],\"anon_id\":\"23b7cbc5-b06d-4cd5-afb0-8131db2e78d1\"}"
     },
     {
      "method": "POST",
@@ -43,8 +44,11 @@
    "landmarks": [
     {
      "name": "share sheet",
-     "status": "extra",
-     "note": "not in the reference state (implementation only)"
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
     },
     {
      "name": "sheet header",
@@ -53,12 +57,285 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
     }
    ],
-   "seconds": 12
+   "seconds": 11
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:39:19.650Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.79,
+    "maskedPct": 16.4
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":5,\"max_score\":8,\"per_question_times\":[0.5,0.5,0.2,0.4,0.4,0.1,0.4,0.1],\"anon_id\":\"21f648f2-5dc5-4921-ad4e-0c3e36592af4\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 14
+  },
+  "390-light": {
+   "at": "2026-09-26T16:39:29.681Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.88,
+    "maskedPct": 46.4
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.9,0.5,0.1,0.1,0.1,0.1,0.1,0.1],\"anon_id\":\"ce3cd714-45a2-438a-8834-f94a2fda3ad9\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 9
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:39:42.649Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.52,
+    "maskedPct": 46.4
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":6,\"max_score\":8,\"per_question_times\":[0.9,0.1,0.1,0.1,0.5,0,0.9,0.5],\"anon_id\":\"e0d5bd94-6a4f-4af4-b014-48ba5ada1ae4\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 13
   }
  },
  "auth": "user",
  "shot": "viewport",
- "verdict": "not verified"
+ "verdict": "pass"
 }

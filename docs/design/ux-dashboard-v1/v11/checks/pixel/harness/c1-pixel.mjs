@@ -196,9 +196,12 @@ async function images(refPng, implPng, masks, dir, stem, theme, width) {
   }
   const scale = width > 500 ? 0.4 : 0.8;
   const dW = Math.round(W * scale);
-  await sharp(out, { raw: { width: W, height: Hh, channels: 4 } }).resize({ width: dW }).webp({ quality: 50 }).toFile(path.join(dir, `${stem}-diff.webp`));
+  // WebP caps at 16383 px: very long pages keep their top 16000 px (after scaling) in the images
+  const maxRows = Math.min(Hh, Math.floor(16000 / scale));
+  await sharp(out, { raw: { width: W, height: Hh, channels: 4 } }).extract({ left: 0, top: 0, width: W, height: maxRows }).resize({ width: dW }).webp({ quality: 50 }).toFile(path.join(dir, `${stem}-diff.webp`));
   // side by side: reference | implementation
-  const sa = await sharp(refPng).resize({ width: dW }).png().toBuffer(); const sb = await sharp(implPng).resize({ width: dW }).png().toBuffer();
+  const top = async (png, h) => (h > maxRows ? sharp(png).extract({ left: 0, top: 0, width: (await sharp(png).metadata()).width, height: maxRows }).png().toBuffer() : png);
+  const sa = await sharp(await top(refPng, A.h)).resize({ width: dW }).png().toBuffer(); const sb = await sharp(await top(implPng, B.h)).resize({ width: dW }).png().toBuffer();
   const ma = await sharp(sa).metadata(); const mb = await sharp(sb).metadata();
   const gap = 16; const label = 24;
   const SW = ma.width + mb.width + gap; const SH = Math.min(16000, Math.max(ma.height, mb.height) + label);
@@ -281,8 +284,12 @@ async function implRun(width, theme, id, st) {
     const png = await page.screenshot({ fullPage: full, timeout: 60_000 });
     const url = new URL(page.url()).pathname + new URL(page.url()).search;
     const incomplete = page.__c1Incomplete || null;
+    const signedIn = await page.evaluate(() => Boolean(document.querySelector('.ux-avabtn, .ux-nav-r button[aria-label^="Notifications"]')));
     await ctx.close();
-    return { m, masks: masks.map(([x, y, w, h]) => [x, y - sy, w, h]), png, overflowX, writes, url, incomplete };
+    if (st.auth === 'user' && !signedIn && !['play', 'play-answered', 'play-qotd', 'btplay', 'btplay-answered', 'share', 'signin', 'editor', 'header-sheet', 'search', 'bell', 'create-1', 'create-2', 'create-3'].includes(id)) {
+      return { error: 'signed-in state expected, the page rendered as a guest (session not resolved)', png, writes };
+    }
+    return { m, masks: masks.map(([x, y, w, h]) => [x, y - sy, w, h]), png, overflowX, writes, url, incomplete, signedIn };
   } catch (e) {
     let png = null;
     try { png = await page.screenshot({ fullPage: false }); } catch { /* closed */ }
@@ -312,16 +319,16 @@ for (const id of ONLY) {
       const c = { at: new Date().toISOString(), base: BASE };
       if (impl.error) {
         Object.assign(c, { verdict: st.pending ? 'not verified' : 'fail', reason: `driver: ${impl.error}`, writes: impl.writes });
-        if (impl.png) Object.assign(c, { pixel: await images(refPng, impl.png, proto.masks, dir, stem, theme, width) });
+        if (impl.png) Object.assign(c, { pixel: await images(refPng, impl.png, proto.masks, dir, stem, theme, width).catch((e) => ({ error: String(e.message) })) });
       } else {
         const rows = compare(key, st.lm, proto.m, impl.m);
         const failRows = rows.filter((r) => r.status === 'fail' || r.status === 'missing');
-        const pixel = await images(refPng, impl.png, [...proto.masks, ...impl.masks], dir, stem, theme, width);
+        const pixel = await images(refPng, impl.png, [...proto.masks, ...impl.masks], dir, stem, theme, width).catch((e) => ({ error: String(e.message) }));
         const overflow = width < 500 && impl.overflowX > 0;
         Object.assign(c, {
           verdict: st.pending ? 'not verified' : (failRows.length || overflow ? 'fail' : 'pass'),
           ...(st.pending ? { reason: st.pending } : {}),
-          url: impl.url,
+          url: impl.url, signedIn: impl.signedIn,
           ...(impl.incomplete ? { incomplete: `served without ${impl.incomplete} after 4 loads (shared DB read timed out; fail-soft section hidden)` } : {}),
           counts: { landmarks: rows.length, pass: rows.filter((r) => r.status === 'pass').length, fail: rows.filter((r) => r.status === 'fail').length, missing: rows.filter((r) => r.status === 'missing').length, extra: rows.filter((r) => r.status === 'extra').length, absent: rows.filter((r) => r.status === 'absent').length },
           overflowX: impl.overflowX, pixel, writes: impl.writes, landmarks: rows,
