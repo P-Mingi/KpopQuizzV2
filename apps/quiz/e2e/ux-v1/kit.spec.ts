@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
+import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
 import { A0_LANDMARKS, compareLandmarks } from './helpers/landmarks';
@@ -16,7 +17,7 @@ import type { Page } from '@playwright/test';
 // (it needs '/ux-v1/' in lib/route-allowlist.ts, requested from ORCH).
 
 const env = loadTestEnv();
-const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'icons'];
+const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'viewer', 'icons'];
 
 async function openKit(page: Page): Promise<boolean> {
   const res = await page.goto('/ux-v1/kit');
@@ -162,5 +163,38 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Search' })).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+
+  // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
+  // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
+  test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'out', { timeout: 15_000 });
+    await expect(probe).toHaveText('Browsing as a guest');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+  });
+});
+
+signedInTest.describe('kit viewer state (test user, read only)', () => {
+  signedInTest('a late island hydrates without a mismatch (signed in)', async ({ page }) => {
+    skipUnlessSignedIn();
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await preparePage(page, 'light');
+    const calls = await guardWrites(page, env.supabaseUrl);
+    // /api/auth/me answers "signed out" when Supabase auth takes over 2.5 s (a cold
+    // dev compile can): warm it first (GET, read only) so the page gets the viewer.
+    await page.request.get('/api/auth/me');
+    signedInTest.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'in', { timeout: 15_000 });
+    await expect(probe).toContainText('Signed in as ');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+    expect(calls, 'no write attempted').toEqual([]);
   });
 });

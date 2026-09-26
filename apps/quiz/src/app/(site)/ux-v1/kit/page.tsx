@@ -17,6 +17,7 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { UX_ICONS } from '@/lib/ux-v1/a0/icons';
 import { RARITY_ORDER } from '@/lib/badges';
 
+import { KitAuthProbeLate } from './kit-auth-probe-late';
 import { KitControls, KitFeedback, KitForms, KitPopovers, KitSheets } from './kit-demos';
 
 import type { Metadata } from 'next';
@@ -315,6 +316,10 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
 
       <KitSection id="feedback" title="Toast and live region">
         <KitFeedback />
+      </KitSection>
+
+      <KitSection id="viewer" title="Viewer state (useUxMe), hydrated late on purpose">
+        <KitAuthProbeLate />
       </KitSection>
 
       <KitSection id="icons" title="Icons (20px, 1.5 stroke)">
