@@ -39,7 +39,7 @@ Read this file and your own `v11/briefs/<ID>.md`. Start by invoking the Skill to
 2. Every wiring row works end to end as a guest and (read-only) as the test user, flag on; flag off unchanged: A0's flag-off-diff helper on your public URLs (and `/pt` mirrors), zero diff.
 3. `e2e/ux-v1/<id>.spec.ts` covers every control of your views, with `guardWrites`, and passes locally at 1440 and 390, light and dark.
 4. axe: 0 serious or critical issues. Keyboard reaches and operates every control; sheets close with X, Escape and backdrop and return focus.
-5. SEO diff on your public URLs, flag on vs flag off (title, meta description, H1, intro, FAQ, canonical, JSON-LD, hreflang, robots, server-rendered HTML): empty, or only 16.10 additions.
+5. SEO diff on your public URLs, flag on vs flag off (title, meta description, H1, intro, FAQ, canonical, JSON-LD, hreflang, robots, server-rendered HTML): empty, or only 16.10 additions. This includes the LINK SET: every `<a href>` in the flag-off server HTML (hubs, quizzes, trivia, articles, pagination, footer) must also be in the flag-on server HTML (order may change, additions are fine). A lost internal link is a blocker, not an owner decision. Report both sets and their counts.
 6. `docs/design/ux-dashboard-v1/v11/reports/<ID>.md`: a Progress block at the top (done, next, blockers), then what you built, screenshots (implementation vs reference, in `v11/reports/<ID>/`), wiring proof, SEO diff, what is NOT verified and why, open items, requests to A0, owner decisions.
 7. Push your branch and open a PR into `feat/ux-v1-v11` (NOT main) with `gh pr create --base feat/ux-v1-v11`, before / after / prototype side by side.
 

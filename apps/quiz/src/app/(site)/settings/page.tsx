@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 import { createBrowserClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/ui/toast-provider';
@@ -42,7 +43,18 @@ interface GroupOption { slug: string; name: string; color: string }
 
 type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid' | 'same';
 
+// UX v11 (P10): the redesigned settings (Your look, notifications, appearance,
+// account) in its own lazily loaded chunk; flag off never loads it and renders
+// the legacy page below unchanged.
+const UxSettings = UX_V1
+  ? dynamic(() => import('@/components/profile/ux-v1/settings').then((m) => m.UxSettings))
+  : null;
+
 export default function SettingsPage(): React.ReactElement {
+  return UxSettings ? <UxSettings /> : <LegacySettingsPage />;
+}
+
+function LegacySettingsPage(): React.ReactElement {
   const router = useRouter();
   const { showToast } = useToast();
   const [profile, setProfile] = useState<ProfileData | null>(null);
