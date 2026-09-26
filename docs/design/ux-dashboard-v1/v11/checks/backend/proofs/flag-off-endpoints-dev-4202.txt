@@ -1,0 +1,38 @@
+# base http://localhost:4202 at 2026-09-26T16:05:25Z
+GET /api/ux-v1/a0/styles -> 404 text/css; charset=utf-8 | /* UX v1 is off */
+GET /api/ux-v1/p1/daily-band -> 404 application/json | {"error":"not found"}
+GET /api/ux-v1/p10/export -> 404 application/json | {"error":"Not found"}
+GET /api/ux-v1/p11/search?q=bts -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p3/notify?groupId=1 -> 404 application/json | {"error":"Not found"}
+POST /api/ux-v1/p3/notify -> 404 application/json | {"error":"Not found"}
+POST /api/ux-v1/p4/challenge -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p4/challenge/00000000-0000-4000-8000-000000000000 -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p4/challenge/00000000-0000-4000-8000-000000000000/attempt -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p4/relaxed -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p4/standing?quizId=00000000-0000-4000-8000-000000000000 -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p6/board -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p6/challenge -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p6/challenge/ZZZZZZ -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p6/challenge/ZZZZZZ/attempt -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p8/challenges -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p8/debate-vote -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p8/debates -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p8/like -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p8/my-results -> 404 application/json | {"error":"not_found"}
+POST /api/ux-v1/p8/replies -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p8/viewer -> 404 application/json | {"error":"not_found"}
+GET /api/ux-v1/p9/standing -> 404 application/json | {"error":"not_found"}
+POST /api/profile/header/link -> 404 application/json | {"error":"Not found"}
+POST /api/profile/header/upload -> 404 application/json | {"error":"Not found"}
+GET /api/ranked/me -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/ladder -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/cron/nightly -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/run -> 404 application/json | {"error":"not_found"}
+POST /api/ranked/run -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/run/start -> 404 application/json | {"error":"not_found"}
+POST /api/ranked/run/start -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/run/answer -> 404 application/json | {"error":"not_found"}
+POST /api/ranked/run/answer -> 404 application/json | {"error":"not_found"}
+GET /api/ranked/run/submit -> 404 application/json | {"error":"not_found"}
+POST /api/ranked/run/submit -> 404 application/json | {"error":"not_found"}
+GET /api/quizzes/count -> 200 application/json | {"count":425}

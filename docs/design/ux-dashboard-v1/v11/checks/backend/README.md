@@ -1,0 +1,313 @@
+# C2 backend check (UX v11.2 run, Phase 3, loop 1)
+
+Checker: C2 (backend). Branch `ux11/c2-check`. Target: the shared flag-on production build of
+`feat/ux-v1-v11` served by ORCH on http://localhost:3021 (48189d5 at spawn, rebuilt at dcc3159 with P8
+merged; every row below that cites a :3021 proof taken after 16:00 UTC is on dcc3159). Flag off: my own
+`next dev` of the same head on :4202 with `NEXT_PUBLIC_UX_V1=0` (stopped after use). Flag-on dev (for the
+nested route check only): `next dev` on :4202 with `NEXT_PUBLIC_UX_V1=1`.
+
+Method (C2.md + CHECKERS.md):
+- Each WIRING-MAP row (old tables + v10 + v11), corrected by WIRING-MAP.verified.md, has one file
+  `R<line>.md` (row id = the row's line number in WIRING-MAP.md, as the run already cites rows).
+- Controls are triggered in headless Chromium 1234 (guest, and the test user through the Playwright
+  `setup` project storage state) with a copy of `guardWrites`: every POST/PUT/PATCH/DELETE to /api/** or
+  Supabase is answered locally with 200 {} and recorded; its payload is the write evidence. Reads go
+  through and are logged with their status. No production write was sent.
+- Database side: read-only `select` through supabase-js with the service role (`c2tmp/q.mjs`, scratch,
+  not committed), limited to the test user's rows or to head counts. Never insert/update/delete/rpc.
+- Pages never loaded signed in: /me, /profile (write on view).
+- Fail-soft routes that need an unapplied migration are probed with a body that passes validation, only
+  after a read-only check that the table does not exist (so no write is possible): they must answer 503
+  before any write. Verdict for such rows: "NOT VERIFIED until <migration>" with the fail-soft proof.
+- Flag off: every endpoint added since main answers 404 (one exception filed: C2-001), the new pages are
+  301/404, and flag-off pages send no request to a v11 endpoint (`proofs/flag-off-*`).
+- Data guard before and after (`proofs/data-guard-before.json`, `proofs/data-guard-after.json`).
+
+Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why), PENDING (P2 not merged:
+/quizzes rows), N/A (dropped by design).
+
+`gen.mjs` builds the row files and this README from `rows/*.json`.
+
+## Counts
+
+| Verdict | Rows |
+|---|---:|
+| PASS | 13 |
+| FAIL | 1 |
+| NOT VERIFIED | 0 |
+| PENDING | 0 |
+| N/A | 1 |
+| TODO | 252 |
+| Total | 267 |
+
+## Rows
+
+| Row | Owner | Control | Map status | Verdict | Issue |
+|---|---|---|---|---|---|
+| [R023](R023.md) | A0 | Sidebar Dashboard | EXISTS | PASS | - |
+| [R024](R024.md) | A0 | Sidebar Quizzes + count 419 | EXISTS | FAIL (flag off only: C2-001); the control itself passes (link; the count is dropped by design) | C2-001 |
+| [R025](R025.md) | A0 | Sidebar Blindtest | EXISTS | PASS | - |
+| [R026](R026.md) | A0 (link) / P8 (page) | Sidebar Community | NEW | PASS | - |
+| [R027](R027.md) | A0 | Sidebar Leaderboard | EXISTS | PASS | - |
+| [R028](R028.md) | A0 | Sidebar Create | EXISTS | PASS | - |
+| [R029](R029.md) | A0 | Sidebar user row (name, streak) | EXISTS | PASS | - |
+| [R030](R030.md) | A0 (overlay) / P11 (results) | Top search | EXISTS | PASS | - |
+| [R031](R031.md) | A0 | Streak pill "12 days" | EXISTS | PASS (streak 0 case); NOT VERIFIED live for a streak > 0 (needs a daily play = a production write, owner decision 1) | - |
+| [R032](R032.md) | A0 | Night mode toggle | NEW | PASS | - |
+| [R033](R033.md) | A0 (bell) / P11 (panel) | Bell + unread dot | EXISTS | PASS | - |
+| [R034](R034.md) | A0 | Avatar button | EXISTS | PASS | - |
+| [R035](R035.md) | A0 | Mobile bottom nav (5) | EXISTS | PASS | - |
+| [R036](R036.md) | A0 | Footer links | EXISTS | PASS | - |
+| [R037](R037.md) | A0 | UX notes drawer | drop | N/A (dropped by design) | - |
+| R043 | 1. | Greeting "Good evening, Mingi" | - | TODO | - |
+| R044 | 1. | Hero "Today's Ten" daily challenge | - | TODO | - |
+| R045 | 1. | "Play now" | - | TODO | - |
+| R046 | 1. | "Daily blindtest" | - | TODO | - |
+| R047 | 1. | Keep playing (resume rows, progress %) | - | TODO | - |
+| R048 | 1. | Keep playing stats (streak, best BT, rank) | - | TODO | - |
+| R049 | 1. | Groups of the moment rail (NEW badge) | - | TODO | - |
+| R050 | 1. | Trending this week grid + arrows | - | TODO | - |
+| R051 | 1. | New quizzes grid | - | TODO | - |
+| R052 | 1. | All time best grid | - | TODO | - |
+| R053 | 1. | From the community (3 rows) | - | TODO | - |
+| R054 | 1. | Blindtest panel (Classic, Daily, By group) | - | TODO | - |
+| R055 | 1. | Quiz card (any) | - | TODO | - |
+| R061 | 2. | Sort tabs Trending / Newest / Most played / Top rated | - | TODO | - |
+| R062 | 2. | Type chips (5) | - | TODO | - |
+| R063 | 2. | Level chips | - | TODO | - |
+| R064 | 2. | Group rail | - | TODO | - |
+| R065 | 2. | Infinite grid | - | TODO | - |
+| R066 | 2. | SEO landing pages (`/easy-kpop-quizzes`, `/hard-kpop-quizzes`, `/kpop-true-or-false`, `/most-liked`, `/new`, `/trending`, `/quizzes/popular-*`) | - | TODO | - |
+| R072 | 3. | Breadcrumb Quizzes > Group > quiz | - | TODO | - |
+| R073 | 3. | Cover, tags (type, difficulty, language) | - | TODO | - |
+| R074 | 3. | Title H1 | - | TODO | - |
+| R075 | 3. | Author row + level title | - | TODO | - |
+| R076 | 3. | Follow | - | TODO | - |
+| R077 | 3. | Meta: plays, questions, 15s per question, likes | - | TODO | - |
+| R078 | 3. | Start quiz | - | TODO | - |
+| R079 | 3. | Challenge a friend (battle link) | - | TODO | - |
+| R080 | 3. | Share Reddit / Discord / X / copy | - | TODO | - |
+| R081 | 3. | About text (avg %, perfect count) | - | TODO | - |
+| R082 | 3. | In this quiz (sample questions, answers hidden) | - | TODO | - |
+| R083 | 3. | Did you know + "Learn before you play" | - | TODO | - |
+| R084 | 3. | More group quizzes | - | TODO | - |
+| R085 | 3. | Stats card (6) | - | TODO | - |
+| R086 | 3. | Hall of fame top 5 + times | - | TODO | - |
+| R087 | 3. | Your best + Beat it | - | TODO | - |
+| R088 | 3. | Made by card | - | TODO | - |
+| R089 | 3. | Report | - | TODO | - |
+| R090 | 3. | Owner actions (edit) | - | TODO | - |
+| R096 | 4. | Quit | - | TODO | - |
+| R097 | 4. | Group tag, progress, counter, score pill | - | TODO | - |
+| R098 | 4. | Sound toggle | - | TODO | - |
+| R099 | 4. | Streak dots + fire badge | - | TODO | - |
+| R100 | 4. | Timer ring 15s warn/danger | - | TODO | - |
+| R101 | 4. | Answers A-D, correct/wrong/dimmed | - | TODO | - |
+| R102 | 4. | Image / intruder / clues variants | - | TODO | - |
+| R103 | 4. | Fun fact card | - | TODO | - |
+| R104 | 4. | Next / See results | - | TODO | - |
+| R105 | 4. | Keyboard 1-4 / Enter | - | TODO | - |
+| R106 | 4. | Per-question times | - | TODO | - |
+| R107 | 4. | Animations (pulse, shake, pop) | - | TODO | - |
+| R113 | 5. | Photocard (score count-up, bar, percentile, mascot, verdict, serial) | - | TODO | - |
+| R114 | 5. | Confetti on pass | - | TODO | - |
+| R115 | 5. | Share this card | - | TODO | - |
+| R116 | 5. | Play again | - | TODO | - |
+| R117 | 5. | Discord line / Brag | - | TODO | - |
+| R118 | 5. | Run ledger You/Avg/Pass/XP/Time | - | TODO | - |
+| R119 | 5. | Your rank on this quiz | - | TODO | - |
+| R120 | 5. | Like | - | TODO | - |
+| R121 | 5. | Saved to passport / Put my name on it | - | TODO | - |
+| R122 | 5. | Level up overlay | - | TODO | - |
+| R123 | 5. | Keep playing list | - | TODO | - |
+| R124 | 5. | Share row | - | TODO | - |
+| R125 | 5. | Comments (200 chars, score chip) | - | TODO | - |
+| R126 | 5. | Reactions | - | TODO | - |
+| R127 | 5. | Beat my score (battle link) | - | TODO | - |
+| R128 | 5. | Streak backup nudge | - | TODO | - |
+| R129 | 5. | Report | - | TODO | - |
+| R135 | 6. | Autosave chip | - | TODO | - |
+| R136 | 6. | Stepper 1/2/3 | - | TODO | - |
+| R137 | 6. | Title (5+) + counter | - | TODO | - |
+| R138 | 6. | About 280 | - | TODO | - |
+| R139 | 6. | Quiz type cards (5) | - | TODO | - |
+| R140 | 6. | Group search with chip | - | TODO | - |
+| R141 | 6. | Difficulty segments | - | TODO | - |
+| R142 | 6. | Language | - | TODO | - |
+| R143 | 6. | Cover + rights checkbox | - | TODO | - |
+| R144 | 6. | Start adding questions | - | TODO | - |
+| R145 | 6. | Question list (drag, expand, duplicate, delete) | - | TODO | - |
+| R146 | 6. | Answers with circle marker, TF, clues, image labels | - | TODO | - |
+| R147 | 6. | Fun fact | - | TODO | - |
+| R148 | 6. | Add an image per question | - | TODO | - |
+| R149 | 6. | Add a question | - | TODO | - |
+| R150 | 6. | Paste several at once | - | TODO | - |
+| R151 | 6. | Preview | - | TODO | - |
+| R152 | 6. | Done -> Publish step | - | TODO | - |
+| R153 | 6. | Checklist (title, type, group, 3+ complete, cover, fun facts) | - | TODO | - |
+| R154 | 6. | How it will look (card preview) | - | TODO | - |
+| R155 | 6. | Publish | - | TODO | - |
+| R156 | 6. | Save as draft | - | TODO | - |
+| R157 | 6. | Done state: URL, Copy, Open, Post a challenge | - | TODO | - |
+| R158 | 6. | Creator XP | - | TODO | - |
+| R164 | 7. | New post composer + 4 modes | - | TODO | - |
+| R165 | 7. | Tabs For you / Following / Trending / Blogs | - | TODO | - |
+| R166 | 7. | Group chips | - | TODO | - |
+| R167 | 7. | Thread / Blog / Debate / Challenge cards | - | TODO | - |
+| R168 | 7. | Post view + comments (nested 1 level) | - | TODO | - |
+| R169 | 7. | Editor modal (title, text, image, group, topic, mode extras) | - | TODO | - |
+| R170 | 7. | Your standing (level, xp) | - | TODO | - |
+| R171 | 7. | Daily debate (vote, results) | - | TODO | - |
+| R172 | 7. | Today (QOTD + BToTD) | - | TODO | - |
+| R173 | 7. | Live rooms + chat drawer | - | TODO | - |
+| R174 | 7. | Happening now | - | TODO | - |
+| R175 | 7. | Fandom war (top 3) | - | TODO | - |
+| R176 | 7. | Badge watch | - | TODO | - |
+| R177 | 7. | Community pulse (live, plays, quizzes, groups) | - | TODO | - |
+| R178 | 7. | Cheer (heart on an event) | - | TODO | - |
+| R184 | 8. | Breadcrumb, H1, intro paragraph | - | TODO | - |
+| R185 | 8. | Photo hero | - | TODO | - |
+| R186 | 8. | Play the top quiz | - | TODO | - |
+| R187 | 8. | Blindtest N songs | - | TODO | - |
+| R188 | 8. | From the community (3 rows) + composer | - | TODO | - |
+| R189 | 8. | Facts strip (gen, members, debut, label, quizzes, plays) | - | TODO | - |
+| R190 | 8. | Updated month | - | TODO | - |
+| R191 | 8. | Tiles quizzes / blind test | - | TODO | - |
+| R192 | 8. | Sort tabs Popular / Newest / Most liked / Hardest | - | TODO | - |
+| R193 | 8. | Type + level chips | - | TODO | - |
+| R194 | 8. | Quiz grid (avg %, likes) | - | TODO | - |
+| R195 | 8. | Show all N | - | TODO | - |
+| R196 | 8. | FAQ (fact-gated, 2 columns) | - | TODO | - |
+| R197 | 8. | Learn before you play (trivia) | - | TODO | - |
+| R198 | 8. | Fandom war line | - | TODO | - |
+| R199 | 8. | Make a group quiz | - | TODO | - |
+| R200 | 8. | Live room panel | - | TODO | - |
+| R201 | 8. | Verse links | - | TODO | - |
+| R207 | 9. | Header (theme, avatar, name font/colour, level title, meta) | - | TODO | - |
+| R208 | 9. | XP bar | - | TODO | - |
+| R209 | 9. | Stats (streak, mastered, quizzes made, plays received) | - | TODO | - |
+| R210 | 9. | Tabs Overview / My quizzes / My posts / Mastered / Settings | - | TODO | - |
+| R211 | 9. | Badge shelf + tiers | - | TODO | - |
+| R212 | 9. | Recent activity | - | TODO | - |
+| R213 | 9. | Settings form (all fields) | - | TODO | - |
+| R214 | 9. | Preferences: sound, email on replies | - | TODO | - |
+| R215 | 9. | Appearance System / Light / Dark | - | TODO | - |
+| R216 | 9. | Public passport `/u/[username]` | - | TODO | - |
+| R222 | 10. | Fandom war podium + board + weekly delta | - | TODO | - |
+| R223 | 10. | Your fandom card | - | TODO | - |
+| R224 | 10. | How points work | - | TODO | - |
+| R225 | 10. | Last weeks | - | TODO | - |
+| R226 | 10. | Players tab | - | TODO | - |
+| R227 | 10. | Creators tab | - | TODO | - |
+| R228 | 10. | Streak leaders | - | TODO | - |
+| R234 | 11. | List grouped by day, unread state | - | TODO | - |
+| R235 | 11. | Tabs = 5 categories | - | TODO | - |
+| R236 | 11. | Row icon per type | - | TODO | - |
+| R237 | 11. | Row link | - | TODO | - |
+| R238 | 11. | Mark all read | - | TODO | - |
+| R239 | 11. | Per-row read on click | - | TODO | - |
+| R240 | 11. | Category toggles | - | TODO | - |
+| R241 | 11. | Streak at risk card | - | TODO | - |
+| R242 | 11. | Weekly recap email toggle | - | TODO | - |
+| R243 | 11. | Unread badge in topbar | - | TODO | - |
+| R244 | 11. | `battle_beaten` type | - | TODO | - |
+| R250 | 12. | Setup: playlist All / By group (multi) / Girl / Boy / Generation; rounds 5-10-15 | - | TODO | - |
+| R251 | 12. | Your stats (rank title, best, combo, streak) | - | TODO | - |
+| R252 | 12. | Quick play | - | TODO | - |
+| R253 | 12. | Blindtest of the day + board | - | TODO | - |
+| R254 | 12. | Ranked | - | TODO | - |
+| R255 | 12. | Challenge a friend | - | TODO | - |
+| R256 | 12. | Live rooms (Soon) | - | TODO | - |
+| R257 | 12. | Today's board | - | TODO | - |
+| R258 | 12. | Your recent runs | - | TODO | - |
+| R259 | 12. | Playlists (title tracks, b-sides, recent, legends, 4th gen gg/bg, solo, speed) | - | TODO | - |
+| R260 | 12. | How scoring works | - | TODO | - |
+| R261 | 12. | Blindtest by group rail | - | TODO | - |
+| R262 | 12. | How it works, FAQ | - | TODO | - |
+| R263 | 12. | Removed: Intro, Lyrics modes | - | TODO | - |
+| R269 | 13. | Quit, progress, counter | - | TODO | - |
+| R270 | 13. | Points pill + combo | - | TODO | - |
+| R271 | 13. | Orb: ring 10s, equaliser, seconds, danger | - | TODO | - |
+| R272 | 13. | Playing clip / Loading clip | - | TODO | - |
+| R273 | 13. | Song round / Artist round badge, question | - | TODO | - |
+| R274 | 13. | Choices 4 + marks | - | TODO | - |
+| R275 | 13. | Reveal (cover, title, artist, album) | - | TODO | - |
+| R276 | 13. | Points pop, combo badge | - | TODO | - |
+| R277 | 13. | Auto-next 3s + Skip | - | TODO | - |
+| R278 | 13. | Keyboard 1-4 | - | TODO | - |
+| R279 | 13. | Results: mascot, score, label, points, combo, avg answer, XP, today rank | - | TODO | - |
+| R280 | 13. | Challenge a friend link | - | TODO | - |
+| R281 | 13. | Song breakdown with covers | - | TODO | - |
+| R282 | 13. | Level card (rank title, xp) | - | TODO | - |
+| R283 | 13. | Daily results: board + come back tomorrow | - | TODO | - |
+| R293 | 14. | Play a ranked run | - | TODO | - |
+| R294 | 14. | Submit run | - | TODO | - |
+| R295 | 14. | Daily cap 15 | - | TODO | - |
+| R296 | 14. | Quit = recorded | - | TODO | - |
+| R297 | 14. | Season score | - | TODO | - |
+| R298 | 14. | Tiers + divisions | - | TODO | - |
+| R299 | 14. | Ladder tabs Global / My fandom / Following | - | TODO | - |
+| R300 | 14. | Your card (tier, score, best 5, progress to next) | - | TODO | - |
+| R301 | 14. | Your ranked runs | - | TODO | - |
+| R302 | 14. | Season impact block on results | - | TODO | - |
+| R303 | 14. | Placement 3/5 | - | TODO | - |
+| R304 | 14. | Rewards | - | TODO | - |
+| R305 | 14. | Rank title card (Idol, xp) | - | TODO | - |
+| R311 | 15. | Auth gates (guest vs signed-in) | - | TODO | - |
+| R312 | 15. | Guest play | - | TODO | - |
+| R313 | 15. | SEO | - | TODO | - |
+| R314 | 15. | Analytics events | - | TODO | - |
+| R315 | 15. | Design tokens | - | TODO | - |
+| R316 | 15. | Fonts | - | TODO | - |
+| R317 | 15. | Images | - | TODO | - |
+| R318 | 15. | Sounds | - | TODO | - |
+| R319 | 15. | Reduced motion | - | TODO | - |
+| R320 | 15. | Discord / Reddit | - | TODO | - |
+| R321 | 15. | i18n `/pt` | - | TODO | - |
+| R330 | v10 | Shell · Top nav links, logo, search, Create, streak, bell, avatar | - | TODO | - |
+| R331 | v10 | Shell · Search overlay | - | TODO | - |
+| R332 | v10 | Shell · Streak pill + popover | - | TODO | - |
+| R333 | v10 | Any · Sign-in sheet | - | TODO | - |
+| R334 | v10 | Home · Continue playing | - | TODO | - |
+| R335 | v10 | Home · Daily band played state | - | TODO | - |
+| R336 | v10 | Quizzes · Sort + Type/Level/Group chips | - | TODO | - |
+| R337 | v10 | Quiz · Play without a timer | - | TODO | - |
+| R338 | v10 | Quiz game · Quit confirm | - | TODO | - |
+| R339 | v10 | Quiz game · Challenge chip "Beat X: 7/8" | - | TODO | - |
+| R340 | v10 | Results · Primary action by score | - | TODO | - |
+| R341 | v10 | Results · Comment field | - | TODO | - |
+| R342 | v10 | Share sheet · Numbers | - | TODO | - |
+| R343 | v10 | Share sheet · More apps | - | TODO | - |
+| R344 | v10 | Create · Publish as guest | - | TODO | - |
+| R345 | v10 | Blindtest hub · Accept a challenge | - | TODO | - |
+| R346 | v10 | Blindtest game · Replay + sound | - | TODO | - |
+| R347 | v10 | Blindtest game · Autoplay blocked state | - | TODO | - |
+| R348 | v10 | Blindtest results · Song row play button | - | TODO | - |
+| R349 | v10 | Blindtest · Daily one try | - | TODO | - |
+| R350 | v10 | Ranked · Target number | - | TODO | - |
+| R351 | v10 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | - | TODO | - |
+| R352 | v10 | Group hub · Empty group (0 quizzes) | - | TODO | - |
+| R353 | v10 | Community · Composer, tabs, mobile rail blocks | - | TODO | - |
+| R354 | v10 | Post · Reply field | - | TODO | - |
+| R355 | v10 | Passport · Band default | - | TODO | - |
+| R356 | v10 | Settings · Sign out | - | TODO | - |
+| R362 | v11 | Home · Quiz of the day card (v11.1 minimal) | - | TODO | - |
+| R363 | v11 | Home · Header (v11.2, centred live-site hero) | - | TODO | - |
+| R364 | v11 | Home · Live ticker | - | TODO | - |
+| R365 | v11 | Nav · Pink pill active item + icons + Home link | - | TODO | - |
+| R366 | v11 | Blindtest · Playlist menu groups | - | TODO | - |
+| R367 | v11 | Blindtest · Play by group (v11.1) | - | TODO | - |
+| R368 | v11 | Blindtest · Day mode | - | TODO | - |
+| R369 | v11 | Ranked · Whole system | - | TODO | - |
+| R370 | v11 | Community · Comment like heart | - | TODO | - |
+| R371 | v11 | Community · Author flair | - | TODO | - |
+| R372 | v11 | Community · Happening now | - | TODO | - |
+| R373 | v11 | Community · Daily debate | - | TODO | - |
+| R374 | v11 | Passport · Change header (upload) | - | TODO | - |
+| R375 | v11 | Passport · Change header (link) | - | TODO | - |
+| R376 | v11 | Settings · Your look | - | TODO | - |
+| R377 | v11 | Passport · Badge medallions (v11.1) | - | TODO | - |
+| R378 | v11 | Passport · Pinned badge next to name | - | TODO | - |
+| R379 | v11 | All · Sheets close | - | TODO | - |
+| R380 | v11 | Quiz page · About box, timer, stats box | - | TODO | - |
+| R381 | v11 | All grids · Quiz card (v11.2) | - | TODO | - |

@@ -1,0 +1,162 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": {
+  "before": {
+   "cls": "pretendard_60cdc229-module__QELmta__variable inter_7773d004-module__XAldaa__variable ux-v1 light",
+   "dt": null,
+   "ls": "light"
+  },
+  "tlabel": "Dark mode",
+  "after": {
+   "cls": "pretendard_60cdc229-module__QELmta__variable inter_7773d004-module__XAldaa__variable ux-v1 dark",
+   "dt": null,
+   "ls": "dark"
+  }
+ },
+ "takenAt": "2026-09-26T15:56:09.814Z",
+ "nav": [
+  "KKpopQuiz -> /",
+  "Home -> /",
+  "Quizzes -> /quizzes",
+  "Groups -> /groups",
+  "Blindtest -> /blindtest",
+  "Community -> /community",
+  "Leaderboard -> /leaderboard",
+  " -> /search",
+  "Create -> /create"
+ ],
+ "signin": 1,
+ "htmlClass": "pretendard_60cdc229-module__QELmta__variable inter_7773d004-module__XAldaa__variable ux-v1 light",
+ "overlay": 1,
+ "results": [
+  "BLACKPINK24 quizzes -> /blackpink-quiz",
+  "BLACKPINK ultimate fan challengeBLACKPINK · 1.4k plays -> /q/blackpink-ultimate-fan-challenge",
+  "BLACKPINK true or false - think you know everything?BLACKPIN -> /q/blackpink-true-or-false-think-you-know-everything",
+  "Guess the BLACKPINK song from cluesBLACKPINK · 489 plays -> /q/guess-the-blackpink-song-from-clues",
+  "BLACKPINK true or falseBLACKPINK · 434 plays -> /q/blackpink-true-or-false",
+  "BLACKPINK discography deep diveBLACKPINK · 347 plays -> /q/blackpink-discography-deep-dive",
+  "BOOMBAYAHBLACKPINK -> /blindtest/group-blackpink",
+  "ChampionBLACKPINK -> /blindtest/group-blackpink",
+  "DDU-DU DDU-DUBLACKPINK -> /blindtest/group-blackpink"
+ ],
+ "afterEnter": "http://localhost:3021/blackpink-quiz",
+ "noResults": "Search quizzes, groups, songs\nEsc\n\nNo results\n\nNo results for \"zzqxjvkw\"\nTry a group name, like Stray Kids, or a song title.",
+ "footer": [
+  "KKpopQuiz -> /",
+  "Daily quiz -> /daily",
+  "Blindtest -> /blindtest",
+  "Ranked -> /blindtest/ranked",
+  "All quizzes -> /quizzes",
+  "Popular quizzes -> /quizzes/popular-this-week",
+  "Trivia -> /trivia",
+  "Groups -> /groups",
+  "Trending -> /trending",
+  "New quizzes -> /new",
+  "Knowledge Report -> /data/knowledge-report-2026",
+  "Pulse -> /data/pulse",
+  "Stats -> /stats",
+  "Articles -> /articles",
+  "News -> /news",
+  "Feed -> /community",
+  "Leaderboard -> /leaderboard",
+  "Fandoms -> /verse",
+  "Create a quiz -> /create",
+  "Discord -> https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer",
+  "Reddit -> https://reddit.com/r/Kpop_Verse",
+  "Help -> /faq",
+  "About -> /about",
+  "Contact -> /contact",
+  "Privacy -> /privacy",
+  "Terms -> /terms",
+  "DMCA -> /dmca",
+  "BTS -> /bts-quiz",
+  "BLACKPINK -> /blackpink-quiz",
+  "Stray Kids -> /stray-kids-quiz",
+  "ATEEZ -> /ateez-quiz",
+  "TWICE -> /twice-quiz",
+  "aespa -> /aespa-quiz",
+  "NewJeans -> /newjeans-quiz",
+  "SEVENTEEN -> /seventeen-quiz",
+  "All groups -> /groups",
+  "Portugues -> /pt"
+ ],
+ "sheet": "Sign in to KpopQuiz\n\nKeep your scores, streak and badges. No password needed.\n\nG\nContinue with Google\nD\nContinue with Discord\nor\nEmail\nEmail me a sign-in link\n\nNew here? The same buttons create your passport. We never post for you.",
+ "errors": [
+  "load /: Unexpected token '<'",
+  "search overlay: no results \"zzqxjv\": Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/stats/live",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/activity/recent",
+   "status": 200
+  },
+  {
+   "step": "search overlay: open + type \"blackpink\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p11/search",
+   "status": 200
+  },
+  {
+   "step": "search overlay: open + type \"blackpink\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p11/search?q=blackpink",
+   "status": 200
+  },
+  {
+   "step": "search overlay: no results \"zzqxjv\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "search overlay: no results \"zzqxjv\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/stats/live",
+   "status": 200
+  },
+  {
+   "step": "search overlay: no results \"zzqxjv\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/activity/recent",
+   "status": 200
+  },
+  {
+   "step": "search overlay: no results \"zzqxjv\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p11/search",
+   "status": 200
+  },
+  {
+   "step": "search overlay: no results \"zzqxjv\"",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p11/search?q=zzqxjvkw",
+   "status": 200
+  }
+ ]
+}

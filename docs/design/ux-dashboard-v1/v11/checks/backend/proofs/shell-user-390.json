@@ -1,0 +1,62 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 390,
+ "theme": "light",
+ "takenAt": "2026-09-26T15:58:22.777Z",
+ "tabs": [
+  "Home -> /",
+  "Quizzes -> /quizzes",
+  "Blindtest -> /blindtest",
+  "Community -> /community",
+  "You -> /profile"
+ ],
+ "tabButtons": [],
+ "errors": [
+  "load /: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/stats/live",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/activity/recent",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p1/daily-band",
+   "status": 200
+  }
+ ]
+}

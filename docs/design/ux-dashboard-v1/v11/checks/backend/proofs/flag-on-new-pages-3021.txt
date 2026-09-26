@@ -1,0 +1,4 @@
+/ux-v1/kit -> 200 (final 200 http://localhost:3021/ux-v1/kit)
+/community -> 200 (final 200 http://localhost:3021/community)
+/community/thread/x -> 404 (final 404 http://localhost:3021/community/thread/x)
+/blindtest/ranked -> 200 (final 200 http://localhost:3021/blindtest/ranked)
