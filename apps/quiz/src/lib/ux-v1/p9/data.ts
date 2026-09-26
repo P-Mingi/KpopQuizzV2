@@ -13,7 +13,7 @@ import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import {
-  getCommunityComments, getFandomWarMap, getHappeningNow, getLatestBadgeEarns, getRisingCreators, getTodayStats,
+  getCommunityComments, getHappeningNow, getLatestBadgeEarns, getRisingCreators, getTodayStats,
 } from '@/lib/db/queries/community';
 import { getTopCreatorsAllTime, getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
@@ -27,12 +27,12 @@ import {
 } from './format';
 
 import type { PersonCardData } from '@/components/profile/person-card';
-import type { TodayStats } from '@/lib/db/queries/community';
+import type { TodayStats, WarMapEntry } from '@/lib/db/queries/community';
 import type { AvatarView } from './format';
 
 /** The live page's data TTL (community-content.tsx: unstable_cache revalidate 300). */
 const TTL = 300;
-/** getGroupWarRank's board size: the pinned fandom row and the page read the same cache entry. */
+/** The war map read size (getGroupWarRank's too): the pinned fandom row and the page read the same cache entry. */
 export const WAR_READ = 90;
 
 function must<T extends { error: { message: string } | null }>(res: T, what: string): T {
@@ -87,10 +87,63 @@ export interface WarRow {
   initials: string;
 }
 
+/** A row of get_fandom_war_map (migration 107). */
+export interface WarRpcRow {
+  name: string;
+  slug: string;
+  logo_url: string | null;
+  display_color: string;
+  plays_week: number | string;
+  fans_week: number | string;
+  plays_prev: number | string;
+}
+
+// The cross-group catch-all bucket is not a fandom (same rule as the live war map).
+const NON_FANDOM_SLUGS = new Set(['general-kpop']);
+
+/** The live war map's mapping (lib/db/queries/community.ts fetchFandomWarMap), from RPC rows. Pure. */
+export function warMapFromRpc(rows: readonly WarRpcRow[], limit: number, facts: ReadonlyMap<string, GroupFacts>): WarMapEntry[] {
+  return rows
+    .filter((r) => !NON_FANDOM_SLUGS.has(r.slug))
+    .slice(0, limit)
+    .map((r) => {
+      const week = Number(r.plays_week ?? 0);
+      const prev = Number(r.plays_prev ?? 0);
+      return {
+        slug: r.slug,
+        name: r.name,
+        logoUrl: r.logo_url,
+        color: r.display_color,
+        plays: week,
+        fans: Number(r.fans_week ?? 0),
+        generation: facts.get(r.slug)?.generation ?? null,
+        delta: prev > 0 ? Math.round(((week - prev) / prev) * 100) : null,
+      };
+    });
+}
+
+// The live getFandomWarMap turns an RPC error into an empty board and caches it for an
+// hour (seen here: a Supabase connection timeout during a build gave "no fandom has
+// points" for the hour). The same RPC and mapping, but a failed read THROWS: it is
+// never cached, and the page says the board could not load instead of "nobody yet".
+async function readWarMapUncached(limit: number): Promise<WarMapEntry[]> {
+  const db = createPublicReadClient();
+  const [res, facts] = await Promise.all([
+    db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size }),
+    getGroupFacts(),
+  ]);
+  must(res, 'war map');
+  return warMapFromRpc((res.data ?? []) as WarRpcRow[], limit, new Map(facts.map((g) => [g.slug, g])));
+}
+
+/** The war map (top `limit` groups of the last 7 days), cached like the live one (1 h). The page
+ *  and the pinned-row endpoint read the same entry (WAR_READ), so a fan's rank matches the board. */
+export const getWarMap = unstable_cache(readWarMapUncached, ['ux-v1:p9:war-map:v1'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+
 /** The fandom war board: the live war map (last 7 days of quiz plays per group, the
  *  general K-pop bucket excluded), top WAR_BOARD, with fandom names and group photos. */
 export async function readWarBoard(): Promise<WarRow[]> {
-  const [board, facts] = await Promise.all([getFandomWarMap(WAR_READ), getGroupFacts()]);
+  const [board, facts] = await Promise.all([getWarMap(WAR_READ), getGroupFacts()]);
   const bySlug = new Map(facts.map((g) => [g.slug, g]));
   return board.slice(0, WAR_BOARD).map((g, i) => {
     const f = bySlug.get(g.slug);

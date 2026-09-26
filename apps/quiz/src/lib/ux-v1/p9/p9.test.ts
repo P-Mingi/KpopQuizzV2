@@ -7,7 +7,7 @@ import { getLevelInfo } from '@/lib/constants';
 vi.mock('next/cache', () => ({ unstable_cache: <T>(fn: T): T => fn }));
 vi.mock('@/lib/supabase/server', () => ({ createPublicReadClient: () => { throw new Error('no db in unit tests'); } }));
 
-const { creatorViews, mainFandomName, qotdNote } = await import('./data');
+const { creatorViews, mainFandomName, qotdNote, warMapFromRpc } = await import('./data');
 const {
   MIN_BOARD, WAR_BOARD, WAR_VISIBLE, addedLine, avatarOf, deltaView, fandomLabel, followersLabel, levelLine, playsLabel,
   podiumOrder, quizzesLabel, rankText, realFandomName,
@@ -43,6 +43,25 @@ describe('fandom names (groups.fandom_name, 17.3 real data)', () => {
     expect(mainFandomName(['cortis'], facts)).toBeNull();
     expect(mainFandomName([], facts)).toBeNull();
     expect(mainFandomName(null, facts)).toBeNull();
+  });
+});
+
+describe('war map read (the live mapping, errors thrown instead of an empty board)', () => {
+  const facts = new Map<string, GroupFacts>([['stray-kids', { slug: 'stray-kids', name: 'Stray Kids', fandom_name: 'STAY', generation: '4th Gen' }]]);
+  const row = (slug: string, week: number, prev: number): Parameters<typeof warMapFromRpc>[0][number] => ({
+    name: slug, slug, logo_url: null, display_color: '#000', plays_week: String(week), fans_week: '2', plays_prev: String(prev),
+  });
+
+  it('drops the general K-pop bucket, keeps the order, computes the live percent', () => {
+    const out = warMapFromRpc([row('girls-generation', 370, 1), row('general-kpop', 300, 10), row('stray-kids', 294, 154), row('cortis', 177, 0)], 30, facts);
+    expect(out.map((g) => g.slug)).toEqual(['girls-generation', 'stray-kids', 'cortis']);
+    expect(out.map((g) => g.delta)).toEqual([36900, 91, null]);
+    expect(out[1]).toMatchObject({ plays: 294, fans: 2, generation: '4th Gen' });
+  });
+
+  it('keeps `limit` real groups after the bucket is dropped', () => {
+    const rows = [row('general-kpop', 999, 1), ...Array.from({ length: 5 }, (_, i) => row(`g${i}`, 100 - i, 50))];
+    expect(warMapFromRpc(rows, 3, facts).map((g) => g.slug)).toEqual(['g0', 'g1', 'g2']);
   });
 });
 

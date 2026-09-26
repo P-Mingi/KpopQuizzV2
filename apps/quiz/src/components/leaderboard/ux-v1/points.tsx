@@ -6,7 +6,7 @@ import type { CreatorsView } from '@/lib/ux-v1/p9/data';
 // <details>). DESIGN-SPEC 13.5: the prototype's rules are illustrative, the copy
 // must be the real ones. Each sentence below was checked in the code that makes
 // the numbers (the sources are named in the P9 report, section 4):
-//   war      get_fandom_war_map (mig 107) + getFandomWarMap (1 h cache)
+//   war      get_fandom_war_map (mig 107), read like getFandomWarMap (1 h cache): lib/ux-v1/p9/data.ts getWarMap
 //   players  profiles.xp, /api/quiz/[id]/play, /api/daily/complete, /api/quiz/create
 //   creators profiles.total_plays_received (record_play), getTopCreatorsThisWeek, get_rising_creators
 

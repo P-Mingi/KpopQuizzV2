@@ -4,7 +4,7 @@
 // written. Only the viewer's own public fields leave the server (privacy fail-closed:
 // no user id, no email).
 
-import { getFandomWarMap } from '@/lib/db/queries/community';
+import { WAR_READ, getWarMap } from './data';
 
 import { avatarOf, fandomLabel, levelLine, realFandomName } from './format';
 
@@ -79,7 +79,7 @@ export async function readStanding(db: SupabaseClient, userId: string, now: Date
   let war: P9Standing['war'] = null;
   if (group) {
     const [board, mine] = await Promise.all([
-      getFandomWarMap(90),
+      getWarMap(WAR_READ),
       // The viewer's quiz plays on this group's quizzes in the war's window: each is one point.
       db.from('plays').select('id, quizzes!inner(group_id)', { count: 'exact', head: true })
         .eq('player_id', userId)
