@@ -3,11 +3,8 @@ import Link from 'next/link';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
-import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
-import { getBlindtestStats } from '@/lib/db/queries/blindtest';
-import { safeFetch } from '@/lib/error-handling';
-import { getGroupPopularity, getTodayPlayers, popularSix } from '@/lib/ux-v1/p6/hub-data';
+import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import {
@@ -48,33 +45,37 @@ const BREADCRUMB_JSONLD = {
   ],
 };
 
-async function songsInPool(): Promise<number> {
-  try {
-    return (await getBlindtestStats()).songs;
-  } catch {
-    return 0;
-  }
-}
-
 export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps): Promise<React.ReactElement> {
+  // Every read settles to a fail-soft value outside the caches (a failed read is
+  // never cached, C3-009); then a production ISR regeneration with a failed read
+  // keeps the last good copy instead of caching the fail-soft one.
+  const db = hasDbEnv();
+  const none = async <T,>(v: T): Promise<T> => v;
   const [playlists, songs, popularity, today] = await Promise.all([
-    safeFetch(getAdvertisablePlaylists(), { staticModes: [], groups: [] }, '[blindtest v11] getAdvertisablePlaylists'),
-    songsInPool(),
-    safeFetch(getGroupPopularity(), { blindtest: {}, quiz: {} }, '[blindtest v11] getGroupPopularity'),
-    safeFetch(getTodayPlayers(), 0, '[blindtest v11] getTodayPlayers'),
+    settle(db ? () => getPlayableGroups() : () => none<BtGroup[]>([]), [] as BtGroup[]),
+    settle(db ? () => getSongCount() : () => none(0), 0),
+    settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }),
+    settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0),
   ]);
-  const groups: BtGroup[] = playlists.groups.map((g) => ({ slug: g.slug, name: g.name, songs: g.songs }));
-  const popular = popularSix(groups, popularity);
+  const failed = [
+    ...(playlists.ok ? [] : ['playlists']),
+    ...(songs.ok ? [] : ['songs']),
+    ...(popularity.ok ? [] : ['popularity']),
+    ...(today.ok ? [] : ['today']),
+  ];
+  keepLastGoodCopyOnFailure(failed);
+  const groups: BtGroup[] = playlists.value;
+  const popular = popularSix(groups, popularity.value);
 
   return (
     <UxPage width="full" padded={false} className="p6">
       {jsonLdScript(BREADCRUMB_JSONLD)}
-      <BtHubControllerLoader groups={groups} songs={songs}>
+      <BtHubControllerLoader groups={groups} songs={songs.value}>
         <section className="p6-hero" id="bt-start" aria-labelledby="p6-h1">
           <div className="p6-bars" aria-hidden="true">
             {Array.from({ length: 10 }, (_, i) => <i key={i} />)}
           </div>
-          <BtLiveCountLoader initial={today} />
+          <BtLiveCountLoader initial={today.value} />
           <h1 id="p6-h1" className="p6-display">Name that<br /><span>K-pop song</span></h1>
           <p className="p6-lead">10 songs. 10 seconds each. Guess the song or the artist from a clip.</p>
           <BtSetupLoader />
