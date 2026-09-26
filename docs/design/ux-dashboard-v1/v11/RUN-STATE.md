@@ -10,7 +10,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged #45 + #50; round 3 running (P11 slot swap, Mark all read, streak copy, search field; P5 sheet title) | a26031b | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | merged #45, #50, #56 (75d43f6); fixing 1 tsc error in kit.spec.ts | 99d1444 | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
@@ -101,6 +101,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 A0 round 3 merged (75d43f6, PR #56): P11 slots wired (overlay + bell e2e now run), Mark all read, streak copy = the real rule, search field without ring box or native clear (2px pink focus line), sheet title 18/1.6, UxQuizCard preview mode. Guard range listed RUN-STATE.md only because A0 re-committed ORCH's f9e47e3 with another message (b41bbcc, same tree and parent); net diff empty, merged with a note. Whole-app tsc after the merge: 1 error in kit.spec.ts(339) (A0 fixing). Unit 769/769. A0's replies are in v11/requests/A0.md (round 3).
 - 2026-09-26 P9 merged (8756aaa): guard ok (41 files), e2e 41/41 on a flag-on production build, landmarks 0px to row 10, SEO identical, 0 links lost (/leaderboard 76 -> 97), flag off identical. Integration: tsc 0, unit 769/769, check:routes 331 both ways. Remaining: P8 (Verse gates fix), A0 round 3, P2 (owner push).
 - 2026-09-26 P8 finished (PR #55, e2e 56/57 + 1 flaky, /community noindex, flag off 301 + 404s) but NOT merged: its feed ignored the Verse gates (VERSE_PUBLIC fail-closed, LIVE_SPACES = bts only), so turning the flag on would publish hidden Verse content. Privacy blocker, sent back. P8 also found that the daily debate only rotates through the legacy community on /leaderboard (ensure_daily_debate on view): P9 asked to check. C2 brief: probe the nested challenge attempt routes of P4 and P6 (dev 404 shape found by P8).
 - 2026-09-26 P5's spec fix merged (ed8abea): whole-app tsc clean again (e2e included).
