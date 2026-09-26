@@ -19,7 +19,7 @@ same    hreflang
 same    h1
 same    intro (first h2)
 same    json-ld
-info    internal links: off 46, on 52; only-off 1: /search; only-on 7: /ateez-quiz /blindtest/ranked /community /daily /new /profile /trending
+info    internal links: off 46, on 52; only-off 2: /q/k-pop-training-system-and-idol-life?daily=quiz /search; only-on 8: /ateez-quiz /blindtest/ranked /community /daily /new /profile /q/mamamoo-the-curtain-call-era?daily=quiz /trending
 info    server-rendered /q/ links: off 7, on 7; hub links: off 18, on 19
 
 SEO DIFF EMPTY (title, meta, canonical, hreflang, h1, intro, json-ld identical)
