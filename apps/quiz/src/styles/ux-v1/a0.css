@@ -475,7 +475,9 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 .ux-urlbox { display: flex; align-items: center; gap: 12px; padding: 0 8px 0 16px; height: 48px; border: 1px solid var(--ux-edge); border-radius: 999px; font-size: 14px; color: var(--ux-muted); overflow: hidden; }
 .ux-urlbox span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
 .ux-drop { display: grid; place-items: center; text-align: center; gap: 4px; min-height: 110px; padding: 20px; border: 1.5px dashed var(--ux-edge); border-radius: 16px; font-size: 14px; color: var(--ux-muted); cursor: pointer; transition: border-color .15s, background .15s; }
-.ux-drop:hover, .ux-drop:focus-within { border-color: var(--ux-pink); background: var(--ux-surface); }
+/* Hover look on pointer hover only (prototype .drop:hover). The sheet moves focus into the
+   file input when it opens: that is not a hover, and keyboard focus gets the 16.9 ring below. */
+.ux-drop:hover { border-color: var(--ux-pink); background: var(--ux-surface); }
 .ux-drop b { color: var(--ux-ink); font-weight: 600; }
 .ux-drop:has(input:focus-visible) { outline: 2px solid var(--ux-pink); outline-offset: 2px; }
 .ux-urlrow { display: flex; gap: 10px; margin-top: 10px; }
