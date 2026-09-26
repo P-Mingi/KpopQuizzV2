@@ -1,0 +1,625 @@
+{
+ "at": "2026-09-26T17:30:12.475Z",
+ "base": "http://localhost:4203",
+ "label": "off",
+ "dpr": 3,
+ "cpuThrottle": 4,
+ "runs": 3,
+ "pages": {
+  "/": {
+   "local": {
+    "lcpMs": 408,
+    "cls": 0.0499,
+    "jsKB": 320,
+    "totalKB": 762,
+    "lcpEl": "div.daily-banner",
+    "shifts": [
+     {
+      "t": 1040,
+      "v": 0.0499,
+      "src": [
+       "section.home-section",
+       "section."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 408,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 72,
+       "total": 749
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 500,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 84,
+       "total": 762
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 404,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 323,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 100,
+       "total": 780
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3040,
+    "cls": 0.0687,
+    "jsKB": 320,
+    "totalKB": 742,
+    "lcpEl": "div.daily-banner",
+    "shifts": [
+     {
+      "t": 2842,
+      "v": 0.0499,
+      "src": [
+       "section.home-section",
+       "section."
+      ]
+     },
+     {
+      "t": 3149,
+      "v": 0.0188,
+      "src": [
+       "section.home-section",
+       "div."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2832,
+      "cls": 0.0687,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 64,
+       "total": 742
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3088,
+      "cls": 0.0687,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 64,
+       "total": 742
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3040,
+      "cls": 0.0687,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 64,
+       "total": 742
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/q/ultimate-bts-era-quiz-only-real-armys-survive": {
+   "local": {
+    "lcpMs": 688,
+    "cls": 0,
+    "jsKB": 322,
+    "totalKB": 711,
+    "lcpEl": "img.object-cover /_next/image?url=https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-im",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 688,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 172,
+       "font": 77,
+       "doc": 22,
+       "other": 50,
+       "total": 711
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 852,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 172,
+       "font": 77,
+       "doc": 22,
+       "other": 50,
+       "total": 711
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 672,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 182,
+       "font": 77,
+       "doc": 22,
+       "other": 50,
+       "total": 722
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 2420,
+    "cls": 0.0003,
+    "jsKB": 322,
+    "totalKB": 628,
+    "lcpEl": "img.object-cover /_next/image?url=https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-im",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2420,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 98,
+       "font": 77,
+       "doc": 22,
+       "other": 40,
+       "total": 628
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2388,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 98,
+       "font": 77,
+       "doc": 22,
+       "other": 40,
+       "total": 628
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2448,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 322,
+       "css": 69,
+       "img": 98,
+       "font": 77,
+       "doc": 22,
+       "other": 40,
+       "total": 628
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/blackpink-quiz": {
+   "local": {
+    "lcpMs": 420,
+    "cls": 0,
+    "jsKB": 300,
+    "totalKB": 1238,
+    "lcpEl": "p.af-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 884,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 53,
+       "total": 1238
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 420,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 49,
+       "total": 1234
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 392,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 53,
+       "total": 1238
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg",
+      "natural": 700,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Jisoo BLACKPINK.jpg: served 700px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Jennie BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Rose BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Lisa BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none"
+    ]
+   },
+   "slow4g": {
+    "lcpMs": 3248,
+    "cls": 0.0003,
+    "jsKB": 300,
+    "totalKB": 1232,
+    "lcpEl": "p.af-lead",
+    "shifts": [
+     {
+      "t": 4699,
+      "v": 0.0003,
+      "src": [
+       "a.",
+       "a."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3248,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 47,
+       "total": 1232
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3312,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 47,
+       "total": 1232
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3220,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 47,
+       "total": 1232
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg",
+      "natural": 700,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg",
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Jisoo BLACKPINK.jpg: served 700px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Jennie BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Rose BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Lisa BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none"
+    ]
+   }
+  },
+  "/blindtest": {
+   "local": {
+    "lcpMs": 272,
+    "cls": 0,
+    "jsKB": 290,
+    "totalKB": 523,
+    "lcpEl": "h1.bt-title",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 348,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 50,
+       "total": 523
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 272,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 52,
+       "total": 525
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 248,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 48,
+       "total": 521
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 2048,
+    "cls": 0,
+    "jsKB": 290,
+    "totalKB": 519,
+    "lcpEl": "h1.bt-title",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2036,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 46,
+       "total": 519
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2060,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 46,
+       "total": 519
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2048,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 290,
+       "css": 69,
+       "img": 15,
+       "font": 77,
+       "doc": 22,
+       "other": 46,
+       "total": 519
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  }
+ }
+}

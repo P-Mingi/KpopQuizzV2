@@ -78,6 +78,14 @@ async function measure(p, profile, warm) {
   await page.waitForTimeout(warm ? 500 : 5000); // let LCP / late shifts settle (no input)
   const qa = await page.evaluate(() => window.__qa);
   const measured = { ...bytes }; // before the image probes below add their own bytes
+  // when the LCP resource (an image) started loading, relative to navigation start
+  const lcpStart = await page.evaluate(() => {
+    const e = performance.getEntriesByType('largest-contentful-paint').at(-1);
+    const url = e && e.url;
+    if (!url) return null;
+    const r = performance.getEntriesByType('resource').find((x) => x.name === url);
+    return r ? Math.round(r.startTime) : null;
+  });
   // naturalWidth of a srcset image is density-corrected: read the served file's own width
   // by loading currentSrc again in a plain Image (same URL, from the cache).
   const imgs = await page.evaluate(async (dpr) => Promise.all(Array.from(document.images)
@@ -97,7 +105,7 @@ async function measure(p, profile, warm) {
       };
     })), DPR);
   await ctx.close();
-  return { status: res?.status(), wallMs: Date.now() - t0, lcp: qa.lcp === null ? null : Math.round(qa.lcp), lcpEl: qa.lcpEl, cls: Number(qa.cls.toFixed(4)), shifts: qa.shifts, bytes: measured, imgs };
+  return { status: res?.status(), wallMs: Date.now() - t0, lcp: qa.lcp === null ? null : Math.round(qa.lcp), lcpEl: qa.lcpEl, cls: Number(qa.cls.toFixed(4)), shifts: qa.shifts, bytes: measured, lcpStart, imgs };
 }
 
 const med = (xs) => { const s = xs.filter((x) => x !== null).sort((a, b) => a - b); return s.length ? s[Math.floor((s.length - 1) / 2)] : null; };
@@ -111,7 +119,7 @@ for (const p of PAGES) {
     const imgs = runs.at(-1).imgs;
     out.pages[p][profile] = {
       lcpMs: med(runs.map((r) => r.lcp)), cls: med(runs.map((r) => r.cls)), jsKB: Math.round(med(runs.map((r) => r.bytes.js)) / 1024), totalKB: Math.round(med(runs.map((r) => r.bytes.total)) / 1024),
-      lcpEl: runs.at(-1).lcpEl, shifts: runs.at(-1).shifts, runs: runs.map((r) => ({ status: r.status, lcp: r.lcp, cls: r.cls, jsKB: Math.round(r.bytes.js / 1024), totalKB: Math.round(r.bytes.total / 1024) })),
+      lcpEl: runs.at(-1).lcpEl, shifts: runs.at(-1).shifts, runs: runs.map((r) => ({ status: r.status, lcp: r.lcp, cls: r.cls, lcpStartMs: r.lcpStart, kb: Object.fromEntries(Object.entries(r.bytes).map(([k, v]) => [k, Math.round(v / 1024)])) })),
       idolImages: imgs,
       // too big: more than 2x the pixels needed at DPR 3; too small: under 2/3 of it while the
       // source file had more to give; no `sizes` on a srcset image (the browser assumes 100vw)
