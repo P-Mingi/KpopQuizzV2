@@ -1,0 +1,213 @@
+/* ==========================================================================
+   P5 create funnel (UX v11.2, prototype #create; DESIGN-SPEC 14.5, 16.4, 16.7, 17.9).
+   NOT imported anywhere: A0's /api/ux-v1/a0/styles route serves this folder to
+   flag-on pages only. Every rule targets a .p5 / .p5-* class that only the
+   flag-on /create renders. Numbers are the prototype's (v11/reports/P5/proto-create.json).
+   ========================================================================== */
+
+/* page: the sticky bar takes the bottom (prototype .pg padding-bottom 0) */
+.ux-page.p5 { padding-bottom: 0; }
+.p5-ph h1 { scroll-margin-top: 96px; }
+.p5-ph p { max-width: 60ch; }
+
+/* ---------- stepper ---------- */
+.p5-stepper { display: flex; align-items: center; gap: 12px; margin-top: 32px; }
+.p5-st { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.p5-st:not(:last-child) { flex: 1; }
+.p5-st:not(:last-child)::after { content: ""; flex: 1; height: 1px; background: var(--ux-hair); min-width: 24px; }
+.p5-st-b { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; line-height: 24px; color: var(--ux-muted); white-space: nowrap; border-radius: 999px; }
+.p5-st-b:disabled { cursor: default; }
+.p5-st-c { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--ux-line); display: grid; place-items: center; font-size: 13px; font-weight: 600; line-height: 20.8px; flex: 0 0 auto; transition: all .25s var(--ux-spring); font-variant-numeric: tabular-nums; }
+.p5-st-c .ux-ico { width: 14px; height: 14px; stroke-width: 2.5; }
+.p5-st.is-on .p5-st-b { color: var(--ux-ink); }
+.p5-st.is-on .p5-st-c { border-color: var(--ux-pink); color: var(--ux-pink-ink); box-shadow: 0 0 0 4px var(--ux-pink-soft); }
+.p5-st.is-done .p5-st-c { background: var(--ux-ok); border-color: var(--ux-ok); color: var(--ux-on-ok); }
+
+/* ---------- step 1 ---------- */
+.p5 .ux-field > label, .p5 .ux-flabel { line-height: 24px; }
+.p5 .ux-flabel small, .p5 .ux-field > label small { line-height: 20.8px; }
+.p5 .ux-inp { line-height: 25.6px; }
+.p5 textarea.ux-inp { line-height: 1.55; }
+.p5-inp-big { font-size: 18px; font-weight: 600; line-height: 28.8px; }
+.p5 .ux-help { line-height: 20.8px; }
+.p5 .ux-help:empty { margin: 0; }
+.p5-err { color: var(--ux-no) !important; }
+.p5-warn { color: var(--ux-warn) !important; }
+
+.p5-opts { display: flex; flex-direction: column; gap: 8px; }
+.p5-opt { position: relative; display: flex; align-items: center; gap: 16px; min-height: 64px; padding: 12px 16px; border: 1px solid var(--ux-edge); border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; color: var(--ux-ink); }
+.p5-opt:hover { border-color: var(--ux-input); }
+.p5-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.p5-opt:has(input:focus-visible) { outline: 2px solid var(--ux-pink); outline-offset: 2px; }
+.p5-rd { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--ux-input); flex: 0 0 auto; display: grid; place-items: center; }
+.p5-opt.is-on { border-color: var(--ux-pink); box-shadow: inset 0 0 0 1px var(--ux-pink); }
+.p5-opt.is-on .p5-rd { border-color: var(--ux-pink); background: var(--ux-pink); box-shadow: inset 0 0 0 4px var(--ux-page); }
+.p5-opt > .ux-ico { color: var(--ux-muted); }
+.p5-opt-t { min-width: 0; line-height: 25.6px; }
+.p5-opt b { font-size: 15px; font-weight: 600; line-height: 24px; display: block; }
+.p5-opt small { font-size: 13px; line-height: 20.8px; color: var(--ux-muted); }
+.p5-opt-ex { margin-left: auto; font-size: 13px; line-height: 20.8px; color: var(--ux-muted); text-align: right; max-width: 24ch; }
+/* locked type: the rows keep the prototype look (the label says "Locked once you add
+   questions"); the radios are disabled, so they cannot be picked */
+.p5-opt.is-off { cursor: not-allowed; }
+.p5-opt.is-off:hover { border-color: var(--ux-edge); }
+
+/* group field (prototype .inp + .gchip) */
+.p5-gwrap { position: relative; }
+.p5-gbox { cursor: text; }
+.p5-gbox:focus-within { border-color: var(--ux-pink); box-shadow: 0 0 0 3px var(--ux-pink-soft); }
+.p5-gbox.is-err { border-color: var(--ux-no); }
+.p5-gbox-i { color: var(--ux-muted); }
+.p5-gbox-in { flex: 1; min-width: 80px; height: 46px; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--ux-ink); -webkit-appearance: none; appearance: none; padding: 0; }
+.p5-gbox-in::placeholder { color: var(--ux-muted); }
+.p5-gchip { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 4px 0 4px; border-radius: 999px; background: var(--ux-surface); font-size: 14px; font-weight: 600; line-height: 22.4px; white-space: nowrap; flex: 0 0 auto; }
+.p5-gchip .p5-gav { width: 24px; height: 24px; font-size: 12px; }
+.p5-gchip-new { font-size: 12px; font-weight: 500; color: var(--ux-muted); }
+.p5-gchip-x { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; color: var(--ux-muted); margin-left: -4px; }
+.p5-gchip-x:hover { background: var(--ux-surface-2); color: var(--ux-ink); }
+.p5-gchip-x .ux-ico { width: 14px; height: 14px; }
+.p5-gav { font-size: 11px; font-weight: 700; color: var(--ux-muted); }
+.p5-glist { top: calc(100% + 6px); left: 0; right: 0; min-width: 0; max-height: 320px; overflow: auto; padding: 6px; }
+.p5-glist[hidden] { display: none; }
+.p5-gopt { cursor: pointer; min-height: 44px; font-size: 15px; }
+.p5-gopt .ux-gav { width: 28px; height: 28px; }
+.p5-gopt[aria-selected="true"] { background: var(--ux-surface); }
+.p5-gopt-new { color: var(--ux-pink-ink); font-weight: 600; }
+.p5-gopt-new .ux-ico { color: currentColor; }
+.p5-gopt-on { margin-left: auto; color: var(--ux-pink-ink); }
+.p5-gcount { padding: 8px 12px 4px; font-size: 13px; color: var(--ux-muted); }
+.p5-gcreate { display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 1px solid var(--ux-edge); border-radius: 12px; }
+.p5-gcreate-l { font-size: 14px; font-weight: 600; }
+.p5-gcreate-a { display: flex; gap: 10px; justify-content: flex-end; }
+
+/* language select */
+.p5-select { position: relative; max-width: 280px; }
+.p5-select select { padding-right: 44px; cursor: pointer; }
+.p5-select-i { position: absolute; right: 16px; top: 14px; color: var(--ux-muted); pointer-events: none; }
+
+/* cover */
+.p5-covgrid { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; align-items: start; }
+.p5-cov { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; position: relative; background: var(--ux-surface); box-shadow: var(--ux-photo-edge); }
+.p5-cov img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.p5-cov-empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ux-muted); background: var(--ux-surface-2); }
+.p5-drop { min-height: 120px; line-height: 22.4px; }
+.p5-drop.is-over { border-color: var(--ux-pink); background: var(--ux-surface); }
+.p5 .ux-check { line-height: 22.4px; }
+.p5-rights { display: block; }
+.p5-rights.is-err .ux-check i { border-color: var(--ux-no); }
+.p5-remove { margin-top: 12px; font-size: 14px; }
+
+/* ---------- step 2 ---------- */
+.p5-qfield { margin-top: 40px; }
+.p5-qlist { margin: 0; padding: 0; list-style: none; }
+.p5-qitem { border: 1px solid var(--ux-line); border-radius: 16px; margin-top: 10px; overflow: hidden; transition: border-color .15s; background: var(--ux-page); }
+.p5-qitem.is-open { border-color: var(--ux-pink); box-shadow: inset 0 0 0 1px var(--ux-pink); }
+.p5-qitem.is-drag { opacity: .5; }
+.p5-qhead { display: flex; align-items: center; gap: 14px; min-height: 60px; padding: 0 16px; }
+.p5-drag { display: grid; place-items: center; color: var(--ux-muted); cursor: grab; flex: 0 0 auto; }
+.p5-qtoggle { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; min-height: 60px; text-align: left; }
+.p5-qn { width: 24px; font-weight: 600; color: var(--ux-muted); line-height: 25.6px; flex: 0 0 auto; }
+.p5-qq { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p5-qq.is-w { color: var(--ux-muted); }
+.p5-qst { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; line-height: 20.8px; white-space: nowrap; flex: 0 0 auto; }
+.p5-qst.is-ok { color: var(--ux-ok); }
+.p5-qst.is-w { color: var(--ux-warn); }
+.p5-acts { display: flex; opacity: 0; transition: opacity .15s; flex: 0 0 auto; }
+.p5-qitem:hover .p5-acts, .p5-acts:focus-within { opacity: 1; }
+.p5-qbody { padding: 4px 16px 20px 54px; border-top: 1px solid var(--ux-hair); }
+.p5-qbody .p5-qf:first-child { margin-top: 16px; }
+.p5-qbody .p5-qf + .p5-qf { margin-top: 20px; }
+.p5-arow { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.p5-arow:first-child { margin-top: 0; }
+.p5 .p5-arow .ux-inp { min-height: 44px; }
+.p5-ard { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--ux-input); display: grid; place-items: center; cursor: pointer; flex: 0 0 auto; position: relative; }
+.p5-ard::after { content: ""; position: absolute; inset: -10px; }
+.p5-ard .ux-ico { width: 14px; height: 14px; stroke: var(--ux-on-ok); stroke-width: 2.5; opacity: 0; }
+.p5-arow.is-on .p5-ard { background: var(--ux-ok); border-color: var(--ux-ok); }
+.p5-arow.is-on .p5-ard .ux-ico { opacity: 1; }
+.p5-arow.is-on .ux-inp { border-color: var(--ux-ok); }
+.p5-tf { min-height: 44px; cursor: default; }
+.p5-tf:hover { border-color: var(--ux-input); }
+.p5-clue + .p5-clue { margin-top: 8px; }
+/* one line like the prototype's field, growing with the text (A0's textarea.ux-inp is 96 high) */
+.p5 textarea.p5-fact, .p5 textarea.p5-qtext { display: block; min-height: 48px; padding: 11px 16px; resize: none; field-sizing: content; max-height: 240px; line-height: 25.6px; }
+.p5-qfoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.p5-qmove { display: inline-flex; gap: 8px; }
+.p5-up { transform: rotate(180deg); }
+.p5-qadd { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.p5-img { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.p5-img-th { width: 72px; height: 54px; border-radius: 8px; object-fit: cover; box-shadow: var(--ux-photo-edge); }
+.p5-img-a { display: inline-flex; gap: 16px; align-items: center; }
+.p5-img-l { color: var(--ux-muted); cursor: pointer; }
+.p5-img-l:hover { color: var(--ux-ink); }
+.p5-img-l .ux-ico { color: currentColor; }
+.p5-img-l:has(input:focus-visible) { outline: 2px solid var(--ux-pink); outline-offset: 2px; border-radius: 8px; }
+.p5-intr { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.p5-intr-c { display: flex; flex-direction: column; gap: 8px; }
+.p5-img.is-tile { flex-direction: column; align-items: stretch; gap: 6px; }
+.p5-img.is-tile .p5-img-th { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+.p5-img-th.is-empty { display: grid; place-items: center; background: var(--ux-surface-2); color: var(--ux-muted); }
+.p5-intr-c .p5-arow { margin-top: 0; }
+.p5-paste { min-height: 180px; font-size: 15px; }
+
+/* ---------- step 3 ---------- */
+.p5-pubfield { margin-top: 40px; }
+.p5-pubgrid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; align-items: start; }
+.p5-card { cursor: default; height: auto; }
+.p5-card:hover { border-color: var(--ux-line); transform: none; box-shadow: none; }
+.p5-card:hover .ux-qcov-img { transform: none; }
+.p5-card:hover .ux-qt { color: inherit; }
+.p5-card .ux-qcov-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.p5-card .ux-qt { text-wrap: balance; }
+.p5-checks { margin: 0; padding: 0; list-style: none; }
+.p5-check { padding: 12px 0; line-height: 25.6px; }
+.p5-check .ux-row-grow { font-size: 16px; }
+.p5-check .ux-row-end { line-height: 20.8px; }
+.p5-ok { color: var(--ux-ok); }
+.p5-w { color: var(--ux-warn); }
+.p5-no { color: var(--ux-no); }
+.p5-fix { font-size: 13px; flex: 0 0 auto; }
+.p5-note { margin-top: 16px; }
+.p5-claim .p5-uname { display: flex; align-items: center; gap: 8px; max-width: 360px; }
+.p5-claim .p5-uname > span { font-weight: 600; color: var(--ux-muted); }
+.p5-uname-s.is-available { color: var(--ux-ok); }
+.p5-uname-s.is-taken, .p5-uname-s.is-invalid { color: var(--ux-no); }
+.p5-pubmsg { margin-top: 24px; font-size: 14px; }
+
+/* ---------- done ---------- */
+.p5-done { text-align: center; padding: 48px 0 64px; }
+.p5-done-m { width: 88px; height: 88px; margin: 0 auto 12px; }
+.p5-nudge { margin-top: 0; }
+.p5-url { max-width: 520px; margin: 20px auto 0; }
+.p5-done-a { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 32px; }
+.p5-another { margin-top: 24px; font-size: 14px; }
+
+/* ---------- sticky bar ---------- */
+.p5-bar { position: sticky; bottom: 0; z-index: 30; margin-top: 48px; background: var(--ux-nav-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--ux-hair); }
+.p5-bar-in { height: 72px; display: flex; align-items: center; gap: 12px; }
+.p5-stt { flex: 1; min-width: 0; font-size: 14px; line-height: 22.4px; color: var(--ux-muted); display: flex; align-items: center; gap: 8px; }
+.p5-stt b { color: var(--ux-ink); font-weight: 600; }
+.p5-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ux-ok); flex: 0 0 8px; }
+.p5-dot.is-warn { background: var(--ux-warn); }
+.p5-next[aria-disabled="true"] { opacity: .7; cursor: progress; }
+
+/* ---------- phones (prototype @media max-width 760) ---------- */
+@media (max-width: 760px) {
+  /* the prototype's .flabel wraps on phones (A0 has the same fix queued, PR #50) */
+  .p5 .ux-flabel, .p5 .ux-field > label { flex-wrap: wrap; row-gap: 2px; }
+  .p5-st-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .p5-opt-ex { display: none; }
+  .p5-covgrid, .p5-pubgrid { grid-template-columns: 1fr; }
+  .p5-cov { max-width: 240px; }
+  .p5-pubcard { max-width: 280px; }
+  .p5-bar { bottom: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .p5-intr { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+@media (hover: none) {
+  /* no invisible tap targets: the row actions show on the open row only */
+  .p5-qitem:not(.is-open) .p5-acts { display: none; }
+  .p5-qitem.is-open .p5-acts { opacity: 1; }
+}
+@media (pointer: coarse) {
+  .p5-gchip-x { width: 32px; height: 32px; }
+}

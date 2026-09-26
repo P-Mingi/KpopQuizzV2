@@ -25,6 +25,12 @@ export const TYPE_ROWS: TypeRow[] = [
   { value: 'intruder', label: 'Find the intruder', desc: '4 pictures, one does not belong', example: 'Three ONCE, one who is not', icon: 't-intruder' },
 ];
 
+/** The groups a fan can pick: the DB also holds a hidden quarantine row (91 rows,
+ *  90 visible groups, DESIGN-SPEC 16.10; same rule as lib/ux-v1/p1/format.ts). */
+export function visibleGroups<T extends { slug: string }>(groups: T[]): T[] {
+  return groups.filter((g) => !/^zzz-|quarantine/i.test(g.slug));
+}
+
 export function typeLabel(quizType: string): string {
   return TYPE_ROWS.find((t) => t.value === quizType)?.label ?? 'Classic';
 }

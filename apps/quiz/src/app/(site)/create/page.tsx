@@ -1,6 +1,9 @@
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
 import { CreateFunnel, type FunnelGroup } from '@/components/create/create-funnel';
+import { UX_V1 } from '@/lib/ux-v1';
+import { UxPage } from '@/components/ux-v1/page';
+import { P5CreateLoader } from '@/components/create/ux-v1/loader';
 
 import type { Metadata } from 'next';
 
@@ -31,6 +34,19 @@ export default async function CreatePage({ searchParams }: CreatePageProps): Pro
     logo_url: g.logo_url ?? null,
     fandom_name: g.fandom_name ?? 'fan',
   }));
+
+  if (UX_V1) {
+    // UX v11 (P5, NEXT_PUBLIC_UX_V1, default off): the same funnel (state, draft,
+    // gates, save calls) in the prototype's #create view. Same metadata, same H1 and
+    // intro (server-rendered step 1), same robots. The create shell mode hides the
+    // tab bar and the footer (its own sticky bar takes the bottom).
+    const initialGroupSlug = group && funnelGroups.some((g) => g.slug === group) ? group : null;
+    return (
+      <UxPage width="full" shell="create" className="p5">
+        <P5CreateLoader groups={funnelGroups} initialGroupSlug={initialGroupSlug} />
+      </UxPage>
+    );
+  }
 
   return <CreateFunnel groups={funnelGroups} initialGroupSlug={group ?? null} />;
 }
