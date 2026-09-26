@@ -15,11 +15,11 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | merged (caff03e, PR #52); fixing one tsc error in its spec (page.route returns a Disposable) | 69c55ca | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
-| P8 | ux11/p8-community | running (resumed 10:00 after an API stall; 9 commits pushed) | adddaab | 0 | v11/reports/P8.md |
-| P9 | ux11/p9-leaderboard | running (resumed 10:00 after an API stall; 12 commits pushed) | 39178bf | 0 | v11/reports/P9.md |
+| P8 | ux11/p8-community | PR #55 open; sent back: the feed ignored VERSE_PUBLIC / LIVE_SPACES (privacy fail-closed blocker) | 674fd2b | 0 | v11/reports/P8.md |
+| P9 | ux11/p9-leaderboard | PR #54 open (report pending); asked to check the daily debate rotation caller | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
@@ -55,6 +55,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p10-header-storage.sql` (P10): the profile-headers storage bucket + policies; both header routes answer 503 before any write until it exists.
 - `docs/pending-migrations/v11-p10-email-prefs.sql` (P10): email notification switches (disabled in the UI until applied).
 - `docs/pending-migrations/v11-p3-group-quiz-alerts.sql` (P3): group quiz alerts table + RLS + publish trigger (the empty hub's Notify me fails soft until applied).
+- `docs/pending-migrations/v11-p8-community.sql` (P8): community_likes, community_debates + community_debate_votes, community_challenges, community_replies (fan debates, challenge posts and hearts stay off until applied; they turn on without a deploy).
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
@@ -95,6 +96,8 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P8 finished (PR #55, e2e 56/57 + 1 flaky, /community noindex, flag off 301 + 404s) but NOT merged: its feed ignored the Verse gates (VERSE_PUBLIC fail-closed, LIVE_SPACES = bts only), so turning the flag on would publish hidden Verse content. Privacy blocker, sent back. P8 also found that the daily debate only rotates through the legacy community on /leaderboard (ensure_daily_debate on view): P9 asked to check. C2 brief: probe the nested challenge attempt routes of P4 and P6 (dev 404 shape found by P8).
+- 2026-09-26 P5's spec fix merged (ed8abea): whole-app tsc clean again (e2e included).
 - 2026-09-26 P11 merged (6b17e0e): guard ok (38 files), notifications page + BellPanel + SearchResults on A0's slot props, read-only /api/ux-v1/p11/search, flag-off identical, SEO and links unchanged on /search and /notifications. Integration: check:routes 330 both ways, unit 738/738, tsc: only P5's spec error (fix in progress). A0 resumed for round 3.
 - 2026-09-26 P5 merged (caff03e): guard ok (41 files), p5.spec 45/45, 59 parity unit tests vs the legacy funnel, SEO fields and all 22 hrefs kept on /create. After the merge the full-app tsc showed 1 error in p5.spec.ts (page.route returns a Disposable): P5 fixing; COMMON.md now requires the whole-app tsc (e2e included) and id-prefixed scratch files. P5 asked P8 to open the composer from /community?compose=challenge&quiz=<slug> (relayed).
 - 2026-09-26 10:00 API stall: P5, P8, P9, P11 stopped with "no progress for 600s" (stream watchdog). Every branch was pushed; only a few files per worktree were uncommitted; no server left alive. All four resumed from their transcripts with their state listed.
