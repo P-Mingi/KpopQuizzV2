@@ -18,7 +18,7 @@ const walks = last(kb.filter((r) => r.kind === 'walk'), (r) => `${r.state}|${r.w
 const dialogs = last(kb.filter((r) => r.kind === 'dialog'), (r) => `${r.state}|${r.width}|${r.who ?? 'guest'}`);
 const sr = last(kb.filter((r) => r.kind === 'sr'), (r) => `${r.state}|${r.width}`);
 
-let md = `# QA accessibility results (C3)\n\nWhole-document axe-core (serious + critical only), keyboard walk, sheets and game semantics on the shared flag-on build. Records: \`qa-a11y.jsonl\`, \`qa-keyboard.jsonl\` (last record per state kept).\n\n## axe, serious + critical\n\n`;
+let md = `# QA accessibility results (C3)\n\nWhole-document axe-core (serious + critical only), keyboard walk, sheets and game semantics on the shared flag-on build. Records: \`results/qa-a11y.jsonl\`, \`results/qa-keyboard.jsonl\` (last record per state kept). The number after an axe rule is its failing nodes, counted up to 8.\n\n## axe, serious + critical\n\n`;
 const states = [...new Set(axe.map((r) => `${r.owner}|${r.state}|${r.who}`))];
 md += `| Owner | State | Who | 1440 light | 1440 dark | 390 light | 390 dark |\n|---|---|---|---|---|---|---|\n`;
 const cell = (r) => (r ? (r.serious.length ? r.serious.map((s) => `${s.id} (${r.detail?.find((d) => d.id === s.id)?.nodes.length ?? s.nodes.length})`).join(', ') : '0') : 'not run');
