@@ -15,13 +15,13 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | running | - | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | running (resumed 10:00 after an API stall; 8 commits pushed) | f0c3214 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
-| P8 | ux11/p8-community | running | - | 0 | v11/reports/P8.md |
-| P9 | ux11/p9-leaderboard | running | - | 0 | v11/reports/P9.md |
+| P8 | ux11/p8-community | running (resumed 10:00 after an API stall; 9 commits pushed) | adddaab | 0 | v11/reports/P8.md |
+| P9 | ux11/p9-leaderboard | running (resumed 10:00 after an API stall; 12 commits pushed) | 39178bf | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
-| P11 | ux11/p11-notifications | running (spawned from integration with briefs/COMMON.md + P11.md) | - | 0 | v11/reports/P11.md |
+| P11 | ux11/p11-notifications | running (resumed 10:00 after an API stall; 8 commits pushed; local-only test swap in 2 A0 files to be restored) | 66c6772 | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
 | C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
 | C3 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/REPORT.md |
@@ -93,6 +93,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 10:00 API stall: P5, P8, P9, P11 stopped with "no progress for 600s" (stream watchdog). Every branch was pushed; only a few files per worktree were uncommitted; no server left alive. All four resumed from their transcripts with their state listed.
 - 2026-09-26 A0 queue merged (7b95070): streak test clock frozen (5bfe147), useUxMe null until mounted, tab hover, share sheet on phones, H1 focus on navigation, /search a real link again (every page's link set back to parity; the only home differences are P1's /quizzes/new and /quizzes/most-liked -> /new and /most-liked, both 404 today), card line-height 1.6, href options for Segmented/UxDropdown. Integration: tsc clean, check:routes 329 both ways, unit 648/648 (CI should be green from here). A0's replies to every request are in v11/requests/A0.md (the guard keeps A0 and ORCH out of other agents' request files). P5, P8, P9, P11 told to merge the integration head before their final checks.
 - 2026-09-26 P3 merged (69fbdee): guard ok (49 files), e2e 35/35, flag-off identical on 7 URLs, SEO fields and link set unchanged on 9 URLs except /search (A0 shell, in A0's queue). Integration: tsc clean, check:routes 328 both ways, unit 524/526 (streak time bomb). P11 spawned: all page agents now started.
 - 2026-09-26 P1 re-done (all 17 live hub links in the rail, full link-set proof) and merged (1bc1cb1); P7 merged (91a8030). Integration: tsc clean, check:routes 327 both ways, unit 494/496 (the 2 streak time-bomb tests). P2 finished but its push was denied by the permission check: left for the owner. P5, P8, P9 spawned. A0 opened PR #50 (queue) and got 3 more items; P3 opened PR #51.
