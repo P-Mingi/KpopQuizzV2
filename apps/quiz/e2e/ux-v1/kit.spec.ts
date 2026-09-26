@@ -7,7 +7,7 @@ import { guardWrites } from './helpers/guard';
 import { A0_LANDMARKS, compareLandmarks, loadReference } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 
 // /ux-v1/kit, the A0 gallery: every shared component in every state, light and
 // dark, at the project width (ux-1440 / ux-390). Computed styles of the shared
@@ -163,6 +163,71 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Search' })).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+
+  // P2 request 3: Segmented and UxDropdown with link options. Segmented is a <nav> of
+  // real links in the server HTML (aria-current on the pick, same pill as the button
+  // mode); once hydrated a plain click navigates softly, modified clicks stay the
+  // browser's. Dropdown link items are <a role="menuitemradio" aria-checked> with a
+  // count; Space picks; onNavigate hands the href to the page's router.
+  test('link options: Segmented nav of links, UxDropdown link items, soft navigation', async ({ page }) => {
+    const html = await (await page.request.get('/ux-v1/kit')).text();
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const nav = html.match(/<nav[^>]*aria-label="Sort \(links\)"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? '';
+    expect(nav.match(/<a\b/g)?.length ?? 0, 'server HTML: 4 real links').toBe(4);
+    expect(nav).toContain('href="/ux-v1/kit?kitsort=newest"');
+    expect(nav.match(/aria-current="page"/g)?.length ?? 0).toBe(1);
+    expect(nav).toMatch(/<a[^>]*href="\/ux-v1\/kit"[^>]*aria-current="page"|<a[^>]*aria-current="page"[^>]*href="\/ux-v1\/kit"/);
+
+    const links = page.locator('[data-kit="link-controls"]').getByRole('navigation', { name: 'Sort (links)' });
+    const buttons = page.locator('[data-kit="controls"]').getByRole('group', { name: 'Sort' });
+    const props = ['background-color', 'color', 'font-size', 'font-weight', 'box-shadow', 'border-radius', 'padding-left', 'padding-right', 'height'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => {
+      const cs = getComputedStyle(el);
+      return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)]));
+    }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(links.locator('a[aria-current="page"]')), 'picked link = pressed button').toEqual(await styleOf(buttons.locator('button[aria-pressed="true"]')));
+    expect(await styleOf(links.locator('a:not([aria-current])').first()), 'other link = other button').toEqual(await styleOf(buttons.locator('button[aria-pressed="false"]').first()));
+
+    const prevented = await links.getByRole('link', { name: 'Top rated' }).evaluate((a) => {
+      const out: Record<string, boolean> = {};
+      for (const [name, init] of [['ctrl', { ctrlKey: true }], ['meta', { metaKey: true }], ['shift', { shiftKey: true }]] as const) {
+        let seen = true;
+        const on = (e: Event): void => { seen = e.defaultPrevented; e.preventDefault(); };
+        window.addEventListener('click', on);
+        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ...init }));
+        window.removeEventListener('click', on);
+        out[name] = seen;
+      }
+      return out;
+    });
+    expect(prevented, 'modified clicks are left to the browser').toEqual({ ctrl: false, meta: false, shift: false });
+
+    await page.evaluate(() => { (window as unknown as { __kitMarker?: number }).__kitMarker = 1; });
+    await links.getByRole('link', { name: 'Newest' }).click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit\?kitsort=newest$/);
+    await expect(links.getByRole('link', { name: 'Newest' })).toHaveAttribute('aria-current', 'page');
+    await expect(links.getByRole('link', { name: 'Trending' })).not.toHaveAttribute('aria-current', 'page');
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker), 'soft navigation (no reload)').toBe(1);
+
+    const trigger = page.locator('[data-kit="link-controls"]').getByRole('button', { name: 'Type (links)' });
+    await trigger.click();
+    const items = page.getByRole('menu', { name: 'Type (links)' }).getByRole('menuitemradio');
+    await expect(items).toHaveCount(3);
+    await expect(items.first()).toBeFocused();
+    expect(await items.evaluateAll((els) => els.map((e) => [e.tagName, e.getAttribute('href'), e.querySelector('small')?.textContent ?? '']))).toEqual([
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=classic', '1,204'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=tf', '312'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=image', '88'],
+    ]);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press(' ');
+    await expect(page).toHaveURL(/kitsort=newest&kittype=tf$/);
+    expect(await page.evaluate(() => (window as unknown as { __kitLastNav?: string }).__kitLastNav), 'onNavigate got the href').toBe('/ux-v1/kit?kitsort=newest&kittype=tf');
+    await expect(page.getByRole('menu', { name: 'Type (links)' })).toBeHidden();
+    await expect(page.locator('[data-kit="link-controls"]').getByRole('button', { name: /Type \(links\): True\/false/ })).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker)).toBe(1);
   });
 
   // P2 request 2: the card body inherits the prototype's 1.6 line height (eyebrow and

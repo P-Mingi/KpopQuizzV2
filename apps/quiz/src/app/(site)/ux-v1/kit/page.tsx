@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 import { UxButton, UxIconButton, UxLink } from '@/components/ux-v1/button';
@@ -19,6 +20,7 @@ import { RARITY_ORDER } from '@/lib/badges';
 
 import { KitAuthProbeLate } from './kit-auth-probe-late';
 import { KitControls, KitFeedback, KitForms, KitPopovers, KitSheets } from './kit-demos';
+import { KitLinkControls, KitLinkControlsView } from './kit-link-controls';
 
 import type { Metadata } from 'next';
 import type { QuizCardData } from '@/lib/db/types';
@@ -191,6 +193,9 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
 
       <KitSection id="controls" title="Tabs, segmented, dropdowns, chips">
         <KitControls />
+        <Suspense fallback={<KitLinkControlsView sort="trending" type={null} />}>
+          <KitLinkControls />
+        </Suspense>
       </KitSection>
 
       <KitSection id="quiz-cards" title="Quiz cards v11.2 (real quizzes): cover, group photo, typographic cover">
