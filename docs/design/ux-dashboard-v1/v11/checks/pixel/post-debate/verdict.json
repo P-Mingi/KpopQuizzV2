@@ -1,0 +1,107 @@
+{
+ "state": "post-debate",
+ "owner": "P8",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:10:14.716Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/community/debate/2026-09-26",
+   "counts": {
+    "landmarks": 8,
+    "pass": 6,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2112
+    ],
+    "implSize": [
+     1440,
+     1653
+    ],
+    "diffPct": 22.87,
+    "maskedPct": 9.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-radius",
+       "expected": "8px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "vote buttons",
+     "proto": "#pv .vote button",
+     "impl": ".p8-pv .p8-vote button",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}

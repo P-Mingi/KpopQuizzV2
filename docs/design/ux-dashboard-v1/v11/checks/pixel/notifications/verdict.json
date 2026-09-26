@@ -1,0 +1,107 @@
+{
+ "state": "notifications",
+ "owner": "P11",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:11:25.481Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/notifications",
+   "counts": {
+    "landmarks": 9,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1898
+    ],
+    "implSize": [
+     1440,
+     2028
+    ],
+    "diffPct": 6.38,
+    "maskedPct": 8.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": "#notifs .ph",
+     "impl": ".p11-nh",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "filter",
+     "proto": "#notifs .seg",
+     "impl": ".p11-seg",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "streak row",
+     "proto": "#notifs .streakrow",
+     "impl": ".p11-streak",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group",
+     "proto": ".ngroup",
+     "impl": ".p11-ngroup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".nrow",
+     "impl": ".p11-nrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "note": "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row saved",
+ "verdict": "not verified"
+}

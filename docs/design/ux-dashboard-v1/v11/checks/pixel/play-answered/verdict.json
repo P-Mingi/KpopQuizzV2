@@ -1,0 +1,108 @@
+{
+ "state": "play-answered",
+ "owner": "P4",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:07:50.853Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.42,
+    "maskedPct": 5.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p4-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".tring",
+     "impl": ".p4-tring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "background-image"
+     ],
+     "why": "live countdown"
+    },
+    {
+     "name": "answers",
+     "proto": ".answers",
+     "impl": ".p4-answers",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".answers > *",
+     "impl": ".p4-answers .p4-ans",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(229, 224, 218)",
+       "actual": "rgb(37, 117, 71)"
+      },
+      {
+       "what": "background-color",
+       "expected": "rgb(255, 255, 255)",
+       "actual": "rgb(233, 244, 236)"
+      },
+      {
+       "what": "color",
+       "expected": "rgb(107, 101, 94)",
+       "actual": "rgb(31, 27, 23)"
+      }
+     ]
+    },
+    {
+     "name": "fact",
+     "proto": ".fact",
+     "impl": ".p4-fact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "next button",
+     "proto": "#g-after .btn-primary",
+     "impl": ".p4-nextrow .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "verdict": "fail"
+}

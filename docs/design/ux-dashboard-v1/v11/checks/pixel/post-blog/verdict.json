@@ -1,0 +1,112 @@
+{
+ "state": "post-blog",
+ "owner": "P8",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:10:09.633Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/community/blog/2",
+   "counts": {
+    "landmarks": 8,
+    "pass": 6,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2404
+    ],
+    "implSize": [
+     1440,
+     2610
+    ],
+    "diffPct": 9.39,
+    "maskedPct": 18.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-radius",
+       "expected": "8px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "cover",
+     "proto": ".post-cover",
+     "impl": ".p8-post-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}

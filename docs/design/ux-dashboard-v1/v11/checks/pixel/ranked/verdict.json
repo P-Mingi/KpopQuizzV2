@@ -1,0 +1,70 @@
+{
+ "state": "ranked",
+ "owner": "P7",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:09:30.389Z",
+   "base": "http://localhost:3021",
+   "verdict": "not verified",
+   "reason": "populated state NOT verified until the ranked migration is applied; the not-live state is checked",
+   "url": "/blindtest/ranked",
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2691
+    ],
+    "implSize": [
+     1440,
+     2148
+    ],
+    "diffPct": 22.79,
+    "maskedPct": 12.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "not verified"
+}

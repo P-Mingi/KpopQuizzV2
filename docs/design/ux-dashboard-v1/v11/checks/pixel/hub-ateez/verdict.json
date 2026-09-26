@@ -1,0 +1,108 @@
+{
+ "state": "hub-ateez",
+ "owner": "P3",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:10:52.738Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/ateez-quiz",
+   "counts": {
+    "landmarks": 9,
+    "pass": 7,
+    "fail": 0,
+    "missing": 1,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2420
+    ],
+    "implSize": [
+     1440,
+     3403
+    ],
+    "diffPct": 33.78,
+    "maskedPct": 17.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p3-hub .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hub header",
+     "status": "missing",
+     "proto": ".hub2",
+     "impl": ".p3-hub2, .p3-head",
+     "note": "in the reference, not found in the implementation"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p3-actions .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}

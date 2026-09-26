@@ -1,0 +1,183 @@
+{
+ "state": "quiz",
+ "owner": "P4",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:07:40.537Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "counts": {
+    "landmarks": 13,
+    "pass": 10,
+    "fail": 2,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3000
+    ],
+    "implSize": [
+     1440,
+     3378
+    ],
+    "diffPct": 12.95,
+    "maskedPct": 17.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page column",
+     "proto": ".col.pg",
+     "impl": ".p4-page",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "box x",
+       "expected": 328,
+       "actual": 0
+      },
+      {
+       "what": "box w",
+       "expected": 784,
+       "actual": 1440
+      },
+      {
+       "what": "padding-top",
+       "expected": "56px",
+       "actual": "0px"
+      },
+      {
+       "what": "padding-right",
+       "expected": "32px",
+       "actual": "0px"
+      },
+      {
+       "what": "padding-bottom",
+       "expected": "112px",
+       "actual": "0px"
+      },
+      {
+       "what": "padding-left",
+       "expected": "32px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "crumb",
+     "proto": ".crumb",
+     "impl": ".p4-page .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "cover",
+     "proto": ".qcover",
+     "impl": ".p4-cover",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color"
+     ],
+     "why": "photo"
+    },
+    {
+     "name": "H1",
+     "proto": "h1.qtitle",
+     "impl": ".p4-page h1",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-radius",
+       "expected": "8px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "actions",
+     "proto": ".qact",
+     "impl": ".p4-act",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".qact .btn-primary",
+     "impl": ".p4-act .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "about box",
+     "proto": ".aboutbox",
+     "impl": ".p4-about.ux-box",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "text card",
+     "proto": ".tcard",
+     "impl": ".ux-tcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}

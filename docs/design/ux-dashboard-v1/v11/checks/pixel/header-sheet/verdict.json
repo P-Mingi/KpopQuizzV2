@@ -1,0 +1,73 @@
+{
+ "state": "header-sheet",
+ "owner": "P10",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:11:20.942Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/u/testtest",
+   "counts": {
+    "landmarks": 3,
+    "pass": 1,
+    "fail": 1,
+    "missing": 0,
+    "extra": 1,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.96,
+    "maskedPct": 26.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "header sheet",
+     "status": "extra",
+     "note": "not in the reference state (implementation only)"
+    },
+    {
+     "name": "drop zone",
+     "proto": "#hsheet .drop",
+     "impl": ".ux-layer .ux-drop",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-top-color",
+       "expected": "rgb(229, 224, 218)",
+       "actual": "rgb(232, 69, 122)"
+      },
+      {
+       "what": "background-color",
+       "expected": "rgba(0, 0, 0, 0)",
+       "actual": "rgb(247, 246, 244)"
+      }
+     ]
+    },
+    {
+     "name": "url row",
+     "proto": "#hsheet .urlrow",
+     "impl": ".ux-layer .ux-urlrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "note": "signed in on /u/testtest (public read page, owner controls on the client); never /me",
+ "verdict": "fail"
+}

@@ -1,0 +1,129 @@
+{
+ "state": "groups",
+ "owner": "P3",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:07:10.481Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/groups",
+   "counts": {
+    "landmarks": 10,
+    "pass": 7,
+    "fail": 2,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3049
+    ],
+    "implSize": [
+     1440,
+     3174
+    ],
+    "diffPct": 4.2,
+    "maskedPct": 10.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-radius",
+       "expected": "8px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "filter input",
+     "proto": ".view.on > .wrap > .inp",
+     "impl": ".p3-filter",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sections",
+     "proto": "section.sec",
+     "impl": ".ux-page section.ux-sec",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group tile",
+     "proto": ".gitem",
+     "impl": ".ux-page .ux-gitem, .ux-page .p3-gitem",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "box h",
+       "expected": 138,
+       "actual": 133.2
+      }
+     ]
+    }
+   ],
+   "seconds": 5
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}

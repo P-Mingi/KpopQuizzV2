@@ -1,0 +1,131 @@
+{
+ "state": "community",
+ "owner": "P8",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T16:09:37.031Z",
+   "base": "http://localhost:3021",
+   "verdict": "fail",
+   "url": "/community",
+   "counts": {
+    "landmarks": 11,
+    "pass": 9,
+    "fail": 1,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3060
+    ],
+    "implSize": [
+     1440,
+     3501
+    ],
+    "diffPct": 14.26,
+    "maskedPct": 13.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "fail",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "border-radius",
+       "expected": "8px",
+       "actual": "0px"
+      }
+     ]
+    },
+    {
+     "name": "composer",
+     "proto": ".composer",
+     "impl": ".p8-composer",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "feed post",
+     "proto": ".post",
+     "impl": ".p8-feed .ux-post",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "rail",
+     "proto": ".rail",
+     "impl": ".p8-rail",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rail panel",
+     "proto": ".rail>section",
+     "impl": ".p8-rail > .ux-panel",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "feed tab on",
+     "proto": ".utabs button.on",
+     "impl": ".p8-fctl [aria-selected=\"true\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "fail"
+}
