@@ -336,7 +336,7 @@ test.describe('kit interactions', () => {
     expect(asSearch.equals(asText), 'no clear button drawn').toBe(true);
     const back = await page.addStyleTag({ content: '#ux-sq::-webkit-search-cancel-button { display: block !important; -webkit-appearance: searchfield-cancel-button !important; appearance: auto !important; }' });
     expect((await shot()).equals(asText), 'control: a forced clear button is visible to the check').toBe(false);
-    await back.evaluate((el) => el.remove());
+    await back.evaluate((el) => (el as ChildNode).remove());
     // Focus leaves the field (Tab to the results): the line is the hairline again.
     await page.locator('#ux-sov .ux-srow').first().waitFor({ timeout: 30_000 });
     await page.keyboard.press('Tab');
