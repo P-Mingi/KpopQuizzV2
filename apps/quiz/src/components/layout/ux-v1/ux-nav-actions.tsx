@@ -11,6 +11,7 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
+import { isPlainClick } from '@/lib/ux-v1/a0/nav';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { applyTheme, useEffectiveTheme } from '@/lib/ux-v1/a0/theme';
 
@@ -158,6 +159,10 @@ function Account({ profile }: { profile: MeProfile }): React.ReactElement {
  * + Create (ghost), then streak pill, bell and avatar menu when signed in, or Sign
  * in for guests. Client island: reads the shared /api/auth/me (one call per page)
  * and the shared unread store, so the server-rendered shell stays static.
+ *
+ * Search is a real `<a href="/search">` in the server HTML (every live page links
+ * to /search: link-set rule). Once hydrated a plain click opens the overlay
+ * instead; modified clicks (new tab) and visitors without JS reach the page.
  */
 export function UxNavActions(): React.ReactElement {
   const me = useUxMe();
@@ -167,9 +172,16 @@ export function UxNavActions(): React.ReactElement {
 
   return (
     <div className="ux-nav-r">
-      <button type="button" className="ux-sbtn" onClick={openSearch} aria-label="Search" aria-keyshortcuts="/">
+      <Link
+        href="/search"
+        prefetch={false}
+        className="ux-sbtn"
+        aria-label="Search"
+        aria-keyshortcuts="/"
+        onClick={(e) => { if (!isPlainClick(e)) return; e.preventDefault(); openSearch(); }}
+      >
         <Icon name="search" size="sm" />
-      </button>
+      </Link>
       <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" />Create</Link>
       {profile ? (
         <>
