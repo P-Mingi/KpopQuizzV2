@@ -14,7 +14,7 @@
 /* composer: avatar + one-field prompt + ghost "New post" */
 .p8-composer { display: flex; align-items: center; gap: 12px; margin-top: 28px; }
 .p8-composer .ux-ava { width: 40px; height: 40px; }
-.p8-composer-in { flex: 1; min-width: 0; min-height: 48px; display: flex; align-items: center; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); font: inherit; font-size: 16px; line-height: 25.6px; color: var(--ux-muted); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text; transition: border-color .15s, box-shadow .15s; }
+.p8-composer-in { flex: 1; min-width: 0; min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); font: inherit; font-size: 16px; line-height: 25.6px; color: var(--ux-muted); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text; transition: border-color .15s, box-shadow .15s; }
 .p8-composer-in:hover { border-color: var(--ux-ink); }
 .p8-composer-in > span { overflow: hidden; text-overflow: ellipsis; }
 .p8-composer .ux-btn { flex: 0 0 auto; }

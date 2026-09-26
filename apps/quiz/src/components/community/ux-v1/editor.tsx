@@ -337,7 +337,7 @@ function GroupPicker({ id, groups, value, onChange, invalid }: { id: string; gro
         id={id}
         role="combobox"
         aria-expanded={openList}
-        aria-controls={listId}
+        aria-controls={openList ? listId : undefined}
         aria-autocomplete="list"
         aria-activedescendant={openList && matches[active] ? `${listId}-${matches[active]!.id}` : undefined}
         aria-invalid={invalid || undefined}
