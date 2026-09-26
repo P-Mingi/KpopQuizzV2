@@ -180,7 +180,6 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
   return (
     <div className="p11-sres" ref={box} onKeyDown={onListKey} aria-busy={(q !== '' && !current) || undefined} data-p11="search">
       <p className="ux-sr" role="status" aria-live="polite">{current && !popularMode ? resultSummary(shown) : ''}</p>
-      {shown.degraded && !popularMode && !empty ? <p className="ux-sov-hint p11-shint">Some results could not be loaded.</p> : null}
       {empty && !popularMode ? (
         <div className="ux-empty p11-sempty">
           <b>No results for &quot;{shown.q}&quot;</b>
@@ -235,6 +234,8 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
           </ul>
         </>
       ) : null}
+      {/* A read failed: the rows that came back stay where they are, the note goes last. */}
+      {shown.degraded && !popularMode && !empty ? <p className="ux-sov-hint p11-shint">Some results could not be loaded.</p> : null}
     </div>
   );
 }

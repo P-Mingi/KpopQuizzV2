@@ -1,0 +1,57 @@
+# P11 e2e, flag-on dev server :3041 (A0 slot swap + bell header applied LOCALLY, never committed), Chromium 1234
+# UX11_CHROMIUM=... PLAYWRIGHT_BASE_URL=http://localhost:3041 npx playwright test e2e/ux-v1/p11.spec.ts --project=ux-1440 --project=ux-390
+
+## final full run (after merging origin/feat/ux-v1-v11 89e1e94), 2026-09-26 10:1x CEST
+[setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[ux-1440] › e2e/ux-v1/p11.spec.ts:286:3 › P11 guest › /notifications still sends a guest to /login
+[ux-1440] › e2e/ux-v1/p11.spec.ts:292:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+[ux-1440] › e2e/ux-v1/p11.spec.ts:327:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+[ux-1440] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+(retries) [ux-1440] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row (retry #1)
+[ux-1440] › e2e/ux-v1/p11.spec.ts:383:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+[ux-1440] › e2e/ux-v1/p11.spec.ts:398:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+[ux-1440] › e2e/ux-v1/p11.spec.ts:327:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+[ux-1440] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+[ux-1440] › e2e/ux-v1/p11.spec.ts:383:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+[ux-1440] › e2e/ux-v1/p11.spec.ts:398:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+[ux-1440] › e2e/ux-v1/p11.spec.ts:422:3 › P11 signed in › real data: the test user's own notifications, read only
+[ux-1440] › e2e/ux-v1/p11.spec.ts:449:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+[ux-1440] › e2e/ux-v1/p11.spec.ts:478:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+[ux-1440] › e2e/ux-v1/p11.spec.ts:491:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+[ux-1440] › e2e/ux-v1/p11.spec.ts:449:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+[ux-1440] › e2e/ux-v1/p11.spec.ts:478:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+[ux-1440] › e2e/ux-v1/p11.spec.ts:491:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+[ux-1440] › e2e/ux-v1/p11.spec.ts:502:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+[ux-1440] › e2e/ux-v1/p11.spec.ts:587:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+[ux-1440] › e2e/ux-v1/p11.spec.ts:587:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+[ux-1440] › e2e/ux-v1/p11.spec.ts:630:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read
+[ux-390] › e2e/ux-v1/p11.spec.ts:286:3 › P11 guest › /notifications still sends a guest to /login
+[ux-390] › e2e/ux-v1/p11.spec.ts:292:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+[ux-390] › e2e/ux-v1/p11.spec.ts:327:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+[ux-390] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+[ux-390] › e2e/ux-v1/p11.spec.ts:383:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+[ux-390] › e2e/ux-v1/p11.spec.ts:398:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+[ux-390] › e2e/ux-v1/p11.spec.ts:327:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+[ux-390] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+[ux-390] › e2e/ux-v1/p11.spec.ts:383:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+[ux-390] › e2e/ux-v1/p11.spec.ts:398:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+[ux-390] › e2e/ux-v1/p11.spec.ts:422:3 › P11 signed in › real data: the test user's own notifications, read only
+[ux-390] › e2e/ux-v1/p11.spec.ts:449:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+[ux-390] › e2e/ux-v1/p11.spec.ts:478:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+[ux-390] › e2e/ux-v1/p11.spec.ts:491:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+[ux-390] › e2e/ux-v1/p11.spec.ts:449:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+[ux-390] › e2e/ux-v1/p11.spec.ts:478:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+[ux-390] › e2e/ux-v1/p11.spec.ts:491:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+[ux-390] › e2e/ux-v1/p11.spec.ts:502:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+[ux-390] › e2e/ux-v1/p11.spec.ts:587:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+[ux-390] › e2e/ux-v1/p11.spec.ts:587:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+[ux-390] › e2e/ux-v1/p11.spec.ts:630:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read
+  1 flaky
+    [ux-1440] › e2e/ux-v1/p11.spec.ts:350:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row 
+  42 passed (3.4m)
+
+The flaky case got a DEGRADED search answer on its first attempt (one read timed out under load; the endpoint
+said so and the overlay showed its note ABOVE the rows, 50px lower Groups label). The note now goes below the rows.
+
+## overlay cases re-run with --retries=0 after that change
+17 passed (1.6m): setup + 8 overlay cases x 2 widths (light and dark), 0 retries
