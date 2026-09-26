@@ -6,6 +6,7 @@ import { seasonAvgAnswerMs, seasonScore } from './season';
 import { seededRng } from './select';
 import {
   issueRun,
+  ladderView,
   liveSeason,
   lockAnswer,
   RankedNotLiveError,
@@ -21,6 +22,7 @@ import type { FinalRun, RunState } from './run';
 import type { FinishedRun, Season } from './season';
 import type { PoolSong, PrivateRound } from './select';
 import type { CreateRunResult, RankedStore } from './service';
+import type { LadderDbRow, LadderScope } from './view';
 
 // In-memory RankedStore with the same contract as the SQL functions (one open run
 // per player, 15 started per day, finalize only from 'issued', optimistic step).
@@ -92,6 +94,35 @@ class MemoryStore implements RankedStore {
   }
   async isLegend(): Promise<boolean> {
     return false;
+  }
+  /** profiles.ult_groups[0] per user, and who follows whom (for the ladder scopes). */
+  fandoms = new Map<string, string>();
+  follows = new Set<string>();
+  async mainFandom(userId: string): Promise<string | null> {
+    return this.fandoms.get(userId) ?? null;
+  }
+  /** Same contract as public.ranked_ladder(): placed players, scope filter, top `limit` + me. */
+  async ladder(season: number, scope: LadderScope, userId: string | null, limit: number): Promise<LadderDbRow[]> {
+    const users = new Set([...this.runs.values()].map((r) => r.userId));
+    const standings = await Promise.all(
+      [...users].map(async (u) => {
+        const runs = await this.finishedRuns(u, season);
+        return { playerId: u, seasonScore: seasonScore(runs), avgAnswerMs: seasonAvgAnswerMs(runs), reachedAt: runs.at(-1)?.finishedAt ?? '1970-01-01T00:00:00Z', runs: runs.length };
+      }),
+    );
+    const mine = userId ? this.fandoms.get(userId) : undefined;
+    const scoped = rankLadder(standings).filter((s) =>
+      scope === 'global'
+      || (scope === 'fandom' && mine !== undefined && this.fandoms.get(s.playerId) === mine)
+      || (scope === 'following' && (s.playerId === userId || this.follows.has(`${userId}>${s.playerId}`))));
+    return scoped
+      .map((s, i) => ({ s, scopePosition: i + 1 }))
+      .filter(({ s, scopePosition }) => scopePosition <= limit || s.playerId === userId)
+      .map(({ s, scopePosition }) => ({
+        position: s.position, scope_position: scopePosition, scope_total: scoped.length, season_score: s.seasonScore,
+        avg_answer_ms: s.avgAnswerMs, runs_total: s.runs, is_me: s.playerId === userId, legend: false,
+        username: s.playerId, display_name: null, avatar_url: null, name_accent: null, name_font: null, bias: null,
+      }));
   }
   async expiredOpenRuns(now: Date): Promise<RunState[]> {
     return [...this.runs.values()].filter((r) => r.status === 'issued' && Date.parse(r.expiresAt) <= now.getTime());
@@ -279,5 +310,50 @@ describe('placement and the season card', () => {
   it('guests get the season only', async () => {
     const env = setup();
     await expect(seasonCard(env.store, null, SEASON, env.now())).resolves.toMatchObject({ signedIn: false, me: null, season: { id: 3 } });
+  });
+});
+
+describe('the season ladder (Global / My fandom / Following)', () => {
+  async function placed(env: ReturnType<typeof setup>, user: string, right: number): Promise<void> {
+    for (let k = 0; k < 5; k++) {
+      const issued = await playRun(env, user, 10, right);
+      await submitRun(env.store, user, issued.token, env.advance(1_000));
+    }
+  }
+
+  it('Global: placed players only, ordered by season score, with the asking player\'s row', async () => {
+    const env = setup();
+    await placed(env, 'ana', 10);
+    await placed(env, 'bo', 6);
+    const placing = await playRun(env, 'cy', 10, 10);
+    await submitRun(env.store, 'cy', placing.token, env.advance(1_000));
+    const v = await ladderView(env.store, SEASON, 'global', 'bo');
+    expect(v.rows.map((r) => [r.scopePosition, r.name, r.me])).toEqual([[1, 'ana', false], [2, 'bo', true]]);
+    expect(v.me?.name).toBe('bo');
+    expect(v.total).toBe(2);
+    expect(v.needs).toBeNull();
+    expect(v.rows[0]!.tier.label).toBe('Master'); // 5 x 2,900 = 14,500
+    expect(JSON.stringify(v)).not.toMatch(/user_?id/i);
+  });
+
+  it('guests get Global only; My fandom needs a main fandom', async () => {
+    const env = setup();
+    await placed(env, 'ana', 10);
+    await expect(ladderView(env.store, SEASON, 'fandom', null)).resolves.toMatchObject({ rows: [], needs: 'sign_in' });
+    await expect(ladderView(env.store, SEASON, 'following', null)).resolves.toMatchObject({ rows: [], needs: 'sign_in' });
+    await expect(ladderView(env.store, SEASON, 'fandom', 'ana')).resolves.toMatchObject({ rows: [], needs: 'fandom' });
+    env.store.fandoms.set('ana', 'stray-kids');
+    await expect(ladderView(env.store, SEASON, 'fandom', 'ana')).resolves.toMatchObject({ needs: null, total: 1 });
+    await expect(ladderView(env.store, SEASON, 'global', null)).resolves.toMatchObject({ needs: null, total: 1, me: null });
+  });
+
+  it('Following: the players you follow and you', async () => {
+    const env = setup();
+    await placed(env, 'ana', 10);
+    await placed(env, 'bo', 8);
+    await placed(env, 'cy', 6);
+    env.store.follows.add('cy>ana');
+    const v = await ladderView(env.store, SEASON, 'following', 'cy');
+    expect(v.rows.map((r) => [r.scopePosition, r.position, r.name])).toEqual([[1, 1, 'ana'], [2, 3, 'cy']]);
   });
 });

@@ -7,11 +7,12 @@
 -- drawn songs, the correct options and the server timestamps of every round (the run token is
 -- its primary key: single use, checked by status + an optimistic step counter), per-song ranked
 -- accuracy stats (the draw uses them once a song has 20 answers, the curated songs.tier before
--- that: `songs` has no accuracy columns today), a Legend table filled nightly, three nullable
--- columns and two indexes on ranked_plays (season, run_token + the (player_id, season, score
--- desc) index; `score` holds the run POINTS, `correct_count` already holds the right answers),
--- and seven functions (issue, finalize, standings, player standing, legends, season roll,
--- nightly) callable by service_role only. Additive only: CREATE TABLE / ADD COLUMN NULL /
+-- that: `songs` has no accuracy columns today), a Legend table filled nightly, two nullable
+-- columns and two indexes on ranked_plays (season and run_token; a unique index on run_token and
+-- the (player_id, season, score desc) index; `score` holds the run POINTS, `correct_count`
+-- already holds the right answers),
+-- and eight functions (issue, finalize, standings, player standing, ladder, legends, season
+-- roll, nightly) callable by service_role only. Additive only: CREATE TABLE / ADD COLUMN NULL /
 -- CREATE INDEX / CREATE FUNCTION; no DROP, no RENAME, no type change, no backfill, no change to
 -- any existing RLS policy or RPC. Every new table has RLS on and NO policy, so anon and
 -- authenticated can neither read nor write them (the API uses the service role). The nightly
@@ -182,7 +183,7 @@ $$;
 -- The season ladder: placed players only (5 finished runs), season score = sum of the best 5
 -- runs (equal points: the earlier run keeps its place), ordered by score, then average answer
 -- time of the counted runs (right answers, weighted), then who reached the score first.
--- Mirrors lib/ranked/season.ts + ladder.ts.
+-- Banned accounts are left out. Mirrors lib/ranked/season.ts + ladder.ts.
 CREATE OR REPLACE FUNCTION public.ranked_standings(p_season smallint)
 RETURNS TABLE (user_id uuid, season_score integer, runs_total integer, avg_answer_ms integer,
                reached_at timestamptz, "position" bigint)
@@ -195,6 +196,8 @@ AS $$
            count(*) OVER (PARTITION BY r.user_id) AS n
       FROM public.ranked_runs r
      WHERE r.season = p_season AND r.status IN ('submitted', 'quit') AND r.points IS NOT NULL
+       -- banned accounts are off the ladder (and out of Legend)
+       AND NOT EXISTS (SELECT 1 FROM public.profiles bp WHERE bp.id = r.user_id AND bp.banned_at IS NOT NULL)
   ), best AS (
     SELECT f.user_id,
            sum(f.points)::integer AS season_score,
@@ -220,6 +223,43 @@ SET search_path = public
 AS $$
   WITH s AS (SELECT * FROM public.ranked_standings(p_season))
   SELECT (SELECT s."position" FROM s WHERE s.user_id = p_user), (SELECT count(*) FROM s);
+$$;
+
+-- The ladder as the ranked page shows it: the top p_limit rows of a scope plus the asking
+-- player's own row. Scopes: 'global'; 'fandom' = players whose ult_groups contain the asking
+-- player's main fandom (profiles.ult_groups first slug); 'following' = the players the asking
+-- player follows, plus themself. Returns only what /u/[username] already shows (username,
+-- display name, avatar, name flair); never a user id. scope_position is the rank inside the
+-- scope, "position" the global one.
+CREATE OR REPLACE FUNCTION public.ranked_ladder(p_season smallint, p_scope text, p_user uuid, p_limit integer DEFAULT 8)
+RETURNS TABLE ("position" bigint, scope_position bigint, scope_total bigint, season_score integer,
+               avg_answer_ms integer, runs_total integer, is_me boolean, legend boolean,
+               username text, display_name text, avatar_url text, name_accent text, name_font text, bias text)
+LANGUAGE sql STABLE
+SET search_path = public
+AS $$
+  WITH s AS (SELECT * FROM public.ranked_standings(p_season)),
+  me AS (SELECT (p.ult_groups->>0) AS fandom FROM public.profiles p WHERE p.id = p_user),
+  scoped AS (
+    SELECT s.*,
+           row_number() OVER (ORDER BY s."position") AS scope_position,
+           count(*) OVER () AS scope_total
+      FROM s
+     WHERE p_scope = 'global'
+        OR (p_scope = 'fandom' AND EXISTS (
+              SELECT 1 FROM public.profiles fp, me
+               WHERE fp.id = s.user_id AND me.fandom IS NOT NULL AND fp.ult_groups ? me.fandom))
+        OR (p_scope = 'following' AND (s.user_id = p_user OR EXISTS (
+              SELECT 1 FROM public.follows f WHERE f.follower_id = p_user AND f.followed_id = s.user_id)))
+  )
+  SELECT sc."position", sc.scope_position, sc.scope_total, sc.season_score, sc.avg_answer_ms, sc.runs_total,
+         (sc.user_id = p_user) AS is_me,
+         EXISTS (SELECT 1 FROM public.ranked_legends l WHERE l.season = p_season AND l.user_id = sc.user_id) AS legend,
+         p.username, p.display_name, p.avatar_url, p.name_accent, p.name_font, p.bias
+    FROM scoped sc
+    LEFT JOIN public.profiles p ON p.id = sc.user_id
+   WHERE sc.scope_position <= GREATEST(1, LEAST(p_limit, 50)) OR sc.user_id = p_user
+   ORDER BY sc.scope_position;
 $$;
 
 -- Legend = top 100 of the ladder among Masters (season score >= 12,000).
@@ -304,6 +344,7 @@ REVOKE ALL ON FUNCTION public.ranked_issue_run(uuid, smallint, jsonb, timestampt
 REVOKE ALL ON FUNCTION public.ranked_finalize_run(uuid, uuid, text, jsonb, integer, integer, integer, integer, jsonb) FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON FUNCTION public.ranked_standings(smallint) FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON FUNCTION public.ranked_player_standing(smallint, uuid) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.ranked_ladder(smallint, text, uuid, integer) FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON FUNCTION public.ranked_recompute_legends(smallint) FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON FUNCTION public.ranked_roll_season(integer) FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON FUNCTION public.ranked_nightly() FROM PUBLIC, anon, authenticated;
@@ -311,6 +352,7 @@ GRANT EXECUTE ON FUNCTION public.ranked_issue_run(uuid, smallint, jsonb, timesta
 GRANT EXECUTE ON FUNCTION public.ranked_finalize_run(uuid, uuid, text, jsonb, integer, integer, integer, integer, jsonb) TO service_role;
 GRANT EXECUTE ON FUNCTION public.ranked_standings(smallint) TO service_role;
 GRANT EXECUTE ON FUNCTION public.ranked_player_standing(smallint, uuid) TO service_role;
+GRANT EXECUTE ON FUNCTION public.ranked_ladder(smallint, text, uuid, integer) TO service_role;
 GRANT EXECUTE ON FUNCTION public.ranked_recompute_legends(smallint) TO service_role;
 GRANT EXECUTE ON FUNCTION public.ranked_roll_season(integer) TO service_role;
 GRANT EXECUTE ON FUNCTION public.ranked_nightly() TO service_role;
@@ -337,6 +379,7 @@ COMMIT;
 -- DROP FUNCTION IF EXISTS public.ranked_nightly();
 -- DROP FUNCTION IF EXISTS public.ranked_roll_season(integer);
 -- DROP FUNCTION IF EXISTS public.ranked_recompute_legends(smallint);
+-- DROP FUNCTION IF EXISTS public.ranked_ladder(smallint, text, uuid, integer);
 -- DROP FUNCTION IF EXISTS public.ranked_player_standing(smallint, uuid);
 -- DROP FUNCTION IF EXISTS public.ranked_standings(smallint);
 -- DROP FUNCTION IF EXISTS public.ranked_finalize_run(uuid, uuid, text, jsonb, integer, integer, integer, integer, jsonb);

@@ -12,11 +12,13 @@ import { answerRound, finalizeRun, startRound } from './run';
 import { applyRun, bestRuns, currentSeason, daysLeft, placement, scoreToBeat, seasonAvgAnswerMs, seasonScore } from './season';
 import { buildRounds } from './select';
 import { nextStep, tierFor } from './tiers';
+import { LADDER_LIMIT, ladderViewFrom } from './view';
 
 import type { FinalRun, PublicRound, RoundReveal, RunRefusal, RunState } from './run';
 import type { FinishedRun, Placement, Season, SeasonImpact } from './season';
 import type { PoolSong, PrivateRound, Rng } from './select';
 import type { NextStep, TierPlacement } from './tiers';
+import type { LadderDbRow, LadderScope, LadderView } from './view';
 
 // ---- errors -----------------------------------------------------------------
 
@@ -87,6 +89,10 @@ export interface RankedStore {
   /** Ladder position among placed players (null while placing) and ladder size. */
   standing(season: number, userId: string): Promise<{ position: number | null; total: number }>;
   isLegend(season: number, userId: string): Promise<boolean>;
+  /** public.ranked_ladder(): the top `limit` of a scope plus the asking player's row. */
+  ladder(season: number, scope: LadderScope, userId: string | null, limit: number): Promise<LadderDbRow[]>;
+  /** The player's main fandom (first slug of profiles.ult_groups), null when none is set. */
+  mainFandom(userId: string): Promise<string | null>;
   /** Issued runs past their expiry, oldest first (for the nightly job). */
   expiredOpenRuns(now: Date, limit: number): Promise<RunState[]>;
   /** Season roll-over + Legend recompute (SQL ranked_nightly()). */
@@ -320,6 +326,20 @@ export async function seasonCard(store: RankedStore, userId: string | null, seas
       recent,
     },
   };
+}
+
+// ---- ladder -------------------------------------------------------------------
+
+/**
+ * The season ladder of a scope (Global / My fandom / Following). Guests only get
+ * Global; "My fandom" needs a main fandom in Settings. Rows carry public profile
+ * fields only (what /u/[username] shows), never a user id.
+ */
+export async function ladderView(store: RankedStore, season: Season, scope: LadderScope, userId: string | null, limit = LADDER_LIMIT): Promise<LadderView> {
+  const empty = (needs: LadderView['needs']): LadderView => ({ season: { id: season.id }, scope, rows: [], me: null, total: 0, needs });
+  if (scope !== 'global' && !userId) return empty('sign_in');
+  if (scope === 'fandom' && userId && !(await store.mainFandom(userId))) return empty('fandom');
+  return ladderViewFrom(season.id, scope, await store.ladder(season.id, scope, userId, limit), limit);
 }
 
 // ---- nightly ------------------------------------------------------------------

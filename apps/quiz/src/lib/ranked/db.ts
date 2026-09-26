@@ -13,6 +13,7 @@ import type { FinalRun, RunState, RunStatus, StoredAnswer } from './run';
 import type { FinishedRun, Season } from './season';
 import type { PoolSong, PrivateRound } from './select';
 import type { CreateRunResult, RankedStore } from './service';
+import type { LadderDbRow, LadderScope } from './view';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 interface PgError {
@@ -293,6 +294,20 @@ export class SupabaseRankedStore implements RankedStore {
       .eq('user_id', userId);
     if (error) fail('isLegend', error);
     return (count ?? 0) > 0;
+  }
+
+  async ladder(season: number, scope: LadderScope, userId: string | null, limit: number): Promise<LadderDbRow[]> {
+    const { data, error } = await this.db.rpc('ranked_ladder', { p_season: season, p_scope: scope, p_user: userId, p_limit: limit });
+    if (error) fail('ladder', error);
+    return (data ?? []) as LadderDbRow[];
+  }
+
+  async mainFandom(userId: string): Promise<string | null> {
+    const { data, error } = await this.db.from('profiles').select('ult_groups').eq('id', userId).maybeSingle();
+    if (error) fail('mainFandom', error);
+    const ults = (data as { ult_groups?: unknown } | null)?.ult_groups;
+    const first = Array.isArray(ults) ? ults[0] : null;
+    return typeof first === 'string' && first.trim() ? first : null;
   }
 
   async expiredOpenRuns(now: Date, limit: number): Promise<RunState[]> {
