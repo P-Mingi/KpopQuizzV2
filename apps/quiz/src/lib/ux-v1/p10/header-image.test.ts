@@ -6,12 +6,16 @@ import { checkHeaderFile, HEADER_H, HEADER_MAX_BYTES, HEADER_W, renderHeader, sn
 // File checks of the header upload route: declared type, size, sniffed bytes, and
 // the sharp re-encode (1500 x 300 WebP, metadata dropped).
 
+// sharp encodes real images here: on a loaded machine one test can take longer than
+// vitest's default 5 s, so every test that encodes gets an explicit timeout.
+const SHARP_TIMEOUT_MS = 30_000;
+
 async function img(format: 'jpeg' | 'png' | 'webp' | 'gif', w = 800, h = 600): Promise<Buffer> {
   const base = sharp({ create: { width: w, height: h, channels: 3, background: { r: 232, g: 69, b: 122 } } });
   return format === 'jpeg' ? base.jpeg().toBuffer() : format === 'png' ? base.png().toBuffer() : format === 'webp' ? base.webp().toBuffer() : base.gif().toBuffer();
 }
 
-describe('sniffImage', () => {
+describe('sniffImage', { timeout: SHARP_TIMEOUT_MS }, () => {
   it('recognises JPEG, PNG and WebP magic bytes', async () => {
     expect(sniffImage(await img('jpeg'))).toBe('jpeg');
     expect(sniffImage(await img('png'))).toBe('png');
@@ -37,7 +41,7 @@ describe('checkHeaderFile', () => {
     expect(checkHeaderFile({ type: 'image/png', size: 10 }, Buffer.from('<svg onload=alert(1)>'))).toMatchObject({ ok: false, status: 415 }));
 });
 
-describe('renderHeader', () => {
+describe('renderHeader', { timeout: SHARP_TIMEOUT_MS }, () => {
   it.each(['jpeg', 'png', 'webp'] as const)('re-encodes a %s into a 1500 x 300 WebP', async (f) => {
     const r = await renderHeader(await img(f, 2400, 1600));
     expect(r.ok).toBe(true);
