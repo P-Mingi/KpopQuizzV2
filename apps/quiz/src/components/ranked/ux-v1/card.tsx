@@ -36,7 +36,7 @@ function Head({ tier, line, title, sub }: {
       <div className="p7-head-t">
         <p className="p7-season">{line}</p>
         <h1 className="ux-h1 p7-h1">{title}</h1>
-        <p className="p7-pts">{sub}</p>
+        <p className="p7-line">{sub}</p>
       </div>
     </div>
   );

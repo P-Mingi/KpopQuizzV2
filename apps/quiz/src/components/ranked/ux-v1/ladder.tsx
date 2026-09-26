@@ -39,7 +39,7 @@ function Row({ e }: { e: LadderEntry }): React.ReactElement {
         <PersonName name={e.name} accent={e.accent} font={e.font} bias={e.bias} href={profileHref(e)} />
         <span className="p7-sub">{ladderSub(e)}</span>
       </span>
-      <span className="p7-pts ux-num">{comma(e.seasonScore)}</span>
+      <span className="p7-score ux-num">{comma(e.seasonScore)}</span>
     </li>
   );
 }
@@ -75,7 +75,7 @@ export function LadderBody({ view, r }: { view: LadderView; r: Pick<RankedApi, '
           className="p7-pin"
           rank={<span className="ux-num">#{comma(me.scopePosition)}</span>}
           lead={<UxAvatar name={me.name} src={me.avatarUrl} size={40} />}
-          end={<span className="p7-pts ux-num">{comma(me.seasonScore)}</span>}
+          end={<span className="p7-score ux-num">{comma(me.seasonScore)}</span>}
         >
           <PersonName name={me.name} accent={me.accent} font={me.font} bias={me.bias} showBias={false} />
           <span className="ux-muted"> · {ladderSub(me)}</span>

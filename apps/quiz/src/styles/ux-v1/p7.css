@@ -25,8 +25,8 @@
 @keyframes p7-cardin { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
 .p7-season { font-size: 15px; color: var(--ux-muted); }
 .p7-h1 { margin-top: 4px; }
-.p7-pts { margin-top: 4px; }
-.p7-pts b { font-weight: 600; }
+.p7-line { margin-top: 4px; }
+.p7-line b { font-weight: 600; }
 .p7-prog { height: 6px; border-radius: 3px; background: var(--ux-surface-2); overflow: hidden; margin-top: 24px; }
 .p7-prog i { display: block; height: 100%; border-radius: 3px; background: var(--p7-tc); transition: width 1s var(--ux-ease) .2s; }
 .p7-next { font-size: 14px; margin-top: 8px; }
@@ -63,8 +63,8 @@
 .p7-grow { flex: 1; min-width: 0; }
 .p7-sub { color: var(--ux-muted); font-size: 14px; margin-left: 6px; }
 .p7-sub::before { content: "\00B7 "; }
-.p7-pts { font-weight: 600; }
-.p7-lrow .p7-pts { margin-left: auto; }
+.p7-score { font-weight: 600; }
+.p7-lrow .p7-score { margin-left: auto; }
 .p7-pin .ux-pin-rk { width: 40px; }
 .p7-pin .ux-who { font-weight: 600; }
 .p7-lnote { padding: 12px 0; font-size: 15px; color: var(--ux-muted); line-height: 1.6; }
