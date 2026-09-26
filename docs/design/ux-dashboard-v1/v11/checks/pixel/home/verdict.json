@@ -3,7 +3,7 @@
  "owner": "P1",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:13:03.276Z",
+   "at": "2026-09-26T21:07:33.000Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -26,8 +26,8 @@
      1440,
      3223
     ],
-    "diffPct": 3.52,
-    "maskedPct": 24.2
+    "diffPct": 3.54,
+    "maskedPct": 24.6
    },
    "writes": [],
    "landmarks": [
@@ -216,10 +216,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 35
+   "seconds": 6
   },
   "390-light": {
-   "at": "2026-09-26T17:14:28.563Z",
+   "at": "2026-09-26T21:07:59.213Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -240,10 +240,10 @@
     ],
     "implSize": [
      390,
-     4581
+     4627
     ],
-    "diffPct": 14.07,
-    "maskedPct": 38.2
+    "diffPct": 15,
+    "maskedPct": 37.4
    },
    "writes": [],
    "landmarks": [
@@ -426,10 +426,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 50
+   "seconds": 23
   },
   "1440-dark": {
-   "at": "2026-09-26T17:13:38.338Z",
+   "at": "2026-09-26T21:07:38.696Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -452,8 +452,8 @@
      1440,
      3223
     ],
-    "diffPct": 9.86,
-    "maskedPct": 24.2
+    "diffPct": 9.92,
+    "maskedPct": 24.6
    },
    "writes": [],
    "landmarks": [
@@ -642,10 +642,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 35
+   "seconds": 6
   },
   "390-dark": {
-   "at": "2026-09-26T17:15:18.935Z",
+   "at": "2026-09-26T21:08:24.286Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -666,10 +666,10 @@
     ],
     "implSize": [
      390,
-     4581
+     4627
     ],
-    "diffPct": 18.61,
-    "maskedPct": 38.2
+    "diffPct": 19.43,
+    "maskedPct": 37.4
    },
    "writes": [],
    "landmarks": [
@@ -852,7 +852,7 @@
      "why": "photo"
     }
    ],
-   "seconds": 50
+   "seconds": 23
   }
  },
  "auth": "user",

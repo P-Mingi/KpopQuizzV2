@@ -390,7 +390,7 @@ export const STATES = {
     ],
   },
   'end-guest': {
-    owner: 'P4', auth: 'guest', shot: 'full',
+    owner: 'P4', auth: 'guest', shot: 'full', note: 'known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared',
     open: async (page, s) => { s.qs = await recordQuestions(page); await openQuiz(page, P4_CLASSIC); await p4Start(page); await p4PlayRight(page, s.qs); },
     lm: [...NAV,
       { name: 'stats row', proto: '.stats3', impl: '.p4-res-in .ux-stats3', box: ['x', 'w', 'h'] },
@@ -404,7 +404,7 @@ export const STATES = {
     ],
   },
   end: {
-    owner: 'P4', auth: 'user', shot: 'full',
+    owner: 'P4', auth: 'user', shot: 'full', note: 'known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared',
     open: async (page, s) => { s.qs = await recordQuestions(page); await openQuiz(page, P4_CLASSIC); await p4Start(page); await p4PlayRight(page, s.qs); },
     lm: [...NAV,
       { name: 'stats row', proto: '.stats3', impl: '.p4-res-in .ux-stats3', box: ['x', 'w', 'h'] },
@@ -418,7 +418,7 @@ export const STATES = {
     ],
   },
   share: {
-    owner: 'P4', auth: 'user', shot: 'viewport',
+    owner: 'P4', auth: 'user', shot: 'viewport', note: 'known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared (behind the scrim)',
     open: async (page, s) => {
       await p4ChallengeStub(page);
       s.qs = await recordQuestions(page); await openQuiz(page, P4_CLASSIC); await p4Start(page); await p4PlayRight(page, s.qs);
@@ -434,7 +434,7 @@ export const STATES = {
     ],
   },
   'create-1': {
-    owner: 'P5', auth: 'user', shot: 'full',
+    owner: 'P5', auth: 'user', shot: 'full', note: 'known deviation (loop 2, documented by P5): the restored live help lines push the cover field 28.8px down on step 1 (field tops are compared as gaps for information only)',
     open: async (page) => { await openCreate(page, 1); await page.locator('#p5-group-q').focus(); },
     lm: [...NAV_ONLY, ...PH,
       { name: 'stepper', proto: '.stepper', impl: '.p5-stepper', box: ['x', 'w', 'h'] },
