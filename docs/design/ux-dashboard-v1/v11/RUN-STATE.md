@@ -22,7 +22,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | fix merged (4a2fa44, PR #60): sharp tests 30 s timeout | 26e6e47 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | ux11/c1-check | loop 2 running (affected states on cc6c394) | 4a4da49 | - | v11/checks/pixel/ |
+| C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 2 running (issue rows + touched rows on cc6c394) | b89834e | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | loop 2 running LOCALLY (full e2e, a11y, SEO, perf; then REPORT.md) | edb382e | - | v11/REPORT.md |
 
@@ -108,6 +108,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 C1 loop 2 merged (0b5bbf8): the 20 changed states re-run, 80/80 pass; totals 136 pass, 0 fail, 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). C1-001 and C1-002 fixed. Known deviations recorded: P4's live Discord + Brag row on the end states, P5's restored help lines (+28.8px on create-1), P3 hubs longer (12 cards + Show all).
 - 2026-09-26 Loop 2: cc6c394 built (809/809) in .worktrees/ux11-integration and swapped onto :3021; C1, C2, C3 re-running only what fix loop 1 touched.
 - 2026-09-26 P5 fix merged (cc6c394): the live cover help line and the English language note restored (3 other live lines replaced by the prototype's equivalents, listed in P5.md); the draft card is A0's UxQuizCard preview. Fix loop 1 complete: all 17 filed issues fixed and merged (A0 2, P1 6, P3 5, P4 2, P5 1, P6 1, P8 1) plus the P10 test timeout. Integration: tsc 0, unit 823/823. Rebuilding the checker server in .worktrees/ux11-integration at cc6c394 for loop 2.
 - 2026-09-26 P4 fix merged (3650a27): the like race fixed (and the same race on Follow and on comment loading), Discord line + Brag back; e2e forces the late read. P3 fix merged (ad57928): tile 88x138, every quiz a real card link (12 visible + native <details> Show all, no <noscript>), fail-closed /groups reads proven on a production build, Verse links only when the gate allows, the empty state points to the top quiz for closed spaces. Integration: tsc 0, unit 823/823, check:routes 340 both ways. Only P5 left in fix loop 1, then one rebuild and the checkers' re-run of the affected states.
