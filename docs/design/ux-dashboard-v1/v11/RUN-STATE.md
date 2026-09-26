@@ -10,10 +10,10 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged #45, #50, #56 + type fix (eed8a49) | 5c9c483 | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | fix loop 1 running (C2-001, C1-002) | 5c9c483 | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
-| P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
+| P3 | ux11/p3-groups | fix loop 1 running (C1-001, hub noscript links, cached failed reads) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
@@ -22,7 +22,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | ux11/c1-check | running (loop 1; resumed 18:26 after the app stopped; evidence was uncommitted, told to commit) | - | - | v11/checks/pixel/ |
+| C1 | ux11/c1-check | loop 1 done, merged (69b3a47): 128 pass / 8 fail / 16 not verified of 152 | 4a4da49 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | running (loop 1; resumed 18:26; 3 commits pushed; issue C2-001 filed for A0) | 26b53ba | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | running LOCALLY: its push was refused by the permission check ("Git Destructive"); branch unpublished, waiting for the owner like P2 | 4f3ef6c | - | v11/REPORT.md |
 
@@ -103,6 +103,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 C1 loop 1 done and merged (69b3a47): 152 checks, 128 pass, 8 fail (groups x4: P3 C1-001 tile 133.2 vs 138px; header-sheet x4: A0 C1-002 drop zone opens in hover look), 16 not verified (quizzes x4 pending P2; ranked x4 not-live state only; btend-ranked x4 and post-challenge x4 wait for migrations). Nav fit, hover, focus, tokens (44), reduced motion, no horizontal scroll at 390: all pass. Fix loop 1 started for A0 (C2-001, C1-002) and P3 (C1-001 + C3's noscript links + cached failed reads) while C2 and C3 finish.
 - 2026-09-26 C3's push of ux11/c3-check was refused by the permission check ("Git Destructive"). C3 stopped, then was resumed to continue with local commits only; publishing its branch waits for the owner, like P2. C3 so far: robots.txt identical, sitemap 2998 URLs both ways, no new URL; title, description, robots, canonical, hreflang, H1 identical on every existing URL; /community 200 noindex flag on, 301 flag off. Link losses in its first pass came from ISR pages cached with empty sections while the machine was saturated (fail-soft reads cached); most recovered, /groups and /data/pulse to re-check.
 - 2026-09-26 18:24 The app stopped: C1, C2, C3 and the :3021 server were stopped. Server restarted from the same dcc3159 build (.worktrees/ux11-integration-b); checkers resumed from their transcripts. Load average ~40 from other projects on the machine (Pricely test runs, a VM), not this run. First issue in: C2-001 (A0): /api/quizzes/count (Phase 1 endpoint) answers 200 with the flag off; gate it (404 flag off) or delete it. Fixes are batched after loop 1 so there is one rebuild.
 - 2026-09-26 Server swapped to the dcc3159 build (809/809 pages; /community 200 noindex, follow). C1, C2, C3 told to check the community states and rows now.
