@@ -44,6 +44,7 @@ const LIVE = {
   h1: "What's your quiz about?",
   intro: 'No account needed to start. You can change everything later.',
   coverLine: 'A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background.',
+  langLine: 'English reaches the most fans, so your quiz can be played by the biggest audience.',
 };
 
 const FAKE_QUIZ = { id: 'p5-e2e-id', slug: 'p5-e2e-slug', creator_stats: { quizzes_created: 2, plays_received: 5 } };
@@ -160,11 +161,14 @@ const L: P5Landmark[] = [
   { proto: '#cp-1 .seg button:not(.on)', impl: '.p5-pane .ux-seg [aria-pressed="false"]', state: 'create-1' },
   // a native <select> keeps room for the chevron (padding-right 44); same box, same text position
   { proto: '#cp-1 .field:nth-child(6) .inp', impl: '#p5-lang', state: 'create-1', skip: ['padding-right'] },
-  { proto: '.covgrid', impl: '.p5-covgrid', state: 'create-1', boxSkip: ['h'] },
-  { proto: '.covgrid .qcov', impl: '.p5-cov', state: 'create-1', skip: PHOTO },
-  { proto: '.covgrid .drop', impl: '.p5-drop', state: 'create-1' },
-  { proto: '.covgrid .check', impl: '.p5-rights .ux-check', state: 'create-1' },
-  { proto: '.covgrid .check i', impl: '.p5-rights .ux-check i', state: 'create-1' },
+  // The live funnel's English note under Language is kept (live copy, C3-005 rule; the prototype
+  // has no line there): the cover field sits one help line lower, so its y is checked from the
+  // cover grid (COVER_FROM) instead of the stepper; x, sizes and styles as everywhere.
+  { proto: '.covgrid', impl: '.p5-covgrid', state: 'create-1', boxSkip: ['h', 'y'] },
+  { proto: '.covgrid .qcov', impl: '.p5-cov', state: 'create-1', skip: PHOTO, boxSkip: ['y'] },
+  { proto: '.covgrid .drop', impl: '.p5-drop', state: 'create-1', boxSkip: ['y'] },
+  { proto: '.covgrid .check', impl: '.p5-rights .ux-check', state: 'create-1', boxSkip: ['y'] },
+  { proto: '.covgrid .check i', impl: '.p5-rights .ux-check i', state: 'create-1', boxSkip: ['y'] },
   // step 2 (row 2 open)
   { proto: '#cp-2 .field', impl: '.p5-qfield', state: 'create-2', boxSkip: ['h'] },
   { proto: '#cp-2 .flabel', impl: '#p5-ql-l', state: 'create-2' },
@@ -304,6 +308,17 @@ async function checkLandmarks(page: Page, state: State, theme: Theme): Promise<s
       if (Math.abs(py - iy) > 2) problems.push(`${l.proto} y${fixed ? '' : ' (from the stepper)'}: expected ${py.toFixed(2)}, got ${iy.toFixed(2)}`);
     }
   }
+  // the cover field's inner layout, from its grid (see the cover entries above)
+  if (state === 'create-1') {
+    const pg = PROTO[key]?.['.covgrid']?.box as number[] | undefined;
+    const ig = got['.p5-covgrid'];
+    for (const [proto, impl] of [['.covgrid .qcov', '.p5-cov'], ['.covgrid .drop', '.p5-drop'], ['.covgrid .check', '.p5-rights .ux-check']] as const) {
+      const pb = PROTO[key]?.[proto]?.box as number[] | undefined;
+      const ib = got[impl];
+      if (!pg || !ig || !pb || !ib) { problems.push(`missing ${proto} for the cover grid check`); continue; }
+      if (Math.abs((pb[1]! - pg[1]!) - (ib[1] - ig[1])) > 2) problems.push(`${proto} y (from the cover grid): expected ${(pb[1]! - pg[1]!).toFixed(2)}, got ${(ib[1] - ig[1]).toFixed(2)}`);
+    }
+  }
   return problems;
 }
 
@@ -326,6 +341,7 @@ test.describe('P5 SEO lock and shell', () => {
     for (const id of ['p5-title', 'p5-about', 'p5-group-q', 'p5-lang']) expect(html).toContain(`id="${id}"`);
     // the live funnel's cover sentence stays in the served text (C3-005)
     expect(html).toContain(LIVE.coverLine);
+    expect(html).toContain(LIVE.langLine);
     // create shell mode: nav kept; tab bar and footer hidden by CSS (still in the HTML)
     await preparePage(page, 'light');
     await guardWrites(page);
@@ -438,6 +454,7 @@ test.describe('P5 step 1 (guest)', () => {
     await expect(page.locator('#p5-lang')).toHaveValue('ko');
     await expect(page.getByText('Quizzes written in English reach a much bigger audience.', { exact: false })).toBeVisible();
     await page.locator('#p5-lang').selectOption('en');
+    await expect(page.locator('#p5-lang-h')).toHaveText('English reaches the most fans, so your quiz can be played by the biggest audience.');
     // about: counter
     await page.locator('#p5-about').fill('A short note.');
     await expect(page.locator('label[for="p5-about"] small')).toHaveText('13 / 280');
