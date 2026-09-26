@@ -1,0 +1,148 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:29:07.914Z",
+ "page": {
+  "status": 200,
+  "quizId": "4ba8f255-2401-4220-8559-9a33c9ec1759",
+  "h1": "Ultimate BTS era quiz - only real ARMYs survive",
+  "crumb": [
+   "Home -> /",
+   "BTS Quiz -> /bts-quiz"
+  ],
+  "meta": "Classic Medium 8 questions About 2 min 2,382 plays Average 52%",
+  "timerline": "15 seconds per question. No account needed.",
+  "author": [
+   "mina -> /u/mina"
+  ],
+  "hof": [
+   "1 ? someone 8/8 0:17",
+   "2 ? someone 8/8 0:18",
+   "3 ? someone 8/8 0:19",
+   "4 ? someone 8/8 0:19",
+   "5 ? someone 8/8 0:19"
+  ],
+  "mine": "Play to put your name on this board.",
+  "about": "About this quiz Test your BTS knowledge with this medium 8-question quiz by mina. 2,382 fans have battled it (avg 52%), and 261 have scored perfect. Join them? Pass rate 31% · 43 likes · 1 reaction · 1 comment",
+  "qrows": [
+   "1 What was BTS's first album to reach #1 on the Billboard 200?",
+   "2 Which BTS song was their first to be performed at the Grammy Awards?",
+   "3 Map of the Soul: 7 is named after what?",
+   "5 more questions."
+  ],
+  "dyk": [
+   "Learn before you play: BTS trivia -> /bts-trivia"
+  ],
+  "related": [
+   "Classic · Medium BTS solo era quiz - match the member to the -> /q/bts-solo-era-quiz-match-the-member-to-the-music",
+   "Clues · Medium Guess the BTS member from clues 639 plays -> /q/guess-the-bts-member-from-clues",
+   "True/false · Medium BTS true or false - test your ARMY knowl -> /q/bts-true-or-false-test-your-army-knowledge",
+   "Classic · Medium BTS discography challenge 575 plays average -> /q/bts-discography-challenge",
+   "Classic · Medium BTS concerts and tour moments quiz 441 play -> /q/bts-concerts-and-tour-moments-quiz",
+   "Classic · Medium BTS debut era - how well do you remember? 4 -> /q/bts-debut-era-how-well-do-you-remember"
+  ],
+  "moreLinks": [],
+  "madeBy": "mina Lv 15 Ride-or-Die · 8 quizzes · 9.4k plays",
+  "shareSheet": "Share this quiz Ultimate BTS era quiz - only real ARMYs survive 2,382 plays · average 52% Copy link More apps Discord",
+  "followSheet": "Follow mina Sign in to follow creators and see their new quizzes. G Continue with Google D Continue with Discord or Email Email me a sign-in link New here? The same buttons create your passport. We ne"
+ },
+ "results": {
+  "n": 8,
+  "h1": "8/8 on Ultimate BTS era quiz - only real ARMYs survive",
+  "stamp": "올킬! PERFECT",
+  "stats": "100% You 52% Average 0:01 Time",
+  "primary": "Share",
+  "xpline": "Save your 8/8 and start a streak. Sign in to save",
+  "rankline": "",
+  "keep": [
+   "All BTS quizzes -> /bts-quiz",
+   "Next quiz BTS solo era quiz - match the member to the music  -> /q/bts-solo-era-quiz-match-the-member-to-the-music",
+   "Guess the BTS member from clues Clues · Medium · 639 plays -> /q/guess-the-bts-member-from-clues",
+   "BTS blindtest 18 songs · guess from a ten-second clip -> /blindtest/group-bts"
+  ],
+  "commentChip": "Your score 8/8 is shown",
+  "commentSheet": "Sign in to reply Your reply shows with your score and your passport. G Continue with Google D Continue with Discord or Email Email me a sign-in link New here? The same buttons create your passport. We",
+  "comments": [],
+  "shareSheet": "Share your score 8/8 on Ultimate BTS era quiz - only real ARMYs survive BTS quiz Copy link Story image More apps Discord",
+  "saveSheet": "Save your 8/8 Sign in to keep this score, start a streak and join the hall of fame. No password needed. G Continue with Google D Continue with Discord or Email Email me a sign-in link New here? The sa",
+  "pendingAction": null
+ },
+ "questionsSeen": 8,
+ "errors": [
+  "load: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/questions",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+   "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.2,0.1,0.1,0.1,0.1,0.1,0.1,0.1],\"anon_id\":\"c5d80bff-2150-4f3f-8b39-b53af6c05f45\"}"
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/like",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=4ba8f255-2401-4220-8559-9a33c9ec1759&score=8",
+   "status": 200
+  },
+  {
+   "step": "results: like",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/like",
+   "body": "{\"action\":\"like\"}"
+  },
+  {
+   "step": "results: comment (guest)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/comment?limit=20",
+   "status": 200
+  },
+  {
+   "step": "results: share + challenge",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/ux-v1/p4/challenge",
+   "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"questions\":[\"Which BTS member released the solo song \\\"Epiphany\\\"?\",\"What is the name of BTS's reality show that started in 2014?\",\"What was BTS's first album to reach #1 on the Billboard 200?\",\"In what year did BTS win their first Daesang (Grand Prize)?\",\"Map of the Soul: 7 is named after what?\",\"Which BTS song was their first to be performed at the Grammy Awards?\",\"What was BTS's fan meeting tour called?\",\"Which song was BTS's first fully Korean-language #1 on the Hot 100?\"],\"score\":8}"
+  },
+  {
+   "step": "results: report",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/report",
+   "body": "{\"reason\":\"wrong_answers\",\"details\":\"\"}"
+  }
+ ]
+}

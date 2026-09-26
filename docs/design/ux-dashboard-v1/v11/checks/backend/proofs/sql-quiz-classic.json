@@ -1,0 +1,139 @@
+[
+ {
+  "q": {
+   "t": "plays",
+   "s": "score,total_questions,time_taken_seconds,player_id",
+   "eq": {
+    "quiz_id": "4ba8f255-2401-4220-8559-9a33c9ec1759"
+   },
+   "order": [
+    "score",
+    false
+   ],
+   "limit": 8
+  },
+  "rows": 8,
+  "data": [
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 17,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 18,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 19,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 19,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 19,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 19,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 19,
+    "player_id": null
+   },
+   {
+    "score": 8,
+    "total_questions": 8,
+    "time_taken_seconds": 20,
+    "player_id": null
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,play_count,question_count,like_count,total_score_sum,total_completions,difficulty,quiz_type,creator_id,settings",
+   "eq": {
+    "id": "4ba8f255-2401-4220-8559-9a33c9ec1759"
+   }
+  },
+  "rows": 1,
+  "data": [
+   {
+    "slug": "ultimate-bts-era-quiz-only-real-armys-survive",
+    "play_count": 2382,
+    "question_count": 8,
+    "like_count": 43,
+    "total_score_sum": 9867,
+    "total_completions": 2382,
+    "difficulty": "medium",
+    "quiz_type": "multiple_choice",
+    "creator_id": "2836aed8-cecb-4706-8eb5-d224bc69e8cf",
+    "settings": {
+     "timer": true,
+     "shuffle": true,
+     "show_answers": false,
+     "timer_seconds": 15
+    }
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quiz_comments",
+   "count": true,
+   "head": true,
+   "eq": {
+    "quiz_id": "4ba8f255-2401-4220-8559-9a33c9ec1759"
+   }
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "quiz_reactions",
+   "count": true,
+   "head": true,
+   "eq": {
+    "quiz_id": "4ba8f255-2401-4220-8559-9a33c9ec1759"
+   }
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "plays",
+   "count": true,
+   "head": true,
+   "eq": {
+    "quiz_id": "4ba8f255-2401-4220-8559-9a33c9ec1759",
+    "score": 8
+   }
+  },
+  "count": 261
+ },
+ {
+  "q": {
+   "t": "plays",
+   "s": "relaxed",
+   "limit": 1
+  },
+  "data": null,
+  "error": "column plays.relaxed does not exist"
+ }
+]

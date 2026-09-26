@@ -1,0 +1,23 @@
+[
+{"id":"R234","owner":"P11","verdict":"PASS",
+ "control":["/notifications signed in: list grouped by day, unread state."],
+ "call":["GET /api/notifications?limit=50 200 (the live center's call). Real: 0 rows -> 'All caught up ... Nothing here yet ... Read notifications older than 60 days are cleared.' Sample rows (GET answered locally, UI only): 2 unread + 1 read rendered with unread marks."],
+ "db":["creator_notifications for the test user: 0 rows (head count), so the empty state is right. The page GET writes nothing (no mark-read on view: markAllRead only in the button handler)."],
+ "flagoff":["Flag off: the live notifications-center, same GET."],
+ "evidence":["proofs/notifications-user-real.json","proofs/notifications-user-sample.json","proofs/sql-shell.json"]},
+{"id":"R235","owner":"P11","verdict":"PASS","control":["Tabs All / Your quizzes / Social / Achievements (client filter on NOTIFICATION_CATEGORIES): Social shows only the follower row."],"call":["No request."],"db":["-"],"flagoff":["-"],"evidence":["proofs/notifications-user-sample.json (social)"]},
+{"id":"R236","owner":"P11","verdict":"PASS (unit p11.test)","control":["Row icon per type (12 live types)."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":["proofs/notifications-user-sample.json"]},
+{"id":"R237","owner":"P11","verdict":"PASS","control":["Row link: quiz_slug -> /q/<slug>, link_url -> /u/mina, none -> no link."],"call":["targetOf() (the live card's rule)."],"db":["-"],"flagoff":["-"],"evidence":["proofs/notifications-user-sample.json (rows)"]},
+{"id":"R238","owner":"P11","verdict":"PASS (payload); DB effect NOT VERIFIED (owner decision 1)",
+ "control":["Mark all read."],"call":["STUBBED POST /api/notifications/mark-read {} ; the bell label goes from 'Notifications, 2 unread' to 'Notifications' (shared store)."],
+ "db":["-"],"flagoff":["Flag off: same endpoint and body."],"evidence":["proofs/notifications-user-sample.json"]},
+{"id":"R239","owner":"P11","verdict":"PASS (payload); DB effect NOT VERIFIED",
+ "control":["Per-row read on click."],"call":["Opening the unread row: STUBBED POST /api/notifications/mark-read {\"ids\":[\"c2-n1\"]} then navigation to its /q/ link. Row menu: Mark as read / Mute this quiz / Dismiss: Dismiss -> STUBBED DELETE /api/notifications {\"id\":\"c2-n2\"}; Mute -> STUBBED POST /api/notifications/prefs {\"muteQuiz\":\"4ba8f255-...\"}."],
+ "db":["-"],"flagoff":["Flag off: same endpoints."],"evidence":["proofs/notifications-user-sample.json"]},
+{"id":"R240","owner":"P11 / P10","verdict":"PASS (link); toggles checked in the settings rows","control":["Category toggles: on /settings as in the v11 prototype; 'Notification settings -> /settings'."],"call":["Link."],"db":["-"],"flagoff":["-"],"evidence":["proofs/notifications-user-real.json (links)"]},
+{"id":"R241","owner":"P11","verdict":"PASS (none state); at-risk / saved states NOT VERIFIED live (the test user has no streak; creating one is a write)",
+ "control":["Streak card (A0 streakView of /api/auth/me): absent for the test user."],"call":["GET /api/auth/me (daily_streak 0, last_daily_date null)."],"db":["profiles.daily_streak 0."],"flagoff":["-"],"notes":["Copy states the real rule (daily quiz + daily blindtest)."],"evidence":["proofs/notifications-user-real.json","proofs/get-shell-user.json"]},
+{"id":"R242","owner":"P10","verdict":"NOT VERIFIED until v11-p10-email-prefs.sql","control":["Weekly recap email toggle: on /settings, disabled until the migration (see R214)."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R243","owner":"A0 / P11","verdict":"PASS","control":["Unread badge in the top bar."],"call":["GET /api/notifications?limit=1 unreadCount; with sample rows the bell reads 'Notifications, 2 unread'."],"db":["Real unread 0 = no dot (R033)."],"flagoff":["-"],"evidence":["proofs/notifications-user-sample.json (bell)","proofs/shell-user-1440.json"]},
+{"id":"R244","owner":"P11","verdict":"NOT VERIFIED until migration 154 (the type arrives only then); icon mapping unit-tested","control":["battle_beaten type."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]}
+]

@@ -1,0 +1,11 @@
+# C2 hub sorts recomputed from quizzes (group_id 2, published: 24)
+Popular: SAME
+  db  : blackpink-ultimate-fan-challenge (plays 1432, likes 31, avg 58, n 1432) | blackpink-true-or-false-think-you-know-everything (plays 834, likes 29, avg 69, n 834) | guess-the-blackpink-song-from-clues (plays 489, likes 23, avg 77, n 489) | blackpink-true-or-false (plays 434, likes 35, avg 70, n 434) | blackpink-discography-deep-dive (plays 347, likes 28, avg 63, n 347) | blackpink-brand-deals-and-fashion-quiz (plays 316, likes 12, avg 61, n 316)
+Newest: SAME
+  db  : blackpink (plays 42, likes 0, avg 85, n 42) | blackpink-easy-quiz (plays 0, likes 0, avg null, n 0) | blackpink-guess-the-mv-from-the-screenshot (plays 20, likes 4, avg 76, n 20) | how-well-do-you-know-lisa (plays 5, likes 0, avg 47, n 5) | only-for-blinks (plays 3, likes 0, avg 78, n 3) | quiz-for-baby-blinks-to-learn-about-blackpink (plays 9, likes 0, avg 71, n 9)
+Most liked: SAME
+  db  : blackpink-true-or-false (plays 434, likes 35, avg 70, n 434) | blackpink-ultimate-fan-challenge (plays 1432, likes 31, avg 58, n 1432) | blackpink-true-or-false-think-you-know-everything (plays 834, likes 29, avg 69, n 834) | blackpink-discography-deep-dive (plays 347, likes 28, avg 63, n 347) | blackpink-world-records-and-achievements (plays 310, likes 28, avg 57, n 310) | guess-the-blackpink-song-from-clues (plays 489, likes 23, avg 77, n 489)
+Hardest: SAME
+  db  : blackpink-kill-this-love-era (plays 11, likes 0, avg 54, n 11) | blackpink-world-records-and-achievements (plays 310, likes 28, avg 57, n 310) | blackpink-ultimate-fan-challenge (plays 1432, likes 31, avg 58, n 1432) | blackpink-brand-deals-and-fashion-quiz (plays 316, likes 12, avg 61, n 316) | blackpink-discography-deep-dive (plays 347, likes 28, avg 63, n 347) | blackpink-how-you-like-that-quiz (plays 10, likes 0, avg 64, n 10)
+published count 24; total plays 4908
+ALL SAME

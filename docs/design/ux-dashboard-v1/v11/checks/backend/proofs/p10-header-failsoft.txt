@@ -1,0 +1,8 @@
+guest POST /api/profile/header/link body={"url":"http://169.254.169.254/latest/meta-data"} -> 400 {"error":"Paste a link that starts with https://","code":"not_https"}
+guest POST /api/profile/header/link body={"url":"https://10.0.0.1/x.png"} -> 400 {"error":"That link does not point to a public website.","code":"private_address"}
+guest POST /api/profile/header/link body={"url":"https://example.com/a.png"} -> 401 {"error":"Sign in to change your header."}
+guest POST /api/profile/header/upload body= -> 401 {"error":"Sign in to change your header."}
+user POST /api/profile/header/link body={"url":"https://127.0.0.1/x.png"} -> 400 {"error":"That link does not point to a public website.","code":"private_address"}
+user POST /api/profile/header/link body={"url":"https://[::1]/x.png"} -> 400 {"error":"That link does not point to a public website.","code":"private_address"}
+user POST /api/profile/header/link body={"url":"https://example.com/a.png"} -> 503 {"error":"Header pictures are not switched on yet. You can use the theme colour for now.","code":"bucket_missing"}
+user POST /api/profile/header/upload body= -> 503 {"error":"Header pictures are not switched on yet. You can use the theme colour for now.","code":"bucket_missing"}

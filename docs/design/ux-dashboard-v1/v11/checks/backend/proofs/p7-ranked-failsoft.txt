@@ -1,0 +1,16 @@
+guest POST /api/ranked/run body={} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+guest POST /api/ranked/run/start body={"token":"x","round":0} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+guest POST /api/ranked/run/answer body={"token":"x","round":0,"choice":1} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+guest POST /api/ranked/run/submit body={"token":"x"} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user POST /api/ranked/run body={} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user POST /api/ranked/run/start body={"token":"00000000-0000-4000-8000-000000000000","round":0} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user POST /api/ranked/run/answer body={"token":"00000000-0000-4000-8000-000000000000","round":0,"choice":1} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user POST /api/ranked/run/submit body={"token":"00000000-0000-4000-8000-000000000000"} -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user GET /api/ranked/me -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user GET /api/ranked/ladder?scope=global -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user GET /api/ranked/ladder?scope=fandom -> 503 {"ranked":"not_live","reason":"migration_missing"}
+user GET /api/ranked/cron/nightly -> 401 {"error":"Unauthorized"}
+user GET /api/ranked/run -> 405 {"error":"method_not_allowed"}
+  "error": "Could not find the table 'public.ranked_seasons' in the schema cache"
+  "error": "Could not find the table 'public.ranked_runs' in the schema cache"
+  "count": 0

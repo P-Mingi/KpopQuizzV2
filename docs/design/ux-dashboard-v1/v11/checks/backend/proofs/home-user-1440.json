@@ -1,0 +1,184 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:17:24.003Z",
+ "sections": [
+  {
+   "cls": "",
+   "text": "{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"KpopQuiz\",\"url\":\"https://kpopquiz.org\",\"description\":\"K-pop quizzes made by fans, played by thousands.\",\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://kpopquiz.org/search?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}}",
+   "links": []
+  },
+  {
+   "cls": "",
+   "text": "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/one-for-sones\",\"name\":\"One for Sones\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://kpopquiz.org/q/cortis-quiz\",\"name\":\"Cortis quiz\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://kpopquiz.org/q/illit-fans-here\",\"name\":\"Illit fans here\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://kpopquiz.org/q/blackpink\",\"name\":\"Blackpink\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://kpopquiz.org/q/are-you-a-real-coer-2\",\"name\":\"Are you a real COER?\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://kpopquiz.org/q/are-you-real-coer",
+   "links": []
+  },
+  {
+   "cls": "p1-ticker",
+   "text": "LIVE someone aced the ITZY quiz (10/10)",
+   "links": []
+  },
+  {
+   "cls": "p1-hhead",
+   "text": "K-pop Quiz Good evening, testtest Your quiz of the day is ready. Any quiz or blindtest today starts a streak.",
+   "links": []
+  },
+  {
+   "cls": "p1-qotd",
+   "text": "Quiz of the day Replay of the April 21 pick · New quiz in 7h 43m MAMAMOO: The Curtain Call Era Classic· Hard· 10 questions· 71% average· about 1 min Play",
+   "links": [
+    "Play -> /q/mamamoo-the-curtain-call-era?daily=quiz"
+   ]
+  },
+  {
+   "cls": "ux-sec ux-sec-lg",
+   "text": "Groups All 90 groups K General K-pop 152 quizzes BTS 27 quizzes BLACKPINK 24 quizzes CO Cortis 9 quizzes IL ILLIT New quiz Stray Kids New quiz TWICE 14 quizzes aespa 13 quizzes SEVENTEEN 10 quizzes NewJeans 12 quizzes BABYMONSTER New quiz EXO 8 quizzes IVE 8 quizzes ENHYPEN 7 quizzes TXT 6 quizzes LE SSERAFIM New quiz ITZY 8 quizzes Girls' Generation New quiz",
+   "links": [
+    "All 90 groups -> /groups",
+    "K General K-pop 152 quizzes -> /general-kpop-quiz",
+    "BTS 27 quizzes -> /bts-quiz",
+    "BLACKPINK 24 quizzes -> /blackpink-quiz",
+    "CO Cortis 9 quizzes -> /cortis-quiz",
+    "IL ILLIT New quiz -> /illit-quiz",
+    "Stray Kids New quiz -> /stray-kids-quiz",
+    "TWICE 14 quizzes -> /twice-quiz",
+    "aespa 13 quizzes -> /aespa-quiz",
+    "SEVENTEEN 10 quizzes -> /seventeen-quiz",
+    "NewJeans 12 quizzes -> /newjeans-quiz",
+    "BABYMONSTER New quiz -> /babymonster-quiz",
+    "EXO 8 quizzes -> /exo-quiz",
+    "IVE 8 quizzes -> /ive-quiz",
+    "ENHYPEN 7 quizzes -> /enhypen-quiz",
+    "TXT 6 quizzes -> /txt-quiz",
+    "LE SSERAFIM New quiz -> /le-sserafim-quiz",
+    "ITZY 8 quizzes -> /itzy-quiz",
+    "Girls' Generation New quiz -> /girls-generation-quiz"
+   ]
+  },
+  {
+   "cls": "ux-sec ux-sec-lg",
+   "text": "Trending this week See all Girls' Generation One for Sones Medium 380 plays Cortis Cortis quiz Easy 100 plays ILLIT Illit fans here Hard 66 plays BLACKPINK Blackpink Medium 42 plays Cortis Are you a real COER? Medium 41 plays Cortis Are you real COER Medium 24 plays",
+   "links": [
+    "See all -> /quizzes/popular-this-week",
+    "Girls' Generation One for Sones Medium 380 plays -> /q/one-for-sones",
+    "Cortis Cortis quiz Easy 100 plays -> /q/cortis-quiz",
+    "ILLIT Illit fans here Hard 66 plays -> /q/illit-fans-here",
+    "BLACKPINK Blackpink Medium 42 plays -> /q/blackpink",
+    "Cortis Are you a real COER? Medium 41 plays -> /q/are-you-a-real-coer-2",
+    "Cortis Are you real COER Medium 24 plays -> /q/are-you-real-coer"
+   ]
+  },
+  {
+   "cls": "ux-sec ux-sec-lg p1-two",
+   "text": "All time best Most liked 1 BTS true or false - test your ARMY knowledge BTS · 631 plays 2 BTS discography challenge BTS · 575 plays 3 Stray Kids basics Stray Kids · 1,068 plays 4 Ultimate BTS era quiz - only real ARMYs survive BTS · 2,382 plays 5 SKZ true or false - only real STAYs pass Stray Kids · 1,447 plays 6 BLACKPINK true or false BLACKPINK · 434 plays New quizzes See all new Who said it SNSD version Girls' Generation · Classic · Hard 1 hour ago Only a real FEARNOT can pass this! LE SSERAFIM · Intruder · Medium 1 hour ago are a real stay? Stray Kids · Classic · Hard 2 hours ago BABYMON FAN QUIZ FREYA BABYMONSTER · Classic · Medium 2 days ago This is only for ~true~ Gllits! ILLIT · Clas",
+   "links": [
+    "Most liked -> /most-liked",
+    "1 BTS true or false - test your ARMY knowledge BTS -> /q/bts-true-or-false-test-your-army-knowledge",
+    "2 BTS discography challenge BTS · 575 plays -> /q/bts-discography-challenge",
+    "3 Stray Kids basics Stray Kids · 1,068 plays -> /q/stray-kids-basics",
+    "4 Ultimate BTS era quiz - only real ARMYs survive  -> /q/ultimate-bts-era-quiz-only-real-armys-survive",
+    "5 SKZ true or false - only real STAYs pass Stray K -> /q/skz-true-or-false-only-real-stays-pass",
+    "6 BLACKPINK true or false BLACKPINK · 434 plays -> /q/blackpink-true-or-false",
+    "See all new -> /new",
+    "Who said it SNSD version Girls' Generation · Class -> /q/who-said-it-snsd-version",
+    "Only a real FEARNOT can pass this! LE SSERAFIM · I -> /q/only-a-real-fearnot-can-pass-this",
+    "are a real stay? Stray Kids · Classic · Hard 2 hou -> /q/are-a-real-stay",
+    "BABYMON FAN QUIZ FREYA BABYMONSTER · Classic · Med -> /q/babymon-fan-quiz-freya",
+    "This is only for ~true~ Gllits! ILLIT · Classic ·  -> /q/this-is-only-for-true-gllits-2",
+    "This is only for ~true~ Gllits! ILLIT · Classic ·  -> /q/this-is-only-for-true-gllits"
+   ]
+  },
+  {
+   "cls": "ux-sec ux-sec-lg",
+   "text": "Blindtest of the day · 7 hours left Ten songs. Same for everyone. One shot. 3 fans played today. Guess the song or the artist from a ten-second clip, then see where you rank. Play the daily All blindtest modes",
+   "links": [
+    "see where you rank -> /blindtest/leaderboard",
+    "Play the daily -> /blindtest?daily=true",
+    "All blindtest modes -> /blindtest"
+   ]
+  },
+  {
+   "cls": "ux-sec ux-sec-lg",
+   "text": "From the community Open community K Remixes are almost never better than the original Debate · 0 votes With all seven back and the group chapter open again, what are you hoping for mo Thread · KpopVerse · 0 replies Why ARMY documents everything: the archive instinct of a fandom Blog · KpopVerse · 1 min read Fandom spaces on Verse: STAY · ARMY · BLINK · CARAT · Explore Verse On Discord: Kpop Quiz on Discord · Today's quiz is in the Discord too",
+   "links": [
+    "Open community -> /community",
+    "K Remixes are almost never better than the origina -> /community",
+    "With all seven back and the group chapter open aga -> /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3",
+    "Why ARMY documents everything: the archive instinc -> /verse/bts/essays/2",
+    "STAY -> /verse/stray-kids",
+    "ARMY -> /verse/bts",
+    "BLINK -> /verse/blackpink",
+    "CARAT -> /verse/seventeen",
+    "Explore Verse -> /verse",
+    "Kpop Quiz on Discord -> https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=home-strip",
+    "Today's quiz is in the Discord too -> https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily"
+   ]
+  }
+ ],
+ "ticker": [
+  "LIVE someone aced the ITZY quiz (10/10)",
+  "LIVE lore_stay_5 scored 4/7 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 4/7 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 4/7 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 4/7 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 2/8 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 2/8 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 2/8 on the BLACKPINK quiz",
+  "LIVE lore_stay_5 scored 3/6 on the Stray Kids quiz",
+  "LIVE lore_stay_5 scored 3/6 on the Stray Kids quiz",
+  "LIVE lore_stay_5 scored 3/6 on the Stray Kids quiz",
+  "LIVE someone aced the Girls' Generation quiz (6/6)",
+  "LIVE someone aced the Girls' Generation quiz (6/6)",
+  "LIVE someone aced the Girls' Generation quiz (6/6)"
+ ],
+ "continueRows": [],
+ "errors": [
+  "load /: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/stats/live",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/activity/recent",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p1/daily-band",
+   "status": 200
+  }
+ ]
+}

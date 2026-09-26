@@ -1,0 +1,110 @@
+{
+  "takenAt": "2026-09-26T17:44:54.401Z",
+  "tables": [
+    {
+      "table": "profiles",
+      "rows": 262,
+      "newest": "2026-09-26T17:40:05.112673+00:00",
+      "tsColumn": "updated_at",
+      "error": null
+    },
+    {
+      "table": "quizzes",
+      "rows": 437,
+      "newest": "2026-09-26T17:40:05.112673+00:00",
+      "tsColumn": "updated_at",
+      "error": null
+    },
+    {
+      "table": "plays",
+      "rows": 67905,
+      "newest": "2026-09-26T17:40:05.112673+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "quiz_comments",
+      "rows": 17,
+      "newest": "2026-09-14T14:49:01.080769+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "quiz_reactions",
+      "rows": 14,
+      "newest": "2026-07-20T08:51:40.066638+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "likes",
+      "rows": 2833,
+      "newest": "2026-09-25T18:37:15.671239+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "follows",
+      "rows": 58,
+      "newest": "2026-09-22T11:45:25.789883+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "user_badges",
+      "rows": 1417,
+      "newest": null,
+      "tsColumn": null,
+      "error": null
+    },
+    {
+      "table": "creator_notifications",
+      "rows": 1226,
+      "newest": "2026-09-26T15:55:09.582233+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "notification_prefs",
+      "rows": 3,
+      "newest": "2026-08-31T21:23:15.058+00:00",
+      "tsColumn": "updated_at",
+      "error": null
+    },
+    {
+      "table": "daily_blindtest_scores",
+      "rows": 87,
+      "newest": "2026-09-26T15:52:30.434985+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "daily_challenge_plays",
+      "rows": 0,
+      "newest": null,
+      "tsColumn": null,
+      "error": null
+    },
+    {
+      "table": "blind_test_plays",
+      "rows": 140,
+      "newest": "2026-06-05T17:36:38.04596+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "activity_events",
+      "rows": 7269,
+      "newest": "2026-09-26T17:40:05.112673+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    },
+    {
+      "table": "debate_votes",
+      "rows": 42,
+      "newest": "2026-09-22T11:44:22.099988+00:00",
+      "tsColumn": "created_at",
+      "error": null
+    }
+  ]
+}
