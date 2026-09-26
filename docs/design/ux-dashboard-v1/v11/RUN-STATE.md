@@ -15,7 +15,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | merged (caff03e, PR #52); fixing one tsc error in its spec (page.route returns a Disposable) | 69c55ca | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | running (resumed 10:00 after an API stall; 9 commits pushed) | adddaab | 0 | v11/reports/P8.md |
@@ -95,6 +95,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P5's spec fix merged (ed8abea): whole-app tsc clean again (e2e included).
 - 2026-09-26 P11 merged (6b17e0e): guard ok (38 files), notifications page + BellPanel + SearchResults on A0's slot props, read-only /api/ux-v1/p11/search, flag-off identical, SEO and links unchanged on /search and /notifications. Integration: check:routes 330 both ways, unit 738/738, tsc: only P5's spec error (fix in progress). A0 resumed for round 3.
 - 2026-09-26 P5 merged (caff03e): guard ok (41 files), p5.spec 45/45, 59 parity unit tests vs the legacy funnel, SEO fields and all 22 hrefs kept on /create. After the merge the full-app tsc showed 1 error in p5.spec.ts (page.route returns a Disposable): P5 fixing; COMMON.md now requires the whole-app tsc (e2e included) and id-prefixed scratch files. P5 asked P8 to open the composer from /community?compose=challenge&quiz=<slug> (relayed).
 - 2026-09-26 10:00 API stall: P5, P8, P9, P11 stopped with "no progress for 600s" (stream watchdog). Every branch was pushed; only a few files per worktree were uncommitted; no server left alive. All four resumed from their transcripts with their state listed.
