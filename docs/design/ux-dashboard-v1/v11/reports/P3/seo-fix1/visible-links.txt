@@ -1,0 +1,10 @@
+/blackpink-quiz  JS off  flag-off visible /q/ 18  flag-on visible /q/ 19  missing 0
+/blackpink-quiz  JS on   flag-off visible /q/ 18  flag-on visible /q/ 19  missing 0
+/bts-quiz  JS off  flag-off visible /q/ 18  flag-on visible /q/ 20  missing 0
+/bts-quiz  JS on   flag-off visible /q/ 18  flag-on visible /q/ 20  missing 0
+/cortis-quiz  JS off  flag-off visible /q/ 12  flag-on visible /q/ 12  missing 0
+/cortis-quiz  JS on   flag-off visible /q/ 12  flag-on visible /q/ 12  missing 0
+/ateez-quiz  JS off  flag-off visible /q/ 15  flag-on visible /q/ 16  missing 0
+/ateez-quiz  JS on   flag-off visible /q/ 15  flag-on visible /q/ 16  missing 0
+OK: every flag-off visible quiz link is visible flag on (JS off and on)
+exit 0

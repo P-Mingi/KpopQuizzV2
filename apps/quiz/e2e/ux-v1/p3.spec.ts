@@ -30,6 +30,9 @@ const HUB_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(a[href="/blackpi
 const HUB_2_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(.p3-fan):has(.p3-war):has(a[href="/articles/stray-kids-vs-ateez"])';
 const HUB_2 = '/ateez-quiz';
 const EMPTY = '/chungha-quiz';
+// Visible quiz cards before "Show all N" (lib/ux-v1/p3/model.ts HUB_FIRST_CARDS):
+// today's hub shows its popular top 10, so all of them stay visible links (C3-001).
+const FIRST = 12;
 const TRIVIA = '/blackpink-trivia';
 
 async function json(route: Route, body: unknown, status = 200): Promise<void> {
@@ -41,12 +44,13 @@ async function setup(page: Page, theme: Theme): Promise<StubbedCall[]> {
   return guardWrites(page, env.supabaseUrl);
 }
 
-/** Opens a v11 page; false on a flag-off build. A render that lost its reads to a
- *  DB timeout (the dev server shares the production database) is reloaded, never
- *  skipped. */
+/** Opens a v11 page; false on a flag-off build. A render that failed closed (a
+ *  read failed or timed out on the shared production database: the page answers
+ *  5xx and is not cached) or lost an island is reloaded, never skipped. */
 async function open(page: Page, path: string, ready: string): Promise<boolean> {
-  for (let attempt = 0; attempt < 4; attempt++) {
+  for (let attempt = 0; attempt < 6; attempt++) {
     const res = attempt === 0 ? await page.goto(path) : await page.reload();
+    if (res && res.status() >= 500) { await page.waitForTimeout(3000); continue; }
     if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
     if ((await page.locator('.p3').count()) === 0) return false;
     await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
@@ -133,6 +137,12 @@ for (const theme of THEMES) {
       await expect(page.locator('.p3-gitem[href="/general-kpop-quiz"]')).toHaveCount(0);
       const topCounts = await page.locator('.p3-gitem-c').allTextContents();
       for (const c of topCounts) expect(c).toMatch(/^[\d,]+ quizz?(es)?$/);
+      // C1-001: the tile is the prototype's 88 x 138 (.gitem, measured live): the
+      // count line sits inline in the tile's 25.6px line box.
+      for (const box of await page.locator('.p3-gitem').evaluateAll((as) => as.map((a) => a.getBoundingClientRect().toJSON() as { width: number; height: number }))) {
+        expect(Math.abs(box.width - 88), 'group tile width 88').toBeLessThanOrEqual(2);
+        expect(Math.abs(box.height - 138), 'group tile height 138').toBeLessThanOrEqual(2);
+      }
 
       // Nav: Groups is the active pill (desktop); on phones the Quizzes tab.
       if (widthOf(page) > 760) await expect(page.locator('.ux-links a[aria-current="page"]')).toHaveText('Groups');
@@ -225,15 +235,17 @@ for (const theme of THEMES) {
       expect(facts).toMatch(/\d+ quizzes/);
       await expect(page.locator('.p3-photo img')).toHaveAttribute('alt', 'BLACKPINK');
 
-      // Today's links are all here.
-      for (const href of ['/blackpink-trivia', '/verse/blackpink', '/create?group=blackpink', '/leaderboard#fandom-war', '/blindtest/group-blackpink', '/twice-quiz', '/red-velvet-quiz', '/aespa-quiz']) {
+      // Today's links are all here, except today's dead door: BLACKPINK's Verse
+      // space is parked (404), so the hub does not link it (C2-006).
+      for (const href of ['/blackpink-trivia', '/create?group=blackpink', '/leaderboard#fandom-war', '/blindtest/group-blackpink', '/twice-quiz', '/red-velvet-quiz', '/aespa-quiz']) {
         expect(await page.locator(`a[href="${href}"]`).count(), `link ${href}`).toBeGreaterThan(0);
       }
-      const noscript = await page.locator('noscript').evaluateAll((ns) => ns.map((n) => n.textContent ?? '').join(''));
-      const allQuizLinks = (noscript.match(/href="\/q\/[a-z0-9-]+"/g) ?? []).length;
+      await expect(page.locator('.p3-hub a[href^="/verse/"]'), 'no link to a parked Verse space').toHaveCount(0);
+      // Every quiz of the group is a real card link in the page (no <noscript> list).
       const quizFact = (await page.locator('.p3-facts span', { hasText: /quizz?(es)?$/ }).textContent()) ?? '';
       const count = Number(quizFact.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
-      expect(allQuizLinks, 'a crawlable link to every quiz').toBe(count);
+      await expect(page.locator('.p3-qs a.ux-tcard[href^="/q/"]'), 'a real link to every quiz').toHaveCount(count);
+      await expect(page.locator('noscript a')).toHaveCount(0);
 
       expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
       const cmp = await compareLandmarks(page, widthOf(page), theme, hubLandmarks('hub-blackpink'));
@@ -250,12 +262,15 @@ for (const theme of THEMES) {
     test('quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard', async ({ page }) => {
       const writes = await setup(page, theme);
       test.skip(!(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')), 'UX v1 flag is OFF on this build');
-      const cards = page.locator('.p3-qs .ux-tcard');
-      await expect(cards).toHaveCount(6);
+      const cards = page.locator('.p3-qs .ux-tcard:visible');
       const n = Number((await page.locator('.p3-qs .ux-sec-h p').textContent())?.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
-      const more = page.locator('.p3-all a');
+      expect(n, 'BLACKPINK has more quizzes than the first cards').toBeGreaterThan(FIRST);
+      await expect(cards).toHaveCount(FIRST);
+      const more = page.locator('.p3-more > summary');
       await expect(more).toHaveText(`Show all ${n}`);
-      await expect(more).toHaveAttribute('href', '/blackpink-quiz?page=2');
+      await expect(more).toBeVisible();
+      // The rest of the cards are real links already, inside the closed <details>.
+      await expect(page.locator('.p3-qs a.ux-tcard')).toHaveCount(n);
 
       // Popular = most played first (the live feed's order).
       const p = (await cards.allTextContents()).map(plays);
@@ -311,14 +326,43 @@ for (const theme of THEMES) {
       await levelBtn.click();
       await page.locator('.ux-ddpop [role="menuitemradio"]', { hasText: 'All levels' }).click();
 
-      // Show all: a real ?page=2 link that expands in place; focus goes to card 7.
-      await expect(cards).toHaveCount(6);
-      await more.click();
+      // Show all (native <details>): the list opens in place with the keyboard, the
+      // button goes away and focus moves to the first new card.
+      await expect(cards).toHaveCount(FIRST);
+      await more.focus();
+      await page.keyboard.press('Enter');
       await expect(cards).toHaveCount(n);
       await expect(page).toHaveURL(/\/blackpink-quiz$/);
-      await expect(cards.nth(6)).toBeFocused();
-      await expect(page.locator('.p3-all')).toHaveCount(0);
+      await expect(cards.nth(FIRST)).toBeFocused();
+      await expect(more).toBeHidden();
+      await expect(page.getByTestId('ux-live')).toContainText(`${n} quizzes shown`);
       expect(writes).toEqual([]);
+    });
+
+    test('no JavaScript: every quiz link is a real link in the server HTML; Show all opens natively', async ({ browser }, info) => {
+      const phone = info.project.name === 'ux-390';
+      const ctx = await browser.newContext({
+        javaScriptEnabled: false, colorScheme: theme,
+        viewport: phone ? { width: 390, height: 844 } : { width: 1440, height: 900 },
+      });
+      const page = await ctx.newPage();
+      let res = await page.goto(HUB);
+      for (let i = 0; i < 6 && res && res.status() >= 500; i++) { await page.waitForTimeout(3000); res = await page.goto(HUB); }
+      if (!res || res.status() !== 200 || (await page.locator('.p3').count()) === 0) { await ctx.close(); test.skip(true, 'UX v1 flag is OFF on this build'); return; }
+      const quizFact = (await page.locator('.p3-facts span', { hasText: /quizz?(es)?$/ }).textContent()) ?? '';
+      const count = Number(quizFact.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
+      expect(count).toBeGreaterThan(FIRST);
+      // Server HTML, scripts off: one real <a href="/q/..."> card per published quiz,
+      // none of them in <noscript>; the first 12 visible, the rest behind Show all.
+      await expect(page.locator('.p3-qs a.ux-tcard[href^="/q/"]')).toHaveCount(count);
+      await expect(page.locator('noscript a[href^="/q/"]')).toHaveCount(0);
+      await expect(page.locator('.p3-qs a.ux-tcard:visible')).toHaveCount(FIRST);
+      await page.locator('.p3-more > summary').click();
+      await expect(page.locator('.p3-qs a.ux-tcard:visible')).toHaveCount(count);
+      // Every quiz link of today's hub (flag off) is among them.
+      const hrefs = new Set(await page.locator('.p3-qs a.ux-tcard').evaluateAll((as) => as.map((a) => a.getAttribute('href'))));
+      expect(hrefs.size).toBe(count);
+      await ctx.close();
     });
 
     test('Questions fans ask open with the keyboard; community, fans, war, read more', async ({ page }) => {
@@ -336,7 +380,14 @@ for (const theme of THEMES) {
       await expect(com.locator('a.ux-lnk', { hasText: 'All posts' })).toHaveAttribute('href', '/community');
       const rows = com.locator('a.ux-row');
       if (await rows.count()) for (const h of await rows.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) expect(h).toMatch(/^\/q\/[a-z0-9-]+$/);
-      else await expect(com).toContainText('No posts about ATEEZ yet.');
+      else {
+        // C2-007: ATEEZ's Verse space is parked, so the empty state's door is the
+        // top quiz (its results screen takes a comment), never the thread editor.
+        await expect(com).toContainText('No posts about ATEEZ yet.');
+        await expect(com.locator('a', { hasText: 'Start the first thread' })).toHaveCount(0);
+        await expect(com.locator('a.ux-lnk', { hasText: 'Play the top quiz and leave the first comment' })).toHaveAttribute('href', /^\/q\/[a-z0-9-]+$/);
+      }
+      await expect(page.locator('.p3-hub a[href^="/verse/"]'), 'no link to a parked Verse space (C2-006)').toHaveCount(0);
 
       // Fans also play: the hub and the top quiz of each related group.
       const fans = page.locator('.p3-fan');
@@ -472,7 +523,7 @@ signedInTest.describe('signed in (read only)', () => {
     await expect(page.getByTestId('ux-toast')).toContainText('Group alerts are not switched on yet');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     expect(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')).toBe(true);
-    await expect(page.locator('.p3-qs .ux-tcard')).toHaveCount(6);
+    await expect(page.locator('.p3-qs .ux-tcard:visible')).toHaveCount(FIRST);
     expect(writes, 'the signed-in visit writes nothing').toEqual([]);
   });
 });

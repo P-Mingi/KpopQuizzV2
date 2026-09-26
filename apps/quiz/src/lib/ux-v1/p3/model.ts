@@ -24,6 +24,53 @@ export interface IndexGroup {
   photo: string | null;
 }
 
+/** The /groups directory numbers (today's intro and generation line). */
+export interface DirectoryStats {
+  /** Group rows with at least one published quiz (today's "N groups"). */
+  withQuizzes: number;
+  /** Known generations in order, with their count (only non-zero). */
+  gens: { gen: string; n: number }[];
+  /** Groups with a quiz and no recorded generation. */
+  noGen: number;
+}
+
+export interface GroupsIndex {
+  groups: IndexGroup[];
+  directory: DirectoryStats;
+}
+
+const GENERATION_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'];
+
+/** A recorded generation, or null (today's directory rule: never guessed). */
+export function knownGeneration(g: string | null | undefined): string | null {
+  const v = (g ?? '').trim();
+  return v && GENERATION_ORDER.includes(v) ? v : null;
+}
+
+/** Today's directory numbers from every group row (hidden rows included, as
+ *  today's page counts them) and its published-quiz count. */
+export function directoryStats(rows: readonly { quizzes: number; generation: string | null | undefined }[]): DirectoryStats {
+  const listed = rows.filter((r) => r.quizzes > 0);
+  return {
+    withQuizzes: listed.length,
+    gens: GENERATION_ORDER
+      .map((gen) => ({ gen, n: listed.filter((r) => knownGeneration(r.generation) === gen).length }))
+      .filter((x) => x.n > 0),
+    noGen: listed.filter((r) => !knownGeneration(r.generation)).length,
+  };
+}
+
+/** Today's /groups intro, word for word. */
+export function directoryIntro(d: DirectoryStats): string {
+  return `Every group with at least one quiz on KpopQuiz. ${d.withQuizzes} groups, A to Z, each with its number of quizzes and its generation where we have one recorded.`;
+}
+
+/** Today's generation line ("3 2nd Gen · 12 3rd Gen · ... · 12 with no generation recorded"), or null. */
+export function directoryGenLine(d: DirectoryStats): string | null {
+  if (d.gens.length === 0) return null;
+  return d.gens.map((x) => `${x.n} ${x.gen}`).join(' · ') + (d.noGen > 0 ? ` · ${d.noGen} with no generation recorded` : '');
+}
+
 /** Two-letter initials for a group without a photo (prototype ini()). */
 export function initials(name: string): string {
   if (name === 'General K-pop') return 'K';
@@ -222,8 +269,12 @@ export function filterHubQuizzes(list: readonly HubQuiz[], f: { type: string | n
   return list.filter((q) => (!f.type || q.quiz_type === f.type) && (!f.level || (q.difficulty ?? '').toLowerCase() === f.level));
 }
 
-/** Cards shown before "Show all N" (DESIGN-SPEC 16.7: 6 text cards). */
-export const HUB_FIRST_CARDS = 6;
+/**
+ * Cards shown before "Show all N". DESIGN-SPEC 16.7 draws 6; fix loop 1 (C3-001)
+ * raises it to 12 so every quiz card today's hub shows (its popular top 10) stays
+ * a VISIBLE link on the v11 hub, JavaScript or not; 12 keeps full rows of 3 and 2.
+ */
+export const HUB_FIRST_CARDS = 12;
 
 /** Coarse age of a comment row ("just now", "5h", "3d", "2mo"). */
 export function coarseAge(iso: string, now = Date.now()): string {

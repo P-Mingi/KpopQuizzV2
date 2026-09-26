@@ -1,0 +1,23 @@
+P3 fix loop 1, C3-002: /groups never caches a failed read (production build, next start).
+
+Build: branch 53a4967, flag on, copied to a scratch folder with ONE extra line in read()
+(P3_FAULT=<label> makes that read reject like a saturated Supabase; never committed).
+
+1. next build with P3_FAULT='groups v11' (the /groups read fails during the prerender):
+   [groups v11] getGroupsDirectoryIndex failed: Error: P3_FAULT injected: [groups v11] getGroupsDirectoryIndex
+   [p3] /groups: read(s) failed at build (getGroupsDirectoryIndex); prerendered with a 60s revalidate
+   Route table: /groups  Revalidate 1m  (a good build: 1h)
+   The deploy does not fail.
+
+2. next start WITHOUT the fault (the database is back):
+   21:39:01 status=200 x-nextjs-cache=STALE  s-maxage=60    intro=0 hub-links=8  degraded=1   (the build's degraded prerender, once)
+   21:39:19 status=200 x-nextjs-cache=HIT    s-maxage=3600  intro=1 hub-links=90 degraded=0   (regenerated in the background, 1 h again)
+
+3. Server stopped, the stored good page aged past its hour (touch), next start WITH the fault
+   (the database fails at request time, when the ISR hour is over):
+   21:41:58 status=200 x-nextjs-cache=STALE intro=1 hub-links=90 degraded=0   (the last good page)
+   log: Error [FailedRenderError]: /groups: read(s) failed (getGroupsDirectoryIndex); this render is not cached, the last good page stays
+   21:42:31 status=200 x-nextjs-cache=STALE intro=1 hub-links=90 degraded=0   (still the good page; Next retries on the next request)
+   On disk after the failed regenerations: .next/server/app/groups.html has the intro, 90 hub links, no "could not be loaded".
+
+hub-links = unique href="/<slug>-quiz" in the served HTML (8 = the shell's own group links).
