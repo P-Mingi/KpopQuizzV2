@@ -1,0 +1,13 @@
+[
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150&score=0",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": true,
+   "played": false,
+   "totalPlayers": 39
+  }
+ }
+]

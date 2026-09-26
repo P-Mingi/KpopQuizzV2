@@ -18,7 +18,7 @@ const require = createRequire(path.join(WT, 'apps/quiz/package.json'));
 const { chromium } = require('@playwright/test');
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, all) => (v.startsWith('--') ? [...a, [v.slice(2), all[i + 1]]] : a), []));
 const BASE = args.base || 'http://localhost:3021';
-const ONLY = (args.only || 'nav,hover,focus,tokens,motion').split(',');
+const ONLY = (args.only || 'nav,hover,focus,sheetfocus,tokens,motion').split(',');
 const OUT = path.join(WT, 'docs/design/ux-dashboard-v1/v11/checks/pixel/_extra');
 const PROTO = pathToFileURL(path.join(WT, 'docs/design/ux-dashboard-v1/prototype.html')).href;
 fs.mkdirSync(OUT, { recursive: true });
@@ -154,6 +154,7 @@ const FOCUS = [
   ['primary button', "document.body.classList.add('guest');go('home')", '.hcta .btn-primary', '/', '.p1-hcta', '.p1-hcta .ux-btn-primary', 'guest'],
   ['tab', "go('you')", '#ptabs button.on', '/u/testtest', '.p10-tabs', '.p10-tabs [aria-selected="true"]', 'guest'],
   ['nav link', "go('home')", '.links a.on', '/', '.p1-home', '.ux-links a[aria-current="page"]'],
+  ['community feed panel', "go('community')", '#feed', '/community', '.p8-feed', '.p8-feed'],
 ];
 const FPROPS = ['outline-style', 'outline-width', 'outline-color', 'outline-offset', 'box-shadow'];
 if (ONLY.includes('focus')) {
@@ -179,6 +180,38 @@ if (ONLY.includes('focus')) {
     }
   }
   console.log('focus', JSON.stringify(Object.fromEntries(Object.entries(V.focus).map(([k, v]) => [k, v.verdict]))));
+}
+
+// ---- 3b. header picture sheet: resting drop zone on open, ring only on keyboard focus (C1-002)
+if (ONLY.includes('sheetfocus')) {
+  V.sheetfocus = {};
+  for (const theme of ['light', 'dark']) {
+    const I = await impl(1440, theme, '/u/testtest', { auth: 'user', ready: '.p10-passport' });
+    const r = {};
+    try {
+      await I.page.locator('.p10-hbtn').waitFor({ state: 'visible', timeout: 45_000 });
+      await I.page.locator('.p10-hbtn').click();
+      await I.page.locator('.ux-layer .ux-drop').waitFor();
+      await I.page.mouse.move(1, 1);
+      await I.page.waitForTimeout(400);
+      const look = () => I.page.evaluate(() => { const d = document.querySelector('.ux-layer .ux-drop'); const cs = getComputedStyle(d); return { border: cs.borderTopColor, bg: cs.backgroundColor, outline: `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`, focusInside: d.contains(document.activeElement) }; });
+      r.pointerOpen = await look();
+      await I.page.keyboard.press('Escape');
+      await I.page.locator('.p10-hbtn').focus();
+      await I.page.keyboard.press('Enter');
+      await I.page.locator('.ux-layer .ux-drop').waitFor();
+      for (let k = 0; k < 6 && !(await I.page.evaluate(() => document.querySelector('.ux-layer .ux-drop')?.contains(document.activeElement))); k++) await I.page.keyboard.press('Tab');
+      await I.page.waitForTimeout(300);
+      r.keyboard = await look();
+      await I.page.locator('.ux-layer .ux-sheet').screenshot({ path: path.join(OUT, `sheetfocus-keyboard-${theme}.png`) });
+    } catch (e) { r.error = String(e.message).split('\n')[0]; }
+    await I.ctx.close();
+    const edge = theme === 'light' ? 'rgb(229, 224, 218)' : 'rgb(53, 49, 46)';
+    const ok = !r.error && r.pointerOpen.border === edge && /rgba\(0, 0, 0, 0\)/.test(r.pointerOpen.bg) && r.pointerOpen.outline.startsWith('none') && r.keyboard.focusInside && r.keyboard.outline === 'solid 2px rgb(232, 69, 122)';
+    V.sheetfocus[theme] = { verdict: ok ? 'pass' : 'fail', expected: `opened: border ${edge}, no fill, no ring; keyboard focus on the file input: ring solid 2px rgb(232, 69, 122)`, ...r, evidence: `_extra/sheetfocus-keyboard-${theme}.png` };
+    save();
+  }
+  console.log('sheetfocus', JSON.stringify(Object.fromEntries(Object.entries(V.sheetfocus).map(([k, v]) => [k, v.verdict]))));
 }
 
 // ---- 4. theme tokens ----------------------------------------------------------------------------

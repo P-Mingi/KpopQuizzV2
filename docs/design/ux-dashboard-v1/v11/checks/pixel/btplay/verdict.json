@@ -3,7 +3,7 @@
  "owner": "P6",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:24:58.067Z",
+   "at": "2026-09-26T21:30:04.455Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -26,7 +26,7 @@
      1440,
      900
     ],
-    "diffPct": 0.02,
+    "diffPct": 0.07,
     "maskedPct": 2.5
    },
    "writes": [],
@@ -76,10 +76,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 5
   },
   "1440-dark": {
-   "at": "2026-09-26T17:24:59.826Z",
+   "at": "2026-09-26T21:30:08.395Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -102,7 +102,7 @@
      1440,
      900
     ],
-    "diffPct": 0.03,
+    "diffPct": 0.06,
     "maskedPct": 2.5
    },
    "writes": [],
@@ -152,10 +152,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 4
   },
   "390-light": {
-   "at": "2026-09-26T17:25:01.554Z",
+   "at": "2026-09-26T21:30:11.580Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -178,7 +178,7 @@
      390,
      844
     ],
-    "diffPct": 0.33,
+    "diffPct": 0.43,
     "maskedPct": 9
    },
    "writes": [],
@@ -228,10 +228,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 3
   },
   "390-dark": {
-   "at": "2026-09-26T17:25:03.277Z",
+   "at": "2026-09-26T21:30:16.170Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -254,7 +254,7 @@
      390,
      844
     ],
-    "diffPct": 0.33,
+    "diffPct": 0.49,
     "maskedPct": 9
    },
    "writes": [],
@@ -304,7 +304,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 4
   }
  },
  "auth": "user",
