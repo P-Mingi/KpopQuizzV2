@@ -107,7 +107,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const mvPulse = ok(got.mvPulse, null);
   const contentDate = ok(got.contentDate, null);
   const quizzes = ok(got.quizzes, []);
-  const index = ok(got.index, { groups: [], directory: { withQuizzes: 0, gens: [], noGen: 0 } }).groups;
+  const index = ok(got.index, []);
   const playable = ok(got.playable, {} as Record<string, number>);
   const comments = ok(got.comments, []);
 

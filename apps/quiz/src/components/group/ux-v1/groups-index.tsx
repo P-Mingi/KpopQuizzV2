@@ -1,6 +1,6 @@
 import { UxPage } from '@/components/ux-v1/page';
 import { jsonLdScript } from '@/lib/verse/jsonld';
-import { getGroupsIndex } from '@/lib/ux-v1/p3/data';
+import { getGroupsDirectoryIndex } from '@/lib/ux-v1/p3/data';
 import { directoryGenLine, directoryIntro, mostPlayed } from '@/lib/ux-v1/p3/model';
 import { READ_FAILED, failClosed, read } from '@/lib/ux-v1/p3/reads';
 
@@ -26,8 +26,8 @@ const BREADCRUMB_JSONLD = {
  * open the empty hub). Fail closed: a failed read is never cached (reads.ts).
  */
 export async function GroupsIndexV11(): Promise<React.ReactElement> {
-  const index = await read(getGroupsIndex(), '[groups v11] getGroupsIndex');
-  await failClosed('/groups', index === READ_FAILED ? ['getGroupsIndex'] : []);
+  const index = await read(getGroupsDirectoryIndex(), '[groups v11] getGroupsDirectoryIndex');
+  await failClosed('/groups', index === READ_FAILED ? ['getGroupsDirectoryIndex'] : []);
 
   // Reached with READ_FAILED only in a degraded `next build` prerender (60 s).
   const ok = index !== READ_FAILED;

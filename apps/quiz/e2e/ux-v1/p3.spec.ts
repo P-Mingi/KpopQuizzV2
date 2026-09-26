@@ -510,7 +510,7 @@ signedInTest.describe('signed in (read only)', () => {
     await expect(page.getByTestId('ux-toast')).toContainText('Group alerts are not switched on yet');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     expect(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')).toBe(true);
-    await expect(page.locator('.p3-qs .ux-tcard')).toHaveCount(6);
+    await expect(page.locator('.p3-qs .ux-tcard:visible')).toHaveCount(6);
     expect(writes, 'the signed-in visit writes nothing').toEqual([]);
   });
 });

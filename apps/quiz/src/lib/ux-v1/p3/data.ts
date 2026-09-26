@@ -15,7 +15,7 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
 import { directoryStats, isHiddenGroup } from './model';
 
-import type { GroupsIndex, HubQuiz } from './model';
+import type { GroupsIndex, HubQuiz, IndexGroup } from './model';
 
 /**
  * Every visible group (90 of the 91 rows) with its real published-quiz count and
@@ -27,41 +27,53 @@ import type { GroupsIndex, HubQuiz } from './model';
  * groups.quiz_count column. A failed or empty read THROWS, so it is never cached
  * (today's getDirectoryGroups caches [] when its groups read fails).
  */
+async function fetchGroupsIndex(): Promise<GroupsIndex> {
+  const db = createPublicReadClient();
+  const [published, groupsRes] = await Promise.all([
+    fetchAllRows<{ group_id: number | null; play_count: number | null }>(
+      () => db.from('quizzes').select('group_id, play_count').eq('status', 'published'),
+    ),
+    db.from('groups').select('id, slug, name, generation'),
+  ]);
+  if (groupsRes.error) throw new Error(`groups index: ${groupsRes.error.message}`);
+  // Never cache an empty read for an hour (a failed request can come back as no
+  // rows): throwing keeps the previous entry and the next render tries again.
+  if (published.length === 0 || (groupsRes.data ?? []).length === 0) throw new Error('groups index: empty read');
+  const count = new Map<number, number>();
+  const plays = new Map<number, number>();
+  for (const q of published) {
+    if (q.group_id == null) continue;
+    count.set(q.group_id, (count.get(q.group_id) ?? 0) + 1);
+    plays.set(q.group_id, (plays.get(q.group_id) ?? 0) + (q.play_count ?? 0));
+  }
+  const rows = (groupsRes.data ?? []) as { id: number; slug: string; name: string; generation: string | null }[];
+  return {
+    groups: rows
+      .filter((g) => !isHiddenGroup(g.slug))
+      .map((g) => ({
+        slug: g.slug,
+        name: g.name,
+        quizzes: count.get(g.id) ?? 0,
+        plays: plays.get(g.id) ?? 0,
+        photo: groupPhotoUrl(g.slug),
+      })),
+    directory: directoryStats(rows.map((g) => ({ quizzes: count.get(g.id) ?? 0, generation: g.generation }))),
+  };
+}
+
+/** /groups: every visible group + today's directory numbers (see above). */
+export const getGroupsDirectoryIndex = unstable_cache(
+  fetchGroupsIndex,
+  ['db:ux-v1:p3:groups-directory-index:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] },
+);
+
+/** Every visible group with its real counts (the hub's Fans also play; P11's
+ *  search reads it too). Same read, its own cache entry (unstable_cache entries
+ *  cannot nest). */
 export const getGroupsIndex = unstable_cache(
-  async (): Promise<GroupsIndex> => {
-    const db = createPublicReadClient();
-    const [published, groupsRes] = await Promise.all([
-      fetchAllRows<{ group_id: number | null; play_count: number | null }>(
-        () => db.from('quizzes').select('group_id, play_count').eq('status', 'published'),
-      ),
-      db.from('groups').select('id, slug, name, generation'),
-    ]);
-    if (groupsRes.error) throw new Error(`groups index: ${groupsRes.error.message}`);
-    // Never cache an empty read for an hour (a failed request can come back as no
-    // rows): throwing keeps the previous entry and the next render tries again.
-    if (published.length === 0 || (groupsRes.data ?? []).length === 0) throw new Error('groups index: empty read');
-    const count = new Map<number, number>();
-    const plays = new Map<number, number>();
-    for (const q of published) {
-      if (q.group_id == null) continue;
-      count.set(q.group_id, (count.get(q.group_id) ?? 0) + 1);
-      plays.set(q.group_id, (plays.get(q.group_id) ?? 0) + (q.play_count ?? 0));
-    }
-    const rows = (groupsRes.data ?? []) as { id: number; slug: string; name: string; generation: string | null }[];
-    return {
-      groups: rows
-        .filter((g) => !isHiddenGroup(g.slug))
-        .map((g) => ({
-          slug: g.slug,
-          name: g.name,
-          quizzes: count.get(g.id) ?? 0,
-          plays: plays.get(g.id) ?? 0,
-          photo: groupPhotoUrl(g.slug),
-        })),
-      directory: directoryStats(rows.map((g) => ({ quizzes: count.get(g.id) ?? 0, generation: g.generation }))),
-    };
-  },
-  ['db:ux-v1:p3:groups-index:v2'],
+  async (): Promise<IndexGroup[]> => (await fetchGroupsIndex()).groups,
+  ['db:ux-v1:p3:groups-index:v1'],
   { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] },
 );
 
