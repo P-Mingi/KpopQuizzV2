@@ -1,5 +1,5 @@
 # /ateez-quiz
-# A (flag off) 57 unique
+# A (flag off) 58 unique
 /
 /about
 /articles
@@ -54,6 +54,7 @@
 /u/levymann11k
 /u/light_a_matz
 /u/newjeans
+/verse
 /verse/ateez
 https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer
 https://reddit.com/r/Kpop_Verse
