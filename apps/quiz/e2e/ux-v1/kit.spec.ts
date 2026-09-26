@@ -289,6 +289,39 @@ test.describe('kit interactions', () => {
     await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
   });
 
+  // P11 request 5: the search field shows no outline ring and no native clear button
+  // (prototype `.sov-in input{outline:0}`); focus shows as the row's line turning into
+  // a 2px pink line (16.9: 2px pink), gone when focus moves on.
+  test('search field: no ring, no native clear button, a 2px pink line while focused', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="search"]').click();
+    const field = page.locator('#ux-sq');
+    await expect(field).toBeFocused();
+    await field.fill('bts');
+    const look = await field.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const row = getComputedStyle(el.closest('.ux-sov-in') as Element);
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink)';
+      document.body.appendChild(probe);
+      const pink = getComputedStyle(probe).color;
+      probe.remove();
+      return {
+        outline: cs.outlineStyle,
+        cancel: getComputedStyle(el, '::-webkit-search-cancel-button').display,
+        border: row.borderBottomColor === pink && row.borderBottomWidth === '1px',
+        inset: row.boxShadow.includes(pink) && row.boxShadow.includes('inset'),
+      };
+    });
+    expect(look).toEqual({ outline: 'none', cancel: 'none', border: true, inset: true });
+    // Focus leaves the field (Tab to the results): the line is the hairline again.
+    await page.locator('#ux-sov .ux-srow').first().waitFor({ timeout: 30_000 });
+    await page.keyboard.press('Tab');
+    await expect(field).not.toBeFocused();
+    expect(await page.locator('.ux-sov-in').evaluate((el) => getComputedStyle(el).boxShadow)).toBe('none');
+    await page.keyboard.press('Escape');
+  });
+
   // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
   test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
     test.skip(!(await openKit(page)), 'kit not served here');

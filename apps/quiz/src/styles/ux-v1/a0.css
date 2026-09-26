@@ -236,6 +236,11 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-sov-in { display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 60px; border-bottom: 1px solid var(--ux-hair); }
 .ux-sov-in input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; -webkit-appearance: none; appearance: none; font: 400 17px var(--ux-font); color: var(--ux-ink); }
 .ux-sov-in input::placeholder { color: var(--ux-muted); }
+/* The field has no ring and no native clear button (prototype .sov-in input{outline:0});
+   its focus shows as the row's hairline turning into a 2px pink line (16.9: 2px pink). */
+.ux-sov-in input:focus-visible { outline: none; }
+.ux-sov-in input::-webkit-search-cancel-button, .ux-sov-in input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
+.ux-sov-in:has(input:focus-visible) { border-bottom-color: var(--ux-pink); box-shadow: inset 0 -1px 0 var(--ux-pink); }
 .ux-sov-b { padding: 12px 8px 16px; max-height: 60vh; overflow: auto; }
 .ux-sov-l { font-size: 13px; font-weight: 600; color: var(--ux-muted); padding: 12px 12px 6px; }
 .ux-srow { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 10px; font-size: 15px; }
