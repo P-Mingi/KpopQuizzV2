@@ -1,6 +1,8 @@
-# SEO + link-set diff, server HTML (no JavaScript), production builds fetched back to back (2026-09-26 ~10:15):
+# SEO + link-set diff, server HTML (no JavaScript), production builds fetched back to back (2026-09-26 ~08:37Z, final code):
 # A = base feat/ux-v1-v11 89e1e94 flag OFF (next start :4391), B = ux11/p9-leaderboard flag ON (next start :4393).
 # node docs/design/ux-dashboard-v1/v11/reports/P9/seo-diff.mjs --a http://localhost:4391 --b http://localhost:4393 /leaderboard /pt/leaderboard
+# Note: the pages are ISR (5 min). A run made while one server was regenerating once showed a volatile link on one
+# side only (/pt/leaderboard's padded made-up account, report 9.6); back-to-back runs on settled pages: 0 lost, below.
 == /leaderboard
 SEO items: identical (title, description, robots, canonical, hreflang, og, twitter, h1, intro, json-ld)
   title: "K-pop Fandom Leaderboard: Who Wins This Week | KpopQuiz"  h1: ["Community"]  intro: "Discover fans, creators, and rising stars."  json-ld blocks: 2
