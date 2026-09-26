@@ -65,5 +65,14 @@ export function activeTab(pathname: string): TabKey | null {
   return null;
 }
 
+/**
+ * A click the page may take over (open an overlay, navigate softly): primary
+ * button, no modifier key, not already handled. Any other click keeps the browser's
+ * own link behaviour (new tab, new window, download, context menu).
+ */
+export function isPlainClick(e: { button: number; metaKey: boolean; ctrlKey: boolean; shiftKey: boolean; altKey: boolean; defaultPrevented: boolean }): boolean {
+  return e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && !e.defaultPrevented;
+}
+
 /** Footer (prototype columns; every link is a real, existing route). */
 export interface FooterCol { title: string; links: { label: string; href: string; external?: boolean }[] }

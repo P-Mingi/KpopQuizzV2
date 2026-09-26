@@ -1,5 +1,7 @@
 'use client';
 
+import { useRef } from 'react';
+
 import { Icon } from './icon';
 import { Sheet } from './sheet';
 import { useUxToast } from './toast';
@@ -37,6 +39,8 @@ async function copy(text: string): Promise<boolean> {
  */
 export function ShareSheet({ open, onClose, title = 'Share your score', preview, url, text, onStoryImage, storyFile, challenge, inline }: ShareSheetProps): React.ReactElement | null {
   const toast = useUxToast();
+  // The prototype focuses Copy link when the sheet opens (openShare: sh-copy.focus()).
+  const copyRef = useRef<HTMLButtonElement>(null);
 
   const copyLink = async (): Promise<void> => { toast((await copy(url)) ? 'Link copied' : 'Copy failed. Long-press the link to copy it.'); };
   const discord = async (): Promise<void> => {
@@ -57,7 +61,7 @@ export function ShareSheet({ open, onClose, title = 'Share your score', preview,
   };
 
   return (
-    <Sheet open={open} onClose={onClose} title={title} width={520} inline={inline}>
+    <Sheet open={open} onClose={onClose} title={title} width={520} inline={inline} initialFocus={copyRef}>
       {preview ? (
         <div className="ux-minicard">
           <span className="ux-minicard-pv">
@@ -68,7 +72,7 @@ export function ShareSheet({ open, onClose, title = 'Share your score', preview,
         </div>
       ) : null}
       <div className="ux-shgrid">
-        <button type="button" className="ux-shbtn" onClick={() => { void copyLink(); }}><i><Icon name="link" /></i>Copy link</button>
+        <button ref={copyRef} type="button" className="ux-shbtn" onClick={() => { void copyLink(); }}><i><Icon name="link" /></i>Copy link</button>
         {onStoryImage ? <button type="button" className="ux-shbtn" onClick={() => { void onStoryImage(); }}><i><Icon name="img" /></i>Story image</button> : null}
         <button type="button" className="ux-shbtn" onClick={() => { void more(); }}><i><Icon name="share" /></i>More apps</button>
         <button type="button" className="ux-shbtn" onClick={() => { void discord(); }}><i><Icon name="msg" /></i>Discord</button>

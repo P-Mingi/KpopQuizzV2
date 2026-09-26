@@ -2,13 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { UX_TOKENS_DARK, UX_TOKENS_LIGHT } from '@/lib/design-tokens';
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
 import { BADGE_FAMILIES } from '@/lib/badges/catalog';
 
-import { activeNav, activeTab, NAV_ITEMS, TAB_ITEMS } from './nav';
+import { activeNav, activeTab, isPlainClick, NAV_ITEMS, TAB_ITEMS } from './nav';
 import { badgeFamily, badgeGlyph, hasBadgeGlyph, RARITY_ART } from './badge-art';
 import { groupPhotoUrl, GROUP_PHOTO_SLUGS, photoFocal } from './group-photos';
 import { streakView } from './streak';
@@ -104,6 +104,16 @@ describe('nav model', () => {
     expect(activeNav(p)).toBe(nav);
     expect(activeTab(p)).toBe(tab);
   });
+  it('isPlainClick: only an unmodified primary click is the page\'s to take over', () => {
+    const plain = { button: 0, metaKey: false, ctrlKey: false, shiftKey: false, altKey: false, defaultPrevented: false };
+    expect(isPlainClick(plain)).toBe(true);
+    expect(isPlainClick({ ...plain, metaKey: true })).toBe(false);
+    expect(isPlainClick({ ...plain, ctrlKey: true })).toBe(false);
+    expect(isPlainClick({ ...plain, shiftKey: true })).toBe(false);
+    expect(isPlainClick({ ...plain, altKey: true })).toBe(false);
+    expect(isPlainClick({ ...plain, button: 1 })).toBe(false);
+    expect(isPlainClick({ ...plain, defaultPrevented: true })).toBe(false);
+  });
 });
 
 describe('badge medallions (17.8)', () => {
@@ -149,6 +159,11 @@ describe('group photos (16.8)', () => {
 
 describe('streak view', () => {
   const now = new Date('2026-09-25T18:48:00Z'); // a Friday
+  // streakView() takes `now`, but the state comes from lib/streak.ts streakState(),
+  // which reads the wall clock (shared flag-off code, not changed here). Freeze the
+  // system clock on the same instant so the cases do not depend on the day they run.
+  beforeEach(() => { vi.useFakeTimers({ toFake: ['Date'] }); vi.setSystemTime(now); });
+  afterEach(() => { vi.useRealTimers(); });
   it('at risk: played yesterday', () => {
     const v = streakView(12, '2026-09-24', now);
     expect(v?.state).toBe('at_risk');
