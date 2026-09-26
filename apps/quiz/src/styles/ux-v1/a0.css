@@ -215,6 +215,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-msep { height: 1px; background: var(--ux-hair); margin: 6px 4px; }
 .ux-pop-h { padding: 12px 12px 8px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .ux-pop-h b { font-size: 15px; font-weight: 600; }
+.ux-pop-h .ux-lnk { display: flex; font-size: 14px; line-height: 1.6; }
 .ux-pop-id { display: flex; gap: 12px; align-items: center; padding: 10px 12px 12px; }
 .ux-pop-id b { font-weight: 600; display: block; }
 .ux-pop-id small { color: var(--ux-muted); font-size: 13px; }

@@ -7,12 +7,14 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxAvatar } from '@/components/ux-v1/avatar';
 import { UxPopover } from '@/components/ux-v1/popover';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
+import { useUxToast } from '@/components/ux-v1/toast';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
 import { isPlainClick } from '@/lib/ux-v1/a0/nav';
 import { streakView } from '@/lib/ux-v1/a0/streak';
+import { markAllRead } from '@/lib/ux-v1/p11/actions';
 import { applyTheme, useEffectiveTheme } from '@/lib/ux-v1/a0/theme';
 
 import { BellPanel } from './slots';
@@ -72,6 +74,7 @@ function StreakPill({ profile }: { profile: MeProfile }): React.ReactElement | n
 
 function Bell(): React.ReactElement {
   const unread = useUnreadCount();
+  const toast = useUxToast();
   useEffect(() => {
     void refetchUnread();
     const onVisible = (): void => { if (document.visibilityState === 'visible') void refetchUnread(); };
@@ -96,7 +99,12 @@ function Bell(): React.ReactElement {
     >
       {(close) => (
         <>
-          <div className="ux-pop-h"><b>Notifications</b></div>
+          <div className="ux-pop-h">
+            <b>Notifications</b>
+            {unread > 0 ? (
+              <button type="button" className="ux-lnk" onClick={() => { markAllRead(); toast('All marked as read'); }}>Mark all read</button>
+            ) : null}
+          </div>
           <BellPanel unread={unread} onClose={close} />
           <div className="ux-msep" />
           <Link className="ux-mi" href="/notifications" onClick={close}>See all notifications<Icon name="right" size="sm" style={{ marginLeft: 'auto' }} /></Link>
