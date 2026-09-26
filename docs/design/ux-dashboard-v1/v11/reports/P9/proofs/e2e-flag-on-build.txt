@@ -1,42 +1,51 @@
-[1/41] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
-[2/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard light › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks
-[3/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard light › tabs: arrow keys, Home / End, hash deep links, URL follows the tab
-[4/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard light › Players (real data): all-time XP board, passport links, flair, no guest pin
-[5/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard light › Creators (real data): plays received board, the switch only with 2+ boards
-[6/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard light › Ranked, not live today (real API, read only, fetched when the tab opens)
-[7/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard light › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row
-[8/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard light › How points work: three native folds with the real rules, mouse and keyboard
-[9/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard light › Around the community (real data): the live page's links and floors
-[10/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard dark › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks
-[11/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard dark › tabs: arrow keys, Home / End, hash deep links, URL follows the tab
-[12/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard dark › Players (real data): all-time XP board, passport links, flair, no guest pin
-[13/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard dark › Creators (real data): plays received board, the switch only with 2+ boards
-[14/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard dark › Ranked, not live today (real API, read only, fetched when the tab opens)
-[15/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard dark › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row
-[16/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard dark › How points work: three native folds with the real rules, mouse and keyboard
-[17/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard dark › Around the community (real data): the live page's links and floors
-[18/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (light)
-[19/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (light)
-[20/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (dark)
-[21/41] [ux-1440] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (dark)
-[22/41] [ux-390] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard light › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks
-[23/41] [ux-390] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard light › tabs: arrow keys, Home / End, hash deep links, URL follows the tab
-[24/41] [ux-390] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard light › Players (real data): all-time XP board, passport links, flair, no guest pin
-[25/41] [ux-390] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard light › Creators (real data): plays received board, the switch only with 2+ boards
-[26/41] [ux-390] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard light › Ranked, not live today (real API, read only, fetched when the tab opens)
-[27/41] [ux-390] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard light › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row
-[28/41] [ux-390] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard light › How points work: three native folds with the real rules, mouse and keyboard
-[29/41] [ux-390] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard light › Around the community (real data): the live page's links and floors
-[30/41] [ux-390] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard dark › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks
-[31/41] [ux-390] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard dark › tabs: arrow keys, Home / End, hash deep links, URL follows the tab
-[32/41] [ux-390] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard dark › Players (real data): all-time XP board, passport links, flair, no guest pin
-[33/41] [ux-390] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard dark › Creators (real data): plays received board, the switch only with 2+ boards
-[34/41] [ux-390] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard dark › Ranked, not live today (real API, read only, fetched when the tab opens)
-[35/41] [ux-390] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard dark › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row
-[36/41] [ux-390] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard dark › How points work: three native folds with the real rules, mouse and keyboard
-[37/41] [ux-390] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard dark › Around the community (real data): the live page's links and floors
-[38/41] [ux-390] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (light)
-[39/41] [ux-390] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (light)
-[40/41] [ux-390] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (dark)
-[41/41] [ux-390] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (dark)
-  41 passed (1.3m)
+# p9.spec.ts on the flag-on production build of ux11/p9-leaderboard (code as of 074b0e2; later commits are docs only),
+# next start :4393, after a complete ISR regeneration, 2026-09-26 ~15:10Z:
+# PLAYWRIGHT_BASE_URL=http://localhost:4393 pnpm exec playwright test e2e/ux-v1/p9.spec.ts --project=ux-1440 --project=ux-390 --retries=0
+# (An earlier run of the same build was 40/41: its one failure was browserType.launch timing out while the machine
+# stalled for hours, not an assertion; that test then passed 4/4 on its own. The full run below is clean.)
+
+Running 41 tests using 1 worker
+
+  ✓   1 [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session (11ms)
+  ✓   2 [ux-1440] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard light › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks (5.7s)
+  ✓   3 [ux-1440] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard light › tabs: arrow keys, Home / End, hash deep links, URL follows the tab (4.1s)
+  ✓   4 [ux-1440] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard light › Players (real data): all-time XP board, passport links, flair, no guest pin (3.2s)
+  ✓   5 [ux-1440] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard light › Creators (real data): plays received board, the switch only with 2+ boards (3.2s)
+  ✓   6 [ux-1440] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard light › Ranked, not live today (real API, read only, fetched when the tab opens) (1.8s)
+  ✓   7 [ux-1440] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard light › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row (2.3s)
+  ✓   8 [ux-1440] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard light › How points work: three native folds with the real rules, mouse and keyboard (1.4s)
+  ✓   9 [ux-1440] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard light › Around the community (real data): the live page's links and floors (2.4s)
+  ✓  10 [ux-1440] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard dark › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks (3.7s)
+  ✓  11 [ux-1440] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard dark › tabs: arrow keys, Home / End, hash deep links, URL follows the tab (3.9s)
+  ✓  12 [ux-1440] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard dark › Players (real data): all-time XP board, passport links, flair, no guest pin (2.1s)
+  ✓  13 [ux-1440] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard dark › Creators (real data): plays received board, the switch only with 2+ boards (2.1s)
+  ✓  14 [ux-1440] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard dark › Ranked, not live today (real API, read only, fetched when the tab opens) (1.2s)
+  ✓  15 [ux-1440] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard dark › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row (1.9s)
+  ✓  16 [ux-1440] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard dark › How points work: three native folds with the real rules, mouse and keyboard (1.3s)
+  ✓  17 [ux-1440] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard dark › Around the community (real data): the live page's links and floors (1.7s)
+  ✓  18 [ux-1440] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (light) (3.6s)
+  ✓  19 [ux-1440] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (light) (1.6s)
+  ✓  20 [ux-1440] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (dark) (3.3s)
+  ✓  21 [ux-1440] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (dark) (1.8s)
+  ✓  22 [ux-390] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard light › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks (4.9s)
+  ✓  23 [ux-390] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard light › tabs: arrow keys, Home / End, hash deep links, URL follows the tab (4.1s)
+  ✓  24 [ux-390] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard light › Players (real data): all-time XP board, passport links, flair, no guest pin (2.3s)
+  ✓  25 [ux-390] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard light › Creators (real data): plays received board, the switch only with 2+ boards (3.0s)
+  ✓  26 [ux-390] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard light › Ranked, not live today (real API, read only, fetched when the tab opens) (2.1s)
+  ✓  27 [ux-390] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard light › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row (2.7s)
+  ✓  28 [ux-390] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard light › How points work: three native folds with the real rules, mouse and keyboard (1.1s)
+  ✓  29 [ux-390] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard light › Around the community (real data): the live page's links and floors (2.5s)
+  ✓  30 [ux-390] › e2e/ux-v1/p9.spec.ts:104:5 › leaderboard dark › guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks (3.8s)
+  ✓  31 [ux-390] › e2e/ux-v1/p9.spec.ts:200:5 › leaderboard dark › tabs: arrow keys, Home / End, hash deep links, URL follows the tab (2.6s)
+  ✓  32 [ux-390] › e2e/ux-v1/p9.spec.ts:238:5 › leaderboard dark › Players (real data): all-time XP board, passport links, flair, no guest pin (2.6s)
+  ✓  33 [ux-390] › e2e/ux-v1/p9.spec.ts:261:5 › leaderboard dark › Creators (real data): plays received board, the switch only with 2+ boards (2.5s)
+  ✓  34 [ux-390] › e2e/ux-v1/p9.spec.ts:293:5 › leaderboard dark › Ranked, not live today (real API, read only, fetched when the tab opens) (1.5s)
+  ✓  35 [ux-390] › e2e/ux-v1/p9.spec.ts:307:5 › leaderboard dark › Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row (2.3s)
+  ✓  36 [ux-390] › e2e/ux-v1/p9.spec.ts:340:5 › leaderboard dark › How points work: three native folds with the real rules, mouse and keyboard (1.7s)
+  ✓  37 [ux-390] › e2e/ux-v1/p9.spec.ts:365:5 › leaderboard dark › Around the community (real data): the live page's links and floors (2.2s)
+  ✓  38 [ux-390] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (light) (4.1s)
+  ✓  39 [ux-390] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (light) (2.1s)
+  ✓  40 [ux-390] › e2e/ux-v1/p9.spec.ts:391:5 › leaderboard signed in (test user, read only) › pins from GET /api/ux-v1/p9/standing, no write (dark) (4.3s)
+  ✓  41 [ux-390] › e2e/ux-v1/p9.spec.ts:449:5 › leaderboard signed in (test user, read only) › a fan with a main fandom (standing fixture): war, players and creators pins (dark) (2.2s)
+
+  41 passed (2.0m)
