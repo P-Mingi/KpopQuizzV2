@@ -30,7 +30,7 @@ const NOW = new Date('2026-10-08T12:00:00.000Z');
 
 function api(over: Partial<RankedApi> = {}): RankedApi {
   return {
-    status: 'live', card: null, scope: 'global', setScope: () => undefined, ladder: { status: 'idle', view: null },
+    status: 'live', card: null, scope: 'global', setScope: () => undefined, ladder: { status: 'loading', view: null },
     play: () => undefined, starting: false, signIn: () => undefined, retry: () => undefined, ...over,
   };
 }

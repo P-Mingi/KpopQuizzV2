@@ -30,7 +30,7 @@ import type { LadderScope, LadderView } from '@/lib/ranked/view';
 export type RankedStatus = 'loading' | 'not_live' | 'error' | 'live';
 
 export interface LadderState {
-  status: 'idle' | 'loading' | 'ready' | 'error';
+  status: 'loading' | 'ready' | 'error';
   view: LadderView | null;
 }
 
@@ -82,14 +82,14 @@ export function RankedController({ children }: { children: React.ReactNode }): R
     return () => { on = false; };
   }, [tick]);
 
-  // The ladder of the selected scope (once ranked is live).
+  // The ladder of the selected scope (once ranked is live). A scope with no answer
+  // yet reads as loading; a refresh keeps the rows on screen until the new answer.
   useEffect(() => {
     if (status !== 'live') return;
     let on = true;
-    setLadders((m) => ({ ...m, [scope]: { status: 'loading', view: m[scope]?.view ?? null } }));
     rankedApi.ladder(scope)
       .then((v) => { if (on) setLadders((m) => ({ ...m, [scope]: { status: 'ready', view: v } })); })
-      .catch(() => { if (on) setLadders((m) => ({ ...m, [scope]: { status: 'error', view: null } })); });
+      .catch(() => { if (on) setLadders((m) => ({ ...m, [scope]: { status: 'error', view: m[scope]?.view ?? null } })); });
     return () => { on = false; };
   }, [status, scope, tick]);
 
@@ -142,7 +142,7 @@ export function RankedController({ children }: { children: React.ReactNode }): R
     card,
     scope,
     setScope,
-    ladder: ladders[scope] ?? { status: 'idle', view: null },
+    ladder: ladders[scope] ?? { status: 'loading', view: null },
     play,
     starting,
     signIn,
