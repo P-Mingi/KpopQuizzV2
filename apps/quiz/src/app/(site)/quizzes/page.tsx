@@ -9,7 +9,6 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { UX_V1 } from '@/lib/ux-v1';
 import { quizzesFaqs } from './faq';
-import { renderP2Quizzes } from './ux-page';
 
 import type { Metadata } from 'next';
 
@@ -131,7 +130,13 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
   const sp = await searchParams;
 
   // UX v11 (P2), flag on only: same URL, H1, intro, FAQ, JSON-LD and canonical logic.
-  if (UX_V1) return renderP2Quizzes(sp);
+  // The env test is written out (not UX_V1) so the bundler inlines it and, with the
+  // flag off, drops this import and its client islands from the route: flag-off
+  // /quizzes ships no P2 code at all.
+  if (process.env.NEXT_PUBLIC_UX_V1 === '1' || process.env.NEXT_PUBLIC_UX_V1 === 'true') {
+    const { renderP2Quizzes } = await import('./ux-page');
+    return renderP2Quizzes(sp);
+  }
 
   const groups = await safeFetch(getAllGroups(), [], '[browse] getAllGroups');
 
