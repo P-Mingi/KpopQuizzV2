@@ -1,0 +1,39 @@
+P2 flag-off parity (rule 5: flag off = today's site)
+=====================================================
+
+Method (reports/P2/flagoff-capture.mjs): ONE flag-off dev server (webpack, mirror of branch ux11/p2-quizzes,
+port 3043), so both captures share one data cache and live data cannot drift between them.
+  1. quizzes/page.tsx = origin/feat/ux-v1-v11's (base)  -> capture A
+  2. quizzes/page.tsx = this branch's                     -> recompile -> capture B
+  3. compare at structure level (flag-off-diff.mjs --structure normalisation: build ids, hashed assets,
+     client chunk tags and the inline RSC payload removed; plus the dev request id; the popular windows'
+     "As of <time> UTC" render clock masked).
+
+Final run (branch head with the env-gated import, 2026-09-26 ~02:25 UTC):
+IDENTICAL  pt_quizzes  252808/252808
+IDENTICAL  quizzes  268450/268450
+IDENTICAL  quizzes_group_bts  200820/200820
+IDENTICAL  quizzes_level_hard  268450/268450
+IDENTICAL  quizzes_page_2  264336/264336
+IDENTICAL  quizzes_page_999  253964/253964
+IDENTICAL  quizzes_popular-this-month  24937/24937
+DIFFERENT  quizzes_popular-this-week  24892/110882  (A's live popular read timed out: "numberOfItems":0, the
+           safeFetch fallback; B rendered 24 rows. Code of the popular pages is untouched by this branch.)
+IDENTICAL  quizzes_popular-today  108903/108903
+IDENTICAL  quizzes_sort_trending  198681/198681
+IDENTICAL  quizzes_tab_trending  268450/268450
+
+Earlier round, popular windows re-captured when both live reads succeeded:
+IDENTICAL  quizzes_popular-this-month  110694/110694
+IDENTICAL  quizzes_popular-today  109811/109811
+(and popular-this-week IDENTICAL 110668/110668 in the round before)
+
+git diff origin/feat/ux-v1-v11 -- app/(site)/quizzes/popular-* components/quiz/popular-page.tsx: empty.
+
+JS, flag off: page.tsx imports the P2 render behind the env test written out
+(`process.env.NEXT_PUBLIC_UX_V1 === '1' || ... === 'true'`), which the bundler inlines, so the dead branch and
+its import are dropped. Checked on both bundlers with the flag off:
+  webpack dev (:3042): app/(site)/quizzes/page.js has 0 references to components/quizzes/ux-v1
+                       (before this change it carried the islands loader + the next/dynamic runtime).
+  Turbopack dev (:3032, flag off, run once): 24 script chunks of /quizzes, 0 contain components/quizzes/ux-v1,
+                       P2NavProvider or p2-sort (the legacy BrowseQuizzes chunk is found, so the scan works).

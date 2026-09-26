@@ -33,6 +33,8 @@ export interface P2QuizzesPageProps {
   filters: P2Filters;
   /** A line above the grid (a ?page= past the end). */
   notice: string | null;
+  /** The facet counts were read (false = the read failed: options without counts). */
+  countsLive: boolean;
   filterKey: string;
   /** Live-region line once a new result is shown ("48 quizzes"). */
   summary: string;
@@ -89,7 +91,7 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
       </header>
 
       <P2NavProvider filterKey={p.filterKey} summary={p.summary}>
-        <div className="p2-ctl">
+        <div className="p2-ctl" data-counts={p.countsLive ? 'live' : 'off'}>
           <P2SortNav label="Sort quizzes" items={p.sort} />
           <div className="p2-dds">
             <P2Menu id="p2-dd-type" label="Type" items={p.types} />

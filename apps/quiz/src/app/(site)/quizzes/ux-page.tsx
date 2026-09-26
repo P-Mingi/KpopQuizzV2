@@ -142,6 +142,7 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
     <P2QuizzesPage
       filters={{ ...f, page: last }}
       notice={notice}
+      countsLive={facets !== null}
       filterKey={p2FilterKey(f)}
       summary={failed ? 'Quizzes did not load' : total === 0 || (total === null && quizzes.length === 0) ? 'No quizzes match these filters' : quizCountLabel(total ?? quizzes.length)}
       h1={H1}

@@ -36,14 +36,23 @@ const INTRO = 'Browse every K-pop quiz on the site, filter by group or type, and
 const FAQ_QS = ['Are the K-pop quizzes free?', 'How many K-pop quizzes are there?', 'Which K-pop groups can I take a quiz on?', 'Can I make my own K-pop quiz?'];
 const PAGE = 48;
 
-/** Open a /quizzes URL, wait for the islands; false when the flag is off. */
+/** Open a /quizzes URL, wait for the islands; false when the flag is off. A render whose
+ *  live reads lost the page's 5 s budget on this shared machine (counts off, or "Quizzes
+ *  did not load") is re-requested, never skipped: the fail-soft states are real, but the
+ *  assertions below need the data. */
 async function openQuizzes(page: Page, url = '/quizzes'): Promise<boolean> {
-  const res = await page.goto(url);
-  expect(res?.status(), `GET ${url}`).toBe(200);
-  if (!(await hasShell(page)) || (await page.locator('.p2-page').count()) === 0) return false;
+  for (let attempt = 0; ; attempt++) {
+    const res = await page.goto(url);
+    expect(res?.status(), `GET ${url}`).toBe(200);
+    if (!(await hasShell(page)) || (await page.locator('.p2-page').count()) === 0) return false;
+    const lost = (await page.locator('.p2-ctl[data-counts="off"]').count()) > 0
+      || (await page.locator('.p2-empty b', { hasText: 'Quizzes did not load' }).count()) > 0;
+    if (!lost || attempt >= 3) break;
+  }
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
   await page.locator('.p2-sort[data-ready]').waitFor({ timeout: 60_000 });
   await expect(page.locator('.p2-dd[data-ready]')).toHaveCount(3, { timeout: 60_000 });
+  await expect(page.locator('.p2-ctl[data-counts="live"]'), 'facet counts read').toHaveCount(1);
   return true;
 }
 
@@ -68,10 +77,18 @@ async function menuItems(page: Page, id: string): Promise<{ label: string; count
   return items;
 }
 
-/** After a soft navigation: the URL matches, the islands of the new render are live. */
+/** After a soft navigation: the URL matches, the islands of the new render are live, and
+ *  the render has its counts (a render that lost its reads is re-requested, as in openQuizzes). */
 async function settled(page: Page, url: RegExp): Promise<void> {
   await expect(page).toHaveURL(url, { timeout: 60_000 });
   await expect(page.locator('.p2-results[aria-busy="true"]')).toHaveCount(0, { timeout: 60_000 });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const lost = (await page.locator('.p2-ctl[data-counts="off"]').count()) > 0
+      || (await page.locator('.p2-empty b', { hasText: 'Quizzes did not load' }).count()) > 0;
+    if (!lost) return;
+    await page.reload();
+    await page.locator('.p2-sort[data-ready]').waitFor({ timeout: 60_000 });
+  }
 }
 
 async function hrefs(page: Page, sel: string): Promise<string[]> {
