@@ -130,9 +130,8 @@ const RESULT_LANDMARKS: Landmark[] = [
   { proto: '.btn-primary', impl: '.p6-resact .ux-btn-primary', state: 'btend-ranked', box: ['width', 'height'] },
   { proto: '.sec-h h2', impl: '.p6-res .ux-sec-h h2', state: 'btend-ranked', box: ['width', 'height'] },
   // P6's stats box. background skipped: P6 decision 9 (dark box made AA-readable; the
-  // prototype's dark capture shows the light box). Width not compared: at 390 P6's box is
-  // 244px vs 284px in the prototype (P6 layout, reported in reports/P7.md for P6).
-  { proto: '.stats3', impl: '.p6-stats3', state: 'btend-ranked', box: ['height'], skip: ['background-color'] },
+  // prototype's dark capture shows the light box).
+  { proto: '.stats3', impl: '.p6-stats3', state: 'btend-ranked', box: ['width', 'height'], skip: ['background-color'] },
 ];
 
 // ---- specs ------------------------------------------------------------------------

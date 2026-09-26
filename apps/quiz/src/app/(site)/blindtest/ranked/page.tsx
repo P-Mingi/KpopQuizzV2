@@ -28,7 +28,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RankedPage(): React.ReactElement {
   if (!UX_V1) notFound();
   return (
-    <UxPage width="text" className="p7-page">
+    // Full width, unpadded: the controller sets the 720 column for the page view and
+    // lets P6's game (focus mode) and results use their own stage, like /blindtest.
+    <UxPage width="full" padded={false} className="p7-page">
       <RankedControllerLoader>
         <nav className="ux-crumb p7-crumb" aria-label="Breadcrumb">
           <Link href="/blindtest">Blindtest</Link>

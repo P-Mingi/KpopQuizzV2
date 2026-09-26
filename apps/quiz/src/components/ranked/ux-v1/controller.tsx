@@ -171,7 +171,7 @@ export function RankedController({ children }: { children: React.ReactNode }): R
       />
     );
   } else {
-    body = <div className="p7-body" data-live={status}>{children}</div>;
+    body = <div className="ux-col ux-pg p7-body" data-live={status}>{children}</div>;
   }
 
   return <RankedCtx value={api}>{body}</RankedCtx>;
