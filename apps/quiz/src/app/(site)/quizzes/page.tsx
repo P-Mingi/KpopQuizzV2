@@ -7,6 +7,9 @@ import { getSiteStats } from '@/lib/db/queries/stats';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
+import { UX_V1 } from '@/lib/ux-v1';
+import { quizzesFaqs } from './faq';
+import { renderP2Quizzes } from './ux-page';
 
 import type { Metadata } from 'next';
 
@@ -28,15 +31,19 @@ export async function generateMetadata(
   const hasType = first(sp.type) != null;
   const hasSort = first(sp.sort) != null;
   const hasSearch = first(sp.search) != null;
+  // UX v11 (P2): `level` is a filter facet only the flag-on page has; it follows the
+  // facet rule above (canonical /quizzes, noindex,follow). Flag off it is ignored,
+  // exactly as today.
+  const hasLevel = UX_V1 && first(sp.level) != null;
   const pageNum = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
 
   let validGroup = false;
-  if (groupSlug && !hasType && !hasSort && !hasSearch) {
+  if (groupSlug && !hasType && !hasSort && !hasSearch && !hasLevel) {
     const groups = await safeFetch(getAllGroups(), [], '[browse meta] getAllGroups');
     validGroup = groups.some((g) => g.slug === groupSlug);
   }
 
-  const isIndexable = !hasType && !hasSort && !hasSearch && (!groupSlug || validGroup);
+  const isIndexable = !hasType && !hasSort && !hasSearch && !hasLevel && (!groupSlug || validGroup);
 
   // Part B (cannibalization fix): a valid single-group facet like
   // /quizzes?group=exo used to self-canonical and compete with /exo-quiz for the
@@ -123,6 +130,9 @@ interface PageProps {
 export default async function BrowseQuizzesPage({ searchParams }: PageProps): Promise<React.ReactElement> {
   const sp = await searchParams;
 
+  // UX v11 (P2), flag on only: same URL, H1, intro, FAQ, JSON-LD and canonical logic.
+  if (UX_V1) return renderP2Quizzes(sp);
+
   const groups = await safeFetch(getAllGroups(), [], '[browse] getAllGroups');
 
   // Resolve & validate filters from the URL.
@@ -208,16 +218,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
   // group-canonicalized facet URLs.
   const showFaq = !resolvedGroup && page === 1;
   const faqLink: React.CSSProperties = { color: 'var(--brand)', fontWeight: 600 };
-  const quizFaqs: { q: string; text: string; a: React.ReactNode }[] = [
-    { q: 'Are the K-pop quizzes free?', text: 'Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or create your own.',
-      a: <>Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or <Link href="/create" style={faqLink}>create your own</Link>.</> },
-    { q: 'How many K-pop quizzes are there?', text: 'There are 380+ free K-pop quizzes across 30+ groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly.',
-      a: <>There are 380+ free K-pop quizzes across 30+ groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly.</> },
-    { q: 'Which K-pop groups can I take a quiz on?', text: 'Popular hubs include the BTS quiz, BLACKPINK quiz and Stray Kids quiz, plus 30+ more groups. Browse by group above or open a group hub.',
-      a: <>Popular hubs include the <Link href="/bts-quiz" style={faqLink}>BTS quiz</Link>, <Link href="/blackpink-quiz" style={faqLink}>BLACKPINK quiz</Link> and <Link href="/stray-kids-quiz" style={faqLink}>Stray Kids quiz</Link>, plus 30+ more groups. Browse by group above.</> },
-    { q: 'Can I make my own K-pop quiz?', text: 'Yes. Anyone can create a K-pop quiz for free in a few minutes and share it with other fans.',
-      a: <>Yes. Anyone can <Link href="/create" style={faqLink}>create a K-pop quiz</Link> for free in a few minutes and share it with other fans.</> },
-  ];
+  const quizFaqs = quizzesFaqs((href, label) => <Link href={href} style={faqLink}>{label}</Link>);
 
   return (
     <div className="pt-4 md:pt-6 pb-8">
