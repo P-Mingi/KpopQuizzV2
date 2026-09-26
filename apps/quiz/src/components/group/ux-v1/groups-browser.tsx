@@ -5,6 +5,7 @@ import { useId, useMemo, useState } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { azBlocks, groupCountLabel, matchGroups, quizzesLabel } from '@/lib/ux-v1/p3/model';
 
 import { GroupAvatar } from './group-avatar';
@@ -31,10 +32,12 @@ export function GroupsBrowser({ groups, top }: GroupsBrowserProps): React.ReactE
   const shown = useMemo(() => matchGroups(groups, query), [groups, query]);
   const blocks = useMemo(() => azBlocks(shown), [shown]);
   const filtering = query.trim().length > 0;
+  // Hydrated: the filter is live (e2e waits on it).
+  const live = useIsClient();
 
   return (
     <>
-      <div className="p3-filter">
+      <div className="p3-filter" data-live={live || undefined}>
         <Icon name="search" className="p3-filter-ico" />
         <input
           type="search"

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/ux-v1/icon';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import type { AlertState } from '@/lib/ux-v1/p3/alerts';
@@ -26,6 +27,7 @@ export function HubNotify({ groupId, groupName }: { groupId: number; groupName: 
   const [state, setState] = useState<AlertState | null>(null);
   const [busy, setBusy] = useState(false);
   const resumed = useRef(false);
+  const live = useIsClient();
 
   const save = useCallback(async (on: boolean): Promise<void> => {
     setBusy(true);
@@ -83,7 +85,7 @@ export function HubNotify({ groupId, groupName }: { groupId: number; groupName: 
   };
 
   return (
-    <button type="button" className="ux-btn ux-btn-ghost ux-btn-lg" aria-pressed={on} onClick={click} aria-busy={busy || undefined}>
+    <button type="button" className="ux-btn ux-btn-ghost ux-btn-lg p3-notify" aria-pressed={on} onClick={click} aria-busy={busy || undefined} data-live={live || undefined} data-state={state ? (state.live ? 'live' : 'off') : undefined}>
       <Icon name="bell" />
       <span>{on ? 'We will tell you' : 'Notify me'}</span>
     </button>

@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { Segmented } from '@/components/ux-v1/segmented';
 import { TextCard, TextCardGrid } from '@/components/ux-v1/text-card';
 import { useAnnounce } from '@/components/ux-v1/toast';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import {
   HUB_FIRST_CARDS,
   HUB_SORTS,
@@ -42,6 +43,7 @@ const ALL = 'all';
 export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesProps): React.ReactElement {
   const uid = useId().replace(/:/g, '');
   const announce = useAnnounce();
+  const live = useIsClient();
   const [sort, setSort] = useState<HubSort>('popular');
   const [type, setType] = useState<string | null>(null);
   const [level, setLevel] = useState<string | null>(null);
@@ -88,7 +90,7 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
   };
 
   return (
-    <section className="ux-sec p3-qs" aria-labelledby={`${uid}-h`}>
+    <section className="ux-sec p3-qs" aria-labelledby={`${uid}-h`} data-live={live || undefined}>
       <SectionHeader id={`${uid}-h`} title={`${groupName} quizzes`} sub={quizzesLabel(Math.max(total ?? 0, quizzes.length))} />
       <div className="p3-qctl">
         <Segmented options={HUB_SORTS} value={sort} onChange={pickSort} label="Sort quizzes" />
