@@ -1,0 +1,19 @@
+# P11 flag-off proof, 2026-09-26T08:07Z
+# A = origin/feat/ux-v1-v11 89e1e94 (flag off: next build, next start :4111)
+# B = ux11/p11-notifications code at 69b410c (flag off: next build, next start :4112); later P11 commits are docs and images only
+# guest pages: e2e/ux-v1/helpers/flag-off-diff.mjs --structure (A0's helper)
+IDENTICAL (structure)  /  status 200/200  raw bytes 228435/228504  normalised 142664/142664  js chunks 13/13
+IDENTICAL (structure)  /notifications  status 307/307  raw bytes 32486/32486  normalised 2775/2775  js chunks 10/10
+IDENTICAL (structure)  /search  status 200/200  raw bytes 54143/54143  normalised 23696/23696  js chunks 13/13
+IDENTICAL (structure)  /search?q=bts  status 200/200  raw bytes 113948/113948  normalised 61090/61090  js chunks 13/13
+IDENTICAL (structure)  /search?q=zzzzqx  status 200/200  raw bytes 85845/85845  normalised 44700/44700  js chunks 13/13
+IDENTICAL (structure)  /login  status 200/200  raw bytes 59007/59007  normalised 28202/28202  js chunks 14/14
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 376093/376093  normalised 268532/268532  js chunks 13/13
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 178044/178044  normalised 95781/95781  js chunks 13/13
+all 8 pages identical after normalising build ids and hashed asset names
+
+# byte level (same pages): only the RSC client module ids and chunk tags differ (new P11 modules shift the ids), as in A0 3.3
+
+# signed in (the parity test user's cookies, never printed; same normalisation as the helper)
+IDENTICAL (structure)  /notifications  status 200/200  bytes differ  normalised 52000 / 52000  signed-in render true
+all pages identical after normalising build ids and hashed asset names

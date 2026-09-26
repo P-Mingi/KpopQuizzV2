@@ -31,7 +31,8 @@ Read this file and your own `v11/briefs/<ID>.md`. Start by invoking the Skill to
 - Playwright: `export UX11_CHROMIUM=$HOME/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell` (never download browsers). Projects `ux-1440` and `ux-390` run `e2e/ux-v1/*.spec.ts` after `setup`. Helpers in `e2e/ux-v1/helpers/`: setup-page, guard, auth, a11y, landmarks, compare-shots.mjs, flag-off-diff.mjs.
 - References: `/Users/louis/IT/Dev/projects/KpopQuizzV2/docs/design/ux-dashboard-v1/v11/checks/reference/<1440|390>-<light|dark>-<state>.png` (absolute path, local only) and the committed `v11/checks/reference/styles.json`. State ids and their JS: `docs/design/ux-dashboard-v1/v11/capture-prototype.mjs`. `docs/design/ux-dashboard-v1/prototype.html` is THE reference: open it in Chromium and measure it.
 - Spec precedence: DESIGN-SPEC 17 (17.10, 17.11 last) wins over 16, 16 over 1 to 15, the prototype over all. Wiring: WIRING-MAP.md (old + v10 + v11 tables), corrected by WIRING-MAP.verified.md. Data truths: DECISIONS-LOG.md.
-- Lint: the repo has no eslint config and `next lint` is gone; lint your files with eslint-config-next directly, as A0 did. `tsc --noEmit` must be clean.
+- Lint: the repo has no eslint config and `next lint` is gone; lint your files with eslint-config-next directly, as A0 did. `pnpm exec tsc --noEmit -p .` in apps/quiz (the WHOLE app, e2e specs included) must be clean after merging the integration head.
+- Scratch files: the session scratchpad is shared by every agent; name your scratch files with your id prefix (for example `p8-build.log`).
 - Commits end with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`; the PR body ends with `Generated with Claude Code`. Commit early and small, push your branch after the first commit, so a restart can continue from it.
 
 ## Done when (worker prompt section 5)

@@ -10,18 +10,18 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged: foundation (2cad6a7, PR #45) + request queue (7b95070, PR #50) | a26031b | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | merged #45 + #50; round 3 running (P11 slot swap, Mark all read, streak copy, search field; P5 sheet title) | a26031b | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | running (resumed 10:00 after an API stall; 8 commits pushed) | f0c3214 | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | merged (caff03e, PR #52) + tsc fix merged (ed8abea) | b846ae1 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | running (resumed 10:00 after an API stall; 9 commits pushed) | adddaab | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | running (resumed 10:00 after an API stall; 12 commits pushed) | 39178bf | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
-| P11 | ux11/p11-notifications | running (resumed 10:00 after an API stall; 8 commits pushed; local-only test swap in 2 A0 files to be restored) | 66c6772 | 0 | v11/reports/P11.md |
+| P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
 | C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
 | C3 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/REPORT.md |
@@ -89,10 +89,15 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 20. P3: groups.quiz_count is stale because handle_new_quiz() only ever adds (it never subtracts on unpublish or delete). The v11 pages count published quizzes, but the SEO-locked texts still show the stale number (BLACKPINK 29 vs 24 published) and the locked blindtest counts come from the old table; the locked /groups intro does not match the 90 listed groups. Fixing the trigger is a DB change; changing the locked texts is an SEO change: owner call for both.
 21. P3: /groups (flag on) lists all 90 visible groups and so links the 46 hubs that have no quiz yet (thin pages, shown muted); noindex for thin hubs was not shipped (decision 8). Also for review: hub breadcrumb vs BreadcrumbList, the kept Verse link, Notify me, the FAQ heading (P3 report section 9).
 22. Cleanup items for the owner (from A0): give lib/streak.ts streakState an optional `now` so streakView never reads the clock (tests now freeze the clock instead); `turbopack.root` in next.config.ts (dev only, P1's note); once P2 is merged, P2 can drop its copy of the link-option rule now that Segmented and UxDropdown accept href options; the inert Phase 1 `.uxv1-*` CSS in globals.css.
-23. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+23. P5: /create keeps the live H1 "What's your quiz about?" and intro (SEO lock) instead of the prototype's "Create a quiz" (one line to switch; the page is noindex); the paste format; the new Easy and Hard difficulty lines. Existing bug (found by P5): the legacy create-funnel autosave can re-save a draft it just cleared. Cleanup: like P4, make create-funnel.tsx and question-list-editor.tsx import lib/ux-v1/p5 so there is one copy (a flag-off change). The sign-in callback uses NEXT_PUBLIC_SITE_URL, which matters for OAuth round trips on preview deploys.
+24. P11 copy states the real rules: read notifications are cleared after 60 days (not 30); the streak counts only the daily quiz and the daily blindtest. Dismiss and Mute of the live center are kept in a row menu (not drawn in the prototype); four filters; search ranks the closest name first; a song row opens /blindtest/<group mode>, which fails on Play today (the production bug P6 reported). /search itself stays the live page inside the shell (no prototype state).
+25. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P5's spec fix merged (ed8abea): whole-app tsc clean again (e2e included).
+- 2026-09-26 P11 merged (6b17e0e): guard ok (38 files), notifications page + BellPanel + SearchResults on A0's slot props, read-only /api/ux-v1/p11/search, flag-off identical, SEO and links unchanged on /search and /notifications. Integration: check:routes 330 both ways, unit 738/738, tsc: only P5's spec error (fix in progress). A0 resumed for round 3.
+- 2026-09-26 P5 merged (caff03e): guard ok (41 files), p5.spec 45/45, 59 parity unit tests vs the legacy funnel, SEO fields and all 22 hrefs kept on /create. After the merge the full-app tsc showed 1 error in p5.spec.ts (page.route returns a Disposable): P5 fixing; COMMON.md now requires the whole-app tsc (e2e included) and id-prefixed scratch files. P5 asked P8 to open the composer from /community?compose=challenge&quiz=<slug> (relayed).
 - 2026-09-26 10:00 API stall: P5, P8, P9, P11 stopped with "no progress for 600s" (stream watchdog). Every branch was pushed; only a few files per worktree were uncommitted; no server left alive. All four resumed from their transcripts with their state listed.
 - 2026-09-26 A0 queue merged (7b95070): streak test clock frozen (5bfe147), useUxMe null until mounted, tab hover, share sheet on phones, H1 focus on navigation, /search a real link again (every page's link set back to parity; the only home differences are P1's /quizzes/new and /quizzes/most-liked -> /new and /most-liked, both 404 today), card line-height 1.6, href options for Segmented/UxDropdown. Integration: tsc clean, check:routes 329 both ways, unit 648/648 (CI should be green from here). A0's replies to every request are in v11/requests/A0.md (the guard keeps A0 and ORCH out of other agents' request files). P5, P8, P9, P11 told to merge the integration head before their final checks.
 - 2026-09-26 P3 merged (69fbdee): guard ok (49 files), e2e 35/35, flag-off identical on 7 URLs, SEO fields and link set unchanged on 9 URLs except /search (A0 shell, in A0's queue). Integration: tsc clean, check:routes 328 both ways, unit 524/526 (streak time bomb). P11 spawned: all page agents now started.
@@ -110,4 +115,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: wait for A0 (#50), P3 (#51), P5, P8, P9. Merge each after guard + report check. P2 waits for the owner's push. Then P11 in the next free slot, then the A0 queue again if new requests, then Phase 3 (C1, C2, C3; briefs to write). Spawn prompt = "You are <ID> <name> on the KpopQuiz UX v11 run. Read and follow docs/design/ux-dashboard-v1/v11/briefs/COMMON.md and v11/briefs/<ID>.md."
+NEXT ACTION: wait for P5 (tsc fix), P8, P9 and A0 round 3; merge each after guard + report + whole-app tsc. P2 waits for the owner's push. When all pages are merged: build the integration head with the flag on in .worktrees/ux11-integration, serve it on :3021, spawn C1, C2, C3 (briefs/CHECKERS.md + C<n>.md).
