@@ -1,0 +1,117 @@
+/* ==========================================================================
+   P7 Ranked (UX v11.2): /blindtest/ranked and the season impact block of the
+   ranked results. NOT imported anywhere: A0's flag-gated route serves every file
+   of this folder to flag-on pages only. Source: prototype #ranked + #btend
+   (ranked), DESIGN-SPEC 15.4 / 17.6. Tier colours are the prototype's (same in
+   both themes); every other colour is an A0 token.
+   ========================================================================== */
+
+/* ---------- tier colours ---------- */
+.p7-t-bronze { --p7-tc: #B27A4B; }
+.p7-t-silver { --p7-tc: #8E9AA6; }
+.p7-t-gold { --p7-tc: #C99A1E; }
+.p7-t-platinum { --p7-tc: #3FA3A3; }
+.p7-t-diamond { --p7-tc: #6A8CFF; }
+.p7-t-master { --p7-tc: #A65CFF; }
+.p7-t-legend { --p7-tc: #E8457A; }
+.p7-t-none { --p7-tc: var(--ux-input); }
+
+/* ---------- season card (prototype .rkhead .. .best5) ---------- */
+.p7-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: center; margin-top: 24px; }
+.p7-shield { width: 96px; height: 112px; display: block; animation: p7-cardin .6s var(--ux-spring) both; }
+.p7-shield path { fill: var(--p7-tc); }
+.p7-shield.p7-t-none path { fill: var(--ux-surface-2); stroke: var(--ux-edge); stroke-width: 2; }
+.p7-shield text { fill: #fff; font: 700 24px var(--ux-font); filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .25)); }
+@keyframes p7-cardin { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+.p7-season { font-size: 15px; color: var(--ux-muted); }
+.p7-h1 { margin-top: 4px; }
+.p7-pts { margin-top: 4px; }
+.p7-pts b { font-weight: 600; }
+.p7-prog { height: 6px; border-radius: 3px; background: var(--ux-surface-2); overflow: hidden; margin-top: 24px; }
+.p7-prog i { display: block; height: 100%; border-radius: 3px; background: var(--p7-tc); transition: width 1s var(--ux-ease) .2s; }
+.p7-next { font-size: 14px; margin-top: 8px; }
+.p7-next b { color: var(--ux-ink); font-weight: 600; }
+.p7-lead { margin-top: 20px; font-size: 15px; line-height: 1.6; color: var(--ux-muted); max-width: 62ch; }
+.p7-qact { display: flex; align-items: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.p7-note { font-size: 14px; color: var(--ux-muted); }
+.p7-note b { color: var(--ux-ink); font-weight: 600; }
+.p7-best5 { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--ux-muted); margin-top: 14px; }
+.p7-best5 b { color: var(--ux-ink); font-weight: 600; }
+.p7-best5 .is-low b { color: var(--ux-pink-ink); }
+
+/* ---------- sections ---------- */
+.p7-h2 { margin-bottom: 20px; }
+.p7-h2-how { margin-bottom: 8px; }
+.p7-h2-rew { margin-bottom: 4px; }
+.p7-help { text-align: center; margin-top: 16px; }
+
+/* ---------- tiers strip (prototype .track / .tk) ---------- */
+.p7-track { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin-top: 8px; }
+.p7-track::before { content: ""; position: absolute; left: 7%; right: 7%; top: 15px; height: 2px; background: var(--ux-hair); }
+.p7-tk { position: relative; text-align: center; }
+.p7-tk i { display: block; width: 32px; height: 32px; margin: 0 auto; border-radius: 10px; background: var(--p7-tc); clip-path: polygon(50% 0, 100% 20%, 100% 60%, 50% 100%, 0 60%, 0 20%); opacity: .4; }
+.p7-tk.is-on i { opacity: 1; transform: scale(1.15); }
+.p7-tk.is-past i { opacity: .85; }
+.p7-tk b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
+.p7-tk small { display: block; font-size: 12px; color: var(--ux-muted); }
+
+/* ---------- ladder (prototype .lrow / .pin) ---------- */
+.p7-ladder { margin: 0; }
+.p7-lrow { display: flex; align-items: center; gap: 14px; padding: 14px 0; }
+.p7-rk { width: 28px; flex: 0 0 auto; font-weight: 600; color: var(--ux-muted); }
+.p7-gem { width: 24px; height: 24px; flex: 0 0 auto; border-radius: 6px; background: var(--p7-tc); clip-path: polygon(50% 0, 100% 20%, 100% 60%, 50% 100%, 0 60%, 0 20%); }
+.p7-grow { flex: 1; min-width: 0; }
+.p7-sub { color: var(--ux-muted); font-size: 14px; margin-left: 6px; }
+.p7-sub::before { content: "\00B7 "; }
+.p7-pts { font-weight: 600; }
+.p7-lrow .p7-pts { margin-left: auto; }
+.p7-pin .ux-pin-rk { width: 40px; }
+.p7-pin .ux-who { font-weight: 600; }
+.p7-lnote { padding: 12px 0; font-size: 15px; color: var(--ux-muted); line-height: 1.6; }
+.p7-lnote .ux-btn { margin-left: 8px; vertical-align: middle; }
+.p7-lwait { min-height: 480px; }
+
+/* ---------- how ranked works (prototype .acc) ---------- */
+.p7-acc { border-top: 1px solid var(--ux-hair); border-bottom: 1px solid var(--ux-hair); }
+.p7-acc + .p7-acc { border-top: 0; }
+.p7-acc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 12px 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.p7-acc summary::-webkit-details-marker { display: none; }
+.p7-acc summary .ux-ico { color: var(--ux-muted); transition: transform .2s var(--ux-ease); }
+.p7-acc[open] summary .ux-ico { transform: rotate(180deg); }
+.p7-ab { padding: 0 0 20px; color: var(--ux-muted); font-size: 15px; line-height: 1.65; max-width: 62ch; }
+.p7-ab b { color: var(--ux-ink); font-weight: 600; }
+
+/* ---------- season rewards ---------- */
+.p7-rew .ux-row > .ux-ico { color: var(--ux-ink); }
+
+/* ---------- season impact (results slot, prototype #bt-imp / #bt-stext) ---------- */
+.p7-impact { text-align: center; }
+.p7-imp-chips { display: inline-flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.p7-imp-arrow { color: var(--ux-muted); }
+.p7-tierchip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 8px; border-radius: 999px; background: var(--ux-surface); font-size: 14px; font-weight: 600; color: var(--ux-ink); }
+.p7-tierchip i { width: 20px; height: 20px; border-radius: 6px; background: var(--p7-tc); clip-path: polygon(50% 0, 100% 20%, 100% 60%, 50% 100%, 0 60%, 0 20%); }
+.p7-tierchip.is-gain { box-shadow: inset 0 0 0 1.5px var(--p7-tc); }
+.p7-imp-text { color: var(--ux-muted); font-size: 15px; line-height: 1.6; margin-top: 12px; max-width: 520px; margin-inline: auto; }
+.p7-imp-text b { color: var(--ux-ink); font-weight: 600; }
+.p7-impact-note { color: var(--ux-muted); font-size: 15px; }
+
+/* ---------- phones (prototype @media (max-width:760px)) ---------- */
+@media (max-width: 760px) {
+  .p7-head { grid-template-columns: 1fr; gap: 16px; }
+  .p7-qact .ux-btn-lg { flex: 1; }
+  .p7-tk i { width: 28px; height: 28px; }
+  .p7-track::before { top: 13px; }
+  /* labels off except the current tier; still read by screen readers */
+  .p7-tk b, .p7-tk small { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .p7-tk.is-on b { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: nowrap; }
+  .p7-lrow .p7-grow { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+  .p7-lrow .ux-bias { margin-left: 0; }
+  .p7-sub { margin-left: 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .p7-sub::before { content: none; }
+  .p7-lwait { min-height: 760px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p7-shield { animation: none; }
+  .p7-prog i { transition: none; }
+}
