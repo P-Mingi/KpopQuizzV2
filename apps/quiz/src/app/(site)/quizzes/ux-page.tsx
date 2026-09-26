@@ -14,6 +14,7 @@ import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
 
 import type { P2ChipData, P2Empty } from '@/components/quizzes/ux-v1/quizzes-page';
 import type { P2LinkOption } from '@/components/quizzes/ux-v1/controls';
+import type { QuizCardData } from '@/lib/db/types';
 import type { P2Facets, P2SearchParams } from '@/lib/ux-v1/p2/filters';
 
 // UX v11 render of /quizzes (P2). Called by page.tsx only when NEXT_PUBLIC_UX_V1 is
@@ -55,7 +56,10 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
   // live ?page=N, whose grid shows page 1 and whose crawl list shows page N). The
   // ItemList JSON-LD lists page N alone, read with the live query, as today.
   const { last, outOfRange } = p2ShownPages(f.page, total);
-  const pages = await safeFetch(getP2Pages(f, last, groupId, rows, now), [], '[browse ux] pages');
+  const read = await safeFetch<QuizCardData[][] | null>(getP2Pages(f, last, groupId, rows, now), null, '[browse ux] pages');
+  // A failed or timed-out read is not an empty list: say so (fail soft, never a 500).
+  const failed = read === null;
+  const pages = read ?? [];
   const quizzes = p2Concat(pages);
   const pageN = !outOfRange && f.page <= pages.length
     ? pages[f.page - 1] ?? []
@@ -96,7 +100,9 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
   const cleared = p2Href(f, { type: null, level: null, group: null, lang: null, page: 1 });
   let empty: P2Empty | null = null;
   if (quizzes.length === 0) {
-    if (total !== null && total > 0) {
+    if (failed) {
+      empty = { title: 'Quizzes did not load', text: 'Something went wrong on our side. Please try again.', action: { href: p2Href(f), label: 'Try again', reload: true } };
+    } else if (total !== null && total > 0) {
       empty = { title: 'No quizzes on this page', text: 'This list is shorter now.', action: { href: p2Href(f, { page: 1 }), label: 'Back to the first page', focusId: 'p2-dd-type' } };
     } else if (group && !f.type && !f.level && !f.lang && f.sort !== 'trending') {
       empty = { title: `No ${group.name} quizzes yet`, text: 'Be the first to make one.', action: { href: cleared, label: 'Clear filters', focusId: 'p2-dd-group' }, create: true };
@@ -137,7 +143,7 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
       filters={{ ...f, page: last }}
       notice={notice}
       filterKey={p2FilterKey(f)}
-      summary={total === 0 || (total === null && quizzes.length === 0) ? 'No quizzes match these filters' : quizCountLabel(total ?? quizzes.length)}
+      summary={failed ? 'Quizzes did not load' : total === 0 || (total === null && quizzes.length === 0) ? 'No quizzes match these filters' : quizCountLabel(total ?? quizzes.length)}
       h1={H1}
       intro={INTRO}
       crumbs={CRUMBS}

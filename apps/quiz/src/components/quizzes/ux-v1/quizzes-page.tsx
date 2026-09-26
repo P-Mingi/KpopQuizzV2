@@ -23,7 +23,7 @@ export interface P2ChipData {
 export interface P2Empty {
   title: string;
   text: string;
-  action: { href: string; label: string; focusId?: string };
+  action: { href: string; label: string; focusId?: string; reload?: boolean };
   /** Group with no quiz at all: offer to make the first one. */
   create?: boolean;
 }
@@ -115,9 +115,13 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
             {p.empty.text}
             <div className="p2-empty-act">
               {p.empty.create ? <UxButton variant="ghost" href="/create" icon="plus">Make the first quiz</UxButton> : null}
-              <P2NavLink href={p.empty.action.href} focusId={p.empty.action.focusId} className={`ux-btn ${p.empty.create ? 'ux-btn-quiet' : 'ux-btn-ghost'}`}>
-                {p.empty.action.label}
-              </P2NavLink>
+              {p.empty.action.reload ? (
+                <a href={p.empty.action.href} className="ux-btn ux-btn-ghost">{p.empty.action.label}</a>
+              ) : (
+                <P2NavLink href={p.empty.action.href} focusId={p.empty.action.focusId} className={`ux-btn ${p.empty.create ? 'ux-btn-quiet' : 'ux-btn-ghost'}`}>
+                  {p.empty.action.label}
+                </P2NavLink>
+              )}
             </div>
           </div>
         ) : null}
