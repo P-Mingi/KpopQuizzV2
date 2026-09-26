@@ -319,12 +319,24 @@ test.describe('kit interactions', () => {
       probe.remove();
       return {
         outline: cs.outlineStyle,
-        cancel: getComputedStyle(el, '::-webkit-search-cancel-button').display,
         border: row.borderBottomColor === pink && row.borderBottomWidth === '1px',
         inset: row.boxShadow.includes(pink) && row.boxShadow.includes('inset'),
       };
     });
-    expect(look).toEqual({ outline: 'none', cancel: 'none', border: true, inset: true });
+    expect(look).toEqual({ outline: 'none', border: true, inset: true });
+    // No native clear button: the focused, filled field paints exactly as the same
+    // field as a plain text input (which has none); forcing the button back makes
+    // the paint differ, so the comparison would see one.
+    await page.mouse.move(0, 0);
+    const shot = (): Promise<Buffer> => field.screenshot({ animations: 'disabled', caret: 'hide' });
+    const asSearch = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'text'; });
+    const asText = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'search'; });
+    expect(asSearch.equals(asText), 'no clear button drawn').toBe(true);
+    const back = await page.addStyleTag({ content: '#ux-sq::-webkit-search-cancel-button { display: block !important; -webkit-appearance: searchfield-cancel-button !important; appearance: auto !important; }' });
+    expect((await shot()).equals(asText), 'control: a forced clear button is visible to the check').toBe(false);
+    await back.evaluate((el) => el.remove());
     // Focus leaves the field (Tab to the results): the line is the hairline again.
     await page.locator('#ux-sov .ux-srow').first().waitFor({ timeout: 30_000 });
     await page.keyboard.press('Tab');
