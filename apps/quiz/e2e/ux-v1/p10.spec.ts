@@ -210,13 +210,29 @@ const DATA_DEPENDENT = ['#p-bias', '#p-pinb', '.warstrip', '.warstrip .grow', '.
 // ---------------------------------------------------------------------------
 
 async function openPassport(page: Page): Promise<boolean> {
-  const res = await page.goto(`/u/${USER}`);
-  if (!res || res.status() !== 200) return false;
-  if (!(await hasShell(page)) || (await page.locator('.p10-passport').count()) === 0) return false;
+  // A read that times out on the busy shared database renders the page without the
+  // passport (or a 404): load it again, up to 3 times, before calling it "not served here".
+  let served = false;
+  for (let attempt = 0; attempt < 3 && !served; attempt++) {
+    const res = await page.goto(`/u/${USER}`);
+    served = Boolean(res && res.status() === 200) && (await hasShell(page)) && (await page.locator('.p10-passport').count()) > 0;
+  }
+  if (!served) return false;
   // /u/[username] has a loading.tsx: the streamed page sits in a hidden node until it is swapped in
   await expect(page.locator('.p10-passport')).toBeVisible({ timeout: 60_000 });
   await waitHydrated(page);
+  await islandsHydrated(page);
   return true;
+}
+
+/** The passport tabs and actions are lazy islands (next/dynamic) that hydrate after the
+ *  shell. React marks a hydrated node with its __reactProps$ key: wait for it so a click
+ *  never lands on server HTML that has no handler yet. */
+async function islandsHydrated(page: Page): Promise<void> {
+  await page.waitForFunction(() => {
+    const nodes = [document.querySelector('#p10-tab-overview'), document.querySelector('.p10-acts button')];
+    return nodes.every((n) => n !== null && Object.keys(n).some((k) => k.startsWith('__reactProps$')));
+  }, undefined, { timeout: 30_000 });
 }
 
 /** The owner controls appear once GET /api/auth/me answers for the test user. On a busy
@@ -319,8 +335,13 @@ for (const theme of THEMES) {
     test('tabs: click, arrow keys, the "All N badges" link, badges tab styles', async ({ page }, info) => {
       test.skip(!(await openPassport(page)), 'flag off or not served here');
       const tabs = page.getByRole('tablist', { name: 'Passport' });
-      await tabs.getByRole('tab', { name: 'Badges' }).click();
-      await expect(tabs.getByRole('tab', { name: 'Badges' })).toHaveAttribute('aria-selected', 'true');
+      const badgesTab = tabs.getByRole('tab', { name: 'Badges' });
+      // The tabs are a lazy island (next/dynamic): a click that lands before it hydrates
+      // does nothing, so retry the click until the island answers.
+      await expect(async () => {
+        await badgesTab.click();
+        await expect(badgesTab).toHaveAttribute('aria-selected', 'true', { timeout: 1_000 });
+      }).toPass({ timeout: 20_000 });
       const panel = page.locator('#p10-panel-badges');
       await expect(panel).toBeVisible();
       await expect(page.locator('#p10-panel-overview')).toBeHidden();
@@ -334,9 +355,19 @@ for (const theme of THEMES) {
 
       // A0's .ux-utabs button:hover (ink) outranks the selected colour while the mouse
       // rests on the tab just clicked (request filed in v11/requests/P10.md): measure at rest.
-      await page.mouse.move(1, 1);
-      const a = await compareLandmarks(page, widthOf(page), theme, STYLES_REF_BADGES);
-      const b = await compareP10(page, theme, 'passport-badges');
+      // (touch emulation keeps :hover where the last tap landed: tap the panel's line of text)
+      const atRest = async (): Promise<{ a: Awaited<ReturnType<typeof compareLandmarks>>; b: Awaited<ReturnType<typeof compareP10>> }> => {
+        await panel.locator('.ux-sec-h p').click();
+        await page.mouse.move(1, 1);
+        return { a: await compareLandmarks(page, widthOf(page), theme, STYLES_REF_BADGES), b: await compareP10(page, theme, 'passport-badges') };
+      };
+      let rest = await atRest();
+      await expect(async () => {
+        rest = await atRest();
+        expect(rest.a.mismatches).toEqual([]);
+        expect(rest.b.mismatches).toEqual([]);
+      }).toPass({ timeout: 10_000 });
+      const { a, b } = rest;
       await info.attach('landmarks-badges.json', { body: JSON.stringify({ a, b }, null, 1), contentType: 'application/json' });
       expect(a.mismatches).toEqual([]);
       expect(b.mismatches).toEqual([]);
@@ -478,10 +509,18 @@ for (const theme of THEMES) {
       // The reference is the sheet at rest; A0's sheet moves focus to the file input,
       // which lights the drop zone (:focus-within, good for keyboard users). Measure at rest.
       // (touch emulation keeps :hover where the last tap landed: tap the sheet title instead)
-      await dlg.locator('.ux-sh-h h2').click();
-      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
-      await page.mouse.move(1, 1);
-      const b = await compareP10(page, theme, 'header-sheet');
+      // The sheet can move focus after its open transition, so settle and re-measure.
+      const atRest = async (): Promise<Awaited<ReturnType<typeof compareP10>>> => {
+        await dlg.locator('.ux-sh-h h2').click();
+        await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+        await page.mouse.move(1, 1);
+        return compareP10(page, theme, 'header-sheet');
+      };
+      let b = await atRest();
+      await expect(async () => {
+        b = await atRest();
+        expect(b.mismatches).toEqual([]);
+      }).toPass({ timeout: 10_000 });
       await info.attach('landmarks-header-sheet.json', { body: JSON.stringify(b, null, 1), contentType: 'application/json' });
       expect(b.mismatches).toEqual([]);
       expect(b.absent).toEqual([]);
