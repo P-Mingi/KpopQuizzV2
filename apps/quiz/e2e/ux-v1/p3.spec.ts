@@ -23,6 +23,11 @@ import type { Theme } from './helpers/setup-page';
 const env = loadTestEnv();
 
 const HUB = '/blackpink-quiz';
+// A hub render is complete when every read made it (the dev server shares the
+// production database and a slow read falls back to an empty section): the quiz
+// island is live and the data-heavy blocks of today's hub are there.
+const HUB_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(a[href="/blackpink-trivia"]):has(.p3-fan):has(.p3-war):has(.p3-members)';
+const HUB_2_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(.p3-fan):has(.p3-war):has(a[href="/articles/stray-kids-vs-ateez"])';
 const HUB_2 = '/ateez-quiz';
 const EMPTY = '/chungha-quiz';
 const TRIVIA = '/blackpink-trivia';
@@ -46,7 +51,7 @@ async function open(page: Page, path: string, ready: string): Promise<boolean> {
     if ((await page.locator('.p3').count()) === 0) return false;
     await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
     try {
-      await page.locator(ready).first().waitFor({ timeout: 30_000 });
+      await page.locator(ready).first().waitFor({ timeout: 45_000 });
       return true;
     } catch {
       // a render that lost its reads (or an island still compiling): try again
@@ -85,7 +90,7 @@ const EMPTY_LANDMARKS: Landmark[] = [
 
 for (const theme of THEMES) {
   test.describe(`groups index ${theme}`, () => {
-    test.describe.configure({ timeout: 120_000 });
+    test.describe.configure({ timeout: 240_000 });
 
     test('SEO lock, every group, most played, A to Z, landmarks, a11y', async ({ page }, info) => {
       const writes = await setup(page, theme);
@@ -176,11 +181,11 @@ for (const theme of THEMES) {
   });
 
   test.describe(`group hub ${theme}`, () => {
-    test.describe.configure({ timeout: 150_000 });
+    test.describe.configure({ timeout: 240_000 });
 
     test('SEO lock: H1, intro, FAQ = FAQPage, JSON-LD, links; hero, landmarks, a11y', async ({ page }, info) => {
       const writes = await setup(page, theme);
-      test.skip(!(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')), 'UX v1 flag is OFF on this build');
+      test.skip(!(await open(page, HUB, HUB_READY)), 'UX v1 flag is OFF on this build');
 
       await expect(page).toHaveTitle(/^BLACKPINK Quiz/);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/blackpink-quiz$/);
@@ -318,7 +323,7 @@ for (const theme of THEMES) {
 
     test('Questions fans ask open with the keyboard; community, fans, war, read more', async ({ page }) => {
       const writes = await setup(page, theme);
-      test.skip(!(await open(page, HUB_2, '.p3-qs[data-live] .ux-tcard')), 'UX v1 flag is OFF on this build');
+      test.skip(!(await open(page, HUB_2, HUB_2_READY)), 'UX v1 flag is OFF on this build');
       const second = page.locator('.p3-acc').nth(1);
       await expect(second).not.toHaveAttribute('open', '');
       await second.locator('summary').focus();
@@ -351,7 +356,7 @@ for (const theme of THEMES) {
   });
 
   test.describe(`empty group hub ${theme}`, () => {
-    test.describe.configure({ timeout: 120_000 });
+    test.describe.configure({ timeout: 240_000 });
 
     test('SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y', async ({ page }, info) => {
       const writes = await setup(page, theme);
@@ -439,7 +444,7 @@ for (const theme of THEMES) {
   });
 
   test.describe(`trivia page ${theme}`, () => {
-    test.describe.configure({ timeout: 120_000 });
+    test.describe.configure({ timeout: 240_000 });
     test("today's content inside the v11 shell", async ({ page }) => {
       const writes = await setup(page, theme);
       const res = await page.goto(TRIVIA);
@@ -455,7 +460,7 @@ for (const theme of THEMES) {
 }
 
 signedInTest.describe('signed in (read only)', () => {
-  signedInTest.describe.configure({ timeout: 120_000 });
+  signedInTest.describe.configure({ timeout: 240_000 });
   signedInTest('hub and empty hub as the test user: account in the nav, Notify me says not live, zero writes', async ({ page }) => {
     skipUnlessSignedIn();
     const writes = await setup(page, 'light');

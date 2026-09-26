@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useId, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { UxButton } from '@/components/ux-v1/button';
 import { UxDropdown } from '@/components/ux-v1/dropdown';
@@ -48,8 +49,7 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
   const [type, setType] = useState<string | null>(null);
   const [level, setLevel] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const firstNew = useRef<HTMLDivElement | null>(null);
-  const [focusNew, setFocusNew] = useState(false);
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   const options = useMemo(() => presentOptions(quizzes), [quizzes]);
   const list = useMemo(
@@ -58,13 +58,6 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
   );
   const shown = expanded ? list : list.slice(0, HUB_FIRST_CARDS);
   const filtered = type !== null || level !== null;
-
-  // After "Show all", keyboard focus moves to the first card that just appeared.
-  useEffect(() => {
-    if (!focusNew) return;
-    firstNew.current?.querySelector<HTMLElement>(`.ux-tcard:nth-child(${HUB_FIRST_CARDS + 1})`)?.focus();
-    setFocusNew(false);
-  }, [focusNew]);
 
   const changed = (next: HubQuiz[]): void => {
     announce(next.length === 0 ? 'No quizzes match' : `${quizzesLabel(next.length)} shown`);
@@ -132,7 +125,7 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
           )}
         </div>
       ) : (
-        <div ref={firstNew} id={`${uid}-grid`}>
+        <div ref={gridRef} id={`${uid}-grid`}>
           <TextCardGrid>
             {shown.map((q) => (
               <TextCard
@@ -159,8 +152,9 @@ export function HubQuizzes({ groupName, groupSlug, quizzes, total }: HubQuizzesP
             onClick={(e) => {
               if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
               e.preventDefault();
-              setExpanded(true);
-              setFocusNew(true);
+              // Render the rest now, then move keyboard focus to the first new card.
+              flushSync(() => setExpanded(true));
+              gridRef.current?.querySelector<HTMLElement>(`.ux-tcard:nth-child(${HUB_FIRST_CARDS + 1})`)?.focus();
               announce(`${quizzesLabel(list.length)} shown`);
             }}
           >
