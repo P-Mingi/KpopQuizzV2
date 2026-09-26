@@ -128,7 +128,9 @@ export async function settle<T>(read: () => Promise<T>, fallback: T, timeoutMs =
   try {
     return await Promise.race([
       read().then((value) => ({ value, ok: true })),
-      new Promise<{ value: T; ok: boolean }>((res) => { timer = setTimeout(() => res({ value: fallback, ok: false }), timeoutMs); }),
+      new Promise<{ value: T; ok: boolean }>((res) => {
+        timer = setTimeout(() => { console.warn(`[blindtest v11] read timed out after ${timeoutMs}ms`); res({ value: fallback, ok: false }); }, timeoutMs);
+      }),
     ]);
   } catch (err) {
     if (isNextInternalError(err)) throw err;

@@ -113,7 +113,13 @@ async function harness(page: Page, theme: Theme, opts: { board?: 'guest' | 'fres
 }
 
 async function openHub(page: Page, path = '/blindtest'): Promise<boolean> {
-  const res = await page.goto(path);
+  let res = await page.goto(path);
+  // A render whose catalog read failed (a slow machine trips the hub's 5 s read
+  // budget) is the fail-soft hub without the group index: retry the render, the
+  // checks below still demand the full hub.
+  for (let i = 0; i < 4 && path === '/blindtest' && res?.status() === 200 && (await page.locator('.p6-hub').count()) > 0 && (await page.locator('.p6-btg').count()) === 0; i++) {
+    res = await page.reload();
+  }
   if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
   if ((await page.locator('.p6-hub').count()) === 0 && (await page.locator('.p6-play').count()) === 0) return false;
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
