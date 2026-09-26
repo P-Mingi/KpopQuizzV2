@@ -753,4 +753,37 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/(play|comment)$|\/api\/share\/generate$|\/api\/ux-v1\/p4\/|^\/api\/follow$/.test(new URL(c.url).pathname));
     expect(other, 'no other write attempt').toEqual([]);
   });
+
+  signedInTest('no stored play yet: standing answers played:false without a rank; results stay up, no rank line (C2-008)', async ({ page }) => {
+    skipUnlessSignedIn();
+    signedInTest.setTimeout(180_000);
+    const calls = await guardWrites(page, env.supabaseUrl);
+    const qs = await recordQuestions(page);
+    const pageErrors: string[] = [];
+    page.on('pageerror', (e) => pageErrors.push(e.message));
+    // the answer C2 recorded for a signed-in fan whose run is not in plays (the save failed, or
+    // a write guard): no rank key at all. A read stub, for the quiz page and the results alike.
+    await page.route((url) => url.pathname === '/api/ux-v1/p4/standing', (route) => route.fulfill({ json: { signedIn: true, played: false, totalPlayers: 39 } }));
+    signedInTest.skip(!(await openQuiz(page, SLUG.tf)), 'flag off');
+    await expect(page.getByTestId('p4-mine')).toContainText('Play to put your name on this board.');
+    await start(page);
+    const resultsRead = page.waitForResponse((r) => new URL(r.url()).pathname === '/api/ux-v1/p4/standing' && new URL(r.url()).searchParams.has('score'), { timeout: 60_000 });
+    const n = await playRun(page, qs.get, 'right');
+    expect(writesTo(calls, /^\/api\/quiz\/[^/]+\/play$/)).toHaveLength(1);
+    await resultsRead;
+    // the standing read is settled and the results are still there: no rank line, no error boundary
+    await expect(page.locator('.p4-res-in')).toHaveAttribute('data-standing', 'none', { timeout: 30_000 });
+    await expect(page.getByTestId('p4-rankline')).toHaveCount(0);
+    await expect(page.getByTestId('p4-photocard')).toBeVisible();
+    await expect(page.locator('h1')).toHaveText(new RegExp(`^${n}/${n} on `));
+    await expect(page.getByTestId('p4-xpline')).toBeVisible();
+    await expect(page.getByText('Something went wrong')).toHaveCount(0);
+    // the share sheet opens with the run's numbers and no rank (the rank line fed it before)
+    await page.locator('.p4-resact').getByRole('button', { name: 'Share' }).click();
+    const dlg = page.getByRole('dialog', { name: 'Share your score' });
+    await expect(dlg).toBeVisible();
+    await expect(dlg).toContainText(`${n}/${n} on `);
+    await expect(dlg).not.toContainText('#');
+    expect(pageErrors, 'no uncaught error on the page').toEqual([]);
+  });
 });
