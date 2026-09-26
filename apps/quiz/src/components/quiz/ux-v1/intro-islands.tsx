@@ -11,6 +11,9 @@ import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 import { challengeChip } from '@/lib/ux-v1/p4/challenge';
 import { maxScoreFor } from '@/lib/ux-v1/p4/engine';
 import { relativeTime } from '@/lib/ux-v1/p4/format';
+import { parseStanding } from '@/lib/ux-v1/p4/standing';
+
+import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 
 import { useP4Run } from './run-context';
 
@@ -79,31 +82,30 @@ export function P4StickyStart(): React.ReactElement {
   );
 }
 
-interface Standing { played: boolean; bestScore?: number; total?: number; bestAt?: string | null }
-
 /** Hall of fame footer: "Your best 2/8 · 6 hours ago" + Beat it + Challenge a friend (signed in), else the invitation. */
 export function P4HofMine(): React.ReactElement {
   const { quiz, start, openShare } = useP4Run();
   const signedIn = useSignedIn();
   const ready = useIsClient();
-  const [standing, setStanding] = useState<Standing | null>(null);
+  const [standing, setStanding] = useState<P4Standing | null>(null);
   useEffect(() => {
     if (signedIn !== true) return;
     let cancelled = false;
     fetch(`/api/ux-v1/p4/standing?quiz=${quiz.id}`, { credentials: 'include' })
-      .then((r) => (r.ok ? (r.json() as Promise<Standing>) : null))
-      .then((d) => { if (!cancelled && d) setStanding(d); })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((raw: unknown) => { if (!cancelled) setStanding(parseStanding(raw)); })
       .catch(() => {});
     return () => { cancelled = true; };
   }, [signedIn, quiz.id]);
 
   if (signedIn && standing?.played && typeof standing.bestScore === 'number') {
+    const best = standing.bestScore;
     const max = maxScoreFor(quiz.quizType, standing.total ?? quiz.questionCount);
     return (
       <div className="p4-mine" data-testid="p4-mine" data-ready={ready ? '' : undefined}>
-        <span className="p4-grow">Your best <b>{standing.bestScore}/{max}</b>{standing.bestAt ? <span className="ux-muted"> · {relativeTime(standing.bestAt)}</span> : null}</span>
+        <span className="p4-grow">Your best <b>{best}/{max}</b>{standing.bestAt ? <span className="ux-muted"> · {relativeTime(standing.bestAt)}</span> : null}</span>
         <UxButton variant="ghost" size="sm" onClick={start}>Beat it</UxButton>
-        <button type="button" className="ux-lnk" onClick={() => openShare('best', { score: standing.bestScore!, total: max })}>Challenge a friend</button>
+        <button type="button" className="ux-lnk" onClick={() => openShare('best', { score: best, total: max })}>Challenge a friend</button>
       </div>
     );
   }
