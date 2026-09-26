@@ -121,6 +121,10 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
   // every flag-off page)
   const picked = [...withPhoto.slice(0, 2), ...withCover.slice(0, 1), ...typographic.slice(0, 1)];
   const gridFill = picked.length < 4 ? [...picked, ...quizzes.filter((q) => picked.indexOf(q) < 0).slice(0, 4 - picked.length)] : picked;
+  // Stacked rows lead with the longest real title, so the gallery shows the two-line
+  // clamp (and kit.spec can hold a two-line row to the reference height).
+  const longest = [...quizzes].sort((a, b) => b.title.length - a.title.length)[0];
+  const stackRows = longest ? [longest, ...gridFill.filter((q) => q.id !== longest.id)].slice(0, 3) : gridFill.slice(0, 3);
 
   return (
     <UxPage width="wide">
@@ -203,7 +207,7 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
           <>
             <UxQuizGrid>{gridFill.map((q, i) => <UxQuizCard key={q.id} quiz={q} priority={i < 2} />)}</UxQuizGrid>
             <span className="ux-kit-label" style={{ marginTop: 32 }}>Stacked rows (phone lists)</span>
-            <UxQuizGrid stack>{gridFill.slice(0, 3).map((q) => <UxQuizCard key={q.id} quiz={q} />)}</UxQuizGrid>
+            <UxQuizGrid stack>{stackRows.map((q) => <UxQuizCard key={q.id} quiz={q} />)}</UxQuizGrid>
           </>
         ) : <p className="ux-empty"><b>No quiz loaded</b>The read failed; the cards render when the DB answers.</p>}
         <div className="ux-kit-row" style={{ marginTop: 24 }}>
