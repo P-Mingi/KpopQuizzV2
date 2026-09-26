@@ -343,7 +343,11 @@ for (const theme of THEMES) {
         const { calls } = await openCreate(page, { theme, draft: SAMPLE_DRAFT, step: STEP[state] });
         test.skip(!(await hasShell(page)), 'flag off');
         await toState(page, state);
-        if (state === 'create-1') await page.locator('#p5-group-q').focus();
+        if (state === 'create-1') {
+          // the prototype draws the group field focused; let the (reduced-motion) transition settle
+          await page.locator('#p5-group-q').focus();
+          await expect(page.locator('.p5-gbox')).toHaveCSS('border-top-color', 'rgb(232, 69, 122)'); // --ux-pink, both themes
+        }
         const problems = await checkLandmarks(page, state, theme);
         expect(problems, problems.join('\n')).toEqual([]);
         // the reference .qcard landmark (styles.json) for the card preview
