@@ -452,7 +452,8 @@ test.describe('P4 interactions', () => {
 
     const like = page.locator('.p4-likeb');
     // the first read reconciles the ISR count with the live one: read the count after it
-    await expect(like).toHaveAttribute('data-synced', '', { timeout: 30_000 });
+    // (a live DB read: up to 30 s seen on the loaded dev machine)
+    await expect(like).toHaveAttribute('data-synced', '', { timeout: 90_000 });
     const before = Number((await like.innerText()).replace(/\D/g, ''));
     await like.click();
     await expect(like).toHaveAttribute('aria-pressed', 'true');
