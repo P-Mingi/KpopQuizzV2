@@ -13,7 +13,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | A0 | ux11/a0-foundation | request queue PR #50 open; more items sent (/search as a real link, card line-height, link options) | - | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | merged (1bc1cb1, PR #49) after the link-parity fix | d30aee5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
-| P3 | ux11/p3-groups | PR #51 open (report pending) | - | 0 | v11/reports/P3.md |
+| P3 | ux11/p3-groups | merged (69fbdee, PR #51) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | running | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
@@ -21,7 +21,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P8 | ux11/p8-community | running | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | running | - | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
-| P11 | ux11/p11-notifications | queued | - | 0 | v11/reports/P11.md |
+| P11 | ux11/p11-notifications | running (spawned from integration with briefs/COMMON.md + P11.md) | - | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
 | C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
 | C3 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/REPORT.md |
@@ -54,6 +54,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p4-rank-for-score.sql` (P4): get_quiz_rank_for_score (guest rank line on results).
 - `docs/pending-migrations/v11-p10-header-storage.sql` (P10): the profile-headers storage bucket + policies; both header routes answer 503 before any write until it exists.
 - `docs/pending-migrations/v11-p10-email-prefs.sql` (P10): email notification switches (disabled in the UI until applied).
+- `docs/pending-migrations/v11-p3-group-quiz-alerts.sql` (P3): group quiz alerts table + RLS + publish trigger (the empty hub's Notify me fails soft until applied).
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
@@ -85,10 +86,13 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 17. P1 design changes made to keep every live home link: 6 cards per rail instead of 4 or 5, a "Most liked" link, Verse and Discord lines under the community rows; the 17 hub links sit in the scrolling groups rail in the live order (Cortis is 4th there).
 18. P7: Season rewards are shown as designed but not built (build them or hide the section before go-live); no /pt mirror for /blindtest/ranked.
 19. P2 deviations: the live H1, intro and breadcrumb (SEO lock) push the grid 64.7px lower than the reference; default sort shown as "Most played" (the live default); ?page=N shows pages 1..N; ?level= is noindex with canonical /quizzes (flag on only); no Language dropdown (?lang= still works); no Create banners; the popular-* subpages are not redesigned. P2 also found that lib/db/queries/popular.ts caches a failed plays read as an empty window for an hour (task chip spawned by P2).
-20. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+20. P3: groups.quiz_count is stale because handle_new_quiz() only ever adds (it never subtracts on unpublish or delete). The v11 pages count published quizzes, but the SEO-locked texts still show the stale number (BLACKPINK 29 vs 24 published) and the locked blindtest counts come from the old table; the locked /groups intro does not match the 90 listed groups. Fixing the trigger is a DB change; changing the locked texts is an SEO change: owner call for both.
+21. P3: /groups (flag on) lists all 90 visible groups and so links the 46 hubs that have no quiz yet (thin pages, shown muted); noindex for thin hubs was not shipped (decision 8). Also for review: hub breadcrumb vs BreadcrumbList, the kept Verse link, Notify me, the FAQ heading (P3 report section 9).
+22. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P3 merged (69fbdee): guard ok (49 files), e2e 35/35, flag-off identical on 7 URLs, SEO fields and link set unchanged on 9 URLs except /search (A0 shell, in A0's queue). Integration: tsc clean, check:routes 328 both ways, unit 524/526 (streak time bomb). P11 spawned: all page agents now started.
 - 2026-09-26 P1 re-done (all 17 live hub links in the rail, full link-set proof) and merged (1bc1cb1); P7 merged (91a8030). Integration: tsc clean, check:routes 327 both ways, unit 494/496 (the 2 streak time-bomb tests). P2 finished but its push was denied by the permission check: left for the owner. P5, P8, P9 spawned. A0 opened PR #50 (queue) and got 3 more items; P3 opened PR #51.
 - 2026-09-26 P1 finished (PR #49, guard ok 65 files, p1.spec 37/37) but NOT merged: its flag-on home server-renders 11 group hub links vs 18 on the live home (lost /cortis-quiz, /exo-quiz, /itzy-quiz, /ive-quiz, /le-sserafim-quiz, /txt-quiz + 1). Rule 6 blocker, sent back. COMMON.md done-when 5 now requires the full link-set diff; running agents told. P1's A0 request (focus H1 on client navigation) added to A0's queue.
 - 2026-09-26 P10 merged (2dd8f9f): guard ok (51 files), tsc clean, check:routes 318 both ways, flag-off diff identical on 8 pages (per P10), test user's rows unchanged since 2026-09-22. Unit run on integration: 240/242; the 2 failures are A0's streak-view tests, a time bomb (lib/streak.ts streakState reads the wall clock while the tests pin now to 2026-09-25); product behaviour is right; A0 fixes the test with a frozen system clock. P3 spawned in P10's slot; A0 resumed for its request queue.
