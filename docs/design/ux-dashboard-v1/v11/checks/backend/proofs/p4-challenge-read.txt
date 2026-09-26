@@ -1,0 +1,2 @@
+{"id":"fe2ea6d6-7ee2-4d72-bd10-1c41f5b77140","label":"valid sig","status":200,"body":{"id":"fe2ea6d6-7ee2-4d72-bd10-1c41f5b77140","quizId":"c15ae418-b13c-49a1-b58f-4dc926c44543","challenger":null,"score":5,"total":10,"maxScore":10,"questions":"[0 questions]","createdAt":"2026-09-20T13:00:08.127787+00:00","expired":true}}
+{"id":"fe2ea6d6-7ee2-4d72-bd10-1c41f5b77140","label":"wrong sig","status":404,"body":{"error":"not_found"}}

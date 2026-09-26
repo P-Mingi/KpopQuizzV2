@@ -1,0 +1,106 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:40:26.448Z",
+ "quizSheet": "",
+ "resultSheet": "",
+ "resultSheetUrls": [],
+ "errors": [
+  "load: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=mapple",
+   "status": 200
+  },
+  {
+   "step": "share this quiz (signed in)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/share/generate",
+   "body": "{\"quizId\":\"6f3eef40-6892-41d7-b99c-296e2ef83150\",\"platform\":\"link\"}"
+  },
+  {
+   "step": "play + results share",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/6f3eef40-6892-41d7-b99c-296e2ef83150/questions",
+   "status": 200
+  },
+  {
+   "step": "play + results share",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/6f3eef40-6892-41d7-b99c-296e2ef83150/play",
+   "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.1,0.1,0.2,0.1,0.1,0.1,0.2,0.1],\"anon_id\":\"c3639c79-bf34-4187-8dd9-8cf8222e8eed\"}"
+  },
+  {
+   "step": "play + results share",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "play + results share",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150&score=8",
+   "status": 200
+  },
+  {
+   "step": "play + results share",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/6f3eef40-6892-41d7-b99c-296e2ef83150/like",
+   "status": 200
+  },
+  {
+   "step": "play + results share",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  }
+ ]
+}

@@ -1,0 +1,2 @@
+guest POST /api/ux-v1/p4/relaxed body={"playId":"00000000-0000-4000-8000-00000000c2c2"} -> 403 {"error":"not_yours"}
+user POST /api/ux-v1/p4/relaxed body={"playId":"00000000-0000-4000-8000-00000000c2c2"} -> 503 {"error":"not_live"}

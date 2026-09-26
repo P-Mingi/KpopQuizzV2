@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 29 |
-| FAIL | 2 |
-| NOT VERIFIED | 0 |
+| PASS | 73 |
+| FAIL | 4 |
+| NOT VERIFIED | 4 |
 | PENDING | 0 |
-| N/A | 2 |
-| TODO | 234 |
+| N/A | 8 |
+| TODO | 178 |
 | Total | 267 |
 
 ## Rows
@@ -78,54 +78,54 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R064 | 2. | Group rail | - | TODO | - |
 | R065 | 2. | Infinite grid | - | TODO | - |
 | R066 | 2. | SEO landing pages (`/easy-kpop-quizzes`, `/hard-kpop-quizzes`, `/kpop-true-or-false`, `/most-liked`, `/new`, `/trending`, `/quizzes/popular-*`) | - | TODO | - |
-| R072 | 3. | Breadcrumb Quizzes > Group > quiz | - | TODO | - |
-| R073 | 3. | Cover, tags (type, difficulty, language) | - | TODO | - |
-| R074 | 3. | Title H1 | - | TODO | - |
-| R075 | 3. | Author row + level title | - | TODO | - |
-| R076 | 3. | Follow | - | TODO | - |
-| R077 | 3. | Meta: plays, questions, 15s per question, likes | - | TODO | - |
-| R078 | 3. | Start quiz | - | TODO | - |
-| R079 | 3. | Challenge a friend (battle link) | - | TODO | - |
-| R080 | 3. | Share Reddit / Discord / X / copy | - | TODO | - |
-| R081 | 3. | About text (avg %, perfect count) | - | TODO | - |
-| R082 | 3. | In this quiz (sample questions, answers hidden) | - | TODO | - |
-| R083 | 3. | Did you know + "Learn before you play" | - | TODO | - |
-| R084 | 3. | More group quizzes | - | TODO | - |
-| R085 | 3. | Stats card (6) | - | TODO | - |
-| R086 | 3. | Hall of fame top 5 + times | - | TODO | - |
-| R087 | 3. | Your best + Beat it | - | TODO | - |
-| R088 | 3. | Made by card | - | TODO | - |
-| R089 | 3. | Report | - | TODO | - |
-| R090 | 3. | Owner actions (edit) | - | TODO | - |
-| R096 | 4. | Quit | - | TODO | - |
-| R097 | 4. | Group tag, progress, counter, score pill | - | TODO | - |
-| R098 | 4. | Sound toggle | - | TODO | - |
-| R099 | 4. | Streak dots + fire badge | - | TODO | - |
-| R100 | 4. | Timer ring 15s warn/danger | - | TODO | - |
-| R101 | 4. | Answers A-D, correct/wrong/dimmed | - | TODO | - |
-| R102 | 4. | Image / intruder / clues variants | - | TODO | - |
-| R103 | 4. | Fun fact card | - | TODO | - |
-| R104 | 4. | Next / See results | - | TODO | - |
-| R105 | 4. | Keyboard 1-4 / Enter | - | TODO | - |
-| R106 | 4. | Per-question times | - | TODO | - |
-| R107 | 4. | Animations (pulse, shake, pop) | - | TODO | - |
-| R113 | 5. | Photocard (score count-up, bar, percentile, mascot, verdict, serial) | - | TODO | - |
-| R114 | 5. | Confetti on pass | - | TODO | - |
-| R115 | 5. | Share this card | - | TODO | - |
-| R116 | 5. | Play again | - | TODO | - |
-| R117 | 5. | Discord line / Brag | - | TODO | - |
-| R118 | 5. | Run ledger You/Avg/Pass/XP/Time | - | TODO | - |
-| R119 | 5. | Your rank on this quiz | - | TODO | - |
-| R120 | 5. | Like | - | TODO | - |
-| R121 | 5. | Saved to passport / Put my name on it | - | TODO | - |
-| R122 | 5. | Level up overlay | - | TODO | - |
-| R123 | 5. | Keep playing list | - | TODO | - |
-| R124 | 5. | Share row | - | TODO | - |
-| R125 | 5. | Comments (200 chars, score chip) | - | TODO | - |
-| R126 | 5. | Reactions | - | TODO | - |
-| R127 | 5. | Beat my score (battle link) | - | TODO | - |
-| R128 | 5. | Streak backup nudge | - | TODO | - |
-| R129 | 5. | Report | - | TODO | - |
+| [R072](R072.md) | P4 | Breadcrumb Quizzes > Group > quiz | EXISTS | PASS | - |
+| [R073](R073.md) | P4 | Cover, tags (type, difficulty, language) | EXISTS | PASS | - |
+| [R074](R074.md) | P4 | Title H1 | EXISTS | PASS | - |
+| [R075](R075.md) | P4 | Author row + level title | EXISTS | PASS | - |
+| [R076](R076.md) | P4 | Follow | EXISTS | PASS (payload + read state); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R077](R077.md) | P4 | Meta: plays, questions, 15s per question, likes | EXISTS | PASS | - |
+| [R078](R078.md) | P4 | Start quiz | EXISTS | PASS | - |
+| [R079](R079.md) | P4 | Challenge a friend (battle link) | PARTIAL | PASS (payload + read route against a real row); DB write NOT VERIFIED (owner decision 1) | - |
+| [R080](R080.md) | P4 (A0 ShareSheet) | Share Reddit / Discord / X / copy | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
+| [R081](R081.md) | P4 | About text (avg %, perfect count) | EXISTS | PASS | - |
+| [R082](R082.md) | P4 | In this quiz (sample questions, answers hidden) | EXISTS | PASS | - |
+| [R083](R083.md) | P4 | Did you know + "Learn before you play" | EXISTS | PASS | - |
+| [R084](R084.md) | P4 | More group quizzes | EXISTS | PASS | - |
+| [R085](R085.md) | P4 | Stats card (6) | EXISTS | PASS | - |
+| [R086](R086.md) | P4 | Hall of fame top 5 + times | EXISTS | PASS | - |
+| [R087](R087.md) | P4 | Your best + Beat it | EXISTS | PASS | - |
+| [R088](R088.md) | P4 | Made by card | EXISTS | PASS | - |
+| [R089](R089.md) | P4 | Report | EXISTS | PASS (payload); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R090](R090.md) | P4 | Owner actions (edit) | EXISTS | NOT VERIFIED (the test user owns no quiz) | - |
+| [R096](R096.md) | P4 | Quit | EXISTS | PASS | - |
+| [R097](R097.md) | P4 | Group tag, progress, counter, score pill | EXISTS | N/A (client state, no backend) | - |
+| [R098](R098.md) | P4 | Sound toggle | PARTIAL | PASS | - |
+| [R099](R099.md) | P4 | Streak dots + fire badge | EXISTS | N/A (client state, no backend) | - |
+| [R100](R100.md) | P4 | Timer ring 15s warn/danger | EXISTS | PASS | - |
+| [R101](R101.md) | P4 | Answers A-D, correct/wrong/dimmed | EXISTS | PASS | - |
+| [R102](R102.md) | P4 | Image / intruder / clues variants | EXISTS | PASS | - |
+| [R103](R103.md) | P4 | Fun fact card | EXISTS | N/A (client display, no backend) | - |
+| [R104](R104.md) | P4 | Next / See results | EXISTS | PASS | - |
+| [R105](R105.md) | P4 | Keyboard 1-4 / Enter | NEW | PASS | - |
+| [R106](R106.md) | P4 | Per-question times | EXISTS | PASS (payload); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R107](R107.md) | P4 | Animations (pulse, shake, pop) | PARTIAL | N/A (CSS only) | - |
+| [R113](R113.md) | P4 | Photocard (score count-up, bar, percentile, mascot, verdict, serial) | EXISTS | PASS (render from the run); percentile NOT VERIFIED live (comes from a real save response, owner decision 1) | - |
+| [R114](R114.md) | P4 | Confetti on pass | EXISTS | N/A (client only) | - |
+| [R115](R115.md) | P4 | Share this card | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
+| [R116](R116.md) | P4 | Play again | EXISTS | PASS | - |
+| [R117](R117.md) | P4 | Discord line / Brag | EXISTS | FAIL (C2-003) | C2-003 |
+| [R118](R118.md) | P4 | Run ledger You/Avg/Pass/XP/Time | EXISTS | PASS | - |
+| [R119](R119.md) | P4 | Your rank on this quiz | EXISTS | PASS (signed in); guest rank line NOT VERIFIED until v11-p4-rank-for-score.sql | - |
+| [R120](R120.md) | P4 | Like | EXISTS | PASS (payload + read state); DB effect NOT VERIFIED | - |
+| [R121](R121.md) | P4 | Saved to passport / Put my name on it | EXISTS | PASS (signed in 'Saved to your passport'; guest sheet); claim after a real sign-in NOT VERIFIED (no other sign-in allowed) | - |
+| [R122](R122.md) | P4 | Level up overlay | EXISTS | NOT VERIFIED live (needs a real save response with leveled_up, owner decision 1) | - |
+| [R123](R123.md) | P4 | Keep playing list | EXISTS | PASS | - |
+| [R124](R124.md) | P4 | Share row | EXISTS | PASS | - |
+| [R125](R125.md) | P4 | Comments (200 chars, score chip) | EXISTS | PASS (payload + list); DB effect NOT VERIFIED | - |
+| [R126](R126.md) | P4 | Reactions | EXISTS | N/A (map wrong: no live control) | - |
+| [R127](R127.md) | P4 | Beat my score (battle link) | PARTIAL | PASS (payload); DB effect NOT VERIFIED | - |
+| [R128](R128.md) | P4 | Streak backup nudge | EXISTS | PASS (mounted); NOT VERIFIED visually | - |
+| [R129](R129.md) | P4 | Report | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
 | R135 | 6. | Autosave chip | - | TODO | - |
 | R136 | 6. | Stepper 1/2/3 | - | TODO | - |
 | R137 | 6. | Title (5+) + counter | - | TODO | - |
@@ -268,16 +268,16 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R331 | v10 | Shell · Search overlay | - | TODO | - |
 | R332 | v10 | Shell · Streak pill + popover | - | TODO | - |
 | R333 | v10 | Any · Sign-in sheet | - | TODO | - |
-| [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | PASS | - |
+| [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | FAIL for a quiz the home also lists (C2-004); PASS for an unlisted quiz | C2-004 |
 | [R335](R335.md) | P1 | Home · Daily band played state | After the daily: score + See today's board | PASS (not played state); NOT VERIFIED played state (needs a daily blindtest play = production write, owner decision 1) | - |
 | R336 | v10 | Quizzes · Sort + Type/Level/Group chips | - | TODO | - |
-| R337 | v10 | Quiz · Play without a timer | - | TODO | - |
-| R338 | v10 | Quiz game · Quit confirm | - | TODO | - |
-| R339 | v10 | Quiz game · Challenge chip "Beat X: 7/8" | - | TODO | - |
-| R340 | v10 | Results · Primary action by score | - | TODO | - |
-| R341 | v10 | Results · Comment field | - | TODO | - |
-| R342 | v10 | Share sheet · Numbers | - | TODO | - |
-| R343 | v10 | Share sheet · More apps | - | TODO | - |
+| [R337](R337.md) | P4 | Quiz · Play without a timer | Relaxed run; excluded from hall of fame and quiz_time_stats | NOT VERIFIED until v11-p4-relaxed-runs.sql (fail-soft proven) | - |
+| [R338](R338.md) | P4 | Quiz game · Quit confirm | Only when answers would be lost; saves the run to Continue | PASS | - |
+| [R339](R339.md) | P4 | Quiz game · Challenge chip "Beat X: 7/8" | Shown in challenge runs; results show win/lose | PASS (route + read against a real row); attempt write NOT VERIFIED (owner decision 1) | - |
+| [R340](R340.md) | P4 | Results · Primary action by score | Share if pct >= quiz average, else Play again | PASS | - |
+| [R341](R341.md) | P4 | Results · Comment field | Real textarea, score chip, Send | PASS (payload); DB effect NOT VERIFIED | - |
+| [R342](R342.md) | P4 | Share sheet · Numbers | From the finished run (score, beat %, rank) | PASS | - |
+| [R343](R343.md) | P4 (A0 ShareSheet) | Share sheet · More apps | navigator.share with the story image as a file where supported | NOT VERIFIED (the OS share sheet is not reachable headless) | - |
 | R344 | v10 | Create · Publish as guest | - | TODO | - |
 | R345 | v10 | Blindtest hub · Accept a challenge | - | TODO | - |
 | R346 | v10 | Blindtest game · Replay + sound | - | TODO | - |
@@ -309,5 +309,5 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R377 | v11 | Passport · Badge medallions (v11.1) | - | TODO | - |
 | R378 | v11 | Passport · Pinned badge next to name | - | TODO | - |
 | R379 | v11 | All · Sheets close | - | TODO | - |
-| R380 | v11 | Quiz page · About box, timer, stats box | - | TODO | - |
+| [R380](R380.md) | P4 | Quiz page · About box, timer, stats box | Visual only; averages from the played quiz | PASS | - |
 | R381 | v11 | All grids · Quiz card (v11.2) | - | TODO | - |
