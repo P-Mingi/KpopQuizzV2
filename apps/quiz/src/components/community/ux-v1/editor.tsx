@@ -306,6 +306,10 @@ function GroupPicker({ id, groups, value, onChange, invalid }: { id: string; gro
   const [openList, setOpenList] = useState(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Closing on blur waits a beat (a click on an option lands first); a new focus or
+  // keystroke cancels a pending close, so the list never shuts under the fan's typing.
+  const blurT = useRef<number | undefined>(undefined);
+  const keepOpen = (): void => { window.clearTimeout(blurT.current); setOpenList(true); };
   const sel = groups.find((g) => g.id === value) ?? null;
   const listId = `${id}-list`;
   const matches = useMemo(() => {
@@ -342,9 +346,9 @@ function GroupPicker({ id, groups, value, onChange, invalid }: { id: string; gro
         aria-invalid={invalid || undefined}
         placeholder={sel ? 'Change group' : 'Search groups'}
         value={q}
-        onChange={(e) => { setQ(e.target.value); setOpenList(true); setActive(0); }}
-        onFocus={() => setOpenList(true)}
-        onBlur={() => window.setTimeout(() => setOpenList(false), 120)}
+        onChange={(e) => { setQ(e.target.value); keepOpen(); setActive(0); }}
+        onFocus={keepOpen}
+        onBlur={() => { blurT.current = window.setTimeout(() => setOpenList(false), 120); }}
         onKeyDown={onKey}
         autoComplete="off"
       />
