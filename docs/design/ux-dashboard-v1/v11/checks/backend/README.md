@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 138 |
+| PASS | 152 |
 | FAIL | 7 |
-| NOT VERIFIED | 12 |
+| NOT VERIFIED | 15 |
 | PENDING | 0 |
-| N/A | 16 |
-| TODO | 94 |
+| N/A | 17 |
+| TODO | 76 |
 | Total | 267 |
 
 ## Rows
@@ -183,16 +183,16 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R199](R199.md) | P3 (link) / P5 (prefill) | Make a group quiz | EXISTS | PASS | - |
 | [R200](R200.md) | P3 | Live room panel | NEW | N/A (live rooms not shipped: removed until rooms exist, 16.7) | - |
 | [R201](R201.md) | P3 | Verse links | drop from this page | FAIL (C2-006: the kept link is a 404 for parked spaces; owner decision 21) | C2-006 |
-| R207 | 9. | Header (theme, avatar, name font/colour, level title, meta) | - | TODO | - |
-| R208 | 9. | XP bar | - | TODO | - |
-| R209 | 9. | Stats (streak, mastered, quizzes made, plays received) | - | TODO | - |
-| R210 | 9. | Tabs Overview / My quizzes / My posts / Mastered / Settings | - | TODO | - |
-| R211 | 9. | Badge shelf + tiers | - | TODO | - |
-| R212 | 9. | Recent activity | - | TODO | - |
-| R213 | 9. | Settings form (all fields) | - | TODO | - |
-| R214 | 9. | Preferences: sound, email on replies | - | TODO | - |
-| R215 | 9. | Appearance System / Light / Dark | - | TODO | - |
-| R216 | 9. | Public passport `/u/[username]` | - | TODO | - |
+| [R207](R207.md) | P10 | Header (theme, avatar, name font/colour, level title, meta) | EXISTS | PASS (public passports, guest); signed-in /me NOT VERIFIED (writes on view, owner decision 1/4) | - |
+| [R208](R208.md) | P10 | XP bar | EXISTS | PASS | - |
+| [R209](R209.md) | P10 | Stats (streak, mastered, quizzes made, plays received) | EXISTS | PASS (public stats); owner stats NOT VERIFIED (/me) | - |
+| [R210](R210.md) | P10 | Tabs Overview / My quizzes / My posts / Mastered / Settings | PARTIAL | PASS | - |
+| [R211](R211.md) | P10 (A0 BadgeMedal) | Badge shelf + tiers | EXISTS | PASS | - |
+| [R212](R212.md) | P10 | Recent activity | EXISTS | NOT VERIFIED live (owner-only History on /me, which writes on view) | - |
+| [R213](R213.md) | P10 | Settings form (all fields) | EXISTS | PASS (payload, changed fields only); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R214](R214.md) | P10 | Preferences: sound, email on replies | PARTIAL | PASS (sound, category prefs); email switches NOT VERIFIED until v11-p10-email-prefs.sql | - |
+| [R215](R215.md) | A0 / P10 | Appearance System / Light / Dark | NEW | PASS (see R032) | - |
+| [R216](R216.md) | P10 | Public passport `/u/[username]` | EXISTS | PASS | - |
 | [R222](R222.md) | P9 | Fandom war podium + board + weekly delta | EXISTS | PASS | - |
 | [R223](R223.md) | P9 | Your fandom card | EXISTS | PASS (no main group case); a main-group pin NOT VERIFIED live (the test user has no ult_groups; setting one = a write) | - |
 | [R224](R224.md) | P9 | How points work | PARTIAL | PASS (copy states the real rule, P9 section 4) | - |
@@ -289,8 +289,8 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R352](R352.md) | P3 | Group hub · Empty group (0 quizzes) | Make the first quiz + Notify me; noindex until 3 quizzes | NOT VERIFIED until v11-p3-group-quiz-alerts.sql (fail-soft proven) | - |
 | [R353](R353.md) | P8 | Community · Composer, tabs, mobile rail blocks | As section 16.7 | PASS (see R164 to R169) | - |
 | [R354](R354.md) | P8 | Post · Reply field | Real field, score chip | PASS (payloads) | - |
-| R355 | v10 | Passport · Band default | - | TODO | - |
-| R356 | v10 | Settings · Sign out | - | TODO | - |
+| [R355](R355.md) | P10 | Passport · Band default | Main group photo blurred over tint when no image | PASS (flat band case) | - |
+| [R356](R356.md) | P10 | Settings · Sign out | Signs out and returns home | PASS | - |
 | [R362](R362.md) | P1 | Home · Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | PASS | - |
 | [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | FAIL (C2-002) | C2-002 |
 | [R364](R364.md) | P1 | Home · Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | PASS | - |
@@ -303,11 +303,11 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R371](R371.md) | P8 (A0 PersonName) | Community · Author flair | Accent, font, bias chip on every name | PASS (read side); saving the flair: see R376 | - |
 | [R372](R372.md) | P8 | Community · Happening now | Live feed + cheer | PASS | - |
 | [R373](R373.md) | P8 | Community · Daily debate | Vote, results after vote | PASS (payload, one vote per day by the unique key); DB effect NOT VERIFIED | - |
-| R374 | v11 | Passport · Change header (upload) | - | TODO | - |
-| R375 | v11 | Passport · Change header (link) | - | TODO | - |
-| R376 | v11 | Settings · Your look | - | TODO | - |
-| R377 | v11 | Passport · Badge medallions (v11.1) | - | TODO | - |
-| R378 | v11 | Passport · Pinned badge next to name | - | TODO | - |
-| R379 | v11 | All · Sheets close | - | TODO | - |
+| [R374](R374.md) | P10 | Passport · Change header (upload) | Upload to storage, crop 1500x300, save header_url | NOT VERIFIED until v11-p10-header-storage.sql (fail-soft + file checks proven) | - |
+| [R375](R375.md) | P10 | Passport · Change header (link) | Server fetch, validate, copy to storage | NOT VERIFIED until v11-p10-header-storage.sql (SSRF block + fail-soft proven) | - |
+| [R376](R376.md) | P10 | Settings · Your look | name_accent, name_font, bias, profile_theme, pinned_badge_id | PASS (save payload + shown on posts, comments, hall of fame); DB effect NOT VERIFIED | - |
+| [R377](R377.md) | A0 / P10 | Passport · Badge medallions (v11.1) | SVG medallion per badge: frame + gradient by rarity, unique glyph, locked state, live counts; no PNG mascot art | PASS | - |
+| [R378](R378.md) | P10 | Passport · Pinned badge next to name | Shows profiles.pinned_badge_id as a 28px medallion | PASS | - |
+| [R379](R379.md) | A0 (C3 checks) | All · Sheets close | X, Escape, backdrop close any sheet; focus returns | N/A for C2 (behaviour, no backend) | - |
 | [R380](R380.md) | P4 | Quiz page · About box, timer, stats box | Visual only; averages from the played quiz | PASS | - |
 | R381 | v11 | All grids · Quiz card (v11.2) | - | TODO | - |

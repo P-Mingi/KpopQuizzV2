@@ -1,0 +1,1 @@
+founding_fan=legendary first_steps=common quiz_maker=common perfect_score=rare hard_mode=uncommon multi_stan=uncommon dedicated_fan=rare

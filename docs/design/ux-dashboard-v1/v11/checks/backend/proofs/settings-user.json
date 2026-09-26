@@ -1,0 +1,198 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:30:36.133Z",
+ "sections": [
+  "Profile",
+  "Fandom",
+  "Your look",
+  "Notifications",
+  "Appearance",
+  "Account"
+ ],
+ "savebarAtRest": 0,
+ "before": {
+  "accent": null,
+  "font": null,
+  "theme": "Pink",
+  "bias": null
+ },
+ "preview": {
+  "cls": "ux-who ux-acc-purple",
+  "bias": "C2BIAS"
+ },
+ "switches": [
+  "Your quizzes=true",
+  "Social=true",
+  "Following=true",
+  "Achievements=true",
+  "From the KpopQuiz team=true",
+  "Streak reminder by email=false (disabled)",
+  "Weekly recap by email=false (disabled)"
+ ],
+ "htmlDark": false,
+ "exportStatus": 200,
+ "afterSignOut": "/",
+ "errors": [
+  "load /settings: Unexpected token '<'",
+  "notifications prefs: toggle social: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/profiles?select=username%2Cdisplay_name%2Cavatar_url%2Cavatar_bg%2Cavatar_text%2Cbio%2Cult_groups%2Cbias%2Cprofile_theme%2Cname_accent%2Cname_font%2Cpinned_badge_id%2Cavatar_kind%2Cavatar_ref%2Cxp%2Cstan_sinc",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/user_badges?select=badge_definitions%21inner%28id%2Cname%29&user_id=eq.<test user id>",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/groups?select=id%2Cslug%2Cname&order=name.asc",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications/prefs",
+   "status": 200
+  },
+  {
+   "step": "load /settings",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "Your look: change accent, font, bias, theme + Save",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/auth/update-profile",
+   "body": "{\"bias\":\"C2BIAS\",\"profile_theme\":\"teal\",\"name_accent\":\"purple\",\"name_font\":\"serif\"}"
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/profiles?select=username%2Cdisplay_name%2Cavatar_url%2Cavatar_bg%2Cavatar_text%2Cbio%2Cult_groups%2Cbias%2Cprofile_theme%2Cname_accent%2Cname_font%2Cpinned_badge_id%2Cavatar_kind%2Cavatar_ref%2Cxp%2Cstan_sinc",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/groups?select=id%2Cslug%2Cname&order=name.asc",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/rest/v1/user_badges?select=badge_definitions%21inner%28id%2Cname%29&user_id=eq.<test user id>",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications/prefs",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "notifications prefs: toggle social",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/notifications/prefs",
+   "body": "{\"categories\":{\"social\":false}}"
+  },
+  {
+   "step": "download your data",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p10/export",
+   "status": 200
+  },
+  {
+   "step": "sign out",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "supabase:/auth/v1/logout?scope=global",
+   "body": null
+  },
+  {
+   "step": "sign out",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/stats/live",
+   "status": 200
+  },
+  {
+   "step": "sign out",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/activity/recent",
+   "status": 200
+  }
+ ]
+}
