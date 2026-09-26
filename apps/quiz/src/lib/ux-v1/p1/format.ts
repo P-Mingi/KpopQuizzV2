@@ -99,6 +99,23 @@ export function groupInitials(name: string): string {
   return (raw || 'K').toUpperCase();
 }
 
+/**
+ * Reorders a row so two neighbours never share the same key (16.8: never the same
+ * photo twice side by side) when another order can avoid it. Keeps every item and,
+ * as far as possible, the original order (a stable greedy pass).
+ */
+export function spreadBy<T>(items: readonly T[], key: (item: T) => string): T[] {
+  const rest = [...items];
+  const out: T[] = [];
+  while (rest.length > 0) {
+    const prev = out.length > 0 ? key(out[out.length - 1]!) : null;
+    let i = rest.findIndex((x) => key(x) !== prev);
+    if (i < 0) i = 0;
+    out.push(rest.splice(i, 1)[0]!);
+  }
+  return out;
+}
+
 /** The quarantine row is not a group (91 rows, 90 visible groups, DESIGN-SPEC 16.10). */
 export function isVisibleGroupSlug(slug: string): boolean {
   return !/^zzz-|quarantine/i.test(slug);

@@ -4,10 +4,15 @@ import {
   addDays, autoSchedule, autoScheduleCompact, pickBankEntryForDate, pickCatalogQotd, qotdRotationFixEnabled,
 } from '@/lib/quiz-bank-scheduling';
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import {
   aboutMinutes, ageLabel, averagePct, countdownLabel, fansLabel, greetingFor, groupInitials, hoursLeftLabel,
-  isVisibleGroupSlug, meanRunSeconds, minutesToUtcMidnight, pickedOnLabel,
+  isVisibleGroupSlug, meanRunSeconds, minutesToUtcMidnight, pickedOnLabel, spreadBy,
 } from './format';
+import { LIVE_HUB_ORDER } from './hubs';
 import { rotateQotd } from './qotd-rotation';
 
 import type { CatalogQuiz, OpenBankEntry, QotdLogRow, QuizBankEntry } from '@/lib/quiz-bank-scheduling';
@@ -264,5 +269,25 @@ describe('format helpers', () => {
     expect(ageLabel('2026-09-25T09:00:00Z', now)).toBe('3 hours ago');
     expect(isVisibleGroupSlug('zzz-quarantine-hidden')).toBe(false);
     expect(isVisibleGroupSlug('bts')).toBe(true);
+  });
+});
+
+describe('home link parity with the live home', () => {
+  it('the groups rail keeps every live hub, in the live order (home-group-pills.tsx ORDER)', () => {
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    const src = fs.readFileSync(path.resolve(here, '../../../components/home/home-group-pills.tsx'), 'utf8');
+    const block = /const ORDER = \[([\s\S]*?)\];/.exec(src)?.[1] ?? '';
+    const live = [...block.matchAll(/'([a-z0-9-]+)'/g)].map((m) => m[1]);
+    expect(live.length).toBeGreaterThan(10);
+    expect([...LIVE_HUB_ORDER]).toEqual(live);
+  });
+
+  it('spreadBy keeps every item and avoids equal neighbours when it can', () => {
+    const row = ['a1', 'a2', 'b1', 'a3', 'c1', 'c2'];
+    const out = spreadBy(row, (x) => x[0]!);
+    expect([...out].sort()).toEqual([...row].sort());
+    for (let i = 1; i < out.length; i++) expect(out[i]![0]).not.toBe(out[i - 1]![0]);
+    expect(spreadBy(['a1', 'a2'], (x) => x[0]!)).toEqual(['a1', 'a2']); // no other order exists
+    expect(spreadBy(['a', 'b', 'c'], (x) => x)).toEqual(['a', 'b', 'c']); // already fine: order kept
   });
 });

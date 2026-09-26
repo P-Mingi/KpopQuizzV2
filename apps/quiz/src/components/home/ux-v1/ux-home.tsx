@@ -24,11 +24,11 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
   const [qotd, groups, community, band] = await Promise.all([
     safeFetch(getHomeQotd(now), null, '[ux-home] qotd'),
     safeFetch(getHomeGroups(), { groups: [], visibleGroups: 0 }, '[ux-home] groups'),
-    safeFetch(getHomeCommunity(now), [], '[ux-home] community'),
+    safeFetch(getHomeCommunity(now), { rows: [], spaces: [] }, '[ux-home] community'),
     safeFetch(getHomeBand(now), { date: now.toISOString().slice(0, 10), fans: 0 }, '[ux-home] band'),
   ]);
   const lists = await safeFetch(
-    getHomeLists(qotd ? [qotd.id] : [], now.getTime()),
+    getHomeLists(qotd ? [qotd.id] : []),
     { trending: [], best: [], fresh: [] },
     '[ux-home] lists',
   );
@@ -61,9 +61,13 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
       {lists.trending.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-trend-h">
           <SectionHeader id="p1-trend-h" icon="flame" title="Trending this week" action={{ href: '/quizzes/popular-this-week', label: 'See all' }} />
-          <UxQuizGrid>
-            {lists.trending.map((q) => <UxQuizCard key={q.id} quiz={q} />)}
-          </UxQuizGrid>
+          {/* Six cards as the live home (four in view at 1440 as the prototype, the
+              rest in the same scrolling row, like the groups rail). */}
+          <div className="p1-trend">
+            <UxQuizGrid>
+              {lists.trending.map((q) => <UxQuizCard key={q.id} quiz={q} />)}
+            </UxQuizGrid>
+          </div>
         </section>
       ) : null}
 
@@ -71,13 +75,13 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
         <section className="ux-sec ux-sec-lg p1-two" aria-label="All time best and new quizzes">
           {lists.best.length > 0 ? (
             <div>
-              <SectionHeader id="p1-best-h" icon="trophy" title="All time best" action={{ href: '/quizzes?sort=most_played', label: 'Most played' }} />
+              <SectionHeader id="p1-best-h" icon="trophy" title="All time best" action={{ href: '/most-liked', label: 'Most liked' }} />
               <BestRows quizzes={lists.best} />
             </div>
           ) : null}
           {lists.fresh.length > 0 ? (
             <div>
-              <SectionHeader id="p1-new-h" icon="star" title="New quizzes" action={{ href: '/quizzes?sort=newest', label: 'See all new' }} />
+              <SectionHeader id="p1-new-h" icon="star" title="New quizzes" action={{ href: '/new', label: 'See all new' }} />
               <NewRows quizzes={lists.fresh} now={now} />
             </div>
           ) : null}
@@ -86,10 +90,10 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       <BlindtestBand fans={band.fans} date={band.date} />
 
-      {community.length > 0 ? (
+      {community.rows.length > 0 || community.spaces.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">
           <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
-          <CommunityRows rows={community} />
+          <CommunityRows rows={community.rows} spaces={community.spaces} />
         </section>
       ) : null}
     </UxPage>

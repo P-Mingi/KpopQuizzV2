@@ -91,6 +91,21 @@
 .p1-gc { font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
 .p1-gc.is-new { color: var(--ux-ink); font-weight: 500; }
 
+/* ---------- trending: the live home's six cards in one row. Four are in view at
+   1440 exactly as the prototype's grid (same card width and gap), the rest scroll
+   in the same row like the groups rail. Room above / below for the hover lift. */
+@media (min-width: 761px) {
+  .p1-trend .ux-qgrid {
+    display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
+    padding: 4px 2px 26px; margin: -4px -2px -26px;
+  }
+  .p1-trend .ux-qgrid::-webkit-scrollbar { display: none; }
+  .p1-trend .ux-qgrid > .ux-qcard { flex: 0 0 calc((100% - 3 * 24px) / 4); scroll-snap-align: start; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .p1-trend .ux-qgrid > .ux-qcard { flex-basis: calc((100% - 2 * 24px) / 3); }
+}
+
 /* ---------- all time best | new quizzes ---------- */
 .p1-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
 .p1-glyph { width: 40px; height: 40px; border-radius: 10px; }
@@ -118,6 +133,15 @@
 @keyframes p1-eqb { 0%, 100% { height: 18px; } 50% { height: 84px; } }
 .p1-stat { font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 14px; text-align: center; }
 .p1-stat b { color: var(--ux-ink); font-weight: 600; }
+/* the prototype's sentence with "see where you rank" as a quiet in-text link */
+.p1-inl { color: inherit; text-decoration: underline; text-decoration-color: var(--ux-edge); text-underline-offset: 3px; }
+.p1-inl:hover { color: var(--ux-pink-ink); text-decoration-color: currentColor; }
+
+/* ---------- community: the live home's Verse space links, one compact line ---------- */
+.p1-spaces { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 0; margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+.p1-spaces > span { margin-right: 8px; }
+.p1-spaces .ux-lnk { font-size: 13px; }
+.p1-spaces i { font-style: normal; margin: 0 8px; opacity: .55; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1100px) {

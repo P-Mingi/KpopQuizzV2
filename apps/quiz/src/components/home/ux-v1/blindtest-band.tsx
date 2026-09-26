@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 import { UxButton, UxLink } from '@/components/ux-v1/button';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
@@ -63,11 +64,13 @@ export function BlindtestBand({ fans, date }: Props): React.ReactElement {
 
   const kick = played ? 'Blindtest of the day · played' : `Blindtest of the day${mins != null ? ` · ${hoursLeftLabel(mins)}` : ''}`;
   const title = scored ? `You scored ${scored.score}/10 today.` : played ? "You played today's blindtest." : 'Ten songs. Same for everyone. One shot.';
-  const body = scored
+  // Unplayed: the prototype's sentence, with "see where you rank" as a real link to
+  // today's board (the live daily card links it too, so the home keeps that link).
+  const body: React.ReactNode = scored
     ? `You are #${scored.rank} of ${fansLabel(Math.max(scored.of, scored.rank))} on today's board.${left ? ` A new daily starts in ${left}.` : ''}`
     : played
       ? (left ? `A new daily starts in ${left}.` : 'A new daily starts at midnight UTC.')
-      : `${fansToday}Guess the song or the artist from a ten-second clip, then see where you rank.`;
+      : <>{fansToday}Guess the song or the artist from a ten-second clip, then <Link href="/blindtest/leaderboard" className="p1-inl">see where you rank</Link>.</>;
   const best = signedIn && mine?.best != null ? mine.best : null;
 
   return (

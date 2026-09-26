@@ -20,6 +20,8 @@ import type { Page } from '@playwright/test';
 // Data checks read the same public tables with the anon key (GET only).
 
 const env = loadTestEnv();
+/** components/home/home-group-pills.tsx ORDER (unit-tested equal to lib/ux-v1/p1/hubs.ts). */
+const LIVE_HUBS = ['general-kpop', 'bts', 'blackpink', 'cortis', 'illit', 'stray-kids', 'twice', 'aespa', 'seventeen', 'newjeans', 'babymonster', 'exo', 'ive', 'enhypen', 'txt', 'le-sserafim', 'itzy'];
 const PINK_RING = /^2px solid rgb\(232, 69, 122\)$/;
 
 /** P1 landmarks: prototype selector -> implementation selector (C1 criteria). */
@@ -66,24 +68,23 @@ test.describe.configure({ timeout: 90_000 });
 const today = (): string => new Date().toISOString().slice(0, 10);
 
 /** The quiz of the day the home must show: the latest stored pick on or before today. */
-async function expectedQotd(): Promise<{ slug: string; title: string; date: string; avg: number | null; questions: number } | null> {
+async function expectedQotd(): Promise<{ slug: string; title: string; date: string | null; avg: number | null; questions: number } | null> {
+  // The live read (lib/db/queries/quizzes.ts getQuizOfTheDay, which the flag-off home
+  // and /daily use): today's flagged pick, else the replay pool (quizzes that were a
+  // pick once, by date) indexed by days since 2026-06-18.
   const d = today();
-  const [{ rows: log }, { rows: flag }] = await Promise.all([
-    rest<{ quiz_id: string; featured_date: string }[]>(`qotd_log?select=quiz_id,featured_date&featured_date=lte.${d}&order=featured_date.desc&limit=3`),
-    rest<{ id: string; quiz_of_the_day_date: string }[]>(`quizzes?select=id,quiz_of_the_day_date&status=eq.published&is_quiz_of_the_day=eq.true&quiz_of_the_day_date=lte.${d}&order=quiz_of_the_day_date.desc&limit=3`),
-  ]);
-  const picks = [...log.map((r) => ({ id: r.quiz_id, date: r.featured_date })), ...flag.map((r) => ({ id: r.id, date: r.quiz_of_the_day_date }))]
-    .sort((a, b) => b.date.localeCompare(a.date));
-  for (const p of picks) {
-    const { rows } = await rest<{ slug: string; title: string; question_count: number; total_score_sum: number; total_completions: number }[]>(
-      `quizzes?select=slug,title,question_count,total_score_sum,total_completions&id=eq.${p.id}&status=eq.published`,
-    );
-    const q = rows[0];
-    if (!q) continue;
-    const avg = q.total_completions >= 3 && q.question_count ? Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100) : null;
-    return { slug: q.slug, title: q.title, date: p.date, avg, questions: q.question_count };
+  type Row = { slug: string; title: string; question_count: number; total_score_sum: number; total_completions: number; quiz_of_the_day_date: string | null };
+  const cols = 'slug,title,question_count,total_score_sum,total_completions,quiz_of_the_day_date';
+  let q: Row | undefined = (await rest<Row[]>(`quizzes?select=${cols}&status=eq.published&is_quiz_of_the_day=eq.true&quiz_of_the_day_date=eq.${d}&limit=1`)).rows[0];
+  if (!q) {
+    const { rows: pool } = await rest<Row[]>(`quizzes?select=${cols}&status=eq.published&quiz_of_the_day_date=not.is.null&order=quiz_of_the_day_date.asc&limit=1000`);
+    if (pool.length === 0) return null;
+    const days = Math.max(0, Math.floor((Date.parse(`${d}T00:00:00Z`) - Date.parse('2026-06-18T00:00:00Z')) / 86_400_000));
+    q = pool[days % pool.length];
   }
-  return null;
+  if (!q) return null;
+  const avg = q.total_completions >= 3 && q.question_count ? Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100) : null;
+  return { slug: q.slug, title: q.title, date: q.quiz_of_the_day_date, avg, questions: q.question_count };
 }
 
 /** Stub every page the home links to (they belong to other agents): a navigation
@@ -198,8 +199,8 @@ for (const theme of THEMES) {
       // No group tag, no question preview (17.10).
       await expect(row.locator('.ux-chip, .ux-qg, [class*="prev"]')).toHaveCount(0);
       const note = (await row.locator('.p1-note').textContent()) ?? '';
-      if (q.date === today()) expect(note).toMatch(/^(New quiz in \d+h \d+m|New quiz in \d+m|Today's pick)$/);
-      else expect(note, 'an old pick is never presented as today\'s').toMatch(/^Picked (yesterday|on [A-Z][a-z]+ \d{1,2}(, \d{4})?)$/);
+      if (q.date === today()) expect(note).toMatch(/^New quiz in (\d+h )?\d+m$/);
+      else expect(note, 'a replayed pick says so, never presented as a new pick').toMatch(/^Replay of (yesterday's pick|the [A-Z][a-z]+ \d{1,2}(, \d{4})? pick) · New quiz in (\d+h )?\d+m$/);
       const play = row.getByRole('link', { name: /^Play the quiz of the day/ });
       await expect(play).toHaveAttribute('href', `/q/${q.slug}?daily=quiz`);
       await play.click();
@@ -217,9 +218,18 @@ for (const theme of THEMES) {
       const { count: groupRows } = await rest<unknown[]>('groups?select=id', true);
       await expect(all, 'visible groups = all rows minus the quarantine row').toHaveText(`All ${(groupRows ?? 1) - 1} groups`);
       const items = sec.locator('a.p1-gitem');
-      expect(await items.count()).toBeLessThanOrEqual(10);
       expect(await items.count()).toBeGreaterThan(0);
       const hrefs = await items.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+      // SEO: every hub the live home links (home-group-pills.tsx ORDER), in its order, first.
+      const { rows: known } = await rest<{ slug: string }[]>(`groups?select=slug&slug=in.(${LIVE_HUBS.join(',')})`);
+      const liveHrefs = LIVE_HUBS.filter((h) => known.some((k) => k.slug === h)).map((h) => `/${h}-quiz`);
+      expect(hrefs.slice(0, liveHrefs.length), 'the live hub links, in the live order').toEqual(liveHrefs);
+      expect(hrefs.length).toBeLessThanOrEqual(liveHrefs.length + 3);
+      // ...and they are in the SERVER HTML (crawlable without JS), with today's board link.
+      const html = await (await page.request.get('/')).text();
+      for (const h of [...liveHrefs, '/groups', '/blindtest/leaderboard', '/blindtest?daily=true']) {
+        expect(html, `server HTML links ${h}`).toContain(`href="${h.replace('&', '&amp;')}"`);
+      }
       for (const h of hrefs) expect(h).toMatch(/^\/[a-z0-9-]+-quiz$/);
       expect(new Set(hrefs).size).toBe(hrefs.length);
       // Counts are PUBLISHED quizzes (16.10), checked on the first two groups.
@@ -243,20 +253,30 @@ for (const theme of THEMES) {
       const trend = page.locator('section[aria-labelledby="p1-trend-h"]');
       await expect(trend.locator('.ux-sec-h a')).toHaveAttribute('href', '/quizzes/popular-this-week');
       const cards = trend.locator('a.ux-qcard');
-      expect(await cards.count()).toBeLessThanOrEqual(4);
-      const photos = await trend.locator('.ux-qcov-img').evaluateAll((imgs) => imgs.map((i) => new URL((i as HTMLImageElement).currentSrc || (i as HTMLImageElement).src).searchParams.get('url') ?? (i as HTMLImageElement).src));
-      expect(new Set(photos).size, 'never the same photo twice in one row (16.8)').toBe(photos.length);
+      expect(await cards.count()).toBeLessThanOrEqual(6);
+      const photos = await cards.evaluateAll((as) => as.map((a) => { const i = a.querySelector('img'); return i ? (new URL(i.currentSrc || i.src).searchParams.get('url') ?? i.src) : `fb:${a.querySelector('.ux-qg')?.textContent ?? ''}`; }));
+      for (let i = 1; i < photos.length; i++) expect(photos[i], 'never the same photo twice side by side (16.8)').not.toBe(photos[i - 1]);
+      if (widthOf(page) > 760) {
+        // Four in view as the prototype's grid, the rest in the same scrolling row.
+        const inView = await cards.evaluateAll((as) => as.filter((a) => { const r = a.getBoundingClientRect(); const p = a.parentElement!.getBoundingClientRect(); return r.left >= p.left - 1 && r.right <= p.right + 1; }).length);
+        expect(inView).toBe(Math.min(4, await cards.count()));
+      }
 
       const best = page.locator('.p1-two > div').filter({ has: page.locator('#p1-best-h') });
-      await expect(best.locator('.ux-sec-h a')).toHaveAttribute('href', '/quizzes?sort=most_played');
+      await expect(best.locator('.ux-sec-h a')).toHaveAttribute('href', '/most-liked');
+      await expect(best.locator('.ux-sec-h a')).toHaveText('Most liked');
       const rn = await best.locator('.ux-rn').allTextContents();
       expect(rn).toEqual(rn.map((_, i) => String(i + 1)));
       expect(await best.locator('.ux-rn.is-top').count()).toBe(Math.min(3, rn.length));
-      const plays = (await best.locator('.ux-rs').allTextContents()).map((t) => Number(t.replace(/.*·\s*/, '').replace(/[^\d]/g, '')));
-      expect([...plays].sort((a, b) => b - a), 'all time best = play_count order').toEqual(plays);
+      // The live "All-time best" read: most liked (like_count, then play_count).
+      const { rows: liked } = await rest<{ slug: string }[]>('quizzes?select=slug&status=eq.published&like_count=gt.0&order=like_count.desc,play_count.desc&limit=12');
+      const bestSlugs = await best.locator('a.ux-row').evaluateAll((as) => as.map((a) => (a.getAttribute('href') ?? '').replace('/q/', '')));
+      const ranks = bestSlugs.map((s) => liked.findIndex((l) => l.slug === s));
+      expect(ranks.every((r) => r >= 0), 'every row is one of the most liked quizzes').toBe(true);
+      expect([...ranks].sort((a, b) => a - b), 'in the most-liked order').toEqual(ranks);
 
       const fresh = page.locator('.p1-two > div').filter({ has: page.locator('#p1-new-h') });
-      await expect(fresh.locator('.ux-sec-h a')).toHaveAttribute('href', '/quizzes?sort=newest');
+      await expect(fresh.locator('.ux-sec-h a')).toHaveAttribute('href', '/new');
       await expect(fresh.locator('.p1-glyph svg').first()).toBeVisible();
       expect((await fresh.locator('.ux-row-end').allTextContents()).every((t) => /ago$|^yesterday$|^just now$/.test(t.trim()))).toBe(true);
 
@@ -279,6 +299,7 @@ for (const theme of THEMES) {
       else expect(p).not.toContain('played today');
       await expect(band.getByRole('link', { name: 'Play the daily' })).toHaveAttribute('href', '/blindtest?daily=true');
       await expect(band.getByRole('link', { name: 'All blindtest modes' })).toHaveAttribute('href', '/blindtest');
+      await expect(band.getByRole('link', { name: 'see where you rank' })).toHaveAttribute('href', '/blindtest/leaderboard');
       await band.getByRole('link', { name: 'Play the daily' }).click();
       await expect(page).toHaveURL(/\/blindtest\?daily=true$/);
 
@@ -305,6 +326,13 @@ for (const theme of THEMES) {
       for (const sub of await rows.locator('.ux-rs').allTextContents()) expect(sub).toMatch(/^(Debate|Thread|Blog) · /);
       const hrefs = await rows.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       for (const h of hrefs) expect(h).toMatch(/^\/(community|verse\/[a-z0-9-]+\/(community|essays)\/[A-Za-z0-9-]+)$/);
+      // While the Verse is public, the live home's Verse space links (one line).
+      const spaces = comm.locator('.p1-spaces a');
+      if (await spaces.count()) {
+        const sh = await spaces.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+        expect(sh[sh.length - 1]).toBe('/verse');
+        for (const h of sh.slice(0, -1)) expect(h).toMatch(/^\/verse\/[a-z0-9-]+$/);
+      }
     });
 
     test('keyboard reaches and operates every home control, pink focus ring', async ({ page }) => {

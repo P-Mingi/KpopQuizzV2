@@ -31,7 +31,7 @@ export function QotdRow({ qotd }: { qotd: HomeQotd }): React.ReactElement {
       <div className="p1-qd-main">
         <div className="p1-qtop">
           <span className="p1-qlab"><Icon name="zap" />Quiz of the day</span>
-          <QotdNote featured={qotd.featuredDate} served={qotd.servedDate} rotates={qotd.rotates} />
+          <QotdNote featured={qotd.featuredDate} served={qotd.servedDate} />
         </div>
         <h2 id="p1-qotd-t">{qotd.title}</h2>
         <p className="p1-qline ux-num">

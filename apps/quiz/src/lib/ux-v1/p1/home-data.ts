@@ -8,15 +8,16 @@ import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { getBrowseQuizzes } from '@/lib/db/queries/quizzes';
-import { getPopularQuizzes } from '@/lib/db/queries/popular';
-import { addDays, qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
-import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
+import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getEssayPage } from '@/lib/verse/essays';
+import { getVerseDirectory } from '@/lib/verse/space-data';
 import { listThreads } from '@/lib/verse/threads';
+import { verseHidden } from '@/lib/verse/visibility';
 
-import { aboutMinutes, averagePct, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, utcDay } from './format';
+import { aboutMinutes, averagePct, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, spreadBy, utcDay } from './format';
+import { LIVE_HUB_ORDER } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -42,79 +43,50 @@ export interface HomeQotd {
   averagePct: number | null;
   /** "about 3 min" from quiz_time_stats (null when there is no timing yet). */
   time: string | null;
-  /** The day it was the quiz of the day (qotd_log / quiz_of_the_day_date). */
-  featuredDate: string;
-  /** UTC day of this read. fresh = featuredDate === servedDate. */
+  /** The day this quiz was picked as the quiz of the day (quizzes.quiz_of_the_day_date). */
+  featuredDate: string | null;
+  /** UTC day of this read. A pick first made on an older day is a replay (see getHomeQotd). */
   servedDate: string;
-  /** A new pick is expected at the next UTC midnight (rotation fix on, or a bank row dated tomorrow). */
-  rotates: boolean;
 }
 
-async function readQotd(today: string): Promise<HomeQotd | null> {
+async function readQotdExtras(id: string): Promise<{ featuredDate: string | null; seconds: number | null }> {
   const db = createPublicReadClient();
-  const [logRes, flagRes] = await Promise.all([
-    db.from('qotd_log').select('quiz_id, featured_date').lte('featured_date', today)
-      .order('featured_date', { ascending: false }).limit(3),
-    db.from('quizzes').select('id, quiz_of_the_day_date').eq('status', 'published').eq('is_quiz_of_the_day', true)
-      .lte('quiz_of_the_day_date', today).order('quiz_of_the_day_date', { ascending: false }).limit(3),
+  const [dateRes, statsRes] = await Promise.all([
+    db.from('quizzes').select('quiz_of_the_day_date').eq('id', id).maybeSingle(),
+    db.from('quiz_time_stats').select('attempt_count, avg_time_seconds, total_questions').eq('quiz_id', id).limit(200),
   ]);
-  must(logRes, 'qotd_log');
-  must(flagRes, 'quizzes qotd flag');
-  const picks: { id: string; date: string }[] = [
-    ...((logRes.data ?? []) as { quiz_id: string; featured_date: string }[]).map((r) => ({ id: r.quiz_id, date: r.featured_date })),
-    ...((flagRes.data ?? []) as { id: string; quiz_of_the_day_date: string }[]).map((r) => ({ id: r.id, date: r.quiz_of_the_day_date })),
-  ].sort((a, b) => b.date.localeCompare(a.date));
-  if (picks.length === 0) return null;
-
-  for (const pick of picks) {
-    const { data } = must(await db.from('quizzes')
-      .select('id, slug, title, quiz_type, difficulty, question_count, total_score_sum, total_completions')
-      .eq('id', pick.id).eq('status', 'published').maybeSingle(), 'qotd quiz');
-    const q = data as {
-      id: string; slug: string; title: string; quiz_type: string; difficulty: string;
-      question_count: number; total_score_sum: number; total_completions: number;
-    } | null;
-    if (!q) continue; // unpublished since: try the previous pick
-
-    const [statsRes, rotates] = await Promise.all([
-      db.from('quiz_time_stats').select('attempt_count, avg_time_seconds, total_questions').eq('quiz_id', q.id).limit(200),
-      nextRotationExpected(today),
-    ]);
-    const stats = must(statsRes, 'quiz_time_stats').data;
-    return {
-      id: q.id,
-      slug: q.slug,
-      title: q.title,
-      quizType: q.quiz_type,
-      difficulty: q.difficulty,
-      questionCount: q.question_count ?? 0,
-      averagePct: averagePct(q.total_score_sum ?? 0, q.total_completions ?? 0, q.question_count ?? 0),
-      time: aboutMinutes(meanRunSeconds((stats ?? []) as { attempt_count: number; avg_time_seconds: number; total_questions: number }[], q.question_count)),
-      featuredDate: pick.date,
-      servedDate: today,
-      rotates,
-    };
-  }
-  return null;
+  const featuredDate = (must(dateRes, 'qotd date').data as { quiz_of_the_day_date: string | null } | null)?.quiz_of_the_day_date ?? null;
+  const stats = must(statsRes, 'quiz_time_stats').data as { attempt_count: number; avg_time_seconds: number; total_questions: number }[] | null;
+  return { featuredDate, seconds: meanRunSeconds(stats ?? []) };
 }
 
-/** True when tomorrow will get a new quiz of the day: the rotation fix is on, or
- *  a verified/scheduled bank row is dated tomorrow (today's cron behaviour). */
-async function nextRotationExpected(today: string): Promise<boolean> {
-  if (qotdRotationFixEnabled()) return true;
-  const db = createServiceRoleClient();
-  const { count } = must(await db.from('quiz_bank').select('id', { count: 'exact', head: true })
-    .eq('scheduled_date', addDays(today, 1)).in('status', ['verified', 'scheduled']), 'quiz_bank tomorrow');
-  return (count ?? 0) > 0;
-}
+const readQotdExtrasCached = unstable_cache(readQotdExtras, ['ux-v1:p1:qotd-extras:v2'], { revalidate: CACHE_TTL.stats, tags: ['quizzes'] });
 
-const readQotdCached = unstable_cache(readQotd, ['ux-v1:p1:qotd:v1'], { revalidate: CACHE_TTL.stats, tags: ['quizzes'] });
-
-/** The current quiz of the day: the latest one stored (qotd_log or the quizzes
- *  flag) on or before today. When rotation is stopped this is an OLD pick, and the
- *  UI says so (featuredDate), it never pretends it is today's. */
-export function getHomeQotd(now: Date = new Date()): Promise<HomeQotd | null> {
-  return readQotdCached(utcDay(now));
+/**
+ * The quiz of the day the whole site serves today: the SAME read as the live home
+ * and /daily (getQuizOfTheDay), so both homes, the daily ritual and the streak agree.
+ * It is today's pick when one was published for today; while the rotation is
+ * stopped it is that read's replay of a past pick (a different one each UTC day),
+ * and featuredDate says on which day it was first picked, so the UI labels it a
+ * replay instead of presenting it as a new pick.
+ */
+export async function getHomeQotd(now: Date = new Date()): Promise<HomeQotd | null> {
+  const q = await getQuizOfTheDay();
+  if (!q) return null;
+  const { featuredDate, seconds } = await readQotdExtrasCached(q.id);
+  const questions = q.question_count ?? 0;
+  return {
+    id: q.id,
+    slug: q.slug,
+    title: q.title,
+    quizType: q.quiz_type,
+    difficulty: q.difficulty,
+    questionCount: questions,
+    averagePct: averagePct(q.total_score_sum ?? 0, q.total_completions ?? 0, questions),
+    time: aboutMinutes(seconds),
+    featuredDate,
+    servedDate: utcDay(now),
+  };
 }
 
 /* ---------------------------------------------------------- groups rail --- */
@@ -126,59 +98,56 @@ export interface RailGroup {
   initials: string;
   /** Published quizzes of the group (not groups.quiz_count, which is stale). */
   quizzes: number;
-  /** Shown with "New quiz" (a quiz published in the last 14 days). */
+  /** Shown with "New quiz" (a quiz published in the last 7 days). */
   isNew: boolean;
 }
 
 export interface HomeGroups { groups: RailGroup[]; visibleGroups: number }
 
-/** Catch-all bucket, not a group (never in a group rail). */
-const NOT_A_GROUP = new Set(['general-kpop']);
-const RAIL_TOP = 8;
-const RAIL_SIZE = 10;
-const NEW_DAYS = 14;
+const NEW_DAYS = 7;
+const MAX_EXTRA = 3;
+
+type GroupRow = { id: number; slug: string; name: string };
 
 async function readGroups(): Promise<HomeGroups> {
   const db = createPublicReadClient();
   const [rows, groupsRes] = await Promise.all([
-    fetchAllRows<{ group_id: number | null; play_count: number; created_at: string }>(
-      () => db.from('quizzes').select('group_id, play_count, created_at').eq('status', 'published').order('id'),
+    fetchAllRows<{ group_id: number | null; created_at: string }>(
+      () => db.from('quizzes').select('group_id, created_at').eq('status', 'published').order('id'),
     ),
     db.from('groups').select('id, slug, name'),
   ]);
   must(groupsRes, 'groups');
-  const groups = ((groupsRes.data ?? []) as { id: number; slug: string; name: string }[]).filter((g) => isVisibleGroupSlug(g.slug));
-  const stats = new Map<number, { quizzes: number; plays: number; newest: string }>();
+  const groups = ((groupsRes.data ?? []) as GroupRow[]).filter((g) => isVisibleGroupSlug(g.slug));
+  const stats = new Map<number, { quizzes: number; newest: string }>();
   for (const r of rows) {
     if (r.group_id == null) continue;
-    const s = stats.get(r.group_id) ?? { quizzes: 0, plays: 0, newest: '' };
-    s.quizzes += 1;
-    s.plays += r.play_count ?? 0;
-    if (r.created_at > s.newest) s.newest = r.created_at;
-    stats.set(r.group_id, s);
+    const st = stats.get(r.group_id) ?? { quizzes: 0, newest: '' };
+    st.quizzes += 1;
+    if (r.created_at > st.newest) st.newest = r.created_at;
+    stats.set(r.group_id, st);
   }
-  const playable = groups
-    .filter((g) => !NOT_A_GROUP.has(g.slug) && (stats.get(g.id)?.quizzes ?? 0) > 0)
-    .map((g) => ({ g, s: stats.get(g.id)! }));
-  const byPlays = [...playable].sort((a, b) => b.s.plays - a.s.plays || a.g.name.localeCompare(b.g.name));
-  const top = byPlays.slice(0, RAIL_TOP);
-  const inTop = new Set(top.map((x) => x.g.id));
   const since = new Date(Date.now() - NEW_DAYS * 86_400_000).toISOString();
-  const fresh = playable
-    .filter((x) => !inTop.has(x.g.id) && x.s.newest >= since)
-    .sort((a, b) => b.s.newest.localeCompare(a.s.newest))
-    .slice(0, RAIL_SIZE - top.length);
-  const fill = byPlays.filter((x) => !inTop.has(x.g.id) && !fresh.includes(x)).slice(0, RAIL_SIZE - top.length - fresh.length);
-  const toRail = (x: { g: { slug: string; name: string }; s: { quizzes: number } }, isNew: boolean): RailGroup => ({
-    slug: x.g.slug, name: x.g.name, photo: groupPhotoUrl(x.g.slug), initials: groupInitials(x.g.name), quizzes: x.s.quizzes, isNew,
-  });
-  return {
-    groups: [...top.map((x) => toRail(x, false)), ...fill.map((x) => toRail(x, false)), ...fresh.map((x) => toRail(x, true))],
-    visibleGroups: groups.length,
+  const bySlug = new Map(groups.map((g) => [g.slug, g]));
+  const toRail = (g: GroupRow): RailGroup => {
+    const st = stats.get(g.id) ?? { quizzes: 0, newest: '' };
+    return {
+      slug: g.slug, name: g.name, photo: groupPhotoUrl(g.slug), initials: groupInitials(g.name),
+      quizzes: st.quizzes, isNew: st.newest !== '' && st.newest >= since,
+    };
   };
+  // Every live hub, in the live order (as on the live home), then up to 3 more
+  // groups with a quiz published in the last 7 days.
+  const live = LIVE_HUB_ORDER.map((slug) => bySlug.get(slug)).filter((g): g is GroupRow => !!g);
+  const inLive = new Set(live.map((g) => g.slug));
+  const extra = groups
+    .filter((g) => !inLive.has(g.slug) && (stats.get(g.id)?.newest ?? '') >= since)
+    .sort((a, b) => (stats.get(b.id)?.newest ?? '').localeCompare(stats.get(a.id)?.newest ?? ''))
+    .slice(0, MAX_EXTRA);
+  return { groups: [...live, ...extra].map(toRail), visibleGroups: groups.length };
 }
 
-export const getHomeGroups = unstable_cache(readGroups, ['ux-v1:p1:groups:v1'], { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] });
+export const getHomeGroups = unstable_cache(readGroups, ['ux-v1:p1:groups:v2'], { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] });
 
 /* ------------------------------------------------------------ quiz rows --- */
 
@@ -188,42 +157,57 @@ export interface HomeLists {
   fresh: QuizCardData[];
 }
 
-/** Trending this week (real plays of the last 7 days, /quizzes/popular-this-week's
- *  query; the 30-day browse "trending" when the week is too quiet), All time best
- *  (play_count), New quizzes (created_at). No quiz appears twice (16.7), the quiz
- *  of the day included. */
-export async function getHomeLists(exclude: string[] = [], now: number = Date.now()): Promise<HomeLists> {
-  const [popular, browseTrending, mostPlayed, newest] = await Promise.all([
-    getPopularQuizzes('week', now).catch(() => null),
-    getBrowseQuizzes({ sort: 'trending', offset: 0, limit: 16 }).catch(() => [] as QuizCardData[]),
-    getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 16 }),
-    getBrowseQuizzes({ sort: 'new', offset: 0, limit: 16 }),
+/** Six of each, as the live home: it links 6 trending, 6 most liked and 6 new quizzes. */
+export const LIST_SIZE = 6;
+
+const getMostLikedCached = unstable_cache(
+  () => getMostLikedQuizzes(0, 12),
+  ['ux-v1:p1:most-liked:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
+
+/**
+ * The three quiz lists, from the SAME queries as the live home's rails (WIRING-MAP
+ * section 1: EXISTS, same query), so the v11 home links every quiz the live home
+ * links: Trending this week (the live trending read: quizzes of the last 30 days by
+ * plays), All time best (the live "All-time best": most liked), New quizzes
+ * (newest). No quiz appears twice (16.7): a quiz already shown (the quiz of the day,
+ * then an earlier list) is skipped and the list takes the next one.
+ */
+export async function getHomeLists(exclude: string[] = []): Promise<HomeLists> {
+  const [trendingSrc, likedSrc, newestSrc] = await Promise.all([
+    getBrowseQuizzes({ sort: 'trending', offset: 0, limit: 12 }),
+    getMostLikedCached(),
+    getBrowseQuizzes({ sort: 'new', offset: 0, limit: 12 }),
   ]);
   const seen = new Set(exclude);
-  const take = (list: QuizCardData[], n: number, ok: (q: QuizCardData, picked: QuizCardData[]) => boolean = () => true): QuizCardData[] => {
+  const take = (list: QuizCardData[]): QuizCardData[] => {
     const out: QuizCardData[] = [];
     for (const q of list) {
-      if (out.length >= n) break;
-      if (seen.has(q.id) || !ok(q, out)) continue;
+      if (out.length >= LIST_SIZE) break;
+      if (seen.has(q.id)) continue;
       seen.add(q.id);
       out.push(q);
     }
     return out;
   };
-  // 16.8: never the same photo twice in one row. A card without its own cover
-  // shows its group photo, so a second quiz of the same group waits its turn.
-  const distinctPhoto = (q: QuizCardData, picked: QuizCardData[]): boolean =>
-    !!q.cover_image_url || !picked.some((p) => !p.cover_image_url && p.group_slug === q.group_slug);
-  const week = popular && popular.state !== 'fallback' ? popular.rows.map((r) => r.card) : [];
-  const pool = [...week, ...browseTrending];
-  const trending = take(pool, 4, distinctPhoto);
-  if (trending.length < 4) trending.push(...take(pool, 4 - trending.length));
-  const best = take(mostPlayed, 5);
-  const fresh = take(newest, 5);
+  // 16.8: never the same photo twice side by side. A card without its own cover
+  // shows its group's photo (or its typographic cover), so group = photo.
+  const trending = spreadBy(take(trendingSrc), (q) => q.cover_image_url ?? `group:${q.group_slug}`);
+  const best = take(likedSrc);
+  const fresh = take(newestSrc);
   return { trending, best, fresh };
 }
 
 /* -------------------------------------------------------- community rows --- */
+
+export interface VerseSpaceLink { slug: string; label: string; name: string }
+
+export interface HomeCommunity {
+  rows: CommunityRow[];
+  /** The live home's "Fandom spaces on Verse" links (only while the Verse is public). */
+  spaces: VerseSpaceLink[];
+}
 
 export interface CommunityRow {
   kind: 'debate' | 'thread' | 'blog';
@@ -234,9 +218,10 @@ export interface CommunityRow {
   avatar: { name: string; photo: string | null; initials: string };
 }
 
-async function readCommunity(today: string): Promise<CommunityRow[]> {
+async function readCommunity(today: string): Promise<HomeCommunity> {
   const db = createPublicReadClient();
   const rows: CommunityRow[] = [];
+  const spaces: VerseSpaceLink[] = [];
 
   // Daily debate (read only: never ensure_daily_debate, which writes).
   const { data: dd } = must(await db.from('daily_debates').select('date, question_id').lte('date', today)
@@ -258,6 +243,17 @@ async function readCommunity(today: string): Promise<CommunityRow[]> {
         avatar: { name: 'General K-pop', photo: null, initials: 'K' },
       });
     }
+  }
+
+  // Verse content only while the Verse is public (VERSE_PUBLIC, the same switch as
+  // the live home's Verse strip: no Verse entry point on the Play home before that).
+  if (verseHidden()) return { rows, spaces };
+
+  // The live home's "Fandom spaces on Verse" strip: the first 4 directory tiles,
+  // shown when there are at least 3 (components/verse/verse-home-strip.tsx).
+  const tiles = await getVerseDirectory();
+  if (tiles.length >= 3) {
+    for (const t of tiles.slice(0, 4)) spaces.push({ slug: t.slug, label: t.fandom_name || t.name, name: t.name });
   }
 
   // Verse threads and essays: only spaces that opted into the cross-space feed
@@ -308,14 +304,15 @@ async function readCommunity(today: string): Promise<CommunityRow[]> {
     }
   }
 
-  return rows.sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3);
+  return { rows: rows.sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3), spaces };
 }
 
-const readCommunityCached = unstable_cache(readCommunity, ['ux-v1:p1:community:v1'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+const readCommunityCached = unstable_cache(readCommunity, ['ux-v1:p1:community:v2'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
 
-/** Up to 3 real community rows (daily debate, latest thread, latest featured
- *  essay), newest first. Empty = the section hides (min-gate). */
-export function getHomeCommunity(now: Date = new Date()): Promise<CommunityRow[]> {
+/** Up to 3 real community rows (daily debate; while the Verse is public, the latest
+ *  thread and featured essay too), newest first, plus the Verse space links. Empty =
+ *  the section hides (min-gate). */
+export function getHomeCommunity(now: Date = new Date()): Promise<HomeCommunity> {
   return readCommunityCached(utcDay(now));
 }
 
