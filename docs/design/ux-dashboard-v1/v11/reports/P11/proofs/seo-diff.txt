@@ -1,0 +1,86 @@
+# P11 SEO + link-set diff, 2026-09-26T08:08Z
+# A = flag OFF (next start :4112), B = flag ON (next start :4113), both built from ux11/p11-notifications 69b410c
+# (the flag-on build carries A0's committed slot defaults; the P11 slot content is client-only and never in server HTML)
+
+## /search (guest)
+same  status: 200
+same  location: null
+same  title: "Search | KpopQuiz"
+same  description: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+same  robots: "noindex, follow"
+same  canonical: null
+same  hreflang: ""
+same  social: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:image:height=630 og:image:width=1200 og:image=https://kpopquiz.org/og-default.png og:locale=en_US og:site_name=KpopQuiz og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:type=website twitter:card=summary_large_image twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. twitter:image=https://kpopquiz.org/og-default.png twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+same  jsonld: "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}\n{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"
+same  h1: "Search"
+links: A (flag off) 20, B (flag on) 35, lost 0, added 15
+  added: /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  A set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse
+  B set: / /about /aespa-quiz /articles /ateez-quiz /blackpink-quiz /blindtest /blindtest/ranked /bts-quiz /community /contact /create /daily /data/knowledge-report-2026 /data/pulse /dmca /faq /groups /leaderboard /new /newjeans-quiz /news /privacy /profile /quizzes /quizzes/popular-this-week /search /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /twice-quiz /verse
+
+## /search?q=bts (guest)
+same  status: 200
+same  location: null
+same  title: "Search: bts | KpopQuiz"
+same  description: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+same  robots: "noindex, follow"
+same  canonical: null
+same  hreflang: ""
+same  social: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:image:height=630 og:image:width=1200 og:image=https://kpopquiz.org/og-default.png og:locale=en_US og:site_name=KpopQuiz og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:type=website twitter:card=summary_large_image twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. twitter:image=https://kpopquiz.org/og-default.png twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+same  jsonld: "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}\n{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"
+same  h1: "Search"
+links: A (flag off) 36, B (flag on) 51, lost 0, added 15
+  added: /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  A set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /q/bts-arirang-comeback-quiz /q/bts-concerts-and-tour-moments-quiz /q/bts-debut-era-how-well-do-you-remember /q/bts-discography-challenge /q/bts-map-of-the-soul-era /q/bts-members-know-your-biases /q/bts-members-real-names-complete-test /q/bts-solo-era-quiz-match-the-member-to-the-music /q/bts-true-or-false-test-your-army-knowledge /q/bts-wings-era-deep-dive /q/guess-the-bts-member-from-clues /q/ultimate-bts-era-quiz-only-real-armys-survive /quizzes /quizzes/popular-this-week /quizzes?group=bts /search /stats /terms /trivia /u/btsarmy4life_kiara /u/fj_bp_skz_bts /verse /verse/bts
+  B set: / /about /aespa-quiz /articles /ateez-quiz /blackpink-quiz /blindtest /blindtest/ranked /bts-quiz /community /contact /create /daily /data/knowledge-report-2026 /data/pulse /dmca /faq /groups /leaderboard /new /newjeans-quiz /news /privacy /profile /q/bts-arirang-comeback-quiz /q/bts-concerts-and-tour-moments-quiz /q/bts-debut-era-how-well-do-you-remember /q/bts-discography-challenge /q/bts-map-of-the-soul-era /q/bts-members-know-your-biases /q/bts-members-real-names-complete-test /q/bts-solo-era-quiz-match-the-member-to-the-music /q/bts-true-or-false-test-your-army-knowledge /q/bts-wings-era-deep-dive /q/guess-the-bts-member-from-clues /q/ultimate-bts-era-quiz-only-real-armys-survive /quizzes /quizzes/popular-this-week /quizzes?group=bts /search /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /twice-quiz /u/btsarmy4life_kiara /u/fj_bp_skz_bts /verse /verse/bts
+
+## /search?q=zzzzqx (guest)
+same  status: 200
+same  location: null
+same  title: "Search: zzzzqx | KpopQuiz"
+same  description: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+same  robots: "noindex, follow"
+same  canonical: null
+same  hreflang: ""
+same  social: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:image:height=630 og:image:width=1200 og:image=https://kpopquiz.org/og-default.png og:locale=en_US og:site_name=KpopQuiz og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:type=website twitter:card=summary_large_image twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. twitter:image=https://kpopquiz.org/og-default.png twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+same  jsonld: "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}\n{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"
+same  h1: "Search"
+links: A (flag off) 26, B (flag on) 41, lost 0, added 15
+  added: /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  A set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /q/blackpink-ultimate-fan-challenge /q/bts-solo-era-quiz-match-the-member-to-the-music /q/k-pop-company-quiz-match-the-group-to-the-label /q/skz-true-or-false-only-real-stays-pass /q/ultimate-bts-era-quiz-only-real-armys-survive /q/which-k-pop-group-debuted-first-timeline-challenge /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse
+  B set: / /about /aespa-quiz /articles /ateez-quiz /blackpink-quiz /blindtest /blindtest/ranked /bts-quiz /community /contact /create /daily /data/knowledge-report-2026 /data/pulse /dmca /faq /groups /leaderboard /new /newjeans-quiz /news /privacy /profile /q/blackpink-ultimate-fan-challenge /q/bts-solo-era-quiz-match-the-member-to-the-music /q/k-pop-company-quiz-match-the-group-to-the-label /q/skz-true-or-false-only-real-stays-pass /q/ultimate-bts-era-quiz-only-real-armys-survive /q/which-k-pop-group-debuted-first-timeline-challenge /quizzes /quizzes/popular-this-week /search /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /twice-quiz /verse
+
+## /notifications (guest)
+same  status: 307
+same  location: "/login"
+same  title: "Notifications | KpopQuiz"
+same  description: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+same  robots: "noindex, nofollow"
+same  canonical: null
+same  hreflang: ""
+same  social: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:image:height=630 og:image:width=1200 og:image=https://kpopquiz.org/og-default.png og:locale=en_US og:site_name=KpopQuiz og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:type=website twitter:card=summary_large_image twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. twitter:image=https://kpopquiz.org/og-default.png twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+same  jsonld: ""
+same  h1: ""
+links: A (flag off) 0, B (flag on) 0, lost 0, added 0
+  A set: 
+  B set: 
+
+RESULT: no SEO difference, no lost link
+
+## /notifications (signed in: test user)
+same  status: 200
+same  location: null
+same  title: "Notifications | KpopQuiz"
+same  description: "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."
+same  robots: "noindex, nofollow"
+same  canonical: null
+same  hreflang: ""
+same  social: "og:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. og:image:alt=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:image:height=630 og:image:width=1200 og:image=https://kpopquiz.org/og-default.png og:locale=en_US og:site_name=KpopQuiz og:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans og:type=website twitter:card=summary_large_image twitter:description=Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands. twitter:image=https://kpopquiz.org/og-default.png twitter:title=KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"
+same  jsonld: "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://kpopquiz.org/logo-512.png\",\"name\":\"KpopQuiz\",\"sameAs\":[\"https://www.reddit.com/r/Kpop_Verse/\",\"https://discord.gg/X7AW95WFT\",\"https://www.pinterest.com/kpopquizorg/\",\"https://www.tiktok.com/@kpopquiz.org\",\"https://www.youtube.com/@kpopquizorg\",\"https://www.instagram.com/kpopquiz.org/\"],\"url\":\"https://kpopquiz.org\"}\n{\"@context\":\"https://schema.org\",\"@type\":\"SiteNavigationElement\",\"hasPart\":[{\"@type\":\"WebPage\",\"name\":\"Quizzes\",\"url\":\"https://kpopquiz.org/quizzes\"},{\"@type\":\"WebPage\",\"name\":\"Blind Test\",\"url\":\"https://kpopquiz.org/blindtest\"},{\"@type\":\"WebPage\",\"name\":\"Leaderboard\",\"url\":\"https://kpopquiz.org/leaderboard\"},{\"@type\":\"WebPage\",\"name\":\"Trivia\",\"url\":\"https://kpopquiz.org/trivia\"}],\"name\":\"Main Navigation\"}"
+same  h1: "Notifications"
+links: A (flag off) 20, B (flag on) 36, lost 0, added 16
+  added: /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /settings /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+  A set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse
+  B set: / /about /aespa-quiz /articles /ateez-quiz /blackpink-quiz /blindtest /blindtest/ranked /bts-quiz /community /contact /create /daily /data/knowledge-report-2026 /data/pulse /dmca /faq /groups /leaderboard /new /newjeans-quiz /news /privacy /profile /quizzes /quizzes/popular-this-week /search /settings /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /twice-quiz /verse
+
+RESULT: no SEO difference, no lost link
