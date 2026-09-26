@@ -10,6 +10,7 @@
 
 import { unstable_cache } from 'next/cache';
 
+import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { isNextInternalError } from '@/lib/error-handling';
 import { fetchAllRows } from '@/lib/db/fetch-all';
@@ -89,6 +90,22 @@ export async function readSongCount(): Promise<number> {
 }
 
 export const getSongCount = unstable_cache(readSongCount, ['ux11:p6:song-count:v1'], { revalidate: CACHE_TTL.catalog, tags: ['songs'] });
+
+/** The playable group playlists (lib/blind-test-playlists.ts, THE rule), in the
+ *  data cache at the catalog TTL: the read pages through every active song, so the
+ *  hub does it once per TTL instead of once per render. That read swallows its
+ *  errors and returns no group; no playable group cannot be real, so it throws
+ *  here and nothing is stored. */
+export async function readPlayableGroups(): Promise<BtGroup[]> {
+  const { groups } = await getAdvertisablePlaylists();
+  if (groups.length === 0) throw new Error('[p6 playlists] empty read');
+  return groups.map((g) => ({ slug: g.slug, name: g.name, songs: g.songs }));
+}
+
+export const getPlayableGroups = unstable_cache(readPlayableGroups, ['ux11:p6:playable-groups:v1'], {
+  revalidate: CACHE_TTL.catalog,
+  tags: ['songs', 'groups'],
+});
 
 /**
  * The six popular group playlists (DESIGN-SPEC 17.5): most blindtest plays over

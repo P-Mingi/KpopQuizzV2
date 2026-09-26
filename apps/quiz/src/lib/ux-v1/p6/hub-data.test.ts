@@ -39,9 +39,14 @@ vi.mock('@/lib/supabase/server', () => ({
   },
 }));
 
+const playlists: { groups: { slug: string; name: string; songs: number }[] }[] = [];
+vi.mock('@/lib/blind-test-playlists', () => ({
+  getAdvertisablePlaylists: async () => { reads++; return playlists.shift() ?? { staticModes: [], groups: [] }; },
+}));
+
 const mod = await import('./hub-data');
 
-beforeEach(() => { script.length = 0; rows.length = 0; reads = 0; });
+beforeEach(() => { script.length = 0; rows.length = 0; playlists.length = 0; reads = 0; });
 
 describe('C3-009: a failed read is never cached', () => {
   it('today players: an error throws, is not stored, and the next call reads again', async () => {
@@ -83,6 +88,14 @@ describe('C3-009: a failed read is never cached', () => {
     await expect(mod.getGroupPopularity()).rejects.toThrow('empty read');
     rows.push({ data: [{ mode_id: 'group-bts' }], error: null }, { data: [{ group_id: 1, play_count: 9 }], error: null }, { data: [{ id: 1, slug: 'bts' }], error: null });
     await expect(mod.getGroupPopularity()).resolves.toEqual({ blindtest: { bts: 1 }, quiz: { bts: 9 } });
+  });
+
+  it('playable groups: the live read returns no group on an error; that throws and is not stored', async () => {
+    playlists.push({ groups: [] }, { groups: [{ slug: 'bts', name: 'BTS', songs: 18 }] });
+    await expect(mod.getPlayableGroups()).rejects.toThrow('[p6 playlists] empty read');
+    await expect(mod.getPlayableGroups()).resolves.toEqual([{ slug: 'bts', name: 'BTS', songs: 18 }]);
+    await expect(mod.getPlayableGroups()).resolves.toEqual([{ slug: 'bts', name: 'BTS', songs: 18 }]);
+    expect(reads).toBe(2);
   });
 
   it('settle: a failed or slow read gives the fail-soft value with ok = false; a good one ok = true', async () => {

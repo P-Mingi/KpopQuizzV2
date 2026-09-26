@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
-import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
-import { getGroupPopularity, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
+import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import {
@@ -53,20 +52,19 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
   const db = hasDbEnv();
   const none = async <T,>(v: T): Promise<T> => v;
   const [playlists, songs, popularity, today] = await Promise.all([
-    settle(db ? () => getAdvertisablePlaylists() : () => none({ staticModes: [], groups: [] }), { staticModes: [], groups: [] }),
+    settle(db ? () => getPlayableGroups() : () => none<BtGroup[]>([]), [] as BtGroup[]),
     settle(db ? () => getSongCount() : () => none(0), 0),
     settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }),
     settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0),
   ]);
   const failed = [
-    // getAdvertisablePlaylists swallows its errors: no playable group cannot be real.
-    ...(!playlists.ok || (db && playlists.value.groups.length === 0) ? ['playlists'] : []),
+    ...(playlists.ok ? [] : ['playlists']),
     ...(songs.ok ? [] : ['songs']),
     ...(popularity.ok ? [] : ['popularity']),
     ...(today.ok ? [] : ['today']),
   ];
   keepLastGoodCopyOnFailure(failed);
-  const groups: BtGroup[] = playlists.value.groups.map((g) => ({ slug: g.slug, name: g.name, songs: g.songs }));
+  const groups: BtGroup[] = playlists.value;
   const popular = popularSix(groups, popularity.value);
 
   return (
