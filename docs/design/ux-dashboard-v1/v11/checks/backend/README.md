@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 108 |
-| FAIL | 5 |
-| NOT VERIFIED | 9 |
+| PASS | 129 |
+| FAIL | 7 |
+| NOT VERIFIED | 10 |
 | PENDING | 0 |
-| N/A | 13 |
-| TODO | 132 |
+| N/A | 16 |
+| TODO | 105 |
 | Total | 267 |
 
 ## Rows
@@ -165,24 +165,24 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R176](R176.md) | P8 | Badge watch | EXISTS | PASS | - |
 | [R177](R177.md) | P8 | Community pulse (live, plays, quizzes, groups) | EXISTS | PASS | - |
 | [R178](R178.md) | P8 | Cheer (heart on an event) | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
-| R184 | 8. | Breadcrumb, H1, intro paragraph | - | TODO | - |
-| R185 | 8. | Photo hero | - | TODO | - |
-| R186 | 8. | Play the top quiz | - | TODO | - |
-| R187 | 8. | Blindtest N songs | - | TODO | - |
-| R188 | 8. | From the community (3 rows) + composer | - | TODO | - |
-| R189 | 8. | Facts strip (gen, members, debut, label, quizzes, plays) | - | TODO | - |
-| R190 | 8. | Updated month | - | TODO | - |
-| R191 | 8. | Tiles quizzes / blind test | - | TODO | - |
-| R192 | 8. | Sort tabs Popular / Newest / Most liked / Hardest | - | TODO | - |
-| R193 | 8. | Type + level chips | - | TODO | - |
-| R194 | 8. | Quiz grid (avg %, likes) | - | TODO | - |
-| R195 | 8. | Show all N | - | TODO | - |
-| R196 | 8. | FAQ (fact-gated, 2 columns) | - | TODO | - |
-| R197 | 8. | Learn before you play (trivia) | - | TODO | - |
-| R198 | 8. | Fandom war line | - | TODO | - |
-| R199 | 8. | Make a group quiz | - | TODO | - |
-| R200 | 8. | Live room panel | - | TODO | - |
-| R201 | 8. | Verse links | - | TODO | - |
+| [R184](R184.md) | P3 | Breadcrumb, H1, intro paragraph | EXISTS | PASS | - |
+| [R185](R185.md) | P3 | Photo hero | EXISTS | PASS | - |
+| [R186](R186.md) | P3 | Play the top quiz | EXISTS | PASS | - |
+| [R187](R187.md) | P3 | Blindtest N songs | EXISTS | PASS | - |
+| [R188](R188.md) | P3 | From the community (3 rows) + composer | PARTIAL | FAIL (C2-007: empty-state CTA); the rows themselves PASS | C2-007 |
+| [R189](R189.md) | P3 | Facts strip (gen, members, debut, label, quizzes, plays) | EXISTS | PASS | - |
+| [R190](R190.md) | P3 | Updated month | EXISTS | PASS (SEO diff SAME, P3) | - |
+| [R191](R191.md) | P3 | Tiles quizzes / blind test | EXISTS | PASS | - |
+| [R192](R192.md) | P3 | Sort tabs Popular / Newest / Most liked / Hardest | EXISTS | PASS | - |
+| [R193](R193.md) | P3 | Type + level chips | EXISTS | PASS (p3.spec; local filter) | - |
+| [R194](R194.md) | P3 | Quiz grid (avg %, likes) | EXISTS | PASS | - |
+| [R195](R195.md) | P3 | Show all N | EXISTS | PASS | - |
+| [R196](R196.md) | P3 | FAQ (fact-gated, 2 columns) | EXISTS | PASS (FAQ text + FAQPage kept, P3 SEO diff) | - |
+| [R197](R197.md) | P3 | Learn before you play (trivia) | EXISTS | PASS | - |
+| [R198](R198.md) | P3 | Fandom war line | EXISTS | PASS | - |
+| [R199](R199.md) | P3 (link) / P5 (prefill) | Make a group quiz | EXISTS | PASS | - |
+| [R200](R200.md) | P3 | Live room panel | NEW | N/A (live rooms not shipped: removed until rooms exist, 16.7) | - |
+| [R201](R201.md) | P3 | Verse links | drop from this page | FAIL (C2-006: the kept link is a 404 for parked spaces; owner decision 21) | C2-006 |
 | R207 | 9. | Header (theme, avatar, name font/colour, level title, meta) | - | TODO | - |
 | R208 | 9. | XP bar | - | TODO | - |
 | R209 | 9. | Stats (streak, mastered, quizzes made, plays received) | - | TODO | - |
@@ -193,13 +193,13 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R214 | 9. | Preferences: sound, email on replies | - | TODO | - |
 | R215 | 9. | Appearance System / Light / Dark | - | TODO | - |
 | R216 | 9. | Public passport `/u/[username]` | - | TODO | - |
-| R222 | 10. | Fandom war podium + board + weekly delta | - | TODO | - |
-| R223 | 10. | Your fandom card | - | TODO | - |
-| R224 | 10. | How points work | - | TODO | - |
-| R225 | 10. | Last weeks | - | TODO | - |
-| R226 | 10. | Players tab | - | TODO | - |
-| R227 | 10. | Creators tab | - | TODO | - |
-| R228 | 10. | Streak leaders | - | TODO | - |
+| [R222](R222.md) | P9 | Fandom war podium + board + weekly delta | EXISTS | PASS | - |
+| [R223](R223.md) | P9 | Your fandom card | EXISTS | PASS (no main group case); a main-group pin NOT VERIFIED live (the test user has no ult_groups; setting one = a write) | - |
+| [R224](R224.md) | P9 | How points work | PARTIAL | PASS (copy states the real rule, P9 section 4) | - |
+| [R225](R225.md) | P9 | Last weeks | NEW | N/A (not in the v11 prototype) | - |
+| [R226](R226.md) | P9 | Players tab | EXISTS | PASS | - |
+| [R227](R227.md) | P9 | Creators tab | EXISTS | PASS | - |
+| [R228](R228.md) | P9 | Streak leaders | EXISTS | N/A (not in the v11 prototype) | - |
 | R234 | 11. | List grouped by day, unread state | - | TODO | - |
 | R235 | 11. | Tabs = 5 categories | - | TODO | - |
 | R236 | 11. | Row icon per type | - | TODO | - |
@@ -285,8 +285,8 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R348 | v10 | Blindtest results · Song row play button | - | TODO | - |
 | R349 | v10 | Blindtest · Daily one try | - | TODO | - |
 | R350 | v10 | Ranked · Target number | - | TODO | - |
-| R351 | v10 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | - | TODO | - |
-| R352 | v10 | Group hub · Empty group (0 quizzes) | - | TODO | - |
+| [R351](R351.md) | P3 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | Server-rendered; counts from published quizzes | PASS | - |
+| [R352](R352.md) | P3 | Group hub · Empty group (0 quizzes) | Make the first quiz + Notify me; noindex until 3 quizzes | NOT VERIFIED until v11-p3-group-quiz-alerts.sql (fail-soft proven) | - |
 | [R353](R353.md) | P8 | Community · Composer, tabs, mobile rail blocks | As section 16.7 | PASS (see R164 to R169) | - |
 | [R354](R354.md) | P8 | Post · Reply field | Real field, score chip | PASS (payloads) | - |
 | R355 | v10 | Passport · Band default | - | TODO | - |

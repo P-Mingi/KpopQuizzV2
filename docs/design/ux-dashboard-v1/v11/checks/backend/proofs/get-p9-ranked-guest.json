@@ -1,0 +1,35 @@
+[
+ {
+  "who": "guest",
+  "path": "/api/ux-v1/p9/standing",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": false,
+   "me": null,
+   "war": null,
+   "player": null,
+   "creator": null
+  }
+ },
+ {
+  "who": "guest",
+  "path": "/api/ranked/me",
+  "status": 503,
+  "contentType": "application/json",
+  "body": {
+   "ranked": "not_live",
+   "reason": "migration_missing"
+  }
+ },
+ {
+  "who": "guest",
+  "path": "/api/ranked/ladder?scope=global",
+  "status": 503,
+  "contentType": "application/json",
+  "body": {
+   "ranked": "not_live",
+   "reason": "migration_missing"
+  }
+ }
+]

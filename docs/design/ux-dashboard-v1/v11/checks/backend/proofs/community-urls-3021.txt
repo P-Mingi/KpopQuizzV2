@@ -15,3 +15,7 @@
 /community/challenge/1 -> 404 (final 404 http://localhost:3021/community/challenge/1)
 /community/debate/2030-01-01 -> 404 (final 404 http://localhost:3021/community/debate/2030-01-01)
 /community/nope/1 -> 404 (final 404 http://localhost:3021/community/nope/1)
+/verse/ateez -> 404 (final 404 http://localhost:3021/verse/ateez)
+/blackpink-quiz?page=2 -> 200 (final 200 http://localhost:3021/blackpink-quiz?page=2)
+/create?group=blackpink -> 200 (final 200 http://localhost:3021/create?group=blackpink)
+/blackpink-trivia -> 200 (final 200 http://localhost:3021/blackpink-trivia)

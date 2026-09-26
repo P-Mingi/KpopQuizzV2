@@ -1,0 +1,255 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:10:59.805Z",
+ "blackpink": {
+  "h1": "BLACKPINK Quiz - Test How Well You Know BLACKPINK",
+  "lead": "BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,906 plays and counting.",
+  "eyebrow": "BLINK · 3rd gen · YG Entertainment",
+  "hero": [
+   "Play the top quiz -> /q/blackpink-ultimate-fan-challenge",
+   "Blindtest -> /blindtest/group-blackpink"
+  ],
+  "facts": "4 members Debut 2016 24 quizzes 18 blindtest songs",
+  "fan": "TWICE 14 quizzes · TWICE true or false",
+  "war": [
+   "See the war -> /leaderboard#fandom-war"
+  ],
+  "warText": "BLINK is #7 in this week's fandom war. See the war",
+  "community": "From the community All posts No posts about BLACKPINK yet. Start the first thread",
+  "communityLinks": [
+   "All posts -> /community",
+   "Start the first thread -> /community"
+  ],
+  "qsHead": "BLACKPINK quizzes 24 quizzes",
+  "cards": [
+   "Classic · Medium BLACKPINK ultimate fan challenge 1.4k plays average 5 -> /q/blackpink-ultimate-fan-challenge",
+   "True/false · Medium BLACKPINK true or false - think you know everythin -> /q/blackpink-true-or-false-think-you-know-everything",
+   "Clues · Medium Guess the BLACKPINK song from clues 489 plays average 7 -> /q/guess-the-blackpink-song-from-clues",
+   "True/false · Medium BLACKPINK true or false 434 plays average 70% -> /q/blackpink-true-or-false",
+   "Classic · Medium BLACKPINK discography deep dive 347 plays average 63% -> /q/blackpink-discography-deep-dive",
+   "Classic · Medium BLACKPINK brand deals and fashion quiz 316 plays aver -> /q/blackpink-brand-deals-and-fashion-quiz"
+  ],
+  "all": [
+   "Show all 24 -> /blackpink-quiz?page=2"
+  ],
+  "faq": [
+   "How many members does BLACKPINK have?",
+   "When did BLACKPINK debut?",
+   "What is BLACKPINK's fandom called?",
+   "What generation is BLACKPINK?",
+   "Where is BLACKPINK from?",
+   "What label is BLACKPINK on?",
+   "How many BLACKPINK quizzes are there?",
+   "How many BLACKPINK songs can I play in the blind test?",
+   "Is there a BLACKPINK blind test?",
+   "Are the BLACKPINK quizzes free?"
+  ],
+  "otherLinks": [
+   "Blindtest -> /blindtest/group-blackpink",
+   "Learn before you play: BLACKPINK trivia -> /blackpink-trivia",
+   "Explore the BLINK space on Verse -> /verse/blackpink",
+   "Make your own BLACKPINK quiz -> /create?group=blackpink",
+   " -> /blindtest/group-blackpink"
+  ],
+  "notify": "",
+  "notifyState": null,
+  "noscriptCount": [
+   24
+  ],
+  "sorts": {
+   "Newest": [
+    "Image · Medium Blackpink 42 plays average 85% -> /q/blackpink",
+    "True/false · Easy Blackpink easy quiz 0 plays -> /q/blackpink-easy-quiz",
+    "Image · Medium BLACKPINK - Guess the MV from the screenshot 20 plays a -> /q/blackpink-guess-the-mv-from-the-screenshot",
+    "Classic · Hard How well do you know Lisa? 5 plays average 47% -> /q/how-well-do-you-know-lisa",
+    "Classic · Medium only for blinks 3 plays average 78% -> /q/only-for-blinks",
+    "Classic · Medium Quiz for Baby Blinks to learn about blackpink 9 plays -> /q/quiz-for-baby-blinks-to-learn-about-blackpink"
+   ],
+   "Most liked": [
+    "True/false · Medium BLACKPINK true or false 434 plays average 70% -> /q/blackpink-true-or-false",
+    "Classic · Medium BLACKPINK ultimate fan challenge 1.4k plays average 5 -> /q/blackpink-ultimate-fan-challenge",
+    "True/false · Medium BLACKPINK true or false - think you know everythin -> /q/blackpink-true-or-false-think-you-know-everything",
+    "Classic · Medium BLACKPINK discography deep dive 347 plays average 63% -> /q/blackpink-discography-deep-dive",
+    "Classic · Medium BLACKPINK world records and achievements 310 plays av -> /q/blackpink-world-records-and-achievements",
+    "Clues · Medium Guess the BLACKPINK song from clues 489 plays average 7 -> /q/guess-the-blackpink-song-from-clues"
+   ],
+   "Hardest": [
+    "Classic · Medium BLACKPINK: Kill This Love Era 11 plays average 54% -> /q/blackpink-kill-this-love-era",
+    "Classic · Medium BLACKPINK world records and achievements 310 plays av -> /q/blackpink-world-records-and-achievements",
+    "Classic · Medium BLACKPINK ultimate fan challenge 1.4k plays average 5 -> /q/blackpink-ultimate-fan-challenge",
+    "Classic · Medium BLACKPINK brand deals and fashion quiz 316 plays aver -> /q/blackpink-brand-deals-and-fashion-quiz",
+    "Classic · Medium BLACKPINK discography deep dive 347 plays average 63% -> /q/blackpink-discography-deep-dive",
+    "Classic · Easy BLACKPINK: How You Like That Quiz 10 plays average 64% -> /q/blackpink-how-you-like-that-quiz"
+   ],
+   "Popular": [
+    "Classic · Medium BLACKPINK ultimate fan challenge 1.4k plays average 5 -> /q/blackpink-ultimate-fan-challenge",
+    "True/false · Medium BLACKPINK true or false - think you know everythin -> /q/blackpink-true-or-false-think-you-know-everything",
+    "Clues · Medium Guess the BLACKPINK song from clues 489 plays average 7 -> /q/guess-the-blackpink-song-from-clues",
+    "True/false · Medium BLACKPINK true or false 434 plays average 70% -> /q/blackpink-true-or-false",
+    "Classic · Medium BLACKPINK discography deep dive 347 plays average 63% -> /q/blackpink-discography-deep-dive",
+    "Classic · Medium BLACKPINK brand deals and fashion quiz 316 plays aver -> /q/blackpink-brand-deals-and-fashion-quiz"
+   ]
+  },
+  "cardsAfterAll": 24
+ },
+ "ateez": {
+  "h1": "ATEEZ Quiz - Test How Well You Know ATEEZ",
+  "lead": "ATEEZ quizzes, made by fans who actually know ATEEZ: play 20+ free tests, from easy trivia to impossible deep cuts, and prove you're a real ATINY. 1,225 plays and counting.",
+  "eyebrow": "ATINY · 4th gen · RCA Records",
+  "hero": [
+   "Play the top quiz -> /q/ateez-title-tracks-and-members-quiz",
+   "Blindtest -> /blindtest/group-ateez"
+  ],
+  "facts": "8 members Debut 2018 20 quizzes 18 blindtest songs",
+  "fan": "Stray Kids 29 quizzes · SKZ true or false - only real STAYs pass",
+  "war": [
+   "See the war -> /leaderboard#fandom-war"
+  ],
+  "warText": "ATINY is #15 in this week's fandom war. See the war",
+  "community": "From the community All posts “Love it !” mingi on ATEEZ - Guess the song from the clues · 59d “Love it !” mingi on ATEEZ - Guess the song from the clues · 59d “Love it” mingi on ATEEZ - Guess the song from the clues · 59d",
+  "communityLinks": [
+   "All posts -> /community",
+   "“Love it !” mingi on ATEEZ - Guess the song from the clues · 59d -> /q/ateez-guess-the-song-from-the-clues",
+   "“Love it !” mingi on ATEEZ - Guess the song from the clues · 59d -> /q/ateez-guess-the-song-from-the-clues",
+   "“Love it” mingi on ATEEZ - Guess the song from the clues · 59d -> /q/ateez-guess-the-song-from-the-clues"
+  ],
+  "qsHead": "ATEEZ quizzes 20 quizzes",
+  "cards": [
+   "Classic · Medium ATEEZ title tracks and members quiz 490 plays average -> /q/ateez-title-tracks-and-members-quiz",
+   "Classic · Medium ATEEZ basics for ATINYs 227 plays average 70% -> /q/ateez-basics-for-atinys",
+   "Classic · Medium ATEEZ members quiz 138 plays average 67% -> /q/ateez-members-quiz",
+   "True/false · Medium ATEEZ true or false 126 plays average 72% -> /q/ateez-true-or-false",
+   "Classic · Medium ATEEZ discography challenge 87 plays average 57% -> /q/ateez-discography-challenge",
+   "Intruder · Medium ATEEZ - Guess the intruder from a different era/MV e -> /q/ateez-guess-the-intruder-from-a-different-eramv-etc"
+  ],
+  "all": [
+   "Show all 20 -> /ateez-quiz?page=2"
+  ],
+  "faq": [
+   "How many members does ATEEZ have?",
+   "When did ATEEZ debut?",
+   "What is ATEEZ's fandom called?",
+   "What generation is ATEEZ?",
+   "Where is ATEEZ from?",
+   "What label is ATEEZ on?",
+   "How many ATEEZ quizzes are there?",
+   "How many ATEEZ songs can I play in the blind test?",
+   "Is there a ATEEZ blind test?",
+   "Are the ATEEZ quizzes free?"
+  ],
+  "otherLinks": [
+   "Blindtest -> /blindtest/group-ateez",
+   "Learn before you play: ATEEZ trivia -> /ateez-trivia",
+   "Explore the ATINY space on Verse -> /verse/ateez",
+   "Make your own ATEEZ quiz -> /create?group=ateez",
+   " -> /blindtest/group-ateez"
+  ],
+  "notify": "",
+  "notifyState": null,
+  "noscriptCount": [
+   20
+  ]
+ },
+ "chungha": {
+  "h1": "Chungha Quiz - Test How Well You Know Chungha",
+  "lead": "No Chungha quizzes yet - be the first to create one! Think you know Chungha well enough to challenge other Byulharangs? Create a free quiz at kpopquiz.org.",
+  "eyebrow": "Byulharang",
+  "hero": [
+   "Make the first quiz -> /create?group=chungha"
+  ],
+  "facts": "18 blindtest songs",
+  "fan": "",
+  "war": [],
+  "warText": "",
+  "community": "",
+  "communityLinks": [],
+  "qsHead": "",
+  "cards": [],
+  "all": [],
+  "faq": [
+   "What is Chungha's fandom called?",
+   "How many Chungha songs can I play in the blind test?"
+  ],
+  "otherLinks": [
+   "Make the first quiz -> /create?group=chungha"
+  ],
+  "notify": "Notify me",
+  "notifyState": "off",
+  "noscriptCount": [],
+  "notifySheet": ""
+ },
+ "groups": {
+  "h1": "All K-pop groups",
+  "rows": 90,
+  "zero": 46,
+  "most": [
+   "BTS 27 quizzes -> /bts-quiz",
+   "Stray Kids 29 quizzes -> /stray-kids-quiz",
+   "BLACKPINK 24 quizzes -> /blackpink-quiz",
+   "NewJeans 12 quizzes -> /newjeans-quiz",
+   "TWICE 14 quizzes -> /twice-quiz",
+   "SEVENTEEN 10 quizzes -> /seventeen-quiz",
+   "aespa 13 quizzes -> /aespa-quiz",
+   "ENHYPEN 7 quizzes -> /enhypen-quiz",
+   "IVE 8 quizzes -> /ive-quiz",
+   "CO Cortis 9 quizzes -> /cortis-quiz"
+  ],
+  "count": "90 groups",
+  "sample": [
+   "(G)I-DLE 8 -> /g-i-dle-quiz",
+   "TE &TEAM 1 -> /team-quiz",
+   "2NE1 No quiz yet -> /2ne1-quiz",
+   "2PM No quiz yet -> /2pm-quiz",
+   "aespa 13 -> /aespa-quiz",
+   "AK AKMU 1 -> /akmu-quiz",
+   "AP Apink No quiz yet -> /apink-quiz",
+   "AR ARTMS 4 -> /artms-quiz"
+  ]
+ },
+ "errors": [
+  "load /blackpink-quiz: Unexpected token '<'",
+  "load /ateez-quiz: Unexpected token '<'",
+  "load /chungha-quiz: Unexpected token '<'",
+  "load /groups: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /blackpink-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /ateez-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p3/notify?group=57",
+   "status": 200
+  },
+  {
+   "step": "load /groups",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  }
+ ]
+}
