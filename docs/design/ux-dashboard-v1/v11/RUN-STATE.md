@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **2** (page agents, max 4 at once). Check loop: 0.
+- Phase: **3** (checkers, loop 1) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration at 48189d5, served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz; rebuild + restart after each merge).
 
 ## Agents
 
@@ -22,9 +22,9 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
-| C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
-| C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
-| C3 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/REPORT.md |
+| C1 | ux11/c1-check | running (loop 1, spawned on 48189d5) | - | - | v11/checks/pixel/ |
+| C2 | ux11/c2-check | running (loop 1, spawned on 48189d5) | - | - | v11/checks/backend/ |
+| C3 | ux11/c3-check | running (loop 1, spawned on 48189d5) | - | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -101,6 +101,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 First combined flag-on production build of the integration branch (48189d5): compiled, 808/808 pages. Served on :3021 (flag on confirmed; / /quizzes /blindtest /leaderboard /groups /bts-quiz /create /blindtest/ranked /ux-v1/kit = 200; /community = 404 until P8). Phase 3 loop 1 started: C1, C2, C3 spawned; community states pending P8, quizzes pending P2.
 - 2026-09-26 A0 type fix merged (eed8a49): whole-app tsc 0. ORCH starts the first combined flag-on production build in .worktrees/ux11-integration.
 - 2026-09-26 A0 round 3 merged (75d43f6, PR #56): P11 slots wired (overlay + bell e2e now run), Mark all read, streak copy = the real rule, search field without ring box or native clear (2px pink focus line), sheet title 18/1.6, UxQuizCard preview mode. Guard range listed RUN-STATE.md only because A0 re-committed ORCH's f9e47e3 with another message (b41bbcc, same tree and parent); net diff empty, merged with a note. Whole-app tsc after the merge: 1 error in kit.spec.ts(339) (A0 fixing). Unit 769/769. A0's replies are in v11/requests/A0.md (round 3).
 - 2026-09-26 P9 merged (8756aaa): guard ok (41 files), e2e 41/41 on a flag-on production build, landmarks 0px to row 10, SEO identical, 0 links lost (/leaderboard 76 -> 97), flag off identical. Integration: tsc 0, unit 769/769, check:routes 331 both ways. Remaining: P8 (Verse gates fix), A0 round 3, P2 (owner push).
@@ -125,4 +126,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: wait for P5 (tsc fix), P8, P9 and A0 round 3; merge each after guard + report + whole-app tsc. P2 waits for the owner's push. When all pages are merged: build the integration head with the flag on in .worktrees/ux11-integration, serve it on :3021, spawn C1, C2, C3 (briefs/CHECKERS.md + C<n>.md).
+NEXT ACTION: keep :3021 up. When P8 is merged: rebuild .worktrees/ux11-integration at the new head (git -C .worktrees/ux11-integration checkout --detach origin/feat/ux-v1-v11, NEXT_PUBLIC_UX_V1=1 pnpm build), restart the server on :3021, tell C1/C2/C3 to check the community states. Route checker issues (v11/issues/<owner>.md) to the owning agents (resume them), merge fixes, rebuild, ask checkers to re-run only affected states; up to 3 loops. Then C3 finishes REPORT.md; ORCH opens the draft PR feat/ux-v1-v11 -> main (Phase 4).
