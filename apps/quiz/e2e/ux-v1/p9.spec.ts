@@ -356,7 +356,8 @@ for (const theme of THEMES) {
       const links = await around.locator('a[href]').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       expect(links).toContain('/blindtest?daily=true');
       expect(links.filter((l) => /^\/q\/[^?]+\?daily=quiz$/.test(l)).length, 'the quiz of the day').toBeLessThanOrEqual(1);
-      for (const l of links) expect(l).toMatch(/^\/(q\/|u\/|[a-z0-9-]+-quiz$|blindtest\?daily=true$|stats$|create$)/);
+      // quizzes, passports, group hubs, the daily links, /stats, /create, and /blindtest (a blindtest_played event)
+      for (const l of links) expect(l).toMatch(/^\/(q\/|u\/|[a-z0-9-]+-quiz$|blindtest(\?daily=true)?$|stats$|create$)/);
       // every panel shown has content; titles are h3 under the section's h2
       for (const p of await around.locator('.ux-panel').all()) {
         await expect(p.locator('h3')).toHaveCount(1);
