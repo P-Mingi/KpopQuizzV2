@@ -232,10 +232,12 @@ for (const theme of THEMES) {
       expect(facts).toMatch(/\d+ quizzes/);
       await expect(page.locator('.p3-photo img')).toHaveAttribute('alt', 'BLACKPINK');
 
-      // Today's links are all here.
-      for (const href of ['/blackpink-trivia', '/verse/blackpink', '/create?group=blackpink', '/leaderboard#fandom-war', '/blindtest/group-blackpink', '/twice-quiz', '/red-velvet-quiz', '/aespa-quiz']) {
+      // Today's links are all here, except today's dead door: BLACKPINK's Verse
+      // space is parked (404), so the hub does not link it (C2-006).
+      for (const href of ['/blackpink-trivia', '/create?group=blackpink', '/leaderboard#fandom-war', '/blindtest/group-blackpink', '/twice-quiz', '/red-velvet-quiz', '/aespa-quiz']) {
         expect(await page.locator(`a[href="${href}"]`).count(), `link ${href}`).toBeGreaterThan(0);
       }
+      await expect(page.locator('.p3-hub a[href^="/verse/"]'), 'no link to a parked Verse space').toHaveCount(0);
       // Every quiz of the group is a real card link in the page (no <noscript> list).
       const quizFact = (await page.locator('.p3-facts span', { hasText: /quizz?(es)?$/ }).textContent()) ?? '';
       const count = Number(quizFact.match(/[\d,]+/)?.[0]?.replace(/,/g, ''));
@@ -374,7 +376,14 @@ for (const theme of THEMES) {
       await expect(com.locator('a.ux-lnk', { hasText: 'All posts' })).toHaveAttribute('href', '/community');
       const rows = com.locator('a.ux-row');
       if (await rows.count()) for (const h of await rows.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) expect(h).toMatch(/^\/q\/[a-z0-9-]+$/);
-      else await expect(com).toContainText('No posts about ATEEZ yet.');
+      else {
+        // C2-007: ATEEZ's Verse space is parked, so the empty state's door is the
+        // top quiz (its results screen takes a comment), never the thread editor.
+        await expect(com).toContainText('No posts about ATEEZ yet.');
+        await expect(com.locator('a', { hasText: 'Start the first thread' })).toHaveCount(0);
+        await expect(com.locator('a.ux-lnk', { hasText: 'Play the top quiz and leave the first comment' })).toHaveAttribute('href', /^\/q\/[a-z0-9-]+$/);
+      }
+      await expect(page.locator('.p3-hub a[href^="/verse/"]'), 'no link to a parked Verse space (C2-006)').toHaveCount(0);
 
       // Fans also play: the hub and the top quiz of each related group.
       const fans = page.locator('.p3-fan');

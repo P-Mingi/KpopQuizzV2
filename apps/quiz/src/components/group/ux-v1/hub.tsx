@@ -31,6 +31,7 @@ import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupComments, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
 import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
+import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 import {
   commentLine,
   coarseAge,
@@ -164,7 +165,14 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const masteredNoun = fandom ? `${fandom}s` : 'fans';
   const showBlindtest = songs > 0 || blindtest.qualifies;
 
-  const aboutLinks = Boolean(triviaAvailable || nameAllGame || hasQuizzes);
+  // C2-006 / C2-007: the group's Verse space is a working door only when it is
+  // open (lib/ux-v1/p3/verse.ts). A parked space answers 404, so the hub neither
+  // links it nor sends fans to the community editor, which only offers threads
+  // for open spaces.
+  const verseOpen = verseSpaceOpen(g.slug);
+  const verseLink = Boolean(nameAllGame) && verseOpen;
+
+  const aboutLinks = Boolean(triviaAvailable || verseLink || hasQuizzes);
   const hasMembers = Boolean(nameAllGame && nameAllGame.members.length > 0);
   const hasAbout = Boolean(answerLead || hasMembers || updated || aboutLinks);
   const hasFk = showMastered || showAccuracy || showFans;
@@ -281,7 +289,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                 {aboutLinks ? (
                   <div className="p3-links">
                     {triviaAvailable ? <UxLink href={`/${g.slug}-trivia`}><Icon name="book" />Learn before you play: {g.name} trivia</UxLink> : null}
-                    {nameAllGame ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
+                    {verseLink ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
                     {hasQuizzes ? <UxLink href={`/create?group=${g.slug}`}><Icon name="plus" />Make your own {g.name} quiz</UxLink> : null}
                   </div>
                 ) : null}
@@ -325,7 +333,14 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                     ))}
                   </div>
                 ) : (
-                  <p className="p3-note p3-com-empty">No posts about {g.name} yet. <UxLink href="/community">Start the first thread</UxLink></p>
+                  // The rows here are comments on this group's quizzes, so a parked
+                  // space's door is the top quiz: its results screen takes a comment.
+                  <p className="p3-note p3-com-empty">
+                    No posts about {g.name} yet.{' '}
+                    {verseOpen || !topSlug
+                      ? <UxLink href="/community">Start the first thread</UxLink>
+                      : <UxLink href={`/q/${topSlug}`}>Play the top quiz and leave the first comment</UxLink>}
+                  </p>
                 )}
               </section>
             ) : null}

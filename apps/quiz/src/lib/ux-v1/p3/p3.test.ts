@@ -8,6 +8,7 @@ vi.mock('@/lib/error-handling', () => ({
 import { isMissingTable, parseGroupId } from './alerts';
 import { FailedRenderError, READ_FAILED, failClosed, failedReads, read } from './reads';
 import { mergeHubFaqs } from './faq';
+import { verseSpaceOpen } from './verse';
 import {
   averagePct,
   azBlocks,
@@ -256,5 +257,28 @@ describe('fail-closed reads (a failed read is never cached)', () => {
     await expect(failClosed('/groups', ['getGroupsIndex'])).resolves.toBeUndefined();
     expect(warn).toHaveBeenCalled();
     warn.mockRestore();
+  });
+});
+
+describe('verseSpaceOpen (C2-006 / C2-007)', () => {
+  const before = process.env.VERSE_PUBLIC;
+  afterEach(() => {
+    if (before === undefined) delete process.env.VERSE_PUBLIC;
+    else process.env.VERSE_PUBLIC = before;
+  });
+
+  it('while the Verse is hidden no space is a door (production today)', () => {
+    delete process.env.VERSE_PUBLIC;
+    expect(verseSpaceOpen('bts')).toBe(false);
+    expect(verseSpaceOpen('blackpink')).toBe(false);
+    process.env.VERSE_PUBLIC = '1';
+    expect(verseSpaceOpen('bts')).toBe(false);
+  });
+
+  it('once public only a live space is a door; parked spaces (404) never are', () => {
+    process.env.VERSE_PUBLIC = 'true';
+    expect(verseSpaceOpen('bts')).toBe(true);
+    expect(verseSpaceOpen('blackpink')).toBe(false);
+    expect(verseSpaceOpen('ateez')).toBe(false);
   });
 });
