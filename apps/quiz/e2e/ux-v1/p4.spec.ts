@@ -732,7 +732,8 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     await expect(page.getByTestId('p4-xpline')).toContainText(/Saved to your passport|XP/);
     // rank line from get_quiz_rank for the session user (read only): shown when they have a play on this quiz
     const mine = await (await page.request.get(`/api/ux-v1/p4/standing?quiz=${await page.locator('[data-p4-quiz]').getAttribute('data-p4-quiz')}`)).json() as { played?: boolean };
-    if (mine.played) await expect(page.getByTestId('p4-rankline')).toContainText(/^#\d+ of [\d,]+ players · your best \d+\/\d+$/);
+    // (the page's own standing read is a live get_quiz_rank call: up to a minute on the loaded dev machine)
+    if (mine.played) await expect(page.getByTestId('p4-rankline')).toContainText(/^#\d+ of [\d,]+ players · your best \d+\/\d+$/, { timeout: 60_000 });
     // the comment field posts the existing payload for a signed-in fan, sent before the list read
     // answers: the list still loads and merges under the new comment
     const listStarted = page.waitForRequest((r) => COMMENT_PATH.test(new URL(r.url()).pathname) && r.method() === 'GET', { timeout: 30_000 });
