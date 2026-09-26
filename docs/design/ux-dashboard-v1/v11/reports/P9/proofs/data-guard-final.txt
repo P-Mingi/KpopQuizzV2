@@ -1,0 +1,22 @@
+
+Data guard - 2026-09-26T15:14:59.643Z
+
+| Table | Rows | Newest (col) |
+|---|---:|---|
+| profiles | 260 | 2026-09-26T14:52:29.003871+00:00 (updated_at) |
+| quizzes | 437 | 2026-09-26T14:52:29.003871+00:00 (updated_at) |
+| plays | 67863 | 2026-09-26T14:45:50.307092+00:00 (created_at) |
+| quiz_comments | 17 | 2026-09-14T14:49:01.080769+00:00 (created_at) |
+| quiz_reactions | 14 | 2026-07-20T08:51:40.066638+00:00 (created_at) |
+| likes | 2833 | 2026-09-25T18:37:15.671239+00:00 (created_at) |
+| follows | 58 | 2026-09-22T11:45:25.789883+00:00 (created_at) |
+| user_badges | 1416 | - |
+| creator_notifications | 1224 | 2026-09-26T14:51:44.254616+00:00 (created_at) |
+| notification_prefs | 3 | 2026-08-31T21:23:15.058+00:00 (updated_at) |
+| daily_blindtest_scores | 86 | 2026-09-26T14:51:39.521008+00:00 (created_at) |
+| daily_challenge_plays | 0 | - |
+| blind_test_plays | 140 | 2026-06-05T17:36:38.04596+00:00 (created_at) |
+| activity_events | 7227 | 2026-09-26T14:52:29.003871+00:00 (created_at) |
+| debate_votes | 42 | 2026-09-22T11:44:22.099988+00:00 (created_at) |
+
+Rule 8: between a before/after pair, every Rows value may only grow and no Newest may move backwards.
