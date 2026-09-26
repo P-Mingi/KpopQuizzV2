@@ -34,7 +34,8 @@ if (fs.existsSync(ef)) {
   extra = ['', '## Extra checks (`_extra/verdict.json`)', '', '| Check | Result |', '|---|---|',
     `| Nav fits at 1280 and 1440 (one line, no overlap, no truncation) | ${line('nav')} |`,
     `| Hover (cards, buttons, tabs, rows, nav links) vs the prototype :hover | ${line('hover')} |`,
-    `| Keyboard focus ring vs the prototype :focus-visible | ${line('focus')} |`,
+    `| Keyboard focus ring vs the prototype :focus-visible (loop 2 adds the community feed panel) | ${line('focus')} |`,
+    `| Header picture sheet (C1-002, loop 2): resting drop zone when opened, 2px pink ring on keyboard focus only | ${line('sheetfocus')} |`,
     `| Theme tokens (prototype --x vs --ux-x) | ${line('tokens')} |`,
     `| Reduced motion (no running infinite animation, transitions off) | ${line('motion')} |`].join('\n');
 }
@@ -54,6 +55,9 @@ const OBSERVED = [
   'Passport states are checked as a guest on /u/testtest (owner decision 1): no owner controls, initials instead of a photo.',
   'Header sheet reference: the page behind the scrim shows the Badges tab (the capture reached it from passport-badges); only the sheet is compared.',
   'Settings: Appearance shows the theme the checker forces (localStorage theme); the reference shows System.',
+  'Loop 2 (cc6c394): group hubs list 12 quiz cards with a native <details> Show all (P3 change); the card grid landmarks pass, the page is longer.',
+  'Loop 2 known deviation, not a failure: end, end-guest and share (behind the scrim) show the live Discord line + Brag row under the result actions (P4, C2-003, live content). The rest of the layout passes.',
+  'Loop 2 known deviation, not a failure: create-1 restored live help lines push the cover field 28.8px down (P5, documented); field tops are compared as gaps for information only.',
   'Game states use the page agents\' fixtures where the specs do (blindtest questions and silent audio, P6; notifications rows, P11); quiz runs are real questions with the save stubbed (so the results show no "beat" percentile).',
 ];
 const md = `# C1 pixel check (UX v11.2, Phase 3)
@@ -73,7 +77,13 @@ Evidence: \`<state>/<w>-<theme>-side.webp\` (reference | implementation), \`-dif
 differs, blue = masked), \`verdict.json\` (every number). No production write: every mutating
 request was answered locally (payloads in \`verdict.json\` \`writes\`).
 
-Totals (152 checks): pass ${tally.pass}, fail ${tally.fail}, not verified ${tally['not verified']}${tally['not run'] ? `, not run ${tally['not run']}` : ''}.
+Totals (152 checks, latest run of each): pass ${tally.pass}, fail ${tally.fail}, not verified ${tally['not verified']}${tally['not run'] ? `, not run ${tally['not run']}` : ''}.
+
+Runs: loop 1 on dcc3159 (all 38 states); loop 2 on cc6c394 (fix loop 1 merged) re-ran the states
+whose code changed: groups, header-sheet, home, home-guest, hub-blackpink, hub-ateez, hub-empty,
+quiz, end, end-guest, share, create-1, create-2, create-3, blindtest, blindtest-playlist-open,
+blindtest-group-search, btplay, btplay-answered, community (80 checks, 80 pass). Each combo's
+\`at\` in \`verdict.json\` dates its run. C1-001 (P3) and C1-002 (A0): fixed, verified in loop 2.
 
 | State | Owner | 1440 light | 1440 dark | 390 light | 390 dark | Notes |
 |---|---|---|---|---|---|---|

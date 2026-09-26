@@ -3,7 +3,7 @@
  "owner": "P4",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:20:59.070Z",
+   "at": "2026-09-26T21:18:42.454Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -24,16 +24,16 @@
     ],
     "implSize": [
      1440,
-     2002
+     2058
     ],
-    "diffPct": 5.21,
-    "maskedPct": 13.4
+    "diffPct": 8.03,
+    "maskedPct": 13.3
    },
    "writes": [
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0,0,0,0.8],\"anon_id\":\"f2aea9d3-c0c4-4d42-8fa3-c3e485461753\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":8,\"max_score\":8,\"per_question_times\":[0.5,0.5,0.5,0.6,0.5,0.4,0.6,0.5],\"anon_id\":\"4b7b71ca-9c6e-4f76-a2c9-a3618dd592c5\"}"
     }
    ],
    "landmarks": [
@@ -138,10 +138,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 3
+   "seconds": 17
   },
   "1440-dark": {
-   "at": "2026-09-26T17:21:03.917Z",
+   "at": "2026-09-26T21:18:59.749Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -162,16 +162,16 @@
     ],
     "implSize": [
      1440,
-     2002
+     2058
     ],
-    "diffPct": 5.34,
+    "diffPct": 8.08,
     "maskedPct": 13.4
    },
    "writes": [
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0,0.8,0,0,0.8,0,0.8,0],\"anon_id\":\"178cbe2e-4553-4af5-8abd-2559fcf7baf5\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":9,\"max_score\":8,\"per_question_times\":[0.5,0.6,0.5,1,0.5,0.7,0.6,0.5],\"anon_id\":\"773db8e3-7b5e-4b41-a5ec-e52efd362e4d\"}"
     }
    ],
    "landmarks": [
@@ -276,10 +276,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 19
   },
   "390-light": {
-   "at": "2026-09-26T17:21:06.540Z",
+   "at": "2026-09-26T21:19:16.825Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -300,16 +300,16 @@
     ],
     "implSize": [
      390,
-     2623
+     2727
     ],
-    "diffPct": 13.19,
-    "maskedPct": 31.4
+    "diffPct": 16.86,
+    "maskedPct": 31.6
    },
    "writes": [
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":0,\"max_score\":8,\"per_question_times\":[0,0,0,0,0,0,0,0],\"anon_id\":\"aa77cc38-5a77-4be3-8e5a-e5357e184a51\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":7,\"max_score\":8,\"per_question_times\":[0.5,0.5,0.5,0.5,1.2,0.1,1.1,1.1],\"anon_id\":\"fe9811af-0ccd-4aeb-b87a-8b9fccfb603f\"}"
     }
    ],
    "landmarks": [
@@ -414,10 +414,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 3
+   "seconds": 18
   },
   "390-dark": {
-   "at": "2026-09-26T17:21:09.187Z",
+   "at": "2026-09-26T21:19:36.670Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -438,16 +438,16 @@
     ],
     "implSize": [
      390,
-     2623
+     2727
     ],
-    "diffPct": 13.4,
-    "maskedPct": 31.4
+    "diffPct": 17.38,
+    "maskedPct": 31.6
    },
    "writes": [
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":0,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0,0,0,0],\"anon_id\":\"cc67060d-628e-47eb-bcbd-afc75d36e9f1\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":8,\"max_score\":8,\"per_question_times\":[0.6,0.5,0.4,1.5,0.1,0.6,0.5,0.5],\"anon_id\":\"8834b902-2d24-4e6f-9537-62e6a6afc8ba\"}"
     }
    ],
    "landmarks": [
@@ -552,10 +552,11 @@
      "mismatches": []
     }
    ],
-   "seconds": 3
+   "seconds": 19
   }
  },
  "auth": "guest",
  "shot": "full",
- "verdict": "pass"
+ "verdict": "pass",
+ "note": "known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared"
 }

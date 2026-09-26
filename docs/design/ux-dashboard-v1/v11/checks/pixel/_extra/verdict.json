@@ -772,6 +772,32 @@
    },
    "evidence": "_extra/focus-nav-link-light-impl.png"
   },
+  "community feed panel-light": {
+   "verdict": "pass",
+   "proto": "#feed",
+   "impl": ".p8-feed",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "DIV",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-community-feed-panel-light-impl.png"
+  },
   "quiz card-dark": {
    "verdict": "pass",
    "proto": "#h-trend .qcard",
@@ -875,6 +901,32 @@
     }
    },
    "evidence": "_extra/focus-nav-link-dark-impl.png"
+  },
+  "community feed panel-dark": {
+   "verdict": "pass",
+   "proto": "#feed",
+   "impl": ".p8-feed",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "tag": "DIV",
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-community-feed-panel-dark-impl.png"
   }
  },
  "tokens": {
@@ -931,6 +983,42 @@
   },
   "prototype": {
    "running": 0
+  }
+ },
+ "sheetfocus": {
+  "light": {
+   "verdict": "pass",
+   "expected": "opened: border rgb(229, 224, 218), no fill, no ring; keyboard focus on the file input: ring solid 2px rgb(232, 69, 122)",
+   "pointerOpen": {
+    "border": "rgb(229, 224, 218)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "outline": "none 3px rgb(107, 101, 94)",
+    "focusInside": true
+   },
+   "keyboard": {
+    "border": "rgb(229, 224, 218)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "outline": "solid 2px rgb(232, 69, 122)",
+    "focusInside": true
+   },
+   "evidence": "_extra/sheetfocus-keyboard-light.png"
+  },
+  "dark": {
+   "verdict": "pass",
+   "expected": "opened: border rgb(53, 49, 46), no fill, no ring; keyboard focus on the file input: ring solid 2px rgb(232, 69, 122)",
+   "pointerOpen": {
+    "border": "rgb(53, 49, 46)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "outline": "none 3px rgb(168, 161, 152)",
+    "focusInside": true
+   },
+   "keyboard": {
+    "border": "rgb(53, 49, 46)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "outline": "solid 2px rgb(232, 69, 122)",
+    "focusInside": true
+   },
+   "evidence": "_extra/sheetfocus-keyboard-dark.png"
   }
  }
 }

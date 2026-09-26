@@ -3,7 +3,7 @@
  "owner": "P6",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:22:49.613Z",
+   "at": "2026-09-26T21:26:48.113Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -150,10 +150,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 36
+   "seconds": 60
   },
   "1440-dark": {
-   "at": "2026-09-26T17:23:24.831Z",
+   "at": "2026-09-26T21:27:40.248Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -300,10 +300,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 35
+   "seconds": 49
   },
   "390-light": {
-   "at": "2026-09-26T17:24:00.065Z",
+   "at": "2026-09-26T21:28:23.016Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -450,10 +450,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 35
+   "seconds": 42
   },
   "390-dark": {
-   "at": "2026-09-26T17:24:35.601Z",
+   "at": "2026-09-26T21:29:08.195Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/blindtest",
@@ -600,7 +600,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 36
+   "seconds": 48
   }
  },
  "auth": "user",
