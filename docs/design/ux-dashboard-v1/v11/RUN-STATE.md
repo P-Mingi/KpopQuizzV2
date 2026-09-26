@@ -11,7 +11,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | fix loop 1 merged (eb09ce6, PR #57): C2-001, C1-002 | ab88390 | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | fix loop 1 running (C3-003, C3-006, C3-008) | d30aee5 | 0 | v11/reports/P1.md |
+| P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | fix loop 1 running (C1-001, hub noscript links, cached failed reads) | 6399b50 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | fix loop 1 running (C3-004) | 2b57d54 | 0 | v11/reports/P4.md |
@@ -20,7 +20,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
-| P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
+| P10 | ux11/p10-passport | fix: raising one sharp test timeout (flaky under load) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 1 done, merged (69b3a47): 128 pass / 8 fail / 16 not verified of 152 | 4a4da49 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 1 done, merged (e95c0ef): 267 rows, 187 pass / 9 fail / 33 not verified / 7 pending P2 / 31 n/a | b89834e | - | v11/checks/backend/ |
@@ -105,6 +105,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P1 fix loop 1 merged (1b3120f): a render that lost a read is never cached (runtime throw keeps the last complete page, 30 s retry; build prerender revalidates in 30 s; accepted after 15 min of failures so the home cannot freeze), proven with a DB-cutting proxy; rail photos 220w (154 KB vs 598 KB); only published Verse spaces linked; streak wording = A0's; every saved run in Continue. Existing (flag off): live getQuizOfTheDay caches null for the day when its reads fail and the flag-off home has the same page-cache exposure (owner note). Unit 808/809: P10's sharp WebP test times out at 5 s under load 41 (CI passes): P10 raising its timeout.
 - 2026-09-26 P8 fix merged (249efd4): the feed panel shows the shared focus ring (one `outline: none` removed; the new keyboard case fails with it back). P6 started on C3-009.
 - 2026-09-26 C2 loop 1 done and merged (e95c0ef; issue files A0.md and P3.md were add/add conflicts with C1's, resolved as the union of both lists). Must-prove passes: QOTD pick/average/label, ticker, /groups counts and hub sorts, 79 playlists, daily one try, badge rarity, sign-in returns to the action, mark-read payloads, the Verse gate (VERSE_PUBLIC=false run too), ranked 233 unit tests + 503 before any write, P8 writes 503 not_live, header routes refuse private addresses + 503 bucket_missing, nested challenge attempt routes resolve on both prod build and dev (P8's dev 404 does not reproduce). Data guard: counts only grew, test user unchanged, no production write. New issues routed: P1 C2-002/004/005, P3 C2-006/007, P4 C2-003.
 - 2026-09-26 A0 fix loop 1 merged (eb09ce6): /api/quizzes/count 404 unless the flag is on (C2-001); drop zone resting look on open, 2px ring only for keyboard focus (C1-002). tsc 0, unit 805/805.
