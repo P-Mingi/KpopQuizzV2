@@ -139,6 +139,7 @@
 
 /* ---------- community: the live home's Verse space links, one compact line ---------- */
 .p1-spaces { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 0; margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
+.p1-spaces + .p1-spaces { margin-top: 6px; }
 .p1-spaces > span { margin-right: 8px; }
 .p1-spaces .ux-lnk { font-size: 13px; }
 .p1-spaces i { font-style: normal; margin: 0 8px; opacity: .55; }

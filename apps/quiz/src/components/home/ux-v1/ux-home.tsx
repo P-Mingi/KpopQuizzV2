@@ -90,12 +90,11 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       <BlindtestBand fans={band.fans} date={band.date} />
 
-      {community.rows.length > 0 || community.spaces.length > 0 ? (
-        <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">
-          <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
-          <CommunityRows rows={community.rows} spaces={community.spaces} />
-        </section>
-      ) : null}
+      {/* Always rendered: besides the rows it carries the live home's Discord links. */}
+      <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">
+        <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
+        <CommunityRows rows={community.rows} spaces={community.spaces} />
+      </section>
     </UxPage>
   );
 }

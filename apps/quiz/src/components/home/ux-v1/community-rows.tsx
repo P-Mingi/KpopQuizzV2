@@ -2,14 +2,17 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
+
 import { UxRow } from '@/components/ux-v1/panel';
 
 import type { CommunityRow, VerseSpaceLink } from '@/lib/ux-v1/p1/home-data';
 
 /** From the community (16.7: 3 rows). Real rows only: today's debate and, while the
  *  Verse is public, the latest thread and featured essay of the spaces that opted
- *  into the feed. Under them, while the Verse is public, the live home's "Fandom
- *  spaces on Verse" links (one compact line; the live home keeps them too). */
+ *  into the feed. Under them, compact lines that keep the live home's community
+ *  links: the "Fandom spaces on Verse" links (while the Verse is public) and the
+ *  two Discord links. */
 export function CommunityRows({ rows, spaces = [] }: { rows: CommunityRow[]; spaces?: VerseSpaceLink[] }): React.ReactElement {
   return (
     <>
@@ -43,6 +46,14 @@ export function CommunityRows({ rows, spaces = [] }: { rows: CommunityRow[]; spa
           <Link href="/verse" className="ux-lnk">Explore Verse</Link>
         </p>
       ) : null}
+      {/* The live home's two Discord links (the community strip and the daily
+          quiz line), same invite and utm campaigns, in one compact line. */}
+      <p className="p1-spaces">
+        <span>On Discord:</span>{' '}
+        <a href={discordInviteWithUtm('home-strip')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Kpop Quiz on Discord</a>
+        <i aria-hidden="true">·</i>
+        <a href={discordInviteWithUtm('daily')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Today&apos;s quiz is in the Discord too</a>
+      </p>
     </>
   );
 }

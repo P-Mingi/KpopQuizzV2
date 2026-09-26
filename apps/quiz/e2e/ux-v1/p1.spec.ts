@@ -327,12 +327,15 @@ for (const theme of THEMES) {
       const hrefs = await rows.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       for (const h of hrefs) expect(h).toMatch(/^\/(community|verse\/[a-z0-9-]+\/(community|essays)\/[A-Za-z0-9-]+)$/);
       // While the Verse is public, the live home's Verse space links (one line).
-      const spaces = comm.locator('.p1-spaces a');
+      const spaces = comm.locator('.p1-spaces', { hasText: 'Fandom spaces on Verse' }).locator('a');
       if (await spaces.count()) {
         const sh = await spaces.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
         expect(sh[sh.length - 1]).toBe('/verse');
         for (const h of sh.slice(0, -1)) expect(h).toMatch(/^\/verse\/[a-z0-9-]+$/);
       }
+      // The live home's two Discord links (community strip + daily quiz line).
+      const discord = await comm.locator('.p1-spaces', { hasText: 'On Discord' }).locator('a').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+      expect(discord.map((h) => new URL(h).searchParams.get('utm_campaign'))).toEqual(['home-strip', 'daily']);
     });
 
     test('keyboard reaches and operates every home control, pink focus ring', async ({ page }) => {
