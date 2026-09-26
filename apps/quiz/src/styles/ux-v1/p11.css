@@ -1,0 +1,90 @@
+/* ==========================================================================
+   P11 (UX v11.2): notifications page, bell panel rows, search overlay results.
+   NOT imported anywhere: A0's route (app/api/ux-v1/a0/styles) serves this folder
+   to flag-on pages only. Every rule targets a .p11-* class that only flag-on
+   markup carries. Values measured on the prototype (v11/reports/P11/proto-styles.json):
+   #notifs (.ph, .seg, .streakrow, .ngroup, .nrow), #bellpop (.brow), #sov (.srow).
+   ========================================================================== */
+
+/* ---------- notifications page (720 column, DESIGN-SPEC 16.7) ---------- */
+.p11-nh { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.p11-nh .ux-lnk { line-height: 24px; }
+.p11-seg { margin-top: 28px; }
+
+.p11-streak { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--ux-surface); border-radius: 16px; padding: 16px 20px; margin-top: 28px; }
+.p11-streak > .ux-ico { color: var(--ux-pink); }
+.p11-streak-g { flex: 1; min-width: 180px; }
+.p11-streak-g b { font-size: 16px; font-weight: 700; line-height: 1.6; }
+.p11-streak-g span { display: block; font-size: 14px; line-height: 1.6; color: var(--ux-muted); }
+
+.p11-ngroup { font-size: 14px; line-height: 1.6; font-weight: 600; color: var(--ux-muted); margin: 32px 0 4px; }
+.p11-nli { position: relative; }
+.p11-nrow { display: flex; gap: 14px; width: 100%; padding: 16px 0; color: inherit; text-align: left; font: inherit; background: none; border: 0; }
+button.p11-nrow { cursor: pointer; }
+div.p11-nrow { cursor: default; }
+.p11-ud { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex: 0 0 auto; background: transparent; }
+.p11-nrow.is-unread .p11-ud { background: var(--ux-pink); }
+.p11-ni { width: 40px; height: 40px; border-radius: 50%; background: var(--ux-surface); color: var(--ux-muted); display: grid; place-items: center; flex: 0 0 auto; }
+.p11-grow { display: block; flex: 1; min-width: 0; }
+.p11-t { display: block; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
+.p11-nrow.is-unread .p11-t { font-weight: 600; }
+.p11-b { display: block; font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 2px; overflow-wrap: anywhere; }
+.p11-tm { font-size: 13px; line-height: 1.6; color: var(--ux-muted); white-space: nowrap; }
+
+/* Row actions (Mark as read, Mute this quiz, Dismiss: the live center's actions,
+   not drawn in the prototype): under the time, shown on hover / focus with a
+   mouse, always there (quiet) on touch. No layout of its own. */
+.p11-rowact { position: absolute; right: -6px; top: 38px; }
+.p11-more { width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center; color: var(--ux-muted); opacity: 0; transition: opacity .15s, background .15s, color .15s; }
+.p11-more:hover { background: var(--ux-surface); color: var(--ux-ink); }
+.p11-nli:hover .p11-more, .p11-nli:focus-within .p11-more, .p11-more[aria-expanded="true"] { opacity: 1; }
+.p11-rowpop.ux-pop { top: calc(100% + 4px); right: 0; left: auto; min-width: 208px; padding: 6px; }
+.p11-rowpop .ux-mi { min-height: 40px; font-size: 14px; }
+
+.p11-more-wrap { margin-top: 24px; text-align: center; }
+.p11-empty { padding-top: 40px; }
+.p11-empty .ux-btn { margin-top: 16px; }
+.p11-foot { text-align: center; margin-top: 40px; line-height: 1.6; }
+.p11-foot .ux-lnk { font-size: 13px; line-height: 1.6; }
+
+/* loading rows (no animation: nothing moves under reduced motion either) */
+.p11-skel { margin-top: 32px; }
+.p11-skel-row { display: flex; align-items: center; gap: 14px; padding: 16px 0 16px 22px; }
+.p11-skel-ni { width: 40px; height: 40px; border-radius: 50%; background: var(--ux-surface); flex: 0 0 auto; }
+.p11-skel-row span { flex: 1; display: grid; gap: 10px; }
+.p11-skel-row span i { display: block; height: 12px; border-radius: 6px; background: var(--ux-surface); width: 62%; }
+.p11-skel-row span i + i { width: 38%; }
+
+/* ---------- bell panel rows (prototype .brow) ---------- */
+.p11-bell { display: block; }
+.p11-bell.is-loading { min-height: 132px; }
+.p11-brow { display: flex; gap: 12px; padding: 10px 12px; border-radius: 10px; color: var(--ux-ink); font-size: 16px; line-height: 1.6; }
+.p11-brow:hover, .p11-brow:focus-visible { background: var(--ux-surface); }
+.p11-bu { width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; flex: 0 0 auto; background: var(--ux-pink); }
+.p11-bu.is-read { background: transparent; }
+.p11-bb { display: block; min-width: 0; }
+.p11-bt { display: block; font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.p11-bt b { font-weight: 600; }
+.p11-btm { font-size: 13px; color: var(--ux-muted); }
+.p11-bempty .ux-lnk { font-size: 14px; }
+
+/* ---------- search overlay results (inside A0's .ux-sov-b) ---------- */
+.p11-sres { display: block; }
+.p11-sres .ux-srow:focus-visible { background: var(--ux-surface); }
+.p11-sres .ux-srow small { flex: 0 0 auto; white-space: nowrap; }
+.p11-st { min-width: 0; overflow-wrap: anywhere; }
+.p11-sth { overflow: hidden; }
+.p11-sth img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p11-sth.is-ini { background: var(--ux-surface-2); color: var(--ux-muted); font-weight: 600; }
+.p11-song-th { background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); }
+.p11-sempty { padding: 32px 12px; }
+
+@media (max-width: 760px) {
+  /* the shared .ux-pop turns into a fixed panel under the top bar on phones:
+     a row menu stays anchored to its row */
+  .p11-rowpop.ux-pop { position: absolute; left: auto; right: 0; top: calc(100% + 4px); width: auto !important; min-width: 208px; }
+}
+@media (hover: none), (pointer: coarse) {
+  .p11-more { opacity: 1; width: 44px; height: 44px; }
+  .p11-rowact { right: -14px; top: 30px; }
+}
