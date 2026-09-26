@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **3**, loop 2 (checkers re-running the affected states and rows on cc6c394). while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration at cc6c394 (after fix loop 1, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
+- Phase: **4, WAITING ON THE OWNER.** Final draft PR #66 (feat/ux-v1-v11 -> main, flag default off) opened 2026-09-27. Not DONE yet only because two branches could not be published by agents (P2, C3) and the owner decisions below are open. Every checker issue is closed.
 
 ## Agents
 
@@ -24,7 +24,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | loop 2 done LOCALLY, REPORT.md finished (unpublished: waits for the owner) | 1245da1 | - | v11/REPORT.md |
+| C3 | ux11/c3-check | DONE locally, REPORT.md final (unpublished: waits for the owner) | e464a46 | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -109,6 +109,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 Phase 4: C3 final (local e464a46, REPORT.md: every page DONE except P2 PENDING and P7 populated states NOT verified; every checker issue closed). Draft PR #66 opened (feat/ux-v1-v11 -> main; main unchanged at 450f053, merges cleanly; supersedes #42 and #43; no new dependency). DoD checks: no test-user session file left in any worktree; no run worktree with uncommitted work (only the owner's older .worktrees/play-seo). The flag-on build of e54b847 still runs on http://localhost:3021 from .worktrees/ux11-integration-b for the owner to look at.
 - 2026-09-27 Server swapped to e54b847 (809/809). C2 loop 3: C2-008 FIXED (no stored play: results render, no rank line, no error; stored play: rank line; the standing endpoint answers the full shape in every branch). C2 merged (bb9b5a5): 196 pass, 0 fail. Every checker issue is now fixed (C1 2, C2 8, C3 9). C3 finalizing REPORT.md locally.
 - 2026-09-27 P4 fix loop 2 merged (e54b847): one standing parser (missing or non-positive rank/total -> null), the endpoint always sends every field, the rank line only with real numbers; red/green e2e with C2's recorded answer; p4.spec 48 pass / 1 skipped / 0 fail. Integration: tsc 0, unit 829/829. Rebuilding the checker server in .worktrees/ux11-integration-b for C2's re-check of C2-008.
 - 2026-09-26 C3 loop 2 done (local 1245da1), REPORT.md finished with C1 and C2 loop 2: owner specs 555 pass / 0 fail / 0 flaky / 8 skipped by design of 563; QA specs 183 pass, 37 expected failures (36 legacy contrast inside the shell, present flag off too; 1 keyboard on the pre-P2 /quizzes); axe 0 serious/critical on 190/190 v11 runs; keyboard + visible focus on 14 pages; 17/17 sheets and popovers; live regions ok; SEO fields, JSON-LD, robots.txt, sitemap (2998) identical; every hub quiz a visible link; LCP home 2.42 vs 3.28 s, BLACKPINK hub 3.01 vs 3.31 s; home images 908 -> 495 KB; home CLS 0.054. C3 issues: 001/004/005/006/007/008 fixed and re-checked live; 002/003/009 fixed in code with unit tests (not fault-injected). Page status: P4 OPEN (C2-008, fix loop 2 running), P2 PENDING, P7 populated states NOT verified; A0, P1, P3, P5, P6, P8, P9, P10, P11 DONE.
@@ -154,4 +155,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: keep :3021 up. When P8 is merged: rebuild .worktrees/ux11-integration at the new head (git -C .worktrees/ux11-integration checkout --detach origin/feat/ux-v1-v11, NEXT_PUBLIC_UX_V1=1 pnpm build), restart the server on :3021, tell C1/C2/C3 to check the community states. Route checker issues (v11/issues/<owner>.md) to the owning agents (resume them), merge fixes, rebuild, ask checkers to re-run only affected states; up to 3 loops. Then C3 finishes REPORT.md; ORCH opens the draft PR feat/ux-v1-v11 -> main (Phase 4).
+NEXT ACTION: wait for the owner. If he pushes ux11/p2-quizzes (or says to): guard it (UX11_AGENT=P2), merge --no-ff, rebuild the flag-on build, have C1 re-run the quizzes state and C2 the 7 /quizzes rows, have C3 refresh REPORT.md. If he pushes ux11/c3-check (or says to): guard it (UX11_AGENT=C3), merge --no-ff (issue files: union). Then update PR #66's body, set RUN-STATE to DONE when the owner is satisfied, stop the :3021 server, remove .worktrees/ux11-integration and -b. Never merge PR #66: the owner merges.
