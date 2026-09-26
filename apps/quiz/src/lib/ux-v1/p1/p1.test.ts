@@ -4,7 +4,6 @@ import {
   addDays, autoSchedule, autoScheduleCompact, pickBankEntryForDate, pickCatalogQotd, qotdRotationFixEnabled,
 } from '@/lib/quiz-bank-scheduling';
 
-import { parseRuns } from './continue-store';
 import {
   aboutMinutes, ageLabel, averagePct, countdownLabel, fansLabel, greetingFor, groupInitials, hoursLeftLabel,
   isVisibleGroupSlug, meanRunSeconds, minutesToUtcMidnight, pickedOnLabel,
@@ -265,25 +264,5 @@ describe('format helpers', () => {
     expect(ageLabel('2026-09-25T09:00:00Z', now)).toBe('3 hours ago');
     expect(isVisibleGroupSlug('zzz-quarantine-hidden')).toBe(false);
     expect(isVisibleGroupSlug('bts')).toBe(true);
-  });
-});
-
-describe('continue store', () => {
-  const now = Date.parse('2026-09-25T12:00:00Z');
-  it('keeps valid unfinished recent runs, newest first, one per quiz', () => {
-    const raw = JSON.stringify([
-      { slug: 'a-quiz', title: 'A', groupSlug: 'bts', answered: 3, total: 8, updatedAt: '2026-09-24T10:00:00Z' },
-      { slug: 'b-quiz', title: 'B', groupSlug: null, answered: 6, total: 8, updatedAt: '2026-09-25T10:00:00Z' },
-      { slug: 'a-quiz', title: 'A', groupSlug: 'bts', answered: 2, total: 8, updatedAt: '2026-09-20T10:00:00Z' },
-      { slug: 'done', title: 'D', groupSlug: null, answered: 8, total: 8, updatedAt: '2026-09-25T10:00:00Z' },
-      { slug: 'old', title: 'O', groupSlug: null, answered: 1, total: 8, updatedAt: '2026-08-01T10:00:00Z' },
-      { slug: 'Bad Slug!', title: 'X', groupSlug: null, answered: 1, total: 8, updatedAt: '2026-09-25T10:00:00Z' },
-    ]);
-    expect(parseRuns(raw, now).map((r) => `${r.slug}:${r.answered}`)).toEqual(['b-quiz:6', 'a-quiz:3']);
-  });
-  it('tolerates junk', () => {
-    expect(parseRuns(null, now)).toEqual([]);
-    expect(parseRuns('{', now)).toEqual([]);
-    expect(parseRuns('{"a":1}', now)).toEqual([]);
   });
 });

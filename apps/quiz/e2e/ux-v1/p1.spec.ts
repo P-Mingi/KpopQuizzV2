@@ -293,7 +293,7 @@ for (const theme of THEMES) {
     test('community rows and continue (guest: hidden)', async ({ page }) => {
       await guardWrites(page, env.supabaseUrl);
       await page.addInitScript(() => {
-        try { localStorage.setItem('kq_ux_continue_v1', JSON.stringify([{ slug: 'any-quiz', title: 'Any quiz', groupSlug: 'bts', answered: 3, total: 8, updatedAt: new Date().toISOString() }])); } catch { /* blocked */ }
+        try { localStorage.setItem('ux:continue:v1', JSON.stringify([{ quizId: 'q-any', slug: 'any-quiz', title: 'Any quiz', groupName: 'BTS', groupSlug: 'bts', quizType: 'multiple_choice', difficulty: 'easy', total: 8, answered: 3, savedAt: Date.now(), run: { questionIndex: 3, score: 2, answers: [], questions: [], settings: {}, quizType: 'multiple_choice', clueResults: [], elapsedMs: 0 }, perQuestionTimes: [], relaxed: false }])); } catch { /* blocked */ }
       });
       test.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
       await expect(page.locator('#p1-cont-h'), 'Continue is for signed-in fans only (prototype)').toHaveCount(0);
@@ -358,11 +358,17 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       const { rows: oldest } = await rest<{ slug: string }[]>(`quizzes?select=slug&status=eq.published&created_at=lt.${before}&order=play_count.asc,id.asc&limit=1`);
       const runSlug = oldest[0]?.slug;
       if (runSlug) {
+        // P4's stored format (lib/ux-v1/p4/continue.ts, key ux:continue:v1), as the quiz game writes it.
         await page.addInitScript(([slug, qotdSlug]) => {
-          const at = new Date().toISOString();
-          const runs = [{ slug, title: 'Continue run', groupSlug: 'stray-kids', answered: 3, total: 8, updatedAt: at }];
-          if (qotdSlug) runs.push({ slug: qotdSlug, title: 'Quiz of the day run', groupSlug: 'stray-kids', answered: 2, total: 8, updatedAt: at });
-          try { localStorage.setItem('kq_ux_continue_v1', JSON.stringify(runs)); } catch { /* blocked */ }
+          const entry = (s: string, title: string, answered: number, ago: number): Record<string, unknown> => ({
+            quizId: `q-${s}`, slug: s, title, groupName: 'Stray Kids', groupSlug: 'stray-kids', quizType: 'multiple_choice', difficulty: 'medium',
+            total: 8, answered, savedAt: Date.now() - ago,
+            run: { questionIndex: answered, score: answered - 1, answers: [], questions: [], settings: {}, quizType: 'multiple_choice', clueResults: [], elapsedMs: 0 },
+            perQuestionTimes: [], relaxed: false,
+          });
+          const runs = [entry(slug, 'Continue run', 3, 0)];
+          if (qotdSlug) runs.push(entry(qotdSlug, 'Quiz of the day run', 2, 1000));
+          try { localStorage.setItem('ux:continue:v1', JSON.stringify(runs)); } catch { /* blocked */ }
         }, [runSlug, q?.slug ?? null] as const);
       }
       const band = page.waitForResponse((r) => r.url().includes('/api/ux-v1/p1/daily-band'));
@@ -379,7 +385,7 @@ signedInTest.describe('home signed in (test user, read only)', () => {
         const cont = page.locator('section[aria-labelledby="p1-cont-h"]');
         await expect(cont.locator('h2')).toHaveText('Continue playing');
         await expect(cont.locator('a.p1-citem'), 'the quiz of the day run is not listed twice').toHaveCount(1);
-        await expect(cont.locator('a.p1-citem')).toHaveAttribute('href', `/q/${runSlug}`);
+        await expect(cont.locator('a.p1-citem'), 'resumes at the saved question (P4)').toHaveAttribute('href', `/q/${runSlug}?resume=1`);
         await expect(cont.locator('.ux-rs')).toHaveText('3 of 8 answered');
       }
 
