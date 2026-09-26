@@ -1,0 +1,118 @@
+
+== /groups  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "All K-pop Groups | KpopQuiz"
+SAME  description  "Every K-pop group with quizzes on KpopQuiz, listed A to Z with its generation. Browse the full list and jump straight to a group to play."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/groups"
+SAME  hreflang  []
+SAME  og  ["og:description=Browse every K-pop group with quizzes, A to Z.","og:site_name=KpopQuiz","og:title=All K-pop Groups | KpopQuiz","og:type=website","og:url=https://kpopquiz.org/group
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["All K-pop groups"]
+SAME  intro  "Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded."
+SAME  genline  "3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen · 12 with no generation recorded"
+SAME  updated  null
+SAME  FAQ pairs: A 0, B 0 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 0 kept 0; questions 0, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 0, B 0
+DIFF  link set: A 85 unique hrefs (99 anchors), B 143 unique hrefs (174 anchors); lost 1: /search; added 59: #letter-J #letter-P #letter-V #letter-W #letter-Z #main /2ne1-quiz /2pm-quiz /apink-quiz /bibi-quiz /billlie-quiz /blindtest/ranked /boynextdoor-quiz /btob-quiz /chungha-quiz /community /daily /day6-quiz /fromis-9-quiz /fx-quiz /groups /heize-quiz /hwasa-quiz /hyuna-quiz /ikon-quiz /iu-quiz /jay-park-quiz /jennie-quiz /jeon-somi-quiz /jimin-quiz /jungkook-quiz /kara-quiz /kep1er-quiz /kiss-of-life-quiz /miss-a-quiz /nct-dream-quiz /new /p1harmony-quiz /pentagon-quiz /profile /psy-quiz /purple-kiss-quiz /riize-quiz /rose-quiz /sistar-quiz /stayc-quiz /sunmi-quiz /t-ara-quiz /taeyang-quiz /taeyeon-quiz /the-boyz-quiz /trending /triples-quiz /v-bts-quiz /viviz-quiz /winner-quiz /wonder-girls-quiz /zerobaseone-quiz /zico-quiz
+
+== /blackpink-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "BLACKPINK Quiz: Can Every BLINK Name All 4? (2026) | KpopQuiz"
+SAME  description  "Play 29+ free BLACKPINK quizzes made by fans. Name all 4 members, guess the song, and prove you are a real BLINK. Start now, no sign-up."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/blackpink-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=29+ free BLACKPINK quizzes. Can you pass them all?","og:image:alt=BLACKPINK Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org/api/og
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["BLACKPINK Quiz - Test How Well You Know BLACKPINK"]
+SAME  intro  "BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,904 plays and counting
+SAME  genline  null
+SAME  updated  "Updated September 2026"
+SAME  FAQ pairs: A 5, B 10 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 1 kept 1; questions 7, lost 0
+INFO  same question on the FAQ and the W8 block, shown once with the FAQ answer (JSON-LD): "What is BLACKPINK's fandom called?" W8 "BLACKPINK's fandom is called BLINK." / FAQ "BLACKPINK's official fandom name is BLINK."
+SAME  member photo alt texts: A 4, B 4
+SAME  dated content (<time>): A 6, B 6
+DIFF  link set: A 62 unique hrefs (94 anchors), B 76 unique hrefs (107 anchors); lost 1: /search; added 15: #main /ateez-quiz /blackpink-quiz /blackpink-quiz?page=2 /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending
+
+== /bts-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "BTS Quiz: Only Real ARMY Can Name All 7 (2026) | KpopQuiz"
+SAME  description  "Play 31+ free BTS quizzes made by fans. Name all 7 members, guess the song from the lyrics, and prove you are a real ARMY. Start now, no sign-up."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/bts-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=31+ free BTS quizzes. Can you pass them all?","og:image:alt=BTS Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org/api/og/group/bts",
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["BTS Quiz - Test How Well You Know BTS"]
+SAME  intro  "BTS quizzes, made by fans who actually know BTS: play 31+ free tests, from easy trivia to impossible deep cuts, and prove you're a real ARMY. 9,853 plays and counting."
+SAME  genline  null
+SAME  updated  "Updated September 2026"
+SAME  FAQ pairs: A 5, B 10 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 1 kept 1; questions 7, lost 0
+INFO  same question on the FAQ and the W8 block, shown once with the FAQ answer (JSON-LD): "What is BTS's fandom called?" W8 "BTS's fandom is called ARMY." / FAQ "BTS's official fandom name is ARMY."
+SAME  member photo alt texts: A 7, B 7
+SAME  dated content (<time>): A 6, B 6
+DIFF  link set: A 65 unique hrefs (97 anchors), B 80 unique hrefs (110 anchors); lost 1: /search; added 16: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /bts-quiz?page=2 /community /daily /groups /new /newjeans-quiz /profile /stray-kids-quiz /trending /twice-quiz
+
+== /cortis-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "Cortis Quiz: Test How Well You Know the Rookie Group (2026) | KpopQuiz"
+SAME  description  "Play 9+ free Cortis quizzes made by fans. Test your knowledge of Cortis's members, songs, and 2025 debut. Start now, no sign-up."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/cortis-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=9+ free Cortis quizzes. Can you pass them all?","og:image:alt=Cortis Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org/api/og/group/
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["Cortis Quiz - Test How Well You Know Cortis"]
+SAME  intro  "Cortis quizzes, made by fans who actually know Cortis: play 9+ free tests, from easy trivia to impossible deep cuts, and prove you're a real fan. 1,647 plays and counting."
+SAME  genline  null
+SAME  updated  "Updated September 2026"
+SAME  FAQ pairs: A 2, B 2 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 0 kept 0; questions 0, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 1, B 1
+DIFF  link set: A 44 unique hrefs (69 anchors), B 61 unique hrefs (84 anchors); lost 1: /search; added 18: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/group-cortis /blindtest/ranked /bts-quiz /community /cortis-quiz?page=2 /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+
+== /chungha-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "Chungha Quiz: Free Fan-Made Trivia Test | KpopQuiz"
+SAME  description  "Play the free Chungha quiz made by fans. Test your knowledge of Chungha's members, songs, eras, and history, then prove you are a real Byulharang."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/chungha-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=0+ free Chungha quizzes. Can you pass them all?","og:image:alt=Chungha Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org/api/og/grou
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["Chungha Quiz - Test How Well You Know Chungha"]
+SAME  intro  "No Chungha quizzes yet - be the first to create one! Think you know Chungha well enough to challenge other Byulharangs? Create a free quiz at kpopquiz.org."
+SAME  genline  null
+SAME  updated  null
+SAME  FAQ pairs: A 0, B 2 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 1 kept 1; questions 2, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 0, B 0
+DIFF  link set: A 24 unique hrefs (40 anchors), B 39 unique hrefs (53 anchors); lost 1: /search; added 16: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+
+== /blackpink-trivia  (A flag off http://localhost:4332  |  B flag on http://localhost:3033)
+SAME  status  200
+SAME  title  "BLACKPINK Trivia: 82 Facts Only Real Fans Know | KpopQuiz"
+SAME  description  "How well do you really know BLACKPINK? 82 surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/blackpink-trivia"
+SAME  hreflang  []
+SAME  og  ["og:description=Fun facts about BLACKPINK that even hardcore fans might not know.","og:image:alt=BLACKPINK Trivia","og:image:height=630","og:image:width=1200","og:image=https://kp
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"about\":{\"@type\":\"MusicGroup\",\"name\":\"BLACKPINK\"},\"dateModified\":\"2026-09-08\",\"datePublished\":\"2026-03
+SAME  h1  ["BLACKPINK trivia and fun facts"]
+SAME  intro  "82 facts about BLACKPINK that even hardcore BLINKs might not know - pulled from fan-made quizzes."
+SAME  genline  null
+SAME  updated  "Updated September 2026"
+SAME  FAQ pairs: A 0, B 0 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 1 kept 1; questions 7, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 1, B 1
+DIFF  link set: A 37 unique hrefs (121 anchors), B 51 unique hrefs (136 anchors); lost 1: /search; added 15: #main /aespa-quiz /ateez-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+
+SEO DIFF: differences found
