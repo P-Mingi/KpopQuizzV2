@@ -10,17 +10,17 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A0 | ux11/a0-foundation | merged (2cad6a7, PR #45) | 9b71ace | 0 | v11/reports/A0.md |
+| A0 | ux11/a0-foundation | merged (2cad6a7, PR #45); resumed for the request queue (P4 x2, P10 x1) + streak test time bomb | 9b71ace | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | running (resumed 23:51 after usage limit; 7 commits, 4 unpushed at that time) | 5d423e0 | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | running (spawned from 5e6db4e with briefs/COMMON.md + P2.md) | - | 0 | v11/reports/P2.md |
-| P3 | ux11/p3-groups | queued | - | 0 | v11/reports/P3.md |
+| P3 | ux11/p3-groups | running (spawned from integration with briefs/COMMON.md + P3.md) | - | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | merged (7a13aa6, PR #46) | 2b57d54 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | queued | - | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | merged (bedaf6f, PR #47) | 5af008e | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | running (UI pass 2, resumed on its branch; draft PR #44 covers both passes) | 56eb011 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | queued | - | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | queued | - | 0 | v11/reports/P9.md |
-| P10 | ux11/p10-passport | running (resumed 23:51 after usage limit; 8 commits, 5 unpushed) | 881968c | 0 | v11/reports/P10.md |
+| P10 | ux11/p10-passport | merged (2dd8f9f, PR #48) | c74f655 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | queued | - | 0 | v11/reports/P11.md |
 | C1 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/pixel/ |
 | C2 | (read-only on feat/ux-v1-v11) | queued | - | - | v11/checks/backend/ |
@@ -50,6 +50,8 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - `docs/pending-migrations/v11-p4-relaxed-runs.sql` (P4): plays.relaxed (play without a timer), excluded from the hall of fame and quiz_time_stats.
 - `docs/pending-migrations/v11-p4-rank-for-score.sql` (P4): get_quiz_rank_for_score (guest rank line on results).
+- `docs/pending-migrations/v11-p10-header-storage.sql` (P10): the profile-headers storage bucket + policies; both header routes answer 503 before any write until it exists.
+- `docs/pending-migrations/v11-p10-email-prefs.sql` (P10): email notification switches (disabled in the UI until applied).
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
@@ -69,10 +71,12 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 11. Security, existing (found by P4): the `battles` table accepts public inserts; P4 only trusts signed challenge links. Tightening is an RLS change, owner call. Optional env UX_P4_CHALLENGE_SECRET for the link signature.
 12. P6: should every blindtest (not only the dailies) count for the streak; should free hub plays be recorded and earn XP (XP-farming risk); wire bt_players rank titles; blindtest challenge creation is open to guests (require sign-in or rate limit?); "challenges waiting" needs an invitee column; the Recent hits, Legends and Speed round mixes need generate support.
 13. P6: the Intro mode 301 (/blindtest/intro-challenge -> /blindtest) was not done in this run (SEO diff); owner go needed.
-14. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+14. P10: header storage: create the profile-headers bucket or reuse the avatars bucket; an email sender for the email switches; a "flat theme colour" band mode needs a new column; a real delete-account flow (today the confirm sheet sends the fan to /contact). Signed-in /me is NOT verified live (render test only) until decision 1.
+15. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 
 ## Log
 
+- 2026-09-26 P10 merged (2dd8f9f): guard ok (51 files), tsc clean, check:routes 318 both ways, flag-off diff identical on 8 pages (per P10), test user's rows unchanged since 2026-09-22. Unit run on integration: 240/242; the 2 failures are A0's streak-view tests, a time bomb (lib/streak.ts streakState reads the wall clock while the tests pin now to 2026-09-25); product behaviour is right; A0 fixes the test with a frozen system clock. P3 spawned in P10's slot; A0 resumed for its request queue.
 - 2026-09-26 P7 UI pass started (resumed agent) and P2 spawned. The blindtest mode-page bug was handed to the owner as a separate task chip (fix on main, outside this run). P1 told to read Continue playing through lib/ux-v1/p4/continue.ts.
 - 2026-09-26 P4 merged (7a13aa6) and P6 merged (bedaf6f): guard ok (66 and 51 files), tsc clean, check:routes 315 both ways, 84 unit tests green on integration. P4: quiz rules in lib/ux-v1/p4/engine.ts with a parity test that transpiles quiz-player.tsx and compares results and save-payload keys; making quiz-player.tsx import the engine is a flag-off change, left for the owner's cleanup. P6: challenges use `challenges`/`challenge_attempts`, P4's use `battles`, both as WIRING-MAP rows 79 and 255 say. A0 request queue: P4 (useUxMe null until mounted; ShareSheet on phones). Open: /pt/blindtest unowned; /g/[slug] unchanged (no prototype state).
 - 2026-09-25 23:51 Usage limit: P1, P4, P6, P10 were stopped by the account session limit (reset 23:50) after pushing part of their work. All four resumed from their transcripts with their live servers listed (next servers of the ask-link project on this machine are not ours, never touched). Lesson for the run: agents commit and push after every meaningful step.
