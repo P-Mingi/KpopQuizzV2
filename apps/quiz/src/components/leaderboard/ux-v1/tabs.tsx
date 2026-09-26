@@ -35,18 +35,22 @@ export function LbTabs({ panes }: { panes: LbPane[] }): React.ReactElement {
     setSeen((s) => (s.has(id) ? s : new Set([...s, id])));
   }, []);
 
-  // A shared link (/leaderboard#players) opens its tab and scrolls to it.
+  // A shared link (/leaderboard#players) opens its tab and scrolls to it, on load
+  // and when the hash changes on the page (a link to #fandom-war while here).
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    const pane = panes.find((p) => p.hash === hash);
-    if (!pane) return;
-    open(pane.id);
-    if (pane.id !== first) {
-      requestAnimationFrame(() => document.getElementById(`${PREFIX}-panel-${pane.id}`)?.scrollIntoView({ block: 'start' }));
-    }
-    // panes are static props of a server render: run once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const follow = (): void => {
+      const hash = window.location.hash.slice(1);
+      const pane = panes.find((p) => p.hash === hash);
+      if (!pane) return;
+      open(pane.id);
+      if (pane.id !== first) {
+        requestAnimationFrame(() => document.getElementById(`${PREFIX}-panel-${pane.id}`)?.scrollIntoView({ block: 'start' }));
+      }
+    };
+    follow();
+    window.addEventListener('hashchange', follow);
+    return () => window.removeEventListener('hashchange', follow);
+  }, [panes, first, open]);
 
   const onChange = useCallback((id: string) => {
     open(id);

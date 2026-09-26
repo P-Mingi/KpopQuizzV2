@@ -26,7 +26,8 @@ export function HowPoints({ creatorViews }: { creatorViews: CreatorsView[] }): R
     <section className="ux-sec p9-how" aria-labelledby="p9-how-h">
       <h2 className="ux-h2 p9-how-h" id="p9-how-h">How points work</h2>
       <Acc title="Fandom war points">
-        Every finished quiz about a group adds <b>1 point</b> to that group&apos;s fandom, whoever plays it, guests and
+        {/* explicit space: SWC drops the leading space of a multi-line JSX text that holds an entity */}
+        Every finished quiz about a group adds <b>1 point</b>{' '}to that group&apos;s fandom, whoever plays it, guests and
         replays included. The board counts the <b>last 7 days</b> and updates every hour; the change is against the 7 days
         before. General K-pop quizzes and blindtests do not count. Your main group, set in Settings, is the fandom pinned
         under the board.
