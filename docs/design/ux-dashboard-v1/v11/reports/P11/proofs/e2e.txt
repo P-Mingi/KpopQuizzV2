@@ -55,3 +55,8 @@ said so and the overlay showed its note ABOVE the rows, 50px lower Groups label)
 
 ## overlay cases re-run with --retries=0 after that change
 17 passed (1.6m): setup + 8 overlay cases x 2 widths (light and dark), 0 retries
+
+## flag-on PRODUCTION build (next build + next start :4113, commit 69b410c code, NO slot swap: A0 defaults)
+20 passed, 22 skipped (the 8 overlay + 3 bell cases x 2 widths: "the P11 slot is not wired yet"), 1 flaky:
+  notifications page dark (1440): the streak row did not show on the first attempt; /api/auth/me answers
+  { profile: null } when auth takes over 2.5 s (its own fail-soft timeout), so no streak is drawn; passed on retry.
