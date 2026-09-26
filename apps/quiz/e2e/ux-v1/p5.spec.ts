@@ -43,6 +43,7 @@ const LIVE = {
   robots: 'noindex, follow',
   h1: "What's your quiz about?",
   intro: 'No account needed to start. You can change everything later.',
+  coverLine: 'A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background.',
 };
 
 const FAKE_QUIZ = { id: 'p5-e2e-id', slug: 'p5-e2e-slug', creator_stats: { quizzes_created: 2, plays_received: 5 } };
@@ -222,8 +223,7 @@ const L: P5Landmark[] = [
   ]),
   // A0's sign-in sheet opened by Publish
   { proto: '#signin', impl: '.ux-sheet', state: 'signin' },
-  // A0's sheet title is 18/1.4 (25.2px) where the prototype's is 18/1.6: request to A0 (requests/P5.md)
-  { proto: '#signin .sh-h h3', impl: '.ux-sheet .ux-sh-h h2', state: 'signin', skip: ['line-height'], boxSkip: ['h', 'y'] },
+  { proto: '#signin .sh-h h3', impl: '.ux-sheet .ux-sh-h h2', state: 'signin' },
   { proto: '#si-p', impl: '.ux-sheet .ux-sh-p', state: 'signin' },
   { proto: '#signin .authb', impl: '.ux-sheet .ux-authb', state: 'signin' },
   { proto: '#signin .or', impl: '.ux-sheet .ux-or', state: 'signin' },
@@ -324,6 +324,8 @@ test.describe('P5 SEO lock and shell', () => {
     expect(html).toContain(`<p>${LIVE.intro}</p>`);
     // the funnel is server rendered (step 1 fields are in the HTML)
     for (const id of ['p5-title', 'p5-about', 'p5-group-q', 'p5-lang']) expect(html).toContain(`id="${id}"`);
+    // the live funnel's cover sentence stays in the served text (C3-005)
+    expect(html).toContain(LIVE.coverLine);
     // create shell mode: nav kept; tab bar and footer hidden by CSS (still in the HTML)
     await preparePage(page, 'light');
     await guardWrites(page);

@@ -147,7 +147,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
                 type="file"
                 className="ux-sr"
                 accept={ACCEPTED_IMAGE_TYPES.join(',')}
-                aria-describedby="p5-cover-l"
+                aria-describedby="p5-cover-l p5-cover-h"
                 onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }}
               />
               <span>
@@ -170,6 +170,8 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
             ) : null}
           </div>
         </div>
+        {/* the live funnel's cover line (kept: the prototype has no equivalent sentence) */}
+        <p className="ux-help p5-covhelp" id="p5-cover-h">A cover makes your quiz yours, it is the first thing fans see. Shows on your quiz card and becomes your share card background.</p>
       </div>
     </div>
   );
