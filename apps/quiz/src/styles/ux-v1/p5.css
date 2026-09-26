@@ -174,8 +174,6 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
 .p5-card:hover .ux-qt { color: inherit; }
 .p5-card .ux-qcov-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .p5-card .ux-qt { text-wrap: balance; }
-/* the prototype's card eyebrow and footer lines are 1.6 (20.8px); A0's are 1.5 (request to A0) */
-.p5-card .ux-qg, .p5-card .ux-qf { line-height: 1.6; }
 .p5-checks { margin: 0; padding: 0; list-style: none; }
 .p5-check { padding: 12px 0; line-height: 25.6px; }
 .p5-check .ux-row-grow { font-size: 16px; }
@@ -210,8 +208,6 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
 
 /* ---------- phones (prototype @media max-width 760) ---------- */
 @media (max-width: 760px) {
-  /* the prototype's .flabel wraps on phones (A0 has the same fix queued, PR #50) */
-  .p5 .ux-flabel, .p5 .ux-field > label { flex-wrap: wrap; row-gap: 2px; }
   .p5-st-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .p5-opt-ex { display: none; }
   .p5-covgrid, .p5-pubgrid { grid-template-columns: 1fr; }
