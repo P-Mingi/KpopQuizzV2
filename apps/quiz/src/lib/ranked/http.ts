@@ -25,6 +25,15 @@ export interface RankedContext {
 
 const NO_STORE = { 'Cache-Control': 'no-store' };
 
+/**
+ * GET on a POST-only ranked route: 404 with the flag off (like any unknown path
+ * today), 405 with the flag on.
+ */
+export function postOnly(): NextResponse {
+  if (!UX_V1) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  return NextResponse.json({ error: 'method_not_allowed' }, { status: 405, headers: { Allow: 'POST' } });
+}
+
 export function notLive(reason: RankedNotLiveError['reason']): NextResponse {
   return NextResponse.json({ ranked: 'not_live', reason }, { status: 503, headers: NO_STORE });
 }

@@ -1,4 +1,4 @@
-import { rankedRoute, readJson, requireUser, roundOf, tokenOf } from '@/lib/ranked/http';
+import { postOnly, rankedRoute, readJson, requireUser, roundOf, tokenOf } from '@/lib/ranked/http';
 import { releaseRound } from '@/lib/ranked/service';
 
 // POST /api/ranked/run/start {token, round} - release one round (the clip, the
@@ -11,4 +11,9 @@ export async function POST(req: Request): Promise<Response> {
     const body = await readJson(req);
     return releaseRound(ctx.store, requireUser(ctx), tokenOf(body), roundOf(body), ctx.now);
   });
+}
+
+/** GET: 404 with the flag off (the path does not exist today), 405 with it on. */
+export function GET(): Response {
+  return postOnly();
 }

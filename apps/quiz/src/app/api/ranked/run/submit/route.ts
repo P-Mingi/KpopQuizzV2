@@ -1,4 +1,4 @@
-import { rankedRoute, readJson, requireUser, tokenOf } from '@/lib/ranked/http';
+import { postOnly, rankedRoute, readJson, requireUser, tokenOf } from '@/lib/ranked/http';
 import { submitRun } from '@/lib/ranked/service';
 
 // POST /api/ranked/run/submit {token} - close the run. The server recomputes every
@@ -13,4 +13,9 @@ export async function POST(req: Request): Promise<Response> {
     const body = await readJson(req);
     return submitRun(ctx.store, requireUser(ctx), tokenOf(body), ctx.now);
   });
+}
+
+/** GET: 404 with the flag off (the path does not exist today), 405 with it on. */
+export function GET(): Response {
+  return postOnly();
 }

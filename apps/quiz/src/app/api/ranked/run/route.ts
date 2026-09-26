@@ -1,4 +1,4 @@
-import { rankedRoute, requireUser } from '@/lib/ranked/http';
+import { postOnly, rankedRoute, requireUser } from '@/lib/ranked/http';
 import { issueRun } from '@/lib/ranked/service';
 
 // POST /api/ranked/run - start a ranked run (signed in). The server draws the 10
@@ -11,4 +11,9 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(): Promise<Response> {
   return rankedRoute('required', (ctx) => issueRun(ctx.store, requireUser(ctx), ctx.season, ctx.now));
+}
+
+/** GET: 404 with the flag off (the path does not exist today), 405 with it on. */
+export function GET(): Response {
+  return postOnly();
 }
