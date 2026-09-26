@@ -14,9 +14,21 @@ function Empty({ children }: { children: React.ReactNode }): React.ReactElement 
   return <p className="p9-empty">{children}</p>;
 }
 
+/** A read that failed (null) is not an empty board: say so, never "nobody yet". The
+ *  page is ISR (5 min), so the next regeneration reads again. */
+const UNAVAILABLE = 'This board could not load right now. It refreshes within a few minutes.';
+
 /** Fandom war: podium, rows 4 to 10, rows 11 to 30 in a native fold (crawlable),
  *  the fan's own fandom pinned. */
-export function WarPane({ rows }: { rows: WarRow[] }): React.ReactElement {
+export function WarPane({ rows }: { rows: WarRow[] | null }): React.ReactElement {
+  if (rows === null) {
+    return (
+      <div id="fandom-war" className="p9-board" data-state="unavailable">
+        <Empty>{UNAVAILABLE}</Empty>
+        <WarPin />
+      </div>
+    );
+  }
   if (rows.length < MIN_BOARD) {
     return (
       <div id="fandom-war" className="p9-board">
@@ -49,7 +61,15 @@ export function WarPane({ rows }: { rows: WarRow[] }): React.ReactElement {
 }
 
 /** Players: all-time XP (the passport level's XP), your rank pinned. */
-export function PlayersPane({ rows }: { rows: PersonRow[] }): React.ReactElement {
+export function PlayersPane({ rows }: { rows: PersonRow[] | null }): React.ReactElement {
+  if (rows === null) {
+    return (
+      <div className="p9-board" data-state="unavailable">
+        <Empty>{UNAVAILABLE}</Empty>
+        <PlayerPin />
+      </div>
+    );
+  }
   if (rows.length < MIN_BOARD) {
     return (
       <div className="p9-board">
@@ -90,7 +110,15 @@ function CreatorBoard({ view, rows }: { view: CreatorsView; rows: PersonRow[] })
 
 /** Creators: plays received (all time), with the live This week and Rising boards
  *  when they clear the floor; your all-time standing pinned. */
-export function CreatorsPane({ boards, views }: { boards: CreatorsBoards; views: CreatorsView[] }): React.ReactElement {
+export function CreatorsPane({ boards, views }: { boards: CreatorsBoards | null; views: CreatorsView[] }): React.ReactElement {
+  if (boards === null) {
+    return (
+      <div className="p9-board" data-state="unavailable">
+        <Empty>{UNAVAILABLE}</Empty>
+        <CreatorPin />
+      </div>
+    );
+  }
   if (!views.length) {
     return (
       <div className="p9-board">

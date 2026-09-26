@@ -9,6 +9,8 @@ import { LbTabs, RankedPane } from './islands';
 import { CreatorsPane, PlayersPane, WarPane } from './panes';
 import { HowPoints } from './points';
 
+import type { CreatorsBoards, PersonRow, WarRow } from '@/lib/ux-v1/p9/data';
+
 // UX v11 /leaderboard (P9; prototype #leaderboard, DESIGN-SPEC 13.5, 16.7, 17.1,
 // 17.3): tabs Fandom war / Players / Ranked / Creators, frameless podium, rows with
 // the change since last week, your row pinned, How points work. Server component,
@@ -19,20 +21,20 @@ import { HowPoints } from './points';
 // canonical stay on the route. Every link of the live page is served here too (the
 // boards + "Around the community").
 
-const NO_CREATORS = { all: [], week: [], rising: [] };
 const NO_FEEDS = { happening: [], comments: [], badges: [] };
 
 export async function LeaderboardV11(): Promise<React.ReactElement> {
   const [war, players, creators, today, qotd, feeds, fresh] = await Promise.all([
-    safeFetch(readWarBoard(), [], '[ux-leaderboard] war'),
-    safeFetch(readPlayers(), [], '[ux-leaderboard] players'),
-    safeFetch(readCreators(), NO_CREATORS, '[ux-leaderboard] creators'),
+    // null = the read failed or timed out: the pane says so instead of showing an empty board.
+    safeFetch<WarRow[] | null>(readWarBoard(), null, '[ux-leaderboard] war'),
+    safeFetch<PersonRow[] | null>(readPlayers(), null, '[ux-leaderboard] players'),
+    safeFetch<CreatorsBoards | null>(readCreators(), null, '[ux-leaderboard] creators'),
     safeFetch(readToday(), null, '[ux-leaderboard] today'),
     safeFetch(readQotd(), null, '[ux-leaderboard] qotd'),
     safeFetch(readFeeds(), NO_FEEDS, '[ux-leaderboard] feeds'),
     safeFetch(readFresh(), [], '[ux-leaderboard] fresh'),
   ]);
-  const views = creatorViews(creators);
+  const views = creators ? creatorViews(creators) : [];
 
   return (
     <UxPage width="text" className="p9-lb">

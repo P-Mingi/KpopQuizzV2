@@ -105,6 +105,18 @@ describe('Fandom war pane', () => {
     expect(thin).not.toContain('p9-podium');
   });
 
+  it('a failed read is not an empty board: every pane says it could not load, never "nobody yet"', () => {
+    for (const out of [
+      html(h(WarPane, { rows: null })),
+      html(h(PlayersPane, { rows: null })),
+      html(h(CreatorsPane, { boards: null, views: [] })),
+    ]) {
+      expect(out).toContain('data-state="unavailable"');
+      expect(out).toContain('This board could not load right now. It refreshes within a few minutes.');
+      expect(out).not.toMatch(/No fandom|No player|No creator/);
+    }
+  });
+
   it('the pinned row keeps its box while the session is unknown (no guest flash)', () => {
     expect(out).toContain('<div class="p9-pin-wait" aria-hidden="true"></div>');
   });
