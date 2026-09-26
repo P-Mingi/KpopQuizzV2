@@ -1,0 +1,133 @@
+/* ==========================================================================
+   P9 Leaderboard (UX v11.2): /leaderboard. NOT imported anywhere: A0's flag-gated
+   route serves every file of this folder to flag-on pages only. Source: prototype
+   #leaderboard (.utabs, .podium / .pod / .pav, .lrow / .dl, .pin, .acc, "leaderboard
+   pink details"), DESIGN-SPEC 16.7, 17.1, 17.3. Every colour is an A0 token.
+   ========================================================================== */
+
+/* ---------- tabs + panes ---------- */
+.p9-tabs { margin-top: 28px; }
+.p9-pane:focus-visible { outline-offset: 6px; }
+.p9-empty { margin-top: 32px; font-size: 15px; line-height: 1.6; color: var(--ux-muted); }
+
+/* ---------- podium (prototype .podium / .pod) ---------- */
+.p9-podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 16px; margin: 40px 0 0; padding: 0; list-style: none; text-align: center; }
+.p9-pod { position: relative; min-width: 0; line-height: 1.6; }
+.p9-pod[data-rank="1"] { grid-column: 2; grid-row: 1; transform: translateY(-24px); }
+.p9-pod[data-rank="2"] { grid-column: 1; grid-row: 1; }
+.p9-pod[data-rank="3"] { grid-column: 3; grid-row: 1; }
+.p9-pav { position: relative; display: block; width: 96px; height: 96px; margin: 0 auto; border-radius: 50%; overflow: hidden; background: var(--ux-surface-2); box-shadow: 0 0 0 4px var(--ux-page), 0 0 0 5px var(--ux-hair); }
+.p9-pod[data-rank="1"] .p9-pav { width: 120px; height: 120px; box-shadow: 0 0 0 4px var(--ux-page), 0 0 0 6px var(--ux-pink); }
+.p9-img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.p9-ini { display: grid; place-items: center; width: 100%; height: 100%; font-weight: 600; color: var(--ux-muted); }
+.p9-pav .p9-ini { font-size: 28px; }
+.p9-pav-tier { display: grid; place-items: center; background: var(--ux-surface); }
+.p9-pav-tier .p7-gem { width: 44px; height: 44px; border-radius: 12px; }
+.p9-prk { display: block; margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--ux-muted); }
+.p9-pod[data-rank="1"] .p9-prk { color: var(--ux-pink-ink); }
+.p9-pname { margin-top: 2px; font-size: 18px; font-weight: 600; line-height: 1.6; letter-spacing: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p9-psub { font-size: 13px; color: var(--ux-muted); }
+.p9-pts { display: block; margin-top: 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ux-ink); }
+.p9-pod[data-rank="1"] .p9-pts { color: var(--ux-pink-ink); }
+.p9-unit { font-size: 13px; font-weight: 500; letter-spacing: normal; color: var(--ux-muted); }
+.p9-pts .p9-unit { font-size: .6em; }
+/* the name is the pod's link; the whole pod is its click target */
+.p9-pod .p9-link::after, .p9-lrow .p9-link::after { content: ""; position: absolute; inset: 0; }
+/* hover: pink-ink name, except a fan's own name colour (17.8 flair stays theirs) */
+.p9-pod:hover .p9-link:not([class*="ux-acc-"]), .p9-lrow:hover .p9-link:not([class*="ux-acc-"]) { color: var(--ux-pink-ink); }
+
+/* ---------- rows (prototype .lrow) ---------- */
+.p9-rows { margin: 32px 0 0; padding: 0; list-style: none; }
+.p9-lrow { position: relative; display: flex; align-items: center; gap: 14px; padding: 14px 0; line-height: 1.6; }
+.p9-rk { width: 28px; flex: 0 0 auto; font-weight: 600; color: var(--ux-muted); }
+.p9-rows-top > .p9-lrow:nth-child(-n+3) .p9-rk { color: var(--ux-pink-ink); font-weight: 700; }
+.p9-gav { position: relative; width: 40px; height: 40px; }
+.p9-gav-sm { position: relative; width: 28px; height: 28px; font-size: 11px; }
+.p9-gav .p9-ini, .p9-gav-sm .p9-ini { font-size: inherit; font-weight: 700; }
+.p9-gemrow { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; }
+.p9-gemrow .p7-gem { width: 24px; height: 24px; }
+.p9-grow { flex: 1; min-width: 0; }
+.p9-nm { font-weight: 600; }
+.p9-nm .ux-bias { position: relative; z-index: 1; }
+.p9-sub { margin-left: 6px; font-size: 14px; color: var(--ux-muted); }
+.p9-sub::before { content: "\00B7\00A0"; }
+.p9-val { font-weight: 600; white-space: nowrap; }
+.p9-dl { min-width: 44px; flex: 0 0 auto; text-align: right; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ux-muted); white-space: nowrap; }
+.p9-dl.is-up { color: var(--ux-ok); }
+.p9-dl.is-down { color: var(--ux-no); }
+
+/* rows 11 to 30: a native fold, the rows stay in the HTML (crawlable collapse) */
+.p9-more { margin-top: 0; }
+.p9-more > summary { list-style: none; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; margin-top: 8px; border-radius: 999px; font-size: 15px; font-weight: 500; color: var(--ux-pink-ink); cursor: pointer; }
+.p9-more > summary::-webkit-details-marker { display: none; }
+.p9-more > summary:hover { background: var(--ux-surface); }
+.p9-more > summary .ux-ico { width: 16px; height: 16px; transition: transform .2s var(--ux-ease); }
+.p9-more[open] > summary .ux-ico { transform: rotate(180deg); }
+.p9-more-c, .p9-more[open] .p9-more-o { display: none; }
+.p9-more[open] .p9-more-c { display: inline; }
+.p9-rows-more { margin-top: 8px; border-top: 1px solid var(--ux-hair); }
+
+/* ---------- pinned rows (A0 PinnedRow; prototype .pin) ---------- */
+.p9-pin .ux-who { font-weight: 600; }
+.p9-pin-b { font-weight: 600; }
+.p9-pin-s { font-size: 14px; color: var(--ux-muted); }
+.p9-pin-v { font-weight: 600; white-space: nowrap; }
+.p9-pin .ux-pin-rk { width: 44px; }
+.p9-pin-wait { min-height: 68px; margin-top: 12px; }
+
+/* ---------- ranked tab ---------- */
+.p9-rline { margin-top: 24px; font-size: 15px; color: var(--ux-muted); }
+.p9-rnote { margin-top: 24px; font-size: 15px; line-height: 1.6; color: var(--ux-muted); max-width: 62ch; }
+.p9-rnote .ux-btn { margin-left: 8px; vertical-align: middle; }
+.p9-ranked { min-height: 48px; }
+
+/* ---------- creators tab ---------- */
+.p9-cseg { margin-top: 24px; }
+
+/* ---------- how points work (prototype section.sec .h2 + .acc) ---------- */
+.p9-how-h { margin-bottom: 8px; }
+.p9-acc { border-top: 1px solid var(--ux-hair); border-bottom: 1px solid var(--ux-hair); }
+.p9-acc + .p9-acc { border-top: 0; }
+.p9-acc > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 12px 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.p9-acc > summary::-webkit-details-marker { display: none; }
+.p9-acc > summary .ux-ico { color: var(--ux-muted); transition: transform .2s var(--ux-ease); }
+.p9-acc[open] > summary .ux-ico { transform: rotate(180deg); }
+.p9-ab { padding: 0 0 20px; color: var(--ux-muted); font-size: 15px; line-height: 1.65; max-width: 62ch; }
+.p9-ab b { color: var(--ux-ink); font-weight: 600; }
+
+/* ---------- around the community (prototype .rail > section + .hn) ---------- */
+.p9-around-grid { columns: 2; column-gap: 20px; }
+.p9-panel { break-inside: avoid; margin-bottom: 20px; }
+.p9-panel .ux-panel-h { margin-bottom: 4px; }
+.p9-hns > .p9-hn:first-child { border-top: 0; }
+.p9-hn { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; font-size: 14px; line-height: 1.45; }
+.p9-hn .ux-ava, .p9-hn-ava { width: 28px; height: 28px; font-size: 11px; }
+.p9-hn-b { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.p9-hn-t { font-weight: 600; overflow-wrap: anywhere; }
+.p9-hn-t:hover, .p9-hn-l:hover { color: var(--ux-pink-ink); }
+.p9-hn-l { color: var(--ux-ink); }
+.p9-hn-bn { font-weight: 600; }
+.p9-hn-medal { flex: 0 0 auto; }
+.p9-tm { display: block; font-size: 13px; color: var(--ux-muted); }
+.p9-quote { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--ux-muted); overflow-wrap: anywhere; }
+.p9-tile { width: 28px; height: 28px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); }
+.p9-panel-f { margin-top: 12px; }
+.p9-live { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ux-pink); animation: p9-pulse 1.8s infinite; }
+@keyframes p9-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(1.35); } }
+
+/* ---------- phones (prototype @media (max-width:760px)) ---------- */
+@media (max-width: 760px) {
+  .p9-pav { width: 72px; height: 72px; }
+  .p9-pod[data-rank="1"] .p9-pav { width: 88px; height: 88px; }
+  .p9-lrow .p9-grow { display: flex; flex-direction: column; min-width: 0; }
+  .p9-sub { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .p9-sub::before { content: none; }
+  .p9-nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .p9-nm .ux-bias { margin-left: 4px; }
+  .p9-around-grid { columns: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p9-live { animation: none; }
+  .p9-more > summary .ux-ico, .p9-acc > summary .ux-ico { transition: none; }
+}
