@@ -146,6 +146,8 @@ for (const theme of THEMES) {
       await expect(page.locator('.p7-body')).toHaveAttribute('data-live', 'not_live');
       await expect(page).toHaveTitle('Ranked blindtest | KpopQuiz');
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/blindtest\/ranked$/);
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^Ranked K-pop blindtest: ten server-drawn songs/);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('h1')).toHaveText('Not live yet');
       await expect(page.locator('.p7-card')).toContainText('The first season has not started.');

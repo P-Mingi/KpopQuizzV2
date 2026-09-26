@@ -21,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Ranked blindtest',
     description: 'Ranked K-pop blindtest: ten server-drawn songs, the same rules for everyone, a season ladder with tiers from Bronze to Legend.',
+    alternates: { canonical: '/blindtest/ranked' },
     robots: { index: false, follow: true },
   };
 }
