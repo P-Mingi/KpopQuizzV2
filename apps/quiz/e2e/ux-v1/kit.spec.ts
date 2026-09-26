@@ -190,6 +190,29 @@ test.describe('kit interactions', () => {
     await expect.poll(() => color(other)).toBe(pinkSoftInk); // pointer still on it right after the click
   });
 
+  // P4 request 5: share sheet opens on "Copy link"; on phones the challenge label wraps.
+  test('share sheet: Copy link has the focus; phone label wraps under the title', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: 'Share your score' });
+    await expect(dlg).toBeVisible();
+    await expect(dlg.getByRole('button', { name: 'Copy link' })).toBeFocused();
+    const geo = await dlg.locator('.ux-flabel').evaluate((el) => {
+      const small = el.querySelector('small') as HTMLElement;
+      const a = el.getBoundingClientRect(); const s = small.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return { wrap: cs.flexWrap, rowGap: cs.rowGap, labelWidth: a.width, smallTop: s.top, labelTop: a.top, smallWidth: s.width };
+    });
+    if (widthOf(page) <= 760) {
+      expect(geo.wrap).toBe('wrap');
+      expect(geo.rowGap).toBe('2px');
+      expect(geo.smallTop, 'the note drops under the label').toBeGreaterThan(geo.labelTop + 10);
+    } else {
+      expect(geo.wrap).toBe('nowrap');
+    }
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
+
   // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
   // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
   test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
