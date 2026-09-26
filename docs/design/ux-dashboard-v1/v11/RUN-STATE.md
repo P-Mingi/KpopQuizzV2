@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **3** (checkers, loop 1) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration-b at dcc3159 (P8 included, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
+- Phase: **3** (fix loop 1 done; loop 2 re-check starting) while P8 finishes and P2 waits for the owner. Shared flag-on production build: .worktrees/ux11-integration-b at dcc3159 (P8 included, 809/809 pages), served by ORCH on http://localhost:3021 (`NEXT_PUBLIC_UX_V1=1 pnpm build` then `pnpm start -p 3021` in apps/quiz). Swap recipe: build the new head in the idle worktree (ux11-integration or ux11-integration-b), then stop the old server (check its cwd first) and start the new one.
 
 ## Agents
 
@@ -15,7 +15,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | fix loop 1 merged (ad57928, PR #63, branch ux11/p3-fix1): C1-001, C3-001, C3-002, C2-006, C2-007 | 11442da | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | fix loop 1 merged (3650a27, PR #62): C3-004 (+ Follow and comment-load races), C2-003 | e764ca5 | 0 | v11/reports/P4.md |
-| P5 | ux11/p5-create | fix loop 1 running (C3-005, UxQuizCard preview) on ux11/p5-fix1 | b846ae1 | 0 | v11/reports/P5.md |
+| P5 | ux11/p5-create | fix loop 1 merged (cc6c394, PR #64, branch ux11/p5-fix1): C3-005 + a second lost live line, UxQuizCard preview | 70747b7 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | fix loop 1 merged (982cf9c, PR #61): C3-009 | 2c74301 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
@@ -108,6 +108,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-26 P5 fix merged (cc6c394): the live cover help line and the English language note restored (3 other live lines replaced by the prototype's equivalents, listed in P5.md); the draft card is A0's UxQuizCard preview. Fix loop 1 complete: all 17 filed issues fixed and merged (A0 2, P1 6, P3 5, P4 2, P5 1, P6 1, P8 1) plus the P10 test timeout. Integration: tsc 0, unit 823/823. Rebuilding the checker server in .worktrees/ux11-integration at cc6c394 for loop 2.
 - 2026-09-26 P4 fix merged (3650a27): the like race fixed (and the same race on Follow and on comment loading), Discord line + Brag back; e2e forces the late read. P3 fix merged (ad57928): tile 88x138, every quiz a real card link (12 visible + native <details> Show all, no <noscript>), fail-closed /groups reads proven on a production build, Verse links only when the gate allows, the empty state points to the top quiz for closed spaces. Integration: tsc 0, unit 823/823, check:routes 340 both ways. Only P5 left in fix loop 1, then one rebuild and the checkers' re-run of the affected states.
 - 2026-09-26 P6 fix loop 1 merged (982cf9c): no cached hub read stores a failure (today's players keyed by UTC day, song count, popularity, playable groups; the playable list now cached at the catalog TTL instead of re-reading 4,120 songs per render); failed ISR regeneration throws so the last good /blindtest stays. tsc 0, unit 817/817.
 - 2026-09-26 P10 test fix merged (4a2fa44): unit 809/809 at load ~35-40. P5 started on C3-005.
