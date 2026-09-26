@@ -16,10 +16,11 @@
 .p11-streak-g { flex: 1; min-width: 180px; }
 .p11-streak-g b { font-size: 16px; font-weight: 700; line-height: 1.6; }
 .p11-streak-g span { display: block; font-size: 14px; line-height: 1.6; color: var(--ux-muted); }
+.p11-streak .ux-btn { text-align: center; }
 
 .p11-ngroup { font-size: 14px; line-height: 1.6; font-weight: 600; color: var(--ux-muted); margin: 32px 0 4px; }
 .p11-nli { position: relative; }
-.p11-nrow { display: flex; gap: 14px; width: 100%; padding: 16px 0; color: inherit; text-align: left; font: inherit; background: none; border: 0; }
+.p11-nrow { display: flex; gap: 14px; width: 100%; padding: 16px 0; color: inherit; text-align: start; font: inherit; background: none; border: 0; }
 button.p11-nrow { cursor: pointer; }
 div.p11-nrow { cursor: default; }
 .p11-ud { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex: 0 0 auto; background: transparent; }
