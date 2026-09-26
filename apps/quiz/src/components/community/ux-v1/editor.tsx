@@ -173,9 +173,8 @@ export function EditorProvider({ children, groups, features }: { children: React
     const p = takePendingAction('p8-post');
     const d = p?.payload as Draft | undefined;
     if (!d || !d.mode) return;
-    setDraft(d);
-    setMode(d.mode);
-    void submit(d);
+    // Continue from the stored action (an external store), outside the effect body.
+    queueMicrotask(() => { setDraft(d); setMode(d.mode); void submit(d); });
   }, [v.signedIn, submit]);
 
   const join = async (): Promise<void> => {

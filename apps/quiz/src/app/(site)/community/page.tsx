@@ -34,8 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function CommunityPage(): Promise<React.ReactElement> {
-  if (!UX_V1) notFound();
+/** Every read of the page (server time taken here, once per request). */
+async function loadCommunity() {
   const now = Date.now();
   const features = await safeFetch(getP8Features(), NO_FEATURES, '[p8] features');
   const src = feedSources(features, now);
@@ -58,6 +58,12 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
   // Every always-on source failed (DB blip): say so, never "no posts yet".
   const loadFailed = threads === null && blogs === null && debates === null;
   const editorGroups = groups.map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
+  return { features, posts, loadFailed, editorGroups, today, happening, pulse, badges, war };
+}
+
+export default async function CommunityPage(): Promise<React.ReactElement> {
+  if (!UX_V1) notFound();
+  const { features, posts, loadFailed, editorGroups, today, happening, pulse, badges, war } = await loadCommunity();
 
   const mtop = (
     <>

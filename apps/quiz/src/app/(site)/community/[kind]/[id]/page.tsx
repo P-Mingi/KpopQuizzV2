@@ -43,6 +43,20 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   };
 }
 
+/** Three other posts for "More from the community" (same group first). */
+async function loadMore(features: Awaited<ReturnType<typeof getP8Features>>, post: FeedPost): Promise<FeedPost[]> {
+  const now = Date.now();
+  const src = feedSources(features, now);
+  const lists = await Promise.all([
+    safeFetch(src.threads, [], '[p8] more threads'),
+    safeFetch(src.blogs, [], '[p8] more blogs'),
+    safeFetch(src.debates, [], '[p8] more debates'),
+    safeFetch(src.fanDebates, [], '[p8] more fan debates'),
+    safeFetch(src.challenges, [], '[p8] more challenges'),
+  ]);
+  return pickMore(mergeFeed(lists, now), post);
+}
+
 function pickMore(all: FeedPost[], post: FeedPost): FeedPost[] {
   const others = all.filter((p) => !(p.kind === post.kind && p.key === post.key));
   const same = others.filter((p) => post.group && p.group?.id === post.group.id);
@@ -55,16 +69,7 @@ export default async function CommunityPostPage({ params }: { params: Promise<Pa
   const p = await params;
   const { post, likes, features } = await load(p);
   if (!post) notFound();
-  const now = Date.now();
-  const src = feedSources(features, now);
-  const lists = await Promise.all([
-    safeFetch(src.threads, [], '[p8] more threads'),
-    safeFetch(src.blogs, [], '[p8] more blogs'),
-    safeFetch(src.debates, [], '[p8] more debates'),
-    safeFetch(src.fanDebates, [], '[p8] more fan debates'),
-    safeFetch(src.challenges, [], '[p8] more challenges'),
-  ]);
-  const more = pickMore(mergeFeed(lists, now), post);
+  const more = await loadMore(features, post);
 
   return (
     <UxPage width="text" className="p8-page p8-post-page">

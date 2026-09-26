@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
@@ -20,20 +20,28 @@ import type { TodayDebate } from '@/lib/ux-v1/p8/types';
 
 type Side = 'a' | 'b';
 
+function readSide(key: string): Side | null {
+  try { const s = localStorage.getItem(key); return s === 'a' || s === 'b' ? s : null; } catch { return null; }
+}
+function subscribeStorage(cb: () => void): () => void {
+  window.addEventListener('storage', cb);
+  return () => window.removeEventListener('storage', cb);
+}
+
 export function useDebateVote(debate: TodayDebate): {
   side: Side | null; votes: [number, number]; busy: boolean; vote: (s: Side, comment?: string) => Promise<boolean>;
 } {
   const v = useP8Viewer();
   const toast = useUxToast();
   const announce = useAnnounce();
-  const [side, setSide] = useState<Side | null>(null);
+  const [known, setSide] = useState<Side | null>(null);
   const [votes, setVotes] = useState<[number, number]>(debate.votes);
   const [busy, setBusy] = useState(false);
   const lsKey = `kq_debate_${debate.date}`;
-
-  useEffect(() => {
-    try { const s = localStorage.getItem(lsKey); if (s === 'a' || s === 'b') setSide(s); } catch { /* storage blocked */ }
-  }, [lsKey]);
+  // The legacy island's lock (kq_debate_<date>), read as an external store: null on the
+  // server and during hydration, the stored side after.
+  const stored = useSyncExternalStore(subscribeStorage, () => readSide(lsKey), () => null);
+  const side: Side | null = known ?? stored;
 
   useEffect(() => {
     if (!v.signedIn) return;
