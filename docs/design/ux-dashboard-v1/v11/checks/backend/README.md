@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 173 |
-| FAIL | 7 |
+| PASS | 187 |
+| FAIL | 9 |
 | NOT VERIFIED | 33 |
-| PENDING | 0 |
-| N/A | 30 |
-| TODO | 24 |
+| PENDING | 7 |
+| N/A | 31 |
+| TODO | 0 |
 | Total | 267 |
 
 ## Rows
@@ -72,12 +72,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | FAIL (C2-005, carried from the live home); the debate and Verse rows pass | C2-005 |
 | [R054](R054.md) | P1 | Blindtest panel (Classic, Daily, By group) | EXISTS | PASS | - |
 | [R055](R055.md) | A0 (card) / P1 | Quiz card (any) | EXISTS | PASS | - |
-| R061 | 2. | Sort tabs Trending / Newest / Most played / Top rated | - | TODO | - |
-| R062 | 2. | Type chips (5) | - | TODO | - |
-| R063 | 2. | Level chips | - | TODO | - |
-| R064 | 2. | Group rail | - | TODO | - |
-| R065 | 2. | Infinite grid | - | TODO | - |
-| R066 | 2. | SEO landing pages (`/easy-kpop-quizzes`, `/hard-kpop-quizzes`, `/kpop-true-or-false`, `/most-liked`, `/new`, `/trending`, `/quizzes/popular-*`) | - | TODO | - |
+| [R061](R061.md) | P2 | Sort tabs Trending / Newest / Most played / Top rated | EXISTS | PENDING (P2 not merged: waiting for the owner's push of ux11/p2-quizzes) | - |
+| [R062](R062.md) | P2 | Type chips (5) | EXISTS | PENDING (P2 not merged) | - |
+| [R063](R063.md) | P2 | Level chips | EXISTS | PENDING (P2 not merged) | - |
+| [R064](R064.md) | P2 | Group rail | EXISTS | PENDING (P2 not merged) | - |
+| [R065](R065.md) | P2 | Infinite grid | EXISTS | PENDING (P2 not merged) | - |
+| [R066](R066.md) | P2 | SEO landing pages (`/easy-kpop-quizzes`, `/hard-kpop-quizzes`, `/kpop-true-or-false`, `/most-liked`, `/new`, `/trending`, `/quizzes/popular-*`) | EXISTS | PENDING (P2 not merged) | - |
 | [R072](R072.md) | P4 | Breadcrumb Quizzes > Group > quiz | EXISTS | PASS | - |
 | [R073](R073.md) | P4 | Cover, tags (type, difficulty, language) | EXISTS | PASS | - |
 | [R074](R074.md) | P4 | Title H1 | EXISTS | PASS | - |
@@ -253,24 +253,24 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R303](R303.md) | P7 | Placement 3/5 | Placement 3/5 | NOT VERIFIED until the migration; unit-proven | - |
 | [R304](R304.md) | P7 | Rewards | Rewards | NOT VERIFIED (shown as designed, not built: owner decision 18) | - |
 | [R305](R305.md) | P7 / P6 | Rank title card (Idol, xp) | Rank title card (Idol, xp) | NOT VERIFIED (bt_players 0 rows, unwired) | - |
-| R311 | 15. | Auth gates (guest vs signed-in) | - | TODO | - |
-| R312 | 15. | Guest play | - | TODO | - |
-| R313 | 15. | SEO | - | TODO | - |
-| R314 | 15. | Analytics events | - | TODO | - |
-| R315 | 15. | Design tokens | - | TODO | - |
-| R316 | 15. | Fonts | - | TODO | - |
-| R317 | 15. | Images | - | TODO | - |
-| R318 | 15. | Sounds | - | TODO | - |
-| R319 | 15. | Reduced motion | - | TODO | - |
-| R320 | 15. | Discord / Reddit | - | TODO | - |
-| R321 | 15. | i18n `/pt` | - | TODO | - |
-| R330 | v10 | Shell · Top nav links, logo, search, Create, streak, bell, avatar | - | TODO | - |
-| R331 | v10 | Shell · Search overlay | - | TODO | - |
-| R332 | v10 | Shell · Streak pill + popover | - | TODO | - |
-| R333 | v10 | Any · Sign-in sheet | - | TODO | - |
+| [R311](R311.md) | A0 (sheet) + every page | Auth gates (guest vs signed-in) | `lib/use-signed-in.ts`, `/login`, `/onboarding`, anon runs claimable | PASS (gates + continue the action); a real OAuth / magic-link round trip NOT VERIFIED (no other sign-in allowed) | - |
+| [R312](R312.md) | P4 / P6 | Guest play | anon_id in `plays`, `claim-runs` | PASS (payload); claim after sign-in NOT VERIFIED | - |
+| [R313](R313.md) | all pages (C3 owns the SEO diff) | SEO | every public page keeps H1, intro, FAQ, JSON-LD, canonical, `/pt` mirror, sitemap; the app shell must not turn these into client-only pages | PASS in C2 scope | - |
+| [R314](R314.md) | P4 / P6 | Analytics events | `lib/analytics.ts` | PASS | - |
+| [R315](R315.md) | A0 | Design tokens | `lib/design-tokens.ts` + globals.css; add dark tokens | PASS (unit) | - |
+| [R316](R316.md) | A0 | Fonts | DM Sans + Syne today; prototype uses Inter. Owner decision: the prototype's Inter is the target | PASS | - |
+| [R317](R317.md) | A0 | Images | `public/idols/*.jpg`, `public/mascot/*.png`, `public/logos/blackpink.svg`; never redraw logos | PASS (unit) | - |
+| [R318](R318.md) | P4 / P6 | Sounds | `lib/sounds.ts`, `lib/haptics.ts` | PASS | - |
+| [R319](R319.md) | all | Reduced motion | `reduceMotion` in players | N/A (client, C3) | - |
+| [R320](R320.md) | A0 / P4 | Discord / Reddit | `/api/discord/*`, `lib/reddit-api.ts`, share images | FAIL (C2-003 on results); footer links PASS | C2-003 |
+| [R321](R321.md) | unowned (RUN-STATE open item) | i18n `/pt` | `lib/i18n` | PASS in C2 scope (no /pt mirror of new pages; /pt renders inside the shell) | - |
+| [R330](R330.md) | A0 | Shell · Top nav links, logo, search, Create, streak, bell, avatar | Replace the 232px sidebar shell of Phase 1 | PASS | - |
+| [R331](R331.md) | A0 / P11 | Shell · Search overlay | Groups, quizzes (incl. quizzes of a matched group), songs; no-results state; Enter opens first | PASS | - |
+| [R332](R332.md) | A0 (+ P1 copy) | Shell · Streak pill + popover | Neutral; pink flame when at risk; switches to "saved" after any quiz or blindtest | FAIL vs the v10 rule (the live rule is kept: owner decision 12); the pill shows the stored value; the home line misstates the rule (C2-002) | C2-002 |
+| [R333](R333.md) | A0 | Any · Sign-in sheet | Google, Discord, email magic link; continues the pending action after auth | PASS (continue the action proven with the test user); a real provider round trip NOT VERIFIED | - |
 | [R334](R334.md) | P1 (home) / P4 (game) | Home · Continue playing | Resume at the saved question | FAIL for a quiz the home also lists (C2-004); PASS for an unlisted quiz | C2-004 |
 | [R335](R335.md) | P1 | Home · Daily band played state | After the daily: score + See today's board | PASS (not played state); NOT VERIFIED played state (needs a daily blindtest play = production write, owner decision 1) | - |
-| R336 | v10 | Quizzes · Sort + Type/Level/Group chips | - | TODO | - |
+| [R336](R336.md) | P2 | Quizzes · Sort + Type/Level/Group chips | Real server filtering; empty state; ?page=2 link | PENDING (P2 not merged) | - |
 | [R337](R337.md) | P4 | Quiz · Play without a timer | Relaxed run; excluded from hall of fame and quiz_time_stats | NOT VERIFIED until v11-p4-relaxed-runs.sql (fail-soft proven) | - |
 | [R338](R338.md) | P4 | Quiz game · Quit confirm | Only when answers would be lost; saves the run to Continue | PASS | - |
 | [R339](R339.md) | P4 | Quiz game · Challenge chip "Beat X: 7/8" | Shown in challenge runs; results show win/lose | PASS (route + read against a real row); attempt write NOT VERIFIED (owner decision 1) | - |
@@ -294,7 +294,7 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R362](R362.md) | P1 | Home · Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | PASS | - |
 | [R363](R363.md) | P1 | Home · Header (v11.2, centred live-site hero) | Guest: eyebrow + "Are you a real fan?" H1, H2, Browse K-pop quizzes (/quizzes) + Create a quiz. Signed in: "Good evening, <name>" + streak line | FAIL (C2-002) | C2-002 |
 | [R364](R364.md) | P1 | Home · Live ticker | Cycles recent activity, falls back to fans playing now, hides when neither | PASS | - |
-| R365 | v11 | Nav · Pink pill active item + icons + Home link | - | TODO | - |
+| [R365](R365.md) | A0 | Nav · Pink pill active item + icons + Home link | Route-aware active state | PASS (unit + DOM) | - |
 | [R366](R366.md) | P6 | Blindtest · Playlist menu groups | All playable groups under All K-pop, searchable, counts | PASS | - |
 | [R367](R367.md) | P6 | Blindtest · Play by group (v11.1) | Popular six photo tiles + searchable index of every playable group, first 24 then Show all | PASS | - |
 | [R368](R368.md) | P6 | Blindtest · Day mode | Light hero, game, results, home band | N/A (styles only) | - |
@@ -310,4 +310,4 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R378](R378.md) | P10 | Passport · Pinned badge next to name | Shows profiles.pinned_badge_id as a 28px medallion | PASS | - |
 | [R379](R379.md) | A0 (C3 checks) | All · Sheets close | X, Escape, backdrop close any sheet; focus returns | N/A for C2 (behaviour, no backend) | - |
 | [R380](R380.md) | P4 | Quiz page · About box, timer, stats box | Visual only; averages from the played quiz | PASS | - |
-| R381 | v11 | All grids · Quiz card (v11.2) | - | TODO | - |
+| [R381](R381.md) | A0 | All grids · Quiz card (v11.2) | Flush photo, group eyebrow, title, difficulty bars + level, plays | PASS | - |
