@@ -38,6 +38,24 @@ if (fs.existsSync(ef)) {
     `| Theme tokens (prototype --x vs --ux-x) | ${line('tokens')} |`,
     `| Reduced motion (no running infinite animation, transitions off) | ${line('motion')} |`].join('\n');
 }
+// Every relaxation of the default comparison, with its reason (drivers.mjs `why`), so a
+// reviewer can judge each one.
+const notes = [];
+for (const [id, st] of Object.entries(STATES)) {
+  const items = st.lm.filter((l) => l.why || l.phoneBox || l.relTo).map((l) => `${l.name}${l.skip ? ` (styles not compared: ${l.skip.join(', ')})` : ''}${l.phoneBox ? ` (390 box: ${l.phoneBox.join(', ')})` : ''}${l.relTo ? ` (top from ${l.relTo})` : ''}: ${l.why ?? ''}`);
+  if (st.note) items.unshift(`state: ${st.note}`);
+  if (items.length) notes.push(`- **${id}**: ${items.join('; ')}`);
+}
+const OBSERVED = [
+  'Leaderboard: the H1 "Community", its intro and the "Around the community" section are the live page\'s (SEO lock, P9 report); the prototype H1 is "Leaderboard". Landmarks pass; the page is longer.',
+  'Group hubs: the SEO-locked lead and the extra side sections (newest quizzes, read more, fan knowledge) make the page longer; landmarks pass.',
+  'Signed-in home: no "Continue playing" and no streak pill (the test user has no unfinished run and no streak): real data.',
+  'Community feed: some thread titles stop mid-word at 80 characters; the post page H1 shows the same stored Verse title (data, not layout; noted for P8 / C3).',
+  'Passport states are checked as a guest on /u/testtest (owner decision 1): no owner controls, initials instead of a photo.',
+  'Header sheet reference: the page behind the scrim shows the Badges tab (the capture reached it from passport-badges); only the sheet is compared.',
+  'Settings: Appearance shows the theme the checker forces (localStorage theme); the reference shows System.',
+  'Game states use the page agents\' fixtures where the specs do (blindtest questions and silent audio, P6; notifications rows, P11); quiz runs are real questions with the save stubbed (so the results show no "beat" percentile).',
+];
 const md = `# C1 pixel check (UX v11.2, Phase 3)
 
 Branch \`ux11/c1-check\`. Implementation: the shared flag-ON production build of \`feat/ux-v1-v11\` on
@@ -61,6 +79,19 @@ Totals (152 checks): pass ${tally.pass}, fail ${tally.fail}, not verified ${tall
 |---|---|---|---|---|---|---|
 ${rows.join('\n')}
 ${extra}
+
+## Comparison notes (every relaxation and its reason)
+
+Default per landmark: the box parts listed in \`drivers.mjs\` within 2px and all 16 style props.
+Photos: fill and initials-fallback text styles are not compared (box, radius, photo edge are).
+A radius on a box with no fill, border or shadow is not compared (invisible; the prototype H1
+radius is its focus style). A photo edge drawn by an \`::after\` overlay counts as the inset shadow.
+
+${notes.join('\n')}
+
+## Observed, not filed (real data, SEO lock, harness)
+
+${OBSERVED.map((o) => `- ${o}`).join('\n')}
 
 Issues filed: \`v11/issues/<owner>.md\` (ids C1-nnn).
 `;

@@ -3,7 +3,7 @@
  "owner": "P8",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:03:44.540Z",
+   "at": "2026-09-26T17:25:33.865Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community",
@@ -26,8 +26,8 @@
      1440,
      3501
     ],
-    "diffPct": 14.28,
-    "maskedPct": 13.9
+    "diffPct": 14.16,
+    "maskedPct": 14.1
    },
    "writes": [],
    "landmarks": [
@@ -130,10 +130,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   },
   "1440-dark": {
-   "at": "2026-09-26T17:03:49.010Z",
+   "at": "2026-09-26T17:25:36.498Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community",
@@ -156,8 +156,8 @@
      1440,
      3501
     ],
-    "diffPct": 14.97,
-    "maskedPct": 13.9
+    "diffPct": 14.85,
+    "maskedPct": 14.1
    },
    "writes": [],
    "landmarks": [
@@ -260,10 +260,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 3
   },
   "390-light": {
-   "at": "2026-09-26T17:03:53.861Z",
+   "at": "2026-09-26T17:25:39.364Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community",
@@ -286,8 +286,8 @@
      390,
      5573
     ],
-    "diffPct": 14.84,
-    "maskedPct": 36
+    "diffPct": 14.89,
+    "maskedPct": 36.2
    },
    "writes": [],
    "landmarks": [
@@ -387,10 +387,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   },
   "390-dark": {
-   "at": "2026-09-26T17:03:58.977Z",
+   "at": "2026-09-26T17:25:42.218Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/community",
@@ -413,8 +413,8 @@
      390,
      5573
     ],
-    "diffPct": 16.05,
-    "maskedPct": 36
+    "diffPct": 16.1,
+    "maskedPct": 36.2
    },
    "writes": [],
    "landmarks": [
@@ -514,7 +514,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   }
  },
  "auth": "user",

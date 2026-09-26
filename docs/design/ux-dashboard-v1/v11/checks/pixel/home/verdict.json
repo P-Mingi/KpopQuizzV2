@@ -3,7 +3,7 @@
  "owner": "P1",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:05:00.195Z",
+   "at": "2026-09-26T17:13:03.276Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -216,10 +216,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 5
+   "seconds": 35
   },
   "390-light": {
-   "at": "2026-09-26T17:05:24.744Z",
+   "at": "2026-09-26T17:14:28.563Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -242,7 +242,7 @@
      390,
      4581
     ],
-    "diffPct": 14.05,
+    "diffPct": 14.07,
     "maskedPct": 38.2
    },
    "writes": [],
@@ -426,10 +426,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 20
+   "seconds": 50
   },
   "1440-dark": {
-   "at": "2026-09-26T17:05:05.085Z",
+   "at": "2026-09-26T17:13:38.338Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -452,7 +452,7 @@
      1440,
      3223
     ],
-    "diffPct": 9.87,
+    "diffPct": 9.86,
     "maskedPct": 24.2
    },
    "writes": [],
@@ -642,10 +642,10 @@
      "why": "photo"
     }
    ],
-   "seconds": 5
+   "seconds": 35
   },
   "390-dark": {
-   "at": "2026-09-26T17:05:44.362Z",
+   "at": "2026-09-26T17:15:18.935Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -668,7 +668,7 @@
      390,
      4581
     ],
-    "diffPct": 18.59,
+    "diffPct": 18.61,
     "maskedPct": 38.2
    },
    "writes": [],
@@ -852,7 +852,7 @@
      "why": "photo"
     }
    ],
-   "seconds": 20
+   "seconds": 50
   }
  },
  "auth": "user",

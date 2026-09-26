@@ -3,7 +3,7 @@
  "owner": "P8",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:45:59.610Z",
+   "at": "2026-09-26T17:25:45.147Z",
    "base": "http://localhost:3021",
    "verdict": "not verified",
    "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
@@ -86,10 +86,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 10
+   "seconds": 3
   },
   "1440-dark": {
-   "at": "2026-09-26T16:46:10.306Z",
+   "at": "2026-09-26T17:25:47.750Z",
    "base": "http://localhost:3021",
    "verdict": "not verified",
    "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
@@ -172,10 +172,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 10
+   "seconds": 3
   },
   "390-light": {
-   "at": "2026-09-26T16:46:20.601Z",
+   "at": "2026-09-26T17:25:50.350Z",
    "base": "http://localhost:3021",
    "verdict": "not verified",
    "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
@@ -199,8 +199,8 @@
      390,
      2415
     ],
-    "diffPct": 16.39,
-    "maskedPct": 31
+    "diffPct": 15.67,
+    "maskedPct": 31.6
    },
    "writes": [],
    "landmarks": [
@@ -258,10 +258,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 10
+   "seconds": 3
   },
   "390-dark": {
-   "at": "2026-09-26T16:46:29.745Z",
+   "at": "2026-09-26T17:25:52.948Z",
    "base": "http://localhost:3021",
    "verdict": "not verified",
    "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
@@ -285,8 +285,8 @@
      390,
      2415
     ],
-    "diffPct": 16.4,
-    "maskedPct": 31
+    "diffPct": 15.67,
+    "maskedPct": 31.6
    },
    "writes": [],
    "landmarks": [
@@ -344,7 +344,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 9
+   "seconds": 3
   }
  },
  "auth": "user",

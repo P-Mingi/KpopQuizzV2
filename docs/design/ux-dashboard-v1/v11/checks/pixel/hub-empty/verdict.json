@@ -3,7 +3,7 @@
  "owner": "P3",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:57:59.335Z",
+   "at": "2026-09-26T17:18:05.663Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/chungha-quiz",
@@ -26,8 +26,8 @@
      1440,
      1564
     ],
-    "diffPct": 44.74,
-    "maskedPct": 11
+    "diffPct": 44.56,
+    "maskedPct": 11.3
    },
    "writes": [],
    "landmarks": [
@@ -101,10 +101,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 7
+   "seconds": 2
   },
   "1440-dark": {
-   "at": "2026-09-26T16:58:07.105Z",
+   "at": "2026-09-26T17:18:07.744Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/chungha-quiz",
@@ -127,8 +127,8 @@
      1440,
      1564
     ],
-    "diffPct": 44.79,
-    "maskedPct": 11
+    "diffPct": 44.61,
+    "maskedPct": 11.3
    },
    "writes": [],
    "landmarks": [
@@ -202,10 +202,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 8
+   "seconds": 2
   },
   "390-light": {
-   "at": "2026-09-26T16:58:14.276Z",
+   "at": "2026-09-26T17:18:09.822Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/chungha-quiz",
@@ -228,8 +228,8 @@
      390,
      2384
     ],
-    "diffPct": 51.54,
-    "maskedPct": 23.2
+    "diffPct": 51.98,
+    "maskedPct": 23.9
    },
    "writes": [],
    "landmarks": [
@@ -303,10 +303,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 2
   },
   "390-dark": {
-   "at": "2026-09-26T16:58:19.608Z",
+   "at": "2026-09-26T17:18:11.907Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/chungha-quiz",
@@ -329,8 +329,8 @@
      390,
      2384
     ],
-    "diffPct": 51.62,
-    "maskedPct": 23.2
+    "diffPct": 52.05,
+    "maskedPct": 23.9
    },
    "writes": [],
    "landmarks": [
@@ -404,7 +404,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 2
   }
  },
  "auth": "user",

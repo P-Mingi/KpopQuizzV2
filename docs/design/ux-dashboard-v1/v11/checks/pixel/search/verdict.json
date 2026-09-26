@@ -3,7 +3,7 @@
  "owner": "P11",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:03:27.729Z",
+   "at": "2026-09-26T17:30:37.858Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -76,10 +76,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 2
   },
   "1440-dark": {
-   "at": "2026-09-26T17:03:32.024Z",
+   "at": "2026-09-26T17:30:39.558Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -102,7 +102,7 @@
      1440,
      900
     ],
-    "diffPct": 0.37,
+    "diffPct": 0.36,
     "maskedPct": 22.3
    },
    "writes": [],
@@ -152,10 +152,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 2
   },
   "390-light": {
-   "at": "2026-09-26T17:03:35.979Z",
+   "at": "2026-09-26T17:30:41.080Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -178,8 +178,8 @@
      390,
      844
     ],
-    "diffPct": 1.01,
-    "maskedPct": 45.8
+    "diffPct": 1.02,
+    "maskedPct": 45.9
    },
    "writes": [],
    "landmarks": [
@@ -228,10 +228,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 1
   },
   "390-dark": {
-   "at": "2026-09-26T17:03:40.068Z",
+   "at": "2026-09-26T17:30:42.643Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
@@ -255,7 +255,7 @@
      844
     ],
     "diffPct": 0.98,
-    "maskedPct": 45.8
+    "maskedPct": 45.9
    },
    "writes": [],
    "landmarks": [
@@ -304,7 +304,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 2
   }
  },
  "auth": "user",

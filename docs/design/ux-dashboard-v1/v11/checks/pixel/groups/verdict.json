@@ -3,7 +3,7 @@
  "owner": "P3",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:06:37.762Z",
+   "at": "2026-09-26T17:16:02.226Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
@@ -142,10 +142,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   },
   "1440-dark": {
-   "at": "2026-09-26T17:06:42.282Z",
+   "at": "2026-09-26T17:16:04.840Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
@@ -284,10 +284,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   },
   "390-light": {
-   "at": "2026-09-26T17:06:48.342Z",
+   "at": "2026-09-26T17:16:08.122Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
@@ -426,10 +426,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 6
+   "seconds": 3
   },
   "390-dark": {
-   "at": "2026-09-26T17:06:59.334Z",
+   "at": "2026-09-26T17:16:11.504Z",
    "base": "http://localhost:3021",
    "verdict": "fail",
    "url": "/groups",
@@ -568,7 +568,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
+   "seconds": 3
   }
  },
  "auth": "user",

@@ -3,7 +3,7 @@
  "owner": "P3",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T17:07:22.903Z",
+   "at": "2026-09-26T17:17:54.574Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/ateez-quiz",
@@ -26,8 +26,8 @@
      1440,
      3403
     ],
-    "diffPct": 33.78,
-    "maskedPct": 17.6
+    "diffPct": 33.68,
+    "maskedPct": 17.8
    },
    "writes": [],
    "landmarks": [
@@ -160,10 +160,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 3
   },
   "1440-dark": {
-   "at": "2026-09-26T17:07:27.326Z",
+   "at": "2026-09-26T17:17:57.140Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/ateez-quiz",
@@ -186,8 +186,8 @@
      1440,
      3403
     ],
-    "diffPct": 33.64,
-    "maskedPct": 17.6
+    "diffPct": 33.53,
+    "maskedPct": 17.8
    },
    "writes": [],
    "landmarks": [
@@ -320,10 +320,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 3
   },
   "390-light": {
-   "at": "2026-09-26T17:07:32.202Z",
+   "at": "2026-09-26T17:18:00.223Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/ateez-quiz",
@@ -346,8 +346,8 @@
      390,
      6108
     ],
-    "diffPct": 43.37,
-    "maskedPct": 30.3
+    "diffPct": 43.54,
+    "maskedPct": 30.6
    },
    "writes": [],
    "landmarks": [
@@ -480,10 +480,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   },
   "390-dark": {
-   "at": "2026-09-26T17:07:37.218Z",
+   "at": "2026-09-26T17:18:03.390Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/ateez-quiz",
@@ -506,8 +506,8 @@
      390,
      6108
     ],
-    "diffPct": 43.28,
-    "maskedPct": 30.3
+    "diffPct": 43.45,
+    "maskedPct": 30.6
    },
    "writes": [],
    "landmarks": [
@@ -640,7 +640,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 5
+   "seconds": 3
   }
  },
  "auth": "user",

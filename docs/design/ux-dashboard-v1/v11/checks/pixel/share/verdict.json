@@ -3,7 +3,90 @@
  "owner": "P4",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:39:05.484Z",
+   "at": "2026-09-26T17:21:31.843Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.13,
+    "maskedPct": 15.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0.8,0.8,0,0.8],\"anon_id\":\"e3845c9a-48b6-45fd-b80a-8ebd96842439\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:21:34.806Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -33,7 +116,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":4,\"max_score\":8,\"per_question_times\":[0.4,0.1,0.1,1,0.4,0.1,0.1,0.1],\"anon_id\":\"23b7cbc5-b06d-4cd5-afb0-8131db2e78d1\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0,0,0,0.8],\"anon_id\":\"145c2070-3efd-4cdb-a13f-29527a7ccd1b\"}"
     },
     {
      "method": "POST",
@@ -83,93 +166,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 11
-  },
-  "1440-dark": {
-   "at": "2026-09-26T16:39:19.650Z",
-   "base": "http://localhost:3021",
-   "verdict": "pass",
-   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
-   "signedIn": true,
-   "counts": {
-    "landmarks": 5,
-    "pass": 5,
-    "fail": 0,
-    "missing": 0,
-    "extra": 0,
-    "absent": 0
-   },
-   "overflowX": 0,
-   "pixel": {
-    "refSize": [
-     1440,
-     900
-    ],
-    "implSize": [
-     1440,
-     900
-    ],
-    "diffPct": 0.79,
-    "maskedPct": 16.4
-   },
-   "writes": [
-    {
-     "method": "POST",
-     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":5,\"max_score\":8,\"per_question_times\":[0.5,0.5,0.2,0.4,0.4,0.1,0.4,0.1],\"anon_id\":\"21f648f2-5dc5-4921-ad4e-0c3e36592af4\"}"
-    },
-    {
-     "method": "POST",
-     "path": "/api/share/generate",
-     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
-    }
-   ],
-   "landmarks": [
-    {
-     "name": "share sheet",
-     "proto": "#share",
-     "impl": ".ux-layer .ux-sheet",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "sheet header",
-     "proto": "#share .sh-h",
-     "impl": ".ux-layer .ux-sh-h",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "sheet title",
-     "proto": "#share .sh-h h3",
-     "impl": ".ux-layer .ux-sh-h h2",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "mini card",
-     "proto": "#share .minicard",
-     "impl": ".ux-layer .ux-minicard",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    },
-    {
-     "name": "share grid",
-     "proto": "#share .shgrid",
-     "impl": ".ux-layer .ux-shgrid",
-     "status": "pass",
-     "styleRef": "live prototype",
-     "mismatches": []
-    }
-   ],
-   "seconds": 14
+   "seconds": 3
   },
   "390-light": {
-   "at": "2026-09-26T16:39:29.681Z",
+   "at": "2026-09-26T17:21:39.265Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -199,7 +199,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.9,0.5,0.1,0.1,0.1,0.1,0.1,0.1],\"anon_id\":\"ce3cd714-45a2-438a-8834-f94a2fda3ad9\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.9,0,0,0,0,0.8,0,0.8],\"anon_id\":\"a63710f8-0ff0-4a52-9ee4-c80aa23600f5\"}"
     },
     {
      "method": "POST",
@@ -249,10 +249,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 9
+   "seconds": 4
   },
   "390-dark": {
-   "at": "2026-09-26T16:39:42.649Z",
+   "at": "2026-09-26T17:21:42.094Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
@@ -282,7 +282,7 @@
     {
      "method": "POST",
      "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
-     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":6,\"max_score\":8,\"per_question_times\":[0.9,0.1,0.1,0.1,0.5,0,0.9,0.5],\"anon_id\":\"e0d5bd94-6a4f-4af4-b014-48ba5ada1ae4\"}"
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0.8,0,0,0],\"anon_id\":\"6189bfcd-3ec7-41a7-ac15-753c710646d7\"}"
     },
     {
      "method": "POST",
@@ -332,7 +332,7 @@
      "mismatches": []
     }
    ],
-   "seconds": 13
+   "seconds": 3
   }
  },
  "auth": "user",
