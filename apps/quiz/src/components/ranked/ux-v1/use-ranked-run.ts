@@ -44,6 +44,25 @@ export interface RankedRunApi extends RunApi {
   startRanked: () => Promise<void>;
 }
 
+/**
+ * A round the server has not released yet. BtGame counts songs with
+ * `questions.length` (the segments, "Song 3 of 10"), so the run holds one entry per
+ * round from the start; only released rounds are ever rendered as a question.
+ */
+function unreleased(round: number): BtQuestion {
+  return {
+    song_id: `round-${round}`,
+    question_type: 'title',
+    question_text: '',
+    preview_url: '',
+    album_cover_medium: null,
+    album_cover_big: null,
+    correct_answer: '',
+    choices: [],
+    reveal: { title: '', artist: '', album: null, cover: null },
+  };
+}
+
 function toQuestion(r: PublicRound): BtQuestion {
   return {
     song_id: `round-${r.round}`,
@@ -230,7 +249,7 @@ export function useRankedRun(opts: {
     }
     if (runRef.current !== run) return;
     const q = toQuestion(pub);
-    setQuestions((qs) => { const next = qs.slice(0, n); next[n] = q; return next; });
+    setQuestions((qs) => qs.map((x, i) => (i === n ? q : x)));
     setIndex(n);
     setPhase('playing');
     playRound(q, n);
@@ -266,6 +285,7 @@ export function useRankedRun(opts: {
     }
     tokenRef.current = got.token;
     setIssued(got);
+    setQuestions(Array.from({ length: got.rounds }, (_, i) => unreleased(i)));
     analytics.gameStart('blindtest', false);
     await openRound(0);
   }, [close, onRefused, openRound, unlock]);
