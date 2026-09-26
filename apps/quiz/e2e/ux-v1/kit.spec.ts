@@ -4,7 +4,7 @@ import { basicA11y, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
-import { A0_LANDMARKS, compareLandmarks } from './helpers/landmarks';
+import { A0_LANDMARKS, compareLandmarks, loadReference } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
 import type { Page } from '@playwright/test';
@@ -163,6 +163,41 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Search' })).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+
+  // P2 request 2: the card body inherits the prototype's 1.6 line height (eyebrow and
+  // footer 20.8px at 13px) and stacked phone cards drop the title's top margin
+  // (prototype `.qgrid.stack h3{margin-top:0}`). Against styles.json: a kit card with
+  // a two-line title at the reference width has the reference card height.
+  test('quiz cards: body line heights and card heights as the prototype', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    test.skip((await sec.locator('.ux-qcard').count()) === 0, 'no quizzes to show (data unavailable)');
+    const lh = await sec.locator('.ux-qcard').first().evaluate((card) => ({
+      qg: getComputedStyle(card.querySelector('.ux-qg') as Element).lineHeight,
+      qf: getComputedStyle(card.querySelector('.ux-qf') as Element).lineHeight,
+    }));
+    expect(lh).toEqual({ qg: '20.8px', qf: '20.8px' });
+
+    const ref = loadReference();
+    const phone = widthOf(page) <= 760;
+    const sets: [string, string][] = phone
+      ? [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '390-light-home'], ['.ux-qgrid.ux-qgrid-stack > .ux-qcard', '390-light-quizzes']]
+      : [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '1440-light-home']];
+    for (const [sel, state] of sets) {
+      const r = ref[state]?.['.qcard'];
+      expect(r, `styles.json ${state} .qcard`).toBeTruthy();
+      const want = { w: parseFloat(r?.width ?? '0'), h: parseFloat(r?.height ?? '0') };
+      const cards = await sec.locator(sel).evaluateAll((els) => els.map((el) => {
+        const t = el.querySelector('.ux-qt') as HTMLElement;
+        const box = el.getBoundingClientRect();
+        return { w: box.width, h: box.height, lines: Math.round(t.getBoundingClientRect().height / parseFloat(getComputedStyle(t).lineHeight)), top: getComputedStyle(t).marginTop };
+      }));
+      const twoLine = cards.filter((c) => c.lines === 2 && Math.abs(c.w - want.w) < 1);
+      expect(twoLine.length, `${state}: a two-line card at the reference width ${want.w}px`).toBeGreaterThan(0);
+      for (const c of twoLine) expect(Math.abs(c.h - want.h), `${state}: card height ${c.h} vs ${want.h}`).toBeLessThan(0.6);
+      if (state === '390-light-quizzes') for (const c of cards) expect(c.top).toBe('0px');
+    }
   });
 
   // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
