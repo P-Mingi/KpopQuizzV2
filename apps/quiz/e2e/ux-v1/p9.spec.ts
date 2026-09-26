@@ -165,6 +165,10 @@ for (const theme of THEMES) {
       await dlg.getByRole('button', { name: 'Close' }).click();
       await expect(dlg).toBeHidden();
       await expect(signIn).toBeFocused();
+      await signIn.click();
+      await page.getByTestId('ux-scrim').click({ position: { x: 5, y: 5 } });
+      await expect(dlg).toBeHidden();
+      await expect(signIn).toBeFocused();
 
       expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
       const cmp = await compareLandmarks(page, widthOf(page), theme, TAB_LANDMARKS);
