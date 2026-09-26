@@ -1,0 +1,16 @@
+guest POST /api/ux-v1/p8/like body={"target_type":"thread","target_id":"1"} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/like body={"target_type":"comment","target_id":"3"} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/debates body={"question":"C2 probe: is this ever saved?","options":["Yes","No"],"days":1} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/debate-vote body={"debate_id":1,"option_index":0} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/challenges body={"play_id":"2e26d782-54d2-4ad6-911a-4e0c9d6482c2","message":null} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/replies body={"target_type":"debate","target_id":1,"body":"C2 probe"} -> 503 {"error":"not_live"}
+guest POST /api/ux-v1/p8/like body={"target_type":"nope","target_id":"1"} -> 400 {"error":"bad_target"}
+guest POST /api/ux-v1/p8/like body= -> 400 {"error":"bad_json"}
+user POST /api/ux-v1/p8/like body={"target_type":"thread","target_id":"1"} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/like body={"target_type":"comment","target_id":"3"} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/debates body={"question":"C2 probe: is this ever saved?","options":["Yes","No"],"days":1} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/debate-vote body={"debate_id":1,"option_index":0} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/challenges body={"play_id":"2e26d782-54d2-4ad6-911a-4e0c9d6482c2","message":null} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/replies body={"target_type":"debate","target_id":1,"body":"C2 probe"} -> 503 {"error":"not_live"}
+user POST /api/ux-v1/p8/like body={"target_type":"nope","target_id":"1"} -> 400 {"error":"bad_target"}
+user POST /api/ux-v1/p8/like body= -> 400 {"error":"bad_json"}

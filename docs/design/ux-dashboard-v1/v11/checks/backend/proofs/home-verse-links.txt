@@ -1,0 +1,4 @@
+# C2: /verse links in the server HTML of / (flag on), Verse public (:3021) vs VERSE_PUBLIC=false (flag-on dev :4202), 2026-09-26
+public (:3021): /verse x2, /verse/bts, /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3, /verse/bts/essays/2, /verse/blackpink, /verse/seventeen, /verse/stray-kids
+hidden (:4202): none
+status on :3021: /verse/bts 200, /verse/stray-kids 404, /verse/blackpink 404, /verse/seventeen 404 (parked: LIVE_SPACES = bts only), see community-urls-3021.txt

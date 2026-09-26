@@ -32,12 +32,12 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 
 | Verdict | Rows |
 |---|---:|
-| PASS | 73 |
-| FAIL | 4 |
-| NOT VERIFIED | 4 |
+| PASS | 89 |
+| FAIL | 5 |
+| NOT VERIFIED | 5 |
 | PENDING | 0 |
-| N/A | 8 |
-| TODO | 178 |
+| N/A | 11 |
+| TODO | 157 |
 | Total | 267 |
 
 ## Rows
@@ -69,7 +69,7 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | [R050](R050.md) | P1 | Trending this week grid + arrows | EXISTS | PASS | - |
 | [R051](R051.md) | P1 | New quizzes grid | EXISTS | PASS | - |
 | [R052](R052.md) | P1 | All time best grid | EXISTS | PASS | - |
-| [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | PASS | - |
+| [R053](R053.md) | P1 | From the community (3 rows) | PARTIAL | FAIL (C2-005, carried from the live home); the debate and Verse rows pass | C2-005 |
 | [R054](R054.md) | P1 | Blindtest panel (Classic, Daily, By group) | EXISTS | PASS | - |
 | [R055](R055.md) | A0 (card) / P1 | Quiz card (any) | EXISTS | PASS | - |
 | R061 | 2. | Sort tabs Trending / Newest / Most played / Top rated | - | TODO | - |
@@ -150,21 +150,21 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R156 | 6. | Save as draft | - | TODO | - |
 | R157 | 6. | Done state: URL, Copy, Open, Post a challenge | - | TODO | - |
 | R158 | 6. | Creator XP | - | TODO | - |
-| R164 | 7. | New post composer + 4 modes | - | TODO | - |
-| R165 | 7. | Tabs For you / Following / Trending / Blogs | - | TODO | - |
-| R166 | 7. | Group chips | - | TODO | - |
-| R167 | 7. | Thread / Blog / Debate / Challenge cards | - | TODO | - |
-| R168 | 7. | Post view + comments (nested 1 level) | - | TODO | - |
-| R169 | 7. | Editor modal (title, text, image, group, topic, mode extras) | - | TODO | - |
-| R170 | 7. | Your standing (level, xp) | - | TODO | - |
-| R171 | 7. | Daily debate (vote, results) | - | TODO | - |
-| R172 | 7. | Today (QOTD + BToTD) | - | TODO | - |
-| R173 | 7. | Live rooms + chat drawer | - | TODO | - |
-| R174 | 7. | Happening now | - | TODO | - |
-| R175 | 7. | Fandom war (top 3) | - | TODO | - |
-| R176 | 7. | Badge watch | - | TODO | - |
-| R177 | 7. | Community pulse (live, plays, quizzes, groups) | - | TODO | - |
-| R178 | 7. | Cheer (heart on an event) | - | TODO | - |
+| [R164](R164.md) | P8 | New post composer + 4 modes | NEW | PASS (thread payload); fan debate / challenge posts NOT VERIFIED until v11-p8-community.sql (fail-soft proven) | - |
+| [R165](R165.md) | P8 | Tabs For you / Following / Trending / Blogs | NEW | PASS | - |
+| [R166](R166.md) | P8 | Group chips | EXISTS | PASS | - |
+| [R167](R167.md) | P8 | Thread / Blog / Debate / Challenge cards | NEW | PASS | - |
+| [R168](R168.md) | P8 | Post view + comments (nested 1 level) | NEW | PASS (thread / blog / daily debate replies: payloads + counts); fan debate / challenge replies NOT VERIFIED until v11-p8-community.sql | - |
+| [R169](R169.md) | P8 | Editor modal (title, text, image, group, topic, mode extras) | NEW | PASS (thread payload); image upload not offered in the v11 editor | - |
+| [R170](R170.md) | P8 | Your standing (level, xp) | EXISTS | N/A (not in the v11 community rail) | - |
+| [R171](R171.md) | P8 | Daily debate (vote, results) | EXISTS | PASS (payload + state); DB effect NOT VERIFIED (owner decision 1) | - |
+| [R172](R172.md) | P8 | Today (QOTD + BToTD) | EXISTS | N/A (not in the v11 community page) | - |
+| [R173](R173.md) | P8 | Live rooms + chat drawer | NEW | N/A (live rooms not built: owner call on rooms vs party_rooms) | - |
+| [R174](R174.md) | P8 | Happening now | EXISTS | PASS | - |
+| [R175](R175.md) | P8 | Fandom war (top 3) | EXISTS | PASS | - |
+| [R176](R176.md) | P8 | Badge watch | EXISTS | PASS | - |
+| [R177](R177.md) | P8 | Community pulse (live, plays, quizzes, groups) | EXISTS | PASS | - |
+| [R178](R178.md) | P8 | Cheer (heart on an event) | EXISTS | PASS (payload); DB effect NOT VERIFIED | - |
 | R184 | 8. | Breadcrumb, H1, intro paragraph | - | TODO | - |
 | R185 | 8. | Photo hero | - | TODO | - |
 | R186 | 8. | Play the top quiz | - | TODO | - |
@@ -287,8 +287,8 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R350 | v10 | Ranked · Target number | - | TODO | - |
 | R351 | v10 | Group hub · Split hero, 8 FAQ, trivia href, Show all N link | - | TODO | - |
 | R352 | v10 | Group hub · Empty group (0 quizzes) | - | TODO | - |
-| R353 | v10 | Community · Composer, tabs, mobile rail blocks | - | TODO | - |
-| R354 | v10 | Post · Reply field | - | TODO | - |
+| [R353](R353.md) | P8 | Community · Composer, tabs, mobile rail blocks | As section 16.7 | PASS (see R164 to R169) | - |
+| [R354](R354.md) | P8 | Post · Reply field | Real field, score chip | PASS (payloads) | - |
 | R355 | v10 | Passport · Band default | - | TODO | - |
 | R356 | v10 | Settings · Sign out | - | TODO | - |
 | [R362](R362.md) | P1 | Home · Quiz of the day card (v11.1 minimal) | Real QOTD title, one meta line (type, level, count, average, time), countdown, Play. No group tag, no preview | PASS | - |
@@ -299,10 +299,10 @@ Verdicts: PASS, FAIL (issue filed in `v11/issues/<owner>.md`), NOT VERIFIED (why
 | R367 | v11 | Blindtest · Play by group (v11.1) | - | TODO | - |
 | R368 | v11 | Blindtest · Day mode | - | TODO | - |
 | R369 | v11 | Ranked · Whole system | - | TODO | - |
-| R370 | v11 | Community · Comment like heart | - | TODO | - |
-| R371 | v11 | Community · Author flair | - | TODO | - |
-| R372 | v11 | Community · Happening now | - | TODO | - |
-| R373 | v11 | Community · Daily debate | - | TODO | - |
+| [R370](R370.md) | P8 | Community · Comment like heart | Toggle like with count | NOT VERIFIED until v11-p8-community.sql (fail-soft + once-per-user structure proven) | - |
+| [R371](R371.md) | P8 (A0 PersonName) | Community · Author flair | Accent, font, bias chip on every name | PASS (read side); saving the flair: see R376 | - |
+| [R372](R372.md) | P8 | Community · Happening now | Live feed + cheer | PASS | - |
+| [R373](R373.md) | P8 | Community · Daily debate | Vote, results after vote | PASS (payload, one vote per day by the unique key); DB effect NOT VERIFIED | - |
 | R374 | v11 | Passport · Change header (upload) | - | TODO | - |
 | R375 | v11 | Passport · Change header (link) | - | TODO | - |
 | R376 | v11 | Settings · Your look | - | TODO | - |

@@ -1,0 +1,22 @@
+[
+ {
+  "who": "guest",
+  "path": "/api/ux-v1/p8/viewer",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": false,
+   "following": [],
+   "liked": []
+  }
+ },
+ {
+  "who": "guest",
+  "path": "/api/ux-v1/p8/my-results",
+  "status": 401,
+  "contentType": "application/json",
+  "body": {
+   "results": []
+  }
+ }
+]

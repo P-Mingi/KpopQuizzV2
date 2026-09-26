@@ -1,0 +1,166 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:52:48.371Z",
+ "thread": {
+  "status": 200,
+  "h1": "Which B-side do you think deserved its own music video? We will go first: Dis-ea",
+  "replies": "0 replies T Reply",
+  "author": "",
+  "reportSheet": ""
+ },
+ "blog": {
+  "status": 200,
+  "h1": "Why ARMY documents everything: the archive instinct of a fandom",
+  "heart": "false",
+  "replies": "0 replies T Reply"
+ },
+ "debate": {
+  "status": 200,
+  "h1": "Remixes are almost never better than the original",
+  "body": "Community / General K-pop / Debate K KpopQuiz · Daily debate · 16 hours ago Remixes are almost never better than the original Agree Disagree 0 votes · closes in 7 hours · results show after you vote Add a reply to your vote Optional 0 0 replies More from the community Open community G Choreo with props or pure dance Debate · 1 vote G Girl group b-sides or boy group b-sides Debate · 1 vote G Dance practice videos are better than the actual MV Debate · 2 votes",
+  "after": "Community / General K-pop / Debate K KpopQuiz · Daily debate · 16 hours ago Remixes are almost never better than the original Agree 0% Disagree 0% 0 votes · closes in 7 hours · you voted Agree 0 0 replies More from the community Open community G Choreo with props or pure dance Debate · 1 vote G Girl group b-sides or boy group b-sides Debate · 1 vote G Dance practice videos are better than the actual MV Debate · 2 votes"
+ },
+ "errors": [
+  "thread 1: load: Unexpected token '<'",
+  "blog 2: load: Unexpected token '<'",
+  "debate today: load: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "thread 1: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "thread 1: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "thread 1: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "thread 1: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/viewer",
+   "status": 200
+  },
+  {
+   "step": "thread 1: reply",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/discussions",
+   "body": "{\"thread_id\":1,\"body\":\"C2 probe reply, never saved\"}"
+  },
+  {
+   "step": "thread 1: report",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/flags",
+   "body": "{\"target_type\":\"comment\",\"target_id\":3,\"reason\":\"Reported from the community\"}"
+  },
+  {
+   "step": "thread 1: report",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "blog 2: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "blog 2: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "blog 2: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "blog 2: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/viewer",
+   "status": 200
+  },
+  {
+   "step": "blog 2: heart",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/essays/reactions",
+   "body": "{\"essay_id\":2}"
+  },
+  {
+   "step": "blog 2: reply",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/discussions",
+   "body": "{\"entity_type\":\"essay\",\"entity_id\":\"2\",\"body\":\"C2 probe blog reply, never saved\"}"
+  },
+  {
+   "step": "debate today: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "debate today: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "debate today: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "debate today: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/debate/me",
+   "status": 200
+  },
+  {
+   "step": "debate today: load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/viewer",
+   "status": 200
+  },
+  {
+   "step": "debate today: vote + reply",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/debate/vote",
+   "body": "{\"side\":\"a\"}"
+  }
+ ]
+}
