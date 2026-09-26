@@ -88,7 +88,8 @@ async function shoot(base, job, width, theme) {
       return route.fulfill({ response: res, json: body });
     });
   }
-  await page.goto(base + job.path, { waitUntil: 'networkidle', timeout: 180000 });
+  await page.goto(base + job.path, { waitUntil: 'load', timeout: 180000 });
+  await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
   await page.waitForFunction(() => Boolean(document.querySelector('.ux-nav-signin:not([aria-busy]), .ux-avabtn, header, nav')), undefined, { timeout: 30000 }).catch(() => {});
   await page.waitForTimeout(1200);
