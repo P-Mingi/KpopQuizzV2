@@ -3,10 +3,11 @@
  "owner": "P11",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:11:34.222Z",
+   "at": "2026-09-26T16:52:04.797Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/",
+   "signedIn": true,
    "counts": {
     "landmarks": 3,
     "pass": 3,
@@ -55,10 +56,178 @@
      "mismatches": []
     }
    ],
+   "seconds": 5
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:52:09.989Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 3,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.6,
+    "maskedPct": 23.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "bell panel",
+     "proto": "#bellpop",
+     "impl": ".ux-bellpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "panel header",
+     "proto": "#bellpop .pop-h",
+     "impl": ".ux-bellpop .ux-pop-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".brow",
+     "impl": ".p11-brow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "390-light": {
+   "at": "2026-09-26T16:52:14.676Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 3,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.93,
+    "maskedPct": 43.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "bell panel",
+     "proto": "#bellpop",
+     "impl": ".ux-bellpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "panel header",
+     "proto": "#bellpop .pop-h",
+     "impl": ".ux-bellpop .ux-pop-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".brow",
+     "impl": ".p11-brow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
    "seconds": 4
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:52:19.890Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 3,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.88,
+    "maskedPct": 43.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "bell panel",
+     "proto": "#bellpop",
+     "impl": ".ux-bellpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "panel header",
+     "proto": "#bellpop .pop-h",
+     "impl": ".ux-bellpop .ux-pop-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".brow",
+     "impl": ".p11-brow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
   }
  },
  "auth": "user",
  "shot": "viewport",
- "verdict": "not verified"
+ "verdict": "pass"
 }

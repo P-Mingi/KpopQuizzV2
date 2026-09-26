@@ -3,11 +3,21 @@
  "owner": "P8",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:10:03.984Z",
+   "at": "2026-09-26T16:45:59.610Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
-   "reason": "driver: no challenge post in the /community feed today",
-   "writes": [],
+   "verdict": "not verified",
+   "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
+   "url": "/community/thread/3",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
    "pixel": {
     "refSize": [
      1440,
@@ -15,15 +25,329 @@
     ],
     "implSize": [
      1440,
-     900
+     1618
     ],
-    "diffPct": 59.27,
-    "maskedPct": 7.6
+    "diffPct": 24.46,
+    "maskedPct": 11.9
    },
-   "seconds": 26
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 10
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:46:10.306Z",
+   "base": "http://localhost:3021",
+   "verdict": "not verified",
+   "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
+   "url": "/community/thread/3",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2094
+    ],
+    "implSize": [
+     1440,
+     1618
+    ],
+    "diffPct": 24.45,
+    "maskedPct": 11.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 10
+  },
+  "390-light": {
+   "at": "2026-09-26T16:46:20.601Z",
+   "base": "http://localhost:3021",
+   "verdict": "not verified",
+   "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
+   "url": "/community/thread/3",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2751
+    ],
+    "implSize": [
+     390,
+     2415
+    ],
+    "diffPct": 16.39,
+    "maskedPct": 31
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 10
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:46:29.745Z",
+   "base": "http://localhost:3021",
+   "verdict": "not verified",
+   "reason": "NOT verified: no challenge post exists (the challenge store is a pending migration, P8 report); the thread post view stands in for the shared post layout",
+   "url": "/community/thread/3",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2751
+    ],
+    "implSize": [
+     390,
+     2415
+    ],
+    "diffPct": 16.4,
+    "maskedPct": 31
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 9
   }
  },
  "auth": "user",
  "shot": "full",
- "verdict": "fail"
+ "verdict": "not verified"
 }

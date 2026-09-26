@@ -3,14 +3,15 @@
  "owner": "P6",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:09:04.641Z",
+   "at": "2026-09-26T16:43:19.632Z",
    "base": "http://localhost:3021",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/blindtest",
+   "signedIn": true,
    "counts": {
     "landmarks": 6,
-    "pass": 4,
-    "fail": 1,
+    "pass": 5,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -25,7 +26,7 @@
      1440,
      2661
     ],
-    "diffPct": 2.81,
+    "diffPct": 2.8,
     "maskedPct": 13.1
    },
    "writes": [],
@@ -63,15 +64,9 @@
      "name": "group search",
      "proto": ".gsearch",
      "impl": ".p6-gsearch",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "styles.json",
-     "mismatches": [
-      {
-       "what": "border-top-color",
-       "expected": "rgb(236, 232, 227)",
-       "actual": "rgb(232, 69, 122)"
-      }
-     ]
+     "mismatches": []
     },
     {
      "name": "group index item",
@@ -83,9 +78,240 @@
     }
    ],
    "seconds": 8
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:43:26.620Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2688
+    ],
+    "implSize": [
+     1440,
+     2661
+    ],
+    "diffPct": 3.34,
+    "maskedPct": 13.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
+  },
+  "390-light": {
+   "at": "2026-09-26T16:43:33.160Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4136
+    ],
+    "implSize": [
+     390,
+     4126
+    ],
+    "diffPct": 5.34,
+    "maskedPct": 27.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:43:39.693Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4136
+    ],
+    "implSize": [
+     390,
+     4126
+    ],
+    "diffPct": 5.48,
+    "maskedPct": 27.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
   }
  },
  "auth": "user",
  "shot": "full",
- "verdict": "fail"
+ "verdict": "pass"
 }

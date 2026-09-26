@@ -198,7 +198,7 @@ const NFIX = [
   { id: 'n10', user_id: U, type: 'admin_dm', title: 'From the KpopQuiz team: the Knowledge Report 2026 is out', body: 'How 60k plays rank every group, generation and fandom.', quiz_id: null, quiz_slug: null, link_url: '/data', is_read: true, created_at: at(7 * D) },
 ];
 
-async function p11Stub(page) {
+async function p11Stub(page, streak = 'saved') {
   await page.clock.setFixedTime(NOW);
   await page.route((u) => u.pathname === '/api/notifications', async (route) => {
     if (route.request().method() !== 'GET') { await route.fallback(); return; }
@@ -209,7 +209,7 @@ async function p11Stub(page) {
   await page.route((u) => u.pathname === '/api/auth/me', async (route) => {
     const res = await route.fetch();
     const body = await res.json();
-    if (body.profile) Object.assign(body.profile, { daily_streak: 13, last_daily_date: '2026-09-26' });
+    if (body.profile) Object.assign(body.profile, streak === 'at_risk' ? { daily_streak: 12, last_daily_date: '2026-09-25' } : { daily_streak: 13, last_daily_date: '2026-09-26' });
     await route.fulfill({ response: res, json: body });
   });
 }
@@ -452,7 +452,7 @@ export const STATES = {
       { name: 'stepper', proto: '.stepper', impl: '.p5-stepper', box: ['x', 'w', 'h'] },
       { name: 'fields', proto: '.cpane.on > .field', impl: '.p5-pane > .ux-field', seq: true, gapInfo: true, styles: false },
       { name: 'card preview', proto: '.qcard', impl: '.p5-card', box: ['w', 'h'] },
-      { name: 'sticky bar', proto: '.cbar', impl: '.p5-bar', box: ['vx', 'vy', 'w', 'h'] },
+      { name: 'sticky bar', proto: '.cbar', impl: '.p5-bar', box: ['vx', 'vy', 'w', 'h'], relTo: 'stepper', why: 'short step: the bar follows the content; top measured from the stepper (the SEO-locked intro above is one line shorter)' },
       { name: 'next button', proto: '#cnext', impl: '.p5-next', box: ['h'] },
     ],
   },
@@ -471,7 +471,8 @@ export const STATES = {
     open: (page) => openBlindtest(page),
     lm: [...NAV,
       { name: 'hero', proto: '.bthero', impl: '.p6-hero', box: ['x', 'y', 'w'] },
-      { name: 'setup row', proto: '.bthero .setup', impl: '.p6-setup', box: ['x', 'w', 'h'] },
+      { name: 'setup row', proto: '.bthero .setup', impl: '.p6-setup', box: ['x', 'w', 'h'], phoneBox: ['x', 'w'], why: 'phone: the stacked row ends with "Your best" only when the viewer has a best today (real data)' },
+      { name: 'start button', proto: '.bthero .setup .btn-primary', impl: '.p6-setup .ux-btn-primary', box: ['w', 'h'] },
       { name: 'play by group head', proto: '.btg-h', impl: '.p6-btg-h', box: ['x', 'w', 'h'] },
       { name: 'popular groups', proto: '#bt-pop', impl: '.p6-btpop', box: ['x', 'w'] },
       { name: 'group search', proto: '.gsearch', impl: '.p6-gsearch', box: ['w', 'h'] },
@@ -486,7 +487,8 @@ export const STATES = {
     owner: 'P6', auth: 'user', shot: 'viewport',
     open: async (page) => { await openBlindtest(page); await page.locator('.p6-pl').click(); await page.locator('.p6-plmenu').waitFor(); },
     lm: [...NAV_ONLY,
-      { name: 'setup row', proto: '.bthero .setup', impl: '.p6-setup', box: ['x', 'w', 'h'] },
+      { name: 'setup row', proto: '.bthero .setup', impl: '.p6-setup', box: ['x', 'w', 'h'], phoneBox: ['x', 'w'], why: 'phone: the stacked row ends with "Your best" only when the viewer has a best today (real data)' },
+      { name: 'start button', proto: '.bthero .setup .btn-primary', impl: '.p6-setup .ux-btn-primary', box: ['w', 'h'] },
       { name: 'playlist menu', proto: '#plmenu', impl: '.p6-plmenu', box: ['vx', 'vy', 'w'], relTo: 'setup row', why: 'height: the live number of mixes (real data); top measured from the setup row (the SEO-locked lead above it is shorter)' },
       { name: 'playlist list', proto: '#plmenu .pl-list', impl: '.p6-plmenu .p6-pl-list', box: ['w', 'h'] },
       { name: 'playlist search', proto: '#plmenu .pl-f', impl: '.p6-plmenu .p6-pl-f', box: ['w', 'h'] },
@@ -518,7 +520,7 @@ export const STATES = {
       { name: 'game bar', proto: '.gbar', impl: '.p6-gbar', box: ['x', 'y', 'w', 'h'] },
       { name: 'orb stage', proto: '.orbw', impl: '.p6-orbw', box: ['x', 'y', 'w', 'h'] },
       { name: 'listening line', proto: '.lstate', impl: '.p6-lstate', box: ['x', 'y', 'w', 'h'] },
-      { name: 'reveal', proto: '.reveal', impl: '.p6-reveal', box: ['x', 'y', 'w', 'h'] },
+      { name: 'reveal', proto: '.reveal', impl: '.p6-reveal', box: ['y', 'h'], why: 'width and x follow the song and artist text (centred block)' },
       { name: 'reveal cover', proto: '.reveal .cv', impl: '.p6-reveal .p6-cv, .p6-cv', box: ['w', 'h'], skip: ['background-image', 'background-color'], why: 'photo' },
       { name: 'answer buttons', proto: '.btans > *, .answers > *', impl: '.p6-ans', seq: true },
     ],
@@ -531,7 +533,10 @@ export const STATES = {
   ranked: {
     owner: 'P7', auth: 'user', shot: 'full', pending: 'populated state NOT verified until the ranked migration is applied; the not-live state is checked',
     open: async (page) => { await openReady(page, '/blindtest/ranked', '.p7-body[data-live]:not([data-live="loading"])'); },
-    lm: [...NAV],
+    lm: [...NAV,
+      { name: 'crumb', proto: '.crumb', impl: '.ux-main .ux-crumb', box: ['x', 'y', 'w'] },
+      { name: 'primary button', proto: '.btn-primary', impl: '.ux-main .ux-btn-primary', box: ['h'] },
+    ],
   },
   community: {
     owner: 'P8', auth: 'user', shot: 'full',
@@ -656,7 +661,7 @@ export const STATES = {
       { name: 'head', proto: '.phead', impl: '.p10-head', box: ['x', 'w'] },
       { name: 'avatar', proto: '.pav', impl: '.p10-pav', box: ['x', 'y', 'w', 'h'], skip: ['background-image', 'background-color', 'color', 'border-top-color', 'font-size', 'font-weight', 'line-height'], why: 'photo in the reference, initials here (the test user has no photo): text styles of the initial are not the photo' },
       { name: 'identity', proto: '.pid', impl: '.p10-id', box: ['x', 'y', 'w'] },
-      { name: 'xp bar', proto: '.xpw', impl: '.p10-xpw', box: ['x', 'y', 'w', 'h'] },
+      { name: 'xp bar', proto: '.xpw', impl: '.p10-xpw', box: ['x', 'y', 'w', 'h'], phoneBox: ['x', 'w', 'h'], why: 'phone: the identity block above wraps with the real name, bias and badge (data)' },
       { name: 'stats', proto: '.statsin', impl: '.p10-stats', box: ['x', 'w', 'h'] },
       { name: 'tabs', proto: '#ptabs', impl: '.p10-tabs', box: ['x', 'w', 'h'] },
       { name: 'tab on', proto: '.utabs button.on', impl: '.p10-tabs [aria-selected="true"]', box: ['h'] },
@@ -706,8 +711,8 @@ export const STATES = {
     ],
   },
   notifications: {
-    owner: 'P11', auth: 'user', shot: 'full', note: "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row saved",
-    setup: (page) => p11Stub(page),
+    owner: 'P11', auth: 'user', shot: 'full', note: "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row at risk (12 days, last daily yesterday) as the reference draws it",
+    setup: (page) => p11Stub(page, 'at_risk'),
     open: async (page) => { await openReady(page, '/notifications', '.p11-notifs'); await page.locator('.p11-nrow').first().waitFor({ timeout: 30_000 }); },
     lm: [...NAV,
       { name: 'header', proto: '#notifs .ph', impl: '.p11-nh', box: ['x', 'y', 'w', 'h'] },
@@ -727,7 +732,7 @@ export const STATES = {
     },
     lm: [
       { name: 'overlay', proto: '#sov', impl: '#ux-sov', box: ['vx', 'vy', 'w', 'h'] },
-      { name: 'search field row', proto: '#sov .sov-in', impl: '#ux-sov .ux-sov-in', box: ['vx', 'vy', 'w', 'h'] },
+      { name: 'search field row', proto: '#sov .sov-in', impl: '#ux-sov .ux-sov-in', box: ['vx', 'vy', 'w', 'h'], skip: ['box-shadow'], why: 'documented a11y deviation (A0 report section 9, P11 5; DESIGN-SPEC 16.9 focus): the focused field turns the row hairline into a 2px pink line; the prototype has no focus indicator there' },
       { name: 'list label', proto: '.sov-l', impl: '.p11-sres .ux-sov-l', box: ['h'] },
       { name: 'result rows', proto: '#sov .srow', impl: '#ux-sov .ux-srow', seq: true, parts: ['x', 'w', 'h'] },
       { name: 'active row', proto: '#sov .srow.act', impl: '#ux-sov .ux-srow.is-active', box: ['w', 'h'] },

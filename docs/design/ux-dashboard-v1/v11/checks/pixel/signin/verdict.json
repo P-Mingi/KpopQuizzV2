@@ -3,16 +3,17 @@
  "owner": "P5",
  "combos": {
   "1440-light": {
-   "at": "2026-09-26T16:08:45.639Z",
+   "at": "2026-09-26T16:41:44.729Z",
    "base": "http://localhost:3021",
    "verdict": "pass",
    "url": "/create",
+   "signedIn": false,
    "counts": {
-    "landmarks": 2,
-    "pass": 1,
+    "landmarks": 4,
+    "pass": 4,
     "fail": 0,
     "missing": 0,
-    "extra": 1,
+    "extra": 0,
     "absent": 0
    },
    "overflowX": 0,
@@ -32,8 +33,11 @@
    "landmarks": [
     {
      "name": "sign-in sheet",
-     "status": "extra",
-     "note": "not in the reference state (implementation only)"
+     "proto": "#signin",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
     },
     {
      "name": "sheet header",
@@ -42,12 +46,220 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#signin .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "auth buttons",
+     "proto": "#signin .sh-b > div:not(.or)",
+     "impl": ".ux-layer .ux-authbs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
     }
    ],
-   "seconds": 4
+   "seconds": 7
+  },
+  "1440-dark": {
+   "at": "2026-09-26T16:41:51.254Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.61,
+    "maskedPct": 16.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "sign-in sheet",
+     "proto": "#signin",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#signin .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#signin .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "auth buttons",
+     "proto": "#signin .sh-b > div:not(.or)",
+     "impl": ".ux-layer .ux-authbs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  },
+  "390-light": {
+   "at": "2026-09-26T16:41:57.910Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.52,
+    "maskedPct": 53.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "sign-in sheet",
+     "proto": "#signin",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#signin .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#signin .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "auth buttons",
+     "proto": "#signin .sh-b > div:not(.or)",
+     "impl": ".ux-layer .ux-authbs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 7
+  },
+  "390-dark": {
+   "at": "2026-09-26T16:42:03.625Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.73,
+    "maskedPct": 53.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "sign-in sheet",
+     "proto": "#signin",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#signin .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#signin .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "auth buttons",
+     "proto": "#signin .sh-b > div:not(.or)",
+     "impl": ".ux-layer .ux-authbs",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
   }
  },
  "auth": "guest",
  "shot": "viewport",
- "verdict": "not verified"
+ "verdict": "pass"
 }
