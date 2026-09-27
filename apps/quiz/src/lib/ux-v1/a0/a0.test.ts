@@ -7,10 +7,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { UX_TOKENS_DARK, UX_TOKENS_LIGHT } from '@/lib/design-tokens';
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
 import { BADGE_FAMILIES } from '@/lib/badges/catalog';
+import { blankQuestionFor, QUIZ_TYPES } from '@/lib/quiz-question';
 
 import { activeNav, activeTab, isPlainClick, NAV_ITEMS, TAB_ITEMS } from './nav';
 import { badgeFamily, badgeGlyph, hasBadgeGlyph, RARITY_ART } from './badge-art';
 import { groupPhotoUrl, GROUP_PHOTO_SLUGS, photoFocal } from './group-photos';
+import { isStartedDraft, MY_QUIZZES_HREF, samePageHash } from './my-quizzes';
 import { streakView } from './streak';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -180,5 +182,42 @@ describe('streak view', () => {
     expect(streakView(0, '2026-09-25', now)).toBeNull();
     expect(streakView(5, '2026-09-20', now)).toBeNull();
     expect(streakView(5, null, now)).toBeNull();
+  });
+});
+
+describe('avatar menu: My quizzes (X1-003)', () => {
+  it('opens the personal passport on its Quizzes tab (P10 hash deep link)', () => {
+    expect(MY_QUIZZES_HREF).toBe('/me#p10-panel-quizzes');
+  });
+  it('samePageHash: switch in place only on the page the link points at', () => {
+    expect(samePageHash(MY_QUIZZES_HREF, '/me')).toBe('#p10-panel-quizzes');
+    expect(samePageHash(MY_QUIZZES_HREF, '/profile')).toBeNull();
+    expect(samePageHash(MY_QUIZZES_HREF, '/u/someone')).toBeNull();
+    expect(samePageHash(MY_QUIZZES_HREF, '/quizzes')).toBeNull();
+    expect(samePageHash('/me', '/me')).toBeNull();
+    expect(samePageHash('#x', '/anywhere')).toBe('#x');
+  });
+  const blank = (type: string) => ({ title: '', newGroup: null, cover: null, creatorNote: '', questions: [blankQuestionFor(type)] });
+  it.each(QUIZ_TYPES)('a blank %s draft (the autosave of a /create visit) is not a draft', (type) => {
+    expect(isStartedDraft(blank(type))).toBe(false);
+    expect(isStartedDraft({ ...blank(type), title: '   ' })).toBe(false);
+  });
+  it('no draft, or an empty question list, is not a draft', () => {
+    expect(isStartedDraft(null)).toBe(false);
+    expect(isStartedDraft({ ...blank('multiple_choice'), questions: [] })).toBe(false);
+  });
+  it('anything typed or picked by hand makes it a draft', () => {
+    const mc = blank('multiple_choice');
+    expect(isStartedDraft({ ...mc, title: 'SKZ b-sides' })).toBe(true);
+    expect(isStartedDraft({ ...mc, newGroup: 'NMIXX' })).toBe(true);
+    expect(isStartedDraft({ ...mc, cover: 'data:image/jpeg;base64,AAAA' })).toBe(true);
+    expect(isStartedDraft({ ...mc, creatorNote: 'For STAYs' })).toBe(true);
+    expect(isStartedDraft({ ...mc, questions: [{ ...blankQuestionFor('multiple_choice'), question: 'Who?' }] })).toBe(true);
+    expect(isStartedDraft({ ...mc, questions: [{ ...blankQuestionFor('multiple_choice'), options: ['', 'Han', '', ''] }] })).toBe(true);
+    expect(isStartedDraft({ ...mc, questions: [{ ...blankQuestionFor('true_false'), correct: true }] })).toBe(true);
+    expect(isStartedDraft({ ...mc, questions: [{ ...blankQuestionFor('guess_from_clues'), clues: ['', 'Leader', ''] }] })).toBe(true);
+    expect(isStartedDraft({ ...mc, questions: [{ ...blankQuestionFor('image'), image_url: 'data:image/png;base64,AAAA' }] })).toBe(true);
+    const intruder = blankQuestionFor('intruder');
+    expect(isStartedDraft({ ...mc, questions: [{ ...intruder, options: [{ label: 'Felix', image_url: null }, ...(intruder.options.slice(1) as { label: string; image_url: string | null }[])] }] })).toBe(true);
   });
 });

@@ -394,4 +394,78 @@ signedInTest.describe('signed in (test user, read only)', () => {
     await expect(page.getByRole('link', { name: 'See all notifications' })).toHaveAttribute('href', '/notifications');
     expect(calls, 'no write attempted').toEqual([]);
   });
+
+  // X1-003 (prototype #avapop: `go('you');ptab('quizzes')`, `<small>1 draft</small>`):
+  // "My quizzes" opens the personal passport on its Quizzes tab, from another page and
+  // in place on the passport, and counts the create draft kept on this device.
+  // /me is never loaded (its GET grants badge tiers and writes a passport snapshot):
+  // every request to /me or /profile is answered here, the /me document with the test
+  // user's public passport (/u/<username>, cookie-free reads, same P10 tabs), anything
+  // else (RSC fetch, prefetch) aborted. The real menu and the real P10 tabs run on the
+  // real URL; /me's server code never runs.
+  signedInTest('account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count', async ({ page }) => {
+    skipUnlessSignedIn();
+    signedInTest.skip(widthOf(page) <= 760, 'the account menu sits in the top bar above 760px (phones: the You tab)');
+    await preparePage(page, 'light');
+    const calls = await guardWrites(page, env.supabaseUrl);
+    await page.request.get('/api/auth/me');
+    const me = await (await page.request.get('/api/auth/me')).json() as { profile: { username: string } | null };
+    signedInTest.skip(!me.profile, '/api/auth/me did not return the test user');
+    const username = me.profile?.username ?? '';
+    const passport = await page.request.get(`/u/${encodeURIComponent(username)}`);
+    signedInTest.skip(passport.status() !== 200, 'the public passport did not load (busy database)');
+    const passportHtml = await passport.text();
+    const toMe: string[] = [];
+    await page.route((u) => u.pathname === '/me' || u.pathname === '/profile', async (route) => {
+      const r = route.request();
+      toMe.push(`${r.resourceType()} ${new URL(r.url()).pathname}`);
+      if (r.resourceType() === 'document' && new URL(r.url()).pathname === '/me') {
+        await route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: passportHtml });
+      } else {
+        await route.abort();
+      }
+    });
+    const draft = JSON.stringify({
+      title: 'Stray Kids b-sides deep cut', group_slug: 'stray-kids', newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice',
+      cover: null, coverRights: false, creatorNote: '', questions: [{ question: '', options: ['', '', '', ''], correct: null, fun_fact: '' }], updatedAt: Date.now(),
+    });
+    await page.addInitScript((v) => { try { localStorage.setItem('kq_create_draft_v1', v); } catch { /* blocked */ } }, draft);
+
+    await page.goto('/quizzes');
+    signedInTest.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const menu = page.getByRole('dialog', { name: 'Your account' });
+    await page.locator('.ux-avabtn').click();
+    const mine = menu.getByRole('link', { name: /^My quizzes/ });
+    await expect(mine).toHaveAttribute('href', '/me#p10-panel-quizzes');
+    await expect(mine.locator('small')).toHaveText('1 draft');
+    await page.waitForTimeout(500);
+    expect(toMe, 'opening the menu does not prefetch /me').toEqual([]);
+
+    // From another page: the link navigates, the passport opens the tab from the hash.
+    await mine.click();
+    await expect(page).toHaveURL(/\/me#p10-panel-quizzes$/, { timeout: 30_000 });
+    const quizzesTab = page.locator('#p10-tab-quizzes');
+    await expect(quizzesTab).toHaveAttribute('aria-selected', 'true', { timeout: 60_000 });
+    await expect(page.locator('#p10-panel-quizzes')).toBeVisible();
+    expect(toMe.filter((r) => r.startsWith('document')), 'one document request, answered by the stub').toEqual(['document /me']);
+
+    // On the passport (tab moved back to Overview, hash unchanged): the tab switches
+    // in place, no reload, no request.
+    await waitHydrated(page);
+    await page.locator('#p10-tab-overview').click();
+    await expect(page.locator('#p10-tab-overview')).toHaveAttribute('aria-selected', 'true');
+    await page.evaluate(() => { (window as unknown as { __a0Marker?: number }).__a0Marker = 1; });
+    const before = toMe.length;
+    await page.locator('.ux-avabtn').click();
+    await expect(menu.getByRole('link', { name: /^My quizzes/ }).locator('small')).toHaveText('1 draft');
+    await menu.getByRole('link', { name: /^My quizzes/ }).click();
+    await expect(quizzesTab).toHaveAttribute('aria-selected', 'true');
+    await expect(quizzesTab).toBeFocused();
+    await expect(menu).toBeHidden();
+    await expect(page).toHaveURL(/\/me#p10-panel-quizzes$/);
+    expect(await page.evaluate(() => (window as unknown as { __a0Marker?: number }).__a0Marker), 'same document (no reload)').toBe(1);
+    expect(toMe.length, 'no request for the in-place switch').toBe(before);
+    expect(calls, 'no write attempted').toEqual([]);
+  });
 });

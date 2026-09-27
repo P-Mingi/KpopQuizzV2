@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 
 import { Icon } from '@/components/ux-v1/icon';
@@ -8,12 +8,14 @@ import { UxAvatar } from '@/components/ux-v1/avatar';
 import { UxPopover } from '@/components/ux-v1/popover';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
 import { isPlainClick } from '@/lib/ux-v1/a0/nav';
 import { streakView } from '@/lib/ux-v1/a0/streak';
+import { localDraftCount, MY_QUIZZES_HREF, samePageHash } from '@/lib/ux-v1/a0/my-quizzes';
 import { markAllRead } from '@/lib/ux-v1/p11/actions';
 import { applyTheme, useEffectiveTheme } from '@/lib/ux-v1/a0/theme';
 
@@ -114,11 +116,27 @@ function Bell(): React.ReactElement {
   );
 }
 
+/** "My quizzes" on the passport already shown: switch its tab in place (a soft
+ *  navigation to the same path with a new hash fires no hashchange). Elsewhere the
+ *  link navigates and the passport opens the tab from the hash. */
+function openMyQuizzes(e: React.MouseEvent<HTMLAnchorElement>): void {
+  if (!isPlainClick(e)) return;
+  const hash = samePageHash(MY_QUIZZES_HREF, window.location.pathname);
+  if (!hash) return;
+  e.preventDefault();
+  window.history.replaceState(window.history.state, '', hash);
+  window.dispatchEvent(new HashChangeEvent('hashchange'));
+}
+
 /** Account menu content (also rendered statically by the /ux-v1/kit gallery). */
 export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile; close: () => void; onSignOut: () => void }): React.ReactElement {
   const dark = useEffectiveTheme() === 'dark';
   const name = profile.display_name || profile.username;
   const lv = getLevelInfo(profile.xp ?? 0);
+  // The device's create draft (localStorage, no server read): after mount only, so
+  // the kit's server-rendered menu hydrates without a mismatch.
+  const client = useIsClient();
+  const drafts = useMemo(() => (client ? localDraftCount() : 0), [client]);
   return (
     <>
       <div className="ux-pop-id">
@@ -127,7 +145,11 @@ export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile;
       </div>
       <div className="ux-msep" />
       <Link className="ux-mi" href="/profile" onClick={close}><Icon name="user" />Passport</Link>
-      <Link className="ux-mi" href={`/u/${encodeURIComponent(profile.username)}`} onClick={close}><Icon name="layers" />My quizzes</Link>
+      {/* no prefetch: /me renders on the server for the viewer (badge grants, passport
+          snapshot), so it runs only when the viewer actually opens it */}
+      <Link className="ux-mi" href={MY_QUIZZES_HREF} prefetch={false} onClick={(e) => { close(); openMyQuizzes(e); }}>
+        <Icon name="layers" />My quizzes{drafts > 0 ? <small>{drafts} {drafts === 1 ? 'draft' : 'drafts'}</small> : null}
+      </Link>
       <Link className="ux-mi" href="/settings" onClick={close}><Icon name="gear" />Settings</Link>
       <button type="button" className="ux-mi" onClick={() => applyTheme(dark ? 'light' : 'dark')}>
         <Icon name={dark ? 'sun' : 'moon'} />{dark ? 'Light mode' : 'Dark mode'}

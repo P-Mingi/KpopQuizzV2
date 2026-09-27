@@ -460,6 +460,66 @@ test.describe('kit interactions', () => {
     expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
   });
 
+  // X1-003: the account menu's "My quizzes" opens the personal passport's Quizzes tab
+  // (P10's #p10-panel-quizzes deep link, prototype `go('you');ptab('quizzes')`) and,
+  // like the prototype's `<small>1 draft</small>`, counts the create draft kept on
+  // this device (the funnel's localStorage draft; no server read). A blank autosave
+  // or an expired draft counts as none. The kit's static menu is the real AccountBody.
+  test('account menu: My quizzes opens the passport Quizzes tab; draft count from this device', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const link = (): Locator => page.getByRole('dialog', { name: 'Account (static)' }).getByRole('link', { name: /^My quizzes/ });
+    await expect(link()).toHaveAttribute('href', '/me#p10-panel-quizzes');
+    await expect(link().locator('small')).toHaveCount(0);
+
+    const DAY = 86_400_000;
+    const blankQ = { question: '', options: ['', '', '', ''], correct: null, fun_fact: '' };
+    const draft = (over: Record<string, unknown>, ageDays: number): string => JSON.stringify({
+      title: '', group_slug: 'stray-kids', newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice',
+      cover: null, coverRights: false, creatorNote: '', questions: [blankQ], updatedAt: Date.now() - ageDays * DAY, ...over,
+    });
+    const cases: [string, string, string | null][] = [
+      ['blank autosave of a /create visit (group preset by ?group=)', draft({}, 0), null],
+      ['started: a title', draft({ title: 'Stray Kids b-sides deep cut' }, 2), '1 draft'],
+      ['started: one answer typed', draft({ questions: [{ ...blankQ, options: ['', 'Han', '', ''] }] }, 1), '1 draft'],
+      ['started but older than the funnel keeps (7 days)', draft({ title: 'Old draft' }, 8), null],
+    ];
+    for (const [name, value, count] of cases) {
+      await page.evaluate((v) => localStorage.setItem('kq_create_draft_v1', v), value);
+      expect(await openKit(page), name).toBe(true);
+      if (count) {
+        await expect(link().locator('small'), name).toHaveText(count);
+        await expect(link(), name).toHaveAccessibleName(`My quizzes ${count}`);
+      } else {
+        await expect(link().locator('small'), name).toHaveCount(0);
+        await expect(link(), name).toHaveAccessibleName('My quizzes');
+      }
+    }
+
+    // The count sits at the right edge in the muted 13px of the prototype's `.mi small`.
+    await page.evaluate((v) => localStorage.setItem('kq_create_draft_v1', v), cases[1]![1]);
+    expect(await openKit(page)).toBe(true);
+    await expect(link().locator('small')).toHaveText('1 draft');
+    const m = await link().evaluate((a) => {
+      const s = a.querySelector('small') as HTMLElement;
+      const cs = getComputedStyle(s);
+      const muted = getComputedStyle(document.documentElement).getPropertyValue('--ux-muted').trim();
+      const probe = document.createElement('span');
+      probe.style.color = muted;
+      document.body.append(probe);
+      const mutedRgb = getComputedStyle(probe).color;
+      probe.remove();
+      return { size: cs.fontSize, color: cs.color, mutedRgb, gap: a.getBoundingClientRect().right - parseFloat(getComputedStyle(a).paddingRight) - s.getBoundingClientRect().right };
+    });
+    expect(m.size).toBe('13px');
+    expect(m.color).toBe(m.mutedRgb);
+    expect(Math.abs(m.gap), 'right-aligned').toBeLessThanOrEqual(0.5);
+    await page.evaluate(() => localStorage.removeItem('kq_create_draft_v1'));
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+  });
+
   // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
   // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
   test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
