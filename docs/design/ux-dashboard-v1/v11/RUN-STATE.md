@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 OWNER REQUEST (in chat, with a nav screenshot): "give a bit more space to the navbar between buttons". Owner-approved deviation from the prototype (.links{gap:0}). Sent to A0 (branch ux11/a0-fix4): largest gap that still fits at 1280 signed in and guest; 390 tab bar unchanged.
 - 2026-09-27 P2 round 2b done locally (bfb49a3, integration 2e54e48 merged in): menus keep their labels, the 52px push at 390 is gone, chips, grid and empty state 0.0px off the prototype. Waiting for P1 and P10, then ORCH rebuilds the preview from the integration head + ux11/p2-quizzes merged locally (never pushed).
 - 2026-09-27 P11 fix merged: the unread line follows the active filter. P11 reported that a flag-off Playwright error once printed the test user's session cookie into a scratch log; it deleted the log; ORCH scanned the scratchpad, the P11 worktree and the PR diff: no cookie left.
 - 2026-09-27 A0 fix round 3 merged (2e54e48): 64px under the phone footer (a0.css only), default 1080x1920 Story tile in every ShareSheet, the You tab follows its href for guests, UxDropdown showValue={false}, My quizzes opens the passport Quizzes tab with a local draft count. unit 865/865, tsc 0. Follow-ups: P10 (p10.spec story-tile expectation + list the local draft in the Quizzes tab, branch ux11/p10-fix3), P2 local (merge integration + showValue={false}).
