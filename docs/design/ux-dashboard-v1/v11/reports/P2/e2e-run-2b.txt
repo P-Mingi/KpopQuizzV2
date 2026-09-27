@@ -1,0 +1,99 @@
+# p2.spec.ts, flag on (dev :3032, Turbopack), branch dcdcdb6 (showValue={false} + Level fail-soft), 2026-09-27T16:58Z
+# run A (first after the dev server restart): 26 passed, 1 flaky (passed on retry #1)
+
+Running 27 tests using 1 worker
+
+[1/27] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[3/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[4/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[5/27] (retries) [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport) (retry #1)
+  1) [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport) 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('link[rel="canonical"]')
+    Expected pattern: /\/bts-quiz$/
+    Received string:  "https://kpopquiz.org/quizzes"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('link[rel="canonical"]') with timeout 5000ms
+      - waiting for locator('link[rel="canonical"]')
+        14 × locator resolved to <link rel="canonical" href="https://kpopquiz.org/quizzes"/>
+           - unexpected value "https://kpopquiz.org/quizzes"
+
+
+      278 |       await page.locator('.p2-sort a', { hasText: 'Most played' }).click();
+      279 |       await settled(page, /\/quizzes\?group=bts$/);
+    > 280 |       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/bts-quiz$/);
+          |                                                           ^
+      281 |       expect(writes).toEqual([]);
+      282 |     });
+      283 |   });
+        at /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a2b9cc4c27e8fa88a/apps/quiz/e2e/ux-v1/p2.spec.ts:280:59
+
+    Error Context: test-results/ux-v1-p2-quizzes-light-sor-ed8df-rigger-inside-the-viewport--ux-1440/error-context.md
+
+
+[6/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[7/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[8/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[9/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:287:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[10/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:312:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[11/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:330:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[12/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:338:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[13/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:362:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[14/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:372:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[15/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:390:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+[16/27] [ux-390] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[17/27] [ux-390] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[18/27] [ux-390] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[19/27] [ux-390] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[20/27] [ux-390] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[21/27] [ux-390] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[22/27] [ux-390] › e2e/ux-v1/p2.spec.ts:287:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[23/27] [ux-390] › e2e/ux-v1/p2.spec.ts:312:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[24/27] [ux-390] › e2e/ux-v1/p2.spec.ts:330:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[25/27] [ux-390] › e2e/ux-v1/p2.spec.ts:338:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[26/27] [ux-390] › e2e/ux-v1/p2.spec.ts:362:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[27/27] [ux-390] › e2e/ux-v1/p2.spec.ts:372:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[28/27] [ux-390] › e2e/ux-v1/p2.spec.ts:390:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+  1 flaky
+    [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport) 
+  26 passed (2.9m)
+exit 0
+
+# run B (same code, same server): 27 passed, no retry
+
+Running 27 tests using 1 worker
+
+[1/27] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[3/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[4/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[5/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[6/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[7/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[8/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:287:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[9/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:312:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[10/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:330:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[11/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:338:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[12/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:362:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[13/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:372:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[14/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:390:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+[15/27] [ux-390] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[16/27] [ux-390] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[17/27] [ux-390] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[18/27] [ux-390] › e2e/ux-v1/p2.spec.ts:100:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[19/27] [ux-390] › e2e/ux-v1/p2.spec.ts:178:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[20/27] [ux-390] › e2e/ux-v1/p2.spec.ts:239:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[21/27] [ux-390] › e2e/ux-v1/p2.spec.ts:287:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[22/27] [ux-390] › e2e/ux-v1/p2.spec.ts:312:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[23/27] [ux-390] › e2e/ux-v1/p2.spec.ts:330:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[24/27] [ux-390] › e2e/ux-v1/p2.spec.ts:338:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[25/27] [ux-390] › e2e/ux-v1/p2.spec.ts:362:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[26/27] [ux-390] › e2e/ux-v1/p2.spec.ts:372:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[27/27] [ux-390] › e2e/ux-v1/p2.spec.ts:390:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+  27 passed (1.2m)
+exit 0
