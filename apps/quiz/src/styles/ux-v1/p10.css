@@ -126,10 +126,10 @@
 .p10-danger { color: var(--ux-no) !important; }
 
 /* save bar */
-.p10-savebar { position: sticky; bottom: 16px; z-index: 30; display: flex; align-items: center; gap: 12px; margin-top: 40px; padding: 8px 8px 8px 20px; border-radius: 999px; background: var(--ux-ink); color: var(--ux-page); box-shadow: var(--ux-shadow-ov); animation: ux-popin .2s var(--ux-ease); }
+.p10-savebar { position: sticky; bottom: 16px; z-index: 30; display: flex; align-items: center; gap: 12px; margin-top: 40px; padding: 8px 8px 8px 20px; border-radius: 999px; background: var(--ux-ink); color: var(--ux-paper); box-shadow: var(--ux-shadow-ov); animation: ux-popin .2s var(--ux-ease); }
 .p10-savebar > span { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; line-height: 1.4; }
-.p10-savebar .ux-btn-ghost { color: var(--ux-page); border-color: color-mix(in srgb, var(--ux-page) 30%, transparent); background: transparent; }
-.p10-savebar .ux-btn-ghost:hover { background: color-mix(in srgb, var(--ux-page) 10%, transparent); border-color: color-mix(in srgb, var(--ux-page) 45%, transparent); }
+.p10-savebar .ux-btn-ghost { color: var(--ux-paper); border-color: color-mix(in srgb, var(--ux-paper) 30%, transparent); background: transparent; }
+.p10-savebar .ux-btn-ghost:hover { background: color-mix(in srgb, var(--ux-paper) 10%, transparent); border-color: color-mix(in srgb, var(--ux-paper) 45%, transparent); }
 
 /* sheets */
 .p10-glist { margin-top: 12px; max-height: 50vh; overflow: auto; }
