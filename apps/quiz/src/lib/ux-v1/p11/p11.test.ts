@@ -5,7 +5,7 @@ import { UX_ICONS } from '@/lib/ux-v1/a0/icons';
 
 import { applyRead, applyRemove } from './actions';
 import {
-  P11_FILTERS, bellAgo, categoryOf, compactAgo, countUnread, dayLabelOf, groupByDay, iconOf, matchesFilter, spokenAgo,
+  P11_FILTERS, bellAgo, categoryOf, compactAgo, countUnread, dayLabelOf, groupByDay, headerUnread, iconOf, matchesFilter, spokenAgo,
   streakRow, targetOf, unreadLine,
 } from './notifications';
 import {
@@ -13,7 +13,7 @@ import {
   resultSummary, songHref,
 } from './search-model';
 
-import type { P11Notification } from './notifications';
+import type { P11Filter, P11Notification } from './notifications';
 
 // P11 unit tests: the notifications view model (filters, icons, targets, day
 // groups, ages, streak row), the page <-> bell sync reducers, and the search model
@@ -149,6 +149,20 @@ describe('notifications: header and streak row', () => {
   });
   it('counts unread rows', () => {
     expect(countUnread([n(), n({ is_read: true }), n()])).toBe(2);
+  });
+  it('the count under the H1 follows the filter; All keeps the server total (X2-010)', () => {
+    const rows = [
+      n({ id: '1', type: 'milestone' }), n({ id: '2', type: 'comment' }), n({ id: '3', type: 'battle_beaten' }),
+      n({ id: '4', type: 'badge_earned' }), n({ id: '5', type: 'new_follower', is_read: true }), n({ id: '6', type: 'cheer', is_read: true }),
+    ];
+    const shown = (f: P11Filter): P11Notification[] => rows.filter((r) => matchesFilter(r, f));
+    // All: the server's count (it also covers rows not loaded yet)
+    expect(headerUnread('all', 9, shown('all'))).toBe(9);
+    expect(unreadLine(headerUnread('social', 9, shown('social')))).toBe('1 unread');
+    expect(unreadLine(headerUnread('your_quizzes', 9, shown('your_quizzes')))).toBe('2 unread');
+    expect(unreadLine(headerUnread('achievements', 9, shown('achievements')))).toBe('1 unread');
+    // a filter with nothing unread is caught up, whatever the total
+    expect(unreadLine(headerUnread('social', 9, shown('social').map((r) => ({ ...r, is_read: true }))))).toBe('All caught up');
   });
 });
 

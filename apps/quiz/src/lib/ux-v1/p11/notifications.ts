@@ -206,3 +206,11 @@ export function countUnread(items: Pick<P11Notification, 'is_read'>[]): number {
   for (const it of items) if (!it.is_read) n++;
   return n;
 }
+
+/** The count under the H1 follows the active filter (prototype nread(): the unread
+ *  rows of the rendered list, "1 unread" on Social). All keeps the server's total,
+ *  which also covers the rows not loaded yet; a filter counts the loaded rows it
+ *  shows (`shown` = the rows of that filter). */
+export function headerUnread(filter: P11Filter, total: number, shown: Pick<P11Notification, 'is_read'>[]): number {
+  return filter === 'all' ? total : countUnread(shown);
+}

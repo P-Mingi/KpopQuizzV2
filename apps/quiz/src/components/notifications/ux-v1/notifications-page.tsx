@@ -14,7 +14,7 @@ import {
   applyRead, applyRemove, dismissNotification, fetchNotifications, markAllRead, markOneRead, muteQuiz, onNotificationEvents,
 } from '@/lib/ux-v1/p11/actions';
 import {
-  P11_FILTERS, compactAgo, groupByDay, iconOf, matchesFilter, spokenAgo, streakRow, targetOf, unreadLine,
+  P11_FILTERS, compactAgo, groupByDay, headerUnread, iconOf, matchesFilter, spokenAgo, streakRow, targetOf, unreadLine,
 } from '@/lib/ux-v1/p11/notifications';
 
 import type { P11Filter, P11Notification } from '@/lib/ux-v1/p11/notifications';
@@ -155,6 +155,8 @@ export function UxNotifications(): React.ReactElement {
 
   const shown = useMemo(() => items.filter((n) => matchesFilter(n, filter)), [items, filter]);
   const groups = useMemo(() => (now ? groupByDay(shown, now) : []), [shown, now]);
+  // The line under the H1: the filter's own count ("1 unread" on Social), the total on All.
+  const headerCount = headerUnread(filter, unread, shown);
 
   const loadMore = async (): Promise<void> => {
     if (loadingMore || !hasMore) return;
@@ -193,7 +195,7 @@ export function UxNotifications(): React.ReactElement {
       <header className="ux-ph p11-nh">
         <div>
           <h1 tabIndex={-1}>Notifications</h1>
-          <p className="p11-sub">{status === 'ready' ? unreadLine(unread) : ' '}</p>
+          <p className="p11-sub">{status === 'ready' ? unreadLine(headerCount) : ' '}</p>
         </div>
         {status === 'ready' && unread > 0 ? <button type="button" className="ux-lnk" onClick={onMarkAll}>Mark all read</button> : null}
       </header>
