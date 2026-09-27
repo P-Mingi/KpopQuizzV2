@@ -292,3 +292,21 @@ export function commentLine(text: string, max = 90): string {
   const t = text.replace(/\s+/g, ' ').trim();
   return t.length > max ? `${t.slice(0, max - 3).trimEnd()}...` : t;
 }
+
+/** P8's compose URL: /community opens the New post editor in Thread mode on arrival
+ *  (components/community/ux-v1/editor.tsx). It has no group preselect, so the group
+ *  chip starts on the fan's own default, as with the feed's composer. */
+export const COMPOSE_THREAD_HREF = '/community?compose=thread';
+
+/**
+ * The door of the hub's empty "From the community" block (prototype renderHub,
+ * hb-com empty: `openEditor('thread')`). X1-005: an open Verse space opens the
+ * editor in Thread mode, not the bare feed. C2-007: a parked space has no thread
+ * door (the editor offers threads for open spaces only); its door is the top quiz,
+ * whose results screen takes a comment. No top quiz: the community page, as before.
+ */
+export function hubCommunityDoor(verseOpen: boolean, topSlug: string | null): { href: string; label: string } {
+  if (verseOpen) return { href: COMPOSE_THREAD_HREF, label: 'Start the first thread' };
+  if (topSlug) return { href: `/q/${topSlug}`, label: 'Play the top quiz and leave the first comment' };
+  return { href: '/community', label: 'Start the first thread' };
+}

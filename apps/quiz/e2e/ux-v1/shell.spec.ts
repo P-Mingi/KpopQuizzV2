@@ -242,20 +242,33 @@ test.describe('keyboard + sign-in', () => {
     expect(u.searchParams.get('redirect_to') ?? '').toMatch(/\/auth\/callback\?returnTo=%2Fquizzes$/);
   });
 
-  test('phone: guest "You" tab opens the sign-in bottom sheet', async ({ page }) => {
+  // P10 request 3: "You" follows its href for every visitor (prototype `go('you')`); a
+  // guest lands on P10's passport invitation (/profile -> /me signed out: no read, no
+  // write). The phone sign-in sheet (nav "Sign in") stays a bottom sheet.
+  test('phone: guest "You" tab opens the passport invitation; the sign-in sheet is a bottom sheet', async ({ page }) => {
     test.skip(widthOf(page) > 760, 'phone only');
     await guardWrites(page, env.supabaseUrl);
     await page.goto('/quizzes');
     test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
     await page.waitForFunction(() => document.querySelector('.ux-nav-signin:not([aria-busy])'));
-    await page.locator('.ux-tab', { hasText: 'You' }).click();
+
+    await page.locator('.ux-nav-signin').click();
     const dlg = page.getByRole('dialog', { name: 'Sign in to KpopQuiz' });
     await expect(dlg).toBeVisible();
     const box = await dlg.boundingBox();
     const vh = page.viewportSize()?.height ?? 844;
     expect(Math.round((box?.y ?? 0) + (box?.height ?? 0))).toBe(vh); // docked to the bottom
     expect(Math.round(box?.width ?? 0)).toBe(page.viewportSize()?.width);
-    await expect(page).toHaveURL(/\/quizzes$/);
+    await page.keyboard.press('Escape');
+    await expect(dlg).toBeHidden();
+
+    const you = page.locator('.ux-tab', { hasText: 'You' });
+    await expect(you).toHaveAttribute('href', '/profile');
+    await you.click();
+    await expect(page).toHaveURL(/\/me$/, { timeout: 30_000 });
+    await expect(page.getByRole('heading', { level: 1, name: 'Your K-pop passport' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('dialog', { name: 'Sign in to KpopQuiz' })).toBeHidden();
+    await expect(page.locator('.ux-tab', { hasText: 'You' })).toHaveAttribute('aria-current', 'page');
   });
 });
 
@@ -367,6 +380,41 @@ test.describe('nav fits', () => {
   }
 });
 
+// X2-001: under the phone footer the prototype keeps 64px (the tab bar's room) and
+// nothing else. The legacy `body { padding-bottom: 72px }` (globals.css, up to 767px,
+// for the legacy tab bar) no longer stacks on .ux-app's 64px where the v11 tab bar is
+// in the page; Verse routes, which keep the legacy tab bar, keep the legacy 72px.
+for (const theme of THEMES) {
+  test(`room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (${theme})`, async ({ page }) => {
+    await preparePage(page, theme);
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/quizzes');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const room = (): Promise<{ body: string; app: string; under: number }> => page.evaluate(() => {
+      const foot = document.querySelector('.ux-foot') as HTMLElement | null;
+      // the page's end is the body box's bottom edge (its padding included); the
+      // document's scrollHeight is rounded to whole pixels, so it is not used here
+      return {
+        body: getComputedStyle(document.body).paddingBottom,
+        app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+        under: foot ? Math.round((document.body.getBoundingClientRect().bottom - foot.getBoundingClientRect().bottom) * 100) / 100 : -1,
+      };
+    });
+    const phone = widthOf(page) <= 760;
+    expect(await room()).toEqual({ body: '0px', app: phone ? '64px' : '0px', under: phone ? 64 : 0 });
+
+    if (!phone) return;
+    const verse = await page.goto('/verse');
+    test.skip(!verse || verse.status() !== 200 || (await page.locator('.ux-tabbar').count()) > 0, '/verse not served with the legacy tab bar here');
+    const v = await page.evaluate(() => ({
+      body: getComputedStyle(document.body).paddingBottom,
+      app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+    }));
+    expect(v, 'Verse keeps the legacy room, .ux-app adds none').toEqual({ body: '72px', app: '0px' });
+  });
+}
+
 signedInTest.describe('signed in (test user, read only)', () => {
   signedInTest('nav islands read the real account', async ({ page }) => {
     skipUnlessSignedIn();
@@ -392,6 +440,90 @@ signedInTest.describe('signed in (test user, read only)', () => {
     await bell.click();
     await expect(page.getByRole('dialog', { name: 'Notifications' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'See all notifications' })).toHaveAttribute('href', '/notifications');
+    expect(calls, 'no write attempted').toEqual([]);
+  });
+
+  // X1-003 (prototype #avapop: `go('you');ptab('quizzes')`, `<small>1 draft</small>`):
+  // "My quizzes" opens the personal passport on its Quizzes tab, from another page and
+  // in place on the passport, and counts the create draft kept on this device.
+  // /me is never loaded (its GET grants badge tiers and writes a passport snapshot):
+  // every request to /me is answered here with the test user's public passport
+  // (/u/<username>, cookie-free reads, same P10 tabs): the navigation's RSC fetch with
+  // the RSC of /u/<username> for the same router headers (a real soft navigation), a
+  // document with its HTML; a prefetch is aborted. The real menu and the real P10 tabs
+  // run on the real URL; /me's server code never runs. /profile (a prerendered redirect
+  // to /me, no page code per request) goes through, so the Passport link's prefetch is
+  // observed as it is.
+  signedInTest('account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count', async ({ page }) => {
+    skipUnlessSignedIn();
+    signedInTest.skip(widthOf(page) <= 760, 'the account menu sits in the top bar above 760px (phones: the You tab)');
+    await preparePage(page, 'light');
+    const calls = await guardWrites(page, env.supabaseUrl);
+    await page.request.get('/api/auth/me');
+    const me = await (await page.request.get('/api/auth/me')).json() as { profile: { username: string } | null };
+    signedInTest.skip(!me.profile, '/api/auth/me did not return the test user');
+    const username = me.profile?.username ?? '';
+    const passport = await page.request.get(`/u/${encodeURIComponent(username)}`);
+    signedInTest.skip(passport.status() !== 200, 'the public passport did not load (busy database)');
+    const passportHtml = await passport.text();
+    const toMe: string[] = [];
+    await page.route((u) => u.pathname === '/me', async (route) => {
+      const r = route.request();
+      toMe.push(`${r.resourceType()} ${new URL(r.url()).pathname}`);
+      const h = r.headers();
+      if (r.resourceType() === 'document') {
+        await route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: passportHtml });
+      } else if (h['rsc'] === '1' && !h['next-router-prefetch'] && !h['next-router-segment-prefetch']) {
+        const u = new URL(r.url());
+        u.pathname = `/u/${encodeURIComponent(username)}`;
+        await route.fulfill({ response: await route.fetch({ url: u.toString() }) });
+      } else {
+        await route.abort();
+      }
+    });
+    const draft = JSON.stringify({
+      title: 'Stray Kids b-sides deep cut', group_slug: 'stray-kids', newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice',
+      cover: null, coverRights: false, creatorNote: '', questions: [{ question: '', options: ['', '', '', ''], correct: null, fun_fact: '' }], updatedAt: Date.now(),
+    });
+    await page.addInitScript((v) => { try { localStorage.setItem('kq_create_draft_v1', v); } catch { /* blocked */ } }, draft);
+
+    await page.goto('/quizzes');
+    signedInTest.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const menu = page.getByRole('dialog', { name: 'Your account' });
+    await page.locator('.ux-avabtn').click();
+    const mine = menu.getByRole('link', { name: /^My quizzes/ });
+    await expect(mine).toHaveAttribute('href', '/me#p10-panel-quizzes');
+    await expect(mine.locator('small')).toHaveText('1 draft');
+    await page.waitForTimeout(1500);
+    expect(toMe, 'opening the menu requests nothing from /me (no prefetch, none through /profile)').toEqual([]);
+
+    // From another page: a soft navigation, the passport opens the tab from the hash.
+    await page.evaluate(() => { (window as unknown as { __a0Nav?: number }).__a0Nav = 1; });
+    await mine.click();
+    await expect(page).toHaveURL(/\/me#p10-panel-quizzes$/, { timeout: 30_000 });
+    const quizzesTab = page.locator('#p10-tab-quizzes');
+    await expect(quizzesTab).toHaveAttribute('aria-selected', 'true', { timeout: 60_000 });
+    await expect(page.locator('#p10-panel-quizzes')).toBeVisible();
+    expect(toMe, 'one RSC fetch, no document load').toEqual(['fetch /me']);
+    expect(await page.evaluate(() => (window as unknown as { __a0Nav?: number }).__a0Nav), 'soft navigation (same document)').toBe(1);
+
+    // On the passport (tab moved back to Overview, hash unchanged): the tab switches
+    // in place, no reload, no request.
+    await waitHydrated(page);
+    await page.locator('#p10-tab-overview').click();
+    await expect(page.locator('#p10-tab-overview')).toHaveAttribute('aria-selected', 'true');
+    await page.evaluate(() => { (window as unknown as { __a0Marker?: number }).__a0Marker = 1; });
+    const before = toMe.length;
+    await page.locator('.ux-avabtn').click();
+    await expect(menu.getByRole('link', { name: /^My quizzes/ }).locator('small')).toHaveText('1 draft');
+    await menu.getByRole('link', { name: /^My quizzes/ }).click();
+    await expect(quizzesTab).toHaveAttribute('aria-selected', 'true');
+    await expect(quizzesTab).toBeFocused();
+    await expect(menu).toBeHidden();
+    await expect(page).toHaveURL(/\/me#p10-panel-quizzes$/);
+    expect(await page.evaluate(() => (window as unknown as { __a0Marker?: number }).__a0Marker), 'same document (no reload)').toBe(1);
+    expect(toMe.length, 'no request for the in-place switch').toBe(before);
     expect(calls, 'no write attempted').toEqual([]);
   });
 });

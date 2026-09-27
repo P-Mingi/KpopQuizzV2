@@ -33,8 +33,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const PROTO = JSON.parse(fs.readFileSync(path.resolve(here, '../../../../docs/design/ux-dashboard-v1/v11/reports/P5/proto-create.json'), 'utf8')) as Record<string, Record<string, Record<string, unknown>>>;
 
 type Draft = typeof SAMPLE_DRAFT;
-type State = 'create-1' | 'create-2' | 'create-3' | 'signin';
-const STEP: Record<State, 1 | 2 | 3> = { 'create-1': 1, 'create-2': 2, 'create-3': 3, signin: 3 };
+type State = 'create-1' | 'create-2' | 'create-3' | 'signin' | 'create-done';
+const STEP: Record<State, 1 | 2 | 3> = { 'create-1': 1, 'create-2': 2, 'create-3': 3, signin: 3, 'create-done': 3 };
 
 // The live /create (flag off) served these; the flag-on page must serve the same (SEO lock).
 const LIVE = {
@@ -225,6 +225,23 @@ const L: P5Landmark[] = [
     { proto: '#cnext', impl: '.p5-next', state: s, ...(s === 'create-2' ? { phone: { boxSkip: ['x'] as BoxPart[] } } : {}) },
     { proto: '#cback', impl: '.p5-bar .ux-btn-ghost', state: s, ...(s === 'create-2' ? { phone: { boxSkip: ['x'] as BoxPart[] } } : {}) },
   ]),
+  // the done state (prototype #pub-done after publishNow(); fix 2, X2-009), y from the stepper
+  { proto: '#cstep .st.done .c', impl: '.p5-st.is-done .p5-st-c', state: 'create-done' },
+  // the block keeps the live funnel's creator line and "Create another quiz" under the
+  // prototype's buttons, with room under them (no sticky bar once published): its height
+  // and bottom padding are not the prototype's; x, y, width and every other style are
+  { proto: '#pub-done', impl: '.p5-done', state: 'create-done', skip: ['padding-bottom'], boxSkip: ['h'] },
+  // next/image writes style="color:transparent" on the mascot (hides alt text while loading);
+  // the img has no border, so neither its text colour nor its border colour is drawn
+  { proto: '#pub-done > img', impl: '.p5-done-m', state: 'create-done', skip: ['color', 'border-top-color'] },
+  { proto: '#pub-done > h2', impl: '.p5-done-h', state: 'create-done' },
+  { proto: '#pub-done > p', impl: '.p5-done-p', state: 'create-done' },
+  { proto: '#pub-done .urlbox', impl: '.p5-url', state: 'create-done' },
+  { proto: '#pub-done .urlbox span', impl: '.p5-url span', state: 'create-done' },
+  { proto: '#pub-done .urlbox .btn', impl: '.p5-url .ux-btn', state: 'create-done' },
+  { proto: '#pub-done .actions', impl: '.p5-done-a', state: 'create-done' },
+  { proto: '#pub-done .actions .btn-primary', impl: '.p5-done-a .ux-btn-primary', state: 'create-done' },
+  { proto: '#pub-done .actions .btn-ghost', impl: '.p5-done-a .ux-btn-ghost', state: 'create-done' },
   // A0's sign-in sheet opened by Publish
   { proto: '#signin', impl: '.ux-sheet', state: 'signin' },
   { proto: '#signin .sh-h h3', impl: '.ux-sheet .ux-sh-h h2', state: 'signin' },
@@ -819,6 +836,54 @@ signedInTest.describe('P5 signed in (test user; publish answered locally)', () =
     expect(posts.map((p) => p.url)).toEqual(['/api/quiz/create']);
     expect(calls.map((c) => new URL(c.url).pathname)).toEqual(['/api/auth/create-profile']);
   });
+
+  // X2-009 (fix 2): the done state against the prototype's #pub-done, both themes (the
+  // ux-1440 and ux-390 projects give both widths). Publishing is the local fake above.
+  for (const theme of THEMES) {
+    signedInTest(`create-done ${theme}: "It's live" block, copy, button order and widths match the prototype; axe clean`, async ({ page }) => {
+      skipUnlessSignedIn();
+      const { calls, posts } = await openCreate(page, { theme, draft: SAMPLE_DRAFT, step: 3, query: '?resume=publish' });
+      test.skip(!(await hasShell(page)), 'flag off');
+      await expect(page.locator('.p5-done')).toBeVisible({ timeout: 30_000 });
+      expect(posts.map((p) => p.url)).toEqual(['/api/quiz/create']);
+      await page.mouse.move(1, 1);
+      await page.evaluate(() => document.fonts.ready);
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+      await page.waitForTimeout(400);
+      // the prototype's copy, in its order: mascot, heading, line, URL + Copy, Open your quiz, Post a challenge
+      await expect(page.getByRole('heading', { level: 2, name: "It's live" })).toBeVisible();
+      await expect(page.locator('.p5-done-p')).toHaveText('The first plays decide if it trends this week. Share it with your fandom.');
+      const order = await page.locator('.p5-done > *').evaluateAll((els) => els.map((e) => String(e.getAttribute('class') ?? '').split(' ').find((c) => c.startsWith('p5-')) ?? e.tagName));
+      expect(order).toEqual(['p5-done-m', 'p5-done-h', 'p5-done-p', 'p5-url', 'p5-done-a', 'p5-nudge', 'p5-another']);
+      await expect(page.locator('.p5-done-a > a')).toHaveText([/^Open your quiz/, 'Post a challenge']);
+      await expect(page.locator('.p5-done-a .ux-ico')).toHaveCount(0);
+      // the mascot is decorative, as in the prototype (alt="")
+      await expect(page.locator('.p5-done-m')).toHaveAttribute('alt', '');
+      // every done landmark has a prototype entry at this width and theme
+      const key = `${widthOf(page)}-${theme}-create-done`;
+      expect(L.filter((l) => l.state === 'create-done' && !PROTO[key]?.[l.proto]).map((l) => l.proto)).toEqual([]);
+      const problems = await checkLandmarks(page, 'create-done', theme);
+      expect(problems, problems.join('\n')).toEqual([]);
+      // phones: both buttons fill the column, stacked (prototype .actions .btn.lg{width:100%});
+      // desktop: side by side, Open your quiz first
+      const [a, b, row] = await Promise.all(['.p5-done-a .ux-btn-primary', '.p5-done-a .ux-btn-ghost', '.p5-done-a'].map((sel) => page.locator(sel).boundingBox()));
+      if (widthOf(page) < 500) {
+        expect(Math.abs(a!.width - row!.width)).toBeLessThanOrEqual(1);
+        expect(Math.abs(b!.width - row!.width)).toBeLessThanOrEqual(1);
+        expect(b!.y).toBeGreaterThan(a!.y + a!.height);
+      } else {
+        expect(Math.abs(a!.y - b!.y)).toBeLessThanOrEqual(1);
+        expect(b!.x).toBeGreaterThan(a!.x + a!.width);
+      }
+      // the implementation shot for the report (v11/reports/P5/fix2-create-done-*.webp)
+      await page.screenshot({ path: test.info().outputPath(`create-done-${widthOf(page)}-${theme}.png`) });
+      const axe = await runAxe(page, { include: '.ux-page' });
+      if (axe) expect(axe, JSON.stringify(axe, null, 1)).toEqual([]);
+      expect(await basicA11y(page)).toEqual([]);
+      expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+      expect(calls).toEqual([]);
+    });
+  }
 
   signedInTest('signed-in create-3: styles and boxes still match (member nav), axe clean', async ({ page }) => {
     skipUnlessSignedIn();

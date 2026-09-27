@@ -19,7 +19,7 @@ import { UX_ICONS } from '@/lib/ux-v1/a0/icons';
 import { RARITY_ORDER } from '@/lib/badges';
 
 import { KitAuthProbeLate } from './kit-auth-probe-late';
-import { KitControls, KitFeedback, KitForms, KitPopovers, KitSheets } from './kit-demos';
+import { KitControls, KitFeedback, KitForms, KitKeepLabel, KitPopovers, KitSheets } from './kit-demos';
 import { KitLinkControls, KitLinkControlsView } from './kit-link-controls';
 
 import type { Metadata } from 'next';
@@ -203,6 +203,7 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
         <Suspense fallback={<KitLinkControlsView sort="trending" type={null} />}>
           <KitLinkControls />
         </Suspense>
+        <KitKeepLabel />
       </KitSection>
 
       <KitSection id="quiz-cards" title="Quiz cards v11.2 (real quizzes): cover, group photo, typographic cover">

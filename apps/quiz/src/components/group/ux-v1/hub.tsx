@@ -36,6 +36,7 @@ import {
   commentLine,
   coarseAge,
   debutYearOf,
+  hubCommunityDoor,
   hubEyebrow,
   hubFacts,
   quizzesLabel,
@@ -171,6 +172,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // for open spaces.
   const verseOpen = verseSpaceOpen(g.slug);
   const verseLink = Boolean(nameAllGame) && verseOpen;
+  const communityDoor = hubCommunityDoor(verseOpen, topSlug);
 
   const aboutLinks = Boolean(triviaAvailable || verseLink || hasQuizzes);
   const hasMembers = Boolean(nameAllGame && nameAllGame.members.length > 0);
@@ -267,14 +269,16 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                   </div>
                 ) : null}
                 {nameAllGame && nameAllGame.members.length > 0 ? (
-                  <ul className="p3-members" aria-label={`${g.name} members`}>
+                  // X2-004: one scroll row of prototype tiles (p3.css). A scroll container must be
+                  // keyboard reachable, so the list is focusable (arrow keys scroll it).
+                  <ul className="p3-members" aria-label={`${g.name} members`} tabIndex={0}>
                     {nameAllGame.members.map((m) => (
                       <li key={m.name}>
                         {m.photoUrl && m.photoUrl.startsWith('/') ? (
-                          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={56} height={56} sizes="56px" />
+                          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} sizes="80px" />
                         ) : m.photoUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element -- a non-local roster photo keeps today's plain img
-                          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={56} height={56} loading="lazy" />
+                          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} loading="lazy" />
                         ) : (
                           <span className="p3-member-face is-ini" aria-hidden="true">{m.name.slice(0, 2).toUpperCase()}</span>
                         )}
@@ -333,13 +337,12 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                     ))}
                   </div>
                 ) : (
-                  // The rows here are comments on this group's quizzes, so a parked
-                  // space's door is the top quiz: its results screen takes a comment.
+                  // The rows here are comments on this group's quizzes. An open space's
+                  // door opens the thread editor; a parked space's door is the top quiz:
+                  // its results screen takes a comment (hubCommunityDoor).
                   <p className="p3-note p3-com-empty">
                     No posts about {g.name} yet.{' '}
-                    {verseOpen || !topSlug
-                      ? <UxLink href="/community">Start the first thread</UxLink>
-                      : <UxLink href={`/q/${topSlug}`}>Play the top quiz and leave the first comment</UxLink>}
+                    <UxLink href={communityDoor.href}>{communityDoor.label}</UxLink>
                   </p>
                 )}
               </section>

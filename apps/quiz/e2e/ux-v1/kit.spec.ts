@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import { test, expect } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
@@ -458,6 +460,193 @@ test.describe('kit interactions', () => {
       expect(geo.wrap).toBe('nowrap');
     }
     expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
+
+  // P2 request 4: `showValue={false}` keeps the trigger at its label once a value is
+  // picked (prototype #quizzes: `ddPick` never renames the trigger there, the chip shows
+  // the pick), so the three menus keep their width and stay on one line at 390. The
+  // pick stays in the accessible name. The default (hub and group filters) is unchanged.
+  test('dropdown showValue={false}: the trigger keeps its label and width; the chip shows the pick', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const box = page.locator('[data-kit="keep-label"]');
+    const triggers = box.locator('button.ux-dd');
+    await expect(triggers).toHaveCount(3);
+    const read = (): Promise<{ text: string; name: string | null; w: number; top: number }[]> => triggers.evaluateAll((els) => els.map((b) => {
+      const r = b.getBoundingClientRect();
+      return { text: (b as HTMLElement).innerText.trim(), name: b.getAttribute('aria-label'), w: r.width, top: r.top };
+    }));
+
+    const picked = await read();
+    expect(picked.map((t) => t.text), 'visible text = the label only').toEqual(['Type', 'Level', 'Group']);
+    await expect(box.getByRole('button', { name: 'Type: True/false' })).toHaveAttribute('aria-haspopup', 'menu');
+    await expect(box.getByRole('button', { name: 'Level: Hard' })).toBeVisible();
+    await expect(box.getByRole('button', { name: 'Group: Stray Kids' })).toBeVisible();
+    expect(new Set(picked.map((t) => Math.round(t.top))).size, `one line at ${widthOf(page)}px`).toBe(1);
+    // prototype.html #quizzes `.dd` Type / Level / Group, 1440 and 390, before and after
+    // ddPick (measured in Chromium 1234): 91.58, 93.94, 100.09
+    [91.58, 93.94, 100.09].forEach((w, i) => expect(Math.abs(picked[i]!.w - w), `${picked[i]!.text} width = prototype`).toBeLessThanOrEqual(0.5));
+    const chips = box.getByRole('group', { name: 'Active filters (kept labels)' });
+    for (const c of ['True/false', 'Hard', 'Stray Kids']) await expect(chips.getByRole('button', { name: `Remove filter ${c}` })).toBeVisible();
+
+    // Removing the picks changes neither the text nor the width of the triggers.
+    for (const c of ['True/false', 'Hard', 'Stray Kids']) await chips.getByRole('button', { name: `Remove filter ${c}` }).click();
+    await expect(chips.getByRole('button')).toHaveCount(0);
+    const clear = await read();
+    expect(clear.map((t) => [t.text, t.name])).toEqual([['Type', null], ['Level', null], ['Group', null]]);
+    clear.forEach((t, i) => expect(Math.abs(t.w - picked[i]!.w), `${t.text} width with and without a pick`).toBeLessThanOrEqual(0.01));
+
+    // Picking from the menu: the item is checked, the chip appears, the trigger text stays.
+    await box.getByRole('button', { name: 'Type' }).click();
+    await page.getByRole('menuitemradio', { name: 'Image' }).click();
+    await expect(chips.getByRole('button', { name: 'Remove filter Image' })).toBeVisible();
+    const typeBtn = box.getByRole('button', { name: 'Type: Image' });
+    await expect(typeBtn).toHaveText('Type');
+    await expect(typeBtn).toBeFocused();
+    await typeBtn.click();
+    await expect(page.getByRole('menuitemradio', { name: 'Image' })).toHaveAttribute('aria-checked', 'true');
+    await page.keyboard.press('Escape');
+
+    // Default (showValue unset, the P3 hub's look): the pick is written into the trigger.
+    const dflt = page.locator('[data-kit="controls"] > .ux-kit-row button.ux-dd').first();
+    await expect(dflt).toHaveText('Type: True/false');
+    await expect(dflt).not.toHaveAttribute('aria-label');
+    await expect(dflt.locator('b')).toHaveText('True/false');
+  });
+
+  // X2-008: a sheet whose page passes no story of its own (quiz, challenge, post, passport
+  // for a visitor) still has the prototype's four tiles; Story image draws a 1080 x 1920
+  // PNG from the preview (photo, line 1, line 2) in the browser, shares it as a file where
+  // the browser can, and downloads it otherwise; More apps attaches the same file. No
+  // network write.
+  test('share sheet default story image: four tiles, a 1080 x 1920 PNG, shared as a file or downloaded', async ({ page }) => {
+    const writes: string[] = [];
+    page.on('request', (r) => { if (r.method() !== 'GET' && r.method() !== 'HEAD') writes.push(`${r.method()} ${r.url()}`); });
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const open = async (): Promise<Locator> => {
+      await page.locator('[data-kit-open="share-default"]').click();
+      const dlg = page.getByRole('dialog', { name: 'Share this quiz' });
+      await expect(dlg).toBeVisible();
+      return dlg;
+    };
+
+    // No file sharing here (desktop): a local download.
+    await page.evaluate(() => { Object.defineProperty(navigator, 'canShare', { value: () => false, configurable: true }); });
+    let dlg = await open();
+    expect(await dlg.locator('.ux-shgrid .ux-shbtn').allInnerTexts()).toEqual(['Copy link', 'Story image', 'More apps', 'Discord']);
+    const [download] = await Promise.all([page.waitForEvent('download'), dlg.getByRole('button', { name: 'Story image' }).click()]);
+    expect(download.suggestedFilename()).toBe('kpopquiz-story.png');
+    const png = fs.readFileSync(await download.path());
+    expect(png.subarray(1, 4).toString('latin1'), 'a PNG').toBe('PNG');
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)], '1080 x 1920').toEqual([1080, 1920]);
+    await expect(page.getByTestId('ux-toast')).toHaveText('Story image saved');
+    await page.keyboard.press('Escape');
+
+    // File sharing supported (phones): the same card goes to navigator.share, no download.
+    await page.evaluate(() => {
+      const w = window as unknown as { __kitShares: unknown[] };
+      w.__kitShares = [];
+      Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true });
+      Object.defineProperty(navigator, 'share', {
+        configurable: true,
+        value: async (d: ShareData) => {
+          const f = d.files?.[0];
+          let photo = false;
+          let size: number[] = [];
+          if (f) {
+            const bmp = await createImageBitmap(f);
+            size = [bmp.width, bmp.height];
+            const c = document.createElement('canvas');
+            c.width = bmp.width; c.height = bmp.height;
+            const x = c.getContext('2d')!;
+            x.drawImage(bmp, 0, 0);
+            // the plain ground is one colour across a row; the photo is not
+            const row = Array.from({ length: 9 }, (_, i) => Array.from(x.getImageData(120 + i * 100, 700, 1, 1).data.slice(0, 3)).join(','));
+            photo = new Set(row).size > 3;
+          }
+          w.__kitShares.push({ file: f ? [f.name, f.type, size] : null, photo, url: d.url ?? null, title: d.title ?? null });
+        },
+      });
+    });
+    let downloads = 0;
+    page.on('download', () => { downloads++; });
+    dlg = await open();
+    await dlg.getByRole('button', { name: 'Story image' }).click();
+    await expect.poll(() => page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares.length)).toBe(1);
+    await dlg.getByRole('button', { name: 'More apps' }).click();
+    await expect.poll(() => page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares.length)).toBe(2);
+    const shares = await page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares);
+    expect(shares).toEqual([
+      { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], photo: true, url: null, title: 'Share this quiz' },
+      { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], photo: true, url: 'https://kpopquiz.org/q/ultimate-bts-era-quiz-only-real-armys-survive', title: 'Share this quiz' },
+    ]);
+    expect(downloads, 'no download when the file is shared').toBe(0);
+    await page.keyboard.press('Escape');
+
+    // A page with its own story keeps it (the result sheet's tile is the page's).
+    await page.locator('[data-kit-open="share"]').click();
+    await page.getByRole('dialog', { name: 'Share your score' }).getByRole('button', { name: 'Story image' }).click();
+    await expect(page.getByTestId('ux-toast')).toHaveText('Saves a 1080 x 1920 story image');
+    expect(writes, 'no network write').toEqual([]);
+  });
+
+  // X1-003: the account menu's "My quizzes" opens the personal passport's Quizzes tab
+  // (P10's #p10-panel-quizzes deep link, prototype `go('you');ptab('quizzes')`) and,
+  // like the prototype's `<small>1 draft</small>`, counts the create draft kept on
+  // this device (the funnel's localStorage draft; no server read). A blank autosave
+  // or an expired draft counts as none. The kit's static menu is the real AccountBody.
+  test('account menu: My quizzes opens the passport Quizzes tab; draft count from this device', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const link = (): Locator => page.getByRole('dialog', { name: 'Account (static)' }).getByRole('link', { name: /^My quizzes/ });
+    await expect(link()).toHaveAttribute('href', '/me#p10-panel-quizzes');
+    await expect(link().locator('small')).toHaveCount(0);
+
+    const DAY = 86_400_000;
+    const blankQ = { question: '', options: ['', '', '', ''], correct: null, fun_fact: '' };
+    const draft = (over: Record<string, unknown>, ageDays: number): string => JSON.stringify({
+      title: '', group_slug: 'stray-kids', newGroup: null, difficulty: 'medium', language: 'en', quiz_type: 'multiple_choice',
+      cover: null, coverRights: false, creatorNote: '', questions: [blankQ], updatedAt: Date.now() - ageDays * DAY, ...over,
+    });
+    const cases: [string, string, string | null][] = [
+      ['blank autosave of a /create visit (group preset by ?group=)', draft({}, 0), null],
+      ['started: a title', draft({ title: 'Stray Kids b-sides deep cut' }, 2), '1 draft'],
+      ['started: one answer typed', draft({ questions: [{ ...blankQ, options: ['', 'Han', '', ''] }] }, 1), '1 draft'],
+      ['started but older than the funnel keeps (7 days)', draft({ title: 'Old draft' }, 8), null],
+    ];
+    for (const [name, value, count] of cases) {
+      await page.evaluate((v) => localStorage.setItem('kq_create_draft_v1', v), value);
+      expect(await openKit(page), name).toBe(true);
+      if (count) {
+        await expect(link().locator('small'), name).toHaveText(count);
+        await expect(link(), name).toHaveAccessibleName(`My quizzes ${count}`);
+      } else {
+        await expect(link().locator('small'), name).toHaveCount(0);
+        await expect(link(), name).toHaveAccessibleName('My quizzes');
+      }
+    }
+
+    // The count sits at the right edge in the muted 13px of the prototype's `.mi small`.
+    await page.evaluate((v) => localStorage.setItem('kq_create_draft_v1', v), cases[1]![1]);
+    expect(await openKit(page)).toBe(true);
+    await expect(link().locator('small')).toHaveText('1 draft');
+    const m = await link().evaluate((a) => {
+      const s = a.querySelector('small') as HTMLElement;
+      const cs = getComputedStyle(s);
+      const muted = getComputedStyle(document.documentElement).getPropertyValue('--ux-muted').trim();
+      const probe = document.createElement('span');
+      probe.style.color = muted;
+      document.body.append(probe);
+      const mutedRgb = getComputedStyle(probe).color;
+      probe.remove();
+      return { size: cs.fontSize, color: cs.color, mutedRgb, gap: a.getBoundingClientRect().right - parseFloat(getComputedStyle(a).paddingRight) - s.getBoundingClientRect().right };
+    });
+    expect(m.size).toBe('13px');
+    expect(m.color).toBe(m.mutedRgb);
+    expect(Math.abs(m.gap), 'right-aligned').toBeLessThanOrEqual(0.5);
+    await page.evaluate(() => localStorage.removeItem('kq_create_draft_v1'));
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
   });
 
   // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER

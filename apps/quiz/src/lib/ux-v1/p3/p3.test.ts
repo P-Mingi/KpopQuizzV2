@@ -22,6 +22,7 @@ import {
   filterHubQuizzes,
   genLabel,
   groupCountLabel,
+  hubCommunityDoor,
   hubEyebrow,
   hubFacts,
   initials,
@@ -280,5 +281,17 @@ describe('verseSpaceOpen (C2-006 / C2-007)', () => {
     expect(verseSpaceOpen('bts')).toBe(true);
     expect(verseSpaceOpen('blackpink')).toBe(false);
     expect(verseSpaceOpen('ateez')).toBe(false);
+  });
+});
+
+describe('hub community empty-state door (X1-005 / C2-007)', () => {
+  it('an open space opens the community editor in Thread mode (P8 compose URL), not the bare feed', () => {
+    expect(hubCommunityDoor(true, 'bts-ultimate-quiz')).toEqual({ href: '/community?compose=thread', label: 'Start the first thread' });
+    expect(hubCommunityDoor(true, null)).toEqual({ href: '/community?compose=thread', label: 'Start the first thread' });
+  });
+
+  it('a parked space never gets a thread door: its door is the top quiz, else the community page as before', () => {
+    expect(hubCommunityDoor(false, 'blackpink-ultimate-fan-challenge')).toEqual({ href: '/q/blackpink-ultimate-fan-challenge', label: 'Play the top quiz and leave the first comment' });
+    expect(hubCommunityDoor(false, null)).toEqual({ href: '/community', label: 'Start the first thread' });
   });
 });

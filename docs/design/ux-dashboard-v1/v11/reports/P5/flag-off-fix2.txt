@@ -1,0 +1,23 @@
+P5 fix 2 (X2-009), flag off unchanged, 2026-09-27
+
+One flag-off dev server (NEXT_PUBLIC_UX_V1 unset, fresh .next) from ux11/p5-fix2 on :3035.
+"branch": the branch's done.tsx and p5.css. "base": the same server with both files replaced by
+their feat/ux-v1-v11 827803b versions (the only non-spec, non-docs files of fix 2), then restored
+(git checkout HEAD). Each URL warmed once, then fetched; compared after replacing the dev-only
+tokens (?v=<timestamp> cache buster, __next_r).
+
+branch /create 200 126134 bytes flag off, no p5.css link, no done copy
+branch /create?group=bts 200 106329 bytes flag off, no p5.css link, no done copy
+branch /pt/create 404 25228 bytes
+base   /create 200 126134 bytes flag off, no p5.css link, no done copy
+base   /create?group=bts 200 106329 bytes flag off, no p5.css link, no done copy
+base   /pt/create 404 25228 bytes
+
+/create base 126134 bytes, branch 126134 bytes: identical after the dev tokens (?v=<timestamp>, __next_r)
+/create?group=bts base 106329 bytes, branch 106329 bytes: identical after the dev tokens (?v=<timestamp>, __next_r)
+/pt/create base 25228 bytes, branch 25228 bytes: identical after the dev tokens (?v=<timestamp>, __next_r)
+
+Observation (pre-existing, same bytes on the base): the flag-off dev HTML of /create lists 26
+script tags, 2 of them v11 chunks as async scripts (components/create/ux-v1/create.tsx and A0's
+ux-client-shell). The flag-off page renders the EXISTS CreateFunnel; nothing from those chunks is
+rendered. A production build of the flag-off page was not compared (report section 6).

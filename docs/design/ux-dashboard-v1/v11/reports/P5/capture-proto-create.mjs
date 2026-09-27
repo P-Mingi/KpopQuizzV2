@@ -3,7 +3,8 @@
 // pinned prototype (docs/design/ux-dashboard-v1/prototype.html), for the landmarks
 // that v11/checks/reference/styles.json does not capture (it only has .nav and
 // .qcard for create-1/2/3 and signin). Same states, widths and themes as
-// v11/capture-prototype.mjs. Read only.
+// v11/capture-prototype.mjs, plus create-done (the published state, the X2 audit's
+// x-create-done; fix 2 appended its 4 sets, the older sets kept as committed). Read only.
 //
 //   UX11_CHROMIUM=... node docs/design/ux-dashboard-v1/v11/reports/P5/capture-proto-create.mjs
 //
@@ -27,7 +28,11 @@ export const STATES = {
   'create-2': "go('create');setStep(2)",
   'create-3': "go('create');setStep(3)",
   signin: "go('create');setStep(3);document.body.classList.add('guest');nextStep()",
+  // the done state (#pub-done): publishNow() answers after 700 ms, then scrolls to the top
+  'create-done': "go('create');setStep(3);publishNow()",
 };
+// extra settle time per state (ms, on top of the 700 every state gets)
+const WAIT = { 'create-done': 1300 };
 const HEAD = ['#create .ph', '#create .ph h1', '#create .ph p', '#cstep', '#cstep .st', '#cstep .st .c', '#cstep .st.on', '#cstep .st.on .c', '#cstep .st.done .c', '#cstep .stl',
   '#cbar', '#cbar .cbar-in', '#cstt', '#cstt b', '#cstt .dotok', '#cback', '#cnext'];
 export const SELECTORS = {
@@ -41,6 +46,8 @@ export const SELECTORS = {
   'create-3': [...HEAD, '#cp-3 .field', '#cp-3 .flabel', '.pubgrid', '#pubcard', '#pubcard .qcard', '#pubcard .qcov', '#pubcard .qb', '#pubcard .qg', '#pubcard .qt', '#pubcard .qf',
     '.pubgrid .rows', '.pubgrid .row', '.pubgrid .row .ico', '.pubgrid .row .grow', '.pubgrid .row .end', '#cp-3 .help'],
   signin: ['#signin', '#signin .sh-h', '#signin .sh-h h3', '#signin .sh-h .ib', '#signin .sh-b', '#si-p', '#signin .authb', '#signin .authb .lg', '#signin .or', '#si-e', '#signin form .btn', '#signin .help', '#scrim'],
+  'create-done': ['#cstep', '#cstep .st.done .c', '#pub-done', '#pub-done > img', '#pub-done > h2', '#pub-done > p', '#pub-done .urlbox', '#pub-done .urlbox span', '#pub-done .urlbox .btn',
+    '#pub-done .actions', '#pub-done .actions .btn-primary', '#pub-done .actions .btn-ghost'],
 };
 const PROPS = ['padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'position', 'bottom'];
@@ -56,7 +63,7 @@ for (const [w, h] of [[1440, 900], [390, 844]]) {
     await page.addStyleTag({ content: '.notes-t,.guestbar,.notes{display:none!important}' });
     for (const [id, js] of Object.entries(STATES)) {
       await page.evaluate((code) => { document.body.classList.remove('guest'); closeAll(); eval(code); }, js);
-      await page.waitForTimeout(700);
+      await page.waitForTimeout(700 + (WAIT[id] ?? 0));
       out[`${w}-${theme}-${id}`] = await page.evaluate(({ sels, P }) => {
         const o = {};
         for (const s of sels) {

@@ -391,19 +391,32 @@ for (const theme of THEMES) {
       await play0.click();
       await expect(play0).toHaveAttribute('aria-pressed', 'false');
 
-      // Share sheet: real numbers, closes with Escape, focus returns.
+      // The card names the run (prototype btEnd kicker = the playlist of a free run, X2-005).
+      await expect(page.locator('.p6-kick')).toHaveText('All K-pop');
+
+      // Share sheet (prototype openShare('bt'), X2-006): title, real numbers, the Challenge
+      // link block with the run's link (minted when the sheet opens), Escape, focus returns.
       const share = page.getByRole('button', { name: 'Share', exact: true });
       await share.click();
       const dlg = page.locator('.ux-layer [role="dialog"]');
       await expect(dlg).toBeVisible();
-      await expect(dlg).toContainText('8/10 on the All K-pop blindtest');
+      await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+      await expect(dlg.locator('.ux-minicard')).toContainText('8/10 on the All K-pop blindtest');
+      await expect(dlg.locator('.ux-minicard p')).toHaveText(/^[\d,]+ points · best combo x3$/);
+      await expect(dlg.locator('.ux-flabel')).toHaveText('Challenge link They play your exact songs · 48 hours');
+      await expect(dlg.locator('.ux-urlbox span')).toHaveText(/\/blindtest\?c=KQ7P2X$/);
+      await expect(dlg.locator('.ux-urlbox').getByRole('button', { name: 'Copy' })).toBeVisible();
+      await expect(dlg.locator('.ux-help')).toHaveText('Anyone with the link can play until it expires.');
+      expect(h.created, 'one link for the run').toHaveLength(1);
       await page.keyboard.press('Escape');
       await expect(dlg).toBeHidden();
       await expect(share).toBeFocused();
 
-      // Challenge a friend: the payload is the run (no preview URLs), then the link shows.
-      await page.getByRole('button', { name: 'Copy link' }).click();
+      // Challenge a friend row: the same link (no second one), the payload is the run (no preview URLs).
       await expect(page.locator('.p6-link')).toContainText('/blindtest?c=KQ7P2X');
+      await page.getByRole('button', { name: 'Copy link' }).click();
+      await expect(page.getByTestId('ux-toast')).toHaveText(/^(Link copied|Copy failed)/);
+      expect(h.created, 'the row reuses the sheet\'s link').toHaveLength(1);
       const c = h.created.at(-1) as { playlist: string; score: number; total: number; questions: Record<string, unknown>[]; bestCombo: number; points: number };
       expect(c.playlist).toBe('all');
       expect(c.score).toBe(8);
@@ -562,7 +575,15 @@ for (const theme of THEMES) {
       const a = JSON.parse(h.writes.find((w) => w.url.includes('/api/ux-v1/p6/challenge/KQ7P2X/attempt'))!.body ?? '{}') as Record<string, number>;
       expect(a.score).toBe(6);
       expect(a.total).toBe(10);
+      // The card names the run: a challenge (X2-005). No new challenge link on a challenge result.
+      await expect(page.locator('.p6-kick')).toHaveText('Challenge from blink_edits');
       await expect(page.getByRole('button', { name: 'Copy link' })).toHaveCount(0);
+      await page.getByRole('button', { name: 'Share', exact: true }).click();
+      const dlg = page.locator('.ux-layer [role="dialog"]');
+      await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+      await expect(dlg.locator('.ux-urlbox')).toHaveCount(0);
+      await page.keyboard.press('Escape');
+      expect(h.created, 'no challenge link minted').toEqual([]);
       expect(h.generate, 'a challenge plays the frozen songs').toEqual([]);
     });
 
@@ -592,6 +613,206 @@ for (const theme of THEMES) {
     });
   });
 }
+
+// ---- /blindtest/<mode> pages (X1-001) ---------------------------------------------
+// Every door to a playlist (the hub's theme links, the group hub's Blindtest button,
+// the quiz results' blindtest row, search song rows) opens /blindtest/<mode>. Flag
+// on, that page keeps today's SEO copy and Play starts the hub's run for the
+// playlist (the same generate body), then the v11 game and results in place.
+
+/** What each page sends to generate (mirror of lib/ux-v1/p6/modes.ts). */
+const MODE_BODY: Record<string, { playlist: string; count: number }> = {
+  classic: { playlist: 'all', count: 10 }, 'intro-challenge': { playlist: 'all', count: 10 }, 'verse-only': { playlist: 'all', count: 10 },
+  'bridge-or-break': { playlist: 'all', count: 10 }, 'speed-round': { playlist: 'all', count: 15 }, '2nd-gen': { playlist: '2nd-gen', count: 10 },
+  '3rd-gen': { playlist: '3rd-gen', count: 10 }, '4th-gen': { playlist: '4th-gen', count: 10 }, 'girl-groups': { playlist: 'gg', count: 10 },
+  'boy-groups': { playlist: 'bg', count: 10 }, 'solo-artists': { playlist: 'solo', count: 10 }, 'title-tracks': { playlist: 'hits', count: 10 },
+  'b-sides': { playlist: 'deep', count: 10 }, 'recent-hits': { playlist: 'all', count: 10 }, 'kpop-legends': { playlist: 'all', count: 10 },
+  '4th-gen-gg': { playlist: '4th-gen', count: 10 }, '4th-gen-bg': { playlist: '4th-gen', count: 10 }, 'random-all': { playlist: 'all', count: 10 },
+};
+
+/** Today's SEO copy of three pages (app/(site)/blindtest/[mode]/page.tsx + the legacy player's intro). */
+const MODE_SEO = [
+  {
+    id: 'classic', title: 'Classic - K-pop Blind Test', h1: 'Classic', intro: '10 seconds of chorus - the standard blind test',
+    description: '10 seconds of chorus - the standard blind test. 10 songs, 10s clips.', label: /^All K-pop$/,
+  },
+  {
+    id: 'group-stray-kids', title: 'Stray Kids Blind Test - K-pop Blind Test', h1: 'Stray Kids', intro: null,
+    description: 'How well do you know Stray Kids? Listen to clips and guess the song.', label: /^Stray Kids$/,
+  },
+  {
+    id: 'girl-groups', title: 'Girl groups - K-pop Blind Test', h1: 'Girl groups', intro: 'Every generation of girl groups mixed together',
+    description: 'Every generation of girl groups mixed together. 10 songs, 10s clips.', label: /^Girl groups$/,
+  },
+] as const;
+
+async function openMode(page: Page, id: string): Promise<boolean> {
+  const res = await page.goto(`/blindtest/${id}`);
+  if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
+  if ((await page.locator('.p6-mode').count()) === 0) return false;
+  await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+  await page.locator('.p6-mode[data-live]').waitFor({ timeout: 45_000 });
+  return true;
+}
+
+async function playMode(page: Page): Promise<void> {
+  await expect(page.locator('.p6-mode-go[data-live]')).toHaveCount(1, { timeout: 20_000 });
+  await page.locator('.p6-mode-go .ux-btn').click();
+  await expect(page.locator('.p6-play')).toBeVisible();
+  await expect(page.locator('.p6-ans').first()).toBeVisible();
+}
+
+for (const theme of THEMES) {
+  test.describe(`blindtest mode pages ${theme}`, () => {
+    test.describe.configure({ timeout: 180_000 });
+
+    for (const m of MODE_SEO) {
+      test(`/blindtest/${m.id}: today's SEO copy, Play starts the hub's run, a round to results, nothing saved`, async ({ page }, info) => {
+        const h = await harness(page, theme);
+        test.skip(!(await openMode(page, m.id)), 'UX v1 flag is OFF on this build');
+
+        // SEO lock: today's metadata, one H1, intro, songs line, Back to modes (server HTML).
+        await expect(page).toHaveTitle(`${m.title} | KpopQuiz`);
+        await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', m.description);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://kpopquiz.org/blindtest/${m.id}`);
+        await expect(page.locator('h1')).toHaveCount(1);
+        await expect(page.locator('h1')).toHaveText(m.h1);
+        if (m.intro) await expect(page.locator('.p6-mode .p6-lead')).toHaveText(m.intro);
+        else await expect(page.locator('.p6-mode .p6-lead')).toHaveCount(0);
+        await expect(page.locator('.p6-mode-meta')).toHaveText('10 songs · 10s clips');
+        await expect(page.locator('.p6-mode-tags')).toContainText('Blind Test');
+        await expect(page.locator('.p6-mode-back a')).toHaveAttribute('href', '/blindtest');
+        await expect(page.locator('.p6-mode-back a')).toHaveText('Back to modes');
+        await expect(page.locator('.p6-mode-run')).toHaveText(new RegExp(`^10 songs from .+ · 10 seconds each$`));
+        expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
+        expect(await basicA11y(page)).toEqual([]);
+        const axe = await runAxe(page, { include: '.ux-page' });
+        if (axe) expect(axe, 'axe serious / critical on the mode page').toEqual([]);
+        await info.attach(`mode-${m.id}-${widthOf(page)}-${theme}.png`, { body: await page.screenshot(), contentType: 'image/png' });
+
+        // Play: the hub's generate body for this playlist, the v11 game in focus mode.
+        await playMode(page);
+        expect(h.generate.at(-1), 'the hub\'s generate body').toEqual({ ...MODE_BODY[m.id] ?? { playlist: m.id.replace(/^group-/, ''), count: 10 }, mode: 'challenge' });
+        await expect(page.locator('.ux-nav')).toBeHidden();
+        await expect(page.locator('h1')).toHaveCount(1);
+        await expect(page.locator('.p6-segs span')).toHaveCount(10);
+        if (widthOf(page) > 760) await expect(page.locator('.p6-gt')).toHaveText(m.label);
+
+        // A whole round to the results: 8/10.
+        await playAll(page, (i) => i !== 3 && i !== 7);
+        await expect(page.locator('h1')).toHaveCount(1);
+        await expect(page.locator('h1')).toHaveText(/^8\/10 on the .+ blindtest$/);
+        await expect(page.locator('.p6-s')).toHaveText('8/10');
+        await expect(page.locator('.p6-songrow')).toHaveCount(10);
+        await expect(page.locator('.p6-moremodes a')).toHaveAttribute('href', '/blindtest');
+        const axeRes = await runAxe(page, { include: '.p6-res' });
+        if (axeRes) expect(axeRes, 'axe serious / critical on results').toEqual([]);
+
+        // The card names the run (X2-005); Share = this page with the run's challenge link
+        // (X2-006); Play again = the same body.
+        await expect(page.locator('.p6-kick')).toHaveText(m.label);
+        await page.getByRole('button', { name: 'Share', exact: true }).click();
+        const dlg = page.locator('.ux-layer [role="dialog"]');
+        await expect(dlg).toBeVisible();
+        await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+        await expect(dlg.locator('.ux-urlbox span')).toHaveText(/\/blindtest\?c=KQ7P2X$/);
+        expect(h.created).toHaveLength(1);
+        expect((h.created[0] as { playlist: string }).playlist).toBe(MODE_BODY[m.id]?.playlist ?? m.id.replace(/^group-/, ''));
+        await page.keyboard.press('Escape');
+        await expect(dlg).toBeHidden();
+        const before = h.generate.length;
+        await page.getByRole('button', { name: 'Play again' }).click();
+        await expect(page.locator('.p6-play')).toBeVisible();
+        expect(h.generate.length).toBe(before + 1);
+        expect(h.generate.at(-1)).toEqual(h.generate.at(-2));
+        // Quit returns to the mode page (its H1 again).
+        await page.getByRole('button', { name: 'Quit blindtest' }).click();
+        await expect(page.locator('h1')).toHaveText(m.h1);
+        expect(nonGenerate(h.writes), 'a free run saves nothing (live behaviour)').toEqual([]);
+      });
+    }
+
+    test('Play works from the keyboard; a failed generate shows the error and the page stays', async ({ page }) => {
+      const h = await harness(page, theme);
+      test.skip(!(await openMode(page, 'boy-groups')), 'UX v1 flag is OFF on this build');
+      await expect(page.locator('.p6-mode-go[data-live]')).toHaveCount(1, { timeout: 20_000 });
+      // Later routes win: generate now answers like a playlist without enough songs.
+      await page.route((u) => u.pathname === '/api/blind-test/generate', async (r) => { h.generate.push(r.request().postDataJSON()); await json(r, { error: 'Not enough songs for this playlist' }, 400); });
+      await page.locator('.p6-mode-go .ux-btn').focus();
+      await page.keyboard.press('Enter');
+      await expect(page.locator('.p6-mode .p6-err')).toHaveText('Not enough songs for this pick. Try another.');
+      await expect(page.locator('h1')).toHaveText('Boy groups');
+      expect(h.generate.at(-1)).toEqual({ playlist: 'bg', count: 10, mode: 'challenge' });
+      expect(nonGenerate(h.writes)).toEqual([]);
+    });
+  });
+}
+
+test.describe('mode pages: every door, every mode (flag on)', () => {
+  test.describe.configure({ timeout: 300_000 });
+
+  test('all 18 static modes: today\'s H1, Play sends their body, the game starts', async ({ page }) => {
+    const h = await harness(page, 'light');
+    test.skip(!(await openMode(page, 'classic')), 'UX v1 flag is OFF on this build');
+    for (const [id, body] of Object.entries(MODE_BODY)) {
+      expect(await openMode(page, id), id).toBe(true);
+      await expect(page.locator('h1')).toHaveCount(1);
+      await playMode(page);
+      expect(h.generate.at(-1), id).toEqual({ ...body, mode: 'challenge' });
+      await page.getByRole('button', { name: 'Quit blindtest' }).click();
+      await expect(page.locator('.p6-mode-go')).toBeVisible();
+    }
+    expect(h.generate).toHaveLength(18);
+    expect(nonGenerate(h.writes)).toEqual([]);
+  });
+
+  test('doors: the hub theme link, the group hub Blindtest button and a search song row open a page that plays', async ({ page, request }) => {
+    const h = await harness(page, 'light');
+    test.skip(!(await openHub(page)), 'UX v1 flag is OFF on this build');
+    // 1. Hub "Theme playlists" link (a plain link, today's href).
+    await page.locator('.p6-themes a[href="/blindtest/girl-groups"]').click();
+    await page.waitForURL('**/blindtest/girl-groups');
+    await page.locator('.p6-mode[data-live]').waitFor({ timeout: 45_000 });
+    await playMode(page);
+    expect(h.generate.at(-1)).toEqual({ playlist: 'gg', count: 10, mode: 'challenge' });
+
+    // 2. The group hub's hero "Blindtest" button (P3, href kept: /blindtest/group-<slug>).
+    await page.goto('/bts-quiz');
+    const door = page.locator('a[href="/blindtest/group-bts"]').first();
+    await expect(door).toBeVisible();
+    await door.click();
+    await page.waitForURL('**/blindtest/group-bts');
+    await page.locator('.p6-mode[data-live]').waitFor({ timeout: 45_000 });
+    await expect(page.locator('h1')).toHaveText('Bts'); // today's H1, unchanged
+    await playMode(page);
+    expect(h.generate.at(-1)).toEqual({ playlist: 'bts', count: 10, mode: 'challenge' });
+
+    // 3. A search song row (P11 overlay rows link /blindtest/group-<slug>).
+    const res = await request.get('/api/ux-v1/p11/search?q=dynamite');
+    if (res.ok()) {
+      const data = (await res.json()) as { songs?: { href: string }[] };
+      const href = data.songs?.map((s) => s.href).find((x) => x.startsWith('/blindtest/group-'));
+      if (href) {
+        expect(await openMode(page, href.slice('/blindtest/'.length))).toBe(true);
+        await playMode(page);
+        expect(h.generate.at(-1)).toEqual({ playlist: href.slice('/blindtest/group-'.length), count: 10, mode: 'challenge' });
+      }
+    }
+    expect(nonGenerate(h.writes)).toEqual([]);
+  });
+
+  test('a group without a playlist says so (no dead Play), keeps today\'s H1 and link', async ({ page }) => {
+    const h = await harness(page, 'light');
+    test.skip(!(await openMode(page, 'group-zz-not-a-group')), 'UX v1 flag is OFF on this build');
+    await expect(page.locator('h1')).toHaveText('Zz Not A Group');
+    await expect(page.locator('.p6-mode-meta')).toHaveText('10 songs · 10s clips');
+    await expect(page.locator('.p6-mode-go')).toHaveCount(0);
+    await expect(page.locator('.p6-mode-none')).toHaveText('Not enough songs for a Zz Not A Group round yet.');
+    await expect(page.locator('.p6-mode-back a')).toHaveAttribute('href', '/blindtest');
+    expect(h.generate).toEqual([]);
+    expect(h.writes).toEqual([]);
+  });
+});
 
 test.describe('wiring (real, read only)', () => {
   test.describe.configure({ timeout: 120_000 });
