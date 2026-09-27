@@ -613,7 +613,7 @@ const MODE_BODY: Record<string, { playlist: string; count: number }> = {
 const MODE_SEO = [
   {
     id: 'classic', title: 'Classic - K-pop Blind Test', h1: 'Classic', intro: '10 seconds of chorus - the standard blind test',
-    description: '10 seconds of chorus - the standard blind test. 10 songs, 10s clips.', label: /^Classic$/,
+    description: '10 seconds of chorus - the standard blind test. 10 songs, 10s clips.', label: /^All K-pop$/,
   },
   {
     id: 'group-stray-kids', title: 'Stray Kids Blind Test - K-pop Blind Test', h1: 'Stray Kids', intro: null,

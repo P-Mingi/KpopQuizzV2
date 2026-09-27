@@ -43,7 +43,8 @@ describe('mode runs (lib/ux-v1/p6/modes.ts)', () => {
   });
 
   it('exact filters play their own playlist', () => {
-    expect(modeRun('classic')!.pick).toEqual({ playlist: 'all', label: 'Classic' });
+    expect(modeRun('classic')!.pick).toEqual({ playlist: 'all', label: 'All K-pop' });
+    expect(modeRun('random-all')!.pick).toEqual({ playlist: 'all', label: 'All K-pop' });
     expect(modeRun('2nd-gen')!.pick.playlist).toBe('2nd-gen');
     expect(modeRun('4th-gen')!.pick.playlist).toBe('4th-gen');
     expect(modeRun('girl-groups')!.pick.playlist).toBe('gg');

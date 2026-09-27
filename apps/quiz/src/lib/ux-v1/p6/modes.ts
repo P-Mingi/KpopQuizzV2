@@ -32,7 +32,7 @@ export interface ModeRun {
 /** Playlist generate serves per static mode id (lib/blind-test-modes.ts). */
 const STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: boolean }> = {
   // Difficulty: every song, the clip is the Deezer preview (no intro / verse / bridge point, no 5 s clip).
-  classic: { playlist: 'all', label: 'Classic', exact: true },
+  classic: { playlist: 'all', label: ALL_PICK.label, exact: true },
   'intro-challenge': { playlist: 'all', label: ALL_PICK.label, exact: false },
   'verse-only': { playlist: 'all', label: ALL_PICK.label, exact: false },
   'bridge-or-break': { playlist: 'all', label: ALL_PICK.label, exact: false },
@@ -54,7 +54,7 @@ const STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: 
   'kpop-legends': { playlist: 'all', label: ALL_PICK.label, exact: false },
   '4th-gen-gg': { playlist: '4th-gen', label: '4th gen', exact: false },
   '4th-gen-bg': { playlist: '4th-gen', label: '4th gen', exact: false },
-  'random-all': { playlist: 'all', label: 'Random all', exact: true },
+  'random-all': { playlist: 'all', label: ALL_PICK.label, exact: true },
 };
 
 export function clampRound(n: number): number {
