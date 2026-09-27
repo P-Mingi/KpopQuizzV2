@@ -1,0 +1,20 @@
+/blackpink-quiz
+  flag off: 18 visible, 24 in <noscript>
+  flag on:  27 visible, 0 in <noscript>
+  visible with the flag off, not visible with the flag on (0): -
+/ateez-quiz
+  flag off: 15 visible, 20 in <noscript>
+  flag on:  23 visible, 0 in <noscript>
+  visible with the flag off, not visible with the flag on (0): -
+/bts-quiz
+  flag off: 18 visible, 27 in <noscript>
+  flag on:  30 visible, 0 in <noscript>
+  visible with the flag off, not visible with the flag on (0): -
+/stray-kids-quiz
+  flag off: 18 visible, 29 in <noscript>
+  flag on:  32 visible, 0 in <noscript>
+  visible with the flag off, not visible with the flag on (0): -
+/twice-quiz
+  flag off: 15 visible, 14 in <noscript>
+  flag on:  17 visible, 0 in <noscript>
+  visible with the flag off, not visible with the flag on (0): -
