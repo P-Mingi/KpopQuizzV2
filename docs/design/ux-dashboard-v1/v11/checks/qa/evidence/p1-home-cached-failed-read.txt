@@ -1,0 +1,20 @@
+C3 read-only fetches of http://localhost:3021/ (the dcc3159 flag-on production build, prerendered by
+`next build` at about 17:51 CEST while the machine's load average was near 30). Counts taken from the
+saved server HTML (curl, no JS).
+
+time (CEST)   x-nextjs-cache  hub links (/<slug>-quiz)  "All 90 groups" (groups rail)  ?daily=quiz (quiz of the day)  bytes
+17:58:09      (not saved)     8                         0                             0                              80544
+17:58:35      HIT             8                         0                             0                              80544
+17:58:55      HIT             8                         0                             0                              80544
+17:59:16      HIT             8                         0                             0                              80544
+18:27:07      (regenerated)   19                        2                             2                              118465
+
+Flag-off build of the same head (C3, :4203, built about 17:55): 17 live hub links + the daily quiz link.
+
+Reading: the groups rail, the quiz of the day and the other sections whose reads timed out during the
+prerender were rendered empty (safeFetch fallback + min-gate, by design) and that degraded HTML was then
+served from the full-route cache (HIT) for at least 8 minutes and at most 36 minutes, until the page
+regenerated. `lib/ux-v1/p1/home-data.ts` throws inside unstable_cache so the DATA cache never keeps a
+failed read (P1 report section 5), but the PAGE cache (ISR, revalidate 3600 in app/(site)/page.tsx) did
+keep the degraded render: for that window the flag-on home served 11 fewer hub links than flag off.
+The same would happen on Vercel if a regeneration (or the build) meets a DB blip.

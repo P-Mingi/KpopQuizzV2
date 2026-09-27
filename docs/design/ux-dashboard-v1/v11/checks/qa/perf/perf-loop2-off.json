@@ -1,0 +1,426 @@
+{
+ "at": "2026-09-26T21:26:02.115Z",
+ "base": "http://localhost:4203",
+ "label": "loop2-off",
+ "dpr": 3,
+ "cpuThrottle": 4,
+ "runs": 3,
+ "pages": {
+  "/": {
+   "local": {
+    "lcpMs": 1740,
+    "cls": 0.0499,
+    "jsKB": 320,
+    "totalKB": 737,
+    "lcpEl": "div.daily-banner",
+    "shifts": [
+     {
+      "t": 1657,
+      "v": 0.005,
+      "src": [
+       "div.",
+       "#text."
+      ]
+     },
+     {
+      "t": 3350,
+      "v": 0.0499,
+      "src": [
+       "section.home-section",
+       "section."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2812,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 224,
+       "css": 69,
+       "img": 182,
+       "font": 77,
+       "doc": 26,
+       "other": 38,
+       "total": 617
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 1520,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 61,
+       "total": 739
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 1740,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 60,
+       "total": 737
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3284,
+    "cls": 0.0702,
+    "jsKB": 320,
+    "totalKB": 737,
+    "lcpEl": "div.daily-banner",
+    "shifts": [
+     {
+      "t": 3194,
+      "v": 0.0203,
+      "src": [
+       "section.home-section",
+       "div."
+      ]
+     },
+     {
+      "t": 3928,
+      "v": 0.0499,
+      "src": [
+       "section.home-section",
+       "section."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3364,
+      "cls": 0.0499,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 181,
+       "font": 77,
+       "doc": 26,
+       "other": 61,
+       "total": 734
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3096,
+      "cls": 0.0702,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 182,
+       "font": 77,
+       "doc": 26,
+       "other": 63,
+       "total": 737
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3284,
+      "cls": 0.0702,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 320,
+       "css": 69,
+       "img": 185,
+       "font": 77,
+       "doc": 26,
+       "other": 61,
+       "total": 738
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/blackpink-quiz": {
+   "local": {
+    "lcpMs": 940,
+    "cls": 0.0003,
+    "jsKB": 300,
+    "totalKB": 1232,
+    "lcpEl": "p.af-lead",
+    "shifts": [
+     {
+      "t": 1787,
+      "v": 0.0554,
+      "src": [
+       "main.flex-1",
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 736,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 45,
+       "total": 1231
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 940,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 51,
+       "total": 1236
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 1100,
+      "cls": 0.0554,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 46,
+       "total": 1232
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 700,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Jisoo BLACKPINK.jpg: served 700px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Jennie BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Rose BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Lisa BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none"
+    ]
+   },
+   "slow4g": {
+    "lcpMs": 3308,
+    "cls": 0.0003,
+    "jsKB": 300,
+    "totalKB": 1232,
+    "lcpEl": "p.af-lead",
+    "shifts": [
+     {
+      "t": 4631,
+      "v": 0.0003,
+      "src": [
+       "a.",
+       "a."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3380,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 49,
+       "total": 1235
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3308,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 47,
+       "total": 1232
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3196,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 300,
+       "css": 69,
+       "img": 713,
+       "font": 77,
+       "doc": 26,
+       "other": 47,
+       "total": 1232
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 700,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": null,
+      "rendered": 58,
+      "needed": 174,
+      "servedW": null,
+      "sizes": null,
+      "srcset": false,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Jisoo BLACKPINK.jpg: served 700px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Jennie BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Rose BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none",
+     "/idols/Lisa BLACKPINK.jpg: served 736px (source nullpx) for 58px x3 = 174px, sizes=none"
+    ]
+   }
+  }
+ }
+}

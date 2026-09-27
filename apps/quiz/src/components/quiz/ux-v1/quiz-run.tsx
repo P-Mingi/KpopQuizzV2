@@ -15,6 +15,7 @@ import { haptic } from '@/lib/haptics';
 import { playCorrect, playShare, playTap, playWrong } from '@/lib/sounds';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 import { challengeOutcome, parseChallengeParam } from '@/lib/ux-v1/p4/challenge';
+import { parseResume } from '@/lib/ux-v1/p4/comments';
 import { clearContinueRun, peekContinueRun, saveContinueRun } from '@/lib/ux-v1/p4/continue';
 import {
   getCorrectIndex, getEffectiveOptions, isAnswerCorrect, maxScoreFor, playPayload, questionSeconds, runReducer,
@@ -26,6 +27,7 @@ import { P4RunContext } from './run-context';
 import { storyFile, downloadStory } from './story';
 
 import type { ChallengeOutcome, ChallengePublic } from '@/lib/ux-v1/p4/challenge';
+import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
 import type { QuestionData, RunState } from '@/lib/ux-v1/p4/engine';
 import type { QuizSettings, QuizType } from '@/lib/db/types';
 import type { LoadedChallenge, P4RunApi, P4RunQuiz } from './run-context';
@@ -101,7 +103,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   // beside it until the next run starts.
   const restoreResult = useRef<Extract<RunState, { phase: 'result' }> | null>(null);
   const [restoreTick, setRestoreTick] = useState(0);
-  const pendingComment = useRef<string | null>(null);
+  /** the comment action kept by the sign-in sheet (a comment, a reply or a heart). State, not a
+   *  ref read in render: a results render that suspends and restarts must still see it. */
+  const [pendingComment, setPendingComment] = useState<P4CommentResume | null>(null);
   const pendingClaim = useRef(false);
 
   const inGame = state.phase === 'playing' || state.phase === 'answered';
@@ -130,7 +134,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         setExtras(last.extras);
         restoreResult.current = last.state;
         setRestoreTick((n) => n + 1);
-        if (comment) pendingComment.current = (comment.payload as { text?: string } | undefined)?.text ?? '';
+        // a comment, a reply or a comment heart (the results comments take it from here)
+        if (comment) setPendingComment(parseResume(comment.payload) ?? { kind: 'comment', text: '' });
         if (save) pendingClaim.current = true;
       }
       return;
@@ -227,6 +232,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
       perQ.current = [];
       questionStart.current = Date.now();
       restoreResult.current = null;
+      setPendingComment(null);
       setExtras({ playId: null, relaxed: useRelaxed, saved: false, outcome: null });
       setClaimed(false);
       setRank(null);

@@ -1,0 +1,68 @@
+/* ==========================================================================
+   P2 /quizzes (UX v11.2, prototype state `quizzes`; DESIGN-SPEC 7, 16.7, 17.3,
+   17.10, 17.11). NOT imported anywhere: A0's flag-on route
+   (app/api/ux-v1/a0/styles) serves every file of this folder after a0.css.
+   Every rule targets a .p2-* class that only the flag-on /quizzes page carries.
+   ========================================================================== */
+
+/* breadcrumb (keeps the live page's BreadcrumbList visible). Spacing = the prototype's
+   crumb on a wide page (#hub: .pg padding-top 28px, crumb, content 28px below; 20px on
+   phones), as P3's hub does. */
+.p2-page.ux-pg { padding-top: 28px; }
+.p2-crumb { margin-bottom: 28px; }
+.p2-crumb .ux-crumb li { display: inline-flex; align-items: center; gap: 8px; }
+.p2-sep { opacity: .6; }
+
+/* page header: text left; "Create a quiz" only on phones (the top bar has Create) */
+.p2-ph { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.ux-btn.p2-create { display: none; }
+
+/* sort (A0 Segmented links) + Type / Level / Group (A0 UxDropdown link menus) */
+.p2-ctl { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.p2-dds { display: flex; gap: 8px; flex-wrap: wrap; }
+/* menus open left-aligned under their trigger, shifted left to stay 16px inside the
+   window (the prototype's ddOpen clamp; the shift is measured by P2Controls) */
+.p2-dds > .ux-dd-wrap:nth-child(1) > .ux-ddpop { left: var(--p2-pop-0, 0px); }
+.p2-dds > .ux-dd-wrap:nth-child(2) > .ux-ddpop { left: var(--p2-pop-1, 0px); }
+.p2-dds > .ux-dd-wrap:nth-child(3) > .ux-ddpop { left: var(--p2-pop-2, 0px); }
+/* the count keeps the regular weight in the checked (600) item */
+.p2-dds .ux-mi small { font-weight: 400; }
+
+/* active filters, result */
+.p2-chips { margin-top: 16px; }
+.p2-chip { cursor: pointer; }
+.p2-notice { margin-top: 16px; font-size: 15px; color: var(--ux-muted); }
+.p2-results { margin-top: 32px; }
+.p2-results .p2-grid { transition: opacity .15s; }
+.p2-results.is-pending .p2-grid { opacity: .55; }
+.p2-more { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 48px; }
+.p2-pager { display: flex; align-items: baseline; gap: 16px; font-size: 15px; color: var(--ux-muted); }
+.p2-empty { margin-top: 32px; }
+.p2-empty-act { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.p2-empty-act .ux-btn { margin-top: 0; }
+
+/* the live page's browse links and FAQ, under the prototype's content */
+.p2-mesh { font-size: 15px; line-height: 1.6; color: var(--ux-muted); }
+.p2-mesh p + p { margin-top: 6px; }
+.p2-mesh-l { color: var(--ux-ink); font-weight: 600; margin-right: 10px; }
+.p2-mesh a, .p2-inl { color: var(--ux-pink-ink); font-weight: 500; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.p2-mesh a:hover, .p2-inl:hover { text-decoration: underline; }
+/* FAQ: the prototype's .acc accordion (#hub "Questions fans ask"), in a text column
+   (the prototype's FAQ sits in a column of at most 720px, never the full 1120) */
+.p2-faq { max-width: 720px; }
+.p2-faq h2 { margin-bottom: 8px; }
+.p2-acc { border-top: 1px solid var(--ux-hair); border-bottom: 1px solid var(--ux-hair); }
+.p2-acc + .p2-acc { border-top: 0; }
+.p2-acc > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 12px 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.p2-acc > summary::-webkit-details-marker { display: none; }
+.p2-acc > summary .ux-ico { flex: none; color: var(--ux-muted); transition: transform .2s var(--ux-ease); }
+.p2-acc[open] > summary .ux-ico { transform: rotate(180deg); }
+.p2-acc-a { padding: 0 0 20px; color: var(--ux-muted); font-size: 15px; line-height: 1.65; max-width: 62ch; }
+
+@media (max-width: 760px) {
+  .p2-crumb { margin-bottom: 20px; }
+  .ux-btn.p2-create { display: inline-flex; }
+}
+@media (pointer: coarse) {
+  .p2-mesh a { display: inline-block; padding-block: 10px; margin-block: -10px; }
+}

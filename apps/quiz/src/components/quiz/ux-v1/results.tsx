@@ -27,6 +27,7 @@ import { parseStanding, rankLine } from '@/lib/ux-v1/p4/standing';
 import { P4Comments } from './comments';
 import { P4ReportButton } from './report';
 
+import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
 import type { RunState } from '@/lib/ux-v1/p4/engine';
 import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 import type { RunExtras } from './quiz-run';
@@ -78,7 +79,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   onPlayAgain: () => void;
   /** the rank line's numbers, for the share sheet */
   onRank: (r: { rank: number; total: number } | null) => void;
-  pendingComment: React.RefObject<string | null>;
+  /** the comment action kept by the sign-in sheet (16.6), for the comments below */
+  pendingComment: P4CommentResume | null;
 }): React.ReactElement {
   const max = maxScoreFor(result.quizType, result.totalQuestions);
   const pct = max > 0 ? Math.round((result.score / max) * 100) : 0;
@@ -92,7 +94,6 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   /** the standing read answered (or failed): the rank line is final */
   const [standingDone, setStandingDone] = useState(false);
   const [pieces] = useState(() => Array.from({ length: 40 }, (_, k) => ({ left: Math.random() * 100, delay: Math.random() * 0.5, rot: Math.random() * 180, color: CONFETTI[k % CONFETTI.length] })));
-  const [pendingText] = useState<string | null>(() => { const t = pendingComment.current; pendingComment.current = null; return t; });
   const h1 = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => { h1.current?.focus({ preventScroll: true }); }, []);
@@ -244,7 +245,7 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
       </section>
 
       <section className="ux-sec">
-        <P4Comments quizId={quiz.id} isClues={result.quizType === 'guess_from_clues'} count={quiz.commentCount} chip={`Your score ${chipScore} is shown`} pendingText={pendingText} />
+        <P4Comments quizId={quiz.id} isClues={result.quizType === 'guess_from_clues'} count={quiz.commentCount} chip={`Your score ${chipScore} is shown`} pending={pendingComment} />
         <div className="p4-report-c"><P4ReportButton quizId={quiz.id} /></div>
       </section>
     </div>

@@ -1,0 +1,248 @@
+
+== /quizzes
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes
+SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
+SAME  LINK SET: every <a href> of A is in B  A 80, B 94, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  4545 chars of text, 48 quiz links
+
+== /quizzes?page=2
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes?page=2
+SAME  hreflang / alternate  none
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 125, B 142, lost 0, added 17
+SAME  server rendered (B HTML carries the content)  6680 chars of text, 96 quiz links
+
+== /quizzes?page=3
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes?page=3
+SAME  hreflang / alternate  none
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 126, B 191, lost 0, added 65
+SAME  server rendered (B HTML carries the content)  9786 chars of text, 144 quiz links
+
+== /quizzes?group=bts
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/bts-quiz
+SAME  hreflang / alternate  none
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 55, B 73, lost 0, added 18
+SAME  server rendered (B HTML carries the content)  2516 chars of text, 27 quiz links
+
+== /quizzes?tab=trending
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes
+SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
+SAME  LINK SET: every <a href> of A is in B  A 80, B 94, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  4545 chars of text, 48 quiz links
+
+== /quizzes?sort=trending
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta robots  "noindex, follow"
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/quizzes
+SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
+SAME  H1  ["K-pop quizzes"]
+DIFF  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
+SAME  LINK SET: every <a href> of A is in B  A 60, B 74, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  3191 chars of text, 29 quiz links
+
+== /quizzes?type=tf
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta robots  "noindex, follow"
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/quizzes
+SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
+SAME  LINK SET: every <a href> of A is in B  A 80, B 95, lost 0, added 15
+SAME  server rendered (B HTML carries the content)  4809 chars of text, 48 quiz links
+
+== /quizzes/popular-today
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes Today | KpopQuiz"
+SAME  meta description  "The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated ev
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-today
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes today"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2771 chars of text, 24 quiz links
+
+== /quizzes/popular-this-week
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes This Week | KpopQuiz"
+SAME  meta description  "The most played K-pop quizzes of the last 7 days, ranked by real plays and refreshed hour
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-this-week
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes this week"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2878 chars of text, 24 quiz links
+
+== /quizzes/popular-this-month
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes This Month | KpopQuiz"
+SAME  meta description  "The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderbo
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-this-month
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes this month"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2940 chars of text, 24 quiz links
+
+== /pt/quizzes
+SAME  status  200/200 
+SAME  title  "Quiz de K-pop - Todos os Quizzes | KpopQuiz"
+SAME  meta description  "Explore todos os quizzes de K-pop: BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 
+SAME  meta og:description
+SAME  meta og:locale
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta robots  "index, follow"
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:title
+SAME  canonical  https://kpopquiz.org/pt/quizzes
+SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
+SAME  H1  ["Explorar quizzes"]
+SAME  JSON-LD blocks (parsed)  3/3 (BreadcrumbList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 76, B 90, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  4751 chars of text, 48 quiz links
+
+1 difference(s)
