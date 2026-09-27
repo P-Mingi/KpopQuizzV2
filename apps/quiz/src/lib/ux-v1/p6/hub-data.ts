@@ -120,6 +120,17 @@ export function popularSix(groups: readonly BtGroup[], pop: GroupPopularity, n =
     .map((x) => x.g);
 }
 
+/**
+ * Time budget of one hub read. At build time the copy of /blindtest that ships is
+ * the one rendered while hundreds of pages prerender in parallel (the catalog read
+ * pages through every active song); a 5 s budget measured timing out there (fix 3),
+ * which shipped the fail-soft hub WITHOUT its 79 group links until the first
+ * regeneration. The build gets 30 s; a request render keeps 5 s.
+ */
+export function readBudgetMs(env: { NEXT_PHASE?: string | undefined } = process.env): number {
+  return env.NEXT_PHASE === 'phase-production-build' ? 30_000 : 5_000;
+}
+
 /** A read with its fail-soft value and whether it really succeeded (safeFetch
  *  hides that; the hub needs it to keep the last good ISR copy). Next's own
  *  control-flow errors are rethrown. */
