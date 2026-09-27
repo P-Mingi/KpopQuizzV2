@@ -1,0 +1,24 @@
+# P3 fix 2 (X1-005) proof, dev :3033, GET only, 2026-09-27T16:02Z
+
+## Open space with no posts (scratch render: BTS comment list emptied in hub.tsx, never committed)
+base: <a class="ux-lnk" href="/community">Start the first thread</a>
+fix:  <a class="ux-lnk" href="/community?compose=thread">Start the first thread</a>
+link set /bts-quiz base -> fix: anchors 104 -> 104, unique hrefs 80 -> 81; lost 0: -; added 1: /community?compose=thread; per-href count changes: /community 5->4, /community?compose=thread 0->1
+document (structure), base vs fix with the old href put back: IDENTICAL (structure) 54693 = 54693
+
+## Real hubs, flag on, base -> fix
+/bts-quiz: anchors 104 -> 104, unique hrefs 80 -> 80; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 55173 = 55173
+/blackpink-quiz: anchors 100 -> 100, unique hrefs 75 -> 75; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 49943 = 49943
+/ateez-quiz: anchors 95 -> 95, unique hrefs 72 -> 72; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 52408 = 52408
+/chungha-quiz: anchors 54 -> 54, unique hrefs 40 -> 40; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 15144 = 15144
+
+## Flag off, base -> fix (a fresh .next each; image preload tags and live numbers masked)
+/bts-quiz: anchors 97 -> 97, unique hrefs 65 -> 65; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 91139 = 91139 | p3-hub / compose=thread in the fix HTML: 0
+/blackpink-quiz: anchors 94 -> 94, unique hrefs 62 -> 62; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 79403 = 79403 | p3-hub / compose=thread in the fix HTML: 0
+/cortis-quiz: anchors 69 -> 69, unique hrefs 44 -> 44; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 59220 = 59220 | p3-hub / compose=thread in the fix HTML: 0
+/community?compose=thread flag off: 301 -> /
+
+## e2e (e2e/ux-v1/p3.spec.ts, --retries 0, ux-1440 + ux-390, light + dark, guest, guardWrites)
+scratch render, X1-005 case: 4 passed (48.1s)
+real data, X1-005 case + ATEEZ community case: 8 passed (46.7s)
+whole-app tsc (apps/quiz, e2e included): exit 0
