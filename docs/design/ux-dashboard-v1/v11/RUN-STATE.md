@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 OWNER REQUEST 2 (in chat, with a screenshot of the live home): the v11 page background must be the old warm colour, not white ("it makes the website look warmer"). Light theme: --ux-page #FFFFFF -> #FAF8F5 (live --bg), nav background warm too; cards, panels, sheets, inputs, ticker, tab bar stay white; --ux-surface / --ux-surface-2 re-tuned for contrast on the warm page. Owner-approved deviation from the prototype. Sent to A0 on the same branch ux11/a0-fix4; page stylesheets that paint cards with the page token are to be routed to their owners.
 - 2026-09-27 OWNER REQUEST (in chat, with a nav screenshot): "give a bit more space to the navbar between buttons". Owner-approved deviation from the prototype (.links{gap:0}). Sent to A0 (branch ux11/a0-fix4): largest gap that still fits at 1280 signed in and guest; 390 tab bar unchanged.
 - 2026-09-27 P2 round 2b done locally (bfb49a3, integration 2e54e48 merged in): menus keep their labels, the 52px push at 390 is gone, chips, grid and empty state 0.0px off the prototype. Waiting for P1 and P10, then ORCH rebuilds the preview from the integration head + ux11/p2-quizzes merged locally (never pushed).
 - 2026-09-27 P11 fix merged: the unread line follows the active filter. P11 reported that a flag-off Playwright error once printed the test user's session cookie into a scratch log; it deleted the log; ORCH scanned the scratchpad, the P11 worktree and the PR diff: no cookie left.
