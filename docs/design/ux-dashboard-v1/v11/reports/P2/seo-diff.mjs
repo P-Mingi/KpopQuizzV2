@@ -1,8 +1,8 @@
 // SEO + link-set diff of the /quizzes URLs, A (flag off) vs B (flag on). Read only (GET).
 //   node seo-diff.mjs <baseA> <baseB> [--links-out <dir>] <path> [<path> ...]
 // Per path: status, <title>, meta description / robots / og / twitter, canonical,
-// hreflang, H1, every JSON-LD block (parsed, order-free), the live intro sentence and
-// the FAQ questions (verbatim in B), server rendering, and the LINK SET (COMMON.md
+// hreflang, H1, every JSON-LD block (parsed, order-free), the live intro sentence, the
+// FAQ questions and answers (verbatim in B), server rendering, and the LINK SET (COMMON.md
 // done-when 5): every <a href> of A's served HTML (nav, page, noscript, footer) must
 // be in B's served HTML. Prints one line per check; exit 1 on any difference.
 
@@ -73,6 +73,9 @@ for (const p of paths) {
   if (tA.includes(INTRO)) line(tB.includes(INTRO), 'intro sentence (verbatim in B)');
   const faqA = ja.filter((j) => j.includes('"FAQPage"')).flatMap((j) => JSON.parse(j).mainEntity.map((q) => q.name));
   line(faqA.every((q) => tB.includes(q)), 'FAQ questions visible in B', `${faqA.length} questions`);
+  // The visible FAQ answers of A (its <dd> text, links included) are in B's served HTML too.
+  const ansA = [...ha.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((m) => text(m[1]));
+  if (ansA.length) line(ansA.every((a) => tB.includes(a)), 'FAQ answers (A visible text) in B', `${ansA.length} answers`);
   const la = anchorSet(ha); const lb = anchorSet(hb);
   const lost = [...la].filter((h) => !lb.has(h)).sort();
   const added = [...lb].filter((h) => !la.has(h)).sort();

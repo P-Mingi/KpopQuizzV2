@@ -16,6 +16,7 @@ SAME  H1  ["K-pop quizzes"]
 SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
 SAME  LINK SET: every <a href> of A is in B  A 80, B 94, lost 0, added 14
 SAME  server rendered (B HTML carries the content)  4545 chars of text, 48 quiz links
 
@@ -33,7 +34,7 @@ SAME  meta robots  none on either side (indexable)
 SAME  canonical  https://kpopquiz.org/quizzes?page=2
 SAME  hreflang / alternate  none
 SAME  H1  ["K-pop quizzes"]
-DIFF  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  0 questions
 SAME  LINK SET: every <a href> of A is in B  A 125, B 142, lost 0, added 17
@@ -77,7 +78,7 @@ SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, Site
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  0 questions
 SAME  LINK SET: every <a href> of A is in B  A 55, B 73, lost 0, added 18
-SAME  server rendered (B HTML carries the content)  2517 chars of text, 27 quiz links
+SAME  server rendered (B HTML carries the content)  2516 chars of text, 27 quiz links
 
 == /quizzes?tab=trending
 SAME  status  200/200 
@@ -96,6 +97,7 @@ SAME  H1  ["K-pop quizzes"]
 SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
 SAME  LINK SET: every <a href> of A is in B  A 80, B 94, lost 0, added 14
 SAME  server rendered (B HTML carries the content)  4545 chars of text, 48 quiz links
 
@@ -113,11 +115,12 @@ SAME  meta twitter:title
 SAME  canonical  https://kpopquiz.org/quizzes
 SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopquiz.org/pt/quizzes, x-default https://kpopquiz.org/quizzes
 SAME  H1  ["K-pop quizzes"]
-SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
+DIFF  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  4 questions
-SAME  LINK SET: every <a href> of A is in B  A 55, B 69, lost 0, added 14
-SAME  server rendered (B HTML carries the content)  2922 chars of text, 24 quiz links
+SAME  FAQ answers (A visible text) in B  4 answers
+SAME  LINK SET: every <a href> of A is in B  A 60, B 74, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  3191 chars of text, 29 quiz links
 
 == /quizzes?type=tf
 SAME  status  200/200 
@@ -136,8 +139,9 @@ SAME  H1  ["K-pop quizzes"]
 SAME  JSON-LD blocks (parsed)  5/5 (BreadcrumbList, FAQPage, ItemList, Organization, SiteNavigationElement)
 SAME  intro sentence (verbatim in B)
 SAME  FAQ questions visible in B  4 questions
+SAME  FAQ answers (A visible text) in B  4 answers
 SAME  LINK SET: every <a href> of A is in B  A 80, B 95, lost 0, added 15
-SAME  server rendered (B HTML carries the content)  4808 chars of text, 48 quiz links
+SAME  server rendered (B HTML carries the content)  4809 chars of text, 48 quiz links
 
 == /quizzes/popular-today
 SAME  status  200/200 
@@ -161,10 +165,10 @@ SAME  meta robots  none on either side (indexable)
 SAME  canonical  https://kpopquiz.org/quizzes/popular-today
 SAME  hreflang / alternate  none
 SAME  H1  ["The most played K-pop quizzes today"]
-DIFF  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
 SAME  FAQ questions visible in B  0 questions
-DIFF  LINK SET: every <a href> of A is in B  A 48, B 39, lost 25, added 16  LOST: /q/are-u-a-real-gllit /q/are-you-a-real-coer /q/are-you-a-real-eyekon /q/ateez-title-tracks-and-members-quiz /q/babymonster-quiz /q/blackpink-ultimate-fan-challenge /q/bts-true-or-false-test-your-army-knowledge /q/cortis-quiz /q/enhypen-debut-and-beyond-quiz /q/enhypen-guess-the-mv-from-the-screenshot /q/enhypen-members-deep-dive /q/how-well-do-you-know-txt /q/illit-fans-here /q/k-pop-company-quiz-match-the-group-to-the-label /q/k-pop-fandom-names-true-or-false /q/k-pop-training-system-and-idol-life /q/one-for-sones /q/real-coers-cortis-fans-can-take-this-quiz /q/seventeen-discography-and-milestones-quiz /q/seventeen-true-or-false-65 /q/skz-true-or-false-only-real-stays-pass /q/stray-kids-basics /q/stray-kids-know-each-member /q/stray-kids-members-deep-knowledge /search
-SAME  server rendered (B HTML carries the content)  1094 chars of text, 0 quiz links
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2771 chars of text, 24 quiz links
 
 == /quizzes/popular-this-week
 SAME  status  200/200 
@@ -188,10 +192,10 @@ SAME  meta robots  none on either side (indexable)
 SAME  canonical  https://kpopquiz.org/quizzes/popular-this-week
 SAME  hreflang / alternate  none
 SAME  H1  ["The most played K-pop quizzes this week"]
-DIFF  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
 SAME  FAQ questions visible in B  0 questions
-DIFF  LINK SET: every <a href> of A is in B  A 48, B 39, lost 25, added 16  LOST: /q/are-u-a-real-gllit /q/are-you-a-real-coer /q/are-you-a-real-eyekon /q/are-you-real-h2u /q/babymonster-quiz /q/blackpink-ultimate-fan-challenge /q/bts-true-or-false-test-your-army-knowledge /q/cortis-quiz /q/enhypen-debut-and-beyond-quiz /q/guess-the-skz-member-from-clues /q/illit-fans-here /q/illit-guess-the-idol /q/k-pop-company-quiz-match-the-group-to-the-label /q/k-pop-fandom-names-true-or-false /q/name-10-enhypen-mvs-are-you-a-real-engene /q/one-for-sones /q/real-coers-cortis-fans-can-take-this-quiz /q/skz-true-or-false-only-real-stays-pass /q/stray-kids-basics /q/stray-kids-know-each-member /q/stray-kids-members-deep-knowledge /q/twice-true-or-false /q/ultimate-bts-era-quiz-only-real-armys-survive /q/which-k-pop-group-debuted-first-timeline-challenge /search
-SAME  server rendered (B HTML carries the content)  1099 chars of text, 0 quiz links
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2878 chars of text, 24 quiz links
 
 == /quizzes/popular-this-month
 SAME  status  200/200 
@@ -217,8 +221,8 @@ SAME  hreflang / alternate  none
 SAME  H1  ["The most played K-pop quizzes this month"]
 SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
 SAME  FAQ questions visible in B  0 questions
-DIFF  LINK SET: every <a href> of A is in B  A 24, B 39, lost 1, added 16  LOST: /search
-SAME  server rendered (B HTML carries the content)  1106 chars of text, 0 quiz links
+SAME  LINK SET: every <a href> of A is in B  A 48, B 64, lost 0, added 16
+SAME  server rendered (B HTML carries the content)  2940 chars of text, 24 quiz links
 
 == /pt/quizzes
 SAME  status  200/200 
@@ -238,7 +242,7 @@ SAME  hreflang / alternate  en https://kpopquiz.org/quizzes, pt-BR https://kpopq
 SAME  H1  ["Explorar quizzes"]
 SAME  JSON-LD blocks (parsed)  3/3 (BreadcrumbList, Organization, SiteNavigationElement)
 SAME  FAQ questions visible in B  0 questions
-DIFF  LINK SET: every <a href> of A is in B  A 76, B 89, lost 1, added 14  LOST: /search
-SAME  server rendered (B HTML carries the content)  4717 chars of text, 48 quiz links
+SAME  LINK SET: every <a href> of A is in B  A 76, B 90, lost 0, added 14
+SAME  server rendered (B HTML carries the content)  4751 chars of text, 48 quiz links
 
-7 difference(s)
+1 difference(s)

@@ -28,7 +28,8 @@ signedInTest.describe.configure({ timeout: 180_000 });
 const LANDMARKS: Landmark[] = [
   { proto: '.nav', impl: '.ux-nav', state: 'quizzes', box: ['width', 'height'] },
   { proto: '.links a.on', impl: '.ux-links a[aria-current="page"]', state: 'quizzes', box: ['height'] },
-  // Width only: the card body line heights are A0's (requests/P2.md item 2: 2.6px short at 1440).
+  // Width only: a card's height follows its title's line count (real titles). With the same
+  // line count the card has the reference height (pixel pass, reports/P2.md section 7).
   { proto: '.qcard', impl: '.p2-grid .ux-qcard', state: 'quizzes', box: ['width'] },
 ];
 

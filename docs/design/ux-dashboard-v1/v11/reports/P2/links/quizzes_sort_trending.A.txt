@@ -18,8 +18,8 @@
 /pt/quizzes
 /q/-nct-find-the-intruder
 /q/a-pretty-hard-itzy-quiz
+/q/are-a-real-stay
 /q/are-you-a-real-coer-2
-/q/are-you-a-real-eyekon
 /q/are-you-a-real-neverland-
 /q/are-you-real-coer
 /q/are-you-real-coer-version-2
@@ -36,10 +36,15 @@
 /q/illit-fans-here
 /q/name-10-enhypen-mvs-are-you-a-real-engene
 /q/one-for-sones
+/q/only-a-real-fearnot-can-pass-this
+/q/only-a-real-gllit-can-pass-this
+/q/only-a-real-my-can-pass-this
+/q/only-a-real-tunes-can-pass-this-
 /q/skz-quiz
 /q/this-is-only-for-true-gllits
 /q/this-is-only-for-true-gllits-2
 /q/what-would-you-do-if-you-where-eating-a-cake-and-jieun-stole
+/q/who-said-it-snsd-version
 /quizzes
 /quizzes/popular-this-month
 /quizzes/popular-this-week

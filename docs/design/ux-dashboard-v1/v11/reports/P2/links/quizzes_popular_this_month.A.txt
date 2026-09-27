@@ -21,7 +21,6 @@
 /q/cortis-fun-quiz
 /q/cortis-quiz
 /q/enhypen-debut-and-beyond-quiz
-/q/guess-the-babymonster-member
 /q/guess-the-bts-member-from-clues
 /q/guess-the-skz-member-from-clues
 /q/illit-guess-the-idol
@@ -35,6 +34,7 @@
 /q/stray-kids-members-deep-knowledge
 /q/ultimate-bts-era-quiz-only-real-armys-survive
 /q/which-k-pop-group-debuted-first-timeline-challenge
+/q/who-said-it-snsd-version
 /quizzes
 /quizzes/popular-this-month
 /quizzes/popular-this-week
