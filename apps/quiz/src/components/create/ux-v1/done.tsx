@@ -3,17 +3,17 @@
 import { useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
-import { Icon } from '@/components/ux-v1/icon';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { creatorNudge } from '@/lib/creator-progress';
 import { copyShareLink } from '@/lib/share';
 
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
-// Done state (prototype #pub-done): the live URL + Copy (the EXISTS tracked share
-// link, POST /api/share/generate through lib/share copyShareLink), Open your quiz,
-// Post a challenge (P8's community composer), the EXISTS creator-progress line and
-// "Create another quiz".
+// Done state (prototype #pub-done): the mascot, "It's live" and its line, the live
+// URL + Copy (the EXISTS tracked share link, POST /api/share/generate through
+// lib/share copyShareLink), Open your quiz, Post a challenge (P8's community
+// composer); then, kept from the live funnel under the prototype's block, the
+// EXISTS creator-progress line and "Create another quiz".
 
 export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => void }): React.ReactElement | null {
   const toast = useUxToast();
@@ -34,7 +34,8 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
   return (
     <div className="p5-done">
       <Mascot variant="celebrate" size={88} alt="" className="p5-done-m" />
-      {nudge ? <p className="ux-help p5-nudge">{nudge.text}</p> : null}
+      <h2 className="ux-h1 p5-done-h">It&apos;s live</h2>
+      <p className="ux-muted p5-done-p">The first plays decide if it trends this week. Share it with your fandom.</p>
       <div className="ux-urlbox p5-url">
         <span>{url.replace(/^https?:\/\//, '')}</span>
         <button type="button" className="ux-btn ux-btn-quiet ux-btn-sm" onClick={() => { void copy(); }}>{copied ? 'Copied' : 'Copy'}</button>
@@ -44,9 +45,10 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
           Open your quiz<span className="ux-sr"> (opens in a new tab)</span>
         </a>
         <a className="ux-btn ux-btn-ghost ux-btn-lg" href={`/community?compose=challenge&quiz=${encodeURIComponent(p.slug)}`}>
-          <Icon name="target" />Post a challenge
+          Post a challenge
         </a>
       </div>
+      {nudge ? <p className="ux-help p5-nudge">{nudge.text}</p> : null}
       <button type="button" className="ux-lnk p5-another" onClick={onAnother}>Create another quiz</button>
     </div>
   );
