@@ -189,10 +189,15 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
 /* ---------- done ---------- */
 .p5-done { text-align: center; padding: 48px 0 64px; }
 .p5-done-m { width: 88px; height: 88px; margin: 0 auto 12px; }
-.p5-nudge { margin-top: 0; }
+/* prototype: <h2 class="h1" style="font-size:28px"> (28px at every width) + <p class="muted" style="margin-top:8px"> */
+.p5-done .p5-done-h { font-size: 28px; }
+.p5-done-p { margin-top: 8px; }
 .p5-url { max-width: 520px; margin: 20px auto 0; }
 .p5-done-a { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 32px; }
+/* kept from the live funnel, under the prototype's block */
+.p5-nudge { margin-top: 24px; }
 .p5-another { margin-top: 24px; font-size: 14px; }
+.p5-nudge + .p5-another { margin-top: 12px; }
 
 /* ---------- sticky bar ---------- */
 .p5-bar { position: sticky; bottom: 0; z-index: 30; margin-top: 48px; background: var(--ux-nav-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--ux-hair); }
@@ -212,6 +217,9 @@ html.ux-v1:has(.p5-bar) { scroll-padding-bottom: 96px; }
   .p5-pubcard { max-width: 280px; }
   .p5-bar { bottom: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
   .p5-intr { grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* prototype .actions on phones: margin-top 24, the large buttons full width, stacked */
+  .p5-done-a { margin-top: 24px; }
+  .p5-done-a .ux-btn-lg { width: 100%; }
 }
 @media (hover: none) {
   /* no invisible tap targets: the row actions show on the open row only */
