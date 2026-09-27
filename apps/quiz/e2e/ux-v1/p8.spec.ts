@@ -8,12 +8,12 @@ import { basicA11y, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
-import { compareLandmarks } from './helpers/landmarks';
+import { compareLandmarks, withOwnerDeviations } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
 import type { APIRequestContext, Page, Route } from '@playwright/test';
 import type { StubbedCall } from './helpers/guard';
-import type { Landmark } from './helpers/landmarks';
+import type { Landmark, OwnerDeviation, ReferenceStyles } from './helpers/landmarks';
 import type { Theme } from './helpers/setup-page';
 
 // P8 Community (UX v11.2; DESIGN-SPEC 17.7, 17.8, 16.7 community, 13.x): the /community
@@ -34,6 +34,21 @@ const env = loadTestEnv();
 const TODAY = new Date().toISOString().slice(0, 10);
 const here = path.dirname(fileURLToPath(import.meta.url));
 const P8_STYLES = path.resolve(here, '../../../../docs/design/ux-dashboard-v1/v11/reports/P8/proto-styles.json');
+// Owner values of the S1 warm-ground sweep (owner request 2, A0.md 12.2 / 12.3), applied like A0's
+// OWNER_DEVIATIONS rows (exact, light only, never a skip): the phone rail box is filled white on the
+// warm ground (--ux-card-fill, like A0's .tcard row).
+const S1_OWNER_VALUES: OwnerDeviation[] = [
+  { theme: 'light', proto: '.mrail', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+];
+function withS1OwnerValues(ref: ReferenceStyles): ReferenceStyles {
+  for (const [key, sels] of Object.entries(ref)) {
+    for (const d of S1_OWNER_VALUES) {
+      const props = sels[d.proto];
+      if (props && key.includes(`-${d.theme}-`) && props[d.prop] === d.from) props[d.prop] = d.to;
+    }
+  }
+  return ref;
+}
 
 // ---- prototype references ------------------------------------------------------------
 
@@ -92,7 +107,8 @@ function close(a: string, b: string): boolean {
 
 /** Computed styles of the first visible match of each impl selector vs the P8 capture. */
 async function compareP8(page: Page, theme: Theme, state: string, pairs: Pair[]): Promise<{ checked: number; mismatches: string[] }> {
-  const ref = (JSON.parse(fs.readFileSync(P8_STYLES, 'utf8')) as Record<string, Record<string, Record<string, string>>>)[`${widthOf(page)}-${theme}-${state}`] ?? {};
+  // the owner-approved deviations (warm light ground, A0.md 12.2) apply to this capture too
+  const ref = withS1OwnerValues(withOwnerDeviations(JSON.parse(fs.readFileSync(P8_STYLES, 'utf8')) as ReferenceStyles))[`${widthOf(page)}-${theme}-${state}`] ?? {};
   const got = await page.evaluate(({ pairs, P }) => {
     const o: Record<string, Record<string, string>> = {};
     for (const [, impl, box] of pairs) {
