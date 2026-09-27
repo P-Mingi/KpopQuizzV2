@@ -176,6 +176,7 @@ export function KitSheets(): React.ReactElement {
   const openSearch = useUxSearch();
   const toast = useUxToast();
   const [share, setShare] = useState(false);
+  const [shareQuiz, setShareQuiz] = useState(false);
   const [header, setHeader] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const shareProps = {
@@ -190,11 +191,21 @@ export function KitSheets(): React.ReactElement {
       <div className="ux-kit-row">
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="signin" onClick={() => openSignIn({ title: 'Sign in to publish', sub: 'Your quiz needs an owner so you can edit it and see its plays. Your draft is kept.', action: { id: 'kit-demo' } })}>Open sign-in</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="share" onClick={() => setShare(true)}>Open share</button>
+        <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="share-default" onClick={() => setShareQuiz(true)}>Open share (default story)</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="header" onClick={() => setHeader(true)}>Open header picture</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="confirm" onClick={() => setConfirm(true)}>Open confirm</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="search" onClick={openSearch}>Open search</button>
       </div>
       <ShareSheet open={share} onClose={() => setShare(false)} {...shareProps} onStoryImage={() => toast('Saves a 1080 x 1920 story image')} />
+      {/* X2-008: no onStoryImage, so the sheet draws the story card from its preview */}
+      <ShareSheet
+        open={shareQuiz}
+        onClose={() => setShareQuiz(false)}
+        title="Share this quiz"
+        preview={{ image: '/idols/BTS.jpg', line1: 'Ultimate BTS era quiz - only real ARMYs survive', line2: '2,375 plays · average 52%' }}
+        url="https://kpopquiz.org/q/ultimate-bts-era-quiz-only-real-armys-survive"
+        text="Ultimate BTS era quiz - only real ARMYs survive"
+      />
       <HeaderPictureSheet
         open={header}
         onClose={() => setHeader(false)}

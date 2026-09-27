@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import { test, expect } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
@@ -509,6 +511,82 @@ test.describe('kit interactions', () => {
     await expect(dflt).toHaveText('Type: True/false');
     await expect(dflt).not.toHaveAttribute('aria-label');
     await expect(dflt.locator('b')).toHaveText('True/false');
+  });
+
+  // X2-008: a sheet whose page passes no story of its own (quiz, challenge, post, passport
+  // for a visitor) still has the prototype's four tiles; Story image draws a 1080 x 1920
+  // PNG from the preview (photo, line 1, line 2) in the browser, shares it as a file where
+  // the browser can, and downloads it otherwise; More apps attaches the same file. No
+  // network write.
+  test('share sheet default story image: four tiles, a 1080 x 1920 PNG, shared as a file or downloaded', async ({ page }) => {
+    const writes: string[] = [];
+    page.on('request', (r) => { if (r.method() !== 'GET' && r.method() !== 'HEAD') writes.push(`${r.method()} ${r.url()}`); });
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const open = async (): Promise<Locator> => {
+      await page.locator('[data-kit-open="share-default"]').click();
+      const dlg = page.getByRole('dialog', { name: 'Share this quiz' });
+      await expect(dlg).toBeVisible();
+      return dlg;
+    };
+
+    // No file sharing here (desktop): a local download.
+    await page.evaluate(() => { Object.defineProperty(navigator, 'canShare', { value: () => false, configurable: true }); });
+    let dlg = await open();
+    expect(await dlg.locator('.ux-shgrid .ux-shbtn').allInnerTexts()).toEqual(['Copy link', 'Story image', 'More apps', 'Discord']);
+    const [download] = await Promise.all([page.waitForEvent('download'), dlg.getByRole('button', { name: 'Story image' }).click()]);
+    expect(download.suggestedFilename()).toBe('kpopquiz-story.png');
+    const png = fs.readFileSync(await download.path());
+    expect(png.subarray(1, 4).toString('latin1'), 'a PNG').toBe('PNG');
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)], '1080 x 1920').toEqual([1080, 1920]);
+    await expect(page.getByTestId('ux-toast')).toHaveText('Story image saved');
+    await page.keyboard.press('Escape');
+
+    // File sharing supported (phones): the same card goes to navigator.share, no download.
+    await page.evaluate(() => {
+      const w = window as unknown as { __kitShares: unknown[] };
+      w.__kitShares = [];
+      Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true });
+      Object.defineProperty(navigator, 'share', {
+        configurable: true,
+        value: async (d: ShareData) => {
+          const f = d.files?.[0];
+          let photo = false;
+          let size: number[] = [];
+          if (f) {
+            const bmp = await createImageBitmap(f);
+            size = [bmp.width, bmp.height];
+            const c = document.createElement('canvas');
+            c.width = bmp.width; c.height = bmp.height;
+            const x = c.getContext('2d')!;
+            x.drawImage(bmp, 0, 0);
+            // the plain ground is one colour across a row; the photo is not
+            const row = Array.from({ length: 9 }, (_, i) => Array.from(x.getImageData(120 + i * 100, 700, 1, 1).data.slice(0, 3)).join(','));
+            photo = new Set(row).size > 3;
+          }
+          w.__kitShares.push({ file: f ? [f.name, f.type, size] : null, photo, url: d.url ?? null, title: d.title ?? null });
+        },
+      });
+    });
+    let downloads = 0;
+    page.on('download', () => { downloads++; });
+    dlg = await open();
+    await dlg.getByRole('button', { name: 'Story image' }).click();
+    await expect.poll(() => page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares.length)).toBe(1);
+    await dlg.getByRole('button', { name: 'More apps' }).click();
+    await expect.poll(() => page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares.length)).toBe(2);
+    const shares = await page.evaluate(() => (window as unknown as { __kitShares: unknown[] }).__kitShares);
+    expect(shares).toEqual([
+      { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], photo: true, url: null, title: 'Share this quiz' },
+      { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], photo: true, url: 'https://kpopquiz.org/q/ultimate-bts-era-quiz-only-real-armys-survive', title: 'Share this quiz' },
+    ]);
+    expect(downloads, 'no download when the file is shared').toBe(0);
+    await page.keyboard.press('Escape');
+
+    // A page with its own story keeps it (the result sheet's tile is the page's).
+    await page.locator('[data-kit-open="share"]').click();
+    await page.getByRole('dialog', { name: 'Share your score' }).getByRole('button', { name: 'Story image' }).click();
+    await expect(page.getByTestId('ux-toast')).toHaveText('Saves a 1080 x 1920 story image');
+    expect(writes, 'no network write').toEqual([]);
   });
 
   // X1-003: the account menu's "My quizzes" opens the personal passport's Quizzes tab
