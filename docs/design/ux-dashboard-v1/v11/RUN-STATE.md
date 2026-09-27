@@ -20,7 +20,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
-| P10 | ux11/p10-passport | X1-004 guest passport merged (827803b, PR #68, branch ux11/p10-fix2) | 85d50df | 0 | v11/reports/P10.md |
+| P10 | ux11/p10-passport | X1-004 (PR #68) + fix 3 merged (2e82db3, PR #75): default story tile spec, local draft row | e799c59 | 0 | v11/reports/P10.md |
 | P11 | ux11/p11-notifications | X2-010 merged (PR #73, branch ux11/p11-fix1) | 3c71ea6 | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 P10 fix 3 merged (2e82db3): the visitor share sheet has 4 tiles (A0's default story PNG 1080x1920), the passport Quizzes tab lists this device's started create draft (no server read, no write); flag off identical on 7 URLs. Remaining in flight: A0 fix 5 (owner requests: nav spacing, warm background). Then: one rebuild of the preview (integration + local ux11/p2-quizzes) for the owner, and a final re-check of the touched states.
 - 2026-09-27 A0's resumed session stalled with nothing committed on ux11/a0-fix4 (clean, abandoned): a FRESH A0 took both owner requests (nav spacing + warm page background) on ux11/a0-fix5. P10 resumed on ux11/p10-fix3 (c23b9e0 + ab79d03 pushed; one spec edit to commit).
 - 2026-09-27 P1 fix 2 merged (7579d4a): rail right padding dropped (no 11th-tile sliver), the pulse dot only while the daily is unplayed; p1.spec 41/41; tsc 0, unit 866/866. A push failed on "Could not resolve host: github.com": the machine is on a phone hotspot (gateway 172.20.10.1) that drops, which likely explains many agent stalls. A0 (nav spacing + warm background, nothing committed yet on ux11/a0-fix4) and P10 (spec flip + local draft) stalled again.
 - 2026-09-27 OWNER REQUEST 2 (in chat, with a screenshot of the live home): the v11 page background must be the old warm colour, not white ("it makes the website look warmer"). Light theme: --ux-page #FFFFFF -> #FAF8F5 (live --bg), nav background warm too; cards, panels, sheets, inputs, ticker, tab bar stay white; --ux-surface / --ux-surface-2 re-tuned for contrast on the warm page. Owner-approved deviation from the prototype. Sent to A0 on the same branch ux11/a0-fix4; page stylesheets that paint cards with the page token are to be routed to their owners.
