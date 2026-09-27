@@ -22,7 +22,7 @@
 .p2-dds { display: flex; gap: 8px; flex-wrap: wrap; }
 /* the last menu (Group) opens right-aligned, so it stays inside a 390 screen */
 .p2-dds > .ux-dd-wrap:last-child > .ux-ddpop { left: auto; right: 0; }
-.p2-dds .ux-mi { gap: 16px; }
+/* the count keeps the regular weight in the checked (600) item */
 .p2-dds .ux-mi small { font-weight: 400; }
 
 /* active filters, result */
