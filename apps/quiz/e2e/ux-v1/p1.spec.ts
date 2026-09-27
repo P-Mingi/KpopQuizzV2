@@ -325,11 +325,13 @@ for (const theme of THEMES) {
     });
 
     test('blindtest band: real count, Play the daily, modes link, played state', async ({ page }) => {
-      await guardWrites(page, env.supabaseUrl);
+      const calls = await guardWrites(page, env.supabaseUrl);
       test.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
       const band = page.locator('.p1-band');
       await expect(band.locator('h2')).toHaveText('Ten songs. Same for everyone. One shot.');
       await expect(band.locator('.p1-kick')).toHaveText(/^Blindtest of the day · (\d+ hours?|\d+ minutes?) left$/);
+      // Unplayed: the live pulse dot before the kicker (prototype #band-kick).
+      await expect(band.locator('.p1-kick > .p1-pulse')).toHaveCount(1);
       const { count } = await rest<unknown[]>(`daily_blindtest_scores?select=user_id&date=eq.${today()}`, true);
       const p = (await band.locator('.p1-band-p').textContent()) ?? '';
       if ((count ?? 0) > 0) expect(p).toMatch(new RegExp(`^${(count ?? 0).toLocaleString('en-US')} fans? played today\\. `));
@@ -345,7 +347,10 @@ for (const theme of THEMES) {
       test.skip(!(await openHome(page)), 'flag off');
       await expect(band.locator('h2')).toHaveText("You played today's blindtest.");
       await expect(band.locator('.p1-kick')).toHaveText('Blindtest of the day · played');
+      // X2-007: once played the prototype drops the pulse dot (markDaily).
+      await expect(band.locator('.p1-kick .p1-pulse')).toHaveCount(0);
       await expect(band.getByRole('link', { name: "See today's board" })).toHaveAttribute('href', '/blindtest/leaderboard');
+      expect(calls, 'the home writes nothing, played or not').toEqual([]);
     });
 
     test('community rows and continue (guest: hidden)', async ({ page }) => {
@@ -486,6 +491,41 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       if (axe) expect(axe).toEqual([]);
       await info.attach(`home-${widthOf(page)}-${theme}.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
       expect(calls, 'zero write attempts while signed in').toEqual([]);
+    });
+
+    // X2-007, state x-home-daily-played: after today's daily the band shows the fan's
+    // score and rank. The test user has not played (and must not: the daily submit
+    // writes), so the band's read is answered with the audit's fixture (8/10, #212 of
+    // 1,205, best 8/10) and every write stays stubbed by guardWrites.
+    signedInTest(`band played state: score, rank, no pulse dot (${theme})`, async ({ page }, info) => {
+      skipUnlessSignedIn();
+      await preparePage(page, theme);
+      const calls = await guardWrites(page, env.supabaseUrl);
+      let me: { profile: unknown } = { profile: null };
+      for (let i = 0; i < 4 && !me.profile; i++) me = await (await page.request.get('/api/auth/me')).json() as typeof me;
+      expect(me.profile, 'GET /api/auth/me with the storage state = the test user').not.toBeNull();
+      const day = today();
+      await page.route((u) => u.pathname === '/api/ux-v1/p1/daily-band', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ signedIn: true, date: day, today: { score: 8, rank: 212, of: 1205 }, best: 8 }) }));
+      await page.addInitScript((d) => { try { localStorage.setItem('kq_daily_blindtest_played', d); } catch { /* blocked */ } }, day);
+      // The band asks for the fan's score once the browser knows the fan is signed in;
+      // the guest flag already reads "played" before that, so wait for that read.
+      const bandRead = page.waitForResponse((r) => r.url().includes('/api/ux-v1/p1/daily-band'), { timeout: 60_000 });
+      signedInTest.skip(!(await openHome(page)), 'UX v1 flag is OFF on this build');
+      await bandRead;
+
+      const band = page.locator('.p1-band');
+      await expect(band.locator('h2')).toHaveText('You scored 8/10 today.', { timeout: 15_000 });
+      await expect(band.locator('.p1-kick')).toHaveText('Blindtest of the day · played');
+      await expect(band.locator('.p1-kick .p1-pulse'), 'no pulse dot once played (prototype markDaily)').toHaveCount(0);
+      await expect(band.locator('.p1-band-p')).toHaveText(/^You are #212 of 1,205 fans on today's board\. A new daily starts in (\d+h )?\d+m\.$/);
+      await expect(band.getByRole('link', { name: "See today's board" })).toHaveAttribute('href', '/blindtest/leaderboard');
+      await expect(band.getByRole('link', { name: 'Play the daily' })).toHaveCount(0);
+      if (widthOf(page) > 760) await expect(page.locator('.p1-stat')).toHaveText('Your best 8/10');
+      // The kicker text starts at the band's text edge, as the heading does (no dot gap).
+      const [kx, hx] = await Promise.all([band.locator('.p1-kick').evaluate((e) => { const r = document.createRange(); r.selectNodeContents(e); return r.getBoundingClientRect().left; }), band.locator('h2').evaluate((e) => e.getBoundingClientRect().left)]);
+      expect(Math.abs(kx - hx)).toBeLessThanOrEqual(1);
+      await info.attach(`band-played-${widthOf(page)}-${theme}.png`, { body: await band.screenshot(), contentType: 'image/png' });
+      expect(calls, 'zero write attempts').toEqual([]);
     });
   }
 });
