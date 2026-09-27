@@ -103,7 +103,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   // beside it until the next run starts.
   const restoreResult = useRef<Extract<RunState, { phase: 'result' }> | null>(null);
   const [restoreTick, setRestoreTick] = useState(0);
-  const pendingComment = useRef<P4CommentResume | null>(null);
+  /** the comment action kept by the sign-in sheet (a comment, a reply or a heart). State, not a
+   *  ref read in render: a results render that suspends and restarts must still see it. */
+  const [pendingComment, setPendingComment] = useState<P4CommentResume | null>(null);
   const pendingClaim = useRef(false);
 
   const inGame = state.phase === 'playing' || state.phase === 'answered';
@@ -133,7 +135,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         restoreResult.current = last.state;
         setRestoreTick((n) => n + 1);
         // a comment, a reply or a comment heart (the results comments take it from here)
-        if (comment) pendingComment.current = parseResume(comment.payload) ?? { kind: 'comment', text: '' };
+        if (comment) setPendingComment(parseResume(comment.payload) ?? { kind: 'comment', text: '' });
         if (save) pendingClaim.current = true;
       }
       return;
@@ -230,6 +232,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
       perQ.current = [];
       questionStart.current = Date.now();
       restoreResult.current = null;
+      setPendingComment(null);
       setExtras({ playId: null, relaxed: useRelaxed, saved: false, outcome: null });
       setClaimed(false);
       setRank(null);

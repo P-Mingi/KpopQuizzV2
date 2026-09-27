@@ -380,15 +380,17 @@ for (const theme of THEMES) {
       await expect(pressed).toHaveAttribute('aria-pressed', 'true');
       await expect(pressed).toHaveText('4');
       const ink = await pressed.evaluate((el) => {
-        const probe = document.createElement('span');
-        el.appendChild(probe);
-        probe.style.color = 'var(--ux-pink-ink)';
-        const pinkInk = getComputedStyle(probe).color;
-        probe.style.color = 'var(--ux-pink)';
-        const pink = getComputedStyle(probe).color;
-        probe.remove();
+        // the theme's tokens, resolved in place (one probe per token)
+        const token = (name: string): string => {
+          const probe = document.createElement('span');
+          probe.style.color = `var(${name})`;
+          el.appendChild(probe);
+          const v = getComputedStyle(probe).color;
+          probe.remove();
+          return v;
+        };
         const icon = el.querySelector('svg');
-        return { color: getComputedStyle(el).color, fill: icon ? getComputedStyle(icon).fill : '', pinkInk, pink };
+        return { color: getComputedStyle(el).color, fill: icon ? getComputedStyle(icon).fill : '', pinkInk: token('--ux-pink-ink'), pink: token('--ux-pink') };
       });
       expect(ink.color).toBe(ink.pinkInk);
       expect(ink.fill).toBe(ink.pink);
