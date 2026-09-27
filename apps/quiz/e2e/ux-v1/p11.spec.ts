@@ -496,6 +496,46 @@ signedInTest.describe('P11 signed in', () => {
         await expect(page.locator('.p11-nrow').first()).toBeVisible();
         await expect(page.locator('.p11-streak')).toHaveCount(0);
       });
+
+      signedInTest('filters: the count under the H1 follows the filter, All keeps the total (X2-010)', async ({ page }) => {
+        skipUnlessSignedIn();
+        const writes = await setup(page, theme);
+        await stubNotifications(page, { streak: 'saved' });
+        test.skip(!(await openNotifications(page)), 'flag off');
+        await holdNavigation(page);
+        const seg = page.locator('.p11-seg');
+        const sub = page.locator('.p11-sub');
+        const markAll = page.locator('.p11-nh').getByRole('button', { name: 'Mark all read' });
+        await expect(sub).toHaveText('4 unread');
+        // prototype x-notifs-social: Social shows 3 rows, 1 of them unread
+        await seg.getByRole('button', { name: 'Social' }).click();
+        await expect(seg.getByRole('button', { name: 'Social' })).toHaveAttribute('aria-pressed', 'true');
+        await expect(page.locator('.p11-nrow')).toHaveCount(3);
+        await expect(page.locator('.p11-nrow.is-unread')).toHaveCount(1);
+        await expect(sub).toHaveText('1 unread');
+        await seg.getByRole('button', { name: 'Your quizzes' }).click();
+        await expect(page.locator('.p11-nrow')).toHaveCount(2);
+        await expect(sub).toHaveText('2 unread');
+        await seg.getByRole('button', { name: 'Achievements' }).click();
+        await expect(page.locator('.p11-nrow')).toHaveCount(3);
+        await expect(sub).toHaveText('1 unread');
+        // Mark all read marks every row, so it stays while anything is unread
+        await expect(markAll).toBeVisible();
+        // Opening Social's only unread row (POST mark-read { ids: [id] }): Social is caught up, All drops to 3
+        await seg.getByRole('button', { name: 'Social' }).click();
+        await page.locator('[data-p11-row="n3"]').click();
+        await expect.poll(() => writes.length).toBe(1);
+        expect(writes[0]).toMatchObject({ method: 'POST', body: JSON.stringify({ ids: ['n3'] }) });
+        expect(new URL(writes[0]!.url).pathname).toBe('/api/notifications/mark-read');
+        await expect(page.locator('.p11-nrow.is-unread')).toHaveCount(0);
+        await expect(sub).toHaveText('All caught up');
+        await expect(markAll).toBeVisible();
+        await seg.getByRole('button', { name: 'All' }).click();
+        await expect(page.locator('.p11-nrow')).toHaveCount(10);
+        await expect(sub).toHaveText('3 unread');
+        expect(await horizontalOverflow(page)).toBe(0);
+        expect(writes).toHaveLength(1);
+      });
     });
   }
 
@@ -513,12 +553,16 @@ signedInTest.describe('P11 signed in', () => {
     await seg.getByRole('button', { name: 'Social' }).click();
     await expect(seg.getByRole('button', { name: 'Social' })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.p11-t')).toHaveText([/blink_edits beat your score/, /moa_bloom started following you/, /stay4life cheered your 8\/10/]);
+    await expect(page.locator('.p11-sub')).toHaveText('1 unread');
     await seg.getByRole('button', { name: 'Your quizzes' }).click();
     await expect(page.locator('.p11-t')).toHaveText([/SKZ true or false hit 1,400 plays/, /quokka_han commented/]);
+    await expect(page.locator('.p11-sub')).toHaveText('2 unread');
     await seg.getByRole('button', { name: 'Achievements' }).click();
     await expect(page.locator('.p11-t')).toHaveText([/New badge: Debater II/, /7-day streak/, /Stray Kids: 62% mastered/]);
+    await expect(page.locator('.p11-sub')).toHaveText('1 unread');
     await seg.getByRole('button', { name: 'All' }).click();
     await expect(page.locator('.p11-nrow')).toHaveCount(10);
+    await expect(page.locator('.p11-sub')).toHaveText('4 unread');
 
     // Opening an unread row marks it read (POST mark-read { ids: [id] }), the count follows
     await page.locator('.p11-nrow').first().click();
