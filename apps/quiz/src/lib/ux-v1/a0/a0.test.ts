@@ -14,6 +14,7 @@ import { badgeFamily, badgeGlyph, hasBadgeGlyph, RARITY_ART } from './badge-art'
 import { groupPhotoUrl, GROUP_PHOTO_SLUGS, photoFocal } from './group-photos';
 import { isStartedDraft, MY_QUIZZES_HREF, samePageHash } from './my-quizzes';
 import { streakView } from './streak';
+import { THEME_COLOR } from './theme';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const css = fs.readFileSync(path.resolve(here, '../../../styles/ux-v1/a0.css'), 'utf8');
@@ -59,15 +60,15 @@ describe('ink floor: every text token pair is AA (16.9)', () => {
   const ratio = (a: string, b: string): number => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return ((x ?? 0) + 0.05) / ((y ?? 0) + 0.05); };
   // The text / ground pairs the v11 components actually use.
   const PAIRS: [string[], string[]][] = [
-    [['ink', 'muted'], ['page', 'surface', 'surface-2', 'raised']],
+    [['ink', 'muted'], ['page', 'surface', 'surface-2', 'raised', 'paper']],
     [['ink'], ['pink-soft']],
-    [['pink-ink'], ['page', 'surface', 'raised']],
+    [['pink-ink'], ['page', 'surface', 'raised', 'paper']],
     [['pink-soft-ink'], ['pink-soft']],
   ];
   for (const [name, t] of [['light', UX_TOKENS_LIGHT], ['dark', UX_TOKENS_DARK]] as const) {
     it(`${name}: ink, muted, pink-ink, pink-soft-ink, accents and rarity words >= 4.5`, () => {
       const flair = Object.keys(t).filter((k) => k.startsWith('acc-') || k.startsWith('rar-'));
-      const pairs: [string[], string[]][] = [...PAIRS, [flair, ['page', 'surface', 'surface-2', 'raised', 'pink-soft']]];
+      const pairs: [string[], string[]][] = [...PAIRS, [flair, ['page', 'surface', 'surface-2', 'raised', 'paper', 'pink-soft']]];
       for (const [inks, grounds] of pairs) for (const i of inks) for (const g of grounds) {
         expect(ratio(t[i] as string, t[g] as string), `${name} ${i} on ${g}`).toBeGreaterThanOrEqual(4.5);
       }
@@ -75,6 +76,59 @@ describe('ink floor: every text token pair is AA (16.9)', () => {
   }
   it('white on the pink fill button (4.62:1, 16.1)', () => {
     expect(ratio('#FFFFFF', UX_TOKENS_LIGHT['pink-fill'] as string)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+// Owner request 2026-09-27 (A0 fix 5, owner-approved deviation from the prototype):
+// light page ground = the live site's warm --bg; everything that was white on the
+// prototype's white page stays white; the fills keep their visible step; dark unchanged.
+describe('owner request: warm light page ground (A0 fix 5)', () => {
+  const lin = (v: number): number => { const c = v / 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+  const lab = (h: string): number[] => {
+    const [r, g, b] = [1, 3, 5].map((i) => lin(parseInt(h.slice(i, i + 2), 16))) as [number, number, number];
+    const xyz = [(0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047, 0.2126 * r + 0.7152 * g + 0.0722 * b, (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883];
+    const [fx, fy, fz] = xyz.map((t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116)) as [number, number, number];
+    return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
+  };
+  const dE = (a: string, b: string): number => { const [p, q] = [lab(a), lab(b)]; return Math.hypot(...p.map((v, i) => v - (q[i] ?? 0))); };
+  const globals = fs.readFileSync(path.resolve(here, '../../../styles/globals.css'), 'utf8');
+
+  it('light page = the live --bg (globals.css), white fills stay white', () => {
+    const liveBg = /--bg:\s*(#[0-9A-Fa-f]{6});/.exec(globals)?.[1];
+    expect(liveBg).toBe('#FAF8F5');
+    expect(UX_TOKENS_LIGHT.page).toBe(liveBg);
+    for (const k of ['raised', 'paper', 'card-fill']) expect(UX_TOKENS_LIGHT[k], k).toBe('#FFFFFF');
+    expect(norm(UX_TOKENS_LIGHT['nav-bg'] ?? '')).toBe('rgba(250,248,245,.86)');
+    expect(norm(UX_TOKENS_LIGHT['tabbar-bg'] ?? '')).toBe('rgba(255,255,255,.86)');
+    expect(THEME_COLOR.light).toBe(UX_TOKENS_LIGHT.page);
+  });
+  it('dark is unchanged: paper = page, card fill transparent, tab bar = nav glass', () => {
+    expect(UX_TOKENS_DARK.page).toBe('#141312');
+    expect(UX_TOKENS_DARK.paper).toBe(UX_TOKENS_DARK.page);
+    expect(UX_TOKENS_DARK['card-fill']).toBe('transparent');
+    expect(UX_TOKENS_DARK['tabbar-bg']).toBe(UX_TOKENS_DARK['nav-bg']);
+    expect(norm(UX_TOKENS_DARK['nav-bg'] ?? '')).toBe('rgba(20,19,18,.84)');
+    expect(THEME_COLOR.dark).toBe(UX_TOKENS_DARK.page);
+  });
+  it('surface and surface-2 keep the prototype step from the ground (CIE76 dE within 10%)', () => {
+    const proto = { surface: dE('#FFFFFF', '#F7F6F4'), s2: dE('#FFFFFF', '#F0EEEA'), step: dE('#F7F6F4', '#F0EEEA') };
+    const now = {
+      surface: dE(UX_TOKENS_LIGHT.page as string, UX_TOKENS_LIGHT.surface as string),
+      s2: dE(UX_TOKENS_LIGHT.page as string, UX_TOKENS_LIGHT['surface-2'] as string),
+      step: dE(UX_TOKENS_LIGHT.surface as string, UX_TOKENS_LIGHT['surface-2'] as string),
+    };
+    for (const k of ['surface', 's2', 'step'] as const) {
+      expect(Math.abs(now[k] - proto[k]) / proto[k], `${k}: ${now[k].toFixed(2)} vs ${proto[k].toFixed(2)}`).toBeLessThanOrEqual(0.1);
+    }
+  });
+  it('a0.css paints no white fill with the page token (only the ground and the nav bell ring use it)', () => {
+    const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+    const uses: string[] = [];
+    for (let i = bare.indexOf('var(--ux-page)'); i >= 0; i = bare.indexOf('var(--ux-page)', i + 1)) {
+      const open = bare.lastIndexOf('{', i);
+      uses.push(bare.slice(bare.lastIndexOf('}', open) + 1, open).trim().replace(/\s+/g, ' '));
+    }
+    expect(uses).toEqual(['html.ux-v1 body', '.ux-app, .ux-theme-light, .ux-theme-dark', '.ux-bell-dot']);
   });
 });
 
