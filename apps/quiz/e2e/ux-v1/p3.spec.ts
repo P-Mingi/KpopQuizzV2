@@ -7,7 +7,7 @@ import { guardWrites } from './helpers/guard';
 import { A0_LANDMARKS, compareLandmarks } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, widthOf } from './helpers/setup-page';
 
-import type { Page, Route } from '@playwright/test';
+import type { APIRequestContext, Page, Route } from '@playwright/test';
 import type { StubbedCall } from './helpers/guard';
 import type { Landmark } from './helpers/landmarks';
 import type { Theme } from './helpers/setup-page';
@@ -34,6 +34,20 @@ const EMPTY = '/chungha-quiz';
 // today's hub shows its popular top 10, so all of them stay visible links (C3-001).
 const FIRST = 12;
 const TRIVIA = '/blackpink-trivia';
+// X1-005: the only open Verse space (lib/verse/visibility LIVE_SPACES) and P8's compose
+// URL, which opens the New post editor in Thread mode on arrival.
+const OPEN_HUB = '/bts-quiz';
+const OPEN_HUB_READY = '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(section[aria-labelledby="p3-com-h"]):has(.p3-fan):has(.p3-war)';
+const COMPOSE_THREAD = '/community?compose=thread';
+
+let verseOpenP: Promise<boolean> | undefined;
+/** The server's Verse mode, read from the server itself: while VERSE_PUBLIC is off the
+ *  middleware sends /verse/bts back to the /verse teaser (no hub has a thread door). */
+function verseOpenOnServer(request: APIRequestContext): Promise<boolean> {
+  verseOpenP ??= request.get('/verse/bts', { maxRedirects: 0, timeout: 150_000 })
+    .then((r) => !(r.status() >= 300 && r.status() < 400 && /\/verse\/?$/.test(r.headers().location ?? '')));
+  return verseOpenP;
+}
 
 async function json(route: Route, body: unknown, status = 200): Promise<void> {
   await route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
@@ -402,6 +416,38 @@ for (const theme of THEMES) {
       const cmp = await compareLandmarks(page, widthOf(page), theme, hubLandmarks('hub-ateez'));
       expect(cmp.missing).toEqual([]);
       expect(cmp.mismatches, 'computed styles equal to styles.json').toEqual([]);
+      expect(writes).toEqual([]);
+    });
+
+    // X1-005 (prototype renderHub hb-com empty: openEditor('thread')): on a hub whose
+    // Verse space is open, the empty community block's door opens P8's editor in Thread
+    // mode, never the bare feed. The parked-space door (the top quiz) is the ATEEZ case.
+    test('open Verse space: the community door opens the thread editor, never the bare feed (X1-005)', async ({ page, request }) => {
+      test.skip(!(await verseOpenOnServer(request)), 'this server runs with VERSE_PUBLIC off: no space is open, the ATEEZ case covers the parked door');
+      const writes = await setup(page, theme);
+      test.skip(!(await open(page, OPEN_HUB, OPEN_HUB_READY)), 'UX v1 flag is OFF on this build');
+      const com = page.locator('section[aria-labelledby="p3-com-h"]');
+      await expect(com.locator('a.ux-lnk', { hasText: 'All posts' })).toHaveAttribute('href', '/community');
+      await expect(page.locator('.p3-hub a[href="/community"]', { hasText: 'Start the first thread' }), 'no thread label on the bare feed').toHaveCount(0);
+      await expect(page.locator('.p3-hub a', { hasText: 'Play the top quiz and leave the first comment' }), 'an open space never gets the parked door').toHaveCount(0);
+      const door = com.locator('.p3-com-empty a.ux-lnk');
+      if (await door.count()) {
+        await expect(door).toHaveText('Start the first thread');
+        await expect(door).toHaveAttribute('href', COMPOSE_THREAD);
+        await door.click();
+        await page.waitForURL((u) => u.pathname === '/community', { timeout: 120_000 });
+      } else {
+        // Real data: the space has comments, so its rows show (each links the quiz it is on).
+        for (const h of await com.locator('a.ux-row').evaluateAll((as) => as.map((a) => a.getAttribute('href')))) expect(h).toMatch(/^\/q\/[a-z0-9-]+$/);
+        await page.goto(COMPOSE_THREAD, { timeout: 120_000 });
+      }
+      // The door's target: the editor opens in Thread mode on arrival, the param is dropped.
+      const sheet = page.getByRole('dialog', { name: 'New thread' });
+      await expect(sheet).toBeVisible({ timeout: 60_000 });
+      await expect(sheet.locator('.p8-modes4').getByRole('button', { name: 'Thread' })).toHaveAttribute('aria-pressed', 'true');
+      expect(new URL(page.url()).search).toBe('');
+      await page.keyboard.press('Escape');
+      await expect(sheet).toBeHidden();
       expect(writes).toEqual([]);
     });
   });
