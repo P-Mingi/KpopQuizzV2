@@ -5,8 +5,11 @@
    Every rule targets a .p2-* class that only the flag-on /quizzes page carries.
    ========================================================================== */
 
-/* breadcrumb (keeps the live page's BreadcrumbList visible) */
-.p2-crumb { margin-bottom: 16px; }
+/* breadcrumb (keeps the live page's BreadcrumbList visible). Spacing = the prototype's
+   crumb on a wide page (#hub: .pg padding-top 28px, crumb, content 28px below; 20px on
+   phones), as P3's hub does. */
+.p2-page.ux-pg { padding-top: 28px; }
+.p2-crumb { margin-bottom: 28px; }
 .p2-crumb .ux-crumb li { display: inline-flex; align-items: center; gap: 8px; }
 .p2-sep { opacity: .6; }
 
@@ -47,6 +50,7 @@
 .p2-faq dd { margin: 6px 0 0; font-size: 15px; line-height: 1.6; color: var(--ux-muted); }
 
 @media (max-width: 760px) {
+  .p2-crumb { margin-bottom: 20px; }
   .ux-btn.p2-create { display: inline-flex; }
 }
 @media (pointer: coarse) {
