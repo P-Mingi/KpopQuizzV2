@@ -257,6 +257,19 @@
 .p4-cmt p { font-size: 16px; line-height: 1.55; margin-top: 2px; overflow-wrap: anywhere; }
 .p4-cmt.is-new { animation: p4-fadeup .3s var(--ux-ease); }
 .p4-cempty { font-size: 14px; color: var(--ux-muted); padding: 8px 0 16px; }
+/* comment hearts + Reply (17.7: heart + count, pink when liked; prototype .cmt .ca, .ca .lk,
+   .cmt.nest), shown only once the hearts + replies store is live (X1-002) */
+.p4-cmt .p4-cb { flex: 1; min-width: 0; }
+.p4-ca { display: flex; gap: 16px; margin-top: 6px; font-size: 13px; line-height: 20.8px; color: var(--ux-muted); }
+.p4-ca > button { display: inline-flex; align-items: center; gap: 5px; min-height: 24px; }
+.p4-ca > button:hover { color: var(--ux-ink); }
+.p4-lk { font-variant-numeric: tabular-nums; }
+.p4-lk .ux-ico { width: 15px; height: 15px; }
+.p4-ca > .p4-lk[aria-pressed="true"] { color: var(--ux-pink-ink); }
+.p4-lk[aria-pressed="true"] .ux-ico { fill: var(--ux-pink); stroke: var(--ux-pink); }
+.p4-cmt-nest { margin-left: 44px; padding-left: 16px; border-left: 1px solid var(--ux-hair); }
+.p4-subform { margin: 0 0 8px 44px; }
+.p4-cform.p4-rform { padding-top: 0; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 760px) {

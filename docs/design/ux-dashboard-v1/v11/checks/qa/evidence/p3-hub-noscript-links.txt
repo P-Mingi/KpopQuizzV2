@@ -1,0 +1,20 @@
+/blackpink-quiz
+  flag off: 18 visible, 24 in <noscript>
+  flag on:  14 visible, 24 in <noscript>
+  visible with the flag off, not visible with the flag on (4): /q/blackpink-world-records-and-achievements [noscript only], /q/blackpink-solo-careers-deep-dive [noscript only], /q/blackpink-members-quiz [noscript only], /q/blackpink-the-album-quiz [noscript only]
+/ateez-quiz
+  flag off: 15 visible, 20 in <noscript>
+  flag on:  11 visible, 20 in <noscript>
+  visible with the flag off, not visible with the flag on (4): /q/ateez-lyrics-quiz [noscript only], /q/ateez-music-videos-quiz [noscript only], /q/ateez-pre-debut-quiz [noscript only], /q/ateez-guess-the-music-video-from-the-screenshot [noscript only]
+/bts-quiz
+  flag off: 18 visible, 27 in <noscript>
+  flag on:  14 visible, 27 in <noscript>
+  visible with the flag off, not visible with the flag on (4): /q/bts-debut-era-how-well-do-you-remember [noscript only], /q/bts-members-know-your-biases [noscript only], /q/bts-members-real-names-complete-test [noscript only], /q/bts-map-of-the-soul-era [noscript only]
+/stray-kids-quiz
+  flag off: 18 visible, 29 in <noscript>
+  flag on:  15 visible, 29 in <noscript>
+  visible with the flag off, not visible with the flag on (3): /q/stray-kids-discography-challenge [noscript only], /q/how-well-do-you-know-skz-members [noscript only], /q/stray-kids-discography-test [noscript only]
+/twice-quiz
+  flag off: 15 visible, 14 in <noscript>
+  flag on:  11 visible, 14 in <noscript>
+  visible with the flag off, not visible with the flag on (4): /q/twice-title-tracks-challenge-name-that-song [noscript only], /q/twice-japanese-discography [noscript only], /q/twice-members-facts-quiz [noscript only], /q/once-check-how-well-do-you-know-twice [noscript only]

@@ -1,0 +1,19 @@
+C3 probe checks/qa/probe-like-race.mjs on http://localhost:3021 (dcc3159 flag-on build), guest, 1440,
+/q/ultimate-bts-era-quiz-only-real-armys-survive, 2026-09-26 about 18:35 CEST. The mount read
+GET /api/quiz/<id>/like is delayed by 4 s (a slow network stand-in); every POST is answered locally
+with {} (never sent).
+
+beforeClick     {"text":"43","pressed":"false"}
+rightAfterClick {"text":"44","pressed":"true"}
+after6s         {"text":"43","pressed":"true"}     <- the late mount read overwrote the optimistic count
+
+calls: POST /api/quiz/4ba8f255-.../play (stubbed), POST /api/quiz/4ba8f255-.../like {"action":"like"} (stubbed),
+       then the delayed GET like answered {"liked":false,"like_count":43}
+
+Same failure in the full e2e under load: p4.spec.ts:399 "like, comments (guest -> sign in to reply), report
+sheet payload": expected "44", received "43", 3 attempts of 3 at ux-1440 (run2, 2026-09-26 about 18:05).
+
+Code: components/quiz/ux-v1/results.tsx, the Like pill. The mount effect calls setCount(d.like_count) (and
+setLiked(false) when the server says not liked and the device has no anon like yet) whenever the read
+resolves, also after a local toggle. With a real POST answer the same thing happens when the GET resolves
+after the POST: the pill shows the pre-like count while it is pressed.

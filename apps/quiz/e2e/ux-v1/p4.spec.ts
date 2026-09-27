@@ -153,6 +153,54 @@ async function flexWebhookOn(page: Page): Promise<void> {
   await page.route((url) => url.pathname === '/api/discord/flex/status', (route) => route.fulfill({ json: { enabled: true, already_flexed: false } }));
 }
 
+// X1-002: hearts + replies on the results comments. Their store is a pending migration
+// (v11-p4-comment-likes.sql), so the "live" state is a READ stub of GET /api/ux-v1/p4/comments
+// (the shape the route answers once the migration is applied); the comment list read is
+// stubbed with real uuids. Every write stays with guardWrites (or a local success answer).
+const EXTRAS_PATH = /^\/api\/ux-v1\/p4\/comments$/;
+const SOCIAL_WRITE = /^\/api\/ux-v1\/p4\/comments\/(like|reply)$/;
+const CM = {
+  one: '1b4e28ba-2fa1-41d2-883f-0016d3cca427',
+  two: '6ec0bd7f-11c0-43da-975e-2a8ad9ebae0b',
+  reply: '9f2a7c1e-5b3d-4e8f-a1c2-3d4e5f6a7b8c',
+  mine: 'c3d4e5f6-a7b8-4c9d-8e0f-1a2b3c4d5e6f',
+  none: '0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e',
+} as const;
+
+async function stubCommentStore(page: Page, liked: string[] = []): Promise<void> {
+  const t0 = new Date(Date.now() - 3_600_000).toISOString();
+  await page.route((url) => COMMENT_PATH.test(url.pathname), async (route) => {
+    if (route.request().method() !== 'GET') { await route.fallback(); return; }
+    await route.fulfill({ json: { comments: [
+      { id: CM.one, username: 'e2e_fan_one', content: 'Older comment one', created_at: t0, score: 7, total: 8 },
+      { id: CM.two, username: 'e2e_fan_two', content: 'Older comment two', created_at: t0 },
+    ] } });
+  });
+  await page.route((url) => EXTRAS_PATH.test(url.pathname), (route) => route.fulfill({ json: {
+    live: true,
+    likes: { [`comment:${CM.one}`]: 12, [`comment:${CM.two}`]: 4, [`reply:${CM.reply}`]: 3 },
+    liked,
+    replies: { [CM.one]: [{ id: CM.reply, comment_id: CM.one, username: 'e2e_fan_three', content: 'A reply', created_at: t0, score: 8, total: 8, avatar_url: null, name_accent: 'purple', name_font: null, bias: 'RM' }] },
+  } }));
+}
+
+const commentsAcc = (page: Page) => page.locator('details.p4-acc', { has: page.locator('summary', { hasText: 'Comments' }) });
+
+async function pendingAction(page: Page): Promise<{ id?: string; payload?: unknown } | null> {
+  return page.evaluate(() => { try { return JSON.parse(localStorage.getItem('ux:pending-action') ?? 'null'); } catch { return null; } });
+}
+
+/** A0's sign-in sheet stores the kept action just before it leaves (16.6). The magic-link path
+ *  shows it without leaving the page: its POST to Supabase /auth/v1/otp is answered by
+ *  guardWrites (recorded, never sent), then the sheet closes. */
+async function keepThroughSheet(page: Page, title: string): Promise<void> {
+  const sheet = page.getByRole('dialog', { name: title });
+  await expect(sheet).toBeVisible();
+  await sheet.getByRole('textbox', { name: 'Email' }).fill('e2e-guest@example.com');
+  await sheet.getByRole('button', { name: 'Email me a sign-in link' }).click();
+  await expect(sheet).toHaveCount(0);
+}
+
 for (const theme of THEMES) {
   test.describe(`P4 ${theme}`, () => {
     test.beforeEach(async ({ page }) => { await preparePage(page, theme); });
@@ -308,6 +356,102 @@ for (const theme of THEMES) {
       await brag.click();
       await expect.poll(() => writesTo(calls, /^\/api\/discord\/flex$/).length, { timeout: 30_000 }).toBe(1);
       expect(JSON.parse(writesTo(calls, /^\/api\/discord\/flex$/)[0]!.body ?? '{}')).toEqual({ kind: 'quiz', title, score: n, total: n, quizSlug: SLUG.classic });
+    });
+
+    test('results comments (guest, store live): heart + count, pink when liked, Reply opens a field; sign in first; a11y', async ({ page }, info) => {
+      test.setTimeout(180_000);
+      const calls = await guardWrites(page, env.supabaseUrl);
+      const qs = await recordQuestions(page);
+      await stubCommentStore(page, [`comment:${CM.two}`]);
+      test.skip(!(await openQuiz(page, SLUG.tf)), 'flag off');
+      await start(page);
+      await playRun(page, qs.get, 'right');
+
+      const acc = commentsAcc(page);
+      await acc.locator('summary').click();
+      await expect(acc).toHaveAttribute('data-social', 'live', { timeout: 30_000 });
+      // prototype #end rows: comment, its reply nested once, the next comment; each with a heart + count
+      const rows = acc.locator('.p4-cmt');
+      await expect(rows).toHaveCount(3);
+      const first = rows.nth(0);
+      const heart = first.locator('.p4-lk');
+      await expect(heart).toHaveText('12');
+      await expect(heart).toHaveAttribute('aria-pressed', 'false');
+      await expect(heart).toHaveAttribute('aria-label', 'Like this comment, 12 likes');
+      const nested = acc.locator('.p4-cmt-nest');
+      await expect(nested).toHaveCount(1);
+      await expect(rows.nth(1)).toHaveClass(/p4-cmt-nest/);
+      await expect(nested).toContainText('A reply');
+      await expect(nested).toContainText('8/8');
+      await expect(nested.locator('.p4-lk')).toHaveAttribute('aria-label', 'Like this reply, 3 likes');
+      await expect(nested.locator('.ux-bias')).toContainText('RM');
+      await expect(nested.locator('a.ux-who')).toHaveClass(/ux-acc-purple/);
+      // pink when liked (17.7): the pressed heart in the pink ink, its icon filled pink
+      const pressed = rows.nth(2).locator('.p4-lk');
+      await expect(pressed).toHaveAttribute('aria-pressed', 'true');
+      await expect(pressed).toHaveText('4');
+      const ink = await pressed.evaluate((el) => {
+        // the theme's tokens, resolved in place (one probe per token)
+        const token = (name: string): string => {
+          const probe = document.createElement('span');
+          probe.style.color = `var(${name})`;
+          el.appendChild(probe);
+          const v = getComputedStyle(probe).color;
+          probe.remove();
+          return v;
+        };
+        const icon = el.querySelector('svg');
+        return { color: getComputedStyle(el).color, fill: icon ? getComputedStyle(icon).fill : '', pinkInk: token('--ux-pink-ink'), pink: token('--ux-pink') };
+      });
+      expect(ink.color).toBe(ink.pinkInk);
+      expect(ink.fill).toBe(ink.pink);
+      const muted = await heart.evaluate((el) => getComputedStyle(el).color);
+      expect(muted, 'an unpressed heart is not pink').not.toBe(ink.pinkInk);
+
+      // guest heart: the sign-in sheet, the heart kept for after it, nothing sent
+      await heart.click();
+      await expect(page.getByRole('dialog', { name: 'Sign in to like' })).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(page.getByRole('dialog', { name: 'Sign in to like' })).toHaveCount(0);
+      await heart.click();
+      await keepThroughSheet(page, 'Sign in to like');
+      expect(await pendingAction(page)).toMatchObject({ id: 'p4-comment', payload: { like: { target: 'comment', id: CM.one } } });
+      await expect(heart).toHaveAttribute('aria-pressed', 'false');
+      await expect(heart).toHaveText('12');
+
+      // Reply opens an inline field (focused); Escape closes it and focus returns to Reply
+      const reply = first.getByRole('button', { name: 'Reply to e2e_fan_one' });
+      await expect(reply).toHaveAttribute('aria-expanded', 'false');
+      await reply.click();
+      await expect(reply).toHaveAttribute('aria-expanded', 'true');
+      const field = acc.getByRole('textbox', { name: 'Reply to e2e_fan_one' });
+      await expect(field).toBeFocused();
+      await expect(field).toHaveAttribute('placeholder', 'Reply with your score');
+      await page.keyboard.press('Escape');
+      await expect(field).toHaveCount(0);
+      await expect(reply).toBeFocused();
+      await expect(reply).toHaveAttribute('aria-expanded', 'false');
+      // Reply on a reply answers in the same thread (one level), "@name " first
+      await nested.getByRole('button', { name: 'Reply to e2e_fan_three' }).click();
+      await expect(field).toBeFocused();
+      await expect(field).toHaveValue('@e2e_fan_three ');
+      await field.fill('Same here');
+      const form = acc.locator('.p4-rform');
+      if (widthOf(page) > 760) await expect(form.locator('.p4-gch')).toContainText(/Your score \d+\/\d+ is shown/);
+
+      expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+      expect(await basicA11y(page)).toEqual([]);
+      const axe = await runAxe(page, { include: '.p4-page' });
+      if (axe) expect(axe, 'axe serious / critical on the comments').toEqual([]);
+      await info.attach(`comments-${widthOf(page)}-${theme}.png`, { body: await acc.screenshot(), contentType: 'image/png' });
+
+      // guest reply: the sign-in sheet, the text kept for after it, nothing sent
+      await form.getByRole('button', { name: 'Reply' }).click();
+      await keepThroughSheet(page, 'Sign in to reply');
+      expect(await pendingAction(page)).toMatchObject({ id: 'p4-comment', payload: { text: 'Same here', replyTo: CM.one } });
+      await expect(field).toHaveValue('Same here');
+      expect(writesTo(calls, SOCIAL_WRITE), 'a guest never sends a heart or a reply').toEqual([]);
+      expect(writesTo(calls, COMMENT_PATH)).toEqual([]);
     });
   });
 }
@@ -666,6 +810,47 @@ test.describe('P4 interactions', () => {
     expect(guest.status()).toBe(200);
     expect(await guest.json()).toMatchObject({ signedIn: false });
   });
+
+  test('comment hearts + Reply fail soft: hidden while the store is not live, routes refuse before any write', async ({ page, request }) => {
+    test.setTimeout(180_000);
+    // Routes (a guest request with no session; ids that match no row, so no path can reach a write)
+    expect((await request.get('/api/ux-v1/p4/comments')).status()).toBe(400);
+    const read = await request.get(`/api/ux-v1/p4/comments?quiz=${CM.none}&ids=${CM.none},bad`);
+    expect(read.status()).toBe(200);
+    const extras = await read.json() as { live?: boolean };
+    expect(typeof extras.live).toBe('boolean');
+    if (!extras.live) expect(extras).toEqual({ live: false, likes: {}, liked: [], replies: {} });
+    expect((await request.post('/api/ux-v1/p4/comments/like', { data: { target: 'quiz', id: CM.none, action: 'like' } })).status()).toBe(400);
+    expect((await request.post('/api/ux-v1/p4/comments/like', { data: { target: 'comment', id: CM.none } })).status()).toBe(400);
+    expect((await request.post('/api/ux-v1/p4/comments/reply', { data: { commentId: 'nope', content: 'hi' } })).status()).toBe(400);
+    expect((await request.post('/api/ux-v1/p4/comments/reply', { data: { commentId: CM.none, content: 'x'.repeat(201) } })).status()).toBe(400);
+    // a valid body: 503 not_live while the migration is not applied, else 401 (a guest)
+    const want = extras.live ? 401 : 503;
+    const like = await request.post('/api/ux-v1/p4/comments/like', { data: { target: 'comment', id: CM.none, action: 'like' } });
+    expect(like.status()).toBe(want);
+    const rep = await request.post('/api/ux-v1/p4/comments/reply', { data: { commentId: CM.none, content: 'hi' } });
+    expect(rep.status()).toBe(want);
+    if (!extras.live) expect(await rep.json()).toEqual({ error: 'not_live' });
+
+    // Page: the real read (no stub); not live = no heart and no Reply, exactly as before
+    const calls = await guardWrites(page, env.supabaseUrl);
+    const qs = await recordQuestions(page);
+    test.skip(!(await openQuiz(page, SLUG.classic)), 'flag off');
+    await start(page);
+    await playRun(page, qs.get, 'right');
+    const extrasRead = page.waitForResponse((r) => EXTRAS_PATH.test(new URL(r.url()).pathname), { timeout: 90_000 });
+    const acc = commentsAcc(page);
+    await acc.locator('summary').click();
+    const live = ((await (await extrasRead).json()) as { live?: boolean }).live === true;
+    await expect(acc).toHaveAttribute('data-social', live ? 'live' : 'off', { timeout: 30_000 });
+    if (!live) {
+      await expect(acc.locator('.p4-lk')).toHaveCount(0);
+      await expect(acc.locator('.p4-ca')).toHaveCount(0);
+      await expect(acc.getByRole('button', { name: /^Reply/ })).toHaveCount(0);
+      await expect(acc.locator('.p4-cform textarea')).toBeVisible();
+    }
+    expect(writesTo(calls, SOCIAL_WRITE)).toEqual([]);
+  });
 });
 
 signedInTest.describe('P4 signed in (test user, read only)', () => {
@@ -787,3 +972,117 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     expect(pageErrors, 'no uncaught error on the page').toEqual([]);
   });
 });
+
+// X1-002, signed in (the test user, read only): with the store live (read stub) a heart toggles
+// once per fan (like, then unlike) and Reply posts a nested reply, through the NEW routes'
+// payloads, answered here with each route's own success shape (never sent). Then the sign-in
+// continuation: a heart and a reply kept by the sign-in sheet come back after it.
+for (const theme of THEMES) {
+  signedInTest.describe(`P4 comments signed in ${theme} (test user, read only)`, () => {
+    signedInTest.beforeEach(async ({ page }) => { await preparePage(page, theme); });
+
+    signedInTest('heart toggles once per fan, Reply posts a nested reply, the sign-in continuation resumes both', async ({ page }, info) => {
+      skipUnlessSignedIn();
+      signedInTest.setTimeout(240_000);
+      const calls = await guardWrites(page, env.supabaseUrl);
+      const qs = await recordQuestions(page);
+      await stubCommentStore(page);
+      const counts: Record<string, number> = { [CM.one]: 12, [CM.two]: 4, [CM.reply]: 3, [CM.mine]: 0 };
+      await page.route((url) => SOCIAL_WRITE.test(url.pathname), async (route) => {
+        const req = route.request();
+        if (req.method() !== 'POST') { await route.fallback(); return; }
+        calls.push({ method: req.method(), url: req.url(), body: req.postData() });
+        const b = JSON.parse(req.postData() ?? '{}') as { target?: string; id?: string; action?: string; commentId?: string; content?: string };
+        if (new URL(req.url()).pathname.endsWith('/like')) {
+          const id = String(b.id);
+          counts[id] = Math.max(0, (counts[id] ?? 0) + (b.action === 'like' ? 1 : -1));
+          await route.fulfill({ json: { liked: b.action === 'like', count: counts[id] } });
+          return;
+        }
+        await route.fulfill({ json: { reply: { id: CM.mine, comment_id: b.commentId, username: 'e2e_you', content: b.content, created_at: new Date().toISOString(), score: 8, total: 8, avatar_url: null, name_accent: null, name_font: null, bias: null } } });
+      });
+      const likes = (): unknown[] => writesTo(calls, /\/comments\/like$/).map((c) => JSON.parse(c.body ?? '{}'));
+      const replies = (): unknown[] => writesTo(calls, /\/comments\/reply$/).map((c) => JSON.parse(c.body ?? '{}'));
+
+      signedInTest.skip(!(await openQuiz(page, SLUG.tf)), 'flag off');
+      await expect(page.locator('.ux-nav-signin'), 'signed in').toHaveCount(0);
+      await start(page);
+      await playRun(page, qs.get, 'right');
+      const acc = commentsAcc(page);
+      await acc.locator('summary').click();
+      await expect(acc).toHaveAttribute('data-social', 'live', { timeout: 30_000 });
+
+      // heart: like (pink, +1), then unlike (-1): one heart per fan, the explicit action each time
+      const first = acc.locator('.p4-cmt').first();
+      const heart = first.locator('.p4-lk');
+      await heart.click();
+      await expect(heart).toHaveAttribute('aria-pressed', 'true');
+      await expect(heart).toHaveText('13');
+      await expect.poll(() => likes().length, { timeout: 30_000 }).toBe(1);
+      await heart.click();
+      await expect(heart).toHaveAttribute('aria-pressed', 'false');
+      await expect(heart).toHaveText('12');
+      await expect.poll(() => likes().length, { timeout: 30_000 }).toBe(2);
+      expect(likes()).toEqual([
+        { target: 'comment', id: CM.one, action: 'like' },
+        { target: 'comment', id: CM.one, action: 'unlike' },
+      ]);
+
+      // Reply: the inline field posts { commentId, content }; the reply shows nested, the field closes
+      const reply = first.getByRole('button', { name: 'Reply to e2e_fan_one' });
+      await reply.click();
+      const field = acc.getByRole('textbox', { name: 'Reply to e2e_fan_one' });
+      await expect(field).toBeFocused();
+      await field.fill('Same here');
+      await acc.locator('.p4-rform').getByRole('button', { name: 'Reply' }).click();
+      await expect.poll(() => replies().length, { timeout: 30_000 }).toBe(1);
+      expect(replies()).toEqual([{ commentId: CM.one, content: 'Same here' }]);
+      const nested = acc.locator('.p4-cmt-nest');
+      await expect(nested).toHaveCount(2);
+      await expect(nested.nth(1)).toContainText('Same here');
+      await expect(nested.nth(1)).toContainText('e2e_you');
+      await expect(field).toHaveCount(0);
+      await expect(reply).toBeFocused();
+      await expect(page.getByTestId('ux-toast')).toContainText('Posted');
+      // the new reply has its own heart
+      const mineHeart = nested.nth(1).locator('.p4-lk');
+      await expect(mineHeart).toHaveText('0');
+      await mineHeart.click();
+      await expect(mineHeart).toHaveAttribute('aria-pressed', 'true');
+      await expect(mineHeart).toHaveText('1');
+      await expect.poll(() => likes().length, { timeout: 30_000 }).toBe(3);
+      expect(likes()[2]).toEqual({ target: 'reply', id: CM.mine, action: 'like' });
+      const axe = await runAxe(page, { include: '.p4-page' });
+      if (axe) expect(axe, 'axe serious / critical, signed in').toEqual([]);
+      await info.attach(`comments-signed-in-${widthOf(page)}-${theme}.png`, { body: await acc.screenshot(), contentType: 'image/png' });
+
+      // sign-in continuation (16.6), as after the sheet: the results come back with the comments
+      // open and the kept heart applied once
+      const path = `/q/${SLUG.tf}`;
+      const keep = async (payload: unknown): Promise<void> => {
+        await page.evaluate(({ p, pl }) => localStorage.setItem('ux:pending-action', JSON.stringify({ id: 'p4-comment', path: p, payload: pl, at: Date.now() })), { p: path, pl: payload });
+      };
+      await keep({ like: { target: 'comment', id: CM.two } });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await expect(page.locator('.p4-pcard')).toBeVisible({ timeout: 90_000 });
+      await expect(acc).toHaveAttribute('open', '');
+      await expect(acc).toHaveAttribute('data-social', 'live', { timeout: 30_000 });
+      await expect.poll(() => likes().length, { timeout: 30_000 }).toBe(4);
+      expect(likes()[3]).toEqual({ target: 'comment', id: CM.two, action: 'like' });
+      await expect(acc.locator('.p4-cmt:not(.p4-cmt-nest)').nth(1).locator('.p4-lk')).toHaveAttribute('aria-pressed', 'true');
+      // a kept reply reopens its field with the text (nothing is sent until the fan presses Reply)
+      await keep({ text: 'Kept reply', replyTo: CM.two });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await expect(acc).toHaveAttribute('data-social', 'live', { timeout: 90_000 });
+      const kept = acc.getByRole('textbox', { name: 'Reply to e2e_fan_two' });
+      await expect(kept).toHaveValue('Kept reply');
+      await expect(kept).toBeFocused();
+      expect(replies()).toHaveLength(1);
+      expect(await pendingAction(page), 'the kept action is used once').toBeNull();
+
+      const other = calls.filter((c) => !/\/api\/quiz\/[^/]+\/play$|\/api\/ux-v1\/p4\/|\/api\/share\/generate$/.test(new URL(c.url).pathname));
+      expect(other, 'no other write attempt').toEqual([]);
+      expect(writesTo(calls, COMMENT_PATH), 'no comment was posted').toEqual([]);
+    });
+  });
+}

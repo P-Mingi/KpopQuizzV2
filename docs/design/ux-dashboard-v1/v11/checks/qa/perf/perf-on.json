@@ -1,0 +1,1341 @@
+{
+ "at": "2026-09-26T17:26:02.114Z",
+ "base": "http://localhost:3021",
+ "label": "on",
+ "dpr": 3,
+ "cpuThrottle": 4,
+ "runs": 3,
+ "pages": {
+  "/": {
+   "local": {
+    "lcpMs": 304,
+    "cls": 0.0546,
+    "jsKB": 367,
+    "totalKB": 1743,
+    "lcpEl": "h1",
+    "shifts": [
+     {
+      "t": 765,
+      "v": 0.0546,
+      "src": [
+       "section.ux-sec",
+       "h2."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 304,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 134,
+       "total": 1743
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 304,
+      "cls": 0.0546,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 134,
+       "total": 1743
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 320,
+      "cls": 0.0546,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 134,
+       "total": 1743
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Aespa.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/BABYMONSTER.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/EXO.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 1200,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/IVE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 828,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/ENHYPEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/TXT.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 1200,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/LE%20SSERAFIM.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/ITZY.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Girls'%20Generation.jpg&w=1200&q=75",
+      "natural": 467,
+      "sourceWidth": 467,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 1200,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": false
+     },
+     {
+      "src": "/idols/BTS.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BTS.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/BTS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/BLACKPINK.jpg&w=640&q=75: served 640px (source 715px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Stray%20Kids.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/TWICE.jpg&w=640&q=75: served 640px (source 939px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Aespa.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/SEVENTEEN.jpg&w=640&q=75: served 640px (source 870px) for 80px x3 = 240px, sizes=80px",
+     "/idols/NewJeans.jpg&w=640&q=75: served 640px (source 735px) for 80px x3 = 240px, sizes=80px",
+     "/idols/BABYMONSTER.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/EXO.jpg&w=640&q=75: served 640px (source 1200px) for 80px x3 = 240px, sizes=80px",
+     "/idols/IVE.jpg&w=640&q=75: served 640px (source 828px) for 80px x3 = 240px, sizes=80px",
+     "/idols/ENHYPEN.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/TXT.jpg&w=640&q=75: served 640px (source 1200px) for 80px x3 = 240px, sizes=80px",
+     "/idols/LE%20SSERAFIM.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/ITZY.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px"
+    ]
+   },
+   "slow4g": {
+    "lcpMs": 2916,
+    "cls": 0.0001,
+    "jsKB": 367,
+    "totalKB": 1739,
+    "lcpEl": "h1",
+    "shifts": [
+     {
+      "t": 4357,
+      "v": 0.0001,
+      "src": [
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2916,
+      "cls": 0.0001,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 130,
+       "total": 1739
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2940,
+      "cls": 0.0001,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 130,
+       "total": 1739
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2908,
+      "cls": 0.0001,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 367,
+       "css": 227,
+       "img": 908,
+       "font": 88,
+       "doc": 19,
+       "other": 130,
+       "total": 1739
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Aespa.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/BABYMONSTER.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/EXO.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 1200,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/IVE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 828,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/ENHYPEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/TXT.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 1200,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/LE%20SSERAFIM.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/ITZY.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Girls'%20Generation.jpg&w=1200&q=75",
+      "natural": 467,
+      "sourceWidth": 467,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 1200,
+      "sizes": "80px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": true,
+      "complete": false
+     },
+     {
+      "src": "/idols/BTS.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BTS.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/BTS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/BLACKPINK.jpg&w=640&q=75: served 640px (source 715px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Stray%20Kids.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/TWICE.jpg&w=640&q=75: served 640px (source 939px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Aespa.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/SEVENTEEN.jpg&w=640&q=75: served 640px (source 870px) for 80px x3 = 240px, sizes=80px",
+     "/idols/NewJeans.jpg&w=640&q=75: served 640px (source 735px) for 80px x3 = 240px, sizes=80px",
+     "/idols/BABYMONSTER.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/EXO.jpg&w=640&q=75: served 640px (source 1200px) for 80px x3 = 240px, sizes=80px",
+     "/idols/IVE.jpg&w=640&q=75: served 640px (source 828px) for 80px x3 = 240px, sizes=80px",
+     "/idols/ENHYPEN.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/TXT.jpg&w=640&q=75: served 640px (source 1200px) for 80px x3 = 240px, sizes=80px",
+     "/idols/LE%20SSERAFIM.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/ITZY.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px"
+    ]
+   }
+  },
+  "/q/ultimate-bts-era-quiz-only-real-armys-survive": {
+   "local": {
+    "lcpMs": 608,
+    "cls": 0,
+    "jsKB": 402,
+    "totalKB": 926,
+    "lcpEl": "img.p4-cover-img /_next/image?url=https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-im",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 312,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 227,
+       "img": 126,
+       "font": 88,
+       "doc": 17,
+       "other": 62,
+       "total": 922
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 608,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 227,
+       "img": 126,
+       "font": 88,
+       "doc": 17,
+       "other": 66,
+       "total": 926
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 808,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 228,
+       "img": 235,
+       "font": 393,
+       "doc": 17,
+       "other": 75,
+       "total": 1351
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3908,
+    "cls": 0.0003,
+    "jsKB": 402,
+    "totalKB": 922,
+    "lcpEl": "img.p4-cover-img /_next/image?url=https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/quiz-im",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3596,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 227,
+       "img": 126,
+       "font": 88,
+       "doc": 17,
+       "other": 62,
+       "total": 922
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3960,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 227,
+       "img": 126,
+       "font": 88,
+       "doc": 17,
+       "other": 62,
+       "total": 922
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3908,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 402,
+       "css": 227,
+       "img": 126,
+       "font": 88,
+       "doc": 17,
+       "other": 61,
+       "total": 921
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/blackpink-quiz": {
+   "local": {
+    "lcpMs": 360,
+    "cls": 0,
+    "jsKB": 357,
+    "totalKB": 845,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/BLACKPINK.jpg&w=1080&q=75",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 412,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 57,
+       "total": 846
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 356,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 56,
+       "total": 845
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 360,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 55,
+       "total": 844
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BLACKPINK.jpg&w=1080&q=75",
+      "natural": 715,
+      "sourceWidth": 715,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 700,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 939,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Red%20Velvet.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Aespa.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3076,
+    "cls": 0.0003,
+    "jsKB": 357,
+    "totalKB": 844,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/BLACKPINK.jpg&w=1080&q=75",
+    "shifts": [
+     {
+      "t": 3811,
+      "v": 0.0003,
+      "src": [
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3076,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 55,
+       "total": 844
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3064,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 55,
+       "total": 844
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3100,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 357,
+       "css": 227,
+       "img": 97,
+       "font": 88,
+       "doc": 19,
+       "other": 55,
+       "total": 844
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BLACKPINK.jpg&w=1080&q=75",
+      "natural": 715,
+      "sourceWidth": 715,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jisoo BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 700,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Jennie BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Rose BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lisa BLACKPINK.jpg&w=220&q=75",
+      "natural": 220,
+      "sourceWidth": 736,
+      "rendered": 56,
+      "needed": 168,
+      "servedW": 220,
+      "sizes": "56px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 939,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Red%20Velvet.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Aespa.jpg&w=128&q=75",
+      "natural": 128,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": 128,
+      "sizes": "40px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   }
+  },
+  "/blindtest": {
+   "local": {
+    "lcpMs": 308,
+    "cls": 0,
+    "jsKB": 275,
+    "totalKB": 911,
+    "lcpEl": "p.p6-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 336,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 42,
+       "total": 911
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 284,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 42,
+       "total": 910
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 308,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 42,
+       "total": 911
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 2940,
+    "cls": 0,
+    "jsKB": 275,
+    "totalKB": 909,
+    "lcpEl": "p.p6-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 2940,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 40,
+       "total": 909
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2940,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 40,
+       "total": 909
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 2952,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 275,
+       "css": 227,
+       "img": 261,
+       "font": 88,
+       "doc": 17,
+       "other": 40,
+       "total": 909
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   }
+  }
+ }
+}

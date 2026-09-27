@@ -1,0 +1,16 @@
+#main
+/aespa-quiz
+/ateez-quiz
+/blackpink-quiz
+/blindtest/ranked
+/bts-quiz
+/community
+/daily
+/groups
+/new
+/newjeans-quiz
+/profile
+/seventeen-quiz
+/stray-kids-quiz
+/trending
+/twice-quiz
