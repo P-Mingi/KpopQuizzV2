@@ -242,20 +242,33 @@ test.describe('keyboard + sign-in', () => {
     expect(u.searchParams.get('redirect_to') ?? '').toMatch(/\/auth\/callback\?returnTo=%2Fquizzes$/);
   });
 
-  test('phone: guest "You" tab opens the sign-in bottom sheet', async ({ page }) => {
+  // P10 request 3: "You" follows its href for every visitor (prototype `go('you')`); a
+  // guest lands on P10's passport invitation (/profile -> /me signed out: no read, no
+  // write). The phone sign-in sheet (nav "Sign in") stays a bottom sheet.
+  test('phone: guest "You" tab opens the passport invitation; the sign-in sheet is a bottom sheet', async ({ page }) => {
     test.skip(widthOf(page) > 760, 'phone only');
     await guardWrites(page, env.supabaseUrl);
     await page.goto('/quizzes');
     test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
     await page.waitForFunction(() => document.querySelector('.ux-nav-signin:not([aria-busy])'));
-    await page.locator('.ux-tab', { hasText: 'You' }).click();
+
+    await page.locator('.ux-nav-signin').click();
     const dlg = page.getByRole('dialog', { name: 'Sign in to KpopQuiz' });
     await expect(dlg).toBeVisible();
     const box = await dlg.boundingBox();
     const vh = page.viewportSize()?.height ?? 844;
     expect(Math.round((box?.y ?? 0) + (box?.height ?? 0))).toBe(vh); // docked to the bottom
     expect(Math.round(box?.width ?? 0)).toBe(page.viewportSize()?.width);
-    await expect(page).toHaveURL(/\/quizzes$/);
+    await page.keyboard.press('Escape');
+    await expect(dlg).toBeHidden();
+
+    const you = page.locator('.ux-tab', { hasText: 'You' });
+    await expect(you).toHaveAttribute('href', '/profile');
+    await you.click();
+    await expect(page).toHaveURL(/\/me$/, { timeout: 30_000 });
+    await expect(page.getByRole('heading', { level: 1, name: 'Your K-pop passport' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('dialog', { name: 'Sign in to KpopQuiz' })).toBeHidden();
+    await expect(page.locator('.ux-tab', { hasText: 'You' })).toHaveAttribute('aria-current', 'page');
   });
 });
 
