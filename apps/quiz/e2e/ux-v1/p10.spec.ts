@@ -27,6 +27,9 @@ import type { StubbedCall } from './helpers/guard';
 // as the owner; the /me props are covered by src/lib/ux-v1/p10/passport-render.test.ts.
 // /settings is visited signed in: its GET path only reads (profiles, groups,
 // user_badges, GET /api/notifications/prefs, idols roster).
+// /me and /profile ARE loaded as a GUEST (fresh context, no storage state): with no
+// session /me returns before any read or write (flag on: the guest passport; flag
+// off: the redirect to /login), so a guest visit is safe.
 // The two header routes are called for real only with requests that cannot write
 // in any state of the storage bucket (see "the real header routes fail soft").
 
@@ -53,10 +56,13 @@ const STYLES_REF_SETTINGS: Landmark[] = [
   { proto: '.personprev', impl: '.p10-personprev', state: 'settings', box: ['width'], skip: ['margin-top'] },
 ];
 
-type State = 'passport' | 'passport-badges' | 'settings' | 'header-sheet';
+type State = 'passport' | 'passport-badges' | 'settings' | 'header-sheet' | 'passport-guest';
 interface P10Landmark { proto: string; impl: string; state: State; skip?: string[] }
 const TEXT = ['width'];
 const PHOTO = ['background-image', 'background-color', 'color', 'font-size', 'font-weight', 'line-height'];
+
+// the prototype's guest passport: view "you" with body.guest (X1-004)
+const GST = '#you section[data-auth="out"]';
 
 const P10_LANDMARKS: P10Landmark[] = [
   { proto: '.pband', impl: '.p10-band', state: 'passport' },
@@ -152,6 +158,16 @@ const P10_LANDMARKS: P10Landmark[] = [
   { proto: '#hsheet .urlrow', impl: '.ux-layer .ux-urlrow', state: 'header-sheet' },
   { proto: '#hsheet .inp', impl: '.ux-layer .ux-urlrow .ux-inp', state: 'header-sheet' },
   { proto: '#hsheet .btn-quiet', impl: '.ux-layer .ux-btn-quiet', state: 'header-sheet' },
+  { proto: GST, impl: '.p10-gst', state: 'passport-guest' },
+  // next/image sets color: transparent on the <img> (hides alt text while loading): not visible
+  { proto: `${GST} img`, impl: '.p10-gst-msc', state: 'passport-guest', skip: ['color'] },
+  // the prototype focuses the page H1 on navigation (:focus-visible radius 8): not a resting style
+  { proto: `${GST} h1`, impl: '.p10-gst-h', state: 'passport-guest', skip: ['border-radius'] },
+  { proto: `${GST} .lead`, impl: '.p10-gst-lead', state: 'passport-guest' },
+  { proto: `${GST} .actions`, impl: '.p10-gst-acts', state: 'passport-guest' },
+  { proto: `${GST} .btn-primary`, impl: '.p10-gst-acts .ux-btn-primary', state: 'passport-guest' },
+  { proto: `${GST} .lnk`, impl: '.p10-gst-acts .ux-lnk', state: 'passport-guest' },
+  { proto: `${GST} .lnk .ico`, impl: '.p10-gst-acts .ux-lnk .ux-ico', state: 'passport-guest' },
 ];
 const P10_PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'filter'];
@@ -195,6 +211,33 @@ async function compareP10(page: Page, theme: 'light' | 'dark', state: State): Pr
     }
   }
   return { checked, absent, mismatches };
+}
+
+/** Landmark boxes (document px) vs the prototype capture (_x, _y, _w, _h), within 2px (C1). */
+async function compareBoxes(page: Page, theme: 'light' | 'dark', state: State): Promise<{ checked: number; mismatches: string[] }> {
+  const ref = protoStyles[`${widthOf(page)}-${theme}-${state}`] ?? {};
+  const lms = P10_LANDMARKS.filter((l) => l.state === state && ref[l.proto]?._x !== undefined);
+  const got = await page.evaluate((sels) => sels.map((s) => {
+    const el = document.querySelector(s);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return { _x: r.x, _y: r.y + window.scrollY, _w: r.width, _h: r.height };
+  }), lms.map((l) => l.impl));
+  const mismatches: string[] = [];
+  lms.forEach((l, i) => {
+    const a = got[i]; const e = ref[l.proto]!;
+    if (!a) { mismatches.push(`${l.impl}: missing`); return; }
+    for (const k of ['_x', '_y', '_w', '_h'] as const) {
+      if (Math.abs(a[k] - parseFloat(e[k]!)) > 2) mismatches.push(`${l.impl} ${k.slice(1)}: prototype ${e[k]} implementation ${a[k].toFixed(1)}`);
+    }
+  });
+  return { checked: lms.length, mismatches };
+}
+
+/** The touch emulation of the 390 project (pointer: coarse, which sizes touch targets)
+ *  is applied shortly after load: wait for it before measuring. */
+async function pointerSettled(page: Page): Promise<void> {
+  await page.waitForFunction((coarse) => matchMedia('(pointer: coarse)').matches === coarse, widthOf(page) < 500, { timeout: 20_000 });
 }
 
 // Landmarks that need data the test user does not have (bias, pinned badge, main
@@ -463,6 +506,172 @@ for (const theme of THEMES) {
       }
       expect(order.some((o) => o.startsWith('button:Share passport'))).toBe(true);
       expect(order.some((o) => o.startsWith('tab:Overview'))).toBe(true);
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// the guest passport: /me and /profile signed out (X1-004)
+// ---------------------------------------------------------------------------
+
+const GUEST_LEAD = 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google, Discord or an email link.';
+
+/** /me as a guest. False when the v11 shell is not served (flag off: see the flag-off test). */
+async function openGuestPassport(page: Page, url = '/me'): Promise<boolean> {
+  await page.goto(url);
+  if (!(await hasShell(page))) return false;
+  await expect(page.locator('.p10-gst')).toBeVisible({ timeout: 60_000 });
+  await waitHydrated(page);
+  // the Sign in button is a lazy island (next/dynamic): wait until React owns it
+  await page.waitForFunction(() => {
+    const b = document.querySelector('.p10-gst-acts button');
+    return b !== null && Object.keys(b).some((k) => k.startsWith('__reactProps$'));
+  }, undefined, { timeout: 30_000 });
+  return true;
+}
+
+/** Flag state of the server under test, from a guest GET of the home page (read only). */
+async function flagOn(page: Page): Promise<boolean> {
+  return (await (await page.request.get('/')).text()).includes('class="ux-app');
+}
+
+for (const theme of THEMES) {
+  test.describe(`guest passport on /me, ${theme}`, () => {
+    test.describe.configure({ timeout: 120_000 }); // a dev server compiles routes on first hit
+    let calls: StubbedCall[] = [];
+    test.beforeEach(async ({ page }) => {
+      await preparePage(page, theme);
+      calls = await guardWrites(page, env.supabaseUrl);
+    });
+
+    test('a guest on /me gets the invitation (not /login): noindex head, one H1, prototype copy, no write', async ({ page }, info) => {
+      test.skip(!(await openGuestPassport(page)), 'flag off: covered by the flag-off test');
+      expect(new URL(page.url()).pathname, 'no redirect to /login').toBe('/me');
+      await expect(page).toHaveTitle('My passport | KpopQuiz');
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+      await expect(page.locator('h1')).toHaveCount(1);
+      await expect(page.locator('h1')).toHaveText('Your K-pop passport');
+      const gst = page.locator('.p10-gst');
+      const msc = gst.locator('img.p10-gst-msc');
+      await expect(msc).toHaveAttribute('alt', '');
+      await expect(msc).toHaveAttribute('src', /mascot-celebrate\.png/);
+      await expect.poll(() => msc.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0), { message: 'the mascot image loads' }).toBe(true);
+      await expect(gst.locator('.p10-gst-lead')).toHaveText(GUEST_LEAD);
+      await expect(gst.getByRole('button', { name: 'Sign in' })).toHaveAttribute('aria-haspopup', 'dialog');
+      await expect(gst.getByRole('link', { name: 'Play a quiz first' })).toHaveAttribute('href', '/daily');
+      // nobody's passport: no band, no stats, no owner or visitor control
+      await expect(page.locator('.p10-passport, .p10-band, .p10-stats, .p10-acts')).toHaveCount(0);
+      // rendered by the server (no client fetch), status 200, still noindex, no canonical
+      const res = await page.request.get('/me', { maxRedirects: 0 });
+      expect(res.status()).toBe(200);
+      const html = await res.text();
+      expect(html).toContain('<h1 id="p10-gst-h" class="ux-h1 p10-gst-h">Your K-pop passport</h1>');
+      expect(html).toContain('<meta name="robots" content="noindex, nofollow"/>');
+      expect(html).not.toContain('rel="canonical"');
+      expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
+      expect(calls, 'no write on a guest visit').toEqual([]);
+      await info.attach(`guest-passport-${widthOf(page)}-${theme}.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+    });
+
+    test('/profile as a guest: 307 to /me, then the same invitation', async ({ page }) => {
+      test.skip(!(await flagOn(page)), 'flag off: covered by the flag-off test');
+      const res = await page.request.get('/profile', { maxRedirects: 0 });
+      expect(res.status()).toBe(307);
+      expect(res.headers()['location']).toBe('/me');
+      expect(await openGuestPassport(page, '/profile')).toBe(true);
+      expect(new URL(page.url()).pathname).toBe('/me');
+      await expect(page.locator('h1')).toHaveText('Your K-pop passport');
+      expect(calls).toEqual([]);
+    });
+
+    test('matches the prototype: landmark boxes within 2px, computed styles equal', async ({ page }, info) => {
+      test.skip(!(await openGuestPassport(page)), 'flag off');
+      await pointerSettled(page);
+      const boxes = await compareBoxes(page, theme, 'passport-guest');
+      const styles = await compareP10(page, theme, 'passport-guest');
+      await info.attach('guest-landmarks.json', { body: JSON.stringify({ boxes, styles }, null, 1), contentType: 'application/json' });
+      expect(boxes.checked, 'every guest landmark has a prototype box').toBe(8);
+      expect(boxes.mismatches, 'landmark boxes within 2px').toEqual([]);
+      expect(styles.absent).toEqual([]);
+      expect(styles.checked).toHaveLength(8);
+      expect(styles.mismatches, 'computed styles').toEqual([]);
+    });
+
+    test('Sign in opens the sign-in sheet "Open your passport" (X / Escape / backdrop, focus returns); the email link returns to /me; nothing reaches the server', async ({ page }) => {
+      test.skip(!(await openGuestPassport(page)), 'flag off');
+      const trigger = page.locator('.p10-gst').getByRole('button', { name: 'Sign in' });
+      await sheetClosesThreeWays(page, trigger, 'Open your passport');
+      await trigger.click();
+      const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: 'Open your passport' });
+      await expect(dlg).toBeVisible();
+      await expect(dlg.getByRole('heading', { name: 'Open your passport' })).toBeVisible();
+      await expect(dlg).toContainText('Keep your scores, streak, badges and rank title. No password needed.');
+      await expect(dlg.getByRole('button', { name: 'Continue with Google' })).toBeVisible();
+      await expect(dlg.getByRole('button', { name: 'Continue with Discord' })).toBeVisible();
+      expect(calls, 'opening and closing the sheet writes nothing').toEqual([]);
+      // The magic link (the one sign-in path that stays on the page): guardWrites answers
+      // the POST to Supabase locally, it is never sent. Its redirect brings the fan to /me.
+      await dlg.getByLabel('Email').fill('p10-guest@example.com');
+      await dlg.getByRole('button', { name: 'Email me a sign-in link' }).click();
+      await expect(page.getByTestId('ux-toast')).toContainText('Link sent to p10-guest@example.com');
+      expect(calls).toHaveLength(1);
+      const otp = new URL(calls[0]!.url);
+      expect(otp.pathname).toBe('/auth/v1/otp');
+      expect(otp.searchParams.get('redirect_to') ?? '', 'back to /me after sign-in').toMatch(/\/auth\/callback\?returnTo=%2Fme$/);
+      expect(JSON.parse(calls[0]!.body ?? '{}')).toMatchObject({ email: 'p10-guest@example.com' });
+    });
+
+    test('Play a quiz first opens today\'s daily quiz (GET /daily)', async ({ page }) => {
+      test.skip(!(await openGuestPassport(page)), 'flag off');
+      const daily = await page.request.get('/daily', { maxRedirects: 0 });
+      expect(daily.status()).toBe(307);
+      const target = daily.headers()['location'] ?? '';
+      expect(target).toMatch(/^\/(q\/[a-z0-9-]+\?daily=quiz|quizzes)$/);
+      expect(calls, 'the invitation wrote nothing').toEqual([]);
+      await page.locator('.p10-gst').getByRole('link', { name: 'Play a quiz first' }).click();
+      await page.waitForURL((u) => `${u.pathname}${u.search}` === target, { timeout: 90_000 });
+    });
+
+    test('accessibility: axe 0 serious / critical (page and sheet), keyboard reaches and operates both controls', async ({ page }) => {
+      test.skip(!(await openGuestPassport(page)), 'flag off');
+      expect(await basicA11y(page, '.ux-page')).toEqual([]);
+      const axe = await runAxe(page, { include: '.ux-page' });
+      expect(axe, 'axe-core is available (resolved through eslint-config-next)').not.toBeNull();
+      expect(axe).toEqual([]);
+      // keyboard from the top of the invitation: Sign in, then Play a quiz first
+      await page.locator('.p10-gst').click({ position: { x: 4, y: 4 } });
+      await page.keyboard.press('Tab');
+      const signIn = page.locator('.p10-gst').getByRole('button', { name: 'Sign in' });
+      await expect(signIn).toBeFocused();
+      await page.keyboard.press('Tab');
+      await expect(page.locator('.p10-gst').getByRole('link', { name: 'Play a quiz first' })).toBeFocused();
+      await page.keyboard.press('Shift+Tab');
+      await expect(signIn).toBeFocused();
+      await page.keyboard.press('Enter');
+      const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: 'Open your passport' });
+      await expect(dlg).toBeVisible();
+      await expect.poll(() => dlg.evaluate((d) => d.contains(document.activeElement))).toBe(true);
+      const axe2 = await runAxe(page, { include: '.ux-layer' });
+      expect(axe2).toEqual([]);
+      await page.keyboard.press('Escape');
+      await expect(dlg).toBeHidden();
+      await expect(signIn).toBeFocused();
+      expect(calls).toEqual([]);
+    });
+
+    test('flag off: a guest on /me and /profile still lands on /login, exactly as today', async ({ page }) => {
+      test.skip(await flagOn(page), 'flag on: covered by the tests above');
+      const me = await page.request.get('/me', { maxRedirects: 0 });
+      expect(me.status()).toBe(307);
+      expect(me.headers()['location']).toBe('/login');
+      const profile = await page.request.get('/profile', { maxRedirects: 0 });
+      expect(profile.status()).toBe(307);
+      expect(profile.headers()['location']).toBe('/me');
+      await page.goto('/profile');
+      expect(new URL(page.url()).pathname).toBe('/login');
+      await expect(page.locator('.p10-gst')).toHaveCount(0);
+      expect(await hasShell(page)).toBe(false);
+      expect(calls).toEqual([]);
     });
   });
 }

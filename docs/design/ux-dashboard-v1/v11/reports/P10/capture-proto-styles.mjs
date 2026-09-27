@@ -25,7 +25,10 @@ const STATES = {
   'passport-badges': "go('you');ptab('badges')",
   settings: "go('settings')",
   'header-sheet': "go('you');openHeader()",
+  // the guest passport (X1-004): the "you" view signed out
+  'passport-guest': "document.body.classList.add('guest');go('you')",
 };
+const G = '#you section[data-auth="out"]';
 export const SELECTORS = {
   passport: [
     '.pband', '.pband .hbtn', '.phead', '.pav', '.phead .btn-ghost', '.phead .ib', '.pid', '.pidrow', '#p-name', '#p-bias', '#p-pinb',
@@ -46,7 +49,10 @@ export const SELECTORS = {
     '#apseg', '#apseg button.on', '#apseg button:not(.on)', '#settings .srow2 .btn', '#settings .gchip', '#settings .gchip .gav', '#settings .chips .chip',
   ],
   'header-sheet': ['#hsheet', '#hsheet .sh-b', '#hsheet .drop', '#hsheet .or', '#hsheet .urlrow', '#hsheet .inp', '#hsheet .urlrow .btn', '#hsheet .help', '#hsheet .btn-quiet'],
+  'passport-guest': [G, `${G} img`, `${G} h1`, `${G} .lead`, `${G} .actions`, `${G} .btn-primary`, `${G} .lnk`, `${G} .lnk .ico`],
 };
+// States whose landmark boxes are recorded too (_x, _y, _w, _h: document px, 0.1 precision).
+const BOX_STATES = new Set(['passport-guest']);
 const PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'filter'];
 
@@ -62,16 +68,18 @@ for (const [w, h] of [[1440, 900], [390, 844]]) {
     for (const [id, js] of Object.entries(STATES)) {
       await page.evaluate((code) => { document.body.classList.remove('guest'); closeAll(); eval(code); }, js);
       await page.waitForTimeout(600);
-      out[`${w}-${theme}-${id}`] = await page.evaluate(({ sels, P }) => {
+      out[`${w}-${theme}-${id}`] = await page.evaluate(({ sels, P, box }) => {
         const o = {};
+        const r1 = (n) => String(Math.round(n * 10) / 10);
         for (const s of sels) {
           const el = [...document.querySelectorAll('.view.on ' + s), ...document.querySelectorAll(s)].find((e) => e.offsetParent !== null || getComputedStyle(e).position === 'fixed');
           if (!el) continue;
           const cs = getComputedStyle(el);
           o[s] = Object.fromEntries(P.map((p) => [p, cs.getPropertyValue(p).replace(/url\("data:[^)]*"\)/g, 'url(data)')]));
+          if (box) { const r = el.getBoundingClientRect(); Object.assign(o[s], { _x: r1(r.x), _y: r1(r.y + scrollY), _w: r1(r.width), _h: r1(r.height) }); }
         }
         return o;
-      }, { sels: SELECTORS[id], P: PROPS });
+      }, { sels: SELECTORS[id], P: PROPS, box: BOX_STATES.has(id) });
     }
     await ctx.close();
   }
