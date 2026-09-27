@@ -249,6 +249,26 @@ for (const theme of THEMES) {
         expect(cands, set).toEqual(['96 1x', '220 2x']);
       }
       await expect(sec.locator('.p1-gav img[sizes]')).toHaveCount(0);
+      // X2-002: every label is clipped to its 88px tile with an ellipsis (prototype
+      // .gitem .n), and at 1440 the rail at rest ends with the 10th tile: nothing of
+      // the 11th (a long label starts at its tile's left edge) shows at the right edge.
+      const geo = await sec.locator('.p1-grail').evaluate((rail) => {
+        const clip = rail.getBoundingClientRect();
+        return { clipL: clip.left, clipR: clip.right, items: [...rail.querySelectorAll('.p1-gitem')].map((a) => {
+          const t = a.getBoundingClientRect(); const n = a.querySelector('.p1-gn') as HTMLElement; const nr = n.getBoundingClientRect(); const cs = getComputedStyle(n);
+          return { name: n.textContent ?? '', l: t.left, r: t.right, nl: nr.left, nr: nr.right, over: n.scrollWidth > n.clientWidth, clipped: cs.overflowX === 'hidden' && cs.textOverflow === 'ellipsis' && cs.whiteSpace === 'nowrap' };
+        }) };
+      });
+      for (const it of geo.items) {
+        expect(it.clipped, `${it.name}: label clipped with an ellipsis`).toBe(true);
+        expect(it.nl >= it.l - 0.5 && it.nr <= it.r + 0.5, `${it.name}: label box inside its tile`).toBe(true);
+      }
+      if (widthOf(page) >= 1440) {
+        const shown = geo.items.filter((it) => it.l < geo.clipR);
+        expect(shown.length, 'ten tiles in view at 1440, as the prototype').toBe(Math.min(10, geo.items.length));
+        for (const it of shown) expect(it.r, `${it.name}: whole tile in view, none cut at the edge`).toBeLessThanOrEqual(geo.clipR + 0.5);
+        expect(geo.items.some((it) => it.over), 'a label longer than its tile exists (BABYMONSTER): the case under test').toBe(true);
+      }
       // Counts are PUBLISHED quizzes (16.10), checked on the first two groups.
       for (const i of [0, 1]) {
         const slug = hrefs[i]!.slice(1, -'-quiz'.length);
