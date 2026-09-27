@@ -12,7 +12,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | fix round 3 merged (2e54e48, PR #72, branch ux11/a0-fix3): X1-003, X2-001, X2-008, P2 request 4, P10 request 3 | e2d27ca | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
-| P2 | ux11/p2-quizzes | LOCAL, unpublished (pushes refused by the permission check); pixel pass round 2 done: every landmark within 2px at 1440/390 light/dark, p2.spec 27/27, SEO fields + links unchanged on 11 URLs | 63d8ef4 | 0 | v11/reports/P2.md |
+| P2 | ux11/p2-quizzes | LOCAL, unpublished (pushes refused by the permission check); round 2b done: showValue={false} on the three menus, filtered states 0.0px off, failed facet read shows "did not load" | bfb49a3 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | X1-005 + X2-004 merged (00728c6, PR #69, branch ux11/p3-fix2) | f8b7693 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | X1-002 comment hearts + Reply DONE LOCALLY on ux11/p4-fix3 (push refused by the permission check; waits for the owner) | 9a9bd04 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | X2-009 done state merged (PR #70, branch ux11/p5-fix2) | 9f4b342 | 0 | v11/reports/P5.md |
@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 P2 round 2b done locally (bfb49a3, integration 2e54e48 merged in): menus keep their labels, the 52px push at 390 is gone, chips, grid and empty state 0.0px off the prototype. Waiting for P1 and P10, then ORCH rebuilds the preview from the integration head + ux11/p2-quizzes merged locally (never pushed).
 - 2026-09-27 P11 fix merged: the unread line follows the active filter. P11 reported that a flag-off Playwright error once printed the test user's session cookie into a scratch log; it deleted the log; ORCH scanned the scratchpad, the P11 worktree and the PR diff: no cookie left.
 - 2026-09-27 A0 fix round 3 merged (2e54e48): 64px under the phone footer (a0.css only), default 1080x1920 Story tile in every ShareSheet, the You tab follows its href for guests, UxDropdown showValue={false}, My quizzes opens the passport Quizzes tab with a local draft count. unit 865/865, tsc 0. Follow-ups: P10 (p10.spec story-tile expectation + list the local draft in the Quizzes tab, branch ux11/p10-fix3), P2 local (merge integration + showValue={false}).
 - 2026-09-27 P6 fix 3 merged: share sheet "Share your blindtest" + challenge link block (one challenge link per run, created when the sheet opens, same POST body as P4's), results kicker names the run; build-time hub reads get 30 s so a loaded build keeps its 79 group links.
