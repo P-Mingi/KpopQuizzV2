@@ -12,7 +12,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | fix loop 1 merged (eb09ce6, PR #57): C2-001, C1-002 | ab88390 | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
-| P2 | ux11/p2-quizzes | DONE locally, NOT pushed: its branch push was denied by the session permission check; waiting for the owner (ORCH does not push or merge it around the denial) | adea732 | 0 | v11/reports/P2.md |
+| P2 | ux11/p2-quizzes | LOCAL, unpublished (agent push and ORCH push both refused by the permission check); pixel pass running locally at the owner's request | adea732 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | fix loop 1 merged (ad57928, PR #63, branch ux11/p3-fix1): C1-001, C3-001, C3-002, C2-006, C2-007 | 11442da | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | fix loop 2 merged (e54b847, PR #65, branch ux11/p4-fix2): C2-008 | ffb7ee3 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | fix loop 1 merged (cc6c394, PR #64, branch ux11/p5-fix1): C3-005 + a second lost live line, UxQuizCard preview | 70747b7 | 0 | v11/reports/P5.md |
@@ -109,6 +109,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 Owner: "The quizzes page is not pixel pixel. did you finish really all the v11? if no continue." (he saw the pre-P2 /quizzes on :3021). ORCH tried to push ux11/p2-quizzes and ux11/c3-check on that go-ahead: refused by the permission check (Auto-Mode Bypass). Not worked around; the owner publishes them. P2 resumed locally: merge the integration head, adopt A0's href options, pixel pass vs the prototype within the SEO lock; ORCH will serve a LOCAL preview build (never pushed) so the owner can see it.
 - 2026-09-27 Phase 4: C3 final (local e464a46, REPORT.md: every page DONE except P2 PENDING and P7 populated states NOT verified; every checker issue closed). Draft PR #66 opened (feat/ux-v1-v11 -> main; main unchanged at 450f053, merges cleanly; supersedes #42 and #43; no new dependency). DoD checks: no test-user session file left in any worktree; no run worktree with uncommitted work (only the owner's older .worktrees/play-seo). The flag-on build of e54b847 still runs on http://localhost:3021 from .worktrees/ux11-integration-b for the owner to look at.
 - 2026-09-27 Server swapped to e54b847 (809/809). C2 loop 3: C2-008 FIXED (no stored play: results render, no rank line, no error; stored play: rank line; the standing endpoint answers the full shape in every branch). C2 merged (bb9b5a5): 196 pass, 0 fail. Every checker issue is now fixed (C1 2, C2 8, C3 9). C3 finalizing REPORT.md locally.
 - 2026-09-27 P4 fix loop 2 merged (e54b847): one standing parser (missing or non-positive rank/total -> null), the endpoint always sends every field, the rank line only with real numbers; red/green e2e with C2's recorded answer; p4.spec 48 pass / 1 skipped / 0 fail. Integration: tsc 0, unit 829/829. Rebuilding the checker server in .worktrees/ux11-integration-b for C2's re-check of C2-008.
