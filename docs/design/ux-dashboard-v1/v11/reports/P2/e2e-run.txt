@@ -1,0 +1,34 @@
+# p2.spec.ts, flag on (dev :3032, Turbopack), branch bfbbdc4, 2026-09-27T15:23Z
+# PLAYWRIGHT_BASE_URL=http://localhost:3032 UX11_CHROMIUM=<chromium 1234> playwright test e2e/ux-v1/p2.spec.ts --project=ux-1440 --project=ux-390 --reporter=line
+
+Running 27 tests using 1 worker
+
+[1/27] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:99:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[3/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:177:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[4/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:235:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[5/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:99:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[6/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:177:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[7/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:235:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[8/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:283:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[9/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:308:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[10/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:326:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[11/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:334:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[12/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:358:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[13/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:368:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[14/27] [ux-1440] › e2e/ux-v1/p2.spec.ts:386:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+[15/27] [ux-390] › e2e/ux-v1/p2.spec.ts:99:5 › quizzes light › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[16/27] [ux-390] › e2e/ux-v1/p2.spec.ts:177:5 › quizzes light › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[17/27] [ux-390] › e2e/ux-v1/p2.spec.ts:235:5 › quizzes light › sort links and the Group menu (under its trigger, inside the viewport)
+[18/27] [ux-390] › e2e/ux-v1/p2.spec.ts:99:5 › quizzes dark › SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y
+[19/27] [ux-390] › e2e/ux-v1/p2.spec.ts:177:5 › quizzes dark › Type + Level narrow the grid with real counts; chips remove a filter and return focus
+[20/27] [ux-390] › e2e/ux-v1/p2.spec.ts:235:5 › quizzes dark › sort links and the Group menu (under its trigger, inside the viewport)
+[21/27] [ux-390] › e2e/ux-v1/p2.spec.ts:283:3 › quizzes: pagination, empty states, endpoint › Load more appends page 2 in place, updates the address, focuses the first new card
+[22/27] [ux-390] › e2e/ux-v1/p2.spec.ts:308:3 › quizzes: pagination, empty states, endpoint › ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N
+[23/27] [ux-390] › e2e/ux-v1/p2.spec.ts:326:3 › quizzes: pagination, empty states, endpoint › a page past the end shows the first page and says so
+[24/27] [ux-390] › e2e/ux-v1/p2.spec.ts:334:3 › quizzes: pagination, empty states, endpoint › empty states: no match (Clear filters) and a group without quizzes (make the first one)
+[25/27] [ux-390] › e2e/ux-v1/p2.spec.ts:358:3 › quizzes: pagination, empty states, endpoint › the Level facet follows the facet rule: noindex, canonical /quizzes
+[26/27] [ux-390] › e2e/ux-v1/p2.spec.ts:368:3 › quizzes: pagination, empty states, endpoint › load-more endpoint: same page as the page itself, card fields only, read only
+[27/27] [ux-390] › e2e/ux-v1/p2.spec.ts:386:3 › quizzes signed in (test user, read only) › the same browse page, and nothing is written
+  27 passed (1.3m)
+exit 0

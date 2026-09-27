@@ -1,0 +1,103 @@
+
+== /quizzes?page=2
+SAME  status  200/200 
+SAME  title  "K-pop Quizzes: 420+ Free Fan-Made Tests, Every Group | KpopQuiz"
+SAME  meta description  "Browse 420+ free K-pop quizzes made by fans. Filter by group or type, sort by trending, n
+SAME  meta og:description
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes?page=2
+SAME  hreflang / alternate  none
+SAME  H1  ["K-pop quizzes"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  intro sentence (verbatim in B)
+SAME  FAQ questions visible in B  0 questions
+SAME  LINK SET: every <a href> of A is in B  A 125, B 142, lost 0, added 17
+SAME  server rendered (B HTML carries the content)  6680 chars of text, 96 quiz links
+
+== /quizzes/popular-today
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes Today | KpopQuiz"
+SAME  meta description  "The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated ev
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-today
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes today"]
+DIFF  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+DIFF  LINK SET: every <a href> of A is in B  A 48, B 63, lost 14, added 29  LOST: /q/are-u-a-real-gllit /q/are-you-a-real-eyekon /q/ateez-title-tracks-and-members-quiz /q/babymonster-quiz /q/cortis-quiz /q/enhypen-guess-the-mv-from-the-screenshot /q/enhypen-members-deep-dive /q/illit-fans-here /q/k-pop-training-system-and-idol-life /q/one-for-sones /q/real-coers-cortis-fans-can-take-this-quiz /q/seventeen-true-or-false-65 /q/stray-kids-know-each-member /search
+SAME  server rendered (B HTML carries the content)  2627 chars of text, 24 quiz links
+
+== /quizzes/popular-this-week
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes This Week | KpopQuiz"
+SAME  meta description  "The most played K-pop quizzes of the last 7 days, ranked by real plays and refreshed hour
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-this-week
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes this week"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+DIFF  LINK SET: every <a href> of A is in B  A 48, B 63, lost 1, added 16  LOST: /search
+SAME  server rendered (B HTML carries the content)  2861 chars of text, 24 quiz links
+
+== /quizzes/popular-this-month
+SAME  status  200/200 
+SAME  title  "Most Played K-pop Quizzes This Month | KpopQuiz"
+SAME  meta description  "The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderbo
+SAME  meta og:description
+SAME  meta og:image
+SAME  meta og:image:alt
+SAME  meta og:image:height
+SAME  meta og:image:width
+SAME  meta og:title
+SAME  meta og:url
+SAME  meta twitter:card
+SAME  meta twitter:description
+SAME  meta twitter:image
+SAME  meta twitter:image:alt
+SAME  meta twitter:image:height
+SAME  meta twitter:image:width
+SAME  meta twitter:title
+SAME  meta robots  none on either side (indexable)
+SAME  canonical  https://kpopquiz.org/quizzes/popular-this-month
+SAME  hreflang / alternate  none
+SAME  H1  ["The most played K-pop quizzes this month"]
+SAME  JSON-LD blocks (parsed)  4/4 (BreadcrumbList, ItemList, Organization, SiteNavigationElement)
+SAME  FAQ questions visible in B  0 questions
+DIFF  LINK SET: every <a href> of A is in B  A 48, B 63, lost 1, added 16  LOST: /search
+SAME  server rendered (B HTML carries the content)  2938 chars of text, 24 quiz links
+
+4 difference(s)
