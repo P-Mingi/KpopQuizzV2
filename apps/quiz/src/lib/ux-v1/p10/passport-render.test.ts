@@ -33,7 +33,7 @@ vi.mock('@/components/profile/ux-v1/islands', async () => {
     PassportTabs: (await import('@/components/profile/ux-v1/passport-tabs')).PassportTabs,
     MoreQuizzes: (await import('@/components/profile/ux-v1/more-quizzes')).MoreQuizzes,
     LocalDraftRow: () => (draftMode.sync ? h(local.DraftSlot, { view: readLocalDraftRow(at) }) : h(local.LocalDraftRow)),
-    LocalDraftOrEmpty: ({ children }: { children: React.ReactNode }) => (draftMode.sync ? h(local.DraftOrEmpty, { view: readLocalDraftRow(at) }, children) : h(local.LocalDraftOrEmpty, null, children)),
+    LocalDraftOrEmpty: ({ children }: { children: React.ReactNode }) => (draftMode.sync ? h(local.DraftOrEmpty, { view: readLocalDraftRow(at), children }) : h(local.LocalDraftOrEmpty, { children })),
   };
 });
 

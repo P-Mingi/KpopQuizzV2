@@ -12,6 +12,8 @@ import { guardWrites } from './helpers/guard';
 import { compareLandmarks } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
+import { DRAFT_ROW_HTML } from '../../src/lib/ux-v1/p10/draft-row.fixture';
+
 import type { Page, Request } from '@playwright/test';
 import type { Landmark } from './helpers/landmarks';
 import type { StubbedCall } from './helpers/guard';
@@ -56,13 +58,16 @@ const STYLES_REF_SETTINGS: Landmark[] = [
   { proto: '.personprev', impl: '.p10-personprev', state: 'settings', box: ['width'], skip: ['margin-top'] },
 ];
 
-type State = 'passport' | 'passport-badges' | 'settings' | 'header-sheet' | 'passport-guest';
+type State = 'passport' | 'passport-badges' | 'settings' | 'header-sheet' | 'passport-guest' | 'passport-quizzes';
 interface P10Landmark { proto: string; impl: string; state: State; skip?: string[] }
 const TEXT = ['width'];
 const PHOTO = ['background-image', 'background-color', 'color', 'font-size', 'font-weight', 'line-height'];
 
 // the prototype's guest passport: view "you" with body.guest (X1-004)
 const GST = '#you section[data-auth="out"]';
+// the prototype's draft row: the last row of the passport Quizzes tab (X1-003 follow-up)
+const DR = '#pp-quizzes .row:last-child';
+const DRI = '#p10-panel-quizzes .p10-draft';
 
 const P10_LANDMARKS: P10Landmark[] = [
   { proto: '.pband', impl: '.p10-band', state: 'passport' },
@@ -168,6 +173,14 @@ const P10_LANDMARKS: P10Landmark[] = [
   { proto: `${GST} .btn-primary`, impl: '.p10-gst-acts .ux-btn-primary', state: 'passport-guest' },
   { proto: `${GST} .lnk`, impl: '.p10-gst-acts .ux-lnk', state: 'passport-guest' },
   { proto: `${GST} .lnk .ico`, impl: '.p10-gst-acts .ux-lnk .ux-ico', state: 'passport-guest' },
+  // the separator above the prototype's draft row (it follows published rows) is checked on a second row
+  { proto: DR, impl: DRI, state: 'passport-quizzes', skip: ['border-top-width', 'border-top-style', 'border-top-color', 'height'] },
+  { proto: `${DR} .thumb`, impl: `${DRI} .ux-thumb`, state: 'passport-quizzes' },
+  { proto: `${DR} .thumb .ico`, impl: `${DRI} .ux-thumb .ux-ico`, state: 'passport-quizzes' },
+  { proto: `${DR} .grow`, impl: `${DRI} .ux-row-grow`, state: 'passport-quizzes' },
+  { proto: `${DR} .rt`, impl: `${DRI} .ux-rt`, state: 'passport-quizzes' },
+  { proto: `${DR} .rs`, impl: `${DRI} .ux-rs`, state: 'passport-quizzes' },
+  { proto: `${DR} .btn`, impl: `${DRI} .ux-btn`, state: 'passport-quizzes' },
 ];
 const P10_PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'filter'];
@@ -457,6 +470,69 @@ for (const theme of THEMES) {
       expect(calls).toEqual([]);
     });
 
+    // The personal Quizzes tab (/me, never loaded signed in) shows this device's create
+    // draft as its last row. Its markup is DRAFT_ROW_HTML (the render test asserts that
+    // <DraftRow> renders exactly it); here it is placed the way LocalDraftOrEmpty places it
+    // (the test user has no published quiz) in the Quizzes panel of a real flag-on
+    // passport, with the real v11 CSS, and measured against the prototype's draft row.
+    test('draft row of the personal Quizzes tab: prototype styles, geometry within 2px (component markup in the real page CSS)', async ({ page }, info) => {
+      test.skip(!(await openPassport(page)), 'flag off or not served here');
+      await pointerSettled(page);
+      await page.getByRole('tab', { name: 'Quizzes' }).click();
+      await page.mouse.move(0, 0);
+      const placed = await page.evaluate((html) => {
+        const panel = document.querySelector('#p10-panel-quizzes section');
+        if (!panel) return 'no panel';
+        const row = document.createElement('template');
+        row.innerHTML = html;
+        const list = panel.querySelector('.ux-rows');
+        if (list) { list.insertBefore(row.content.firstChild!, list.querySelector(':scope > .p10-more')); return 'after the published rows'; }
+        const rows = document.createElement('div');
+        rows.className = 'ux-rows';
+        rows.append(row.content.firstChild!);
+        panel.querySelector('.ux-empty')?.replaceWith(rows);
+        return 'in place of the empty state';
+      }, DRAFT_ROW_HTML);
+      expect(placed).not.toBe('no panel');
+      const styles = await compareP10(page, theme, 'passport-quizzes');
+      // geometry inside the row (the rows above it differ: real data vs the prototype's sample)
+      const ref = protoStyles[`${widthOf(page)}-${theme}-passport-quizzes`]!;
+      const parts: Array<[string, string]> = [[DR, DRI], [`${DR} .thumb`, `${DRI} .ux-thumb`], [`${DR} .thumb .ico`, `${DRI} .ux-thumb .ux-ico`], [`${DR} .grow`, `${DRI} .ux-row-grow`], [`${DR} .rt`, `${DRI} .ux-rt`], [`${DR} .rs`, `${DRI} .ux-rs`], [`${DR} .btn`, `${DRI} .ux-btn`]];
+      const got = await page.evaluate((sels) => {
+        const r0 = document.querySelector(sels[0]!)!.getBoundingClientRect();
+        return sels.map((s) => { const r = document.querySelector(s)!.getBoundingClientRect(); return { x: r.x - r0.x, y: r.y - r0.y, w: r.width, h: r.height }; });
+      }, parts.map(([, impl]) => impl));
+      const e0 = ref[DR]!;
+      const geometry: string[] = [];
+      // the prototype row carries a 1px separator on top (it follows published rows): its content sits 1px lower
+      parts.forEach(([proto, impl], i) => {
+        const e = ref[proto]!; const a = got[i]!;
+        const exp = { x: +e._x! - +e0._x!, y: +e._y! - +e0._y! - (i === 0 ? 0 : 1), w: +e._w!, h: +e._h! - (i === 0 ? 1 : 0) };
+        for (const k of ['x', 'y', 'w', 'h'] as const) if (Math.abs(a[k] - exp[k]) > 2) geometry.push(`${impl} ${k}: prototype ${exp[k].toFixed(1)} implementation ${a[k].toFixed(1)}`);
+      });
+      // the separator the prototype draws above its draft row: a second row in the same list
+      const sep = await page.evaluate((html) => {
+        const first = document.querySelector('#p10-panel-quizzes .p10-draft')!;
+        const t = document.createElement('template');
+        t.innerHTML = html;
+        const second = t.content.firstChild as HTMLElement;
+        first.after(second);
+        const cs = getComputedStyle(second);
+        const out = { w: cs.borderTopWidth, c: cs.borderTopColor };
+        second.remove();
+        return out;
+      }, DRAFT_ROW_HTML);
+      await info.attach('draft-row.json', { body: JSON.stringify({ placed, styles, geometry, sep }, null, 1), contentType: 'application/json' });
+      expect(styles.absent).toEqual([]);
+      expect(styles.checked).toHaveLength(7);
+      expect(styles.mismatches, 'computed styles').toEqual([]);
+      expect(geometry, 'boxes inside the row within 2px').toEqual([]);
+      expect(sep, 'separator between rows').toEqual({ w: ref[DR]!['border-top-width'], c: ref[DR]!['border-top-color'] });
+      await expect(page.locator(DRI).getByText('Continue')).toBeVisible();
+      expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+      expect(calls).toEqual([]);
+    });
+
     test('share sheet: focus in, trap, Escape / backdrop / X close, focus returns; copy writes nothing', async ({ page }) => {
       test.skip(!(await openPassport(page)), 'flag off or not served here');
       const trigger = page.getByRole('button', { name: 'Share passport' });
@@ -464,10 +540,66 @@ for (const theme of THEMES) {
       await trigger.click();
       const dlg = page.locator('.ux-layer [role="dialog"]');
       await expect(dlg.locator('.ux-minicard b')).toHaveText(await page.locator('h1').innerText());
-      await expect(dlg.getByRole('button', { name: 'Story image' })).toHaveCount(0); // owner only
+      // X2-008 (A0 PR #72): the prototype's four tiles for a visitor too (the owner's tile is the fan card)
+      expect(await dlg.locator('.ux-shgrid .ux-shbtn').allInnerTexts()).toEqual(['Copy link', 'Story image', 'More apps', 'Discord']);
       await dlg.getByRole('button', { name: 'Copy link' }).click();
       await expect(page.getByTestId('ux-toast')).toHaveText(/Link copied|Copy failed/);
       await page.keyboard.press('Escape');
+      expect(calls).toEqual([]);
+    });
+
+    test('visitor Story image: A0\'s default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write', async ({ page }) => {
+      const writes: string[] = [];
+      page.on('request', (r) => { if (!['GET', 'HEAD', 'OPTIONS'].includes(r.method())) writes.push(`${r.method()} ${r.url()}`); });
+      test.skip(!(await openPassport(page)), 'flag off or not served here');
+      const name = await page.locator('h1').innerText();
+      const trigger = page.getByRole('button', { name: 'Share passport' });
+      const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: /passport/ });
+
+      // No file sharing (desktop browsers): a local download of the drawn card.
+      await page.evaluate(() => { Object.defineProperty(navigator, 'canShare', { value: () => false, configurable: true }); });
+      await trigger.click();
+      await expect(dlg).toBeVisible();
+      const [download] = await Promise.all([page.waitForEvent('download', { timeout: 30_000 }), dlg.getByRole('button', { name: 'Story image' }).click()]);
+      expect(download.suggestedFilename()).toBe('kpopquiz-story.png');
+      const png = fs.readFileSync((await download.path())!);
+      expect(png.subarray(1, 4).toString('latin1'), 'a PNG').toBe('PNG');
+      expect([png.readUInt32BE(16), png.readUInt32BE(20)], '1080 x 1920').toEqual([1080, 1920]);
+      await expect(page.getByTestId('ux-toast')).toHaveText('Story image saved');
+      await page.keyboard.press('Escape');
+      await expect(dlg).toBeHidden();
+
+      // File sharing (phones): the same card goes to navigator.share as a file, no download.
+      await page.evaluate(() => {
+        const w = window as unknown as { __p10Shares: unknown[] };
+        w.__p10Shares = [];
+        Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true });
+        Object.defineProperty(navigator, 'share', {
+          configurable: true,
+          value: async (d: ShareData) => {
+            const f = d.files?.[0];
+            const size = f ? await createImageBitmap(f).then((b) => [b.width, b.height]) : [];
+            w.__p10Shares.push({ file: f ? [f.name, f.type, size] : null, url: d.url ?? null, title: d.title ?? null });
+          },
+        });
+      });
+      let downloads = 0;
+      page.on('download', () => { downloads++; });
+      await trigger.click();
+      await expect(dlg).toBeVisible();
+      await dlg.getByRole('button', { name: 'Story image' }).click();
+      await expect.poll(() => page.evaluate(() => (window as unknown as { __p10Shares: unknown[] }).__p10Shares.length), { timeout: 30_000 }).toBe(1);
+      await dlg.getByRole('button', { name: 'More apps' }).click();
+      await expect.poll(() => page.evaluate(() => (window as unknown as { __p10Shares: unknown[] }).__p10Shares.length), { timeout: 30_000 }).toBe(2);
+      const shares = await page.evaluate(() => (window as unknown as { __p10Shares: unknown[] }).__p10Shares);
+      const title = `Share ${name}'s passport`;
+      expect(shares).toEqual([
+        { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], url: null, title },
+        { file: ['kpopquiz-story.png', 'image/png', [1080, 1920]], url: expect.stringMatching(new RegExp(`/u/${USER}$`)), title },
+      ]);
+      expect(downloads, 'no download when the file is shared').toBe(0);
+      await page.keyboard.press('Escape');
+      expect(writes, 'no network write').toEqual([]);
       expect(calls).toEqual([]);
     });
 
