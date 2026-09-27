@@ -460,6 +460,54 @@ test.describe('kit interactions', () => {
     expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
   });
 
+  // P2 request 4: `showValue={false}` keeps the trigger at its label once a value is
+  // picked (prototype #quizzes: `ddPick` never renames the trigger there, the chip shows
+  // the pick), so the three menus keep their width and stay on one line at 390. The
+  // pick stays in the accessible name. The default (hub and group filters) is unchanged.
+  test('dropdown showValue={false}: the trigger keeps its label and width; the chip shows the pick', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const box = page.locator('[data-kit="keep-label"]');
+    const triggers = box.locator('button.ux-dd');
+    await expect(triggers).toHaveCount(3);
+    const read = (): Promise<{ text: string; name: string | null; w: number; top: number }[]> => triggers.evaluateAll((els) => els.map((b) => {
+      const r = b.getBoundingClientRect();
+      return { text: (b as HTMLElement).innerText.trim(), name: b.getAttribute('aria-label'), w: r.width, top: r.top };
+    }));
+
+    const picked = await read();
+    expect(picked.map((t) => t.text), 'visible text = the label only').toEqual(['Type', 'Level', 'Group']);
+    await expect(box.getByRole('button', { name: 'Type: True/false' })).toHaveAttribute('aria-haspopup', 'menu');
+    await expect(box.getByRole('button', { name: 'Level: Hard' })).toBeVisible();
+    await expect(box.getByRole('button', { name: 'Group: Stray Kids' })).toBeVisible();
+    expect(new Set(picked.map((t) => Math.round(t.top))).size, `one line at ${widthOf(page)}px`).toBe(1);
+    const chips = box.getByRole('group', { name: 'Active filters (kept labels)' });
+    for (const c of ['True/false', 'Hard', 'Stray Kids']) await expect(chips.getByRole('button', { name: `Remove filter ${c}` })).toBeVisible();
+
+    // Removing the picks changes neither the text nor the width of the triggers.
+    for (const c of ['True/false', 'Hard', 'Stray Kids']) await chips.getByRole('button', { name: `Remove filter ${c}` }).click();
+    await expect(chips.getByRole('button')).toHaveCount(0);
+    const clear = await read();
+    expect(clear.map((t) => [t.text, t.name])).toEqual([['Type', null], ['Level', null], ['Group', null]]);
+    clear.forEach((t, i) => expect(Math.abs(t.w - picked[i]!.w), `${t.text} width with and without a pick`).toBeLessThanOrEqual(0.01));
+
+    // Picking from the menu: the item is checked, the chip appears, the trigger text stays.
+    await box.getByRole('button', { name: 'Type' }).click();
+    await page.getByRole('menuitemradio', { name: 'Image' }).click();
+    await expect(chips.getByRole('button', { name: 'Remove filter Image' })).toBeVisible();
+    const typeBtn = box.getByRole('button', { name: 'Type: Image' });
+    await expect(typeBtn).toHaveText('Type');
+    await expect(typeBtn).toBeFocused();
+    await typeBtn.click();
+    await expect(page.getByRole('menuitemradio', { name: 'Image' })).toHaveAttribute('aria-checked', 'true');
+    await page.keyboard.press('Escape');
+
+    // Default (showValue unset, the P3 hub's look): the pick is written into the trigger.
+    const dflt = page.locator('[data-kit="controls"] > .ux-kit-row button.ux-dd').first();
+    await expect(dflt).toHaveText('Type: True/false');
+    await expect(dflt).not.toHaveAttribute('aria-label');
+    await expect(dflt.locator('b')).toHaveText('True/false');
+  });
+
   // X1-003: the account menu's "My quizzes" opens the personal passport's Quizzes tab
   // (P10's #p10-panel-quizzes deep link, prototype `go('you');ptab('quizzes')`) and,
   // like the prototype's `<small>1 draft</small>`, counts the create draft kept on

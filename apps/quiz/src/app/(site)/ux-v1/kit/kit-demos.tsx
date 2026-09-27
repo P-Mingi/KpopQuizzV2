@@ -78,6 +78,36 @@ export function KitControls(): React.ReactElement {
           <Chip href="/groups" icon="users">Link chip</Chip>
         </Chips>
       </div>
+      <KitKeepLabel />
+    </div>
+  );
+}
+
+/** P2 request 4: filter menus that keep their label (`showValue={false}`, prototype
+ *  #quizzes); the pick shows as a removable chip only. */
+function KitKeepLabel(): React.ReactElement {
+  const TYPES = [{ value: 'classic', label: 'Classic' }, { value: 'tf', label: 'True/false' }, { value: 'image', label: 'Image' }];
+  const LEVELS = [{ value: 'easy', label: 'Easy' }, { value: 'medium', label: 'Medium' }, { value: 'hard', label: 'Hard' }];
+  const GROUPS = [{ value: 'bts', label: 'BTS' }, { value: 'stray-kids', label: 'Stray Kids' }, { value: 'twice', label: 'TWICE' }];
+  const [type, setType] = useState<string | null>('tf');
+  const [level, setLevel] = useState<string | null>('hard');
+  const [group, setGroup] = useState<string | null>('stray-kids');
+  const name = (list: { value: string; label: string }[], v: string): string => list.find((o) => o.value === v)?.label ?? v;
+  return (
+    <div data-kit="keep-label" style={{ marginTop: 20 }}>
+      <span className="ux-kit-label">Filter menus that keep their label (the chips show the picks)</span>
+      <div className="ux-kit-row">
+        <UxDropdown label="Type" value={type} options={TYPES} onChange={setType} showValue={false} />
+        <UxDropdown label="Level" value={level} options={LEVELS} onChange={setLevel} showValue={false} />
+        <UxDropdown label="Group" value={group} options={GROUPS} onChange={setGroup} showValue={false} />
+      </div>
+      <div className="ux-kit-row">
+        <Chips label="Active filters (kept labels)">
+          {type ? <Chip filter onRemove={() => setType(null)}>{name(TYPES, type)}</Chip> : null}
+          {level ? <Chip filter onRemove={() => setLevel(null)}>{name(LEVELS, level)}</Chip> : null}
+          {group ? <Chip filter onRemove={() => setGroup(null)}>{name(GROUPS, group)}</Chip> : null}
+        </Chips>
+      </div>
     </div>
   );
 }

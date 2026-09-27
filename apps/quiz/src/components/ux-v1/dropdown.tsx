@@ -28,16 +28,22 @@ interface UxDropdownProps {
    *  (a page's own router, e.g. one that also moves focus). Modified clicks keep the
    *  browser's behaviour. */
   onNavigate?: ((href: string, value: string) => void) | undefined;
+  /** Trigger text once a value is picked. true (default): "Type: <b>True/false</b>"
+   *  (prototype hub and group filters, `ddPick` outside #quizzes). false: the trigger
+   *  keeps its label and the page shows the pick as a removable chip (prototype
+   *  #quizzes); the pick stays in the trigger's accessible name ("Type: True/false"). */
+  showValue?: boolean | undefined;
   className?: string | undefined;
 }
 
 /**
  * Filter dropdown (44px pill + menu of radio items). Picking adds a removable chip
- * on the page (the page owns the chips). aria-haspopup=menu + aria-expanded (16.9).
+ * on the page (the page owns the chips); `showValue={false}` keeps the trigger at its
+ * label so the chip alone shows the pick. aria-haspopup=menu + aria-expanded (16.9).
  * Options with an `href` are `<a role="menuitemradio" aria-checked>` links (Space
  * and Enter pick, like the button items); an optional count sits on the right.
  */
-export function UxDropdown({ label, value, options, onChange, onNavigate, className }: UxDropdownProps): React.ReactElement {
+export function UxDropdown({ label, value, options, onChange, onNavigate, showValue = true, className }: UxDropdownProps): React.ReactElement {
   const current = options.find((o) => o.value === value);
   return (
     <UxPopover
@@ -46,8 +52,13 @@ export function UxDropdown({ label, value, options, onChange, onNavigate, classN
       label={label}
       className="ux-ddpop"
       trigger={(p) => (
-        <button type="button" className={['ux-dd', className ?? ''].filter(Boolean).join(' ')} {...p}>
-          {current ? <span>{label}: <b>{current.label}</b></span> : <span>{label}</span>}
+        <button
+          type="button"
+          className={['ux-dd', className ?? ''].filter(Boolean).join(' ')}
+          {...p}
+          aria-label={current && !showValue ? `${label}: ${current.label}` : undefined}
+        >
+          {current && showValue ? <span>{label}: <b>{current.label}</b></span> : <span>{label}</span>}
           <Icon name="chev" />
         </button>
       )}
