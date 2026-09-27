@@ -82,6 +82,35 @@ export function KitControls(): React.ReactElement {
   );
 }
 
+/** P2 request 4: filter menus that keep their label (`showValue={false}`, prototype
+ *  #quizzes); the pick shows as a removable chip only. */
+export function KitKeepLabel(): React.ReactElement {
+  const TYPES = [{ value: 'classic', label: 'Classic' }, { value: 'tf', label: 'True/false' }, { value: 'image', label: 'Image' }];
+  const LEVELS = [{ value: 'easy', label: 'Easy' }, { value: 'medium', label: 'Medium' }, { value: 'hard', label: 'Hard' }];
+  const GROUPS = [{ value: 'bts', label: 'BTS' }, { value: 'stray-kids', label: 'Stray Kids' }, { value: 'twice', label: 'TWICE' }];
+  const [type, setType] = useState<string | null>('tf');
+  const [level, setLevel] = useState<string | null>('hard');
+  const [group, setGroup] = useState<string | null>('stray-kids');
+  const name = (list: { value: string; label: string }[], v: string): string => list.find((o) => o.value === v)?.label ?? v;
+  return (
+    <div data-kit="keep-label" style={{ marginTop: 20 }}>
+      <span className="ux-kit-label">Filter menus that keep their label (the chips show the picks)</span>
+      <div className="ux-kit-row">
+        <UxDropdown label="Type" value={type} options={TYPES} onChange={setType} showValue={false} />
+        <UxDropdown label="Level" value={level} options={LEVELS} onChange={setLevel} showValue={false} />
+        <UxDropdown label="Group" value={group} options={GROUPS} onChange={setGroup} showValue={false} />
+      </div>
+      <div className="ux-kit-row">
+        <Chips label="Active filters (kept labels)">
+          {type ? <Chip filter onRemove={() => setType(null)}>{name(TYPES, type)}</Chip> : null}
+          {level ? <Chip filter onRemove={() => setLevel(null)}>{name(LEVELS, level)}</Chip> : null}
+          {group ? <Chip filter onRemove={() => setGroup(null)}>{name(GROUPS, group)}</Chip> : null}
+        </Chips>
+      </div>
+    </div>
+  );
+}
+
 export function KitForms(): React.ReactElement {
   const [on, setOn] = useState(true);
   const [off, setOff] = useState(false);
@@ -146,6 +175,7 @@ export function KitSheets(): React.ReactElement {
   const openSearch = useUxSearch();
   const toast = useUxToast();
   const [share, setShare] = useState(false);
+  const [shareQuiz, setShareQuiz] = useState(false);
   const [header, setHeader] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const shareProps = {
@@ -160,11 +190,21 @@ export function KitSheets(): React.ReactElement {
       <div className="ux-kit-row">
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="signin" onClick={() => openSignIn({ title: 'Sign in to publish', sub: 'Your quiz needs an owner so you can edit it and see its plays. Your draft is kept.', action: { id: 'kit-demo' } })}>Open sign-in</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="share" onClick={() => setShare(true)}>Open share</button>
+        <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="share-default" onClick={() => setShareQuiz(true)}>Open share (default story)</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="header" onClick={() => setHeader(true)}>Open header picture</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="confirm" onClick={() => setConfirm(true)}>Open confirm</button>
         <button type="button" className="ux-btn ux-btn-ghost" data-kit-open="search" onClick={openSearch}>Open search</button>
       </div>
       <ShareSheet open={share} onClose={() => setShare(false)} {...shareProps} onStoryImage={() => toast('Saves a 1080 x 1920 story image')} />
+      {/* X2-008: no onStoryImage, so the sheet draws the story card from its preview */}
+      <ShareSheet
+        open={shareQuiz}
+        onClose={() => setShareQuiz(false)}
+        title="Share this quiz"
+        preview={{ image: '/idols/BTS.jpg', line1: 'Ultimate BTS era quiz - only real ARMYs survive', line2: '2,375 plays · average 52%' }}
+        url="https://kpopquiz.org/q/ultimate-bts-era-quiz-only-real-armys-survive"
+        text="Ultimate BTS era quiz - only real ARMYs survive"
+      />
       <HeaderPictureSheet
         open={header}
         onClose={() => setHeader(false)}

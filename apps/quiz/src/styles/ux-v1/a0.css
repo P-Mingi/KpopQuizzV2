@@ -526,12 +526,21 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   .ux-fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ux-medals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+/* X2-001: the legacy phone rule `body { padding-bottom: 72px }` (globals.css, room for the
+   legacy tab bar, up to 767px) stacked with .ux-app's 64px: 136px under the footer. With the
+   v11 tab bar in the page, .ux-app alone keeps the room (prototype: 64px, none in focus and
+   create). globals.css is untouched: flag off keeps its 72px. */
+@media (max-width: 767px) {
+  html.ux-v1 body:has(.ux-tabbar) { padding-bottom: 0; }
+}
 @media (max-width: 760px) {
   .ux-links, .ux-nav-create, .ux-avabtn { display: none !important; }
   .ux-nav-in { gap: 12px; }
   .ux-tabbar { display: block; }
   .ux-app { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   html.ux-focus .ux-app, .ux-app:has(.ux-page[data-shell="focus"]), .ux-app:has(.ux-page[data-shell="create"]) { padding-bottom: 0; }
+  /* X2-001: routes that keep the legacy tab bar (Verse, builder) keep the legacy body padding instead */
+  .ux-app:not(:has(.ux-tabbar)) { padding-bottom: 0; }
   .ux-pg { padding-top: 28px; padding-bottom: 64px; }
   .ux-sec, .ux-sec.ux-sec-lg { margin-top: 48px; }
   .ux-ph h1, .ux-h1 { font-size: 26px; }
