@@ -1,0 +1,29 @@
+# FAQ accordion: prototype #hub 'Questions fans ask' vs /quizzes FAQ; computed-style differences listed (none = equal); boxes differ by text length
+== 1440 light
+h2 proto 680x26 impl 720x26 margin-top: 56px -> 0px
+acc proto 680x102.8 impl 720x127.5 
+acc2 proto 680x57 impl 720x57 
+sum proto 680x56 impl 720x56 
+ico proto 20x20 impl 20x20 
+ab proto 586.7x44.8 impl 586.7x69.5 
+== 1440 dark
+h2 proto 680x26 impl 720x26 margin-top: 56px -> 0px
+acc proto 680x102.8 impl 720x127.5 
+acc2 proto 680x57 impl 720x57 
+sum proto 680x56 impl 720x56 
+ico proto 20x20 impl 20x20 
+ab proto 586.7x44.8 impl 586.7x69.5 
+== 390 light
+h2 proto 350x26 impl 350x26 margin-top: 56px -> 0px
+acc proto 350x121.9 impl 350x177 
+acc2 proto 350x57 impl 350x57 
+sum proto 350x75.2 impl 350x56 
+ico proto 20x20 impl 20x20 
+ab proto 350x44.8 impl 350x119 
+== 390 dark
+h2 proto 350x26 impl 350x26 margin-top: 56px -> 0px
+acc proto 350x121.9 impl 350x177 
+acc2 proto 350x57 impl 350x57 
+sum proto 350x75.2 impl 350x56 
+ico proto 20x20 impl 20x20 
+ab proto 350x44.8 impl 350x119 
