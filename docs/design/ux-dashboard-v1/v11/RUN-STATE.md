@@ -16,7 +16,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P3 | ux11/p3-groups | X1-005 + X2-004 merged (00728c6, PR #69, branch ux11/p3-fix2) | f8b7693 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | X1-002 comment hearts + Reply DONE LOCALLY on ux11/p4-fix3 (push refused by the permission check; waits for the owner) | 9a9bd04 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | X2-009 done state merged (PR #70, branch ux11/p5-fix2) | 9f4b342 | 0 | v11/reports/P5.md |
-| P6 | ux11/p6-blindtest | X1-001 fixed and merged (9fd6cbe, PR #67, branch ux11/p6-fix2) | 5031782 | 0 | v11/reports/P6.md |
+| P6 | ux11/p6-blindtest | X1-001 (PR #67) + X2-006/005 (PR #71, branch ux11/p6-fix3) merged | a3f4c48 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 P6 fix 3 merged: share sheet "Share your blindtest" + challenge link block (one challenge link per run, created when the sheet opens, same POST body as P4's), results kicker names the run; build-time hub reads get 30 s so a loaded build keeps its 79 group links.
 - 2026-09-27 P5 fix 2 merged: create done state = prototype (It's live, sentence, full-width stacked buttons on phones). To check in the final pass (P5 observation): in DEV the flag-off /create HTML lists the v11 create chunk and A0's shell chunk as async scripts (nothing renders); confirm the flag-off PRODUCTION build does not load them (A0 proved less flag-off JS on production for other pages).
 - 2026-09-27 P3 fix 2 merged (00728c6): the open-space empty door opens the thread editor (/community?compose=thread; P8's composer cannot preselect a group), the members row uses the prototype's rail (one scrolling line). unit 855/855, tsc 0. P11 started on X2-010.
 - 2026-09-27 X2 strict visual audit done (v11/AUDIT-X2.md): 38 capture states + 33 extra prototype states: 0 blockers, 3 should (X2-001 A0: 136px under the footer at 390 instead of 64; X2-006 P6: blindtest share sheet title, no Challenge block; X2-009 P5: create done state lacks It's live), 8 nits (P1 X2-002/007, P3 X2-003 owner copy/X2-004, P6 X2-005, P11 X2-010, shared Story tile X2-008, A0 X2-011). /quizzes matches within decisions A and B. P10 guest passport merged (827803b). P4 comment hearts + Reply done but its push was refused: third branch waiting for the owner. Dispatched: A0 (X2-001, X2-008 default story tile, P10 request 3), P3 (X2-004), P6 (X2-006, X2-005), P5 (X2-009); P1 (X2-002, X2-007) and P11 (X2-010) next.
