@@ -21,7 +21,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P8 | ux11/p8-community | fix loop 1 merged (249efd4, PR #58): C3-007 | c4d82b1 | 0 | v11/reports/P8.md |
 | P9 | ux11/p9-leaderboard | merged (8756aaa, PR #54) | 75d7ac3 | 0 | v11/reports/P9.md |
 | P10 | ux11/p10-passport | X1-004 guest passport merged (827803b, PR #68, branch ux11/p10-fix2) | 85d50df | 0 | v11/reports/P10.md |
-| P11 | ux11/p11-notifications | merged (6b17e0e, PR #53); overlay + bell e2e skip until A0 swaps the slots | c4027ef | 0 | v11/reports/P11.md |
+| P11 | ux11/p11-notifications | X2-010 merged (PR #73, branch ux11/p11-fix1) | 3c71ea6 | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
 | C3 | ux11/c3-check | DONE locally, REPORT.md final (unpublished: waits for the owner) | e464a46 | - | v11/REPORT.md |
@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 P11 fix merged: the unread line follows the active filter. P11 reported that a flag-off Playwright error once printed the test user's session cookie into a scratch log; it deleted the log; ORCH scanned the scratchpad, the P11 worktree and the PR diff: no cookie left.
 - 2026-09-27 A0 fix round 3 merged (2e54e48): 64px under the phone footer (a0.css only), default 1080x1920 Story tile in every ShareSheet, the You tab follows its href for guests, UxDropdown showValue={false}, My quizzes opens the passport Quizzes tab with a local draft count. unit 865/865, tsc 0. Follow-ups: P10 (p10.spec story-tile expectation + list the local draft in the Quizzes tab, branch ux11/p10-fix3), P2 local (merge integration + showValue={false}).
 - 2026-09-27 P6 fix 3 merged: share sheet "Share your blindtest" + challenge link block (one challenge link per run, created when the sheet opens, same POST body as P4's), results kicker names the run; build-time hub reads get 30 s so a loaded build keeps its 79 group links.
 - 2026-09-27 P5 fix 2 merged: create done state = prototype (It's live, sentence, full-width stacked buttons on phones). To check in the final pass (P5 observation): in DEV the flag-off /create HTML lists the v11 create chunk and A0's shell chunk as async scripts (nothing renders); confirm the flag-off PRODUCTION build does not load them (A0 proved less flag-off JS on production for other pages).
