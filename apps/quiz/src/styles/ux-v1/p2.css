@@ -20,8 +20,11 @@
 /* sort (A0 Segmented links) + Type / Level / Group (A0 UxDropdown link menus) */
 .p2-ctl { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 .p2-dds { display: flex; gap: 8px; flex-wrap: wrap; }
-/* the last menu (Group) opens right-aligned, so it stays inside a 390 screen */
-.p2-dds > .ux-dd-wrap:last-child > .ux-ddpop { left: auto; right: 0; }
+/* menus open left-aligned under their trigger, shifted left to stay 16px inside the
+   window (the prototype's ddOpen clamp; the shift is measured by P2Controls) */
+.p2-dds > .ux-dd-wrap:nth-child(1) > .ux-ddpop { left: var(--p2-pop-0, 0px); }
+.p2-dds > .ux-dd-wrap:nth-child(2) > .ux-ddpop { left: var(--p2-pop-1, 0px); }
+.p2-dds > .ux-dd-wrap:nth-child(3) > .ux-ddpop { left: var(--p2-pop-2, 0px); }
 /* the count keeps the regular weight in the checked (600) item */
 .p2-dds .ux-mi small { font-weight: 400; }
 

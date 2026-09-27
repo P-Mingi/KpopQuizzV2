@@ -232,7 +232,7 @@ for (const theme of THEMES) {
       expect(writes).toEqual([]);
     });
 
-    test('sort links and the Group menu (right aligned, inside the viewport)', async ({ page }) => {
+    test('sort links and the Group menu (under its trigger, inside the viewport)', async ({ page }) => {
       const writes = await setup(page, theme);
       test.skip(!(await openQuizzes(page)), 'UX v1 flag is OFF on this build');
 
@@ -253,9 +253,14 @@ for (const theme of THEMES) {
       const bands = groups.filter((g) => g.label !== 'General K-pop');
       expect(bands.map((g) => g.count)).toEqual([...bands.map((g) => g.count)].sort((a, b) => b - a));
       if (groups.some((g) => g.label === 'General K-pop')) expect(groups[groups.length - 1]!.label).toBe('General K-pop');
+      // The prototype's placement: left edge = min(trigger left, window width - 216), 6px below.
+      await page.waitForTimeout(250); // the menu's open transition (scale) settles
       const box = await menu(page, 'p2-dd-group').boundingBox();
+      const trig = await page.locator('.p2-dd-group').boundingBox();
       expect(box!.x).toBeGreaterThanOrEqual(0);
-      expect(box!.x + box!.width).toBeLessThanOrEqual(widthOf(page));
+      expect(box!.x + box!.width).toBeLessThanOrEqual(widthOf(page) - 15);
+      expect(Math.abs(box!.x - Math.min(trig!.x, widthOf(page) - 216))).toBeLessThanOrEqual(2);
+      expect(Math.abs(box!.y - (trig!.y + trig!.height + 6))).toBeLessThanOrEqual(2);
       const bts = groups.find((g) => g.label === 'BTS')!;
       expect(bts.href).toBe('/quizzes?group=bts&sort=newest');
       await menu(page, 'p2-dd-group').getByRole('menuitemradio', { name: /^BTS/ }).click();

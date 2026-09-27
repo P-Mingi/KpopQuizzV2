@@ -28,6 +28,10 @@ export interface P2LinkOption {
   count?: number | null | undefined;
 }
 
+/** Menu minimum width (A0 .ux-ddpop) and the gap it keeps to the window's right edge. */
+const POP_MIN = 200;
+const POP_EDGE = 16;
+
 interface ControlsProps {
   sort: P2LinkOption[];
   types: P2LinkOption[];
@@ -54,6 +58,32 @@ export function P2Controls({ sort, types, levels, groups, countsLive }: Controls
     }
   }, [sort]);
 
+  // Menus open under their trigger, left-aligned, and shift left just enough to stay
+  // 16px inside the window (the prototype's ddOpen: left = min(trigger left, width - 216)).
+  // The shift is a custom property on this row (--p2-pop-0..2), read by p2.css.
+  const dds = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const row = dds.current;
+    if (!row) return;
+    const place = (): void => {
+      const width = document.documentElement.clientWidth;
+      Array.from(row.children).forEach((wrap, i) => {
+        const pop = wrap.querySelector<HTMLElement>('.ux-ddpop');
+        const w = Math.max(POP_MIN, pop?.offsetWidth ?? 0);
+        const shift = Math.min(0, width - POP_EDGE - w - wrap.getBoundingClientRect().left);
+        row.style.setProperty(`--p2-pop-${i}`, `${Math.round(shift * 10) / 10}px`);
+      });
+    };
+    place();
+    const size = new ResizeObserver(place);
+    size.observe(row);
+    size.observe(document.documentElement);
+    // A menu wider than its minimum is measured when it opens.
+    const open = new MutationObserver(place);
+    open.observe(row, { attributes: true, attributeFilter: ['hidden'], subtree: true });
+    return () => { size.disconnect(); open.disconnect(); };
+  }, [types, levels, groups]);
+
   const menu = (facet: P2Facet, label: string, items: P2LinkOption[]): React.ReactElement => (
     <UxDropdown
       label={label}
@@ -73,7 +103,7 @@ export function P2Controls({ sort, types, levels, groups, countsLive }: Controls
         options={sort.map((o) => ({ value: o.key, label: o.label, href: o.href }))}
         onNavigate={(href) => go(href)}
       />
-      <div className="p2-dds">
+      <div ref={dds} className="p2-dds">
         {menu('type', 'Type', types)}
         {menu('level', 'Level', levels)}
         {menu('group', 'Group', groups)}
