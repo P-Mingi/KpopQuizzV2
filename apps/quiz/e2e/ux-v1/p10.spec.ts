@@ -550,7 +550,9 @@ for (const theme of THEMES) {
 
     test('visitor Story image: A0\'s default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write', async ({ page }) => {
       const writes: string[] = [];
-      page.on('request', (r) => { if (!['GET', 'HEAD', 'OPTIONS'].includes(r.method())) writes.push(`${r.method()} ${r.url()}`); });
+      // every non-GET request of the page; `next dev`'s error overlay (/__nextjs_*, absent from
+      // production builds) posts stack frames when the busy database makes a read log an error
+      page.on('request', (r) => { if (!['GET', 'HEAD', 'OPTIONS'].includes(r.method()) && !new URL(r.url()).pathname.startsWith('/__nextjs_')) writes.push(`${r.method()} ${r.url()}`); });
       test.skip(!(await openPassport(page)), 'flag off or not served here');
       const name = await page.locator('h1').innerText();
       const trigger = page.getByRole('button', { name: 'Share passport' });
