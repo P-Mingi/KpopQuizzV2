@@ -8,7 +8,6 @@ import { useAnnounce } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useShellMode } from '@/components/ux-v1/use-shell-mode';
 
-import { BtChallengeLink } from './challenge-link';
 import { BtGame } from './game';
 import { ModeCtx, useMode } from './mode-context';
 import { BtResults } from './results';
@@ -64,12 +63,8 @@ export function BtModeController({ preset, shareUrl, children }: Props): React.R
         onAgain={() => { void run.startFree(run.pick, run.count); }}
         onBoard={run.quit}
         shareUrl={shareUrl}
-        challenge={(
-          <>
-            <BtChallengeLink run={run} />
-            <p className="p6-moremodes"><Link href="/blindtest">Try another mode</Link></p>
-          </>
-        )}
+        challengeLink
+        challenge={<p className="p6-moremodes"><Link href="/blindtest">Try another mode</Link></p>}
       />
     );
   } else body = <div className="ux-wrap ux-pg p6-hub p6-mode" data-live={live || undefined}>{children}</div>;

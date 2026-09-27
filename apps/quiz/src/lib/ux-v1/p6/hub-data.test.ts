@@ -104,6 +104,12 @@ describe('C3-009: a failed read is never cached', () => {
     await expect(mod.settle(() => Promise.resolve(7), 0)).resolves.toEqual({ value: 7, ok: true });
   });
 
+  it('the build prerender gets a 30 s read budget (the copy that ships), a request render 5 s', () => {
+    expect(mod.readBudgetMs({ NEXT_PHASE: 'phase-production-build' })).toBe(30_000);
+    expect(mod.readBudgetMs({ NEXT_PHASE: 'phase-production-server' })).toBe(5_000);
+    expect(mod.readBudgetMs({})).toBe(5_000);
+  });
+
   it('a production ISR regeneration with a failed read throws (Next keeps the last good copy); build and dev stay fail-soft', () => {
     expect(() => mod.keepLastGoodCopyOnFailure(['today'], { NODE_ENV: 'production', NEXT_PHASE: 'phase-production-server' })).toThrow('keeping the last good ISR copy');
     expect(() => mod.keepLastGoodCopyOnFailure(['today'], { NODE_ENV: 'production', NEXT_PHASE: 'phase-production-build' })).not.toThrow();

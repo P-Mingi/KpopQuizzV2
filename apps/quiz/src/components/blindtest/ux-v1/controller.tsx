@@ -10,7 +10,6 @@ import { hasPlayedDaily } from '@/lib/daily-played';
 import { challengeOutcome, CODE_RE } from '@/lib/ux-v1/p6/challenge';
 import { ALL_PICK, groupPick } from '@/lib/ux-v1/p6/playlists';
 
-import { BtChallengeLink } from './challenge-link';
 import { BtGame } from './game';
 import { HubCtx } from './hub-context';
 import { BtResults } from './results';
@@ -219,8 +218,9 @@ export function BtHubController({ groups, songs, children }: Props): React.React
         board={board}
         onAgain={() => { if (inChallenge) startChallenge(challenge); else void run.startFree(run.pick, run.count); }}
         onBoard={() => showBoard()}
+        kicker={inChallenge ? `Challenge from ${challenge.creatorName}` : undefined}
         slot={outcome ? <p className="p6-outcome"><b>{outcome.head}</b>{outcome.tail}</p> : undefined}
-        challenge={run.mode === 'free' ? <BtChallengeLink run={run} /> : undefined}
+        challengeLink={run.mode === 'free'}
       />
     );
   } else body = <div className="ux-wrap ux-pg p6-hub" data-live={live || undefined}>{children}</div>;

@@ -391,19 +391,32 @@ for (const theme of THEMES) {
       await play0.click();
       await expect(play0).toHaveAttribute('aria-pressed', 'false');
 
-      // Share sheet: real numbers, closes with Escape, focus returns.
+      // The card names the run (prototype btEnd kicker = the playlist of a free run, X2-005).
+      await expect(page.locator('.p6-kick')).toHaveText('All K-pop');
+
+      // Share sheet (prototype openShare('bt'), X2-006): title, real numbers, the Challenge
+      // link block with the run's link (minted when the sheet opens), Escape, focus returns.
       const share = page.getByRole('button', { name: 'Share', exact: true });
       await share.click();
       const dlg = page.locator('.ux-layer [role="dialog"]');
       await expect(dlg).toBeVisible();
-      await expect(dlg).toContainText('8/10 on the All K-pop blindtest');
+      await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+      await expect(dlg.locator('.ux-minicard')).toContainText('8/10 on the All K-pop blindtest');
+      await expect(dlg.locator('.ux-minicard p')).toHaveText(/^[\d,]+ points · best combo x3$/);
+      await expect(dlg.locator('.ux-flabel')).toHaveText('Challenge link They play your exact songs · 48 hours');
+      await expect(dlg.locator('.ux-urlbox span')).toHaveText(/\/blindtest\?c=KQ7P2X$/);
+      await expect(dlg.locator('.ux-urlbox').getByRole('button', { name: 'Copy' })).toBeVisible();
+      await expect(dlg.locator('.ux-help')).toHaveText('Anyone with the link can play until it expires.');
+      expect(h.created, 'one link for the run').toHaveLength(1);
       await page.keyboard.press('Escape');
       await expect(dlg).toBeHidden();
       await expect(share).toBeFocused();
 
-      // Challenge a friend: the payload is the run (no preview URLs), then the link shows.
-      await page.getByRole('button', { name: 'Copy link' }).click();
+      // Challenge a friend row: the same link (no second one), the payload is the run (no preview URLs).
       await expect(page.locator('.p6-link')).toContainText('/blindtest?c=KQ7P2X');
+      await page.getByRole('button', { name: 'Copy link' }).click();
+      await expect(page.getByTestId('ux-toast')).toHaveText(/^(Link copied|Copy failed)/);
+      expect(h.created, 'the row reuses the sheet\'s link').toHaveLength(1);
       const c = h.created.at(-1) as { playlist: string; score: number; total: number; questions: Record<string, unknown>[]; bestCombo: number; points: number };
       expect(c.playlist).toBe('all');
       expect(c.score).toBe(8);
@@ -562,7 +575,15 @@ for (const theme of THEMES) {
       const a = JSON.parse(h.writes.find((w) => w.url.includes('/api/ux-v1/p6/challenge/KQ7P2X/attempt'))!.body ?? '{}') as Record<string, number>;
       expect(a.score).toBe(6);
       expect(a.total).toBe(10);
+      // The card names the run: a challenge (X2-005). No new challenge link on a challenge result.
+      await expect(page.locator('.p6-kick')).toHaveText('Challenge from blink_edits');
       await expect(page.getByRole('button', { name: 'Copy link' })).toHaveCount(0);
+      await page.getByRole('button', { name: 'Share', exact: true }).click();
+      const dlg = page.locator('.ux-layer [role="dialog"]');
+      await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+      await expect(dlg.locator('.ux-urlbox')).toHaveCount(0);
+      await page.keyboard.press('Escape');
+      expect(h.created, 'no challenge link minted').toEqual([]);
       expect(h.generate, 'a challenge plays the frozen songs').toEqual([]);
     });
 
@@ -687,10 +708,16 @@ for (const theme of THEMES) {
         const axeRes = await runAxe(page, { include: '.p6-res' });
         if (axeRes) expect(axeRes, 'axe serious / critical on results').toEqual([]);
 
-        // Share = this page; Play again = the same body.
+        // The card names the run (X2-005); Share = this page with the run's challenge link
+        // (X2-006); Play again = the same body.
+        await expect(page.locator('.p6-kick')).toHaveText(m.label);
         await page.getByRole('button', { name: 'Share', exact: true }).click();
         const dlg = page.locator('.ux-layer [role="dialog"]');
         await expect(dlg).toBeVisible();
+        await expect(dlg.getByRole('heading', { name: 'Share your blindtest' })).toBeVisible();
+        await expect(dlg.locator('.ux-urlbox span')).toHaveText(/\/blindtest\?c=KQ7P2X$/);
+        expect(h.created).toHaveLength(1);
+        expect((h.created[0] as { playlist: string }).playlist).toBe(MODE_BODY[m.id]?.playlist ?? m.id.replace(/^group-/, ''));
         await page.keyboard.press('Escape');
         await expect(dlg).toBeHidden();
         const before = h.generate.length;

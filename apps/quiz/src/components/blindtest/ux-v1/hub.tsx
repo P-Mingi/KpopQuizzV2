@@ -4,7 +4,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
-import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
+import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, readBudgetMs, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import {
@@ -51,11 +51,12 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
   // keeps the last good copy instead of caching the fail-soft one.
   const db = hasDbEnv();
   const none = async <T,>(v: T): Promise<T> => v;
+  const budget = readBudgetMs();
   const [playlists, songs, popularity, today] = await Promise.all([
-    settle(db ? () => getPlayableGroups() : () => none<BtGroup[]>([]), [] as BtGroup[]),
-    settle(db ? () => getSongCount() : () => none(0), 0),
-    settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }),
-    settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0),
+    settle(db ? () => getPlayableGroups() : () => none<BtGroup[]>([]), [] as BtGroup[], budget),
+    settle(db ? () => getSongCount() : () => none(0), 0, budget),
+    settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }, budget),
+    settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0, budget),
   ]);
   const failed = [
     ...(playlists.ok ? [] : ['playlists']),

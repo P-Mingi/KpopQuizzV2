@@ -9,6 +9,8 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { ShareSheet } from '@/components/ux-v1/share-sheet';
 import { comma, scoreLabel, secs } from '@/lib/ux-v1/p6/points';
 
+import { BtChallengeLink, useBtChallengeLink } from './challenge-link';
+
 import type { RunApi } from './use-run';
 import type { BoardResponse } from '@/lib/ux-v1/p6/board-types';
 
@@ -26,27 +28,38 @@ export interface BtResultsProps {
   board: BoardResponse | null;
   onAgain: () => void;
   onBoard: () => void;
-  /** Kicker override (P7: "Ranked run · Season 3"). */
-  kicker?: string;
+  /** Kicker override (P7: "Ranked run · Season 3"; a challenge result: "Challenge from blink_edits"). */
+  kicker?: string | undefined;
   /** Between the card and the actions: P7's season impact block, a challenge win / lose sentence. */
   slot?: React.ReactNode;
   /** Primary action override (P7: "Play another ranked run"). */
   primary?: React.ReactNode;
-  /** Under the actions: the challenge link block. */
+  /** "Challenge a friend with these exact songs" (free runs): the results row AND the Share
+   *  sheet's Challenge link block, one link for the run (challenge-link.tsx). */
+  challengeLink?: boolean;
+  /** Under the actions (after the challenge row): the caller's own block. */
   challenge?: React.ReactNode;
   /** The Share link (default: the hub; a /blindtest/<mode> page shares itself). */
   shareUrl?: string;
 }
 
-export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary, challenge, shareUrl }: BtResultsProps): React.ReactElement {
+/** The Share sheet's challenge note (prototype #sh-ch, songs for a blindtest). */
+export const CHALLENGE_NOTE = 'They play your exact songs · 48 hours';
+
+export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary, challengeLink = false, challenge, shareUrl }: BtResultsProps): React.ReactElement {
   const [share, setShare] = useState(false);
   const [playing, setPlaying] = useState<number | null>(null);
+  const link = useBtChallengeLink(run);
   const { questions, answers, summary, mode, pick, daily } = run;
   const n = questions.length;
   const score = summary.correct;
   const label = scoreLabel(score, n);
   const good = n > 0 && score / n >= 0.6;
   const title = mode === 'daily' ? 'Blindtest of the day' : `${pick.label} blindtest`;
+  // The card names the run (prototype btEnd: B_.label): the playlist of a free run, the
+  // daily, or the caller's kicker (a challenge result, a ranked run).
+  const kick = kicker ?? (mode === 'daily' ? 'Blindtest of the day' : pick.label);
+  const shareChallenge = challengeLink && link.url ? { challenge: { url: link.url, note: CHALLENGE_NOTE } } : {};
 
   // Stop the preview when leaving the results.
   const { stopClip, isPlaying } = run;
@@ -87,7 +100,7 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
       <h1 className="ux-sr">{score}/{n} on the {title}</h1>
       <div className="p6-btcard">
         <Mascot variant={good ? 'celebrate' : 'sad'} size={76} alt="" className="p6-msc" />
-        <div className="p6-kick">{kicker ?? title}</div>
+        <div className="p6-kick">{kick}</div>
         <div className="p6-s ux-num">{score}<small>/{n}</small></div>
         <div className="p6-l">{label} · {comma(summary.points)} points</div>
         <div className="ux-stats3 p6-stats3">
@@ -104,9 +117,11 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
         {primary ?? (mode === 'daily'
           ? <UxButton size="lg" icon="trophy" onClick={onBoard}>See today&apos;s board</UxButton>
           : <UxButton size="lg" icon="redo" onClick={onAgain}>Play again</UxButton>)}
-        <UxButton size="lg" variant="ghost" icon="share" onClick={() => setShare(true)}>Share</UxButton>
+        {/* Opening the sheet mints the run's challenge link for its block (like P4's result sheet). */}
+        <UxButton size="lg" variant="ghost" icon="share" onClick={() => { setShare(true); if (challengeLink) void link.create(); }}>Share</UxButton>
       </div>
 
+      {challengeLink ? <BtChallengeLink run={run} link={link} /> : null}
       {challenge}
 
       <section className="ux-sec" aria-labelledby="p6-songs-h">
@@ -148,10 +163,11 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
       <ShareSheet
         open={share}
         onClose={() => setShare(false)}
-        title="Share your score"
-        preview={{ image: questions[0]?.reveal.cover ?? null, line1: `${score}/${n} on the ${title}`, line2: `${label} · ${comma(summary.points)} points` }}
+        title="Share your blindtest"
+        preview={{ image: questions[0]?.reveal.cover ?? null, line1: `${score}/${n} on the ${title}`, line2: `${comma(summary.points)} points · best combo x${summary.bestStreak}` }}
         url={shareUrl ?? `${SITE}/blindtest`}
         text={shareText}
+        {...shareChallenge}
       />
     </div>
   );
