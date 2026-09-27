@@ -67,25 +67,34 @@ export function getTagStyle(category: 'type' | 'difficulty' | 'group', value?: s
 
 export type UxThemeTokens = Record<string, string>;
 
+// Owner request 2026-09-27 (A0 fix 5), light only: the page ground is the live
+// site's warm --bg; white fills that sat on the prototype's white page use `paper`
+// (and `card-fill` for the bordered text card); the tab bar keeps the white glass
+// (`tabbar-bg`) while the top nav takes the warm one; surface / surface-2 keep the
+// prototype's step from the ground; pink-ink and the flair words are re-clamped to AA.
 export const UX_TOKENS_LIGHT: UxThemeTokens = {
-  page: '#FFFFFF', surface: '#F7F6F4', 'surface-2': '#F0EEEA', raised: '#FFFFFF',
+  page: '#FAF8F5', surface: '#F1EFEA', 'surface-2': '#EAE7E1', raised: '#FFFFFF',
+  paper: '#FFFFFF', 'card-fill': '#FFFFFF',
+  'nav-bg': 'rgba(250,248,245,.86)', 'tabbar-bg': 'rgba(255,255,255,.86)',
   hair: '#ECE9E4', line: '#ECE8E3', 'line-2': '#F3F1EE', edge: '#E5E0DA', 'pink-line': '#F2CFDB',
   input: '#8C857C',
   ink: '#1F1B17', muted: '#6B655E',
-  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#C93868',
+  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#C43565',
   'pink-soft': '#FCE8EF', 'pink-soft-ink': '#B3305C',
   ok: '#257547', 'ok-soft': '#E9F4EC', no: '#B83A34', 'no-soft': '#FBECEA', warn: '#9A5B0F',
   'on-ok': '#FFFFFF', 'knob-off': '#FFFFFF',
   'qotd-edge': '#F4D6E1', 'lav-soft': '#EEEDFE', 'lav-ink': '#3C3489', hl: '#DB4B7E',
   bulb: '#E0A100', 'bulb-fill': '#FFE9A6', 'theme-band': '#FBE4D8',
   // name accents of lib/passport-flair.ts, clamped to AA on every light ground
-  'acc-pink': '#BC3863', 'acc-purple': '#665FB1', 'acc-blue': '#2B6CAC', 'acc-teal': '#167859', 'acc-amber': '#975D08', 'acc-coral': '#B14A27',
+  'acc-pink': '#B83761', 'acc-purple': '#655DB0', 'acc-blue': '#2A6AAA', 'acc-teal': '#167658', 'acc-amber': '#945B08', 'acc-coral': '#AD4926',
   // rarity words (lib/badges.ts RARITY_COLOR), clamped to AA on light grounds
-  'rar-common': '#646A78', 'rar-uncommon': '#19793F', 'rar-rare': '#2F67C2', 'rar-epic': '#8B47CD', 'rar-legendary': '#896200',
+  'rar-common': '#626876', 'rar-uncommon': '#19773E', 'rar-rare': '#2E66BF', 'rar-epic': '#8944CC', 'rar-legendary': '#886100',
 };
 
 export const UX_TOKENS_DARK: UxThemeTokens = {
   page: '#141312', surface: '#1C1B19', 'surface-2': '#232120', raised: '#1C1B19',
+  paper: '#141312', 'card-fill': 'transparent',
+  'nav-bg': 'rgba(20,19,18,.84)', 'tabbar-bg': 'rgba(20,19,18,.84)',
   hair: '#2F2C29', line: '#2B2826', 'line-2': '#242220', edge: '#35312E', 'pink-line': '#4A2A37',
   input: '#6E6A64',
   ink: '#F3F0EB', muted: '#A8A198',

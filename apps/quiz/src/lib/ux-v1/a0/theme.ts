@@ -8,6 +8,11 @@ import { useEffect, useState } from 'react';
 
 export type ThemeChoice = 'system' | 'light' | 'dark';
 
+/** Browser chrome colour per theme = the v11 page ground (`--ux-page`; light is the
+ *  live site's warm #FAF8F5 since the owner request of 2026-09-27, the same value the
+ *  root layout's server `themeColor` already sends). a0.test.ts keeps it in sync. */
+export const THEME_COLOR = { light: '#FAF8F5', dark: '#141312' } as const;
+
 export function effectiveTheme(): 'light' | 'dark' {
   if (typeof document === 'undefined') return 'light';
   const c = document.documentElement.classList;
@@ -37,7 +42,7 @@ export function applyTheme(choice: ThemeChoice): void {
     else localStorage.setItem('theme', choice);
   } catch { /* storage blocked: applies for this session */ }
   if (choice !== 'system') root.classList.add(choice);
-  const color = effectiveTheme() === 'dark' ? '#141312' : '#FFFFFF';
+  const color = THEME_COLOR[effectiveTheme()];
   document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', color));
 }
 

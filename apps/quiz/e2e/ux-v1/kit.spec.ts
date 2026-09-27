@@ -43,9 +43,10 @@ for (const theme of THEMES) {
       await expect(page.locator('h1')).toHaveCount(1);
       expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);
 
-      // Both theme panes render their own tokens whatever the page theme is.
+      // Both theme panes render their own tokens whatever the page theme is (light = the
+      // warm ground of the owner request of 2026-09-27, A0 fix 5).
       const panes = await page.evaluate(() => ['light', 'dark'].map((t) => getComputedStyle(document.querySelector(`[data-kit-pane="${t}"]`) as HTMLElement).backgroundColor));
-      expect(panes).toEqual(['rgb(255, 255, 255)', 'rgb(20, 19, 18)']);
+      expect(panes).toEqual(['rgb(250, 248, 245)', 'rgb(20, 19, 18)']);
 
       const w = widthOf(page);
       const lm = A0_LANDMARKS.filter((l) => !['.nav', '.links a.on'].includes(l.proto));
@@ -64,6 +65,34 @@ for (const theme of THEMES) {
       if (axe) expect(axe, 'axe serious / critical on the kit').toEqual([]);
 
       await info.attach(`kit-${w}-${theme}.png`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+    });
+
+    // Owner request of 2026-09-27 (A0 fix 5, owner-approved deviation): light page
+    // ground = the live site's warm #FAF8F5 with a warm nav glass; cards, panels,
+    // sheets, inputs and the tab bar stay white; surface fills keep their step. Dark:
+    // every value as before.
+    test('owner request: warm light page ground, white cards and fields, dark unchanged', async ({ page }) => {
+      test.skip(!(await openKit(page)), 'kit not served here (flag off, or /ux-v1/ not allowlisted yet)');
+      const phone = widthOf(page) <= 760;
+      const fills = await page.evaluate((isPhone) => {
+        const bg = (s: string, pseudo?: string): string | null => { const el = document.querySelector<HTMLElement>(s); return el ? getComputedStyle(el, pseudo).backgroundColor : null; };
+        return {
+          body: bg('body'), app: bg('.ux-app'), nav: bg('.ux-nav'),
+          tabbar: isPhone ? bg('.ux-tabbar.ux-chrome') : null, tabbarSample: bg('.ux-tabbar[aria-label="Tab bar sample"]'),
+          qcard: bg('.ux-qcard'), tcard: bg('.ux-tcard'), post: bg('.ux-post'), panel: bg('.ux-panel'), box: bg('.ux-box'), stats3: bg('.ux-stats3'), sheet: bg('.ux-kit-static .ux-sheet'),
+          inp: bg('.ux-inp'), kbd: bg('.ux-kbd'), knob: bg('.ux-switch', '::after'),
+          seg: bg('.ux-seg'), chip: bg('.ux-chip:not(.ux-chip-filter):not([aria-pressed="true"])'), foot: bg('.ux-foot'),
+        };
+      }, phone);
+      const white = 'rgb(255, 255, 255)';
+      const expected = theme === 'light'
+        ? { body: 'rgb(250, 248, 245)', app: 'rgb(250, 248, 245)', nav: 'rgba(250, 248, 245, 0.86)', tabbar: phone ? 'rgba(255, 255, 255, 0.86)' : null, tabbarSample: 'rgba(255, 255, 255, 0.86)',
+          qcard: white, tcard: white, post: white, panel: white, box: white, stats3: white, sheet: white, inp: white, kbd: white, knob: white,
+          seg: 'rgb(241, 239, 234)', chip: 'rgb(241, 239, 234)', foot: 'rgb(241, 239, 234)' }
+        : { body: 'rgb(20, 19, 18)', app: 'rgb(20, 19, 18)', nav: 'rgba(20, 19, 18, 0.84)', tabbar: phone ? 'rgba(20, 19, 18, 0.84)' : null, tabbarSample: 'rgba(20, 19, 18, 0.84)',
+          qcard: 'rgb(28, 27, 25)', tcard: 'rgba(0, 0, 0, 0)', post: 'rgb(28, 27, 25)', panel: 'rgb(28, 27, 25)', box: 'rgb(28, 27, 25)', stats3: 'rgb(28, 27, 25)', sheet: 'rgb(28, 27, 25)',
+          inp: 'rgb(20, 19, 18)', kbd: 'rgb(20, 19, 18)', knob: 'rgb(20, 19, 18)', seg: 'rgb(28, 27, 25)', chip: 'rgb(28, 27, 25)', foot: 'rgb(28, 27, 25)' };
+      expect(fills).toEqual(expected);
     });
   });
 }

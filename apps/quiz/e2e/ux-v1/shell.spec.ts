@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { basicA11y, focusRing, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
@@ -355,28 +356,111 @@ test.describe('client navigation', () => {
   });
 });
 
+// Nav fit (16.5) + owner request 1 of 2026-09-27 (A0 fix 5): 8px between the pills,
+// shrinking evenly when the right cluster needs the room (the bar is 1120 wide from
+// 1248px up, so 1280 and 1440 have the same room). One line, the links end before the
+// right cluster, the cluster inside the bar, no horizontal scroll: guest (Create + Sign
+// in) and signed in (Create, bell, avatar, and a streak pill up to 4 digits), light
+// and dark.
+interface NavGeo { tops: number; linksRight: number; right: { left: number; right: number }; innerRight: number; count: number; icons: boolean; gaps: number[]; overflow: number; streak: string | null }
+function navGeo(page: Page): Promise<NavGeo> {
+  return page.evaluate(() => {
+    const r = (s: string): DOMRect => (document.querySelector(s) as HTMLElement).getBoundingClientRect();
+    const links = Array.from(document.querySelectorAll<HTMLElement>('.ux-links a')).filter((a) => a.offsetParent !== null).map((a) => a.getBoundingClientRect());
+    const ico = document.querySelector<HTMLElement>('.ux-links a .ux-ico');
+    const right = r('.ux-nav-r');
+    return {
+      tops: new Set(links.map((l) => Math.round(l.top))).size,
+      linksRight: Math.max(...links.map((l) => l.right)),
+      right: { left: right.left, right: right.right },
+      innerRight: r('.ux-nav-in').right,
+      count: links.length,
+      icons: ico ? getComputedStyle(ico).display !== 'none' : false,
+      gaps: links.slice(1).map((b, i) => Math.round((b.left - (links[i]?.right ?? 0)) * 100) / 100),
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      streak: document.querySelector('.ux-streak')?.textContent?.trim() ?? null,
+    };
+  });
+}
+function expectFits(geo: NavGeo, label: string): void {
+  expect(geo.tops, `${label}: links on one line`).toBe(1);
+  expect(geo.linksRight, `${label}: links end before the right cluster`).toBeLessThan(geo.right.left);
+  expect(geo.right.right, `${label}: right cluster inside the bar`).toBeLessThanOrEqual(geo.innerRight + 0.5);
+  expect(geo.overflow, `${label}: no horizontal scroll`).toBeLessThanOrEqual(0);
+}
+
 test.describe('nav fits', () => {
-  for (const w of [1440, 1280, 1100]) {
-    test(`at ${w}px: one line, no overlap`, async ({ page }) => {
-      test.skip(widthOf(page) <= 760, 'desktop widths');
-      await preparePage(page, 'light');
-      await page.setViewportSize({ width: w, height: 900 });
-      await guardWrites(page, env.supabaseUrl);
-      await page.goto('/');
-      test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
-      const geo = await page.evaluate(() => {
-        const r = (s: string): DOMRect => (document.querySelector(s) as HTMLElement).getBoundingClientRect();
-        const links = Array.from(document.querySelectorAll<HTMLElement>('.ux-links a')).filter((a) => a.offsetParent !== null).map((a) => a.getBoundingClientRect());
-        const ico = document.querySelector<HTMLElement>('.ux-links a .ux-ico');
-        return { inner: r('.ux-nav-in'), linksRight: Math.max(...links.map((l) => l.right)), tops: [...new Set(links.map((l) => Math.round(l.top)))], right: r('.ux-nav-r'), count: links.length, icons: ico ? getComputedStyle(ico).display !== 'none' : false };
+  for (const theme of THEMES) {
+    for (const w of [1440, 1280, 1100]) {
+      test(`at ${w}px (${theme}): one line, no overlap, 8px between the pills`, async ({ page }) => {
+        test.skip(widthOf(page) <= 760, 'desktop widths');
+        await preparePage(page, theme);
+        await page.setViewportSize({ width: w, height: 900 });
+        await guardWrites(page, env.supabaseUrl);
+        await page.goto('/');
+        test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+        await waitHydrated(page);
+        await page.evaluate(() => document.fonts.ready);
+        const geo = await navGeo(page);
+        expectFits(geo, `guest ${w} ${theme}`);
+        expect(geo.count).toBe(w <= 1100 ? 5 : 6); // Leaderboard hides at 1100 and under (16.5)
+        expect(geo.icons).toBe(w >= 1280); // icons hide under 1280 (the pill nav needs the room)
+        // owner request 1: the pills keep their 10px padding and 38px height, 8px apart
+        expect(geo.gaps, 'gaps between the pills').toEqual(Array(geo.count - 1).fill(8));
+        const pill = await page.locator('.ux-links a[aria-current="page"]').evaluate((a) => { const cs = getComputedStyle(a); return [cs.paddingLeft, cs.paddingRight, cs.height, cs.backgroundColor]; });
+        expect(pill).toEqual(['10px', '10px', '38px', 'rgb(209, 58, 110)']);
       });
-      expect(geo.tops.length, 'links on one line').toBe(1);
-      expect(geo.linksRight, 'links end before the right cluster').toBeLessThan(geo.right.left);
-      expect(geo.right.right).toBeLessThanOrEqual(geo.inner.right + 0.5);
-      expect(geo.count).toBe(w <= 1100 ? 5 : 6); // Leaderboard hides at 1100 and under (16.5)
-      expect(geo.icons).toBe(w >= 1280); // icons hide under 1280 (the pill nav needs the room)
-      expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
-    });
+    }
+  }
+});
+
+signedInTest.describe('nav fits, signed in (test user, read only)', () => {
+  for (const theme of THEMES) {
+    for (const w of [1440, 1280]) {
+      signedInTest(`at ${w}px (${theme}): Create, streak pill, bell, avatar on one line`, async ({ page }) => {
+        skipUnlessSignedIn();
+        signedInTest.skip(widthOf(page) <= 760, 'desktop widths');
+        await preparePage(page, theme);
+        await page.setViewportSize({ width: w, height: 900 });
+        const calls = await guardWrites(page, env.supabaseUrl);
+        // The streak pill shows only for a live streak: the test user's own read first,
+        // then the same read with a streak of N days played today (a read stub: the real
+        // response with daily_streak / last_daily_date replaced) to prove the widest
+        // pills fit. Nothing is written.
+        let streak: number | null = null;
+        await page.route((u) => u.pathname === '/api/auth/me', async (route) => {
+          const res = await route.fetch();
+          const j = await res.json() as { profile: Record<string, unknown> | null };
+          if (streak !== null && j.profile) { j.profile.daily_streak = streak; j.profile.last_daily_date = new Date().toISOString().slice(0, 10); }
+          await route.fulfill({ response: res, json: j });
+        });
+        const seen: Record<string, NavGeo> = {};
+        for (const n of [null, 7, 42, 365, 1000]) {
+          streak = n;
+          await page.goto('/quizzes');
+          signedInTest.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+          await expect(page.locator('.ux-avabtn')).toBeVisible({ timeout: 30_000 });
+          if (n !== null) await expect(page.locator('.ux-streak')).toHaveText(String(n));
+          await page.evaluate(() => document.fonts.ready);
+          const geo = await navGeo(page);
+          seen[String(n)] = geo;
+          expectFits(geo, `signed in ${w} ${theme} streak ${n}`);
+          await expect(page.locator('.ux-nav-r .ux-nav-create, .ux-nav-r button[aria-label^="Notifications"], .ux-avabtn')).toHaveCount(3);
+          expect(geo.count).toBe(6);
+          expect(geo.icons).toBe(true);
+          const [lo, hi] = [Math.min(...geo.gaps), Math.max(...geo.gaps)];
+          expect(hi - lo, 'the gaps shrink evenly').toBeLessThanOrEqual(0.1);
+          expect(lo).toBeGreaterThanOrEqual(0);
+          expect(hi).toBeLessThanOrEqual(8);
+          if (geo.streak === null) expect(geo.gaps, 'no streak pill: the full 8px').toEqual(Array(5).fill(8));
+        }
+        // a longer streak never widens the gaps (the largest gap that fits)
+        const order = ['7', '42', '365', '1000'].map((k) => seen[k]?.gaps[0] ?? -1);
+        for (let i = 1; i < order.length; i++) expect(order[i] ?? -1).toBeLessThanOrEqual(order[i - 1] ?? -1);
+        await signedInTest.info().attach(`nav-signed-${w}-${theme}.json`, { body: JSON.stringify(seen, null, 1), contentType: 'application/json' });
+        expect(calls, 'no write attempted').toEqual([]);
+      });
+    }
   }
 });
 

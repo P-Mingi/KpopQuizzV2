@@ -18,15 +18,23 @@
 /* ---------- tokens: light ---------- */
 html.ux-v1,
 .ux-theme-light {
-  --ux-page: #FFFFFF; --ux-surface: #F7F6F4; --ux-surface-2: #F0EEEA; --ux-raised: #FFFFFF;
+  /* Owner request 2026-09-27 (A0 fix 5): the page ground is the live site's warm --bg
+     (#FAF8F5, globals.css) instead of the prototype's white; cards, panels, sheets,
+     inputs and the tab bar stay white (--ux-raised, --ux-paper, --ux-card-fill,
+     --ux-tabbar-bg) so they stand out like the live cards. --ux-surface / -2 keep the
+     prototype's visible step from the ground (dE 3.3 / 6.2); --ux-pink-ink and the
+     flair words below were re-clamped to AA on the new grounds (dE <= 1.5). Dark is
+     unchanged. */
+  --ux-page: #FAF8F5; --ux-surface: #F1EFEA; --ux-surface-2: #EAE7E1; --ux-raised: #FFFFFF;
+  --ux-paper: #FFFFFF; --ux-card-fill: #FFFFFF;
   --ux-hair: #ECE9E4; --ux-line: #ECE8E3; --ux-line-2: #F3F1EE; --ux-edge: #E5E0DA; --ux-pink-line: #F2CFDB;
   --ux-input: #8C857C;
   --ux-ink: #1F1B17; --ux-muted: #6B655E;
-  --ux-pink: #E8457A; --ux-pink-fill: #D13A6E; --ux-pink-fill-h: #BE2F62; --ux-pink-ink: #C93868;
+  --ux-pink: #E8457A; --ux-pink-fill: #D13A6E; --ux-pink-fill-h: #BE2F62; --ux-pink-ink: #C43565;
   --ux-pink-soft: #FCE8EF; --ux-pink-soft-ink: #B3305C;
   --ux-ok: #257547; --ux-ok-soft: #E9F4EC; --ux-no: #B83A34; --ux-no-soft: #FBECEA; --ux-warn: #9A5B0F;
   --ux-on-ok: #FFFFFF; --ux-knob-off: #FFFFFF;
-  --ux-nav-bg: rgba(255, 255, 255, .86);
+  --ux-nav-bg: rgba(250, 248, 245, .86); --ux-tabbar-bg: rgba(255, 255, 255, .86);
   --ux-photo-edge: inset 0 0 0 1px rgba(31, 27, 23, .04);
   --ux-shadow-card: 0 1px 2px rgba(31, 27, 23, .04), 0 10px 30px rgba(31, 27, 23, .07);
   --ux-shadow-ov: 0 24px 64px rgba(31, 27, 23, .18), 0 2px 8px rgba(31, 27, 23, .06);
@@ -39,9 +47,9 @@ html.ux-v1,
   --ux-hl: #DB4B7E;
   --ux-bulb: #E0A100; --ux-bulb-fill: #FFE9A6;
   /* name accents (lib/passport-flair.ts) clamped to AA on every v11 ground (16.9 ink floor) */
-  --ux-acc-pink: #BC3863; --ux-acc-purple: #665FB1; --ux-acc-blue: #2B6CAC; --ux-acc-teal: #167859; --ux-acc-amber: #975D08; --ux-acc-coral: #B14A27;
+  --ux-acc-pink: #B83761; --ux-acc-purple: #655DB0; --ux-acc-blue: #2A6AAA; --ux-acc-teal: #167658; --ux-acc-amber: #945B08; --ux-acc-coral: #AD4926;
   /* rarity words (lib/badges.ts RARITY_COLOR) clamped to AA the same way */
-  --ux-rar-common: #646A78; --ux-rar-uncommon: #19793F; --ux-rar-rare: #2F67C2; --ux-rar-epic: #8B47CD; --ux-rar-legendary: #896200;
+  --ux-rar-common: #626876; --ux-rar-uncommon: #19773E; --ux-rar-rare: #2E66BF; --ux-rar-epic: #8944CC; --ux-rar-legendary: #886100;
   --ux-ease: cubic-bezier(.2, .7, .2, 1); --ux-spring: cubic-bezier(.34, 1.4, .64, 1);
   --ux-wide: 1120px; --ux-text: 720px; --ux-stage: 600px; --ux-gut: 32px;
   --ux-font: var(--font-inter, Inter), var(--font-pretendard, Pretendard), "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -51,14 +59,14 @@ html.ux-v1,
 /* ---------- tokens: dark (explicit class, kit pane) ---------- */
 html.ux-v1.dark,
 .ux-theme-dark {
-  --ux-page: #141312; --ux-surface: #1C1B19; --ux-surface-2: #232120; --ux-raised: #1C1B19;
+  --ux-page: #141312; --ux-surface: #1C1B19; --ux-surface-2: #232120; --ux-raised: #1C1B19; --ux-paper: #141312; --ux-card-fill: transparent;
   --ux-hair: #2F2C29; --ux-line: #2B2826; --ux-line-2: #242220; --ux-edge: #35312E; --ux-pink-line: #4A2A37;
   --ux-input: #6E6A64;
   --ux-ink: #F3F0EB; --ux-muted: #A8A198;
   --ux-pink-ink: #FF7AA5; --ux-pink-soft: #3A2129; --ux-pink-soft-ink: #FF9DBC;
   --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A;
   --ux-on-ok: #141312; --ux-knob-off: #A8A198;
-  --ux-nav-bg: rgba(20, 19, 18, .84);
+  --ux-nav-bg: rgba(20, 19, 18, .84); --ux-tabbar-bg: rgba(20, 19, 18, .84);
   --ux-photo-edge: inset 0 0 0 1px rgba(255, 255, 255, .06);
   --ux-shadow-card: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
   --ux-shadow-ov: 0 24px 64px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .3);
@@ -77,14 +85,14 @@ html.ux-v1.dark,
 /* ---------- tokens: dark (system theme, no stored choice) ---------- */
 @media (prefers-color-scheme: dark) {
   html.ux-v1:not(.light) {
-    --ux-page: #141312; --ux-surface: #1C1B19; --ux-surface-2: #232120; --ux-raised: #1C1B19;
+    --ux-page: #141312; --ux-surface: #1C1B19; --ux-surface-2: #232120; --ux-raised: #1C1B19; --ux-paper: #141312; --ux-card-fill: transparent;
     --ux-hair: #2F2C29; --ux-line: #2B2826; --ux-line-2: #242220; --ux-edge: #35312E; --ux-pink-line: #4A2A37;
     --ux-input: #6E6A64;
     --ux-ink: #F3F0EB; --ux-muted: #A8A198;
     --ux-pink-ink: #FF7AA5; --ux-pink-soft: #3A2129; --ux-pink-soft-ink: #FF9DBC;
     --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A;
     --ux-on-ok: #141312; --ux-knob-off: #A8A198;
-    --ux-nav-bg: rgba(20, 19, 18, .84);
+    --ux-nav-bg: rgba(20, 19, 18, .84); --ux-tabbar-bg: rgba(20, 19, 18, .84);
     --ux-photo-edge: inset 0 0 0 1px rgba(255, 255, 255, .06);
     --ux-shadow-card: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
     --ux-shadow-ov: 0 24px 64px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .3);
@@ -136,7 +144,7 @@ html.ux-v1 body { background: var(--ux-page); color: var(--ux-ink); overflow-x: 
 .ux-ico { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .ux-ico.sm { width: 16px; height: 16px; }
 .ux-ico.lg { width: 24px; height: 24px; }
-.ux-skip { position: absolute; left: 12px; top: -60px; z-index: 200; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: var(--ux-ink); color: var(--ux-page); font-weight: 600; font-size: 15px; transition: top .15s; }
+.ux-skip { position: absolute; left: 12px; top: -60px; z-index: 200; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: var(--ux-ink); color: var(--ux-paper); font-weight: 600; font-size: 15px; transition: top .15s; }
 .ux-skip:focus { top: 12px; }
 
 /* layout widths */
@@ -173,7 +181,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-ib { width: 40px; height: 40px; border-radius: 999px; display: inline-grid; place-items: center; color: var(--ux-muted); transition: background .15s, color .15s; position: relative; flex: 0 0 auto; }
 .ux-ib:hover { background: var(--ux-surface); color: var(--ux-ink); }
 .ux-ib.ux-ib-bordered { border: 1px solid var(--ux-edge); color: var(--ux-ink); }
-.ux-kbd { font: 600 12px/1 var(--ux-font); border: 1px solid var(--ux-edge); border-bottom-width: 2px; border-radius: 6px; padding: 3px 6px; color: var(--ux-muted); background: var(--ux-page); }
+.ux-kbd { font: 600 12px/1 var(--ux-font); border: 1px solid var(--ux-edge); border-bottom-width: 2px; border-radius: 6px; padding: 3px 6px; color: var(--ux-muted); background: var(--ux-paper); }
 
 /* ---------- top nav ---------- */
 .ux-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ux-nav-bg); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid transparent; transition: border-color .2s; }
@@ -181,7 +189,15 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-nav-in { height: 64px; display: flex; align-items: center; gap: 20px; }
 .ux-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; white-space: nowrap; color: var(--ux-ink); }
 .ux-brand-mk { width: 28px; height: 28px; border-radius: 8px; background: var(--ux-pink-fill); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; letter-spacing: 0; }
-.ux-links { display: flex; align-items: center; gap: 0; }
+/* Owner request 2026-09-27 (A0 fix 5): room between the nav pills (prototype .links{gap:0}).
+   Each .ux-lsp spacer is 8px and shrinks evenly when the right cluster needs the room
+   (signed in with a streak pill at 1248px and up, where the bar is 1120 wide at every
+   width), so the gap is always the largest that fits, never more than 8px. The list
+   grows into the free width (the right cluster stays at the end); the spacers add
+   nothing to its min-content width, so a bar that is too narrow behaves as before. */
+.ux-links { display: flex; align-items: center; gap: 0; flex: 1 1 auto; }
+.ux-links > a { flex: 0 0 auto; }
+.ux-lsp { flex: 0 1 8px; width: 0; min-width: 0; align-self: stretch; }
 .ux-links a { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 10px; border-radius: 999px; font-size: 15px; font-weight: 500; line-height: 24px; color: var(--ux-muted); white-space: nowrap; transition: background .15s, color .15s; }
 .ux-links a .ux-ico { width: 16px; height: 16px; }
 .ux-links a:hover { background: var(--ux-surface); color: var(--ux-ink); }
@@ -251,7 +267,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-sov-hint { padding: 20px 12px 8px; font-size: 14px; color: var(--ux-muted); }
 
 /* ---------- mobile tab bar ---------- */
-.ux-tabbar { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: var(--ux-nav-bg); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--ux-hair); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.ux-tabbar { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: var(--ux-tabbar-bg); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--ux-hair); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .ux-tabbar-in { display: flex; height: 64px; max-width: 560px; margin: auto; }
 .ux-tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 12px; font-weight: 500; color: var(--ux-muted); line-height: 1.3; }
 .ux-tab .ux-ico { width: 22px; height: 22px; }
@@ -298,7 +314,7 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ux-chip { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--ux-surface); font-size: 15px; font-weight: 500; color: var(--ux-ink); white-space: nowrap; }
 .ux-chip:hover { background: var(--ux-surface-2); }
-button.ux-chip[aria-pressed="true"] { background: var(--ux-ink); color: var(--ux-page); }
+button.ux-chip[aria-pressed="true"] { background: var(--ux-ink); color: var(--ux-paper); }
 .ux-chip.ux-chip-filter { background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); }
 .ux-chip .ux-ico { width: 14px; height: 14px; opacity: .7; }
 
@@ -331,7 +347,7 @@ button.ux-chip[aria-pressed="true"] { background: var(--ux-ink); color: var(--ux
 
 /* ---------- text card (single-group lists), list rows ---------- */
 .ux-tgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.ux-tcard { display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid var(--ux-line); border-radius: 16px; min-height: 148px; color: var(--ux-ink); background: transparent; transition: border-color .15s, background .15s, transform .2s var(--ux-ease); }
+.ux-tcard { display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid var(--ux-line); border-radius: 16px; min-height: 148px; color: var(--ux-ink); background: var(--ux-card-fill); transition: border-color .15s, background .15s, transform .2s var(--ux-ease); }
 .ux-tcard:hover { border-color: var(--ux-pink-line); background: var(--ux-raised); }
 .ux-tcard-ty { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ux-muted); font-weight: 500; }
 .ux-tcard-ty .ux-ico { color: var(--ux-pink); }
@@ -425,7 +441,7 @@ a.ux-row:hover .ux-rt { color: var(--ux-pink-ink); }
 .ux-field { margin-top: 32px; }
 .ux-flabel, .ux-field > label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 600; margin-bottom: 10px; }
 .ux-flabel small, .ux-field > label small { font-size: 13px; font-weight: 500; color: var(--ux-muted); }
-.ux-inp { display: flex; align-items: center; gap: 10px; min-height: 48px; width: 100%; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); font: inherit; font-size: 16px; color: var(--ux-ink); transition: border-color .15s, box-shadow .15s; outline: 0; -webkit-appearance: none; appearance: none; }
+.ux-inp { display: flex; align-items: center; gap: 10px; min-height: 48px; width: 100%; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-paper); font: inherit; font-size: 16px; color: var(--ux-ink); transition: border-color .15s, box-shadow .15s; outline: 0; -webkit-appearance: none; appearance: none; }
 .ux-inp::placeholder { color: var(--ux-muted); }
 .ux-inp:hover { border-color: var(--ux-ink); }
 .ux-inp:focus, .ux-inp:focus-visible { border-color: var(--ux-pink); box-shadow: 0 0 0 3px var(--ux-pink-soft); outline: none; }
@@ -440,7 +456,7 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 .ux-check input:checked + i svg { opacity: 1; }
 .ux-check:has(input:focus-visible) { outline: 2px solid var(--ux-pink); outline-offset: 2px; border-radius: 8px; }
 .ux-switch { width: 44px; height: 26px; border-radius: 999px; background: var(--ux-ink); position: relative; flex: 0 0 auto; transition: background .2s; }
-.ux-switch::after { content: ""; position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 50%; background: var(--ux-page); box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: left .2s var(--ux-spring); }
+.ux-switch::after { content: ""; position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 50%; background: var(--ux-paper); box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: left .2s var(--ux-spring); }
 .ux-switch[aria-checked="false"] { background: var(--ux-edge); }
 .ux-switch[aria-checked="false"]::after { left: 3px; background: var(--ux-knob-off); }
 
@@ -485,7 +501,7 @@ textarea.ux-inp { display: block; resize: vertical; padding: 14px 16px; min-heig
 .ux-sh-right { display: flex; justify-content: flex-end; margin-top: 16px; }
 
 /* ---------- toast + live region ---------- */
-.ux-toast { position: fixed; left: 50%; bottom: 32px; transform: translate(-50%, 16px); z-index: 100; background: var(--ux-ink); color: var(--ux-page); padding: 12px 18px; border-radius: 12px; font-size: 14px; font-weight: 500; line-height: 1.45; opacity: 0; pointer-events: none; transition: all .25s var(--ux-ease); box-shadow: var(--ux-shadow-ov); max-width: calc(100% - 32px); font-family: var(--ux-font); }
+.ux-toast { position: fixed; left: 50%; bottom: 32px; transform: translate(-50%, 16px); z-index: 100; background: var(--ux-ink); color: var(--ux-paper); padding: 12px 18px; border-radius: 12px; font-size: 14px; font-weight: 500; line-height: 1.45; opacity: 0; pointer-events: none; transition: all .25s var(--ux-ease); box-shadow: var(--ux-shadow-ov); max-width: calc(100% - 32px); font-family: var(--ux-font); }
 .ux-toast.is-shown { opacity: 1; transform: translate(-50%, 0); }
 
 /* ---------- footer ---------- */
@@ -519,7 +535,7 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
 }
 @media (max-width: 1100px) {
   .ux-qgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ux-links a[data-nav="leaderboard"] { display: none; }
+  .ux-links a[data-nav="leaderboard"], .ux-lsp:has(+ a[data-nav="leaderboard"]) { display: none; }
 }
 @media (max-width: 900px) {
   .ux-tgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
