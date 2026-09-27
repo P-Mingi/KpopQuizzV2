@@ -77,7 +77,9 @@ export function BlindtestBand({ fans, date }: Props): React.ReactElement {
     <section className="ux-sec ux-sec-lg" aria-labelledby="p1-band-h">
       <div className="p1-band">
         <div>
-          <p className="p1-kick"><span className="p1-pulse" aria-hidden="true" />{kick}</p>
+          {/* The pulse dot marks a live, unplayed daily; the prototype drops it once
+              played (markDaily: "Blindtest of the day · played", no dot). X2-007. */}
+          <p className="p1-kick">{played ? null : <span className="p1-pulse" aria-hidden="true" />}{kick}</p>
           <h2 id="p1-band-h">{title}</h2>
           <p className="p1-band-p">{body}</p>
           <div className="p1-actions">

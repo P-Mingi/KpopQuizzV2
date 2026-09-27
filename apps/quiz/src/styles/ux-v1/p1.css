@@ -77,8 +77,15 @@
 .p1-cthumb.is-ini, .p1-gav.is-ini, .p1-cav.is-ini { background: var(--ux-surface-2); color: var(--ux-muted); font-weight: 600; }
 .p1-cav { position: relative; }
 
-/* ---------- groups rail (16.7) ---------- */
-.p1-grail { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; padding: 4px 2px 8px; margin: -4px -2px 0; }
+/* ---------- groups rail (16.7) ----------
+   The prototype's rail (padding 4px 2px 8px, margin -4px -2px 0) holds 10 tiles; ours
+   holds every live hub (link parity), so at 1440 the 11th tile starts exactly at the
+   content edge and the 2px inline-end padding showed its first 2px: a sliver of a label
+   too long for its tile (an ellipsed line starts at the tile's left edge). X2-002: no
+   inline-end padding, so the rail's clip edge is the content edge and the 10th tile ends
+   the row, as in the prototype. The 2px inline-start padding stays for the first tile's
+   focus ring. Tiles keep the prototype's x positions. */
+.p1-grail { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; padding: 4px 0 8px 2px; margin: -4px 0 0 -2px; }
 .p1-grail::-webkit-scrollbar { display: none; }
 .p1-gitem { display: block; flex: 0 0 auto; width: 88px; text-align: center; color: var(--ux-ink); }
 .p1-gav {
