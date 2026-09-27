@@ -9,13 +9,13 @@ import { basicA11y, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
-import { compareLandmarks } from './helpers/landmarks';
+import { compareLandmarks, withOwnerDeviations } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
 import { DRAFT_ROW_HTML } from '../../src/lib/ux-v1/p10/draft-row.fixture';
 
 import type { Page, Request } from '@playwright/test';
-import type { Landmark } from './helpers/landmarks';
+import type { Landmark, OwnerDeviation, ReferenceStyles } from './helpers/landmarks';
 import type { StubbedCall } from './helpers/guard';
 
 // P10 passport + settings (UX v11.2, DESIGN-SPEC 16.7 / 17.8 / 17.10 / 17.11).
@@ -185,7 +185,23 @@ const P10_LANDMARKS: P10Landmark[] = [
 const P10_PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'filter'];
 const PROTO_STYLES = path.resolve(here, '../../../../docs/design/ux-dashboard-v1/v11/reports/P10/proto-styles.json');
-const protoStyles = JSON.parse(fs.readFileSync(PROTO_STYLES, 'utf8')) as Record<string, Record<string, Record<string, string>>>;
+// Owner values of the S1 warm-ground sweep (owner request 2, A0.md 12.2 / 12.3), applied like A0's
+// OWNER_DEVIATIONS rows (exact, light only, never a skip): the avatar's 4px ring keeps the colour of
+// the ground it is cut out of, now the warm page (--ux-page #FAF8F5).
+const S1_OWNER_VALUES: OwnerDeviation[] = [
+  { theme: 'light', proto: '.pav', prop: 'box-shadow', from: 'rgb(255, 255, 255) 0px 0px 0px 4px', to: 'rgb(250, 248, 245) 0px 0px 0px 4px', why: 'S1: ring on the warm ground' },
+];
+function withS1OwnerValues(ref: ReferenceStyles): ReferenceStyles {
+  for (const [key, sels] of Object.entries(ref)) {
+    for (const d of S1_OWNER_VALUES) {
+      const props = sels[d.proto];
+      if (props && key.includes(`-${d.theme}-`) && props[d.prop] === d.from) props[d.prop] = d.to;
+    }
+  }
+  return ref;
+}
+// the owner-approved deviations (warm light ground, A0.md 12.2) apply to this capture too
+const protoStyles = withS1OwnerValues(withOwnerDeviations(JSON.parse(fs.readFileSync(PROTO_STYLES, 'utf8')) as ReferenceStyles));
 
 const norm = (v: string): string => v.replace(/\s+/g, ' ').trim();
 function close(a: string, b: string, prop: string): boolean {
