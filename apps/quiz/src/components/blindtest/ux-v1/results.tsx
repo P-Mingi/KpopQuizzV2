@@ -34,9 +34,11 @@ export interface BtResultsProps {
   primary?: React.ReactNode;
   /** Under the actions: the challenge link block. */
   challenge?: React.ReactNode;
+  /** The Share link (default: the hub; a /blindtest/<mode> page shares itself). */
+  shareUrl?: string;
 }
 
-export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary, challenge }: BtResultsProps): React.ReactElement {
+export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary, challenge, shareUrl }: BtResultsProps): React.ReactElement {
   const [share, setShare] = useState(false);
   const [playing, setPlaying] = useState<number | null>(null);
   const { questions, answers, summary, mode, pick, daily } = run;
@@ -148,7 +150,7 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
         onClose={() => setShare(false)}
         title="Share your score"
         preview={{ image: questions[0]?.reveal.cover ?? null, line1: `${score}/${n} on the ${title}`, line2: `${label} · ${comma(summary.points)} points` }}
-        url={`${SITE}/blindtest`}
+        url={shareUrl ?? `${SITE}/blindtest`}
         text={shareText}
       />
     </div>
