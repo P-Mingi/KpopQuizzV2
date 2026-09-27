@@ -89,10 +89,14 @@
 .p3-low.is-solo { grid-template-columns: minmax(0, 720px); }
 .p3-prose { font-size: 16px; line-height: 1.7; max-width: 38em; margin-top: 12px; }
 .p3-prose p + p { margin-top: 12px; }
-.p3-members { display: flex; flex-wrap: wrap; gap: 16px 20px; margin-top: 20px; }
-.p3-members li { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 76px; text-align: center; }
-.p3-members li > span:last-child { font-size: 13px; font-weight: 500; line-height: 1.35; max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
-.p3-member-face { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center 20%; background: var(--ux-surface-2); box-shadow: var(--ux-photo-edge); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--ux-muted); }
+/* X2-004: the members row is the prototype's photo row (.grail / .gitem, like Most played on
+   /groups): one scroll row, 88px tiles, 80px photos, 14px names, so a roster never wraps into an
+   orphan. The row is focusable (tabIndex 0 in hub.tsx) so a keyboard can scroll it. */
+.p3-members { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; padding: 4px 2px 8px; margin: 16px -2px 0; }
+.p3-members::-webkit-scrollbar { display: none; }
+.p3-members li { flex: 0 0 auto; width: 88px; text-align: center; }
+.p3-members li > span:last-child { display: block; font-size: 14px; font-weight: 500; line-height: 1.6; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p3-member-face { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto; border-radius: 50%; object-fit: cover; object-position: center 20%; background: var(--ux-surface-2); box-shadow: var(--ux-photo-edge); font-size: 20px; font-weight: 700; color: var(--ux-muted); }
 .p3-updated { font-size: 13px; line-height: 1.6; color: var(--ux-muted); margin-top: 16px; }
 .p3-links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 20px; }
 .p3-faq { margin-top: 56px; }
@@ -132,7 +136,8 @@
 @media (max-width: 1100px) {
   .p3-hero { grid-template-columns: 1fr 1fr; gap: 40px; }
   .p3-hero.is-solo { grid-template-columns: minmax(0, 720px); }
-  .p3-low { grid-template-columns: 1fr; gap: 48px; }
+  /* minmax(0, ...): the members scroll row must not widen the column (X2-004) */
+  .p3-low { grid-template-columns: minmax(0, 1fr); gap: 48px; }
 }
 @media (max-width: 900px) {
   .p3-az { columns: 2; }
