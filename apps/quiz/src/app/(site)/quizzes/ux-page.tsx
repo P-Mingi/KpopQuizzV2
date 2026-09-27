@@ -58,7 +58,9 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
   const { last, outOfRange } = p2ShownPages(f.page, total);
   const read = await safeFetch<QuizCardData[][] | null>(getP2Pages(f, last, groupId, rows, now), null, '[browse ux] pages');
   // A failed or timed-out read is not an empty list: say so (fail soft, never a 500).
-  const failed = read === null;
+  // A Level view is ordered from the facet rows, so a failed facet read fails it too
+  // (it would otherwise read as "No quizzes match these filters").
+  const failed = read === null || (f.level !== null && rows.length === 0);
   const pages = read ?? [];
   const quizzes = p2Concat(pages);
   const pageN = !outOfRange && f.page <= pages.length
