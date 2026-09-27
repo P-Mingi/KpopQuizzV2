@@ -190,6 +190,17 @@ async function pendingAction(page: Page): Promise<{ id?: string; payload?: unkno
   return page.evaluate(() => { try { return JSON.parse(localStorage.getItem('ux:pending-action') ?? 'null'); } catch { return null; } });
 }
 
+/** A0's sign-in sheet stores the kept action just before it leaves (16.6). The magic-link path
+ *  shows it without leaving the page: its POST to Supabase /auth/v1/otp is answered by
+ *  guardWrites (recorded, never sent), then the sheet closes. */
+async function keepThroughSheet(page: Page, title: string): Promise<void> {
+  const sheet = page.getByRole('dialog', { name: title });
+  await expect(sheet).toBeVisible();
+  await sheet.getByRole('textbox', { name: 'Email' }).fill('e2e-guest@example.com');
+  await sheet.getByRole('button', { name: 'Email me a sign-in link' }).click();
+  await expect(sheet).toHaveCount(0);
+}
+
 for (const theme of THEMES) {
   test.describe(`P4 ${theme}`, () => {
     test.beforeEach(async ({ page }) => { await preparePage(page, theme); });
@@ -400,9 +411,11 @@ for (const theme of THEMES) {
       // guest heart: the sign-in sheet, the heart kept for after it, nothing sent
       await heart.click();
       await expect(page.getByRole('dialog', { name: 'Sign in to like' })).toBeVisible();
-      expect(await pendingAction(page)).toMatchObject({ id: 'p4-comment', payload: { like: { target: 'comment', id: CM.one } } });
       await page.keyboard.press('Escape');
       await expect(page.getByRole('dialog', { name: 'Sign in to like' })).toHaveCount(0);
+      await heart.click();
+      await keepThroughSheet(page, 'Sign in to like');
+      expect(await pendingAction(page)).toMatchObject({ id: 'p4-comment', payload: { like: { target: 'comment', id: CM.one } } });
       await expect(heart).toHaveAttribute('aria-pressed', 'false');
       await expect(heart).toHaveText('12');
 
@@ -434,9 +447,9 @@ for (const theme of THEMES) {
 
       // guest reply: the sign-in sheet, the text kept for after it, nothing sent
       await form.getByRole('button', { name: 'Reply' }).click();
-      await expect(page.getByRole('dialog', { name: 'Sign in to reply' })).toBeVisible();
+      await keepThroughSheet(page, 'Sign in to reply');
       expect(await pendingAction(page)).toMatchObject({ id: 'p4-comment', payload: { text: 'Same here', replyTo: CM.one } });
-      await page.keyboard.press('Escape');
+      await expect(field).toHaveValue('Same here');
       expect(writesTo(calls, SOCIAL_WRITE), 'a guest never sends a heart or a reply').toEqual([]);
       expect(writesTo(calls, COMMENT_PATH)).toEqual([]);
     });
