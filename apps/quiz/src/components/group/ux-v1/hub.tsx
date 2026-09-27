@@ -269,14 +269,16 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                   </div>
                 ) : null}
                 {nameAllGame && nameAllGame.members.length > 0 ? (
-                  <ul className="p3-members" aria-label={`${g.name} members`}>
+                  // X2-004: one scroll row of prototype tiles (p3.css). A scroll container must be
+                  // keyboard reachable, so the list is focusable (arrow keys scroll it).
+                  <ul className="p3-members" aria-label={`${g.name} members`} tabIndex={0}>
                     {nameAllGame.members.map((m) => (
                       <li key={m.name}>
                         {m.photoUrl && m.photoUrl.startsWith('/') ? (
-                          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={56} height={56} sizes="56px" />
+                          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} sizes="80px" />
                         ) : m.photoUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element -- a non-local roster photo keeps today's plain img
-                          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={56} height={56} loading="lazy" />
+                          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} loading="lazy" />
                         ) : (
                           <span className="p3-member-face is-ini" aria-hidden="true">{m.name.slice(0, 2).toUpperCase()}</span>
                         )}

@@ -419,6 +419,47 @@ for (const theme of THEMES) {
       expect(writes).toEqual([]);
     });
 
+    // X2-004: the About members row is the prototype's photo row (.grail / .gitem, like Most
+    // played on /groups): ONE line of 88px tiles with 80px photos and 14px names, scrolling
+    // instead of wrapping (ATEEZ's 8 members wrapped 7 + 1 at 1440). The row is focusable so a
+    // keyboard scrolls it; every member stays in the served HTML with today's alt text.
+    test('members row: one scroll row of prototype tiles, never an orphan line; keyboard scrolls it (X2-004)', async ({ page }) => {
+      const writes = await setup(page, theme);
+      test.skip(!(await open(page, HUB_2, `${HUB_2_READY}:has(.p3-members)`)), 'UX v1 flag is OFF on this build');
+      const row = page.locator('.p3-members');
+      const tiles = row.locator(':scope > li');
+      const n = await tiles.count();
+      expect(n, 'ATEEZ has a roster').toBeGreaterThan(1);
+      await expect(row).toHaveAttribute('aria-label', 'ATEEZ members');
+      await expect(row.locator('img[alt$=" of ATEEZ"]')).toHaveCount(await row.locator('img').count());
+      const geo = await tiles.evaluateAll((ls) => ls.map((l) => {
+        const b = l.getBoundingClientRect();
+        const f = l.querySelector('.p3-member-face')!.getBoundingClientRect();
+        const s = getComputedStyle(l.querySelector(':scope > span:last-child')!);
+        return { top: Math.round(b.top), w: b.width, fw: f.width, fh: f.height, size: s.fontSize, weight: s.fontWeight, ws: s.whiteSpace };
+      }));
+      expect(new Set(geo.map((g) => g.top)).size, 'one line: no member wraps to a second line').toBe(1);
+      for (const g of geo) {
+        expect(g.w).toBeCloseTo(88, 0);
+        expect(g.fw).toBeCloseTo(80, 0);
+        expect(g.fh).toBeCloseTo(80, 0);
+        expect([g.size, g.weight, g.ws]).toEqual(['14px', '500', 'nowrap']);
+      }
+      await expect(row).toHaveCSS('overflow-x', 'auto');
+      await expect(row).toHaveAttribute('tabindex', '0');
+      const { sw, cw } = await row.evaluate((el) => ({ sw: el.scrollWidth, cw: el.clientWidth }));
+      if (sw > cw) {
+        // More tiles than fit (8 at 1440 and 390 today): the keyboard scrolls the row.
+        await row.focus();
+        await page.keyboard.press('ArrowRight');
+        await expect.poll(() => row.evaluate((el) => el.scrollLeft), { timeout: 5_000 }).toBeGreaterThan(0);
+      }
+      expect(await horizontalOverflow(page), 'the row scrolls inside itself, never the page').toBeLessThanOrEqual(0);
+      const axe = await runAxe(page, { include: '.p3-members' });
+      if (axe) expect(axe, 'axe on the members row (scrollable-region-focusable included)').toEqual([]);
+      expect(writes).toEqual([]);
+    });
+
     // X1-005 (prototype renderHub hb-com empty: openEditor('thread')): on a hub whose
     // Verse space is open, the empty community block's door opens P8's editor in Thread
     // mode, never the bare feed. The parked-space door (the top quiz) is the ATEEZ case.
