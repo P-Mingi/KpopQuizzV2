@@ -127,7 +127,7 @@ export function popularSix(groups: readonly BtGroup[], pop: GroupPopularity, n =
  * which shipped the fail-soft hub WITHOUT its 79 group links until the first
  * regeneration. The build gets 30 s; a request render keeps 5 s.
  */
-export function readBudgetMs(env: { NEXT_PHASE?: string | undefined } = process.env): number {
+export function readBudgetMs(env: { NODE_ENV?: string | undefined; NEXT_PHASE?: string | undefined } = process.env): number {
   return env.NEXT_PHASE === 'phase-production-build' ? 30_000 : 5_000;
 }
 
