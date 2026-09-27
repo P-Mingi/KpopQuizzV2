@@ -12,9 +12,9 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | owner requests merged (4ed5acf, PR #76, branch ux11/a0-fix5); tablet overflow fix running (ux11/a0-fix6) | a864047 | 0 | v11/reports/A0.md |
 | P1 | ux11/p1-home | X2-002/007 merged (7579d4a, PR #74, branch ux11/p1-fix2) | 609e6de | 0 | v11/reports/P1.md |
-| P2 | ux11/p2-quizzes | LOCAL, unpublished (pushes refused by the permission check); round 2b done: showValue={false} on the three menus, filtered states 0.0px off, failed facet read shows "did not load" | bfb49a3 | 0 | v11/reports/P2.md |
+| P2 | ux11/p2-quizzes | merged (ab6fd66, PR #77): pushed by ORCH on the owner's explicit go | bfb49a3 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | X1-005 + X2-004 merged (00728c6, PR #69, branch ux11/p3-fix2) | f8b7693 | 0 | v11/reports/P3.md |
-| P4 | ux11/p4-quiz | X1-002 comment hearts + Reply DONE LOCALLY on ux11/p4-fix3 (push refused by the permission check; waits for the owner) | 9a9bd04 | 0 | v11/reports/P4.md |
+| P4 | ux11/p4-quiz | fix 3 comment hearts + Reply merged (6fd6810, PR #78): pushed by ORCH on the owner's go | 9a9bd04 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | X2-009 done state merged (PR #70, branch ux11/p5-fix2) | 9f4b342 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | X1-001 (PR #67) + X2-006/005 (PR #71, branch ux11/p6-fix3) merged | a3f4c48 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
@@ -24,7 +24,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P11 | ux11/p11-notifications | X2-010 merged (PR #73, branch ux11/p11-fix1) | 3c71ea6 | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | DONE locally, REPORT.md final (unpublished: waits for the owner) | e464a46 | - | v11/REPORT.md |
+| C3 | ux11/c3-check | merged (c0b6826, PR #79): REPORT.md now on the integration branch; pushed by ORCH on the owner's go | e464a46 | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -56,6 +56,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 - `docs/pending-migrations/v11-p10-email-prefs.sql` (P10): email notification switches (disabled in the UI until applied).
 - `docs/pending-migrations/v11-p3-group-quiz-alerts.sql` (P3): group quiz alerts table + RLS + publish trigger (the empty hub's Notify me fails soft until applied).
 - `docs/pending-migrations/v11-p8-community.sql` (P8): community_likes, community_debates + community_debate_votes, community_challenges, community_replies (fan debates, challenge posts and hearts stay off until applied; they turn on without a deploy).
+- `docs/pending-migrations/v11-p4-comment-likes.sql` (P4): quiz comment hearts and replies (the results comments show no heart or Reply until applied).
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
 ## Owner decisions needed
@@ -66,7 +67,7 @@ FAKE DATA, LIVE SITE (found by P9, confirmed by ORCH): /pt/leaderboard pads the 
 
 DAILY DEBATE ROTATION (P8 + P9): the only caller of ensure_daily_debate is the legacy CommunityContent on /leaderboard (a write on view); no cron calls it. With the flag on, /leaderboard no longer mounts it and /verse/community 302s guests while the Verse is hidden, so the daily debate stops rotating. No write path was added. Owner call before turning the flag on (for example a Vercel cron).
 
-WAITING ON THE OWNER NOW (3 branches the permission check would not let agents or ORCH push): P4's `ux11/p4-fix3` (9a9bd04: comment hearts + Reply on quiz results, fail-soft until docs/pending-migrations/v11-p4-comment-likes.sql, which lives on that branch),  C3's branch `ux11/c3-check` (4f3ef6c and later, worktree .claude/worktrees/agent-a0c9933401ee9710b; QA specs, SEO diff, REPORT.md) and P2's branch `ux11/p2-quizzes` (9 commits, adea732, local only, worktree .claude/worktrees/agent-a2b9cc4c27e8fa88a) could not be pushed: the permission check refused the agent's push. Either the owner pushes it (`git push -u origin ux11/p2-quizzes`, then a PR into feat/ux-v1-v11) or tells ORCH to push it.
+PUBLISHED 2026-09-27 on the owner's explicit go ("do it, preview only"): ux11/p2-quizzes, ux11/c3-check, ux11/p4-fix3 pushed by ORCH and merged into feat/ux-v1-v11 (PRs #77, #78, #79). Never main.
 
 SECURITY, LIVE SITE (found by P2, confirmed by ORCH in code): /quizzes puts user-written quiz titles into an ld+json script tag with a bare JSON.stringify (titles only length-checked), so a title containing </script> could break out: likely stored XSS. The Verse code already has the escaping sink jsonLdScript (lib/verse/jsonld.tsx). Handed to the owner as a separate task chip (fix on main).
 
@@ -112,6 +113,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 Owner: "do it (preview only of course)": ORCH pushed ux11/p2-quizzes, ux11/c3-check, ux11/p4-fix3 (accepted this time) and merged them (c0b6826); REPORT.md is now in PR #66. Owner saw the OLD look on a Vercel preview of feat/ux-v1-v11: expected, the previews build with NEXT_PUBLIC_UX_V1 unset (flag off = today's site); to see v11 there, NEXT_PUBLIC_UX_V1=1 must be set for Preview on branch feat/ux-v1-v11 (asked). Local preview on :3021 rebuilt: integration 4ed5acf + P2 (warm ground, nav spacing).
 - 2026-09-27 A0 fix 5 (owner requests) merged (4ed5acf, PR #76 opened by ORCH: A0 pushed every commit then stalled). Colour census 1440 light: home white 81.9% -> 3.5%, warm ground 0 -> 71.8%. Follow-ups started: S1 token sweep (one agent, one commit per owner with UX11_AGENT=<owner> so the guard checks each path: A0.md 12.3 list for P3, P4, P5, P6, P8, P9, P10, P11), A0 fix 6 for the existing tablet overflow (761 to about 830px: sideways scroll 22-24px).
 - 2026-09-27 P10 fix 3 merged (2e82db3): the visitor share sheet has 4 tiles (A0's default story PNG 1080x1920), the passport Quizzes tab lists this device's started create draft (no server read, no write); flag off identical on 7 URLs. Remaining in flight: A0 fix 5 (owner requests: nav spacing, warm background). Then: one rebuild of the preview (integration + local ux11/p2-quizzes) for the owner, and a final re-check of the touched states.
 - 2026-09-27 A0's resumed session stalled with nothing committed on ux11/a0-fix4 (clean, abandoned): a FRESH A0 took both owner requests (nav spacing + warm page background) on ux11/a0-fix5. P10 resumed on ux11/p10-fix3 (c23b9e0 + ab79d03 pushed; one spec edit to commit).
