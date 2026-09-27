@@ -399,10 +399,13 @@ signedInTest.describe('signed in (test user, read only)', () => {
   // "My quizzes" opens the personal passport on its Quizzes tab, from another page and
   // in place on the passport, and counts the create draft kept on this device.
   // /me is never loaded (its GET grants badge tiers and writes a passport snapshot):
-  // every request to /me or /profile is answered here, the /me document with the test
-  // user's public passport (/u/<username>, cookie-free reads, same P10 tabs), anything
-  // else (RSC fetch, prefetch) aborted. The real menu and the real P10 tabs run on the
-  // real URL; /me's server code never runs.
+  // every request to /me is answered here with the test user's public passport
+  // (/u/<username>, cookie-free reads, same P10 tabs): the navigation's RSC fetch with
+  // the RSC of /u/<username> for the same router headers (a real soft navigation), a
+  // document with its HTML; a prefetch is aborted. The real menu and the real P10 tabs
+  // run on the real URL; /me's server code never runs. /profile (a prerendered redirect
+  // to /me, no page code per request) goes through, so the Passport link's prefetch is
+  // observed as it is.
   signedInTest('account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count', async ({ page }) => {
     skipUnlessSignedIn();
     signedInTest.skip(widthOf(page) <= 760, 'the account menu sits in the top bar above 760px (phones: the You tab)');
@@ -416,11 +419,16 @@ signedInTest.describe('signed in (test user, read only)', () => {
     signedInTest.skip(passport.status() !== 200, 'the public passport did not load (busy database)');
     const passportHtml = await passport.text();
     const toMe: string[] = [];
-    await page.route((u) => u.pathname === '/me' || u.pathname === '/profile', async (route) => {
+    await page.route((u) => u.pathname === '/me', async (route) => {
       const r = route.request();
       toMe.push(`${r.resourceType()} ${new URL(r.url()).pathname}`);
-      if (r.resourceType() === 'document' && new URL(r.url()).pathname === '/me') {
+      const h = r.headers();
+      if (r.resourceType() === 'document') {
         await route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: passportHtml });
+      } else if (h['rsc'] === '1' && !h['next-router-prefetch'] && !h['next-router-segment-prefetch']) {
+        const u = new URL(r.url());
+        u.pathname = `/u/${encodeURIComponent(username)}`;
+        await route.fulfill({ response: await route.fetch({ url: u.toString() }) });
       } else {
         await route.abort();
       }
@@ -439,16 +447,18 @@ signedInTest.describe('signed in (test user, read only)', () => {
     const mine = menu.getByRole('link', { name: /^My quizzes/ });
     await expect(mine).toHaveAttribute('href', '/me#p10-panel-quizzes');
     await expect(mine.locator('small')).toHaveText('1 draft');
-    await page.waitForTimeout(500);
-    expect(toMe, 'opening the menu does not prefetch /me').toEqual([]);
+    await page.waitForTimeout(1500);
+    expect(toMe, 'opening the menu requests nothing from /me (no prefetch, none through /profile)').toEqual([]);
 
-    // From another page: the link navigates, the passport opens the tab from the hash.
+    // From another page: a soft navigation, the passport opens the tab from the hash.
+    await page.evaluate(() => { (window as unknown as { __a0Nav?: number }).__a0Nav = 1; });
     await mine.click();
     await expect(page).toHaveURL(/\/me#p10-panel-quizzes$/, { timeout: 30_000 });
     const quizzesTab = page.locator('#p10-tab-quizzes');
     await expect(quizzesTab).toHaveAttribute('aria-selected', 'true', { timeout: 60_000 });
     await expect(page.locator('#p10-panel-quizzes')).toBeVisible();
-    expect(toMe.filter((r) => r.startsWith('document')), 'one document request, answered by the stub').toEqual(['document /me']);
+    expect(toMe, 'one RSC fetch, no document load').toEqual(['fetch /me']);
+    expect(await page.evaluate(() => (window as unknown as { __a0Nav?: number }).__a0Nav), 'soft navigation (same document)').toBe(1);
 
     // On the passport (tab moved back to Overview, hash unchanged): the tab switches
     // in place, no reload, no request.
