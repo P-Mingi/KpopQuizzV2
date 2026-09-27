@@ -40,11 +40,14 @@ export const OWNER_DEVIATIONS: OwnerDeviation[] = [
   { theme: 'light', proto: '*', prop: 'border-top-color', from: 'rgb(201, 56, 104)', to: 'rgb(196, 53, 101)', why: 'fix 5: currentColor border of pink-ink text' },
 ];
 
-/** The reference with the owner-approved deviations applied (`raw` = the capture as is). */
-export function loadReference(opts: { raw?: boolean } = {}): ReferenceStyles {
-  const ref = JSON.parse(fs.readFileSync(STYLES_JSON, 'utf8')) as ReferenceStyles;
-  if (opts.raw) return ref;
-  for (const [key, sels] of Object.entries(ref)) {
+/**
+ * A copy of a prototype capture (`<width>-<theme>-<state>` keys, styles.json or a page
+ * agent's own capture of the same shape) with the owner-approved deviations applied.
+ * Idempotent (no `to` value is another row's `from`).
+ */
+export function withOwnerDeviations(ref: ReferenceStyles): ReferenceStyles {
+  const out = JSON.parse(JSON.stringify(ref)) as ReferenceStyles;
+  for (const [key, sels] of Object.entries(out)) {
     const theme = key.includes('-light-') ? 'light' : key.includes('-dark-') ? 'dark' : null;
     for (const [sel, props] of Object.entries(sels)) {
       for (const d of OWNER_DEVIATIONS) {
@@ -52,7 +55,13 @@ export function loadReference(opts: { raw?: boolean } = {}): ReferenceStyles {
       }
     }
   }
-  return ref;
+  return out;
+}
+
+/** The reference with the owner-approved deviations applied (`raw` = the capture as is). */
+export function loadReference(opts: { raw?: boolean } = {}): ReferenceStyles {
+  const ref = JSON.parse(fs.readFileSync(STYLES_JSON, 'utf8')) as ReferenceStyles;
+  return opts.raw ? ref : withOwnerDeviations(ref);
 }
 
 /** Visual props compared by default (box size is compared only where the entry says so). */
@@ -118,8 +127,10 @@ function close(a: string, b: string): boolean {
   return /^-?[\d.]+px$/.test(a.trim()) && /^-?[\d.]+px$/.test(b.trim()) && Math.abs(na - nb) <= 2;
 }
 
-/** Compare the implementation on `page` with the reference `${width}-${theme}-${state}`. */
-export async function compareLandmarks(page: Page, width: number, theme: 'light' | 'dark', landmarks: Landmark[], ref = loadReference()): Promise<{ checked: string[]; missing: string[]; mismatches: Mismatch[] }> {
+/** Compare the implementation on `page` with the reference `${width}-${theme}-${state}`
+ *  (styles.json by default; a passed capture gets the owner-approved deviations too). */
+export async function compareLandmarks(page: Page, width: number, theme: 'light' | 'dark', landmarks: Landmark[], reference?: ReferenceStyles): Promise<{ checked: string[]; missing: string[]; mismatches: Mismatch[] }> {
+  const ref = reference ? withOwnerDeviations(reference) : loadReference();
   const got = await computed(page, landmarks.map((l) => l.impl), VISUAL_PROPS);
   const mismatches: Mismatch[] = [];
   const checked: string[] = [];
