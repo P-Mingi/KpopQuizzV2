@@ -110,7 +110,7 @@ describe('writeError', () => {
   });
   it('no em or en dash in any line', () => {
     for (const s of [writeError('like', 503), writeError('reply', 503), writeError('reply', 429), writeError('reply', 400, 'too_long'), writeError('like', 404), writeError('like', 500), writeError('reply', 500)]) {
-      expect(s).not.toMatch(/[–—]/);
+      expect(s).not.toMatch(/[\u2013\u2014]/);
     }
   });
 });
