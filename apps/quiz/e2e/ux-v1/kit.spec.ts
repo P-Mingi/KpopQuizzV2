@@ -480,6 +480,9 @@ test.describe('kit interactions', () => {
     await expect(box.getByRole('button', { name: 'Level: Hard' })).toBeVisible();
     await expect(box.getByRole('button', { name: 'Group: Stray Kids' })).toBeVisible();
     expect(new Set(picked.map((t) => Math.round(t.top))).size, `one line at ${widthOf(page)}px`).toBe(1);
+    // prototype.html #quizzes `.dd` Type / Level / Group, 1440 and 390, before and after
+    // ddPick (measured in Chromium 1234): 91.58, 93.94, 100.09
+    [91.58, 93.94, 100.09].forEach((w, i) => expect(Math.abs(picked[i]!.w - w), `${picked[i]!.text} width = prototype`).toBeLessThanOrEqual(0.5));
     const chips = box.getByRole('group', { name: 'Active filters (kept labels)' });
     for (const c of ['True/false', 'Hard', 'Stray Kids']) await expect(chips.getByRole('button', { name: `Remove filter ${c}` })).toBeVisible();
 
