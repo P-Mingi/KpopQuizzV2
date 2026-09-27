@@ -36,6 +36,7 @@ import {
   commentLine,
   coarseAge,
   debutYearOf,
+  hubCommunityDoor,
   hubEyebrow,
   hubFacts,
   quizzesLabel,
@@ -171,6 +172,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // for open spaces.
   const verseOpen = verseSpaceOpen(g.slug);
   const verseLink = Boolean(nameAllGame) && verseOpen;
+  const communityDoor = hubCommunityDoor(verseOpen, topSlug);
 
   const aboutLinks = Boolean(triviaAvailable || verseLink || hasQuizzes);
   const hasMembers = Boolean(nameAllGame && nameAllGame.members.length > 0);
@@ -333,13 +335,12 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                     ))}
                   </div>
                 ) : (
-                  // The rows here are comments on this group's quizzes, so a parked
-                  // space's door is the top quiz: its results screen takes a comment.
+                  // The rows here are comments on this group's quizzes. An open space's
+                  // door opens the thread editor; a parked space's door is the top quiz:
+                  // its results screen takes a comment (hubCommunityDoor).
                   <p className="p3-note p3-com-empty">
                     No posts about {g.name} yet.{' '}
-                    {verseOpen || !topSlug
-                      ? <UxLink href="/community">Start the first thread</UxLink>
-                      : <UxLink href={`/q/${topSlug}`}>Play the top quiz and leave the first comment</UxLink>}
+                    <UxLink href={communityDoor.href}>{communityDoor.label}</UxLink>
                   </p>
                 )}
               </section>
