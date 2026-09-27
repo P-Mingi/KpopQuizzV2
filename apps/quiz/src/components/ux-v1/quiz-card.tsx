@@ -48,6 +48,12 @@ interface UxQuizCardProps {
   /** next/image sizes; the default matches the 4 / 3 / 72vw grid. */
   sizes?: string | undefined;
   className?: string | undefined;
+  /** Preview mode (create step 3, "How it will look"): the same card without the link,
+   *  for a draft that has no /q/<slug> yet. Its cover may be a data: or blob: URL (a
+   *  plain <img>; next/image and the host list refuse them). The card is one image
+   *  for assistive tech, named by `previewLabel` (default "Preview: title, group, level"). */
+  preview?: boolean | undefined;
+  previewLabel?: string | undefined;
 }
 
 const DEFAULT_SIZES = '(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px';
@@ -61,16 +67,20 @@ const DEFAULT_SIZES = '(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px'
  * public/idols, else the typographic cover (type glyph + group name). Server
  * component; in a stacked phone list use <UxQuizGrid stack>.
  */
-export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_SIZES, className }: UxQuizCardProps): React.ReactElement {
-  const own = quiz.cover_image_url && isConfiguredImageHost(quiz.cover_image_url) ? quiz.cover_image_url : null;
-  const photo = own ?? groupPhotoUrl(quiz.group_slug);
+export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_SIZES, className, preview, previewLabel }: UxQuizCardProps): React.ReactElement {
+  const local = preview && quiz.cover_image_url && /^(data:image\/|blob:)/.test(quiz.cover_image_url) ? quiz.cover_image_url : null;
+  const own = !local && quiz.cover_image_url && isConfiguredImageHost(quiz.cover_image_url) ? quiz.cover_image_url : null;
+  const photo = own ?? (local ? null : groupPhotoUrl(quiz.group_slug));
   const level = levelOf(quiz.difficulty);
   const plays = quiz.play_count < NEW_QUIZ_PLAY_THRESHOLD ? 'New' : `${formatCount(quiz.play_count)} plays`;
 
-  return (
-    <Link href={`/q/${quiz.slug}`} className={['ux-qcard', className ?? ''].filter(Boolean).join(' ')}>
+  const body = (
+    <>
       <div className="ux-qcov">
-        {photo ? (
+        {local ? (
+          // eslint-disable-next-line @next/next/no-img-element -- a draft's data: / blob: cover (preview only)
+          <img src={local} alt="" className="ux-qcov-img" style={{ objectPosition: 'center 25%' }} />
+        ) : photo ? (
           <Image
             src={photo}
             alt=""
@@ -94,8 +104,13 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
           <span className="ux-qpl">{plays}</span>
         </div>
       </div>
-    </Link>
+    </>
   );
+  const cls = ['ux-qcard', preview ? 'is-preview' : '', className ?? ''].filter(Boolean).join(' ');
+  if (preview) {
+    return <div className={cls} role="img" aria-label={previewLabel ?? `Preview: ${quiz.title}, ${quiz.group_name}, ${level.label}`}>{body}</div>;
+  }
+  return <Link href={`/q/${quiz.slug}`} className={cls}>{body}</Link>;
 }
 
 /** Card grid: 4 columns (3 under 1100), a snap scroller on phones, or with

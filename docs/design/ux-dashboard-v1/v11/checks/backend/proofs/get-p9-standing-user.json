@@ -1,0 +1,34 @@
+[
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p9/standing",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": true,
+   "me": {
+    "username": "testtest",
+    "href": "/u/testtest",
+    "avatar": {
+     "src": null,
+     "bg": null,
+     "fg": null
+    },
+    "accent": "default",
+    "font": "default",
+    "bias": null
+   },
+   "war": null,
+   "player": {
+    "rank": 197,
+    "xp": 32,
+    "line": "Lv 2 · New Fan"
+   },
+   "creator": {
+    "rank": null,
+    "quizzes": 0,
+    "plays": 0
+   }
+  }
+ }
+]

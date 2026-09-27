@@ -16,6 +16,7 @@ import { Segmented } from '@/components/ux-v1/segmented';
 import { ShareSheet } from '@/components/ux-v1/share-sheet';
 import { SignInSheet, useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { UxTabs } from '@/components/ux-v1/tabs';
+import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { tabPanelProps } from '@/components/ux-v1/tab-panel';
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { streakView } from '@/lib/ux-v1/a0/streak';
@@ -104,17 +105,21 @@ export function KitForms(): React.ReactElement {
 }
 
 export function KitPopovers(): React.ReactElement {
-  const risk = streakView(12, utcDay(-1));
-  const played = streakView(13, utcDay(0));
+  // The streak popovers show a countdown to UTC midnight ("23h 22m"): rendered after
+  // mount only, so a minute ticking over between the server render and hydration
+  // cannot make the two differ.
+  const mounted = useIsClient();
+  const risk = mounted ? streakView(12, utcDay(-1)) : null;
+  const played = mounted ? streakView(13, utcDay(0)) : null;
   const profile: MeProfile = { username: 'kit_sample', display_name: null, avatar_url: null, avatar_bg: '#ED93B1', avatar_text: '#FFFFFF', xp: 820 };
   return (
     <div className="ux-kit-grid2 ux-kit-static" data-kit="popovers">
       {risk ? <div><span className="ux-kit-label">Streak popover, at risk</span><div className="ux-pop ux-layer ux-streakpop" role="dialog" aria-label="Streak at risk (static)"><StreakBody v={risk} close={noop} /></div></div> : null}
       {played ? <div><span className="ux-kit-label">Streak popover, played today</span><div className="ux-pop ux-layer ux-streakpop" role="dialog" aria-label="Streak played (static)"><StreakBody v={played} close={noop} /></div></div> : null}
       <div>
-        <span className="ux-kit-label">Bell panel frame (content = P11 slot)</span>
+        <span className="ux-kit-label">Bell panel frame (content = P11&apos;s BellPanel, the viewer&apos;s real latest 6)</span>
         <div className="ux-pop ux-layer ux-bellpop" role="dialog" aria-label="Notifications (static)">
-          <div className="ux-pop-h"><b>Notifications</b></div>
+          <div className="ux-pop-h"><b>Notifications</b><button type="button" className="ux-lnk" onClick={noop}>Mark all read</button></div>
           <BellPanel unread={4} onClose={noop} />
           <div className="ux-msep" />
           <Link className="ux-mi" href="/notifications">See all notifications<Icon name="right" size="sm" style={{ marginLeft: 'auto' }} /></Link>

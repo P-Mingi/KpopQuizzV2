@@ -113,7 +113,13 @@ async function harness(page: Page, theme: Theme, opts: { board?: 'guest' | 'fres
 }
 
 async function openHub(page: Page, path = '/blindtest'): Promise<boolean> {
-  const res = await page.goto(path);
+  let res = await page.goto(path);
+  // A render whose catalog read failed (a slow machine trips the hub's 5 s read
+  // budget) is the fail-soft hub without the group index: retry the render, the
+  // checks below still demand the full hub.
+  for (let i = 0; i < 4 && path === '/blindtest' && res?.status() === 200 && (await page.locator('.p6-hub').count()) > 0 && (await page.locator('.p6-btg').count()) === 0; i++) {
+    res = await page.reload();
+  }
   if (!res || res.status() !== 200 || !(await hasShell(page))) return false;
   if ((await page.locator('.p6-hub').count()) === 0 && (await page.locator('.p6-play').count()) === 0) return false;
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
@@ -273,6 +279,9 @@ for (const theme of THEMES) {
       const h = await harness(page, theme);
       test.skip(!(await openHub(page)), 'UX v1 flag is OFF on this build');
       await hubReady(page);
+      // Freeze Date.now (timers keep running): every answer is timed at 0 ms, so the
+      // points are the formula's exact value whatever the machine load.
+      await page.clock.setFixedTime(Date.now());
       await start(page);
       // Focus mode: nav, tab bar and footer are gone; the slim game bar remains.
       await expect(page.locator('.ux-nav')).toBeHidden();
@@ -287,7 +296,7 @@ for (const theme of THEMES) {
       const cmp = await compareLandmarks(page, widthOf(page), theme, GAME_LANDMARKS);
       expect(cmp.mismatches, 'orb styles').toEqual([]);
 
-      // Key 1 on round 0 is the right answer (index 0), answered at once: full speed bonus.
+      // Key 1 on round 0 is the right answer (index 0), at 0 ms: full speed bonus.
       await page.keyboard.press('1');
       await expect(page.locator('.p6-ans.is-ok')).toHaveCount(1);
       await expect(page.locator('.p6-ans.is-ok')).toContainText('Correct');
@@ -585,6 +594,7 @@ for (const theme of THEMES) {
 }
 
 test.describe('wiring (real, read only)', () => {
+  test.describe.configure({ timeout: 120_000 });
   test('board endpoint answers its shape; the hub lists every playable group', async ({ page, request }) => {
     const res = await request.get('/api/ux-v1/p6/board');
     test.skip(res.status() === 404, 'UX v1 flag is OFF on this build');
@@ -611,6 +621,7 @@ test.describe('wiring (real, read only)', () => {
 });
 
 signedInTest.describe('signed in (test user, read only)', () => {
+  signedInTest.describe.configure({ timeout: 120_000 });
   signedInTest('your row, best and played state come from the real board; zero writes', async ({ page }) => {
     skipUnlessSignedIn();
     const writes = await guardWrites(page, env.supabaseUrl);

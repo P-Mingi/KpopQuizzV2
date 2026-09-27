@@ -1,0 +1,87 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:35:04.348Z",
+ "h1": "Name that K-pop song",
+ "serverGroupLinks": 79,
+ "popular": [
+  "(G)I-DLE 18 songs -> /blindtest/group-g-i-dle",
+  "2NE1 18 songs -> /blindtest/group-2ne1",
+  "2PM 18 songs -> /blindtest/group-2pm",
+  "aespa 18 songs -> /blindtest/group-aespa",
+  "AKMU 11 songs -> /blindtest/group-akmu",
+  "Apink 18 songs -> /blindtest/group-apink"
+ ],
+ "indexCount": 0,
+ "themes": [
+  "/blindtest/classic",
+  "/blindtest/intro-challenge",
+  "/blindtest/verse-only",
+  "/blindtest/bridge-or-break",
+  "/blindtest/speed-round",
+  "/blindtest/2nd-gen",
+  "/blindtest/3rd-gen",
+  "/blindtest/4th-gen",
+  "/blindtest/girl-groups",
+  "/blindtest/boy-groups",
+  "/blindtest/solo-artists",
+  "/blindtest/title-tracks",
+  "/blindtest/b-sides",
+  "/blindtest/recent-hits",
+  "/blindtest/kpop-legends",
+  "/blindtest/4th-gen-gg",
+  "/blindtest/4th-gen-bg",
+  "/blindtest/random-all"
+ ],
+ "modeCards": [
+  "Blindtest of the day Ten songs, the same for everyone. One t -> /blindtest?daily=true",
+  "Ranked A fixed pool, speed and combos count. Your five best  -> /blindtest/ranked",
+  "Challenge a friend Play a run, then send a link. They get yo -> /blindtest#bt-start"
+ ],
+ "board": "1 J jellytaengs7/10 64.7s 2 A ajmyoi6/10 58.5s 3 L lore_stay_55/10 48.3s",
+ "stats": "",
+ "menuHead": "79 playlists",
+ "menuItems": 79,
+ "errors": [
+  "load /blindtest: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /blindtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /blindtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ranked/me",
+   "status": 503
+  },
+  {
+   "step": "load /blindtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p6/board",
+   "status": 200
+  },
+  {
+   "step": "setup: 5 songs + Start",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/blind-test/generate",
+   "body": "{\"playlist\":\"bts\",\"count\":5,\"mode\":\"challenge\"}"
+  },
+  {
+   "step": "setup: 5 songs + Start",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ranked/me",
+   "status": 503
+  }
+ ]
+}

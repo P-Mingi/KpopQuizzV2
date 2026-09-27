@@ -1,0 +1,37 @@
+# Flag off = today's site. A = base feat/ux-v1-v11 89e1e94 (git archive, npm run build, flag OFF, next start :4391)
+# B = ux11/p9-leaderboard 4878b40 (npm run build, flag OFF, next start :4392). Pages fetched from A and B back to back.
+
+## A0 flag-off-diff.mjs --structure
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 329068/329068  normalised 189625/189625  js chunks 13/13
+IDENTICAL (structure)  /pt/leaderboard  status 200/200  raw bytes 83151/83149  normalised 31760/31760  js chunks 14/14
+IDENTICAL (structure)  /  status 200/200  raw bytes 228501/228457  normalised 142663/142663  js chunks 13/13
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 376093/376091  normalised 268532/268532  js chunks 13/13
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 139350/139348  normalised 54660/54660  js chunks 13/13
+all 5 pages identical after normalising build ids and hashed asset names
+
+## bytes (the only difference: the RSC payload's client module ids, bundler numbering)
+DIFFERENT (bytes)  /leaderboard  status 200/200  raw bytes 329068/329068  normalised 327065/327065  js chunks 13/13
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[50071,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[93766,[\"static/chunks/<asset>
+    A: .js\"],\"ThemeInit\"]\n3:I[82368,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[95912,[\"static/chunks/<asset>
+    A: .js\"],\"default\"]\n5:I[77334,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[28695,[\"static/chunks/<asset>
+    A: .js\"],\"\"]\n15:I[46916,[\"static/chunks/<asset>
+    B: .js\"],\"\"]\n15:I[72119,[\"static/chunks/<asset>
+    A: .js\"],\"Image\"]\n19:I[2880,[\"static/chunks/<asset>
+    B: .js\"],\"Image\"]\n19:I[8349,[\"static/chunks/<asset>
+    A: .js\"],\"TopNavBar\"]\n1a:I[45177,[\"static/chunks/<asset>
+    B: .js\"],\"TopNavBar\"]\n1a:I[94671,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /pt/leaderboard  status 200/200  raw bytes 83151/83149  normalised 81759/81757  js chunks 14/14
+
+## JS weight (chunks referenced by the HTML)
+http://localhost:4391 /leaderboard js 13 files 733,705 B
+http://localhost:4391 /pt/leaderboard js 14 files 717,892 B
+http://localhost:4391 / js 13 files 709,010 B
+http://localhost:4392 /leaderboard js 13 files 733,877 B
+http://localhost:4392 /pt/leaderboard js 14 files 717,894 B
+http://localhost:4392 / js 13 files 709,023 B
+
+## render modes (next build): base and branch both ○ /leaderboard 5m, ○ /pt/leaderboard 5m; the branch adds ƒ /api/ux-v1/p9/standing
+## flag-off API: GET /api/ux-v1/p9/standing -> 404 {"error":"not_found"}

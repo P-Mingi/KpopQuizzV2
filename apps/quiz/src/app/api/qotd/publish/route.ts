@@ -3,11 +3,16 @@ import { createClient } from '@supabase/supabase-js';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
+import { rotateQotd, supabaseQotdStore } from '@/lib/ux-v1/p1/qotd-rotation';
 
 import type { NextRequest } from 'next/server';
 
-// Manual admin trigger. The QOTD is also published automatically on first home page
-// load of the day via the ensure_daily_quiz() DB function (no cron required).
+// Manual admin trigger. The daily publish runs from the Vercel cron
+// /api/cron/ensure-daily-quiz (00:05 UTC), not on a home render. With the server
+// env switch QOTD_ROTATION_FIX=1, a date with no bank row is filled the same way
+// the cron does it (lib/ux-v1/p1/qotd-rotation.ts); switch OFF (the default) this
+// route behaves exactly as before.
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const cronSecret = process.env.CRON_SECRET;
   const isVercelCron = req.headers.get('x-vercel-cron') === '1';
@@ -32,6 +37,22 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const dateParam = req.nextUrl.searchParams.get('date');
   const today = dateParam ?? new Date().toISOString().split('T')[0]!;
+
+  if (qotdRotationFixEnabled()) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) {
+      return NextResponse.json({ error: 'date must be YYYY-MM-DD' }, { status: 400 });
+    }
+    try {
+      const result = await rotateQotd(supabaseQotdStore(supabase), today);
+      if (!result.quizId) {
+        return NextResponse.json({ error: result.reason ?? 'No quiz available for this date' }, { status: 404 });
+      }
+      return NextResponse.json({ success: true, quiz_id: result.quizId, date: today, method: result.method });
+    } catch (err) {
+      console.error('[qotd/publish]', err);
+      return NextResponse.json({ error: err instanceof Error ? err.message : 'publish failed' }, { status: 500 });
+    }
+  }
 
   const { data: quizId, error } = await supabase.rpc('ensure_daily_quiz', { p_date: today });
 

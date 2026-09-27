@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { clearMe, useMe } from '@/lib/auth/use-me';
 
+import { useIsClient } from './use-is-client';
+
 import type { MeResponse } from '@/lib/auth/use-me';
 
 const EVT = 'ux:me-refresh';
@@ -25,14 +27,23 @@ export function refreshUxMe(): void {
   }
 }
 
-/** The shared /api/auth/me result (null while loading), refreshed by refreshUxMe(). */
+/**
+ * The shared /api/auth/me result (null while loading), refreshed by refreshUxMe().
+ * Always null on the server and during hydration: useMe() and refreshUxMe() seed
+ * from module caches that the shell's islands have usually filled by the time a
+ * late page island hydrates, and a signed-in or guest-only first render there would
+ * not match the server HTML (P4 request 3). Islands that mount after hydration get
+ * the cached value on their first render, as before.
+ */
 export function useUxMe(): MeResponse | null {
   const base = useMe();
+  const mounted = useIsClient();
   const [fresh, setFresh] = useState<MeResponse | null>(latest);
   useEffect(() => {
     const on = (): void => setFresh(latest);
     window.addEventListener(EVT, on);
     return () => window.removeEventListener(EVT, on);
   }, []);
+  if (!mounted) return null;
   return fresh ?? base;
 }

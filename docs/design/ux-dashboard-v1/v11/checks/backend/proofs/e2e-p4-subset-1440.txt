@@ -1,0 +1,9 @@
+
+Running 5 tests using 1 worker
+
+[1/5] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/5] [ux-1440] › e2e/ux-v1/p4.spec.ts:276:3 › P4 interactions › keyboard: 1-4 answer, Enter next; key hints per pointer
+[3/5] [ux-1440] › e2e/ux-v1/p4.spec.ts:295:3 › P4 interactions › timer: warn, danger, then "Time is up" when it runs out
+[4/5] [ux-1440] › e2e/ux-v1/p4.spec.ts:518:3 › P4 interactions › quiz types: true/false, image, clues, intruder render and answer
+[5/5] [ux-1440] › e2e/ux-v1/p4.spec.ts:578:3 › P4 interactions › API: v11 routes are read-only on GET and refuse bad input
+  5 passed (32.8s)

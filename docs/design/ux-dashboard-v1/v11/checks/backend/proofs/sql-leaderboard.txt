@@ -1,0 +1,11 @@
+# C2 leaderboard SQL (read only) at 2026-09-26T17:21:12.592Z; war window = plays.created_at >= 2026-09-19T17:21:12.591Z
+war girls-generation: 384 plays in the last 7 days (previous 7 days 0, change new%)
+war stray-kids: 298 plays in the last 7 days (previous 7 days 159, change 87%)
+war cortis: 177 plays in the last 7 days (previous 7 days 204, change -13%)
+war bts: 146 plays in the last 7 days (previous 7 days 162, change -10%)
+war blackpink: 78 plays in the last 7 days (previous 7 days 74, change 5%)
+war ateez: 25 plays in the last 7 days (previous 7 days 26, change -4%)
+players top 3: kpophistory 14360, mina 9520, roseeeyh 7536
+test user xp 32; profiles with more xp 196 -> rank #197
+creators top 3: mina 9433 plays / 8 quizzes, kpophistory 7795 plays / 46 quizzes, skzrealm 4869 plays / 17 quizzes
+test user ult_groups: []

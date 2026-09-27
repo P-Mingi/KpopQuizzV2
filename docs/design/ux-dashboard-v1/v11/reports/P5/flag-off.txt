@@ -1,0 +1,26 @@
+P5 flag-off parity record (/create), 2026-09-26
+
+Method: one flag-off dev server (NEXT_PUBLIC_UX_V1=0, `next dev --webpack`, port 3035) on branch
+ux11/p5-create after the merge of origin/feat/ux-v1-v11 (7b95070). B = the branch's page.tsx; A = the
+base page.tsx (git show origin/feat/ux-v1-v11:apps/quiz/src/app/(site)/create/page.tsx), swapped in on
+the same server (hot reload), then restored with git checkout. /create and /create?group=bts fetched
+from each (the groups read is cached, so both renders used the same data). A0's helper run on the two
+captures (served back by a static server):
+
+  node e2e/ux-v1/helpers/flag-off-diff.mjs --a <A> --b <B> /create '/create?group=bts'
+
+  DIFFERENT (bytes)  /create             status 200/200  raw bytes 109713/109713  normalised 109267/109267  js chunks 10/10
+  DIFFERENT (bytes)  /create?group=bts   status 200/200  raw bytes 90143/90143    normalised 89697/89697    js chunks 10/10
+  (every differing node is a dev-only token: the ?v=<timestamp> cache buster on dev assets and
+   self.__next_r, the dev request id)
+
+  After replacing those two dev-only tokens:
+  /create            IDENTICAL (109187 / 109187 bytes: head, body, RSC payload, script tags)
+  /create?group=bts  IDENTICAL (89617 / 89617 bytes)
+
+  /pt/create: 404 flag off and flag on (no /pt mirror of the create page, unchanged).
+
+JS: the flag-off /create keeps the same 10 script tags. The only P5 client code a flag-off build can
+carry is components/create/ux-v1/loader.tsx (next/dynamic loaders, A0 / P4 / P6 pattern); the funnel
+itself is a separate chunk requested only where it renders (flag on). A production-build byte count was
+not re-run by P5 (see the report, section "Not verified").

@@ -1,0 +1,74 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T21:06:06.417Z",
+ "stubStatus": false,
+ "realStatus": {
+  "code": 200,
+  "body": {
+   "enabled": true,
+   "already_flexed": false
+  }
+ },
+ "discord": "Compare with the community on Discord→ Brag in the Discord",
+ "discordLinks": [
+  "Compare with the community on Discord→ -> https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=result-quiz-result"
+ ],
+ "brag": 1,
+ "errors": [
+  "load + play all right: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/questions",
+   "status": 200
+  },
+  {
+   "step": "load + play all right",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+   "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":4,\"max_score\":8,\"per_question_times\":[0.7,0.3,0.2,0.2,0.1,0.1,0.1,0],\"anon_id\":\"7e149c30-c9b8-42de-b659-39ba8cb5f1f9\"}"
+  },
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/like",
+   "status": 200
+  },
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/discord/flex/status?key=quiz%3Aultimate-bts-era-quiz-only-real-armys-survive%3A8%2F8",
+   "status": 200
+  },
+  {
+   "step": "load + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=4ba8f255-2401-4220-8559-9a33c9ec1759&score=8",
+   "status": 200
+  }
+ ]
+}

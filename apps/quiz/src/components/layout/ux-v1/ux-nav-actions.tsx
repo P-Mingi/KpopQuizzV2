@@ -7,11 +7,14 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxAvatar } from '@/components/ux-v1/avatar';
 import { UxPopover } from '@/components/ux-v1/popover';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
+import { useUxToast } from '@/components/ux-v1/toast';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
+import { isPlainClick } from '@/lib/ux-v1/a0/nav';
 import { streakView } from '@/lib/ux-v1/a0/streak';
+import { markAllRead } from '@/lib/ux-v1/p11/actions';
 import { applyTheme, useEffectiveTheme } from '@/lib/ux-v1/a0/theme';
 
 import { BellPanel } from './slots';
@@ -29,7 +32,7 @@ export function StreakBody({ v, close }: { v: StreakView; close: () => void }): 
     <>
       <div className="ux-streakpop-big">{v.days} {v.days === 1 ? 'day' : 'days'}</div>
       <p>{risk
-        ? `Today is not played yet. Play any quiz or blindtest in the next ${v.left} to keep it.`
+        ? `Today is not played yet. Play the daily quiz or the daily blindtest in the next ${v.left} to keep it.`
         : `Today is played. Come back tomorrow to make it ${v.days + 1}.`}</p>
       <ol className="ux-week" aria-label="This week">
         {v.week.map((d, i) => (
@@ -71,6 +74,7 @@ function StreakPill({ profile }: { profile: MeProfile }): React.ReactElement | n
 
 function Bell(): React.ReactElement {
   const unread = useUnreadCount();
+  const toast = useUxToast();
   useEffect(() => {
     void refetchUnread();
     const onVisible = (): void => { if (document.visibilityState === 'visible') void refetchUnread(); };
@@ -95,7 +99,12 @@ function Bell(): React.ReactElement {
     >
       {(close) => (
         <>
-          <div className="ux-pop-h"><b>Notifications</b></div>
+          <div className="ux-pop-h">
+            <b>Notifications</b>
+            {unread > 0 ? (
+              <button type="button" className="ux-lnk" onClick={() => { markAllRead(); toast('All marked as read'); }}>Mark all read</button>
+            ) : null}
+          </div>
           <BellPanel unread={unread} onClose={close} />
           <div className="ux-msep" />
           <Link className="ux-mi" href="/notifications" onClick={close}>See all notifications<Icon name="right" size="sm" style={{ marginLeft: 'auto' }} /></Link>
@@ -158,6 +167,10 @@ function Account({ profile }: { profile: MeProfile }): React.ReactElement {
  * + Create (ghost), then streak pill, bell and avatar menu when signed in, or Sign
  * in for guests. Client island: reads the shared /api/auth/me (one call per page)
  * and the shared unread store, so the server-rendered shell stays static.
+ *
+ * Search is a real `<a href="/search">` in the server HTML (every live page links
+ * to /search: link-set rule). Once hydrated a plain click opens the overlay
+ * instead; modified clicks (new tab) and visitors without JS reach the page.
  */
 export function UxNavActions(): React.ReactElement {
   const me = useUxMe();
@@ -167,9 +180,16 @@ export function UxNavActions(): React.ReactElement {
 
   return (
     <div className="ux-nav-r">
-      <button type="button" className="ux-sbtn" onClick={openSearch} aria-label="Search" aria-keyshortcuts="/">
+      <Link
+        href="/search"
+        prefetch={false}
+        className="ux-sbtn"
+        aria-label="Search"
+        aria-keyshortcuts="/"
+        onClick={(e) => { if (!isPlainClick(e)) return; e.preventDefault(); openSearch(); }}
+      >
         <Icon name="search" size="sm" />
-      </button>
+      </Link>
       <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" />Create</Link>
       {profile ? (
         <>

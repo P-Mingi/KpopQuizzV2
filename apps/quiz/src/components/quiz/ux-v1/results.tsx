@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
+import { BragButton } from '@/components/discord/brag-button';
+import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { StreakBackup } from '@/components/quiz/streak-backup';
 import { UxButton } from '@/components/ux-v1/button';
@@ -20,11 +22,13 @@ import { streakView } from '@/lib/ux-v1/a0/streak';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration, maxScoreFor } from '@/lib/ux-v1/p4/engine';
 import { stampWords } from '@/lib/ux-v1/p4/format';
+import { parseStanding, rankLine } from '@/lib/ux-v1/p4/standing';
 
 import { P4Comments } from './comments';
 import { P4ReportButton } from './report';
 
 import type { RunState } from '@/lib/ux-v1/p4/engine';
+import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 import type { RunExtras } from './quiz-run';
 import type { P4RunQuiz } from './run-context';
 
@@ -55,8 +59,6 @@ function useCountUp(to: number, ms: number): number {
   return v;
 }
 
-interface Standing { signedIn: boolean; played?: boolean; bestScore?: number; total?: number; rank: number | null; totalPlayers: number | null }
-
 /**
  * Quiz results (DESIGN-SPEC 16.7 "Results (600)", 17.4, prototype #end): photocard
  * kept exactly (count-up score, verdict stamp from getResultLabel, mascot on the seam,
@@ -86,7 +88,9 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   const signIn = useSignIn();
   const me = useUxMe();
   const [levelUpDone, setLevelUpDone] = useState(false);
-  const [standing, setStanding] = useState<Standing | null>(null);
+  const [standing, setStanding] = useState<P4Standing | null>(null);
+  /** the standing read answered (or failed): the rank line is final */
+  const [standingDone, setStandingDone] = useState(false);
   const [pieces] = useState(() => Array.from({ length: 40 }, (_, k) => ({ left: Math.random() * 100, delay: Math.random() * 0.5, rot: Math.random() * 180, color: CONFETTI[k % CONFETTI.length] })));
   const [pendingText] = useState<string | null>(() => { const t = pendingComment.current; pendingComment.current = null; return t; });
   const h1 = useRef<HTMLHeadingElement>(null);
@@ -109,13 +113,16 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
     if (extras.outcome || signedIn === null) return;
     let cancelled = false;
     fetch(`/api/ux-v1/p4/standing?quiz=${quiz.id}&score=${result.score}`, { credentials: 'include' })
-      .then((r) => (r.ok ? (r.json() as Promise<Standing>) : null))
-      .then((d) => {
-        if (cancelled || !d) return;
+      .then((r) => (r.ok ? r.json() : null))
+      .then((raw: unknown) => {
+        if (cancelled) return;
+        // C2-008: never trust a key to be there (a fan with no stored play has no rank)
+        const d = parseStanding(raw);
         setStanding(d);
-        onRank(d.rank !== null && d.totalPlayers ? { rank: d.rank, total: d.totalPlayers } : null);
+        onRank(rankLine(d));
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setStandingDone(true); });
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz.id, result.score, signedIn, extras.outcome, claimed]);
@@ -125,13 +132,14 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   const streakSaved = streak && streak.state === 'played_today' ? streak.days : null;
   const levelTitle = result.leveledUp && result.newLevel !== null ? getTitleForLevel(result.newLevel) : null;
   const [first, ...rest] = quiz.keepPlaying;
+  const line = rankLine(standing);
   const chipScore = standing?.signedIn && typeof standing.bestScore === 'number' ? `${standing.bestScore}/${maxScoreFor(result.quizType, standing.total ?? result.totalQuestions)}` : `${result.score}/${max}`;
 
   const shareBtn = <UxButton key="share" variant={good ? 'primary' : 'ghost'} size="lg" icon="share" onClick={onShare}>Share</UxButton>;
   const againBtn = <UxButton key="again" variant={good ? 'ghost' : 'primary'} size="lg" icon="redo" onClick={onPlayAgain}>Play again</UxButton>;
 
   return (
-    <div className="ux-stage p4-res-in">
+    <div className="ux-stage p4-res-in" data-standing={standingDone ? (line ? 'rank' : 'none') : undefined}>
       {levelTitle && !levelUpDone ? (
         <LevelUpOverlay newLevel={result.newLevel!} title={levelTitle.en} titleKr={levelTitle.kr} onDismiss={() => setLevelUpDone(true)} />
       ) : null}
@@ -181,9 +189,9 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
 
       {extras.outcome ? (
         <p className="p4-rankline" data-testid="p4-rankline"><b>{extras.outcome.head}</b>{extras.outcome.tail}</p>
-      ) : standing && standing.rank !== null && standing.totalPlayers ? (
+      ) : standing && line ? (
         <p className="p4-rankline" data-testid="p4-rankline">
-          <b>#{standing.rank.toLocaleString('en-US')}</b> of {standing.totalPlayers.toLocaleString('en-US')} players
+          <b>#{line.rank.toLocaleString('en-US')}</b> of {line.total.toLocaleString('en-US')} players
           {standing.signedIn && typeof standing.bestScore === 'number' ? <> · your best <b>{standing.bestScore}/{maxScoreFor(result.quizType, standing.total ?? result.totalQuestions)}</b></> : null}
         </p>
       ) : null}
@@ -191,6 +199,12 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
       <div className="p4-resact">
         {good ? [shareBtn, againBtn] : [againBtn, shareBtn]}
         <P4LikePill quizId={quiz.id} initial={quiz.likeCount} />
+      </div>
+      {/* EXISTS (quiz-player.tsx K2 + K7, WIRING-MAP R117): the Discord line, and Brag on a good
+          result (70% and up); BragButton hides itself while the flex webhook is unset. */}
+      <div className="p4-discord" data-testid="p4-discord">
+        <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
+        {pct >= 70 ? <BragButton payload={{ kind: 'quiz', title: quiz.title, score: result.score, total: max, quizSlug: quiz.slug }} /> : null}
       </div>
 
       <section className="ux-sec p4-keep" aria-labelledby="p4-keep-h">
@@ -250,27 +264,36 @@ function setAnonLiked(quizId: string, liked: boolean): void {
 }
 
 /** Heart + count. Same GET / POST /api/quiz/[id]/like { action } and the same guest
- *  localStorage key as the EXISTS like-quiz-button.tsx; only the skin is new. */
+ *  localStorage key as the EXISTS like-quiz-button.tsx; only the skin is new.
+ *  The first read (live count, signed-in state) reconciles the ISR count, unless the user
+ *  clicked while it was in flight: then the read predates the click and is dropped (the
+ *  POST answer carries the newer count). C3-004. */
 function P4LikePill({ quizId, initial }: { quizId: string; initial: number }): React.ReactElement {
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(initial);
   const [busy, setBusy] = useState(false);
+  const [synced, setSynced] = useState(false);
+  /** bumped by every click; a read started under an older value is stale */
+  const clicks = useRef(0);
   useEffect(() => {
     if (anonLikes().includes(quizId)) setLiked(true);
     let cancelled = false;
+    const startedAt = clicks.current;
     fetch(`/api/quiz/${quizId}/like`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { liked: boolean; like_count: number } | null) => {
-        if (cancelled || !d) return;
+        if (cancelled || !d || clicks.current !== startedAt) return;
         setCount(d.like_count);
         if (d.liked) setLiked(true);
         else if (!anonLikes().includes(quizId)) setLiked(false);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setSynced(true); });
     return () => { cancelled = true; };
   }, [quizId]);
   const toggle = async (): Promise<void> => {
     if (busy) return;
+    clicks.current += 1;
     const next = !liked;
     setLiked(next);
     setCount((c) => Math.max(0, c + (next ? 1 : -1)));
@@ -294,7 +317,7 @@ function P4LikePill({ quizId, initial }: { quizId: string; initial: number }): R
     }
   };
   return (
-    <button type="button" className="p4-likeb" aria-pressed={liked} aria-label={`Like this quiz, ${count} ${count === 1 ? 'like' : 'likes'}`} onClick={() => { void toggle(); }}>
+    <button type="button" className="p4-likeb" aria-pressed={liked} aria-label={`Like this quiz, ${count} ${count === 1 ? 'like' : 'likes'}`} onClick={() => { void toggle(); }} data-synced={synced ? '' : undefined}>
       <Icon name="heart" /><span className="ux-num">{count.toLocaleString('en-US')}</span>
     </button>
   );

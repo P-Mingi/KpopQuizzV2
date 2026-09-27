@@ -1,0 +1,36 @@
+✓ src/lib/ux-v1/a0/a0.test.ts > tokens: a0.css and lib/design-tokens.ts agree > light 2ms
+✓ src/lib/ux-v1/a0/a0.test.ts > tokens: a0.css and lib/design-tokens.ts agree > dark (class) and dark (system) are identical and match 1ms
+✓ src/lib/ux-v1/a0/a0.test.ts > tokens: a0.css and lib/design-tokens.ts agree > v11.1 light border tokens (17.1) 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > ink floor: every text token pair is AA (16.9) > light: ink, muted, pink-ink, pink-soft-ink, accents and rarity words >= 4.5 1ms
+✓ src/lib/ux-v1/a0/a0.test.ts > ink floor: every text token pair is AA (16.9) > dark: ink, muted, pink-ink, pink-soft-ink, accents and rarity words >= 4.5 1ms
+✓ src/lib/ux-v1/a0/a0.test.ts > ink floor: every text token pair is AA (16.9) > white on the pink fill button (4.62:1, 16.1) 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > every item is a real path 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > / 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /quizzes 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /quizzes/popular-this-week 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /q/some-quiz 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /groups 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /bts-quiz 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /twice-trivia 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /blindtest 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /blindtest/ranked 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /community 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /leaderboard 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /profile 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /u/someone 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /settings 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /notifications 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /create 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /pt/quizzes 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /pt 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > /quizzesx 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > nav model > isPlainClick: only an unmodified primary click is the page's to take over 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > badge medallions (17.8) > every rarity has a frame and gradient 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > badge medallions (17.8) > spec glyph map: unique glyph per named badge 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > badge medallions (17.8) > every catalog tier resolves to its family glyph 2ms
+✓ src/lib/ux-v1/a0/a0.test.ts > badge medallions (17.8) > rarity stays the lib/badges.ts truth 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > group photos (16.8) > 33 groups, encoded public paths that exist 1ms
+✓ src/lib/ux-v1/a0/a0.test.ts > group photos (16.8) > focal point is stable 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > streak view > at risk: played yesterday 2ms
+✓ src/lib/ux-v1/a0/a0.test.ts > streak view > played today 0ms
+✓ src/lib/ux-v1/a0/a0.test.ts > streak view > nothing to show 0ms

@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
+import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
-import { A0_LANDMARKS, compareLandmarks } from './helpers/landmarks';
+import { A0_LANDMARKS, compareLandmarks, loadReference } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 
 // /ux-v1/kit, the A0 gallery: every shared component in every state, light and
 // dark, at the project width (ux-1440 / ux-390). Computed styles of the shared
@@ -16,7 +17,7 @@ import type { Page } from '@playwright/test';
 // (it needs '/ux-v1/' in lib/route-allowlist.ts, requested from ORCH).
 
 const env = loadTestEnv();
-const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'icons'];
+const SECTIONS = ['tokens', 'type', 'buttons', 'nav', 'section-headers', 'controls', 'quiz-cards', 'text-cards', 'posts', 'identity', 'badges', 'forms', 'sheets', 'feedback', 'viewer', 'route-focus', 'icons'];
 
 async function openKit(page: Page): Promise<boolean> {
   const res = await page.goto('/ux-v1/kit');
@@ -162,5 +163,333 @@ test.describe('kit interactions', () => {
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Search' })).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+
+  // P2 request 3: Segmented and UxDropdown with link options. Segmented is a <nav> of
+  // real links in the server HTML (aria-current on the pick, same pill as the button
+  // mode); once hydrated a plain click navigates softly, modified clicks stay the
+  // browser's. Dropdown link items are <a role="menuitemradio" aria-checked> with a
+  // count; Space picks; onNavigate hands the href to the page's router.
+  test('link options: Segmented nav of links, UxDropdown link items, soft navigation', async ({ page }) => {
+    const html = await (await page.request.get('/ux-v1/kit')).text();
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const nav = html.match(/<nav[^>]*aria-label="Sort \(links\)"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? '';
+    expect(nav.match(/<a\b/g)?.length ?? 0, 'server HTML: 4 real links').toBe(4);
+    expect(nav).toContain('href="/ux-v1/kit?kitsort=newest"');
+    expect(nav.match(/aria-current="page"/g)?.length ?? 0).toBe(1);
+    expect(nav).toMatch(/<a[^>]*href="\/ux-v1\/kit"[^>]*aria-current="page"|<a[^>]*aria-current="page"[^>]*href="\/ux-v1\/kit"/);
+
+    const links = page.locator('[data-kit="link-controls"]').getByRole('navigation', { name: 'Sort (links)' });
+    const buttons = page.locator('[data-kit="controls"]').getByRole('group', { name: 'Sort' });
+    const props = ['background-color', 'color', 'font-size', 'font-weight', 'box-shadow', 'border-radius', 'padding-left', 'padding-right', 'height'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => {
+      const cs = getComputedStyle(el);
+      return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)]));
+    }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(links.locator('a[aria-current="page"]')), 'picked link = pressed button').toEqual(await styleOf(buttons.locator('button[aria-pressed="true"]')));
+    expect(await styleOf(links.locator('a:not([aria-current])').first()), 'other link = other button').toEqual(await styleOf(buttons.locator('button[aria-pressed="false"]').first()));
+
+    const prevented = await links.getByRole('link', { name: 'Top rated' }).evaluate((a) => {
+      const out: Record<string, boolean> = {};
+      for (const [name, init] of [['ctrl', { ctrlKey: true }], ['meta', { metaKey: true }], ['shift', { shiftKey: true }]] as const) {
+        let seen = true;
+        const on = (e: Event): void => { seen = e.defaultPrevented; e.preventDefault(); };
+        window.addEventListener('click', on);
+        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ...init }));
+        window.removeEventListener('click', on);
+        out[name] = seen;
+      }
+      return out;
+    });
+    expect(prevented, 'modified clicks are left to the browser').toEqual({ ctrl: false, meta: false, shift: false });
+
+    await page.evaluate(() => { (window as unknown as { __kitMarker?: number }).__kitMarker = 1; });
+    await links.getByRole('link', { name: 'Newest' }).click();
+    await expect(page).toHaveURL(/\/ux-v1\/kit\?kitsort=newest$/);
+    await expect(links.getByRole('link', { name: 'Newest' })).toHaveAttribute('aria-current', 'page');
+    await expect(links.getByRole('link', { name: 'Trending' })).not.toHaveAttribute('aria-current', 'page');
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker), 'soft navigation (no reload)').toBe(1);
+
+    const trigger = page.locator('[data-kit="link-controls"]').getByRole('button', { name: 'Type (links)' });
+    await trigger.click();
+    const items = page.getByRole('menu', { name: 'Type (links)' }).getByRole('menuitemradio');
+    await expect(items).toHaveCount(3);
+    await expect(items.first()).toBeFocused();
+    expect(await items.evaluateAll((els) => els.map((e) => [e.tagName, e.getAttribute('href'), e.querySelector('small')?.textContent ?? '']))).toEqual([
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=classic', '1,204'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=tf', '312'],
+      ['A', '/ux-v1/kit?kitsort=newest&kittype=image', '88'],
+    ]);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press(' ');
+    await expect(page).toHaveURL(/kitsort=newest&kittype=tf$/);
+    expect(await page.evaluate(() => (window as unknown as { __kitLastNav?: string }).__kitLastNav), 'onNavigate got the href').toBe('/ux-v1/kit?kitsort=newest&kittype=tf');
+    await expect(page.getByRole('menu', { name: 'Type (links)' })).toBeHidden();
+    await expect(page.locator('[data-kit="link-controls"]').getByRole('button', { name: /Type \(links\): True\/false/ })).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { __kitMarker?: number }).__kitMarker)).toBe(1);
+  });
+
+  // P2 request 2: the card body inherits the prototype's 1.6 line height (eyebrow and
+  // footer 20.8px at 13px) and stacked phone cards drop the title's top margin
+  // (prototype `.qgrid.stack h3{margin-top:0}`). Against styles.json, whose cards have
+  // two-line titles: a grid or rail card at the reference width has the reference
+  // height, less one title line when its (real) title fits on one line; a two-line
+  // stacked row (the kit stacks its longest real title first) has the reference height.
+  test('quiz cards: body line heights and card heights as the prototype', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    test.skip((await sec.locator('.ux-qcard').count()) === 0, 'no quizzes to show (data unavailable)');
+    const lh = await sec.locator('.ux-qcard').first().evaluate((card) => ({
+      qg: getComputedStyle(card.querySelector('.ux-qg') as Element).lineHeight,
+      qf: getComputedStyle(card.querySelector('.ux-qf') as Element).lineHeight,
+    }));
+    expect(lh).toEqual({ qg: '20.8px', qf: '20.8px' });
+
+    const ref = loadReference();
+    const phone = widthOf(page) <= 760;
+    const sets: [string, string][] = phone
+      ? [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '390-light-home'], ['.ux-qgrid.ux-qgrid-stack > .ux-qcard', '390-light-quizzes']]
+      : [['.ux-qgrid:not(.ux-qgrid-stack) > .ux-qcard', '1440-light-home']];
+    for (const [sel, state] of sets) {
+      const r = ref[state]?.['.qcard'];
+      expect(r, `styles.json ${state} .qcard`).toBeTruthy();
+      const want = { w: parseFloat(r?.width ?? '0'), h: parseFloat(r?.height ?? '0') };
+      const cards = (await sec.locator(sel).evaluateAll((els) => els.map((el) => {
+        const t = el.querySelector('.ux-qt') as HTMLElement;
+        const box = el.getBoundingClientRect();
+        const lh = parseFloat(getComputedStyle(t).lineHeight);
+        return { w: box.width, h: box.height, lh, lines: Math.round(t.getBoundingClientRect().height / lh), top: getComputedStyle(t).marginTop };
+      }))).filter((c) => Math.abs(c.w - want.w) < 1);
+      expect(cards.length, `${state}: kit cards at the reference width ${want.w}px`).toBeGreaterThan(0);
+      if (state !== '390-light-quizzes') {
+        for (const c of cards) {
+          const expected = want.h - (2 - c.lines) * c.lh;
+          expect(Math.abs(c.h - expected), `${state}: ${c.lines}-line card ${c.h} vs ${expected}`).toBeLessThan(0.6);
+        }
+        continue;
+      }
+      for (const c of cards) expect(c.top).toBe('0px');
+      const twoLine = cards.filter((c) => c.lines === 2);
+      if (!twoLine.length) {
+        test.info().annotations.push({ type: 'note', description: 'no two-line stacked title in the real data today: stack height not compared' });
+        continue;
+      }
+      for (const c of twoLine) expect(Math.abs(c.h - want.h), `${state}: stacked card ${c.h} vs ${want.h}`).toBeLessThan(0.6);
+    }
+  });
+
+  // P11 request 4: the at-risk streak popover states the real rule (only the daily
+  // quiz and the daily blindtest move the streak), as P11's streak row does.
+  test('streak popover: the real rule (daily quiz or daily blindtest)', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const risk = page.getByRole('dialog', { name: 'Streak at risk (static)' });
+    await expect(risk.locator('p')).toHaveText(/^Today is not played yet\. Play the daily quiz or the daily blindtest in the next \d+h \d+m to keep it\.$/);
+    await expect(risk.getByRole('link', { name: "Play today's quiz" })).toHaveAttribute('href', '/daily');
+    await expect(page.locator('[data-kit-section="nav"]')).not.toContainText('any quiz or blindtest');
+  });
+
+  // C1-002: the header picture sheet opens with its drop zone AT REST (prototype
+  // #hsheet .drop: dashed --edge border, no fill), although the sheet moves focus into
+  // the zone's file input. Measured without blurring anything. Keyboard focus still
+  // shows the 16.9 ring (2px pink) on the zone.
+  test('header picture sheet: the drop zone opens at rest; keyboard focus rings it', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const edge = await page.evaluate(() => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-edge)';
+      document.querySelector('.ux-page')?.appendChild(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const trigger = page.locator('[data-kit-open="header"]');
+    const drop = page.locator('.ux-layer .ux-sheet .ux-drop');
+    const look = (): Promise<Record<string, string>> => drop.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      return { border: cs.borderTopColor, style: cs.borderTopStyle, bg: cs.backgroundColor, outline: cs.outlineStyle, focusInside: String(el.contains(document.activeElement)) };
+    });
+    // Pointer: click the trigger, let the sheet move focus into the zone, pointer away.
+    await trigger.click();
+    await expect(drop).toBeVisible();
+    await expect.poll(async () => (await look()).focusInside).toBe('true');
+    await page.mouse.move(1, 1);
+    expect(await look()).toEqual({ border: edge, style: 'dashed', bg: 'rgba(0, 0, 0, 0)', outline: 'none', focusInside: 'true' });
+    await page.keyboard.press('Escape');
+    await expect(drop).toBeHidden();
+    // Keyboard: Enter on the trigger; the focused zone gets the 2px pink ring, still no fill.
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect.poll(async () => (await look()).focusInside).toBe('true');
+    await page.mouse.move(1, 1);
+    const kb = await drop.evaluate((el) => { const cs = getComputedStyle(el); return { outline: cs.outlineStyle, width: cs.outlineWidth, bg: cs.backgroundColor }; });
+    expect(kb).toEqual({ outline: 'solid', width: '2px', bg: 'rgba(0, 0, 0, 0)' });
+    // Pointer hover still shows the hover look.
+    await drop.hover();
+    await expect.poll(async () => (await look()).bg).not.toBe('rgba(0, 0, 0, 0)');
+    await page.keyboard.press('Escape');
+  });
+
+  // P5 request 2: the sheet title is 18px / 1.6 (28.8px), letter-spacing -0.015em, as
+  // the prototype's `.sh-h h3` (it inherits body 16px/1.6; h1-h3 get -0.015em).
+  test('sheet title: 18px, line height 28.8px, letter-spacing -0.27px', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const h = page.locator('.ux-layer .ux-sheet .ux-sh-h h2');
+    await expect(h).toBeVisible();
+    expect(await h.evaluate((el) => { const cs = getComputedStyle(el); return [cs.fontSize, cs.lineHeight, cs.letterSpacing, cs.fontWeight]; })).toEqual(['18px', '28.8px', '-0.27px', '600']);
+    expect(Math.round((await h.boundingBox())?.height ?? 0)).toBe(29);
+  });
+
+  // P11 request 5: the search field shows no outline ring and no native clear button
+  // (prototype `.sov-in input{outline:0}`); focus shows as the row's line turning into
+  // a 2px pink line (16.9: 2px pink), gone when focus moves on.
+  test('search field: no ring, no native clear button, a 2px pink line while focused', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="search"]').click();
+    const field = page.locator('#ux-sq');
+    await expect(field).toBeFocused();
+    await field.fill('bts');
+    const look = await field.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const row = getComputedStyle(el.closest('.ux-sov-in') as Element);
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink)';
+      document.body.appendChild(probe);
+      const pink = getComputedStyle(probe).color;
+      probe.remove();
+      return {
+        outline: cs.outlineStyle,
+        border: row.borderBottomColor === pink && row.borderBottomWidth === '1px',
+        inset: row.boxShadow.includes(pink) && row.boxShadow.includes('inset'),
+      };
+    });
+    expect(look).toEqual({ outline: 'none', border: true, inset: true });
+    // No native clear button: the focused, filled field paints exactly as the same
+    // field as a plain text input (which has none); forcing the button back makes
+    // the paint differ, so the comparison would see one.
+    await page.mouse.move(0, 0);
+    const shot = (): Promise<Buffer> => field.screenshot({ animations: 'disabled', caret: 'hide' });
+    const asSearch = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'text'; });
+    const asText = await shot();
+    await field.evaluate((el) => { (el as HTMLInputElement).type = 'search'; });
+    expect(asSearch.equals(asText), 'no clear button drawn').toBe(true);
+    const back = await page.addStyleTag({ content: '#ux-sq::-webkit-search-cancel-button { display: block !important; -webkit-appearance: searchfield-cancel-button !important; appearance: auto !important; }' });
+    expect((await shot()).equals(asText), 'control: a forced clear button is visible to the check').toBe(false);
+    await back.evaluate((el) => (el as ChildNode).remove());
+    // Focus leaves the field (Tab to the results): the line is the hairline again.
+    await page.locator('#ux-sov .ux-srow').first().waitFor({ timeout: 30_000 });
+    await page.keyboard.press('Tab');
+    await expect(field).not.toBeFocused();
+    expect(await page.locator('.ux-sov-in').evaluate((el) => getComputedStyle(el).boxShadow)).toBe('none');
+    await page.keyboard.press('Escape');
+  });
+
+  // P5 request 3: UxQuizCard preview mode (a draft on create step 3): the same card,
+  // no link, one named image for assistive tech, a data: cover as a plain <img>, no
+  // hover lift; same box styles as a linked card.
+  test('quiz card preview mode: no link, data: cover, same card styles', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const sec = page.locator('[data-kit-section="quiz-cards"]');
+    const card = sec.locator('.ux-qcard.is-preview');
+    test.skip((await card.count()) === 0, 'no quizzes to show (data unavailable)');
+    expect(await card.evaluate((el) => el.tagName)).toBe('DIV');
+    await expect(card).toHaveAttribute('role', 'img');
+    await expect(card).toHaveAttribute('aria-label', /^Preview: .+, .+, (Easy|Medium|Hard)$/);
+    await expect(card.locator('a')).toHaveCount(0);
+    expect(await card.locator('img').getAttribute('src')).toMatch(/^data:image\/svg\+xml,/);
+    await expect(card.locator('.ux-qpl')).toHaveText('New');
+    const linked = sec.locator('.ux-qgrid:not(.ux-qgrid-stack) > a.ux-qcard').first();
+    const props = ['border-top-width', 'border-top-color', 'border-radius', 'background-color', 'padding-top', 'width'];
+    const styleOf = (l: Locator): Promise<Record<string, string>> => l.evaluate((el, ps) => { const cs = getComputedStyle(el); return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)])); }, props);
+    await page.mouse.move(0, 0);
+    expect(await styleOf(card)).toEqual(await styleOf(linked));
+    const before = await styleOf(card);
+    await card.hover();
+    await page.waitForTimeout(300);
+    expect(await styleOf(card), 'no hover state on a preview').toEqual(before);
+    expect(await card.evaluate((el) => getComputedStyle(el).transform)).toBe('none');
+  });
+
+  // P10 request 1: the selected tab keeps its pink-soft pill and pink ink while hovered.
+  test('tabs: the selected tab keeps pink-soft-ink under the pointer', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const tabs = page.locator('[data-kit="controls"]').getByRole('tablist', { name: 'Feed' });
+    const selected = tabs.getByRole('tab', { name: 'For you' });
+    const other = tabs.getByRole('tab', { name: 'Following' });
+    const color = (l: typeof selected): Promise<string> => l.evaluate((el) => getComputedStyle(el).color);
+    const pinkSoftInk = await page.evaluate(() => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--ux-pink-soft-ink)';
+      document.querySelector('.ux-page')?.appendChild(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const ink = await page.evaluate(() => getComputedStyle(document.querySelector('.ux-page') as HTMLElement).color);
+    await selected.hover();
+    await expect.poll(() => color(selected)).toBe(pinkSoftInk);
+    await other.hover();
+    await expect.poll(() => color(other)).toBe(ink); // an unselected tab still turns ink on hover
+    await other.click();
+    await expect(other).toHaveAttribute('aria-selected', 'true');
+    await expect.poll(() => color(other)).toBe(pinkSoftInk); // pointer still on it right after the click
+  });
+
+  // P4 request 5: share sheet opens on "Copy link"; on phones the challenge label wraps.
+  test('share sheet: Copy link has the focus; phone label wraps under the title', async ({ page }) => {
+    test.skip(!(await openKit(page)), 'kit not served here');
+    await page.locator('[data-kit-open="share"]').click();
+    const dlg = page.locator('.ux-layer [role="dialog"]').filter({ hasText: 'Share your score' });
+    await expect(dlg).toBeVisible();
+    await expect(dlg.getByRole('button', { name: 'Copy link' })).toBeFocused();
+    const geo = await dlg.locator('.ux-flabel').evaluate((el) => {
+      const small = el.querySelector('small') as HTMLElement;
+      const a = el.getBoundingClientRect(); const s = small.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return { wrap: cs.flexWrap, rowGap: cs.rowGap, labelWidth: a.width, smallTop: s.top, labelTop: a.top, smallWidth: s.width };
+    });
+    if (widthOf(page) <= 760) {
+      expect(geo.wrap).toBe('wrap');
+      expect(geo.rowGap).toBe('2px');
+      expect(geo.smallTop, 'the note drops under the label').toBeGreaterThan(geo.labelTop + 10);
+    } else {
+      expect(geo.wrap).toBe('nowrap');
+    }
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
+
+  // P4 request 3: an island that renders useUxMe() on the server and hydrates AFTER
+  // the shell islands filled the /api/auth/me cache must hydrate with the same markup.
+  test('viewer state: a late island hydrates without a mismatch (guest)', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    test.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'out', { timeout: 15_000 });
+    await expect(probe).toHaveText('Browsing as a guest');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+  });
+});
+
+signedInTest.describe('kit viewer state (test user, read only)', () => {
+  signedInTest('a late island hydrates without a mismatch (signed in)', async ({ page }) => {
+    skipUnlessSignedIn();
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await preparePage(page, 'light');
+    const calls = await guardWrites(page, env.supabaseUrl);
+    // /api/auth/me answers "signed out" when Supabase auth takes over 2.5 s (a cold
+    // dev compile can): warm it first (GET, read only) so the page gets the viewer.
+    await page.request.get('/api/auth/me');
+    signedInTest.skip(!(await openKit(page)), 'kit not served here');
+    const probe = page.locator('[data-kit="auth-probe"]');
+    await expect(probe).toHaveAttribute('data-state', 'in', { timeout: 15_000 });
+    await expect(probe).toContainText('Signed in as ');
+    expect(errors.filter((e) => /hydrat|did not match|didn't match|server rendered/i.test(e)), 'no hydration mismatch').toEqual([]);
+    expect(calls, 'no write attempted').toEqual([]);
   });
 });

@@ -1,0 +1,11 @@
+[
+ {
+  "who": "guest",
+  "path": "/api/auth/me",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "profile": null
+  }
+ }
+]

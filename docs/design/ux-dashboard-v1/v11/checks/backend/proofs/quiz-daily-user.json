@@ -1,0 +1,104 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:35:09.079Z",
+ "xpline": "",
+ "errors": [
+  "play daily: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/7daf7a30-ecda-4d20-bbc3-de531f0db280/questions",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=7daf7a30-ecda-4d20-bbc3-de531f0db280",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=kpopquizz",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/7daf7a30-ecda-4d20-bbc3-de531f0db280/play",
+   "body": "{\"score\":10,\"total_questions\":10,\"time_taken_seconds\":3,\"max_score\":10,\"per_question_times\":[0.4,0.1,0.2,0.2,0.1,0.1,0.2,0.1,0.1,0.1],\"anon_id\":\"a960bc25-7cbc-4da9-8124-ff2bb75e782d\"}"
+  },
+  {
+   "step": "play daily",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/daily/complete",
+   "body": "{\"kind\":\"quiz\"}"
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/7daf7a30-ecda-4d20-bbc3-de531f0db280/like",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=7daf7a30-ecda-4d20-bbc3-de531f0db280&score=10",
+   "status": 200
+  },
+  {
+   "step": "play daily",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  }
+ ]
+}

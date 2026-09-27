@@ -1,0 +1,20 @@
+[
+ {
+  "who": "guest",
+  "path": "/api/quiz/title-check?title=Ultimate%20BTS%20era%20quiz%20-%20only%20real%20ARMYs%20survive",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "exists": true
+  }
+ },
+ {
+  "who": "guest",
+  "path": "/api/quiz/title-check?title=C2%20probe%20quiz%2C%20never%20published",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "exists": false
+  }
+ }
+]
