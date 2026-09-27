@@ -8,7 +8,7 @@ import type { QuizCardData } from '@/lib/db/types';
 
 /** "Show more" under the passport Quizzes list: the EXISTING read-only
  *  GET /api/quizzes/user?creatorId=&offset= (10 per page, published only). */
-export function MoreQuizzes({ creatorId, offset, total }: { creatorId: string; offset: number; total: number }): React.ReactElement | null {
+export function MoreQuizzes({ creatorId, offset, total, tail }: { creatorId: string; offset: number; total: number; tail?: React.ReactNode }): React.ReactElement | null {
   const [more, setMore] = useState<QuizCardData[]>([]);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -35,6 +35,8 @@ export function MoreQuizzes({ creatorId, offset, total }: { creatorId: string; o
   return (
     <>
       {more.length > 0 ? <QuizRows quizzes={more} /> : null}
+      {/* the personal draft row stays the last row, under every published quiz shown */}
+      {tail}
       {!done && shown < total ? (
         <div className="p10-more">
           <button type="button" className="ux-btn ux-btn-ghost" onClick={() => { void load(); }} disabled={busy} aria-busy={busy || undefined}>

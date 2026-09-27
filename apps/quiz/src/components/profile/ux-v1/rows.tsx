@@ -5,13 +5,14 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl, historyLine, quizLine } from '@/lib/ux-v1/p10/passport-model';
 
 import type { HistoryRow } from '@/lib/ux-v1/p10/passport-model';
+import type { DraftRowView } from '@/lib/ux-v1/p10/local-draft';
 import type { QuizCardData } from '@/lib/db/types';
 
 // Passport list rows (shared by the server passport and the "Show more" island).
 // No directive: server-safe and client-safe.
 
 /** 56 x 42 thumb: the photo, else the typographic glyph (16.8). */
-export function Thumb({ src, glyph = 'layers', className }: { src: string | null | undefined; glyph?: 'layers' | 'music'; className?: string }): React.ReactElement {
+export function Thumb({ src, glyph = 'layers', className }: { src: string | null | undefined; glyph?: 'layers' | 'music' | 'pen'; className?: string }): React.ReactElement {
   const bg = cssUrl(src);
   return (
     <span className={['ux-thumb', bg ? '' : 'is-glyph', className ?? ''].filter(Boolean).join(' ')} aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>
@@ -45,6 +46,22 @@ export function QuizRows({ quizzes }: { quizzes: QuizCardData[] }): React.ReactE
         </Link>
       ))}
     </>
+  );
+}
+
+/** The create draft of this device as the Quizzes tab's last row (prototype #pp-quizzes:
+ *  pen thumb, title, "Draft · 4 of 10 questions · edited 2 days ago", Continue). The
+ *  funnel at /create restores the draft from this device. */
+export function DraftRow({ view, href }: { view: DraftRowView; href: string }): React.ReactElement {
+  return (
+    <Link href={href} className="ux-row p10-draft" prefetch={false}>
+      <Thumb src={null} glyph="pen" />
+      <span className="ux-row-grow">
+        <span className="ux-rt">{view.title}</span>
+        <span className="ux-rs">{view.line}</span>
+      </span>
+      <span className="ux-btn ux-btn-ghost ux-btn-sm">Continue</span>
+    </Link>
   );
 }
 

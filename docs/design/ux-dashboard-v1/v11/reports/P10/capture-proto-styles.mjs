@@ -27,7 +27,10 @@ const STATES = {
   'header-sheet': "go('you');openHeader()",
   // the guest passport (X1-004): the "you" view signed out
   'passport-guest': "document.body.classList.add('guest');go('you')",
+  // the Quizzes tab with its draft row (X1-003 follow-up)
+  'passport-quizzes': "go('you');ptab('quizzes')",
 };
+const D = '#pp-quizzes .row:last-child';
 const G = '#you section[data-auth="out"]';
 export const SELECTORS = {
   passport: [
@@ -50,9 +53,10 @@ export const SELECTORS = {
   ],
   'header-sheet': ['#hsheet', '#hsheet .sh-b', '#hsheet .drop', '#hsheet .or', '#hsheet .urlrow', '#hsheet .inp', '#hsheet .urlrow .btn', '#hsheet .help', '#hsheet .btn-quiet'],
   'passport-guest': [G, `${G} img`, `${G} h1`, `${G} .lead`, `${G} .actions`, `${G} .btn-primary`, `${G} .lnk`, `${G} .lnk .ico`],
+  'passport-quizzes': ['#pp-quizzes .sec-h h2', '#pp-quizzes .sec-h .btn', '#pp-quizzes .rows', '#pp-quizzes .row:first-child', D, `${D} .thumb`, `${D} .thumb .ico`, `${D} .grow`, `${D} .rt`, `${D} .rs`, `${D} .btn`],
 };
 // States whose landmark boxes are recorded too (_x, _y, _w, _h: document px, 0.1 precision).
-const BOX_STATES = new Set(['passport-guest']);
+const BOX_STATES = new Set(['passport-guest', 'passport-quizzes']);
 const PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'margin-top', 'margin-bottom', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'background-color', 'background-image', 'color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap', 'opacity', 'filter'];
 

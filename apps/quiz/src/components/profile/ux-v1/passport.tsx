@@ -8,7 +8,7 @@ import { BiasTag } from '@/components/ux-v1/person-name';
 import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
 import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 
-import { MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
+import { LocalDraftOrEmpty, LocalDraftRow, MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
 import type { BadgeTile, BandMode, HistoryRow, MasteryRow, MetaSegment, StatCell } from '@/lib/ux-v1/p10/passport-model';
@@ -137,6 +137,13 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
     </>
   );
 
+  const noQuizzes = (
+    <div className="ux-empty">
+      <b>No quizzes yet</b>
+      {personal ? <Link className="ux-btn ux-btn-primary" href="/create">Create your first quiz</Link> : null}
+    </div>
+  );
+
   const quizzes = (
     <section className="p10-sec-first" aria-labelledby="p10-quizzes-h">
       <SectionHeader
@@ -148,14 +155,14 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       {p.quizzes.length > 0 ? (
         <div className="ux-rows">
           <QuizRows quizzes={p.quizzes} />
-          {p.quizzesTotal > p.quizzes.length ? <MoreQuizzes creatorId={p.creatorId} offset={p.quizzes.length} total={p.quizzesTotal} /> : null}
+          {/* personal only: this device's create draft as the last row (client, after mount) */}
+          {p.quizzesTotal > p.quizzes.length
+            ? <MoreQuizzes creatorId={p.creatorId} offset={p.quizzes.length} total={p.quizzesTotal} tail={personal ? <LocalDraftRow /> : undefined} />
+            : personal ? <LocalDraftRow /> : null}
         </div>
-      ) : (
-        <div className="ux-empty">
-          <b>No quizzes yet</b>
-          {personal ? <Link className="ux-btn ux-btn-primary" href="/create">Create your first quiz</Link> : null}
-        </div>
-      )}
+      ) : personal ? (
+        <LocalDraftOrEmpty>{noQuizzes}</LocalDraftOrEmpty>
+      ) : noQuizzes}
     </section>
   );
 

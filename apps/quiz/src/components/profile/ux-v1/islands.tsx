@@ -12,3 +12,5 @@ export const PassportBand = dynamic(() => import('./passport-band').then((m) => 
 export const PassportActions = dynamic(() => import('./passport-actions').then((m) => m.PassportActions));
 export const PassportTabs = dynamic(() => import('./passport-tabs').then((m) => m.PassportTabs));
 export const MoreQuizzes = dynamic(() => import('./more-quizzes').then((m) => m.MoreQuizzes));
+export const LocalDraftRow = dynamic(() => import('./local-draft').then((m) => m.LocalDraftRow));
+export const LocalDraftOrEmpty = dynamic(() => import('./local-draft').then((m) => m.LocalDraftOrEmpty));
