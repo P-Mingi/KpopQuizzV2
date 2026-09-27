@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxButton } from '@/components/ux-v1/button';
+import { Icon } from '@/components/ux-v1/icon';
 import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
 import { P2Chip, P2Controls, P2NavLink, P2NavProvider, P2Results } from './islands';
@@ -145,17 +146,20 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
         </p>
       </nav>
 
+      {/* The live FAQ text in the prototype's FAQ pattern (#hub "Questions fans ask":
+          native <details> accordions, the first one open). Every answer stays in the
+          server HTML (crawlable collapse); the FAQPage JSON-LD carries the same text. */}
       {p.faq ? (
         <section className="ux-sec p2-faq" aria-labelledby="quizzes-faq">
           <h2 id="quizzes-faq" className="ux-h2">K-pop quizzes: FAQ</h2>
-          <dl>
-            {p.faq.map((f) => (
-              <div key={f.q}>
-                <dt>{f.q}</dt>
-                <dd>{f.a}</dd>
-              </div>
+          <div>
+            {p.faq.map((f, i) => (
+              <details key={f.q} className="p2-acc" open={i === 0}>
+                <summary>{f.q}<Icon name="chev" /></summary>
+                <div className="p2-acc-a">{f.a}</div>
+              </details>
             ))}
-          </dl>
+          </div>
         </section>
       ) : null}
 

@@ -111,7 +111,11 @@ for (const theme of THEMES) {
       await expect(page.locator('.p2-ph p')).toHaveText(INTRO);
       await expect(page.locator('.p2-crumb a[href="/"]')).toHaveText('Home');
       await expect(page.locator('.p2-crumb [aria-current="page"]')).toHaveText('Browse All Quizzes');
-      await expect(page.locator('.p2-faq dt')).toHaveText(FAQ_QS);
+      await expect(page.locator('.p2-faq summary')).toHaveText(FAQ_QS);
+      // The prototype's accordion: the first answer open, every answer in the server HTML.
+      await expect(page.locator('.p2-acc[open]')).toHaveCount(1);
+      await expect(page.locator('.p2-acc').first()).toHaveAttribute('open', '');
+      await expect(page.locator('.p2-acc-a')).toHaveCount(FAQ_QS.length);
       const ld = (await page.locator('script[type="application/ld+json"]').allTextContents()).map((t) => JSON.parse(t) as Record<string, unknown>);
       const byType = (t: string) => ld.find((j) => j['@type'] === t) as Record<string, unknown> | undefined;
       expect((byType('FAQPage')?.mainEntity as { name: string }[]).map((q) => q.name)).toEqual(FAQ_QS);
