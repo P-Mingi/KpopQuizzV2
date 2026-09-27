@@ -114,14 +114,21 @@ async function stubNotifications(page: Page, opts: { more?: boolean; streak?: 's
   });
   if (opts.streak !== undefined) {
     await page.route((u) => u.pathname === '/api/auth/me', async (route) => {
-      const res = await route.fetch();
-      const body = (await res.json()) as { profile: Record<string, unknown> | null };
-      if (body.profile) {
-        if (opts.streak === 'saved') Object.assign(body.profile, { daily_streak: 13, last_daily_date: '2026-09-26' });
-        else if (opts.streak === 'at_risk') Object.assign(body.profile, { daily_streak: 12, last_daily_date: '2026-09-25' });
-        else Object.assign(body.profile, { daily_streak: 0, last_daily_date: null });
+      try {
+        const res = await route.fetch();
+        const body = (await res.json()) as { profile: Record<string, unknown> | null };
+        if (body.profile) {
+          if (opts.streak === 'saved') Object.assign(body.profile, { daily_streak: 13, last_daily_date: '2026-09-26' });
+          else if (opts.streak === 'at_risk') Object.assign(body.profile, { daily_streak: 12, last_daily_date: '2026-09-25' });
+          else Object.assign(body.profile, { daily_streak: 0, last_daily_date: null });
+        }
+        await route.fulfill({ response: res, json: body });
+      } catch (e) {
+        // Flag off, the case skips while this read is still in flight: nothing to
+        // answer any more. Any other error still fails the case.
+        if (/Test ended|has been closed|has been disposed/.test(String(e))) return;
+        throw e;
       }
-      await route.fulfill({ response: res, json: body });
     });
   }
   return stubs;
