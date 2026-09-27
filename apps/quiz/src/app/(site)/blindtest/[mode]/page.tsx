@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 
 import { getModeById, isGroupModeId, getGroupSlugFromModeId, STATIC_MODES } from '@/lib/blind-test-modes';
 import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
+import { BlindtestModeV11 } from '@/components/blindtest/ux-v1/mode-page';
+import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 import type { BlindTestMode } from '@/lib/blind-test-modes';
@@ -69,6 +71,10 @@ export default async function BlindTestModePage({ params }: ModePageProps): Prom
   }
 
   if (!mode) notFound();
+
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): same metadata and SEO copy, the v11
+  // day-mode game preset to this mode instead of the legacy player (X1-001).
+  if (UX_V1) return <BlindtestModeV11 mode={mode} />;
 
   return (
     <div className="py-6">

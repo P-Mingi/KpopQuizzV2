@@ -39,6 +39,13 @@ export const GENERATIONS: readonly MixItem[] = [
 
 export const TITLE_TRACKS: MixItem = { playlist: 'title-tracks', label: 'Title tracks only' };
 
+/** Playlists generate serves that only a /blindtest/<mode> page plays (modes.ts); the
+ *  hub's menu does not list them. Known here so labels and challenge links accept them. */
+export const MODE_ONLY_MIXES: readonly MixItem[] = [
+  { playlist: 'solo', label: 'Solo artists' },
+  { playlist: 'deep', label: 'Deep cuts' },
+];
+
 export const ROUND_OPTIONS = [5, 10, 15] as const;
 export type RoundCount = (typeof ROUND_OPTIONS)[number];
 
@@ -69,14 +76,14 @@ export function filterGroups<T extends { name: string }>(groups: readonly T[], q
 /** Label of a playlist id; a group slug needs its name (null when unknown). */
 export function playlistLabel(playlist: string, groupName?: string | null): string | null {
   if (playlist === ALL_PICK.playlist) return ALL_PICK.label;
-  const mix = [...MIXES, ...GENERATIONS, TITLE_TRACKS].find((m) => m.playlist === playlist);
+  const mix = [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES].find((m) => m.playlist === playlist);
   if (mix) return mix.label;
   return groupName ?? null;
 }
 
 /** True when the id is one of the fixed (non-group) playlists above. */
 export function isFixedPlaylist(playlist: string): boolean {
-  return playlist === ALL_PICK.playlist || [...MIXES, ...GENERATIONS, TITLE_TRACKS].some((m) => m.playlist === playlist);
+  return playlist === ALL_PICK.playlist || [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES].some((m) => m.playlist === playlist);
 }
 
 /** Initials for a group without a photo (typographic avatar, 16.8). */
