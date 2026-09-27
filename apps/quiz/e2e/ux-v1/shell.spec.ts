@@ -367,6 +367,40 @@ test.describe('nav fits', () => {
   }
 });
 
+// X2-001: under the phone footer the prototype keeps 64px (the tab bar's room) and
+// nothing else. The legacy `body { padding-bottom: 72px }` (globals.css, up to 767px,
+// for the legacy tab bar) no longer stacks on .ux-app's 64px where the v11 tab bar is
+// in the page; Verse routes, which keep the legacy tab bar, keep the legacy 72px.
+for (const theme of THEMES) {
+  test(`room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (${theme})`, async ({ page }) => {
+    await preparePage(page, theme);
+    await guardWrites(page, env.supabaseUrl);
+    await page.goto('/quizzes');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    const room = (): Promise<{ body: string; app: string; under: number }> => page.evaluate(() => {
+      const foot = document.querySelector('.ux-foot') as HTMLElement | null;
+      const doc = document.documentElement;
+      return {
+        body: getComputedStyle(document.body).paddingBottom,
+        app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+        under: foot ? Math.round((doc.scrollHeight - (foot.getBoundingClientRect().bottom + window.scrollY)) * 100) / 100 : -1,
+      };
+    });
+    const phone = widthOf(page) <= 760;
+    expect(await room()).toEqual({ body: '0px', app: phone ? '64px' : '0px', under: phone ? 64 : 0 });
+
+    if (!phone) return;
+    const verse = await page.goto('/verse');
+    test.skip(!verse || verse.status() !== 200 || (await page.locator('.ux-tabbar').count()) > 0, '/verse not served with the legacy tab bar here');
+    const v = await page.evaluate(() => ({
+      body: getComputedStyle(document.body).paddingBottom,
+      app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+    }));
+    expect(v, 'Verse keeps the legacy room, .ux-app adds none').toEqual({ body: '72px', app: '0px' });
+  });
+}
+
 signedInTest.describe('signed in (test user, read only)', () => {
   signedInTest('nav islands read the real account', async ({ page }) => {
     skipUnlessSignedIn();
