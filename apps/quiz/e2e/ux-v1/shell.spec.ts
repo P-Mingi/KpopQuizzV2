@@ -393,11 +393,12 @@ for (const theme of THEMES) {
     await waitHydrated(page);
     const room = (): Promise<{ body: string; app: string; under: number }> => page.evaluate(() => {
       const foot = document.querySelector('.ux-foot') as HTMLElement | null;
-      const doc = document.documentElement;
+      // the page's end is the body box's bottom edge (its padding included); the
+      // document's scrollHeight is rounded to whole pixels, so it is not used here
       return {
         body: getComputedStyle(document.body).paddingBottom,
         app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
-        under: foot ? Math.round((doc.scrollHeight - (foot.getBoundingClientRect().bottom + window.scrollY)) * 100) / 100 : -1,
+        under: foot ? Math.round((document.body.getBoundingClientRect().bottom - foot.getBoundingClientRect().bottom) * 100) / 100 : -1,
       };
     });
     const phone = widthOf(page) <= 760;

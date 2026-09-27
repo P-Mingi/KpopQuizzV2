@@ -78,14 +78,13 @@ export function KitControls(): React.ReactElement {
           <Chip href="/groups" icon="users">Link chip</Chip>
         </Chips>
       </div>
-      <KitKeepLabel />
     </div>
   );
 }
 
 /** P2 request 4: filter menus that keep their label (`showValue={false}`, prototype
  *  #quizzes); the pick shows as a removable chip only. */
-function KitKeepLabel(): React.ReactElement {
+export function KitKeepLabel(): React.ReactElement {
   const TYPES = [{ value: 'classic', label: 'Classic' }, { value: 'tf', label: 'True/false' }, { value: 'image', label: 'Image' }];
   const LEVELS = [{ value: 'easy', label: 'Easy' }, { value: 'medium', label: 'Medium' }, { value: 'hard', label: 'Hard' }];
   const GROUPS = [{ value: 'bts', label: 'BTS' }, { value: 'stray-kids', label: 'Stray Kids' }, { value: 'twice', label: 'TWICE' }];
