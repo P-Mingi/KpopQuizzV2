@@ -74,6 +74,8 @@
 .p10-thumb-bt { background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); }
 .p10-thumb-bt .ux-ico { width: 20px; height: 20px; }
 .p10-passport .ux-thumb.is-glyph .ux-ico { width: 20px; height: 20px; }
+/* the device's create draft (Quizzes tab, last row): pen thumb + Continue (a span in the link, as in the prototype) */
+.p10-draft > .ux-btn { flex: 0 0 auto; }
 
 /* badges pane */
 .p10-pane .ux-rarkey + .p10-allmed { margin-top: 20px; }

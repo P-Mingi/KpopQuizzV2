@@ -11,21 +11,37 @@
 
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: () => undefined, push: () => undefined }), usePathname: () => '/me' }));
 // The islands are next/dynamic loaders in the app (async chunks); a synchronous
 // server-free render uses the island components themselves.
-vi.mock('@/components/profile/ux-v1/islands', async () => ({
-  PassportBand: (await import('@/components/profile/ux-v1/passport-band')).PassportBand,
-  PassportActions: (await import('@/components/profile/ux-v1/passport-actions')).PassportActions,
-  PassportTabs: (await import('@/components/profile/ux-v1/passport-tabs')).PassportTabs,
-  MoreQuizzes: (await import('@/components/profile/ux-v1/more-quizzes')).MoreQuizzes,
-}));
+// The draft islands read this device's draft after mount (useEffect: a server-free
+// render never runs it). Here, when a test turns SYNC_DRAFT on, they run the same
+// read (readLocalDraftRow, the funnel's localStorage) synchronously and render the
+// same presentational components (DraftSlot / DraftOrEmpty); otherwise the real
+// islands render, as on the server.
+const draftMode = vi.hoisted(() => ({ sync: false }));
+vi.mock('@/components/profile/ux-v1/islands', async () => {
+  const { createElement: h } = await import('react');
+  const local = await import('@/components/profile/ux-v1/local-draft');
+  const { readLocalDraftRow } = await import('./local-draft');
+  const at = Date.parse('2026-09-25T20:00:00Z');
+  return {
+    PassportBand: (await import('@/components/profile/ux-v1/passport-band')).PassportBand,
+    PassportActions: (await import('@/components/profile/ux-v1/passport-actions')).PassportActions,
+    PassportTabs: (await import('@/components/profile/ux-v1/passport-tabs')).PassportTabs,
+    MoreQuizzes: (await import('@/components/profile/ux-v1/more-quizzes')).MoreQuizzes,
+    LocalDraftRow: () => (draftMode.sync ? h(local.DraftSlot, { view: readLocalDraftRow(at) }) : h(local.LocalDraftRow)),
+    LocalDraftOrEmpty: ({ children }: { children: React.ReactNode }) => (draftMode.sync ? h(local.DraftOrEmpty, { view: readLocalDraftRow(at), children }) : h(local.LocalDraftOrEmpty, { children })),
+  };
+});
 
 import { UxPassport } from '@/components/profile/ux-v1/passport';
+import { DraftRow } from '@/components/profile/ux-v1/rows';
 
 import { buildPassport } from './build-passport';
+import { DRAFT_ROW_HTML, DRAFT_ROW_SAMPLE } from './draft-row.fixture';
 
 import type { PassportInput } from './build-passport';
 import type { Profile, QuizCardData } from '@/lib/db/types';
@@ -184,5 +200,91 @@ describe('band modes', () => {
     const evil = renderToStaticMarkup(createElement(UxPassport, buildPassport({ ...input('public'), profile: { ...profile, header_url: 'https://x.example/a.png");background:url(javascript:alert(1)' } })));
     expect(evil).not.toContain('");background');
     expect(evil).toContain('\\22 ');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Quizzes tab: this device's create draft (X1-003 follow-up). /me is never loaded
+// signed in, so the signed-in Quizzes tab is proven here with the /me props.
+// ---------------------------------------------------------------------------
+
+describe('personal Quizzes tab: the device draft row (prototype #pp-quizzes)', () => {
+  const DRAFT_KEY = 'kq_create_draft_v1'; // lib/create-draft.ts
+  const mcq = (question: string, options: string[], correct: number | null): Record<string, unknown> => ({ question, options, correct, fun_fact: '' });
+  const started = {
+    title: 'Stray Kids b-sides deep cut', group_slug: 'stray-kids', quiz_type: 'multiple_choice', cover: null, updatedAt: NOW - 2 * 24 * 60 * 60 * 1000,
+    questions: [mcq('Which b-side opens NOEASY?', ['Cheese', 'Sorry, I Love You', 'Thunderous', 'Surfin'], 0), mcq('Which album has Gone Away?', ['NOEASY', '', '', ''], 0)],
+  };
+  const device = (draft: unknown): string[] => {
+    const writes: string[] = [];
+    const m = new Map<string, string>(draft ? [[DRAFT_KEY, JSON.stringify(draft)]] : []);
+    vi.stubGlobal('window', {});
+    vi.stubGlobal('localStorage', {
+      getItem: (k: string) => m.get(k) ?? null,
+      setItem: (k: string) => { writes.push(`set ${k}`); },
+      removeItem: (k: string) => { writes.push(`remove ${k}`); },
+    });
+    vi.useFakeTimers({ now: NOW });
+    return writes;
+  };
+  const withQuizzes = (quizzes: QuizCardData[]): string => renderToStaticMarkup(createElement(UxPassport, buildPassport({ ...input('personal'), quizzes })));
+  const quizzesPanel = (html: string): string => html.slice(html.indexOf('id="p10-panel-quizzes"'), html.indexOf('id="p10-panel-history"'));
+  afterEach(() => { draftMode.sync = false; vi.unstubAllGlobals(); vi.useRealTimers(); });
+
+  it('server HTML (and the first client render) has no draft row, even with a draft on the device', () => {
+    device(started);
+    const html = render('personal');
+    expect(html).not.toContain('p10-draft');
+    expect(html).not.toContain('>Continue<');
+  });
+
+  it('after mount: the draft is the last row, under every published quiz and above Show more; Continue opens /create; nothing written', () => {
+    const writes = device(started);
+    draftMode.sync = true;
+    const panel = quizzesPanel(render('personal'));
+    expect(panel).toMatch(/<a class="ux-row p10-draft" href="\/create">/);
+    expect(panel).toMatch(/<span class="ux-thumb is-glyph" aria-hidden="true"><svg class="ux-ico"/);
+    expect(panel).toContain('<span class="ux-rt">Stray Kids b-sides deep cut</span><span class="ux-rs">Draft · 1 of 2 questions · edited 2 days ago</span>');
+    expect(panel).toContain('<span class="ux-btn ux-btn-ghost ux-btn-sm">Continue</span></a>');
+    expect(panel.indexOf('p10-draft')).toBeGreaterThan(panel.lastIndexOf('href="/q/skz-quiz-2"'));
+    expect(panel.indexOf('p10-draft')).toBeLessThan(panel.indexOf('Show more (10)'));
+    expect((panel.match(/class="ux-row[ "]/g) ?? []).length).toBe(3);
+    expect(writes).toEqual([]);
+  });
+
+  it('every published quiz shown (no Show more): the draft is still the last row', () => {
+    device(started);
+    draftMode.sync = true;
+    const one = { ...quiz(1) };
+    const i = input('personal');
+    const panel = quizzesPanel(renderToStaticMarkup(createElement(UxPassport, buildPassport({ ...i, profile: { ...profile, total_quizzes_created: 1 }, spine: { ...i.spine!, total_quizzes_created: 1 }, quizzes: [one] }))));
+    expect(panel).not.toContain('Show more');
+    expect(panel.indexOf('p10-draft')).toBeGreaterThan(panel.indexOf('href="/q/skz-quiz-1"'));
+  });
+
+  it('no published quiz: the draft replaces the empty state; without a started draft the empty state stays', () => {
+    device(started);
+    draftMode.sync = true;
+    const withDraft = quizzesPanel(withQuizzes([]));
+    expect(withDraft).toMatch(/<div class="ux-rows"><a class="ux-row p10-draft" href="\/create">/);
+    expect(withDraft).not.toContain('No quizzes yet');
+    vi.unstubAllGlobals();
+    device({ ...started, title: '', questions: [mcq('', ['', '', '', ''], null)] }); // a blank autosave is not a draft
+    const blank = quizzesPanel(withQuizzes([]));
+    expect(blank).not.toContain('p10-draft');
+    expect(blank).toContain('<b>No quizzes yet</b>');
+    expect(blank).toContain('Create your first quiz');
+  });
+
+  it('DraftRow renders exactly the fixture the e2e measures against the prototype', () => {
+    expect(renderToStaticMarkup(createElement(DraftRow, { view: DRAFT_ROW_SAMPLE, href: '/create' }))).toBe(DRAFT_ROW_HTML);
+  });
+
+  it('the public passport never shows a device draft', () => {
+    device(started);
+    draftMode.sync = true;
+    const html = render('public');
+    expect(html).not.toContain('p10-draft');
+    expect(html).not.toContain('Stray Kids b-sides deep cut');
   });
 });
