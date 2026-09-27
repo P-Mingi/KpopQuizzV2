@@ -8,6 +8,9 @@
 // slugs). The prototype also lists "Recent hits, 2024 to 2026", "Legends, before
 // 2018" and "Speed round, 5-second clips": generate has no year filter and no clip
 // length, so those three are not offered (no dead door); see reports/P6.md.
+// "Title tracks only" is not offered either (fix 2, X1-001 proof): generate's
+// 'title-tracks' pool is empty in the curated catalog (SONGS_IS_CURATED=true: 0
+// songs, generate answers 400) and songs.is_title_track is unmaintained.
 
 export interface BtPick {
   /** generate's `playlist`: 'all', a mix id, or a group slug. */
@@ -37,12 +40,14 @@ export const GENERATIONS: readonly MixItem[] = [
   { playlist: '5th-gen', label: '5th gen' },
 ];
 
+/** Not in the menu (see above); kept so the label of an older link still resolves. */
 export const TITLE_TRACKS: MixItem = { playlist: 'title-tracks', label: 'Title tracks only' };
 
 /** Playlists generate serves that only a /blindtest/<mode> page plays (modes.ts); the
  *  hub's menu does not list them. Known here so labels and challenge links accept them. */
 export const MODE_ONLY_MIXES: readonly MixItem[] = [
   { playlist: 'solo', label: 'Solo artists' },
+  { playlist: 'hits', label: 'Hits' },
   { playlist: 'deep', label: 'Deep cuts' },
 ];
 

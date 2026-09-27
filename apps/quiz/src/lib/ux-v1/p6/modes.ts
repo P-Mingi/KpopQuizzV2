@@ -45,7 +45,9 @@ const STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: 
   'girl-groups': { playlist: 'gg', label: 'Girl groups', exact: true },
   'boy-groups': { playlist: 'bg', label: 'Boy groups', exact: true },
   'solo-artists': { playlist: 'solo', label: 'Solo artists', exact: true },
-  'title-tracks': { playlist: 'title-tracks', label: 'Title tracks only', exact: true },
+  // generate's 'title-tracks' pool is empty in the curated catalog (SONGS_IS_CURATED) and
+  // songs.is_title_track is unmaintained: "the hits everyone knows" are the iconic and popular tiers.
+  'title-tracks': { playlist: 'hits', label: 'Hits', exact: false },
   // songs.is_title_track is never false (unmaintained): the deep cuts (medium, hard and unknown tiers) are the b-sides.
   'b-sides': { playlist: 'deep', label: 'Deep cuts', exact: false },
   'recent-hits': { playlist: 'all', label: ALL_PICK.label, exact: false },

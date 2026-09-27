@@ -49,8 +49,7 @@ describe('mode runs (lib/ux-v1/p6/modes.ts)', () => {
     expect(modeRun('girl-groups')!.pick.playlist).toBe('gg');
     expect(modeRun('boy-groups')!.pick.playlist).toBe('bg');
     expect(modeRun('solo-artists')!.pick.playlist).toBe('solo');
-    expect(modeRun('title-tracks')!.pick.playlist).toBe('title-tracks');
-    for (const id of ['classic', '2nd-gen', '3rd-gen', '4th-gen', 'girl-groups', 'boy-groups', 'solo-artists', 'title-tracks', 'random-all']) {
+    for (const id of ['classic', '2nd-gen', '3rd-gen', '4th-gen', 'girl-groups', 'boy-groups', 'solo-artists', 'random-all']) {
       expect(modeRun(id)!.exact, id).toBe(true);
     }
   });
@@ -60,7 +59,9 @@ describe('mode runs (lib/ux-v1/p6/modes.ts)', () => {
     expect(modeRun('intro-challenge')!.pick.label).toBe('All K-pop');
     expect(modeRun('4th-gen-gg')!.pick).toEqual({ playlist: '4th-gen', label: '4th gen' });
     expect(modeRun('b-sides')!.pick).toEqual({ playlist: 'deep', label: 'Deep cuts' });
-    for (const id of ['intro-challenge', 'verse-only', 'bridge-or-break', 'speed-round', 'b-sides', 'recent-hits', 'kpop-legends', '4th-gen-gg', '4th-gen-bg']) {
+    // generate's title-tracks pool is empty in the curated catalog (400, available 0).
+    expect(modeRun('title-tracks')!.pick).toEqual({ playlist: 'hits', label: 'Hits' });
+    for (const id of ['intro-challenge', 'verse-only', 'bridge-or-break', 'speed-round', 'title-tracks', 'b-sides', 'recent-hits', 'kpop-legends', '4th-gen-gg', '4th-gen-bg']) {
       expect(modeRun(id)!.exact, id).toBe(false);
     }
   });
@@ -77,6 +78,7 @@ describe('mode runs (lib/ux-v1/p6/modes.ts)', () => {
   it('labels and bounds', () => {
     expect(playlistLabel('solo')).toBe('Solo artists');
     expect(playlistLabel('deep')).toBe('Deep cuts');
+    expect(playlistLabel('hits')).toBe('Hits');
     expect(titleFromSlug('stray-kids')).toBe('Stray Kids');
     expect([2, 5, 10, 15, 20].map(clampRound)).toEqual([5, 5, 10, 15, 15]);
   });
