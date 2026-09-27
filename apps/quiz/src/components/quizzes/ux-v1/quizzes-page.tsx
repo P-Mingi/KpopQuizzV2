@@ -6,7 +6,7 @@ import { UxPage } from '@/components/ux-v1/page';
 import { UxButton } from '@/components/ux-v1/button';
 import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
-import { P2Chip, P2Menu, P2NavLink, P2NavProvider, P2Results, P2SortNav } from './islands';
+import { P2Chip, P2Controls, P2NavLink, P2NavProvider, P2Results } from './islands';
 
 import type { QuizCardData } from '@/lib/db/types';
 import type { P2Filters } from '@/lib/ux-v1/p2/filters';
@@ -16,14 +16,14 @@ export interface P2ChipData {
   key: string;
   label: string;
   href: string;
-  /** The dropdown trigger that takes focus once the chip is gone. */
-  focusId: string;
+  /** Selector of the dropdown trigger that takes focus once the chip is gone. */
+  focus: string;
 }
 
 export interface P2Empty {
   title: string;
   text: string;
-  action: { href: string; label: string; focusId?: string; reload?: boolean };
+  action: { href: string; label: string; focus?: string; reload?: boolean };
   /** Group with no quiz at all: offer to make the first one. */
   create?: boolean;
 }
@@ -91,18 +91,11 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
       </header>
 
       <P2NavProvider filterKey={p.filterKey} summary={p.summary}>
-        <div className="p2-ctl" data-counts={p.countsLive ? 'live' : 'off'}>
-          <P2SortNav label="Sort quizzes" items={p.sort} />
-          <div className="p2-dds">
-            <P2Menu id="p2-dd-type" label="Type" items={p.types} />
-            <P2Menu id="p2-dd-level" label="Level" items={p.levels} />
-            <P2Menu id="p2-dd-group" label="Group" items={p.groups} end />
-          </div>
-        </div>
+        <P2Controls sort={p.sort} types={p.types} levels={p.levels} groups={p.groups} countsLive={p.countsLive} />
 
         {/* always rendered (an empty flex row keeps its 16px, as in the prototype) */}
         <div className="ux-chips p2-chips" {...(p.chips.length > 0 ? { role: 'group', 'aria-label': 'Active filters' } : {})}>
-          {p.chips.map((c) => <P2Chip key={c.key} label={c.label} href={c.href} focusId={c.focusId} />)}
+          {p.chips.map((c) => <P2Chip key={c.key} label={c.label} href={c.href} focus={c.focus} />)}
         </div>
 
         {p.notice ? <p className="p2-notice" role="status">{p.notice}</p> : null}
@@ -120,7 +113,7 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
               {p.empty.action.reload ? (
                 <a href={p.empty.action.href} className="ux-btn ux-btn-ghost">{p.empty.action.label}</a>
               ) : (
-                <P2NavLink href={p.empty.action.href} focusId={p.empty.action.focusId} className={`ux-btn ${p.empty.create ? 'ux-btn-quiet' : 'ux-btn-ghost'}`}>
+                <P2NavLink href={p.empty.action.href} focus={p.empty.action.focus} className={`ux-btn ${p.empty.create ? 'ux-btn-quiet' : 'ux-btn-ghost'}`}>
                   {p.empty.action.label}
                 </P2NavLink>
               )}

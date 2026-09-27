@@ -15,8 +15,9 @@ import { useAnnounce } from '@/components/ux-v1/toast';
 interface P2Nav {
   /** A soft navigation to `href` is rendering. */
   pending: boolean;
-  /** Soft-navigate to `href` (keeps the scroll), then focus `focusId` if given. */
-  go: (href: string, focusId?: string) => void;
+  /** Soft-navigate to `href` (keeps the scroll), then focus the element matching the
+   *  `focus` selector if given (a filter menu's trigger). */
+  go: (href: string, focus?: string) => void;
 }
 
 const Ctx = createContext<P2Nav>({ pending: false, go: (href) => { window.location.assign(href); } });
@@ -45,9 +46,9 @@ export function P2NavProvider({ children, filterKey, summary }: ProviderProps): 
   const focusAfter = useRef<string | null>(null);
   const lastKey = useRef(filterKey);
 
-  const go = useCallback((href: string, focusId?: string) => {
-    focusAfter.current = focusId ?? null;
-    if (focusId) document.getElementById(focusId)?.focus({ preventScroll: true });
+  const go = useCallback((href: string, focus?: string) => {
+    focusAfter.current = focus ?? null;
+    if (focus) document.querySelector<HTMLElement>(focus)?.focus({ preventScroll: true });
     start(() => { router.push(href, { scroll: false }); });
   }, [router]);
 
@@ -56,9 +57,9 @@ export function P2NavProvider({ children, filterKey, summary }: ProviderProps): 
     if (pending || lastKey.current === filterKey) return;
     lastKey.current = filterKey;
     announce(summary);
-    const id = focusAfter.current;
+    const sel = focusAfter.current;
     focusAfter.current = null;
-    if (id) document.getElementById(id)?.focus({ preventScroll: true });
+    if (sel) document.querySelector<HTMLElement>(sel)?.focus({ preventScroll: true });
   }, [pending, filterKey, summary, announce]);
 
   const value = useMemo(() => ({ pending, go }), [pending, go]);

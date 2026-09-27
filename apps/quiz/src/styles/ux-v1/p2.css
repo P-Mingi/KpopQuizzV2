@@ -14,16 +14,13 @@
 .p2-ph { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
 .ux-btn.p2-create { display: none; }
 
-/* sort (links) + Type / Level / Group */
+/* sort (A0 Segmented links) + Type / Level / Group (A0 UxDropdown link menus) */
 .p2-ctl { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 .p2-dds { display: flex; gap: 8px; flex-wrap: wrap; }
-/* A0's .ux-seg styles <button aria-pressed>; the sort options here are links */
-.p2-sort > a { display: inline-flex; align-items: center; flex: none; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 15px; font-weight: 500; line-height: 1.6; color: var(--ux-muted); white-space: nowrap; transition: background .15s, color .15s; }
-.p2-sort > a:hover { color: var(--ux-ink); }
-.p2-sort > a[aria-current="page"] { background: var(--ux-raised); color: var(--ux-pink-ink); font-weight: 600; box-shadow: 0 1px 2px rgba(31, 27, 23, .08), 0 0 0 1px var(--ux-hair); }
-.ux-ddpop.p2-ddpop-end { left: auto; right: 0; }
-.p2-ddpop .ux-mi { gap: 16px; }
-.p2-ddpop .ux-mi small { font-weight: 400; }
+/* the last menu (Group) opens right-aligned, so it stays inside a 390 screen */
+.p2-dds > .ux-dd-wrap:last-child > .ux-ddpop { left: auto; right: 0; }
+.p2-dds .ux-mi { gap: 16px; }
+.p2-dds .ux-mi small { font-weight: 400; }
 
 /* active filters, result */
 .p2-chips { margin-top: 16px; }
@@ -53,6 +50,5 @@
   .ux-btn.p2-create { display: inline-flex; }
 }
 @media (pointer: coarse) {
-  .p2-sort > a { height: 40px; }
   .p2-mesh a { display: inline-block; padding-block: 10px; margin-block: -10px; }
 }

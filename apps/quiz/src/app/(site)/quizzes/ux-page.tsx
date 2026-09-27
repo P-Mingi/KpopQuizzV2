@@ -7,7 +7,7 @@ import { getP2FacetRows, getP2Page, getP2Pages } from '@/lib/ux-v1/p2/queries';
 import {
   P2_GENERAL_GROUP, P2_LEVELS, P2_PAGE_SIZE, P2_SORTS, P2_TYPES,
   hasFacet, levelLabel, p2Concat, p2Facets, p2FilterKey, p2Href, p2Languages, p2PageCount, p2ShownPages,
-  parseP2Filters, quizCountLabel, typeLabel,
+  p2Trigger, parseP2Filters, quizCountLabel, typeLabel,
 } from '@/lib/ux-v1/p2/filters';
 import { P2QuizzesPage } from '@/components/quizzes/ux-v1/quizzes-page';
 import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
@@ -92,10 +92,10 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
   }
 
   const chips: P2ChipData[] = [];
-  if (f.type) chips.push({ key: 'type', label: typeLabel(f.type), href: p2Href(f, { type: null, page: 1 }), focusId: 'p2-dd-type' });
-  if (f.level) chips.push({ key: 'level', label: levelLabel(f.level), href: p2Href(f, { level: null, page: 1 }), focusId: 'p2-dd-level' });
-  if (group) chips.push({ key: 'group', label: group.name, href: p2Href(f, { group: null, page: 1 }), focusId: 'p2-dd-group' });
-  if (f.lang) chips.push({ key: 'lang', label: languageLabel(f.lang), href: p2Href(f, { lang: null, page: 1 }), focusId: 'p2-dd-type' });
+  if (f.type) chips.push({ key: 'type', label: typeLabel(f.type), href: p2Href(f, { type: null, page: 1 }), focus: p2Trigger('type') });
+  if (f.level) chips.push({ key: 'level', label: levelLabel(f.level), href: p2Href(f, { level: null, page: 1 }), focus: p2Trigger('level') });
+  if (group) chips.push({ key: 'group', label: group.name, href: p2Href(f, { group: null, page: 1 }), focus: p2Trigger('group') });
+  if (f.lang) chips.push({ key: 'lang', label: languageLabel(f.lang), href: p2Href(f, { lang: null, page: 1 }), focus: p2Trigger('type') });
 
   const cleared = p2Href(f, { type: null, level: null, group: null, lang: null, page: 1 });
   let empty: P2Empty | null = null;
@@ -103,11 +103,11 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
     if (failed) {
       empty = { title: 'Quizzes did not load', text: 'Something went wrong on our side. Please try again.', action: { href: p2Href(f), label: 'Try again', reload: true } };
     } else if (total !== null && total > 0) {
-      empty = { title: 'No quizzes on this page', text: 'This list is shorter now.', action: { href: p2Href(f, { page: 1 }), label: 'Back to the first page', focusId: 'p2-dd-type' } };
+      empty = { title: 'No quizzes on this page', text: 'This list is shorter now.', action: { href: p2Href(f, { page: 1 }), label: 'Back to the first page', focus: p2Trigger('type') } };
     } else if (group && !f.type && !f.level && !f.lang && f.sort !== 'trending') {
-      empty = { title: `No ${group.name} quizzes yet`, text: 'Be the first to make one.', action: { href: cleared, label: 'Clear filters', focusId: 'p2-dd-group' }, create: true };
+      empty = { title: `No ${group.name} quizzes yet`, text: 'Be the first to make one.', action: { href: cleared, label: 'Clear filters', focus: p2Trigger('group') }, create: true };
     } else if (hasFacet(f)) {
-      empty = { title: 'No quizzes match these filters', text: 'Try another level or group.', action: { href: cleared, label: 'Clear filters', focusId: 'p2-dd-type' } };
+      empty = { title: 'No quizzes match these filters', text: 'Try another level or group.', action: { href: cleared, label: 'Clear filters', focus: p2Trigger('type') } };
     } else {
       empty = { title: 'No quizzes here yet', text: 'Try another sort.', action: { href: '/quizzes', label: 'Show all quizzes' } };
     }

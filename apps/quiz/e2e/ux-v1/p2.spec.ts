@@ -50,8 +50,7 @@ async function openQuizzes(page: Page, url = '/quizzes'): Promise<boolean> {
     if (!lost || attempt >= 3) break;
   }
   await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
-  await page.locator('.p2-sort[data-ready]').waitFor({ timeout: 60_000 });
-  await expect(page.locator('.p2-dd[data-ready]')).toHaveCount(3, { timeout: 60_000 });
+  await page.locator('.p2-ctl[data-ready]').waitFor({ timeout: 60_000 });
   await expect(page.locator('.p2-ctl[data-counts="live"]'), 'facet counts read').toHaveCount(1);
   return true;
 }
@@ -62,11 +61,11 @@ async function setup(page: Page, theme: Theme = 'light'): Promise<StubbedCall[]>
 }
 
 const cards = (page: Page) => page.locator('.p2-grid a.ux-qcard');
-const menu = (page: Page, id: string) => page.locator(`#${id} + .ux-pop`);
+const menu = (page: Page, id: string) => page.locator(`.${id} + .ux-pop`);
 
 /** Open a dropdown, return its items as { label, count, href }. */
 async function menuItems(page: Page, id: string): Promise<{ label: string; count: number; href: string }[]> {
-  await page.locator(`#${id}`).click();
+  await page.locator(`.${id}`).click();
   const m = menu(page, id);
   await expect(m).toBeVisible();
   const items = await m.locator('[role="menuitemradio"]').evaluateAll((els) => els.map((e) => ({
@@ -87,7 +86,7 @@ async function settled(page: Page, url: RegExp): Promise<void> {
       || (await page.locator('.p2-empty b', { hasText: 'Quizzes did not load' }).count()) > 0;
     if (!lost) return;
     await page.reload();
-    await page.locator('.p2-sort[data-ready]').waitFor({ timeout: 60_000 });
+    await page.locator('.p2-ctl[data-ready]').waitFor({ timeout: 60_000 });
   }
 }
 
@@ -135,8 +134,8 @@ for (const theme of THEMES) {
       expect(await hrefs(page, '.p2-sort a')).toEqual(['/quizzes?sort=trending', '/quizzes?sort=newest', '/quizzes', '/quizzes?sort=top_rated']);
       await expect(page.locator('.p2-sort a[aria-current="page"]')).toHaveText('Most played');
       for (const id of ['p2-dd-type', 'p2-dd-level', 'p2-dd-group']) {
-        await expect(page.locator(`#${id}`)).toHaveAttribute('aria-haspopup', 'menu');
-        await expect(page.locator(`#${id}`)).toHaveAttribute('aria-expanded', 'false');
+        await expect(page.locator(`.${id}`)).toHaveAttribute('aria-haspopup', 'menu');
+        await expect(page.locator(`.${id}`)).toHaveAttribute('aria-expanded', 'false');
       }
       await expect(page.locator('.p2-dd')).toHaveText(['Type', 'Level', 'Group']);
 
@@ -163,7 +162,7 @@ for (const theme of THEMES) {
       if (axe) expect(axe, 'axe serious / critical').toEqual([]);
 
       // An open menu passes axe too (role=menu of menuitemradio links).
-      await page.locator('#p2-dd-type').click();
+      await page.locator('.p2-dd-type').click();
       await expect(menu(page, 'p2-dd-type')).toBeVisible();
       const axeMenu = await runAxe(page, { include: '.p2-ctl' });
       if (axeMenu) expect(axeMenu, 'axe on the open Type menu').toEqual([]);
@@ -185,15 +184,15 @@ for (const theme of THEMES) {
       await expect(m.locator('[role="menuitemradio"]').nth(1)).toBeFocused();
       await page.keyboard.press('Escape');
       await expect(m).toBeHidden();
-      await expect(page.locator('#p2-dd-type')).toBeFocused();
+      await expect(page.locator('.p2-dd-type')).toBeFocused();
 
       // Pick True/false: the URL, the chip, the grid size and the live region agree with the count.
       const tf = types.find((t) => t.label === 'True/false');
       expect(tf, 'True/false offered').toBeTruthy();
-      await page.locator('#p2-dd-type').click();
+      await page.locator('.p2-dd-type').click();
       await menu(page, 'p2-dd-type').getByRole('menuitemradio', { name: /True\/false/ }).click();
       await settled(page, /\/quizzes\?type=tf$/);
-      await expect(page.locator('#p2-dd-type')).toBeFocused();
+      await expect(page.locator('.p2-dd-type')).toBeFocused();
       await expect(page.locator('.p2-chip')).toHaveCount(1);
       await expect(page.locator('.p2-chip')).toHaveAttribute('aria-label', 'Remove True/false filter');
       await expect(cards(page)).toHaveCount(Math.min(tf!.count, PAGE));
@@ -217,13 +216,13 @@ for (const theme of THEMES) {
       // Remove the Type chip: back to the level alone, focus on the Type trigger.
       await page.locator('.p2-chip', { hasText: 'True/false' }).click();
       await settled(page, new RegExp(`/quizzes\\?level=${pick.label.toLowerCase()}$`));
-      await expect(page.locator('#p2-dd-type')).toBeFocused();
+      await expect(page.locator('.p2-dd-type')).toBeFocused();
       await expect(page.locator('.p2-chip')).toHaveCount(1);
       // Remove the last chip with the keyboard: Enter on a focused chip.
       await page.locator('.p2-chip').focus();
       await page.keyboard.press('Enter');
       await settled(page, /\/quizzes$/);
-      await expect(page.locator('#p2-dd-level')).toBeFocused();
+      await expect(page.locator('.p2-dd-level')).toBeFocused();
       await expect(page.locator('.p2-chip')).toHaveCount(0);
       await expect(cards(page)).toHaveCount(PAGE);
       expect(writes).toEqual([]);
@@ -334,11 +333,11 @@ test.describe('quizzes: pagination, empty states, endpoint', () => {
     await expect(clear).toHaveAttribute('href', '/quizzes');
     await clear.click();
     await settled(page, /\/quizzes$/);
-    await expect(page.locator('#p2-dd-type')).toBeFocused();
+    await expect(page.locator('.p2-dd-type')).toBeFocused();
     await expect(cards(page)).toHaveCount(PAGE);
 
     await page.goto('/quizzes?group=chungha');
-    await page.locator('.p2-sort[data-ready]').waitFor({ timeout: 60_000 });
+    await page.locator('.p2-ctl[data-ready]').waitFor({ timeout: 60_000 });
     await expect(page.locator('.p2-empty b')).toHaveText(/^No .+ quizzes yet$/);
     await expect(page.locator('.p2-empty').getByRole('link', { name: 'Make the first quiz' })).toHaveAttribute('href', '/create');
     await expect(page.locator('.p2-empty').getByRole('link', { name: 'Clear filters' })).toHaveAttribute('href', '/quizzes');
@@ -382,7 +381,7 @@ signedInTest.describe('quizzes signed in (test user, read only)', () => {
     // The account island shows a busy "Sign in" until /api/auth/me answers (A0's shell).
     await expect(page.locator('.ux-nav-signin')).toHaveCount(0, { timeout: 45_000 });
     await expect(cards(page)).toHaveCount(PAGE);
-    await page.locator('#p2-dd-level').click();
+    await page.locator('.p2-dd-level').click();
     await menu(page, 'p2-dd-level').getByRole('menuitemradio', { name: /^Easy/ }).click();
     await settled(page, /\/quizzes\?level=easy$/);
     await expect(page.locator('.p2-chip')).toHaveText(['Easy']);

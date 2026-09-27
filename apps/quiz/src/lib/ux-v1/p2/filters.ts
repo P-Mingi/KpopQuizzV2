@@ -156,6 +156,14 @@ export function p2FilterKey(f: P2Filters): string {
   return [f.sort, f.type ?? '', f.level ?? '', f.group ?? '', f.lang ?? ''].join('|');
 }
 
+/** A filter menu of the controls row. */
+export type P2Facet = 'type' | 'level' | 'group';
+
+/** CSS selector of a filter menu's trigger (chips and Clear filters move focus back to it). */
+export function p2Trigger(facet: P2Facet): string {
+  return `.p2-dd-${facet}`;
+}
+
 export function hasFacet(f: P2Filters): boolean {
   return f.type !== null || f.level !== null || f.group !== null || f.lang !== null;
 }
