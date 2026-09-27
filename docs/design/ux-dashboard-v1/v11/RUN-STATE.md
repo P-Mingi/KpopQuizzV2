@@ -11,7 +11,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
 | A0 | ux11/a0-foundation | fix round 3 merged (2e54e48, PR #72, branch ux11/a0-fix3): X1-003, X2-001, X2-008, P2 request 4, P10 request 3 | e2d27ca | 0 | v11/reports/A0.md |
-| P1 | ux11/p1-home | fix loop 1 merged (1b3120f, PR #59, branch ux11/p1-fix1): C3-003/006/008, C2-002/004/005 | a8c10b5 | 0 | v11/reports/P1.md |
+| P1 | ux11/p1-home | X2-002/007 merged (7579d4a, PR #74, branch ux11/p1-fix2) | 609e6de | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | LOCAL, unpublished (pushes refused by the permission check); round 2b done: showValue={false} on the three menus, filtered states 0.0px off, failed facet read shows "did not load" | bfb49a3 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | X1-005 + X2-004 merged (00728c6, PR #69, branch ux11/p3-fix2) | f8b7693 | 0 | v11/reports/P3.md |
 | P4 | ux11/p4-quiz | X1-002 comment hearts + Reply DONE LOCALLY on ux11/p4-fix3 (push refused by the permission check; waits for the owner) | 9a9bd04 | 0 | v11/reports/P4.md |
@@ -111,6 +111,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-27 P1 fix 2 merged (7579d4a): rail right padding dropped (no 11th-tile sliver), the pulse dot only while the daily is unplayed; p1.spec 41/41; tsc 0, unit 866/866. A push failed on "Could not resolve host: github.com": the machine is on a phone hotspot (gateway 172.20.10.1) that drops, which likely explains many agent stalls. A0 (nav spacing + warm background, nothing committed yet on ux11/a0-fix4) and P10 (spec flip + local draft) stalled again.
 - 2026-09-27 OWNER REQUEST 2 (in chat, with a screenshot of the live home): the v11 page background must be the old warm colour, not white ("it makes the website look warmer"). Light theme: --ux-page #FFFFFF -> #FAF8F5 (live --bg), nav background warm too; cards, panels, sheets, inputs, ticker, tab bar stay white; --ux-surface / --ux-surface-2 re-tuned for contrast on the warm page. Owner-approved deviation from the prototype. Sent to A0 on the same branch ux11/a0-fix4; page stylesheets that paint cards with the page token are to be routed to their owners.
 - 2026-09-27 OWNER REQUEST (in chat, with a nav screenshot): "give a bit more space to the navbar between buttons". Owner-approved deviation from the prototype (.links{gap:0}). Sent to A0 (branch ux11/a0-fix4): largest gap that still fits at 1280 signed in and guest; 390 tab bar unchanged.
 - 2026-09-27 P2 round 2b done locally (bfb49a3, integration 2e54e48 merged in): menus keep their labels, the 52px push at 390 is gone, chips, grid and empty state 0.0px off the prototype. Waiting for P1 and P10, then ORCH rebuilds the preview from the integration head + ux11/p2-quizzes merged locally (never pushed).
