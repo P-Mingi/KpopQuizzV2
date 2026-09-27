@@ -200,6 +200,9 @@ for (const theme of THEMES) {
       await expect(page.locator('.p2-dd-type')).toBeFocused();
       await expect(page.locator('.p2-chip')).toHaveCount(1);
       await expect(page.locator('.p2-chip')).toHaveAttribute('aria-label', 'Remove True/false filter');
+      // The trigger keeps its label (prototype #quizzes: the chip shows the pick); its name carries it.
+      await expect(page.locator('.p2-dd')).toHaveText(['Type', 'Level', 'Group']);
+      await expect(page.locator('.p2-dd-type')).toHaveAccessibleName('Type: True/false');
       await expect(cards(page)).toHaveCount(Math.min(tf!.count, PAGE));
       await expect(page.getByTestId('ux-live')).toHaveText(`${tf!.count} quizzes`);
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);

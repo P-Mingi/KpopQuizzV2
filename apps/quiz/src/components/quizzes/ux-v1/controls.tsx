@@ -41,7 +41,9 @@ interface ControlsProps {
   countsLive: boolean;
 }
 
-/** Sort (Segmented links) + Type / Level / Group (UxDropdown link menus with counts). */
+/** Sort (Segmented links) + Type / Level / Group (UxDropdown link menus with counts).
+ *  The triggers keep their label once a value is picked (prototype #quizzes): the
+ *  removable chip shows the pick; the trigger's accessible name carries it. */
 export function P2Controls({ sort, types, levels, groups, countsLive }: ControlsProps): React.ReactElement {
   const { go } = useP2Nav();
   const ready = useIsClient();
@@ -89,6 +91,7 @@ export function P2Controls({ sort, types, levels, groups, countsLive }: Controls
       label={label}
       className={`p2-dd p2-dd-${facet}`}
       value={items.find((o) => o.current)?.key ?? null}
+      showValue={false}
       options={items.map((o) => ({ value: o.key, label: o.label, href: o.href, count: o.count }))}
       onNavigate={(href) => go(href, p2Trigger(facet))}
     />
