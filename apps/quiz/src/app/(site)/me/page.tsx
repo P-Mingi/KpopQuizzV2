@@ -34,7 +34,16 @@ export const metadata: Metadata = {
 export default async function MyPassportPage(): Promise<React.ReactElement> {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+  if (!user) {
+    // UX v11 (P10, X1-004): flag on, a guest gets the passport invitation (prototype
+    // "you" signed out) instead of the legacy /login page. No read, no write: it
+    // returns before anything else runs. Flag off: the same redirect as always.
+    if (UX_V1) {
+      const { UxPassportGuest } = await import('@/components/profile/ux-v1/passport-guest');
+      return <UxPassportGuest />;
+    }
+    redirect('/login');
+  }
 
   const profile = await getProfileById(user.id);
   if (!profile) redirect('/onboarding');
