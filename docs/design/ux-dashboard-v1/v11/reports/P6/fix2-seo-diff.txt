@@ -1,0 +1,55 @@
+SAME /blindtest/classic  status 200/200  title="Classic - K-pop Blind Test | KpopQuiz"  h1="Classic"  canonical=https://kpopquiz.org/blindtest/classic
+     description="10 seconds of chorus - the standard blind test. 10 songs, 10s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "10 seconds of chorus - the standard blind test", "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/group-bts  status 200/200  title="Bts Blind Test - K-pop Blind Test | KpopQuiz"  h1="Bts"  canonical=https://kpopquiz.org/blindtest/group-bts
+     description="How well do you know Bts? Listen to clips and guess the song." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/girl-groups  status 200/200  title="Girl groups - K-pop Blind Test | KpopQuiz"  h1="Girl groups"  canonical=https://kpopquiz.org/blindtest/girl-groups
+     description="Every generation of girl groups mixed together. 10 songs, 10s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "Every generation of girl groups mixed together", "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/title-tracks  status 200/200  title="Title tracks only - K-pop Blind Test | KpopQuiz"  h1="Title tracks only"  canonical=https://kpopquiz.org/blindtest/title-tracks
+     description="The hits everyone knows - all title tracks, all groups. 10 songs, 10s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "The hits everyone knows - all title tracks, all groups", "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/speed-round  status 200/200  title="Speed round - K-pop Blind Test | KpopQuiz"  h1="Speed round"  canonical=https://kpopquiz.org/blindtest/speed-round
+     description="20 songs, 5 seconds each - pure speed, no time to think. 20 songs, 5s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "20 songs, 5 seconds each - pure speed, no time to think", "20 songs · 5s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/group-stray-kids  status 200/200  title="Stray Kids Blind Test - K-pop Blind Test | KpopQuiz"  h1="Stray Kids"  canonical=https://kpopquiz.org/blindtest/group-stray-kids
+     description="How well do you know Stray Kids? Listen to clips and guess the song." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/intro-challenge  status 200/200  title="Intro - K-pop Blind Test | KpopQuiz"  h1="Intro"  canonical=https://kpopquiz.org/blindtest/intro-challenge
+     description="Name it from the first 5 seconds - before the vocals. 10 songs, 5s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "Name it from the first 5 seconds - before the vocals", "10 songs · 5s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/4th-gen-gg  status 200/200  title="4th gen girl groups - K-pop Blind Test | KpopQuiz"  h1="4th gen girl groups"  canonical=https://kpopquiz.org/blindtest/4th-gen-gg
+     description="aespa, IVE, NewJeans, LE SSERAFIM, ITZY, (G)I-DLE mixed. 10 songs, 10s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "aespa, IVE, NewJeans, LE SSERAFIM, ITZY, (G)I-DLE mixed", "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+SAME /blindtest/solo-artists  status 200/200  title="Solo artists - K-pop Blind Test | KpopQuiz"  h1="Solo artists"  canonical=https://kpopquiz.org/blindtest/solo-artists
+     description="IU, Jungkook, ROSE, Sunmi, Taeyeon, and more. 10 songs, 10s clips." robots=null hreflang="" jsonld A/B=2/2
+     intro strings kept: "IU, Jungkook, ROSE, Sunmi, Taeyeon, and more", "10 songs · 10s clips"
+     links: A (flag off) 22, B (flag on) 38, lost 0, added 16
+     A link set: / /about /articles /blindtest /contact /create /data/knowledge-report-2026 /data/pulse /dmca /faq /leaderboard /news /privacy /quizzes /quizzes/popular-this-week /search /stats /terms /trivia /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+     B additions: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+# 9/9 pages: SEO fields and link set kept
