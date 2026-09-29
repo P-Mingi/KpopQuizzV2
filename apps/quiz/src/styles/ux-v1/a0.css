@@ -24,7 +24,12 @@ html.ux-v1,
      --ux-tabbar-bg) so they stand out like the live cards. --ux-surface / -2 keep the
      prototype's visible step from the ground (dE 3.3 / 6.2); --ux-pink-ink and the
      flair words below were re-clamped to AA on the new grounds (dE <= 1.5). Dark is
-     unchanged. */
+     unchanged.
+     A0 fix 8 (2026-09-29): both light glasses are 94% opaque (prototype 86%). At 86% a
+     pink button scrolled under the warm nav left the muted pills at 4.46:1 (axe, AA
+     4.5), and the tab bar's pink-ink active label at 4.26:1. At 94% every nav and tab
+     bar text is AA over anything under the glass, pure black included (muted 4.76,
+     pink-ink 4.54; a0.test.ts). Over the page ground the glass looks the same. */
   --ux-page: #FAF8F5; --ux-surface: #F1EFEA; --ux-surface-2: #EAE7E1; --ux-raised: #FFFFFF;
   --ux-paper: #FFFFFF; --ux-card-fill: #FFFFFF;
   --ux-hair: #ECE9E4; --ux-line: #ECE8E3; --ux-line-2: #F3F1EE; --ux-edge: #E5E0DA; --ux-pink-line: #F2CFDB;
@@ -34,7 +39,7 @@ html.ux-v1,
   --ux-pink-soft: #FCE8EF; --ux-pink-soft-ink: #B3305C;
   --ux-ok: #257547; --ux-ok-soft: #E9F4EC; --ux-no: #B83A34; --ux-no-soft: #FBECEA; --ux-warn: #9A5B0F;
   --ux-on-ok: #FFFFFF; --ux-knob-off: #FFFFFF;
-  --ux-nav-bg: rgba(250, 248, 245, .86); --ux-tabbar-bg: rgba(255, 255, 255, .86);
+  --ux-nav-bg: rgba(250, 248, 245, .94); --ux-tabbar-bg: rgba(255, 255, 255, .94);
   --ux-photo-edge: inset 0 0 0 1px rgba(31, 27, 23, .04);
   --ux-shadow-card: 0 1px 2px rgba(31, 27, 23, .04), 0 10px 30px rgba(31, 27, 23, .07);
   --ux-shadow-ov: 0 24px 64px rgba(31, 27, 23, .18), 0 2px 8px rgba(31, 27, 23, .06);

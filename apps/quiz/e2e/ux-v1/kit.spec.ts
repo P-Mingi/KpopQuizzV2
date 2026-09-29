@@ -86,7 +86,7 @@ for (const theme of THEMES) {
       }, phone);
       const white = 'rgb(255, 255, 255)';
       const expected = theme === 'light'
-        ? { body: 'rgb(250, 248, 245)', app: 'rgb(250, 248, 245)', nav: 'rgba(250, 248, 245, 0.86)', tabbar: phone ? 'rgba(255, 255, 255, 0.86)' : null, tabbarSample: 'rgba(255, 255, 255, 0.86)',
+        ? { body: 'rgb(250, 248, 245)', app: 'rgb(250, 248, 245)', nav: 'rgba(250, 248, 245, 0.94)', tabbar: phone ? 'rgba(255, 255, 255, 0.94)' : null, tabbarSample: 'rgba(255, 255, 255, 0.94)',
           qcard: white, tcard: white, post: white, panel: white, box: white, stats3: white, sheet: white, inp: white, kbd: white, knob: white,
           seg: 'rgb(241, 239, 234)', chip: 'rgb(241, 239, 234)', foot: 'rgb(241, 239, 234)' }
         : { body: 'rgb(20, 19, 18)', app: 'rgb(20, 19, 18)', nav: 'rgba(20, 19, 18, 0.84)', tabbar: phone ? 'rgba(20, 19, 18, 0.84)' : null, tabbarSample: 'rgba(20, 19, 18, 0.84)',
@@ -267,6 +267,11 @@ test.describe('kit interactions', () => {
   // two-line titles: a grid or rail card at the reference width has the reference
   // height, less one title line when its (real) title fits on one line; a two-line
   // stacked row (the kit stacks its longest real title first) has the reference height.
+  // A0 fix 8: the grid (and the phone rail) stretches every card of a row to its
+  // tallest card, as the prototype's .qgrid does (default align stretch; .qb flex 1 and
+  // the footer's auto top margin take the extra). So a card's own height is its height
+  // less that margin, and it is compared per card; its painted height is compared
+  // with the tallest own height of its row.
   test('quiz cards: body line heights and card heights as the prototype', async ({ page }) => {
     test.skip(!(await openKit(page)), 'kit not served here');
     const sec = page.locator('[data-kit-section="quiz-cards"]');
@@ -286,17 +291,34 @@ test.describe('kit interactions', () => {
       const r = ref[state]?.['.qcard'];
       expect(r, `styles.json ${state} .qcard`).toBeTruthy();
       const want = { w: parseFloat(r?.width ?? '0'), h: parseFloat(r?.height ?? '0') };
-      const cards = (await sec.locator(sel).evaluateAll((els) => els.map((el) => {
-        const t = el.querySelector('.ux-qt') as HTMLElement;
-        const box = el.getBoundingClientRect();
-        const lh = parseFloat(getComputedStyle(t).lineHeight);
-        return { w: box.width, h: box.height, lh, lines: Math.round(t.getBoundingClientRect().height / lh), top: getComputedStyle(t).marginTop };
-      }))).filter((c) => Math.abs(c.w - want.w) < 1);
+      const cards = (await sec.locator(sel).evaluateAll((els) => {
+        const grids = [...new Set(els.map((el) => el.parentElement))];
+        return els.map((el) => {
+          const t = el.querySelector('.ux-qt') as HTMLElement;
+          const f = el.querySelector('.ux-qf') as HTMLElement;
+          const box = el.getBoundingClientRect();
+          const tb = t.getBoundingClientRect();
+          const lh = parseFloat(getComputedStyle(t).lineHeight);
+          // what the row stretch added: the footer's auto top margin (0 on the row's tallest card)
+          const stretch = f.getBoundingClientRect().top - tb.bottom;
+          return {
+            w: box.width, h: box.height, own: box.height - stretch, stretch, lh, lines: Math.round(tb.height / lh), top: getComputedStyle(t).marginTop,
+            row: `${grids.indexOf(el.parentElement)}@${Math.round(box.top + window.scrollY)}`,
+          };
+        });
+      })).filter((c) => Math.abs(c.w - want.w) < 1);
       expect(cards.length, `${state}: kit cards at the reference width ${want.w}px`).toBeGreaterThan(0);
       if (state !== '390-light-quizzes') {
         for (const c of cards) {
+          expect(c.stretch, `${state}: the footer margin never goes negative`).toBeGreaterThanOrEqual(-0.01);
           const expected = want.h - (2 - c.lines) * c.lh;
-          expect(Math.abs(c.h - expected), `${state}: ${c.lines}-line card ${c.h} vs ${expected}`).toBeLessThan(0.6);
+          expect(Math.abs(c.own - expected), `${state}: ${c.lines}-line card, own height ${c.own} vs ${expected}`).toBeLessThan(0.6);
+        }
+        const rows = new Map<string, typeof cards>();
+        for (const c of cards) rows.set(c.row, [...(rows.get(c.row) ?? []), c]);
+        for (const [row, list] of rows) {
+          const tallest = Math.max(...list.map((c) => c.own));
+          for (const c of list) expect(Math.abs(c.h - tallest), `${state}: row ${row}, card ${c.h} vs the row's tallest ${tallest}`).toBeLessThan(0.6);
         }
         continue;
       }
