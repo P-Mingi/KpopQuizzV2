@@ -683,6 +683,8 @@ test('legacy toast stack: above the tab bar up to 900px, 24px up from 901px and 
   await page.setViewportSize({ width: 820, height: 900 });
   await page.goto('/create');
   await waitHydrated(page);
+  // the page itself carries the mode (a dev server can stream the shell before the page)
+  await expect(page.locator('.ux-page[data-shell="create"]')).toHaveCount(1, { timeout: 60_000 });
   const c = await place();
   expect(c.tabTop, 'create mode: no tab bar').toBeNull();
   expect(c.bottom, 'create mode: 24px up').toBe('24px');
