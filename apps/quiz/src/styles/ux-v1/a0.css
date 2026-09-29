@@ -557,6 +557,11 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   /* X2-001: routes that keep the legacy tab bar (Verse, builder) keep the legacy body padding instead */
   .ux-app:not(:has(.ux-tabbar)) { padding-bottom: 0; }
   .ux-toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  /* A0 fix 7: the legacy toast stack (components/ui/toast-provider.tsx: fixed 24px up, z 50,
+     under the tab bar's z 60; data-toast-stack is rendered under the flag only) sits on the
+     same line as .ux-toast wherever the v11 tab bar shows: not in focus or create mode, not on
+     the routes that keep the legacy chrome (Verse). */
+  html.ux-v1:not(.ux-focus):not(.ux-create) body:has(.ux-tabbar):not(:has(.ux-page[data-shell="focus"], .ux-page[data-shell="create"])) [data-toast-stack] { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 }
 /* A0 fix 6: from 901 to 959px a streak pill (56 to 82px, 1 to 4 digits; 44px targets on
    touch) leaves too little room for "+ Create": Create shows as its round icon there (36px,

@@ -633,6 +633,65 @@ test('tablet (800px) phone chrome: room under the page and toasts above the tab 
   expect(v, 'Verse: no v11 tab bar, .ux-app adds no room').toEqual({ body: '0px', app: '0px' });
 });
 
+// A0 fix 7: the legacy toast stack (components/ui/toast-provider.tsx, fixed 24px up, z 50)
+// sat under the v11 tab bar (z 60) wherever the tab bar shows. Under the flag it carries
+// data-toast-stack and a0.css puts it on the .ux-toast line (84px up) up to 900px, where
+// the tab bar shows; desktop and create mode (no tab bar) keep 24px. A real toast needs a
+// saving action (cheer, settings), so a toast is drawn into the stack the way the provider
+// draws one (same classes) and its box is measured. Nothing is written.
+test('legacy toast stack: above the tab bar up to 900px, 24px up from 901px and in create mode', async ({ page }) => {
+  await preparePage(page, 'light');
+  const calls = await guardWrites(page, env.supabaseUrl);
+  await page.setViewportSize({ width: 820, height: 900 });
+  await page.goto('/quizzes');
+  test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+  await waitHydrated(page);
+  await expect(page.locator('[data-toast-stack]'), 'one legacy toast stack, flagged').toHaveCount(1);
+  const place = (): Promise<{ bottom: string; toastBottom: number; tabTop: number | null }> => page.evaluate(() => {
+    const stack = document.querySelector('[data-toast-stack]') as HTMLElement;
+    let t = stack.querySelector<HTMLElement>('[data-probe]');
+    if (!t) {
+      t = document.createElement('div');
+      t.dataset.probe = '';
+      t.className = 'px-4 py-3 rounded-lg text-sm font-medium shadow-sm border pointer-events-auto -translate-x-1/2 whitespace-nowrap bg-correct-bg text-correct-text border-correct';
+      t.textContent = 'Saved';
+      stack.appendChild(t);
+    }
+    const tab = document.querySelector('.ux-tabbar') as HTMLElement;
+    return {
+      bottom: getComputedStyle(stack).bottom,
+      toastBottom: t.getBoundingClientRect().bottom,
+      tabTop: getComputedStyle(tab).display === 'none' ? null : tab.getBoundingClientRect().top,
+    };
+  });
+  const seen: Record<number, unknown> = {};
+  for (const w of [390, 761, 820, 900, 901, 1280, 1440]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    const p = await place();
+    seen[w] = p;
+    if (w <= 900) {
+      expect(p.bottom, `${w}px: on the .ux-toast line`).toBe('84px');
+      expect(p.tabTop, `${w}px: tab bar shown`).not.toBeNull();
+      expect(p.toastBottom, `${w}px: the toast ends 20px above the tab bar`).toBeLessThanOrEqual((p.tabTop ?? 0) - 16);
+    } else {
+      expect(p.bottom, `${w}px: 24px up, as before`).toBe('24px');
+      expect(p.tabTop, `${w}px: no tab bar`).toBeNull();
+      expect(Math.round(p.toastBottom), `${w}px: toast bottom`).toBe(900 - 24);
+    }
+  }
+  // create mode hides the tab bar: the stack stays 24px up
+  await page.setViewportSize({ width: 820, height: 900 });
+  await page.goto('/create');
+  await waitHydrated(page);
+  // the page itself carries the mode (a dev server can stream the shell before the page)
+  await expect(page.locator('.ux-page[data-shell="create"]')).toHaveCount(1, { timeout: 60_000 });
+  const c = await place();
+  expect(c.tabTop, 'create mode: no tab bar').toBeNull();
+  expect(c.bottom, 'create mode: 24px up').toBe('24px');
+  await test.info().attach('legacy-toast.json', { body: JSON.stringify({ seen, create: c }, null, 1), contentType: 'application/json' });
+  expect(calls, 'no write attempted').toEqual([]);
+});
+
 // X2-001: under the phone footer the prototype keeps 64px (the tab bar's room) and
 // nothing else. The legacy `body { padding-bottom: 72px }` (globals.css, up to 767px,
 // for the legacy tab bar) no longer stacks on .ux-app's 64px where the v11 tab bar is
