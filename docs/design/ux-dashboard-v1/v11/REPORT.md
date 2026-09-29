@@ -2,15 +2,16 @@
 
 ## Progress
 
-- Status: FINAL, refreshed 2026-09-29 on the integration head `feat/ux-v1-v11` d3e8c99 (code = 2a6cbef; the
-  three commits after it touch RUN-STATE.md only). Every page is DONE; the pages with deferred items say which
-  and why. Every checker issue is closed (C1-001..002, C2-001..008, C3-001..009). The two completeness audits
-  found 21 gaps (AUDIT-X1 10, AUDIT-X2 11); the final verifier V re-checked all of them on a flag-on production
-  build of 2a6cbef: **18 fixed, 0 not fixed, 3 deferred** (`checks/qa/FINAL-VERIFY.md` section 8).
-- In flight, NOT done (A0 fix 8, RUN-STATE log 2026-09-29): (1) the warm translucent nav glass fails axe AA
-  (4.46:1, needs 4.5) when a pink button scrolls under it on /blindtest and /blindtest/ranked at 1280 and 1440
-  light; (2) the kit.spec quiz card height test fails on today's data (test only). This report does not claim
-  either as fixed.
+- Status: FINAL, refreshed 2026-09-29 on the integration head `feat/ux-v1-v11` be059cc. Every page is DONE; the
+  pages with deferred items say which and why. Every checker issue is closed (C1-001..002, C2-001..008,
+  C3-001..009). The two completeness audits found 21 gaps (AUDIT-X1 10, AUDIT-X2 11); the final verifier V
+  re-checked all of them on a flag-on production build of 2a6cbef: **18 fixed, 0 not fixed, 3 deferred**
+  (`checks/qa/FINAL-VERIFY.md` section 8).
+- After V: A0 fix 8 merged (PR #86, merge be059cc; f4ff6d6 + a5b2ac7; A0.md section 15). It closes V's two new A0
+  items: (1) the light nav and tab bar glass are 94% opaque (was 86%), so the nav text stays AA over anything
+  scrolled under it (the 4.46:1 case over the pink button on /blindtest and /blindtest/ranked is gone); (2) the
+  kit.spec card height test measures each card's own height and the row stretch, as the prototype. Proofs are A0's
+  (dev server), not re-run by C3 or V.
 - What changed since the loop 2 report (which still said "Quizzes (P2): PENDING"): P2 /quizzes merged (PR #77);
   every X1 and X2 gap fixed or deferred with a reason; the owner's two requests (nav spacing, warm light ground)
   and the tablet chrome up to 900px merged as deviations from the prototype; legacy toast and settings save bar
@@ -19,22 +20,24 @@
   `v11/AUDIT-X1.md`, `v11/AUDIT-X2.md`, the final verification `v11/checks/qa/FINAL-VERIFY.md` (V's
   verify.md, copied), the agents' reports `v11/reports/<id>.md` (their fix sections), C1 `v11/checks/pixel/`,
   C2 `v11/checks/backend/`, C3's own loop 1 and 2 evidence in `v11/checks/qa/`.
-- Branch `ux11/c3-report2` (from `origin/feat/ux-v1-v11` d3e8c99), PR into `feat/ux-v1-v11`. No server, no build
-  and no check was run for this refresh: it is a documentation update from existing evidence.
+- Branches: `ux11/c3-report2` (from d3e8c99, merged as PR #85, 09d8bfd), then `ux11/c3-report3` (from be059cc,
+  A0 fix 8 marked merged), each a PR into `feat/ux-v1-v11`. No server, no build and no check was run for these
+  refreshes: they are documentation updates from existing evidence.
 - No production write in any check: every mutating request was answered locally (`guardWrites`), signed in only
   through the Playwright setup project, `/me` and `/profile` never loaded signed in.
 
-## At a glance (final, 2a6cbef)
+## At a glance (final: V on 2a6cbef, then A0 fix 8 at be059cc)
 
 | Check | Result | Evidence |
 |---|---|---|
-| Unit (vitest) | **917 / 917** at 2a6cbef; integration whole-app tsc 0 errors | FINAL-VERIFY section 7, RUN-STATE log 2026-09-29 |
+| Unit (vitest) | **920 / 920** with A0 fix 8 (917 at 2a6cbef + 3 new glass contrast cases); whole-app tsc 0 errors | A0.md 15.3; FINAL-VERIFY section 7 and RUN-STATE log 2026-09-29 for 917 at 2a6cbef |
 | Audit gaps (X1 + X2 = 21) | **18 FIXED, 0 NOT FIXED, 3 DEFERRED** (X1-002 pending migration, code done; X1-009 owner decisions 1 and 4; X2-003 owner decision, SEO-locked copy) | FINAL-VERIFY 1a, 1b, 8 |
-| Owner requests and follow-ups (6) | 5 FIXED (nav spacing; warm ground + white surfaces + dark unchanged; tablet chrome to 900 with no sideways scroll; legacy toast above the tab bar; save bar above the tab bar); 1 part NOT FIXED: text AA of the warm nav glass in one scrolled state (A0 fix 8, in flight) | FINAL-VERIFY 2, 3, 4 |
+| Owner requests and follow-ups (6) | **6 FIXED**: nav spacing; warm ground + white surfaces + dark unchanged; tablet chrome to 900 with no sideways scroll; legacy toast above the tab bar; save bar above the tab bar (V); text AA of the warm nav glass, the part V found NOT FIXED, fixed by A0 fix 8 (PR #86, 94% glass) | FINAL-VERIFY 2, 3, 4; A0.md 15.1 |
+| A0 fix 8 (PR #86, after V) | qa-a11y blindtest case 3 / 3 light + 3 / 3 dark at 1440 (fails with 86% put back); nav scan 0 of 18,283 checks over 11 pages at 1280 and 1440, light and dark; tab bar scan 0 of 7,249 at 390; kit + shell 57 pass at 1440, kit + shell + 32 qa-a11y cases 78 pass at 390; kit card heights 6 / 6; tsc 0; flag off identical. Worst text on the light glass now 4.76 (nav muted over black) and 4.54 (tab bar pink-ink over black), was 3.94 / 3.76 | A0.md 15.1 to 15.3, `reports/A0/fix8-flag-off.txt` |
 | The 38 capture states at 1440 light and 390 dark (76 captures) + /quizzes in 4 combos | 76 / 76 rendered, 0 driver errors, 0 horizontal scroll, 11 writes attempted, all answered locally. Nothing differs from X2's audited capture beyond data, merged fixes and documented owner deviations | FINAL-VERIFY 5, 6 |
 | X2's extra prototype states touched by fixes (17) | re-captured at 1440 light and 390 dark: every touched gap FIXED | FINAL-VERIFY 1b |
-| Owner specs `e2e/ux-v1/*` (all but parity.spec), ux-1440 | **452 passed, 16 failed, 5 skipped by design, 0 flaky** (12.5 min). Failures: 14 axe cases on legacy pages inside the shell (known, no owner in this run), 1 axe case on /blindtest (the nav glass AA, A0 fix 8), 1 kit.spec card height (data-dependent test, A0 fix 8) | FINAL-VERIFY 7 |
-| Owner specs, ux-390 (touch phone) | **442 passed, 15 failed, 1 flaky, 15 skipped by design** (11.7 min). Failures: the same 14 legacy axe cases + the same kit card height test. Flaky: kit "late island hydrates" (auth probe timing under load, passed on retry) | FINAL-VERIFY 7 |
+| Owner specs `e2e/ux-v1/*` (all but parity.spec), ux-1440, V on 2a6cbef | **452 passed, 16 failed, 5 skipped by design, 0 flaky** (12.5 min). Failures: 14 axe cases on legacy pages inside the shell (known, no owner in this run), 1 axe case on /blindtest (the nav glass AA), 1 kit.spec card height (data-dependent test). The last two are fixed by A0 fix 8 (PR #86) per A0's report; not re-run by C3 | FINAL-VERIFY 7; A0.md 15.3 |
+| Owner specs, ux-390 (touch phone), V on 2a6cbef | **442 passed, 15 failed, 1 flaky, 15 skipped by design** (11.7 min). Failures: the same 14 legacy axe cases + the same kit card height test, the latter fixed by A0 fix 8 (PR #86) per A0's report; not re-run by C3. Flaky: kit "late island hydrates" (auth probe timing under load, passed on retry) | FINAL-VERIFY 7; A0.md 15.3 |
 | Tablet and sideways scroll | 19 pages x 768 / 800 / 820 / 900 / 901 / 1024 / 1100 x guest and signed in x mouse and touch: 70 page runs, 490 width checks, sideways scroll 0 everywhere | FINAL-VERIFY 4 |
 | Flag off | unchanged by construction: only 6 non-v11 source files changed since C3's flag-off / SEO pass (each change behind `UX_V1` or text-identical); every fix PR carries its own flag-off diff (identical) | FINAL-VERIFY 7, reports |
 | Pixel (C1 loop 2, cc6c394) | 152 checks: 136 pass, 0 fail, 16 not verified (quizzes x4 pre-P2, ranked x4 not-live only, btend-ranked x4 and post-challenge x4 need migrations). C1 did not re-run quizzes after the P2 merge: X2 and V did (Quizzes section) | `checks/pixel/README.md` |
@@ -56,7 +59,8 @@
    glass; cards, panels, sheets, fields, ticker and tab bar stay white; `--ux-surface` #F1EFEA, `--ux-surface-2`
    #EAE7E1, `--ux-pink-ink` #C43565, accents and rarity words re-clamped to AA. Dark unchanged. V: FIXED on 10 pages
    (computed styles), every text field white, 390 dark pixel-identical to X2's capture, token contrast >= 4.5 on
-   every ground that carries text. One follow-up NOT FIXED: the nav glass AA case (In flight, below).
+   every ground that carries text. The one follow-up V found NOT FIXED (the nav glass AA case) is fixed by A0 fix 8
+   (PR #86): see item 4.
 3. **Tablet chrome up to 900px** (A0 fix 6, PR #81; ORCH's pick between A0's two measured options, A0.md 4 item 14
    and 13.2; RUN-STATE decision 35; listed by ORCH as owner-approved). From 761 to 900px the site uses the
    prototype's phone chrome (top bar + bottom tab bar); from 901 to 959px Create shows as its round icon next to a
@@ -64,6 +68,12 @@
    settings save bar above it (P10 fix 4, PR #83). V: 0 sideways scroll at every tested width; toast 19px and save
    bar 11px above the tab bar up to 900, none of it from 901. Open, pre-existing: on touch screens at 1280+ with a
    4-digit streak the right cluster ends 7.9px into the gutter (no scroll).
+4. **Nav and tab bar glass 94% opaque** (A0 fix 8, PR #86, merge be059cc; A0.md 4 item 15 and 15.1; listed by ORCH
+   with the approved deviations). The prototype's light glasses are 86% opaque; the warm nav glass
+   `rgba(250,248,245,.94)` and the white tab bar glass `rgba(255,255,255,.94)` keep every text on them AA over
+   anything scrolled under (at 86%: 4.46:1 over the pink button in axe, 3.94 nav muted and 3.76 tab bar pink-ink
+   over black; at 94%: 4.76 and 4.54 over black). At rest the nav paints the page colour exactly as before; while
+   scrolling the page shows through less (6% instead of 14%). Text colours, blur, saturate and dark (84%) unchanged.
 
 ## Per page
 
@@ -73,7 +83,7 @@ merged after AUDIT-X1 and AUDIT-X2 (PR numbers on `feat/ux-v1-v11`). "V" = the f
 Thumbnails: C1's reference | implementation (1440 light), captured before the warm ground; V's final captures
 stay in its scratchpad.
 
-### Shell, nav, tab bar, footer, sheets, tokens (A0): DONE, A0 fix 8 in flight
+### Shell, nav, tab bar, footer, sheets, tokens (A0): DONE
 
 ![shell](checks/pixel/home-guest/1440-light-side.webp)
 
@@ -81,8 +91,12 @@ stay in its scratchpad.
   (PR #72, with P10 PR #75); X2-001 64px (not 136) under the phone footer (#72); X2-008 default 1080 x 1920 Story
   image tile on every share sheet (#72); X2-011 dropdown triggers keep their label (`showValue={false}`, #72, used
   by P2); owner requests 1 and 2 (#76); tablet chrome to 900px (#81); legacy toast above the tab bar (#82).
-- V: all of these FIXED; shell.spec and kit.spec pass at both widths except the kit card height test.
-- In flight (A0 fix 8): the nav glass AA case and the kit card height test (In flight section).
+- V: all of these FIXED; shell.spec and kit.spec pass at both widths except the kit card height test. V also
+  found the nav glass AA case (4.46:1 over a pink button when scrolled).
+- After V: A0 fix 8 (PR #86, be059cc) makes the light nav and tab bar glass 94% opaque and measures the kit card
+  heights as the prototype does; A0's proofs: qa-a11y blindtest 3 / 3 light and 3 / 3 dark at 1440, nav scan 0 of
+  18,283, tab bar scan 0 of 7,249, kit + shell 57 pass at 1440 and 78 at 390, vitest 920 / 920, tsc 0, flag off
+  identical (A0.md section 15, section "A0 fix 8" below).
 - Loop 2: shell landmarks pass in every state, C1-002 fixed; wiring 29 PASS / 2 N/A, C2-001 fixed (every new
   endpoint 404 flag off); axe 0 and every sheet check on sign-in, search, account menu, bell; the shell adds about
   15 links per page and removes none.
@@ -171,7 +185,8 @@ stay in its scratchpad.
   block; X2-005 the results kicker names the run (PR #71, P6.md section 11).
 - V: all three FIXED (`probe-btmode.json`, kicker and sheet crops); p6.spec passes at both widths; the
   /blindtest/<mode> pages left the legacy contrast list.
-- The nav glass AA case appears on /blindtest when scrolled (A0's nav, not P6): A0 fix 8, in flight.
+- The nav glass AA case V found on /blindtest when scrolled (A0's nav, not P6) is fixed by A0 fix 8 (PR #86): the
+  qa-a11y blindtest case passes 3 / 3 light and dark at 1440 per A0's report.
 - Deferred (owner): 9 of 18 static modes play the closest playlist and say so; title tracks plays the hits
   (decision 33); streak, XP, guest challenges, mixes (decision 12); the Intro 301 (decision 13).
 - Loop 2: pixel 5 states pass; wiring 21 PASS / 3 NOT VERIFIED / 13 N/A; axe 0; SEO identical, 0 links lost.
@@ -183,7 +198,8 @@ stay in its scratchpad.
 - No change after the audits (none filed on P7). V: ranked and btend-ranked captures unchanged from X2's.
 - NOT verified until `v11-p7-ranked.sql` is applied (decision 2): populated board, btend-ranked, the ranked
   leaderboard tab. The not-live state passes (p7.spec, API 503 not_live before any write).
-- The nav glass AA case appears on /blindtest/ranked when scrolled (A0 fix 8, in flight).
+- The nav glass AA case V found on /blindtest/ranked when scrolled is fixed by A0 fix 8 (PR #86): 0 hits in A0's
+  nav scan of that page at 1280 and 1440, light and dark.
 - Owner: season rewards shown but not built, no /pt mirror (decision 18); ranked_plays open insert (decision 3).
 
 ### Community (P8): DONE; migration-gated states NOT verified
@@ -261,17 +277,28 @@ C2-003 / 008 (P4), C2-006 / 007 (P3), C3-001 / 002 (P3), C3-003 / 006 / 008 (P1)
 C3-007 (P8), C3-009 (P6). C3-002, C3-003 and C3-009 are fixed in code with unit tests, not fault-injected. Full
 lines in `v11/issues/<owner>.md`, loop 2 verdicts in `checks/qa/ISSUES-STATUS.md`.
 
-## In flight (not done)
+## A0 fix 8: merged after the final verification (PR #86, merge be059cc)
 
-A0 fix 8 (RUN-STATE log 2026-09-29; FINAL-VERIFY section 3 and 7):
-1. Nav glass contrast: at 1280 and 1440 light, when a pink primary button scrolls under the warm translucent nav,
-   axe blends the glass to #F4DDE2 and the muted pill text reads 4.46:1 (needs 4.5): /blindtest at scroll about
-   420 (Community pill) and /blindtest/ranked at about 360 (Quizzes pill). 0 hits on 9 other pages, 0 in dark, 0
-   with the old white glass. qa-a11y "blindtest ... group-search" fails 3 / 3 at 1440 light. Fix idea from V: a
-   slightly more opaque warm glass or a darker nav muted ink.
-2. kit.spec "quiz cards: body line heights and card heights as the prototype": the kit grid row mixes three
-   one-line titles with a two-line one today, so the grid stretches them to 329.78 while the test expects 308.18;
-   the prototype stretches rows the same way. A test that depends on data, not a product change.
+V's two new A0 items (FINAL-VERIFY section 3 and 7), both fixed by A0 fix 8 (f4ff6d6 nav and tab bar glass,
+a5b2ac7 kit test; A0.md section 15). The numbers are A0's, on a flag-on dev server; C3 did not re-run them.
+1. Nav glass contrast. Found by V: at 1280 and 1440 light, when a pink primary button scrolled under the warm
+   translucent nav (86%), axe blended the glass to #F4DDE2 and the muted pill text read 4.46:1 (needs 4.5) on
+   /blindtest (scroll about 420) and /blindtest/ranked (about 360); qa-a11y "blindtest ... group-search" failed 3 / 3.
+   Fix: the light nav glass and the white tab bar glass 94% opaque (deviation 4). Proofs: the qa-a11y blindtest
+   case 3 / 3 light and 3 / 3 dark at 1440 (with 86% put back it fails on `a[data-nav="community"]`); the nav scan
+   (axe color-contrast on `.ux-nav` every 60px of scroll, V's 11 pages, 1280 and 1440, light and dark) 0 of 18,283
+   checks, and with 86% forced exactly V's 4 hits; the tab bar scan at 390 0 of 7,249; a unit block checks every
+   text on each glass over 5,832 backdrops (black and white included) >= 4.5; whole qa-a11y.spec at 1440: 74 pass,
+   14 fail (the known legacy pages), 1 flaky, no finding on the nav or tab bar.
+2. kit.spec card heights (test only). Found by V: the test failed 3 / 3 because the kit row stretched one-line
+   cards to the two-line height (329.78 vs 308.18), as the prototype's grid does. Fix: the test measures each
+   card's own height against the reference and every card's painted height against its row's tallest; 6 / 6 at
+   1440 and 390 (`--repeat-each 3`), and it now also catches a grid that stops stretching.
+
+Checks (A0.md 15.3): kit + shell 57 pass at 1440 (1 skipped, 1 flaky), kit + shell + 32 qa-a11y cases 78 pass at
+390 (12 skipped, 1 flaky; the flaky case is fix 7's legacy toast in create mode on the dev server, green on V's
+production build), vitest 920 / 920, whole-app tsc 0, eslint 0, flag off identical (8 pages as whole documents,
+`/` identical markup; `reports/A0/fix8-flag-off.txt`). ORCH is re-running whole-app tsc and unit on be059cc.
 
 ## NOT verified, and why
 
@@ -291,6 +318,8 @@ A0 fix 8 (RUN-STATE log 2026-09-29; FINAL-VERIFY section 3 and 7):
   fault-injected (needs a failing read on a production server).
 - The quiz challenge game chip and relaxed chip, XP lines and "You beat N%" on results: need a signed battles row,
   a migration, or a real save (AUDIT-X2 Extension).
+- A0 fix 8 on a production build and in the full owner spec run: A0's proofs ran on a flag-on dev server (A0.md
+  15.4); V's owner spec counts above are from 2a6cbef, before the fix, and were not re-run.
 - Devices: Chromium 1234 only (mouse and touch emulation), no real iPad or Safari; screen readers not run (roles,
   names and live region text checked in the DOM).
 - Vercel preview: the owner set `NEXT_PUBLIC_UX_V1=1` for the `feat/ux-v1-v11` preview (RUN-STATE log 2026-09-27
@@ -319,7 +348,7 @@ A0 fix 8 (RUN-STATE log 2026-09-29; FINAL-VERIFY section 3 and 7):
 
 - Final verification: `checks/qa/FINAL-VERIFY.md` (V, 2a6cbef; its images and probes stayed in V's scratchpad).
 - Audits: `v11/AUDIT-X1.md` (scope), `v11/AUDIT-X2.md` (strict visual pass + 33 extra states).
-- Fixes: `v11/reports/<id>.md` (A0 sections 11 to 14, P1 9, P2 7, P3 Fix 2 and 2b, P4 11 and 12, P5 11, P6 10 and
+- Fixes: `v11/reports/<id>.md` (A0 sections 11 to 15, P1 9, P2 7, P3 Fix 2 and 2b, P4 11 and 12, P5 11, P6 10 and
   11, P10 11 to 13, P11 10) and their images under `v11/reports/<id>/`.
 - C3 loops 1 and 2: e2e `checks/qa/e2e-loop2.md`, `e2e-run3.md`, `e2e-qa2.md`; accessibility `QA-A11Y-loop2.md`,
   `QA-A11Y.md`, specs `apps/quiz/e2e/ux-v1/qa-a11y.spec.ts`, `qa-keyboard.spec.ts`; SEO `seo-loop2/`, `seo/`;
