@@ -1101,6 +1101,8 @@ for (const theme of THEMES) {
         await page.setViewportSize({ width: w, height: H });
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForFunction(() => window.scrollY === 0);
+        // reduced motion keeps a 1ms `transition: all` (a0.css): measure once the bar has settled
+        await page.waitForFunction(() => (document.querySelector('.p10-savebar') as HTMLElement).getAnimations().length === 0);
         const g = await page.evaluate(() => {
           const bar = document.querySelector('.p10-savebar') as HTMLElement;
           const r = bar.getBoundingClientRect();
