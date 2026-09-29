@@ -79,6 +79,65 @@ describe('ink floor: every text token pair is AA (16.9)', () => {
   });
 });
 
+// A0 fix 8 (final verifier: axe color-contrast on the nav, 4.46:1). The top nav and
+// the phone tab bar are translucent glass, so the ground behind their text is the
+// glass over whatever the page scrolls under it: a * glass + (1 - a) * backdrop per
+// channel (source-over in sRGB, as the browser and axe blend). Every sRGB backdrop in
+// steps of 15 (0 and 255 included: black, white, every photo tone to that step) plus
+// the pink buttons and the grounds by name. The blend and the luminance grow with each
+// channel, so black (light) and white (dark) are the exact worst cases, and the grid
+// holds them. The blur and saturate of the glass only average or push the backdrop
+// within 0 to 255, so the bound holds for what is painted too.
+describe('nav glass: every nav text is AA over anything under the glass (A0 fix 8)', () => {
+  const hex = (h: string): number[] => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const lin = (v: number): number => { const c = v / 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+  const lum = (c: number[]): number => 0.2126 * lin(c[0] ?? 0) + 0.7152 * lin(c[1] ?? 0) + 0.0722 * lin(c[2] ?? 0);
+  const ratio = (p: number[], q: number[]): number => { const [x, y] = [lum(p), lum(q)].sort((m, n) => n - m); return ((x ?? 0) + 0.05) / ((y ?? 0) + 0.05); };
+  const rgba = (v: string): { c: number[]; a: number } => {
+    const m = /^rgba\((\d+),(\d+),(\d+),([\d.]+)\)$/.exec(norm(v));
+    if (!m) throw new Error(`not an rgba() glass: ${v}`);
+    return { c: [Number(m[1]), Number(m[2]), Number(m[3])], a: Number(m[4]) };
+  };
+  const over = (g: { c: number[]; a: number }, back: number[]): number[] => g.c.map((v, i) => g.a * v + (1 - g.a) * (back[i] ?? 0));
+  const steps = Array.from({ length: 18 }, (_, i) => i * 15);
+  const grid = steps.flatMap((r) => steps.flatMap((g) => steps.map((b) => [r, g, b])));
+  // Text painted straight on each glass. Every other nav text sits on an opaque fill
+  // (active pill white on pink-fill, hover pill and streak pill ink on surface /
+  // surface-2, avatar initials muted on surface-2): the ink floor above covers them.
+  const ON_GLASS: [string, string, [string, string][]][] = [
+    ['top nav', 'nav-bg', [['ink', 'brand, Create, Sign in'], ['muted', 'the link pills, search and bell icons']]],
+    ['tab bar', 'tabbar-bg', [['muted', 'the tabs'], ['pink-ink', 'the active tab']]],
+  ];
+  for (const [name, t] of [['light', UX_TOKENS_LIGHT], ['dark', UX_TOKENS_DARK]] as const) {
+    it(`${name}: nav and tab bar text >= 4.5 over every backdrop (black, white, the pink buttons, any photo tone)`, () => {
+      const named = ['pink-fill', 'pink-fill-h', 'pink', 'page', 'surface', 'surface-2', 'raised', 'paper'].map((k) => hex(t[k] as string));
+      for (const [bar, glassKey, inks] of ON_GLASS) {
+        const glass = rgba(t[glassKey] as string);
+        for (const [ink, what] of inks) {
+          let worst = Infinity; let at: number[] = [];
+          for (const back of [...grid, ...named]) {
+            const r = ratio(hex(t[ink] as string), over(glass, back));
+            if (r < worst) { worst = r; at = back; }
+          }
+          expect(worst, `${name} ${bar}: ${ink} (${what}) over the glass, worst backdrop rgb(${at.join(', ')})`).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    });
+  }
+  it('the finding: the muted pills over a pink button under the 86% glass were 4.46 to 4.48:1, the new glass is AA', () => {
+    const pinkFill = hex(UX_TOKENS_LIGHT['pink-fill'] as string);
+    const muted = hex(UX_TOKENS_LIGHT.muted as string);
+    const pinkInk = hex(UX_TOKENS_LIGHT['pink-ink'] as string);
+    // the old values fail, so this block would have caught the bug
+    expect(ratio(muted, over(rgba('rgba(250,248,245,.86)'), pinkFill))).toBeLessThan(4.5);
+    expect(ratio(pinkInk, over(rgba('rgba(255,255,255,.86)'), pinkFill))).toBeLessThan(4.5);
+    expect(ratio(muted, over(rgba(UX_TOKENS_LIGHT['nav-bg'] as string), pinkFill))).toBeGreaterThanOrEqual(4.5);
+    expect(ratio(pinkInk, over(rgba(UX_TOKENS_LIGHT['tabbar-bg'] as string), pinkFill))).toBeGreaterThanOrEqual(4.5);
+    // at rest the glass sits on the page ground: the nav keeps the warm ground's colour
+    expect(over(rgba(UX_TOKENS_LIGHT['nav-bg'] as string), hex(UX_TOKENS_LIGHT.page as string)).map(Math.round)).toEqual(hex(UX_TOKENS_LIGHT.page as string));
+  });
+});
+
 // Owner request 2026-09-27 (A0 fix 5, owner-approved deviation from the prototype):
 // light page ground = the live site's warm --bg; everything that was white on the
 // prototype's white page stays white; the fills keep their visible step; dark unchanged.
@@ -98,8 +157,9 @@ describe('owner request: warm light page ground (A0 fix 5)', () => {
     expect(liveBg).toBe('#FAF8F5');
     expect(UX_TOKENS_LIGHT.page).toBe(liveBg);
     for (const k of ['raised', 'paper', 'card-fill']) expect(UX_TOKENS_LIGHT[k], k).toBe('#FFFFFF');
-    expect(norm(UX_TOKENS_LIGHT['nav-bg'] ?? '')).toBe('rgba(250,248,245,.86)');
-    expect(norm(UX_TOKENS_LIGHT['tabbar-bg'] ?? '')).toBe('rgba(255,255,255,.86)');
+    // the warm nav glass and the white tab bar glass, 94% opaque since A0 fix 8 (AA, below)
+    expect(norm(UX_TOKENS_LIGHT['nav-bg'] ?? '')).toBe('rgba(250,248,245,.94)');
+    expect(norm(UX_TOKENS_LIGHT['tabbar-bg'] ?? '')).toBe('rgba(255,255,255,.94)');
     expect(THEME_COLOR.light).toBe(UX_TOKENS_LIGHT.page);
   });
   it('dark is unchanged: paper = page, card fill transparent, tab bar = nav glass', () => {

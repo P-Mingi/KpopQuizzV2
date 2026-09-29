@@ -29,10 +29,12 @@ export const STYLES_JSON = path.resolve(here, '../../../../../docs/design/ux-das
  * bordered text card is filled white like every card; --ux-surface / --ux-surface-2
  * keep the prototype's step from the warm ground; --ux-pink-ink is re-clamped to AA
  * on the new surface.
+ * 2026-09-29, A0 fix 8 (final verifier, axe AA): the light nav glass is 94% opaque
+ * instead of 86%, so its text stays AA over a pink button or a photo under it.
  */
 export interface OwnerDeviation { theme: 'light' | 'dark'; proto: string; prop: string; from: string; to: string; why: string }
 export const OWNER_DEVIATIONS: OwnerDeviation[] = [
-  { theme: 'light', proto: '.nav', prop: 'background-color', from: 'rgba(255, 255, 255, 0.86)', to: 'rgba(250, 248, 245, 0.86)', why: 'fix 5: warm nav glass (--ux-nav-bg)' },
+  { theme: 'light', proto: '.nav', prop: 'background-color', from: 'rgba(255, 255, 255, 0.86)', to: 'rgba(250, 248, 245, 0.94)', why: 'fix 5: warm nav glass (--ux-nav-bg); fix 8: 94% opaque, nav text AA over anything under it' },
   { theme: 'light', proto: '.tcard', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'fix 5: the text card stays white on the warm ground (--ux-card-fill)' },
   { theme: 'light', proto: '*', prop: 'background-color', from: 'rgb(247, 246, 244)', to: 'rgb(241, 239, 234)', why: 'fix 5: --ux-surface #F1EFEA' },
   { theme: 'light', proto: '*', prop: 'background-color', from: 'rgb(240, 238, 234)', to: 'rgb(234, 231, 225)', why: 'fix 5: --ux-surface-2 #EAE7E1' },

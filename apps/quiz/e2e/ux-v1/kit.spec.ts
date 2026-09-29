@@ -86,7 +86,7 @@ for (const theme of THEMES) {
       }, phone);
       const white = 'rgb(255, 255, 255)';
       const expected = theme === 'light'
-        ? { body: 'rgb(250, 248, 245)', app: 'rgb(250, 248, 245)', nav: 'rgba(250, 248, 245, 0.86)', tabbar: phone ? 'rgba(255, 255, 255, 0.86)' : null, tabbarSample: 'rgba(255, 255, 255, 0.86)',
+        ? { body: 'rgb(250, 248, 245)', app: 'rgb(250, 248, 245)', nav: 'rgba(250, 248, 245, 0.94)', tabbar: phone ? 'rgba(255, 255, 255, 0.94)' : null, tabbarSample: 'rgba(255, 255, 255, 0.94)',
           qcard: white, tcard: white, post: white, panel: white, box: white, stats3: white, sheet: white, inp: white, kbd: white, knob: white,
           seg: 'rgb(241, 239, 234)', chip: 'rgb(241, 239, 234)', foot: 'rgb(241, 239, 234)' }
         : { body: 'rgb(20, 19, 18)', app: 'rgb(20, 19, 18)', nav: 'rgba(20, 19, 18, 0.84)', tabbar: phone ? 'rgba(20, 19, 18, 0.84)' : null, tabbarSample: 'rgba(20, 19, 18, 0.84)',

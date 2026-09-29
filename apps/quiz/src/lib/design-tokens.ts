@@ -72,10 +72,12 @@ export type UxThemeTokens = Record<string, string>;
 // (and `card-fill` for the bordered text card); the tab bar keeps the white glass
 // (`tabbar-bg`) while the top nav takes the warm one; surface / surface-2 keep the
 // prototype's step from the ground; pink-ink and the flair words are re-clamped to AA.
+// A0 fix 8: both glasses 94% opaque (prototype 86%), so every nav and tab bar text
+// stays AA over anything under the glass (a pink button, any photo).
 export const UX_TOKENS_LIGHT: UxThemeTokens = {
   page: '#FAF8F5', surface: '#F1EFEA', 'surface-2': '#EAE7E1', raised: '#FFFFFF',
   paper: '#FFFFFF', 'card-fill': '#FFFFFF',
-  'nav-bg': 'rgba(250,248,245,.86)', 'tabbar-bg': 'rgba(255,255,255,.86)',
+  'nav-bg': 'rgba(250,248,245,.94)', 'tabbar-bg': 'rgba(255,255,255,.94)',
   hair: '#ECE9E4', line: '#ECE8E3', 'line-2': '#F3F1EE', edge: '#E5E0DA', 'pink-line': '#F2CFDB',
   input: '#8C857C',
   ink: '#1F1B17', muted: '#6B655E',
