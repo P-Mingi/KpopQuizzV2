@@ -201,6 +201,51 @@ async function keepThroughSheet(page: Page, title: string): Promise<void> {
   await expect(sheet).toHaveCount(0);
 }
 
+// A production build served locally (`next start`) does not serve Vercel's own scripts: the
+// <Analytics /> of the root layout loads /_vercel/insights/script.js in production, the
+// middleware's unknown-route rule answers it with a 301 to `/`, and the browser runs the home
+// page HTML as a script: "SyntaxError: Unexpected token '<'" on every page. Vercel serves those
+// paths before the app (the preview and production have no such error); a dev server loads the
+// debug script from va.vercel-scripts.com instead. So an error is ignored ONLY when its source
+// script is one of these two Vercel paths; every other uncaught error still fails the test.
+const VERCEL_SCRIPT = /^\/_vercel\/(?:insights|speed-insights)\//;
+
+function fromVercelScript(source: string): boolean {
+  try { return VERCEL_SCRIPT.test(new URL(source).pathname); } catch { return false; }
+}
+
+const firstLine = (s: string): string => s.split('\n')[0] ?? '';
+
+/** Records the page's uncaught errors (Playwright `pageerror`, the signal the test asserts) and,
+ *  through the DevTools Runtime.exceptionThrown event, the source script of each one (a
+ *  `pageerror` carries no url, and a script that fails to parse has no stack either). `read()`
+ *  returns the `pageerror` messages minus one per error whose source is a Vercel script with the
+ *  same message: an error with no known source, or any other source, stays in `app`. */
+async function recordUncaught(page: Page): Promise<{ read: () => { app: string[]; ignored: string[] } }> {
+  const thrown: string[] = [];
+  page.on('pageerror', (e) => thrown.push(firstLine(`${e.name}: ${e.message}`)));
+  const vercel: { message: string; source: string }[] = [];
+  const cdp = await page.context().newCDPSession(page);
+  cdp.on('Runtime.exceptionThrown', ({ exceptionDetails: d }) => {
+    const source = d.url || d.stackTrace?.callFrames[0]?.url || '';
+    if (fromVercelScript(source)) vercel.push({ message: firstLine(d.exception?.description ?? d.text), source });
+  });
+  await cdp.send('Runtime.enable');
+  return {
+    read: () => {
+      const app = [...thrown];
+      const ignored: string[] = [];
+      for (const v of vercel) {
+        const i = app.indexOf(v.message);
+        if (i === -1) continue;
+        app.splice(i, 1);
+        ignored.push(`${v.message} (${v.source})`);
+      }
+      return { app, ignored };
+    },
+  };
+}
+
 for (const theme of THEMES) {
   test.describe(`P4 ${theme}`, () => {
     test.beforeEach(async ({ page }) => { await preparePage(page, theme); });
@@ -939,13 +984,12 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     expect(other, 'no other write attempt').toEqual([]);
   });
 
-  signedInTest('no stored play yet: standing answers played:false without a rank; results stay up, no rank line (C2-008)', async ({ page }) => {
+  signedInTest('no stored play yet: standing answers played:false without a rank; results stay up, no rank line (C2-008)', async ({ page }, info) => {
     skipUnlessSignedIn();
     signedInTest.setTimeout(180_000);
     const calls = await guardWrites(page, env.supabaseUrl);
     const qs = await recordQuestions(page);
-    const pageErrors: string[] = [];
-    page.on('pageerror', (e) => pageErrors.push(e.message));
+    const uncaught = await recordUncaught(page);
     // the answer C2 recorded for a signed-in fan whose run is not in plays (the save failed, or
     // a write guard): no rank key at all. A read stub, for the quiz page and the results alike.
     await page.route((url) => url.pathname === '/api/ux-v1/p4/standing', (route) => route.fulfill({ json: { signedIn: true, played: false, totalPlayers: 39 } }));
@@ -969,7 +1013,12 @@ signedInTest.describe('P4 signed in (test user, read only)', () => {
     await expect(dlg).toBeVisible();
     await expect(dlg).toContainText(`${n}/${n} on `);
     await expect(dlg).not.toContainText('#');
-    expect(pageErrors, 'no uncaught error on the page').toEqual([]);
+    const { app, ignored } = uncaught.read();
+    for (const e of ignored) info.annotations.push({ type: 'ignored uncaught error (local next start, Vercel script)', description: e });
+    expect(app, 'no uncaught error on the page').toEqual([]);
+    // the filter is not a hole: an error thrown by page code is still reported
+    await page.evaluate(() => { window.setTimeout(() => { throw new Error('p4 uncaught filter self-check'); }, 0); });
+    await expect.poll(() => uncaught.read().app, { timeout: 10_000 }).toEqual(['Error: p4 uncaught filter self-check']);
   });
 });
 
