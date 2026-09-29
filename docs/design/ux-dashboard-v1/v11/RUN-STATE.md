@@ -14,7 +14,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P1 | ux11/p1-home | X2-002/007 merged (7579d4a, PR #74, branch ux11/p1-fix2) | 609e6de | 0 | v11/reports/P1.md |
 | P2 | ux11/p2-quizzes | merged (ab6fd66, PR #77): pushed by ORCH on the owner's explicit go | bfb49a3 | 0 | v11/reports/P2.md |
 | P3 | ux11/p3-groups | X1-005 + X2-004 merged (00728c6, PR #69, branch ux11/p3-fix2) | f8b7693 | 0 | v11/reports/P3.md |
-| P4 | ux11/p4-quiz | fix 3 comment hearts + Reply merged (6fd6810, PR #78): pushed by ORCH on the owner's go | 9a9bd04 | 0 | v11/reports/P4.md |
+| P4 | ux11/p4-quiz | fix 4 (spec-only: ignore /_vercel/insights script error on next start) done LOCALLY on ux11/p4-fix4; push refused by the permission check; waits for the owner | 4815070 | 0 | v11/reports/P4.md |
 | P5 | ux11/p5-create | X2-009 done state merged (PR #70, branch ux11/p5-fix2) | 9f4b342 | 0 | v11/reports/P5.md |
 | P6 | ux11/p6-blindtest | X1-001 (PR #67) + X2-006/005 (PR #71, branch ux11/p6-fix3) merged | a3f4c48 | 0 | v11/reports/P6.md |
 | P7 | ux11/p7-ranked | merged (91a8030, PR #44), engine + page | 0a56f93 | 0 | v11/reports/P7.md |
@@ -114,6 +114,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-29 P4 fix 4 root cause: not an app bug. <Analytics /> loads /_vercel/insights/script.js; Vercel serves it, a local next start does not, the middleware 301s the unknown route to /, and the browser runs the home HTML as a script ("Unexpected token '<'" on every page, local only). Fix in p4.spec only (ignore that source, still fail on any other error). Push of ux11/p4-fix4 refused by the permission check: asked the owner. Option (owner/A0): let /_vercel/ through the middleware so next start answers 404.
 - 2026-09-29 A0 fix 6 merged (cd8f8d4, PR #81): phone chrome up to 900px, no sideways scroll 761-1279 (sweep in shell.spec, the base fails from 761). Follow-ups: P10 save bar breakpoint 760 -> 900 (ux11/p10-fix4), A0 lifts the legacy toast above the tab bar from a0.css if it has a stable hook (ux11/a0-fix7). P4 still investigating the two C2-008 cases on ux11/p4-fix4.
 - 2026-09-28 S1 warm-ground token sweep merged (a282bf5, PR #80): one commit per owner (P3 f594aa7, P4 4cc5244, P5 5b8c45d, P6 4f2cc82, P8 f995a87, P10 03f7a55, P11 24506c5), each re-checked by ORCH with the guard under its owner id; dark 0 changed pixels; P9 and .p10-pav keep the page ring (warm page behind them); owner specs 481 pass / 11 flaky / 7 skipped / 4 failed (2 P9 passed on rerun; 2 P4 C2-008 cases fail with "Unexpected token '<'" on a next start build: P4 investigating on ux11/p4-fix4, likely the /_vercel/insights script not served locally). The Vercel preview of b90494e (flag on, owner's env var) is READY: kpopquiz-git-feat-ux-v1-v11-p-mingis-projects.vercel.app; the b01149e build failed once with a transient build error (the next build of the same code passed).
 - 2026-09-27 23:15 The owner set NEXT_PUBLIC_UX_V1=1 on Vercel for Preview, branch feat/ux-v1-v11 only (the connector got a 403 on creating env vars). The next push to feat/ux-v1-v11 builds a flag-on preview; production and main stay flag off.
