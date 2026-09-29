@@ -54,7 +54,7 @@
 
 /* ---------- ways to play (prototype .mgrid / .mcard) ---------- */
 .p6-mgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.p6-mcard { display: flex; flex-direction: column; gap: 10px; padding: 24px; border: 1px solid var(--ux-line); border-radius: 16px; min-height: 188px; color: var(--ux-ink); transition: border-color .15s, background .15s, transform .25s var(--ux-spring); }
+.p6-mcard { display: flex; flex-direction: column; gap: 10px; padding: 24px; border: 1px solid var(--ux-line); border-radius: 16px; min-height: 188px; background: var(--ux-card-fill); color: var(--ux-ink); transition: border-color .15s, background .15s, transform .25s var(--ux-spring); }
 .p6-mcard:hover { border-color: var(--ux-input); background: var(--ux-surface); transform: translateY(-2px); }
 .p6-mcard > .ux-ico { color: var(--ux-ink); width: 24px; height: 24px; }
 .p6-mcard h3 { font-size: 18px; line-height: 1.6; font-weight: 600; margin-top: 6px; letter-spacing: -0.015em; }

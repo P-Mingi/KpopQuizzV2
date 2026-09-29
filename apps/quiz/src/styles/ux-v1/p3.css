@@ -15,7 +15,7 @@
 
 /* ---------- /groups ---------- */
 .p3-genline { font-size: 14px; line-height: 1.5; color: var(--ux-muted); margin-top: 8px; }
-.p3-filter { display: flex; align-items: center; gap: 10px; min-height: 48px; width: 100%; max-width: 420px; margin-top: 28px; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-page); color: var(--ux-ink); transition: border-color .15s, box-shadow .15s; }
+.p3-filter { display: flex; align-items: center; gap: 10px; min-height: 48px; width: 100%; max-width: 420px; margin-top: 28px; padding: 0 16px; border: 1px solid var(--ux-input); border-radius: 12px; background: var(--ux-paper); color: var(--ux-ink); transition: border-color .15s, box-shadow .15s; }
 .p3-filter:hover { border-color: var(--ux-ink); }
 .p3-filter:focus-within { border-color: var(--ux-pink); box-shadow: 0 0 0 3px var(--ux-pink-soft); }
 .p3-filter-ico { color: var(--ux-muted); }

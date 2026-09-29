@@ -8,6 +8,7 @@ import { basicA11y, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
+import { withOwnerDeviations } from './helpers/landmarks';
 import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
 
 import type { Page, Route } from '@playwright/test';
@@ -38,7 +39,9 @@ import type { Theme } from './helpers/setup-page';
 
 const env = loadTestEnv();
 const here = path.dirname(fileURLToPath(import.meta.url));
-const PROTO = JSON.parse(fs.readFileSync(path.resolve(here, '../../../../docs/design/ux-dashboard-v1/v11/reports/P11/proto-styles.json'), 'utf8')) as
+// the owner-approved deviations (warm light ground, A0.md 12.2) apply to this capture too
+// (withOwnerDeviations only rewrites string values; the box arrays pass through unchanged)
+const PROTO = withOwnerDeviations(JSON.parse(fs.readFileSync(path.resolve(here, '../../../../docs/design/ux-dashboard-v1/v11/reports/P11/proto-styles.json'), 'utf8'))) as
   Record<string, Record<string, Record<string, string | number[]>>>;
 
 test.use({ timezoneId: 'Europe/Paris' });

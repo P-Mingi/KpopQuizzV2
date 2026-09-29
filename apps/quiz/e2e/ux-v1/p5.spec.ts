@@ -12,7 +12,7 @@ import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthO
 import { SAMPLE_DRAFT } from '../../../../docs/design/ux-dashboard-v1/v11/reports/P5/sample-draft.mjs';
 
 import type { Page, Route } from '@playwright/test';
-import type { Landmark, ReferenceStyles } from './helpers/landmarks';
+import type { Landmark, OwnerDeviation, ReferenceStyles } from './helpers/landmarks';
 import type { StubbedCall } from './helpers/guard';
 import type { Theme } from './helpers/setup-page';
 
@@ -270,7 +270,27 @@ function protoRef(): ReferenceStyles {
   }
   return out;
 }
-const REF = protoRef();
+// Owner values of the S1 warm-ground sweep (owner request 2, A0.md 12.2 / 12.3), applied like A0's
+// OWNER_DEVIATIONS rows (exact, light only, never a skip): the bordered type options and question rows
+// are filled white on the warm ground (--ux-card-fill, like A0's .tcard row). compareLandmarks then
+// applies A0's own rows on top.
+const S1_OWNER_VALUES: OwnerDeviation[] = [
+  { theme: 'light', proto: '#types .opt.on', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+  { theme: 'light', proto: '#types .opt:not(.on)', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+  { theme: 'light', proto: '#qlist .qitem', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+  { theme: 'light', proto: '#qlist .qitem.open', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+  { theme: 'light', proto: '#qlist .qitem:nth-child(4)', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)', why: 'S1: --ux-card-fill' },
+];
+function withS1OwnerValues(ref: ReferenceStyles): ReferenceStyles {
+  for (const [key, sels] of Object.entries(ref)) {
+    for (const d of S1_OWNER_VALUES) {
+      const props = sels[d.proto];
+      if (props && key.includes(`-${d.theme}-`) && props[d.prop] === d.from) props[d.prop] = d.to;
+    }
+  }
+  return ref;
+}
+const REF = withS1OwnerValues(protoRef());
 
 async function boxes(page: Page, sels: string[]): Promise<Record<string, [number, number, number, number] | null>> {
   return page.evaluate((list) => {
