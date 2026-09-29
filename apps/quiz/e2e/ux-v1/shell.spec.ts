@@ -464,6 +464,175 @@ signedInTest.describe('nav fits, signed in (test user, read only)', () => {
   }
 });
 
+// A0 fix 6 (A0.md 12.5): from 761 to about 900px the desktop bar was wider than the
+// window (sideways scroll: guest 24px at 800 and 63px at 761, 147px with a 4-digit
+// streak pill). Up to 900px the chrome is the phone chrome (top bar + tab bar); from
+// 901 to 959px a streak pill turns Create into its round icon. Every width from 761 to
+// 1279px in 1px steps (one page load per state, then the viewport only: the media
+// queries re-apply on each resize): no horizontal scroll, the right cluster inside the
+// gutter, and the chrome of that band (desktop: the links on one line and clear of the
+// right cluster). ux-1440 sweeps with a mouse, ux-390 with touch (44px targets; tablets
+// are touch). Guest, and signed in with the test user's own read then the widest streak
+// pill (4 digits) through a read stub; light and dark. Nothing is written.
+const SWEEP_FROM = 761;
+const SWEEP_TO = 1279;
+const PHONE_CHROME_MAX = 900;
+const ICON_CREATE_MAX = 959;
+
+interface SweepGeo {
+  overflow: number; links: number; tops: number; linksRight: number;
+  rightLeft: number; rightRight: number; contentRight: number;
+  tabbar: boolean; create: number | null; createLabel: boolean; avatar: boolean; signin: boolean; streak: boolean;
+}
+function sweepGeo(page: Page): Promise<SweepGeo> {
+  return page.evaluate(() => {
+    const shown = (s: string): HTMLElement | null => {
+      const el = document.querySelector<HTMLElement>(s);
+      return el && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width > 0 ? el : null;
+    };
+    const inner = document.querySelector('.ux-nav-in') as HTMLElement;
+    const right = (document.querySelector('.ux-nav-r') as HTMLElement).getBoundingClientRect();
+    const links = Array.from(document.querySelectorAll<HTMLElement>('.ux-links a')).map((a) => a.getBoundingClientRect()).filter((r) => r.width > 0);
+    const create = shown('.ux-nav-create');
+    const label = create?.querySelector('.ux-nav-create-t');
+    return {
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      links: links.length,
+      tops: new Set(links.map((l) => Math.round(l.top))).size,
+      linksRight: links.length ? Math.max(...links.map((l) => l.right)) : 0,
+      rightLeft: right.left,
+      rightRight: right.right,
+      contentRight: inner.getBoundingClientRect().right - parseFloat(getComputedStyle(inner).paddingRight),
+      tabbar: Boolean(shown('.ux-tabbar')),
+      create: create ? Math.round(create.getBoundingClientRect().width * 10) / 10 : null,
+      createLabel: Boolean(label && label.getBoundingClientRect().width > 1),
+      avatar: Boolean(shown('.ux-avabtn')),
+      signin: Boolean(shown('.ux-nav-signin')),
+      streak: Boolean(shown('.ux-streak')),
+    };
+  });
+}
+
+/** Sweeps the viewport width; returns what is wrong at each width and the least spare room per band. */
+async function sweepWidths(page: Page, signedIn: boolean): Promise<{ problems: string[]; spare: Record<string, number> }> {
+  const problems: string[] = [];
+  const spare: Record<string, number> = {};
+  const note = (band: string, v: number): void => { spare[band] = Math.min(spare[band] ?? Infinity, Math.round(v * 10) / 10); };
+  for (let w = SWEEP_FROM; w <= SWEEP_TO; w++) {
+    await page.setViewportSize({ width: w, height: 900 });
+    const g = await sweepGeo(page);
+    const bad = (m: string): void => { problems.push(`${w}px: ${m}`); };
+    if (g.overflow > 0) bad(`scrolls sideways by ${g.overflow}px`);
+    if (g.rightRight > g.contentRight + 0.5) bad(`right cluster ends ${(g.rightRight - g.contentRight).toFixed(1)}px into the gutter`);
+    if (signedIn ? g.signin : !g.signin) bad(signedIn ? 'Sign in shown while signed in' : 'no Sign in for a guest');
+    if (w <= PHONE_CHROME_MAX) {
+      note('phone chrome 761-900', g.contentRight - g.rightRight);
+      if (!g.tabbar) bad('no tab bar');
+      if (g.links !== 0) bad(`${g.links} links in the top bar`);
+      if (g.create !== null) bad('Create in the top bar');
+      if (g.avatar) bad('avatar in the top bar');
+    } else {
+      const band = w <= ICON_CREATE_MAX ? 'desktop 901-959' : w <= 1100 ? 'desktop 960-1100' : 'desktop 1101-1279';
+      note(band, g.rightLeft - g.linksRight);
+      if (g.tabbar) bad('tab bar shown');
+      if (g.links !== (w <= 1100 ? 5 : 6)) bad(`${g.links} links`);
+      if (g.tops !== 1) bad('links on more than one line');
+      if (g.linksRight >= g.rightLeft) bad('links run into the right cluster');
+      if (g.create === null) bad('no Create');
+      const icon = g.streak && w <= ICON_CREATE_MAX;
+      if (g.createLabel === icon) bad(icon ? 'Create keeps its label next to a streak pill' : 'Create shows as an icon');
+      if (signedIn && !g.avatar) bad('no avatar');
+    }
+  }
+  return { problems, spare };
+}
+
+for (const theme of THEMES) {
+  test(`no horizontal scroll from ${SWEEP_FROM} to ${SWEEP_TO}px, 1px steps, guest (${theme})`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await preparePage(page, theme);
+    const calls = await guardWrites(page, env.supabaseUrl);
+    await page.goto('/');
+    test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+    await waitHydrated(page);
+    await page.evaluate(() => document.fonts.ready);
+    const { problems, spare } = await sweepWidths(page, false);
+    await test.info().attach(`sweep-guest-${theme}.json`, { body: JSON.stringify({ widths: SWEEP_TO - SWEEP_FROM + 1, spare, problems }, null, 1), contentType: 'application/json' });
+    expect(problems.slice(0, 25), `${problems.length} width(s) with a problem`).toEqual([]);
+    expect(calls, 'no write attempted').toEqual([]);
+  });
+
+  signedInTest(`no horizontal scroll from ${SWEEP_FROM} to ${SWEEP_TO}px, 1px steps, signed in, no streak and a 4-digit streak (${theme})`, async ({ page }) => {
+    skipUnlessSignedIn();
+    signedInTest.setTimeout(420_000);
+    await preparePage(page, theme);
+    const calls = await guardWrites(page, env.supabaseUrl);
+    let streak: number | null = null;
+    await page.route((u) => u.pathname === '/api/auth/me', async (route) => {
+      const res = await route.fetch();
+      const j = await res.json() as { profile: Record<string, unknown> | null };
+      if (streak !== null && j.profile) { j.profile.daily_streak = streak; j.profile.last_daily_date = new Date().toISOString().slice(0, 10); }
+      await route.fulfill({ response: res, json: j });
+    });
+    const report: Record<string, { spare: Record<string, number>; problems: string[] }> = {};
+    for (const n of [null, 1000]) {
+      streak = n;
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await page.goto('/quizzes');
+      signedInTest.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+      await expect(page.locator('.ux-avabtn')).toBeVisible({ timeout: 30_000 });
+      if (n === null) await expect(page.locator('.ux-streak'), 'the test user has no live streak').toHaveCount(0);
+      else await expect(page.locator('.ux-streak')).toHaveText(String(n));
+      await page.evaluate(() => document.fonts.ready);
+      report[`streak ${n}`] = await sweepWidths(page, true);
+    }
+    await signedInTest.info().attach(`sweep-signed-${theme}.json`, { body: JSON.stringify({ widths: SWEEP_TO - SWEEP_FROM + 1, ...report }, null, 1), contentType: 'application/json' });
+    for (const [k, r] of Object.entries(report)) expect(r.problems.slice(0, 25), `${k}: ${r.problems.length} width(s) with a problem`).toEqual([]);
+    expect(calls, 'no write attempted').toEqual([]);
+  });
+}
+
+// A0 fix 6: the phone chrome on a tablet keeps what it keeps on a phone: 64px under
+// the page for the tab bar (none in focus and create, none on Verse, which keeps its
+// legacy chrome; the legacy 72px body room stops at 767px), and toasts above the tab bar.
+test('tablet (800px) phone chrome: room under the page and toasts above the tab bar; none of it from 901px', async ({ page }) => {
+  await preparePage(page, 'light');
+  await guardWrites(page, env.supabaseUrl);
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto('/quizzes');
+  test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+  await waitHydrated(page);
+  const chrome = (): Promise<{ tabbar: boolean; body: string; app: string; under: number; toast: string }> => page.evaluate(() => {
+    const foot = document.querySelector('.ux-foot') as HTMLElement;
+    const probe = document.createElement('div');
+    probe.className = 'ux-toast';
+    document.body.appendChild(probe);
+    const toast = getComputedStyle(probe).bottom;
+    probe.remove();
+    return {
+      tabbar: getComputedStyle(document.querySelector('.ux-tabbar') as HTMLElement).display !== 'none',
+      body: getComputedStyle(document.body).paddingBottom,
+      app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+      under: Math.round((document.body.getBoundingClientRect().bottom - foot.getBoundingClientRect().bottom) * 100) / 100,
+      toast,
+    };
+  });
+  expect(await chrome()).toEqual({ tabbar: true, body: '0px', app: '64px', under: 64, toast: '84px' });
+  const tb = await page.locator('.ux-tabbar').boundingBox();
+  expect(tb && Math.round(tb.y + tb.height), 'tab bar docked at the bottom').toBe(900);
+  await page.setViewportSize({ width: 901, height: 900 });
+  expect(await chrome()).toEqual({ tabbar: false, body: '0px', app: '0px', under: 0, toast: '32px' });
+
+  await page.setViewportSize({ width: 800, height: 900 });
+  const verse = await page.goto('/verse');
+  test.skip(!verse || verse.status() !== 200 || (await page.locator('.ux-tabbar').count()) > 0, '/verse not served with the legacy chrome here');
+  const v = await page.evaluate(() => ({
+    body: getComputedStyle(document.body).paddingBottom,
+    app: getComputedStyle(document.querySelector('.ux-app') as HTMLElement).paddingBottom,
+  }));
+  expect(v, 'Verse: no v11 tab bar, .ux-app adds no room').toEqual({ body: '0px', app: '0px' });
+});
+
 // X2-001: under the phone footer the prototype keeps 64px (the tab bar's room) and
 // nothing else. The legacy `body { padding-bottom: 72px }` (globals.css, up to 767px,
 // for the legacy tab bar) no longer stacks on .ux-app's 64px where the v11 tab bar is
@@ -540,7 +709,7 @@ signedInTest.describe('signed in (test user, read only)', () => {
   // observed as it is.
   signedInTest('account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count', async ({ page }) => {
     skipUnlessSignedIn();
-    signedInTest.skip(widthOf(page) <= 760, 'the account menu sits in the top bar above 760px (phones: the You tab)');
+    signedInTest.skip(widthOf(page) <= 760, 'the account menu sits in the top bar above 900px (phones and tablets: the You tab)');
     await preparePage(page, 'light');
     const calls = await guardWrites(page, env.supabaseUrl);
     await page.request.get('/api/auth/me');

@@ -212,7 +212,8 @@ export function UxNavActions(): React.ReactElement {
       >
         <Icon name="search" size="sm" />
       </Link>
-      <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" />Create</Link>
+      {/* the label is its own span so a0.css can show Create as its round icon, name kept, where a streak pill needs the room (901 to 959px) */}
+      <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" /><span className="ux-nav-create-t">Create</span></Link>
       {profile ? (
         <>
           <StreakPill profile={profile} />

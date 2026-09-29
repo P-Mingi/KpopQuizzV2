@@ -542,6 +542,29 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   .ux-fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ux-medals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+/* A0 fix 6: tablets. The desktop bar needs about 860px (brand, five pills, search, Create,
+   Sign in or bell + avatar, the 32px gutters) and 950px with a streak pill, so from 761 to
+   about 900px the page scrolled sideways (the prototype does too: 128px at 761). Up to 900px
+   the chrome is the prototype's phone chrome (16.5 Mobile): top bar = logo, search, streak,
+   bell or Sign in; the links move to the bottom tab bar; the page keeps its tablet layout.
+   Moved here from the 760px block, unchanged. */
+@media (max-width: 900px) {
+  .ux-links, .ux-nav-create, .ux-avabtn { display: none !important; }
+  .ux-nav-in { gap: 12px; }
+  .ux-tabbar { display: block; }
+  .ux-app { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  html.ux-focus .ux-app, .ux-app:has(.ux-page[data-shell="focus"]), .ux-app:has(.ux-page[data-shell="create"]) { padding-bottom: 0; }
+  /* X2-001: routes that keep the legacy tab bar (Verse, builder) keep the legacy body padding instead */
+  .ux-app:not(:has(.ux-tabbar)) { padding-bottom: 0; }
+  .ux-toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
+/* A0 fix 6: from 901 to 959px a streak pill (56 to 82px, 1 to 4 digits; 44px targets on
+   touch) leaves too little room for "+ Create": Create shows as its round icon there (36px,
+   44px on touch), its name kept for screen readers. The pills keep their room and gaps. */
+@media (max-width: 959px) {
+  .ux-nav-r:has(.ux-streak) .ux-nav-create { aspect-ratio: 1; padding: 0; gap: 0; }
+  .ux-nav-r:has(.ux-streak) .ux-nav-create-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
 /* X2-001: the legacy phone rule `body { padding-bottom: 72px }` (globals.css, room for the
    legacy tab bar, up to 767px) stacked with .ux-app's 64px: 136px under the footer. With the
    v11 tab bar in the page, .ux-app alone keeps the room (prototype: 64px, none in focus and
@@ -550,13 +573,7 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   html.ux-v1 body:has(.ux-tabbar) { padding-bottom: 0; }
 }
 @media (max-width: 760px) {
-  .ux-links, .ux-nav-create, .ux-avabtn { display: none !important; }
-  .ux-nav-in { gap: 12px; }
-  .ux-tabbar { display: block; }
-  .ux-app { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
-  html.ux-focus .ux-app, .ux-app:has(.ux-page[data-shell="focus"]), .ux-app:has(.ux-page[data-shell="create"]) { padding-bottom: 0; }
-  /* X2-001: routes that keep the legacy tab bar (Verse, builder) keep the legacy body padding instead */
-  .ux-app:not(:has(.ux-tabbar)) { padding-bottom: 0; }
+  /* the phone chrome itself (top bar, tab bar, the room under the page, the toast) is in the 900px block above */
   .ux-pg { padding-top: 28px; padding-bottom: 64px; }
   .ux-sec, .ux-sec.ux-sec-lg { margin-top: 48px; }
   .ux-ph h1, .ux-h1 { font-size: 26px; }
@@ -586,7 +603,6 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   .ux-flabel, .ux-field > label { flex-wrap: wrap; row-gap: 2px; }
   .ux-fgrid { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
   .ux-fbrand { grid-column: 1 / -1; }
-  .ux-toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
   .ux-pop { position: fixed; left: 12px; right: 12px; top: 70px; width: auto !important; min-width: 0; }
   .ux-ddpop { position: absolute; left: 0; right: auto; top: calc(100% + 6px); width: auto !important; min-width: 200px; }
   .ux-sheet { top: auto; bottom: 0; left: 0; right: 0; transform: none; width: 100% !important; max-height: 88vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); animation: ux-sheetup .25s var(--ux-ease); }
