@@ -24,7 +24,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P11 | ux11/p11-notifications | X2-010 merged (PR #73, branch ux11/p11-fix1) | 3c71ea6 | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | merged (c0b6826, PR #79): REPORT.md now on the integration branch; pushed by ORCH on the owner's go | e464a46 | - | v11/REPORT.md |
+| C3 | ux11/c3-check | report refresh merged (09d8bfd, PR #85, branch ux11/c3-report2): REPORT.md at the final state + v11/checks/qa/FINAL-VERIFY.md | 8ab32df | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -114,6 +114,7 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 
 ## Log
 
+- 2026-09-29 C3 report refresh merged (09d8bfd, PR #85): REPORT.md rewritten from RUN-STATE, AUDIT-X1/X2 and V (per page status, fixes after the audits, NOT verified items with reasons); V copied verbatim into v11/checks/qa/FINAL-VERIFY.md. Guard ok as C3, no dashes. A0 fix 8 (f4ff6d6 nav glass 94% opaque, a5b2ac7 kit card-height test) still testing.
 - 2026-09-29 Final verification V (2a6cbef): gaps 18 FIXED / 0 NOT FIXED / 3 DEFERRED of 21 (X1-002 waits for v11-p4-comment-likes.sql; X1-009 and X2-003 owner decisions); owner requests, tablet, toast, save bar OK; 38 states x (1440 light, 390 dark) + /quizzes x4: no difference beyond data, merged fixes and documented deviations. New: (1) the warm translucent nav glass fails AA 4.46:1 over a pink button when scrolled (/blindtest, /blindtest/ranked at 1280/1440 light): A0 fix 8; (2) REPORT.md stale: C3 refresh; (3) leftover test-user session files in 2 agent worktrees: deleted by ORCH, 0 left; (4) kit.spec card-height test fails on data (test only): A0 fix 8.
 - 2026-09-29 Final flag-on build of 2a6cbef (815/815) served on :3021 from .worktrees/ux11-integration-b; integration tsc 0, unit 917/917. Final verifier V spawned: every X1/X2 gap, both owner requests, tablet, toast, save bar, all 38 states at 1440 light and 390 dark, /quizzes in 4 combos.
 - 2026-09-29 A0 fix 7, P10 fix 4 and P4 fix 4 merged (2a6cbef; P4's branch pushed by ORCH on the owner's explicit yes). Every X1 and X2 gap and both owner requests are now merged. Final pass: rebuild the flag-on preview from the integration head (P2 included, no local merge needed) and one verifier re-checks every gap and owner request.
@@ -189,4 +190,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: wait for the owner. If he pushes ux11/p2-quizzes (or says to): guard it (UX11_AGENT=P2), merge --no-ff, rebuild the flag-on build, have C1 re-run the quizzes state and C2 the 7 /quizzes rows, have C3 refresh REPORT.md. If he pushes ux11/c3-check (or says to): guard it (UX11_AGENT=C3), merge --no-ff (issue files: union). Then update PR #66's body, set RUN-STATE to DONE when the owner is satisfied, stop the :3021 server, remove .worktrees/ux11-integration and -b. Never merge PR #66: the owner merges.
+NEXT ACTION: when A0 fix 8 reports: guard it (UX11_AGENT=A0, --range), merge --no-ff, push, whole-app tsc + unit in the background, have C3 flip the "A0 fix 8 in flight" lines of REPORT.md to merged, rebuild the :3021 flag-on build from the new head, update PR #66's body (final numbers, REPORT.md, pending migrations, owner decisions, approved deviations), send the owner the section 9 message. Never merge PR #66: the owner merges.
