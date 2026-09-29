@@ -8,7 +8,8 @@ import { activeTab, TAB_ITEMS } from '@/lib/ux-v1/a0/nav';
 
 /**
  * Mobile tab bar (16.5 / 17.1): Home, Quizzes, Blindtest, Community, You; 64px +
- * safe area, shown under 760px by CSS. The active icon sits in a pink-soft pill.
+ * safe area, shown up to 900px by CSS (phones and tablets in portrait: A0 fix 6). The
+ * active icon sits in a pink-soft pill.
  * Every tab is a real <a href> and follows it, "You" included: a guest lands on the
  * passport invitation (P10, /me signed out; prototype `go('you')` for every visitor).
  */
