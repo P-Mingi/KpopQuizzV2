@@ -30,7 +30,7 @@
 
 | Check | Result | Evidence |
 |---|---|---|
-| Unit (vitest) | **920 / 920** with A0 fix 8 (917 at 2a6cbef + 3 new glass contrast cases); whole-app tsc 0 errors | A0.md 15.3; FINAL-VERIFY section 7 and RUN-STATE log 2026-09-29 for 917 at 2a6cbef |
+| Unit (vitest) | **920 / 920** (37 files) on be059cc (917 at 2a6cbef + 3 new glass contrast cases); whole-app tsc 0 errors; both re-run by ORCH on be059cc, same as A0's | A0.md 15.3; ORCH re-run on be059cc; FINAL-VERIFY section 7 for 917 at 2a6cbef |
 | Audit gaps (X1 + X2 = 21) | **18 FIXED, 0 NOT FIXED, 3 DEFERRED** (X1-002 pending migration, code done; X1-009 owner decisions 1 and 4; X2-003 owner decision, SEO-locked copy) | FINAL-VERIFY 1a, 1b, 8 |
 | Owner requests and follow-ups (6) | **6 FIXED**: nav spacing; warm ground + white surfaces + dark unchanged; tablet chrome to 900 with no sideways scroll; legacy toast above the tab bar; save bar above the tab bar (V); text AA of the warm nav glass, the part V found NOT FIXED, fixed by A0 fix 8 (PR #86, 94% glass) | FINAL-VERIFY 2, 3, 4; A0.md 15.1 |
 | A0 fix 8 (PR #86, after V) | qa-a11y blindtest case 3 / 3 light + 3 / 3 dark at 1440 (fails with 86% put back); nav scan 0 of 18,283 checks over 11 pages at 1280 and 1440, light and dark; tab bar scan 0 of 7,249 at 390; kit + shell 57 pass at 1440, kit + shell + 32 qa-a11y cases 78 pass at 390; kit card heights 6 / 6; tsc 0; flag off identical. Worst text on the light glass now 4.76 (nav muted over black) and 4.54 (tab bar pink-ink over black), was 3.94 / 3.76 | A0.md 15.1 to 15.3, `reports/A0/fix8-flag-off.txt` |
@@ -46,7 +46,9 @@
 | SEO (C3 loops 1 and 2) | title, description, robots, canonical, hreflang, og, H1 identical flag on / off / live; JSON-LD identical except live counters; robots.txt identical; sitemap 2998 URLs both ways; new pages noindex, out of the sitemap | `checks/qa/seo-loop2/SUMMARY.md`, `checks/qa/seo/SUMMARY.md` |
 | Performance (390, DPR 3, 4x CPU, slow 4G; Playwright) | LCP flag on / off: home 2.42 / 3.28 s, BLACKPINK hub 3.01 / 3.31 s, quiz 2.34 / 2.42 s, /blindtest 2.22 / 2.05 s; CLS <= 0.054. **Lighthouse scores (perf >= 85, SEO 100, a11y >= 95) PENDING the owner's OK** (not installed: a new dependency) | `checks/qa/perf/` |
 
-## Owner-approved deviations from the prototype
+## Deviations from the prototype
+
+Items 1 to 3 are owner-approved. Item 4 is not: it waits for the owner (RUN-STATE decision 37).
 
 1. **Nav spacing** (owner request in chat 2026-09-27, "give a bit more space to the navbar between buttons"; A0 fix
    5, PR #76; A0.md 4 item 12 and 12.1). The prototype has `.links{gap:0}`; the bar now has 8px between the pills
@@ -68,9 +70,11 @@
    settings save bar above it (P10 fix 4, PR #83). V: 0 sideways scroll at every tested width; toast 19px and save
    bar 11px above the tab bar up to 900, none of it from 901. Open, pre-existing: on touch screens at 1280+ with a
    4-digit streak the right cluster ends 7.9px into the gutter (no scroll).
-4. **Nav and tab bar glass 94% opaque** (A0 fix 8, PR #86, merge be059cc; A0.md 4 item 15 and 15.1; listed by ORCH
-   with the approved deviations). The prototype's light glasses are 86% opaque; the warm nav glass
-   `rgba(250,248,245,.94)` and the white tab bar glass `rgba(255,255,255,.94)` keep every text on them AA over
+4. **Nav and tab bar glass 94% opaque, NOT owner-approved yet** (A0 fix 8, PR #86, merge be059cc; A0.md 4 item 15
+   and 15.1; ORCH's call for AA, pending the owner: RUN-STATE decision 37, keep 94% for AA or go back to the
+   prototype's 86%, one value in design-tokens.ts and one in a0.css). The prototype's light glasses are 86%
+   opaque; the warm nav glass `rgba(250,248,245,.94)` and the white tab bar glass `rgba(255,255,255,.94)` keep
+   every text on them AA over
    anything scrolled under (at 86%: 4.46:1 over the pink button in axe, 3.94 nav muted and 3.76 tab bar pink-ink
    over black; at 94%: 4.76 and 4.54 over black). At rest the nav paints the page colour exactly as before; while
    scrolling the page shows through less (6% instead of 14%). Text colours, blur, saturate and dark (84%) unchanged.
@@ -284,7 +288,8 @@ a5b2ac7 kit test; A0.md section 15). The numbers are A0's, on a flag-on dev serv
 1. Nav glass contrast. Found by V: at 1280 and 1440 light, when a pink primary button scrolled under the warm
    translucent nav (86%), axe blended the glass to #F4DDE2 and the muted pill text read 4.46:1 (needs 4.5) on
    /blindtest (scroll about 420) and /blindtest/ranked (about 360); qa-a11y "blindtest ... group-search" failed 3 / 3.
-   Fix: the light nav glass and the white tab bar glass 94% opaque (deviation 4). Proofs: the qa-a11y blindtest
+   Fix: the light nav glass and the white tab bar glass 94% opaque (deviation 4, pending the owner: RUN-STATE
+   decision 37). Proofs: the qa-a11y blindtest
    case 3 / 3 light and 3 / 3 dark at 1440 (with 86% put back it fails on `a[data-nav="community"]`); the nav scan
    (axe color-contrast on `.ux-nav` every 60px of scroll, V's 11 pages, 1280 and 1440, light and dark) 0 of 18,283
    checks, and with 86% forced exactly V's 4 hits; the tab bar scan at 390 0 of 7,249; a unit block checks every
@@ -298,7 +303,9 @@ a5b2ac7 kit test; A0.md section 15). The numbers are A0's, on a flag-on dev serv
 Checks (A0.md 15.3): kit + shell 57 pass at 1440 (1 skipped, 1 flaky), kit + shell + 32 qa-a11y cases 78 pass at
 390 (12 skipped, 1 flaky; the flaky case is fix 7's legacy toast in create mode on the dev server, green on V's
 production build), vitest 920 / 920, whole-app tsc 0, eslint 0, flag off identical (8 pages as whole documents,
-`/` identical markup; `reports/A0/fix8-flag-off.txt`). ORCH is re-running whole-app tsc and unit on be059cc.
+`/` identical markup; `reports/A0/fix8-flag-off.txt`). ORCH's re-run on be059cc matches: whole-app tsc 0, vitest
+920 / 920 (37 files). The flag-on production build of be059cc is being retried: the first attempt failed while
+prerendering /u/roseeeyh on 129 Supabase connection timeouts (a network drop, not code).
 
 ## NOT verified, and why
 
@@ -366,7 +373,7 @@ production build), vitest 920 / 920, whole-app tsc 0, eslint 0, flag off identic
 - `docs/pending-migrations/v11-p4-comment-likes.sql` (P4): quiz comment hearts and replies (the results comments show no heart or Reply until applied).
 - `docs/pending-migrations/v11-p7-ranked.sql` (P7): ranked_seasons, ranked_runs (run tokens), ranked_song_stats, ranked_legends; ranked_plays.season + run_token (unique) + index (player_id, season, score desc); 7 service_role-only functions; RLS on, no policy; commented rollback; nightly cron documented, not enabled.
 
-## Owner decisions needed (copied from v11/RUN-STATE.md at d3e8c99)
+## Owner decisions needed (copied from v11/RUN-STATE.md at d3e8c99; decision 37 added from its later version)
 
 SECURITY, LIVE SITE (found by C2, confirmed by ORCH in code): /auth/callback redirects to returnTo without checking it stays on the site (`NextResponse.redirect(new URL(returnTo, request.url))`): an open redirect after sign-in. Auth is out of this run's scope; handed to the owner as a separate task chip.
 
@@ -418,3 +425,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 34. Owner requests 1 and 2 (A0 fix 5, merged): nav spacer never more than 8px: 8px for guests and signed-in fans without a streak pill at 1280/1440, shrinking to 5.5/3.7/1.8/0px with a 1/2/3/4-digit streak pill so the bar fits. For a full 8px with a streak pill (owner call): hide the link icons while a streak pill shows, or Create as an icon button, or a nav wider than the 1120 page column. Light page #FAF8F5 (live --bg), warm nav glass; cards, panels, sheets, fields, ticker, tab bar stay white; --ux-surface #F1EFEA, --ux-surface-2 #EAE7E1, --ux-pink-ink #C43565 (AA on the new surfaces); dark unchanged.
 35. Tablets (A0 fix 6, merged): from 761 to 900px the site uses the phone chrome (top bar + bottom tab bar), the prototype's own narrow layout; from 901 to 959px Create shows as its round icon next to a streak pill. No sideways scroll at any width from 761 to 1279 (12 sweeps). Open, pre-existing: on touch screens at 1280+ with a 4-digit streak the right cluster ends 7.9px into the gutter (no scroll).
 36. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
+37. Nav glass (A0 fix 8, merged): the light nav and tab bar glass are 94% opaque instead of the prototype's 86%, so their text stays AA over a pink button or any photo scrolled under them; over the page ground the look is unchanged. One value each in design-tokens.ts and a0.css to go back.
