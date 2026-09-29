@@ -1087,6 +1087,54 @@ for (const theme of THEMES) {
       expect(calls).toEqual([]);
     });
 
+    // Fix 4: A0 fix 6 (PR #81) shows the v11 tab bar (fixed, 64px, z 60) up to 900px. Wherever
+    // it shows, the sticky save bar stops 76px from the bottom (12px above the tab bar), not
+    // under it; from 901px (no tab bar) it stays 16px from the bottom. Measured at the top of
+    // the form, where the bar is stuck to the bottom of the window.
+    signedInTest('save bar: above the tab bar up to 900px (390, 768, 820, 900), 16px from the bottom from 901px (901, 1280)', async ({ page }, info) => {
+      signedInTest.skip(!(await openSettings(page)), 'flag off or not served here');
+      const H = 900;
+      await page.getByLabel('Bio').fill('save bar geometry');
+      await expect(page.locator('.p10-savebar')).toBeVisible();
+      const rows: Array<{ w: number; tabbar: boolean; tabTop: number | null; barBottom: number; css: string; hit: string }> = [];
+      for (const w of [390, 768, 820, 900, 901, 1280]) {
+        await page.setViewportSize({ width: w, height: H });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForFunction(() => window.scrollY === 0);
+        // reduced motion keeps a 1ms `transition: all` (a0.css): measure once the bar has settled
+        await page.waitForFunction(() => (document.querySelector('.p10-savebar') as HTMLElement).getAnimations().length === 0);
+        const g = await page.evaluate(() => {
+          const bar = document.querySelector('.p10-savebar') as HTMLElement;
+          const r = bar.getBoundingClientRect();
+          const tb = document.querySelector('.ux-tabbar') as HTMLElement | null;
+          const shown = !!tb && getComputedStyle(tb).display !== 'none';
+          // what a tap on the bar's Save button actually lands on
+          const save = Array.from(bar.querySelectorAll('button')).pop() as HTMLElement;
+          const s = save.getBoundingClientRect();
+          const top = document.elementFromPoint(s.left + s.width / 2, s.top + s.height / 2);
+          return {
+            tabbar: shown,
+            tabTop: shown ? Math.round(tb!.getBoundingClientRect().top * 100) / 100 : null,
+            barBottom: Math.round(r.bottom * 100) / 100,
+            css: getComputedStyle(bar).bottom,
+            hit: top && bar.contains(top) ? 'save bar' : (top?.closest('.ux-tabbar') ? 'tab bar' : (top?.className?.toString() ?? 'nothing')),
+          };
+        });
+        rows.push({ w, ...g });
+        if (w === 820) await info.attach(`savebar-820-${widthOf(page)}.png`, { body: await page.screenshot(), contentType: 'image/png' });
+      }
+      await info.attach('savebar-geometry.json', { body: JSON.stringify(rows, null, 1), contentType: 'application/json' });
+      for (const r of rows) {
+        const phoneChrome = r.w <= 900;
+        expect(r.tabbar, `${r.w}px: tab bar shown`).toBe(phoneChrome);
+        expect(r.css, `${r.w}px: sticky offset`).toBe(phoneChrome ? '76px' : '16px');
+        expect(r.barBottom, `${r.w}px: stuck to the bottom of the window`).toBeCloseTo(H - (phoneChrome ? 76 : 16), 0);
+        if (phoneChrome) expect(r.barBottom, `${r.w}px: bar ends above the tab bar`).toBeLessThanOrEqual(r.tabTop!);
+        expect(r.hit, `${r.w}px: Save is on top`).toBe('save bar');
+      }
+      expect(calls, 'typing and resizing write nothing').toEqual([]);
+    });
+
     signedInTest('radio groups work with arrow keys; pinned badge and bias chips are real choices', async ({ page }) => {
       signedInTest.skip(!(await openSettings(page)), 'flag off or not served here');
       const group = page.getByRole('radiogroup', { name: 'Name colour' });
