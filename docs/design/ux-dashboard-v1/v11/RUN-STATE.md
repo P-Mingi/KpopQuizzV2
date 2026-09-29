@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 
 - Prototype: `docs/design/ux-dashboard-v1/prototype.html`, `window.UX_VERSION` = `v11.2 (2026-09-25)` (checked 2026-09-25).
 - Integration branch: `feat/ux-v1-v11`, cut from `feat/ux-v1-phase2` at `72dcebb`. First commit `f95af79` (design package + `.gitignore` for `apps/quiz/e2e/.auth/`).
-- Phase: **4, WAITING ON THE OWNER.** Final draft PR #66 (feat/ux-v1-v11 -> main, flag default off) opened 2026-09-27. Not DONE yet only because two branches could not be published by agents (P2, C3) and the owner decisions below are open. Every checker issue is closed.
+- Phase: **4, DONE ON THE AGENT SIDE, WAITING ON THE OWNER** (2026-09-29). Every page, checker issue, audit gap and final-verification item is merged or deferred with a reason; code head be059cc (whole-app tsc 0, vitest 920/920), docs head after it. Draft PR #66 (feat/ux-v1-v11 -> main, flag default off) carries the final body. What remains is the owner's: the 8 pending migrations, the jobs and env below, the owner decisions (37 and 38 are new), and merging #66.
 
 ## Agents
 
@@ -24,7 +24,7 @@ Owner of this file: ORCH. Updated and committed after every event (worker prompt
 | P11 | ux11/p11-notifications | X2-010 merged (PR #73, branch ux11/p11-fix1) | 3c71ea6 | 0 | v11/reports/P11.md |
 | C1 | ux11/c1-check | loop 2 done, merged (0b5bbf8): 136 pass / 0 fail / 16 not verified of 152 | cd46f34 | - | v11/checks/pixel/ |
 | C2 | ux11/c2-check | loop 3 done, merged (bb9b5a5): 267 rows, 196 pass / 0 fail / 33 not verified / 7 pending P2 / 31 n/a | 5bcd84e | - | v11/checks/backend/ |
-| C3 | ux11/c3-check | report refresh merged (09d8bfd, PR #85, branch ux11/c3-report2): REPORT.md at the final state + v11/checks/qa/FINAL-VERIFY.md | 8ab32df | - | v11/REPORT.md |
+| C3 | ux11/c3-check | report3 merged (b6516d0, PR #87): REPORT.md final, A0 fix 8 merged, 94% glass pending the owner | 55323ad | - | v11/REPORT.md |
 
 ## Run environment (Phase 0 findings, every brief repeats them)
 
@@ -112,9 +112,11 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 35. Tablets (A0 fix 6, merged): from 761 to 900px the site uses the phone chrome (top bar + bottom tab bar), the prototype's own narrow layout; from 901 to 959px Create shows as its round icon next to a streak pill. No sideways scroll at any width from 761 to 1279 (12 sweeps). Open, pre-existing: on touch screens at 1280+ with a 4-digit streak the right cluster ends 7.9px into the gutter (no scroll).
 36. Data (P7): `songs` has no accuracy stats; the ranked 4/4/2 draw uses the curated songs.tier until ranked answers build up ranked_song_stats.
 37. Nav glass (A0 fix 8, merged): the light nav and tab bar glass are 94% opaque instead of the prototype's 86%, so their text stays AA over a pink button or any photo scrolled under them; over the page ground the look is unchanged. One value each in design-tokens.ts and a0.css to go back.
+38. Builds fail on a database timeout (found by ORCH, pre-existing on main): the ISR page reads of /u/<username>, /verse and others throw on a failed read on purpose (4038662, so a failed read is never cached), so at build time one Supabase timeout stops the build. Every pushed branch gets a Vercel preview build that prerenders against the production database; several at once overload it (local builds of be059cc failed 3 times with 129, 3 and 31 timeouts while Vercel built agent branches, and passed with 0 once Vercel was idle; Vercel builds of fa0c599, b6516d0 and 55323ad failed the same way, be059cc and 8784a02 passed). Options: a build-time fallback (serve on demand instead of prerendering those params), or an Ignored Build Step for ux11/* branches. Owner call.
 
 ## Log
 
+- 2026-09-29 C3 report3 merged (b6516d0, PR #87): REPORT.md marks A0 fix 8 merged and the 94% glass pending the owner (decision 37). ORCH re-ran be059cc: whole-app tsc 0, vitest 920/920 (37 files). Flag-on production build of be059cc: 3 failures on Supabase timeouts during prerender while Vercel built agent branches (decision 38), 4th build green (815 pages, 0 timeouts); :3021 now serves it from .worktrees/ux11-integration (checked: --ux-nav-bg rgba(250,248,245,.94) on /blindtest). Vercel branch preview: latest READY = 8784a02 (same code as be059cc). PR #66 body updated to the final state (REPORT.md, numbers, migrations, jobs, deviations, decision 37 pending, live-site findings, build note).
 - 2026-09-29 A0 fix 8 merged (be059cc, PR #86): light nav and tab bar glass 86% -> 94% opaque, every nav and tab bar text AA over any backdrop (muted 4.76 over black, 5.01 over the pink button; a0.test.ts checks 5,832 backdrops); qa-a11y blindtest 3/3 light + 3/3 dark at 1440; nav scan 0 of 18,283 checks (11 pages, 1280/1440, light/dark); kit.spec card heights measured as the prototype (0 failures on today's data); vitest 920/920, tsc 0, flag off identical (8 pages). Guard ok as A0. Owner decision 37 added. C3 asked to flip REPORT.md (ux11/c3-report3).
 - 2026-09-29 C3 report refresh merged (09d8bfd, PR #85): REPORT.md rewritten from RUN-STATE, AUDIT-X1/X2 and V (per page status, fixes after the audits, NOT verified items with reasons); V copied verbatim into v11/checks/qa/FINAL-VERIFY.md. Guard ok as C3, no dashes. A0 fix 8 (f4ff6d6 nav glass 94% opaque, a5b2ac7 kit card-height test) still testing.
 - 2026-09-29 Final verification V (2a6cbef): gaps 18 FIXED / 0 NOT FIXED / 3 DEFERRED of 21 (X1-002 waits for v11-p4-comment-likes.sql; X1-009 and X2-003 owner decisions); owner requests, tablet, toast, save bar OK; 38 states x (1440 light, 390 dark) + /quizzes x4: no difference beyond data, merged fixes and documented deviations. New: (1) the warm translucent nav glass fails AA 4.46:1 over a pink button when scrolled (/blindtest, /blindtest/ranked at 1280/1440 light): A0 fix 8; (2) REPORT.md stale: C3 refresh; (3) leftover test-user session files in 2 agent worktrees: deleted by ORCH, 0 left; (4) kit.spec card-height test fails on data (test only): A0 fix 8.
@@ -192,4 +194,4 @@ BUG IN PRODUCTION TODAY (found by P6, confirmed by ORCH in code): every /blindte
 - 2026-09-25 Phase 1 started: A0 and P7 (engine pass) spawned in Agent worktrees.
 - 2026-09-25 Phase 0: preflight (prototype v11.2 ok; two untracked archives outside the package excluded locally on owner's answer), integration branch + design package commit, reference capture, OWNERSHIP.json, this file.
 
-NEXT ACTION: tsc + unit + flag-on build of be059cc running in .worktrees/ux11-integration; then swap :3021 to it (stop the -b server after checking its cwd), merge C3 report3 after the guard, update PR #66's body (scratchpad orch-final-pr-body.md), send the owner the section 9 message. Never merge PR #66: the owner merges.
+NEXT ACTION: none on the agent side. Wait for the owner: answers to the owner decisions (37 glass, 38 builds, and the older ones), the 8 pending migrations, QOTD_ROTATION_FIX, the ranked cron and the daily debate rotation, then merging PR #66 (the owner merges; ORCH never does). When the owner is done looking: stop the :3021 server and remove .worktrees/ux11-integration and -b.
