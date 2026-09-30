@@ -18,6 +18,10 @@ const CHANNEL = process.env.CI || EXEC ? undefined : 'chrome';
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3021';
 const BYPASS = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
 const LAUNCH = EXEC ? { launchOptions: { executablePath: EXEC } } : {};
+// The UX v11 projects need a flag-on build (NEXT_PUBLIC_UX_V1=1) and the signed-in
+// setup. CI builds the app flag off with no test user, so there they could only
+// fail or time out: CI runs desktop + mobile, unless UX11_E2E=1 asks for them.
+const UX_E2E = !process.env.CI || process.env.UX11_E2E === '1';
 
 export default defineConfig({
   testDir: './e2e',
@@ -43,21 +47,25 @@ export default defineConfig({
     { name: 'mobile', testIgnore: /ux-v1\//, use: { ...devices['Pixel 5'], channel: CHANNEL, ...LAUNCH } },
     // UX v11 specs: the two reference widths of v11/capture-prototype.mjs (1440 x 900
     // desktop; 390 x 844 touch phone, DPR 1), after the signed-in setup.
-    { name: 'setup', testMatch: /ux-v1\/auth\.setup\.ts$/, use: { channel: CHANNEL, ...LAUNCH } },
-    {
-      name: 'ux-1440',
-      testMatch: /ux-v1\/.*\.spec\.ts$/,
-      testIgnore: /ux-v1\/parity\.spec\.ts$/,
-      dependencies: ['setup'],
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, channel: CHANNEL, ...LAUNCH },
-    },
-    {
-      name: 'ux-390',
-      testMatch: /ux-v1\/.*\.spec\.ts$/,
-      testIgnore: /ux-v1\/parity\.spec\.ts$/,
-      dependencies: ['setup'],
-      use: { ...devices['Desktop Chrome'], userAgent: devices['Pixel 5'].userAgent, viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, channel: CHANNEL, ...LAUNCH },
-    },
+    ...(UX_E2E
+      ? [
+          { name: 'setup', testMatch: /ux-v1\/auth\.setup\.ts$/, use: { channel: CHANNEL, ...LAUNCH } },
+          {
+            name: 'ux-1440',
+            testMatch: /ux-v1\/.*\.spec\.ts$/,
+            testIgnore: /ux-v1\/parity\.spec\.ts$/,
+            dependencies: ['setup'],
+            use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, channel: CHANNEL, ...LAUNCH },
+          },
+          {
+            name: 'ux-390',
+            testMatch: /ux-v1\/.*\.spec\.ts$/,
+            testIgnore: /ux-v1\/parity\.spec\.ts$/,
+            dependencies: ['setup'],
+            use: { ...devices['Desktop Chrome'], userAgent: devices['Pixel 5'].userAgent, viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, channel: CHANNEL, ...LAUNCH },
+          },
+        ]
+      : []),
     // Existing-account parity visits /profile -> /me, which is NOT read-only (it may
     // grant earned badge tiers and write a passport snapshot for the viewer). It runs
     // only when asked for (UX_V1_PARITY=1), where the owner allows those writes.
