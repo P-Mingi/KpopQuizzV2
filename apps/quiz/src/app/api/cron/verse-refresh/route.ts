@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { runVerseRefresh } from '@/lib/verse/refresh';
@@ -17,11 +18,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = !!(cronSecret && authHeader === `Bearer ${cronSecret}`);
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     const serverClient = await createServerClient();
     const { data: { user } } = await serverClient.auth.getUser();
     if (!user || !isAdmin(user.id)) {

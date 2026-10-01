@@ -1,3 +1,4 @@
+import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 
@@ -16,8 +17,8 @@ import type { NextRequest } from 'next/server';
  * needs to run once per day, so it belongs on a schedule. The home read is now
  * pure + cached; this cron does the one daily publish.
  *
- * Auth guard: same scheme as the other crons (Vercel Cron header OR Bearer
- * CRON_SECRET). ensure_daily_quiz is idempotent ("publish today's bank quiz if
+ * Auth guard: same scheme as the other crons (Bearer CRON_SECRET, which Vercel
+ * sends on cron invocations). ensure_daily_quiz is idempotent ("publish today's bank quiz if
  * not yet done"), so a retry or a manual hit is safe.
  *
  * UX v11 P1, rotation fix: ensure_daily_quiz only publishes a bank row dated
@@ -31,12 +32,8 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
 
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

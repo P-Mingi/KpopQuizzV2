@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { UX_V1 } from '@/lib/ux-v1';
 import { isUuid, readAnonCookie } from '@/lib/anon-claim';
-import { createPublicReadClient, createServerClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isExpired, UUID_RE } from '@/lib/ux-v1/p4/challenge';
 import { guestHash, underLimit, verifyChallenge } from '@/lib/ux-v1/p4/challenge-server';
 import { maxScoreFor } from '@/lib/ux-v1/p4/engine';
@@ -48,7 +48,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   if (!underLimit(`a:${who}`, 20)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   const proven = user ? null : readAnonCookie(req);
 
-  const { error } = await auth.from('battle_results').insert({
+  // Written with the service role: the signature, the score ceiling, the answer
+  // count and the rate limit were checked above, and `battle_results` has no public
+  // insert policy any more (r1-rls-tighten.sql). user_id is the session's, never
+  // a value from the body.
+  const { error } = await createServiceRoleClient().from('battle_results').insert({
     battle_id: b.id,
     player_hash: who,
     score,

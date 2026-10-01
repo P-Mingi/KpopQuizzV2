@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -14,20 +15,13 @@ import type { NextRequest } from 'next/server';
 // the cron does it (lib/ux-v1/p1/qotd-rotation.ts); switch OFF (the default) this
 // route behaves exactly as before.
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
-
-  let isAdminUser = false;
-  if (!isVercelCron && !isManualAuth) {
+  // Bearer CRON_SECRET, or a signed-in admin (a cron header alone is not a credential).
+  if (!isCronAuthorized(req)) {
     const serverClient = await createServerClient();
     const { data: { user } } = await serverClient.auth.getUser();
-    isAdminUser = !!(user && isAdmin(user.id));
-  }
-
-  if (!isVercelCron && !isManualAuth && !isAdminUser) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!user || !isAdmin(user.id)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
   }
 
   const supabase = createClient(

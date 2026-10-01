@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { computePulse } from '@/lib/pulse/compute';
@@ -11,7 +12,7 @@ import type { NextRequest } from 'next/server';
 // Workstream T0: monthly K-pop Pulse generator. Vercel cron (1st of month
 // 06:00 UTC) computes the just-ended month's numbers and upserts one
 // pulse_reports row. Idempotent: re-running a month recomputes the same row.
-// Auth mirrors /api/qotd/publish (x-vercel-cron OR Bearer CRON_SECRET OR admin).
+// Auth: Bearer CRON_SECRET (Vercel sends it on cron invocations) or a signed-in admin.
 export const dynamic = 'force-dynamic';
 
 /** The previous UTC month as 'YYYY-MM' (what a 1st-of-month run reports on). */
@@ -22,12 +23,8 @@ function previousUtcMonth(): string {
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = !!(cronSecret && authHeader === `Bearer ${cronSecret}`);
 
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     const serverClient = await createServerClient();
     const { data: { user } } = await serverClient.auth.getUser();
     if (!user || !isAdmin(user.id)) {

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -13,11 +14,7 @@ export const dynamic = 'force-dynamic';
 const RETENTION_DAYS = 30;
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
