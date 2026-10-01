@@ -1,0 +1,14 @@
+[
+ {
+  "who": "user",
+  "path": "/api/ux-v1/p1/daily-band",
+  "status": 200,
+  "contentType": "application/json",
+  "body": {
+   "signedIn": true,
+   "date": "2026-09-26",
+   "today": null,
+   "best": null
+  }
+ }
+]

@@ -17,6 +17,8 @@ import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
+import { UxHome } from '@/components/home/ux-v1/ux-home';
+import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 
@@ -238,7 +240,44 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
 
 /* ---------- Page ---------- */
 
+// The site's WebSite JSON-LD (+ SearchAction). One object for both homes so the
+// UX v1 home emits byte-identical structured data.
+const WEBSITE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'KpopQuiz',
+  url: 'https://kpopquiz.org',
+  description: 'K-pop quizzes made by fans, played by thousands.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://kpopquiz.org/search?q={search_term_string}',
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
 export default function HomePage(): React.ReactElement {
+  if (UX_V1) {
+    // UX v11 home (P1), behind NEXT_PUBLIC_UX_V1 (default off). Same metadata,
+    // canonical, hreflang, JSON-LD, H1 and intro as the live home. Its client
+    // islands sit behind next/dynamic (components/home/ux-v1/islands.tsx), so the
+    // flag-off home ships none of their code.
+    return (
+      <UxHome
+        head={(
+          <>
+            <WorldHomeRedirect />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }} />
+            <Suspense fallback={null}>
+              <HomeFeaturedJsonLd />
+            </Suspense>
+          </>
+        )}
+      />
+    );
+  }
   return (
     <div className="pt-1 pb-8">
       {/* W-NAV: returning Verse-preferrers may be opened at /verse (client-side,
@@ -248,21 +287,7 @@ export default function HomePage(): React.ReactElement {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'KpopQuiz',
-            url: 'https://kpopquiz.org',
-            description: 'K-pop quizzes made by fans, played by thousands.',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: {
-                '@type': 'EntryPoint',
-                urlTemplate: 'https://kpopquiz.org/search?q={search_term_string}',
-              },
-              'query-input': 'required name=search_term_string',
-            },
-          }),
+          __html: JSON.stringify(WEBSITE_JSON_LD),
         }}
       />
       <Suspense fallback={null}>

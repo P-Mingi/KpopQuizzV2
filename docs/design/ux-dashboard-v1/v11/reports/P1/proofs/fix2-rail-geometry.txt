@@ -1,0 +1,25 @@
+# X2-002 groups rail geometry, flag-on dev server :3031, 1440 x 900 light, guest, rail at rest (scrollLeft 0)
+# rail = .p1-grail border box (its overflow clips at the padding box = this box, no border);
+# tile = .p1-gitem; label = .p1-gn (overflow hidden, text-overflow ellipsis, nowrap); text = range box of the label's text
+# Measured with a scratch Playwright script (GET only).
+
+## before (c8a5222, rail padding 4px 2px 8px, margin -4px -2px 0 = the prototype's .grail)
+rail  l 158  r 1282  w 1124  clientWidth 1124  scrollWidth 2108
+tile 10 NewJeans     l 1168  r 1256  label 1168..1256  text 1177.1..1246.9  scrollWidth 88  clientWidth 88
+tile 11 BABYMONSTER  l 1280  r 1368  label 1280..1368  text 1280.0..1387.8  scrollWidth 108 clientWidth 88 (ellipsed)
+=> the rail shows x 1280..1282 of tile 11; its label is clipped to the tile (1280..1368) but, ellipsed, it
+   starts at the tile's left edge, so the first glyph's left side is inside the 2px strip (X2's 1px sliver).
+   The photo (inset 4px) and the centred count do not reach the strip.
+
+## after (5dee17f, rail padding 4px 0 8px 2px, margin -4px 0 0 -2px)
+rail  l 158  r 1280  w 1122  clientWidth 1122  scrollWidth 2106
+tile 1  General K-pop l 160   r 248   (unchanged x)
+tile 10 NewJeans      l 1168  r 1256  (unchanged x)
+tile 11 BABYMONSTER   l 1280  r 1368  (starts at the rail's clip edge: nothing shown)
+=> ten whole tiles in view, the row ends with the 10th tile, as the prototype's 10-tile rail.
+
+## 390 (phones: a scrolling rail, partial tiles are the scroll cue in the prototype too)
+before rail l 18 r 372; after rail l 18 r 370; tile 4 Cortis l 356 (partly in view in both, as the prototype)
+
+## labels (both): every label box equals its tile box (88px), overflow hidden + ellipsis;
+## overflowing labels: General K-pop 96, BABYMONSTER 108, LE SSERAFIM 90, Girls' Generation 113 (scrollWidth)

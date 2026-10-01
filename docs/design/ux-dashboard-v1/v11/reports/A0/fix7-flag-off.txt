@@ -1,0 +1,38 @@
+A0 fix 7 flag-off proof (2026-09-29). toast-provider.tsx renders on every page, flag on or off, so this is
+its flag-off check. Two production builds (flag on) died on production read timeouts while prerendering
+/u/* passports (network drops; lib/passport.ts throws there on purpose), so the comparison uses two dev
+servers with NEXT_PUBLIC_UX_V1 unset, side by side:
+A = export of origin/feat/ux-v1-v11 859ffa7 on :4001, B = ux11/a0-fix7 (code a534a54) on :4002.
+node e2e/ux-v1/helpers/flag-off-diff.mjs --a http://localhost:4001 --b http://localhost:4002 --structure / /faq /quizzes /blindtest /pt/blindtest /create
+
+DIFFERENT (structure)  /  status 200/200  raw bytes 271232/269788  normalised 138736/138736  js chunks 26/26
+  node 435
+    A: self.__next_r="yyneA5ogrwGYJBShwYzz5"</script>
+    B: self.__next_r="KrORr9osxumHDUoaGUMCR"</script>
+DIFFERENT (structure)  /faq  status 200/200  raw bytes 103803/103003  normalised 35140/35140  js chunks 22/22
+  node 411
+    A: self.__next_r="hbqmMUL1fD0z1ToJ5NN-Z"</script>
+    B: self.__next_r="l0Fb9EXrsuXKslLLCIXqs"</script>
+DIFFERENT (structure)  /quizzes  status 200/200  raw bytes 402392/401520  normalised 267238/267238  js chunks 25/25
+  node 2627
+    A: self.__next_r="NuJmDoISNuGI2NChiV2lc"</script>
+    B: self.__next_r="Ov6UyGh-YNqScXQUZZz2y"</script>
+DIFFERENT (structure)  /blindtest  status 200/200  raw bytes 178950/178083  normalised 54407/54407  js chunks 26/26
+  node 1516
+    A: self.__next_r="PyCNor6HKwifLcMMoGSeX"</script>
+    B: self.__next_r="7VX6T30LqIbUgUgEEoi9a"</script>
+DIFFERENT (structure)  /pt/blindtest  status 200/200  raw bytes 115420/114408  normalised 35847/35847  js chunks 27/27
+  node 568
+    A: self.__next_r="dVB8Qe4Y33VyKpCSEiRY1"</script>
+    B: self.__next_r="NZwYoRGoZzQfwwPdK0RZH"</script>
+DIFFERENT (structure)  /create  status 200/200  raw bytes 126779/125848  normalised 48543/48543  js chunks 26/26
+  node 271
+    A: self.__next_r="RRLnzqLWL1s9fVh_opqQf"</script>
+    B: self.__next_r="0tggueRr_8wLVjImi6qij"</script>
+6 page(s) differ
+
+Reading: on every page the only differing node is self.__next_r, a random id the dev server writes into each
+response (not app output; a production build has none); normalised sizes are equal and the rest of
+each document is identical (raw bytes differ by the dev chunk paths of two folders). The toast stack on both:
+<div class="fixed bottom-6 left-1/2 z-50 flex flex-col gap-2 pointer-events-none">  (no data-toast-stack; 0 matches on A and B)
+Under the flag (dev :3030, flag on) the same div carries data-toast-stack="" on /quizzes and /create.

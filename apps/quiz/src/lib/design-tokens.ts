@@ -54,3 +54,70 @@ export function getTagStyle(category: 'type' | 'difficulty' | 'group', value?: s
   const match = value ? colors[value] : undefined;
   return { ...TAG_BASE_STYLE, ...(match || TAG_COLORS.type.Classic) };
 }
+
+// ---------------------------------------------------------------------------
+// UX v11.2 tokens (DESIGN-SPEC 16.1 + 17.1 + 17.10 + 17.11), verbatim from the
+// pinned prototype (docs/design/ux-dashboard-v1/prototype.html). The CSS custom
+// properties live in src/styles/ux-v1/a0.css as `--ux-<key>` on html.ux-v1 (light)
+// and html.ux-v1.dark / system dark. This object is the same set for code that
+// needs a value in JS (OG images, canvas, tests). a0.test.ts keeps the two in
+// sync. Keys are the CSS variable name without the leading `--ux-`.
+// Supersedes the Phase 0 UX_V1_* tokens (sidebar era), which nothing consumed.
+// ---------------------------------------------------------------------------
+
+export type UxThemeTokens = Record<string, string>;
+
+// Owner request 2026-09-27 (A0 fix 5), light only: the page ground is the live
+// site's warm --bg; white fills that sat on the prototype's white page use `paper`
+// (and `card-fill` for the bordered text card); the tab bar keeps the white glass
+// (`tabbar-bg`) while the top nav takes the warm one; surface / surface-2 keep the
+// prototype's step from the ground; pink-ink and the flair words are re-clamped to AA.
+// A0 fix 8: both glasses 94% opaque (prototype 86%), so every nav and tab bar text
+// stays AA over anything under the glass (a pink button, any photo).
+export const UX_TOKENS_LIGHT: UxThemeTokens = {
+  page: '#FAF8F5', surface: '#F1EFEA', 'surface-2': '#EAE7E1', raised: '#FFFFFF',
+  paper: '#FFFFFF', 'card-fill': '#FFFFFF',
+  'nav-bg': 'rgba(250,248,245,.94)', 'tabbar-bg': 'rgba(255,255,255,.94)',
+  hair: '#ECE9E4', line: '#ECE8E3', 'line-2': '#F3F1EE', edge: '#E5E0DA', 'pink-line': '#F2CFDB',
+  input: '#8C857C',
+  ink: '#1F1B17', muted: '#6B655E',
+  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#C43565',
+  'pink-soft': '#FCE8EF', 'pink-soft-ink': '#B3305C',
+  ok: '#257547', 'ok-soft': '#E9F4EC', no: '#B83A34', 'no-soft': '#FBECEA', warn: '#9A5B0F',
+  'on-ok': '#FFFFFF', 'knob-off': '#FFFFFF',
+  'qotd-edge': '#F4D6E1', 'lav-soft': '#EEEDFE', 'lav-ink': '#3C3489', hl: '#DB4B7E',
+  bulb: '#E0A100', 'bulb-fill': '#FFE9A6', 'theme-band': '#FBE4D8',
+  // name accents of lib/passport-flair.ts, clamped to AA on every light ground
+  'acc-pink': '#B83761', 'acc-purple': '#655DB0', 'acc-blue': '#2A6AAA', 'acc-teal': '#167658', 'acc-amber': '#945B08', 'acc-coral': '#AD4926',
+  // rarity words (lib/badges.ts RARITY_COLOR), clamped to AA on light grounds
+  'rar-common': '#626876', 'rar-uncommon': '#19773E', 'rar-rare': '#2E66BF', 'rar-epic': '#8944CC', 'rar-legendary': '#886100',
+};
+
+export const UX_TOKENS_DARK: UxThemeTokens = {
+  page: '#141312', surface: '#1C1B19', 'surface-2': '#232120', raised: '#1C1B19',
+  paper: '#141312', 'card-fill': 'transparent',
+  'nav-bg': 'rgba(20,19,18,.84)', 'tabbar-bg': 'rgba(20,19,18,.84)',
+  hair: '#2F2C29', line: '#2B2826', 'line-2': '#242220', edge: '#35312E', 'pink-line': '#4A2A37',
+  input: '#6E6A64',
+  ink: '#F3F0EB', muted: '#A8A198',
+  pink: '#E8457A', 'pink-fill': '#D13A6E', 'pink-fill-h': '#BE2F62', 'pink-ink': '#FF7AA5',
+  'pink-soft': '#3A2129', 'pink-soft-ink': '#FF9DBC',
+  ok: '#4FC07F', 'ok-soft': '#16261C', no: '#FF7A70', 'no-soft': '#2E1917', warn: '#E3A24A',
+  'on-ok': '#141312', 'knob-off': '#A8A198',
+  'qotd-edge': '#40283A', 'lav-soft': '#26233F', 'lav-ink': '#C9C4FF', hl: '#FF7AA5',
+  bulb: '#F5C542', 'bulb-fill': 'rgba(245,197,66,.22)', 'theme-band': '#3A2620',
+  // name accents, clamped to AA on every dark ground
+  'acc-pink': '#EB618E', 'acc-purple': '#8D86E1', 'acc-blue': '#4995E0', 'acc-teal': '#28A37C', 'acc-amber': '#CA8117', 'acc-coral': '#DE734F',
+  'rar-common': '#8B93A7', 'rar-uncommon': '#26A558', 'rar-rare': '#5190F7', 'rar-epic': '#B56FF8', 'rar-legendary': '#E0A100',
+};
+
+/** Theme-independent layout scale (DESIGN-SPEC 16.3 + 16.4). */
+export const UX_LAYOUT = {
+  wide: 1120, text: 720, stage: 600, gutter: 32, gutterMobile: 20,
+  navHeight: 64, tabBarHeight: 64, pageTop: 56, pageTopMobile: 28,
+  sectionGap: 64, sectionGapHome: 80, sectionGapMobile: 48,
+  radius: { thumb: 8, input: 12, card: 16, quizCard: 18, box: 20, hero: 24, pill: 999 },
+  breakpoints: { phone: 760, tablet: 900, narrow: 1100, iconsInNav: 1280 },
+} as const;
+
+export const UX_TOKENS = { light: UX_TOKENS_LIGHT, dark: UX_TOKENS_DARK } as const;

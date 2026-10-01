@@ -1,0 +1,28 @@
+# /quizzes?sort=trending, JSON-LD per type, A = flag off :3042, B = flag on :3032, 2026-09-27T15:24Z
+BreadcrumbList SAME
+FAQPage SAME
+ItemList DIFF
+ count 29 29 same set true
+  pos 19 fifty-fifty-discography-quiz | how-can-we-memorize-who-they-are-newjeans-for-new-bunnies-33
+  pos 21 how-can-we-memorize-who-they-are-newjeans-for-new-bunnies-33 | fifty-fifty-discography-quiz
+  pos 23 only-a-real-gllit-can-pass-this | do-you-want-doeun-or-sunhye-to-come-tickle-you
+  pos 24 do-you-want-doeun-or-sunhye-to-come-tickle-you | only-a-real-tunes-can-pass-this-
+  pos 25 only-a-real-tunes-can-pass-this- | only-a-real-my-can-pass-this
+  pos 26 only-a-real-my-can-pass-this | a-pretty-hard-itzy-quiz
+  pos 27 a-pretty-hard-itzy-quiz | only-a-real-gllit-can-pass-this
+Organization SAME
+SiteNavigationElement SAME
+# play counts now (flag-on endpoint, same live query): positions 17-29
+17 this-is-only-for-true-gllits 8
+18 -nct-find-the-intruder 7
+19 fifty-fifty-discography-quiz 6
+20 are-a-real-stay 6
+21 how-can-we-memorize-who-they-are-newjeans-for-new-bunnies-33 6
+22 only-a-real-fearnot-can-pass-this 4
+23 only-a-real-gllit-can-pass-this 3
+24 do-you-want-doeun-or-sunhye-to-come-tickle-you 3
+25 only-a-real-tunes-can-pass-this- 3
+26 only-a-real-my-can-pass-this 2
+27 a-pretty-hard-itzy-quiz 2
+28 what-would-you-do-if-you-where-eating-a-cake-and-jieun-stole 1
+29 blackpink-easy-quiz 0

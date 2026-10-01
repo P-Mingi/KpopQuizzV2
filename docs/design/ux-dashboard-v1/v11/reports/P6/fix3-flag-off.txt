@@ -1,0 +1,7 @@
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 139370/139371  normalised 54660/54660  js chunks 13/13
+IDENTICAL (structure)  /blindtest/classic  status 200/200  raw bytes 55369/55370  normalised 24233/24233  js chunks 13/13
+IDENTICAL (structure)  /blindtest/group-bts  status 200/200  raw bytes 55296/55297  normalised 24185/24185  js chunks 13/13
+IDENTICAL (structure)  /blindtest/girl-groups  status 200/200  raw bytes 55423/55424  normalised 24247/24247  js chunks 13/13
+IDENTICAL (structure)  /pt/blindtest  status 200/200  raw bytes 86971/86972  normalised 36100/36100  js chunks 14/14
+IDENTICAL (structure)  /blindtest/ranked  status 404/404  raw bytes 33056/33057  normalised 2792/2792  js chunks 10/10
+all 6 pages identical after normalising build ids and hashed asset names

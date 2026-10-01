@@ -1,0 +1,39 @@
+C3 loop 2: checks/qa/probe-like-race.mjs on http://localhost:3021 (cc6c394 flag-on build), guest, 1440,
+/q/ultimate-bts-era-quiz-only-real-armys-survive. Same setup as loop 1 (mount read GET /api/quiz/<id>/like
+delayed by 4 s, every POST answered locally with {}).
+
+{
+ "beforeClick": {
+  "text": "43",
+  "pressed": "false"
+ },
+ "rightAfterClick": {
+  "text": "44",
+  "pressed": "true"
+ },
+ "after6s": {
+  "text": "44",
+  "pressed": "true"
+ },
+ "calls": [
+  {
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+   "body": "{\"score\":1,\"total_questions\":8,\"time_taken_seconds\":6,\"max_score\":8,\"per_question_times\":[0.4,0.4,0.4,0.5,0.5,0.4,0.4,0.4],\"anon_id\":\"9157254a-1165-4275-af4a-6270bba2fbe5\"}"
+  },
+  {
+   "method": "POST",
+   "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/like",
+   "body": "{\"action\":\"like\"}"
+  },
+  {
+   "read": "GET like",
+   "answered": {
+    "liked": false,
+    "like_count": 43
+   }
+  }
+ ]
+}
+
+Verdict: FIXED. The late read no longer overwrites the count (44 after 6 s, loop 1: 43).

@@ -1,0 +1,182 @@
+{
+ "base": "http://localhost:3021",
+ "takenAt": "2026-09-26T22:07:06.990Z",
+ "A-no-stored-play": {
+  "slug": "skz-true-or-false-only-real-stays-pass",
+  "samples": [
+   {
+    "t": 0,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 1,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 2,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 3,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 4,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 5,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 6,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 7,
+    "errorPage": false,
+    "results": 1
+   }
+  ],
+  "h1": "6/8 on SKZ true or false - only real STAYs pass",
+  "dataStanding": "none",
+  "rankLine": "",
+  "stats": "75% You 72% Average 0:00 Time",
+  "xpline": "Saved to your passport",
+  "shareDialogs": [
+   "ux-sheet-t-_r_5_ :: Share your score 6/8 on SKZ true or false - only real STAYs pass Stray Kids quiz Copy link Story image More apps Discord"
+  ],
+  "shareSheet": "Share your score 6/8 on SKZ true or false - only real STAYs pass Stray Kids quiz Copy link Story image More apps Discord",
+  "errorPageAfterShare": false,
+  "standing": [
+   {
+    "url": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150",
+    "status": 200,
+    "body": {
+     "played": false,
+     "bestScore": null,
+     "total": null,
+     "rank": null,
+     "totalPlayers": 39,
+     "bestAt": null,
+     "signedIn": true
+    }
+   },
+   {
+    "url": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150&score=6",
+    "status": 200,
+    "body": {
+     "played": false,
+     "bestScore": null,
+     "total": null,
+     "rank": null,
+     "totalPlayers": 39,
+     "bestAt": null,
+     "signedIn": true
+    }
+   }
+  ],
+  "uncaught": [],
+  "writes": [
+   "POST /api/quiz/6f3eef40-6892-41d7-b99c-296e2ef83150/play",
+   "POST /api/ux-v1/p4/challenge",
+   "POST /api/share/generate"
+  ]
+ },
+ "B-stored-play": {
+  "slug": "this-is-only-for-true-gllits",
+  "samples": [
+   {
+    "t": 0,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 1,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 2,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 3,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 4,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 5,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 6,
+    "errorPage": false,
+    "results": 1
+   },
+   {
+    "t": 7,
+    "errorPage": false,
+    "results": 1
+   }
+  ],
+  "h1": "10/10 on This is only for ~true~ Gllits!",
+  "dataStanding": "rank",
+  "rankLine": "#2 of 2 players · your best 5/10",
+  "stats": "100% You 56% Average 0:01 Time",
+  "xpline": "Saved to your passport",
+  "shareDialogs": [
+   "ux-sheet-t-_r_5_ :: Share your score 10/10 on This is only for ~true~ Gllits! #2 of 2 Copy link Story image More apps Discord"
+  ],
+  "shareSheet": "Share your score 10/10 on This is only for ~true~ Gllits! #2 of 2 Copy link Story image More apps Discord",
+  "errorPageAfterShare": false,
+  "standing": [
+   {
+    "url": "/api/ux-v1/p4/standing?quiz=62e332ec-a506-425a-97ab-07f26e4729f3",
+    "status": 200,
+    "body": {
+     "signedIn": true,
+     "played": true,
+     "bestScore": 5,
+     "total": 10,
+     "rank": 2,
+     "totalPlayers": 2,
+     "bestAt": "2026-09-22T11:45:00.74346+00:00"
+    }
+   },
+   {
+    "url": "/api/ux-v1/p4/standing?quiz=62e332ec-a506-425a-97ab-07f26e4729f3&score=10",
+    "status": 200,
+    "body": {
+     "signedIn": true,
+     "played": true,
+     "bestScore": 5,
+     "total": 10,
+     "rank": 2,
+     "totalPlayers": 2,
+     "bestAt": "2026-09-22T11:45:00.74346+00:00"
+    }
+   }
+  ],
+  "uncaught": [],
+  "writes": [
+   "POST /api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/play",
+   "POST /api/ux-v1/p4/challenge",
+   "POST /api/share/generate"
+  ]
+ }
+}

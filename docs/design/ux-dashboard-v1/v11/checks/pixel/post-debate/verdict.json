@@ -1,0 +1,381 @@
+{
+ "state": "post-debate",
+ "owner": "P8",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T17:26:41.820Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/debate/2026-09-26",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2112
+    ],
+    "implSize": [
+     1440,
+     1653
+    ],
+    "diffPct": 22.87,
+    "maskedPct": 9.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "vote buttons",
+     "proto": "#pv .vote button",
+     "impl": ".p8-pv .p8-vote button",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "1440-dark": {
+   "at": "2026-09-26T17:27:16.489Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/debate/2026-09-26",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2112
+    ],
+    "implSize": [
+     1440,
+     1653
+    ],
+    "diffPct": 22.65,
+    "maskedPct": 9.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "vote buttons",
+     "proto": "#pv .vote button",
+     "impl": ".p8-pv .p8-vote button",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "390-light": {
+   "at": "2026-09-26T17:27:51.425Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/debate/2026-09-26",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2695
+    ],
+    "implSize": [
+     390,
+     2275
+    ],
+    "diffPct": 18.7,
+    "maskedPct": 27.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "vote buttons",
+     "proto": "#pv .vote button",
+     "impl": ".p8-pv .p8-vote button",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "390-dark": {
+   "at": "2026-09-26T17:28:26.265Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/community/debate/2026-09-26",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 8,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2695
+    ],
+    "implSize": [
+     390,
+     2275
+    ],
+    "diffPct": 18.23,
+    "maskedPct": 27.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "crumb",
+     "proto": "#pv .crumb",
+     "impl": ".p8-pv .ux-crumb",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "post title",
+     "proto": ".post-t",
+     "impl": ".p8-post-t",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "vote buttons",
+     "proto": "#pv .vote button",
+     "impl": ".p8-pv .p8-vote button",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p8-post-page .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

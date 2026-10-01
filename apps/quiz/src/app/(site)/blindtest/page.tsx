@@ -1,11 +1,13 @@
 import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
+import { BlindtestHubV11 } from '@/components/blindtest/ux-v1/hub';
 import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtest';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 
@@ -112,6 +114,10 @@ const webAppJsonLd = {
 };
 
 export default async function BlindtestPage(): Promise<React.ReactElement> {
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): the day-mode hub. Same metadata, H1,
+  // intro, FAQ and JSON-LD; flag off renders exactly the page below.
+  if (UX_V1) return <BlindtestHubV11 faq={FAQ_ITEMS} faqJsonLd={faqJsonLd} webAppJsonLd={webAppJsonLd} />;
+
   const [groups, stats, playlists] = await Promise.all([
     safeFetch(getBlindtestGroups(), [], '[blindtest] getBlindtestGroups'),
     getStats(),

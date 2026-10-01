@@ -1,0 +1,15 @@
+#main
+/aespa-quiz
+/ateez-quiz
+/blindtest/ranked
+/community
+/daily
+/groups
+/newjeans-quiz
+/profile
+/quizzes?type=tf
+/quizzes?type=tf&sort=newest
+/quizzes?type=tf&sort=top_rated
+/quizzes?type=tf&sort=trending
+/seventeen-quiz
+/twice-quiz

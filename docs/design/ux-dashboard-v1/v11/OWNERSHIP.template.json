@@ -1,0 +1,110 @@
+{
+ "_note": "Globs are relative to the repo root. A commit by agent X may only touch paths matching X's globs. docs/design/ux-dashboard-v1/v11/reports/<id>.md and v11/requests/<id>.md are implicitly owned by <id>. Adjust real folder names in Phase 0, keep the shape. A glob starting with ! excludes (P6 does not own the ranked route, P7 does). The guard must support it.",
+ "A0": [
+  "apps/quiz/src/styles/globals.css",
+  "apps/quiz/src/components/layout/ux-v1/**",
+  "apps/quiz/src/components/ux-v1/**",
+  "apps/quiz/src/lib/ux-v1.ts",
+  "apps/quiz/src/app/(site)/ux-v1/kit/**",
+  "apps/quiz/src/app/(site)/layout.tsx",
+  "apps/quiz/e2e/ux-v1/shell.spec.ts",
+  "apps/quiz/e2e/ux-v1/kit.spec.ts",
+  "scripts/ux11-owner-guard.mjs"
+ ],
+ "P1": [
+  "apps/quiz/src/app/(site)/page.tsx",
+  "apps/quiz/src/components/home/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p1.css",
+  "apps/quiz/src/lib/quiz-bank-scheduling.ts",
+  "apps/quiz/src/app/api/qotd/**",
+  "apps/quiz/e2e/ux-v1/p1.spec.ts"
+ ],
+ "P2": [
+  "apps/quiz/src/app/(site)/quizzes/**",
+  "apps/quiz/src/components/quizzes/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p2.css",
+  "apps/quiz/e2e/ux-v1/p2.spec.ts"
+ ],
+ "P3": [
+  "apps/quiz/src/app/(site)/groups/**",
+  "apps/quiz/src/app/(site)/[slug]/**",
+  "apps/quiz/src/components/group/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p3.css",
+  "apps/quiz/e2e/ux-v1/p3.spec.ts"
+ ],
+ "P4": [
+  "apps/quiz/src/app/(site)/q/**",
+  "apps/quiz/src/components/quiz/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p4.css",
+  "apps/quiz/e2e/ux-v1/p4.spec.ts"
+ ],
+ "P5": [
+  "apps/quiz/src/app/(site)/create/**",
+  "apps/quiz/src/components/create/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p5.css",
+  "apps/quiz/e2e/ux-v1/p5.spec.ts"
+ ],
+ "P6": [
+  "apps/quiz/src/app/(site)/blindtest/**",
+  "apps/quiz/src/components/blindtest/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p6.css",
+  "apps/quiz/e2e/ux-v1/p6.spec.ts",
+  "!apps/quiz/src/app/(site)/blindtest/ranked/**"
+ ],
+ "P7": [
+  "apps/quiz/src/app/(site)/blindtest/ranked/**",
+  "apps/quiz/src/lib/ranked/**",
+  "apps/quiz/src/app/api/ranked/**",
+  "apps/quiz/src/components/ranked/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p7.css",
+  "apps/quiz/e2e/ux-v1/p7.spec.ts",
+  "docs/pending-migrations/v11-p7-*.sql"
+ ],
+ "P8": [
+  "apps/quiz/src/app/(site)/community/**",
+  "apps/quiz/src/components/community/ux-v1/**",
+  "apps/quiz/src/app/api/community/**",
+  "apps/quiz/src/styles/ux-v1/p8.css",
+  "apps/quiz/e2e/ux-v1/p8.spec.ts",
+  "docs/pending-migrations/v11-p8-*.sql"
+ ],
+ "P9": [
+  "apps/quiz/src/app/(site)/leaderboard/**",
+  "apps/quiz/src/components/leaderboard/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p9.css",
+  "apps/quiz/e2e/ux-v1/p9.spec.ts"
+ ],
+ "P10": [
+  "apps/quiz/src/app/(site)/me/**",
+  "apps/quiz/src/app/(site)/u/**",
+  "apps/quiz/src/app/(site)/profile/**",
+  "apps/quiz/src/app/(site)/settings/**",
+  "apps/quiz/src/components/profile/ux-v1/**",
+  "apps/quiz/src/app/api/profile/header/**",
+  "apps/quiz/src/styles/ux-v1/p10.css",
+  "apps/quiz/e2e/ux-v1/p10.spec.ts",
+  "docs/pending-migrations/v11-p10-*.sql"
+ ],
+ "P11": [
+  "apps/quiz/src/app/(site)/notifications/**",
+  "apps/quiz/src/app/(site)/search/**",
+  "apps/quiz/src/components/notifications/ux-v1/**",
+  "apps/quiz/src/components/search/ux-v1/**",
+  "apps/quiz/src/styles/ux-v1/p11.css",
+  "apps/quiz/e2e/ux-v1/p11.spec.ts"
+ ],
+ "C1": [
+  "docs/design/ux-dashboard-v1/v11/checks/pixel/**",
+  "docs/design/ux-dashboard-v1/v11/issues/**"
+ ],
+ "C2": [
+  "docs/design/ux-dashboard-v1/v11/checks/backend/**",
+  "docs/design/ux-dashboard-v1/v11/issues/**"
+ ],
+ "C3": [
+  "docs/design/ux-dashboard-v1/v11/checks/qa/**",
+  "docs/design/ux-dashboard-v1/v11/issues/**",
+  "docs/design/ux-dashboard-v1/v11/REPORT.md",
+  "apps/quiz/e2e/ux-v1/qa-*.spec.ts"
+ ]
+}

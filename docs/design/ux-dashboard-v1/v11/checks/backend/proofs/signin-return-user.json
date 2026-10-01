@@ -1,0 +1,71 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:42:44.266Z",
+ "pendingInjected": {
+  "id": "p4-follow",
+  "path": "/q/skz-true-or-false-only-real-stays-pass",
+  "payload": {
+   "username": "mapple"
+  },
+  "at": 1790444557920
+ },
+ "pendingLeft": null,
+ "followButton": "Follow",
+ "errors": [
+  "user: back on the same path with the pending action: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=mapple",
+   "status": 200
+  },
+  {
+   "step": "user: back on the same path with the pending action",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/follow",
+   "body": "{\"username\":\"mapple\",\"action\":\"follow\"}"
+  }
+ ]
+}

@@ -1,0 +1,203 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:49:40.255Z",
+ "status": 200,
+ "feed": [
+  {
+   "type": "Debate · General K-pop",
+   "title": "Choreo with props or pure dance",
+   "href": "/community/debate/2026-09-22",
+   "head": "KKpopQuiz · Daily debate · 4 days ago",
+   "acts": "0"
+  },
+  {
+   "type": "Debate · General K-pop",
+   "title": "Girl group b-sides or boy group b-sides",
+   "href": "/community/debate/2026-09-21",
+   "head": "KKpopQuiz · Daily debate · 5 days ago",
+   "acts": "0"
+  },
+  {
+   "type": "Debate · General K-pop",
+   "title": "Dance practice videos are better than the actual MV",
+   "href": "/community/debate/2026-09-17",
+   "head": "KKpopQuiz · Daily debate · Sep 17",
+   "acts": "0"
+  },
+  {
+   "type": "Thread · BTS",
+   "title": "With all seven back and the group chapter open again, what are you hoping for mo",
+   "href": "/community/thread/3",
+   "head": "KKpopVerse · Jul 31",
+   "acts": "0"
+  },
+  {
+   "type": "Thread · BTS",
+   "title": "What was your gateway BTS song, the one that pulled you all the way in? And be h",
+   "href": "/community/thread/2",
+   "head": "KKpopVerse · Jul 31",
+   "acts": "0"
+  },
+  {
+   "type": "Thread · BTS",
+   "title": "Which B-side do you think deserved its own music video? We will go first: Dis-ea",
+   "href": "/community/thread/1",
+   "head": "KKpopVerse · Jul 31",
+   "acts": "0"
+  },
+  {
+   "type": "Blog · BTS · 1 min read",
+   "title": "Why ARMY documents everything: the archive instinct of a fandom",
+   "href": "/community/blog/2",
+   "head": "KKpopVerse · Jul 31",
+   "acts": "00"
+  }
+ ],
+ "rail": "Daily debate 0 votes Remixes are almost never better than the original Agree Disagree Happening now live 71 posts · 6 new quizzes this week S Someone scored a perfect 5/5 on a IVE quiz just now S Someone scored 3/4 on a LE SSERAFIM quiz 17 min ago L lore_stay_5 scored 4/7 on a BLACKPINK quiz 49 min ago J jellytaengs published Who said it SNSD version 1 hour ago F fearnot scored 5/7 on a LE SSERAFIM quiz 2 hours ago Badge watch this week First steps Play your first quiz · 13 fans this week Reached I Earn 100 plays on the quizzes you made · 2 fans this week Perfectionist I Score 100% on a quiz · 9 fans this week",
+ "following": {
+  "empty": "Nothing from the fans you follow yet Follow fans from their posts and replies.",
+  "feed": []
+ },
+ "voteBefore": "Agree Disagree",
+ "voteAfter": "Agree 0% Disagree 0%",
+ "cheerLabel": "Cheer Someone",
+ "editorModes": [
+  "Thread [on]",
+  "Blog",
+  "Debate",
+  "Challenge"
+ ],
+ "groupChip": "BTS",
+ "afterPostUrl": "/community/thread/undefined",
+ "challengeSheet": "New challenge Thread Blog Debate Challenge Pick one of your scores. Fans play the same quiz and reply with theirs. Group Your score to beat 5/10 · This is only for ~true~ Gllits! 4 days ago · 0:12 Show all my recent scores Message Optional Challenge posts open soon. Challenge a friend from any results screen meanwhile. Cancel Post",
+ "debateNote": "Fan debates open soon. Vote on the daily debate meanwhile.",
+ "debatePostDisabled": true,
+ "errors": [
+  "load /community: Unexpected token '<'",
+  "editor: challenge mode (user): Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/debate/me",
+   "status": 200
+  },
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/debate/me",
+   "status": 200
+  },
+  {
+   "step": "load /community",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/viewer",
+   "status": 200
+  },
+  {
+   "step": "rail daily debate vote (user)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/debate/vote",
+   "body": "{\"side\":\"a\"}"
+  },
+  {
+   "step": "cheer (user)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/cheer",
+   "body": "{\"event_id\":43247}"
+  },
+  {
+   "step": "blog heart (user)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/essays/reactions",
+   "body": "{\"essay_id\":2}"
+  },
+  {
+   "step": "editor: thread post (user)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/verse/threads",
+   "body": "{\"group_id\":1,\"title\":\"C2 probe thread title, never saved\",\"body\":\"C2 probe body. The request is answered locally and never reaches the server.\"}"
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/debate/me",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/debate/me",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/viewer",
+   "status": 200
+  },
+  {
+   "step": "editor: challenge mode (user)",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p8/my-results?quiz=this-is-only-for-true-gllits",
+   "status": 200
+  }
+ ]
+}

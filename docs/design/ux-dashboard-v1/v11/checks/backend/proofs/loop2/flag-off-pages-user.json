@@ -1,0 +1,107 @@
+{
+ "base": "http://localhost:4202",
+ "takenAt": "2026-09-26T21:47:46.886Z",
+ "pages": [
+  {
+   "path": "/",
+   "who": "user",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/activity/recent 200",
+    "GET /api/stats/live 200",
+    "GET /api/auth/me 200",
+    "GET /api/discord/widget 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": [
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "/: console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ]
+  },
+  {
+   "path": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "who": "user",
+   "status": 200,
+   "final": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET supabase:/auth/v1/user 200",
+    "GET /api/notifications?limit=1 200",
+    "GET supabase:/auth/v1/user 200",
+    "GET /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/my-rank 200",
+    "GET /api/follow?username=mina 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/blindtest",
+   "who": "user",
+   "status": 200,
+   "final": "/blindtest",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/create",
+   "who": "user",
+   "status": 200,
+   "final": "/create",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/auth/v1/user 200",
+    "GET /api/auth/me 200",
+    "GET supabase:/rest/v1/profiles?select=username&id=eq.<test user id> 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/bts-quiz",
+   "who": "user",
+   "status": 200,
+   "final": "/bts-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/txt.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/14063591-e57b-4e17-8dc6-970df20b149f.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/seventeen.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/05/672f0afb-77c7-43f0-a8e6-556316cf7468.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/9c540376-0edc-4d46-9cdc-b1aa4dcf8e2b.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/enhypen.jpg 200",
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  }
+ ]
+}

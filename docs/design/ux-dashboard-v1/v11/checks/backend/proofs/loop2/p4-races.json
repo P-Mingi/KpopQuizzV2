@@ -1,0 +1,63 @@
+{
+ "takenAt": "2026-09-26T21:29:11.014Z",
+ "like": {
+  "before": {
+   "pressed": "false",
+   "text": "43",
+   "readAnsweredYet": false,
+   "clicked": true,
+   "clickedAt": 1790458119781
+  },
+  "afterClickAndStaleRead": {
+   "pressed": "true",
+   "text": "44"
+  },
+  "staleRead": {
+   "liked": false,
+   "like_count": 43
+  },
+  "readStartsMsBeforeClick": [
+   96
+  ]
+ },
+ "follow": {
+  "before": {
+   "text": "Follow",
+   "readAnsweredYet": false
+  },
+  "afterClickAndStaleRead": "Following",
+  "synced": "",
+  "staleRead": {
+   "signedIn": true,
+   "isSelf": false,
+   "following": false
+  },
+  "readStartsMsBeforeClick": [
+   -345
+  ]
+ },
+ "comments": {
+  "listReadRows": 1,
+  "duringRead": [
+   "T testtest · 8/8 · just now C2 race probe"
+  ],
+  "afterRead": [
+   "T testtest · 8/8 · just now C2 race probe",
+   "mingi Felix · Jul 9, 2026 I did 10/10 !"
+  ]
+ },
+ "writesAnsweredLocally": [
+  {
+   "what": "like",
+   "body": "{\"action\":\"like\"}"
+  },
+  {
+   "what": "follow",
+   "body": "{\"username\":\"mapple\",\"action\":\"follow\"}"
+  },
+  {
+   "what": "comment",
+   "body": "{\"content\":\"C2 race probe\"}"
+  }
+ ]
+}

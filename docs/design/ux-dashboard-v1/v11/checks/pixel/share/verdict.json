@@ -1,0 +1,342 @@
+{
+ "state": "share",
+ "owner": "P4",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T21:19:54.012Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.05,
+    "maskedPct": 16.6
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":8,\"max_score\":8,\"per_question_times\":[0.5,0.5,0.6,0.5,0.5,0.5,0.5,0.6],\"anon_id\":\"19608009-93fa-47dd-bd8b-ad5f29b5846b\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 15
+  },
+  "1440-dark": {
+   "at": "2026-09-26T21:20:06.758Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.05,
+    "maskedPct": 16.6
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":7,\"max_score\":8,\"per_question_times\":[0.6,0.5,0.1,0.5,0.5,0.1,0.5,0.9],\"anon_id\":\"6de3abf0-b133-4de2-acbb-13c29abce325\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 12
+  },
+  "390-light": {
+   "at": "2026-09-26T21:20:18.111Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.89,
+    "maskedPct": 47.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":6,\"max_score\":8,\"per_question_times\":[0.1,0.5,0.1,0.9,0.1,0.5,0.4,0],\"anon_id\":\"155553d4-6089-4b4a-b66d-8f2f76e9a571\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 12
+  },
+  "390-dark": {
+   "at": "2026-09-26T21:20:34.422Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.53,
+    "maskedPct": 47.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":6,\"max_score\":8,\"per_question_times\":[0.4,0.6,0.1,0.4,0.5,0.4,0.4,1.3],\"anon_id\":\"33ad4d8d-f1f2-4073-a741-b346ab4b2b81\"}"
+    },
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"4ba8f255-2401-4220-8559-9a33c9ec1759\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "share sheet",
+     "proto": "#share",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#share .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet title",
+     "proto": "#share .sh-h h3",
+     "impl": ".ux-layer .ux-sh-h h2",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "mini card",
+     "proto": "#share .minicard",
+     "impl": ".ux-layer .ux-minicard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "share grid",
+     "proto": "#share .shgrid",
+     "impl": ".ux-layer .ux-shgrid",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 16
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "verdict": "pass",
+ "note": "known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared (behind the scrim)"
+}

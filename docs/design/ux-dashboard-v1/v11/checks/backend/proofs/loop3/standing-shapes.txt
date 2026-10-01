@@ -1,0 +1,4 @@
+user /api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150 200 {"played":false,"bestScore":null,"total":null,"rank":null,"totalPlayers":39,"bestAt":null,"signedIn":true}
+user /api/ux-v1/p4/standing?quiz=62e332ec-a506-425a-97ab-07f26e4729f3 200 {"signedIn":true,"played":true,"bestScore":5,"total":10,"rank":2,"totalPlayers":2,"bestAt":"2026-09-22T11:45:00.74346+00:00"}
+guest /api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150&score=4 200 {"played":false,"bestScore":null,"total":null,"rank":null,"totalPlayers":null,"bestAt":null,"signedIn":false}
+guest /api/ux-v1/p4/standing?quiz=6f3eef40-6892-41d7-b99c-296e2ef83150 200 {"played":false,"bestScore":null,"total":null,"rank":null,"totalPlayers":null,"bestAt":null,"signedIn":false}

@@ -1,0 +1,118 @@
+[
+ {
+  "q": {
+   "t": "verse_threads",
+   "s": "id,group_id,status,title,created_at"
+  },
+  "rows": 3,
+  "data": [
+   {
+    "id": 1,
+    "group_id": 1,
+    "status": "visible",
+    "title": "Which B-side do you think deserved its own music video? We will go first: Dis-ea",
+    "created_at": "2026-07-31T13:03:12.822573+00:00"
+   },
+   {
+    "id": 2,
+    "group_id": 1,
+    "status": "visible",
+    "title": "What was your gateway BTS song, the one that pulled you all the way in? And be h",
+    "created_at": "2026-07-31T13:03:12.887917+00:00"
+   },
+   {
+    "id": 3,
+    "group_id": 1,
+    "status": "visible",
+    "title": "With all seven back and the group chapter open again, what are you hoping for mo",
+    "created_at": "2026-07-31T13:03:13.038915+00:00"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "verse_essays",
+   "s": "id,group_id,status,title,featured_at"
+  },
+  "rows": 1,
+  "data": [
+   {
+    "id": 2,
+    "group_id": 1,
+    "status": "featured",
+    "title": "Why ARMY documents everything: the archive instinct of a fandom",
+    "featured_at": "2026-07-31T13:03:11.015+00:00"
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "verse_spaces",
+   "s": "group_id,feed_opt_in"
+  },
+  "rows": 4,
+  "data": [
+   {
+    "group_id": 2,
+    "feed_opt_in": false
+   },
+   {
+    "group_id": 3,
+    "feed_opt_in": false
+   },
+   {
+    "group_id": 14,
+    "feed_opt_in": false
+   },
+   {
+    "group_id": 1,
+    "feed_opt_in": true
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "community_likes",
+   "s": "target_id",
+   "limit": 1
+  },
+  "data": null,
+  "error": "Could not find the table 'public.community_likes' in the schema cache"
+ },
+ {
+  "q": {
+   "t": "community_debates",
+   "s": "id",
+   "limit": 1
+  },
+  "data": null,
+  "error": "Could not find the table 'public.community_debates' in the schema cache"
+ },
+ {
+  "q": {
+   "t": "community_debate_votes",
+   "s": "debate_id",
+   "limit": 1
+  },
+  "data": null,
+  "error": "Could not find the table 'public.community_debate_votes' in the schema cache"
+ },
+ {
+  "q": {
+   "t": "community_challenges",
+   "s": "id",
+   "limit": 1
+  },
+  "data": null,
+  "error": "Could not find the table 'public.community_challenges' in the schema cache"
+ },
+ {
+  "q": {
+   "t": "community_replies",
+   "s": "id",
+   "limit": 1
+  },
+  "data": null,
+  "error": "Could not find the table 'public.community_replies' in the schema cache"
+ }
+]

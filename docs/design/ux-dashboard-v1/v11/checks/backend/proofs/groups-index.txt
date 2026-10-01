@@ -1,0 +1,13 @@
+# C2 /groups index recomputed: 91 group rows, 425 published quizzes
+page: 90 groups; rows 90; zero-quiz (muted) rows 46
+db: groups with 0 published quizzes = 47 (the page hides 1 quarantine row: 91 - 1 = 90 listed)
+most played: bts shown 27 quizzes, db 27 published, 8794 plays SAME
+most played: stray-kids shown 29 quizzes, db 29 published, 6496 plays SAME
+most played: blackpink shown 24 quizzes, db 24 published, 4908 plays SAME
+most played: newjeans shown 12 quizzes, db 12 published, 2499 plays SAME
+most played: twice shown 14 quizzes, db 14 published, 2425 plays SAME
+most played: seventeen shown 10 quizzes, db 10 published, 2107 plays SAME
+most played: aespa shown 13 quizzes, db 13 published, 1856 plays SAME
+most played: enhypen shown 7 quizzes, db 7 published, 1800 plays SAME
+most played: ive shown 8 quizzes, db 8 published, 1698 plays SAME
+most played: cortis shown 9 quizzes, db 9 published, 1663 plays SAME

@@ -1,0 +1,146 @@
+{
+ "off": {
+  "title": "KpopQuiz - Quiz de K-pop Feito por Fas | KpopQuiz",
+  "meta": {
+   "description": "Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Feito por fas de verdade, jogado por milhares.",
+   "robots": "index, follow",
+   "og:title": "KpopQuiz - Quiz de K-pop Feito por Fas",
+   "og:description": "Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.",
+   "og:url": "https://kpopquiz.org/pt",
+   "og:locale": "pt_BR",
+   "twitter:card": "summary_large_image",
+   "twitter:title": "KpopQuiz - Play K-pop Quizzes Made by Fans for Fans",
+   "twitter:description": "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.",
+   "twitter:image": "https://kpopquiz.org/og-default.png"
+  },
+  "canonical": [
+   "https://kpopquiz.org/pt"
+  ],
+  "hreflang": [
+   "en https://kpopquiz.org",
+   "pt-BR https://kpopquiz.org/pt",
+   "x-default https://kpopquiz.org"
+  ],
+  "h1": [
+   "Quiz de K-pop feito por fas"
+  ],
+  "intro": null,
+  "h2": [],
+  "ld": [
+   {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "logo": "https://kpopquiz.org/logo-512.png",
+    "sameAs": [
+     "https://www.reddit.com/r/Kpop_Verse/",
+     "https://discord.gg/X7AW95WFT",
+     "https://www.pinterest.com/kpopquizorg/",
+     "https://www.tiktok.com/@kpopquiz.org",
+     "https://www.youtube.com/@kpopquizorg",
+     "https://www.instagram.com/kpopquiz.org/"
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Main Navigation",
+    "hasPart": [
+     {
+      "@type": "WebPage",
+      "name": "Quizzes",
+      "url": "https://kpopquiz.org/quizzes"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Blind Test",
+      "url": "https://kpopquiz.org/blindtest"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Leaderboard",
+      "url": "https://kpopquiz.org/leaderboard"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Trivia",
+      "url": "https://kpopquiz.org/trivia"
+     }
+    ]
+   }
+  ]
+ },
+ "on": {
+  "title": "KpopQuiz - Quiz de K-pop Feito por Fas | KpopQuiz",
+  "meta": {
+   "description": "Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Feito por fas de verdade, jogado por milhares.",
+   "robots": "index, follow",
+   "og:title": "KpopQuiz - Quiz de K-pop Feito por Fas",
+   "og:description": "Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.",
+   "og:url": "https://kpopquiz.org/pt",
+   "og:locale": "pt_BR",
+   "twitter:card": "summary_large_image",
+   "twitter:title": "KpopQuiz - Play K-pop Quizzes Made by Fans for Fans",
+   "twitter:description": "Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.",
+   "twitter:image": "https://kpopquiz.org/og-default.png"
+  },
+  "canonical": [
+   "https://kpopquiz.org/pt"
+  ],
+  "hreflang": [
+   "en https://kpopquiz.org",
+   "pt-BR https://kpopquiz.org/pt",
+   "x-default https://kpopquiz.org"
+  ],
+  "h1": [
+   "Quiz de K-pop feito por fas"
+  ],
+  "intro": null,
+  "h2": [],
+  "ld": [
+   {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KpopQuiz",
+    "url": "https://kpopquiz.org",
+    "logo": "https://kpopquiz.org/logo-512.png",
+    "sameAs": [
+     "https://www.reddit.com/r/Kpop_Verse/",
+     "https://discord.gg/X7AW95WFT",
+     "https://www.pinterest.com/kpopquizorg/",
+     "https://www.tiktok.com/@kpopquiz.org",
+     "https://www.youtube.com/@kpopquizorg",
+     "https://www.instagram.com/kpopquiz.org/"
+    ]
+   },
+   {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Main Navigation",
+    "hasPart": [
+     {
+      "@type": "WebPage",
+      "name": "Quizzes",
+      "url": "https://kpopquiz.org/quizzes"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Blind Test",
+      "url": "https://kpopquiz.org/blindtest"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Leaderboard",
+      "url": "https://kpopquiz.org/leaderboard"
+     },
+     {
+      "@type": "WebPage",
+      "name": "Trivia",
+      "url": "https://kpopquiz.org/trivia"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,25 @@
+[
+ {
+  "q": {
+   "t": "creator_notifications",
+   "count": true,
+   "head": true,
+   "eq": {
+    "user_id": "$TEST",
+    "is_read": false
+   }
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published"
+   }
+  },
+  "count": 425
+ }
+]

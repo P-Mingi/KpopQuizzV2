@@ -1,0 +1,71 @@
+{
+ "what": "p10.spec 'save bar: ...' geometry, window height 900, measured at the top of /settings with an unsaved Bio change (the bar stuck to the bottom). tabTop = top edge of the tab bar (its 1px border); barBottom = bottom edge of the save bar; css = its computed bottom; hit = what sits at the centre of Save changes.",
+ "before (base feat/ux-v1-v11 8896606 p10.css)": {
+  "ux-1440 light": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-390 light": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-1440 dark": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 846.38, \"css\": \"53.6341px\", \"hit\": \"save bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-390 dark": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"tab bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ]
+ },
+ "after (ux11/p10-fix4)": {
+  "ux-1440 light": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-390 light": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-1440 dark": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ],
+  "ux-390 dark": [
+   "{\"w\": 390, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 768, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 820, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 900, \"tabbar\": true, \"tabTop\": 835, \"barBottom\": 824, \"css\": \"76px\", \"hit\": \"save bar\"}",
+   "{\"w\": 901, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}",
+   "{\"w\": 1280, \"tabbar\": false, \"tabTop\": null, \"barBottom\": 884, \"css\": \"16px\", \"hit\": \"save bar\"}"
+  ]
+ }
+}

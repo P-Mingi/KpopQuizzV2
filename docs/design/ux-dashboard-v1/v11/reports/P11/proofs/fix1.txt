@@ -1,0 +1,130 @@
+P11 fix 1 (X2-010): the unread line under the H1 follows the notifications filter
+Branch ux11/p11-fix1 at 3c1429d (fix 5a12fd4 + spec harness 6e30f70, merged with origin/feat/ux-v1-v11 da4758e).
+Chromium 1234 (UX11_CHROMIUM), projects setup + ux-1440 + ux-390, --retries=0, signed in only through the
+Playwright setup project (storage state never printed or committed). Every page is wrapped in guardWrites: the
+only write of the new case (POST /api/notifications/mark-read { ids: ["n3"] }) was answered locally and asserted.
+
+1. Flag ON (dev :3041, NEXT_PUBLIC_UX_V1=1, clean .next), whole e2e/ux-v1/p11.spec.ts: 47 passed, 0 flaky, 0 failed
+   (setup + 23 cases x 2 widths). The new case "filters: the count under the H1 follows the filter, All keeps the
+   total (X2-010)" ran 4 times (1440 light, 1440 dark, 390 light, 390 dark): All "4 unread"; Social "1 unread"
+   (3 rows, 1 unread); Your quizzes "2 unread"; Achievements "1 unread"; Mark all read still shown; opening
+   Social's only unread row (blink_edits) = mark-read { ids: ["n3"] }, Social "All caught up", back to All
+   "3 unread"; no horizontal overflow; exactly 1 recorded write. The long walk case (light) also asserts the
+   filtered counts (1 / 2 / 1, then 4 on All).
+
+2. Flag OFF (dev :3041, NEXT_PUBLIC_UX_V1 unset), same spec: 7 passed, 40 skipped ("flag off"), 0 failed, 0 flaky.
+   Passed: setup; guest /notifications -> /login (x2); search endpoint 404 flag off (x2); signed in, the live
+   NotificationsCenter renders (H1 "Notifications", no .p11-notifs) (x2).
+   Before the harness commit 6e30f70 the same flag-off run (config retries) ended 7 passed, 25 skipped, 15 flaky:
+   the /api/auth/me stub was still fetching when test.skip ended the case ("route.fetch: Test ended",
+   "Response has been disposed"). The stub now returns quietly on those teardown errors only.
+
+3. Flag off unchanged by construction: the page component (components/notifications/ux-v1/notifications-page.tsx)
+   is only reached through app/(site)/notifications/page.tsx `UX_V1 ? nextDynamic(import(...)) : null`; the new
+   pure helper headerUnread() lives in lib/ux-v1/p11/notifications.ts, imported only by that page and by the P11
+   bell panel (A0 shell slot, flag on only; /ux-v1/kit is a flag-on route).
+
+4. Unit: vitest src/lib/ux-v1/p11: 32 passed (new: "the count under the H1 follows the filter; All keeps the
+   server total (X2-010)"). Whole-app `pnpm exec tsc --noEmit -p .` (e2e included): 0 errors, before and after the
+   merge of da4758e. eslint-config-next (core-web-vitals + typescript) on the 4 changed files: 0 problems.
+   No em / en dash in the diff. No new dependency. No pending migration.
+
+5. Report image script (scratch, read only): 0 mutating requests attempted.
+
+Flag ON run, order of execution:
+  [1/47] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+  [2/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:293:3 › P11 guest › /notifications still sends a guest to /login
+  [3/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:299:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+  [4/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+  [5/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [6/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+  [7/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+  [8/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+  [9/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [10/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+  [11/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+  [12/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:429:3 › P11 signed in › real data: the test user's own notifications, read only
+  [13/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+  [14/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+  [15/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+  [16/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page light (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [17/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+  [18/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+  [19/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+  [20/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page dark (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [21/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:549:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+  [22/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+  [23/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+  [24/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:681:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read
+  [25/47] [ux-390] › e2e/ux-v1/p11.spec.ts:293:3 › P11 guest › /notifications still sends a guest to /login
+  [26/47] [ux-390] › e2e/ux-v1/p11.spec.ts:299:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+  [27/47] [ux-390] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+  [28/47] [ux-390] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [29/47] [ux-390] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+  [30/47] [ux-390] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+  [31/47] [ux-390] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+  [32/47] [ux-390] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [33/47] [ux-390] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+  [34/47] [ux-390] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+  [35/47] [ux-390] › e2e/ux-v1/p11.spec.ts:429:3 › P11 signed in › real data: the test user's own notifications, read only
+  [36/47] [ux-390] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+  [37/47] [ux-390] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+  [38/47] [ux-390] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+  [39/47] [ux-390] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page light (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [40/47] [ux-390] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+  [41/47] [ux-390] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+  [42/47] [ux-390] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+  [43/47] [ux-390] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page dark (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [44/47] [ux-390] › e2e/ux-v1/p11.spec.ts:549:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+  [45/47] [ux-390] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+  [46/47] [ux-390] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+  [47/47] [ux-390] › e2e/ux-v1/p11.spec.ts:681:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read
+
+Flag OFF run, order of execution:
+  [1/47] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+  [2/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:293:3 › P11 guest › /notifications still sends a guest to /login
+  [3/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:299:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+  [4/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+  [5/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [6/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+  [7/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+  [8/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+  [9/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [10/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+  [11/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+  [12/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:429:3 › P11 signed in › real data: the test user's own notifications, read only
+  [13/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+  [14/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+  [15/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+  [16/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page light (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [17/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+  [18/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+  [19/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+  [20/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page dark (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [21/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:549:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+  [22/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+  [23/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+  [24/47] [ux-1440] › e2e/ux-v1/p11.spec.ts:681:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read
+  [25/47] [ux-390] › e2e/ux-v1/p11.spec.ts:293:3 › P11 guest › /notifications still sends a guest to /login
+  [26/47] [ux-390] › e2e/ux-v1/p11.spec.ts:299:3 › P11 guest › the search endpoint: flag gated, public catalog only, no user field
+  [27/47] [ux-390] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay light › popular lists, rows, prototype styles, axe
+  [28/47] [ux-390] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay light › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [29/47] [ux-390] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay light › no results: a real empty state, Enter goes to the full search page
+  [30/47] [ux-390] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay light › a click on a row closes the overlay; Escape closes and returns focus
+  [31/47] [ux-390] › e2e/ux-v1/p11.spec.ts:334:7 › P11 guest › search overlay dark › popular lists, rows, prototype styles, axe
+  [32/47] [ux-390] › e2e/ux-v1/p11.spec.ts:357:7 › P11 guest › search overlay dark › typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row
+  [33/47] [ux-390] › e2e/ux-v1/p11.spec.ts:390:7 › P11 guest › search overlay dark › no results: a real empty state, Enter goes to the full search page
+  [34/47] [ux-390] › e2e/ux-v1/p11.spec.ts:405:7 › P11 guest › search overlay dark › a click on a row closes the overlay; Escape closes and returns focus
+  [35/47] [ux-390] › e2e/ux-v1/p11.spec.ts:429:3 › P11 signed in › real data: the test user's own notifications, read only
+  [36/47] [ux-390] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page light (stubbed rows) › layout and styles match the prototype (streak saved)
+  [37/47] [ux-390] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page light (stubbed rows) › streak at risk: the real rule and the daily link
+  [38/47] [ux-390] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page light (stubbed rows) › no streak: no row (min-gate)
+  [39/47] [ux-390] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page light (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [40/47] [ux-390] › e2e/ux-v1/p11.spec.ts:456:7 › P11 signed in › notifications page dark (stubbed rows) › layout and styles match the prototype (streak saved)
+  [41/47] [ux-390] › e2e/ux-v1/p11.spec.ts:485:7 › P11 signed in › notifications page dark (stubbed rows) › streak at risk: the real rule and the daily link
+  [42/47] [ux-390] › e2e/ux-v1/p11.spec.ts:498:7 › P11 signed in › notifications page dark (stubbed rows) › no streak: no row (min-gate)
+  [43/47] [ux-390] › e2e/ux-v1/p11.spec.ts:507:7 › P11 signed in › notifications page dark (stubbed rows) › filters: the count under the H1 follows the filter, All keeps the total (X2-010)
+  [44/47] [ux-390] › e2e/ux-v1/p11.spec.ts:549:3 › P11 signed in › filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs
+  [45/47] [ux-390] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel light: latest 6, styles, open a row, See all
+  [46/47] [ux-390] › e2e/ux-v1/p11.spec.ts:638:5 › P11 signed in › bell panel dark: latest 6, styles, open a row, See all
+  [47/47] [ux-390] › e2e/ux-v1/p11.spec.ts:681:3 › P11 signed in › bell: Mark all read in the header (A0 request 2) sets every row read

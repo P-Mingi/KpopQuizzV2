@@ -1,0 +1,21 @@
+A0 fix 8, flag off (NEXT_PUBLIC_UX_V1 unset), next dev :3030, 2026-09-29.
+base = this branch with apps/quiz/src/styles/ux-v1/a0.css and apps/quiz/src/lib/design-tokens.ts checked out from
+d3e8c99 (the only app files the fix changes), restored right after; branch = f4ff6d6 + a5b2ac7.
+Normalised: the dev server's random self.__next_r id. GET /api/ux-v1/a0/styles: 404 on both (the v11 stylesheet
+never reaches a flag-off page); no page links it; no page carries .ux-nav.
+
+/: markup identical without the RSC flight scripts (141930 bytes; v11 stylesheet link false / false, ux-nav false / false); the flight data differs
+/quizzes: whole document identical (401500 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/blindtest: whole document identical (178063 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/blindtest/ranked: whole document identical (56769 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/bts-quiz: whole document identical (211204 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/groups: whole document identical (232378 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/create: whole document identical (125828 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/faq: whole document identical (102983 bytes; v11 stylesheet link false / false, ux-nav false / false)
+/pt/blindtest: whole document identical (114388 bytes; v11 stylesheet link false / false, ux-nav false / false)
+
+/ (home) flight data: its rows arrive in a different order on every request of the same tree (a dev streaming
+effect of the parallel reads), so two fetches of the branch differ the same way:
+  branch vs branch2: whole document differs, markup without the flight scripts identical
+  branch2 vs branch3: whole document differs, markup without the flight scripts identical
+  base vs branch2: whole document differs, markup without the flight scripts identical

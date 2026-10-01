@@ -1,0 +1,7 @@
+# menu placement, prototype ddOpen vs /quizzes (dev :3032): menu x, y below the trigger, width
+1440 type proto menu x,dy,w [ 978.4, 6, 200 ] trigger x [ 978.4 ] | impl menu x,dy,w [ 978.4, 6, 200 ] trigger x [ 978.4 ]
+1440 level proto menu x,dy,w [ 1078, 6, 200 ] trigger x [ 1078 ] | impl menu x,dy,w [ 1078, 6, 200 ] trigger x [ 1078 ]
+1440 group proto menu x,dy,w [ 1179.9, 6, 200 ] trigger x [ 1179.9 ] | impl menu x,dy,w [ 1179.9, 6, 200 ] trigger x [ 1179.9 ]
+390 type proto menu x,dy,w [ 20, 6, 200 ] trigger x [ 20 ] | impl menu x,dy,w [ 20, 6, 200 ] trigger x [ 20 ]
+390 level proto menu x,dy,w [ 119.6, 6, 200 ] trigger x [ 119.6 ] | impl menu x,dy,w [ 119.6, 6, 200 ] trigger x [ 119.6 ]
+390 group proto menu x,dy,w [ 174, 6, 200 ] trigger x [ 221.5 ] | impl menu x,dy,w [ 174, 6, 200 ] trigger x [ 221.5 ]

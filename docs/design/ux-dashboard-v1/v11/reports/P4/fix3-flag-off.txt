@@ -1,0 +1,24 @@
+P4 fix loop 3 (X1-002) flag-off proof, 2026-09-27. A = origin/feat/ux-v1-v11 (f366cb4, exported with
+git archive), B = ux11/p4-fix3. Two flag-off dev servers (NEXT_PUBLIC_UX_V1 unset): A :3045, B :3034,
+live renders fetched back to back.
+
+1. The new routes, flag off (B):
+   GET  /api/ux-v1/p4/comments?quiz=<uuid>         404 {"error":"not_found"}
+   POST /api/ux-v1/p4/comments/like  (valid body)   404 {"error":"not_found"}
+   POST /api/ux-v1/p4/comments/reply (valid body)   404 {"error":"not_found"}
+
+2. flag-off-diff.mjs --structure (A0 helper) + dev-norm (the per-render request id, checkout folder and
+   dev chunk names removed):
+   IDENTICAL  /q/ultimate-bts-era-quiz-only-real-armys-survive   (54,996 / 54,996)
+   IDENTICAL  /q/skz-true-or-false-only-real-stays-pass          (51,764 / 51,764)
+   IDENTICAL  /pt/q/ultimate-bts-era-quiz-only-real-armys-survive (404 / 404)
+   DIFFERENT  /q/real-coers-cortis-fans-can-take-this-quiz        (51,054 / 51,054, same length):
+              live play counts only. A's server had cached this quiz's reads about 10 minutes earlier:
+              "184 fans have played it" (meta description, og:description, twitter:description, the
+              intro paragraph, the stats hero) vs "185" in B, and one related quiz's play count (+1).
+              Two runs, same result. No markup, attribute or link differs.
+
+3. Why nothing else can differ: every file this fix changes is a flag-on island (components/quiz/ux-v1/
+   comments.tsx, results.tsx, quiz-run.tsx, loaded through next/dynamic only when the flag is on), the
+   flag-on stylesheet (styles/ux-v1/p4.css, served by A0's flag-on route only), P4's lib, the new
+   flag-gated routes, the e2e spec and a pending migration. app/(site)/q/[slug]/page.tsx is untouched.

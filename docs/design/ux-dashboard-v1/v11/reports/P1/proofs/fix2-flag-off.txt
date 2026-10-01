@@ -1,0 +1,35 @@
+# fix 2 flag-off parity: A = origin/feat/ux-v1-v11 c8a5222 (a git-archive copy, :4101), B = ux11/p1-fix2 f91ef31 (:4102);
+# both next build + next start with NEXT_PUBLIC_UX_V1 unset. Pages regenerated on both at 19:01 CEST, then fetched back to back.
+# Tool: apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (A0). GET only.
+
+## structure (DOM, head, meta, canonical, JSON-LD, text, links, stylesheets; JS chunk tags + inline RSC payload removed)
+DIFFERENT (structure)  /  status 200/200  raw bytes 225299/225302  normalised 140172/140172  js chunks 13/13
+  node 669  A: 393</span>  B: 394</span>
+  node 731  A: 73</span>   B: 74</span>
+DIFFERENT (structure)  /pt  status 200/200  raw bytes 149437/149394  normalised 92083/92083  js chunks 14/14
+  node 629  A: 393</span>  B: 394</span>
+  node 687  A: 73</span>   B: 74</span>
+=> the only differences are two quiz-card play counters (<span class="quiz-plays">, a quiz by jellytaengs): live data,
+   the two builds filled their data cache 10 minutes apart and the counters moved in between.
+With the quiz-card play counts masked (scratch p1-mask-diff.mjs on the helper's --out files):
+/: IDENTICAL (structure) once the 10 quiz-card play counts are masked (140236 B each)
+/pt: IDENTICAL (structure) once the 6 quiz-card play counts are masked (92122 B each)
+
+## bytes (build ids + hashed asset names normalised)
+DIFFERENT (bytes)  /  status 200/200  raw bytes 225299/225302  normalised 223556/223559  js chunks 13/13
+DIFFERENT (bytes)  /pt  status 200/200  raw bytes 149437/149394  normalised 147863/147820  js chunks 14/14
+=> the play counters above + the RSC client-module ids, which differ between two build folders (turbopack module ids
+   hash the module path: e.g. chunk "ToastProvider" module 260314 in A, 374093 in B, same code).
+
+## JS weight (every chunk the served HTML references) + P1 code markers in those chunks
+http://localhost:4101/  js files 13  710,791 B  P1 markers in JS: QotdNote,BlindtestBand  in HTML: none
+http://localhost:4101/pt  js files 14  708,096 B  P1 markers in JS: none  in HTML: none
+http://localhost:4102/  js files 13  710,800 B  P1 markers in JS: QotdNote,BlindtestBand  in HTML: none
+http://localhost:4102/pt  js files 14  708,102 B  P1 markers in JS: none  in HTML: none
+Referenced chunks compared one by one (scratch p1-chunk-ids.mjs: numeric module ids and content-hashed chunk names masked):
+/: chunks 13/13, byte-identical 8, different 5, of which equal once module ids are masked 5
+/pt: chunks 14/14, byte-identical 8, different 6, of which equal once module ids are masked 6
+=> same chunks, same code; the byte deltas (+9 / +6 B) are module-id lengths (turbopack ids hash the module path, two
+   build folders; e.g. "453543" vs "85318") and the hashed names of lazily loaded chunks (the v11 island chunk is one of
+   them: its content changed, so its name did; the flag-off page never loads it). The island loader's export names are
+   on both sides, as before (fix loop 0).

@@ -5,6 +5,8 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
+import { UX_V1 } from '@/lib/ux-v1';
+import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
 
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
@@ -64,6 +66,11 @@ function GroupRow({ row }: { row: DirectoryGroup }): React.ReactElement {
 }
 
 export default async function GroupsDirectoryPage(): Promise<React.ReactElement> {
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): same metadata, H1, intro and
+  // BreadcrumbList; every group of this list plus the groups without a quiz yet,
+  // read fail-closed. Flag off renders exactly the page below.
+  if (UX_V1) return GroupsIndexV11();
+
   const rows = await safeFetch(
     getDirectoryGroups(),
     [] as DirectoryGroup[],
