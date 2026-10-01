@@ -1,3 +1,8 @@
+-- R1 apply bundle 07 of 8: v11-p10-header-storage.sql, verbatim, followed by a read-only verification.
+-- Paste the whole text in the Supabase SQL editor (project rdkgouofytwfdpbxbzio) and Run.
+-- The result grid is the verification: columns check / value / expected.
+-- ============================================================================
+
 -- v11 P10 - passport header pictures: the `profile-headers` storage bucket.
 -- OWNER-RUN. Not applied by any agent. Nothing else changes (profiles.header_url
 -- already exists, migration 114).
@@ -47,3 +52,13 @@ on conflict (id) do update
 -- bucket is empty: a bucket that holds files must be emptied from the dashboard first):
 --   delete from storage.buckets where id = 'profile-headers'
 --     and not exists (select 1 from storage.objects where bucket_id = 'profile-headers');
+
+-- ============================================================================
+-- R1 verification (read only). Its rows are what the editor shows after Run.
+-- ============================================================================
+select 1 as n, 'bucket' as "check", (select coalesce((select 'public=' || b.public || ', limit=' || b.file_size_limit || ', types=' || array_to_string(b.allowed_mime_types, ',') from storage.buckets b where b.id = 'profile-headers'), 'MISSING'))::text as value, 'public=true, limit=1048576, types=image/webp' as expected
+union all
+select 2, 'storage policies naming the bucket', (select count(*) from pg_policies where schemaname = 'storage' and tablename = 'objects' and (qual like '%profile-headers%' or with_check like '%profile-headers%'))::text, '0'
+union all
+select 3, 'files in the bucket', (select count(*) from storage.objects where bucket_id = 'profile-headers')::text, '0'
+order by 1;

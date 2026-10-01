@@ -1,10 +1,10 @@
 # R1 release state
 
 Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-RELEASE-PROMPT.md` (on disk in the
-main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/fixes`. The flag `NEXT_PUBLIC_UX_V1` stays OFF in
+main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **3 (fixes): F1 to F11 committed, local checks green, PR open, waiting for its checks.** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **DONE (2026-10-01 21:00 UTC). v11 is on main with its flag off, the fixes are live, the nine SQL files are applied and verified, the production env vars are set. `NEXT_PUBLIC_UX_V1` is still off in production: R1 never set, changed or removed it. Last step in flight: the docs PR `r1/report` into main.** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -40,6 +40,8 @@ production for the whole run (owner, 2026-09-30); R1 never sets, changes or remo
 | PR | What | Status |
 |---|---|---|
 | #66 | v11 behind the flag (feat/ux-v1-v11 -> main) | MERGED 2026-10-01 10:33 UTC, merge commit `9affc2e` |
+| #88 | R1 fixes F1 to F11 (r1/fixes -> main) | MERGED 2026-10-01 11:22 UTC, merge commit `09ae1a1`, checks green (unit, e2e, Vercel) |
+| #89 | R1 second pass (r1/fixes-2 -> main): cron secret, /api/blind-test/play 410, battle_results on the server, RLS file for six tables | MERGED 2026-10-01 18:36 UTC, merge commit `4cc1904`, checks green (unit, e2e, Vercel) |
 
 ## Section 2 result (2026-10-01)
 
@@ -115,19 +117,157 @@ Choices made, for the owner's information:
   main checkout's file; it sets VERSE_PUBLIC=true, so local builds here pass `VERSE_PUBLIC=false` to match
   production.
 
+## Section 3 result: fixes in production (2026-10-01)
+
+- Production deployment of `09ae1a1`: `dpl_AiKBeREqmsz9hKJZk5tt1yMCwk4L` (`kpopquiz-psgwly0fa`), READY at the first
+  build; `kpopquiz.org` serves it. CI on main: Tests green, SEO gates green (docs-secrets included).
+  Rollback target if needed: `dpl_5J83dTjwFr7Ji7gkdnnzrPadqRvN` (9affc2e), then `vercel promote`.
+- `after-fixes.json` vs production one minute before the merge: 0 SEO field differences on the 40 URLs, sitemap
+  661 = 661, robots.txt identical. Differences: home hrefs /quizzes/new and /quizzes/most-liked -> /new and
+  /most-liked (F5), the three invented accounts gone from /pt/leaderboard (F4), /stats dateModified, and the
+  build-time `/pt` footer link of a fresh deployment (section 2).
+- Verified on production with read-only requests: /blindtest/girl-groups shows an enabled Play and the run line,
+  POST /api/blind-test/generate with the player's body answers 10 questions with https previews (F6); the 5
+  ld+json blocks of /quizzes hold no raw `<` or `&` and parse (F1); no invented name on /pt/leaderboard (F4);
+  /api/cron/ensure-daily-debate answers 401 without the secret, and 401 with only `x-vercel-cron: 1` (F9);
+  /api/ranked/cron/nightly answers 404 to an unauthorized caller with the flag off (F10).
+- The two new crons run from tonight: ensure-daily-debate 00:10 UTC (idempotent write of the day's debate, as
+  the legacy /leaderboard view already does), ranked nightly 00:20 UTC (does nothing: flag off).
+
 ## SQL
 
-Nothing applied. Order and gates: prompt section 4 (`go migrations`, later `go rls`). `r1-ranked-season1.sql` is
-written in this run and NOT applied.
+Nothing applied yet. No SQL access from this session: the owner pastes each file in the SQL editor of project
+`rdkgouofytwfdpbxbzio` and answers "applied <file>".
+
+- 4a done 2026-10-01: read-only export through the REST API (`docs/release/export-tables.mjs`) to
+  `~/kpq-backups/2026-10-01/` (outside the repo): plays 69266 rows, quizzes 441, battles 2578, quiz_bank 100,
+  quiz_time_stats 2213, notification_prefs 3, ranked_plays 0. Each CSV re-parsed: row counts match.
+- Owner, 2026-10-01 (in chat): today's Supabase backup exists (01 Oct 2026 01:33 UTC). Preflight result
+  (screenshot of the SQL editor): only "rows" lines, nothing the files create exists yet: plays 69347, quizzes 441,
+  notification_prefs 3, creator_notifications 1253, ranked_plays 0, bt_players 0. **`go migrations` given.**
+- RLS inventory result (pasted by the owner): the four tables have RLS on (not forced); policies exactly as the
+  migrations wrote them (battles_insert_all INSERT + battles_select_all SELECT; quizbank_admin_all ALL;
+  quiz_time_stats_read_all SELECT + quiz_time_stats_write_all ALL; ranked_plays_insert INSERT +
+  ranked_plays_select SELECT, all to {public}); anon and authenticated hold INSERT, UPDATE, DELETE, TRUNCATE
+  table grants (Supabase defaults; RLS is the only door); no trigger on the four tables; one function writes
+  them: ensure_daily_quiz(p_date text), definer, search_path=public, **EXECUTE still granted to PUBLIC** (081 /
+  082 revoked it from anon and authenticated only, which PUBLIC still covers). The header of
+  r1-rls-tighten.sql matches; the PUBLIC grant is closed by extra authorization 4 below.
+- Extra authorizations from the owner (2026-10-01, in chat, "dans le meme cadre que la section 0"):
+  1. add `battle_results` and `pending_questions` to the inventory and to r1-rls-tighten.sql, same method as battles;
+  2. remove `/api/blind-test/play` or make it answer 410;
+  3. make the ten existing cron routes check CRON_SECRET, without triggering any in production;
+  4. in r1-rls-tighten.sql, revoke EXECUTE on ensure_daily_quiz from PUBLIC, anon, authenticated (keep
+     service_role), after checking its cron calls it with the service key.
+  2 and 3 go in a small PR after the migrations and before `go rls`, one build at a time. (The writer of
+  battle_results moves to the service role in the same PR: the policy cannot be dropped before that is live.)
+- **Applied by the owner, 2026-10-01, in this order, each with "Success. No rows returned":**
+  1 `v11-p4-relaxed-runs.sql`, 2 `v11-p4-rank-for-score.sql`, 3 `v11-p4-comment-likes.sql`,
+  4 `v11-p3-group-quiz-alerts.sql`, 5 `v11-p8-community.sql`, 6 `v11-p10-email-prefs.sql`,
+  7 `v11-p10-header-storage.sql`, 8 `v11-p7-ranked.sql`. The owner pasted the original files (not the
+  `docs/release/apply/` bundles), so no verification grid was shown: `docs/release/r1-migrations-verify.sql` (one
+  read-only query, 34 checks, columns file / n / check / value / expected) was given to the owner; **its result
+  is awaited**. The eight files and that query were dry-run on a throwaway local PostgreSQL 18 with a stub
+  schema, and the columns the files read were checked to exist in production through the REST API.
+  Evidence gathered by R1 through the REST API (read only, 2026-10-01): the 13 new tables exist and hold 0 rows;
+  plays.relaxed, notification_prefs.email_streak_reminder / email_weekly_recap and ranked_plays.season /
+  run_token exist; plays still has its rows (69349) and 0 with relaxed = true; get_quiz_rank_for_score and
+  quiz_comment_like_counts answer an anon call; ranked_standings refuses anon (42501); an anon read of
+  ranked_runs, ranked_seasons, community_likes, quiz_comment_likes, group_quiz_alerts returns nothing; the
+  bucket profile-headers is public, 1 MB, image/webp. The flag-on v11 specs p4 and shell passed on the migrated
+  database (109 passed). Still to confirm from SQL: policies, triggers on quizzes, function security modes.
+- PR #89 in production: deployment `dpl_3CrTh9ucevigc2iCVWuWwcSsmUMy` (`kpopquiz-73kjewlsm`, 4cc1904), READY at
+  the first build; CI on main green. `after-fixes-2.json` vs production one minute before: 0 SEO field
+  differences, sitemap 661 = 661, robots.txt identical, only live data differs. Read-only checks on production:
+  the eleven /api/cron routes, /api/qotd/publish and /api/admin/auto-select-qotd answer 401 without the secret
+  and with only `x-vercel-cron: 1`; POST /api/blind-test/play answers 410. No job was run.
+  Rollback target if needed: `dpl_AiKBeREqmsz9hKJZk5tt1yMCwk4L` (09ae1a1), then `vercel promote`.
+- Export before the RLS step (read only, 2026-10-01 evening): `~/kpq-backups/2026-10-01-rls/`: battles 2578,
+  battle_results 3063, pending_questions 36, quiz_bank 100, quiz_time_stats 2215 (2213 this morning: the play
+  route keeps writing the cache through the service role), ranked_plays 0, plays 69349, quizzes 441.
+- `docs/release/apply/09-r1-rls-tighten.sql`: the file verbatim + one verification grid; dry-run on the throwaway
+  PostgreSQL after resetting the six policies and the PUBLIC grant to the production state: 5 SELECT policies
+  left, 0 write policy, 6 of 6 RLS on, ensure_daily_quiz executable by the owner role and service_role only.
+- **Verification of the eight files (owner's paste of r1-migrations-verify.sql, 2026-10-01 evening): 34 rows, every
+  value equals its expected text.** plays 69350, quizzes 441, quiz_comments 17, notification_prefs 3: no existing
+  table lost a row. get_quiz_rank_for_score: invoker, executable by anon and authenticated (as designed);
+  quiz_comment_like_counts and notify_group_quiz_alerts: definer; the two triggers are on quizzes; the eight
+  ranked functions are executable by postgres and service_role only; ranked_seasons 0 (ranked stays not live).
+- **Six-table inventory (owner's paste, taken BEFORE file 9):** RLS on for the six tables; policies exactly the
+  ones the file names (battle_results_insert_all + _select_all, battles_insert_all + _select_all,
+  pending_questions_insert_all + _select_all, quizbank_admin_all ALL, quiz_time_stats_read_all +
+  _write_all ALL, ranked_plays_insert + _select), all to {public}; one trigger: trg_passport_on_battle_result
+  (AFTER INSERT on battle_results, function definer); two functions write the tables: ensure_daily_quiz (definer,
+  search_path=public, EXECUTE to PUBLIC) and ranked_finalize_run (INVOKER, postgres + service_role only). Nothing
+  unexpected: the header of r1-rls-tighten.sql holds.
+- **r1-rls-tighten.sql APPLIED by the owner (2026-10-01, between 19:00 and 19:50 UTC), before R1's green light on
+  the inventory; R1 checked the inventory afterwards and it would have been a go. `go rls` is recorded as
+  given.** Grid of bundle 09 (owner's paste): five policies left, all SELECT (battle_results_select_all,
+  battles_select_all, pending_questions_select_all, quiz_time_stats_read_all, ranked_plays_select); 0 write
+  policy; RLS on 6 of 6; ensure_daily_quiz executable by postgres and service_role only; rows 2578 / 3063 / 36 /
+  100 / 2215 / 0, the numbers of the export. Independent read-only check by R1 through the REST API (19:54 UTC):
+  anon sees 0 row of quiz_bank (service role: 100), anon still reads the five other tables, counts unchanged.
+- Watch after file 9 (19:54 to 20:22 UTC, more than 30 minutes after it was applied): no 5xx response and no
+  error-level log in production (3000 log lines read between 19:27 and 20:02: 2981 x 200, 18 x 301, one line
+  without status); row counts of the six tables unchanged. Each timed play since PR #88 has its quiz_time_stats
+  write in the same second (17:43, 18:07, 18:24, 19:11 UTC), through the service role, which RLS does not apply
+  to. Traffic was low: no play between 19:11 and 20:22 UTC, so no play is known to have happened after the file;
+  the owner was asked to play one quiz to the end so R1 can see its row and its timing write.
+- Crons and the secret, checked without waiting for the night: `vercel crons list` shows the 12 jobs;
+  `vercel crons run /api/ranked/cron/nightly` at 20:14:27 UTC answered **200** in the production logs. With the
+  flag off that route answers 404 to an unauthorized caller and 200 `{ ok: true, skipped: "flag_off" }` to an
+  authorized one, before any database access, so nothing was written: Vercel does send
+  `Authorization: Bearer CRON_SECRET`, and the eleven other cron routes use the same check. None of the ten older
+  jobs was triggered.
+
+## Section 5 (2026-10-01)
+
+- 20:23 UTC: `QOTD_ROTATION_FIX=1` (non-sensitive) and `UX_P4_CHALLENGE_SECRET` (sensitive, 32 random bytes piped
+  from openssl into `vercel env add`, never displayed or stored) added for Production. `CRON_SECRET` exists for
+  Production. `NEXT_PUBLIC_UX_V1` is absent from Production (it exists only for Preview, branch feat/ux-v1-v11).
+- Production redeploy of `kpopquiz-73kjewlsm` (4cc1904) started at 20:24 UTC with `vercel redeploy --target
+  production`. Rollback target: `dpl_3CrTh9ucevigc2iCVWuWwcSsmUMy`, then `vercel promote`.
+- What QOTD_ROTATION_FIX changes: from the next run of /api/cron/ensure-daily-quiz (00:05 UTC) a day with no bank
+  row dated exactly that day is filled (next open bank row pulled to the day, else a catalog pick logged in
+  qotd_log), so the home's quiz of the day changes daily again (it has been frozen since 2026-06-30).
+
+- Order after `go migrations`, one file at a time with its check queries:
+  1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
+  4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
+  7 `v11-p10-header-storage.sql` 8 `v11-p7-ranked.sql`.
+- Then, separately: the result of `docs/release/r1-rls-inventory.sql`, checked against the header of
+  `r1-rls-tighten.sql`, then `go rls`, then 9 `r1-rls-tighten.sql` (the F3 code is live since 09ae1a1).
+- `r1-ranked-season1.sql`: written, NOT applied in this run (the day the flag goes on).
 
 ## Decisions and notes
 
 - Normalized, not failures: hashed `/_next/static` paths, build id, `self.__next_f` order, timestamps, sitemap
   lastmod, live counters, the quiz of the day.
 
-NEXT ACTION: the PR of `r1/fixes` into main is open: wait for its checks (a red check on a Supabase timeout:
-`gh run rerun <id> --failed` once; any other red: stop, report), then `gh pr merge <n> --merge`, wait for the
-production deployment, snapshot `after-fixes.json` and compare with `after-merge.json` (expected: F4, F5, live
-counters). Then section 4: `node docs/release/export-tables.mjs ~/kpq-backups/2026-10-01`, ask the owner to
-confirm today's Supabase backup and to run `docs/release/r1-migrations-preflight.sql`, present the eight files,
-wait for `go migrations`. No SQL access from this session: the owner pastes each file and answers "applied <file>".
+Second PR: #89, branch `r1/fixes-2` (4 commits: 2818266 cron secret on the ten scheduled routes +
+/api/qotd/publish + /api/admin/auto-select-qotd; 9400f95 /api/blind-test/play answers 410; e385be0 challenge
+attempt writes battle_results with the service role, r1-rls-tighten.sql covers six tables and revokes EXECUTE
+on ensure_daily_quiz from PUBLIC / anon / authenticated; fb97d55 handler test of /api/qotd/publish: secret or
+admin session, nothing else, on the owner's remark that /admin/quiz-bank calls it from the browser; the same
+admin door is kept on pulse-generate, mv-snapshot, spotify-snapshot, called by /admin/pulse and
+/admin/industry). Checks before the push: tsc 0, vitest 993 / 993; flag-off build green, local snapshot vs
+production: live counters only; the 13 protected routes answer 401 without the secret and with only
+x-vercel-cron: 1, /api/blind-test/play answers 410 (local, no job run); flag-on build green, v11 specs p4 +
+shell at 1440 and 390: 109 passed, 14 skipped, 0 failed. r1-rls-tighten.sql dry-run locally: five SELECT
+policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
+- Redeploy READY at 20:26 UTC: `dpl_7uGfKk6KaMEgVSdgLNCXLp66C9zk` (`kpopquiz-opzhn9veb`), `kpopquiz.org` serves it.
+  `after-env.json` vs production one minute before: 0 SEO field differences, sitemap 661 = 661, robots.txt
+  identical, live data only. Flag still off: no `ux-v1` class on the home, /community answers 301 to the home,
+  /blindtest/ranked answers 404, a cron route without the secret answers 401.
+- Watch 20:26 to 20:57 UTC: no 5xx response, no error-level log. **Two plays were recorded at 20:27:33 and
+  20:29:21 UTC, after r1-rls-tighten.sql and after the redeploy, each with its quiz_time_stats write in the same
+  second (20:27:33, 20:29:22):** the play path and the timing cache work with no public write policy.
+- The throwaway PostgreSQL was stopped and its data deleted; the three `kpopquiz-r1-*` entries were removed from
+  the launch file of the Bloom folder; no local server is left running; the e2e session file was deleted after
+  each spec run.
+
+NEXT ACTION: none for R1 once the docs PR `r1/report` is merged. For the owner: section 6 of
+`docs/release/R1-REPORT.md` (the test account's email first). If asked on 2026-10-02: check that `qotd_log` and
+`daily_debates` each hold a row dated 2026-10-02 (the 00:05 and 00:10 UTC crons ran with the secret). The V12
+run starts from `origin/main` (see `docs/design/growth-v12/LAUNCH.md`); production runs with v11 off, so v12 is
+off there too.

@@ -1,3 +1,8 @@
+-- R1 apply bundle 06 of 8: v11-p10-email-prefs.sql, verbatim, followed by a read-only verification.
+-- Paste the whole text in the Supabase SQL editor (project rdkgouofytwfdpbxbzio) and Run.
+-- The result grid is the verification: columns check / value / expected.
+-- ============================================================================
+
 -- v11 P10 - Settings > Notifications: the two email switches of the prototype
 -- ("Streak reminder by email", "Weekly recap by email"). OWNER-RUN, not applied.
 --
@@ -36,3 +41,13 @@ comment on column public.notification_prefs.email_weekly_recap is
 --   alter table public.notification_prefs
 --     drop column if exists email_streak_reminder,
 --     drop column if exists email_weekly_recap;
+
+-- ============================================================================
+-- R1 verification (read only). Its rows are what the editor shows after Run.
+-- ============================================================================
+select 1 as n, 'notification_prefs columns' as "check", ((select coalesce(string_agg(column_name || ' ' || data_type || ' default ' || coalesce(column_default, 'none') || ' nullable ' || is_nullable, '; ' order by column_name), 'MISSING') from information_schema.columns where table_schema = 'public' and table_name = 'notification_prefs' and column_name in ('email_streak_reminder', 'email_weekly_recap')))::text as value, 'email_streak_reminder boolean default false nullable NO; email_weekly_recap boolean default false nullable NO' as expected
+union all
+select 2, 'rows (unchanged)', (select count(*) from public.notification_prefs)::text, '3'
+union all
+select 3, 'rows with an email switch on', (select count(*) from public.notification_prefs where email_streak_reminder or email_weekly_recap)::text, '0'
+order by 1;
