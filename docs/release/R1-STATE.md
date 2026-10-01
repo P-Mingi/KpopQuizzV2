@@ -178,10 +178,23 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
 - Normalized, not failures: hashed `/_next/static` paths, build id, `self.__next_f` order, timestamps, sitemap
   lastmod, live counters, the quiz of the day.
 
-NEXT ACTION: (a) when the owner pastes the eight verification grids: check each against its expected column,
-record "applied" per file here. (b) Meanwhile, on a new branch `r1/fixes-2` from origin/main: battle_results
-writer (/api/ux-v1/p4/challenge/[id]/attempt, /api/claim-runs if it writes) to the service role; POST
-/api/blind-test/play answers 410; the ten existing cron routes use `isCronAuthorized` (Bearer CRON_SECRET only);
-tests; tsc; then, only after the migrations are applied and when nothing builds: push, PR, green checks, merge,
-production snapshot. (c) Then the updated inventory (six tables) for the owner, `go rls`, and
-`docs/release/apply/09-r1-rls-tighten.sql`. Then section 5 (env vars, redeploy, after-env.json), section 6.
+Second PR prepared, NOT pushed (branch `r1/fixes-2`, from origin/main 09ae1a1; 3 commits: 2818266 cron
+secret on the ten scheduled routes + /api/qotd/publish + /api/admin/auto-select-qotd; 9400f95
+/api/blind-test/play answers 410; e385be0 challenge attempt writes battle_results with the service role,
+r1-rls-tighten.sql covers six tables and revokes EXECUTE on ensure_daily_quiz from PUBLIC / anon /
+authenticated, inventory and export script cover the two tables). tsc 0, vitest 985 / 985. r1-rls-tighten.sql
+dry-run on the throwaway PostgreSQL (127.0.0.1:54329, data in the session scratchpad, to stop at the end):
+five SELECT policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
+ensure_daily_quiz callers checked: /api/cron/ensure-daily-quiz (createServiceRoleClient), /api/qotd/publish
+(client built with SUPABASE_SERVICE_ROLE_KEY), lib/ux-v1/p1/qotd-rotation.ts (handed one of those clients).
+
+NEXT ACTION: (a) the owner applies `docs/release/apply/01..08` and pastes the eight grids: check each against
+its expected column, record "applied" per file here. (b) Then, when nothing builds: `git switch r1/fixes-2`,
+flag-off build (`VERSE_PUBLIC=false pnpm build`), local snapshot vs production (expected: no difference but
+live data), flag-on build, v11 specs p4 + shell at 1440 and 390, push, PR into main, green checks,
+`gh pr merge --merge`, production snapshot, read-only checks (the 12 routes answer 401 without the secret and
+with only x-vercel-cron: 1; POST /api/blind-test/play answers 410). (c) Then regenerate bundle 09
+(`docs/release/apply/09-r1-rls-tighten.sql` = the file + nothing else, its verifications are inside), export
+battle_results and pending_questions, give the owner the six-table inventory, wait for `go rls`. (d) After the
+crons of the night (00:05 UTC onwards) check the Vercel logs: every /api/cron route must answer 200, not 401
+(they now need the Bearer secret Vercel sends). Then section 5 (env vars, redeploy, after-env.json), section 6.
