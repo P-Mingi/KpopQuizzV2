@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { validatePresentation } from '@/lib/verse/presentation/validate';
@@ -22,6 +23,8 @@ async function curator(groupId: number): Promise<string | null> {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
 

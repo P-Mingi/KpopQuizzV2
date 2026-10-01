@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { fieldDef, isEditableField, validateFieldValue } from '@/lib/verse/fields';
 import { canEditEntity } from '@/lib/verse/curate';
@@ -13,6 +14,8 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });

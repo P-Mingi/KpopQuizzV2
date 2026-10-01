@@ -40,3 +40,31 @@ describe('F5: no link to the two listing URLs that never existed', () => {
     expect(home).toContain('<Link href="/most-liked" style={SEE_ALL}>');
   });
 });
+
+describe('F3: tables without a public write policy are written by the server only', () => {
+  it('the challenge route inserts its battles row with the service role', () => {
+    const route = files.find((f) => f.path === 'app/api/ux-v1/p4/challenge/route.ts')!.text;
+    expect(route).toMatch(/await createServiceRoleClient\(\)\s*\.from\('battles'\)\s*\.insert\(/);
+    expect(route).not.toMatch(/await auth\s*\.from\('battles'\)/);
+  });
+
+  it('quiz_time_stats is written only through lib/quiz/time-stats.ts, with the service client', () => {
+    const writers = files.filter((f) => /from\('quiz_time_stats'\)\s*\.(insert|update|upsert|delete)\(/.test(f.text)).map((f) => f.path);
+    expect(writers).toEqual(['lib/quiz/time-stats.ts']);
+    const play = files.find((f) => f.path === 'app/api/quiz/[id]/play/route.ts')!.text;
+    expect(play).toContain('await recordTimeSample(admin, id, sample)');
+  });
+
+  it('no browser code touches the four tables', () => {
+    const tables = /from\('(ranked_plays|battles|quiz_bank|quiz_time_stats)'\)/;
+    const clientFiles = files.filter((f) => /^['"]use client['"]/.test(f.text.trimStart()) && tables.test(f.text)).map((f) => f.path);
+    expect(clientFiles).toEqual([]);
+  });
+
+  it('every quiz_bank and ranked_plays access is service-role or admin code', () => {
+    const users = files.filter((f) => /from\('(quiz_bank|ranked_plays)'\)/.test(f.text));
+    for (const f of users) {
+      expect(/createServiceRoleClient|SUPABASE_SERVICE_ROLE_KEY|QotdStore|SupabaseClient/.test(f.text), f.path).toBe(true);
+    }
+  });
+});

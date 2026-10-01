@@ -6,6 +6,7 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
 import { checkTierBadges } from '@/lib/badges/award';
+import { recordTimeSample, timeSample } from '@/lib/quiz/time-stats';
 
 import type { NextRequest } from 'next/server';
 
@@ -187,45 +188,10 @@ export async function POST(
         .eq('id', result?.play_id);
     }
 
-    // Update time stats cache
-    const timeTaken = typeof time_taken_seconds === 'number' ? time_taken_seconds : null;
-    if (timeTaken && timeTaken > 0) {
-      try {
-        const { data: existing } = await supabase
-          .from('quiz_time_stats')
-          .select('*')
-          .eq('quiz_id', id)
-          .eq('score', score)
-          .eq('total_questions', total_questions)
-          .single();
-
-        if (existing) {
-          const newCount = (existing.attempt_count as number) + 1;
-          const oldAvg = existing.avg_time_seconds as number;
-          const newAvg = ((oldAvg * (existing.attempt_count as number)) + timeTaken) / newCount;
-          const oldFastest = existing.fastest_time_seconds as number | null;
-          const newFastest = oldFastest !== null ? Math.min(oldFastest, timeTaken) : timeTaken;
-
-          await supabase.from('quiz_time_stats').update({
-            attempt_count: newCount,
-            avg_time_seconds: Math.round(newAvg * 10) / 10,
-            fastest_time_seconds: Math.round(newFastest * 10) / 10,
-            updated_at: new Date().toISOString(),
-          }).eq('id', existing.id);
-        } else {
-          await supabase.from('quiz_time_stats').insert({
-            quiz_id: id,
-            score: score as number,
-            total_questions: total_questions as number,
-            attempt_count: 1,
-            avg_time_seconds: Math.round(timeTaken * 10) / 10,
-            fastest_time_seconds: Math.round(timeTaken * 10) / 10,
-          });
-        }
-      } catch {
-        // Non-critical - don't fail the play save
-      }
-    }
+    // Update time stats cache. Written with the service role after validation: the
+    // table has no public write policy (r1-rls-tighten.sql).
+    const sample = timeSample(score, total_questions, time_taken_seconds);
+    if (sample) await recordTimeSample(admin, id, sample);
 
     // Compute pass rate
     let passRate: number | null = null;

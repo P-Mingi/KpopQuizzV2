@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getDiscussions, getThreadComments } from '@/lib/verse/discussions';
 import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
@@ -27,6 +28,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   let entity_type = String(body.entity_type ?? '');
@@ -85,6 +88,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const id = Number(body.id);

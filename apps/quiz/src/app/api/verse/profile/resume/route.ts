@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getProfileVisibility, setSectionVisibility, PROFILE_SECTIONS } from '@/lib/verse/profile-visibility';
 import { deriveProfileStats } from '@/lib/verse/profile-stats';
@@ -38,6 +39,8 @@ export async function GET(): Promise<NextResponse> {
 }
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });

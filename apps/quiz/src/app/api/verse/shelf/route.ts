@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getShelf, resolveShelfCards, SHELF_CAP } from '@/lib/verse/shelf';
 
@@ -21,6 +22,8 @@ export async function GET(): Promise<NextResponse> {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const itemType = String(body.item_type ?? '');
@@ -63,6 +66,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   if (typeof body.is_public !== 'boolean') return NextResponse.json({ error: 'bad_params' }, { status: 400 });

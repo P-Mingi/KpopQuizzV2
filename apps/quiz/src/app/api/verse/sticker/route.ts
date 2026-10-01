@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import sharp from 'sharp';
 
+import { verseSpaceGate, verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 
@@ -22,11 +23,16 @@ async function curator(groupId: number): Promise<string | null> {
 }
 
 export async function POST(req: Request): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const form = await req.formData();
   const groupId = Number(form.get('group_id'));
   const file = form.get('file') as File | null;
   const attest = String(form.get('attest') ?? '') === 'true';
   if (!groupId || !file) return NextResponse.json({ error: 'A group and a file are required.' }, { status: 400 });
+  // A multipart body is not read by verseWriteGate: gate the space named in the form.
+  const parkedSpace = await verseSpaceGate(groupId);
+  if (parkedSpace) return parkedSpace;
 
   const uid = await curator(groupId);
   if (!uid) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
@@ -72,6 +78,8 @@ export async function POST(req: Request): Promise<NextResponse> {
 }
 
 export async function DELETE(req: Request): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const id = Number(new URL(req.url).searchParams.get('id'));
   if (!id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   const svc = createServiceRoleClient();

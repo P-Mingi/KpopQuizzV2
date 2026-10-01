@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { ensureTag, listTags, attachTag, detachTag, mergeTags, renameTag } from '@/lib/verse/tree/tags';
@@ -26,6 +27,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
   const groupId = Number(body.group_id ?? 0);
   const g = await gate(groupId);
