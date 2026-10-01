@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **3 done (fixes live in production). 4 (database): exports done, waiting for the owner (backup confirmed, preflight result, `go migrations`).** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **4 (database): `go migrations` given 2026-10-01; the owner applies the eight bundles; a second small PR (extra authorizations) is prepared meanwhile.** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -141,8 +141,30 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
 - 4a done 2026-10-01: read-only export through the REST API (`docs/release/export-tables.mjs`) to
   `~/kpq-backups/2026-10-01/` (outside the repo): plays 69266 rows, quizzes 441, battles 2578, quiz_bank 100,
   quiz_time_stats 2213, notification_prefs 3, ranked_plays 0. Each CSV re-parsed: row counts match.
-- Waiting for the owner: (1) today's Supabase backup exists (Dashboard, Database, Backups); (2) the result of
-  `docs/release/r1-migrations-preflight.sql` (expected: only "rows" lines); (3) `go migrations`.
+- Owner, 2026-10-01 (in chat): today's Supabase backup exists (01 Oct 2026 01:33 UTC). Preflight result
+  (screenshot of the SQL editor): only "rows" lines, nothing the files create exists yet: plays 69347, quizzes 441,
+  notification_prefs 3, creator_notifications 1253, ranked_plays 0, bt_players 0. **`go migrations` given.**
+- RLS inventory result (pasted by the owner): the four tables have RLS on (not forced); policies exactly as the
+  migrations wrote them (battles_insert_all INSERT + battles_select_all SELECT; quizbank_admin_all ALL;
+  quiz_time_stats_read_all SELECT + quiz_time_stats_write_all ALL; ranked_plays_insert INSERT +
+  ranked_plays_select SELECT, all to {public}); anon and authenticated hold INSERT, UPDATE, DELETE, TRUNCATE
+  table grants (Supabase defaults; RLS is the only door); no trigger on the four tables; one function writes
+  them: ensure_daily_quiz(p_date text), definer, search_path=public, **EXECUTE still granted to PUBLIC** (081 /
+  082 revoked it from anon and authenticated only, which PUBLIC still covers). The header of
+  r1-rls-tighten.sql matches; the PUBLIC grant is closed by extra authorization 4 below.
+- Extra authorizations from the owner (2026-10-01, in chat, "dans le meme cadre que la section 0"):
+  1. add `battle_results` and `pending_questions` to the inventory and to r1-rls-tighten.sql, same method as battles;
+  2. remove `/api/blind-test/play` or make it answer 410;
+  3. make the ten existing cron routes check CRON_SECRET, without triggering any in production;
+  4. in r1-rls-tighten.sql, revoke EXECUTE on ensure_daily_quiz from PUBLIC, anon, authenticated (keep
+     service_role), after checking its cron calls it with the service key.
+  2 and 3 go in a small PR after the migrations and before `go rls`, one build at a time. (The writer of
+  battle_results moves to the service role in the same PR: the policy cannot be dropped before that is live.)
+- How the files are applied: `docs/release/apply/NN-<file>` = the migration file verbatim followed by a
+  read-only verification query whose grid shows check / value / expected. The eight bundles were dry-run on a
+  throwaway local PostgreSQL 18 with a stub schema (all green), and the columns the files read were checked
+  to exist in production through the REST API (read only). The owner runs them in order, one at a time, stops
+  at the first error or mismatch, and pastes the grids.
 - Order after `go migrations`, one file at a time with its check queries:
   1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
   4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
@@ -156,10 +178,10 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
 - Normalized, not failures: hashed `/_next/static` paths, build id, `self.__next_f` order, timestamps, sitemap
   lastmod, live counters, the quiz of the day.
 
-NEXT ACTION: wait for the owner's answers of section 4 (backup confirmed, preflight result, `go migrations`).
-Then give the files one at a time (`pbcopy < docs/pending-migrations/<file>`), wait for "applied <file>" and the
-output of its check queries, record each in this file. Then the RLS inventory, `go rls`, file 9. Then section 5:
-`vercel env add QOTD_ROTATION_FIX production` (value 1), `UX_P4_CHALLENGE_SECRET` = 32 random bytes piped in,
-never shown; CRON_SECRET exists; redeploy production (`vercel redeploy` of the current production deployment or
-`vercel --prod`), snapshot `after-env.json`, watch runtime errors 30 minutes. Never touch NEXT_PUBLIC_UX_V1. Then
-section 6: R1-REPORT.md, final R1-STATE (DONE), snapshots, PR `r1/report` into main, merge when green.
+NEXT ACTION: (a) when the owner pastes the eight verification grids: check each against its expected column,
+record "applied" per file here. (b) Meanwhile, on a new branch `r1/fixes-2` from origin/main: battle_results
+writer (/api/ux-v1/p4/challenge/[id]/attempt, /api/claim-runs if it writes) to the service role; POST
+/api/blind-test/play answers 410; the ten existing cron routes use `isCronAuthorized` (Bearer CRON_SECRET only);
+tests; tsc; then, only after the migrations are applied and when nothing builds: push, PR, green checks, merge,
+production snapshot. (c) Then the updated inventory (six tables) for the owner, `go rls`, and
+`docs/release/apply/09-r1-rls-tighten.sql`. Then section 5 (env vars, redeploy, after-env.json), section 6.
