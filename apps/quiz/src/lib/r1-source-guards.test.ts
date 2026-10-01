@@ -90,3 +90,37 @@ describe('F10: season rewards stay hidden until they exist', () => {
     expect(files.filter((f) => /^(lib\/ranked|app\/api\/ranked)\//.test(f.path) && /award_xp|awardXp|awardSpaceXp/.test(f.text)).map((f) => f.path)).toEqual([]);
   });
 });
+
+describe('R1 second pass: retired route, cron secret, battle_results writer', () => {
+  it('/api/blind-test/play answers 410 and touches neither the database nor XP', () => {
+    const route = files.find((f) => f.path === 'app/api/blind-test/play/route.ts')!.text;
+    expect(route).toMatch(/status: 410/);
+    expect(route).not.toMatch(/supabase|award_xp|\.from\(|request\.json/);
+    expect(filesWith(/fetch\(\s*['"`]\/api\/blind-test\/play/)).toEqual([]);
+  });
+
+  it('no route treats the x-vercel-cron header as a credential', () => {
+    expect(files.filter((f) => f.path.startsWith('app/') && /x-vercel-cron|isVercelCron/.test(f.text)).map((f) => f.path)).toEqual([]);
+  });
+
+  it('every scheduled route, and every route that reads CRON_SECRET, goes through isCronAuthorized', () => {
+    const cronRoutes = files.filter((f) => /^app\/api\/(cron\/[^/]+|ranked\/cron\/[^/]+)\/route\.ts$/.test(f.path));
+    expect(cronRoutes.length).toBeGreaterThanOrEqual(12);
+    for (const f of cronRoutes) expect(f.text, f.path).toContain('isCronAuthorized(req)');
+    const readsSecret = files.filter((f) => f.path.startsWith('app/') && /CRON_SECRET/.test(f.text) && !/isCronAuthorized\(req\)/.test(f.text)).map((f) => f.path);
+    expect(readsSecret).toEqual([]);
+  });
+
+  it('the challenge attempt route inserts battle_results with the service role', () => {
+    const route = files.find((f) => f.path === 'app/api/ux-v1/p4/challenge/[id]/attempt/route.ts')!.text;
+    expect(route).toMatch(/await createServiceRoleClient\(\)\.from\('battle_results'\)\.insert\(/);
+    expect(route).not.toMatch(/await auth\.from\('battle_results'\)/);
+    expect(route).toContain('user_id: user?.id ?? null');
+  });
+
+  it('battle_results and pending_questions are written by server code on the service role only', () => {
+    const writers = files.filter((f) => /from\('(battle_results|pending_questions)'\)\s*\.(insert|update|upsert|delete)\(/.test(f.text));
+    expect(writers.map((f) => f.path).sort()).toEqual(['app/api/claim-runs/route.ts', 'app/api/ux-v1/p4/challenge/[id]/attempt/route.ts']);
+    for (const f of writers) expect(f.text, f.path).toContain('createServiceRoleClient');
+  });
+});
