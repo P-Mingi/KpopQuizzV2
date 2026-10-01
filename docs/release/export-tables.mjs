@@ -20,6 +20,8 @@ const TABLES = {
   ranked_plays: 'id',          // v11-p7-ranked.sql adds two columns; r1-rls-tighten.sql drops a policy
   quizzes: 'id',               // v11-p3-group-quiz-alerts.sql adds a trigger on publish
   battles: 'id',               // r1-rls-tighten.sql drops a policy
+  battle_results: 'id',        // r1-rls-tighten.sql drops a policy
+  pending_questions: 'id',     // r1-rls-tighten.sql drops a policy
   quiz_bank: 'id',             // r1-rls-tighten.sql drops a policy
   quiz_time_stats: 'id',       // r1-rls-tighten.sql drops a policy
 };

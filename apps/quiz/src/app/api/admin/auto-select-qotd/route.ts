@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { isCronAuthorized } from '@/lib/cron-auth';
 
 export async function POST(req: Request): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const authHeader = req.headers.get('authorization');
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
 
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

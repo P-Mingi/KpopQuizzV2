@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
+import { isCronAuthorized } from '@/lib/cron-auth';
 
 /**
  * SEO indexguard PART 2 - weekly PROD indexability monitor.
@@ -74,12 +75,8 @@ function checkPage(path: string, page: { status: number; html: string; xRobots: 
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const cronSecret = process.env.CRON_SECRET;
-  const isVercelCron = req.headers.get('x-vercel-cron') === '1';
-  const authHeader = req.headers.get('authorization');
-  const isManualAuth = cronSecret && authHeader === `Bearer ${cronSecret}`;
 
-  if (!isVercelCron && !isManualAuth) {
+  if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

@@ -1,10 +1,10 @@
--- R1 F3: READ-ONLY inventory of everything that can write to the four tables whose
+-- R1 F3: READ-ONLY inventory of everything that can write to the six tables whose
 -- public write policies r1-rls-tighten.sql drops. Run it in the Supabase SQL editor
 -- (project rdkgouofytwfdpbxbzio) BEFORE "go rls" and paste the result to R1: the
 -- repository's migrations say what should be there, this says what is.
 -- It changes nothing (SELECT on the catalogs only).
 
-with t(name) as (values ('ranked_plays'), ('battles'), ('quiz_bank'), ('quiz_time_stats'))
+with t(name) as (values ('ranked_plays'), ('battles'), ('battle_results'), ('pending_questions'), ('quiz_bank'), ('quiz_time_stats'))
 select 1 as ord, 'table' as kind, c.relname::text as object, ''::text as name,
        case when c.relrowsecurity then 'rls on' else 'RLS OFF' end as detail,
        case when c.relforcerowsecurity then 'forced' else 'not forced' end as extra,
@@ -41,5 +41,5 @@ select 5, 'function that writes', f.proname::text, pg_get_function_identity_argu
                    and rp.privilege_type = 'EXECUTE'), 'no grantee')::text
 from pg_proc f join pg_namespace n on n.oid = f.pronamespace
 where n.nspname = 'public'
-  and f.prosrc ~* '(insert\s+into|update|delete\s+from)\s+(public\.)?(ranked_plays|battles|quiz_bank|quiz_time_stats)\M'
+  and f.prosrc ~* '(insert\s+into|update|delete\s+from)\s+(public\.)?(ranked_plays|battles|battle_results|pending_questions|quiz_bank|quiz_time_stats)\M'
 order by 1, 3, 4;
