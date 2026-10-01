@@ -2,6 +2,13 @@
   "regions": [
     "dub1"
   ],
+  "git": {
+    "deploymentEnabled": {
+      "ux11/*": false,
+      "w3/*": false,
+      "v12/*": false
+    }
+  },
   "crons": [
     {
       "path": "/api/cron/ensure-daily-quiz",
