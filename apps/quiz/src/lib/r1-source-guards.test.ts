@@ -26,3 +26,17 @@ describe('F4: leaderboards show real accounts only', () => {
     expect(page).toMatch(/<LeaderboardTabs weekly=\{weekly\}/);
   });
 });
+
+describe('F5: no link to the two listing URLs that never existed', () => {
+  it('nothing links /quizzes/new or /quizzes/most-liked (the pages are /new and /most-liked)', () => {
+    expect(filesWith(/["'`]\/quizzes\/(new|most-liked)["'`?#/]/)).toEqual([]);
+    expect(existsSync(join(src, 'app/(site)/new/page.tsx'))).toBe(true);
+    expect(existsSync(join(src, 'app/(site)/most-liked/page.tsx'))).toBe(true);
+  });
+
+  it('the home "See all" links point at the real pages', () => {
+    const home = files.find((f) => f.path === 'app/(site)/page.tsx')!.text;
+    expect(home).toContain('<Link href="/new" style={SEE_ALL}>');
+    expect(home).toContain('<Link href="/most-liked" style={SEE_ALL}>');
+  });
+});

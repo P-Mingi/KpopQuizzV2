@@ -154,7 +154,7 @@ async function NewQuizzesSection(): Promise<React.ReactElement> {
     <section className="home-section home-section-tight">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>New quizzes</p>
-        <Link href="/quizzes/new" style={SEE_ALL}>See all &#8594;</Link>
+        <Link href="/new" style={SEE_ALL}>See all &#8594;</Link>
       </div>
       <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
@@ -184,7 +184,7 @@ async function AllTimeBestSection(): Promise<React.ReactElement> {
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>All-time best</p>
-        <Link href="/quizzes/most-liked" style={SEE_ALL}>See all &#8594;</Link>
+        <Link href="/most-liked" style={SEE_ALL}>See all &#8594;</Link>
       </div>
       <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
