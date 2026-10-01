@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **4 done: the eight v11 files and r1-rls-tighten.sql are applied and verified. 30 minute watch of the write paths running; then section 5 (env vars), section 6 (report).** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **5 (env vars): the two production variables are set, production is being redeployed; then after-env snapshot, 30 minute watch, section 6 (report).** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -207,9 +207,30 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
   policy; RLS on 6 of 6; ensure_daily_quiz executable by postgres and service_role only; rows 2578 / 3063 / 36 /
   100 / 2215 / 0, the numbers of the export. Independent read-only check by R1 through the REST API (19:54 UTC):
   anon sees 0 row of quiz_bank (service role: 100), anon still reads the five other tables, counts unchanged.
-- Watch after file 9: no 5xx and no error-level log in production over the last 90 minutes (19:55 UTC). Each timed
-  play since PR #88 has its quiz_time_stats write in the same second (17:43, 18:07, 18:24, 19:11 UTC), through
-  the service role, which RLS does not apply to. Traffic is low this evening: last play 19:11 UTC.
+- Watch after file 9 (19:54 to 20:22 UTC, more than 30 minutes after it was applied): no 5xx response and no
+  error-level log in production (3000 log lines read between 19:27 and 20:02: 2981 x 200, 18 x 301, one line
+  without status); row counts of the six tables unchanged. Each timed play since PR #88 has its quiz_time_stats
+  write in the same second (17:43, 18:07, 18:24, 19:11 UTC), through the service role, which RLS does not apply
+  to. Traffic was low: no play between 19:11 and 20:22 UTC, so no play is known to have happened after the file;
+  the owner was asked to play one quiz to the end so R1 can see its row and its timing write.
+- Crons and the secret, checked without waiting for the night: `vercel crons list` shows the 12 jobs;
+  `vercel crons run /api/ranked/cron/nightly` at 20:14:27 UTC answered **200** in the production logs. With the
+  flag off that route answers 404 to an unauthorized caller and 200 `{ ok: true, skipped: "flag_off" }` to an
+  authorized one, before any database access, so nothing was written: Vercel does send
+  `Authorization: Bearer CRON_SECRET`, and the eleven other cron routes use the same check. None of the ten older
+  jobs was triggered.
+
+## Section 5 (2026-10-01)
+
+- 20:23 UTC: `QOTD_ROTATION_FIX=1` (non-sensitive) and `UX_P4_CHALLENGE_SECRET` (sensitive, 32 random bytes piped
+  from openssl into `vercel env add`, never displayed or stored) added for Production. `CRON_SECRET` exists for
+  Production. `NEXT_PUBLIC_UX_V1` is absent from Production (it exists only for Preview, branch feat/ux-v1-v11).
+- Production redeploy of `kpopquiz-73kjewlsm` (4cc1904) started at 20:24 UTC with `vercel redeploy --target
+  production`. Rollback target: `dpl_3CrTh9ucevigc2iCVWuWwcSsmUMy`, then `vercel promote`.
+- What QOTD_ROTATION_FIX changes: from the next run of /api/cron/ensure-daily-quiz (00:05 UTC) a day with no bank
+  row dated exactly that day is filled (next open bank row pulled to the day, else a catalog pick logged in
+  qotd_log), so the home's quiz of the day changes daily again (it has been frozen since 2026-06-30).
+
 - Order after `go migrations`, one file at a time with its check queries:
   1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
   4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
@@ -235,11 +256,10 @@ x-vercel-cron: 1, /api/blind-test/play answers 410 (local, no job run); flag-on 
 shell at 1440 and 390: 109 passed, 14 skipped, 0 failed. r1-rls-tighten.sql dry-run locally: five SELECT
 policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
 
-NEXT ACTION: finish the 30 minute watch (Vercel 5xx / error logs; a new play must still get its quiz_time_stats
-write). Then section 5: `vercel env add QOTD_ROTATION_FIX production` (value 1), `UX_P4_CHALLENGE_SECRET` = 32
-random bytes piped in, never shown; CRON_SECRET exists; never NEXT_PUBLIC_UX_V1; redeploy production; snapshot
-`after-env.json` (equal to after-fixes-2.json except live data and the quiz of the day); watch runtime errors 30
-minutes. After 00:05 UTC: the Vercel logs must show the /api/cron routes answering 200 (they need the Bearer
-secret now), ensure-daily-quiz first (it also proves ensure_daily_quiz still runs with the service role after
-the EXECUTE revoke). Then section 6: R1-REPORT.md, final R1-STATE (DONE, flag off), snapshots, PR `r1/report`
-into main, merge when green. Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata) at the end.
+NEXT ACTION: when the redeploy is READY: `vercel inspect kpopquiz.org`, snapshot
+`docs/release/snapshots/after-env.json`, compare with the snapshot taken one minute before (expected: live data
+only; the quiz of the day changes at 00:05 UTC, not now), watch runtime errors 30 minutes. Then section 6: fill
+R1-REPORT.md (STATUS_LINE, REPORT_PR_ROW, ENV_SECTION, CRON_NOTE), final R1-STATE (DONE, flag off), push
+`r1/report`, PR into main, merge when green. Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata).
+Tomorrow, if the owner asks: the quiz of the day for 2026-10-02 exists (qotd_log / quizzes.quiz_of_the_day_date)
+and daily_debates has 2026-10-02: proof the 00:05 and 00:10 UTC crons ran.
