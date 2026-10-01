@@ -158,7 +158,7 @@ for (const theme of THEMES) {
       await expect(page.locator('#p7-ladder-h')).toHaveCount(0); // min-gate: no ladder until live
       await expect(page.locator('details.p7-acc')).toHaveCount(6);
       await expect(page.locator('details.p7-acc').first()).toHaveAttribute('open', '');
-      await expect(page.locator('.p7-rew .ux-row')).toHaveCount(3);
+      await expect(page.locator('.p7-rew')).toHaveCount(0); // hidden until season rewards exist (SEASON_REWARDS_LIVE)
       // No invented number anywhere on the card.
       expect(await page.locator('.p7-card').innerText()).not.toMatch(/\d,\d{3}|#\d/);
       expect(await horizontalOverflow(page), 'no horizontal scroll').toBeLessThanOrEqual(0);

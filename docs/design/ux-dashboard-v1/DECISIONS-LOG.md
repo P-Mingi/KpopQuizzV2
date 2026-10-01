@@ -68,7 +68,7 @@ Finding: the site uses passwordless auth (Supabase email magic-link + OAuth Goog
 password. So `UX_V1_TEST_PASSWORD` is dropped from the contract - it cannot exist.
 
 Test fixture (owner-created, confirmed in auth.users):
-- username `testtest`, email `grigetaudumeu-6713@yopmail.com`, UID `d0bd5372-8890-4149-a0ab-a3ee3390b9e0`,
+- username `testtest`, email `(address removed, R1 2026-10: it is the value of UX_V1_TEST_EMAIL in Vercel and GitHub)`, UID `d0bd5372-8890-4149-a0ab-a3ee3390b9e0`,
   email confirmed. Data to compare: 2 plays, 1 badge, xp 20, following 1 (profiles.quizzes_played=2).
 
 New parity-e2e auth scheme (worker picks the cleaner of the two, least privilege first):
@@ -80,7 +80,7 @@ New parity-e2e auth scheme (worker picks the cleaner of the two, least privilege
    tokens, then sets the app's Supabase SSR auth cookies on the browser context. No password anywhere.
 Secrets/env (final):
 - `UX_V1_TEST_USER_ID = d0bd5372-8890-4149-a0ab-a3ee3390b9e0` and optionally
-  `UX_V1_TEST_EMAIL = grigetaudumeu-6713@yopmail.com` in Vercel (Preview) + GitHub Actions.
+  `UX_V1_TEST_EMAIL = (address removed, R1 2026-10: it is the value of UX_V1_TEST_EMAIL in Vercel and GitHub)` in Vercel (Preview) + GitHub Actions.
 - The Supabase service role key is only added to CI if option 2 is used; option 1 avoids it. The service
   role key is never written to git and never printed. `UX_V1_TEST_PASSWORD` is void.
 The parity spec keeps skipping cleanly until these env vars exist. This changes a contract detail

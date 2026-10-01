@@ -5,7 +5,6 @@ import {
 } from '@/lib/db/queries/profiles';
 import { LeaderboardTabs } from '@/app/(site)/leaderboard/leaderboard-tabs';
 import { safeFetch } from '@/lib/error-handling';
-import { padWeeklyLeaderboard } from '@/lib/weekly-leaderboard-padding';
 
 import type { Metadata } from 'next';
 
@@ -32,13 +31,12 @@ export const metadata: Metadata = {
 };
 
 export default async function PtLeaderboardPage(): Promise<React.ReactElement> {
-  const [weeklyRaw, allTime, topPlayers] = await Promise.all([
+  // Real rows only: an empty week shows the tabs' own empty state.
+  const [weekly, allTime, topPlayers] = await Promise.all([
     safeFetch(getTopCreatorsThisWeek(25), [], '[pt/leaderboard] getTopCreatorsThisWeek'),
     safeFetch(getTopCreatorsAllTime(25), [], '[pt/leaderboard] getTopCreatorsAllTime'),
     safeFetch(getTopPlayersByXp(25), [], '[pt/leaderboard] getTopPlayersByXp'),
   ]);
-
-  const weekly = padWeeklyLeaderboard(weeklyRaw, 6);
 
   return (
     <div style={{ paddingTop: 16, paddingBottom: 32 }}>

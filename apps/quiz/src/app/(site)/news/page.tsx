@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
@@ -400,7 +401,7 @@ export default async function NewsPage(): Promise<React.ReactElement> {
       {allItems.length > 0 && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(newsLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdString(newsLd) }}
         />
       )}
       {/* Header */}

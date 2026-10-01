@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseSpaceGate, verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { isAdmin } from '@/lib/admin';
@@ -25,12 +26,17 @@ async function authUser(): Promise<string | null> {
 }
 
 export async function POST(req: Request): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const form = await req.formData().catch(() => null);
   if (!form) return NextResponse.json({ error: 'Bad request.' }, { status: 400 });
   const groupId = Number(form.get('group_id'));
   const file = form.get('file') as File | null;
   const url = form.get('url') ? String(form.get('url')).trim() : '';
   if (!groupId) return NextResponse.json({ error: 'A space is required.' }, { status: 400 });
+  // A multipart body is not read by verseWriteGate: gate the space named in the form.
+  const parkedSpace = await verseSpaceGate(groupId);
+  if (parkedSpace) return parkedSpace;
 
   const uid = await authUser();
   if (!uid || !await canCurateSpace(uid, groupId)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
@@ -81,6 +87,8 @@ export async function POST(req: Request): Promise<NextResponse> {
 
 // moderate: hide (takedown, keep object) / unhide. Space curator OR global admin.
 export async function PATCH(req: Request): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const body = await req.json().catch(() => ({})) as { id?: number; action?: string };
   const id = Number(body.id);
   const action = String(body.action ?? '');
@@ -98,6 +106,8 @@ export async function PATCH(req: Request): Promise<NextResponse> {
 
 // remove: delete the storage object + mark removed. Space curator OR global admin.
 export async function DELETE(req: Request): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const id = Number(new URL(req.url).searchParams.get('id'));
   if (!id) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
   const svc = createServiceRoleClient();

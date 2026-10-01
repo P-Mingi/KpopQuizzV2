@@ -2,6 +2,13 @@
   "regions": [
     "dub1"
   ],
+  "git": {
+    "deploymentEnabled": {
+      "ux11/*": false,
+      "w3/*": false,
+      "v12/*": false
+    }
+  },
   "crons": [
     {
       "path": "/api/cron/ensure-daily-quiz",
@@ -42,6 +49,14 @@
     {
       "path": "/api/cron/seo-indexability",
       "schedule": "0 9 * * 0"
+    },
+    {
+      "path": "/api/cron/ensure-daily-debate",
+      "schedule": "10 0 * * *"
+    },
+    {
+      "path": "/api/ranked/cron/nightly",
+      "schedule": "20 0 * * *"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { SYSTEM_AUTHOR_DISPLAY } from '@/lib/verse/pages/data';
 import { canCurateEntity } from '@/lib/verse/curate';
@@ -39,6 +40,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 // POST { entity_type, entity_id, section, revision_id } -> restore that snapshot
 // as a new current revision (full rollback / undo-to-point). Admin (v1 reviewer).
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const serverClient = await createServerClient();
   const { data: { user } } = await serverClient.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });

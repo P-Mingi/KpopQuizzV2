@@ -36,7 +36,27 @@ const ALLOWED_EMAILS = new Set([
   // Published on the site itself: apps/quiz/src/app/contact/page.tsx renders it as the
   // support address, so it is already on every indexed copy of /contact.
   'hello@kpopquiz.org',
+  // The commit trailer of AI-assisted commits ("Co-Authored-By: ... <this address>"),
+  // quoted in run briefs and reports. A public no-reply address of a vendor, not ours.
+  'noreply@anthropic.com',
 ]);
+
+/**
+ * Placeholder addresses are not personal data: the domains RFC 2606 / 6761 reserve for
+ * documentation and tests (example.com / .org / .net, *.example, *.test, *.invalid,
+ * localhost). Unit-test output and API proofs quoted in reports are full of them.
+ */
+function isPlaceholderEmail(address: string): boolean {
+  const domain = address.toLowerCase().split('@')[1] ?? '';
+  return /^(.+\.)?example\.(com|org|net)$/.test(domain) || /\.(example|test|invalid)$/.test(domain) || domain === 'localhost';
+}
+
+/**
+ * Binary files tracked under docs/ (screenshots, design captures) are not text: read as
+ * UTF-8 their bytes produce address-shaped noise. They are skipped by extension, and any
+ * other file holding a NUL byte is skipped too.
+ */
+const BINARY_EXT = /\.(png|jpe?g|webp|gif|avif|ico|pdf|zip|gz|woff2?|ttf|otf|mp3|mp4|mov|webm)$/i;
 
 /** Value-shaped patterns. A hit is a failure. */
 const PATTERNS: { name: string; re: RegExp }[] = [
@@ -47,9 +67,17 @@ const PATTERNS: { name: string; re: RegExp }[] = [
   { name: 'GOOGLE-KEY', re: /\bAIza[A-Za-z0-9_-]{30,}\b/g },
   { name: 'BEARER-TOKEN', re: /Bearer\s+[A-Za-z0-9._-]{20,}/g },
   { name: 'DB-CONNECTION-STRING', re: /(?:postgres(?:ql)?|mongodb(?:\+srv)?):\/\/[^\s`'"]+/g },
-  { name: 'URL-WITH-CREDENTIALS', re: /https?:\/\/[^/\s:]+:[^@/\s]+@/g },
   { name: 'PRIVATE-KEY-BLOCK', re: /-----BEGIN [A-Z ]*PRIVATE KEY-----/g },
 ];
+
+/**
+ * user:password@host. The user and password parts exclude quotes, backslashes, braces,
+ * brackets and commas: without that, a JSON-LD dump (`"https://schema.org","@type":...`)
+ * read as credentials (37 false positives the day the v11 reports were merged). A URL
+ * whose HOST is a reserved placeholder domain (a unit test named
+ * `refuses "https://user:pw@example.com/..."`) is not a credential either.
+ */
+const URL_WITH_CREDENTIALS = /https?:\/\/[^/\s:@"'\\{}[\],]+:[^@/\s"'\\{}[\],]+@([A-Za-z0-9.-]+)/g;
 
 /**
  * Secret-ish words only fail when a credential-shaped value sits on the SAME LINE, so
@@ -94,12 +122,14 @@ function trackedDocs(root: string): string[] {
 }
 
 function scan(file: string): Finding[] {
+  if (BINARY_EXT.test(file)) return [];
   let body: string;
   try {
     body = readFileSync(file, 'utf8');
   } catch {
-    return []; // unreadable or binary: nothing to assert
+    return []; // unreadable: nothing to assert
   }
+  if (body.includes('\u0000')) return []; // binary content under another extension
   const findings: Finding[] = [];
   const lines = body.split('\n');
 
@@ -109,6 +139,11 @@ function scan(file: string): Finding[] {
     for (const { name, re } of PATTERNS) {
       re.lastIndex = 0;
       if (re.test(text)) findings.push({ file, line: lineNo, pattern: name });
+    }
+
+    URL_WITH_CREDENTIALS.lastIndex = 0;
+    for (const m of text.matchAll(URL_WITH_CREDENTIALS)) {
+      if (!isPlaceholderEmail(`x@${m[1]}`)) findings.push({ file, line: lineNo, pattern: 'URL-WITH-CREDENTIALS' });
     }
 
     if (SECRET_WORDS.test(text)) {
@@ -121,7 +156,7 @@ function scan(file: string): Finding[] {
 
     EMAIL.lastIndex = 0;
     for (const m of text.matchAll(EMAIL)) {
-      if (!ALLOWED_EMAILS.has(m[0].toLowerCase())) {
+      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0])) {
         findings.push({ file, line: lineNo, pattern: 'EMAIL-NOT-ALLOWLISTED' });
       }
     }

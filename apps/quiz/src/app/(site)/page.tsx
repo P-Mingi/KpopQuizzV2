@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { Suspense } from 'react';
 import Link from 'next/link';
 
@@ -153,7 +154,7 @@ async function NewQuizzesSection(): Promise<React.ReactElement> {
     <section className="home-section home-section-tight">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>New quizzes</p>
-        <Link href="/quizzes/new" style={SEE_ALL}>See all &#8594;</Link>
+        <Link href="/new" style={SEE_ALL}>See all &#8594;</Link>
       </div>
       <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
@@ -183,7 +184,7 @@ async function AllTimeBestSection(): Promise<React.ReactElement> {
     <section className="home-section">
       <div style={HEAD}>
         <p className="sec-label" style={{ marginBottom: 0 }}>All-time best</p>
-        <Link href="/quizzes/most-liked" style={SEE_ALL}>See all &#8594;</Link>
+        <Link href="/most-liked" style={SEE_ALL}>See all &#8594;</Link>
       </div>
       <ScrollRow scrollerClassName="trending-carousel">
         {quizzes.map((q, i) => {
@@ -222,7 +223,7 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
+        __html: jsonLdString({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           name: 'Trending K-pop quizzes',
@@ -269,7 +270,7 @@ export default function HomePage(): React.ReactElement {
         head={(
           <>
             <WorldHomeRedirect />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(WEBSITE_JSON_LD) }} />
             <Suspense fallback={null}>
               <HomeFeaturedJsonLd />
             </Suspense>
@@ -287,7 +288,7 @@ export default function HomePage(): React.ReactElement {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(WEBSITE_JSON_LD),
+          __html: jsonLdString(WEBSITE_JSON_LD),
         }}
       />
       <Suspense fallback={null}>

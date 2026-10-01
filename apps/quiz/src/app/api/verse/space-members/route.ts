@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { underRateCap } from '@/lib/verse/moderation';
@@ -53,6 +54,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 // POST { group_id, action:'create'|'attach'|'detach', ... } - immediate, governed writes.
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'Bad request.' }, { status: 400 }); }
   const groupId = Number(body.group_id ?? 0);

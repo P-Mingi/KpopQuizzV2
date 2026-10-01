@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { safeReturnTo } from '@/lib/auth/return-to';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 
 type ValidationState =
@@ -15,7 +16,7 @@ type ValidationState =
 export function OnboardingForm(): React.ReactElement {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnTo = searchParams.get('returnTo') ?? '/';
+  const returnTo = safeReturnTo(searchParams.get('returnTo'));
 
   const [username, setUsername] = useState('');
   const [validation, setValidation] = useState<ValidationState>({ status: 'idle' });

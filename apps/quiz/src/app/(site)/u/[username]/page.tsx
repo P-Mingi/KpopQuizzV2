@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { notFound } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
@@ -27,37 +28,14 @@ import type { BadgeDefinition, UserBadge } from '@/lib/db/types';
 // never inline server auth. The public passport is the harmonized profile basis.
 export const revalidate = 3600;
 
-const TOP_PRERENDER = 200;
-
-// Prerender the indexable profiles (3+ quizzes, matching the metadata noindex
-// gate + sitemap) as static HTML; every other username is on-demand ISR. Now
-// that the page is cookie-free this flips the route from dynamic to SSG/ISR.
-// Fail-soft: a saturated build DB falls back to [] (all on-demand) rather than
-// failing the build.
+// No profile is prerendered at build time (R1, F7). The passport reads of this
+// page throw on a failed read, on purpose, so a failed read is never cached; at
+// build time that turned one Supabase timeout into a failed build (three Vercel
+// builds in a week, on /u/caratland, /u/mapple and /u/weflip). Every profile is
+// now rendered on its first request and cached by ISR (revalidate above): the
+// HTML is the same, a timeout costs one request instead of one deployment.
 export async function generateStaticParams(): Promise<Array<{ username: string }>> {
-  try {
-    const { createPublicReadClient } = await import('@/lib/supabase/server');
-    const supabase = createPublicReadClient();
-    const sentinel = Symbol('top-usernames-timeout');
-    const raced = await Promise.race([
-      supabase
-        .from('profiles')
-        .select('username')
-        .gte('total_quizzes_created', 3)
-        .order('total_quizzes_created', { ascending: false })
-        .limit(TOP_PRERENDER),
-      new Promise<typeof sentinel>((resolve) => setTimeout(() => resolve(sentinel), 10000)),
-    ]);
-    if (raced === sentinel) {
-      console.warn('[u/[username]] generateStaticParams timed out - on-demand ISR only for this build');
-      return [];
-    }
-    const data = (raced as { data: Array<{ username: string }> | null }).data;
-    return (data ?? []).map((row) => ({ username: row.username }));
-  } catch (err) {
-    console.warn('[u/[username]] generateStaticParams failed:', (err as Error)?.message ?? err);
-    return [];
-  }
+  return [];
 }
 
 interface ProfilePageProps {
@@ -169,7 +147,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
@@ -184,7 +162,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdString({
               '@context': 'https://schema.org',
               '@type': 'ProfilePage',
               mainEntity: {
@@ -303,7 +281,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
@@ -318,7 +296,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdString({
               '@context': 'https://schema.org',
               '@type': 'ProfilePage',
               mainEntity: {

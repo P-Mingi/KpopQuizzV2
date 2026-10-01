@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateEntity, resolveEntityGroupId } from '@/lib/verse/curate';
 import { contentIsEmpty } from '@/lib/verse/render-content';
@@ -61,6 +62,8 @@ async function applySuggestion(svc: SupabaseClient, s: Suggestion): Promise<void
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const user = await requireUser();
   if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   let body: Record<string, unknown>;

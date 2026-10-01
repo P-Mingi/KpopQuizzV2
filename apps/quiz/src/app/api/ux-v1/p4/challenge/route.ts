@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { UX_V1 } from '@/lib/ux-v1';
 import { isUuid } from '@/lib/anon-claim';
-import { createPublicReadClient, createServerClient } from '@/lib/supabase/server';
+import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { challengeHref, orderStoredQuestions } from '@/lib/ux-v1/p4/challenge';
 import { guestHash, signChallenge, underLimit } from '@/lib/ux-v1/p4/challenge-server';
 import { maxScoreFor } from '@/lib/ux-v1/p4/engine';
@@ -21,6 +21,7 @@ import type { QuestionData } from '@/lib/ux-v1/p4/engine';
 // answers); the score is checked against the quiz's max. Returns the signed link
 // /q/<slug>?c=<id>.<sig>. Identity: `user:<session id>` or the guest hash (ip + day).
 // New behaviour, new endpoint: nothing existing is written or changed. Flag off: 404.
+// R1: the insert goes through the service role (no public insert policy on battles).
 
 export const dynamic = 'force-dynamic';
 
@@ -53,7 +54,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!snapshot) return NextResponse.json({ error: 'questions_mismatch' }, { status: 400 });
   if (score > maxScoreFor(q.quiz_type, snapshot.length)) return NextResponse.json({ error: 'invalid_score' }, { status: 400 });
 
-  const { data: row, error } = await auth
+  // The row is written with the service role: everything in it was validated above
+  // (stored questions, score ceiling, rate limit), and `battles` no longer has a
+  // public insert policy (r1-rls-tighten.sql), so a direct insert with the anon key
+  // is refused.
+  const { data: row, error } = await createServiceRoleClient()
     .from('battles')
     .insert({
       quiz_id: q.id,

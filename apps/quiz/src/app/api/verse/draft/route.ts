@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { sectionDef } from '@/lib/verse/content';
 import { canEditEntity } from '@/lib/verse/curate';
@@ -33,6 +34,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function PUT(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const user = await requireEditor();
   if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   let body: Record<string, unknown>;
@@ -54,6 +57,8 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 }
 
 export async function DELETE(req: NextRequest): Promise<NextResponse> {
+  const gated = await verseWriteGate(req);
+  if (gated) return gated;
   const user = await requireEditor();
   if (!user) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const url = new URL(req.url);

@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
@@ -196,7 +197,7 @@ export default async function PtBlindtestPage(): Promise<React.ReactElement> {
         </section>
       </div>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
     </div>
   );
 }

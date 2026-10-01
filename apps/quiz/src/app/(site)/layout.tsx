@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { Suspense } from 'react';
 
 import { TopNav } from '@/components/layout/top-nav';
@@ -30,7 +31,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'KpopQuiz',
@@ -50,7 +51,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'SiteNavigationElement',
             name: 'Main Navigation',

@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { getTriviaEligibleGroups } from '@/lib/db/queries/trivia';
@@ -84,7 +85,7 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
             name: 'K-pop Trivia and Fun Facts',
