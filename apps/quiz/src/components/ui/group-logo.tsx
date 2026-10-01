@@ -58,7 +58,12 @@ function InlineLogo({ groupName, size }: { groupName: string; size: number }): R
     const fs = s * 0.135;
     const sw = Math.max(1, s * 0.012);
     return (
-      <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} xmlns="http://www.w3.org/2000/svg">
+      // display:block + 100% fill so the pink covers the WHOLE container edge to
+      // edge: an inline SVG sits on the text baseline (a descender gap left a white
+      // strip under the coin), and a fixed s-px SVG under-filled the 68px desktop
+      // coin (.home-group-coin forces the child to 100%). viewBox keeps the internal
+      // geometry; the square container means no letterboxing.
+      <svg viewBox={`0 0 ${s} ${s}`} style={{ display: 'block', width: '100%', height: '100%' }} xmlns="http://www.w3.org/2000/svg">
         {/* Owner-validated look (2026-09-20): brand pink coin, white wordmark, so it
             sits with the other circles instead of reading as a heavy black blob. */}
         <rect width={s} height={s} fill="#F06292" />

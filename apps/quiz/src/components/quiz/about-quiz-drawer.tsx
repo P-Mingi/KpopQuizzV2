@@ -7,20 +7,15 @@ import { useEffect, useRef, useState } from 'react';
 // This wraps the server-rendered SEO blocks that used to run down the page in
 // full. Not one crawlable string moves through here changed: the children are
 // rendered by the server exactly as before and stay in the DOM in every state,
-// so the crawler and the cold visitor see everything. The ONLY thing this adds
-// is a visual collapse, and it is owner-locked to a single rule:
+// so the crawler and the cold visitor see everything.
 //
-//     defaultOpen = !hasPlayed
-//
-// Server render and first hydration are always OPEN (hasPlayed is false on a
-// fresh page), which is why the crawler and a cold visitor get the whole block
-// expanded. It collapses to closed CLIENT-SIDE only, and only once the player
-// on the same page reaches its result phase and fires `quiz:played`. Someone
-// who just finished the quiz gets the tidy drawer; nobody else does.
-//
-// The panel is never removed from the DOM. When closed it carries the `hidden`
-// attribute (out of the a11y tree, still in the served HTML), so this is a
-// presentation change, never cloaking.
+// Owner rule (2026-09-21): DEFAULT CLOSED. The drawer opens on click. This is a
+// presentation-only change and SEO-safe: the panel is NEVER removed from the DOM
+// - closed it carries the `hidden` attribute (out of the a11y tree, still in the
+// served HTML), which is the standard expandable-section pattern that mobile-first
+// indexing fully indexes and weights. Never cloaking. The `quiz:played` /
+// result-phase listener below is now redundant for the default (already closed)
+// but is kept so an open drawer still tidies itself after a play.
 
 interface AboutQuizDrawerProps {
   title: string;
@@ -29,7 +24,7 @@ interface AboutQuizDrawerProps {
 }
 
 export function AboutQuizDrawer({ title, summary, children }: AboutQuizDrawerProps): React.ReactElement {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
