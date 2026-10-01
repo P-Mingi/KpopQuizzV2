@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { safeReturnTo } from '@/lib/auth/return-to';
 import { createBrowserClient } from '@/lib/supabase/client';
 
 type Pending = 'google' | 'discord' | 'email' | null;
@@ -19,7 +20,7 @@ export default function LoginPage(): React.ReactElement {
   // Preserve ?returnTo=... for post-login redirect + the guest link.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setReturnTo(params.get('returnTo') ?? '/');
+    setReturnTo(safeReturnTo(params.get('returnTo')));
   }, []);
 
   const callbackUrl = (to: string) =>

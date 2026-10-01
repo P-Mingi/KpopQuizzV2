@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { safeReturnTo } from '@/lib/auth/return-to';
 import { createServerClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -7,7 +8,8 @@ import type { NextRequest } from 'next/server';
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
-  const returnTo = searchParams.get('returnTo') ?? '/';
+  // Same-site paths only: anything else (another host, a scheme) becomes '/'.
+  const returnTo = safeReturnTo(searchParams.get('returnTo'));
 
   if (!code) {
     return NextResponse.redirect(new URL('/login', request.url));
