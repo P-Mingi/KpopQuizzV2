@@ -1,10 +1,10 @@
 # R1 release state
 
 Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-RELEASE-PROMPT.md` (on disk in the
-main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/fixes`. The flag `NEXT_PUBLIC_UX_V1` stays OFF in
+main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **3 (fixes): F1 to F11 committed, local checks green, PR open, waiting for its checks.** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **3 done (fixes live in production). 4 (database): exports done, waiting for the owner (backup confirmed, preflight result, `go migrations`).** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -40,6 +40,7 @@ production for the whole run (owner, 2026-09-30); R1 never sets, changes or remo
 | PR | What | Status |
 |---|---|---|
 | #66 | v11 behind the flag (feat/ux-v1-v11 -> main) | MERGED 2026-10-01 10:33 UTC, merge commit `9affc2e` |
+| #88 | R1 fixes F1 to F11 (r1/fixes -> main) | MERGED 2026-10-01 11:22 UTC, merge commit `09ae1a1`, checks green (unit, e2e, Vercel) |
 
 ## Section 2 result (2026-10-01)
 
@@ -115,19 +116,50 @@ Choices made, for the owner's information:
   main checkout's file; it sets VERSE_PUBLIC=true, so local builds here pass `VERSE_PUBLIC=false` to match
   production.
 
+## Section 3 result: fixes in production (2026-10-01)
+
+- Production deployment of `09ae1a1`: `dpl_AiKBeREqmsz9hKJZk5tt1yMCwk4L` (`kpopquiz-psgwly0fa`), READY at the first
+  build; `kpopquiz.org` serves it. CI on main: Tests green, SEO gates green (docs-secrets included).
+  Rollback target if needed: `dpl_5J83dTjwFr7Ji7gkdnnzrPadqRvN` (9affc2e), then `vercel promote`.
+- `after-fixes.json` vs production one minute before the merge: 0 SEO field differences on the 40 URLs, sitemap
+  661 = 661, robots.txt identical. Differences: home hrefs /quizzes/new and /quizzes/most-liked -> /new and
+  /most-liked (F5), the three invented accounts gone from /pt/leaderboard (F4), /stats dateModified, and the
+  build-time `/pt` footer link of a fresh deployment (section 2).
+- Verified on production with read-only requests: /blindtest/girl-groups shows an enabled Play and the run line,
+  POST /api/blind-test/generate with the player's body answers 10 questions with https previews (F6); the 5
+  ld+json blocks of /quizzes hold no raw `<` or `&` and parse (F1); no invented name on /pt/leaderboard (F4);
+  /api/cron/ensure-daily-debate answers 401 without the secret, and 401 with only `x-vercel-cron: 1` (F9);
+  /api/ranked/cron/nightly answers 404 to an unauthorized caller with the flag off (F10).
+- The two new crons run from tonight: ensure-daily-debate 00:10 UTC (idempotent write of the day's debate, as
+  the legacy /leaderboard view already does), ranked nightly 00:20 UTC (does nothing: flag off).
+
 ## SQL
 
-Nothing applied. Order and gates: prompt section 4 (`go migrations`, later `go rls`). `r1-ranked-season1.sql` is
-written in this run and NOT applied.
+Nothing applied yet. No SQL access from this session: the owner pastes each file in the SQL editor of project
+`rdkgouofytwfdpbxbzio` and answers "applied <file>".
+
+- 4a done 2026-10-01: read-only export through the REST API (`docs/release/export-tables.mjs`) to
+  `~/kpq-backups/2026-10-01/` (outside the repo): plays 69266 rows, quizzes 441, battles 2578, quiz_bank 100,
+  quiz_time_stats 2213, notification_prefs 3, ranked_plays 0. Each CSV re-parsed: row counts match.
+- Waiting for the owner: (1) today's Supabase backup exists (Dashboard, Database, Backups); (2) the result of
+  `docs/release/r1-migrations-preflight.sql` (expected: only "rows" lines); (3) `go migrations`.
+- Order after `go migrations`, one file at a time with its check queries:
+  1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
+  4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
+  7 `v11-p10-header-storage.sql` 8 `v11-p7-ranked.sql`.
+- Then, separately: the result of `docs/release/r1-rls-inventory.sql`, checked against the header of
+  `r1-rls-tighten.sql`, then `go rls`, then 9 `r1-rls-tighten.sql` (the F3 code is live since 09ae1a1).
+- `r1-ranked-season1.sql`: written, NOT applied in this run (the day the flag goes on).
 
 ## Decisions and notes
 
 - Normalized, not failures: hashed `/_next/static` paths, build id, `self.__next_f` order, timestamps, sitemap
   lastmod, live counters, the quiz of the day.
 
-NEXT ACTION: the PR of `r1/fixes` into main is open: wait for its checks (a red check on a Supabase timeout:
-`gh run rerun <id> --failed` once; any other red: stop, report), then `gh pr merge <n> --merge`, wait for the
-production deployment, snapshot `after-fixes.json` and compare with `after-merge.json` (expected: F4, F5, live
-counters). Then section 4: `node docs/release/export-tables.mjs ~/kpq-backups/2026-10-01`, ask the owner to
-confirm today's Supabase backup and to run `docs/release/r1-migrations-preflight.sql`, present the eight files,
-wait for `go migrations`. No SQL access from this session: the owner pastes each file and answers "applied <file>".
+NEXT ACTION: wait for the owner's answers of section 4 (backup confirmed, preflight result, `go migrations`).
+Then give the files one at a time (`pbcopy < docs/pending-migrations/<file>`), wait for "applied <file>" and the
+output of its check queries, record each in this file. Then the RLS inventory, `go rls`, file 9. Then section 5:
+`vercel env add QOTD_ROTATION_FIX production` (value 1), `UX_P4_CHALLENGE_SECRET` = 32 random bytes piped in,
+never shown; CRON_SECRET exists; redeploy production (`vercel redeploy` of the current production deployment or
+`vercel --prod`), snapshot `after-env.json`, watch runtime errors 30 minutes. Never touch NEXT_PUBLIC_UX_V1. Then
+section 6: R1-REPORT.md, final R1-STATE (DONE), snapshots, PR `r1/report` into main, merge when green.
