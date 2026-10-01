@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { RankedCardLoader, RankedControllerLoader, RankedLadderLoader, RankedTiersLoader } from '@/components/ranked/ux-v1/loader';
 import { HowRankedWorks, SeasonRewards } from '@/components/ranked/ux-v1/rules';
+import { SEASON_REWARDS_LIVE } from '@/lib/ranked/constants';
 import { UxPage } from '@/components/ux-v1/page';
 import { UX_V1 } from '@/lib/ux-v1';
 
@@ -46,7 +47,7 @@ export default function RankedPage(): React.ReactElement {
         </section>
         <RankedLadderLoader />
         <HowRankedWorks />
-        <SeasonRewards />
+        {SEASON_REWARDS_LIVE ? <SeasonRewards /> : null}
       </RankedControllerLoader>
     </UxPage>
   );

@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
@@ -31,5 +31,33 @@ describe('vercel.json: which branches build (F8)', () => {
     for (const b of ['main', 'feat/v12', 'feat/ux-v1-v11', 'r1/fixes', 'r1/report', 'preview/x', 'v12', 'ux11']) {
       expect(deploys(b), b).toBe(true);
     }
+  });
+});
+
+describe('vercel.json: crons', () => {
+  const app = fileURLToPath(new URL('../app/', import.meta.url));
+
+  it('every scheduled path has a route file', () => {
+    for (const cron of config.crons) {
+      expect(existsSync(`${app}${cron.path.replace(/^\//, '')}/route.ts`), cron.path).toBe(true);
+    }
+  });
+
+  it('the daily debate and the ranked nightly job are scheduled once a day (F9, F10)', () => {
+    const at = (path: string): string | undefined => config.crons.find((c) => c.path === path)?.schedule;
+    expect(at('/api/cron/ensure-daily-debate')).toBe('10 0 * * *');
+    expect(at('/api/ranked/cron/nightly')).toBe('20 0 * * *');
+    expect(new Set(config.crons.map((c) => c.path)).size).toBe(config.crons.length);
+  });
+
+  it('both new routes ask for the cron secret, and the ranked job skips while ranked cannot run', () => {
+    const debate = readFileSync(`${app}api/cron/ensure-daily-debate/route.ts`, 'utf8');
+    const nightly = readFileSync(`${app}api/ranked/cron/nightly/route.ts`, 'utf8');
+    for (const src of [debate, nightly]) {
+      expect(src).toContain('isCronAuthorized(req)');
+      expect(src).not.toContain('x-vercel-cron');
+    }
+    expect(debate).toContain(".rpc('ensure_daily_debate')");
+    for (const reason of ["skipped: 'flag_off'", "skipped: 'no_season'", 'skipped: e.reason']) expect(nightly).toContain(reason);
   });
 });

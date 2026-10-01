@@ -53,6 +53,10 @@
     {
       "path": "/api/cron/ensure-daily-debate",
       "schedule": "10 0 * * *"
+    },
+    {
+      "path": "/api/ranked/cron/nightly",
+      "schedule": "20 0 * * *"
     }
   ]
 }

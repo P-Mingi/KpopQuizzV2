@@ -77,3 +77,16 @@ describe('F7: no profile is prerendered at build time', () => {
     expect(page).not.toMatch(/TOP_PRERENDER/);
   });
 });
+
+describe('F10: season rewards stay hidden until they exist', () => {
+  it('the ranked page renders the section behind SEASON_REWARDS_LIVE, which is off', () => {
+    const page = files.find((f) => f.path === 'app/(site)/blindtest/ranked/page.tsx')!.text;
+    expect(page).toContain('{SEASON_REWARDS_LIVE ? <SeasonRewards /> : null}');
+    const constants = files.find((f) => f.path === 'lib/ranked/constants.ts')!.text;
+    expect(constants).toMatch(/export const SEASON_REWARDS_LIVE = false;/);
+  });
+
+  it('ranked code never awards XP', () => {
+    expect(files.filter((f) => /^(lib\/ranked|app\/api\/ranked)\//.test(f.path) && /award_xp|awardXp|awardSpaceXp/.test(f.text)).map((f) => f.path)).toEqual([]);
+  });
+});

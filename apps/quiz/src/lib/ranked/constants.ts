@@ -56,3 +56,10 @@ export const EASY_ACCURACY = 0.7;
 export const MEDIUM_ACCURACY = 0.4;
 /** Wrong options shown next to the right one. */
 export const DISTRACTORS = 3;
+/**
+ * Season rewards (badge, name colour, Legend frame) are designed but not built:
+ * nothing grants them at the end of a season. The "Season rewards" section of
+ * /blindtest/ranked stays hidden until they exist (decision 18); flip this the
+ * day they do.
+ */
+export const SEASON_REWARDS_LIVE = false;
