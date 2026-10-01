@@ -4,44 +4,16 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { BlindTestEqualizer } from '@/components/game/blind-test-equalizer';
+import { legacyGenerateBody, legacyModeRun, roundFromGenerate } from '@/lib/blind-test/legacy-round';
 
 import type { BlindTestMode } from '@/lib/blind-test-modes';
+import type { Round, RoundSong } from '@/lib/blind-test/legacy-round';
 
-declare global {
-  interface Window {
-    YT: {
-      Player: new (id: string, config: Record<string, unknown>) => YTPlayer;
-      PlayerState: { PLAYING: number; ENDED: number; PAUSED: number };
-    };
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
-
-interface YTPlayer {
-  loadVideoById: (c: { videoId: string; startSeconds: number; endSeconds: number }) => void;
-  playVideo: () => void;
-  pauseVideo: () => void;
-  getCurrentTime: () => number;
-  setSize: (w: number, h: number) => void;
-  destroy: () => void;
-}
-
-interface RoundSong {
-  song_id: string;
-  youtube_id: string;
-  clip_start: number;
-  clip_duration: number;
-  choices: string[];
-  _answer: { correct_index: number; title: string; artist: string };
-}
-
-interface Round {
-  mode_id: string;
-  mode_title: string;
-  mode_difficulty: string;
-  clip_duration: number;
-  songs: RoundSong[];
-}
+// The flag-off player of /blindtest/<mode>. It plays what
+// POST /api/blind-test/generate serves today: Deezer previews, one question per
+// song (lib/blind-test/legacy-round.ts). It used to ask for `{ mode_id }` and
+// read YouTube clips from `songs[]`, a shape the route no longer answers, so Play
+// failed on every mode page. A run saves nothing, like a free run on the hub.
 
 interface PlayerAnswer {
   picked: number;
@@ -52,6 +24,8 @@ interface PlayerAnswer {
 type Phase = 'intro' | 'loading' | 'playing' | 'results';
 
 export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactElement {
+  const run = legacyModeRun(mode.id);
+
   const [phase, setPhase] = useState<Phase>('intro');
   const [round, setRound] = useState<Round | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,14 +33,13 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
   const [score, setScore] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  // YouTube
-  const [playerReady, setPlayerReady] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const playerRef = useRef<YTPlayer | null>(null);
-  const videoContainerRef = useRef<HTMLDivElement>(null);
+  // Audio
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const roundRef = useRef<Round | null>(null);
+  const indexRef = useRef(0);
 
   // Timer
-  const [timeLeft, setTimeLeft] = useState(mode.clip_duration);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [answered, setAnswered] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -75,70 +48,17 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
   const answerStartRef = useRef(0);
 
   answeredRef.current = answered;
+  roundRef.current = round;
+  indexRef.current = currentIndex;
 
   const currentSong = round?.songs[currentIndex] ?? null;
+  const clipSeconds = round?.timer ?? 10;
 
-  // ── YouTube IFrame API ──────────────────────────────
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      document.body.appendChild(tag);
-    }
-
-    const init = () => {
-      playerRef.current = new window.YT.Player('bt-yt-player', {
-        height: '1',
-        width: '1',
-        playerVars: { autoplay: 0, controls: 0, disablekb: 1, fs: 0, modestbranding: 1, rel: 0, iv_load_policy: 3 },
-        events: {
-          onReady: () => setPlayerReady(true),
-          onError: (e: { data: number }) => {
-            if (e.data === 101 || e.data === 150) advanceToNext();
-          },
-          onStateChange: (e: { data: number }) => {
-            if (!window.YT) return;
-            if (e.data === window.YT.PlayerState.PLAYING) {
-              if (!timerActiveRef.current && !answeredRef.current) {
-                timerActiveRef.current = true;
-                setIsPlaying(true);
-                answerStartRef.current = Date.now();
-                startCountdown();
-              }
-            }
-            if (e.data === window.YT.PlayerState.ENDED) {
-              if (!answeredRef.current) handleReveal(-1);
-            }
-          },
-        },
-      } as Record<string, unknown>);
-    };
-
-    if (window.YT?.Player) init();
-    else window.onYouTubeIframeAPIReady = init;
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      playerRef.current?.destroy();
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    const audio = audioRef.current;
+    if (audio) { audio.pause(); audio.removeAttribute('src'); }
   }, []);
-
-  // Resize player when showVideo changes
-  useEffect(() => {
-    if (!playerRef.current) return;
-    if (showVideo) {
-      const container = videoContainerRef.current;
-      if (container) {
-        const w = Math.min(container.clientWidth, 320);
-        playerRef.current.setSize(w, Math.round(w * 9 / 16));
-      }
-    } else {
-      playerRef.current.setSize(1, 1);
-    }
-  }, [showVideo]);
 
   // ── Core logic ──────────────────────────────────────
 
@@ -156,21 +76,51 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
     }, 100);
   }
 
+  /** One audio element for the whole run, created on the Play tap so autoplay is allowed. */
+  function ensureAudio(): HTMLAudioElement {
+    if (audioRef.current) return audioRef.current;
+    const audio = new Audio();
+    audio.preload = 'auto';
+    audio.addEventListener('playing', () => {
+      if (!timerActiveRef.current && !answeredRef.current) {
+        timerActiveRef.current = true;
+        setIsPlaying(true);
+        answerStartRef.current = Date.now();
+        startCountdown();
+      }
+    });
+    audio.addEventListener('ended', () => {
+      if (!answeredRef.current) handleReveal(-1);
+    });
+    // A preview that will not load (an expired link): skip the song, as the old
+    // player skipped an unembeddable video.
+    audio.addEventListener('error', () => {
+      if (!answeredRef.current) advanceToNext();
+    });
+    audioRef.current = audio;
+    return audio;
+  }
+
+  function playSong(song: RoundSong) {
+    const audio = ensureAudio();
+    audio.src = song.preview_url;
+    audio.currentTime = 0;
+    void audio.play().catch(() => { /* the 'error' listener skips an unplayable preview */ });
+  }
+
   function handleReveal(pickedIndex: number) {
-    if (answeredRef.current || !round) return;
+    const activeRound = roundRef.current;
+    if (answeredRef.current || !activeRound) return;
     if (timerRef.current) clearInterval(timerRef.current);
 
     setAnswered(true);
     answeredRef.current = true;
     setIsPlaying(false);
 
-    // Show the MV - music keeps playing
-    setShowVideo(true);
-
-    const song = round.songs[currentIndex];
+    const song = activeRound.songs[indexRef.current];
     if (!song) return;
 
-    const isCorrect = pickedIndex === song._answer.correct_index;
+    const isCorrect = pickedIndex === song.correct_index;
     const answerTime = (Date.now() - answerStartRef.current) / 1000;
 
     if (isCorrect) setScore(prev => prev + 1);
@@ -180,37 +130,42 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
       [song.song_id]: {
         picked: pickedIndex,
         correct: isCorrect,
-        time: pickedIndex === -1 ? mode.clip_duration : Math.round(answerTime * 10) / 10,
+        time: pickedIndex === -1 ? activeRound.timer : Math.round(answerTime * 10) / 10,
       },
     }));
   }
 
   function advanceToNext() {
-    if (!round) return;
-    setShowVideo(false);
-    try { playerRef.current?.pauseVideo(); } catch { /* */ }
+    const activeRound = roundRef.current;
+    if (!activeRound) return;
+    if (timerRef.current) clearInterval(timerRef.current);
+    try { audioRef.current?.pause(); } catch { /* */ }
 
-    const nextIdx = currentIndex + 1;
-    if (nextIdx >= round.songs.length) {
+    const nextIdx = indexRef.current + 1;
+    if (nextIdx >= activeRound.songs.length) {
       finishGame();
       return;
     }
 
     setCurrentIndex(nextIdx);
+    indexRef.current = nextIdx;
     setAnswered(false);
     answeredRef.current = false;
     timerActiveRef.current = false;
-    setTimeLeft(mode.clip_duration);
+    setIsPlaying(false);
+    setTimeLeft(activeRound.timer);
 
-    const next = round.songs[nextIdx]!;
-    playerRef.current?.loadVideoById({
-      videoId: next.youtube_id,
-      startSeconds: next.clip_start,
-      endSeconds: next.clip_start + next.clip_duration,
-    });
+    playSong(activeRound.songs[nextIdx]!);
   }
 
   async function startGame() {
+    const body = legacyGenerateBody(mode.id);
+    if (!body) {
+      setError('This mode is not available.');
+      return;
+    }
+    // Created inside the tap, before any await, so the browser lets it play.
+    ensureAudio();
     setPhase('loading');
     setError(null);
 
@@ -218,60 +173,43 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
       const res = await fetch('/api/blind-test/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mode_id: mode.id }),
+        body: JSON.stringify(body),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        setError(data.error || 'Failed to generate round');
+      const data: unknown = await res.json().catch(() => null);
+      const next = res.ok ? roundFromGenerate(data) : null;
+      if (!next) {
+        const message = data && typeof data === 'object' && typeof (data as { error?: unknown }).error === 'string'
+          ? (data as { error: string }).error
+          : 'Failed to generate round';
+        setError(message);
         setPhase('intro');
         return;
       }
 
-      const data: Round = await res.json();
-      setRound(data);
+      setRound(next);
+      roundRef.current = next;
       setCurrentIndex(0);
+      indexRef.current = 0;
       setAnswers({});
       setScore(0);
       setAnswered(false);
       answeredRef.current = false;
       timerActiveRef.current = false;
-      setTimeLeft(mode.clip_duration);
-      setShowVideo(false);
+      setIsPlaying(false);
+      setTimeLeft(next.timer);
       setPhase('playing');
 
-      // Play first song
-      const first = data.songs[0]!;
-      playerRef.current?.setSize(1, 1);
-      playerRef.current?.loadVideoById({
-        videoId: first.youtube_id,
-        startSeconds: first.clip_start,
-        endSeconds: first.clip_start + first.clip_duration,
-      });
+      playSong(next.songs[0]!);
     } catch {
       setError('Network error');
       setPhase('intro');
     }
   }
 
-  async function finishGame() {
-    try { playerRef.current?.pauseVideo(); } catch { /* */ }
+  function finishGame() {
+    try { audioRef.current?.pause(); } catch { /* */ }
     setPhase('results');
-
-    if (!round) return;
-    try {
-      await fetch('/api/blind-test/play', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          mode_id: mode.id,
-          score,
-          total: round.songs.length,
-          song_ids: round.songs.map(s => s.song_id),
-          choices: answers,
-        }),
-      });
-    } catch { /* non-critical */ }
   }
 
   const currentAnswer = currentSong ? answers[currentSong.song_id] : undefined;
@@ -279,19 +217,6 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
   // ── RENDER ──────────────────────────────────────────
   return (
     <div>
-      {/* YouTube player - CSS toggle between hidden and visible */}
-      <div
-        ref={videoContainerRef}
-        className={`mx-auto overflow-hidden transition-all duration-300 ${
-          showVideo
-            ? 'w-full max-w-[320px] mb-4 rounded-xl opacity-100'
-            : 'w-px h-px fixed opacity-0 pointer-events-none'
-        }`}
-        style={showVideo ? { aspectRatio: '16/9' } : { top: -100, left: -100 }}
-      >
-        <div id="bt-yt-player" style={{ width: '100%', height: '100%' }} />
-      </div>
-
       {/* ── INTRO ── */}
       {phase === 'intro' && (
         <div className="text-center animate-fade-in">
@@ -318,11 +243,18 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
 
           <button
             onClick={startGame}
-            disabled={!playerReady}
+            disabled={!run}
             className="px-10 py-3 rounded-full bg-[var(--text-primary)] text-white text-sm font-medium disabled:opacity-50"
           >
-            {playerReady ? 'Play' : 'Loading...'}
+            Play
           </button>
+
+          {/* What the run really is (the line above is the page's fixed copy). */}
+          {run && (
+            <p className="text-xs text-[var(--text-tertiary)] mt-3">
+              {run.count} songs from {run.pick.label} · 10 seconds each
+            </p>
+          )}
 
           <div className="mt-4">
             <Link href="/blindtest" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]">
@@ -356,20 +288,25 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
           {/* Equalizer (before answer) */}
           {!answered && (
             <>
-              <BlindTestEqualizer playing={isPlaying} timeLeft={timeLeft} clipDuration={mode.clip_duration} />
-              <p className={`text-xs font-medium text-center mb-5 transition-colors ${
+              <BlindTestEqualizer playing={isPlaying} timeLeft={timeLeft} clipDuration={clipSeconds} />
+              <p className={`text-xs font-medium text-center mb-3 transition-colors ${
                 timeLeft <= 3 && isPlaying ? 'text-[#A32D2D]' : 'text-[var(--text-tertiary)]'
               }`}>
                 {Math.ceil(timeLeft)}s
               </p>
+              <p className="text-sm font-medium text-center mb-4">{currentSong.question_text}</p>
             </>
           )}
 
-          {/* Song info + verdict (after answer, below live video) */}
+          {/* Song info + verdict (after answer; the music keeps playing) */}
           {answered && (
             <div className="text-center mb-4 animate-result-in">
-              <p className="text-base font-medium mt-1">{currentSong._answer.title}</p>
-              <p className="text-xs text-[var(--text-secondary)] mb-2">{currentSong._answer.artist}</p>
+              {currentSong.cover && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={currentSong.cover} alt="" width={96} height={96} className="w-24 h-24 rounded-xl object-cover mx-auto mb-3" />
+              )}
+              <p className="text-base font-medium mt-1">{currentSong.title}</p>
+              <p className="text-xs text-[var(--text-secondary)] mb-2">{currentSong.artist}</p>
               {currentAnswer?.correct && (
                 <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-[#EAF3DE] text-[#27500A]">Correct!</span>
               )}
@@ -392,7 +329,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
                 className={`w-full text-left px-4 py-3.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
                   !answered
                     ? 'border-[var(--border)] hover:border-[var(--border)] hover:bg-[var(--bg-surface)] active:scale-[0.98]'
-                    : i === currentSong._answer.correct_index
+                    : i === currentSong.correct_index
                       ? 'bg-[#EAF3DE] border-[#97C459] text-[#27500A]'
                       : currentAnswer && i === currentAnswer.picked && !currentAnswer.correct
                         ? 'bg-[#FCEBEB] border-[#F09595] text-[#791F1F]'
@@ -490,16 +427,23 @@ function MissedRow({ song }: { song: RoundSong }): React.ReactElement {
   const [revealed, setRevealed] = useState(false);
   return (
     <div className="flex gap-3 items-center p-3 bg-[var(--bg-surface)] rounded-lg cursor-pointer" onClick={() => setRevealed(true)}>
-      <img
-        src={`https://img.youtube.com/vi/${song.youtube_id}/hqdefault.jpg`}
-        alt=""
-        className={`w-12 h-7 rounded object-cover transition-all duration-300 ${revealed ? '' : 'blur-md'}`}
-      />
+      {song.cover ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={song.cover}
+          alt=""
+          width={40}
+          height={40}
+          className={`w-10 h-10 rounded object-cover transition-all duration-300 ${revealed ? '' : 'blur-md'}`}
+        />
+      ) : (
+        <span className="w-10 h-10 rounded bg-[var(--border)]" aria-hidden="true" />
+      )}
       <div className="flex-1 min-w-0">
         {revealed ? (
           <>
-            <p className="text-sm font-medium truncate">{song._answer.title}</p>
-            <p className="text-[11px] text-[var(--text-secondary)]">{song._answer.artist}</p>
+            <p className="text-sm font-medium truncate">{song.title}</p>
+            <p className="text-[11px] text-[var(--text-secondary)]">{song.artist}</p>
           </>
         ) : (
           <p className="text-xs text-[var(--text-tertiary)]">Tap to reveal</p>
