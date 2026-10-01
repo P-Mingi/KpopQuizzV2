@@ -24,8 +24,11 @@ import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
+import { UX_V1 } from '@/lib/ux-v1';
+import { renderUxQuizPage } from './ux-page';
 
 import type { Metadata } from 'next';
+import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
 
 // ISR: cached HTML revalidates hourly. The TOP_PRERENDER most-played slugs
 // pre-render at build time so Googlebot hits cold-cache static HTML with
@@ -289,7 +292,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   const dykFact = dykPool.length ? dykPool[stableIndex(quiz.id, dykPool.length)] : null;
 
   // M1.19 - per-quiz hall of fame (top scorers), ISR-baked + crawlable.
-  const hallOfFame = await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
+  // (UX v11 reads its own board, without relaxed runs: skip this read when the flag is on.)
+  const hallOfFame = UX_V1 ? [] : await safeFetch(getQuizHallOfFame(quiz.id, 10), [], '[q/[slug]] hallOfFame');
   // W2b C2 - ONE page-level query for the whole leaderboard (3 bounded reads,
   // constant in the number of rows). A per-row lookup would be N+1.
 
@@ -331,14 +335,109 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   const inThisQuiz = buildInThisQuiz(quiz);
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
 
+  // Shared by both renders so the flag-on page emits the same breadcrumb trail and
+  // the same Quiz JSON-LD object as today (SEO lock: H1, intro, JSON-LD unchanged).
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: 'Home', href: '/' },
+    { label: `${quiz.group_name} Quiz`, href: `/${quiz.group_slug}-quiz` },
+    { label: quiz.title },
+  ];
+  // QA class 4: quiz.title (user-authored) escaped at the sink.
+  // SEO-3 Step 4: enriched Quiz JSON-LD.
+  // - `about`: MusicGroup (correct type for K-pop groups)
+  // - `assesses`: group name (what the quiz measures knowledge of)
+  // - `educationalLevel`: difficulty (real value from quiz row)
+  // - `hasPart`: Question array with `name` only, no suggestedAnswer
+  //   (structured question inventory without exposing correct answers)
+  // - `interactionStatistic`: play count + a second counter for
+  //   completions when total_completions > 0
+  // - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
+  const quizJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Quiz',
+    name: quiz.title,
+    description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
+    educationalAlignment: {
+      '@type': 'AlignmentObject',
+      alignmentType: 'educationalSubject',
+      targetName: 'K-pop',
+    },
+    educationalLevel: quiz.difficulty,
+    assesses: quiz.group_name,
+    keywords: `${quiz.group_name}, K-pop, ${quiz.difficulty} quiz`,
+    author: {
+      '@type': 'Person',
+      name: quiz.creator_username,
+      url: `https://kpopquiz.org/u/${quiz.creator_username}`,
+    },
+    dateCreated: quiz.created_at,
+    dateModified: quiz.updated_at,
+    interactionStatistic: [
+      {
+        '@type': 'InteractionCounter',
+        interactionType: 'https://schema.org/PlayAction',
+        userInteractionCount: quiz.play_count,
+      },
+      ...(quiz.total_completions > 0
+        ? [
+            {
+              '@type': 'InteractionCounter',
+              interactionType: 'https://schema.org/CompleteAction',
+              userInteractionCount: quiz.total_completions,
+            },
+          ]
+        : []),
+      ...(quiz.like_count && quiz.like_count > 0
+        ? [
+            {
+              '@type': 'InteractionCounter',
+              interactionType: 'https://schema.org/LikeAction',
+              userInteractionCount: quiz.like_count,
+            },
+          ]
+        : []),
+    ],
+    about: {
+      '@type': 'MusicGroup',
+      name: quiz.group_name,
+      url: `https://kpopquiz.org/${quiz.group_slug}-quiz`,
+    },
+    hasPart: seoQuestions
+      .map((q) => q.question)
+      .filter((text): text is string => typeof text === 'string' && text.length > 0)
+      .map((text) => ({ '@type': 'Question', name: text })),
+    numberOfQuestions: questionCount,
+    inLanguage: 'en',
+    url: `https://kpopquiz.org/q/${quiz.slug}`,
+  };
+
+  // UX v11 (P4): the redesigned quiz page, game and results, behind the flag. Same
+  // H1, intro paragraph, question list, links and JSON-LD; server rendered like today.
+  if (UX_V1) {
+    return renderUxQuizPage({
+      quiz,
+      questionCount,
+      intro,
+      introAvg,
+      perQuestionScore,
+      extraStats,
+      passRate,
+      seoQuestions,
+      related,
+      triviaAvailable,
+      dykFact: dykFact ? { fact: dykFact.fact, category: dykFact.category } : null,
+      social,
+      inThisQuiz,
+      creatorNote: creatorNote ?? null,
+      breadcrumbItems,
+      quizJsonLd,
+    });
+  }
+
   return (
     <div className="py-4 md:py-6">
       <Breadcrumbs
-        items={[
-          { label: 'Home', href: '/' },
-          { label: `${quiz.group_name} Quiz`, href: `/${quiz.group_slug}-quiz` },
-          { label: quiz.title },
-        ]}
+        items={breadcrumbItems}
       />
 
       <QuizPlayer quiz={quizIntro} />
@@ -560,75 +659,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       })()}
       </AboutQuizDrawer>
 
-      {/* QA class 4: quiz.title (user-authored) escaped at the sink.
-          SEO-3 Step 4: enriched Quiz JSON-LD.
-          - `about`: MusicGroup (correct type for K-pop groups)
-          - `assesses`: group name (what the quiz measures knowledge of)
-          - `educationalLevel`: difficulty (real value from quiz row)
-          - `hasPart`: Question array with `name` only, no suggestedAnswer
-            (structured question inventory without exposing correct answers)
-          - `interactionStatistic`: play count + a second counter for
-            completions when total_completions > 0
-          - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
-      */}
-      {jsonLdScript({
-        '@context': 'https://schema.org',
-        '@type': 'Quiz',
-        name: quiz.title,
-        description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
-        educationalAlignment: {
-          '@type': 'AlignmentObject',
-          alignmentType: 'educationalSubject',
-          targetName: 'K-pop',
-        },
-        educationalLevel: quiz.difficulty,
-        assesses: quiz.group_name,
-        keywords: `${quiz.group_name}, K-pop, ${quiz.difficulty} quiz`,
-        author: {
-          '@type': 'Person',
-          name: quiz.creator_username,
-          url: `https://kpopquiz.org/u/${quiz.creator_username}`,
-        },
-        dateCreated: quiz.created_at,
-        dateModified: quiz.updated_at,
-        interactionStatistic: [
-          {
-            '@type': 'InteractionCounter',
-            interactionType: 'https://schema.org/PlayAction',
-            userInteractionCount: quiz.play_count,
-          },
-          ...(quiz.total_completions > 0
-            ? [
-                {
-                  '@type': 'InteractionCounter',
-                  interactionType: 'https://schema.org/CompleteAction',
-                  userInteractionCount: quiz.total_completions,
-                },
-              ]
-            : []),
-          ...(quiz.like_count && quiz.like_count > 0
-            ? [
-                {
-                  '@type': 'InteractionCounter',
-                  interactionType: 'https://schema.org/LikeAction',
-                  userInteractionCount: quiz.like_count,
-                },
-              ]
-            : []),
-        ],
-        about: {
-          '@type': 'MusicGroup',
-          name: quiz.group_name,
-          url: `https://kpopquiz.org/${quiz.group_slug}-quiz`,
-        },
-        hasPart: seoQuestions
-          .map((q) => q.question)
-          .filter((text): text is string => typeof text === 'string' && text.length > 0)
-          .map((text) => ({ '@type': 'Question', name: text })),
-        numberOfQuestions: questionCount,
-        inLanguage: 'en',
-        url: `https://kpopquiz.org/q/${quiz.slug}`,
-      })}
+      {/* QA class 4 / SEO-3 Step 4: the enriched Quiz JSON-LD (built above, shared
+          with the UX v11 render so both emit the same object). */}
+      {jsonLdScript(quizJsonLd)}
       {/* BreadcrumbList JSON-LD is emitted by <Breadcrumbs> above (Home › Group › Quiz). */}
     </div>
   );

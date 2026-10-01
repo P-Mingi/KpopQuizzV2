@@ -1,0 +1,42 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:40:30.778Z",
+ "text": "Blindtest / Ranked Ranked blindtest Not live yet The first season has not started. Seasons, tiers and the ladder open with the first season. Until then, play the Blindtest of the day or a free run. Play the blindtest The rules below are the ones ranked will use. Tiers Bronze 0 Silver 4,000 Gold 6,500 Platinum 8,500 Diamond 10,500 Master 12,000 Legend Top 100 Each tier has three divisions, III to I. You can move up during a season, never down. How ranked works A ranked run Ten songs drawn by the server from the whole pool: 4 easy, 4 medium and 2 hard, based on how often fans get them right. 6 song rounds and 4 artist rounds, 10-second clips, no skip, no playlist choice. Everyone plays by the same rules. Points per song Season score Seasons and placement Fair play Rank title and ranked tier Season rewards A season badge Your final tier, on your passport for good Double fandom war points Ev",
+ "buttons": [],
+ "errors": [
+  "load /blindtest/ranked: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /blindtest/ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /blindtest/ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ranked/me",
+   "status": 503
+  },
+  {
+   "step": "load /blindtest/ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /blindtest/ranked",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  }
+ ]
+}

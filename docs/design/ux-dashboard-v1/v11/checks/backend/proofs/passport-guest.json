@@ -1,0 +1,112 @@
+{
+ "base": "http://localhost:3021",
+ "who": "guest",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:29:50.621Z",
+ "testtest": {
+  "h1": "testtest",
+  "nameClass": "p10-pname ux-who",
+  "bias": "",
+  "lvl": "Lv 2 · New Fan",
+  "meta": "joined September 2026 · 0 followers",
+  "xp": "32 / 70 XP to Lv 3",
+  "stats": "0 days streak 0 groups mastered 0 quizzes made 0 plays received",
+  "band": "flat",
+  "pinned": null,
+  "medals": 83,
+  "earned": 2,
+  "earnedLine": "",
+  "rarity": [
+   "First steps COMMON Play your first quiz",
+   "First stepsCommonPlay your first quiz"
+  ],
+  "tabs": [
+   "Overview",
+   "Quizzes",
+   "Badges"
+  ],
+  "followSheet": "Sign in to follow testtest See their new quizzes in your feed. No password needed. G Continue with Google D Continue wit"
+ },
+ "mingi": {
+  "h1": "mingi",
+  "nameClass": "p10-pname ux-who ux-acc-pink",
+  "bias": "Felix",
+  "lvl": "Lv 7 · Stan",
+  "meta": "Stan since 2016 · joined March 2026 · 2 followers",
+  "xp": "1,377 / 1,620 XP to Lv 8",
+  "stats": "0 days streak 0 groups mastered 9 quizzes made 517 plays received",
+  "band": "flat",
+  "pinned": "Pinned badge: Founding fan",
+  "medals": 88,
+  "earned": 24,
+  "earnedLine": "",
+  "rarity": [
+   "Founding fan LEGENDARY Here before it was cool",
+   "First steps COMMON Play your first quiz",
+   "Quiz maker COMMON Create your first quiz",
+   "Perfect score RARE Score 100% on any quiz",
+   "Hard mode UNCOMMON Pass a Hard difficulty quiz",
+   "Multi-stan UNCOMMON Play quizzes from 10+ groups",
+   "First stepsCommonPlay your first quiz",
+   "Quiz makerCommonCreate your first quiz",
+   "Perfect scoreRareScore 100% on any quiz",
+   "Hard modeUncommonPass a Hard difficulty quiz",
+   "Multi-stanUncommonPlay quizzes from 10+ groups",
+   "Dedicated fanRarePlay 100 quizzes"
+  ],
+  "tabs": [
+   "Overview",
+   "Quizzes",
+   "Badges"
+  ]
+ },
+ "errors": [
+  "load /u/testtest: Unexpected token '<'",
+  "load /u/mingi: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /u/testtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /u/testtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=testtest",
+   "status": 200
+  },
+  {
+   "step": "load /u/testtest",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /u/mingi",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /u/mingi",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=mingi",
+   "status": 200
+  },
+  {
+   "step": "load /u/mingi",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  }
+ ]
+}

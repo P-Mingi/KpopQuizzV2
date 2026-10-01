@@ -1,0 +1,9 @@
+[
+{"id":"R061","owner":"P2","verdict":"PENDING (P2 not merged: waiting for the owner's push of ux11/p2-quizzes)","corrected":"(a)2: the param is ?tab=, not ?sort=.","control":["/quizzes on the shared build is the live browse page inside the v11 shell."],"call":["Not checked as a v11 row until P2 is merged (known gap, not filed)."],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R062","owner":"P2","verdict":"PENDING (P2 not merged)","control":["Type chips."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R063","owner":"P2","verdict":"PENDING (P2 not merged)","corrected":"(a)3: /api/quizzes has no difficulty filter.","control":["Level chips."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R064","owner":"P2","verdict":"PENDING (P2 not merged)","control":["Group rail."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R065","owner":"P2","verdict":"PENDING (P2 not merged)","control":["Infinite grid."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]},
+{"id":"R066","owner":"P2","verdict":"PENDING (P2 not merged)","control":["SEO landing pages."],"call":["/trending, /new, /quizzes/popular-this-week answer 200 on :3021 (footer check)."],"db":["-"],"flagoff":["-"],"evidence":["proofs/shell-links-3021.txt"]},
+{"id":"R336","owner":"P2","verdict":"PENDING (P2 not merged)","control":["Quizzes: sort + type / level / group chips, real server filtering, empty state, ?page=2."],"call":["-"],"db":["-"],"flagoff":["-"],"evidence":[]}
+]

@@ -1,0 +1,40 @@
+
+== /hearts2hearts-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:4333)
+SAME  status  200
+SAME  title  "Hearts2hearts Quiz: Free Fan-Made Trivia Test | KpopQuiz"
+SAME  description  "Play the free Hearts2hearts quiz made by fans. Test your knowledge of Hearts2hearts's members, songs, eras, and history, then prove you are a real fan."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/hearts2hearts-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=1+ free Hearts2hearts quizzes. Can you pass them all?","og:image:alt=Hearts2hearts Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["Hearts2hearts Quiz - Test How Well You Know Hearts2hearts"]
+SAME  intro  "Hearts2hearts quizzes, made by fans who actually know Hearts2hearts: play 1+ free tests, from easy trivia to impossible deep cuts, and prove you're a real fan. 21 plays and counti
+SAME  genline  null
+SAME  updated  "Updated September 2026"
+SAME  FAQ pairs: A 2, B 2 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 0 kept 0; questions 0, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 1, B 1
+DIFF  link set: A 26 unique hrefs (43 anchors), B 41 unique hrefs (59 anchors); lost 1: /search; added 16: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+
+== /akmu-quiz  (A flag off http://localhost:4332  |  B flag on http://localhost:4333)
+SAME  status  200
+SAME  title  "AKMU Quiz: Free Fan-Made Trivia Test | KpopQuiz"
+SAME  description  "Play the free AKMU quiz made by fans. Test your knowledge of AKMU's members, songs, eras, and history, then prove you are a real fan."
+SAME  robots  null
+SAME  canonical  "https://kpopquiz.org/akmu-quiz"
+SAME  hreflang  []
+SAME  og  ["og:description=1+ free AKMU quizzes. Can you pass them all?","og:image:alt=AKMU Quiz","og:image:height=630","og:image:width=1200","og:image=https://kpopquiz.org/api/og/group/akmu
+SAME  jsonld  ["{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://kpopquiz.org/\",\"name\":\"Home\",\"position\":1
+SAME  h1  ["AKMU Quiz - Test How Well You Know AKMU"]
+SAME  intro  "AKMU quizzes, made by fans who actually know AKMU: play 1+ free tests, from easy trivia to impossible deep cuts, and prove you're a real fan. 15 plays and counting."
+SAME  genline  null
+SAME  updated  "Updated March 2026"
+SAME  FAQ pairs: A 2, B 3 (flag on shows the FAQ and the W8 questions as one list); flag-off pairs missing 0
+SAME  answer-first: lead 1 kept 1; questions 1, lost 0
+SAME  member photo alt texts: A 0, B 0
+SAME  dated content (<time>): A 1, B 1
+DIFF  link set: A 25 unique hrefs (42 anchors), B 41 unique hrefs (59 anchors); lost 1: /search; added 17: #main /aespa-quiz /ateez-quiz /blackpink-quiz /blindtest/group-akmu /blindtest/ranked /bts-quiz /community /daily /groups /new /newjeans-quiz /profile /seventeen-quiz /stray-kids-quiz /trending /twice-quiz
+
+SEO DIFF: differences found

@@ -1,0 +1,34 @@
+# fix 2 (ux11/p1-fix2 f91ef31): server-rendered link set (no JS) of / and /pt.
+# flag off = origin/feat/ux-v1-v11 c8a5222 (next build + next start, NEXT_PUBLIC_UX_V1 unset, :4101)
+# flag on  = ux11/p1-fix2 f91ef31 (next dev, NEXT_PUBLIC_UX_V1=1, :3031)
+# fetched back to back, GET only (scratch link-parity2.mjs, the fix 1 checker)
+
+== /
+flag off: 69 distinct hrefs
+flag on:  78 distinct hrefs
+missing on flag on (5):
+  /verse/stray-kids -> 404 on the flag-off server: dead today, not kept
+  /verse/blackpink -> 404 on the flag-off server: dead today, not kept
+  /verse/seventeen -> 404 on the flag-off server: dead today, not kept
+  /quizzes/new -> 404 on the flag-off server: dead today, not kept
+  /quizzes/most-liked -> 404 on the flag-off server: dead today, not kept
+added on flag on (14): #main /community /tuide-quiz /girls-generation-quiz /most-liked /new /q/babymon-fan-quiz-freya /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3 /verse/bts/essays/2 /daily /blindtest/ranked /trending /ateez-quiz /profile
+prose kept: "Each fandom's home: members, discography...": flag off yes, flag on yes
+flag off set: / /about /aespa-quiz /articles /babymonster-quiz /blackpink-quiz /blindtest /blindtest/leaderboard /blindtest?daily=true /bts-quiz /contact /cortis-quiz /create /data/knowledge-report-2026 /data/pulse /dmca /enhypen-quiz /exo-quiz /faq /general-kpop-quiz /groups /illit-quiz /itzy-quiz /ive-quiz /le-sserafim-quiz /leaderboard /newjeans-quiz /news /privacy /pt /q/are-a-real-stay /q/are-you-a-real-coer-2 /q/blackpink /q/blackpink-true-or-false /q/bts-discography-challenge /q/bts-the-ultimate-quiz?daily=quiz /q/bts-true-or-false-test-your-army-knowledge /q/cortis-quiz /q/illit-fans-here /q/one-for-sones /q/only-a-real-fearnot-can-pass-this /q/only-a-real-gllit-can-pass-this /q/only-a-real-my-can-pass-this /q/only-a-real-tunes-can-pass-this- /q/skz-true-or-false-only-real-stays-pass /q/stray-kids-basics /q/ultimate-bts-era-quiz-only-real-armys-survive /q/who-said-it-snsd-version /quizzes /quizzes/most-liked /quizzes/new /quizzes/popular-this-week /search /seventeen-quiz /stats /stray-kids-quiz /terms /trivia /twice-quiz /txt-quiz /verse /verse/blackpink /verse/bts /verse/seventeen /verse/stray-kids https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=home-strip https://reddit.com/r/Kpop_Verse
+flag on set:  #main / /about /aespa-quiz /articles /ateez-quiz /babymonster-quiz /blackpink-quiz /blindtest /blindtest/leaderboard /blindtest/ranked /blindtest?daily=true /bts-quiz /community /contact /cortis-quiz /create /daily /data/knowledge-report-2026 /data/pulse /dmca /enhypen-quiz /exo-quiz /faq /general-kpop-quiz /girls-generation-quiz /groups /illit-quiz /itzy-quiz /ive-quiz /le-sserafim-quiz /leaderboard /most-liked /new /newjeans-quiz /news /privacy /profile /pt /q/are-a-real-stay /q/are-you-a-real-coer-2 /q/babymon-fan-quiz-freya /q/blackpink /q/blackpink-true-or-false /q/bts-discography-challenge /q/bts-the-ultimate-quiz?daily=quiz /q/bts-true-or-false-test-your-army-knowledge /q/cortis-quiz /q/illit-fans-here /q/one-for-sones /q/only-a-real-fearnot-can-pass-this /q/only-a-real-gllit-can-pass-this /q/only-a-real-my-can-pass-this /q/only-a-real-tunes-can-pass-this- /q/skz-true-or-false-only-real-stays-pass /q/stray-kids-basics /q/ultimate-bts-era-quiz-only-real-armys-survive /q/who-said-it-snsd-version /quizzes /quizzes/popular-this-week /search /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /tuide-quiz /twice-quiz /txt-quiz /verse /verse/bts /verse/bts/community/with-all-seven-back-and-the-group-chapter-open-aga-3 /verse/bts/essays/2 https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=home-strip https://reddit.com/r/Kpop_Verse
+
+== /pt
+flag off: 49 distinct hrefs
+flag on:  57 distinct hrefs
+missing on flag on (0): none
+added on flag on (8): #main /community /daily /blindtest/ranked /trending /new /ateez-quiz /profile
+prose kept: "Each fandom's home: members, discography...": flag off no, flag on no
+flag off set: / /about /aespa-quiz /articles /babymonster-quiz /blackpink-quiz /blindtest /bts-quiz /contact /cortis-quiz /create /data/knowledge-report-2026 /data/pulse /dmca /enhypen-quiz /exo-quiz /faq /general-kpop-quiz /groups /illit-quiz /itzy-quiz /ive-quiz /le-sserafim-quiz /leaderboard /newjeans-quiz /news /privacy /q/are-you-a-real-coer-2 /q/blackpink /q/bts-the-ultimate-quiz?daily=quiz /q/cortis-quiz /q/illit-fans-here /q/one-for-sones /q/who-said-it-snsd-version /quizzes /quizzes/popular-this-week /quizzes?sort=trending /search /seventeen-quiz /stats /stray-kids-quiz /terms /trivia /twice-quiz /txt-quiz /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+flag on set:  #main / /about /aespa-quiz /articles /ateez-quiz /babymonster-quiz /blackpink-quiz /blindtest /blindtest/ranked /bts-quiz /community /contact /cortis-quiz /create /daily /data/knowledge-report-2026 /data/pulse /dmca /enhypen-quiz /exo-quiz /faq /general-kpop-quiz /groups /illit-quiz /itzy-quiz /ive-quiz /le-sserafim-quiz /leaderboard /new /newjeans-quiz /news /privacy /profile /q/are-you-a-real-coer-2 /q/blackpink /q/bts-the-ultimate-quiz?daily=quiz /q/cortis-quiz /q/illit-fans-here /q/one-for-sones /q/who-said-it-snsd-version /quizzes /quizzes/popular-this-week /quizzes?sort=trending /search /seventeen-quiz /stats /stray-kids-quiz /terms /trending /trivia /twice-quiz /txt-quiz /verse https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=daily https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer https://reddit.com/r/Kpop_Verse
+
+LINK PARITY OK: every flag-off href that works today is in the flag-on server HTML (every missing one answers 404 today, see above)
+
+== groups rail hub links (flag-on server HTML) vs the live hub list (home-group-pills.tsx ORDER)
+flag-on server HTML: rail links 19: /general-kpop-quiz /bts-quiz /blackpink-quiz /cortis-quiz /illit-quiz /stray-kids-quiz /twice-quiz /aespa-quiz /seventeen-quiz /newjeans-quiz /babymonster-quiz /exo-quiz /ive-quiz /enhypen-quiz /txt-quiz /le-sserafim-quiz /itzy-quiz /tuide-quiz /girls-generation-quiz
+first 17 = the live hub list in the live order: YES
+the 17 hubs in the flag-off base home: all present

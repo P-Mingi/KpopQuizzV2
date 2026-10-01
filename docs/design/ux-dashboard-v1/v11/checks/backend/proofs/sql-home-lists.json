@@ -1,0 +1,644 @@
+[
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 8
+   },
+   "tag": "exo"
+  },
+  "count": 8
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 8
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "exo new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 15
+   },
+   "tag": "enhypen"
+  },
+  "count": 7
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 15
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "enhypen new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 1
+   },
+   "tag": "bts"
+  },
+  "count": 27
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 1
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "bts new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 2
+   },
+   "tag": "blackpink"
+  },
+  "count": 24
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 2
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "blackpink new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 30
+   },
+   "tag": "general-kpop"
+  },
+  "count": 152
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 30
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "general-kpop new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 7
+   },
+   "tag": "seventeen"
+  },
+  "count": 10
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 7
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "seventeen new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 3
+   },
+   "tag": "stray-kids"
+  },
+  "count": 29
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 3
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "stray-kids new7d"
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 63
+   },
+   "tag": "babymonster"
+  },
+  "count": 3
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 63
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "babymonster new7d"
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 67
+   },
+   "tag": "cortis"
+  },
+  "count": 9
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 67
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "cortis new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 17
+   },
+   "tag": "itzy"
+  },
+  "count": 8
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 17
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "itzy new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 16
+   },
+   "tag": "txt"
+  },
+  "count": 6
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 16
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "txt new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 10
+   },
+   "tag": "ive"
+  },
+  "count": 8
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 10
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "ive new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 5
+   },
+   "tag": "aespa"
+  },
+  "count": 13
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 5
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "aespa new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 11
+   },
+   "tag": "le-sserafim"
+  },
+  "count": 6
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 11
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "le-sserafim new7d"
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 87
+   },
+   "tag": "girls-generation"
+  },
+  "count": 2
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 87
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "girls-generation new7d"
+  },
+  "count": 1
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 4
+   },
+   "tag": "twice"
+  },
+  "count": 14
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 4
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "twice new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 68
+   },
+   "tag": "illit"
+  },
+  "count": 6
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 68
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "illit new7d"
+  },
+  "count": 2
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 6
+   },
+   "tag": "newjeans"
+  },
+  "count": 12
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "count": true,
+   "head": true,
+   "eq": {
+    "status": "published",
+    "group_id": 6
+   },
+   "gte": {
+    "created_at": "2026-09-19T16:18:47.581Z"
+   },
+   "tag": "newjeans new7d"
+  },
+  "count": 0
+ },
+ {
+  "q": {
+   "t": "daily_blindtest_scores",
+   "count": true,
+   "head": true,
+   "eq": {
+    "date": "2026-09-26"
+   },
+   "tag": "band today"
+  },
+  "count": 3
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,like_count,play_count",
+   "eq": {
+    "status": "published"
+   },
+   "order": [
+    "like_count",
+    false
+   ],
+   "limit": 8,
+   "tag": "most liked"
+  },
+  "rows": 8,
+  "data": [
+   {
+    "slug": "bts-true-or-false-test-your-army-knowledge",
+    "like_count": 48,
+    "play_count": 631
+   },
+   {
+    "slug": "bts-discography-challenge",
+    "like_count": 47,
+    "play_count": 575
+   },
+   {
+    "slug": "stray-kids-basics",
+    "like_count": 46,
+    "play_count": 1068
+   },
+   {
+    "slug": "ultimate-bts-era-quiz-only-real-armys-survive",
+    "like_count": 43,
+    "play_count": 2382
+   },
+   {
+    "slug": "skz-true-or-false-only-real-stays-pass",
+    "like_count": 38,
+    "play_count": 1447
+   },
+   {
+    "slug": "blackpink-true-or-false",
+    "like_count": 35,
+    "play_count": 434
+   },
+   {
+    "slug": "k-pop-company-quiz-match-the-group-to-the-label",
+    "like_count": 33,
+    "play_count": 1424
+   },
+   {
+    "slug": "twice-members-once-test",
+    "like_count": 32,
+    "play_count": 393
+   }
+  ]
+ },
+ {
+  "q": {
+   "t": "quizzes",
+   "s": "slug,created_at",
+   "eq": {
+    "status": "published"
+   },
+   "order": [
+    "created_at",
+    false
+   ],
+   "limit": 8,
+   "tag": "newest"
+  },
+  "rows": 8,
+  "data": [
+   {
+    "slug": "who-said-it-snsd-version",
+    "created_at": "2026-09-26T14:52:29.003871+00:00"
+   },
+   {
+    "slug": "only-a-real-fearnot-can-pass-this",
+    "created_at": "2026-09-26T14:21:00.349165+00:00"
+   },
+   {
+    "slug": "are-a-real-stay",
+    "created_at": "2026-09-26T13:26:07.823158+00:00"
+   },
+   {
+    "slug": "babymon-fan-quiz-freya",
+    "created_at": "2026-09-24T03:41:56.163707+00:00"
+   },
+   {
+    "slug": "this-is-only-for-true-gllits-2",
+    "created_at": "2026-09-22T03:24:55.960682+00:00"
+   },
+   {
+    "slug": "this-is-only-for-true-gllits",
+    "created_at": "2026-09-22T03:24:41.303545+00:00"
+   },
+   {
+    "slug": "are-you-real-h2u",
+    "created_at": "2026-09-19T13:50:43.224159+00:00"
+   },
+   {
+    "slug": "name-10-enhypen-mvs-are-you-a-real-engene",
+    "created_at": "2026-09-18T16:35:19.085174+00:00"
+   }
+  ]
+ }
+]

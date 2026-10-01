@@ -1,0 +1,13 @@
+C3 read-only probe, 2026-09-26 18:32 CEST. ON = :3021 flag-on dcc3159 build (built about 17:51 by ORCH under load); OFF = :4203 flag-off build of the same head (C3, built about 17:55).
+
+ON /groups headers:
+x-nextjs-cache: HIT
+Cache-Control: s-maxage=3600, stale-while-revalidate=31532400
+ON /groups intro paragraph (server HTML):
+ All K-pop groups Every group with at least one quiz on KpopQuiz. 0 groups, A to Z, each with its number of quizzes and its generation where we have one recorded. <svg class="ux-ico p3-filt
+ON generation line present: 0
+ON group hub links: 90
+
+OFF /groups intro (server HTML):
+class="gdir-intro">Every group with at least one quiz on KpopQuiz. 44 groups, A to Z, each with its number of quizzes and its generation where we have one recorded.
+class="gdir-genline">3 2nd Gen · 12 3rd Gen · 13 4th Gen · 4 5th Gen

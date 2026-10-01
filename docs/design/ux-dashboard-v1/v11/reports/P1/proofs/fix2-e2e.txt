@@ -1,0 +1,55 @@
+# e2e/ux-v1/p1.spec.ts (fix loop 2, ux11/p1-fix2 f91ef31) against a flag-on dev server (next dev, NEXT_PUBLIC_UX_V1=1, :3031),
+# Chromium 1234 headless shell, --retries=0, --reporter=list. guardWrites on every case: zero writes recorded.
+Running 41 tests using 1 worker
+ok [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:122:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:170:5 › home light › live ticker: the live component and its two endpoints, restyled
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:194:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:219:5 › home light › groups rail: 10 real groups, published counts, hub links
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:287:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:327:5 › home light › blindtest band: real count, Play the daily, modes link, played state
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:356:5 › home light › community rows and continue (guest: hidden)
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:390:5 › home light › keyboard reaches and operates every home control, pink focus ring
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:122:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:170:5 › home dark › live ticker: the live component and its two endpoints, restyled
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:194:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:219:5 › home dark › groups rail: 10 real groups, published counts, hub links
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:287:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:327:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:356:5 › home dark › community rows and continue (guest: hidden)
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:390:5 › home dark › keyboard reaches and operates every home control, pink focus ring
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:423:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:500:5 › home signed in (test user, read only) › band played state: score, rank, no pulse dot (light)
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:423:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
+ok [ux-1440] › e2e/ux-v1/p1.spec.ts:500:5 › home signed in (test user, read only) › band played state: score, rank, no pulse dot (dark)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:122:5 › home light › guest: SEO header, layout and styles vs the reference, axe, no write
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:170:5 › home light › live ticker: the live component and its two endpoints, restyled
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:194:5 › home light › quiz of the day: the stored pick, real meta, truthful note, Play
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:219:5 › home light › groups rail: 10 real groups, published counts, hub links
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:287:5 › home light › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:327:5 › home light › blindtest band: real count, Play the daily, modes link, played state
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:356:5 › home light › community rows and continue (guest: hidden)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:390:5 › home light › keyboard reaches and operates every home control, pink focus ring
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:122:5 › home dark › guest: SEO header, layout and styles vs the reference, axe, no write
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:170:5 › home dark › live ticker: the live component and its two endpoints, restyled
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:194:5 › home dark › quiz of the day: the stored pick, real meta, truthful note, Play
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:219:5 › home dark › groups rail: 10 real groups, published counts, hub links
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:287:5 › home dark › trending, all time best, new: real order, no quiz twice, no photo twice in a row
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:327:5 › home dark › blindtest band: real count, Play the daily, modes link, played state
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:356:5 › home dark › community rows and continue (guest: hidden)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:390:5 › home dark › keyboard reaches and operates every home control, pink focus ring
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:423:5 › home signed in (test user, read only) › greeting, streak line, continue, band (light)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:500:5 › home signed in (test user, read only) › band played state: score, rank, no pulse dot (light)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:423:5 › home signed in (test user, read only) › greeting, streak line, continue, band (dark)
+ok [ux-390] › e2e/ux-v1/p1.spec.ts:500:5 › home signed in (test user, read only) › band played state: score, rank, no pulse dot (dark)
+41 passed (4.9m)
+
+# Negative checks (same server, the fixed file temporarily set back to c8a5222, then restored from HEAD):
+# - p1.css of c8a5222, --grep "groups rail", ux-1440: 2 failed ("ten tiles in view at 1440": Expected 10, Received 11)
+# - blindtest-band.tsx of c8a5222, --grep "band", ux-1440: 4 failed (guest played: pulse count Expected 0, Received 1;
+#   signed-in played, both themes: "no pulse dot once played": Expected 0, Received 1); 3 passed (setup + greeting x2)
+
+# Earlier runs of this loop (same spec, default retries 2): 40 passed + 1 flaky each. Run 1: the new signed-in played case
+# at 390 light read the band before the browser knew the fan was signed in (it now waits for the band's read; then 13/13
+# band cases with --retries=0). Run 2: the first guest case at 1440 light hit a cold dev render whose quiz-of-the-day
+# read timed out (min-gated row, unrelated to this change; 4/4 guest cases with --retries=0 afterwards).

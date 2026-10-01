@@ -1,0 +1,203 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T17:14:41.917Z",
+ "blackpink": {
+  "h1": "BLACKPINK Quiz - Test How Well You Know BLACKPINK",
+  "lead": "BLACKPINK quizzes, made by fans who actually know BLACKPINK: play 29+ free tests, from easy trivia to impossible deep cuts, and prove you're a real BLINK. 4,906 plays and counting.",
+  "eyebrow": "BLINK · 3rd gen · YG Entertainment",
+  "hero": [
+   "Play the top quiz -> /q/blackpink-ultimate-fan-challenge",
+   "Blindtest -> /blindtest/group-blackpink"
+  ],
+  "facts": "4 members Debut 2016 24 quizzes 18 blindtest songs",
+  "fan": "TWICE 14 quizzes · TWICE true or false",
+  "war": [
+   "See the war -> /leaderboard#fandom-war"
+  ],
+  "warText": "BLINK is #7 in this week's fandom war. See the war",
+  "community": "From the community All posts No posts about BLACKPINK yet. Start the first thread",
+  "communityLinks": [
+   "All posts -> /community",
+   "Start the first thread -> /community"
+  ],
+  "qsHead": "BLACKPINK quizzes 24 quizzes",
+  "cards": [
+   "Classic · Medium BLACKPINK ultimate fan challenge 1.4k plays average 5 -> /q/blackpink-ultimate-fan-challenge",
+   "True/false · Medium BLACKPINK true or false - think you know everythin -> /q/blackpink-true-or-false-think-you-know-everything",
+   "Clues · Medium Guess the BLACKPINK song from clues 489 plays average 7 -> /q/guess-the-blackpink-song-from-clues",
+   "True/false · Medium BLACKPINK true or false 434 plays average 70% -> /q/blackpink-true-or-false",
+   "Classic · Medium BLACKPINK discography deep dive 347 plays average 63% -> /q/blackpink-discography-deep-dive",
+   "Classic · Medium BLACKPINK brand deals and fashion quiz 316 plays aver -> /q/blackpink-brand-deals-and-fashion-quiz"
+  ],
+  "all": [
+   "Show all 24 -> /blackpink-quiz?page=2"
+  ],
+  "faq": [
+   "How many members does BLACKPINK have?",
+   "When did BLACKPINK debut?",
+   "What is BLACKPINK's fandom called?",
+   "What generation is BLACKPINK?",
+   "Where is BLACKPINK from?",
+   "What label is BLACKPINK on?",
+   "How many BLACKPINK quizzes are there?",
+   "How many BLACKPINK songs can I play in the blind test?",
+   "Is there a BLACKPINK blind test?",
+   "Are the BLACKPINK quizzes free?"
+  ],
+  "otherLinks": [
+   "Blindtest -> /blindtest/group-blackpink",
+   "Learn before you play: BLACKPINK trivia -> /blackpink-trivia",
+   "Explore the BLINK space on Verse -> /verse/blackpink",
+   "Make your own BLACKPINK quiz -> /create?group=blackpink",
+   " -> /blindtest/group-blackpink"
+  ],
+  "notify": "",
+  "notifyState": null,
+  "noscriptCount": [
+   24
+  ]
+ },
+ "chungha": {
+  "h1": "Chungha Quiz - Test How Well You Know Chungha",
+  "lead": "No Chungha quizzes yet - be the first to create one! Think you know Chungha well enough to challenge other Byulharangs? Create a free quiz at kpopquiz.org.",
+  "eyebrow": "Byulharang",
+  "hero": [
+   "Make the first quiz -> /create?group=chungha"
+  ],
+  "facts": "18 blindtest songs",
+  "fan": "",
+  "war": [],
+  "warText": "",
+  "community": "",
+  "communityLinks": [],
+  "qsHead": "",
+  "cards": [],
+  "all": [],
+  "faq": [
+   "What is Chungha's fandom called?",
+   "How many Chungha songs can I play in the blind test?"
+  ],
+  "otherLinks": [
+   "Make the first quiz -> /create?group=chungha"
+  ],
+  "notify": "Notify me",
+  "notifyState": "off",
+  "noscriptCount": [],
+  "notifyAfter": "Notify me"
+ },
+ "groups": {
+  "h1": "All K-pop groups",
+  "rows": 90,
+  "zero": 46,
+  "most": [
+   "BTS 27 quizzes -> /bts-quiz",
+   "Stray Kids 29 quizzes -> /stray-kids-quiz",
+   "BLACKPINK 24 quizzes -> /blackpink-quiz",
+   "NewJeans 12 quizzes -> /newjeans-quiz",
+   "TWICE 14 quizzes -> /twice-quiz",
+   "SEVENTEEN 10 quizzes -> /seventeen-quiz",
+   "aespa 13 quizzes -> /aespa-quiz",
+   "ENHYPEN 7 quizzes -> /enhypen-quiz",
+   "IVE 8 quizzes -> /ive-quiz",
+   "CO Cortis 9 quizzes -> /cortis-quiz"
+  ],
+  "count": "90 groups",
+  "sample": [
+   "(G)I-DLE 8 -> /g-i-dle-quiz",
+   "TE &TEAM 1 -> /team-quiz",
+   "2NE1 No quiz yet -> /2ne1-quiz",
+   "2PM No quiz yet -> /2pm-quiz",
+   "aespa 13 -> /aespa-quiz",
+   "AK AKMU 1 -> /akmu-quiz",
+   "AP Apink No quiz yet -> /apink-quiz",
+   "AR ARTMS 4 -> /artms-quiz"
+  ]
+ },
+ "errors": [
+  "load /blackpink-quiz: Unexpected token '<'",
+  "load /chungha-quiz: Unexpected token '<'",
+  "load /groups: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load /blackpink-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /blackpink-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /blackpink-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p3/notify?group=57",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /chungha-quiz",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load /groups",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load /groups",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load /groups",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  }
+ ]
+}

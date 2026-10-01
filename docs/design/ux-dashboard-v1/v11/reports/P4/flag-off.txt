@@ -1,0 +1,35 @@
+P4 flag-off proof (2026-09-26). A = origin/feat/ux-v1-v11 (b726ee3), B = ux11/p4-quiz (880f278; later
+commits only touch flag-on markup and tests). Both built with NEXT_PUBLIC_UX_V1 unset.
+
+1. Production builds (next build, 803 / 803 static pages each), served with next start (A :4401, B :4402).
+
+JS weight per page, flag off (chunk-weight.mjs: the <script src> chunks a page lists, summed):
+  /q/ultimate-bts-era-quiz-only-real-armys-survive  A 15 chunks 999,289 B | B 15 chunks 1,001,093 B
+  /q/skz-true-or-false-only-real-stays-pass         A 15 chunks 999,289 B | B 15 chunks 1,001,093 B
+  /q/real-coers-cortis-fans-can-take-this-quiz      A 15 chunks 999,289 B | B 15 chunks 1,001,093 B
+  /                                                 A 13 chunks 708,785 B | B 13 chunks   708,795 B
+  /quizzes                                          A 13 chunks 712,010 B | B 13 chunks   712,012 B
+  (+1,804 B on /q pages = the next/dynamic loaders of components/quiz/ux-v1/islands.tsx. Before that
+  commit, B carried one extra chunk of ~71 KB of P4 client code on flag-off /q pages: caught here, fixed.)
+
+flag-off-diff.mjs --structure (A0 helper; client chunk tags and the RSC payload removed):
+  IDENTICAL  /q/skz-true-or-false-only-real-stays-pass
+  IDENTICAL  /q/real-coers-cortis-fans-can-take-this-quiz
+  IDENTICAL  /pt/q/<3 slugs>   404 / 404
+  IDENTICAL  /
+  DIFFERENT  /q/ultimate-bts-era-quiz-only-real-armys-survive: B baked the legacy empty hall of fame
+             ("Be the first to ace this quiz"). Build B hit 253 "timed out after 5000ms" fallbacks on a
+             saturated machine / DB, 15 of them for the hall of fame (build A: 0). Data, not code: see 2.
+  DIFFERENT  /quizzes: live counts only (770 vs 771, 664 vs 665): the two builds ran 45 minutes apart.
+             Not a P4 route.
+flag-off-diff.mjs (bytes): the /q pages differ only in the RSC payload's client module ids (4 bytes
+after normalisation), as in A0's proof.
+
+2. Live renders, no build-time cache or drift: two flag-off dev servers (A :3045, B :3044) fetched back
+to back, flag-off-diff.mjs --structure, then dev-norm.mjs (removes what differs between any two dev
+servers: the per-render request id, the checkout folder and dev chunk names inside dev stack traces):
+  IDENTICAL  /q/ultimate-bts-era-quiz-only-real-armys-survive  (54,996 / 54,996, full hall of fame both sides)
+  IDENTICAL  /q/skz-true-or-false-only-real-stays-pass         (52,092 / 52,092)
+  IDENTICAL  /q/real-coers-cortis-fans-can-take-this-quiz      (51,217 / 51,217)
+  IDENTICAL  /pt/q/ultimate-bts-era-quiz-only-real-armys-survive (404)
+  all pages identical

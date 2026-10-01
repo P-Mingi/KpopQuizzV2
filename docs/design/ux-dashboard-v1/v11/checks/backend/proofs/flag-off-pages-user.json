@@ -1,0 +1,177 @@
+{
+ "base": "http://localhost:4202",
+ "takenAt": "2026-09-26T16:11:18.020Z",
+ "pages": [
+  {
+   "path": "/",
+   "who": "user",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/stats/live 200",
+    "GET /api/activity/recent 200",
+    "GET /api/auth/me 200",
+    "GET /api/discord/widget 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/q/blackpink-ultimate-fan-challenge",
+   "who": "user",
+   "status": 200,
+   "final": "/q/blackpink-ultimate-fan-challenge",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200",
+    "GET supabase:/auth/v1/user 200",
+    "GET supabase:/auth/v1/user 200",
+    "GET /api/quiz/9ac9f7f9-fbd9-4f17-8fb9-0beca03a9958/my-rank 200",
+    "GET /api/follow?username=roseeeyh 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/blindtest",
+   "who": "user",
+   "status": 200,
+   "final": "/blindtest",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/leaderboard",
+   "who": "user",
+   "status": 200,
+   "final": "/leaderboard",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/bts.jpg 200",
+    "GET /api/auth/me 200",
+    "GET /api/verse/my-spaces 200",
+    "GET /api/debate/me 200",
+    "GET /api/stats/live 200",
+    "GET /api/auth/me 200",
+    "GET /api/activity/recent 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/bts-quiz",
+   "who": "user",
+   "status": 200,
+   "final": "/bts-quiz",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/storage/v1/object/public/group-logos/seventeen.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/05/672f0afb-77c7-43f0-a8e6-556316cf7468.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/enhypen.jpg 200",
+    "GET supabase:/storage/v1/object/public/group-logos/txt.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/9c540376-0edc-4d46-9cdc-b1aa4dcf8e2b.jpg 200",
+    "GET supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/04/14063591-e57b-4e17-8dc6-970df20b149f.jpg 200",
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/create",
+   "who": "user",
+   "status": 200,
+   "final": "/create",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET supabase:/auth/v1/user 200",
+    "GET supabase:/rest/v1/profiles?select=username&id=eq.<test user id> 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/notifications",
+   "who": "user",
+   "status": 200,
+   "final": "/notifications",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=50 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/settings",
+   "who": "user",
+   "status": 200,
+   "final": "/settings",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET supabase:/auth/v1/user 200",
+    "GET supabase:/rest/v1/profiles?select=username%2Cdisplay_name%2Cavatar_url%2Cavatar_bg%2Cavatar_text%2Cbio%2Cult_groups%2Cbias%2Cprofile_theme%2Cname_accent%2Cname_font%2Cpinned_badge_id%2Cavatar_kind%2Cavatar_ref%2Cxp%2Cstan_sinc 200",
+    "GET supabase:/rest/v1/user_badges?select=badge_definitions%21inner%28id%2Cname%2Ccolor_bg%2Ccolor_stroke%29&user_id=eq.<test user id> 200",
+    "GET supabase:/rest/v1/groups?select=slug%2Cname%2Cdisplay_color&order=name.asc 200",
+    "GET /api/auth/me 200",
+    "GET /api/notifications?limit=1 200",
+    "GET /api/notifications/prefs 200",
+    "GET /api/notifications/prefs 200"
+   ],
+   "errors": []
+  },
+  {
+   "path": "/community",
+   "who": "user",
+   "status": 200,
+   "final": "/",
+   "uxShell": 0,
+   "uxClass": false,
+   "uxStyleLink": 0,
+   "v11calls": [],
+   "calls": [
+    "GET /api/stats/live 200",
+    "GET /api/discord/widget 200",
+    "GET /api/auth/me 200",
+    "GET /api/activity/recent 200",
+    "GET /api/daily/streak 200",
+    "GET /api/daily/streak 200",
+    "GET /api/notifications?limit=1 200"
+   ],
+   "errors": []
+  }
+ ]
+}

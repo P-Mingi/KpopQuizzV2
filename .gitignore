@@ -74,6 +74,7 @@ docs/*
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/
+!docs/design/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
 !docs/COWORK-HANDOFF.md
@@ -116,3 +117,6 @@ avatar-assets/
 # graph nobody notices is exactly the failure mode this trial was run to test for.
 # Rebuild with: graphify . --update
 graphify-out/
+
+# UX v11 run: Playwright signed-in storage state (live session, never commit)
+apps/quiz/e2e/.auth/

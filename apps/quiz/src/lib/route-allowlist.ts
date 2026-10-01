@@ -62,6 +62,15 @@ export const KNOWN_ROUTES = [
   '/pt',
 ];
 
+// UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new
+// design. They are known ONLY when the flag is on, so with the flag off the middleware
+// keeps 301ing them to / exactly as today (flag off = today's site, byte for byte).
+// '/ux-v1/' is the noindex component kit, '/community' the community feed (P8).
+// Same flag test as lib/ux-v1.ts, inlined so this module stays import-free.
+export const UX_V1_ROUTES = ['/ux-v1/', '/community'];
+const UX_V1_ON =
+  process.env.NEXT_PUBLIC_UX_V1 === '1' || process.env.NEXT_PUBLIC_UX_V1 === 'true';
+
 /**
  * True when the middleware will let this path through instead of 301ing it to /.
  *
@@ -75,5 +84,6 @@ export function isKnownRoute(pathname: string): boolean {
   // Group landing pages are generated: /bts-quiz, /twice-trivia, and so on.
   if (pathname.endsWith('-quiz')) return true;
   if (pathname.endsWith('-trivia')) return true;
+  if (UX_V1_ON && UX_V1_ROUTES.some((r) => pathname.startsWith(r))) return true;
   return KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r));
 }

@@ -1,0 +1,202 @@
+--- a/apps/quiz/src/lib/db/queries/group-hub.ts
++++ b/apps/quiz/src/lib/db/queries/group-hub.ts
+@@ -32,7 +32,7 @@
+ export const getGroupNameAllGame = unstable_cache(
+   async (groupId: number): Promise<GroupNameAllGame | null> => {
+   const db = createPublicReadClient();
+-  const { data } = await db
++  const { data, error } = await db
+     .from('games')
+     .select('slug, content')
+     .eq('group_id', groupId)
+@@ -40,6 +40,7 @@
+     .eq('status', 'published')
+     .limit(1)
+     .maybeSingle();
++  if (error) throw new Error(`getGroupNameAllGame: ${error.message}`);
+   if (!data) return null;
+   const content = data.content as { members?: Array<{ name?: string; photo_url?: string | null }> } | null;
+   const members = (content?.members ?? [])
+@@ -56,12 +57,13 @@
+ export const getGroupBlindtestInfo = unstable_cache(
+   async (groupId: number): Promise<{ qualifies: boolean; songs: number }> => {
+   const db = createPublicReadClient();
+-  const { count } = await db
++  const { count, error } = await db
+     .from('blind_test_songs')
+     .select('id', { count: 'exact', head: true })
+     .eq('group_id', groupId)
+     .eq('status', 'active')
+     .not('clip_chorus', 'is', null);
++  if (error) throw new Error(`getGroupBlindtestInfo: ${error.message}`);
+   const songs = count ?? 0;
+   return { qualifies: songs >= MIN_SONGS_FOR_GROUP_MODE, songs };
+   },
+@@ -91,11 +93,12 @@
+ const getGroupMasteryAgg = unstable_cache(
+   async (groupId: number): Promise<{ masteredCount: number; avgAccuracy: number | null; trackedPlays: number }> => {
+     const db = createPublicReadClient();
+-    const { data: rows } = await db
++    const { data: rows, error } = await db
+       .from('player_group_mastery')
+       .select('songs_played, songs_correct')
+       .eq('group_id', groupId)
+       .gt('songs_played', 0);
++    if (error) throw new Error(`getGroupMasteryAgg: ${error.message}`);
+     let masteredCount = 0;
+     let trackedPlays = 0;
+     let accSum = 0;
+@@ -140,7 +143,7 @@
+   async (groupId: number): Promise<GroupComeback | null> => {
+   const db = createPublicReadClient();
+   const cutoff = new Date(Date.now() - 14 * 86_400_000).toISOString().slice(0, 10);
+-  const { data } = await db
++  const { data, error } = await db
+     .from('comebacks')
+     .select('title, artist, release_date, kind')
+     .eq('group_id', groupId)
+@@ -149,6 +152,7 @@
+     .order('release_date', { ascending: false })
+     .limit(1)
+     .maybeSingle();
++  if (error) throw new Error(`getGroupActiveComeback: ${error.message}`);
+   if (!data) return null;
+   return {
+     title: data.title as string,
+@@ -172,20 +176,22 @@
+ export const getGroupMvPulse = unstable_cache(
+   async (groupId: number): Promise<GroupMvPulse | null> => {
+   const db = createPublicReadClient();
+-  const { data: tracked } = await db
++  const { data: tracked, error: trackedError } = await db
+     .from('mv_tracking')
+     .select('id, created_at')
+     .eq('group_id', groupId)
+     .eq('active', true);
++  if (trackedError) throw new Error(`getGroupMvPulse: ${trackedError.message}`);
+   if (!tracked || tracked.length === 0) return null;
+ 
+   const ids = tracked.map((t) => t.id as string);
+   const weekAgo = new Date(Date.now() - 7 * 86_400_000).toISOString().slice(0, 10);
+-  const { data: snaps } = await db
++  const { data: snaps, error: snapsError } = await db
+     .from('mv_snapshots')
+     .select('mv_id, snapshot_date, views')
+     .in('mv_id', ids)
+     .order('snapshot_date', { ascending: false });
++  if (snapsError) throw new Error(`getGroupMvPulse: ${snapsError.message}`);
+ 
+   // latest snapshot per mv, and the newest snapshot on-or-before a week ago.
+   const latest = new Map<string, number>();
+--- a/apps/quiz/src/lib/db/queries/community.ts
++++ b/apps/quiz/src/lib/db/queries/community.ts
+@@ -59,21 +59,24 @@
+ 
+ async function fetchActiveFansByGroup(groupSlug: string, limit = 8): Promise<Array<{ person: PersonCardData; accuracy: number }>> {
+   const db = createPublicReadClient();
+-  const { data: g } = await db.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
++  const { data: g, error: gError } = await db.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
++  if (gError) throw new Error(`getActiveFansByGroup: ${gError.message}`);
+   if (!g) return [];
+ 
+-  const { data: mastery } = await db
++  const { data: mastery, error: masteryError } = await db
+     .from('player_group_mastery')
+     .select('player_id, songs_played, songs_correct')
+     .eq('group_id', (g as { id: number }).id)
+     .gt('songs_played', 0)
+     .order('songs_played', { ascending: false })
+     .limit(limit);
++  if (masteryError) throw new Error(`getActiveFansByGroup: ${masteryError.message}`);
+   const rows = (mastery ?? []) as Array<{ player_id: string; songs_played: number; songs_correct: number }>;
+   if (rows.length === 0) return [];
+ 
+   const ids = rows.map((r) => r.player_id);
+-  const { data: profs } = await db.from('profiles').select(PROFILE_COLS).in('id', ids);
++  const { data: profs, error: profsError } = await db.from('profiles').select(PROFILE_COLS).in('id', ids);
++  if (profsError) throw new Error(`getActiveFansByGroup: ${profsError.message}`);
+   const byId = new Map(((profs ?? []) as ProfileRow[]).map((p) => [p.id, p]));
+ 
+   return rows
+@@ -217,7 +220,8 @@
+   const db = createPublicReadClient();
+   // Over-fetch so excluding the general bucket still leaves a full board of real
+   // groups rather than 29.
+-  const { data } = await db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size });
++  const { data, error } = await db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size });
++  if (error) throw new Error(`getFandomWarMap: ${error.message}`);
+   const rows = ((data ?? []) as Array<{
+     name: string; slug: string; logo_url: string | null; display_color: string;
+     plays_week: number; fans_week: number; plays_prev: number;
+@@ -230,10 +234,11 @@
+   // migration 108 to re-declare the function. Cheap: tens of rows.
+   const genBySlug = new Map<string, string | null>();
+   if (rows.length > 0) {
+-    const { data: gens } = await db
++    const { data: gens, error: gensError } = await db
+       .from('groups')
+       .select('slug, generation')
+       .in('slug', rows.map((r) => r.slug));
++    if (gensError) throw new Error(`getFandomWarMap: ${gensError.message}`);
+     for (const g of (gens ?? []) as Array<{ slug: string; generation: string | null }>) {
+       genBySlug.set(g.slug, g.generation);
+     }
+--- a/apps/quiz/src/lib/db/queries/group-freshness.ts
++++ b/apps/quiz/src/lib/db/queries/group-freshness.ts
+@@ -17,7 +17,7 @@
+ export const getGroupContentDate = unstable_cache(
+   async (groupId: number): Promise<string | null> => {
+     const db = createPublicReadClient();
+-    const { data } = await db
++    const { data, error } = await db
+       .from('quizzes')
+       .select('created_at')
+       .eq('group_id', groupId)
+@@ -25,6 +25,7 @@
+       .order('created_at', { ascending: false })
+       .limit(1)
+       .maybeSingle<{ created_at: string }>();
++    if (error) throw new Error(`getGroupContentDate: ${error.message}`);
+     return data?.created_at ?? null;
+   },
+   ['db:group-freshness:getGroupContentDate:v1'],
+--- a/apps/quiz/src/lib/db/queries/related-quizzes.ts
++++ b/apps/quiz/src/lib/db/queries/related-quizzes.ts
+@@ -32,14 +32,18 @@
+ 
+   const results = await Promise.all(
+     groupSlugs.map(async (slug) => {
+-      const { data } = await supabase
++      // maybeSingle: a group with no published quiz is a normal empty answer
++      // (single() reported it as an error); a real error throws so that
++      // unstable_cache never stores it.
++      const { data, error } = await supabase
+         .from('quizzes')
+         .select('id, title, slug, play_count, difficulty, groups!inner(name, slug, logo_url, text_color)')
+         .eq('groups.slug', slug)
+         .eq('status', 'published')
+         .order('play_count', { ascending: false })
+         .limit(1)
+-        .single();
++        .maybeSingle();
++      if (error) throw new Error(`getRelatedQuizzes(${slug}): ${error.message}`);
+       return data;
+     })
+   );
+--- a/apps/quiz/src/lib/trivia/facts.ts
++++ b/apps/quiz/src/lib/trivia/facts.ts
+@@ -80,10 +80,10 @@
+         .order('play_count', { ascending: false })
+         .limit(200);
+ 
+-      if (error) {
+-        console.error('[getOverriddenFacts] query failed:', error);
+-        return [];
+-      }
++      // Throw instead of returning []: unstable_cache never stores a throw, so a
++      // DB blip no longer caches "0 facts" (which hides the trivia link on every
++      // hub and 404s the trivia page) for the catalog TTL.
++      if (error) throw new Error(`getOverriddenFacts: ${error.message}`);
+       if (!quizzes) return [];
+ 
+       return buildOverriddenFacts(groupSlug, quizzes as FactSourceQuiz[]);

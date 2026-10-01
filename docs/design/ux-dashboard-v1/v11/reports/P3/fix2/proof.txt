@@ -1,0 +1,87 @@
+# P3 fix 2 (X1-005) proof, dev :3033, GET only, 2026-09-27T16:22Z
+
+## Open space with no posts (scratch render: BTS comment list emptied in hub.tsx, never committed)
+base: <a class="ux-lnk" href="/community">Start the first thread</a>
+fix:  <a class="ux-lnk" href="/community?compose=thread">Start the first thread</a>
+link set /bts-quiz base -> fix: anchors 104 -> 104, unique hrefs 80 -> 81; lost 0: -; added 1: /community?compose=thread; per-href count changes: /community 5->4, /community?compose=thread 0->1
+document (structure), base vs fix with the old href put back: IDENTICAL (structure) 54693 = 54693
+
+## Real hubs, flag on, base -> fix
+/bts-quiz: anchors 104 -> 104, unique hrefs 80 -> 80; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 55173 = 55173
+/blackpink-quiz: anchors 100 -> 100, unique hrefs 75 -> 75; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 49943 = 49943
+/ateez-quiz: anchors 95 -> 95, unique hrefs 72 -> 72; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 52408 = 52408
+/chungha-quiz: anchors 54 -> 54, unique hrefs 40 -> 40; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 15144 = 15144
+
+## Flag off, base -> fix (a fresh .next each; image preload tags and live numbers masked)
+/bts-quiz: anchors 97 -> 97, unique hrefs 65 -> 65; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 91139 = 91139 | p3-hub / compose=thread in the fix HTML: 0
+/blackpink-quiz: anchors 94 -> 94, unique hrefs 62 -> 62; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 79403 = 79403 | p3-hub / compose=thread in the fix HTML: 0
+/cortis-quiz: anchors 69 -> 69, unique hrefs 44 -> 44; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 59220 = 59220 | p3-hub / compose=thread in the fix HTML: 0
+/community?compose=thread flag off: 301 -> /
+
+## e2e (e2e/ux-v1/p3.spec.ts, --retries 0, ux-1440 + ux-390, light + dark, guest, guardWrites)
+scratch render, X1-005 case: 4 passed (48.1s)
+real data, X1-005 case + ATEEZ community case: 8 passed (46.7s)
+whole-app tsc (apps/quiz, e2e included): exit 0
+
+# P3 fix 2b (X2-004, members row)
+
+## Chromium measurement (p3-fix2-members.mjs, flag on, GET only), before then after
+before /ateez-quiz 1440 light: 8 members, rows 7+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 8, overflow-x visible, tabindex null, page h-overflow 0
+before /blackpink-quiz 1440 light: 4 members, rows 4, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 4, overflow-x visible, tabindex null, page h-overflow 0
+before /bts-quiz 1440 light: 7 members, rows 7, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 7, overflow-x visible, tabindex null, page h-overflow 0
+before /twice-quiz 1440 light: 9 members, rows 7+2, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 9, overflow-x visible, tabindex null, page h-overflow 0
+before /seventeen-quiz 1440 light: 13 members, rows 7+6, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 13, overflow-x visible, tabindex null, page h-overflow 0
+before /ateez-quiz 1440 dark: 8 members, rows 7+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 8, overflow-x visible, tabindex null, page h-overflow 0
+before /blackpink-quiz 1440 dark: 4 members, rows 4, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 4, overflow-x visible, tabindex null, page h-overflow 0
+before /bts-quiz 1440 dark: 7 members, rows 7, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 7, overflow-x visible, tabindex null, page h-overflow 0
+before /twice-quiz 1440 dark: 9 members, rows 7+2, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 9, overflow-x visible, tabindex null, page h-overflow 0
+before /seventeen-quiz 1440 dark: 13 members, rows 7+6, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 13, overflow-x visible, tabindex null, page h-overflow 0
+before /ateez-quiz 390 light: 8 members, rows 3+3+2, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 8, overflow-x visible, tabindex null, page h-overflow 0
+before /blackpink-quiz 390 light: 4 members, rows 3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 4, overflow-x visible, tabindex null, page h-overflow 0
+before /bts-quiz 390 light: 7 members, rows 3+3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 7, overflow-x visible, tabindex null, page h-overflow 0
+before /twice-quiz 390 light: 9 members, rows 3+3+3, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 9, overflow-x visible, tabindex null, page h-overflow 0
+before /seventeen-quiz 390 light: 13 members, rows 3+3+3+3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 13, overflow-x visible, tabindex null, page h-overflow 0
+before /ateez-quiz 390 dark: 8 members, rows 3+3+2, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 8, overflow-x visible, tabindex null, page h-overflow 0
+before /blackpink-quiz 390 dark: 4 members, rows 3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 4, overflow-x visible, tabindex null, page h-overflow 0
+before /bts-quiz 390 dark: 7 members, rows 3+3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 7, overflow-x visible, tabindex null, page h-overflow 0
+before /twice-quiz 390 dark: 9 members, rows 3+3+3, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 9, overflow-x visible, tabindex null, page h-overflow 0
+before /seventeen-quiz 390 dark: 13 members, rows 3+3+3+3+1, tile 76.0x79.5, photo 56x56, name 13px/500, fully visible 13, overflow-x visible, tabindex null, page h-overflow 0
+non-GET requests aborted: 0
+after /ateez-quiz 1440 light: 8 members, rows 8, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /blackpink-quiz 1440 light: 4 members, rows 4, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 4, overflow-x auto, tabindex 0, page h-overflow 0
+after /bts-quiz 1440 light: 7 members, rows 7, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /twice-quiz 1440 light: 9 members, rows 9, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /seventeen-quiz 1440 light: 13 members, rows 13, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /ateez-quiz 1440 dark: 8 members, rows 8, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /blackpink-quiz 1440 dark: 4 members, rows 4, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 4, overflow-x auto, tabindex 0, page h-overflow 0
+after /bts-quiz 1440 dark: 7 members, rows 7, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /twice-quiz 1440 dark: 9 members, rows 9, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /seventeen-quiz 1440 dark: 13 members, rows 13, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 6, overflow-x auto, tabindex 0, page h-overflow 0
+after /ateez-quiz 390 light: 8 members, rows 8, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /blackpink-quiz 390 light: 4 members, rows 4, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /bts-quiz 390 light: 7 members, rows 7, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /twice-quiz 390 light: 9 members, rows 9, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /seventeen-quiz 390 light: 13 members, rows 13, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /ateez-quiz 390 dark: 8 members, rows 8, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /blackpink-quiz 390 dark: 4 members, rows 4, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /bts-quiz 390 dark: 7 members, rows 7, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /twice-quiz 390 dark: 9 members, rows 9, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+after /seventeen-quiz 390 dark: 13 members, rows 13, tile 88.0x112.4, photo 80x80, name 14px/500, fully visible 3, overflow-x auto, tabindex 0, page h-overflow 0
+non-GET requests aborted: 0
+
+## Server HTML flag on, before (hub.tsx + p3.css from 960bcda) -> after (e334b4a)
+/ateez-quiz: anchors 95 -> 95, unique hrefs 72 -> 72; lost 0: -; added 0: -; per-href count changes: - | members list replaced by its alt texts and names: IDENTICAL (structure) 44093 = 44093
+/blackpink-quiz: anchors 100 -> 100, unique hrefs 75 -> 75; lost 0: -; added 0: -; per-href count changes: - | members list replaced by its alt texts and names: IDENTICAL (structure) 45644 = 45644
+/bts-quiz: anchors 104 -> 104, unique hrefs 80 -> 80; lost 0: -; added 0: -; per-href count changes: - | members list replaced by its alt texts and names: IDENTICAL (structure) 48249 = 48249
+/chungha-quiz: anchors 54 -> 54, unique hrefs 40 -> 40; lost 0: -; added 0: -; per-href count changes: - | members list replaced by its alt texts and names: IDENTICAL (structure) 15144 = 15144
+
+## Flag off, fix 2 base (c557630 hub.tsx + model.ts) -> final branch (fresh .next each; image preloads and live numbers masked)
+/bts-quiz: anchors 97 -> 97, unique hrefs 65 -> 65; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 91139 = 91139 | p3- markup in the flag-off HTML: 0
+/blackpink-quiz: anchors 94 -> 94, unique hrefs 62 -> 62; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 79403 = 79403 | p3- markup in the flag-off HTML: 0
+/cortis-quiz: anchors 69 -> 69, unique hrefs 44 -> 44; lost 0: -; added 0: -; per-href count changes: - | IDENTICAL (structure) 59220 = 59220 | p3- markup in the flag-off HTML: 0
+(the first flag-off /bts-quiz render lost "Fan knowledge": [group-quiz] getGroupFanKnowledge timed out after 5000ms - using fallback; the next render is compared)
+A0 styles route flag off: 404 (p3.css never reaches a flag-off page)
+
+## e2e (members case + BLACKPINK SEO/axe + ATEEZ community + X1-005; 1440 + 390, light + dark, --retries 0)
+16 passed (3.1m)
+whole-app tsc after the merge: exit 0

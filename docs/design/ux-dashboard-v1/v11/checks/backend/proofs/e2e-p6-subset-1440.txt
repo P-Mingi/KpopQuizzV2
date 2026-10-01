@@ -1,0 +1,18 @@
+
+Running 14 tests using 1 worker
+
+[1/14] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:222:5 › blindtest hub light › playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body
+[3/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:359:5 › blindtest hub light › results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else
+[4/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:419:5 › blindtest hub light › daily: one try, the live saves in order, See today's board
+[5/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:537:5 › blindtest hub light › challenge link: tap to play with the score to beat, attempt payload, who won
+[6/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:560:5 › blindtest hub light › expired or unknown challenge link: toast, the hub stays
+[7/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:222:5 › blindtest hub dark › playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body
+[8/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:359:5 › blindtest hub dark › results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else
+[9/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:419:5 › blindtest hub dark › daily: one try, the live saves in order, See today's board
+[10/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:537:5 › blindtest hub dark › challenge link: tap to play with the score to beat, attempt payload, who won
+[11/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:560:5 › blindtest hub dark › expired or unknown challenge link: toast, the hub stays
+[12/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:588:3 › wiring (real, read only) › board endpoint answers its shape; the hub lists every playable group
+[13/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:606:3 › wiring (real, read only) › unknown challenge code is a 404
+[14/14] [ux-1440] › e2e/ux-v1/p6.spec.ts:614:3 › signed in (test user, read only) › your row, best and played state come from the real board; zero writes
+  14 passed (17.1s)

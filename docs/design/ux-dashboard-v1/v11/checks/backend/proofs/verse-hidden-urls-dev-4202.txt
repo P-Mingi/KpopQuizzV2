@@ -1,0 +1,4 @@
+/community/thread/1 -> 404 (final 404 http://localhost:4202/community/thread/1)
+/community/blog/2 -> 404 (final 404 http://localhost:4202/community/blog/2)
+/community/debate/2026-09-26 -> 200 (final 200 http://localhost:4202/community/debate/2026-09-26)
+/verse/bts -> 302 (final 200 http://localhost:4202/verse)

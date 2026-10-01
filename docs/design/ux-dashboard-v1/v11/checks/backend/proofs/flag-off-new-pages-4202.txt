@@ -1,0 +1,5 @@
+/ux-v1/kit -> 301 (final 200 http://localhost:4202/)
+/community -> 301 (final 200 http://localhost:4202/)
+/community/thread/x -> 301 (final 200 http://localhost:4202/)
+/blindtest/ranked -> 404 (final 404 http://localhost:4202/blindtest/ranked)
+/pt/blindtest/ranked -> 404 (final 404 http://localhost:4202/pt/blindtest/ranked)

@@ -1,0 +1,24 @@
+A0 fix 6 flag-off proof (2026-09-29). Both trees built with NEXT_PUBLIC_UX_V1 unset (next build + next start), back to back:
+A = export of origin/feat/ux-v1-v11 b01149e on :4001 (no failed read in its build)
+B = ux11/a0-fix6 (code = 67f6a1e, merged with b01149e in 9e71f0f) on :4002
+node e2e/ux-v1/helpers/flag-off-diff.mjs --a http://localhost:4001 --b http://localhost:4002 --structure <10 pages>
+
+IDENTICAL (structure)  /  status 200/200  raw bytes 225100/225100  normalised 138989/138989  js chunks 13/13
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 374875/374876  normalised 267295/267295  js chunks 13/13
+IDENTICAL (structure)  /q/ultimate-bts-era-quiz-only-real-armys-survive  status 200/200  raw bytes 123646/123646  normalised 54982/54982  js chunks 15/15
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 178047/178049  normalised 95778/95778  js chunks 13/13
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 139370/139371  normalised 54660/54660  js chunks 13/13
+IDENTICAL (structure)  /groups  status 200/200  raw bytes 196331/196332  normalised 125620/125620  js chunks 13/13
+IDENTICAL (structure)  /create  status 200/200  raw bytes 101613/101615  normalised 48317/48317  js chunks 15/15
+IDENTICAL (structure)  /faq  status 200/200  raw bytes 80326/80327  normalised 35393/35393  js chunks 12/12
+IDENTICAL (structure)  /pt/blindtest  status 200/200  raw bytes 86971/86972  normalised 36100/36100  js chunks 14/14
+IDENTICAL (structure)  /trending  status 200/200  raw bytes 89540/89541  normalised 49624/49624  js chunks 13/13
+all 10 pages identical after normalising build ids and hashed asset names
+
+Flag-on-only routes, A / B: /ux-v1/kit 301/301, /api/ux-v1/a0/styles 404/404, /me 307/307, /profile 307/307, /verse 200/200.
+Neither server carries the shell (.ux-app) or the a0 stylesheet link on /.
+
+A first run of the same diff, a minute earlier, showed 3 pages differing only in live data (a play count 110 -> 111,
+another newest-quiz card and its cover preload); the next two runs were identical (above).
+B's build logged failed production reads while prerendering (network drops: getQuizBySlug on some /q pages);
+the 10 pages compared here were served identical to A's all the same.

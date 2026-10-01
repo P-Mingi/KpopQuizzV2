@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useCallback, useRef } from 'react';
 
+import { UX_V1 } from '@/lib/ux-v1';
+
 type ToastType = 'success' | 'error' | 'info';
 
 interface ToastContextValue {
@@ -54,8 +56,9 @@ export function ToastProvider({ children }: ToastProviderProps): React.ReactElem
   return (
     <ToastContext value={{ showToast }}>
       {children}
-      {/* Toast container */}
-      <div className="fixed bottom-6 left-1/2 z-50 flex flex-col gap-2 pointer-events-none">
+      {/* Toast container. Under the UX v1 flag only, a hook for a0.css to lift it above
+          the v11 tab bar (flag off: no attribute, the same HTML). */}
+      <div className="fixed bottom-6 left-1/2 z-50 flex flex-col gap-2 pointer-events-none" data-toast-stack={UX_V1 ? '' : undefined}>
         {toasts.map((toast) => (
           <div
             key={toast.id}

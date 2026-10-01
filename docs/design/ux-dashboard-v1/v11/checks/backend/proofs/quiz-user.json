@@ -1,0 +1,152 @@
+{
+ "base": "http://localhost:3021",
+ "who": "user",
+ "width": 1440,
+ "theme": "light",
+ "takenAt": "2026-09-26T16:30:39.166Z",
+ "page": {
+  "quizId": "62e332ec-a506-425a-97ab-07f26e4729f3",
+  "meta": "Classic Hard 10 questions About 3 min 6 plays",
+  "mine": "Your best 5/10 · 4 days ago Beat it Challenge a friend",
+  "author": "P by peachyblssom2014 · Lv 4 Casual Fan Following",
+  "follow": "Following",
+  "hof": [
+   "1 P peachyblssom2014 Wonhee Illit 9/10 0:44",
+   "2 ? someone 6/10 0:53",
+   "3 T testtest 5/10 0:12",
+   "4 ? someone 5/10 1:07",
+   "5 ? someone 4/10 1:04"
+  ]
+ },
+ "results": {
+  "h1": "10/10 on This is only for ~true~ Gllits!",
+  "xpline": "Saved to your passport",
+  "rankline": "#2 of 2 players · your best 5/10",
+  "like": "true",
+  "likeText": "2"
+ },
+ "errors": [
+  "load: Unexpected token '<'"
+ ],
+ "log": [
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/a0/styles?v=local",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/auth/v1/user",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/notifications?limit=1",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/follow?username=peachyblssom2014",
+   "status": 200
+  },
+  {
+   "step": "load",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=62e332ec-a506-425a-97ab-07f26e4729f3",
+   "status": 200
+  },
+  {
+   "step": "follow toggle (signed in)",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/follow",
+   "body": "{\"username\":\"peachyblssom2014\",\"action\":\"unfollow\"}"
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/questions",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/play",
+   "body": "{\"score\":10,\"total_questions\":10,\"time_taken_seconds\":2,\"max_score\":10,\"per_question_times\":[0.5,0.1,0.1,0.1,0.1,0,0.1,0.1,0.1,0.1],\"anon_id\":\"8b2a84d7-a70a-4821-a7a3-fd567788f8a5\"}"
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "supabase:/storage/v1/object/public/quiz-images/quiz-images/2026/08/9e507b0c-3434-4535-a0b6-88f64d36c521.jpg",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/auth/me",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/ux-v1/p4/standing?quiz=62e332ec-a506-425a-97ab-07f26e4729f3&score=10",
+   "status": 200
+  },
+  {
+   "step": "start + play all right",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/like",
+   "status": 200
+  },
+  {
+   "step": "results: like toggle",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/like",
+   "body": "{\"action\":\"unlike\"}"
+  },
+  {
+   "step": "results: comment send",
+   "kind": "STUBBED-WRITE",
+   "method": "POST",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/comment",
+   "body": "{\"content\":\"Great quiz\"}"
+  },
+  {
+   "step": "results: comment send",
+   "kind": "read",
+   "method": "GET",
+   "path": "/api/quiz/62e332ec-a506-425a-97ab-07f26e4729f3/comment?limit=20",
+   "status": 200
+  }
+ ]
+}

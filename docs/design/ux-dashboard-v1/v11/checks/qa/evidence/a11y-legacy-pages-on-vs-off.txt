@@ -1,0 +1,63 @@
+C3 axe (serious + critical, whole document) of the legacy pages rendered inside the v11 shell, flag on (:3021, dcc3159) vs the flag-off build of the same head (:4203). Script checks/qa/axe-urls.mjs. Nodes per rule.
+
+page width theme | flag on | flag off | rules only on flag on
+/quizzes 1440 light | color-contrast 20 | color-contrast 122 | none
+/blackpink-trivia 1440 light | color-contrast 91 | color-contrast 96 | none
+/blindtest/classic 1440 light | color-contrast 2 | color-contrast 8 | none
+/pt 1440 light | color-contrast 9 | color-contrast 26 | none
+/pt/blindtest 1440 light | color-contrast 19 | color-contrast 24 | none
+/pt/leaderboard 1440 light | color-contrast 4 | color-contrast 9 | none
+/articles 1440 light | color-contrast 126 | color-contrast 131 | none
+/articles/best-kpop-quiz-sites-2026 1440 light | color-contrast 14 | color-contrast 19 | none
+/stats 1440 light | color-contrast 46 | color-contrast 51 | none
+/search 1440 light | none | color-contrast 5 | none
+/quizzes 1440 dark | color-contrast 8 | color-contrast 61 | none
+/blackpink-trivia 1440 dark | color-contrast 90 | color-contrast 94 | none
+/blindtest/classic 1440 dark | color-contrast 3 | color-contrast 8 | none
+/pt 1440 dark | color-contrast 7 | color-contrast 17 | none
+/pt/blindtest 1440 dark | color-contrast 17 | color-contrast 21 | none
+/pt/leaderboard 1440 dark | color-contrast 4 | color-contrast 8 | none
+/articles 1440 dark | color-contrast 88 | color-contrast 92 | none
+/articles/best-kpop-quiz-sites-2026 1440 dark | color-contrast 12 | color-contrast 16 | none
+/stats 1440 dark | color-contrast 44 | color-contrast 48 | none
+/search 1440 dark | none | color-contrast 4 | none
+/quizzes 390 light | color-contrast 17 | color-contrast 121 | none
+/blackpink-trivia 390 light | color-contrast 91 | color-contrast 98 | none
+/blindtest/classic 390 light | color-contrast 2 | color-contrast 11 | none
+/pt 390 light | color-contrast 9 | color-contrast 30 | none
+/pt/blindtest 390 light | color-contrast 20 | color-contrast 28 | none
+/pt/leaderboard 390 light | color-contrast 4 | color-contrast 13 | none
+/articles 390 light | color-contrast 126 | color-contrast 135 | none
+/articles/best-kpop-quiz-sites-2026 390 light | color-contrast 14, scrollable-region-focusable 1 | color-contrast 23, scrollable-region-focusable 1 | none
+/stats 390 light | color-contrast 46 | color-contrast 55 | none
+/search 390 light | none | color-contrast 9 | none
+/quizzes 390 dark | color-contrast 5 | color-contrast 59 | none
+/blackpink-trivia 390 dark | color-contrast 90 | color-contrast 96 | none
+/blindtest/classic 390 dark | color-contrast 3 | color-contrast 10 | none
+/pt 390 dark | color-contrast 7 | color-contrast 21 | none
+/pt/blindtest 390 dark | color-contrast 17 | color-contrast 25 | none
+/pt/leaderboard 390 dark | color-contrast 4 | color-contrast 12 | none
+/articles 390 dark | color-contrast 88 | color-contrast 96 | none
+/articles/best-kpop-quiz-sites-2026 390 dark | color-contrast 12, scrollable-region-focusable 1 | color-contrast 20, scrollable-region-focusable 1 | none
+/stats 390 dark | color-contrast 44 | color-contrast 52 | none
+/search 390 dark | none | color-contrast 8 | none
+
+Sample failing nodes (flag on, 1440 light):
+/quizzes: color-contrast: .hover\:text-accent : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/quizzes: color-contrast: label:nth-child(1) > .fbd-label : Fix any of the following: Element has insufficient color contrast of 2.69 (foreground color: #9e998f, background color: #faf9f6, font size: 8.3pt (11px), font weight: bol
+/blackpink-trivia: color-contrast: .hover\:text-accent.transition-colors[href="/"] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/blackpink-trivia: color-contrast: .hover\:text-accent.transition-colors[href$="blackpink-quiz"] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/blindtest/classic: color-contrast: .mb-6 : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/blindtest/classic: color-contrast: .hover\:text-\[var\(--text-secondary\)\] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/pt: color-contrast: .btn-outline : Fix any of the following: Element has insufficient color contrast of 3.77 (foreground color: #e8457a, background color: #ffffff, font size: 10.5pt (14px), font weight: no
+/pt: color-contrast: .daily-col > .sec-label : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 8.3pt (11px), font weight: nor
+/pt/blindtest: color-contrast: .hover\:text-accent : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/pt/blindtest: color-contrast: .bt-kicker : Fix any of the following: Element has insufficient color contrast of 3.77 (foreground color: #e8457a, background color: #ffffff, font size: 8.3pt (11px), font weight: bol
+/pt/leaderboard: color-contrast: #main > div > div:nth-child(1) > div : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 8.3pt (11px), font weight: bol
+/pt/leaderboard: color-contrast: div:nth-child(1) > span : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.8pt (13px), font weight: bol
+/articles: color-contrast: a[href$="who-is-cortis"] > .artx-card-top > .artx-card-cat : Fix any of the following: Element has insufficient color contrast of 2.53 (foreground color: #10b981, background color: #ffffff, font size: 8.3pt (11px), font weight: bol
+/articles: color-contrast: a[href$="who-is-cortis"] > .artx-card-top > .artx-card-date : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 8.3pt (11px), font weight: nor
+/articles/best-kpop-quiz-sites-2026: color-contrast: .art-breadcrumbs > a[href="/"] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/articles/best-kpop-quiz-sites-2026: color-contrast: .art-breadcrumbs > a[href$="articles"] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 9.0pt (12px), font weight: nor
+/stats: color-contrast: .stats-breadcrumbs > a[href="/"] : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 8.3pt (11px), font weight: nor
+/stats: color-contrast: .stats-breadcrumbs > span:nth-child(3) : Fix any of the following: Element has insufficient color contrast of 2.83 (foreground color: #9e998f, background color: #ffffff, font size: 8.3pt (11px), font weight: nor

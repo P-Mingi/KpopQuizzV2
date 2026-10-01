@@ -1,0 +1,313 @@
+{
+ "state": "btplay",
+ "owner": "P6",
+ "combos": {
+  "1440-light": {
+   "at": "2026-09-26T21:30:04.455Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.07,
+    "maskedPct": 2.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p6-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb stage",
+     "proto": ".orbw",
+     "impl": ".p6-orbw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "listening line",
+     "proto": ".lstate",
+     "impl": ".p6-lstate",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb",
+     "proto": ".orb",
+     "impl": ".p6-orb",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "box-shadow"
+     ],
+     "why": "the reference caught the breathing glow mid-animation (P6)"
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".btans > *, .answers > *",
+     "impl": ".p6-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "1440-dark": {
+   "at": "2026-09-26T21:30:08.395Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.06,
+    "maskedPct": 2.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p6-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb stage",
+     "proto": ".orbw",
+     "impl": ".p6-orbw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "listening line",
+     "proto": ".lstate",
+     "impl": ".p6-lstate",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb",
+     "proto": ".orb",
+     "impl": ".p6-orb",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "box-shadow"
+     ],
+     "why": "the reference caught the breathing glow mid-animation (P6)"
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".btans > *, .answers > *",
+     "impl": ".p6-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  },
+  "390-light": {
+   "at": "2026-09-26T21:30:11.580Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.43,
+    "maskedPct": 9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p6-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb stage",
+     "proto": ".orbw",
+     "impl": ".p6-orbw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "listening line",
+     "proto": ".lstate",
+     "impl": ".p6-lstate",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb",
+     "proto": ".orb",
+     "impl": ".p6-orb",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "box-shadow"
+     ],
+     "why": "the reference caught the breathing glow mid-animation (P6)"
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".btans > *, .answers > *",
+     "impl": ".p6-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-09-26T21:30:16.170Z",
+   "base": "http://localhost:3021",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 5,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.49,
+    "maskedPct": 9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "game bar",
+     "proto": ".gbar",
+     "impl": ".p6-gbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb stage",
+     "proto": ".orbw",
+     "impl": ".p6-orbw",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "listening line",
+     "proto": ".lstate",
+     "impl": ".p6-lstate",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "orb",
+     "proto": ".orb",
+     "impl": ".p6-orb",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "box-shadow"
+     ],
+     "why": "the reference caught the breathing glow mid-animation (P6)"
+    },
+    {
+     "name": "answer buttons",
+     "proto": ".btans > *, .answers > *",
+     "impl": ".p6-ans",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "verdict": "pass"
+}
