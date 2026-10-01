@@ -1,3 +1,4 @@
+import { atBuildRetry } from '@/lib/build-retry';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
@@ -85,7 +86,8 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
   // The directory is the page: it throws instead of baking an empty shell.
   // BTS-ONLY (R1): show ONLY live spaces here too, so no other fandom leaks onto the main
   // Verse page. Non-live spaces are parked (spaceUnpublished); their pages 404 for the public.
-  const tiles = (await getVerseDirectory()).filter((t) => !spaceUnpublished(t.slug));
+  // R1 F7: during `next build` only, a timed-out directory read is retried before it fails the build.
+  const tiles = (await atBuildRetry(() => getVerseDirectory(), { label: 'verse directory' })).filter((t) => !spaceUnpublished(t.slug));
   const [trendingAll, catalog, todayAll, newestAll, activityAll] = await Promise.all([
     safeFetch(getTrending(8), [], 'verse-trending'),
     safeFetch(getCatalogTotals(), { idols: 0, releases: 0 }, 'verse-catalog-totals'),

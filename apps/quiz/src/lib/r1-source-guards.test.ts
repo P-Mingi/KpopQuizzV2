@@ -68,3 +68,12 @@ describe('F3: tables without a public write policy are written by the server onl
     }
   });
 });
+
+describe('F7: no profile is prerendered at build time', () => {
+  it('/u/[username] hands no params to the build and stays ISR', () => {
+    const page = files.find((f) => f.path === 'app/(site)/u/[username]/page.tsx')!.text;
+    expect(page).toMatch(/export async function generateStaticParams\(\): Promise<Array<\{ username: string \}>> \{\n  return \[\];\n\}/);
+    expect(page).toMatch(/export const revalidate = 3600;/);
+    expect(page).not.toMatch(/TOP_PRERENDER/);
+  });
+});
