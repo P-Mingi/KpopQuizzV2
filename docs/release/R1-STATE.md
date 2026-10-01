@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **4 (database): the eight v11 files are applied (owner, 2026-10-01); their verification result is awaited; second PR #89 open, waiting for its checks; `go rls` not given yet.** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **4 (database): the eight v11 files are applied; PR #89 merged and live; waiting for the owner: result of r1-migrations-verify.sql, result of the six-table inventory, `go rls`.** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -41,7 +41,7 @@ production for the whole run (owner, 2026-09-30); R1 never sets, changes or remo
 |---|---|---|
 | #66 | v11 behind the flag (feat/ux-v1-v11 -> main) | MERGED 2026-10-01 10:33 UTC, merge commit `9affc2e` |
 | #88 | R1 fixes F1 to F11 (r1/fixes -> main) | MERGED 2026-10-01 11:22 UTC, merge commit `09ae1a1`, checks green (unit, e2e, Vercel) |
-| #89 | R1 second pass (r1/fixes-2 -> main): cron secret, /api/blind-test/play 410, battle_results on the server, RLS file for six tables | open, checks running |
+| #89 | R1 second pass (r1/fixes-2 -> main): cron secret, /api/blind-test/play 410, battle_results on the server, RLS file for six tables | MERGED 2026-10-01 18:36 UTC, merge commit `4cc1904`, checks green (unit, e2e, Vercel) |
 
 ## Section 2 result (2026-10-01)
 
@@ -169,7 +169,25 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
   read-only query, 34 checks, columns file / n / check / value / expected) was given to the owner; **its result
   is awaited**. The eight files and that query were dry-run on a throwaway local PostgreSQL 18 with a stub
   schema, and the columns the files read were checked to exist in production through the REST API.
-  Indirect evidence so far: the flag-on v11 specs p4 and shell passed on the migrated database (109 passed).
+  Evidence gathered by R1 through the REST API (read only, 2026-10-01): the 13 new tables exist and hold 0 rows;
+  plays.relaxed, notification_prefs.email_streak_reminder / email_weekly_recap and ranked_plays.season /
+  run_token exist; plays still has its rows (69349) and 0 with relaxed = true; get_quiz_rank_for_score and
+  quiz_comment_like_counts answer an anon call; ranked_standings refuses anon (42501); an anon read of
+  ranked_runs, ranked_seasons, community_likes, quiz_comment_likes, group_quiz_alerts returns nothing; the
+  bucket profile-headers is public, 1 MB, image/webp. The flag-on v11 specs p4 and shell passed on the migrated
+  database (109 passed). Still to confirm from SQL: policies, triggers on quizzes, function security modes.
+- PR #89 in production: deployment `dpl_3CrTh9ucevigc2iCVWuWwcSsmUMy` (`kpopquiz-73kjewlsm`, 4cc1904), READY at
+  the first build; CI on main green. `after-fixes-2.json` vs production one minute before: 0 SEO field
+  differences, sitemap 661 = 661, robots.txt identical, only live data differs. Read-only checks on production:
+  the eleven /api/cron routes, /api/qotd/publish and /api/admin/auto-select-qotd answer 401 without the secret
+  and with only `x-vercel-cron: 1`; POST /api/blind-test/play answers 410. No job was run.
+  Rollback target if needed: `dpl_AiKBeREqmsz9hKJZk5tt1yMCwk4L` (09ae1a1), then `vercel promote`.
+- Export before the RLS step (read only, 2026-10-01 evening): `~/kpq-backups/2026-10-01-rls/`: battles 2578,
+  battle_results 3063, pending_questions 36, quiz_bank 100, quiz_time_stats 2215 (2213 this morning: the play
+  route keeps writing the cache through the service role), ranked_plays 0, plays 69349, quizzes 441.
+- `docs/release/apply/09-r1-rls-tighten.sql`: the file verbatim + one verification grid; dry-run on the throwaway
+  PostgreSQL after resetting the six policies and the PUBLIC grant to the production state: 5 SELECT policies
+  left, 0 write policy, 6 of 6 RLS on, ensure_daily_quiz executable by the owner role and service_role only.
 - Order after `go migrations`, one file at a time with its check queries:
   1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
   4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
@@ -195,14 +213,14 @@ x-vercel-cron: 1, /api/blind-test/play answers 410 (local, no job run); flag-on 
 shell at 1440 and 390: 109 passed, 14 skipped, 0 failed. r1-rls-tighten.sql dry-run locally: five SELECT
 policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
 
-NEXT ACTION: (a) PR #89: when its checks are green, `gh pr merge 89 --merge`, wait for production, snapshot,
-then on production (read only): the 13 routes answer 401 without the secret and with only x-vercel-cron: 1,
-POST /api/blind-test/play answers 410. (b) When the owner pastes the result of r1-migrations-verify.sql: check
-the 34 rows, record it here. (c) Then: merge origin/main into r1/report, generate
-`docs/release/apply/09-r1-rls-tighten.sql`, export battle_results and pending_questions
-(`node docs/release/export-tables.mjs ~/kpq-backups/2026-10-01-rls`), give the owner the six-table inventory
-(`docs/release/r1-rls-inventory.sql`), check it against the file's header, wait for `go rls`, give file 9.
-(d) After the crons of the night (00:05 UTC onwards): Vercel logs, every /api/cron route answers 200, not 401.
-Then section 5 (QOTD_ROTATION_FIX=1, UX_P4_CHALLENGE_SECRET piped, redeploy, after-env.json, 30 minutes of
-runtime errors), section 6 (R1-REPORT.md, final state, snapshots, PR r1/report). Stop the throwaway PostgreSQL
-(127.0.0.1:54329, scratchpad pgdata) at the end.
+NEXT ACTION: wait for the owner: (1) the result of `docs/release/r1-migrations-verify.sql` (check the 34 rows,
+record it); (2) the result of `docs/release/r1-rls-inventory.sql` (six tables: expect the four known write
+policies + battle_results_insert_all + pending_questions_insert_all, the trigger
+trg_passport_on_battle_result on battle_results, ensure_daily_quiz with PUBLIC, ranked_finalize_run service
+only); (3) `go rls`, then the owner pastes `docs/release/apply/09-r1-rls-tighten.sql` and the 5-row grid.
+After file 9: read-only checks from here (anon insert refused on the REST API is NOT tested: it would be a
+write attempt; instead check that the v11 challenge and the play route still work on a preview or through
+the specs with guardWrites). Then (d) after the crons of the night (00:05 UTC onwards): Vercel logs, every
+/api/cron route answers 200, not 401. Then section 5 (QOTD_ROTATION_FIX=1, UX_P4_CHALLENGE_SECRET piped,
+redeploy, after-env.json, 30 minutes of runtime errors), section 6 (R1-REPORT.md, final state, snapshots, PR
+r1/report). Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata) at the end.
