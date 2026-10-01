@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **5 (env vars): the two production variables are set, production is being redeployed; then after-env snapshot, 30 minute watch, section 6 (report).** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **DONE (2026-10-01 21:00 UTC). v11 is on main with its flag off, the fixes are live, the nine SQL files are applied and verified, the production env vars are set. `NEXT_PUBLIC_UX_V1` is still off in production: R1 never set, changed or removed it. Last step in flight: the docs PR `r1/report` into main.** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -255,11 +255,19 @@ production: live counters only; the 13 protected routes answer 401 without the s
 x-vercel-cron: 1, /api/blind-test/play answers 410 (local, no job run); flag-on build green, v11 specs p4 +
 shell at 1440 and 390: 109 passed, 14 skipped, 0 failed. r1-rls-tighten.sql dry-run locally: five SELECT
 policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
+- Redeploy READY at 20:26 UTC: `dpl_7uGfKk6KaMEgVSdgLNCXLp66C9zk` (`kpopquiz-opzhn9veb`), `kpopquiz.org` serves it.
+  `after-env.json` vs production one minute before: 0 SEO field differences, sitemap 661 = 661, robots.txt
+  identical, live data only. Flag still off: no `ux-v1` class on the home, /community answers 301 to the home,
+  /blindtest/ranked answers 404, a cron route without the secret answers 401.
+- Watch 20:26 to 20:57 UTC: no 5xx response, no error-level log. **Two plays were recorded at 20:27:33 and
+  20:29:21 UTC, after r1-rls-tighten.sql and after the redeploy, each with its quiz_time_stats write in the same
+  second (20:27:33, 20:29:22):** the play path and the timing cache work with no public write policy.
+- The throwaway PostgreSQL was stopped and its data deleted; the three `kpopquiz-r1-*` entries were removed from
+  the launch file of the Bloom folder; no local server is left running; the e2e session file was deleted after
+  each spec run.
 
-NEXT ACTION: when the redeploy is READY: `vercel inspect kpopquiz.org`, snapshot
-`docs/release/snapshots/after-env.json`, compare with the snapshot taken one minute before (expected: live data
-only; the quiz of the day changes at 00:05 UTC, not now), watch runtime errors 30 minutes. Then section 6: fill
-R1-REPORT.md (STATUS_LINE, REPORT_PR_ROW, ENV_SECTION, CRON_NOTE), final R1-STATE (DONE, flag off), push
-`r1/report`, PR into main, merge when green. Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata).
-Tomorrow, if the owner asks: the quiz of the day for 2026-10-02 exists (qotd_log / quizzes.quiz_of_the_day_date)
-and daily_debates has 2026-10-02: proof the 00:05 and 00:10 UTC crons ran.
+NEXT ACTION: none for R1 once the docs PR `r1/report` is merged. For the owner: section 6 of
+`docs/release/R1-REPORT.md` (the test account's email first). If asked on 2026-10-02: check that `qotd_log` and
+`daily_debates` each hold a row dated 2026-10-02 (the 00:05 and 00:10 UTC crons ran with the secret). The V12
+run starts from `origin/main` (see `docs/design/growth-v12/LAUNCH.md`); production runs with v11 off, so v12 is
+off there too.

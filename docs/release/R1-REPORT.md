@@ -105,8 +105,12 @@ by the owner (2026-10-01 01:33 UTC); read-only exports of the touched tables in 
   (109 passed) before #89; 0 failed; guardWrites on; `/me` and `/profile` never opened signed in.
 - CI on main after each merge: Tests green; SEO gates green since #88 (indexability, metadata dupes, orphans,
   sitemap hygiene, docs secrets).
-- No production write was made by R1 outside the three merges and the env vars of section 4. Every SQL statement
-  was run by the owner.
+- After the RLS file: no 5xx and no error-level log for 30 minutes; two plays recorded at 20:27 and 20:29 UTC,
+  each with its timing cache write in the same second, with no public write policy left. After the env
+  redeploy: no 5xx and no error-level log for 30 minutes.
+- No production write was made by R1 outside the three merges, the env vars of section 4 and one on-demand run
+  of the ranked nightly cron, which returns before any database access while the flag is off. Every SQL
+  statement was run by the owner.
 
 ## 6. Left for the owner
 
