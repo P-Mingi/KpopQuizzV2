@@ -30,3 +30,9 @@ comment on column public.notification_prefs.email_weekly_recap is
 -- Check after running (read only):
 --   select column_name, data_type, column_default from information_schema.columns
 --   where table_schema = 'public' and table_name = 'notification_prefs' and column_name like 'email_%';
+
+-- Rollback (added by R1, 2026-10; run only to undo this file: the two columns hold
+-- nothing until a sender exists and the switches are enabled):
+--   alter table public.notification_prefs
+--     drop column if exists email_streak_reminder,
+--     drop column if exists email_weekly_recap;

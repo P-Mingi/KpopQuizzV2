@@ -42,3 +42,8 @@ on conflict (id) do update
 --   select id, public, file_size_limit, allowed_mime_types from storage.buckets where id = 'profile-headers';
 --   select count(*) from pg_policies where schemaname = 'storage' and tablename = 'objects'
 --     and (qual like '%profile-headers%' or with_check like '%profile-headers%');   -- expect 0
+
+-- Rollback (added by R1, 2026-10; run only to undo this file, and only while the
+-- bucket is empty: a bucket that holds files must be emptied from the dashboard first):
+--   delete from storage.buckets where id = 'profile-headers'
+--     and not exists (select 1 from storage.objects where bucket_id = 'profile-headers');
