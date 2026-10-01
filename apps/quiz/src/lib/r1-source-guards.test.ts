@@ -124,3 +124,19 @@ describe('R1 second pass: retired route, cron secret, battle_results writer', ()
     for (const f of writers) expect(f.text, f.path).toContain('createServiceRoleClient');
   });
 });
+
+describe('R1 second pass: admin pages that call a protected route from the browser', () => {
+  it('each such route keeps the signed-in admin door next to the cron secret', () => {
+    const called = new Set<string>();
+    for (const f of files.filter((x) => /^app\/\(site\)\/admin\//.test(x.path))) {
+      for (const m of f.text.matchAll(/fetch\(\s*[`'"]\/api\/(cron\/[a-z-]+|qotd\/publish)/g)) called.add(m[1]!);
+      // /admin/industry builds the path from a ternary: `/api/cron/${which === 'mv' ? 'mv-snapshot' : 'spotify-snapshot'}`
+      if (/\/api\/cron\/\$\{/.test(f.text)) for (const m of f.text.matchAll(/'((?:mv|spotify)-snapshot)'/g)) called.add(`cron/${m[1]}`);
+    }
+    expect([...called].sort()).toEqual(['cron/mv-snapshot', 'cron/pulse-generate', 'cron/spotify-snapshot', 'qotd/publish']);
+    for (const route of called) {
+      const src = files.find((f) => f.path === `app/api/${route}/route.ts`)!.text;
+      expect(src, route).toMatch(/if \(!isCronAuthorized\(req\)\) \{[\s\S]{0,260}isAdmin\(user\.id\)/);
+    }
+  });
+});
