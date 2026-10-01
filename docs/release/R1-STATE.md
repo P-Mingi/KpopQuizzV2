@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/fixes`. The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **3 (fixes): F1 to F11 written and committed on r1/fixes, pre-merge checks running.** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **3 (fixes): F1 to F11 committed, local checks green, PR open, waiting for its checks.** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -85,9 +85,16 @@ production for the whole run (owner, 2026-09-30); R1 never sets, changes or remo
 | F10 | 8fd9eaa | /api/ranked/cron/nightly scheduled 00:20 UTC, answers 200 and does nothing while the flag is off, the migration is missing or no season exists; `r1-ranked-season1.sql` written, NOT applied (the day the flag goes on); Season rewards hidden behind SEASON_REWARDS_LIVE = false; no XP in ranked (test). |
 | F11 | 56c56a9 | The docs secret gate is green again (pattern, placeholders, binary files); the test account's address is removed from DECISIONS-LOG.md. |
 
-Checks so far: whole-app tsc 0; vitest 980 / 980 (46 files; 920 before + 60 new); `check:docs-secrets` passes
-(2391 files). To do: flag-off and flag-on production builds, v11 specs p2 p6 p9 shell at 1440 and 390, flag-off
-snapshot.
+Checks before the merge (2026-10-01), all green: whole-app tsc 0; vitest 980 / 980 (46 files; 920 before + 60
+new); `check:docs-secrets` passes (2391 files); flag-off production build (`VERSE_PUBLIC=false`, 787 static pages,
+0 Supabase timeouts), served on :3052 and compared with production on the 40 URLs
+(`snapshots/local-fixes-flag-off.json`): status, title, description, canonical, hreflang, robots, og, H1 identical
+on every URL, sitemap identical (661), robots.txt identical, JSON-LD identical once parsed apart from play
+counters and dates; differences: /pt/leaderboard without the three invented accounts (F4), the two home hrefs
+(F5), the home's `/pt` footer link of a build-time render (see section 2). Flag-on production build green; v11
+specs p2, p6, p7, p9, shell at 1440 and 390 on it: 232 passed, 13 skipped by design, 0 failed (5.3 min),
+guardWrites on. The nightly "SEO gates" run on main 9affc2e: its four SEO checks pass, only docs-secrets is red
+(fixed by F11). The test user's session file was deleted after the specs.
 
 Choices made, for the owner's information:
 - F6 does not record plays or award XP (the flag-off hub and the v11 game do not either; decision 12 stays open).
@@ -118,11 +125,9 @@ written in this run and NOT applied.
 - Normalized, not failures: hashed `/_next/static` paths, build id, `self.__next_f` order, timestamps, sitemap
   lastmod, live counters, the quiz of the day.
 
-NEXT ACTION: finish the section 3 checks on `r1/fixes` (HEAD = the R1-STATE commit after 56c56a9): flag-off
-production build (`VERSE_PUBLIC=false pnpm build`, only when nothing builds on Vercel or GitHub), serve it on
-:3051 and compare `docs/release/snapshot.mjs --base http://localhost:3051` with `after-merge.json` (expected
-differences: F4 /pt/leaderboard rows, F5 two home hrefs, F6 mode pages' Play line, live counters); then the
-flag-on build and the v11 specs p2, p6, p9, shell at 1440 and 390 (UX11_CHROMIUM, UX11_E2E not needed locally).
-Then push r1/fixes, open the PR into main, wait for green checks, merge with `gh pr merge --merge`, wait for
-production, snapshot `after-fixes.json`. Then section 4 (exports, owner: backup confirmed, inventory query,
-`go migrations`).
+NEXT ACTION: the PR of `r1/fixes` into main is open: wait for its checks (a red check on a Supabase timeout:
+`gh run rerun <id> --failed` once; any other red: stop, report), then `gh pr merge <n> --merge`, wait for the
+production deployment, snapshot `after-fixes.json` and compare with `after-merge.json` (expected: F4, F5, live
+counters). Then section 4: `node docs/release/export-tables.mjs ~/kpq-backups/2026-10-01`, ask the owner to
+confirm today's Supabase backup and to run `docs/release/r1-migrations-preflight.sql`, present the eight files,
+wait for `go migrations`. No SQL access from this session: the owner pastes each file and answers "applied <file>".
