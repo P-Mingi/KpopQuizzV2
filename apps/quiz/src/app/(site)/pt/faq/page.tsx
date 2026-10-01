@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import type { Metadata } from 'next';
@@ -116,7 +117,7 @@ export default function PtFaqPage(): React.ReactElement {
         </Link>
       </p>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
     </div>
   );
 }

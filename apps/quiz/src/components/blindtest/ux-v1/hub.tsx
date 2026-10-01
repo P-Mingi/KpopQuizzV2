@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { Icon } from '@/components/ux-v1/icon';
@@ -138,8 +139,8 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           ))}
         </section>
       </BtHubControllerLoader>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(webAppJsonLd) }} />
     </UxPage>
   );
 }

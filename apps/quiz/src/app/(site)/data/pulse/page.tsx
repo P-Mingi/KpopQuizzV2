@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
@@ -62,8 +63,8 @@ export default async function PulseIndexPage(): Promise<React.ReactElement> {
 
   return (
     <div className="pulse-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(collectionLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumbLd) }} />
 
       <header className="pulse-header">
         <nav className="pulse-breadcrumbs" aria-label="Breadcrumb">

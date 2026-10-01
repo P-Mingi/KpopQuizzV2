@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -154,16 +155,16 @@ export default async function ArticlePage({ params }: PageProps): Promise<React.
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(articleJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumbJsonLd) }}
       />
       {faqJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }}
         />
       )}
 

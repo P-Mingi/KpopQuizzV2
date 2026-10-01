@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
@@ -261,7 +262,7 @@ export default function KnowledgeReportPage(): React.ReactElement {
         </p>
       </footer>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
     </article>
   );
 }

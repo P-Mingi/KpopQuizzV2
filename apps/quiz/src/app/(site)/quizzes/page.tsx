@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/queries/quizzes';
@@ -283,7 +284,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdString({
               '@context': 'https://schema.org',
               '@type': 'ItemList',
               name: 'K-pop quizzes',
@@ -314,7 +315,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
+              __html: jsonLdString({
                 '@context': 'https://schema.org',
                 '@type': 'FAQPage',
                 mainEntity: quizFaqs.map((f) => ({

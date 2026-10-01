@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 import { EmptyState } from '@/components/verse/primitives/empty-state';
 
@@ -127,7 +128,7 @@ export default async function VerseHomePage(): Promise<React.ReactElement> {
 
   return (
     <div className="verse-page verse-scope mx-auto w-full px-4 sm:px-6 lg:px-10 py-8 sm:py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
 
       {/* 1. HERO - identity + search left, the fandom mosaic right (the audit's
           empty 40% now carries real member portraits, group-tinted). */}

@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
@@ -269,7 +270,7 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'Article',
             headline: `${group.name} Trivia - ${uniqueFacts.length} Fun Facts`,

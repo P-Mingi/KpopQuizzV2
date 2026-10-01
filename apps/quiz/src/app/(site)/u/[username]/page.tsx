@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { notFound } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
@@ -169,7 +170,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
@@ -184,7 +185,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdString({
               '@context': 'https://schema.org',
               '@type': 'ProfilePage',
               mainEntity: {
@@ -303,7 +304,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
@@ -318,7 +319,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdString({
               '@context': 'https://schema.org',
               '@type': 'ProfilePage',
               mainEntity: {

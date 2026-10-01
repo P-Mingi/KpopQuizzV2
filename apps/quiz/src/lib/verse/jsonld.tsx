@@ -1,6 +1,8 @@
 // Entity JSON-LD for Verse pages (MusicGroup, Person, MusicAlbum). Hand-written
 // objects matching the app's inline `<script type="application/ld+json">` house
 // pattern. Only real, sourced facts are emitted; no personal-life data.
+import { jsonLdString } from '@/lib/seo/json-ld';
+
 const SITE = 'https://kpopquiz.org';
 
 export function musicGroupLd(g: {
@@ -82,12 +84,8 @@ export function breadcrumbLd(items: { name: string; url: string }[]): Record<str
 }
 
 export function jsonLdScript(obj: Record<string, unknown>): React.ReactElement {
-  // Escape the HTML-significant characters as JSON unicode escapes (still valid
-  // JSON) so a user-controlled string value (e.g. a thread title containing
-  // </script>) can never break out of the inline ld+json script. Protects every
-  // caller of this shared sink.
-  const json = JSON.stringify(obj)
-    .replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
-    .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />;
+  // The shared escaping sink (lib/seo/json-ld.ts): a user-controlled string value
+  // (e.g. a thread title containing </script>) can never break out of the inline
+  // ld+json script. Protects every caller.
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(obj) }} />;
 }

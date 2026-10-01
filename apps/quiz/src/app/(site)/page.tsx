@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import { Suspense } from 'react';
 import Link from 'next/link';
 
@@ -222,7 +223,7 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
+        __html: jsonLdString({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           name: 'Trending K-pop quizzes',
@@ -269,7 +270,7 @@ export default function HomePage(): React.ReactElement {
         head={(
           <>
             <WorldHomeRedirect />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(WEBSITE_JSON_LD) }} />
             <Suspense fallback={null}>
               <HomeFeaturedJsonLd />
             </Suspense>
@@ -287,7 +288,7 @@ export default function HomePage(): React.ReactElement {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(WEBSITE_JSON_LD),
+          __html: jsonLdString(WEBSITE_JSON_LD),
         }}
       />
       <Suspense fallback={null}>

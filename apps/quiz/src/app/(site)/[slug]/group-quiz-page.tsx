@@ -1,3 +1,4 @@
+import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { jsonLdScript } from '@/lib/verse/jsonld';
@@ -429,7 +430,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
+              __html: jsonLdString({
                 '@context': 'https://schema.org',
                 '@type': 'FAQPage',
                 mainEntity: groupFaqs.map((f) => ({
@@ -470,7 +471,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'ItemList',
             name: `Ways to play ${group.name} on KpopQuiz`,
