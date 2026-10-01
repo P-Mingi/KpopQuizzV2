@@ -4,7 +4,7 @@ Owner of this file: the R1 release agent. Prompt: `docs/design/growth-v12/R1-REL
 main checkout). Working copy: `../KpopQuizzV2-r1`, branch `r1/report` (from main after PR #88; `r1/fixes` is merged). The flag `NEXT_PUBLIC_UX_V1` stays OFF in
 production for the whole run (owner, 2026-09-30); R1 never sets, changes or removes it.
 
-- Phase: **4 (database): the eight v11 files are applied; PR #89 merged and live; waiting for the owner: result of r1-migrations-verify.sql, result of the six-table inventory, `go rls`.** Started 2026-10-01 by the owner, in the former W2 session
+- Phase: **4 done: the eight v11 files and r1-rls-tighten.sql are applied and verified. 30 minute watch of the write paths running; then section 5 (env vars), section 6 (report).** Started 2026-10-01 by the owner, in the former W2 session
   ("New mission: R1"; the W2 conditions are met: its :3021 server is off, PR #66 checks are green on `d305bb2`).
 
 ## Preflight (2026-10-01)
@@ -188,6 +188,28 @@ Nothing applied yet. No SQL access from this session: the owner pastes each file
 - `docs/release/apply/09-r1-rls-tighten.sql`: the file verbatim + one verification grid; dry-run on the throwaway
   PostgreSQL after resetting the six policies and the PUBLIC grant to the production state: 5 SELECT policies
   left, 0 write policy, 6 of 6 RLS on, ensure_daily_quiz executable by the owner role and service_role only.
+- **Verification of the eight files (owner's paste of r1-migrations-verify.sql, 2026-10-01 evening): 34 rows, every
+  value equals its expected text.** plays 69350, quizzes 441, quiz_comments 17, notification_prefs 3: no existing
+  table lost a row. get_quiz_rank_for_score: invoker, executable by anon and authenticated (as designed);
+  quiz_comment_like_counts and notify_group_quiz_alerts: definer; the two triggers are on quizzes; the eight
+  ranked functions are executable by postgres and service_role only; ranked_seasons 0 (ranked stays not live).
+- **Six-table inventory (owner's paste, taken BEFORE file 9):** RLS on for the six tables; policies exactly the
+  ones the file names (battle_results_insert_all + _select_all, battles_insert_all + _select_all,
+  pending_questions_insert_all + _select_all, quizbank_admin_all ALL, quiz_time_stats_read_all +
+  _write_all ALL, ranked_plays_insert + _select), all to {public}; one trigger: trg_passport_on_battle_result
+  (AFTER INSERT on battle_results, function definer); two functions write the tables: ensure_daily_quiz (definer,
+  search_path=public, EXECUTE to PUBLIC) and ranked_finalize_run (INVOKER, postgres + service_role only). Nothing
+  unexpected: the header of r1-rls-tighten.sql holds.
+- **r1-rls-tighten.sql APPLIED by the owner (2026-10-01, between 19:00 and 19:50 UTC), before R1's green light on
+  the inventory; R1 checked the inventory afterwards and it would have been a go. `go rls` is recorded as
+  given.** Grid of bundle 09 (owner's paste): five policies left, all SELECT (battle_results_select_all,
+  battles_select_all, pending_questions_select_all, quiz_time_stats_read_all, ranked_plays_select); 0 write
+  policy; RLS on 6 of 6; ensure_daily_quiz executable by postgres and service_role only; rows 2578 / 3063 / 36 /
+  100 / 2215 / 0, the numbers of the export. Independent read-only check by R1 through the REST API (19:54 UTC):
+  anon sees 0 row of quiz_bank (service role: 100), anon still reads the five other tables, counts unchanged.
+- Watch after file 9: no 5xx and no error-level log in production over the last 90 minutes (19:55 UTC). Each timed
+  play since PR #88 has its quiz_time_stats write in the same second (17:43, 18:07, 18:24, 19:11 UTC), through
+  the service role, which RLS does not apply to. Traffic is low this evening: last play 19:11 UTC.
 - Order after `go migrations`, one file at a time with its check queries:
   1 `v11-p4-relaxed-runs.sql` 2 `v11-p4-rank-for-score.sql` 3 `v11-p4-comment-likes.sql`
   4 `v11-p3-group-quiz-alerts.sql` 5 `v11-p8-community.sql` 6 `v11-p10-email-prefs.sql`
@@ -213,14 +235,11 @@ x-vercel-cron: 1, /api/blind-test/play answers 410 (local, no job run); flag-on 
 shell at 1440 and 390: 109 passed, 14 skipped, 0 failed. r1-rls-tighten.sql dry-run locally: five SELECT
 policies left, anon refused on every write and on ensure_daily_quiz, service role unaffected.
 
-NEXT ACTION: wait for the owner: (1) the result of `docs/release/r1-migrations-verify.sql` (check the 34 rows,
-record it); (2) the result of `docs/release/r1-rls-inventory.sql` (six tables: expect the four known write
-policies + battle_results_insert_all + pending_questions_insert_all, the trigger
-trg_passport_on_battle_result on battle_results, ensure_daily_quiz with PUBLIC, ranked_finalize_run service
-only); (3) `go rls`, then the owner pastes `docs/release/apply/09-r1-rls-tighten.sql` and the 5-row grid.
-After file 9: read-only checks from here (anon insert refused on the REST API is NOT tested: it would be a
-write attempt; instead check that the v11 challenge and the play route still work on a preview or through
-the specs with guardWrites). Then (d) after the crons of the night (00:05 UTC onwards): Vercel logs, every
-/api/cron route answers 200, not 401. Then section 5 (QOTD_ROTATION_FIX=1, UX_P4_CHALLENGE_SECRET piped,
-redeploy, after-env.json, 30 minutes of runtime errors), section 6 (R1-REPORT.md, final state, snapshots, PR
-r1/report). Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata) at the end.
+NEXT ACTION: finish the 30 minute watch (Vercel 5xx / error logs; a new play must still get its quiz_time_stats
+write). Then section 5: `vercel env add QOTD_ROTATION_FIX production` (value 1), `UX_P4_CHALLENGE_SECRET` = 32
+random bytes piped in, never shown; CRON_SECRET exists; never NEXT_PUBLIC_UX_V1; redeploy production; snapshot
+`after-env.json` (equal to after-fixes-2.json except live data and the quiz of the day); watch runtime errors 30
+minutes. After 00:05 UTC: the Vercel logs must show the /api/cron routes answering 200 (they need the Bearer
+secret now), ensure-daily-quiz first (it also proves ensure_daily_quiz still runs with the service role after
+the EXECUTE revoke). Then section 6: R1-REPORT.md, final R1-STATE (DONE, flag off), snapshots, PR `r1/report`
+into main, merge when green. Stop the throwaway PostgreSQL (127.0.0.1:54329, scratchpad pgdata) at the end.
