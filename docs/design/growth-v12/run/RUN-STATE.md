@@ -10,7 +10,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 
 | Id | Branch | Status | Last sha | Open issues | Report |
 |---|---|---|---|---|---|
-| A1 | v12/a1-foundation | running | - | 0 | run/reports/A1.md |
+| A1 | v12/a1-foundation | merged (20ee928) + styles route patch (1cb0d17) | 4d5600a | 0 | run/reports/A1.md |
 | G1 | v12/g1-tracking | merged (8d11ad0) | 1ce5143 | 0 | run/reports/G1.md |
 | G2 | v12/g2-catalogue | running | - | 0 | run/reports/G2.md |
 | G3 | v12/g3-acquisition | queued (Phase 2, first wave) | - | 0 | run/reports/G3.md |
@@ -69,6 +69,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 2. G1: clue quiz percentages are now points over max, low by design (26 to 80%), so chips turn from green to red. Shipped: clue quizzes are left out of the `/stats` rankings ("Ranked from 253" instead of 256). Alternative: hide their average everywhere.
 3. G1: `kickflip-mega-quiz` (not a clue quiz) goes from "avg 101%" to 100%: its stored `question_count` is stale and the helper caps at 100. The stale count itself is data, not fixed in this run.
 4. G1: the go for `v12-g1-bt-runs.sql`, then for the tracking proof (`run/reports/G1/tracking-proof.mjs`, prepared, refuses to run without the go).
+5. A1: the Team avatar is the neutral initial with a pink ring, as the prototype paints it and `styles.json` records, not the pink-soft fill its CSS line names. `.langsw` at 390 is 336.8px wide instead of the prototype's 360.8px, because the prototype's switch overflows the phone column by 11px (tighter language pills on phones).
 
 ## Open requests (run/requests/G1.md), to route in Phase 2
 
@@ -90,10 +91,11 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - 2026-10-02 Phase 1 started: A1, G1, G2 spawned in Agent worktrees.
 - 2026-10-02 v11 regression reference set captured (152 PNG, `reference/v11/styles.json` committed, ee0bfd2).
 - 2026-10-02 G1 ready (1ce5143) and merged (8d11ad0): guard ok (41 files), no dash, whole-app tsc 0 and vitest green on the integration branch. G1 found why `blind_test_plays` went silent: the generate route changed shape on 2026-06-12 (36ee51f), the playlist player broke before its save call, the new hub game never saved; R1 then retired the endpoint (410). Incident: two tracking beacons escaped the stubs on the first spec run and reached the dev route; nothing was written (the table does not exist; `songs.play_count` still 0 by read-only SQL); spec hardened. Side finding: `/stray-kids-quiz` answers 500 in dev on the base too (image host missing in `next.config.ts`), 200 in production. NOT verified by G1: the tracking proof, the SQL as DDL, the route's write paths and the claim against a real table, the admin page with data, mobile width.
+- 2026-10-02 A1 ready (4d5600a) and merged (20ee928): guard ok (72 files), no dash. Its request R1 done by ORCH (1cb0d17): `run/reports/A1/styles-route.patch` applied to `app/api/ux-v1/a0/styles/route.ts` (the route was in nobody's globs; `app/api/ux-v1/a0/**` now belongs to A1), so a v11-only build serves the same stylesheet bytes as before and `styles/ux-v12/*.css` is served only with the flag. Integration after both: whole-app tsc 0, vitest 1144/1144 (50 files). A1 landmarks: 19 rows x 4 variants, 0 mismatch; a1.spec 32 pass / 4 skipped both on; axe 0 serious or critical. Known and not from A1: `shell.spec.ts:642` (legacy toast in create mode, 1440) fails on a dev server on the untouched base too. Shared files A1 changed: `playwright.config.ts` (ux-1440 and ux-390 also run `e2e/ux-v12/*.spec.ts`, which answers G1's request R4) and `flag-off-diff.mjs` (new optional `--dev`, additive). NOT verified by A1: anything on a production build, the QR tile of the story PNG (no QR generator in the repo, no dependency added), the square story over a photo, lint.
 
-NEXT ACTION: G1 is merged. Wait for A1 and G2 ("ready": branch, sha). For each: run the guard
+NEXT ACTION: A1 and G1 are merged. Wait for G2 ("ready": branch, sha). For each: run the guard
 (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), whole-app tsc and vitest on the branch,
 merge into `feat/v12` with `--no-ff`, update this file. An agent marked running whose branch has commits but that is
 no longer alive is resumed by its agent id, or respawned with its brief plus "continue from your branch and your
-Progress block". When A1 and G2 are merged too: write the Phase 2 briefs (G3..G9) in `run/briefs/`, add the
+Progress block". G4, G9 and G7 do not need G2 and start as soon as their briefs and the `UX_V12_ROUTES` list exist; G3 starts when G2 is merged. When G2 is merged: write the Phase 2 briefs (G3..G9) in `run/briefs/`, add the
 `UX_V12_ROUTES` list and its tests to `route-allowlist.ts`, then spawn G4, G3, G9, G7 (max 4 builders at once).
