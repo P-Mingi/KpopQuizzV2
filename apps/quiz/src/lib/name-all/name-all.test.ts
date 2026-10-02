@@ -6,12 +6,14 @@ import {
   resultHeadline, roundRows,
 } from './round';
 import { buildRoster } from './roster';
+import { missingV12Columns, saveRound } from './server';
 import { NAME_ALL_GROUPS, NAME_ALL_SPELLINGS, isNameAllGroup } from './spellings';
 import { submitRound } from './submit';
 
 import type { NameAllMember } from './match';
 import type { NameAllSet } from './server';
 import type { SubmitDeps } from './submit';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 // Name them all (V12 G6). The rosters used here are built the way the page builds
 // them (database display names + the spellings table); the display names are the
@@ -430,5 +432,58 @@ describe('submitRound', () => {
   it('fails soft: a database error is a 503, never a throw', async () => {
     expect(await submitRound(body, ANON, deps({ save: async () => 'failed' }))).toEqual({ http: 503, body: { ok: false, error: 'failed' } });
     expect(await submitRound(body, ANON, deps({ getSet: async () => { throw new Error('down'); } }))).toEqual({ http: 503, body: { ok: false, error: 'failed' } });
+  });
+});
+
+describe('saveRound: fail soft, and the shape of migration 126 until the SQL is applied', () => {
+  const set: NameAllSet = { group: { id: 2, slug: 'blackpink', name: 'BLACKPINK', fandom: 'BLINK' }, members: rosterOf('blackpink') };
+  type Row = Record<string, unknown>;
+  function fakeDb(answers: Array<{ error: { code?: string; message?: string } | null } | 'throw'>): { db: SupabaseClient; inserts: Array<{ table: string; rows: Row[] }> } {
+    const inserts: Array<{ table: string; rows: Row[] }> = [];
+    const db = {
+      from: (table: string) => ({
+        insert: async (rows: Row[]) => {
+          inserts.push({ table, rows });
+          const a = answers[inserts.length - 1];
+          if (a === 'throw' || a === undefined) throw new Error('network');
+          return a;
+        },
+      }),
+    } as unknown as SupabaseClient;
+    return { db, inserts };
+  }
+  const round = { set, found: ['Lisa'], seconds: 9, roundId: 'r-9' };
+
+  it('applied: one insert, one row per member, with the order and the time', async () => {
+    const { db, inserts } = fakeDb([{ error: null }]);
+    expect(await saveRound({ ...round, db })).toBe('saved');
+    expect(inserts).toHaveLength(1);
+    expect(inserts[0]?.table).toBe('name_all_member_results');
+    expect(inserts[0]?.rows).toHaveLength(4);
+    expect(inserts[0]?.rows[3]).toEqual({ group_id: 2, member_name: 'Lisa', found: true, round_id: 'r-9', found_order: 1, round_seconds: 9 });
+  });
+  it('not applied: the same round again in the four columns of migration 126', async () => {
+    const { db, inserts } = fakeDb([{ error: { code: 'PGRST204', message: "Could not find the 'found_order' column" } }, { error: null }]);
+    expect(await saveRound({ ...round, db })).toBe('saved_legacy');
+    expect(inserts).toHaveLength(2);
+    expect(inserts[1]?.rows.map((r) => Object.keys(r).sort())).toEqual(inserts[1]?.rows.map(() => ['found', 'group_id', 'member_name', 'round_id']));
+    expect(inserts[1]?.rows.map((r) => r.round_id)).toEqual(['r-9', 'r-9', 'r-9', 'r-9']);
+  });
+  it('any other error is not retried', async () => {
+    const { db, inserts } = fakeDb([{ error: { code: '23503', message: 'violates foreign key constraint' } }]);
+    expect(await saveRound({ ...round, db })).toBe('failed');
+    expect(inserts).toHaveLength(1);
+  });
+  it('a failing fallback, a throw and a missing client are all "failed", never a throw', async () => {
+    expect(await saveRound({ ...round, db: fakeDb([{ error: { code: '42703' } }, { error: { code: 'XX000' } }]).db })).toBe('failed');
+    expect(await saveRound({ ...round, db: fakeDb(['throw']).db })).toBe('failed');
+    expect(await saveRound({ ...round, db: null })).toBe('failed');
+  });
+  it('missingV12Columns reads the code or the column name', () => {
+    expect(missingV12Columns({ code: 'PGRST204' })).toBe(true);
+    expect(missingV12Columns({ code: '42703' })).toBe(true);
+    expect(missingV12Columns({ code: 'XX', message: 'column "round_seconds" does not exist' })).toBe(true);
+    expect(missingV12Columns({ code: '23503', message: 'foreign key' })).toBe(false);
+    expect(missingV12Columns({})).toBe(false);
   });
 });

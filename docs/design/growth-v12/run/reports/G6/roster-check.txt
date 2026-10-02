@@ -1,0 +1,28 @@
+checked on 2026-10-02: 92 groups, 118 idols rows (118 active)
+
+| group | database (active, in order) | table | same list | every spelling leads to its member | Hangul stored in the database accepted |
+|---|---|---|---|---|---|
+| bts | 7: RM, Jin, Suga, J-Hope, Jimin, V, Jungkook | 7 | yes | yes | 7 of 7 rows hold Hangul: yes |
+| blackpink | 4: Jisoo, Jennie, Rose, Lisa | 4 | yes | yes | 3 of 4 rows hold Hangul: yes |
+| stray-kids | 8: Bang Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, I.N | 8 | yes | yes | 0 of 8 rows hold Hangul: yes |
+| twice | 9: Nayeon, Jeongyeon, Momo, Sana, Jihyo, Mina, Dahyun, Chaeyoung, Tzuyu | 9 | yes | yes | 5 of 9 rows hold Hangul: yes |
+| aespa | 4: Karina, Giselle, Winter, Ningning | 4 | yes | yes | 2 of 4 rows hold Hangul: yes |
+| newjeans | 5: Minji, Hanni, Danielle, Haerin, Hyein | 5 | yes | yes | 3 of 5 rows hold Hangul: yes |
+| seventeen | 13: S.Coups, Jeonghan, Joshua, Jun, Hoshi, Wonwoo, Woozi, DK, Mingyu, The8, Seungkwan, Vernon, Dino | 13 | yes | yes | 3 of 13 rows hold Hangul: yes |
+| exo | 9: Xiumin, Suho, Lay, Baekhyun, Chen, Chanyeol, D.O., Kai, Sehun | 9 | yes | yes | 6 of 9 rows hold Hangul: yes |
+| g-i-dle | 5: Miyeon, Minnie, Soyeon, Yuqi, Shuhua | 5 | yes | yes | 1 of 5 rows hold Hangul: yes |
+| ive | 6: Yujin, Gaeul, Rei, Wonyoung, Liz, Leeseo | 6 | yes | yes | 4 of 6 rows hold Hangul: yes |
+| le-sserafim | 5: Sakura, Chaewon, Yunjin, Kazuha, Eunchae | 5 | yes | yes | 3 of 5 rows hold Hangul: yes |
+| red-velvet | 5: Irene, Seulgi, Wendy, Joy, Yeri | 5 | yes | yes | 5 of 5 rows hold Hangul: yes |
+| ateez | 8: Hongjoong, Seonghwa, Yunho, Yeosang, San, Mingi, Wooyoung, Jongho | 8 | yes | yes | 3 of 8 rows hold Hangul: yes |
+| enhypen | 7: Heeseung, Jay, Jake, Sunghoon, Sunoo, Jungwon, Ni-ki | 7 | yes | yes | 3 of 7 rows hold Hangul: yes |
+| txt | 5: Soobin, Yeonjun, Beomgyu, Taehyun, Huening Kai | 5 | yes | yes | 1 of 5 rows hold Hangul: yes |
+| itzy | 5: Yeji, Lia, Ryujin, Chaeryeong, Yuna | 5 | yes | yes | 5 of 5 rows hold Hangul: yes |
+| shinee | 4: Onew, Key, Minho, Taemin | 4 | yes | yes | 0 of 4 rows hold Hangul: yes |
+
+17 groups, 109 members.
+
+Groups with active members in the database and NO page:
+- nct (9 active): Taeyong, Taeil, Johnny, Yuta, Doyoung, Jaehyun, Jungwoo, Mark, Haechan
+
+RESULT: every list equals the database.

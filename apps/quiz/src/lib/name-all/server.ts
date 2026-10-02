@@ -93,6 +93,12 @@ export async function getNameAllStats(set: NameAllSet): Promise<NameAllStats | n
 
 export type SaveResult = 'saved' | 'saved_legacy' | 'failed';
 
+/** True when an insert failed only because found_order / round_seconds do not exist yet. */
+export function missingV12Columns(error: { code?: string | null; message?: string | null }): boolean {
+  if (error.code === 'PGRST204' || error.code === '42703') return true;
+  return /found_order|round_seconds/.test(error.message ?? '');
+}
+
 /** Stores one finished round. Never throws. */
 export async function saveRound(opts: { set: NameAllSet; found: readonly string[]; seconds: number; roundId: string; db?: SupabaseClient | null }): Promise<SaveResult> {
   const db = opts.db === undefined ? service() : opts.db;
@@ -102,7 +108,7 @@ export async function saveRound(opts: { set: NameAllSet; found: readonly string[
     const full = await db.from('name_all_member_results').insert(rows);
     if (!full.error) return 'saved';
     // PGRST204 / 42703: the two v12 columns are not there yet (pending SQL not applied).
-    if (full.error.code !== 'PGRST204' && full.error.code !== '42703') return 'failed';
+    if (!missingV12Columns(full.error)) return 'failed';
     const legacy = await db.from('name_all_member_results').insert(legacyRows(rows));
     return legacy.error ? 'failed' : 'saved_legacy';
   } catch { return 'failed'; }
