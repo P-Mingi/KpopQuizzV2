@@ -469,6 +469,10 @@ describe('supabaseStore', () => {
       await expect(store.ping()).rejects.toBeInstanceOf(LiveNotLiveError);
       await expect(store.recentRooms('ip', 1)).rejects.toBeInstanceOf(LiveNotLiveError);
     }
+    // A count that never came back (the client turns an empty 404 into "no content" on HEAD
+    // requests; the store uses GET, and still treats a missing count as "not live").
+    const silent = supabaseStore(recorded({ 'table:live_rooms': { data: null, error: null, count: null } }).db);
+    await expect(silent.recentRooms('ip', 1)).rejects.toBeInstanceOf(LiveNotLiveError);
     expect(isLiveNotLive(null)).toBe(false);
     expect(isLiveNotLive({ code: '23505', message: 'duplicate key value' })).toBe(false);
   });

@@ -340,7 +340,8 @@ for (const theme of THEMES) {
     });
 
     test.afterEach(async () => {
-      const escaped = [...host.writes, ...phones.flatMap((p) => p.wired.writes)];
+      // Run tracking (its own switch) is answered locally by guardWrites; the tracking test reads those calls.
+      const escaped = [...host.writes, ...phones.flatMap((p) => p.wired.writes)].filter((c) => !c.url.includes('/api/track/bt-run'));
       for (const p of phones.splice(0)) await p.ctx.close();
       expect(escaped, 'no mutating request left the live API fake').toEqual([]);
       expect(local.clientSends, 'no browser ever sent on a room channel').toBe(0);
@@ -889,6 +890,61 @@ for (const theme of THEMES) {
       }
       expect(all.missing, 'every landmark of the live states is rendered').toEqual([]);
       expect(all.mismatches, 'boxes within 2px, styles equal to styles.json').toEqual([]);
+    });
+
+    test('run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run', async ({ page, browser }) => {
+      test.skip(process.env.G4_TRACKING !== '1', 'needs a dev server started with NEXT_PUBLIC_BT_TRACKING=1 and G4_TRACKING=1');
+      test.setTimeout(120_000);
+      test.skip((await openLive(page)) !== 'v12', 'v12 is off here');
+      const code = await openRoom(page, local, { rounds: 5, seconds: 10 });
+      const [a, b] = [await newPhone(browser, local, theme), await newPhone(browser, local, theme)];
+      phones.push(a, b);
+      await joinRoom(a, code, 'ace');
+      await joinRoom(b, code, 'bee');
+      await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(2);
+      for (let round = 1; round <= 5; round++) {
+        await ctl(page).getByRole('button', { name: round === 1 ? 'Start' : 'Next round' }).click();
+        await expect(a.page.locator('.ux-pbtns')).not.toHaveClass(/is-locked/);
+        await a.page.locator('.ux-pb').nth(fakeCorrect(round)).click();
+        // b answers rounds 1 to 3 (wrong on 2) and misses the last two.
+        if (round <= 3) await b.page.locator('.ux-pb').nth(round === 2 ? (fakeCorrect(round) + 1) % 4 : fakeCorrect(round)).click();
+        else await ctl(page).getByRole('button', { name: 'Skip the timer' }).click();
+        await expect(screen(page)).toHaveAttribute('data-state', 'reveal', { timeout: 15_000 });
+        await expect(a.page.locator('.ux-live-pmsg b')).toHaveText(/^\+/);
+        await expect(b.page.locator('.ux-live-pmsg b')).toHaveText(round === 1 || round === 3 ? /^\+/ : round === 2 ? 'Not this time' : 'No answer');
+        await ctl(page).getByRole('button', { name: 'Show the leaderboard' }).click();
+        await expect(screen(page)).toHaveAttribute('data-state', 'board');
+      }
+      await ctl(page).getByRole('button', { name: 'Show the podium' }).click();
+      await expect(phoneMsg(a)).toHaveText('#1 of 2');
+      await expect(phoneMsg(b)).toHaveText('#2 of 2');
+      // A guest is offered to keep the score (the run carries this browser's anonymous id).
+      await expect(a.page.getByRole('button', { name: 'Save my score' })).toBeVisible();
+
+      const events = (p: Phone): Array<Record<string, unknown>> =>
+        p.wired.writes.filter((c) => c.url.includes('/api/track/bt-run')).map((c) => JSON.parse(c.body ?? '{}') as Record<string, unknown>);
+      await expect.poll(() => events(a).length).toBe(2);
+      await expect.poll(() => events(b).length).toBe(2);
+      // The host screen is not a player: it records nothing.
+      expect(host.writes.filter((c) => c.url.includes('/api/track/bt-run'))).toEqual([]);
+
+      const [startA, finishA] = events(a) as [Record<string, unknown>, Record<string, unknown>];
+      expect(startA).toMatchObject({ event: 'start', playlist: `live:${code}`, source: 'live', mode: 'classic', rounds: 5, clip_played: true });
+      expect(finishA).toMatchObject({ event: 'finish', run_id: startA.run_id, playlist: `live:${code}`, source: 'live', answered: 5, correct: 5, completed: true, best_combo: 5 });
+      const scoreA = [...local.live.store.players.values()].find((x) => x.nickname === 'ace')!.score;
+      expect(finishA.score).toBe(scoreA);
+      const songsA = finishA.songs as Array<{ song_id: string; kind: string; correct: boolean; ms: number }>;
+      expect(songsA).toHaveLength(5);
+      expect(songsA.map((s) => s.song_id)).toEqual([1, 2, 3, 4, 5].map((i) => `aaaaaaaa-0000-4000-8000-${String(i).padStart(12, '0')}`));
+      expect(songsA.every((s) => s.correct && s.ms >= 0 && s.ms <= 10_000)).toBe(true);
+      // The time recorded is the server's, the one the phone was shown.
+      const serverMs = local.live.store.answers.filter((x) => x.player_id === [...local.live.store.players.values()].find((p) => p.nickname === 'ace')!.id).map((x) => x.ms);
+      expect(songsA.map((s) => s.ms)).toEqual(serverMs);
+
+      const finishB = events(b)[1] as Record<string, unknown>;
+      expect(finishB).toMatchObject({ event: 'finish', answered: 3, correct: 2, completed: true, best_combo: 1 });
+      expect((finishB.songs as unknown[]).length).toBe(3);
+      expect(finishB.run_id).not.toBe(finishA.run_id);
     });
 
     test('the join page: a phone screen with named controls, a11y', async ({ page }) => {

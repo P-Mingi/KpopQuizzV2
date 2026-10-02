@@ -1,18 +1,17 @@
 == postgres (PostgreSQL) 18.2 (Homebrew), local scratch cluster, unix socket only
 == bootstrap (roles and the realtime stub a Supabase project already has)
 == apply v12-g4-live.sql
-psql:docs/pending-migrations/v12-g4-live.sql:499: NOTICE:  policy "live_rooms_receive" for relation "realtime.messages" does not exist, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:497: NOTICE:  policy "live_rooms_receive" for relation "realtime.messages" does not exist, skipping
 == apply it a second time (idempotent)
-psql:docs/pending-migrations/v12-g4-live.sql:67: NOTICE:  relation "live_rooms" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:70: NOTICE:  relation "live_rooms_open_code_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:71: NOTICE:  relation "live_rooms_expires_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:72: NOTICE:  relation "live_rooms_ip_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:73: NOTICE:  relation "live_rooms_host_user_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:92: NOTICE:  relation "live_players" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:94: NOTICE:  relation "live_players_token_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:96: NOTICE:  relation "live_players_name_idx" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:109: NOTICE:  relation "live_answers" already exists, skipping
-psql:docs/pending-migrations/v12-g4-live.sql:111: NOTICE:  relation "live_answers_player_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:66: NOTICE:  relation "live_rooms" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:69: NOTICE:  relation "live_rooms_open_code_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:70: NOTICE:  relation "live_rooms_expires_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:71: NOTICE:  relation "live_rooms_ip_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:90: NOTICE:  relation "live_players" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:92: NOTICE:  relation "live_players_token_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:94: NOTICE:  relation "live_players_name_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:107: NOTICE:  relation "live_answers" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:109: NOTICE:  relation "live_answers_player_idx" already exists, skipping
 == rules
 psql:docs/design/growth-v12/run/reports/G4/sql/local-check.sql:196: NOTICE:  service_role checks: OK
 psql:docs/design/growth-v12/run/reports/G4/sql/local-check.sql:285: NOTICE:  anon / authenticated checks: OK

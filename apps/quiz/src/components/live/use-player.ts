@@ -216,7 +216,6 @@ export function useLivePlayer(roomCode: string | null): PhoneApi {
   const inRoom = phase === 'in';
   useEffect(() => {
     if (!topic || !inRoom) return;
-    let first = true;
     const stop = subscribeLive(
       topic,
       (pub: LivePublicState) => {
@@ -229,9 +228,9 @@ export function useLivePlayer(roomCode: string | null): PhoneApi {
       },
       (status) => {
         setChannel(status);
-        // Whatever was broadcast while this phone was not listening is in the state route.
-        if (status === 'live' && !first) void refresh();
-        if (status === 'live') first = false;
+        // Whatever was broadcast while this phone was not listening is in the state route:
+        // also the very first time (the host may start between the join and the subscription).
+        if (status === 'live') void refresh();
       },
     );
     return stop;
