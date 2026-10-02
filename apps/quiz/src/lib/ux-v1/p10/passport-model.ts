@@ -60,6 +60,16 @@ export function levelChip(level: number, title: string): string {
   return `Lv ${level} · ${title}`;
 }
 
+/** v12 editorial account (SYSTEM.md 5.6): the chip a team passport shows instead of
+ *  a level (prototype POSTS.team `lv`). A team account has no level and no fan flair. */
+export const TEAM_LEVEL_CHIP = 'KpopQuiz team';
+
+/** The identity fields of a team passport: the name the owner gave the account, the
+ *  team chip, and none of a fan's flair (accent, name font, bias, pinned badge). */
+export function teamIdentity(team: { displayName: string }): { displayName: string; accent: null; font: null; bias: null; level: string; pinnedBadge: null } {
+  return { displayName: team.displayName, accent: null, font: null, bias: null, level: TEAM_LEVEL_CHIP, pinnedBadge: null };
+}
+
 const MONTH_FMT = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 /** One piece of the meta line: plain text, or a link to a group hub. */

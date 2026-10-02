@@ -1,0 +1,77 @@
+IDENTICAL (structure)  /  status 200/200  raw bytes 272586/271230  normalised 138114/138114  js chunks 26/26
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 404335/403388  normalised 267219/267219  js chunks 25/25
+IDENTICAL (structure)  /groups  status 200/200  raw bytes 233895/233117  normalised 125357/125357  js chunks 25/25
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 178820/178083  normalised 54395/54395  js chunks 26/26
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 215332/214915  normalised 95515/95515  js chunks 25/25
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 374810/373584  normalised 175963/175963  js chunks 26/26
+IDENTICAL (structure)  /u/kicoer  status 200/200  raw bytes 156493/155311  normalised 49447/49447  js chunks 26/26
+IDENTICAL (structure)  /community  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /community/thread/1  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /admin/editorial  status 307/307  raw bytes 36/36  normalised 36/36  js chunks 0/0
+DIFFERENT (structure)  /notifications  status 307/307  raw bytes 56546/55870  normalised 4460/4451  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_REDIRECT" data-next-error-digest="NEXT_REDIRECT;replace;/login;307;" data-next-error-stack="Error: NEXT_REDIRECT
+    at NotificationsPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61dc9e28198651c1/.G9-base/a
+    B: <template data-next-error-message="NEXT_REDIRECT" data-next-error-digest="NEXT_REDIRECT;replace;/login;307;" data-next-error-stack="Error: NEXT_REDIRECT
+    at NotificationsPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61dc9e28198651c1/apps/quiz/
+IDENTICAL (structure)  /sitemap.xml  status 200/200  raw bytes 564261/564261  normalised 564261/564261  js chunks 0/0
+IDENTICAL (structure)  /robots.txt  status 200/200  raw bytes 1112/1112  normalised 1112/1112  js chunks 0/0
+IDENTICAL (structure)  /api/ux-v1/a0/styles  status 404/404  raw bytes 18/18  normalised 18/18  js chunks 0/0
+DIFFERENT (structure)  /api/cron/editorial-publish  status 404/404  raw bytes 25391/21  normalised 4091/21  js chunks 18/0
+  node 0
+    A: <!DOCTYPE html>
+    B: {"error":"not_found"}
+  node 1
+    A: <html lang="en" class="pretendard_60cdc229-module__<h>
+    B: 
+  node 2
+    A: __variable">
+    B: 
+  node 3
+    A: <head>
+    B: 
+  node 4
+    A: <meta charSet="utf-8"/>
+    B: 
+  node 5
+    A: <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    B: 
+DIFFERENT (structure)  /api/ux-v1/p11/team  status 404/404  raw bytes 25387/21  normalised 4091/21  js chunks 18/0
+  node 0
+    A: <!DOCTYPE html>
+    B: {"error":"not_found"}
+  node 1
+    A: <html lang="en" class="pretendard_60cdc229-module__<h>
+    B: 
+  node 2
+    A: __variable">
+    B: 
+  node 3
+    A: <head>
+    B: 
+  node 4
+    A: <meta charSet="utf-8"/>
+    B: 
+  node 5
+    A: <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    B: 
+DIFFERENT (structure)  /api/admin/editorial  status 404/404  raw bytes 25384/21  normalised 4091/21  js chunks 18/0
+  node 0
+    A: <!DOCTYPE html>
+    B: {"error":"not_found"}
+  node 1
+    A: <html lang="en" class="pretendard_60cdc229-module__<h>
+    B: 
+  node 2
+    A: __variable">
+    B: 
+  node 3
+    A: <head>
+    B: 
+  node 4
+    A: <meta charSet="utf-8"/>
+    B: 
+  node 5
+    A: <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    B: 
+4 page(s) differ

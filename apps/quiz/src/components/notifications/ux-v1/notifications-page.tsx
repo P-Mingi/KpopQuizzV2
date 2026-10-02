@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/ux-v1/icon';
 import { Segmented } from '@/components/ux-v1/segmented';
 import { UxPopover } from '@/components/ux-v1/popover';
+import { TeamTag } from '@/components/ux-v1/team';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { setUnread, useUnreadCount } from '@/lib/notifications-store';
@@ -16,6 +17,10 @@ import {
 import {
   P11_FILTERS, compactAgo, groupByDay, headerUnread, iconOf, matchesFilter, spokenAgo, streakRow, targetOf, unreadLine,
 } from '@/lib/ux-v1/p11/notifications';
+
+import { isTeamRow } from '@/lib/ux-v1/p11/team';
+
+import { useTeamUsernames } from './use-team';
 
 import type { P11Filter, P11Notification } from '@/lib/ux-v1/p11/notifications';
 
@@ -74,7 +79,7 @@ function RowMenu({ n, onDismiss, onMute }: { n: P11Notification; onDismiss: () =
   );
 }
 
-function Row({ n, now, onDismiss, onMute }: { n: P11Notification; now: Date; onDismiss: () => void; onMute: (() => void) | null }): React.ReactElement {
+function Row({ n, now, onDismiss, onMute, team = false }: { n: P11Notification; now: Date; onDismiss: () => void; onMute: (() => void) | null; team?: boolean }): React.ReactElement {
   const t = targetOf(n);
   const unread = !n.is_read;
   const cls = `p11-nrow${unread ? ' is-unread' : ''}`;
@@ -83,7 +88,7 @@ function Row({ n, now, onDismiss, onMute }: { n: P11Notification; now: Date; onD
       <span className="p11-ud" aria-hidden="true" />
       <span className="p11-ni" aria-hidden="true"><Icon name={iconOf(n.type)} /></span>
       <span className="p11-grow">
-        <span className="p11-t">{unread ? <span className="ux-sr">Unread: </span> : null}{n.title}</span>
+        <span className="p11-t">{unread ? <span className="ux-sr">Unread: </span> : null}{n.title}{team ? <TeamTag /> : null}</span>
         {n.body ? <span className="p11-b">{n.body}</span> : null}
       </span>
       <span className="p11-tm"><span aria-hidden="true">{compactAgo(n.created_at, now)}</span><span className="ux-sr">, {spokenAgo(n.created_at, now)}</span></span>
@@ -119,6 +124,8 @@ function Skeleton(): React.ReactElement {
 export function UxNotifications(): React.ReactElement {
   const unread = useUnreadCount();
   const toast = useUxToast();
+  // v12: the Team badge on a row about an editorial account (empty unless the flag is on).
+  const teamNames = useTeamUsernames();
   const [items, setItems] = useState<P11Notification[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading');
   const [hasMore, setHasMore] = useState(false);
@@ -231,6 +238,7 @@ export function UxNotifications(): React.ReactElement {
                       key={n.id}
                       n={n}
                       now={now}
+                      team={isTeamRow(n, teamNames)}
                       onDismiss={() => { focusAfter(n.id); dismissNotification(n); toast('Notification dismissed'); }}
                       onMute={n.quiz_id ? () => {
                         const quizId = n.quiz_id as string;

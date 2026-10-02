@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { isEditorialUser } from '@/lib/editorial/accounts';
+import { getEditorialLive } from '@/lib/editorial/live';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
@@ -54,6 +56,7 @@ async function targetVisible(svc: Svc, type: LikeTargetType, id: string): Promis
     case 'debate_vote': return one(svc.from('debate_votes').select('id').eq('id', id).not('comment', 'is', null).maybeSingle());
     case 'debate': return one(svc.from('community_debates').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'challenge': return one(svc.from('community_challenges').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
+    case 'editorial': return (await getEditorialLive()) && one(svc.from('editorial_posts').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'reply': return one(svc.from('community_replies').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     default: return false;
   }
@@ -75,6 +78,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  // v12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6).
+  if (await isEditorialUser(user.id)) return NextResponse.json({ error: 'editorial_account' }, { status: 403 });
 
   const svc = createServiceRoleClient();
   const { type, id } = c.value;

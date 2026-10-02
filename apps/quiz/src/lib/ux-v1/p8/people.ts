@@ -1,8 +1,10 @@
 import { getLevelInfo } from '@/lib/constants';
+import { getEditorialAccounts, getTeamMap } from '@/lib/editorial/accounts';
 import { SYSTEM_AUTHOR_DISPLAY } from '@/lib/verse/pages/data';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import type { TeamIdentity } from '@/lib/editorial/accounts';
 import type { P8Person } from './types';
 
 // People as the community shows them: name + identity flair (DESIGN-SPEC 17.8) +
@@ -24,7 +26,16 @@ export interface PersonRow {
 }
 
 /** The one mapping from a profiles row (or its absence) to a community person. */
-export function toPerson(userId: string, p: PersonRow | null | undefined): P8Person {
+export function toPerson(userId: string, p: PersonRow | null | undefined, team?: TeamIdentity | null): P8Person {
+  // v12 editorial account (SYSTEM.md 5.6): the name the owner gave it, the Team badge,
+  // and nothing of a fan (no level, no accent, no name font, no bias, no photo).
+  if (team) {
+    const username = p?.username ?? null;
+    return {
+      name: team.displayName, username, href: username ? `/u/${username}` : null, avatarUrl: null,
+      accent: null, font: null, bias: null, level: null, levelTitle: null, isSystem: false, isTeam: true,
+    };
+  }
   const sys = SYSTEM_AUTHOR_DISPLAY[userId];
   if (sys) {
     return { name: sys, username: null, href: null, avatarUrl: p?.avatar_url ?? null, accent: null, font: null, bias: null, level: null, levelTitle: null, isSystem: true };
@@ -47,7 +58,9 @@ export function toPerson(userId: string, p: PersonRow | null | undefined): P8Per
 }
 
 /** Batch read of people by id (chunks of 500 ids, so no read nears the 1000-row cap). */
-export async function readPeople(db: SupabaseClient, ids: Array<string | null | undefined>): Promise<Map<string, P8Person>> {
+/** `retiredTeam`: also give the team identity to a RETIRED editorial account (the
+ *  author of an editorial post stays a team author after the account is retired). */
+export async function readPeople(db: SupabaseClient, ids: Array<string | null | undefined>, opts: { retiredTeam?: boolean } = {}): Promise<Map<string, P8Person>> {
   const uniq = [...new Set(ids.filter((x): x is string => !!x))];
   const out = new Map<string, P8Person>();
   if (!uniq.length) return out;
@@ -57,7 +70,10 @@ export async function readPeople(db: SupabaseClient, ids: Array<string | null | 
     if (error) throw new Error(`p8 readPeople: ${error.message}`);
     for (const r of (data ?? []) as PersonRow[]) byId.set(r.id, r);
   }
-  for (const id of uniq) out.set(id, toPerson(id, byId.get(id)));
+  // Empty (and no read) unless the v12 flag is on and the editorial SQL is applied.
+  const team = await getTeamMap();
+  if (opts.retiredTeam) for (const a of await getEditorialAccounts()) if (!team.has(a.user_id)) team.set(a.user_id, { displayName: a.display_name, beat: a.beat });
+  for (const id of uniq) out.set(id, toPerson(id, byId.get(id), team.get(id)));
   return out;
 }
 

@@ -7,7 +7,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
 import {
-  badgeTiles, bandMode, levelChip, metaSegments, personalStats, pinnedTiles, publicStats, themeColours, topMastery, xpLine,
+  badgeTiles, bandMode, levelChip, metaSegments, personalStats, pinnedTiles, publicStats, teamIdentity, themeColours, topMastery, xpLine,
 } from './passport-model';
 
 import type { UxPassportProps } from '@/components/profile/ux-v1/passport';
@@ -31,9 +31,24 @@ export interface PassportInput {
   averagePct?: number | null;
   history?: HistoryRow[] | null;
   now: number;
+  /** v12: the owner is an editorial (team) account (passport-data readTeamIdentity). */
+  team?: { displayName: string; beat: string } | null;
 }
 
-export function buildPassport(i: PassportInput): Omit<UxPassportProps, 'footer'> {
+/** The passport props, plus `isTeam` for an editorial account (SYSTEM.md 5.6: the
+ *  Team badge next to the name and the line under it, no level, no fan flair). The
+ *  key is absent for everyone else, so a fan's props are unchanged. */
+export type PassportProps = Omit<UxPassportProps, 'footer'> & { isTeam?: true };
+
+export function buildPassport(i: PassportInput): PassportProps {
+  const base = buildFanPassport(i);
+  if (!i.team) return base;
+  // No level, no accent, no name font, no bias, no pinned badge: a team account
+  // never poses as a fan. Everything else is the account's real (empty) record.
+  return { ...base, ...teamIdentity(i.team), pinned: [], isTeam: true };
+}
+
+function buildFanPassport(i: PassportInput): Omit<UxPassportProps, 'footer'> {
   const p = i.profile;
   const s = i.spine;
   const displayName = p.display_name?.trim() || p.username;
