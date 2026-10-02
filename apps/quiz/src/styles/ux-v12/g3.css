@@ -31,7 +31,7 @@
 /* ---------- landing ---------- */
 .g3-landtop { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
 .g3-landhero { text-align: center; padding: 56px 32px 48px; border: 1px solid var(--ux-qotd-edge); border-radius: 28px; background: var(--ux-bt-bg); position: relative; overflow: hidden; }
-.g3-landhero h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px; color: var(--ux-ink); }
+.g3-landhero h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px; color: var(--ux-ink); border-radius: 8px; }
 .g3-landhero h1 em { font-style: italic; color: var(--ux-hl); }
 .g3-landhero .p6-eyebrow { justify-content: center; }
 .g3-landhero .g3-lead { max-width: 560px; margin: 14px auto 0; font-size: 17px; }
@@ -42,12 +42,12 @@
 .g3-trust .ux-ico { width: 16px; height: 16px; color: var(--ux-pink); }
 
 /* ---------- theme page ---------- */
-.g3-plhero { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: end; margin-top: 24px; }
+.g3-plhero { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: end; }
 .g3-plcv { aspect-ratio: 1; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; background: var(--ux-th, var(--ux-th-hits26)); color: var(--ux-th-ink); position: relative; overflow: hidden; }
 .g3-plcv.is-dark { color: #fff; }
 .g3-plcv b { font-size: 30px; font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; }
 .g3-plcv small { font-size: 13px; font-weight: 600; opacity: .8; margin-top: 6px; }
-.g3-plhero h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 10px; color: var(--ux-ink); }
+.g3-plhero h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 10px; color: var(--ux-ink); border-radius: 8px; }
 .g3-plhero .g3-lead { margin-top: 10px; max-width: 56ch; }
 .g3-plhero .g3-actions { margin-top: 22px; }
 .g3-plhero .p6-err { margin-top: 16px; }
