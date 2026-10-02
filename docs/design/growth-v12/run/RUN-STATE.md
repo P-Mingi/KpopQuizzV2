@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 
 - Prototype: `docs/design/growth-v12/prototype.html`, `window.UX_VERSION` = `v12.2 growth (2026-09-29)` (checked 2026-10-02).
 - Integration branch: `feat/v12`, cut from `origin/main` at `a94d77c` (R1 done: PR #66 merged 2026-10-01, `docs/release/R1-STATE.md` says DONE). First commit `5e4548f` "docs(v12): growth package".
-- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G4, G9, G7, G3 running (4 builders at once).
+- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G7 merged. G4, G9, G3, G5 running (4 builders at once).
 
 ## Agents
 
@@ -15,9 +15,9 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 | G2 | v12/g2-catalogue | merged (42cadd0) | 0a9605d | 0 | run/reports/G2.md |
 | G3 | v12/g3-acquisition | running | - | 0 | run/reports/G3.md |
 | G4 | v12/g4-live | running | - | 0 | run/reports/G4.md |
-| G5 | v12/g5-personality | queued (Phase 2, second wave) | - | 0 | run/reports/G5.md |
+| G5 | v12/g5-personality | running | - | 0 | run/reports/G5.md |
 | G6 | v12/g6-name-all | queued (Phase 2, second wave) | - | 0 | run/reports/G6.md |
-| G7 | v12/g7-this-or-that | running | - | 0 | run/reports/G7.md |
+| G7 | v12/g7-this-or-that | merged (ae82106) | e132692 | 0 | run/reports/G7.md |
 | G8 | v12/g8-hub-creators | queued (Phase 2, last: needs G5, G6, G7 merged) | - | 0 | run/reports/G8.md |
 | G9 | v12/g9-editorial | running | - | 0 | run/reports/G9.md |
 | C1 | v12/c1-check | queued (Phase 3) | - | - | run/checks/pixel/ |
@@ -65,6 +65,13 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
   - `v12-g2-06-title-tracks.sql`: 41 updates, one verified source each.
   - `v12-g2-07-kpdh.sql`: the status check gains `soundtrack` + 10 inserts; the two TWICE songs are listed by id, untouched. Reader proof (`docs/growth/catalogue/proofs/songs-readers.md`): 17 readers, same on origin/main and feat/v12, none can show a `soundtrack` row, so it need not wait for the merge.
   - `v12-g2-08-language.sql`: 156 updates `ko` to `korean` (proposal; one reader, the song page; visible with the flags off).
+- G7 (replayed twice by G7 on a scratch local Postgres 14, 29/29 checks; production is 17):
+  - `v12-g7-this-or-that.sql`: `duel_vote_guard`, `duel_cast_song_vote()` (service role only), `duel_song_rankings`, one index on `duel_votes`. 0 rows; no column or row change on the existing duel tables.
+  - `v12-g7-song-questions.sql`: data, +77 `duel_questions`, +1,201 `duel_ratings` (counted 2026-10-02, will shift with G2's catalogue). Without it only aespa, BLACKPINK and BTS get the card.
+
+## Crons added to vercel.json by ORCH (each answers 404 unless `isUxV12()`)
+
+- `/api/cron/fans-picked` at `40 3 * * *` (G7). Asks for the cron secret; answers `ok:false not_applied` until its SQL exists.
 
 ## Asked to the owner (once, not blocking)
 
@@ -81,6 +88,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 5. A1: the Team avatar is the neutral initial with a pink ring, as the prototype paints it and `styles.json` records, not the pink-soft fill its CSS line names. `.langsw` at 390 is 336.8px wide instead of the prototype's 360.8px, because the prototype's switch overflows the phone column by 11px (tighter language pills on phones).
 6. ORCH, route gate: `scripts/check-route-allowlist.mts` is a gate script (never edited: ratchet law, hook-blocked) and it only skips pages under the exported `UX_V1_ROUTES`. To keep it untouched, `UX_V1_ROUTES` now lists every flag-only prefix (v11 and v12) and `isKnownRoute()` opens the v12 ones only with both flags (tested in `middleware-matcher.test.ts`, 4 flag states). The gate's skip label still says "UX v1 route" for v12 pages. Alternative, owner's hand only: make the gate import `UX_V12_ROUTES` and print its own label.
 7. G2: `groups.generation` for RESCENE and NCT WISH (left NULL: not confirmed by two sources, like country and website); rename the fan-created group "Hearts2hearts"; MeloMance and Jokers as `soundtrack`; a full title-track backfill or a 301 for the 5 modes that cannot play as named (intro-challenge, verse-only, bridge-or-break, speed-round: no clip point or length in the data; b-sides: the false flag is not maintained).
+8. G7: which groups get the This or that card (77 seeded by the data file, 3 without it); thresholds (a group is ranked from 100 counted votes, or the question's `min_votes` if higher; a song from 5 comparisons; a split is shown from 5 votes on the pair; 200 votes a day per voter); the vote token signing key is derived (HMAC, fixed label) from the service role key unless the optional env `DUEL_SIGNING_SECRET` is set; the year is hidden on most songs (156 of 4,120 have one today, G2's file 05 fills 3,076); new votes no longer update the old `duel_ratings` Elo.
 
 ## Open requests (run/requests/G1.md), to route in Phase 2
 
@@ -106,5 +114,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - 2026-10-02 ORCH: `UX_V12_ROUTES` and the two suffix rules added to `lib/route-allowlist.ts` (46bb8a0), 124 matcher tests green, `check:routes` green in the three flag states, tsc 0. Phase 2 briefs G3 to G9 written (c38668a). G4, G9, G7 spawned.
 - 2026-10-02 G2 ready (0a9605d) and merged (42cadd0): guard ok (66 files); integration tsc 0, vitest 1179/1179 (51 files). 8 SQL files, none applied; replayed twice by G2 on a scratch local Postgres (idempotent). Themed modes visible today with the flag: 5th-gen (284), kpop-hits-2025 (51), tiktok-viral (26, sources verified); hidden until SQL: kpop-hits-2026 (0), kpop-demon-hunters (2, 12 after file 07). Decision 33: recent-hits, 4th-gen-gg, 4th-gen-bg play as named now; kpop-legends (needs 05) and title-tracks (needs 02, 03, 06) after their go plus a one-line switch in `p6/modes.ts` (G2 request R6). ORCH replaced one literal dash pair in a regex of `scripts/v12/catalogue/verify-source.mts` by its unicode escapes (same behaviour). G2's R1 (hidden themed modes still get pages) and R2, R4 went into G3's brief. NOT verified by G2: the SQL on the live table, flag-on play of hits-2026 and KPDH on real data; 894 songs keep no year; 127 of the new 2026 songs have no title-track source. G2 request R5 (`.gitignore` lacks `!docs/growth/`, reports added with `git add -f`): unowned file, left for the owner.
 - 2026-10-02 G3 spawned.
+- 2026-10-02 G7 ready (e132692) and merged (ae82106): guard ok (40 files), no dash. ORCH added its cron line to `vercel.json` and its API notes to G8's brief. Integration: tsc 0, vitest 1224/1224 (52 files, the cron config test included), `check:routes` 0. G7: 24 landmark rows 0 mismatch, g7.spec 26 pass / 4 skipped flags on, flag-off 14 documents 0 differences, its 4 routes 404 with the flag off. Incident reported by G7: its first "applied" probe passed on missing tables and its dev route briefly issued real BTS pairs (reads only, no write), fixed in 582ac8e. NOT verified by G7: the SQL on production, a real vote end to end, the cron's writes, the editorial refusal against a real `editorial_accounts`.
+- 2026-10-02 G5 spawned.
 
-NEXT ACTION: wait for G4, G9, G7, G3. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. As slots free up (max 4 builders) spawn G5 and G6, then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
+NEXT ACTION: wait for G4, G9, G3, G5. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. As slots free up (max 4 builders) spawn G6, then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
