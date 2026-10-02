@@ -1,0 +1,81 @@
+== postgres (PostgreSQL) 18.2 (Homebrew), local scratch cluster, unix socket only
+== bootstrap (roles and the realtime stub a Supabase project already has)
+== apply v12-g4-live.sql
+psql:docs/pending-migrations/v12-g4-live.sql:499: NOTICE:  policy "live_rooms_receive" for relation "realtime.messages" does not exist, skipping
+== apply it a second time (idempotent)
+psql:docs/pending-migrations/v12-g4-live.sql:67: NOTICE:  relation "live_rooms" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:70: NOTICE:  relation "live_rooms_open_code_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:71: NOTICE:  relation "live_rooms_expires_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:72: NOTICE:  relation "live_rooms_ip_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:73: NOTICE:  relation "live_rooms_host_user_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:92: NOTICE:  relation "live_players" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:94: NOTICE:  relation "live_players_token_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:96: NOTICE:  relation "live_players_name_idx" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:109: NOTICE:  relation "live_answers" already exists, skipping
+psql:docs/pending-migrations/v12-g4-live.sql:111: NOTICE:  relation "live_answers_player_idx" already exists, skipping
+== rules
+psql:docs/design/growth-v12/run/reports/G4/sql/local-check.sql:196: NOTICE:  service_role checks: OK
+psql:docs/design/growth-v12/run/reports/G4/sql/local-check.sql:285: NOTICE:  anon / authenticated checks: OK
+   relname    | rls | policies 
+--------------+-----+----------
+ live_answers | t   |        0
+ live_players | t   |        0
+ live_rooms   | t   |        0
+(3 rows)
+
+     routine_name     |               grantees                
+----------------------+---------------------------------------
+ live_apply_scores    | g4, service_role
+ live_close_room      | g4, service_role
+ live_close_round     | g4, service_role
+ live_create_room     | g4, service_role
+ live_expire_rooms    | g4, service_role
+ live_join            | g4, service_role
+ live_move_status     | g4, service_role
+ live_remove_player   | g4, service_role
+ live_reset_game      | g4, service_role
+ live_room_state      | g4, service_role
+ live_start_round     | g4, service_role
+ live_submit_answer   | g4, service_role
+ live_topic_open      | anon, authenticated, g4, service_role
+ live_update_settings | g4, service_role
+(14 rows)
+
+     policyname     |  cmd   |        roles         
+--------------------+--------+----------------------
+ live_rooms_receive | SELECT | {anon,authenticated}
+(1 row)
+
+== 60 phones join one room at the same time (pgbench, 20 connections x 3): the cap holds
+players in the room: 50, distinct names: 50
+== 50 phones answer 4 times each at the same time: one answer per player
+answers: 50, players who answered: 50
+== apply v12-g4-party-rls.sql with no party table (production today): nothing to do
+ tablename | policyname | cmd | roles 
+-----------+------------+-----+-------
+(0 rows)
+
+ relname | relrowsecurity 
+---------+----------------
+(0 rows)
+
+== the same file where the tables exist with the policies of migration 059
+   (before: anon inserted a row)
+   tablename   |      policyname      |  cmd   |  roles   
+---------------+----------------------+--------+----------
+ party_players | party_players_select | SELECT | {public}
+ party_rooms   | party_rooms_select   | SELECT | {public}
+(2 rows)
+
+    relname    | relrowsecurity 
+---------------+----------------
+ party_players | t
+ party_rooms   | t
+(2 rows)
+
+psql:docs/pending-migrations/v12-g4-party-rls.sql:61: NOTICE:  policy "party_rooms_insert" for relation "public.party_rooms" does not exist, skipping
+psql:docs/pending-migrations/v12-g4-party-rls.sql:61: NOTICE:  policy "party_rooms_update" for relation "public.party_rooms" does not exist, skipping
+psql:docs/pending-migrations/v12-g4-party-rls.sql:61: NOTICE:  policy "party_players_insert" for relation "public.party_players" does not exist, skipping
+psql:docs/pending-migrations/v12-g4-party-rls.sql:61: NOTICE:  policy "party_players_update" for relation "public.party_players" does not exist, skipping
+NOTICE:  party tables: read only for the public keys: OK
+== ALL LOCAL SQL CHECKS PASSED
