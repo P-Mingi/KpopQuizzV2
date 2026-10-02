@@ -1,0 +1,51 @@
+
+Running 46 tests using 1 worker
+
+[1/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:291:3 › G4 live: flag and SEO › the flag state is the expected one; /live and /join are noindex and out of the sitemap
+[2/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:350:5 › G4 live light › before the SQL is applied: the pages say the mode is not open yet
+[3/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:369:5 › G4 live light › a whole game: one host, three phones, five rounds, podium, play again
+[4/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:537:5 › G4 live light › server time: a late answer is refused; a host reload resumes the room and reveals
+[5/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:597:5 › G4 live light › a phone drops and rejoins with its score; a dead socket falls back to the state route
+[6/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:657:5 › G4 live light › the host removes a player
+[7/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:691:5 › G4 live light › the nickname filter and the errors of the join form
+[8/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:726:5 › G4 live light › a room expires after two hours
+[9/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:759:5 › G4 live light › the host can play along from the phone frame; settings from the lobby keep the room
+[10/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:793:5 › G4 live light › every state against the prototype reference, a11y, no sideways scroll
+[11/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:895:5 › G4 live light › run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run
+[12/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:950:5 › G4 live light › the join page: a phone screen with named controls, a11y
+[13/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:350:5 › G4 live dark › before the SQL is applied: the pages say the mode is not open yet
+[14/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:369:5 › G4 live dark › a whole game: one host, three phones, five rounds, podium, play again
+[15/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:537:5 › G4 live dark › server time: a late answer is refused; a host reload resumes the room and reveals
+[16/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:597:5 › G4 live dark › a phone drops and rejoins with its score; a dead socket falls back to the state route
+[17/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:657:5 › G4 live dark › the host removes a player
+[18/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:691:5 › G4 live dark › the nickname filter and the errors of the join form
+[19/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:726:5 › G4 live dark › a room expires after two hours
+[20/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:759:5 › G4 live dark › the host can play along from the phone frame; settings from the lobby keep the room
+[21/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:793:5 › G4 live dark › every state against the prototype reference, a11y, no sideways scroll
+[22/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:895:5 › G4 live dark › run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run
+[23/46] [ux-1440] › e2e/ux-v12/g4.spec.ts:950:5 › G4 live dark › the join page: a phone screen with named controls, a11y
+[24/46] [ux-390] › e2e/ux-v12/g4.spec.ts:291:3 › G4 live: flag and SEO › the flag state is the expected one; /live and /join are noindex and out of the sitemap
+[25/46] [ux-390] › e2e/ux-v12/g4.spec.ts:350:5 › G4 live light › before the SQL is applied: the pages say the mode is not open yet
+[26/46] [ux-390] › e2e/ux-v12/g4.spec.ts:369:5 › G4 live light › a whole game: one host, three phones, five rounds, podium, play again
+[27/46] [ux-390] › e2e/ux-v12/g4.spec.ts:537:5 › G4 live light › server time: a late answer is refused; a host reload resumes the room and reveals
+[28/46] [ux-390] › e2e/ux-v12/g4.spec.ts:597:5 › G4 live light › a phone drops and rejoins with its score; a dead socket falls back to the state route
+[29/46] [ux-390] › e2e/ux-v12/g4.spec.ts:657:5 › G4 live light › the host removes a player
+[30/46] [ux-390] › e2e/ux-v12/g4.spec.ts:691:5 › G4 live light › the nickname filter and the errors of the join form
+[31/46] [ux-390] › e2e/ux-v12/g4.spec.ts:726:5 › G4 live light › a room expires after two hours
+[32/46] [ux-390] › e2e/ux-v12/g4.spec.ts:759:5 › G4 live light › the host can play along from the phone frame; settings from the lobby keep the room
+[33/46] [ux-390] › e2e/ux-v12/g4.spec.ts:793:5 › G4 live light › every state against the prototype reference, a11y, no sideways scroll
+[34/46] [ux-390] › e2e/ux-v12/g4.spec.ts:895:5 › G4 live light › run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run
+[35/46] [ux-390] › e2e/ux-v12/g4.spec.ts:950:5 › G4 live light › the join page: a phone screen with named controls, a11y
+[36/46] [ux-390] › e2e/ux-v12/g4.spec.ts:350:5 › G4 live dark › before the SQL is applied: the pages say the mode is not open yet
+[37/46] [ux-390] › e2e/ux-v12/g4.spec.ts:369:5 › G4 live dark › a whole game: one host, three phones, five rounds, podium, play again
+[38/46] [ux-390] › e2e/ux-v12/g4.spec.ts:537:5 › G4 live dark › server time: a late answer is refused; a host reload resumes the room and reveals
+[39/46] [ux-390] › e2e/ux-v12/g4.spec.ts:597:5 › G4 live dark › a phone drops and rejoins with its score; a dead socket falls back to the state route
+[40/46] [ux-390] › e2e/ux-v12/g4.spec.ts:657:5 › G4 live dark › the host removes a player
+[41/46] [ux-390] › e2e/ux-v12/g4.spec.ts:691:5 › G4 live dark › the nickname filter and the errors of the join form
+[42/46] [ux-390] › e2e/ux-v12/g4.spec.ts:726:5 › G4 live dark › a room expires after two hours
+[43/46] [ux-390] › e2e/ux-v12/g4.spec.ts:759:5 › G4 live dark › the host can play along from the phone frame; settings from the lobby keep the room
+[44/46] [ux-390] › e2e/ux-v12/g4.spec.ts:793:5 › G4 live dark › every state against the prototype reference, a11y, no sideways scroll
+[45/46] [ux-390] › e2e/ux-v12/g4.spec.ts:895:5 › G4 live dark › run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run
+[46/46] [ux-390] › e2e/ux-v12/g4.spec.ts:950:5 › G4 live dark › the join page: a phone screen with named controls, a11y
+  4 skipped
+  42 passed (3.3m)

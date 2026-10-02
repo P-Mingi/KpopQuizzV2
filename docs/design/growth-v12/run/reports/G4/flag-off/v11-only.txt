@@ -1,0 +1,10 @@
+GET /live                          301 -> http://localhost:3064/
+GET /join                          301 -> http://localhost:3064/
+GET /join/K7Q2PX                   301 -> http://localhost:3064/
+GET /api/live                      {"error":"not_found"} 404
+GET /api/live/rooms/K7Q2PX         {"error":"not_found"} 404
+GET /api/live/rooms/K7Q2PX/state   {"error":"not_found"} 404
+POST /api/live/rooms               {"error":"not_found"} 404
+GET /api/cron/live-expire          {"error":"Unauthorized"} 401
+stylesheet                         167765 bytes, sha256 ff7e12496f968335, ux-live rules: 0
+sitemap: /live or /join            0
