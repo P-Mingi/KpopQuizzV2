@@ -62,7 +62,9 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
 
         <div className="p8-author">
           {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a?.avatarUrl ?? null} size={36} />}
-          <span className="p8-author-t">
+          {/* team: a relative line height, so the Team pill gets the prototype's 17.6px (the
+              row's 22.4px is absolute); inline, so the v11 stylesheet keeps its bytes */}
+          <span className="p8-author-t" style={team ? { lineHeight: 1.6 } : undefined}>
             {a ? <PersonName name={a.name} accent={a.accent} font={a.font} bias={a.bias} href={a.href ?? undefined} isTeam={team} /> : <b className="ux-who">KpopQuiz</b>}
             <span className="p8-lv"> · {meta}</span>
           </span>
