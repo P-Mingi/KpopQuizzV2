@@ -65,6 +65,10 @@
     {
       "path": "/api/cron/editorial-publish",
       "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/live-expire",
+      "schedule": "*/30 * * * *"
     }
   ]
 }

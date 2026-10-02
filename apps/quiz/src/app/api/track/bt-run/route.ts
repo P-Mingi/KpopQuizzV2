@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { anonHash } from '@/lib/anon-hash';
 import { setAnonCookie } from '@/lib/anon-claim';
+import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { BT_TRACKING } from '@/lib/tracking/bt-shared';
 import {
@@ -29,6 +30,12 @@ import type { ParsedFinish, ParsedStart } from '@/lib/tracking/bt-server';
 // string (only mobile | desktop | bot). is_test comes from VERCEL_ENV, never from
 // the request. XP: none. A free run awards nothing today and still awards nothing;
 // the daily keeps its own path (/api/daily/complete), unchanged.
+//
+// Editorial (team) accounts never act as fans (SYSTEM.md 5.6): a run played while
+// signed in as one is dropped, so it is never a player of any board or count
+// (bt_fans_today, the admin page). isEditorialUser() answers false, without a
+// read, while the v12 flag is off, and false while editorial_accounts does not
+// exist or cannot be read: until the owner inserts the accounts nothing changes.
 export const dynamic = 'force-dynamic';
 
 const limiter = createRateLimiter(RATE_WINDOW_MS);
@@ -141,6 +148,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   try {
     const player = await playerId();
+    if (player && (await isEditorialUser(player))) return json({ ok: false, reason: 'dropped' });
     const db = createServiceRoleClient();
     const res = e.event === 'start' ? await writeStart(db, e, player, uaClass) : await writeFinish(db, e, player, uaClass);
 

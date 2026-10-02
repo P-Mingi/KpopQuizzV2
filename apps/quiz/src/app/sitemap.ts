@@ -9,6 +9,8 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
 import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
 import { isThemePage } from '@/lib/growth/bt-themes';
+import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
+import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { MetadataRoute } from 'next';
@@ -176,6 +178,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       }))
     : [];
+
+  // V12 (flag only, requests G6 R2 and G5 R2): the 17 Name them all pages, the KPop
+  // Demon Hunters bridge quiz and one Which member are you page per group with a
+  // profile set. Pretty URLs only, never /name-all/* or /personality/*. No lastmod:
+  // these pages have no real edit date to report. Flag off: no read runs, no entry.
+  let v12GrowthPages: MetadataRoute.Sitemap = [];
+  if (isUxV12()) {
+    // getWmaGroupSlugs() never throws (it answers [] on a failed read). Bounded like
+    // the other reads so an unreachable database cannot hang the route.
+    const WMA_TIMEOUT_MS = 5000;
+    const wmaSlugs = await Promise.race([
+      getWmaGroupSlugs(),
+      new Promise<string[]>((resolve) => setTimeout(() => resolve([]), WMA_TIMEOUT_MS)),
+    ]);
+    v12GrowthPages = v12GrowthPaths(wmaSlugs).map((path) => ({
+      url: `${SITE_URL}${path}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  }
 
   let quizPages: MetadataRoute.Sitemap = [];
   let groupPages: MetadataRoute.Sitemap = [];
@@ -493,6 +515,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...articlePages,
     ...blindTestModePages,
     ...blindTestLandingPages,
+    ...v12GrowthPages,
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,

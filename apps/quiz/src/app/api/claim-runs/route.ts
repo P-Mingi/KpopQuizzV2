@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { readAnonCookie, isUuid } from '@/lib/anon-claim';
+import { isEditorialUser } from '@/lib/editorial/accounts';
 import { BT_TRACKING } from '@/lib/tracking/bt-shared';
 import { isNotLiveError } from '@/lib/tracking/bt-server';
 
@@ -54,6 +55,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   if (!underRateLimit(user.id)) {
     return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  }
+
+  // V12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6), so it
+  // never becomes the player of a guest run: nothing is claimed, the runs stay
+  // unowned. isEditorialUser() is false (and reads nothing) with the v12 flag off,
+  // and false while editorial_accounts does not exist: no change until then.
+  if (await isEditorialUser(user.id)) {
+    return NextResponse.json({ claimed: { plays: 0, battles: 0 }, reason: 'editorial_account' });
   }
 
   const proven = readAnonCookie(req);

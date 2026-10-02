@@ -60,7 +60,9 @@ repo hook also blocks any shell command that names that folder, so read those fi
   ln -sfn $M/apps/quiz/node_modules apps/quiz/node_modules; ln -sfn $M/apps/quiz/.env.local apps/quiz/.env.local`.
   Stage by explicit path only, never the symlinks, never `git add -A`. Remove the symlinks, `apps/quiz/.next` and
   any dev server before you finish.
-- Dev: `NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 PORT=<your port> pnpm --filter quiz dev` from the worktree. Check
+- Dev: from `apps/quiz` in the worktree, `NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 pnpm exec next dev -p <your port>`
+  (the package's `dev` script pins port 3021 and ignores PORT: never use it). Stop your server yourself before you
+  finish, with the same shell tool that started it; if you cannot, say so first thing in your final answer. Check
   the three flag states that matter: both on, v11 only (`NEXT_PUBLIC_UX_V12` unset: must equal today's v11), both off.
 - NO `next build` in an agent: one build at a time across the whole run and ORCH owns it. Use dev, vitest, tsc.
 - Playwright: `export UX11_CHROMIUM=$HOME/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell`

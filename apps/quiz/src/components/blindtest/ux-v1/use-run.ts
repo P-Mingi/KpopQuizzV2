@@ -89,12 +89,49 @@ export interface RunApi {
 
 const DAILY_PICK: BtPick = { playlist: 'daily', label: 'Blindtest of the day' };
 
+/**
+ * The sentences the hook itself writes: the three start errors of a free run and the
+ * live-region sentence of each answer. A page in another language passes its own
+ * (V12 landings: lib/growth/bt-strings.ts has this shape); without the option the
+ * hook says exactly what it always said, in English.
+ */
+export interface RunStrings {
+  errNotEnough: string;
+  errNoSongs: string;
+  errStart: string;
+  announce: (kind: 'correct' | 'timeout' | 'missed', points: number, song: { title: string; artist: string } | null) => string;
+}
+
+/** The hook's own English, unchanged from v11 (the default of `strings`). */
+export const RUN_STRINGS_EN: RunStrings = {
+  errNotEnough: 'Not enough songs for this pick. Try another.',
+  errNoSongs: 'No songs found. Try another pick.',
+  errStart: 'Could not start the game. Check your connection.',
+  announce: (kind, points, song) => {
+    const head = kind === 'correct' ? `Correct, plus ${points} points.` : kind === 'timeout' ? 'Time is up.' : 'Missed.';
+    return song ? `${head} ${song.title} by ${song.artist}.` : head;
+  },
+};
+
+/** `strings` over the English defaults, key by key (a partial table never blanks a sentence). */
+export function resolveRunStrings(strings?: Partial<RunStrings> | null): RunStrings {
+  return {
+    errNotEnough: strings?.errNotEnough || RUN_STRINGS_EN.errNotEnough,
+    errNoSongs: strings?.errNoSongs || RUN_STRINGS_EN.errNoSongs,
+    errStart: strings?.errStart || RUN_STRINGS_EN.errStart,
+    announce: strings?.announce ?? RUN_STRINGS_EN.announce,
+  };
+}
+
 export function useBlindtestRun(opts: {
   announce?: (message: string) => void;
   /** Daily results saved (board and "played today" reload). */
   onDailySaved?: () => void;
+  /** Start errors and the answer announcement in the page language (default: English). */
+  strings?: Partial<RunStrings> | null;
 } = {}): RunApi {
-  const { announce, onDailySaved } = opts;
+  const { announce, onDailySaved, strings } = opts;
+  const text = useMemo(() => resolveRunStrings(strings), [strings]);
   const { unlock, loadAndPlay, preload, stop, fadeOut, cleanup, isPlaying, audioRef, play } = useAudioPlayer();
 
   const [phase, setPhase] = useState<BtPhase>('idle');
@@ -269,15 +306,15 @@ export function useBlindtestRun(opts: {
       });
       const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
       if (runRef.current !== id) return; // the player quit while the songs loaded
-      if (!res.ok) { setError('Not enough songs for this pick. Try another.'); setPhase('idle'); return; }
-      if (!data?.questions?.length) { setError('No songs found. Try another pick.'); setPhase('idle'); return; }
+      if (!res.ok) { setError(text.errNotEnough); setPhase('idle'); return; }
+      if (!data?.questions?.length) { setError(text.errNoSongs); setPhase('idle'); return; }
       begin(data.questions, 'free', p);
     } catch {
       if (runRef.current !== id) return;
-      setError('Could not start the game. Check your connection.');
+      setError(text.errStart);
       setPhase('idle');
     }
-  }, [begin, unlock]);
+  }, [begin, text, unlock]);
 
   const startDaily = useCallback(async () => {
     unlock();
@@ -368,9 +405,8 @@ export function useBlindtestRun(opts: {
     const a = answers[i]!;
     const q = questions[i];
     const gain = summary.rounds[i]?.points ?? 0;
-    const head = a.correct ? `Correct, plus ${gain} points.` : a.picked === null ? 'Time is up.' : 'Missed.';
-    announce(q ? `${head} ${q.reveal.title} by ${q.reveal.artist}.` : head);
-  }, [announce, answers, phase, questions, summary.rounds]);
+    announce(text.announce(a.correct ? 'correct' : a.picked === null ? 'timeout' : 'missed', gain, q ? { title: q.reveal.title, artist: q.reveal.artist } : null));
+  }, [announce, answers, phase, questions, summary.rounds, text]);
 
   // Results: the live game's end-of-run effect, unchanged in daily mode.
   useEffect(() => {
