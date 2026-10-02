@@ -58,8 +58,11 @@ export interface FakeLive {
   sent: Array<{ topic: string; state: LivePublicState }>;
   /** Called on each broadcast (the e2e spec pushes it to its fake sockets). */
   onBroadcast: (fn: (topic: string, state: LivePublicState) => void) => void;
-  /** The "database clock". */
-  clock: { now: number; advance: (ms: number) => void };
+  /**
+   * The "database clock". `manual` = it only moves when a test advances it;
+   * otherwise it is the wall clock. `freeze()` switches to manual from now.
+   */
+  clock: { manual: boolean; now: number; advance: (ms: number) => void; freeze: () => void };
 }
 
 /**
@@ -68,11 +71,12 @@ export interface FakeLive {
  */
 export function fakeLive(opts: { terms?: string[]; realTime?: boolean; isTest?: boolean; start?: number } = {}): FakeLive {
   const clock = {
+    manual: !opts.realTime,
     now: opts.start ?? 1_790_000_000_000,
     advance(ms: number): void { clock.now += ms; },
+    freeze(): void { if (!clock.manual) { clock.now = Date.now(); clock.manual = true; } },
   };
-  const now = opts.realTime ? () => Date.now() : () => clock.now;
-  const store = memoryStore(now);
+  const store = memoryStore(() => (clock.manual ? clock.now : Date.now()));
   const sent: Array<{ topic: string; state: LivePublicState }> = [];
   const listeners: Array<(topic: string, state: LivePublicState) => void> = [];
   const deps: LiveDeps = {

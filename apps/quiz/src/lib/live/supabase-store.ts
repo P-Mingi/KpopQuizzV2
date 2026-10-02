@@ -43,20 +43,25 @@ export function supabaseStore(db: SupabaseClient): LiveStore {
 
   return {
     async ping() {
-      const { error } = await db.from('live_rooms').select('id', { count: 'exact', head: true }).limit(1);
+      // A GET, not a HEAD: on a HEAD the client reads the empty 404 of a missing table as
+      // "no content" and reports no error, so the mode would look open before the SQL is applied.
+      const { error } = await db.from('live_rooms').select('id').limit(1);
       if (error) fail('ping', error);
     },
 
     async recentRooms(ipHash, sinceMs) {
       const since = new Date(Date.now() - sinceMs).toISOString();
-      // A head count, never rows (PostgREST caps a select at 1000 rows).
+      // The exact count comes in a header; one row at most is fetched (PostgREST caps a
+      // select at 1000 rows, so rows are never counted in JS). GET for the reason above.
       const { count, error } = await db
         .from('live_rooms')
-        .select('id', { count: 'exact', head: true })
+        .select('id', { count: 'exact' })
         .eq('ip_hash', ipHash)
-        .gte('created_at', since);
+        .gte('created_at', since)
+        .limit(1);
       if (error) fail('recentRooms', error);
-      return count ?? 0;
+      if (count === null || count === undefined) throw new LiveNotLiveError();
+      return count;
     },
 
     async createRoom(room) {
