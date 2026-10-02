@@ -447,7 +447,7 @@ describe('templates from real data', () => {
   it('no em or en dash in anything a template writes', () => {
     const t = buildWeeklyRecap({ ...week, hardestSong: { title: 'A', artist: 'B', answers: 30, correct: 3 }, topQuiz: { title: 'C', slug: 'c', plays: 9, perfect: 1 }, splits: [{ question: 'q', a: 'x', b: 'y', votesA: 2, votesB: 1 }] }, ACCOUNTS);
     const c = buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'b', release_date: '2026-10-09', kind: 'mv' }, ACCOUNTS);
-    expect(JSON.stringify([t, c])).not.toMatch(/[–—]/);
+    expect(JSON.stringify([t, c])).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`));
   });
 });
 

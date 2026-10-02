@@ -175,3 +175,11 @@ describe('notifications and the passport', () => {
     expect(teamIdentity({ displayName: 'Mina' })).toEqual({ displayName: 'Mina', accent: null, font: null, bias: null, level: 'KpopQuiz team', pinnedBadge: null });
   });
 });
+
+describe('/admin/editorial', () => {
+  it('is never indexed', async () => {
+    const mod = await import('@/app/(site)/admin/editorial/page');
+    expect(mod.metadata.robots).toEqual({ index: false, follow: false });
+    expect(mod.dynamic).toBe('force-dynamic');
+  });
+});

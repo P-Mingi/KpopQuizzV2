@@ -1,0 +1,4 @@
+IDENTICAL (structure)  /community/debate/2026-09-22  status 200/200  raw bytes 64566/63825  normalised 14636/14636  js chunks 25/25
+IDENTICAL (structure)  /community/blog/2  status 200/200  raw bytes 70567/69884  normalised 17924/17924  js chunks 25/25
+IDENTICAL (structure)  /community/debate/2026-09-21  status 200/200  raw bytes 65405/64664  normalised 15895/15895  js chunks 25/25
+all 3 pages identical after normalising build ids and hashed asset names
