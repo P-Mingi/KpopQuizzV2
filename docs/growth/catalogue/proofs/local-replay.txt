@@ -14,7 +14,7 @@ status check | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text, 're
 songs | 4296 | active | 4286 | soundtrack | 10
 groups | 94
 year null | 895 | year 2026 | 487 | year 2025 | 450 | year <= 2017 | 495
-is_title_track true | 67 | true and curated | 22
+is_title_track true | 86 | true and curated | 41
 language | NULL | 8
 language | korean | 4288
 group playlists (10+ clean active songs) | 83
@@ -28,7 +28,7 @@ status check | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text, 're
 songs | 4296 | active | 4286 | soundtrack | 10
 groups | 94
 year null | 895 | year 2026 | 487 | year 2025 | 450 | year <= 2017 | 495
-is_title_track true | 67 | true and curated | 22
+is_title_track true | 86 | true and curated | 41
 language | NULL | 8
 language | korean | 4288
 group playlists (10+ clean active songs) | 83

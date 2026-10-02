@@ -1,10 +1,10 @@
 # v12-g2-06-title-tracks: sourced title tracks (dry-run report)
 
-Generated 2026-10-02T16:47:17.207Z by `apps/quiz/scripts/v12/catalogue/build-title-tracks-sql.mts` (anon key, nothing written to the database).
+Generated 2026-10-02T16:54:44.815Z by `apps/quiz/scripts/v12/catalogue/build-title-tracks-sql.mts` (anon key, nothing written to the database).
 
-Citations read: 22 (from 1 verified list(s)). Updates in the SQL file: 22 (13 stored songs, 9 songs that v12-g2-02 or v12-g2-03 add). Already flagged: 0. Skipped, not in the catalogue: 0.
+Citations read: 41 (from 2 verified list(s)). Updates in the SQL file: 41 (13 stored songs, 28 songs that v12-g2-02 or v12-g2-03 add). Already flagged: 0. Skipped, not in the catalogue: 0.
 
-"Title tracks only" playlist (generate's `title-tracks`: active, curated, flagged, clean title): 0 playable today, 22 after 02, 03 and this file are applied. It needs 10 for a round.
+"Title tracks only" playlist (generate's `title-tracks`: active, curated, flagged, clean title): 0 playable today, 41 after 02, 03 and this file are applied. It needs 10 for a round.
 
 What counts as a title track here: the song a source calls the title track or the lead single of its album, EP or single album, and the song of a standalone digital single. A pre-release single is not flagged unless the source also calls it a title track.
 
@@ -37,3 +37,22 @@ Not flagged, and why:
 | 3946155661 | NCT WISH | Ode to Love | stored (is_title_track false) | [Kpop Wiki](https://kpop.fandom.com/wiki/Ode_to_Love): "serving as the album's title track" |
 | 4089668491 | NCT WISH | BOY MEETS GIRL | stored (is_title_track false) | [SM Entertainment](https://www.smentertainment.com/newsroom/nct-wish-%e6%97%a5-%ec%8b%b1%ea%b8%80-%eb%8d%94%eb%b8%94-%ed%83%80%ec%9d%b4%ed%8b%80%ea%b3%a1-boy-meets-girl-%ec%98%a4%eb%8a%9822%ec%9d%bc-%eb%b0%9c%eb%a7%a4-%ed%99%94%ec%a0%9c/): "더블 타이틀곡 'BOY MEETS GIRL'" |
 | 4131564511 | NCT WISH | YO-I-DON! | stored (is_title_track false) | [SM Entertainment](https://www.smentertainment.com/newsroom/nct-wish-%e6%97%a5-%ed%8c%ac%eb%af%b8%ed%8c%85-%ec%a0%84%ec%84%9d-%eb%a7%a4%ec%a7%84-%e2%86%92-%ec%8b%a0%ea%b3%a1-yo-i-don-%ec%98%a4%eb%8a%9813%ec%9d%bc-%ea%b3%b5%ea%b0%9c/): "타이틀곡 'YO-I-DON!'" |
+| 4232461262 | ENHYPEN | Bloody Paradise | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/The_Sin:_Bliss): "including its lead single "Bloody Paradise"" |
+| 4204153972 | Stray Kids | This & That | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/This_%26_That_(EP)): "The title track, "This & That"" |
+| 4103855641 | Stray Kids | RUN IT | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Stray_Kids): "supported by the lead single "Run It"" |
+| 4027935751 | ATEEZ | BAD | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Ateez): "Golden Hour: Part.5 with the title track "Bad"" |
+| 4149903382 | aespa | KISS N TELL | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Aespa): "Kiss n Tell, with the lead single of the same name" |
+| 3986645071 | BABYMONSTER | CHOOM | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Choom_(EP)): "The title track, "Choom"" |
+| 4204204872 | KiiiKiii | Pop Off Pop Off | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/WhyKiiiKiii): "including the lead single "Pop Off Pop Off"" |
+| 4178965332 | Red Velvet | Surfin' Boy | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Velvet_Summer): "including the lead single "Surfin' Boy"" |
+| 4090868561 | (G)I-DLE | Gimme Dat Love | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/We_Made): "and the lead single "Gimme Dat Love"" |
+| 4208809742 | NCT 127 | Blingy | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Blingy): "along with its lead single of the same name" |
+| 4258718131 | MONSTA X | MAGIC | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/The_Phase_(EP)): "revealing the EP's lead single "Magic"" |
+| 4143495621 | ARTMS | Born Stunner | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Artms): "The lead single "Born Stunner" was released" |
+| 4051286221 | RIIZE | Do your dance | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Riize): ""Do your dance" serving as the lead single" |
+| 4285321022 | CRAVITY | LOUDER | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Cravity): "alongside the lead single "Louder"" |
+| 4049214851 | TREASURE | IF I | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Treasure_(band)): "including its title track "IF I"" |
+| 4157622882 | fromis_9 | Vitamin ME | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Fromis_9): "with the lead single "Vitamin Me"" |
+| 4018650521 | IVE | LUCID DREAM | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Ive_(group)): "Lucid Dream was released, with the lead single of the same name" |
+| 3920191761 | AKMU | Joy, Sorrow, A Beautiful Heart | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/Flowering_(album)): ""Joy, Sorrow, a Beautiful Heart" serving as the album's lead single" |
+| 4223440872 | ONEWE | Scenario | added by v12-g2-02 or v12-g2-03 | [Wikipedia](https://en.wikipedia.org/wiki/面:_Unknown_Atlas): "the album's lead single "Scenario"" |
