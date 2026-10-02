@@ -1,0 +1,21 @@
+#!/bin/sh
+# V12 run: ownership guard, installed PER WORKTREE only:
+#   sh scripts/v12-hooks/install.sh <agent id>
+# No-op when `git config v12.agent` is unset (the owner's normal commits are never blocked).
+#
+# The guard script and OWNERSHIP.json are taken from HEAD (the committed
+# versions), so an uncommitted edit of either cannot loosen the check.
+agent="$(git config --get v12.agent)"
+[ -z "$agent" ] && [ -z "$V12_AGENT" ] && exit 0
+root="$(git rev-parse --show-toplevel)" || exit 2
+guard=scripts/v12-owner-guard.mjs
+own=docs/design/growth-v12/run/OWNERSHIP.json
+if git cat-file -e "HEAD:$guard" 2>/dev/null && git cat-file -e "HEAD:$own" 2>/dev/null; then
+  tmp="${TMPDIR:-/tmp}/v12-owner-guard-$$.mjs"
+  git show "HEAD:$guard" > "$tmp" || exit 2
+  node "$tmp" --ownership-ref HEAD
+  rc=$?
+  rm -f "$tmp"
+  exit $rc
+fi
+exec node "$root/$guard"
