@@ -53,6 +53,7 @@ for (const m of read('v12-g2-02-songs-new-groups.sql').matchAll(/update songs se
 // 04 fix, 05 backfill
 let yearsFixed = 0, yearsFilled = 0;
 for (const m of read('v12-g2-04-years-fix.sql').matchAll(/^\s*\((\d+), (\d+), (\d+)\)/gm)) { const s = byId.get(Number(m[1])); if (s && s.year === Number(m[2])) { s.year = Number(m[3]); yearsFixed++; } }
+const without05: Song[] = after.map((s) => ({ ...s })); // every file but the backfill (the owner may hold it back)
 for (const m of read('v12-g2-05-years-backfill.sql').matchAll(/^\s*\((\d+), (\d+)\)/gm)) { const s = byId.get(Number(m[1])); if (s && s.year === null) { s.year = Number(m[2]); yearsFilled++; } }
 // 06 title tracks
 let flagged = 0;
@@ -81,6 +82,10 @@ const themed: [string, string, PlaylistSpec][] = [
   ['4th-gen-bg', 'decision 33', V12_PLAYLISTS['4th-gen-bg']!],
 ];
 const verdict = (n: number): string => (n >= 10 ? 'playable' : 'hidden (under 10)');
+const cell = (songs: Song[], spec: PlaylistSpec): string => `${count(songs, spec)}: ${verdict(count(songs, spec))}`;
+const tt = (songs: Song[]): string => { const n = legacy(songs, (s) => s.is_title_track === true); return `${n}: ${verdict(n)}`; };
+const uncapped = (songs: Song[], year: number): Song[] => songs.filter((s) => songMatchesSpec(s, { yearMin: year, yearMax: year }, true));
+const acts = (songs: Song[]): number => new Set(songs.map((s) => s.artist_name)).size;
 const md = [
   '# What becomes playable once the pending v12-g2 files are applied',
   '',
@@ -100,12 +105,12 @@ const md = [
   '',
   '## Themed playlists and decision 33 playlists (the pool generate reads, curated subset on)',
   '',
-  '| Playlist | Kind | Today | After apply |',
-  '|---|---|---|---|',
-  ...themed.map(([id, kind, spec]) => `| ${id} | ${kind} | ${count(before, spec)}: ${verdict(count(before, spec))} | ${count(after, spec)}: ${verdict(count(after, spec))} |`),
-  `| title-tracks | decision 33 (legacy playlist of generate) | ${legacy(before, (s) => s.is_title_track === true)}: ${verdict(legacy(before, (s) => s.is_title_track === true))} | ${legacy(after, (s) => s.is_title_track === true)}: ${verdict(legacy(after, (s) => s.is_title_track === true))} |`,
+  '| Playlist | Kind | Today | After apply, without 05 (years backfill) | After apply, all files |',
+  '|---|---|---|---|---|',
+  ...themed.map(([id, kind, spec]) => `| ${id} | ${kind} | ${cell(before, spec)} | ${cell(without05, spec)} | ${cell(after, spec)} |`),
+  `| title-tracks | decision 33 (legacy playlist of generate) | ${tt(before)} | ${tt(after)} | ${tt(after)} |`,
   '',
-  'The hits playlists keep their 60 best-ranked songs, so 60 is their ceiling. Acts in the kpop-hits-2026 pool after apply: ' + new Set(after.filter((s) => songMatchesSpec(s, { yearMin: 2026, yearMax: 2026 }, true)).map((s) => s.artist_name)).size + '; in kpop-hits-2025: ' + new Set(after.filter((s) => songMatchesSpec(s, { yearMin: 2025, yearMax: 2025 }, true)).map((s) => s.artist_name)).size + '.',
+  `The hits playlists keep their 60 best-ranked songs, so 60 is their ceiling. Songs with the year before the cap, all files applied: 2026: ${uncapped(after, 2026).length} songs by ${acts(uncapped(after, 2026))} acts; 2025: ${uncapped(after, 2025).length} songs by ${acts(uncapped(after, 2025))} acts. Without 05: 2026: ${uncapped(without05, 2026).length} songs by ${acts(uncapped(without05, 2026))} acts; 2025: ${uncapped(without05, 2025).length} songs by ${acts(uncapped(without05, 2025))} acts.`,
   '',
 ].join('\n');
 writeFileSync(new URL('docs/growth/catalogue/playlists-after-apply.md', ROOT), md);
