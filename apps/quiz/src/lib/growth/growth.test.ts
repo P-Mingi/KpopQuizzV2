@@ -13,7 +13,8 @@ import { BT_THEMES, KPDH_ID, firstSentence, isThemePage, themeById, themeCard, v
 
 import type { BtLang, BtStrings } from './bt-strings';
 
-const DASH = /[—–]/;
+// Built from code points so this file itself holds no em or en dash.
+const DASH = new RegExp(`[${String.fromCharCode(0x2014, 0x2013)}]`);
 
 /** Every string a BtStrings object can print, with sample arguments. */
 function allStrings(s: BtStrings): string[] {

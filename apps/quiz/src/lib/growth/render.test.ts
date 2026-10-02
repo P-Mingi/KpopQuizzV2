@@ -8,7 +8,6 @@
 // Challenge on a KPDH run, no picture anywhere.
 // What it does NOT prove: CSS, hydration, the real rows (see reports/G3.md).
 
-import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 

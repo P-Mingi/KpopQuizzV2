@@ -87,6 +87,37 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
     : [];
   const themePicks = themes ? themeCards.filter((c) => isThemePage(c.href.slice('/blindtest/'.length))).map((c) => ({ playlist: c.href.slice('/blindtest/'.length), label: c.name })) : undefined;
 
+  // V12 additions share the slot of the v11 section next to them (a fragment that exists
+  // only with the flag on), so the v11-only tree keeps the exact shape it had: React derives
+  // useId (the playlist popover's id) from the position and the NUMBER of siblings, and an
+  // extra empty child would change that id in the v11-only HTML.
+  const ways = (
+    <section className="ux-sec" aria-labelledby="p6-ways-h">
+      <SectionHeader id="p6-ways-h" title="Ways to play" icon="music" />
+      <div className="p6-mgrid">
+        <BtDailyCardLoader />
+        <Link className="p6-mcard" href="/blindtest/ranked">
+          <Icon name="trophy" size="lg" />
+          <h3>Ranked</h3>
+          <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
+          <BtRankedFootLoader />
+        </Link>
+        <BtChallengeCardLoader />
+      </div>
+    </section>
+  );
+  const faqSection = (
+    <section className="ux-sec p6-faq" aria-labelledby="p6-faq-h">
+      <h2 id="p6-faq-h" className="ux-h2">Frequently asked questions</h2>
+      {faq.map(({ q, a }) => (
+        <details className="p6-acc" key={q}>
+          <summary>{q}<Icon name="chev" /></summary>
+          <p className="p6-ab">{a}</p>
+        </details>
+      ))}
+    </section>
+  );
+
   return (
     <UxPage width="full" padded={false} className="p6">
       {jsonLdScript(BREADCRUMB_JSONLD)}
@@ -101,23 +132,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           <BtSetupLoader />
         </section>
 
-        {v12 ? <BtHubPlaylists cards={themeCards} /> : null}
-
-        <section className="ux-sec" aria-labelledby="p6-ways-h">
-          <SectionHeader id="p6-ways-h" title="Ways to play" icon="music" />
-          <div className="p6-mgrid">
-            <BtDailyCardLoader />
-            <Link className="p6-mcard" href="/blindtest/ranked">
-              <Icon name="trophy" size="lg" />
-              <h3>Ranked</h3>
-              <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
-              <BtRankedFootLoader />
-            </Link>
-            <BtChallengeCardLoader />
-          </div>
-        </section>
-
-        {v12 ? <BtHubLiveBand /> : null}
+        {v12 ? <><BtHubPlaylists cards={themeCards} />{ways}<BtHubLiveBand /></> : ways}
 
         <section className="ux-sec p6-two">
           <div>
@@ -151,17 +166,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           </p>
         )}
 
-        <section className="ux-sec p6-faq" aria-labelledby="p6-faq-h">
-          <h2 id="p6-faq-h" className="ux-h2">Frequently asked questions</h2>
-          {faq.map(({ q, a }) => (
-            <details className="p6-acc" key={q}>
-              <summary>{q}<Icon name="chev" /></summary>
-              <p className="p6-ab">{a}</p>
-            </details>
-          ))}
-        </section>
-
-        {v12 ? <BtHubLangRow /> : null}
+        {v12 ? <>{faqSection}<BtHubLangRow /></> : faqSection}
       </BtHubControllerLoader>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(webAppJsonLd) }} />
