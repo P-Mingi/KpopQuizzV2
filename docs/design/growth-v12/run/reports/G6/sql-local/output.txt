@@ -1,0 +1,23 @@
+server: 14.19 (Homebrew)
+--- apply v12-g6-name-all.sql
+--- apply it again (idempotent)
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7b88530ca54b076a/docs/design/growth-v12/run/reports/G6/sql-local/../../../../../../pending-migrations/v12-g6-name-all.sql:63: NOTICE:  column "found_order" of relation "name_all_member_results" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7b88530ca54b076a/docs/design/growth-v12/run/reports/G6/sql-local/../../../../../../pending-migrations/v12-g6-name-all.sql:64: NOTICE:  column "round_seconds" of relation "name_all_member_results" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7b88530ca54b076a/docs/design/growth-v12/run/reports/G6/sql-local/../../../../../../pending-migrations/v12-g6-name-all.sql:73: NOTICE:  relation "idx_namr_v12_group_round" already exists, skipping
+--- checks
+C01 old rows kept = 8 (expected 8)
+C02 old rows have no order and no time = 8 (expected 8)
+C03 columns = id:bigint:NO,group_id:integer:YES,member_name:text:NO,found:boolean:NO,round_id:uuid:NO,created_at:timestamp with time zone:NO,found_order:smallint:YES,round_seconds:smallint:YES (expected ...,found_order:smallint:YES,round_seconds:smallint:YES)
+C04 stats with only old rounds = {"firsts": [], "rounds": 0, "perfect_rounds": 0} (expected rounds 0, perfect 0, firsts [])
+C05 anon may execute = false (expected false)
+C06 authenticated may execute = false (expected false)
+C07 service_role may execute = true (expected true)
+C08 anon may read the table = false (expected false: no grant in this local setup; on production RLS has no policy)
+C09 stats after 4 v12 rounds = {"firsts": [{"n": 2, "member_name": "Lisa"}, {"n": 1, "member_name": "Jennie"}], "rounds": 4, "perfect_rounds": 2} (expected rounds 4, perfect 2, firsts Lisa 2 then Jennie 1)
+C10 another group = {"firsts": [], "rounds": 0, "perfect_rounds": 0} (expected rounds 0, perfect 0, firsts [])
+C11 unknown group = {"firsts": [], "rounds": 0, "perfect_rounds": 0} (expected rounds 0, perfect 0, firsts [])
+C12 total rows = 24 (expected 24)
+C13 partial index used for v12 rounds only = CREATE INDEX idx_namr_v12_group_round ON public.name_all_member_results USING btree (group_id, round_id) WHERE (round_seconds IS NOT NULL)
+--- undo, as written in the file header
+U01 rows after undo = 24 (expected 24)
+U02 columns after undo = 6 (expected 6)
