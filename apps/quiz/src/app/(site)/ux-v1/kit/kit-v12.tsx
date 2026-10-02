@@ -132,6 +132,11 @@ export function KitV12(): React.ReactElement {
           <WaysTile href="#kit-v12-ways" icon="clock" title="Name them all" isNew foot="38% get them all">All 8 members in 60 seconds.</WaysTile>
           <WaysTile href="#kit-v12-ways" icon="users" title="Which member are you?" isNew foot="12,480 results">Eight questions about you.</WaysTile>
         </WaysTiles>
+        <div className="ux-kit-row" style={{ marginTop: 24 }}>
+          <span className="ux-kicker"><Icon name="users" />Live blindtest</span>
+          <span className="ux-badge-new">New</span>
+          <span className="ux-urlchip">kpopquiz.org/guess-the-kpop-song</span>
+        </div>
         <span className="ux-kit-label" style={{ marginTop: 24 }}>Two across, no foot line</span>
         <div className="ux-kit-res">
           <WaysTiles columns={2}>
