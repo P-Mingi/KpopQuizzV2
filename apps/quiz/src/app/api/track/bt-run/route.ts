@@ -109,6 +109,11 @@ async function writeFinish(db: Db, e: ParsedFinish, player: string | null, uaCla
   return { written: !error && Array.isArray(data) && data.length > 0, error };
 }
 
+// With the switch off the route does not exist for any method (a 404, like today).
+export function GET(): NextResponse {
+  return BT_TRACKING ? json({ error: 'method_not_allowed' }, 405) : json({ error: 'not_found' }, 404);
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!BT_TRACKING) return json({ error: 'not_found' }, 404);
 
