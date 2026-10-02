@@ -7,6 +7,7 @@ import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { languageChip } from '@/lib/languages';
 import { UX_V1 } from '@/lib/ux-v1';
+import { avgScorePct } from '@/lib/quiz/scoring';
 import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
@@ -35,12 +36,7 @@ const DIFF_BADGE: Record<Difficulty, { cls: string; label: string }> = {
   hard:   { cls: 'b-hard',   label: 'Hard' },
 };
 
-/** Average score as a 0-100 percentage, or null when there's no data yet. */
-function avgScorePct(q: QuizCardData): number | null {
-  return q.total_completions > 0 && q.question_count > 0
-    ? Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100)
-    : null;
-}
+// Average score as a 0-100 percentage (null without data): avgScorePct from lib/quiz/scoring.
 
 /** §3c colour bands: green ≥65%, amber 50-64%, red <50%. */
 function scoreClass(pct: number): string {

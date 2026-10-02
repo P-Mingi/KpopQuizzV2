@@ -10,6 +10,7 @@ import { LikeButton } from '@/components/ui/like-button';
 import { RedditShareButton } from '@/components/share/reddit-share-button';
 import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
+import { avgScorePct } from '@/lib/quiz/scoring';
 import { UxQuizCard } from '@/components/ux-v1/quiz-card';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -25,9 +26,7 @@ export function QuizCard({ quiz, isOwner, isLiked = false }: QuizCardProps): Rea
   // current card byte-identical.
   if (UX_V1) return <UxQuizCard quiz={quiz} />;
 
-  const avgPct = quiz.total_completions > 0 && quiz.question_count > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions) / quiz.question_count * 100)
-    : null;
+  const avgPct = avgScorePct(quiz);
 
   return (
     <div className="relative bg-primary border border-default rounded-lg p-4 hover:border-default transition-colors">

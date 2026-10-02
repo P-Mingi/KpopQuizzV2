@@ -1,0 +1,30 @@
+same    blindtest
+same    blindtest_girl_groups
+same    bts_quiz
+same    groups_bts
+same    groups_stray_kids
+same    home
+same    kickflip_quiz
+same    leaderboard
+DIFFERS q_guess_the_skz_member_from_clues (4 base lines, 4 candidate lines)
+   - <meta name="description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <meta property="og:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <meta name="twitter:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <i class="ux-num">603<!-- --> plays</i>
+   + <meta name="description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <meta property="og:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <meta name="twitter:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <i class="ux-num">602<!-- --> plays</i>
+same    q_ultimate_bts_era_quiz_only_real_armys_survive
+DIFFERS quizzes (1 base lines, 1 candidate lines)
+   - <span class="ux-qpl">603 plays</span>
+   + <span class="ux-qpl">602 plays</span>
+DIFFERS quizzes_type_guess_from_clues (1 base lines, 1 candidate lines)
+   - <span class="ux-qpl">603 plays</span>
+   + <span class="ux-qpl">602 plays</span>
+same    search_q_skz
+DIFFERS stats (1 base lines, 1 candidate lines)
+   - <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 256 quizzes with at least 30 plays, as of October 2, 2026.</p>
+   + <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 253 quizzes with at least 30 plays, as of October 2, 2026.</p>
+
+14 pages, 4 with a difference

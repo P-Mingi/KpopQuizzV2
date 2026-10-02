@@ -2,7 +2,7 @@
 // ago", "About 2 min", "251 perfect scores · fastest 0:17"). Pure.
 
 import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
-import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
 
 import type { QuizType } from '@/lib/db/types';
 
@@ -35,8 +35,7 @@ export function aboutMinutes(questionCount: number, timerOn: boolean, timerSecon
  *  (the same C2 / C4 gates as the page intro), else null. */
 export function cardAverage(q: { quiz_type: QuizType; play_count: number; total_score_sum: number; total_completions: number; question_count: number }): number | null {
   if (!scoreIsPerQuestion(q.quiz_type) || q.play_count < RANKING_UNLOCK_VOTES) return null;
-  if (q.total_completions <= 0 || q.question_count <= 0) return null;
-  return Math.round((q.total_score_sum / q.total_completions) / q.question_count * 100);
+  return avgScorePct(q);
 }
 
 /** Verdict stamp from getResultLabel(): "올킬!" + "PERFECT" (the trailing "!" is dropped, 14.4). */
