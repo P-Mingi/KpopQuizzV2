@@ -366,5 +366,67 @@
    "available": 0,
    "needed": 10
   }
+ },
+ "GET /api/blind-test/modes": {
+  "status": 200,
+  "modes": {
+   "difficulty": [
+    "classic:337:true",
+    "intro-challenge:327:true",
+    "verse-only:12:true",
+    "bridge-or-break:1:false",
+    "speed-round:337:true"
+   ],
+   "group": [
+    "group-bts:28:true",
+    "group-twice:18:true",
+    "group-seventeen:15:true",
+    "group-blackpink:14:true",
+    "group-stray-kids:14:true",
+    "group-g-i-dle:12:true",
+    "group-exo:12:true",
+    "group-ateez:10:true",
+    "group-red-velvet:10:true",
+    "group-shinee:10:true",
+    "group-aespa:9:true",
+    "group-newjeans:9:true",
+    "group-ive:8:true",
+    "group-itzy:8:true",
+    "group-enhypen:8:true",
+    "group-mamamoo:8:true",
+    "group-iu:8:true",
+    "group-le-sserafim:7:true",
+    "group-txt:7:true",
+    "group-bigbang:7:true",
+    "group-got7:6:true",
+    "group-nct-dream:6:true",
+    "group-monsta-x:5:true",
+    "group-nct-127:5:true",
+    "group-2ne1:5:true"
+   ],
+   "era": [
+    "2nd-gen:64:true",
+    "3rd-gen:158:true",
+    "4th-gen:115:true"
+   ],
+   "special": [
+    "girl-groups:142:true",
+    "boy-groups:152:true",
+    "solo-artists:41:true",
+    "title-tracks:325:true",
+    "b-sides:12:true",
+    "recent-hits:29:true",
+    "kpop-legends:113:true",
+    "4th-gen-gg:63:true",
+    "4th-gen-bg:52:true",
+    "random-all:337:true"
+   ]
+  },
+  "stats": {
+   "total_songs": 349,
+   "total_plays": "live counter, not compared",
+   "available_modes": 42,
+   "total_modes": 43
+  }
  }
 }

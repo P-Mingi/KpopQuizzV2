@@ -112,3 +112,20 @@
 >   "every_question_from_pool": true,
 >   "only_title_questions": false,
 >   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
+410c450,451
+<     "4th-gen:115:true"
+---
+>     "4th-gen:115:true",
+>     "5th-gen:284:true"
+422c463,465
+<     "random-all:337:true"
+---
+>     "random-all:337:true",
+>     "kpop-hits-2025:51:true",
+>     "tiktok-viral:26:true"
+428,429c471,472
+<    "available_modes": 42,
+<    "total_modes": 43
+---
+>    "available_modes": 45,
+>    "total_modes": 46
