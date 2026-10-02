@@ -53,5 +53,16 @@ for (const c of cases) {
     keys: Object.keys(j).sort().join(','),
   };
 }
+// GET /api/blind-test/modes (also touched by G2): every mode with its availability. Deterministic,
+// compared as it is, except total_plays (a live counter).
+{
+  const res = await fetch(`${base}/api/blind-test/modes`);
+  const j = (await res.json()) as { modes: Record<string, { id: string; song_count_available: number; available: boolean }[]>; stats: Record<string, number> };
+  result['GET /api/blind-test/modes'] = {
+    status: res.status,
+    modes: Object.fromEntries(Object.entries(j.modes ?? {}).map(([cat, list]) => [cat, list.map((m) => `${m.id}:${m.song_count_available}:${m.available}`)])),
+    stats: { ...j.stats, total_plays: 'live counter, not compared' },
+  };
+}
 writeFileSync(out, JSON.stringify(result, null, 1) + '\n');
 console.log(`${cases.length} cases written to ${out}`);
