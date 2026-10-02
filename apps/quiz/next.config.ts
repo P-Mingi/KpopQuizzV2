@@ -80,6 +80,19 @@ const nextConfig: NextConfig = {
     ];
     return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...fandomRedirects, ...refonteRedirects];
   },
+  // V12 G6 (request run/requests/G6.md R1): the pretty Name them all URLs. Only with
+  // both flags on at build; with a flag off there is no rewrite and the middleware
+  // 301s these URLs to / as before.
+  async rewrites() {
+    const on = (v: string | undefined): boolean => v === '1' || v === 'true';
+    if (!on(process.env.NEXT_PUBLIC_UX_V1) || !on(process.env.NEXT_PUBLIC_UX_V12)) return [];
+    return [
+      {
+        source: '/:group(bts|blackpink|stray-kids|twice|aespa|newjeans|seventeen|exo|g-i-dle|ive|le-sserafim|red-velvet|ateez|enhypen|txt|itzy|shinee)-name-all-members',
+        destination: '/name-all/:group?via=pretty',
+      },
+    ];
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
