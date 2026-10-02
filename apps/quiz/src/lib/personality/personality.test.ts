@@ -271,7 +271,7 @@ describe('result copy', () => {
     for (const r of roles) {
       expect(r.role, `${r.group}/${r.member}`).toMatch(allowed);
       expect(r.role.length).toBeLessThanOrEqual(40);
-      expect(/[–—]/.test(r.role)).toBe(false);
+      expect(/[\u2013\u2014]/.test(r.role)).toBe(false);
     }
   });
 });
