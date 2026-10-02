@@ -483,7 +483,12 @@ test.describe('tracking switch off', () => {
     test.skip(await trackingOn(request), 'NEXT_PUBLIC_BT_TRACKING is on in this build');
     const res404 = await request.post(TRACK, { data: { event: 'start' } });
     expect(res404.status()).toBe(404);
-    expect((await request.get('/admin/blind-tests/runs', { maxRedirects: 0 })).status()).toBe(404);
+    // A guest gets what any admin URL that does not exist gives (the middleware sends
+    // guests to sign in before a page is looked up); signed in, the page is a 404.
+    const runs = await request.get('/admin/blind-tests/runs', { maxRedirects: 0 });
+    const ghost = await request.get('/admin/blind-tests/does-not-exist', { maxRedirects: 0 });
+    expect(runs.status()).toBe(ghost.status());
+    expect((runs.headers().location ?? '').replace('runs', 'x')).toBe((ghost.headers().location ?? '').replace('does-not-exist', 'x'));
 
     const h = await harness(page);
     const res = await page.goto('/blindtest');
