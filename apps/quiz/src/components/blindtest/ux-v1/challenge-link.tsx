@@ -5,9 +5,11 @@ import { useCallback, useRef, useState } from 'react';
 import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
 
 import type { BtQuestion } from './types';
 import type { RunApi } from './use-run';
+import type { BtStrings } from '@/lib/growth/bt-strings';
 import type { FrozenQuestion } from '@/lib/ux-v1/p6/challenge';
 
 // Results: "Challenge a friend with these exact songs" + Copy link (prototype
@@ -85,26 +87,26 @@ export function useBtChallengeLink(run: RunApi): BtChallengeLinkState {
 }
 
 /** The results row. `link` shares the run's link with the Share sheet; without it the row keeps its own. */
-export function BtChallengeLink({ run, link }: { run: RunApi; link?: BtChallengeLinkState }): React.ReactElement {
+export function BtChallengeLink({ run, link, strings: s = BT_STRINGS_EN }: { run: RunApi; link?: BtChallengeLinkState; strings?: BtStrings | undefined }): React.ReactElement {
   const toast = useUxToast();
   const own = useBtChallengeLink(run);
   const { url, busy, create } = link ?? own;
 
   const onClick = async (): Promise<void> => {
-    if (url) { toast((await copy(url)) ? 'Link copied' : 'Copy failed. Long-press the link to copy it.'); return; }
+    if (url) { toast((await copy(url)) ? s.linkCopied : s.copyFailed); return; }
     const made = await create();
-    if (!made) { toast('Could not create the link. Try again.'); return; }
-    toast((await copy(made)) ? 'Link copied. It works for 48 hours.' : 'Your link is ready below. It works for 48 hours.');
+    if (!made) { toast(s.linkFailed); return; }
+    toast((await copy(made)) ? s.linkCopied48 : s.linkReady48);
   };
 
   return (
     <div className="p6-mine">
       <Icon name="target" />
       <span className="p6-grow">
-        Challenge a friend with these exact songs
+        {s.challengeRow}
         {url ? <span className="p6-link ux-num">{url.replace(/^https?:\/\//, '')}</span> : null}
       </span>
-      <UxButton size="sm" variant="ghost" onClick={() => { void onClick(); }} disabled={busy} aria-busy={busy || undefined}>Copy link</UxButton>
+      <UxButton size="sm" variant="ghost" onClick={() => { void onClick(); }} disabled={busy} aria-busy={busy || undefined}>{s.copyLink}</UxButton>
     </div>
   );
 }

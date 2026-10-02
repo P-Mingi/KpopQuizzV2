@@ -5,8 +5,15 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
+import { getThemeState } from '@/lib/growth/bt-data';
+import { LANDING_COPY } from '@/lib/growth/bt-landing';
+import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
+import { isThemePage, themeCard, visibleThemes } from '@/lib/growth/bt-themes';
 import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, readBudgetMs, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
+import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+
+import { BtHubLangRow, BtHubLiveBand, BtHubPlaylists } from './hub-v12';
 
 import {
   BtBoardLoader,
@@ -53,11 +60,15 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
   const db = hasDbEnv();
   const none = async <T,>(v: T): Promise<T> => v;
   const budget = readBudgetMs();
-  const [playlists, songs, popularity, today] = await Promise.all([
+  // V12 (flag only): which themed playlists are playable, and their real song counts.
+  // Flag off: no read, and nothing below changes.
+  const v12 = isUxV12();
+  const [playlists, songs, popularity, today, themes] = await Promise.all([
     settle(db ? () => getPlayableGroups() : () => none<BtGroup[]>([]), [] as BtGroup[], budget),
     settle(db ? () => getSongCount() : () => none(0), 0, budget),
     settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }, budget),
     settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0, budget),
+    v12 ? getThemeState() : null,
   ]);
   const failed = [
     ...(playlists.ok ? [] : ['playlists']),
@@ -68,11 +79,49 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
   keepLastGoodCopyOnFailure(failed);
   const groups: BtGroup[] = playlists.value;
   const popular = popularSix(groups, popularity.value);
+  // The theme links: with V12 on a themed mode under 10 playable songs is hidden
+  // (no dead door); every v11 mode keeps its link in both flag states.
+  const modes = themes ? STATIC_MODES.filter((m) => !isThemePage(m.id) || themes.playable.has(m.id)) : STATIC_MODES;
+  const themeCards = themes
+    ? visibleThemes(themes.playable).map((t) => themeCard(t, 'en', themes.counts, { num: BT_STRINGS_EN.num, songsCount: LANDING_COPY.en.songsCount }))
+    : [];
+  const themePicks = themes ? themeCards.filter((c) => isThemePage(c.href.slice('/blindtest/'.length))).map((c) => ({ playlist: c.href.slice('/blindtest/'.length), label: c.name })) : undefined;
+
+  // V12 additions share the slot of the v11 section next to them (a fragment that exists
+  // only with the flag on), so the v11-only tree keeps the exact shape it had: React derives
+  // useId (the playlist popover's id) from the position and the NUMBER of siblings, and an
+  // extra empty child would change that id in the v11-only HTML.
+  const ways = (
+    <section className="ux-sec" aria-labelledby="p6-ways-h">
+      <SectionHeader id="p6-ways-h" title="Ways to play" icon="music" />
+      <div className="p6-mgrid">
+        <BtDailyCardLoader />
+        <Link className="p6-mcard" href="/blindtest/ranked">
+          <Icon name="trophy" size="lg" />
+          <h3>Ranked</h3>
+          <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
+          <BtRankedFootLoader />
+        </Link>
+        <BtChallengeCardLoader />
+      </div>
+    </section>
+  );
+  const faqSection = (
+    <section className="ux-sec p6-faq" aria-labelledby="p6-faq-h">
+      <h2 id="p6-faq-h" className="ux-h2">Frequently asked questions</h2>
+      {faq.map(({ q, a }) => (
+        <details className="p6-acc" key={q}>
+          <summary>{q}<Icon name="chev" /></summary>
+          <p className="p6-ab">{a}</p>
+        </details>
+      ))}
+    </section>
+  );
 
   return (
     <UxPage width="full" padded={false} className="p6">
       {jsonLdScript(BREADCRUMB_JSONLD)}
-      <BtHubControllerLoader groups={groups} songs={songs.value}>
+      <BtHubControllerLoader groups={groups} songs={songs.value} {...(themePicks ? { themes: themePicks } : {})}>
         <section className="p6-hero" id="bt-start" aria-labelledby="p6-h1">
           <div className="p6-bars" aria-hidden="true">
             {Array.from({ length: 10 }, (_, i) => <i key={i} />)}
@@ -83,19 +132,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           <BtSetupLoader />
         </section>
 
-        <section className="ux-sec" aria-labelledby="p6-ways-h">
-          <SectionHeader id="p6-ways-h" title="Ways to play" icon="music" />
-          <div className="p6-mgrid">
-            <BtDailyCardLoader />
-            <Link className="p6-mcard" href="/blindtest/ranked">
-              <Icon name="trophy" size="lg" />
-              <h3>Ranked</h3>
-              <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
-              <BtRankedFootLoader />
-            </Link>
-            <BtChallengeCardLoader />
-          </div>
-        </section>
+        {v12 ? <><BtHubPlaylists cards={themeCards} />{ways}<BtHubLiveBand /></> : ways}
 
         <section className="ux-sec p6-two">
           <div>
@@ -117,7 +154,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
             <BtGroupIndexLoader popular={popular} />
             <p className="p6-themes">
               <b>Theme playlists</b>
-              {STATIC_MODES.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+              {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
             </p>
           </section>
         ) : (
@@ -125,19 +162,11 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           // theme playlists (a code constant) keep their links.
           <p className="ux-sec p6-themes">
             <b>Theme playlists</b>
-            {STATIC_MODES.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+            {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
           </p>
         )}
 
-        <section className="ux-sec p6-faq" aria-labelledby="p6-faq-h">
-          <h2 id="p6-faq-h" className="ux-h2">Frequently asked questions</h2>
-          {faq.map(({ q, a }) => (
-            <details className="p6-acc" key={q}>
-              <summary>{q}<Icon name="chev" /></summary>
-              <p className="p6-ab">{a}</p>
-            </details>
-          ))}
-        </section>
+        {v12 ? <>{faqSection}<BtHubLangRow /></> : faqSection}
       </BtHubControllerLoader>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(webAppJsonLd) }} />

@@ -1,0 +1,6 @@
+both off  /blindtest/5th-gen               A 404 B 404  identical without the dev stack attribute
+both off  /blindtest/kpop-hits-2025        A 404 B 404  identical without the dev stack attribute
+both off  /blindtest/tiktok-viral          A 404 B 404  identical without the dev stack attribute
+both off  /blindtest/kpop-hits-2026        A 404 B 404  identical without the dev stack attribute
+both off  /blindtest/kpop-demon-hunters    A 404 B 404  identical without the dev stack attribute
+both off  /blindtest/not-a-mode            A 404 B 404  identical without the dev stack attribute
