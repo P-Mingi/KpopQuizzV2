@@ -73,7 +73,8 @@
     "apps/quiz/src/lib/ux-v1/p2/queries.ts",
     "apps/quiz/src/lib/ux-v1/p4/format.ts",
     "apps/quiz/src/lib/ux-v1/p4/engine.test.ts",
-    "apps/quiz/src/lib/ux-v1/p10/passport-render.test.ts"
+    "apps/quiz/src/lib/ux-v1/p10/passport-render.test.ts",
+    "apps/quiz/src/components/ranked/ux-v1/use-ranked-run.ts"
   ],
   "G2": [
     "apps/quiz/scripts/ingest-blindtest-songs.mts",

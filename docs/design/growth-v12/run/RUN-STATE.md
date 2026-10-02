@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 
 - Prototype: `docs/design/growth-v12/prototype.html`, `window.UX_VERSION` = `v12.2 growth (2026-09-29)` (checked 2026-10-02).
 - Integration branch: `feat/v12`, cut from `origin/main` at `a94d77c` (R1 done: PR #66 merged 2026-10-01, `docs/release/R1-STATE.md` says DONE). First commit `5e4548f` "docs(v12): growth package".
-- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G7 and G9 merged. G4, G3, G5, G6 running (4 builders at once).
+- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G7, G9, G3 merged. G4, G5, G6 and the G1 follow-up running (4 builders at once).
 
 ## Agents
 
@@ -12,8 +12,9 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 |---|---|---|---|---|---|
 | A1 | v12/a1-foundation | merged (20ee928) + styles route patch (1cb0d17) | 4d5600a | 0 | run/reports/A1.md |
 | G1 | v12/g1-tracking | merged (8d11ad0) | 1ce5143 | 0 | run/reports/G1.md |
+| G1b | v12/g1-followup | running (ranked tracking, `bt_fans_today()` SQL, G3 and G9 requests; brief `run/briefs/G1-followup.md`) | - | 0 | run/reports/G1.md |
 | G2 | v12/g2-catalogue | merged (42cadd0) | 0a9605d | 0 | run/reports/G2.md |
-| G3 | v12/g3-acquisition | running | - | 0 | run/reports/G3.md |
+| G3 | v12/g3-acquisition | merged (c3ebb6d) | 91217f7 | 0 | run/reports/G3.md |
 | G4 | v12/g4-live | running | - | 0 | run/reports/G4.md |
 | G5 | v12/g5-personality | running | - | 0 | run/reports/G5.md |
 | G6 | v12/g6-name-all | running | - | 0 | run/reports/G6.md |
@@ -94,6 +95,8 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 7. G2: `groups.generation` for RESCENE and NCT WISH (left NULL: not confirmed by two sources, like country and website); rename the fan-created group "Hearts2hearts"; MeloMance and Jokers as `soundtrack`; a full title-track backfill or a 301 for the 5 modes that cannot play as named (intro-challenge, verse-only, bridge-or-break, speed-round: no clip point or length in the data; b-sides: the false flag is not maintained).
 8. G7: which groups get the This or that card (77 seeded by the data file, 3 without it); thresholds (a group is ranked from 100 counted votes, or the question's `min_votes` if higher; a song from 5 comparisons; a split is shown from 5 votes on the pair; 200 votes a day per voter); the vote token signing key is derived (HMAC, fixed label) from the service role key unless the optional env `DUEL_SIGNING_SECRET` is set; the year is hidden on most songs (156 of 4,120 have one today, G2's file 05 fills 3,076); new votes no longer update the old `duel_ratings` Elo.
 9. G9: the Verse option is recorded, not taken: editorial threads and blogs live in their own `editorial_posts` table. "Never two in a row from one account" is strict: a lone account's due drafts wait. A retired account keeps the badge only on its editorial posts. Follow is kept on team posts. With the flag off its three new API routes answer a JSON 404 where the base answers the HTML 404 page (same status).
+10. G3: the fr, es and id GAME strings (question label, buttons, results, share text) are G3's own wording: they are not in the prototype and no native speaker reviewed them (the landing copy is the prototype's, verbatim). Review them before the flag goes on, or keep the game in English on those landings. Also: the "Updated every week" cover line; no per-song play button on theme pages (no fresh-clip endpoint); the hub eyebrow still reads the daily board, not `bt_runs`; with the flag on `/blindtest` gains 6 links and loses 2 (the two themed modes hidden until G2's SQL).
+11. Existing v11 spec with v12 on: `e2e/ux-v1/p6.spec.ts` passes 78/78 with v11 only; with both flags on 6 cases fail on two v11 assertions that v12 changes on purpose (18 theme links, the recent-hits playlist). The spec is not edited (ratchet law). Checkers run the v11 specs with `NEXT_PUBLIC_UX_V12` unset and the v12 specs with both on. Owner call if he wants p6.spec itself updated for v12.
 
 ## Open requests (run/requests/G1.md), to route in Phase 2
 
@@ -124,5 +127,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - 2026-10-02 G5 spawned.
 - 2026-10-02 G9 ready (4a3f2bb) and merged (ab95d9d): guard ok (73 files), no dash. ORCH added its cron line. Integration: tsc 0, vitest 1263/1263 (54 files), `check:routes` 0. G9: both states 0 mismatch in the four variants, g9.spec 14 pass / 2 skipped both on, flag-off identical. NOT verified by G9 (no editorial table and no account exist): the Supabase store, reads of editorial posts in the feed, replies and hearts on them, the cron publishing a real row; queue to published is proven in vitest with an in-memory store, not in a browser; `/admin/editorial` was never loaded (needs an admin session); the two reference states were measured by placing the real components' rendered HTML into the live pages; the SQL files and the C2 query were never executed and three column names in the C2 query come from a grep.
 - 2026-10-02 G6 spawned.
+- 2026-10-02 G3 ready (91217f7) and merged (c3ebb6d): guard ok (83 files), no dash. Integration: tsc 0, vitest 1294/1294 (56 files), `check:routes` 0. G3: g3.spec 58 pass / 10 skipped both on, 0 landmark mismatch, axe 0, each landing plays a full run with zero write; flag-off 13 of 13 pages identical; SEO fields equal on `/blindtest`, `/pt/blindtest`, 8 mode pages. G2's R1, R2, R4 and G1's R2 done. NOT verified by G3: `theme-hits26`, `theme-kpdh`, `theme-kpdh-tracks` on real data (404 until G2's SQL; proven on a mocked render), the "fans playing today" count (needs `bt_fans_today()`), tracking on, production build, signed-in states. Tip sent to G4, G5, G6: a `{flag ? x : null}` child next to a v11 client island changes React useId in the v11-only HTML.
+- 2026-10-02 G1 follow-up spawned (`components/ranked/ux-v1/use-ranked-run.ts` added to the G1 globs).
 
-NEXT ACTION: wait for G4, G3, G5, G6. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. Then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
+NEXT ACTION: wait for G4, G5, G6, G1b. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. Then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
