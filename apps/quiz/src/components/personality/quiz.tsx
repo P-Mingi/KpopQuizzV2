@@ -190,7 +190,8 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
           </div>
           <ul className="ux-pers-meta">{view.meta.map((m) => <li key={m}>{m}</li>)}</ul>
         </div>
-        {also ?? null}
+        {/* A server-rendered node: wrapped so it is a single child here, not an unkeyed list item. */}
+        {also ? <div className="ux-pers-slot">{also}</div> : null}
       </>
     );
   }

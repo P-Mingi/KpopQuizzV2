@@ -25,7 +25,7 @@ const POLES: Record<AxisKey, { low: Pole; high: Pole }> = {
   },
   care: {
     low: { trait: 'Caring', line: 'You look after people without being asked.' },
-    high: { trait: 'Easy to love', line: 'People like looking out for you, and you let them.' },
+    high: { trait: 'Easy to love', line: 'You let people look out for you, and they like doing it.' },
   },
   craft: {
     low: { trait: 'Performer', line: 'You learn by doing it in front of people, not by planning it.' },
