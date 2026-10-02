@@ -104,11 +104,17 @@ async function j(url: string): Promise<any> {
   }
   throw new Error(`Deezer quota: ${url}`);
 }
-const albumYear = new Map<number, number | null>();
-async function releaseYear(albumId: number | undefined): Promise<number | null> {
-  if (!albumId) return null;
-  if (!albumYear.has(albumId)) albumYear.set(albumId, yearOf((await j(`https://api.deezer.com/album/${albumId}`))?.release_date));
-  return albumYear.get(albumId)!;
+const isrcYearOf = (isrc: unknown): number | null => (typeof isrc === 'string' && /^[A-Z]{2}[A-Z0-9]{3}\d{7}$/.test(isrc) ? 2000 + Number(isrc.slice(5, 7)) : null);
+/**
+ * The release year of a track, or null. Real data only: the year is kept when the track's release
+ * date and the year its ISRC was registered agree (same rule as scripts/v12/catalogue/build-years-sql.mts).
+ * Never the act's debut year: that is how 97 stored rows got a wrong year before V12.
+ */
+async function releaseYear(trackId: number | undefined): Promise<number | null> {
+  if (!trackId) return null;
+  const t = await j(`https://api.deezer.com/track/${trackId}`);
+  const y = yearOf(t?.release_date);
+  return y !== null && y === isrcYearOf(t?.isrc) ? y : null;
 }
 
 // ----- rows + SQL -----------------------------------------------------------------------------
@@ -199,8 +205,8 @@ async function ingest(cfg: GroupCfg): Promise<void> {
       album_name: t.album?.title ?? null, album_cover_small: t.album?.cover_small ?? null,
       album_cover_medium: t.album?.cover_medium ?? null, album_cover_big: t.album?.cover_big ?? null,
       preview_url: t.preview, duration: t.duration ?? null, group_id: groupId,
-      // year: the real release year of the track's album on Deezer; the act's debut year only when Deezer has none.
-      gender: cfg.gender, generation: cfg.generation, is_title_track: null, year: (await releaseYear(t.album?.id)) ?? cfg.year, language: LANGUAGE,
+      // year: the release year Deezer and the ISRC agree on, else none (never the debut year).
+      gender: cfg.gender, generation: cfg.generation, is_title_track: null, year: await releaseYear(t.id), language: LANGUAGE,
       wrong_answers_artist: [], wrong_answers_title: [], status: 'active', is_curated: true,
       tier: tierFor(rank), deezer_rank: t.rank,
     });
@@ -256,10 +262,10 @@ async function releasesOf(year: number): Promise<void> {
         for (const t of (tr.data ?? [])) {
           if (t.artist?.id !== artistId || !t.preview || JUNK.test(t.title) || ALT_VERSION.test(t.title)) continue;
           // A recording of that year, not an old song re-uploaded with a new date: the ISRC carries the
-          // year the recording was registered (characters 6 and 7). The year before is accepted too
-          // (a January release is often registered in December). No ISRC: not proven, left out.
-          const isrcYear = typeof t.isrc === 'string' && /^[A-Z]{2}[A-Z0-9]{3}\d{7}$/.test(t.isrc) ? 2000 + Number(t.isrc.slice(5, 7)) : null;
-          if (isrcYear !== year && isrcYear !== year - 1) { skippedOld++; continue; }
+          // year the recording was registered (characters 6 and 7); it must be the year asked for.
+          // No ISRC, or another year: not proven, left out.
+          const isrcYear = isrcYearOf(t.isrc);
+          if (isrcYear !== year) { skippedOld++; continue; }
           // A hits list: a track nobody plays on Deezer is left out (also drops homonym pages).
           if ((t.rank ?? 0) < MIN_RANK) { skippedRank++; continue; }
           const k = baseTitle(t.title);
@@ -303,7 +309,7 @@ async function releasesOf(year: number): Promise<void> {
     } catch (e) { say(`- **${name}**: ERROR ${String(e)}`); }
   }
   say('');
-  say(`Acts with at least one new ${year} song: ${acts}. Left out: ${skippedOld} track(s) whose ISRC is not from ${year - 1} or ${year} (re-uploads of older recordings), ${skippedRank} track(s) under Deezer rank ${MIN_RANK}.`);
+  say(`Acts with at least one new ${year} song: ${acts}. Left out: ${skippedOld} track(s) whose ISRC is not from ${year} (re-uploads or new editions of older recordings), ${skippedRank} track(s) under Deezer rank ${MIN_RANK}.`);
 }
 
 // ----- run ------------------------------------------------------------------------------------

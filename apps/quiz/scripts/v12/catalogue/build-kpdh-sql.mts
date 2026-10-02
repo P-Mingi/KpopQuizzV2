@@ -30,7 +30,7 @@ for (const s of KPDH_SONGS) {
   const releaseYear = typeof t.release_date === 'string' ? Number(t.release_date.slice(0, 4)) : null;
   const isrcYear = typeof t.isrc === 'string' && /^[A-Z]{2}[A-Z0-9]{3}\d{7}$/.test(t.isrc) ? 2000 + Number(t.isrc.slice(5, 7)) : null;
   // Same rule as the years files: a year only when release date and ISRC agree.
-  const year = releaseYear !== null && isrcYear !== null && (releaseYear === isrcYear || releaseYear === isrcYear + 1) ? releaseYear : null;
+  const year = releaseYear !== null && isrcYear !== null && releaseYear === isrcYear ? releaseYear : null;
   const vals = [
     s.deezerId, t.title as string, s.artist, (t.album?.title ?? null) as string | null,
     (t.album?.cover_small ?? null) as string | null, (t.album?.cover_medium ?? null) as string | null, (t.album?.cover_big ?? null) as string | null,

@@ -4,9 +4,11 @@
 //
 // Rule (real data only): a year is written only when two fields Deezer carries for the track agree:
 // the release date of the track and the year its ISRC was registered (characters 6 and 7 of the
-// code). Agreement = the release year is the ISRC year or the year after (a recording registered
-// in December and released in January). Anything else (a reissue, a compilation, a missing ISRC,
-// a track Deezer no longer serves) is left as it is and counted in the report.
+// code). Agreement = the two years are equal. One year apart is NOT accepted: measured on the
+// catalogue, that tolerance dates BTS "Dynamite" 2021 (a later edition; the recording is from 2020).
+// The cost is the songs registered in December and released in January, which stay without a year.
+// Anything else (a reissue, a compilation, a missing ISRC, a track Deezer no longer serves) is
+// left as it is and counted in the report.
 //
 // Output:
 //   docs/pending-migrations/v12-g2-04-years-fix.sql       rows whose stored year is wrong
@@ -61,6 +63,7 @@ const isrcYear = (h: Hit): number | null => {
 interface Out { id: number; old: number | null; year: number; artist: string; title: string }
 const fix: Out[] = [];
 const fill: Out[] = [];
+const unset: Out[] = []; // stored year that neither Deezer field supports: removed (year in Out unused)
 const why = { gone: 0, noRelease: 0, noIsrc: 0, disagree: 0, already: 0 };
 const agreed = new Map<number, number>(); // deezer id -> the year the catalogue would hold after both files
 for (const s of songs) {
@@ -71,9 +74,15 @@ for (const s of songs) {
   if (h.error) why.gone++;
   else if (ry === null) why.noRelease++;
   else if (iy === null) why.noIsrc++;
-  else if (ry !== iy && ry !== iy + 1) why.disagree++;
+  else if (ry !== iy) why.disagree++;
   else year = ry;
-  if (year === null) { if (s.year !== null) agreed.set(s.deezer_track_id, s.year); continue; }
+  if (year === null) {
+    // A stored year that neither Deezer field supports is the act's debut year the old script wrote:
+    // not a fact about the song, so it is removed. A stored year one of the two fields supports stays.
+    if (s.year !== null && !h.error && ry !== s.year && iy !== s.year) unset.push({ id: s.deezer_track_id, old: s.year, year: 0, artist: s.artist_name, title: `${s.title} (Deezer release ${ry ?? 'none'}, ISRC ${iy ?? 'none'})` });
+    else if (s.year !== null) agreed.set(s.deezer_track_id, s.year);
+    continue;
+  }
   agreed.set(s.deezer_track_id, year);
   if (s.year === year) { why.already++; continue; }
   (s.year === null ? fill : fix).push({ id: s.deezer_track_id, old: s.year, year, artist: s.artist_name, title: s.title });
@@ -83,7 +92,7 @@ const JUNK = /remix|instrumental|inst\.|karaoke/i;
 const pool = (pred: (y: number | null, s: S) => boolean, yearOf: (s: S) => number | null): number =>
   songs.filter((s) => s.status === 'active' && s.is_curated === true && !JUNK.test(s.title) && pred(yearOf(s), s)).length;
 const before = (s: S): number | null => s.year;
-const afterFix = (s: S): number | null => fix.find((f) => f.id === s.deezer_track_id)?.year ?? s.year;
+const afterFix = (s: S): number | null => (unset.some((u) => u.id === s.deezer_track_id) ? null : fix.find((f) => f.id === s.deezer_track_id)?.year ?? s.year);
 const afterAll = (s: S): number | null => agreed.get(s.deezer_track_id) ?? s.year;
 const rows: [string, (y: number | null) => boolean][] = [
   ['kpop-hits-2026 (year = 2026)', (y) => y === 2026],
@@ -100,7 +109,7 @@ const head = (what: string, n: number, extra: string[]): string => [
   '--   year instead of the release year (growth v12, SYSTEM.md 3; v11 decision 33).',
   `-- ROWS: ${n} update(s) of songs.year. No insert, no delete.`,
   '-- SOURCE: the public Deezer API, per track: release_date and ISRC. A year is written only when the release year is',
-  '--   the ISRC registration year or the year after; every other track is left untouched.',
+  '--   the ISRC registration year; every other track is left untouched.',
   `-- GENERATED: apps/quiz/scripts/v12/catalogue/build-years-sql.mts (anon key, nothing written), ${new Date().toISOString()}.`,
   '--   Report: docs/growth/catalogue/v12-g2-04-05-years.md.',
   ...extra,
@@ -109,12 +118,12 @@ const head = (what: string, n: number, extra: string[]): string => [
   '',
 ].join('\n');
 
-const fixSql = head('correct songs.year where the stored year is the act\'s debut year, not the release year', fix.length, [
+const fixSql = head('correct songs.year where the stored year is the act\'s debut year, not the release year', fix.length + unset.length, [
   '-- IDEMPOTENT: each row is matched on deezer_track_id AND on the year it holds today; a second run matches nothing.',
   '-- APPLY ORDER: any time. Independent of the other v12-g2 files.',
   `-- VERIFY: select year, count(*) from songs where deezer_track_id in (select d from (values ${fix.slice(0, 3).map((x) => `(${x.id})`).join(', ')}) v(d)) group by 1;`,
   '-- UNDO: run the same statement with the two year columns of the values list swapped.',
-]) + `update songs s set year = v.new_year, updated_at = now()\nfrom (values\n${values(fix, true)}\n) as v(deezer_id, old_year, new_year)\nwhere s.deezer_track_id = v.deezer_id and s.year = v.old_year;\n\ncommit;\n`;
+]) + `update songs s set year = v.new_year, updated_at = now()\nfrom (values\n${values(fix, true)}\n) as v(deezer_id, old_year, new_year)\nwhere s.deezer_track_id = v.deezer_id and s.year = v.old_year;\n\n-- Stored year that neither the release date nor the ISRC supports (the debut year the old script wrote): removed.\nupdate songs s set year = null, updated_at = now()\nfrom (values\n${unset.map((x) => `  (${x.id}, ${x.old})`).join(',\n')}\n) as v(deezer_id, old_year)\nwhere s.deezer_track_id = v.deezer_id and s.year = v.old_year;\n\ncommit;\n`;
 
 const fillSql = head('fill songs.year where it is NULL', fill.length, [
   '-- OWNER DECISION: this is a backfill of most of the catalogue. It is what makes kpop-legends playable and makes',
@@ -137,12 +146,13 @@ const md = [
   '',
   `Songs read: ${songs.length}. Deezer was asked for the release date and the ISRC of each track.`,
   '',
-  'Rule: a year is written only when the release year equals the ISRC registration year or the year after.',
+  'Rule: a year is written only when the release year equals the ISRC registration year.',
   '',
   '| Outcome | Songs |',
   '|---|---|',
   `| Stored year already right | ${why.already} |`,
   `| Stored year wrong, corrected by v12-g2-04-years-fix.sql | ${fix.length} |`,
+  `| Stored year supported by neither Deezer field, removed by v12-g2-04-years-fix.sql | ${unset.length} |`,
   `| No stored year, filled by v12-g2-05-years-backfill.sql | ${fill.length} |`,
   `| Left untouched: release year and ISRC year disagree (reissue, compilation, later edition) | ${why.disagree} |`,
   `| Left untouched: no usable ISRC | ${why.noIsrc} |`,
@@ -164,6 +174,10 @@ const md = [
   '| Deezer id | Act | Song | Stored | Deezer |',
   '|---|---|---|---|---|',
   ...fix.map((x) => `| ${x.id} | ${x.artist} | ${x.title.replace(/\|/g, '/')} | ${x.old} | ${x.year} |`),
+  '',
+  `## 04: stored years removed (${unset.length})`,
+  '',
+  ...unset.map((x) => `- ${x.id} · ${x.artist} · ${x.title} · stored ${x.old}`),
   '',
   `## 05: backfill (${fill.length})`,
   '',

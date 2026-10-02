@@ -1,6 +1,6 @@
 # v12-g2-07-kpdh: KPop Demon Hunters soundtrack songs (dry-run report)
 
-Generated 2026-10-02T16:31:06.443Z by `apps/quiz/scripts/v12/catalogue/build-kpdh-sql.mts` (anon key, nothing written to the database).
+Generated 2026-10-02T16:42:06.744Z by `apps/quiz/scripts/v12/catalogue/build-kpdh-sql.mts` (anon key, nothing written to the database).
 
 Songs in the playlist (lib/blind-test-curated.ts KPDH_SONGS): 12. Already stored: 2. Inserts in the SQL file: 10, all with status `soundtrack`.
 
