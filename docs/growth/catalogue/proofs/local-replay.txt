@@ -1,0 +1,41 @@
+seed: 92 groups, 4120 songs
+92
+== before
+songs | 4120 | active | 4120 | soundtrack | 0
+groups | 92
+year null | 3964 | year 2026 | 0 | year 2025 | 51 | year <= 2017 | 0
+is_title_track true | 45 | true and curated | 0
+language | ko | 156
+language | korean | 3964
+group playlists (10+ clean active songs) | 79
+soundtrack rows with a group, curated or a tier | 0
+status check | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text, 'review'::text])))
+== after round 1 (files: 8)
+songs | 4296 | active | 4286 | soundtrack | 10
+groups | 94
+year null | 895 | year 2026 | 487 | year 2025 | 450 | year <= 2017 | 495
+is_title_track true | 67 | true and curated | 22
+language | NULL | 8
+language | korean | 4288
+group playlists (10+ clean active songs) | 83
+clean songs | hearts2hearts | 16
+clean songs | kickflip | 10
+clean songs | nct-wish | 25
+clean songs | rescene | 10
+soundtrack rows with a group, curated or a tier | 0
+status check | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text, 'review'::text, 'soundtrack'::text])))
+== after round 2 (files: 8)
+songs | 4296 | active | 4286 | soundtrack | 10
+groups | 94
+year null | 895 | year 2026 | 487 | year 2025 | 450 | year <= 2017 | 495
+is_title_track true | 67 | true and curated | 22
+language | NULL | 8
+language | korean | 4288
+group playlists (10+ clean active songs) | 83
+clean songs | hearts2hearts | 16
+clean songs | kickflip | 10
+clean songs | nct-wish | 25
+clean songs | rescene | 10
+soundtrack rows with a group, curated or a tier | 0
+status check | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text, 'review'::text, 'soundtrack'::text])))
+== done: every file ran twice without an error
