@@ -67,8 +67,8 @@ const STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: 
 //  - speed-round: 5 s clips and 20 songs are the player's (timer, round length), not a pool.
 //  - b-sides: is_title_track = false is not maintained (false only on rows a script defaulted).
 //  - title-tracks: needs at least 10 sourced title tracks in the curated catalog
-//    (v12-g2-05-title-tracks.sql, then switch the entry above to 'title-tracks', exact).
-//  - kpop-legends: no song has a year of 2017 or earlier until v12-g2-04-years.sql is applied;
+//    (v12-g2-06-title-tracks.sql, then switch the entry above to 'title-tracks', exact).
+//  - kpop-legends: no song has a year of 2017 or earlier until v12-g2-05-years-backfill.sql is applied;
 //    generate already serves 'kpop-legends', so after the apply add it to V12_EXACT below.
 const label = (playlist: string): string => V12_MIXES_ALL.find((m) => m.playlist === playlist)?.label ?? playlist;
 const V12_EXACT: readonly string[] = [

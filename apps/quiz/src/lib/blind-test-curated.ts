@@ -75,7 +75,7 @@ export const KPDH_SONGS: readonly CuratedSong[] = [
   // TWICE: active rows that keep their group.
   { deezerId: 3412534541, artist: 'TWICE', title: 'TAKEDOWN (JEONGYEON, JIHYO, CHAEYOUNG)', source: KPDH_TRACKLIST },
   { deezerId: 3412534591, artist: 'TWICE', title: 'Strategy', source: KPDH_TRACKLIST },
-  // Fictional acts: status KPDH_STATUS (docs/pending-migrations/v12-g2-06-kpdh.sql).
+  // Fictional acts: status KPDH_STATUS (docs/pending-migrations/v12-g2-07-kpdh.sql).
   { deezerId: 3412534551, artist: 'HUNTR/X', title: "How It's Done", source: KPDH_TRACKLIST },
   { deezerId: 3412534561, artist: 'Saja Boys', title: 'Soda Pop', source: KPDH_TRACKLIST },
   { deezerId: 3412534581, artist: 'HUNTR/X', title: 'Golden', source: KPDH_TRACKLIST },

@@ -76,6 +76,9 @@ const GROUPS: GroupCfg[] = [
   { name: 'RESCENE',        deezer: 'RESCENE',         generation: '5th', gender: 'gg',    year: 2024, slug: 'rescene' },
 ];
 
+// The column's own default and the value 3,964 of the 4,120 stored songs carry (the 156 rows this script
+// wrote before V12 say 'ko': docs/pending-migrations/v12-g2-08-language.sql proposes to align them).
+const LANGUAGE = 'korean';
 const JUNK = /remix|instrumental|inst\.|karaoke|sped up|slowed|acappella|a cappella/i;
 // Extra guard for the releases mode: alternate versions are not new songs.
 const ALT_VERSION = /\bver\.|\bversion\b|\blive\b|remaster|\bedit\b|\bmix\b|\bdemo\b/i;
@@ -113,7 +116,7 @@ interface Row {
   deezer_track_id: number; title: string; artist_name: string; album_name: string | null;
   album_cover_small: string | null; album_cover_medium: string | null; album_cover_big: string | null;
   preview_url: string; duration: number | null; group_id: number | null;
-  gender: string; generation: string; is_title_track: boolean; year: number | null; language: string;
+  gender: string; generation: string; is_title_track: boolean | null; year: number | null; language: string;
   wrong_answers_artist: string[]; wrong_answers_title: string[]; status: string; is_curated: boolean;
   tier: string; deezer_rank: number;
 }
@@ -135,7 +138,8 @@ function insertSql(p: Planned): string {
 }
 
 const planned: Planned[] = [];
-const links: string[] = [];        // SQL that links already stored songs to their group row
+const linkedActs: string[] = [];
+const links: string[] = [];      // SQL that links already stored songs to their group row
 const report: string[] = [];       // markdown lines
 const say = (line: string): void => { console.log(line); report.push(line); };
 
@@ -196,13 +200,14 @@ async function ingest(cfg: GroupCfg): Promise<void> {
       album_cover_medium: t.album?.cover_medium ?? null, album_cover_big: t.album?.cover_big ?? null,
       preview_url: t.preview, duration: t.duration ?? null, group_id: groupId,
       // year: the real release year of the track's album on Deezer; the act's debut year only when Deezer has none.
-      gender: cfg.gender, generation: cfg.generation, is_title_track: false, year: (await releaseYear(t.album?.id)) ?? cfg.year, language: 'ko',
+      gender: cfg.gender, generation: cfg.generation, is_title_track: null, year: (await releaseYear(t.album?.id)) ?? cfg.year, language: LANGUAGE,
       wrong_answers_artist: [], wrong_answers_title: [], status: 'active', is_curated: true,
       tier: tierFor(rank), deezer_rank: t.rank,
     });
   }
   for (const row of rows) planned.push({ row, groupSlug });
   if (groupSlug && unlinked > 0) {
+    linkedActs.push(cfg.name);
     links.push(`-- ${cfg.name}: ${unlinked} stored song(s) without a group\nupdate songs set group_id = (select id from groups where slug = ${lit(groupSlug)})\nwhere group_id is null and artist_name = ${lit(cfg.name)} and exists (select 1 from groups where slug = ${lit(groupSlug)});`);
   }
 
@@ -280,11 +285,14 @@ async function releasesOf(year: number): Promise<void> {
         album_name: t.album?.title ?? null, album_cover_small: t.album?.cover_small ?? null,
         album_cover_medium: t.album?.cover_medium ?? null, album_cover_big: t.album?.cover_big ?? null,
         preview_url: t.preview, duration: t.duration ?? null, group_id: groupId,
-        gender, generation, is_title_track: false, year, language: 'ko',
+        gender, generation, is_title_track: null, year, language: LANGUAGE,
         wrong_answers_artist: [], wrong_answers_title: [], status: 'active', is_curated: true,
         tier: tierOf(t.rank), deezer_rank: t.rank,
       }));
-      for (const row of rows) planned.push({ row, groupSlug: groupId !== null ? slugOf.get(groupId) ?? null : null });
+      // No group yet (the act is stored without one): the slug of its GROUPS entry, so the row finds the
+      // group row once v12-g2-01 / the link statements exist. Unknown slug at apply time: group_id NULL.
+      const cfgSlug = GROUPS.find((g) => norm(g.name) === norm(name))?.slug ?? null;
+      for (const row of rows) planned.push({ row, groupSlug: groupId !== null ? slugOf.get(groupId) ?? null : cfgSlug });
       if (APPLY) {
         const { error } = await db.from('songs').insert(rows);
         if (error) { say(`- **${name}**: INSERT FAILED: ${error.message}`); continue; }
@@ -322,12 +330,9 @@ if (SQL_OUT) {
     `-- APPLY ORDER: ${opt('--apply-order') ?? 'after v12-g2-01-groups.sql (the inserts resolve group_id from the group slug).'}`,
     `-- VERIFY: select count(*) from songs where deezer_track_id in (${ids});  -- expect ${planned.length}`,
     `-- UNDO: delete from songs where deezer_track_id in (${ids});`,
-    ...(links.length ? ['--   and, for the links: update songs set group_id = null where group_id = (select id from groups where slug = \'<slug>\') and created_at < \'<apply time>\';'] : []),
-    '',
-    'begin;',
-    '',
+    ...(links.length ? [`--   and, to unlink (these acts had no linked song before): update songs set group_id = null where artist_name in (${linkedActs.map(lit).join(', ')});`] : []),
   ];
-  writeFileSync(SQL_OUT, [...header, ...planned.map(insertSql), ...(links.length ? ['', ...links] : []), '', 'commit;', ''].join('\n\n').replace(/\n\n\n+/g, '\n\n'));
+  writeFileSync(SQL_OUT, [header.join('\n'), 'begin;', ...planned.map(insertSql), ...links, 'commit;'].join('\n\n') + '\n');
   console.log(`SQL written to ${SQL_OUT}`);
 }
 if (REPORT_OUT) { writeFileSync(REPORT_OUT, report.join('\n') + '\n'); console.log(`Report written to ${REPORT_OUT}`); }
