@@ -1,0 +1,114 @@
+315,320c315,328
+<   "status": 400,
+<   "body": {
+<    "error": "Not enough songs for this playlist",
+<    "available": 0,
+<    "needed": 10
+<   }
+---
+>   "status": 200,
+>   "playlist": "kpop-hits-2025",
+>   "mode": "challenge",
+>   "difficulty": "all",
+>   "timer_duration": 10,
+>   "songs_count": 10,
+>   "questions": 10,
+>   "pool_titles": 51,
+>   "pool_titles_hash": "a88937d31e2b16c2",
+>   "pool_artists": 4,
+>   "pool_artists_hash": "fa38ba163df0e699",
+>   "every_question_from_pool": true,
+>   "only_title_questions": false,
+>   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
+323,328c331,344
+<   "status": 400,
+<   "body": {
+<    "error": "Not enough songs for this playlist",
+<    "available": 0,
+<    "needed": 10
+<   }
+---
+>   "status": 200,
+>   "playlist": "tiktok-viral",
+>   "mode": "challenge",
+>   "difficulty": "all",
+>   "timer_duration": 10,
+>   "songs_count": 10,
+>   "questions": 10,
+>   "pool_titles": 26,
+>   "pool_titles_hash": "2d0046b9879533b1",
+>   "pool_artists": 18,
+>   "pool_artists_hash": "56838bbbbd1e9d7d",
+>   "every_question_from_pool": true,
+>   "only_title_questions": false,
+>   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
+334c350
+<    "available": 0,
+---
+>    "available": 2,
+339,344c355,368
+<   "status": 400,
+<   "body": {
+<    "error": "Not enough songs for this playlist",
+<    "available": 0,
+<    "needed": 10
+<   }
+---
+>   "status": 200,
+>   "playlist": "recent-hits",
+>   "mode": "challenge",
+>   "difficulty": "all",
+>   "timer_duration": 10,
+>   "songs_count": 10,
+>   "questions": 10,
+>   "pool_titles": 134,
+>   "pool_titles_hash": "7c0f1899bb8c9dfc",
+>   "pool_artists": 9,
+>   "pool_artists_hash": "1fbc70628678d104",
+>   "every_question_from_pool": true,
+>   "only_title_questions": false,
+>   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
+355,360c379,392
+<   "status": 400,
+<   "body": {
+<    "error": "Not enough songs for this playlist",
+<    "available": 0,
+<    "needed": 10
+<   }
+---
+>   "status": 200,
+>   "playlist": "4th-gen-gg",
+>   "mode": "challenge",
+>   "difficulty": "all",
+>   "timer_duration": 10,
+>   "songs_count": 10,
+>   "questions": 10,
+>   "pool_titles": 309,
+>   "pool_titles_hash": "cd7bd6d6b58c9bc3",
+>   "pool_artists": 19,
+>   "pool_artists_hash": "979686a9866cb88e",
+>   "every_question_from_pool": true,
+>   "only_title_questions": false,
+>   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
+363,368c395,408
+<   "status": 400,
+<   "body": {
+<    "error": "Not enough songs for this playlist",
+<    "available": 0,
+<    "needed": 10
+<   }
+---
+>   "status": 200,
+>   "playlist": "4th-gen-bg",
+>   "mode": "challenge",
+>   "difficulty": "all",
+>   "timer_duration": 10,
+>   "songs_count": 10,
+>   "questions": 10,
+>   "pool_titles": 333,
+>   "pool_titles_hash": "41502a56befd9108",
+>   "pool_artists": 19,
+>   "pool_artists_hash": "f6164188c06e560a",
+>   "every_question_from_pool": true,
+>   "only_title_questions": false,
+>   "keys": "all_artists,all_titles,difficulty,mode,playlist,questions,songs_count,timer_duration"
