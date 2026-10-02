@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { isCronAuthorized } from '@/lib/cron-auth';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 export async function POST(req: Request): Promise<NextResponse> {
 
@@ -84,7 +85,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   // 3. Fetch eligible quizzes (strict thresholds)
   let { data: eligible } = await supabase
     .from('quizzes')
-    .select('id, group_id, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+    .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
     .eq('status', 'published')
     .gte('play_count', 15)
     .gte('like_count', 2)
@@ -105,7 +106,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   if ((eligible ?? []).length < 5) {
     const { data: fallback } = await supabase
       .from('quizzes')
-      .select('id, group_id, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
       .eq('status', 'published')
       .gte('play_count', 5)
       .gte('like_count', 1)
@@ -132,7 +133,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0]!;
     const { data: lastResort } = await supabase
       .from('quizzes')
-      .select('id, group_id, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
       .eq('status', 'published')
       .gte('play_count', 1)
       .order('play_count', { ascending: false })
@@ -167,9 +168,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const likeRatio = playCount > 0 ? likeCount / playCount : 0;
     const completionRate = playCount > 0 ? totalCompletions / playCount : 0;
 
-    const avgScore = totalCompletions > 0
-      ? (totalScoreSum / totalCompletions) / questionCount * 100
-      : 50;
+    const avgScore = avgScorePct({ total_score_sum: totalScoreSum, total_completions: totalCompletions, question_count: questionCount, quiz_type: q.quiz_type as string }, true) ?? 50;
 
     const difficultyScore = (avgScore >= 40 && avgScore <= 70)
       ? 1.0

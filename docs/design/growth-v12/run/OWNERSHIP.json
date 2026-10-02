@@ -27,7 +27,8 @@
     "apps/quiz/e2e/ux-v1/kit.spec.ts",
     "apps/quiz/e2e/ux-v1/helpers/**",
     "apps/quiz/playwright.config.ts",
-    "apps/quiz/e2e/ux-v12/a1.spec.ts"
+    "apps/quiz/e2e/ux-v12/a1.spec.ts",
+    "apps/quiz/src/app/api/ux-v1/a0/**"
   ],
   "G1": [
     "apps/quiz/src/lib/tracking/**",

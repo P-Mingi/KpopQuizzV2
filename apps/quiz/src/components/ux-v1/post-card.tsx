@@ -1,8 +1,11 @@
 import Link from 'next/link';
 
+import { isUxV12 } from '@/lib/ux-v12';
+
 import { Icon } from './icon';
 import { UxAvatar } from './avatar';
 import { PersonName } from './person-name';
+import { TeamNote } from './team';
 
 import type { UxIconName } from './icon';
 import type { PersonFlair } from './person-name';
@@ -33,6 +36,13 @@ interface PostCardProps {
   actions?: React.ReactNode;
   titleAs?: 'h2' | 'h3';
   className?: string;
+  /** v12 editorial account (SYSTEM.md 5.6): team avatar, Team pill after the name,
+   *  no fan flair. Pass the time alone as `meta` (a team account has no level).
+   *  Ignored unless the v12 flag is on. */
+  isTeam?: boolean;
+  /** With `isTeam`: the "Editorial account of the KpopQuiz team..." line under the
+   *  author (the post itself and the profile show it; the feed card does not). */
+  teamNote?: boolean;
 }
 
 /**
@@ -40,17 +50,19 @@ interface PostCardProps {
  * on phones), 16px between posts. Author with identity flair (PersonName), the
  * pink-soft type chip, the title as a real link, then the slots. Server component.
  */
-export function PostCard({ kind, chipDetail, title, href, author, meta, excerpt, children, actions, titleAs: T = 'h2', className }: PostCardProps): React.ReactElement {
+export function PostCard({ kind, chipDetail, title, href, author, meta, excerpt, children, actions, titleAs: T = 'h2', className, isTeam, teamNote }: PostCardProps): React.ReactElement {
   const k = KIND[kind];
+  const team = Boolean(isTeam) && isUxV12();
   return (
     <article className={['ux-post', className ?? ''].filter(Boolean).join(' ')}>
       <div className="ux-ph2">
-        <UxAvatar name={author.name} src={author.avatarUrl} size={36} />
+        {team ? <UxAvatar name={author.name} size={36} team /> : <UxAvatar name={author.name} src={author.avatarUrl} size={36} />}
         <span>
-          <PersonName {...author} />
+          {team ? <PersonName name={author.name} href={author.href} isTeam /> : <PersonName {...author} />}
           {meta ? <span className="ux-ph2-lv"> · {meta}</span> : null}
         </span>
       </div>
+      {team && teamNote ? <TeamNote surface="post" /> : null}
       <span className="ux-ptype"><Icon name={k.icon} />{k.label}{chipDetail ? ` · ${chipDetail}` : ''}</span>
       <T className="ux-ptt"><Link href={href}>{title}</Link></T>
       {excerpt ? <p className="ux-pbd">{excerpt}</p> : null}
