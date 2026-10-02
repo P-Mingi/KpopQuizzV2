@@ -541,3 +541,185 @@ test.describe('endpoint guards (no database access on any of these)', () => {
     expect(await res.text()).not.toContain('Runs per day');
   });
 });
+
+// ---- ranked (G1 follow-up, request G1 R1) ----
+//
+// The ranked run has its own hook (components/ranked/ux-v1/use-ranked-run.ts) and its
+// own server engine. Here the whole engine is a fixture: the season card, the issue,
+// each released round, each reveal and the submit are answered locally, so nothing of
+// ranked and nothing of tracking reaches the server. What is proved is what the page
+// sends to /api/track/bt-run, and that the ranked calls themselves did not change.
+
+const RANKED_TOKEN = 'g1-ranked-fixture-token';
+const RANKED_POINTS = (i: number): number => 100 + 10 * i;
+
+const RANKED_CARD = {
+  season: { id: 1, startsAt: '2026-10-01T00:00:00.000Z', endsAt: '2026-12-31T00:00:00.000Z', daysLeft: 90 },
+  signedIn: true,
+  me: {
+    score: 0,
+    tier: { tier: 'bronze', name: 'Bronze', division: 3, label: 'Bronze III' },
+    legend: false,
+    next: null,
+    toBeat: null,
+    best: [],
+    placement: { done: 0, of: 5, complete: false },
+    avgAnswerMs: null,
+    runsToday: 0,
+    runsLeft: 5,
+    resetsAt: '2026-10-03T00:00:00.000Z',
+    ladder: { position: null, total: 0 },
+    recent: [],
+  },
+};
+
+interface RankedHarness extends Harness { ranked: Array<{ path: string; body: Record<string, unknown> | null }> }
+
+async function rankedHarness(page: Page): Promise<RankedHarness> {
+  const h = (await harness(page)) as RankedHarness;
+  h.ranked = [];
+  let streak = 0;
+  let total = 0;
+  const note = (r: Route): Record<string, unknown> | null => {
+    const body = (r.request().postDataJSON() ?? null) as Record<string, unknown> | null;
+    h.ranked.push({ path: new URL(r.request().url()).pathname, body });
+    return body;
+  };
+  await page.route((u) => u.pathname === '/api/ranked/me', (r) => json(r, RANKED_CARD));
+  await page.route((u) => u.pathname === '/api/ranked/ladder', (r) => json(r, { ranked: 'not_live' }, 503));
+  await page.route((u) => u.pathname === '/api/ranked/run', async (r) => {
+    note(r);
+    streak = 0; total = 0;
+    await json(r, { token: RANKED_TOKEN, season: { id: 1, endsAt: RANKED_CARD.season.endsAt }, rounds: 10, roundMs: 10_000, expiresAt: '2099-01-01T00:00:00.000Z', runsToday: 1, runsLeft: 4 });
+  });
+  await page.route((u) => u.pathname === '/api/ranked/run/start', async (r) => {
+    const i = Number(note(r)?.round ?? 0);
+    const q = QUESTIONS[i]!;
+    await json(r, { round: i, of: 10, kind: kindOf(i) === 'artist' ? 'artist' : 'song', prompt: q.question_text, choices: q.choices, previewUrl: q.preview_url, roundMs: 10_000 });
+  });
+  await page.route((u) => u.pathname === '/api/ranked/run/answer', async (r) => {
+    const body = note(r);
+    const i = Number(body?.round ?? 0);
+    const choice = typeof body?.choice === 'number' ? body.choice : null;
+    const correct = choice === RIGHT(i);
+    streak = correct ? streak + 1 : 0;
+    const points = correct ? RANKED_POINTS(i) : 0;
+    total += points;
+    await json(r, {
+      round: i, correct, timedOut: choice === null, choice, correctIndex: RIGHT(i), effectiveMs: typeof body?.clientMs === 'number' ? body.clientMs : null,
+      points, speedBonus: 0, comboTenths: 10, streak, totalPoints: total, song: QUESTIONS[i]!.reveal, last: i === 9,
+    });
+  });
+  // A refusal (not a transient failure): the results show "this run will be recorded"
+  // and no season impact has to be invented here.
+  await page.route((u) => u.pathname === '/api/ranked/run/submit', async (r) => { note(r); await json(r, { error: 'run_finished' }, 409); });
+  return h;
+}
+
+async function openRanked(page: Page): Promise<boolean> {
+  const res = await page.goto('/blindtest/ranked');
+  if (!res || res.status() !== 200 || !(await isV11(page)) || (await page.locator('.p7-page').count()) === 0) return false;
+  await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
+  await page.locator('.p7-card[data-state="placing"]').waitFor({ timeout: 60_000 });
+  return true;
+}
+
+function expectRankedSongs(f: Payload, answered: number, right: (i: number) => boolean): void {
+  expect(f.songs).toHaveLength(answered);
+  (f.songs ?? []).forEach((s, i) => {
+    // The ranked server never tells the browser a song id: the round placeholder is
+    // sent and the tracking route drops it (unit test in lib/tracking/bt-followup.test.ts).
+    expect(s.song_id).toBe(`round-${i}`);
+    expect(s.kind).toBe(kindOf(i));
+    expect(s.correct).toBe(right(i));
+    expect(s.ms as number).toBeGreaterThanOrEqual(0);
+    expect(s.ms as number).toBeLessThanOrEqual(10_000);
+    expect(Object.keys(s).sort()).toEqual(['correct', 'kind', 'ms', 'song_id']);
+  });
+}
+
+test.describe('ranked runs record through trackBtRun (mode ranked)', () => {
+  const want = { playlist: 'theme:ranked', source: 'other', rounds: 10, mode: 'ranked' };
+
+  test('a ranked run to the results: one start, one completed finish with the server points', async ({ page, request }) => {
+    test.skip(!(await trackingOn(request)), 'NEXT_PUBLIC_BT_TRACKING is off on this build');
+    const h = await rankedHarness(page);
+    test.skip(!(await openRanked(page)), 'UX v1 flag is OFF on this build');
+    expect(tracked(h), 'nothing is sent before a run').toEqual([]);
+
+    await page.locator('.p7-card .p7-qact .ux-btn').click();
+    await expect(page.locator('.p6-ans').first()).toBeVisible();
+    await expect.poll(() => events(h, 'start').length, { message: 'start once the first clip plays' }).toBe(1);
+    const starts = events(h, 'start');
+    expectContext(starts[0]!, want);
+    expect(starts[0]!.clip_played).toBe(true);
+    expect(Object.keys(starts[0]!).sort()).toEqual(['anon_id', 'clip_played', 'event', 'locale', 'mode', 'playlist', 'rounds', 'run_id', 'source']);
+    expect(events(h, 'finish')).toEqual([]);
+
+    const right = (i: number): boolean => i !== 3 && i !== 7;
+    await v11PlayAll(page, 10, right);
+    await expect.poll(() => events(h, 'finish').length).toBe(1);
+    expect(events(h, 'start'), 'still one start').toHaveLength(1);
+    const f = events(h, 'finish')[0]!;
+    expectContext(f, want);
+    expect(f.run_id).toBe(starts[0]!.run_id);
+    expect(f.anon_id).toBe(starts[0]!.anon_id);
+    expect(f).toMatchObject({ completed: true, answered: 10, correct: 8, best_combo: 3 });
+    expect(f.score, 'the sum of the server points').toBe([0, 1, 2, 4, 5, 6, 8, 9].reduce((s, i) => s + RANKED_POINTS(i), 0));
+    expect(f.duration_ms as number).toBeGreaterThan(0);
+    expectRankedSongs(f, 10, right);
+
+    // The ranked engine got what it always gets: one issue, ten releases, ten answers, one submit.
+    const paths = h.ranked.map((c) => c.path);
+    expect(paths.filter((p) => p === '/api/ranked/run')).toHaveLength(1);
+    expect(paths.filter((p) => p === '/api/ranked/run/start')).toHaveLength(10);
+    expect(paths.filter((p) => p === '/api/ranked/run/answer')).toHaveLength(10);
+    const submits = h.ranked.filter((c) => c.path === '/api/ranked/run/submit');
+    expect(submits).toHaveLength(1);
+    expect(submits[0]!.body).toEqual({ token: RANKED_TOKEN });
+    const firstAnswer = h.ranked.find((c) => c.path === '/api/ranked/run/answer')!.body!;
+    expect(Object.keys(firstAnswer).sort()).toEqual(['choice', 'clientMs', 'round', 'token']);
+    await page.goto('about:blank');
+    expect(tracked(h), 'leaving the results sends nothing more').toHaveLength(2);
+  });
+
+  test('quitting a ranked run: one beacon finish, completed = false, the answers so far', async ({ page, request }) => {
+    test.skip(!(await trackingOn(request)), 'NEXT_PUBLIC_BT_TRACKING is off on this build');
+    const h = await rankedHarness(page);
+    test.skip(!(await openRanked(page)), 'UX v1 flag is OFF on this build');
+    const beacons: string[] = [];
+    page.on('request', (r) => { if (new URL(r.url()).pathname === TRACK) beacons.push(r.resourceType()); });
+
+    await page.locator('.p7-card .p7-qact .ux-btn').click();
+    await expect(page.locator('.p6-ans').first()).toBeVisible();
+    await expect.poll(() => events(h, 'start').length).toBe(1);
+    const start = events(h, 'start')[0]!;
+    await v11Answer(page, 0, true);
+    await page.locator('.p6-next').click();
+    await v11Answer(page, 1, false);
+    await page.getByRole('button', { name: 'Quit blindtest' }).click();
+    await expect.poll(() => events(h, 'finish').length).toBe(1);
+    const f = events(h, 'finish')[0]!;
+    expectContext(f, want);
+    expect(f.run_id).toBe(start.run_id);
+    expect(f).toMatchObject({ completed: false, answered: 2, correct: 1, best_combo: 1, score: RANKED_POINTS(0) });
+    expectRankedSongs(f, 2, (i) => i === 0);
+    expect(beacons.at(-1), 'an abandoned run leaves through sendBeacon').toBe('ping');
+    // The quit still closes the ranked run on its own server, once.
+    await expect.poll(() => h.ranked.filter((c) => c.path === '/api/ranked/run/submit').length).toBe(1);
+    await page.goto('about:blank');
+    expect(events(h, 'finish'), 'pagehide after a quit sends nothing more').toHaveLength(1);
+  });
+
+  test('tracking off: a ranked run sends no tracking request', async ({ page, request }) => {
+    test.skip(await trackingOn(request), 'NEXT_PUBLIC_BT_TRACKING is on in this build');
+    const h = await rankedHarness(page);
+    test.skip(!(await openRanked(page)), 'UX v1 flag is OFF on this build');
+    await page.locator('.p7-card .p7-qact .ux-btn').click();
+    await v11Answer(page, 0, true);
+    await page.getByRole('button', { name: 'Quit blindtest' }).click();
+    await expect.poll(() => h.ranked.filter((c) => c.path === '/api/ranked/run/submit').length).toBe(1);
+    await page.goto('about:blank');
+    expect(tracked(h), 'nothing is sent with the switch off').toEqual([]);
+  });
+});
