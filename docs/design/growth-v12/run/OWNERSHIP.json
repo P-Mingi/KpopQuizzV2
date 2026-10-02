@@ -192,7 +192,8 @@
     "apps/quiz/src/components/notifications/ux-v1/**",
     "apps/quiz/src/components/search/ux-v1/**",
     "apps/quiz/src/lib/ux-v1/p11/**",
-    "apps/quiz/src/app/api/ux-v1/p11/**"
+    "apps/quiz/src/app/api/ux-v1/p11/**",
+    "apps/quiz/src/styles/ux-v12/g9.css"
   ],
   "C1": [
     "docs/design/growth-v12/run/checks/pixel/**",
@@ -207,5 +208,19 @@
     "docs/design/growth-v12/run/issues/**",
     "docs/design/growth-v12/run/REPORT.md",
     "apps/quiz/e2e/ux-v12/qa-*.spec.ts"
+  ],
+  "F2": [
+    "apps/quiz/src/lib/db/queries/profiles.ts",
+    "apps/quiz/src/lib/db/queries/community.ts",
+    "apps/quiz/src/lib/db/queries/group-hub.ts",
+    "apps/quiz/src/app/api/activity/recent/**",
+    "apps/quiz/src/app/api/stats/live/**",
+    "apps/quiz/src/app/api/search/route.ts",
+    "apps/quiz/src/app/(site)/u/[username]/page.tsx",
+    "apps/quiz/src/app/(site)/me/page.tsx",
+    "apps/quiz/src/components/profile/ux-v1/passport.tsx",
+    "apps/quiz/src/app/(site)/admin/layout.tsx",
+    "apps/quiz/src/lib/editorial-exclusions.test.ts",
+    "apps/quiz/e2e/ux-v12/f2.spec.ts"
   ]
 }
