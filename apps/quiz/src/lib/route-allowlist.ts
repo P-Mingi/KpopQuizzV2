@@ -67,9 +67,60 @@ export const KNOWN_ROUTES = [
 // keeps 301ing them to / exactly as today (flag off = today's site, byte for byte).
 // '/ux-v1/' is the noindex component kit, '/community' the community feed (P8).
 // Same flag test as lib/ux-v1.ts, inlined so this module stays import-free.
-export const UX_V1_ROUTES = ['/ux-v1/', '/community'];
+const UX_V11_ROUTES = ['/ux-v1/', '/community'];
 const UX_V1_ON =
   process.env.NEXT_PUBLIC_UX_V1 === '1' || process.env.NEXT_PUBLIC_UX_V1 === 'true';
+
+// V12 growth (NEXT_PUBLIC_UX_V12, default off, and only ever on together with
+// NEXT_PUBLIC_UX_V1: same rule as isUxV12() in lib/ux-v12.ts, inlined here). Known only
+// with both flags on; otherwise they 301 to / as they do today.
+// '/live' host screen, '/join' phone, '/creators' board, the four blindtest landings
+// ('/guess-the-kpop-song', '/fr/', '/es/', '/id/' with the slash: startsWith), and the
+// internal routes behind the pretty per-group URLs ('/personality/', '/name-all/').
+export const UX_V12_ROUTES = [
+  '/live', '/join', '/creators', '/guess-the-kpop-song', '/fr/', '/es/', '/id/',
+  '/personality/', '/name-all/',
+];
+const UX_V12_ON =
+  UX_V1_ON &&
+  (process.env.NEXT_PUBLIC_UX_V12 === '1' || process.env.NEXT_PUBLIC_UX_V12 === 'true');
+
+// Per-group pretty URLs (rewrites in next.config.ts, flag on only). App Router has no
+// partial dynamic segment, so these are suffix rules, like '-quiz' and '-trivia' below:
+//   /<group>-name-all-members          -> /name-all/<group>
+//   /which-<group>-member-are-you      -> /personality/<group>
+function isV12PrettyUrl(pathname: string): boolean {
+  if (pathname.indexOf('/', 1) !== -1) return false; // one segment only
+  if (pathname.endsWith('-name-all-members') && pathname.length > '/-name-all-members'.length) return true;
+  return (
+    pathname.startsWith('/which-') &&
+    pathname.endsWith('-member-are-you') &&
+    pathname.length > '/which--member-are-you'.length
+  );
+}
+
+// Every flag-only prefix, v11 and v12. This is the list the build-time guard
+// (scripts/check-route-allowlist.mts) reads to skip pages that are unreachable on
+// purpose while their flag is off; isKnownRoute() below still opens the v11 ones with
+// NEXT_PUBLIC_UX_V1 alone and the v12 ones only with both flags.
+export const UX_V1_ROUTES = [...UX_V11_ROUTES, ...UX_V12_ROUTES];
+
+/**
+ * The allowlist decision for an explicit flag state. isKnownRoute() calls it with the
+ * build's flags; tests call it with each combination.
+ */
+export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: boolean }): boolean {
+  if (pathname === '/') return true;
+  // Group landing pages are generated: /bts-quiz, /twice-trivia, and so on.
+  if (pathname.endsWith('-quiz')) return true;
+  if (pathname.endsWith('-trivia')) return true;
+  if (flags.v1 && UX_V11_ROUTES.some((r) => pathname.startsWith(r))) return true;
+  if (flags.v1 && flags.v12) {
+    if (UX_V12_ROUTES.some((r) => pathname.startsWith(r))) return true;
+    if (isV12PrettyUrl(pathname)) return true;
+  }
+  return KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r));
+}
 
 /**
  * True when the middleware will let this path through instead of 301ing it to /.
@@ -80,10 +131,5 @@ const UX_V1_ON =
  * into oblivion here, which is exactly how every one of the five bugs happened.
  */
 export function isKnownRoute(pathname: string): boolean {
-  if (pathname === '/') return true;
-  // Group landing pages are generated: /bts-quiz, /twice-trivia, and so on.
-  if (pathname.endsWith('-quiz')) return true;
-  if (pathname.endsWith('-trivia')) return true;
-  if (UX_V1_ON && UX_V1_ROUTES.some((r) => pathname.startsWith(r))) return true;
-  return KNOWN_ROUTES.some((r) => r !== '/' && pathname.startsWith(r));
+  return isKnownRouteWith(pathname, { v1: UX_V1_ON, v12: UX_V12_ON });
 }
