@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
 import { isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { Icon } from './icon';
+import { TeamTag } from './team';
 
 /** Identity flair as stored on profiles (DESIGN-SPEC 17.8). Pass the raw columns;
  *  unknown keys fall back to default (validated against lib/passport-flair.ts). */
@@ -48,6 +50,10 @@ interface PersonNameProps extends PersonFlair {
   /** Hide the bias chip (tight rows). Default shown. */
   showBias?: boolean | undefined;
   className?: string | undefined;
+  /** v12 editorial account (SYSTEM.md 5.6): the Team pill after the name, and none
+   *  of a fan's flair (no accent, no name font, no bias tag). Ignored unless the v12
+   *  flag is on. */
+  isTeam?: boolean | undefined;
 }
 
 /**
@@ -57,7 +63,16 @@ interface PersonNameProps extends PersonFlair {
  * the BiasTag. Server-safe. Private data never reaches here: pass only what
  * /u/[username] already shows.
  */
-export function PersonName({ name, accent, font, bias, href, showBias = true, className }: PersonNameProps): React.ReactElement {
+export function PersonName({ name, accent, font, bias, href, showBias = true, className, isTeam }: PersonNameProps): React.ReactElement {
+  if (isTeam && isUxV12()) {
+    const teamCls = ['ux-who', className ?? ''].filter(Boolean).join(' ');
+    return (
+      <>
+        {href ? <Link href={href} className={teamCls}>{name}</Link> : <b className={teamCls}>{name}</b>}
+        <TeamTag />
+      </>
+    );
+  }
   const f = fontFamily(font);
   const style = f ? { fontFamily: f } : undefined;
   const cls = ['ux-who', accentClass(accent) ?? '', className ?? ''].filter(Boolean).join(' ');
