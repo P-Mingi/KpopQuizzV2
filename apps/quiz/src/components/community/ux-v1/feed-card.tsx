@@ -21,6 +21,7 @@ export function cardAuthor(p: P8Person | null): { name: string; accent?: string 
 /** "Lv 9 · 20 min ago", "Daily debate · 4 days ago", "3 hours ago". */
 export function cardMeta(post: Pick<FeedPost, 'author' | 'ago' | 'debate'>): string {
   if (!post.author && post.debate?.daily) return `Daily debate · ${post.ago}`;
+  if (post.author?.isTeam) return post.ago; // a team account has no level (SYSTEM.md 5.6)
   const lv = levelLine(post.author);
   return lv ? `${lv} · ${post.ago}` : post.ago;
 }
@@ -58,13 +59,17 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
   const meta = cardMeta(post);
   const group = post.group?.name;
   const chip = group ? { chipDetail: group } : {};
+  // v12 editorial account: team avatar + Team pill, no flair (PostCard ignores it unless the flag is on).
+  const team = post.author?.isTeam ? { isTeam: true } : {};
   const replies = (
     <Link href={`${post.href}#replies`} className="ux-pa2" aria-label={`${plural(post.replies, 'reply', 'replies')}`}>
       <Icon name="msg" />{comma(post.replies)}
     </Link>
   );
   const heart = post.likes === null ? null : (
-    <LikeButton type={post.kind === 'blog' ? 'essay' : post.kind === 'debate' && post.debate?.daily ? 'daily_debate' : post.kind} id={post.key} count={post.likes} />
+    post.editorialId
+      ? <LikeButton type="editorial" id={String(post.editorialId)} count={post.likes} />
+      : <LikeButton type={post.kind === 'blog' ? 'essay' : post.kind === 'debate' && post.debate?.daily ? 'daily_debate' : post.kind} id={post.key} count={post.likes} />
   );
   const share = <ShareButton path={post.href} title={post.title} line2={shareLine(post)} image={post.blog?.coverUrl ?? null} />;
 
@@ -73,7 +78,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
     return (
       <PostCard
         kind="blog" className="p8-card p8-card-blog" chipDetail={[group, `${b.readingMin} min read`].filter(Boolean).join(' · ')}
-        title={post.title} href={post.href} author={author} meta={meta} excerpt={post.excerpt ?? undefined}
+        title={post.title} href={post.href} author={author} meta={meta} {...team} excerpt={post.excerpt ?? undefined}
         actions={<>{heart}{replies}{share}</>}
       >
         <Link href={post.href} className="p8-bcov" aria-label={`Open the blog: ${post.title}`} tabIndex={-1}>
@@ -89,7 +94,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
   if (post.kind === 'debate' && post.debate) {
     return (
       <PostCard
-        kind="debate" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta}
+        kind="debate" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta} {...team}
         excerpt={post.excerpt ?? undefined} actions={<>{heart}{replies}{share}</>}
       >
         <DebateBars debate={post.debate} label={`Results: ${post.title}`} />
@@ -102,7 +107,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
     const c = post.challenge;
     return (
       <PostCard
-        kind="challenge" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta}
+        kind="challenge" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta} {...team}
         excerpt={<><ScoreChip>{c.score}/{c.total}</ScoreChip>{post.excerpt ?? ''}</>}
         actions={(
           <>
@@ -119,7 +124,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
 
   return (
     <PostCard
-      kind="thread" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta}
+      kind="thread" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta} {...team}
       excerpt={post.excerpt ?? undefined} actions={<>{heart}{replies}{share}</>}
     />
   );

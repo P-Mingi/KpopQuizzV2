@@ -2,7 +2,8 @@
 // Limits match the pending migration's CHECK constraints (v11-p8-community.sql) so a
 // payload that passes here can never fail on a constraint.
 
-export const LIKE_TARGETS = ['thread', 'daily_debate', 'debate', 'challenge', 'comment', 'debate_vote', 'reply'] as const;
+// 'editorial' = a thread or blog of an editorial account (editorial_posts.id, v12).
+export const LIKE_TARGETS = ['thread', 'daily_debate', 'debate', 'challenge', 'comment', 'debate_vote', 'reply', 'editorial'] as const;
 export type LikeTargetType = (typeof LIKE_TARGETS)[number];
 
 export type Checked<T> = { ok: true; value: T } | { ok: false; error: string };
@@ -65,10 +66,10 @@ export function checkChallenge(body: unknown): Checked<{ playId: string; message
   return { ok: true, value: { playId: playId.toLowerCase(), message: message || null } };
 }
 
-export function checkReply(body: unknown): Checked<{ type: 'debate' | 'challenge'; targetId: number; body: string; parentId: number | null }> {
+export function checkReply(body: unknown): Checked<{ type: 'debate' | 'challenge' | 'editorial'; targetId: number; body: string; parentId: number | null }> {
   const b = (body ?? {}) as Record<string, unknown>;
   const type = String(b.target_type ?? '');
-  if (type !== 'debate' && type !== 'challenge') return { ok: false, error: 'bad_target' };
+  if (type !== 'debate' && type !== 'challenge' && type !== 'editorial') return { ok: false, error: 'bad_target' };
   const targetId = Number(b.target_id);
   if (!Number.isSafeInteger(targetId) || targetId <= 0) return { ok: false, error: 'bad_target' };
   const text = String(b.body ?? '').trim();

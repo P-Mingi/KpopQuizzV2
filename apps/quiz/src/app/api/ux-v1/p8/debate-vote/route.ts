@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
@@ -33,6 +34,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  // v12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6).
+  if (await isEditorialUser(user.id)) return NextResponse.json({ error: 'editorial_account' }, { status: 403 });
 
   const svc = createServiceRoleClient();
   const { data: row } = await svc.from('community_debates').select('id, options, closes_at, status').eq('id', id).maybeSingle();

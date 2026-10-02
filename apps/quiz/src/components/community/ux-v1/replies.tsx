@@ -143,11 +143,11 @@ function CommentItem({ c, nested, canNest, likes, onReply, replyingTo, replyBox 
   return (
     <>
       <div className={`p8-cmt${nested ? ' p8-cmt-nest' : ''}${c.ago === 'just now' ? ' is-new' : ''}`}>
-        <UxAvatar name={c.name} src={c.person?.avatarUrl ?? null} size={32} />
+        <UxAvatar name={c.name} src={c.person?.avatarUrl ?? null} size={32} team={c.person?.isTeam} />
         <div className="p8-cmt-b">
           <div className="p8-cmt-h">
             {c.person
-              ? <PersonName name={c.person.name} accent={c.person.accent} font={c.person.font} bias={c.person.bias} href={c.person.href ?? undefined} />
+              ? <PersonName name={c.person.name} accent={c.person.accent} font={c.person.font} bias={c.person.bias} href={c.person.href ?? undefined} isTeam={c.person.isTeam} />
               : <b className="ux-who">{c.name}</b>}
             <span className="p8-meta"> · {[c.meta, c.ago].filter(Boolean).join(' · ')}</span>
           </div>

@@ -4,8 +4,10 @@ import { UxAvatar } from '@/components/ux-v1/avatar';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxRow } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
+import { TeamNote } from '@/components/ux-v1/team';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { comma, levelLine, plural } from '@/lib/ux-v1/p8/format';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { FollowButton, LikeButton, ReportButton, ShareButton } from './actions';
 import { cardMeta } from './feed-card';
@@ -38,7 +40,10 @@ function replyContext(post: P8Post, fandom: string | null): { placeholder: strin
 export function PostView({ post, more, likesLive }: { post: P8Post; more: FeedPost[]; likesLive: boolean }): React.ReactElement {
   const a = post.author;
   const group = post.group;
-  const meta = a ? [levelLine(a, true), post.ago].filter(Boolean).join(' · ') : cardMeta(post);
+  // v12 editorial account (SYSTEM.md 5.6; prototype openPost('team')): team avatar, the
+  // Team pill, the time alone (no level), and the line under the author.
+  const team = Boolean(a?.isTeam) && isUxV12();
+  const meta = a ? [team ? '' : levelLine(a, true), post.ago].filter(Boolean).join(' · ') : cardMeta(post);
   const ctx = replyContext(post, group && group.slug !== 'general-kpop' ? group.name : null);
   const heart = post.likes === null ? null : <LikeButton type={post.likeType} id={post.key} count={post.likes} />;
 
@@ -54,13 +59,15 @@ export function PostView({ post, more, likesLive }: { post: P8Post; more: FeedPo
         </nav>
 
         <div className="p8-author">
-          <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a?.avatarUrl ?? null} size={36} />
+          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a?.avatarUrl ?? null} size={36} />}
           <span className="p8-author-t">
-            {a ? <PersonName name={a.name} accent={a.accent} font={a.font} bias={a.bias} href={a.href ?? undefined} /> : <b className="ux-who">KpopQuiz</b>}
+            {a ? <PersonName name={a.name} accent={a.accent} font={a.font} bias={a.bias} href={a.href ?? undefined} isTeam={team} /> : <b className="ux-who">KpopQuiz</b>}
             <span className="p8-lv"> · {meta}</span>
           </span>
           {a?.username ? <span className="p8-follow"><FollowButton username={a.username} /></span> : null}
         </div>
+
+        {team ? <TeamNote surface="post" className="p8-teamnote" /> : null}
 
         <h1 className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</h1>
 
@@ -73,6 +80,17 @@ export function PostView({ post, more, likesLive }: { post: P8Post; more: FeedPo
 
         {post.html ? <div className="p8-post-b" dangerouslySetInnerHTML={{ __html: post.html }} /> : null}
         {post.paragraphs.length ? <div className="p8-post-b">{post.paragraphs.map((p, i) => <p key={i}>{p}</p>)}</div> : null}
+
+        {post.sources?.length ? (
+          <div className="p8-sources">
+            <h2 className="p8-sources-h">Sources</h2>
+            <ul>
+              {post.sources.map((s, i) => (
+                <li key={i}>{s.url ? <a href={s.url} rel="nofollow noopener noreferrer" target="_blank">{s.label}</a> : s.label}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         {post.kind === 'debate' && post.debate ? (
           post.debate.daily

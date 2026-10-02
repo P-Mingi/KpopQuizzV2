@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { PostView } from '@/components/community/ux-v1/post-view';
 import { P8ViewerProvider } from '@/components/community/ux-v1/viewer';
 import { UxPage } from '@/components/ux-v1/page';
+import { getEditorialLive } from '@/lib/editorial/live';
 import { safeFetch } from '@/lib/error-handling';
 import { UX_V1 } from '@/lib/ux-v1';
 import { getP8Features, NO_FEATURES } from '@/lib/ux-v1/p8/features';
@@ -48,13 +49,14 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 /** Three other posts for "More from the community" (same group first). */
 async function loadMore(features: Awaited<ReturnType<typeof getP8Features>>, post: FeedPost): Promise<FeedPost[]> {
   const now = Date.now();
-  const src = feedSources(features, verseScope(await safeFetch(getP8Groups(), [], '[p8] more groups')), now);
+  const src = feedSources(features, verseScope(await safeFetch(getP8Groups(), [], '[p8] more groups')), now, await getEditorialLive());
   const lists = await Promise.all([
     safeFetch(src.threads, [], '[p8] more threads'),
     safeFetch(src.blogs, [], '[p8] more blogs'),
     safeFetch(src.debates, [], '[p8] more debates'),
     safeFetch(src.fanDebates, [], '[p8] more fan debates'),
     safeFetch(src.challenges, [], '[p8] more challenges'),
+    safeFetch(src.editorial, [], '[g9] more editorial posts'),
   ]);
   return pickMore(mergeFeed(lists, now), post);
 }

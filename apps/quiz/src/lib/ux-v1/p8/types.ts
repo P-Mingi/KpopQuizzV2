@@ -26,6 +26,9 @@ export interface P8Person {
   /** Level title ("Stan"), same ladder as everywhere (lib/level-titles). */
   levelTitle: string | null;
   isSystem: boolean;
+  /** v12 editorial (team) account (SYSTEM.md 5.6): the Team badge, no level, no fan
+   *  flair. The key is ABSENT for everyone else (so a v11 payload is unchanged). */
+  isTeam?: true;
 }
 
 export interface P8Group { id: number; name: string; slug: string; fandom: string | null }
@@ -72,6 +75,9 @@ export interface FeedPost {
   blog?: { coverUrl: string | null; coverFocal: string; readingMin: number };
   debate?: DebateData;
   challenge?: ChallengeData;
+  /** v12: a thread or blog of an editorial account (editorial_posts.id). Its hearts
+   *  and replies use the community stores with target type 'editorial'. */
+  editorialId?: number;
 }
 
 export interface HappeningRow {

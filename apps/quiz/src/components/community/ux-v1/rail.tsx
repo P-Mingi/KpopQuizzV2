@@ -36,10 +36,10 @@ export function HappeningRows({ rows }: { rows: HappeningRow[] }): React.ReactEl
         const phrase = r.parts.map((p, i) => <span key={i}>{' '}{p.b ? <b>{p.t}</b> : p.t}</span>);
         return (
           <div key={r.id} className="p8-hn">
-            <UxAvatar name={r.name} src={r.person?.avatarUrl ?? null} size={28} />
+            <UxAvatar name={r.name} src={r.person?.avatarUrl ?? null} size={28} team={r.person?.isTeam} />
             <span className="p8-hn-t">
               {r.person
-                ? <PersonName name={r.person.name} accent={r.person.accent} font={r.person.font} bias={r.person.bias} href={r.person.href ?? undefined} />
+                ? <PersonName name={r.person.name} accent={r.person.accent} font={r.person.font} bias={r.person.bias} href={r.person.href ?? undefined} isTeam={r.person.isTeam} />
                 : <b>{r.name}</b>}
               {r.href ? <Link href={r.href} className="p8-hn-go">{phrase}</Link> : phrase}
               <span className="p8-tm">{r.ago}</span>
