@@ -231,24 +231,3 @@
 @media (prefers-reduced-motion: reduce) {
   .p8-live-dot { animation: none; }
 }
-
-/* @ux-v12:begin */
-/* V12 G9 editorial (SYSTEM.md 5.6). Cut from the sheet when the v12 flag is off
-   (lib/ux-v1/a0/stylesheet.ts stripV12), so a v11-only build serves the same bytes. */
-.p8-author + .p8-teamnote { max-width: none; }
-.p8-sources { margin-top: 20px; font-size: 13px; line-height: 1.5; color: var(--ux-muted); max-width: 34em; }
-.p8-sources-h { font-size: 13px; line-height: 1.5; font-weight: 600; color: var(--ux-ink); }
-.p8-sources ul { margin-top: 4px; padding-left: 18px; list-style: disc; }
-.p8-sources li + li { margin-top: 2px; }
-.p8-sources a { color: var(--ux-pink-ink); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
-
-/* /admin/editorial: the preview frame (the post exactly as fans will see it). */
-.g9-preview { border: 1px dashed var(--ux-line); border-radius: 16px; padding: 16px; margin: 12px 0 24px; background: var(--ux-bg); color: var(--ux-ink); font-family: var(--ux-font); }
-.g9-preview-h { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ux-muted); margin: 0 0 12px; }
-.g9-preview-col { max-width: 720px; margin: 0 auto; }
-.g9-preview .p8-pv { padding-bottom: 8px; }
-.g9-preview .p8-author { margin-top: 12px; }
-.g9-note { font-size: 13px; line-height: 1.5; color: var(--ux-muted); margin: 8px 0; }
-.g9-acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.g9-acts input[type="datetime-local"] { height: 30px; padding: 0 8px; border: 1px solid var(--ux-line); border-radius: 8px; background: var(--ux-raised); color: var(--ux-ink); font-size: 12px; }
-/* @ux-v12:end */

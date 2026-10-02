@@ -69,7 +69,7 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           {a?.username ? <span className="p8-follow"><FollowButton username={a.username} /></span> : null}
         </div>
 
-        {team ? <TeamNote surface="post" className="p8-teamnote" /> : null}
+        {team ? <TeamNote surface="post" /> : null}
 
         <Title className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</Title>
 
@@ -84,9 +84,11 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
         {post.paragraphs.length ? <div className="p8-post-b">{post.paragraphs.map((p, i) => <p key={i}>{p}</p>)}</div> : null}
 
         {post.sources?.length ? (
-          <div className="p8-sources">
-            <h2 className="p8-sources-h">Sources</h2>
-            <ul>
+          // v12 editorial posts only. Inline styles on purpose: a rule in p8.css would
+          // change the stylesheet a v11-only build serves.
+          <div className="p8-post-b p8-sources" style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--ux-muted)', marginTop: 20 }}>
+            <h2 className="p8-sources-h" style={{ fontSize: 13, lineHeight: 1.5, fontWeight: 600, color: 'var(--ux-ink)' }}>Sources</h2>
+            <ul style={{ listStyle: 'disc', paddingLeft: 18, marginTop: 4, overflowWrap: 'anywhere' }}>
               {post.sources.map((s, i) => (
                 <li key={i}>{s.url ? <a href={s.url} rel="nofollow noopener noreferrer" target="_blank">{s.label}</a> : s.label}</li>
               ))}

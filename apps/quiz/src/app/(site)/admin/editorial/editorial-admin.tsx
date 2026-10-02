@@ -107,17 +107,26 @@ async function send(url: string, method: 'POST' | 'PATCH', body: unknown): Promi
   } catch { return { ok: false, data: {} }; }
 }
 
+// Inline styles on purpose: a rule added to a ux-v1 sheet would change the stylesheet
+// a v11-only build serves (the v12 flag must leave it byte for byte).
+const FRAME: React.CSSProperties = { border: '1px dashed var(--ux-line)', borderRadius: 16, padding: 16, margin: '12px 0 24px', background: 'var(--ux-bg)', color: 'var(--ux-ink)', fontFamily: 'var(--ux-font)', textAlign: 'left', whiteSpace: 'normal' };
+const FRAME_H: React.CSSProperties = { fontSize: 12, fontWeight: 600, letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--ux-muted)', margin: '0 0 12px' };
+const FRAME_COL: React.CSSProperties = { maxWidth: 720, margin: '0 auto' };
+const NOTE: React.CSSProperties = { fontSize: 13, lineHeight: 1.5, margin: '8px 0' };
+const ACTS: React.CSSProperties = { display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' };
+const DATE_INPUT: React.CSSProperties = { height: 30, padding: '0 8px', border: '1px solid var(--border-default, #d4d4d4)', borderRadius: 8, fontSize: 12, background: 'transparent', color: 'inherit' };
+
 function Preview({ input, account, group, at, now }: { input: DraftInput; account: EditorialAccount | null; group: AdminGroup | null; at: number; now: number }): React.ReactElement {
   const shown = Math.min(at, now);
   const post = draftToPost(input, { account, group, groupPhoto: group?.photo ?? null, at: shown, now, ago: timeAgo(new Date(shown).toISOString(), now) || 'just now' });
   return (
     // inert: the preview is the real post markup, but nothing in it can be clicked,
     // focused or submitted (no like, vote, reply or follow from the admin page).
-    <div className="g9-preview" inert data-g9="preview">
-      <p className="g9-preview-h">In the feed</p>
-      <div className="g9-preview-col"><FeedCard post={post} /></div>
-      <p className="g9-preview-h" style={{ marginTop: 20 }}>The post</p>
-      <div className="g9-preview-col"><PostView post={post} more={[]} likesLive={false} titleAs="h2" /></div>
+    <div inert data-g9="preview" style={FRAME}>
+      <p style={FRAME_H}>In the feed</p>
+      <div style={FRAME_COL}><FeedCard post={post} /></div>
+      <p style={{ ...FRAME_H, marginTop: 20 }}>The post</p>
+      <div style={FRAME_COL}><PostView post={post} more={[]} likesLive={false} titleAs="h2" /></div>
     </div>
   );
 }
@@ -232,8 +241,8 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
             </p>
           </div>
 
-          {notice ? <p className="g9-note" role="status">{notice}</p> : null}
-          {error && !form ? <p className="g9-note" role="alert" style={{ color: '#dc2626' }}>{error}</p> : null}
+          {notice ? <p className="aiv-notes-text" role="status" style={{ ...NOTE, fontStyle: 'normal' }}>{notice}</p> : null}
+          {error && !form ? <p className="aiv-notes-text" role="alert" style={{ ...NOTE, fontStyle: 'normal', color: '#dc2626' }}>{error}</p> : null}
 
           {form ? (
             <form className="aiv-form" onSubmit={save} style={{ marginBottom: 24 }} data-g9="form">
@@ -302,7 +311,7 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
                   group={checkedForm.value.group_id !== null ? groupById.get(checkedForm.value.group_id) ?? null : null}
                   at={now} now={now}
                 />
-              ) : <p className="g9-note">The preview shows once the draft is complete: {errorLine(checkedForm && !checkedForm.ok ? checkedForm.error : undefined)}</p>}
+              ) : <p className="aiv-notes-text" style={{ ...NOTE, fontStyle: 'normal' }}>The preview shows once the draft is complete: {errorLine(checkedForm && !checkedForm.ok ? checkedForm.error : undefined)}</p>}
 
               {error ? <p className="aiv-snippet-text" role="alert" style={{ color: '#dc2626', margin: 0 }}>{error}</p> : null}
               <div style={{ display: 'flex', gap: 8 }}>
@@ -351,7 +360,7 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
                         <td>{account ? account.display_name : 'unknown'}</td>
                         <td className="aiv-td-date">{when(tab === 'published' ? d.published_at : tab === 'approved' ? d.scheduled_at : d.created_at)}</td>
                         <td>
-                          <div className="g9-acts">
+                          <div style={ACTS}>
                             <button type="button" className="aiv-filter-tab" aria-expanded={previewId === d.id} onClick={() => setPreviewId((cur) => (cur === d.id ? null : d.id))}>Preview</button>
                             {d.status !== 'published' ? (
                               <button type="button" className="aiv-filter-tab" onClick={() => { setEditingId(d.id); setForm(formOf(d)); setError(null); setNotice(null); window.scrollTo({ top: 0 }); }}>Edit</button>
@@ -359,7 +368,7 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
                             {d.status !== 'published' ? (
                               <>
                                 <input
-                                  type="datetime-local" aria-label={`Date for ${d.title}`}
+                                  type="datetime-local" style={DATE_INPUT} aria-label={`Date for ${d.title}`}
                                   value={dates[d.id] ?? localInput(Math.max(now, d.scheduled_at ? Date.parse(d.scheduled_at) : now))}
                                   onChange={(e) => setDates((m) => ({ ...m, [d.id]: e.target.value }))}
                                 />
