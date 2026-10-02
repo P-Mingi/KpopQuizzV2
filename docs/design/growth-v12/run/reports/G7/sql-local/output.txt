@@ -1,0 +1,43 @@
+--- apply v12-g7-this-or-that.sql
+--- apply it again (idempotent)
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:65: NOTICE:  relation "duel_vote_guard" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:68: NOTICE:  relation "duel_vote_guard_voter_day_idx" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:70: NOTICE:  relation "duel_vote_guard_day_idx" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:79: NOTICE:  relation "duel_votes_question_pair_idx" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:204: NOTICE:  relation "duel_song_rankings" already exists, skipping
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a9121e2a83917332f/docs/pending-migrations/v12-g7-this-or-that.sql:207: NOTICE:  relation "duel_song_rankings_group_rank_idx" already exists, skipping
+--- checks
+T01 first vote: ok 2/1
+T02 same pair same day: already_voted 2/1
+T03 same pair reversed: already_voted 1/2
+T04 other voter: ok 2/2
+T05 other pair same voter: ok 0/1
+T06 winner not in pair: bad_pair
+T07 same song twice: bad_pair
+T08 song not in question: bad_pair
+T09 member question refused: bad_question
+T10 unknown question: bad_question
+T11 short voter hash: bad_voter
+T12 null voter hash: bad_voter
+T13 votes in log: 5 (2 old + 3 accepted)
+T14 guard rows: 3
+T15 guard pair keys ordered: true
+T16 next day same pair: ok 3/2
+T17 daily cap: rate_limited 3/2
+T18 votes in log after cap: 6
+T19 privileges anon/authenticated/service_role: false/false/true
+T20 rls guard/rankings: true/true
+T21 anon reads guard: false
+T22 old function untouched or absent: 0
+--- apply v12-g7-song-questions.sql
+S1 bts min_votes=500 prompt=Best BTS song? songs=3 all_from_catalogue=false
+S1 riize min_votes=100 prompt=Best RIIZE song? songs=16 all_from_catalogue=true
+S2 riize duplicate title rows: 1
+S3 riize songs: Song 10,Song 11,Song 12,Song 13,Song 14,Song 15,Song 16,Song 17,Song 18,Song 19,Song 20,Song 5,Song 6,Song 7,Song 8,Song 9
+S4 before second run q/r/v: 3/21/6
+--- apply it again (idempotent)
+S5 after second run q/r/v: 3/21/6
+--- a vote on a seeded question
+S6 ok 1/0
+--- undo of the seed (as written in the file header)
+S7 after undo, song questions left: bts,riize

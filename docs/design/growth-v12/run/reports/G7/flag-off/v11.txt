@@ -1,0 +1,20 @@
+same    api_ux_v1_a0_styles
+same    bts_quiz
+same    q_skz_true_or_false_only_real_stays_pass
+same    q_ultimate_bts_era_quiz_only_real_armys_survive
+same    quizzes
+same    robots_txt
+same    sitemap_xml
+
+7 pages, 0 with a difference
+
+G7 routes, base:
+404 GET /api/duel/pairs?group=bts
+404 GET /api/duel/fans-picked?group=bts
+404 GET /api/cron/fans-picked
+404 POST /api/duel/vote
+G7 routes, candidate:
+404 GET /api/duel/pairs?group=bts
+404 GET /api/duel/fans-picked?group=bts
+404 GET /api/cron/fans-picked
+404 POST /api/duel/vote
