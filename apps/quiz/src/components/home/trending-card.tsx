@@ -4,6 +4,7 @@ import { QuizTypeBadge, mapDbTypeToKey } from '@/components/ui/quiz-type-badge';
 import { QuizTypeIcon } from '@/components/quiz/quiz-type-icon';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { formatCount } from '@/lib/utils';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -20,12 +21,7 @@ interface Props {
  */
 export function TrendingCard({ quiz, priority = false }: Props) {
   const typeKey = mapDbTypeToKey(quiz.quiz_type);
-  const avgPct =
-    quiz.total_completions > 0 && quiz.question_count > 0
-      ? Math.round(
-          (quiz.total_score_sum / quiz.total_completions / quiz.question_count) * 100,
-        )
-      : null;
+  const avgPct = avgScorePct(quiz);
 
   return (
     <Link

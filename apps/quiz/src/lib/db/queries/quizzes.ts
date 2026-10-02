@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 
@@ -257,11 +258,7 @@ async function fetchBrowseQuizzes({
 
   if (sort === 'top_rated') {
     cards.sort((a, b) => {
-      const avg = (q: QuizCardData): number =>
-        q.total_completions > 0 && q.question_count > 0
-          ? (q.total_score_sum / q.total_completions / q.question_count) * 100
-          : 0;
-      return avg(b) - avg(a);
+      return (avgScorePct(b, true) ?? 0) - (avgScorePct(a, true) ?? 0);
     });
   }
 
@@ -357,15 +354,7 @@ export async function getHardestQuizzes(offset: number, limit: number): Promise<
 
   // Sort by avg score ascending client-side (Supabase can't do computed column sorting)
   const cards = (data as unknown as RawQuizRow[]).map(toQuizCardData);
-  cards.sort((a, b) => {
-    const avgA = a.total_completions > 0 && a.question_count > 0
-      ? (a.total_score_sum / a.total_completions) / a.question_count * 100
-      : 50;
-    const avgB = b.total_completions > 0 && b.question_count > 0
-      ? (b.total_score_sum / b.total_completions) / b.question_count * 100
-      : 50;
-    return avgA - avgB;
-  });
+  cards.sort((a, b) => (avgScorePct(a, true) ?? 50) - (avgScorePct(b, true) ?? 50));
 
   return cards;
 }
@@ -426,15 +415,7 @@ async function fetchQuizzesByGroup(
   const cards = (data as unknown as RawQuizRow[]).map(toQuizCardData);
 
   if (tab === 'hardest') {
-    cards.sort((a, b) => {
-      const avgA = a.total_completions > 0 && a.question_count > 0
-        ? (a.total_score_sum / a.total_completions) / a.question_count * 100
-        : 50;
-      const avgB = b.total_completions > 0 && b.question_count > 0
-        ? (b.total_score_sum / b.total_completions) / b.question_count * 100
-        : 50;
-      return avgA - avgB;
-    });
+    cards.sort((a, b) => (avgScorePct(a, true) ?? 50) - (avgScorePct(b, true) ?? 50));
   }
 
   return cards;

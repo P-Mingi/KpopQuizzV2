@@ -11,12 +11,13 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { avgScorePct } from '@/lib/quiz/scoring';
 import { getEssayPage } from '@/lib/verse/essays';
 import { getVerseDirectory } from '@/lib/verse/space-data';
 import { listThreads } from '@/lib/verse/threads';
 import { spaceUnpublished, verseHidden } from '@/lib/verse/visibility';
 
-import { aboutMinutes, averagePct, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, spreadBy, utcDay } from './format';
+import { aboutMinutes, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, spreadBy, utcDay } from './format';
 import { LIVE_HUB_ORDER } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
@@ -64,6 +65,8 @@ const readQotdExtrasCached = unstable_cache(readQotdExtras, ['ux-v1:p1:qotd-extr
 
 type QotdSource = Pick<QuizCardData, 'id' | 'slug' | 'title' | 'quiz_type' | 'difficulty' | 'question_count' | 'total_score_sum' | 'total_completions'>;
 const QOTD_COLS = 'id, slug, title, quiz_type, difficulty, question_count, total_score_sum, total_completions';
+/** Runs before the average shows (the default of p1/format.ts averagePct). */
+const QOTD_AVG_MIN_RUNS = 3;
 /** Day 0 of the live replay rotation (lib/db/queries/quizzes.ts getQuizOfTheDay). */
 const REPLAY_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
 
@@ -112,7 +115,7 @@ export async function getHomeQotd(now: Date = new Date()): Promise<HomeQotd | nu
     quizType: q.quiz_type,
     difficulty: q.difficulty,
     questionCount: questions,
-    averagePct: averagePct(q.total_score_sum ?? 0, q.total_completions ?? 0, questions),
+    averagePct: (q.total_completions ?? 0) >= QOTD_AVG_MIN_RUNS ? avgScorePct({ total_score_sum: q.total_score_sum, total_completions: q.total_completions, question_count: questions, quiz_type: q.quiz_type }) : null,
     time: aboutMinutes(seconds),
     featuredDate,
     servedDate: utcDay(now),
