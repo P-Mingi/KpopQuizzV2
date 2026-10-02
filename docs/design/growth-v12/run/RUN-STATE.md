@@ -4,7 +4,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 
 - Prototype: `docs/design/growth-v12/prototype.html`, `window.UX_VERSION` = `v12.2 growth (2026-09-29)` (checked 2026-10-02).
 - Integration branch: `feat/v12`, cut from `origin/main` at `a94d77c` (R1 done: PR #66 merged 2026-10-01, `docs/release/R1-STATE.md` says DONE). First commit `5e4548f` "docs(v12): growth package".
-- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G7 merged. G4, G9, G3, G5 running (4 builders at once).
+- Phase: **2 (2026-10-02)**. Phase 1 done: A1, G1, G2 merged. G7 and G9 merged. G4, G3, G5, G6 running (4 builders at once).
 
 ## Agents
 
@@ -16,10 +16,10 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 | G3 | v12/g3-acquisition | running | - | 0 | run/reports/G3.md |
 | G4 | v12/g4-live | running | - | 0 | run/reports/G4.md |
 | G5 | v12/g5-personality | running | - | 0 | run/reports/G5.md |
-| G6 | v12/g6-name-all | queued (Phase 2, second wave) | - | 0 | run/reports/G6.md |
+| G6 | v12/g6-name-all | running | - | 0 | run/reports/G6.md |
 | G7 | v12/g7-this-or-that | merged (ae82106) | e132692 | 0 | run/reports/G7.md |
 | G8 | v12/g8-hub-creators | queued (Phase 2, last: needs G5, G6, G7 merged) | - | 0 | run/reports/G8.md |
-| G9 | v12/g9-editorial | running | - | 0 | run/reports/G9.md |
+| G9 | v12/g9-editorial | merged (ab95d9d) | 4a3f2bb | 0 | run/reports/G9.md |
 | C1 | v12/c1-check | queued (Phase 3) | - | - | run/checks/pixel/ |
 | C2 | v12/c2-check | queued (Phase 3) | - | - | run/checks/backend/ |
 | C3 | v12/c3-check | queued (Phase 3) | - | - | run/REPORT.md |
@@ -68,9 +68,13 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - G7 (replayed twice by G7 on a scratch local Postgres 14, 29/29 checks; production is 17):
   - `v12-g7-this-or-that.sql`: `duel_vote_guard`, `duel_cast_song_vote()` (service role only), `duel_song_rankings`, one index on `duel_votes`. 0 rows; no column or row change on the existing duel tables.
   - `v12-g7-song-questions.sql`: data, +77 `duel_questions`, +1,201 `duel_ratings` (counted 2026-10-02, will shift with G2's catalogue). Without it only aespa, BLACKPINK and BTS get the card.
+- G9 (never executed anywhere):
+  - `v12-g9-editorial.sql`: `editorial_accounts`, `editorial_drafts`, `editorial_posts`, `is_editorial(uuid)`; widens two community CHECK constraints for the target type 'editorial'.
+  - `v12-g9-editorial-accounts.sql`: raises an exception until the owner replaces the placeholders with 3 to 5 real user ids.
 
 ## Crons added to vercel.json by ORCH (each answers 404 unless `isUxV12()`)
 
+- `/api/cron/editorial-publish` at `*/15 * * * *` (G9). Asks for the cron secret. With the flag off in production it is called 96 times a day and answers 404 each time: the owner may prefer to add this line only when the flag goes on.
 - `/api/cron/fans-picked` at `40 3 * * *` (G7). Asks for the cron secret; answers `ok:false not_applied` until its SQL exists.
 
 ## Asked to the owner (once, not blocking)
@@ -89,6 +93,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 6. ORCH, route gate: `scripts/check-route-allowlist.mts` is a gate script (never edited: ratchet law, hook-blocked) and it only skips pages under the exported `UX_V1_ROUTES`. To keep it untouched, `UX_V1_ROUTES` now lists every flag-only prefix (v11 and v12) and `isKnownRoute()` opens the v12 ones only with both flags (tested in `middleware-matcher.test.ts`, 4 flag states). The gate's skip label still says "UX v1 route" for v12 pages. Alternative, owner's hand only: make the gate import `UX_V12_ROUTES` and print its own label.
 7. G2: `groups.generation` for RESCENE and NCT WISH (left NULL: not confirmed by two sources, like country and website); rename the fan-created group "Hearts2hearts"; MeloMance and Jokers as `soundtrack`; a full title-track backfill or a 301 for the 5 modes that cannot play as named (intro-challenge, verse-only, bridge-or-break, speed-round: no clip point or length in the data; b-sides: the false flag is not maintained).
 8. G7: which groups get the This or that card (77 seeded by the data file, 3 without it); thresholds (a group is ranked from 100 counted votes, or the question's `min_votes` if higher; a song from 5 comparisons; a split is shown from 5 votes on the pair; 200 votes a day per voter); the vote token signing key is derived (HMAC, fixed label) from the service role key unless the optional env `DUEL_SIGNING_SECRET` is set; the year is hidden on most songs (156 of 4,120 have one today, G2's file 05 fills 3,076); new votes no longer update the old `duel_ratings` Elo.
+9. G9: the Verse option is recorded, not taken: editorial threads and blogs live in their own `editorial_posts` table. "Never two in a row from one account" is strict: a lone account's due drafts wait. A retired account keeps the badge only on its editorial posts. Follow is kept on team posts. With the flag off its three new API routes answer a JSON 404 where the base answers the HTML 404 page (same status).
 
 ## Open requests (run/requests/G1.md), to route in Phase 2
 
@@ -98,6 +103,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - R5: v11 `p6.spec.ts` must run with tracking off, or `/api/track/bt-run` is filtered from its write counts (G3 owns the blindtest specs' helpers through requests to A1).
 - R6: admin nav link to `/admin/blind-tests/runs`.
 - S1 to S7 inline averages and L1 to L9 `score/total` labels in other agents' files (G8 `lib/ux-v1/p3`, A1 kit, and the others listed there).
+- G9 R2 and R5, files nobody owns (to assign in a follow-up, after G8): the Team badge and line on `passport.tsx`, `/u/[username]` and `/me` (the model already returns `isTeam`); exclusions of editorial accounts on the legacy boards, the home ticker and activity reads, XP and badge grants, about 25 fan action routes, fan counts, the legacy search API. R5g, R5h: G1's search page People rows and tracking, G3's daily board. R6: a splits reader from G7 for the weekly recap template.
 - Trap for every spec: a blindtest played with `NEXT_PUBLIC_BT_TRACKING` on sends beacons at page teardown that can escape `guardWrites`; once the table exists they would write. Specs run with tracking off unless they test tracking.
 
 ## Log
@@ -116,5 +122,7 @@ Owner of this file: ORCH. Updated and committed after every event (V12 prompt 4b
 - 2026-10-02 G3 spawned.
 - 2026-10-02 G7 ready (e132692) and merged (ae82106): guard ok (40 files), no dash. ORCH added its cron line to `vercel.json` and its API notes to G8's brief. Integration: tsc 0, vitest 1224/1224 (52 files, the cron config test included), `check:routes` 0. G7: 24 landmark rows 0 mismatch, g7.spec 26 pass / 4 skipped flags on, flag-off 14 documents 0 differences, its 4 routes 404 with the flag off. Incident reported by G7: its first "applied" probe passed on missing tables and its dev route briefly issued real BTS pairs (reads only, no write), fixed in 582ac8e. NOT verified by G7: the SQL on production, a real vote end to end, the cron's writes, the editorial refusal against a real `editorial_accounts`.
 - 2026-10-02 G5 spawned.
+- 2026-10-02 G9 ready (4a3f2bb) and merged (ab95d9d): guard ok (73 files), no dash. ORCH added its cron line. Integration: tsc 0, vitest 1263/1263 (54 files), `check:routes` 0. G9: both states 0 mismatch in the four variants, g9.spec 14 pass / 2 skipped both on, flag-off identical. NOT verified by G9 (no editorial table and no account exist): the Supabase store, reads of editorial posts in the feed, replies and hearts on them, the cron publishing a real row; queue to published is proven in vitest with an in-memory store, not in a browser; `/admin/editorial` was never loaded (needs an admin session); the two reference states were measured by placing the real components' rendered HTML into the live pages; the SQL files and the C2 query were never executed and three column names in the C2 query come from a grep.
+- 2026-10-02 G6 spawned.
 
-NEXT ACTION: wait for G4, G9, G3, G5. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. As slots free up (max 4 builders) spawn G6, then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
+NEXT ACTION: wait for G4, G3, G5, G6. For each "ready": guard (`node scripts/v12-owner-guard.mjs --agent <ID> --range feat/v12..<branch>`), dash check on the diff, merge `--no-ff` one at a time, then whole-app tsc and vitest on `feat/v12`, do its ORCH requests (vercel.json crons, next.config.ts rewrites, flag on at build only), update this file. Then G8 last (needs G5, G6, G7 merged). A stopped agent whose branch has commits is resumed by its agent id, or respawned with its brief plus "continue from your branch and your Progress block". Route G1's open requests: R1 (ranked hook) to a G1 follow-up, R2/R3/R5 are in G3's and G4's briefs, S and L items to G8 and the other owners. After every G is merged: Phase 3 (one flag-on production build on :3071, then C1, C2, C3).
