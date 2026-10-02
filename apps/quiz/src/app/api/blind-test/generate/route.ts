@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { applyPlaylistSpec, capByRank, specFollowsCuratedSwitch, specStatuses, v12Playlist } from '@/lib/blind-test-curated';
 
 import type { NextRequest } from 'next/server';
 
@@ -51,6 +52,7 @@ interface SongRow {
   gender: string | null;
   generation: string | null;
   tier: Tier | null;
+  deezer_rank: number | null;
 }
 
 interface Question {
@@ -204,7 +206,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const supabase = await createServerClient();
 
-  const isGroupPlaylist = !GENERAL_PLAYLISTS.has(playlist);
+  // V12 (flag only): year ranges, generation + gender pairs and curated id lists
+  // (lib/blind-test-curated.ts). With the flag off `themed` is always null and every line
+  // below runs exactly as before.
+  const themed = isMultiGroup ? null : v12Playlist(playlist);
+
+  const isGroupPlaylist = !themed && !GENERAL_PLAYLISTS.has(playlist);
 
   // Resolve the playlist to a reusable filter modifier AFTER any async group lookups, so the
   // pool query can be rebuilt fresh per page by fetchAllRows below (a built query awaits once).
@@ -217,6 +224,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const { data: grps } = await supabase.from('groups').select('id').in('slug', groupSlugs);
     const ids = (grps ?? []).map((g) => g.id as number);
     applyPlaylist = ids.length > 0 ? (q) => q.in('group_id', ids) : (q) => q.eq('group_id', -1);
+  } else if (themed) {
+    applyPlaylist = (q) => applyPlaylistSpec(q, themed);
   } else if (isGroupPlaylist) {
     const { data: group } = await supabase
       .from('groups').select('id, name').eq('slug', playlist).maybeSingle();
@@ -245,22 +254,28 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   // Curation: general (non-group) playlists pull from the curated subset when enabled.
-  const applyCurated = process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && !isMultiGroup && playlist !== 'deep';
+  // A curated id list (v12) names its songs one by one: the curated-subset switch does not apply to it.
+  const applyCurated = process.env.SONGS_IS_CURATED === 'true' && !isGroupPlaylist && !isMultiGroup && playlist !== 'deep'
+    && !(themed && !specFollowsCuratedSwitch(themed));
 
   // Read the WHOLE filtered pool, paginating PAST PostgREST's 1000-row cap. Before this, any
   // pool over 1000 songs (gg 1190, bg 1350, 4th-gen 1097, all 4120) returned only the oldest
   // 1000 by id - so newly added songs never surfaced and most of the catalog was unreachable
   // in those games. The title guard is belt-and-braces (junk is excluded at import).
   const makeQuery = () => {
-    let q = supabase
+    // Status: active only. The one exception is a v12 curated list that names its own
+    // non-active status (the KPop Demon Hunters soundtrack songs), read only for that list.
+    const base = supabase
       .from('songs')
-      .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, tier')
-      .eq('status', 'active');
+      .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, preview_url, gender, generation, tier, deezer_rank');
+    let q = themed ? base.in('status', [...specStatuses(themed)]) : base.eq('status', 'active');
     if (applyCurated) q = q.eq('is_curated', true);
     q = q.not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
     return applyPlaylist(q);
   };
-  const pool = await fetchAllRows<SongRow>(makeQuery);
+  const fullPool = await fetchAllRows<SongRow>(makeQuery);
+  // A v12 "hits" list keeps its best-ranked songs; every other pool is the full read.
+  const pool = themed ? capByRank(fullPool, themed) : fullPool;
 
   if (pool.length < count) {
     return NextResponse.json(
@@ -299,7 +314,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const jit = Math.floor(Math.random() * (QUESTION_MIX.jitter * 2 + 1)) - QUESTION_MIX.jitter;
   // For a single-group / single-artist playlist, "which group/artist is this?"
   // is trivially the chosen act, so ask only "name the song" (groupCount = 0).
-  const groupCount = isGroupPlaylist
+  const groupCount = isGroupPlaylist || themed?.titleOnly
     ? 0
     : Math.max(0, Math.min(SONGS_COUNT, QUESTION_MIX.groupBase + jit));
   const types = shuffle<'artist' | 'title'>([
