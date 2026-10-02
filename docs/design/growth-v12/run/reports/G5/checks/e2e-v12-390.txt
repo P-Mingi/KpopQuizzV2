@@ -1,0 +1,16 @@
+
+Running 11 tests using 1 worker
+
+[1/11] [ux-390] › e2e/ux-v12/g5.spec.ts:155:5 › G5 personality light › kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet
+[2/11] [ux-390] › e2e/ux-v12/g5.spec.ts:251:5 › G5 personality light › wma-question, wma-result: reference landmarks, public role, real shares, bias offer
+[3/11] [ux-390] › e2e/ux-v12/g5.spec.ts:155:5 › G5 personality dark › kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet
+[4/11] [ux-390] › e2e/ux-v12/g5.spec.ts:251:5 › G5 personality dark › wma-question, wma-result: reference landmarks, public role, real shares, bias offer
+[5/11] [ux-390] › e2e/ux-v12/g5.spec.ts:349:3 › G5 personality behaviour › flag state is the expected one
+[6/11] [ux-390] › e2e/ux-v12/g5.spec.ts:355:3 › G5 personality behaviour › flag off: every /which-*, /personality* and the bridge URL answer as today
+[7/11] [ux-390] › e2e/ux-v12/g5.spec.ts:382:3 › G5 personality behaviour › routing with the flag on: pretty URL 200, internal route and other groups keep their 301
+[8/11] [ux-390] › e2e/ux-v12/g5.spec.ts:403:3 › G5 personality behaviour › SEO: title, description, canonical, indexable, one H1, breadcrumb JSON-LD, server rendered
+[9/11] [ux-390] › e2e/ux-v12/g5.spec.ts:429:3 › G5 personality behaviour › story and square share images are real PNG files of the right size
+[10/11] [ux-390] › e2e/ux-v12/g5.spec.ts:451:3 › G5 personality behaviour › Set bias, signed in: one POST to update-profile with the member name (answered by the spec)
+[11/11] [ux-390] › e2e/ux-v12/g5.spec.ts:476:3 › G5 personality behaviour › a group without a profile set has no page, and every listed group has one
+  1 skipped
+  10 passed (23.1s)

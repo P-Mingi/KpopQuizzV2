@@ -60,6 +60,12 @@ function store(): SaveStore {
   };
 }
 
+/** No GET here. With the flag off the route does not exist at all (404, as before this file). */
+export function GET(): NextResponse {
+  if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  return NextResponse.json({ error: 'method_not_allowed' }, { status: 405, headers: { Allow: 'POST' } });
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   let body: unknown = null;

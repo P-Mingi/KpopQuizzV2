@@ -1,0 +1,25 @@
+A (base feat/v12 8e67a1b) = docs/design/growth-v12/run/reports/G5/flag-off/base-v11-only.json
+B (v12/g5-personality)    = docs/design/growth-v12/run/reports/G5/flag-off/branch-v11-only.json
+Normalisation: e2e/ux-v1/helpers/flag-off-diff.mjs --structure --dev (asset names, build id, RSC payload, request id),
+plus the dev server chunk path, line and column inside the notFound() stack of a dev 404 document.
+
+SAME  /which-bts-member-are-you  A: 308 /bts-quiz 9b 501776f0ff621503  B: 308 /bts-quiz 9b 501776f0ff621503
+SAME  /which-stray-kids-member-are-you  A: 308 /stray-kids-quiz 16b 402539c5b2fa4ed4  B: 308 /stray-kids-quiz 16b 402539c5b2fa4ed4
+SAME  /which-g-i-dle-member-are-you  A: 308 /g-i-dle-quiz 13b e6beba8343c5bb47  B: 308 /g-i-dle-quiz 13b e6beba8343c5bb47
+SAME  /which-nope-member-are-you  A: 308 /nope-quiz 10b 7b071f1714267c5b  B: 308 /nope-quiz 10b 7b071f1714267c5b
+SAME  /which-bts-member-are-you/r/jimin  A: 308 /bts-quiz 9b 501776f0ff621503  B: 308 /bts-quiz 9b 501776f0ff621503
+SAME  /which-  A: 301 / 1b 8a5edab282632443  B: 301 / 1b 8a5edab282632443
+SAME  /personality  A: 308 /quizzes 8b 28ae2ec2bc83ac05  B: 308 /quizzes 8b 28ae2ec2bc83ac05
+SAME  /personality/bts  A: 308 /bts-quiz 9b 501776f0ff621503  B: 308 /bts-quiz 9b 501776f0ff621503
+SAME  /personality/stray-kids  A: 308 /stray-kids-quiz 16b 402539c5b2fa4ed4  B: 308 /stray-kids-quiz 16b 402539c5b2fa4ed4
+SAME  /personality/nope  A: 308 /nope-quiz 10b 7b071f1714267c5b  B: 308 /nope-quiz 10b 7b071f1714267c5b
+SAME  /personality/bts/r/jimin  A: 308 /bts-quiz 9b 501776f0ff621503  B: 308 /bts-quiz 9b 501776f0ff621503
+SAME  /kpop-demon-hunters-quiz  A: 404  4424b 709c758c757df8f9  B: 404  4424b 709c758c757df8f9
+SAME  /pt/kpop-demon-hunters-quiz  A: 404  4178b 553dd75034a0f839  B: 404  4178b 553dd75034a0f839
+SAME  /bts-quiz  A: 200  55425b 07484cd89884729f  B: 200  55425b 07484cd89884729f
+SAME  /nope-quiz  A: 404  4424b 709c758c757df8f9  B: 404  4424b 709c758c757df8f9
+DIFF  /api/personality/result  A: 404  4178b 553dd75034a0f839  B: 404  21b d2dfdc9511fbeaa0
+SAME  /api/personality/counts?quiz=wma&group=bts  A: 404  4178b 553dd75034a0f839  B: 404  4178b 553dd75034a0f839
+
+B: /kpop-demon-hunters-quiz is the same document as /nope-quiz (the [slug] route's 404): true
+17 URLs, 1 different

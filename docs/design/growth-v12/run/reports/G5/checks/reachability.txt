@@ -1,0 +1,30 @@
+bts          position  reachable 7/7 RM 18.1, Jin 32.9, Suga 17.5, J-Hope 8.6, Jimin 4.2, V 7.8, Jungkook 10.9
+blackpink    position  reachable 4/4 Jisoo 57.4, Jennie 7.7, Rose 22.8, Lisa 12.1
+stray-kids   position  reachable 8/8 Bang Chan 21.1, Lee Know 21, Changbin 15.4, Hyunjin 4.4, Han 15.2, Felix 12.4, Seungmin 7.1, I.N 3.3
+twice        position  reachable 9/9 Nayeon 3.5, Jeongyeon 24.3, Momo 3.5, Sana 5.6, Jihyo 3.2, Mina 11.6, Dahyun 13.7, Chaeyoung 29.8, Tzuyu 4.8
+aespa        position  reachable 4/4 Karina 12.7, Giselle 53.8, Winter 24.3, Ningning 9.3
+newjeans     position  reachable 5/5 Minji 14.3, Hanni 24.7, Danielle 11.6, Haerin 38.1, Hyein 11.4
+seventeen    position  reachable 13/13 S.Coups 14.3, Jeonghan 11.2, Joshua 7.2, Jun 10.6, Hoshi 7.4, Wonwoo 7.5, Woozi 11.8, DK 4.6, Mingyu 2.6, The8 3.9, Seungkwan 3, Vernon 1.7, Dino 14.2
+g-i-dle      position  reachable 5/5 Miyeon 19.9, Minnie 25.9, Soyeon 6.3, Yuqi 35.4, Shuhua 12.5
+ive          position  reachable 6/6 Yujin 20.5, Gaeul 28.5, Rei 31.7, Wonyoung 4.2, Liz 8.3, Leeseo 6.8
+le-sserafim  position  reachable 5/5 Chaewon 30.6, Sakura 22.8, Yunjin 22.1, Kazuha 5.1, Eunchae 19.3
+ateez        position  reachable 8/8 Hongjoong 14.2, Seonghwa 16.2, Yunho 9.7, Yeosang 23.2, San 2.2, Mingi 18.3, Wooyoung 11.6, Jongho 4.8
+enhypen      position  reachable 7/7 Jungwon 21.5, Heeseung 15.1, Jay 8.5, Jake 10.5, Sunghoon 7.8, Sunoo 16.2, Ni-ki 20.3
+txt          position  reachable 5/5 Soobin 39.8, Yeonjun 7.3, Beomgyu 24.7, Taehyun 13.7, Hueningkai 14.5
+itzy         position  reachable 5/5 Yeji 15.7, Lia 14.6, Ryujin 18.6, Chaeryeong 36.6, Yuna 14.5
+nmixx        position  reachable 6/6 Haewon 27.9, Lily 26.8, Sullyoon 20.5, Bae 2, Jiwoo 17.2, Kyujin 5.6
+bts          legacy    reachable 7/7 RM 13.5, Jin 11, Suga 3.4, J-Hope 0.2, Jimin 51.9, V 7.8, Jungkook 12.2
+blackpink    legacy    reachable 4/4 Jisoo 37.5, Jennie 30.3, Rose 11.9, Lisa 20.3
+stray-kids   legacy    reachable 6/8 Bang Chan 12.8, Lee Know 9.6, Changbin 0, Hyunjin 40.6, Han 0, Felix 23.3, Seungmin 6.2, I.N 7.4
+twice        legacy    reachable 8/9 Nayeon 15.9, Jeongyeon 7.6, Momo 16.7, Sana 6.2, Jihyo 27.8, Mina 5.8, Dahyun 0, Chaeyoung 0.3, Tzuyu 19.6
+aespa        legacy    reachable 4/4 Karina 65.7, Giselle 0.8, Winter 24.5, Ningning 9
+newjeans     legacy    reachable 5/5 Minji 56.5, Hanni 5.7, Danielle 22.2, Haerin 4.8, Hyein 10.8
+seventeen    legacy    reachable 13/13 S.Coups 25.5, Jeonghan 5.8, Joshua 29.8, Jun 1, Hoshi 0.1, Wonwoo 6.1, Woozi 0.5, DK 1.6, Mingyu 22, The8 0.8, Seungkwan 0.3, Vernon 6, Dino 0.6
+g-i-dle      legacy    reachable 5/5 Miyeon 58.3, Minnie 4.7, Soyeon 2.1, Yuqi 17.3, Shuhua 17.6
+ive          legacy    reachable 6/6 Yujin 39.1, Gaeul 11.1, Rei 0.3, Wonyoung 32.4, Liz 10.9, Leeseo 6.2
+le-sserafim  legacy    reachable 5/5 Chaewon 53.7, Sakura 3.8, Yunjin 9.9, Kazuha 18.9, Eunchae 13.7
+ateez        legacy    reachable 8/8 Hongjoong 3.6, Seonghwa 48.2, Yunho 15.7, Yeosang 3.6, San 14.1, Mingi 0.9, Wooyoung 1.9, Jongho 12.1
+enhypen      legacy    reachable 7/7 Jungwon 37, Heeseung 4.7, Jay 0.6, Jake 13.5, Sunghoon 25.1, Sunoo 18.9, Ni-ki 0.2
+txt          legacy    reachable 4/5 Soobin 49.6, Yeonjun 30.5, Beomgyu 0, Taehyun 5.5, Hueningkai 14.4
+itzy         legacy    reachable 5/5 Yeji 44.1, Lia 33.9, Ryujin 1.5, Chaeryeong 3.5, Yuna 16.9
+nmixx        legacy    reachable 6/6 Haewon 44.4, Lily 3.8, Sullyoon 29.5, Bae 13.7, Jiwoo 4.9, Kyujin 3.7
