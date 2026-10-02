@@ -8,3 +8,6 @@ GET /name-all/nct -> 301 http://localhost:3066/
 GET /games/name-all/stray-kids -> 308 http://localhost:3066/quizzes
 GET /stray-kids-quiz -> 200 
 POST /api/name-all/result {} -> 404 
+stylesheet with g6.css in the tree: ff7e12496f968335
+stylesheet bytes:   167765
+stylesheet with g6.css moved away: ff7e12496f968335

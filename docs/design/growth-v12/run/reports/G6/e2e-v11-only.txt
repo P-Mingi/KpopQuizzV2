@@ -1,0 +1,23 @@
+
+Running 18 tests using 1 worker
+
+[1/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:177:5 › G6 name them all light › nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll
+[2/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:177:5 › G6 name them all dark › nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll
+[3/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:283:3 › G6 name them all behaviour › flag state is the expected one
+[4/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:289:3 › G6 name them all behaviour › flag off: both URLs answer as today (301 to /) and the route is a 404
+[5/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:299:3 › G6 name them all behaviour › accepted spellings: Hangul, birth name, one typo; refused: unknown, short typo, twice
+[6/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:336:3 › G6 name them all behaviour › all eight found ends the round at once; Again starts a clean round; Share opens the sheet
+[7/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:372:3 › G6 name them all behaviour › the clock: 60 seconds, then the result without a give up
+[8/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:392:3 › G6 name them all behaviour › SEO: the pretty URL is indexable, the internal route is its noindex twin
+[9/18] [ux-1440] › e2e/ux-v12/g6.spec.ts:425:3 › G6 name them all behaviour › the route refuses a request with no browser id or an unknown group
+[10/18] [ux-390] › e2e/ux-v12/g6.spec.ts:177:5 › G6 name them all light › nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll
+[11/18] [ux-390] › e2e/ux-v12/g6.spec.ts:177:5 › G6 name them all dark › nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll
+[12/18] [ux-390] › e2e/ux-v12/g6.spec.ts:283:3 › G6 name them all behaviour › flag state is the expected one
+[13/18] [ux-390] › e2e/ux-v12/g6.spec.ts:289:3 › G6 name them all behaviour › flag off: both URLs answer as today (301 to /) and the route is a 404
+[14/18] [ux-390] › e2e/ux-v12/g6.spec.ts:299:3 › G6 name them all behaviour › accepted spellings: Hangul, birth name, one typo; refused: unknown, short typo, twice
+[15/18] [ux-390] › e2e/ux-v12/g6.spec.ts:336:3 › G6 name them all behaviour › all eight found ends the round at once; Again starts a clean round; Share opens the sheet
+[16/18] [ux-390] › e2e/ux-v12/g6.spec.ts:372:3 › G6 name them all behaviour › the clock: 60 seconds, then the result without a give up
+[17/18] [ux-390] › e2e/ux-v12/g6.spec.ts:392:3 › G6 name them all behaviour › SEO: the pretty URL is indexable, the internal route is its noindex twin
+[18/18] [ux-390] › e2e/ux-v12/g6.spec.ts:425:3 › G6 name them all behaviour › the route refuses a request with no browser id or an unknown group
+  14 skipped
+  4 passed (3.1s)

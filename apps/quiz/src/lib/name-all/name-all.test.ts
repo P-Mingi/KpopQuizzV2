@@ -231,7 +231,9 @@ describe('the spellings table', () => {
 
   it('no em dash, en dash or emoji in the table', () => {
     const all = JSON.stringify(NAME_ALL_SPELLINGS);
-    expect(/[–—]|\p{Extended_Pictographic}/u.test(all)).toBe(false);
+    const dashes = [String.fromCharCode(0x2013), String.fromCharCode(0x2014)];
+    expect(dashes.some((d) => all.includes(d))).toBe(false);
+    expect(/\p{Extended_Pictographic}/u.test(all)).toBe(false);
   });
 });
 
