@@ -37,7 +37,9 @@ function replyContext(post: P8Post, fandom: string | null): { placeholder: strin
   return { placeholder: 'Write a reply', chip: fandom ? `Replying in ${fandom}` : null };
 }
 
-export function PostView({ post, more, likesLive }: { post: P8Post; more: FeedPost[]; likesLive: boolean }): React.ReactElement {
+/** `titleAs`: the title is the page's one H1 everywhere except the /admin/editorial
+ *  preview (v12), which already has its own H1 and passes 'h2'. */
+export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { post: P8Post; more: FeedPost[]; likesLive: boolean; titleAs?: 'h1' | 'h2' }): React.ReactElement {
   const a = post.author;
   const group = post.group;
   // v12 editorial account (SYSTEM.md 5.6; prototype openPost('team')): team avatar, the
@@ -69,7 +71,7 @@ export function PostView({ post, more, likesLive }: { post: P8Post; more: FeedPo
 
         {team ? <TeamNote surface="post" className="p8-teamnote" /> : null}
 
-        <h1 className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</h1>
+        <Title className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</Title>
 
         {post.blog?.coverUrl ? (
           <div className="p8-post-cover">
