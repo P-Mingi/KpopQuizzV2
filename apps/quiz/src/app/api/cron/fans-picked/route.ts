@@ -30,8 +30,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const dry = req.nextUrl.searchParams.get('dry') === '1';
 
   if (!dry) {
-    const probe = await db.from('duel_song_rankings').select('entity_id', { head: true, count: 'exact' }).limit(1);
-    if (probe.error) return NextResponse.json({ ok: false, reason: 'not_applied' });
+    const probe = await db.from('duel_song_rankings').select('entity_id').limit(1);
+    if (probe.error || !Array.isArray(probe.data)) return NextResponse.json({ ok: false, reason: 'not_applied' });
   }
 
   const source = createRankingSource(db);

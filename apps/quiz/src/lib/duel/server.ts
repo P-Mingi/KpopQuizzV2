@@ -51,10 +51,11 @@ export function createDuelStore(db: SupabaseClient | null = client()): DuelStore
       let value = false;
       try {
         const [guard, ranks] = await Promise.all([
-          db.from('duel_vote_guard').select('vote_day', { head: true, count: 'exact' }).limit(1),
-          db.from('duel_song_rankings').select('entity_id', { head: true, count: 'exact' }).limit(1),
+          // a plain select, not a HEAD count: a HEAD on a missing table comes back without an error body
+          db.from('duel_vote_guard').select('vote_day').limit(1),
+          db.from('duel_song_rankings').select('entity_id').limit(1),
         ]);
-        value = !guard.error && !ranks.error;
+        value = !guard.error && !ranks.error && Array.isArray(guard.data) && Array.isArray(ranks.data);
       } catch { value = false; }
       appliedCache = { value, until: now + (value ? 300_000 : 30_000) };
       return value;
