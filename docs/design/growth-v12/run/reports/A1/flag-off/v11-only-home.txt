@@ -1,0 +1,8 @@
+# v11-only-home: A = feat/v12 836f276 (dev :3070), B = v12/a1-foundation (dev :3060), 2026-10-02T16:35:39Z
+# node e2e/ux-v1/helpers/flag-off-diff.mjs --structure --dev --a http://localhost:3070 --b http://localhost:3060 /
+DIFFERENT (structure)  /  status 200/200  raw bytes 142752/141612  normalised 49621/49621  js chunks 26/26
+  node 666
+    A: 1,516<!-- -->
+    B: 1,515<!-- -->
+1 page(s) differ
+exit 1

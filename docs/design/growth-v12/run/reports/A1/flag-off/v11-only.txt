@@ -1,0 +1,16 @@
+# v11-only: A = feat/v12 836f276 (dev :3070), B = v12/a1-foundation (dev :3060), 2026-10-02T16:34:51Z
+# node e2e/ux-v1/helpers/flag-off-diff.mjs --structure --dev --a http://localhost:3070 --b http://localhost:3060 /ux-v1/kit / /quizzes /groups /blindtest /bts-quiz /q/skz-true-or-false-only-real-stays-pass /community /leaderboard
+IDENTICAL (structure)  /ux-v1/kit  status 200/200  raw bytes 393360/392017  normalised 136463/136463  js chunks 25/25
+DIFFERENT (structure)  /  status 200/200  raw bytes 142752/141612  normalised 49621/49621  js chunks 26/26
+  node 666
+    A: 1,516<!-- -->
+    B: 1,515<!-- -->
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 233127/232350  normalised 93223/93223  js chunks 25/25
+IDENTICAL (structure)  /groups  status 200/200  raw bytes 123359/122727  normalised 78042/78042  js chunks 25/25
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 126086/125004  normalised 55789/55789  js chunks 26/26
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 144764/144132  normalised 55485/55485  js chunks 25/25
+IDENTICAL (structure)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 109317/108108  normalised 29829/29829  js chunks 26/26
+IDENTICAL (structure)  /community  status 200/200  raw bytes 123703/122838  normalised 40451/40451  js chunks 25/25
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 254029/253057  normalised 81349/81349  js chunks 26/26
+1 page(s) differ
+exit 1

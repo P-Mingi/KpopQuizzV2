@@ -21,6 +21,12 @@ const B = opt('--b', 'http://localhost:4002');
 const OUT = opt('--out', null);
 const LEVEL = args.includes('--structure') ? 'structure' : 'bytes';
 if (LEVEL === 'structure') args.splice(args.indexOf('--structure'), 1);
+// --dev (V12 run, A1): the two servers are `next dev` servers (agents may not build).
+// A dev document carries one more value that differs on every request, even between
+// two requests to the same server: the request id `self.__next_r="<id>"`. Only that
+// id is replaced; nothing else is added to the normalisation. Use with --structure.
+const DEV = args.includes('--dev');
+if (DEV) args.splice(args.indexOf('--dev'), 1);
 const pages = args.length ? args : ['/'];
 
 function normalise(html) {
@@ -59,7 +65,8 @@ let diffs = 0;
 const rows = [];
 for (const p of pages) {
   const [a, b] = await Promise.all([get(A, p), get(B, p)]);
-  const norm = LEVEL === 'structure' ? structure : normalise;
+  const level = LEVEL === 'structure' ? structure : normalise;
+  const norm = DEV ? (h) => level(h).replace(/self\.__next_r="[A-Za-z0-9_-]+"/g, 'self.__next_r="<request>"') : level;
   const na = norm(a.body);
   const nb = norm(b.body);
   const scripts = (h) => (h.match(/<script src="\/_next\/static\/chunks\/[^"]+"/g) ?? []).length;

@@ -1,0 +1,7 @@
+# both-off-home: A = feat/v12 836f276 (dev :3070), B = v12/a1-foundation (dev :3060), 2026-10-02T16:36:25Z
+# node e2e/ux-v1/helpers/flag-off-diff.mjs --structure --dev --a http://localhost:3070 --b http://localhost:3060 / /new /pt
+IDENTICAL (structure)  /  status 200/200  raw bytes 270481/268693  normalised 138114/138114  js chunks 26/26
+IDENTICAL (structure)  /new  status 200/200  raw bytes 120257/119239  normalised 56800/56800  js chunks 24/24
+IDENTICAL (structure)  /pt  status 200/200  raw bytes 183590/182573  normalised 91970/91970  js chunks 26/26
+all 3 pages identical after normalising build ids and hashed asset names
+exit 0
