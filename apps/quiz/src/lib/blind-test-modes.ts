@@ -1,3 +1,5 @@
+import { isUxV12 } from './ux-v12';
+
 export interface BlindTestMode {
   id: string;
   title: string;
@@ -186,14 +188,12 @@ export function themedVisible(playableSongs: number): boolean {
   return playableSongs >= THEMED_MIN_SONGS;
 }
 
-const flagOn = (v: string | undefined): boolean => v === '1' || v === 'true';
-
 /**
- * The v12 flag, read inline until A1's lib/ux-v12.ts (isUxV12) is merged: true only when
- * NEXT_PUBLIC_UX_V12 and NEXT_PUBLIC_UX_V1 are both on. The same two tests as isUxV12().
+ * The v12 flag for everything G2 gates (themed modes, v12 generate playlists): isUxV12() of
+ * lib/ux-v12.ts, true only when NEXT_PUBLIC_UX_V12 and NEXT_PUBLIC_UX_V1 are both on.
  */
 export function themedModesOn(): boolean {
-  return flagOn(process.env.NEXT_PUBLIC_UX_V12) && flagOn(process.env.NEXT_PUBLIC_UX_V1);
+  return isUxV12();
 }
 
 /** The static modes of a flag state: the 18 legacy modes, plus the themed ones when v12 is on. */
