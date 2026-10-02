@@ -12,6 +12,7 @@ export type NicknameCheck = { ok: true; value: string } | { ok: false; error: Ni
 export function cleanNickname(raw: unknown): string {
   return String(raw ?? '')
     .normalize('NFKC')
+    .replace(/\s+/g, ' ')
     .replace(/[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u2028-\u202f\u2060-\u206f\ufeff]/g, '')
     .replace(/[<>&"'`\\]/g, '')
     .replace(/\s+/g, ' ')

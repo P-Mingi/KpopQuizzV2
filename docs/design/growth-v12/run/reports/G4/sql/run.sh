@@ -40,7 +40,7 @@ echo "== rules"
 $PSQL -f "$HERE/local-check.sql"
 
 echo "== 60 phones join one room at the same time (pgbench, 20 connections x 3): the cap holds"
-ROOM=$($PSQL -At -c "SELECT public.live_create_room('PQRSTU', 'h', NULL, 'all', 'All K-pop', 5, 15, '[]'::jsonb, true, 'ipb')")
+ROOM=$($PSQL -At -c "SELECT public.live_create_room('PQRSTU', 'h', 'all', 'All K-pop', 5, 15, '[]'::jsonb, true, 'ipb')")
 cat > "$WORK/join.sql" <<EOF
 SELECT public.live_join('$ROOM'::uuid, md5(random()::text || clock_timestamp()::text), 'fan', 0, 50);
 EOF

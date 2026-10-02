@@ -26,7 +26,6 @@ export class LiveNotLiveError extends Error {
 export interface NewRoom {
   code: string;
   host_token_hash: string;
-  host_user_id: string | null;
   playlist: string;
   label: string;
   rounds: number;

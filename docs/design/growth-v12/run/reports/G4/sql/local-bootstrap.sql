@@ -16,9 +16,6 @@ GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO anon, authenticated, service_role;
 
-CREATE SCHEMA IF NOT EXISTS auth;
-CREATE TABLE IF NOT EXISTS auth.users (id uuid PRIMARY KEY DEFAULT gen_random_uuid());
-
 -- The part of Supabase Realtime the policy touches: realtime.messages (RLS on) and
 -- realtime.topic(), which reads the topic the Realtime server sets for the check.
 CREATE SCHEMA IF NOT EXISTS realtime;

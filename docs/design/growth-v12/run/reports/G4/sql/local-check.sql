@@ -24,9 +24,9 @@ BEGIN
   FROM generate_series(1, 5);
 
   -- Create, and the code is unique among open rooms.
-  v_room := public.live_create_room('ABCDEF', 'hosthash', NULL, 'all', 'All K-pop', 5, 15, q, true, 'ip1');
+  v_room := public.live_create_room('ABCDEF', 'hosthash', 'all', 'All K-pop', 5, 15, q, true, 'ip1');
   ASSERT v_room IS NOT NULL, 'room created';
-  ASSERT public.live_create_room('ABCDEF', 'h2', NULL, 'all', 'All K-pop', 5, 15, q, true, 'ip1') IS NULL, 'open code refused';
+  ASSERT public.live_create_room('ABCDEF', 'h2', 'all', 'All K-pop', 5, 15, q, true, 'ip1') IS NULL, 'open code refused';
 
   -- State of a lobby.
   v := public.live_room_state('ABCDEF');
@@ -149,7 +149,7 @@ BEGIN
   SELECT count(*) INTO n FROM public.live_answers WHERE room_id = v_room;
   ASSERT n = 0, 'answers deleted on close';
   ASSERT public.live_join(v_room, 'x', 'ghost', 0, 50) ->> 'status' = 'gone', 'no join in a closed room';
-  v_other := public.live_create_room('ABCDEF', 'h3', NULL, 'all', 'All K-pop', 5, 15, q, false, 'ip1');
+  v_other := public.live_create_room('ABCDEF', 'h3', 'all', 'All K-pop', 5, 15, q, false, 'ip1');
   ASSERT v_other IS NOT NULL, 'the code of a closed room can be given again';
 
   -- Expiry. A real room past its two hours: closed and emptied, the row kept.
@@ -159,7 +159,7 @@ BEGIN
   ASSERT public.live_submit_answer('ABCDEF', 'e1', 1) ->> 'status' = 'gone', 'no answer in an expired room';
   ASSERT NOT public.live_start_round(v_other, 1, 1), 'no round in an expired room';
   -- An expired room gives its code back at once.
-  v_room := public.live_create_room('ABCDEF', 'h4', NULL, 'all', 'All K-pop', 5, 15, q, true, 'ip2');
+  v_room := public.live_create_room('ABCDEF', 'h4', 'all', 'All K-pop', 5, 15, q, true, 'ip2');
   ASSERT v_room IS NOT NULL, 'the code of an expired room can be given again';
   PERFORM public.live_join(v_room, 'e2', 'fan', 0, 50);
   UPDATE public.live_rooms SET expires_at = now() - interval '1 minute' WHERE id = v_room;
@@ -181,12 +181,12 @@ BEGIN
 
   -- Constraints.
   BEGIN
-    PERFORM public.live_create_room('abc', 'h', NULL, 'all', 'x', 5, 15, q, true, 'ip');
+    PERFORM public.live_create_room('abc', 'h', 'all', 'x', 5, 15, q, true, 'ip');
     RAISE EXCEPTION 'a bad code was accepted';
   EXCEPTION WHEN check_violation THEN NULL;
   END;
   BEGIN
-    PERFORM public.live_create_room('BCDEFG', 'h', NULL, 'all', 'x', 21, 15, q, true, 'ip');
+    PERFORM public.live_create_room('BCDEFG', 'h', 'all', 'x', 21, 15, q, true, 'ip');
     RAISE EXCEPTION '21 rounds were accepted';
   EXCEPTION WHEN check_violation THEN NULL;
   END;
@@ -198,7 +198,7 @@ $$;
 RESET ROLE;
 
 -- A room for the public-key checks below.
-SELECT public.live_create_room('HJKLMN', 'hosthash', NULL, 'all', 'All K-pop', 5, 15, '[]'::jsonb, true, 'ip9') AS open_room \gset
+SELECT public.live_create_room('HJKLMN', 'hosthash', 'all', 'All K-pop', 5, 15, '[]'::jsonb, true, 'ip9') AS open_room \gset
 INSERT INTO realtime.messages (topic, extension, event) VALUES ('live:' || :'open_room', 'broadcast', 'state');
 INSERT INTO realtime.messages (topic, extension, event) VALUES ('live:' || :'open_room', 'presence', 'state');
 SELECT set_config('g4.room', :'open_room', false) \g /dev/null

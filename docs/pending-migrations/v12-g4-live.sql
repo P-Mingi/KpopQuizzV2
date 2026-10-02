@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS public.live_rooms (
   id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   code             text NOT NULL CHECK (code ~ '^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$'),
   host_token_hash  text NOT NULL,
-  host_user_id     uuid REFERENCES auth.users(id) ON DELETE SET NULL,
   playlist         text NOT NULL DEFAULT 'all',
   label            text NOT NULL DEFAULT 'All K-pop',
   rounds           smallint NOT NULL CHECK (rounds BETWEEN 1 AND 20),
@@ -70,7 +69,6 @@ CREATE TABLE IF NOT EXISTS public.live_rooms (
 CREATE UNIQUE INDEX IF NOT EXISTS live_rooms_open_code_idx ON public.live_rooms (code) WHERE status <> 'closed';
 CREATE INDEX IF NOT EXISTS live_rooms_expires_idx ON public.live_rooms (expires_at) WHERE status <> 'closed';
 CREATE INDEX IF NOT EXISTS live_rooms_ip_idx ON public.live_rooms (ip_hash, created_at);
-CREATE INDEX IF NOT EXISTS live_rooms_host_user_idx ON public.live_rooms (host_user_id) WHERE host_user_id IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS public.live_players (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -124,7 +122,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON public.live_rooms, public.live_players, 
 
 -- Open a room. Returns its id, or NULL when the code belongs to another open room.
 CREATE OR REPLACE FUNCTION public.live_create_room(
-  p_code text, p_host_token_hash text, p_host_user_id uuid, p_playlist text, p_label text,
+  p_code text, p_host_token_hash text, p_playlist text, p_label text,
   p_rounds integer, p_seconds integer, p_questions jsonb, p_is_test boolean, p_ip_hash text
 ) RETURNS uuid
 LANGUAGE plpgsql SECURITY INVOKER SET search_path = ''
@@ -136,8 +134,8 @@ BEGIN
   UPDATE public.live_rooms SET status = 'closed', closed_at = now()
   WHERE code = p_code AND status <> 'closed' AND expires_at <= now();
 
-  INSERT INTO public.live_rooms (code, host_token_hash, host_user_id, playlist, label, rounds, seconds, questions, is_test, ip_hash)
-  VALUES (p_code, p_host_token_hash, p_host_user_id, p_playlist, p_label, p_rounds, p_seconds, p_questions, p_is_test, p_ip_hash)
+  INSERT INTO public.live_rooms (code, host_token_hash, playlist, label, rounds, seconds, questions, is_test, ip_hash)
+  VALUES (p_code, p_host_token_hash, p_playlist, p_label, p_rounds, p_seconds, p_questions, p_is_test, p_ip_hash)
   ON CONFLICT (code) WHERE status <> 'closed' DO NOTHING
   RETURNING id INTO v_id;
   RETURN v_id;
@@ -441,7 +439,7 @@ END;
 $$;
 
 REVOKE EXECUTE ON FUNCTION
-  public.live_create_room(text, text, uuid, text, text, integer, integer, jsonb, boolean, text),
+  public.live_create_room(text, text, text, text, integer, integer, jsonb, boolean, text),
   public.live_room_state(text),
   public.live_join(uuid, text, text, integer, integer),
   public.live_start_round(uuid, integer, integer),
@@ -457,7 +455,7 @@ REVOKE EXECUTE ON FUNCTION
 FROM PUBLIC, anon, authenticated;
 
 GRANT EXECUTE ON FUNCTION
-  public.live_create_room(text, text, uuid, text, text, integer, integer, jsonb, boolean, text),
+  public.live_create_room(text, text, text, text, integer, integer, jsonb, boolean, text),
   public.live_room_state(text),
   public.live_join(uuid, text, text, integer, integer),
   public.live_start_round(uuid, integer, integer),
@@ -541,7 +539,7 @@ WHERE schemaname = 'realtime' AND tablename = 'messages' AND policyname LIKE 'li
 -- DROP FUNCTION IF EXISTS public.live_start_round(uuid, integer, integer);
 -- DROP FUNCTION IF EXISTS public.live_join(uuid, text, text, integer, integer);
 -- DROP FUNCTION IF EXISTS public.live_room_state(text);
--- DROP FUNCTION IF EXISTS public.live_create_room(text, text, uuid, text, text, integer, integer, jsonb, boolean, text);
+-- DROP FUNCTION IF EXISTS public.live_create_room(text, text, text, text, integer, integer, jsonb, boolean, text);
 -- DROP TABLE IF EXISTS public.live_answers;
 -- DROP TABLE IF EXISTS public.live_players;
 -- DROP TABLE IF EXISTS public.live_rooms;

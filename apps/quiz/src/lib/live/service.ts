@@ -266,7 +266,7 @@ export function liveStatus(deps: LiveDeps): Promise<LiveResult<{ ok: true; max: 
 /** POST /api/live/rooms: the host opens a room. */
 export function createRoom(
   deps: LiveDeps,
-  input: { body: unknown; ipHash: string; userId?: string | null },
+  input: { body: unknown; ipHash: string },
 ): Promise<LiveResult<{ code: string; host_token: string; state: LiveHostState }>> {
   return guarded(async () => {
     await deps.store.ping();
@@ -279,7 +279,6 @@ export function createRoom(
       const made = await deps.store.createRoom({
         code,
         host_token_hash: hashToken(token),
-        host_user_id: input.userId && UUID_RE.test(input.userId) ? input.userId : null,
         ...settings,
         is_test: deps.isTest,
         ip_hash: input.ipHash,
