@@ -20,7 +20,7 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 
 const clean = (html: string): string => html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ')
   .replace(/&#39;|&apos;|&#x27;|&#039;|&#8217;|&#8216;|&rsquo;|&lsquo;/g, "'").replace(/&quot;|&#8220;|&#8221;|&ldquo;|&rdquo;/g, '"').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ')
-  .replace(/[‘’]/g, "'").replace(/[“”″]/g, '"').replace(/[–—]|&#8211;|&#8212;|&mdash;|&ndash;/g, '-').replace(/\s+/g, ' ');
+  .replace(/[‘’]/g, "'").replace(/[“”″]/g, '"').replace(/[\u2013\u2014]|&#8211;|&#8212;|&mdash;|&ndash;/g, '-').replace(/\s+/g, ' ');
 const squash = (s: string): string => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
 
 const pages = new Map<string, { status: number; text: string }>();
