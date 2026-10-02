@@ -1,0 +1,78 @@
+/* G3 Blindtest acquisition (V12). Served by /api/ux-v1/a0/styles only when
+   isUxV12() (lib/ux-v1/a0/stylesheet.ts), never imported. Values are the v12
+   prototype's (docs/design/growth-v12/prototype.html: .liveband, .lv-art,
+   .langrow, .landtop, .landhero, .plhero, .tracks, .bridge), on the a0 tokens.
+   Classes are prefixed g3-. Shared pieces (theme cards, steps, language switch,
+   kicker, url chip, New badge) are A1's and are not restyled here. */
+
+/* ---------- shared by the landing and the theme page ---------- */
+.g3-land.ux-pg, .g3-theme.ux-pg { padding-top: 28px; }
+.g3-lead { color: var(--ux-muted); font-size: 18px; line-height: 1.55; }
+.g3-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 32px; }
+.g3-grow { flex: 1; min-width: 0; }
+.g3-nw { white-space: nowrap; }
+
+/* ---------- /blindtest: live band ---------- */
+.g3-liveband { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; align-items: center; padding: 32px 36px; border: 1px solid var(--ux-qotd-edge); border-radius: 24px; background: var(--ux-host-bg); }
+.g3-liveband h2 { font-size: 26px; line-height: 1.6; font-weight: 700; letter-spacing: -0.02em; margin-top: 10px; }
+.g3-liveband p { color: var(--ux-muted); margin-top: 8px; max-width: 52ch; }
+.g3-liveband .g3-actions { margin-top: 20px; }
+.g3-lvart { position: relative; height: 170px; }
+.g3-lvscr { position: absolute; left: 0; top: 10px; width: 220px; height: 132px; border-radius: 14px; background: var(--ux-raised); border: 1px solid var(--ux-line); box-shadow: var(--ux-shadow-card); padding: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; align-content: end; }
+.g3-lvscr i { height: 26px; border-radius: 7px; }
+.g3-lvp { position: absolute; right: 6px; top: 0; width: 86px; height: 164px; border-radius: 18px; background: var(--ux-raised); border: 1px solid var(--ux-line); box-shadow: var(--ux-shadow-card); padding: 14px 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-content: end; }
+.g3-lvp i { height: 40px; border-radius: 8px; }
+
+/* ---------- language row (hub foot, landing foot) ---------- */
+.g3-langrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--ux-line); font-size: 14px; color: var(--ux-muted); }
+.g3-langrow a { color: var(--ux-ink); font-weight: 500; }
+.g3-langrow a:hover { color: var(--ux-pink-ink); }
+
+/* ---------- landing ---------- */
+.g3-landtop { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.g3-landhero { text-align: center; padding: 56px 32px 48px; border: 1px solid var(--ux-qotd-edge); border-radius: 28px; background: var(--ux-bt-bg); position: relative; overflow: hidden; }
+.g3-landhero h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px; color: var(--ux-ink); }
+.g3-landhero h1 em { font-style: italic; color: var(--ux-hl); }
+.g3-landhero .p6-eyebrow { justify-content: center; }
+.g3-landhero .g3-lead { max-width: 560px; margin: 14px auto 0; font-size: 17px; }
+.g3-landhero .g3-actions { justify-content: center; margin-top: 28px; }
+.g3-landhero .p6-err { margin-top: 16px; }
+.g3-trust { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px; font-size: 14px; color: var(--ux-muted); list-style: none; padding: 0; }
+.g3-trust li { display: inline-flex; align-items: center; gap: 6px; }
+.g3-trust .ux-ico { width: 16px; height: 16px; color: var(--ux-pink); }
+
+/* ---------- theme page ---------- */
+.g3-plhero { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: end; margin-top: 24px; }
+.g3-plcv { aspect-ratio: 1; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; background: var(--ux-th, var(--ux-th-hits26)); color: var(--ux-th-ink); position: relative; overflow: hidden; }
+.g3-plcv.is-dark { color: #fff; }
+.g3-plcv b { font-size: 30px; font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; }
+.g3-plcv small { font-size: 13px; font-weight: 600; opacity: .8; margin-top: 6px; }
+.g3-plhero h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 10px; color: var(--ux-ink); }
+.g3-plhero .g3-lead { margin-top: 10px; max-width: 56ch; }
+.g3-plhero .g3-actions { margin-top: 22px; }
+.g3-plhero .p6-err { margin-top: 16px; }
+
+.g3-tracks { counter-reset: g3t; list-style: none; padding: 0; margin: 0; }
+.g3-tr { display: flex; align-items: center; gap: 16px; min-height: 56px; border-bottom: 1px solid var(--ux-line); font-size: 15px; }
+.g3-tr::before { counter-increment: g3t; content: counter(g3t); width: 22px; text-align: right; color: var(--ux-muted); font-variant-numeric: tabular-nums; font-size: 14px; }
+.g3-tr b { font-weight: 600; }
+.g3-tr span span { color: var(--ux-muted); font-size: 14px; }
+
+.g3-bridge { display: flex; align-items: center; gap: 24px; padding: 24px 28px; border: 1px solid var(--ux-qotd-edge); border-radius: 20px; background: var(--ux-qotd-bg); }
+.g3-bridge h2 { font-size: 20px; font-weight: 700; }
+.g3-bridge p { color: var(--ux-muted); font-size: 15px; margin-top: 4px; }
+.g3-bridge-ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--ux-raised); color: var(--ux-pink-ink); flex: 0 0 48px; }
+
+@media (max-width: 760px) {
+  .g3-lead { font-size: 16px; }
+  .g3-actions { margin-top: 24px; }
+  .g3-actions .ux-btn-lg { width: 100%; }
+  .g3-liveband { grid-template-columns: 1fr; padding: 24px 20px; }
+  .g3-lvart { display: none; }
+  .g3-landhero { padding: 36px 18px 32px; border-radius: 22px; }
+  .g3-landtop .ux-urlchip { max-width: 100%; }
+  .g3-plhero { grid-template-columns: 1fr; gap: 20px; }
+  .g3-plcv { max-width: 220px; }
+  .g3-plhero h1 { font-size: 30px; }
+  .g3-bridge { flex-direction: column; align-items: flex-start; padding: 20px; }
+}

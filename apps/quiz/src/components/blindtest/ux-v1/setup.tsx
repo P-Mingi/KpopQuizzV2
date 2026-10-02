@@ -60,6 +60,13 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
           </div>
         </>
       ) : null}
+      {hub.themes.length > 0 ? (
+        <>
+          <div className="ux-msep" />
+          <div className="p6-pl-h">Themes</div>
+          {hub.themes.map((m) => item(m, m.label))}
+        </>
+      ) : null}
       <div className="ux-msep" />
       <div className="p6-pl-h">Mixes</div>
       {MIXES.map((m) => item(m, m.label))}

@@ -18,11 +18,13 @@ import { useBlindtestRun } from './use-run';
 import type { HubApi } from './hub-context';
 import type { BoardResponse } from '@/lib/ux-v1/p6/board-types';
 import type { ChallengeView } from '@/lib/ux-v1/p6/challenge';
-import type { BtGroup, BtPick } from '@/lib/ux-v1/p6/playlists';
+import type { BtGroup, BtPick, MixItem } from '@/lib/ux-v1/p6/playlists';
 
 interface Props {
   groups: BtGroup[];
   songs: number;
+  /** V12 (flag only): the playable themed playlists, listed in the playlist menu. */
+  themes?: readonly MixItem[] | undefined;
   /** The server-rendered hub (hero, ways to play, board, play by group, FAQ). */
   children: React.ReactNode;
 }
@@ -46,6 +48,7 @@ async function fetchBoard(): Promise<BoardResponse | null> {
     return null; // the board is a nice-to-have; the hub stands without it
   }
 }
+const NO_THEMES: readonly MixItem[] = [];
 const PLAYED_TOAST = 'One try per day. See how you rank on today\'s board.';
 
 /**
@@ -56,7 +59,7 @@ const PLAYED_TOAST = 'One try per day. See how you rank on today\'s board.';
  * (today's blindtest) and ?c=<code> (a friend's challenge) open the game in the
  * "Tap to play the clip" state, since audio needs a tap.
  */
-export function BtHubController({ groups, songs, children }: Props): React.ReactElement {
+export function BtHubController({ groups, songs, themes, children }: Props): React.ReactElement {
   const announce = useAnnounce();
   const toast = useUxToast();
   const live = useIsClient();
@@ -105,7 +108,7 @@ export function BtHubController({ groups, songs, children }: Props): React.React
 
   const challengePick = (v: ChallengeView): BtPick => ({ playlist: v.playlist, label: v.label });
   const startChallenge = useCallback((v: ChallengeView) => {
-    run.startChallenge(v.questions, { playlist: v.playlist, label: v.label });
+    run.startChallenge(v.questions, { playlist: v.playlist, label: v.label }, v.code);
   }, [run]);
 
   // Deep links (once, on mount).
@@ -188,6 +191,7 @@ export function BtHubController({ groups, songs, children }: Props): React.React
     run,
     groups,
     songs,
+    themes: themes ?? NO_THEMES,
     pick,
     setPick,
     rounds,
