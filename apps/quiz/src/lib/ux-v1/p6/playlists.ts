@@ -59,7 +59,7 @@ export const MODE_ONLY_MIXES: readonly MixItem[] = [
 export const V12_MIXES_ALL: readonly MixItem[] = [
   { playlist: 'kpop-hits-2026', label: 'K-pop hits 2026' },
   { playlist: 'kpop-hits-2025', label: 'K-pop hits 2025' },
-  { playlist: 'tiktok-viral', label: 'TikTok viral' },
+  { playlist: 'tiktok-viral', label: 'Viral on TikTok' },
   { playlist: 'kpop-demon-hunters', label: 'KPop Demon Hunters' },
   { playlist: 'recent-hits', label: '2024-2026 hits' },
   { playlist: 'kpop-legends', label: 'K-pop legends' },
