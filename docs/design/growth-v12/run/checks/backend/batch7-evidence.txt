@@ -1,0 +1,23 @@
+C2 batch 7 at 2026-10-03T10:52:07.075Z on http://localhost:3071
+
+GET /api/live -> 503 {"error":"not_live"}
+GET /api/live/rooms/ABCDEF -> 503 {"error":"not_live"}
+GET /api/live/rooms/ABCDEF/state -> 503 {"error":"not_live"}
+GET /api/cron/live-expire -> 401 {"error":"Unauthorized"}
+GET /api/cron/live-expire with a wrong bearer -> 401
+GET /live -> 200; robots noindex=true
+GET /join -> 200; robots noindex=true
+GET /join/ABCDEF -> 200; robots noindex=true
+
+## /live host setup (1440)
+data-open=no; closed note: "Live blindtest is not open yet. It opens here soon."
+"Open the room" present=1 disabled=true
+GET GET /api/live
+
+## /join phone (390): code ABCDEF, nickname, Join
+phone text: Join a live blindtest kpopquiz.org/join Join a game Room code Nickname C Join No account needed
+GET POST (headers none) /api/live/rooms/ABCDEF/join
+STUBBED POST /api/live/rooms/ABCDEF/join body={"nickname":"C2check","colour":0}
+
+## /join/ABCDEF phone (390)
+phone text: Join a live blindtest kpopquiz.org/join Join a game Room code Nickname K Join No account needed
