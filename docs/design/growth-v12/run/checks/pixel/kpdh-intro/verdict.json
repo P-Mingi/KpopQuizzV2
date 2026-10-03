@@ -1,0 +1,79 @@
+{
+ "state": "kpdh-intro",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:43:07.756Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.22,
+    "maskedPct": 11.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "intro card",
+     "proto": ".pintro",
+     "impl": ".ux-pers-intro",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".ux-pers-intro .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  }
+ },
+ "owner": "G5",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "not verified"
+}

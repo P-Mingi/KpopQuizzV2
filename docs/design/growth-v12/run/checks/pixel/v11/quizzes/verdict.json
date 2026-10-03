@@ -1,0 +1,257 @@
+{
+ "state": "quizzes",
+ "owner": "P2",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:40:29.153Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "url": "/quizzes",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1990
+    ],
+    "implSize": [
+     1440,
+     6011
+    ],
+    "diffPct": 73.39,
+    "maskedPct": 35.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:40:32.937Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "url": "/quizzes",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1990
+    ],
+    "implSize": [
+     1440,
+     6011
+    ],
+    "diffPct": 73.23,
+    "maskedPct": 35.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  },
+  "390-light": {
+   "at": "2026-10-03T10:40:36.696Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "url": "/quizzes",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     3012
+    ],
+    "implSize": [
+     390,
+     8467
+    ],
+    "diffPct": 71.49,
+    "maskedPct": 34.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:40:40.323Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "url": "/quizzes",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     3012
+    ],
+    "implSize": [
+     390,
+     8467
+    ],
+    "diffPct": 71.06,
+    "maskedPct": 34.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "not verified"
+}

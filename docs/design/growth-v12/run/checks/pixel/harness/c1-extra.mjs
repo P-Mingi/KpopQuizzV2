@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// C1 V12 run: copy of the v11 C1 extra checks retargeted to the v12 prototype and :3071 (v11 regression
+// set). The v12 controls are in c1-extra-v12.mjs.
 // C1 extra checks (C1 brief): the nav fits at 1280 and 1440; hover and focus states on
 // cards, buttons and tabs; dark (and light) theme tokens; reduced motion. Each check
 // measures the prototype and the flag-ON build the same way and writes
@@ -12,15 +14,15 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 
-import { WT, AUTH_FILE } from './drivers.mjs';
+import { WT, AUTH_FILE } from './drivers-v11.mjs';
 
 const require = createRequire(path.join(WT, 'apps/quiz/package.json'));
 const { chromium } = require('@playwright/test');
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, all) => (v.startsWith('--') ? [...a, [v.slice(2), all[i + 1]]] : a), []));
-const BASE = args.base || 'http://localhost:3021';
+const BASE = args.base || 'http://localhost:3071';
 const ONLY = (args.only || 'nav,hover,focus,sheetfocus,tokens,motion').split(',');
-const OUT = path.join(WT, 'docs/design/ux-dashboard-v1/v11/checks/pixel/_extra');
-const PROTO = pathToFileURL(path.join(WT, 'docs/design/ux-dashboard-v1/prototype.html')).href;
+const OUT = path.join(WT, 'docs/design/growth-v12/run/checks/pixel/_extra');
+const PROTO = pathToFileURL(path.join(WT, 'docs/design/growth-v12/prototype.html')).href;
 fs.mkdirSync(OUT, { recursive: true });
 const vfile = path.join(OUT, 'verdict.json');
 const V = fs.existsSync(vfile) ? JSON.parse(fs.readFileSync(vfile, 'utf8')) : {};
@@ -34,7 +36,7 @@ async function proto(width, theme, js, { reduced = false } = {}) {
   const page = await ctx.newPage();
   await page.goto(PROTO);
   await page.waitForTimeout(400);
-  await page.addStyleTag({ content: '.notes-t,.guestbar,.notes{display:none!important}' });
+  await page.addStyleTag({ content: '.notes-t,.tour-t,.guestbar,.notes,.dnote{display:none!important}' });
   await page.evaluate((code) => { document.body.classList.remove('guest'); closeAll(); eval(code); }, js);
   await page.waitForTimeout(700);
   return { ctx, page };

@@ -1,0 +1,521 @@
+{
+ "state": "land-en",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:45:48.597Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 8
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 10.88,
+    "maskedPct": 17.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".landhero",
+     "impl": ".g3-landhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the \"fans playing today\" eyebrow is hidden until bt_runs exists (G3 report), so the hero is one line shorter"
+    },
+    {
+     "name": "H1",
+     "proto": ".landhero h1",
+     "impl": ".g3-landhero h1",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "language switch",
+     "proto": ".langsw",
+     "impl": ".g3-landtop .ux-langsw",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": [],
+     "why": "m width: A1 deviation 1, the prototype switch is 11px wider than its phone column and scrolls sideways"
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".g3-landhero .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g3-land .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#g3-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "steps",
+     "proto": ".steps3",
+     "impl": "#g3-steps",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:45:50.156Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 8
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 13.76,
+    "maskedPct": 17.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".landhero",
+     "impl": ".g3-landhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the \"fans playing today\" eyebrow is hidden until bt_runs exists (G3 report), so the hero is one line shorter"
+    },
+    {
+     "name": "H1",
+     "proto": ".landhero h1",
+     "impl": ".g3-landhero h1",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "language switch",
+     "proto": ".langsw",
+     "impl": ".g3-landtop .ux-langsw",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": [],
+     "why": "m width: A1 deviation 1, the prototype switch is 11px wider than its phone column and scrolls sideways"
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".g3-landhero .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g3-land .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#g3-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "steps",
+     "proto": ".steps3",
+     "impl": "#g3-steps",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:45:51.725Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 8
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 8.34,
+    "maskedPct": 30
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".landhero",
+     "impl": ".g3-landhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the \"fans playing today\" eyebrow is hidden until bt_runs exists (G3 report), so the hero is one line shorter"
+    },
+    {
+     "name": "H1",
+     "proto": ".landhero h1",
+     "impl": ".g3-landhero h1",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "language switch",
+     "proto": ".langsw",
+     "impl": ".g3-landtop .ux-langsw",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": [],
+     "why": "m width: A1 deviation 1, the prototype switch is 11px wider than its phone column and scrolls sideways"
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".g3-landhero .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g3-land .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#g3-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "steps",
+     "proto": ".steps3",
+     "impl": "#g3-steps",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:45:53.311Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 8
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 12,
+    "maskedPct": 30
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".landhero",
+     "impl": ".g3-landhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the \"fans playing today\" eyebrow is hidden until bt_runs exists (G3 report), so the hero is one line shorter"
+    },
+    {
+     "name": "H1",
+     "proto": ".landhero h1",
+     "impl": ".g3-landhero h1",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "language switch",
+     "proto": ".langsw",
+     "impl": ".g3-landtop .ux-langsw",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": [],
+     "why": "m width: A1 deviation 1, the prototype switch is 11px wider than its phone column and scrolls sideways"
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".g3-landhero .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g3-land .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#g3-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "steps",
+     "proto": ".steps3",
+     "impl": "#g3-steps",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

@@ -1,0 +1,333 @@
+{
+ "state": "theme-hits25",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:46:25.861Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/kpop-hits-2025",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 7.65,
+    "maskedPct": 8.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:46:27.243Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/kpop-hits-2025",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 7.68,
+    "maskedPct": 8.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T10:46:28.701Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/kpop-hits-2025",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.33,
+    "maskedPct": 16.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:46:30.171Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/kpop-hits-2025",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.36,
+    "maskedPct": 16.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

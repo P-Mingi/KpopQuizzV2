@@ -1,0 +1,333 @@
+{
+ "state": "theme-gen5",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:46:31.622Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/5th-gen",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.22,
+    "maskedPct": 6.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:46:33.037Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/5th-gen",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.22,
+    "maskedPct": 6.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T10:46:34.506Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/5th-gen",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.41,
+    "maskedPct": 16.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:46:35.989Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/5th-gen",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.47,
+    "maskedPct": 16.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

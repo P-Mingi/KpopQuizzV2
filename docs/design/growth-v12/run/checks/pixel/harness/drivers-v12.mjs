@@ -81,7 +81,7 @@ export const G3 = {
     lm: [{ name: 'live band', proto: '.liveband', impl: '.g3-liveband', box: ['x', 'w', 'h'] }, { name: 'band button', proto: '.liveband .btn-primary', impl: '.g3-liveband .ux-btn-primary', box: ['h'] }] },
   'land-en': { owner: 'G3', auth: 'guest', anchor: null, open: openLand('en'), lm: [...LAND_LM, THEME_CARD, { name: 'steps', proto: '.steps3', impl: '#g3-steps', box: ['w', 'h'] }] },
   'land-en-steps': { owner: 'G3', auth: 'guest', anchor: '#g3-steps', open: openLand('en'), lm: [{ name: 'steps', proto: '.steps3', impl: '#g3-steps', box: ['x', 'w', 'h', 'vy'] }] },
-  'land-en-faq': { owner: 'G3', auth: 'guest', anchor: '#g3-faq', open: openLand('en'), lm: [{ name: 'FAQ', proto: '#ld-faq', impl: '#g3-faq', box: ['x', 'w', 'vy'] }] },
+  'land-en-faq': { owner: 'G3', auth: 'guest', anchor: '#g3-faq', open: openLand('en'), lm: [{ name: 'FAQ', proto: '#ld-faq', impl: '#g3-faq', box: ['x', 'w'], why: 'vy not compared: the FAQ sits at the page end on both sides, so the scroll is clamped by the height of what follows (footer), not by the FAQ' }] },
   'land-fr': { owner: 'G3', auth: 'guest', anchor: null, open: openLand('fr'), lm: LAND_LM },
   'land-es': { owner: 'G3', auth: 'guest', anchor: null, open: openLand('es'), lm: LAND_LM },
   'land-id': { owner: 'G3', auth: 'guest', anchor: null, open: openLand('id'), lm: LAND_LM },
