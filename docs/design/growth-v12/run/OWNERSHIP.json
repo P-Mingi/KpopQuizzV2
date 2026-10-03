@@ -222,5 +222,6 @@
     "apps/quiz/src/app/(site)/admin/layout.tsx",
     "apps/quiz/src/lib/editorial-exclusions.test.ts",
     "apps/quiz/e2e/ux-v12/f2.spec.ts"
-  ]
+  ],
+  "F3": []
 }
