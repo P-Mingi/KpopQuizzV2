@@ -11,6 +11,7 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { TextCard, TextCardGrid } from '@/components/ux-v1/text-card';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { getLevelInfo } from '@/lib/constants';
+import { isUxV12 } from '@/lib/ux-v12';
 import { formatCount } from '@/lib/utils';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
@@ -89,6 +90,8 @@ export interface P4QuizPageProps {
 export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
   const q = p.quiz;
   const lv = getLevelInfo(p.creator?.xp ?? q.creatorXp);
+  // v12 F5a: an editorial (team) account carries the Team badge and no level (SYSTEM.md 5.6)
+  const team = p.creator?.team === true && isUxV12();
   const perfect = p.perQuestionScore && p.extra.perfectScoreCount > 0 ? p.extra.perfectScoreCount : 0;
   const fastest = p.perQuestionScore && p.extra.fastestTimeSeconds !== null ? formatDuration(p.extra.fastestTimeSeconds) : null;
   const hofMeta = [perfect > 0 ? `${perfect.toLocaleString('en-US')} perfect ${perfect === 1 ? 'score' : 'scores'}` : null, fastest ? `fastest ${fastest}` : null].filter(Boolean).join(' · ');
@@ -134,8 +137,10 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             {p.introAvg !== null ? <span className="ux-num">Average {p.introAvg}%</span> : null}
           </div>
           <div className="p4-author">
-            <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={28} />
-            <span>by <Link className="p4-handle" href={`/u/${q.creatorUsername}`}>{q.creatorUsername}</Link> · Lv {lv.level} {lv.name}</span>
+            <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={28} team={team} />
+            {team
+              ? <span>by <PersonName name={q.creatorUsername} className="p4-handle" href={`/u/${q.creatorUsername}`} isTeam /></span>
+              : <span>by <Link className="p4-handle" href={`/u/${q.creatorUsername}`}>{q.creatorUsername}</Link> · Lv {lv.level} {lv.name}</span>}
             <P4Follow username={q.creatorUsername} />
           </div>
 
@@ -255,7 +260,13 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
 
           <section className="ux-sec p4-madeby-sec" aria-label="Made by">
             <div className="p4-madeby">
-              <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={40} />
+              <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={40} team={team} />
+              {team && p.creator ? (
+                <div>
+                  <PersonName name={q.creatorUsername} className="p4-handle" href={`/u/${q.creatorUsername}`} isTeam />
+                  <div>{`${p.creator.quizzes.toLocaleString('en-US')} ${p.creator.quizzes === 1 ? 'quiz' : 'quizzes'} · ${formatCount(p.creator.playsReceived)} plays`}</div>
+                </div>
+              ) : (
               <div>
                 <Link className="p4-handle" href={`/u/${q.creatorUsername}`}>{q.creatorUsername}</Link>
                 <div>
@@ -263,6 +274,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
                   {p.creator ? ` · ${p.creator.quizzes.toLocaleString('en-US')} ${p.creator.quizzes === 1 ? 'quiz' : 'quizzes'} · ${formatCount(p.creator.playsReceived)} plays` : ''}
                 </div>
               </div>
+              )}
             </div>
             <P4ReportButton quizId={q.id} withIcon />
           </section>
