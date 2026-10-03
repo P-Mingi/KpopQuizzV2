@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { bestCombo, btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
-
 import type { BtPlaylistInput, BtRunContext, BtRunMode, BtRunSong } from '@/lib/tracking/bt';
 
 // V12 run tracking for the two legacy blindtest games (blindtest-game.tsx and
@@ -17,9 +15,33 @@ import type { BtPlaylistInput, BtRunContext, BtRunMode, BtRunSong } from '@/lib/
 //             component mid-run sends finish(false) by itself (sendBeacon).
 //
 // With NEXT_PUBLIC_BT_TRACKING off, open() opens nothing and the rest is a no-op.
+// C3-002: this file never imports lib/tracking/bt.ts statically (types only), so
+// with the switch off the legacy pages ship and list no tracking chunk. With it on,
+// the module is loaded once (on mount) and every call waits for it in call order.
+
+/** Same test as BT_TRACKING in lib/tracking/bt-shared.ts, inlined at build. */
+const BT_ON: boolean =
+  process.env.NEXT_PUBLIC_BT_TRACKING === '1' || process.env.NEXT_PUBLIC_BT_TRACKING === 'true';
+
+type BtModule = typeof import('@/lib/tracking/bt');
+let btModule: BtModule | null = null;
+let btLoading: Promise<BtModule | null> | null = null;
+
+/** Run `fn` with the tracking module: now when it is loaded, else once it is (in call order). */
+function withBt(fn: (m: BtModule) => void): void {
+  if (!BT_ON) return;
+  if (btModule) { fn(btModule); return; }
+  if (!btLoading) {
+    btLoading = import('@/lib/tracking/bt')
+      .then((m) => { btModule = m; return m; })
+      .catch(() => null);
+  }
+  void btLoading.then((m) => { if (m) fn(m); });
+}
 
 interface OpenRun {
-  ctx: BtRunContext;
+  ctx: BtRunContext | null;
+  rounds: number;
   startedAt: number;
   started: boolean;
   songs: BtRunSong[];
@@ -40,38 +62,46 @@ export function useBtTracking(): BtTracking {
     if (!run) return;
     runRef.current = null;
     if (!run.started) return; // no clip ever played: not a run
-    const correct = run.songs.filter((s) => s.correct).length;
-    trackBtRun({
-      event: 'finish',
-      ...run.ctx,
-      answered: run.songs.length,
-      correct,
-      // The legacy games score one point per right answer.
-      score: correct,
-      best_combo: bestCombo(run.songs),
-      duration_ms: Math.max(0, Date.now() - run.startedAt),
-      completed,
-      songs: run.songs,
+    const songs = run.songs.slice();
+    const correct = songs.filter((s) => s.correct).length;
+    const durationMs = Math.max(0, Date.now() - run.startedAt);
+    withBt((m) => {
+      if (!run.ctx) return;
+      m.trackBtRun({
+        event: 'finish',
+        ...run.ctx,
+        answered: songs.length,
+        correct,
+        // The legacy games score one point per right answer.
+        score: correct,
+        best_combo: m.bestCombo(songs),
+        duration_ms: durationMs,
+        completed,
+        songs,
+      });
     });
   }, []);
 
   const open = useCallback<BtTracking['open']>((input) => {
     finish(false);
-    const runId = newBtRunId();
-    if (!runId) return;
-    runRef.current = {
-      ctx: {
+    if (!BT_ON) return;
+    const run: OpenRun = { ctx: null, rounds: input.rounds, startedAt: Date.now(), started: false, songs: [] };
+    runRef.current = run;
+    withBt((m) => {
+      const runId = m.newBtRunId();
+      if (!runId) {
+        if (runRef.current === run) runRef.current = null;
+        return;
+      }
+      run.ctx = {
         run_id: runId,
-        playlist: btPlaylistId(input),
+        playlist: m.btPlaylistId(input),
         mode: input.mode ?? 'classic',
-        source: btSourceHere(input.kind),
-        locale: btLocale(),
+        source: m.btSourceHere(input.kind),
+        locale: m.btLocale(),
         rounds: input.rounds,
-      },
-      startedAt: Date.now(),
-      started: false,
-      songs: [],
-    };
+      };
+    });
   }, [finish]);
 
   const attach = useCallback<BtTracking['attach']>((audio) => {
@@ -81,17 +111,19 @@ export function useBtTracking(): BtTracking {
       if (runRef.current !== run || run.started) return;
       run.started = true;
       run.startedAt = Date.now();
-      trackBtRun({ event: 'start', ...run.ctx });
+      withBt((m) => { if (run.ctx) m.trackBtRun({ event: 'start', ...run.ctx }); });
     }, { once: true });
   }, []);
 
   const answer = useCallback<BtTracking['answer']>((song) => {
     const run = runRef.current;
-    if (run && run.songs.length < run.ctx.rounds) run.songs.push(song);
+    if (run && run.songs.length < run.rounds) run.songs.push(song);
   }, []);
 
-  // Left mid-run: closing the tab (pagehide) or a client navigation (unmount).
+  // Load the module early (switch on only), then: left mid-run, closing the tab
+  // (pagehide) or a client navigation (unmount).
   useEffect(() => {
+    withBt(() => { /* preload */ });
     const onHide = (): void => finish(false);
     window.addEventListener('pagehide', onHide);
     return () => {
