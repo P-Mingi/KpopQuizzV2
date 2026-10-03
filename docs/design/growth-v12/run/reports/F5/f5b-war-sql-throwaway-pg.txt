@@ -1,0 +1,40 @@
+--- apply 1
+exit 0
+--- apply 2
+exit 0
+  v  | group_id | name  | slug  | logo_url | display_color | plays_week | fans_week | plays_prev 
+-----+----------+-------+-------+----------+---------------+------------+-----------+------------
+ old |        1 | ATEEZ | ateez |          | #1            |          8 |         2 |          1
+ old |        2 | BTS   | bts   |          | #2            |          3 |         1 |          1
+(2 rows)
+
+  v  | group_id | name  | slug  | logo_url | display_color | plays_week | fans_week | plays_prev 
+-----+----------+-------+-------+----------+---------------+------------+-----------+------------
+ v12 |        1 | ATEEZ | ateez |          | #1            |          3 |         1 |          0
+ v12 |        2 | BTS   | bts   |          | #2            |          3 |         1 |          1
+(2 rows)
+
+        proname         | pg_get_function_identity_arguments 
+------------------------+------------------------------------
+ get_fandom_war_map     | p_limit integer
+ get_fandom_war_map_v12 | p_limit integer
+(2 rows)
+
+    v     | group_id | name  | slug  | logo_url | display_color | plays_week | fans_week | plays_prev 
+----------+----------+-------+-------+----------+---------------+------------+-----------+------------
+ anon-v12 |        1 | ATEEZ | ateez |          | #1            |          3 |         1 |          0
+(1 row)
+
+    v     | group_id | name  | slug  | logo_url | display_color | plays_week | fans_week | plays_prev 
+----------+----------+-------+-------+----------+---------------+------------+-----------+------------
+ anon-old |        1 | ATEEZ | ateez |          | #1            |          8 |         2 |          1
+ anon-old |        2 | BTS   | bts   |          | #2            |          3 |         1 |          1
+(2 rows)
+
+--- undo
+ count 
+-------
+     1
+(1 row)
+
+stopped

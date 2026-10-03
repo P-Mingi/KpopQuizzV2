@@ -7,6 +7,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { Panel } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { SectionHeader } from '@/components/ux-v1/section-header';
+import { TeamTag } from '@/components/ux-v1/team';
 import { comma, playsLabel } from '@/lib/ux-v1/p9/format';
 
 import { GroupAvatar } from './board';
@@ -106,7 +107,9 @@ function FreshPanel({ rows }: { rows: AroundData['fresh'] }): React.ReactElement
           <div key={q.id} className="p9-hn">
             <span className="p9-hn-b">
               <Link href={q.href} className="p9-hn-t">{q.title}</Link>
-              <span className="p9-tm">{q.group} · by {q.by} · {playsLabel(q.plays)}</span>
+              {q.byTeam
+                ? <span className="p9-tm">{q.group} · by {q.by} <TeamTag /> · {playsLabel(q.plays)}</span>
+                : <span className="p9-tm">{q.group} · by {q.by} · {playsLabel(q.plays)}</span>}
             </span>
           </div>
         ))}

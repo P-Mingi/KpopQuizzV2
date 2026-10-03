@@ -74,10 +74,12 @@ async function readAggregate(teamKey: string): Promise<Aggregate> {
   ]);
   if (quizRows.length === 0) throw new Error('creators: empty quizzes read');
   const quizzes = new Map(quizRows.map((q) => [q.id, q]));
-  const excluded = new Set<string>([...teamKey.split(',').filter(Boolean), ...banned.map((b) => b.id)]);
+  const team = new Set(teamKey.split(',').filter(Boolean));
+  const excluded = new Set<string>([...team, ...banned.map((b) => b.id)]);
   const since = monthStart(new Date());
-  const all = countPlays(plays, quizzes, excluded);
-  const month = countPlays(plays, quizzes, excluded, since);
+  // Editorial accounts are left out as creators AND as players (V12 F5b).
+  const all = countPlays(plays, quizzes, excluded, undefined, team);
+  const month = countPlays(plays, quizzes, excluded, since, team);
   const counts = quizCounts(quizRows);
   return {
     since,
@@ -97,7 +99,8 @@ async function readAggregate(teamKey: string): Promise<Aggregate> {
 // a new month never serves last month's board for the TTL.
 const cachedAggregate = unstable_cache(
   (teamKey: string, _month: string) => readAggregate(teamKey),
-  ['v12:g8:creators-aggregate:v1'],
+  // v2 (F5b): plays BY editorial accounts no longer count.
+  ['v12:g8:creators-aggregate:v2'],
   { revalidate: CACHE_TTL.stats, tags: ['creators'] },
 );
 
