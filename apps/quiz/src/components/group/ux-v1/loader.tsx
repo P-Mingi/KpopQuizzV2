@@ -10,3 +10,5 @@ import dynamic from 'next/dynamic';
 export const GroupsBrowserLoader = dynamic(() => import('./groups-browser').then((m) => m.GroupsBrowser));
 export const HubQuizzesLoader = dynamic(() => import('./hub-quizzes').then((m) => m.HubQuizzes));
 export const HubNotifyLoader = dynamic(() => import('./hub-notify').then((m) => m.HubNotify));
+// V12 (G8): the Fans picked section, rendered only when isUxV12() and the group is ranked.
+export const HubFansPickedLoader = dynamic(() => import('./hub-fans-picked').then((m) => m.HubFansPicked));

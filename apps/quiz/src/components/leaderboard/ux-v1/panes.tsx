@@ -1,5 +1,7 @@
+import { UxLink } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { MIN_BOARD, WAR_VISIBLE, comma } from '@/lib/ux-v1/p9/format';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { BoardRows, Podium, personPodiumItems, personRowItems, warPodiumItems, warRowItems } from './board';
 import { CreatorPin, CreatorsSwitch, PlayerPin, WarPin } from './islands';
@@ -131,7 +133,14 @@ export function CreatorsPane({ boards, views }: { boards: CreatorsBoards | null;
   for (const v of views) nodes[v] = <CreatorBoard view={v} rows={boards[v]} />;
   return (
     <div className="p9-board">
-      <CreatorsSwitch views={views} boards={nodes} pin={<CreatorPin />} />
+      {isUxV12() ? (
+        // V12 (G8): the link to the creators board shares the switch's slot, so the
+        // v11-only tree below keeps its exact shape.
+        <>
+          <CreatorsSwitch views={views} boards={nodes} pin={<CreatorPin />} />
+          <p className="g8-lb-creators"><UxLink href="/creators" icon="arrow">See the full creators board</UxLink></p>
+        </>
+      ) : <CreatorsSwitch views={views} boards={nodes} pin={<CreatorPin />} />}
     </div>
   );
 }

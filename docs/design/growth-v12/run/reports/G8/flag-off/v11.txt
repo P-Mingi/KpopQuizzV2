@@ -1,0 +1,25 @@
+v11 only (NEXT_PUBLIC_UX_V1=1, NEXT_PUBLIC_UX_V12 unset). Base c0a0217 (git archive), candidate 29ab5c1 + working tree. One dev server at a time on :3068, GET only, each page fetched twice (the warm copy kept).
+
+same    api_ux_v1_a0_styles
+same    create
+same    groups
+same    katseye_quiz
+same    leaderboard
+same    riize_quiz
+same    routes
+DIFFERS stray_kids_quiz (2 base lines, 2 candidate lines)
+   - <i class="ux-num">average <!-- -->100<!-- -->%</i>
+   - <i class="ux-num">average <!-- -->100<!-- -->%</i>
+   + <i class="ux-num">average <!-- -->41<!-- -->%</i>
+   + <i class="ux-num">average <!-- -->75<!-- -->%</i>
+
+8 pages, 1 with a difference
+
+Routes, base:
+301 http://localhost:3068/ GET /creators
+404  GET /api/creators/kit?quiz=0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11
+404  GET /api/creators/standing
+Routes, candidate:
+301 http://localhost:3068/ GET /creators
+404  GET /api/creators/kit?quiz=0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11
+404  GET /api/creators/standing

@@ -42,9 +42,11 @@ import {
   quizzesLabel,
   realFandomName,
 } from '@/lib/ux-v1/p3/model';
+import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import { GroupAvatar } from './group-avatar';
+import { HubGrowth } from './hub-growth';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 
 import type { Group } from '@/lib/db/types';
@@ -254,7 +256,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
 
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
-      {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+      {isUxV12() ? (
+        // V12 (G8): the additions take the slot of the quizzes list, which passes
+        // through untouched; the v11-only branch below is the tree as it was.
+        <HubGrowth group={g} published={published} songs={songs}>
+          {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+        </HubGrowth>
+      ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
