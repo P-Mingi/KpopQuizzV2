@@ -27,5 +27,20 @@ ORCH runs the file's verification queries read-only and records the result here.
 | 18 | `v12-g9-editorial.sql` | G9 | `editorial_accounts`, `editorial_drafts`, `editorial_posts`, `is_editorial(uuid)`, two widened CHECKs | new empty tables | the editorial pipeline | before 19 | pending |
 | 19 | `v12-g9-editorial-accounts.sql` | G9 | the 3 to 5 editorial account rows | 3 to 5 inserts | Team badge, publisher | after 18 and after the owner fills in the ids (raises an exception until then) | pending (owner creates the accounts) |
 
+## Owner plan (2026-10-03)
+
+- `v12-bundle-a.sql`: files 1 to 5, 7 and 9 to 18 above, in this order, each in its own transaction, then a read-only
+  verification grid (one row per check with an `ok` column). The grid was syntax-tested on a throwaway local
+  Postgres 18 with stub objects; the bundle itself has not run against the real schema (each file was replayed by
+  its agent on a scratch Postgres). The SQL editor stops at the first error: the files before it stay applied, every
+  file is idempotent, so fix and re-run from that file.
+- File 6 is replaced by `v12-g2-03b-releases-2026-filtered.sql`: 141 inserts, without the 5 titles the owner left
+  out (FIFTY FIFTY My Wonder, Hopping, Still In Time; KISS OF LIFE Was It You from a Japanese EP; the YOUNG POSSE
+  title with a swear word). Apply it after the bundle, then run file 9 (`v12-g2-06-title-tracks.sql`) again so its
+  2026 title tracks are flagged.
+- File 8 (years backfill) waits: 30 random rows with their source are in `docs/growth/catalogue/v12-g2-05-sample30.md`
+  (Deezer release date and ISRC year, read 2026-10-03; 30 of 30 agree with the year the file writes).
+- File 19 waits for the owner's editorial accounts.
+
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
