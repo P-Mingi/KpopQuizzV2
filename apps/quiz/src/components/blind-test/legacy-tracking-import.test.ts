@@ -19,7 +19,7 @@ const FILES = {
 
 /** Every static import / export-from statement (multi-line aware). */
 function staticImports(src: string): string[] {
-  return [...src.matchAll(/^\s*(import|export)\b[^;]*?\bfrom\s*['"][^'"]+['"]/gms)].map((m) => m[0].trim());
+  return [...src.matchAll(/^\s*(import|export)\b[^;]*?\bfrom\s*['"][^'"]+['"]/gm)].map((m) => m[0].trim());
 }
 
 const TRACKING = /['"](@\/lib\/tracking\/[^'"]*|@\/lib\/anon-id|(\.\.\/)+lib\/tracking\/[^'"]*)['"]/;

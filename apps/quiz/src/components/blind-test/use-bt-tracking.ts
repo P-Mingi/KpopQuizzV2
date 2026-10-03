@@ -31,12 +31,14 @@ let btLoading: Promise<BtModule | null> | null = null;
 function withBt(fn: (m: BtModule) => void): void {
   if (!BT_ON) return;
   if (btModule) { fn(btModule); return; }
-  if (!btLoading) {
+  // The env test is repeated inline (not BT_ON) so a build that defines the
+  // variable can drop this branch, and the chunk reference with it.
+  if (!btLoading && (process.env.NEXT_PUBLIC_BT_TRACKING === '1' || process.env.NEXT_PUBLIC_BT_TRACKING === 'true')) {
     btLoading = import('@/lib/tracking/bt')
       .then((m) => { btModule = m; return m; })
       .catch(() => null);
   }
-  void btLoading.then((m) => { if (m) fn(m); });
+  void btLoading?.then((m) => { if (m) fn(m); });
 }
 
 interface OpenRun {
