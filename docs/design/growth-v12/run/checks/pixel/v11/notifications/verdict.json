@@ -1,0 +1,408 @@
+{
+ "state": "notifications",
+ "owner": "P11",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:04:23.394Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/notifications",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 9,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1898
+    ],
+    "implSize": [
+     1440,
+     2028
+    ],
+    "diffPct": 6.16,
+    "maskedPct": 8.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": "#notifs .ph",
+     "impl": ".p11-nh",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "filter",
+     "proto": "#notifs .seg",
+     "impl": ".p11-seg",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "streak row",
+     "proto": "#notifs .streakrow",
+     "impl": ".p11-streak",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group",
+     "proto": ".ngroup",
+     "impl": ".p11-ngroup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".nrow",
+     "impl": ".p11-nrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:04:25.204Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/notifications",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 9,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1898
+    ],
+    "implSize": [
+     1440,
+     2028
+    ],
+    "diffPct": 6.16,
+    "maskedPct": 8.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": "#notifs .ph",
+     "impl": ".p11-nh",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "filter",
+     "proto": "#notifs .seg",
+     "impl": ".p11-seg",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "streak row",
+     "proto": "#notifs .streakrow",
+     "impl": ".p11-streak",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group",
+     "proto": ".ngroup",
+     "impl": ".p11-ngroup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".nrow",
+     "impl": ".p11-nrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:04:27.288Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/notifications",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 9,
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2616
+    ],
+    "implSize": [
+     390,
+     2824
+    ],
+    "diffPct": 8.36,
+    "maskedPct": 21.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": "#notifs .ph",
+     "impl": ".p11-nh",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "filter",
+     "proto": "#notifs .seg",
+     "impl": ".p11-seg",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "streak row",
+     "proto": "#notifs .streakrow",
+     "impl": ".p11-streak",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group",
+     "proto": ".ngroup",
+     "impl": ".p11-ngroup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".nrow",
+     "impl": ".p11-nrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:04:29.360Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/notifications",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 9,
+    "pass": 8,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2616
+    ],
+    "implSize": [
+     390,
+     2824
+    ],
+    "diffPct": 8.38,
+    "maskedPct": 21.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "header",
+     "proto": "#notifs .ph",
+     "impl": ".p11-nh",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "filter",
+     "proto": "#notifs .seg",
+     "impl": ".p11-seg",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "streak row",
+     "proto": "#notifs .streakrow",
+     "impl": ".p11-streak",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group",
+     "proto": ".ngroup",
+     "impl": ".p11-ngroup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "rows",
+     "proto": ".nrow",
+     "impl": ".p11-nrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "note": "rows = P11's fixture (the prototype's sample, p11.spec.ts); streak row saved (13 days, played today) as the reference PNG draws it (the capture reaches notifications after a finished quiz)",
+ "verdict": "pass"
+}

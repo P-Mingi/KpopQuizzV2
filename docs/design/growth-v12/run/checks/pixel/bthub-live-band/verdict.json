@@ -1,0 +1,233 @@
+{
+ "state": "bthub-live-band",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:45:41.426Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.6,
+    "maskedPct": 10.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "live band",
+     "proto": ".liveband",
+     "impl": ".g3-liveband",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "band button",
+     "proto": ".liveband .btn-primary",
+     "impl": ".g3-liveband .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:45:43.203Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.76,
+    "maskedPct": 10.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "live band",
+     "proto": ".liveband",
+     "impl": ".g3-liveband",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "band button",
+     "proto": ".liveband .btn-primary",
+     "impl": ".g3-liveband .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:45:45.131Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.82,
+    "maskedPct": 23.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "live band",
+     "proto": ".liveband",
+     "impl": ".g3-liveband",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "band button",
+     "proto": ".liveband .btn-primary",
+     "impl": ".g3-liveband .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:45:47.072Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.87,
+    "maskedPct": 23.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "live band",
+     "proto": ".liveband",
+     "impl": ".g3-liveband",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "band button",
+     "proto": ".liveband .btn-primary",
+     "impl": ".g3-liveband .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": ".g3-liveband",
+ "verdict": "pass"
+}

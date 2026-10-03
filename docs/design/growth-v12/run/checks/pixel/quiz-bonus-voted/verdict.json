@@ -1,0 +1,314 @@
+{
+ "state": "quiz-bonus-voted",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:59:29.395Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql is applied (duel_cast_song_vote: the real vote and split); checked with the vote answered locally by the G7 fixture",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.92,
+    "maskedPct": 6.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":4,\"max_score\":8,\"per_question_times\":[0,0,0.8,0,0.8,0.8,0.8,0],\"anon_id\":\"4cc17ec1-306a-4a5d-b457-3369c9cb740e\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:59:34.358Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql is applied (duel_cast_song_vote: the real vote and split); checked with the vote answered locally by the G7 fixture",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.05,
+    "maskedPct": 6.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.9,0,0,0,0.8,0,0,0.8],\"anon_id\":\"9415c05c-c826-4591-a8bd-ee6b968e23f1\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "390-light": {
+   "at": "2026-10-03T10:59:39.715Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql is applied (duel_cast_song_vote: the real vote and split); checked with the vote answered locally by the G7 fixture",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.25,
+    "maskedPct": 12.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.5,0,0,0,0.8,0,0.8,0.9],\"anon_id\":\"0ff161ef-2987-4345-8140-0f6883bf9749\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:59:44.633Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql is applied (duel_cast_song_vote: the real vote and split); checked with the vote answered locally by the G7 fixture",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.52,
+    "maskedPct": 12.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.1,0.8,0.8,0,0,0,0,0.8],\"anon_id\":\"a62b3863-776d-45ae-97a7-693fd5ba8fc8\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  }
+ },
+ "owner": "G7",
+ "auth": "guest",
+ "anchor": ".ux-tot",
+ "pending": "NOT verified until v12-g7-this-or-that.sql is applied (duel_cast_song_vote: the real vote and split); checked with the vote answered locally by the G7 fixture",
+ "verdict": "not verified"
+}

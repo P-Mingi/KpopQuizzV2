@@ -1,0 +1,430 @@
+{
+ "state": "kpdh-result",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:54:31.561Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.98,
+    "maskedPct": 9.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"kpdh\",\"picks\":[0,0,3,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the sample \"24% of players\" line shows only with real results (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-pers-sec .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "data-absent",
+     "note": "real data: the distribution shows only with real shares (G5); absent today, compared when present"
+    }
+   ],
+   "seconds": 35
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:55:06.989Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.51,
+    "maskedPct": 9.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"kpdh\",\"picks\":[0,0,3,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the sample \"24% of players\" line shows only with real results (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-pers-sec .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "data-absent",
+     "note": "real data: the distribution shows only with real shares (G5); absent today, compared when present"
+    }
+   ],
+   "seconds": 35
+  },
+  "390-light": {
+   "at": "2026-10-03T10:55:42.406Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 4.51,
+    "maskedPct": 28.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"kpdh\",\"picks\":[0,0,3,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the sample \"24% of players\" line shows only with real results (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-pers-sec .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "data-absent",
+     "note": "real data: the distribution shows only with real shares (G5); absent today, compared when present"
+    }
+   ],
+   "seconds": 35
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:56:18.301Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 5.38,
+    "maskedPct": 28.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"kpdh\",\"picks\":[0,0,3,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the sample \"24% of players\" line shows only with real results (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-pers-sec .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "data-absent",
+     "note": "real data: the distribution shows only with real shares (G5); absent today, compared when present"
+    }
+   ],
+   "seconds": 36
+  }
+ },
+ "owner": "G5",
+ "auth": "guest",
+ "anchor": null,
+ "note": "the distribution and the \"same result\" line show only with real shares (G5); the result card height is compared only when they show",
+ "verdict": "pass"
+}

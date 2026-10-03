@@ -1,0 +1,317 @@
+{
+ "state": "blindtest-group-search",
+ "owner": "P6",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:51:53.246Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3497
+    ],
+    "implSize": [
+     1440,
+     3451
+    ],
+    "diffPct": 5.93,
+    "maskedPct": 14.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:51:56.360Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3497
+    ],
+    "implSize": [
+     1440,
+     3451
+    ],
+    "diffPct": 14.27,
+    "maskedPct": 14.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-10-03T10:51:59.672Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     5292
+    ],
+    "implSize": [
+     390,
+     5085
+    ],
+    "diffPct": 11.56,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:52:03.181Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     5292
+    ],
+    "implSize": [
+     390,
+     5085
+    ],
+    "diffPct": 19.95,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

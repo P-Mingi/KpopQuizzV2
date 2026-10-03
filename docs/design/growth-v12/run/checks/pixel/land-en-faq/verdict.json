@@ -1,0 +1,189 @@
+{
+ "state": "land-en-faq",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:47:29.909Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.58,
+    "maskedPct": 12.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "FAQ",
+     "proto": "#ld-faq",
+     "impl": "#g3-faq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "vy not compared: the FAQ sits at the page end on both sides, so the scroll is clamped by the height of what follows (footer), not by the FAQ"
+    }
+   ],
+   "seconds": 34
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:48:04.205Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.52,
+    "maskedPct": 12.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "FAQ",
+     "proto": "#ld-faq",
+     "impl": "#g3-faq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "vy not compared: the FAQ sits at the page end on both sides, so the scroll is clamped by the height of what follows (footer), not by the FAQ"
+    }
+   ],
+   "seconds": 34
+  },
+  "390-light": {
+   "at": "2026-10-03T10:48:38.638Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.49,
+    "maskedPct": 27.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "FAQ",
+     "proto": "#ld-faq",
+     "impl": "#g3-faq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "vy not compared: the FAQ sits at the page end on both sides, so the scroll is clamped by the height of what follows (footer), not by the FAQ"
+    }
+   ],
+   "seconds": 34
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:49:12.961Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/guess-the-kpop-song",
+   "signedIn": false,
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.68,
+    "maskedPct": 27.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "FAQ",
+     "proto": "#ld-faq",
+     "impl": "#g3-faq",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "vy not compared: the FAQ sits at the page end on both sides, so the scroll is clamped by the height of what follows (footer), not by the FAQ"
+    }
+   ],
+   "seconds": 34
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": "#g3-faq",
+ "verdict": "pass"
+}

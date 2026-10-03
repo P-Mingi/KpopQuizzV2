@@ -1,0 +1,912 @@
+{
+ "hover": {
+  "theme card-light": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#bt-th .thm",
+   "impl": "#bt-th .ux-thm",
+   "state": "bthub-playlists",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(31, 27, 23)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(31, 27, 23)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-theme-card-light.png",
+   "deviated": []
+  },
+  "language switch link-light": {
+   "verdict": "fail",
+   "owner": "G3",
+   "proto": "#btland .langsw button:not(.on)",
+   "impl": ".g3-landtop .ux-langsw a:not([aria-current])",
+   "state": "land-en",
+   "mismatches": [
+    {
+     "what": "border-top-color",
+     "expected": "rgb(107, 101, 94)",
+     "actual": "rgb(31, 27, 23)"
+    },
+    {
+     "what": "color",
+     "expected": "rgb(107, 101, 94)",
+     "actual": "rgb(31, 27, 23)"
+    }
+   ],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(107, 101, 94)",
+     "color": "rgb(107, 101, 94)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(31, 27, 23)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-language-switch-link-light.png",
+   "deviated": []
+  },
+  "live band ghost button-light": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": ".liveband .btn-ghost",
+   "impl": ".g3-liveband .ux-btn-ghost",
+   "state": "bthub-live-band",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(247, 246, 244)",
+     "border-top-color": "rgb(140, 133, 124)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(241, 239, 234)",
+     "border-top-color": "rgb(140, 133, 124)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-live-band-ghost-button-light.png",
+   "deviated": [
+    {
+     "what": "background-color",
+     "expected": "rgb(247, 246, 244)",
+     "actual": "rgb(241, 239, 234)",
+     "why": "owner deviation (v11 A0 fix 5 / fix 8)"
+    }
+   ]
+  },
+  "personality answer-light": {
+   "verdict": "pass",
+   "owner": "G5",
+   "proto": ".popt",
+   "impl": ".ux-pers-opt",
+   "state": "kpdh-question",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(252, 232, 239)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(252, 232, 239)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-personality-answer-light.png",
+   "deviated": []
+  },
+  "this or that song-light": {
+   "verdict": "pass",
+   "owner": "G7",
+   "proto": "#e-tot .toto",
+   "impl": ".ux-toto",
+   "state": "quiz-bonus",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    }
+   },
+   "evidence": "_extra/hover-this-or-that-song-light.png",
+   "deviated": []
+  },
+  "ways to play tile-light": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": "#hb-modes .gtile",
+   "impl": ".g8-ways .ux-gtile",
+   "state": "hub-ways-to-play",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    }
+   },
+   "evidence": "_extra/hover-ways-to-play-tile-light.png",
+   "deviated": []
+  },
+  "quiz template-light": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": ".tpl",
+   "impl": ".g8-tpl",
+   "state": "hub-empty-riize",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(255, 255, 255)",
+     "border-top-color": "rgb(242, 207, 219)",
+     "color": "rgb(31, 27, 23)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-quiz-template-light.png",
+   "deviated": []
+  },
+  "theme card-dark": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#bt-th .thm",
+   "impl": "#bt-th .ux-thm",
+   "state": "bthub-playlists",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(243, 240, 235)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(243, 240, 235)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-theme-card-dark.png",
+   "deviated": []
+  },
+  "language switch link-dark": {
+   "verdict": "fail",
+   "owner": "G3",
+   "proto": "#btland .langsw button:not(.on)",
+   "impl": ".g3-landtop .ux-langsw a:not([aria-current])",
+   "state": "land-en",
+   "mismatches": [
+    {
+     "what": "border-top-color",
+     "expected": "rgb(168, 161, 152)",
+     "actual": "rgb(243, 240, 235)"
+    },
+    {
+     "what": "color",
+     "expected": "rgb(168, 161, 152)",
+     "actual": "rgb(243, 240, 235)"
+    }
+   ],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(168, 161, 152)",
+     "color": "rgb(168, 161, 152)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgba(0, 0, 0, 0)",
+     "border-top-color": "rgb(243, 240, 235)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-language-switch-link-dark.png",
+   "deviated": []
+  },
+  "live band ghost button-dark": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": ".liveband .btn-ghost",
+   "impl": ".g3-liveband .ux-btn-ghost",
+   "state": "bthub-live-band",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(110, 106, 100)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(110, 106, 100)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-live-band-ghost-button-dark.png",
+   "deviated": []
+  },
+  "personality answer-dark": {
+   "verdict": "pass",
+   "owner": "G5",
+   "proto": ".popt",
+   "impl": ".ux-pers-opt",
+   "state": "kpdh-question",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(58, 33, 41)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(58, 33, 41)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-personality-answer-dark.png",
+   "deviated": []
+  },
+  "this or that song-dark": {
+   "verdict": "pass",
+   "owner": "G7",
+   "proto": "#e-tot .toto",
+   "impl": ".ux-toto",
+   "state": "quiz-bonus",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    }
+   },
+   "evidence": "_extra/hover-this-or-that-song-dark.png",
+   "deviated": []
+  },
+  "ways to play tile-dark": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": "#hb-modes .gtile",
+   "impl": ".g8-ways .ux-gtile",
+   "state": "hub-ways-to-play",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "matrix(1, 0, 0, 1, 0, -2)"
+    }
+   },
+   "evidence": "_extra/hover-ways-to-play-tile-dark.png",
+   "deviated": []
+  },
+  "quiz template-dark": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": ".tpl",
+   "impl": ".g8-tpl",
+   "state": "hub-empty-riize",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    },
+    "impl": {
+     "fv": false,
+     "hover": true,
+     "background-color": "rgb(28, 27, 25)",
+     "border-top-color": "rgb(74, 42, 55)",
+     "color": "rgb(243, 240, 235)",
+     "box-shadow": "none",
+     "transform": "none"
+    }
+   },
+   "evidence": "_extra/hover-quiz-template-dark.png",
+   "deviated": []
+  }
+ },
+ "focus": {
+  "theme card-light": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#bt-th .thm",
+   "impl": "#bt-th .ux-thm",
+   "state": "bthub-playlists",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-theme-card-light.png",
+   "deviated": []
+  },
+  "language switch link-light": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#btland .langsw button:not(.on)",
+   "impl": ".g3-landtop .ux-langsw a:not([aria-current])",
+   "state": "land-en",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-language-switch-link-light.png",
+   "deviated": []
+  },
+  "live band ghost button-light": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": ".liveband .btn-ghost",
+   "impl": ".g3-liveband .ux-btn-ghost",
+   "state": "bthub-live-band",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-live-band-ghost-button-light.png",
+   "deviated": []
+  },
+  "personality answer-light": {
+   "verdict": "pass",
+   "owner": "G5",
+   "proto": ".popt",
+   "impl": ".ux-pers-opt",
+   "state": "kpdh-question",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-personality-answer-light.png",
+   "deviated": []
+  },
+  "this or that song-light": {
+   "verdict": "pass",
+   "owner": "G7",
+   "proto": "#e-tot .toto",
+   "impl": ".ux-toto",
+   "state": "quiz-bonus",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-this-or-that-song-light.png",
+   "deviated": []
+  },
+  "ways to play tile-light": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": "#hb-modes .gtile",
+   "impl": ".g8-ways .ux-gtile",
+   "state": "hub-ways-to-play",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-ways-to-play-tile-light.png",
+   "deviated": []
+  },
+  "quiz template-light": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": ".tpl",
+   "impl": ".g8-tpl",
+   "state": "hub-empty-riize",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-quiz-template-light.png",
+   "deviated": []
+  },
+  "theme card-dark": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#bt-th .thm",
+   "impl": "#bt-th .ux-thm",
+   "state": "bthub-playlists",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-theme-card-dark.png",
+   "deviated": []
+  },
+  "language switch link-dark": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": "#btland .langsw button:not(.on)",
+   "impl": ".g3-landtop .ux-langsw a:not([aria-current])",
+   "state": "land-en",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-language-switch-link-dark.png",
+   "deviated": []
+  },
+  "live band ghost button-dark": {
+   "verdict": "pass",
+   "owner": "G3",
+   "proto": ".liveband .btn-ghost",
+   "impl": ".g3-liveband .ux-btn-ghost",
+   "state": "bthub-live-band",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-live-band-ghost-button-dark.png",
+   "deviated": []
+  },
+  "personality answer-dark": {
+   "verdict": "pass",
+   "owner": "G5",
+   "proto": ".popt",
+   "impl": ".ux-pers-opt",
+   "state": "kpdh-question",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-personality-answer-dark.png",
+   "deviated": []
+  },
+  "this or that song-dark": {
+   "verdict": "pass",
+   "owner": "G7",
+   "proto": "#e-tot .toto",
+   "impl": ".ux-toto",
+   "state": "quiz-bonus",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-this-or-that-song-dark.png",
+   "deviated": []
+  },
+  "ways to play tile-dark": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": "#hb-modes .gtile",
+   "impl": ".g8-ways .ux-gtile",
+   "state": "hub-ways-to-play",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-ways-to-play-tile-dark.png",
+   "deviated": []
+  },
+  "quiz template-dark": {
+   "verdict": "pass",
+   "owner": "G8",
+   "proto": ".tpl",
+   "impl": ".g8-tpl",
+   "state": "hub-empty-riize",
+   "mismatches": [],
+   "measured": {
+    "proto": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    },
+    "impl": {
+     "fv": true,
+     "hover": false,
+     "outline-style": "solid",
+     "outline-width": "2px",
+     "outline-color": "rgb(232, 69, 122)",
+     "outline-offset": "2px",
+     "box-shadow": "none"
+    }
+   },
+   "evidence": "_extra/focus-quiz-template-dark.png",
+   "deviated": []
+  }
+ },
+ "motion": {
+  "land-en": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "theme-gen5": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "bthub-live-band": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "kpdh-question": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "nta-play": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "hub-ways-to-play": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  },
+  "live-setup": {
+   "verdict": "pass",
+   "running": [],
+   "longTransitions": 0
+  }
+ }
+}

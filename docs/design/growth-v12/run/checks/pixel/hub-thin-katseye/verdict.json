@@ -1,0 +1,317 @@
+{
+ "state": "hub-thin-katseye",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:00:08.441Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/katseye-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.28,
+    "maskedPct": 7.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nudge",
+     "proto": ".nudge",
+     "impl": ".g8-nudge",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the body line is the real play count or none (G8)"
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:00:10.087Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/katseye-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.2,
+    "maskedPct": 7.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nudge",
+     "proto": ".nudge",
+     "impl": ".g8-nudge",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the body line is the real play count or none (G8)"
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:00:11.927Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/katseye-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 6.86,
+    "maskedPct": 24.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nudge",
+     "proto": ".nudge",
+     "impl": ".g8-nudge",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the body line is the real play count or none (G8)"
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:00:13.768Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/katseye-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 11.57,
+    "maskedPct": 24.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nudge",
+     "proto": ".nudge",
+     "impl": ".g8-nudge",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the body line is the real play count or none (G8)"
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G8",
+ "auth": "guest",
+ "anchor": ".g8-nudge",
+ "verdict": "pass"
+}

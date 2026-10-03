@@ -1,0 +1,281 @@
+{
+ "state": "bthub-playlists",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:43:54.702Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 8.7,
+    "maskedPct": 14
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#bt-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h:has(#g3-pl-h) h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:44:29.580Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 13.39,
+    "maskedPct": 14
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#bt-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h:has(#g3-pl-h) h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "390-light": {
+   "at": "2026-10-03T10:45:04.507Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 11.33,
+    "maskedPct": 32.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#bt-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h:has(#g3-pl-h) h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:45:39.719Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 13.92,
+    "maskedPct": 32.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "theme card",
+     "proto": ".thrail .thm",
+     "impl": "#bt-th .ux-thm",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: a card is as tall as its copy (playable themes, real counts)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h:has(#g3-pl-h) h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": "#bt-th",
+ "verdict": "pass"
+}

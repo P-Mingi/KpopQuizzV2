@@ -1,0 +1,266 @@
+{
+ "state": "header-sheet",
+ "owner": "P10",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:01:19.753Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.58,
+    "maskedPct": 26.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "header sheet",
+     "proto": "#hsheet",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#hsheet .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "drop zone",
+     "proto": "#hsheet .drop",
+     "impl": ".ux-layer .ux-drop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "url row",
+     "proto": "#hsheet .urlrow",
+     "impl": ".ux-layer .ux-urlrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:01:21.020Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.71,
+    "maskedPct": 26.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "header sheet",
+     "proto": "#hsheet",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#hsheet .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "drop zone",
+     "proto": "#hsheet .drop",
+     "impl": ".ux-layer .ux-drop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "url row",
+     "proto": "#hsheet .urlrow",
+     "impl": ".ux-layer .ux-urlrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T11:01:22.339Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.35,
+    "maskedPct": 48.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "header sheet",
+     "proto": "#hsheet",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#hsheet .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "drop zone",
+     "proto": "#hsheet .drop",
+     "impl": ".ux-layer .ux-drop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "url row",
+     "proto": "#hsheet .urlrow",
+     "impl": ".ux-layer .ux-urlrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:01:23.598Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/u/testtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.46,
+    "maskedPct": 48.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "header sheet",
+     "proto": "#hsheet",
+     "impl": ".ux-layer .ux-sheet",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sheet header",
+     "proto": "#hsheet .sh-h",
+     "impl": ".ux-layer .ux-sh-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "drop zone",
+     "proto": "#hsheet .drop",
+     "impl": ".ux-layer .ux-drop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "url row",
+     "proto": "#hsheet .urlrow",
+     "impl": ".ux-layer .ux-urlrow",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "note": "signed in on /u/testtest (public read page, owner controls on the client); never /me",
+ "verdict": "pass"
+}

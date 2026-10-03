@@ -1,0 +1,562 @@
+{
+ "state": "end-guest",
+ "owner": "P4",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:41:12.835Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2267
+    ],
+    "implSize": [
+     1440,
+     2098
+    ],
+    "diffPct": 9.34,
+    "maskedPct": 12.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.8,0,0,0.8,0,0.8,0,0],\"anon_id\":\"99358697-2e62-4fd2-a2e6-edf4262467a0\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stats row",
+     "proto": ".stats3",
+     "impl": ".p4-res-in .ux-stats3",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p4-resact .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p4-keep .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "photocard",
+     "proto": ".pcard",
+     "impl": ".p4-pcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color"
+     ],
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
+    },
+    {
+     "name": "result column",
+     "proto": ".res-in",
+     "impl": ".p4-res-in",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp line",
+     "proto": ".xpline",
+     "impl": ".p4-xpline",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "result actions",
+     "proto": ".resact",
+     "impl": ".p4-resact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "keep playing",
+     "proto": ".res-in > section.sec",
+     "impl": ".p4-keep",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:41:17.607Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2267
+    ],
+    "implSize": [
+     1440,
+     2098
+    ],
+    "diffPct": 10.41,
+    "maskedPct": 12.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":3,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0,0.8,0.8,0.8],\"anon_id\":\"533fa40f-c3c7-4fce-9b95-2abb7cc616e0\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stats row",
+     "proto": ".stats3",
+     "impl": ".p4-res-in .ux-stats3",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p4-resact .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p4-keep .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "photocard",
+     "proto": ".pcard",
+     "impl": ".p4-pcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color"
+     ],
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
+    },
+    {
+     "name": "result column",
+     "proto": ".res-in",
+     "impl": ".p4-res-in",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp line",
+     "proto": ".xpline",
+     "impl": ".p4-xpline",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "result actions",
+     "proto": ".resact",
+     "impl": ".p4-resact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "keep playing",
+     "proto": ".res-in > section.sec",
+     "impl": ".p4-keep",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 5
+  },
+  "390-light": {
+   "at": "2026-10-03T10:41:19.950Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2983
+    ],
+    "implSize": [
+     390,
+     2717
+    ],
+    "diffPct": 15.4,
+    "maskedPct": 30.6
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":0,\"max_score\":8,\"per_question_times\":[0,0,0,0,0,0,0,0],\"anon_id\":\"25bef453-d57a-4a9c-aed9-4105ba1240a0\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stats row",
+     "proto": ".stats3",
+     "impl": ".p4-res-in .ux-stats3",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p4-resact .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p4-keep .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "photocard",
+     "proto": ".pcard",
+     "impl": ".p4-pcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color"
+     ],
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
+    },
+    {
+     "name": "result column",
+     "proto": ".res-in",
+     "impl": ".p4-res-in",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp line",
+     "proto": ".xpline",
+     "impl": ".p4-xpline",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "result actions",
+     "proto": ".resact",
+     "impl": ".p4-resact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "keep playing",
+     "proto": ".res-in > section.sec",
+     "impl": ".p4-keep",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:41:24.042Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "landmarks": 12,
+    "pass": 11,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2983
+    ],
+    "implSize": [
+     390,
+     2717
+    ],
+    "diffPct": 17.93,
+    "maskedPct": 30.6
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.9,0,0.8,0,0,0,0,0],\"anon_id\":\"50a21829-e382-493e-9ea3-0dc2947f9e6d\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stats row",
+     "proto": ".stats3",
+     "impl": ".p4-res-in .ux-stats3",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".p4-resact .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".p4-keep .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "photocard",
+     "proto": ".pcard",
+     "impl": ".p4-pcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "skipped": [
+      "background-image",
+      "background-color",
+      "color",
+      "border-top-color"
+     ],
+     "why": "photo; the container colour is not drawn (every text child sets white, same as the reference)"
+    },
+    {
+     "name": "result column",
+     "proto": ".res-in",
+     "impl": ".p4-res-in",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "xp line",
+     "proto": ".xpline",
+     "impl": ".p4-xpline",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "result actions",
+     "proto": ".resact",
+     "impl": ".p4-resact",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "keep playing",
+     "proto": ".res-in > section.sec",
+     "impl": ".p4-keep",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  }
+ },
+ "auth": "guest",
+ "shot": "full",
+ "note": "known deviation (loop 2, documented by P4, C2-003): the live Discord line + Brag row (p4-discord) sits under the result actions; it is live content, so it is recorded, not failed; the rest of the layout is compared",
+ "verdict": "pass"
+}

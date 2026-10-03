@@ -1,0 +1,333 @@
+{
+ "state": "theme-viral",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:51:49.535Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/tiktok-viral",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.71,
+    "maskedPct": 7.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:51:50.967Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/tiktok-viral",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.53,
+    "maskedPct": 7.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T10:51:52.630Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/tiktok-viral",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.41,
+    "maskedPct": 18.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:51:54.242Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest/tiktok-viral",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.45,
+    "maskedPct": 18.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "playlist hero",
+     "proto": ".plhero",
+     "impl": ".g3-plhero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the hero is as tall as its lead (G3)"
+    },
+    {
+     "name": "song row",
+     "proto": ".tracks .tr",
+     "impl": ".g3-tr",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "play button",
+     "proto": ".btn-primary",
+     "impl": "[data-g3=\"play\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

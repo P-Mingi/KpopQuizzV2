@@ -1,0 +1,362 @@
+{
+ "state": "creators",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:00:26.556Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/creators",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 3.05,
+    "maskedPct": 14.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "creator board",
+     "proto": ".cbgrid",
+     "impl": ".g8-cbgrid",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: real rows (G8)"
+    },
+    {
+     "name": "tiers",
+     "proto": ".tiers3",
+     "impl": ".g8-tiers",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-cb-cta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "rising",
+     "proto": ".rising",
+     "impl": ".g8-rising",
+     "status": "data-absent",
+     "note": "real data: Rising in each fandom is hidden while no fandom has a first quiz with plays this month (G8)"
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:00:28.029Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/creators",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.93,
+    "maskedPct": 14.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "creator board",
+     "proto": ".cbgrid",
+     "impl": ".g8-cbgrid",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: real rows (G8)"
+    },
+    {
+     "name": "tiers",
+     "proto": ".tiers3",
+     "impl": ".g8-tiers",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-cb-cta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "rising",
+     "proto": ".rising",
+     "impl": ".g8-rising",
+     "status": "data-absent",
+     "note": "real data: Rising in each fandom is hidden while no fandom has a first quiz with plays this month (G8)"
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T11:00:29.592Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/creators",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.07,
+    "maskedPct": 31.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "creator board",
+     "proto": ".cbgrid",
+     "impl": ".g8-cbgrid",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: real rows (G8)"
+    },
+    {
+     "name": "tiers",
+     "proto": ".tiers3",
+     "impl": ".g8-tiers",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-cb-cta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "rising",
+     "proto": ".rising",
+     "impl": ".g8-rising",
+     "status": "data-absent",
+     "note": "real data: Rising in each fandom is hidden while no fandom has a first quiz with plays this month (G8)"
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:00:31.153Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/creators",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.47,
+    "maskedPct": 31.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "creator board",
+     "proto": ".cbgrid",
+     "impl": ".g8-cbgrid",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: real rows (G8)"
+    },
+    {
+     "name": "tiers",
+     "proto": ".tiers3",
+     "impl": ".g8-tiers",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-cb-cta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "rising",
+     "proto": ".rising",
+     "impl": ".g8-rising",
+     "status": "data-absent",
+     "note": "real data: Rising in each fandom is hidden while no fandom has a first quiz with plays this month (G8)"
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G8",
+ "auth": "guest",
+ "anchor": null,
+ "note": "Rising in each fandom: shown only with real rows; compared when present",
+ "verdict": "pass"
+}
