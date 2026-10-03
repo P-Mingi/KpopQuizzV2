@@ -9,6 +9,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { teamUsernames } from '@/lib/editorial/surfaces/team';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -135,7 +136,7 @@ export interface HubComment {
   quizSlug: string;
   quizTitle: string;
   /** Public identity only (what /u/[username] already shows). */
-  author: { username: string; avatarUrl: string | null; accent: string | null; font: string | null } | null;
+  author: { username: string; avatarUrl: string | null; accent: string | null; font: string | null; team?: true } | null;
 }
 
 interface CommentRow {
@@ -188,3 +189,17 @@ export const getGroupComments = unstable_cache(
   ['db:ux-v1:p3:group-comments:v1'],
   { revalidate: CACHE_TTL.stats, tags: ['community'] },
 );
+
+/** The hub's "From the community" rows with an editorial author marked (author.team:
+ *  Team badge, team avatar). Nobody editorial (flag off, SQL pending): no extra read and
+ *  getGroupComments' rows as they are. */
+export async function getGroupCommentsWithTeam(groupId: number): Promise<HubComment[]> {
+  const [rows, team] = await Promise.all([getGroupComments(groupId), teamUsernames()]);
+  return markTeamAuthors(rows, team);
+}
+
+/** Pure: author.team on the rows whose author is in `team`. */
+export function markTeamAuthors(rows: HubComment[], team: ReadonlySet<string>): HubComment[] {
+  if (!team.size) return rows;
+  return rows.map((r) => (r.author && team.has(r.author.username) ? { ...r, author: { ...r.author, team: true as const } } : r));
+}

@@ -10,6 +10,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { pgList } from '@/lib/db/queries/profiles';
 import { getTeamIds } from '@/lib/editorial/accounts';
 import { getFansPicked } from '@/lib/duel/server';
 import { isLiveOpen } from '@/lib/live/server';
@@ -83,22 +84,33 @@ interface FirstRow {
   profiles: { username: string | null; banned_at: string | null } | null;
 }
 
-/** The creator of the group's oldest published quiz (id kept server side only). */
+/** The creator of the group's oldest published quiz (id kept server side only),
+ *  leaving out the creators in `notIds` (editorial accounts) when given. */
+async function readFirst(groupId: number, notIds: readonly string[] | null): Promise<{ id: string; username: string } | null> {
+  let q = createPublicReadClient()
+    .from('quizzes')
+    .select('creator_id, profiles!inner(username, banned_at)')
+    .eq('status', 'published')
+    .eq('group_id', groupId);
+  if (notIds && notIds.length) q = q.not('creator_id', 'in', pgList(notIds));
+  const { data, error } = await q.order('created_at', { ascending: true }).limit(1);
+  if (error) throw new Error(`first creator: ${error.message}`);
+  const row = ((data ?? []) as unknown as FirstRow[])[0];
+  if (!row?.creator_id || !row.profiles?.username || row.profiles.banned_at) return null;
+  return { id: row.creator_id, username: row.profiles.username };
+}
+
 const readFirstCreator = unstable_cache(
-  async (groupId: number): Promise<{ id: string; username: string } | null> => {
-    const { data, error } = await createPublicReadClient()
-      .from('quizzes')
-      .select('creator_id, profiles!inner(username, banned_at)')
-      .eq('status', 'published')
-      .eq('group_id', groupId)
-      .order('created_at', { ascending: true })
-      .limit(1);
-    if (error) throw new Error(`first creator: ${error.message}`);
-    const row = ((data ?? []) as unknown as FirstRow[])[0];
-    if (!row?.creator_id || !row.profiles?.username || row.profiles.banned_at) return null;
-    return { id: row.creator_id, username: row.profiles.username };
-  },
+  async (groupId: number) => readFirst(groupId, null),
   ['v12:g8:hub-first-creator:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
+
+/** V12 F5b: the first creator who is not an editorial account (the next one when the
+ *  oldest quiz is theirs). Its own entry, keyed by the sorted team ids. */
+const readFirstCreatorNotTeam = unstable_cache(
+  async (groupId: number, teamIds: string[]) => readFirst(groupId, teamIds),
+  ['v12:f5:hub-first-creator-not-team:v1'],
   { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
 );
 
@@ -110,8 +122,8 @@ export interface HubGrowthData {
   recentPlays: number | null;
   /** Finished runs of the group blindtest (empty hub only), null when unknown. */
   btPlays: number | null;
-  /** Who made the group's first quiz; null on an empty hub, for an editorial
-   *  account or when unknown. */
+  /** Who made the group's first quiz, skipping editorial accounts (the next
+   *  creator then); null on an empty hub or when unknown. */
   firstCreator: FirstCreator | null;
 }
 
@@ -121,14 +133,17 @@ export interface HubGrowthData {
  */
 export async function getHubGrowth(g: { id: number; slug: string; name: string }, published: number, songs: number): Promise<HubGrowthData> {
   const state = hubState(published);
-  const [wmaSlugs, set, fansPicked, recentPlays, btPlays, first, team, live] = await Promise.all([
+  // Before the reads: the first-creator line skips editorial accounts (V12 F5b).
+  const team = await getTeamIds();
+  const [wmaSlugs, set, fansPicked, recentPlays, btPlays, first, live] = await Promise.all([
     getWmaGroupSlugs(),
     isNameAllGroup(g.slug) ? soft(() => getNameAllSet(g.slug), null, 'name-all set') : Promise.resolve(null),
     soft<FansPickedResponse | null>(() => getFansPicked(g.slug), null, 'fans picked'),
     state === 'thin' ? soft<number | null>(() => readRecentPlays(g.id), null, 'recent plays') : Promise.resolve(null),
     state === 'empty' && songs > 0 ? soft<number | null>(() => readBtPlays(g.slug), null, 'bt plays') : Promise.resolve(null),
-    state !== 'empty' ? soft(() => readFirstCreator(g.id), null, 'first creator') : Promise.resolve(null),
-    getTeamIds(),
+    state !== 'empty'
+      ? soft(() => (team.size ? readFirstCreatorNotTeam(g.id, [...team].sort()) : readFirstCreator(g.id)), null, 'first creator')
+      : Promise.resolve(null),
     // Play live only while the live mode is open (GET /api/live probe, fail closed: issue C2-002).
     isLiveOpen(),
   ]);
