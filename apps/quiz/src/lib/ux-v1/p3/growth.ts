@@ -192,7 +192,7 @@ export interface HubTemplate {
 export function hubTemplates(slug: string): HubTemplate[] {
   const base = `/create?group=${encodeURIComponent(slug)}`;
   return [
-    { type: 'multiple_choice', icon: 't-classic', title: 'Members basics', sub: 'Four answers a question, the classic start', href: `${base}&type=multiple_choice` },
+    { type: 'multiple_choice', icon: 't-classic', title: 'Members basics', sub: 'Four choices each, the classic start', href: `${base}&type=multiple_choice` },
     { type: 'true_false', icon: 't-tf', title: 'True or false', sub: 'Quick, great for sharing', href: `${base}&type=true_false` },
     { type: 'guess_from_clues', icon: 't-clue', title: 'Guess the member from clues', sub: 'Three clues each', href: `${base}&type=guess_from_clues` },
   ];
