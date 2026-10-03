@@ -1,4 +1,5 @@
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { readWeeklySplits } from '@/lib/duel/weekly-splits';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 
@@ -11,8 +12,8 @@ import type { ComebackRow, WeeklyRecapData } from './templates';
 // table (pending SQL) or a read error drops that line, never invents one.
 //   hardest song     bt_runs (v12-g1-bt-runs.sql), real runs only, the 7 days covered
 //   most played quiz plays, the same 7 days
-//   This or that     G7's data. Its module is not on this branch yet: [] until G7
-//                    exposes a read (request G9-R6); the recap simply has no such line.
+//   This or that     G7's readWeeklySplits (request G9-R6): the same 7 days, real
+//                    votes only, most voted first; [] = the recap has no such line.
 //   comebacks        comebacks (the owner's release calendar), the next 7 days
 
 type Svc = ReturnType<typeof createServiceRoleClient>;
@@ -91,11 +92,12 @@ async function topQuiz(svc: Svc, startIso: string, endIso: string): Promise<Week
 /** Everything the weekly recap template reads. */
 export async function readWeeklyRecap(now: number, svc: Svc = createServiceRoleClient()): Promise<WeeklyRecapData> {
   const w = recapWeek(now);
-  const [song, quiz] = await Promise.all([
+  const [song, quiz, splits] = await Promise.all([
     soft('hardest song', null, () => hardestSong(svc, w.startIso, w.endIso)),
     soft('top quiz', null, () => topQuiz(svc, w.startIso, w.endIso)),
+    soft('this or that', [] as WeeklyRecapData['splits'], () => readWeeklySplits(now, svc)),
   ]);
-  return { from: w.from, to: w.to, hardestSong: song, topQuiz: quiz, splits: [] };
+  return { from: w.from, to: w.to, hardestSong: song, topQuiz: quiz, splits };
 }
 
 /** Active comebacks released from today to 7 days ahead (UTC days). */
