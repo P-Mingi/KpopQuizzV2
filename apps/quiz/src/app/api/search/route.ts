@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 
@@ -20,6 +21,26 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const orTerm = query.replace(/[^a-zA-Z0-9 _-]/g, '').trim();
 
   try {
+    // v12: editorial accounts are not listed as creators or people. Flag off: no
+    // read and both v11 queries unchanged (the filter is on id, not the select).
+    const team = await teamIdsToExclude();
+    let creatorsQ = supabase
+      .from('profiles')
+      .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created')
+      .ilike('username', pattern)
+      .gt('total_quizzes_created', 0)
+      .order('total_plays_received', { ascending: false })
+      .limit(3);
+    if (team) creatorsQ = creatorsQ.not('id', 'in', pgList(team));
+    let peopleQ = publicDb
+      .from('profiles')
+      .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
+      .or(`username.ilike.*${orTerm}*,display_name.ilike.*${orTerm}*`)
+      .is('banned_at', null)
+      .order('follower_count', { ascending: false })
+      .limit(8);
+    if (team) peopleQ = peopleQ.not('id', 'in', pgList(team));
+
     const [quizzesResult, groupsResult, creatorsResult, peopleResult] = await Promise.all([
       // Quizzes by title
       supabase
@@ -42,24 +63,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         .limit(3),
 
       // Creators by username (kept for the existing autocomplete consumers)
-      supabase
-        .from('profiles')
-        .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created')
-        .ilike('username', pattern)
-        .gt('total_quizzes_created', 0)
-        .order('total_plays_received', { ascending: false })
-        .limit(3),
+      creatorsQ,
 
       // People (M1.9): username OR display_name, banned excluded, NANO-cheap
       // trigram-indexed public read.
       orTerm.length >= 2
-        ? publicDb
-            .from('profiles')
-            .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
-            .or(`username.ilike.*${orTerm}*,display_name.ilike.*${orTerm}*`)
-            .is('banned_at', null)
-            .order('follower_count', { ascending: false })
-            .limit(8)
+        ? peopleQ
         : Promise.resolve({ data: [] as unknown[] }),
     ]);
 

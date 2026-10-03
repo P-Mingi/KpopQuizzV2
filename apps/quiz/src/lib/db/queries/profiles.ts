@@ -1,6 +1,23 @@
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 
+import { getTeamIds } from '@/lib/editorial/accounts';
+import { isUxV12 } from '@/lib/ux-v12';
+
 import type { Profile, TopCreator } from '@/lib/db/types';
+
+/** v12 (G9 R5): the active editorial account ids a legacy board, count or list
+ *  leaves out. Null when the v12 flag is off (no read at all) or when there are
+ *  none, so every caller keeps its v11 query, response and cache key byte for byte. */
+export async function teamIdsToExclude(): Promise<string[] | null> {
+  if (!isUxV12()) return null;
+  const ids = [...(await getTeamIds())];
+  return ids.length > 0 ? ids : null;
+}
+
+/** PostgREST `in` list for `.not(col, 'in', ...)` (ids are uuids). */
+export function pgList(ids: readonly string[]): string {
+  return `(${ids.join(',')})`;
+}
 
 export async function getProfileById(id: string): Promise<Profile | null> {
   const supabase = await createServerClient();
@@ -58,14 +75,17 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
   // Since Supabase JS client doesn't support FILTER (WHERE ...) in aggregates,
   // we use a simpler approach: get creators with recent quizzes
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const team = await teamIdsToExclude();
 
-  const { data, error } = await supabase
+  let q = supabase
     .from('quizzes')
     .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)')
     .eq('status', 'published')
     .gte('created_at', sevenDaysAgo)
     .order('play_count', { ascending: false })
     .limit(2000);
+  if (team) q = q.not('creator_id', 'in', pgList(team));
+  const { data, error } = await q;
 
   if (error) throw new Error(`Failed to fetch top creators: ${error.message}`);
 
@@ -130,13 +150,16 @@ export interface TopCreatorAllTime {
 export async function getTopCreatorsAllTime(limit: number): Promise<TopCreatorAllTime[]> {
   // Public leaderboard read.
   const supabase = createPublicReadClient();
+  const team = await teamIdsToExclude();
 
-  const { data, error } = await supabase
+  let q = supabase
     .from('profiles')
     .select('username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, total_plays_received, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias')
     .gt('total_quizzes_created', 0)
     .order('total_plays_received', { ascending: false })
     .limit(limit);
+  if (team) q = q.not('id', 'in', pgList(team));
+  const { data, error } = await q;
 
   if (error) throw new Error(`Failed to fetch top creators all time: ${error.message}`);
 
@@ -161,13 +184,16 @@ export interface TopPlayer {
 export async function getTopPlayersByXp(limit: number): Promise<TopPlayer[]> {
   // Public leaderboard read.
   const supabase = createPublicReadClient();
+  const team = await teamIdsToExclude();
 
-  const { data, error } = await supabase
+  let q = supabase
     .from('profiles')
     .select('username, avatar_url, avatar_bg, avatar_text, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias')
     .gt('xp', 0)
     .order('xp', { ascending: false })
     .limit(limit);
+  if (team) q = q.not('id', 'in', pgList(team));
+  const { data, error } = await q;
 
   if (error) throw new Error(`Failed to fetch top players: ${error.message}`);
 
