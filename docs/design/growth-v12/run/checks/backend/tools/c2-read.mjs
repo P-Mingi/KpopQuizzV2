@@ -54,6 +54,13 @@ export async function rows(p) {
   return { status: res.status, body };
 }
 
+/** Exact count of any PostgREST query path (select and filters included). */
+export async function countQ(pathWithQuery) {
+  const res = await send('HEAD', pathWithQuery, { Prefer: 'count=exact', Range: '0-0' });
+  const cr = res.headers.get('content-range');
+  return { count: cr ? Number(cr.split('/')[1]) : null, status: res.status };
+}
+
 /** Does a table or view exist for PostgREST? (404 / PGRST205 = no) */
 export async function exists(table) {
   const r = await rows(`${table}?select=*&limit=0`);

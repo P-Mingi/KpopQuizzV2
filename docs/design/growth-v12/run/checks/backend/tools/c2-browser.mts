@@ -43,7 +43,14 @@ export async function withPage<T>(width: number, fn: (page: any, log: Logged[], 
     page.on('request', (r: any) => {
       const u = new URL(r.url());
       if (!u.pathname.startsWith('/api/') || u.origin !== new URL(BASE).origin) return;
-      if (r.method() === 'GET' || r.method() === 'HEAD') log.push({ method: r.method(), path: u.pathname + u.search, body: null, through: 'get' });
+      if (r.method() === 'GET' || r.method() === 'HEAD') {
+        log.push({ method: r.method(), path: u.pathname + u.search, body: null, through: 'get' });
+        return;
+      }
+      // Mutating requests: record which x- headers they carry (names and uuid shape only, never values).
+      const xs = Object.entries(r.headers() as Record<string, string>).filter(([k]) => k.startsWith('x-'))
+        .map(([k, v]) => `${k}=${/^[0-9a-f-]{36}$/i.test(v) ? '<uuid>' : '<other>'}`);
+      log.push({ method: `${r.method()} (headers ${xs.join(' ') || 'none'})`, path: u.pathname, body: null, through: 'get' });
     });
     return await fn(page, log, stubbed);
   } finally {

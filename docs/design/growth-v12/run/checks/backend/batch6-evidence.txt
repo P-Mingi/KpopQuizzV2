@@ -1,0 +1,26 @@
+C2 batch 6 at 2026-10-03T10:50:23.606Z on http://localhost:3071
+
+H01 /stray-kids-quiz 200: #hub-quizzes=true /blindtest/group-stray-kids=true /stray-kids-name-all-members=true /which-stray-kids-member-are-you=true live=none
+H01   /blindtest/group-stray-kids -> 200
+H01   /stray-kids-name-all-members -> 200
+H01   /which-stray-kids-member-are-you -> 200
+H02 /stray-kids-quiz Fans picked section in HTML: false
+H01 /bts-quiz 200: #hub-quizzes=true /blindtest/group-bts=true /bts-name-all-members=true /which-bts-member-are-you=true live=none
+H01   /blindtest/group-bts -> 200
+H01   /bts-name-all-members -> 200
+H01   /which-bts-member-are-you -> 200
+H02 /bts-quiz Fans picked section in HTML: false
+H02 GET /api/duel/fans-picked?group=bts -> 200 ranked=false votes=null songs=0 updatedAt=null
+H02 GET /api/duel/fans-picked?group=aespa -> 200 ranked=false votes=null songs=0 updatedAt=null
+H02 GET /api/duel/fans-picked?group=blackpink -> 200 ranked=false votes=null songs=0 updatedAt=null
+H04 /riize-quiz 200: create links /create?group=riize | /create?group=riize&type=multiple_choice | /create?group=riize&type=true_false | /create?group=riize&type=guess_from_clues
+H04   /create?group=riize -> 200
+H04   /create?group=riize&type=multiple_choice -> 200
+H04   /create?group=riize&type=true_false -> 200
+H04   /create?group=riize&type=guess_from_clues -> 200
+H05 SQL riize: published quizzes 0, active songs 18; served "No RIIZE quiz yet"=true; first song figure near the empty block: none; "plays" on the group blindtest line: false
+H06 SQL katseye: published quizzes 2; plays in 60 days 187 (http 200); fandom EYEKON
+H06 served: "Only 2 KATSEYE quizzes so far." "Fans played them 187 times in the last 60 days."
+S01 GET /api/creators/kit (bad id) -> 400 {"error":"bad_request"}
+S01 GET /api/creators/kit (unknown uuid) -> 404 {"error":"quiz_not_found"}
+S01 GET /api/creators/kit (real quiz, signed out) -> 200 {"quiz":{"id":"a4b152ac-964b-4da2-8a75-997bf7e9438b","slug":"k-pop-songs-of-2023-quiz","title":"...","questions":6},"group":{"name":"General K-pop","slug":"general-kpop","fandom":null},"linkPlays":null}

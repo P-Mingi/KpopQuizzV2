@@ -1,0 +1,22 @@
+C2 batch 4 at 2026-10-03T10:46:34.232Z on http://localhost:3071
+
+N04 SQL active idols of stray-kids: 8 (Bang Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, I.N); served 200, slots in HTML 8, title "Name all 8 Stray Kids members"
+
+## N02 all found (390)
+N02 N01 mutating calls during the round (after 8 names): 1; count shown ?
+N02 N05 community lines shown: false
+N02 result excerpt: Groups / Stray Kids / Name them all Name them all All 8. Nice. 1 Bang Chan , found 2 Lee Know , found 3 Changbin , found 4 Hyunjin , found 5 Han , found 6 Felix , found 7 Seungmin , found 8 I.N , foun
+GET POST (headers x-nta-anon=<uuid>) /api/name-all/result
+STUBBED POST /api/name-all/result body={"group":"stray-kids","found":["Bang Chan","Lee Know","Changbin","Hyunjin","Han","Felix","Seungmin","I.N"],"seconds":3,"gaveUp":false}
+
+## N03 two names then Give up (1440)
+N03 N01 mutating calls during the round (after 2 names): 0; count shown 2
+N03 N05 community lines shown: false
+N03 result excerpt: Groups / Stray Kids / Name them all Name them all 2 of 8. Warm-up round. 1 Bang Chan , found 2 Lee Know , found 3 Changbin , not found this time 4 Hyunjin , not found this time 5 Han , not found this 
+GET POST (headers x-nta-anon=<uuid>) /api/name-all/result
+STUBBED POST /api/name-all/result body={"group":"stray-kids","found":["Lee Know","Bang Chan"],"seconds":1,"gaveUp":true}
+
+## N06 route guard (refused before the save)
+N06 no x-nta-anon: 400 {"ok":false,"error":"no_browser_id"}
+N06 unknown group: 404 {"ok":false,"error":"unknown_group"}
+N06 unknown member: 400 {"ok":false,"error":"unknown_member"}
