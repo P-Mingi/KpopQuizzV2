@@ -62,6 +62,8 @@ const isV12GroupPage = (p: string): boolean =>
 function v12Section(path: string): 'blindtest' | 'groups' | null {
   const p = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
   if (V12_BLINDTEST_PATHS.has(p)) return 'blindtest';
+  // G4 R2: a live room (host setup, room, join) is Blindtest (prototype `livegame`).
+  if (under(p, '/live') || under(p, '/join')) return 'blindtest';
   if (isV12GroupPage(p)) return 'groups';
   return null;
 }
