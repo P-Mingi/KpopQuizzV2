@@ -314,12 +314,16 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const jit = Math.floor(Math.random() * (QUESTION_MIX.jitter * 2 + 1)) - QUESTION_MIX.jitter;
   // For a single-group / single-artist playlist, "which group/artist is this?"
   // is trivially the chosen act, so ask only "name the song" (groupCount = 0).
+  // G4 R5: the split covers every song. Above 10 songs the 10 song mix is scaled to
+  // `count`; at 10 or fewer it is exactly the 10 entry split it always was (a shorter
+  // game reads its first `count` entries), so those answers are unchanged.
+  const typesLength = Math.max(SONGS_COUNT, count);
   const groupCount = isGroupPlaylist || themed?.titleOnly
     ? 0
-    : Math.max(0, Math.min(SONGS_COUNT, QUESTION_MIX.groupBase + jit));
+    : Math.max(0, Math.min(typesLength, Math.round(((QUESTION_MIX.groupBase + jit) * typesLength) / SONGS_COUNT)));
   const types = shuffle<'artist' | 'title'>([
     ...Array.from({ length: groupCount }, () => 'artist' as const),
-    ...Array.from({ length: SONGS_COUNT - groupCount }, () => 'title' as const),
+    ...Array.from({ length: typesLength - groupCount }, () => 'title' as const),
   ]);
 
   const questions: Question[] = selected.map((song, i) => {
