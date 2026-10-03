@@ -1,0 +1,109 @@
+# a = feat/v12 (both flags off), b = origin/main (both flags off); N1 applied
+# pages with a class: {"C1 recomputed score figure":6,"C3 extra JS chunk (see summary)":2,"OTHER":2,"C2 live counter":3}
+about: identical
+articles: identical
+articles_who_is_cortis: identical
+blackpink_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->78%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->26%</span>
+blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+blindtest_4th_gen: identical
+blindtest_classic: identical
+blindtest_girl_groups: identical
+blindtest_intro_challenge: identical
+blindtest_title_tracks: identical
+bts_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->92%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->31%</span>
+bts_trivia: identical
+cortis_quiz: identical
+create: identical
+easy_kpop_quizzes: identical
+faq: identical
+groups: identical
+leaderboard: OTHER
+  [OTHER]
+    b 
+    a (line count a 1974 b 1680)
+most_liked: identical
+new: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->180%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->60%</span>
+news: OTHER, C2 live counter
+  [OTHER]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsArticle","headline":"Behind-The-Scenes Story Of The Legendary Chiikawa Stage On “M Countdown”","url":"https://www.koreaboo.com/news/behind-scenes-story-legendary-chiikawa-stage-m-countdown/","datePublished":"2026-10-03T17:38:53.000Z","image":"https://image.koreaboo.com/2026/10/Chiikawa-FI.jpg","publisher":{"@type":"Organization","name":"Koreaboo"}},{"@type":"NewsArticle","headline":"K-Pop Star-Turned-YouTuber Addresses Malicious Comments About His Wife","url":"https://www.koreaboo.com/news/kpop-star-tur
+    a <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsArticle","headline":"Behind-The-Scenes Story Of The Legendary Chiikawa Stage On “M Countdown”","url":"https://www.koreaboo.com/news/behind-scenes-story-legendary-chiikawa-stage-m-countdown/","datePublished":"2026-10-03T17:38:53.000Z","image":"https://image.koreaboo.com/2026/10/Chiikawa-FI.jpg","publisher":{"@type":"Organization","name":"Koreaboo"}},{"@type":"NewsArticle","headline":"K-Pop Star-Turned-YouTuber Addresses Malicious Comments About His Wife","url":"https://www.koreaboo.com/news/kpop-star-tur
+  [C2 live counter]
+    b <span class="nw-time">18m ago</span>
+    a <span class="nw-time">17m ago</span>
+  [C2 live counter]
+    b <span class="nw-time">49m ago</span>
+    a <span class="nw-time">48m ago</span>
+  [OTHER]
+    b <div class="nw-img-wrap nw-img-fallback">
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b <img alt="" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="mascot" style="color:transparent" srcSet="/_next/image?url=%2Fmascot%2Fmascot-think.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fmascot%2Fmascot-think.png&amp;w=96&amp;q=75 2x" src="/_next/image?url=%2Fmascot%2Fmascot-think.png&amp;w=96&amp;q=75"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/08/02194459/dive-into-you.png" alt="First Impressions: “Dive Into You” Gives Twins A Second Chance To Save The Man They Both Love" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+pt: identical
+pt_blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+pt_leaderboard: identical
+q_are_you_a_real_coer: identical
+q_are_you_a_real_eyekon: identical
+q_babymonster_quiz: identical
+q_enhypen_guess_the_mv_from_the_screenshot: identical
+q_illit_fans_here: identical
+q_le_sserafim_members_and_music_quiz: identical
+quizzes: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">92<!-- -->%</span>
+    a <span class="quiz-score score-red">31<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">78<!-- -->%</span>
+    a <span class="quiz-score score-red">26<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">124<!-- -->%</span>
+    a <span class="quiz-score score-red">41<!-- -->%</span>
+red_velvet_quiz: identical
+root: identical
+seventeen_quiz: identical
+stats: C1 recomputed score figure, C2 live counter
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.9K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T17:57:09.537Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.9K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T17:56:16.874Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T17:57:09.537Z","license":"https://kpopquiz.org/stats"}</script>
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T17:56:16.874Z","license":"https://kpopquiz.org/stats"}</script>
+  [C1 recomputed score figure]
+    b <span class="stats-plays-fill" style="width:47.11153593404624%">
+    a <span class="stats-plays-fill" style="width:47.105561861521004%">
+  [C2 live counter]
+    b <td class="stats-td stats-td-num">246</td>
+    a <td class="stats-td stats-td-num">245</td>
+  [C1 recomputed score figure]
+    b <span class="stats-trend stats-trend-down">-17<!-- -->%</span>
+    a <span class="stats-trend stats-trend-down">-18<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 257 quizzes with at least 30 plays, as of October 3, 2026.</p>
+    a <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 254 quizzes with at least 30 plays, as of October 3, 2026.</p>
+stray_kids_quiz: C2 live counter, C1 recomputed score figure
+  [C2 live counter]
+    b <p class="text-sm text-secondary mt-2 leading-relaxed">Stray Kids quizzes, made by fans who actually know Stray Kids: play 30+ free tests, from easy trivia to impossible deep cuts, and prove you&#x27;re a real STAY. 7,886 plays and counting.</p>
+    a <p class="text-sm text-secondary mt-2 leading-relaxed">Stray Kids quizzes, made by fans who actually know Stray Kids: play 30+ free tests, from easy trivia to impossible deep cuts, and prove you&#x27;re a real STAY. 7,887 plays and counting.</p>
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->124%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->41%</span>
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Stray Kids Quizzes","description":"Stray Kids quizzes, made by fans who actually know Stray Kids: play 30+ free tests, from easy trivia to impossible deep cuts, and prove you're a real STAY. 7,886 plays and counting.","url":"https://kpopquiz.org/stray-kids-quiz","dateModified":"2026-09-26","mainEntity":{"@type":"ItemList","numberOfItems":30,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://kpopquiz.org/q/skz-true-or-false-only-real-stays-pass","name":"SKZ true or false - only r
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Stray Kids Quizzes","description":"Stray Kids quizzes, made by fans who actually know Stray Kids: play 30+ free tests, from easy trivia to impossible deep cuts, and prove you're a real STAY. 7,887 plays and counting.","url":"https://kpopquiz.org/stray-kids-quiz","dateModified":"2026-09-26","mainEntity":{"@type":"ItemList","numberOfItems":30,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://kpopquiz.org/q/skz-true-or-false-only-real-stays-pass","name":"SKZ true or false - only r
+trending: identical
+u_testtest: identical

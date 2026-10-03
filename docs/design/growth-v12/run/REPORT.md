@@ -75,6 +75,16 @@ Builds: `feat/v12` and `origin/main` (a94d77c), both with `NEXT_PUBLIC_UX_V1`, `
   pages unchanged apart from the tracking call"), but section 6 asks for identical server HTML: owner decision 23.
   The other run-2 differences are live data, because origin/main was built earlier than the rebuilt feat/v12: play
   counts, percentages and the order of top lists on `/leaderboard` and `/news` (allowed: live counters).
+- Run 3 (ORCH, after the F5 fix pass, feat/v12 at a20c9f0 code, `run3/`): sitemap 3008 = 3008 (same URLs and
+  alternates), robots.txt byte identical, 4 SEO fields differ: JSON-LD render times and live data on `/stats`,
+  `/news`, `/stray-kids-quiz`, and 10 more quiz links on `/leaderboard`. Server HTML: recomputed clue quiz figures
+  (allowed), live counters, the extra script of `/blindtest` and `/pt/blindtest` (accepted, no network request), and
+  two pages left as other: `/news` (the external news feed and its images: live data) and `/leaderboard`, where the
+  legacy community comments panel shows 8 rows on feat/v12 and 0 on main. That is a failed read on the main build,
+  not a code difference: the same origin/main commit showed the same 8 rows in run 2, and with the flags off the
+  feat/v12 query is byte for byte main's (`teamIdsToExclude()` is null). It is v11 decision 28 (legacy pages cache a
+  failed read). A first attempt of run 3 compared the wrong server (port 3073 belonged to another session's dev
+  server); it was discarded.
 
 ## 4. v11 specs on the v11-only build (C3, :3072)
 
