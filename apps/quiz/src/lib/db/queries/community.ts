@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -34,8 +35,10 @@ function toPerson(p: ProfileRow): PersonCardData {
 // the follows(followed_id, created_at) index), hydrated with one IN read.
 export async function getRisingCreators(limit = 8): Promise<Array<{ person: PersonCardData; newFollowers: number }>> {
   const db = createPublicReadClient();
-  const { data: agg } = await db.rpc('get_rising_creators', { p_days: 7, p_limit: limit });
-  const rows = (agg ?? []) as Array<{ followed_id: string; new_followers: number }>;
+  const team = await teamIdsToExclude();
+  const { data: agg } = await db.rpc('get_rising_creators', { p_days: 7, p_limit: team ? limit + team.length : limit });
+  let rows = (agg ?? []) as Array<{ followed_id: string; new_followers: number }>;
+  if (team) rows = rows.filter((r) => !team.includes(r.followed_id)).slice(0, limit);
   if (rows.length === 0) return [];
 
   const ids = rows.map((r) => r.followed_id);
@@ -62,13 +65,16 @@ async function fetchActiveFansByGroup(groupSlug: string, limit = 8): Promise<Arr
   const { data: g } = await db.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
   if (!g) return [];
 
-  const { data: mastery } = await db
+  const team = await teamIdsToExclude();
+  let mq = db
     .from('player_group_mastery')
     .select('player_id, songs_played, songs_correct')
     .eq('group_id', (g as { id: number }).id)
     .gt('songs_played', 0)
     .order('songs_played', { ascending: false })
     .limit(limit);
+  if (team) mq = mq.not('player_id', 'in', pgList(team));
+  const { data: mastery } = await mq;
   const rows = (mastery ?? []) as Array<{ player_id: string; songs_played: number; songs_correct: number }>;
   if (rows.length === 0) return [];
 
@@ -106,6 +112,7 @@ export const getQuizHallOfFame = unstable_cache(
 
 async function fetchQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFameEntry[]> {
   const db = createPublicReadClient();
+  const team = await teamIdsToExclude();
   const { data } = await db
     .from('plays')
     .select(`score, total_questions, time_taken_seconds, player_id, profiles(${PROFILE_COLS})`)
@@ -119,6 +126,7 @@ async function fetchQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFa
   const out: HallOfFameEntry[] = [];
   for (const r of rows) {
     if (r.player_id) {
+      if (team?.includes(r.player_id)) continue; // v12: editorial accounts are not on the board
       if (seenPlayers.has(r.player_id)) continue; // best per player (rows are score-desc)
       seenPlayers.add(r.player_id);
     }
@@ -299,6 +307,10 @@ interface FeedRow {
 export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]; recentCount: number }> {
   const db = createPublicReadClient();
   const since = new Date(Date.now() - 48 * 3600_000).toISOString();
+  const team = await teamIdsToExclude();
+  let recentQ = db.from('activity_events').select('id', { count: 'exact', head: true }).gte('created_at', since);
+  // v12: an editorial account's events are not fan activity (anonymous rows stay).
+  if (team) recentQ = recentQ.or(`user_id.is.null,user_id.not.in.${pgList(team)}`);
 
   const [{ data: rows }, { data: groups }, { count }] = await Promise.all([
     db.from('activity_events')
@@ -309,7 +321,7 @@ export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]
       // feed with more than two faces in it.
       .limit(400),
     db.from('groups').select('slug, name'),
-    db.from('activity_events').select('id', { count: 'exact', head: true }).gte('created_at', since),
+    recentQ,
   ]);
 
   // activity_events.user_id references auth.users, NOT profiles, so PostgREST
@@ -317,7 +329,8 @@ export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]
   // back empty rather than erroring. One IN read instead, same as
   // getRisingCreators. This was silently returning zero events with 1400+ rows
   // sitting in the table.
-  const feedRows = (rows ?? []) as unknown as FeedRow[];
+  let feedRows = (rows ?? []) as unknown as FeedRow[];
+  if (team) feedRows = feedRows.filter((r) => !r.user_id || !team.includes(r.user_id));
   const userIds = [...new Set(feedRows.map((r) => r.user_id).filter((x): x is string => Boolean(x)))];
   const profById = new Map<string, ProfileRow>();
   if (userIds.length > 0) {
@@ -452,7 +465,8 @@ export async function getLatestBadgeEarns(limit = 6): Promise<BadgeEarn[]> {
   const since = new Date(Date.now() - 30 * 24 * 3600_000).toISOString();
 
   const seenBadge = new Set<string>();
-  const { data } = await db
+  const team = await teamIdsToExclude();
+  let bq = db
     .from('user_badges')
     .select(`badge_id, earned_at, badge_definitions(id, name, icon), profiles(${PROFILE_COLS})`)
     .gte('earned_at', since)
@@ -466,6 +480,8 @@ export async function getLatestBadgeEarns(limit = 6): Promise<BadgeEarn[]> {
     // stamped whole tiers in the same minute, so an undeduped shelf is the same
     // coin four times.
     .limit(limit * 8);
+  if (team) bq = bq.not('user_id', 'in', pgList(team));
+  const { data } = await bq;
 
   return ((data ?? []) as unknown as Array<{
     badge_id: string; earned_at: string;
@@ -515,11 +531,14 @@ interface CommentRow {
 export async function getCommunityComments(limit = 8): Promise<CommunityComment[]> {
   const db = createPublicReadClient();
   // Over-fetch so the < 3 char filter still leaves a full wall.
-  const { data } = await db
+  const team = await teamIdsToExclude();
+  let cq = db
     .from('quiz_comments')
     .select('id, quiz_id, user_id, content, score, total, created_at, quizzes(title, slug)')
     .order('created_at', { ascending: false })
     .limit(limit * 3);
+  if (team) cq = cq.not('user_id', 'in', pgList(team));
+  const { data } = await cq;
 
   const rows = ((data ?? []) as unknown as CommentRow[])
     .filter((r) => r.quizzes && r.content && r.content.trim().length >= 3)

@@ -8,6 +8,7 @@ import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -363,7 +364,11 @@ export interface BandInfo { date: string; fans: number }
 
 async function readBand(today: string): Promise<BandInfo> {
   const db = createPublicReadClient();
-  const { count } = must(await db.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', today), 'daily_blindtest_scores');
+  // V12 (G9 R5e): editorial accounts are not fans. Flag off: null, no read, same query.
+  const team = await teamIdsToExclude();
+  let q = db.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', today);
+  if (team) q = q.not('user_id', 'in', pgList(team));
+  const { count } = must(await q, 'daily_blindtest_scores');
   return { date: today, fans: count ?? 0 };
 }
 

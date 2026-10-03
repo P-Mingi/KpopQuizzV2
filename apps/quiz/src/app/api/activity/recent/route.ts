@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 
 // Recent activity for the home ticker (Workstream M, M1.7). Global (not per-user),
 // cached ~45s. display_name is already baked at write time, so there is no
@@ -43,11 +44,17 @@ function line(e: EventRow, groupName: (slug: string | null) => string): string |
 export async function GET(): Promise<NextResponse> {
   const db = createPublicReadClient();
   const hourAgo = new Date(Date.now() - 3_600_000).toISOString();
+  // v12: an editorial account's events are not fan activity (anonymous rows stay).
+  // Flag off: no read and the v11 queries unchanged.
+  const team = await teamIdsToExclude();
+  const notTeam = team ? `user_id.is.null,user_id.not.in.${pgList(team)}` : null;
 
-  const { count } = await db
+  let countQ = db
     .from('activity_events')
     .select('id', { count: 'exact', head: true })
     .gte('created_at', hourAgo);
+  if (notTeam) countQ = countQ.or(notTeam);
+  const { count } = await countQ;
 
   const headers = { 'Cache-Control': 'public, max-age=30, s-maxage=45, stale-while-revalidate=60' };
 
@@ -56,8 +63,10 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ events: [] }, { headers });
   }
 
+  let rowsQ = db.from('activity_events').select('id, event_type, display_name, group_slug, payload, created_at').order('created_at', { ascending: false }).limit(RECENT_LIMIT);
+  if (notTeam) rowsQ = rowsQ.or(notTeam);
   const [{ data: rows }, { data: groups }] = await Promise.all([
-    db.from('activity_events').select('id, event_type, display_name, group_slug, payload, created_at').order('created_at', { ascending: false }).limit(RECENT_LIMIT),
+    rowsQ,
     db.from('groups').select('slug, name'),
   ]);
 

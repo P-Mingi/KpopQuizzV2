@@ -6,6 +6,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
+
 import type { BoardMe, BoardResponse, BoardRow } from './board-types';
 
 export const BOARD_TOP = 5;
@@ -42,10 +44,18 @@ function nameOf(p: Pick<ProfileRow, 'display_name' | 'username'> | undefined): s
  */
 export async function readBoard(svc: SupabaseClient, userId: string | null, now = new Date()): Promise<BoardResponse> {
   const date = todayUtc(now);
+  // V12 (G9 R5h): editorial accounts leave the rows, the total and the rank count.
+  // Flag off: null, no read, the queries are unchanged.
+  const team = await teamIdsToExclude();
+  let topQ = svc.from('daily_blindtest_scores').select('user_id, score, time_ms').eq('date', date);
+  let totalQ = svc.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', date);
+  if (team) {
+    topQ = topQ.not('user_id', 'in', pgList(team));
+    totalQ = totalQ.not('user_id', 'in', pgList(team));
+  }
   const [{ data: top }, { count }] = await Promise.all([
-    svc.from('daily_blindtest_scores').select('user_id, score, time_ms').eq('date', date)
-      .order('score', { ascending: false }).order('time_ms', { ascending: true }).limit(BOARD_TOP),
-    svc.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true }).eq('date', date),
+    topQ.order('score', { ascending: false }).order('time_ms', { ascending: true }).limit(BOARD_TOP),
+    totalQ,
   ]);
   const topRows = (top ?? []) as { user_id: string; score: number; time_ms: number }[];
 
@@ -82,8 +92,10 @@ export async function readBoard(svc: SupabaseClient, userId: string | null, now 
       const s = Number(mine.score);
       const t = Number(mine.time_ms);
       // Same rank rule as the live leaderboard: rows that beat me + 1.
-      const { count: ahead } = await svc.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true })
+      let aheadQ = svc.from('daily_blindtest_scores').select('user_id', { count: 'exact', head: true })
         .eq('date', date).or(`score.gt.${s},and(score.eq.${s},time_ms.lt.${t})`);
+      if (team) aheadQ = aheadQ.not('user_id', 'in', pgList(team));
+      const { count: ahead } = await aheadQ;
       rank = (ahead ?? 0) + 1;
     }
     const p = byId.get(userId);

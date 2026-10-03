@@ -5,6 +5,9 @@ import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { BadgeMedal, MedalTile, RarityKey } from '@/components/ux-v1/badge-medal';
 import { BiasTag } from '@/components/ux-v1/person-name';
+import { UxAvatar } from '@/components/ux-v1/avatar';
+import { TeamNote, TeamTag } from '@/components/ux-v1/team';
+import { isUxV12 } from '@/lib/ux-v12';
 import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
 import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 
@@ -44,6 +47,18 @@ export interface UxPassportProps {
   now: number;
   /** Rendered at the end of the page (moderator tools on /u). */
   footer?: React.ReactNode;
+  /** v12 (SYSTEM.md 5.6): an editorial (team) account. Ignored unless isUxV12().
+   *  Typed `true` to match PassportProps (build-passport) under exactOptionalPropertyTypes. */
+  isTeam?: true;
+}
+
+/** A team passport keeps only the neutral meta (join date, followers): no fandom,
+ *  no "Stan since", no "also" groups, nothing that calls the account a fan. */
+function teamMeta(meta: MetaSegment[]): MetaSegment[] {
+  return meta.filter((seg) => {
+    const text = seg.map((part) => part.text).join('');
+    return text.startsWith('joined ') || /\bfollowers?$/.test(text);
+  });
 }
 
 function accentClass(accent: string | null): string {
@@ -73,6 +88,8 @@ function PassportAvatar({ name, avatar }: { name: string; avatar: UxPassportProp
  */
 export function UxPassport(p: UxPassportProps): React.ReactElement {
   const personal = p.mode === 'personal';
+  const team = p.isTeam === true && isUxV12();
+  const meta = team ? teamMeta(p.meta) : p.meta;
   const acc = accentClass(p.accent);
   const ff = fontFamily(p.font);
   const tabs = [
@@ -194,12 +211,13 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
     <UxPage width="wide" className="p10-passport">
       <PassportBand username={p.username} owner={personal ? 'server' : 'check'} mode={p.band.mode} image={p.band.image} groupPhoto={p.band.groupPhoto} tint={p.theme.band} />
       <div className="p10-head">
-        <PassportAvatar name={p.displayName} avatar={p.avatar} />
+        {team ? <UxAvatar name={p.displayName} size={96} team className="p10-pav" /> : <PassportAvatar name={p.displayName} avatar={p.avatar} />}
         <PassportActions username={p.username} displayName={p.displayName} owner={personal ? 'server' : 'check'} level={p.level} />
       </div>
       <div className="p10-id">
         <div className="p10-idrow">
           <h1 className={['p10-pname', 'ux-who', acc].filter(Boolean).join(' ')} style={ff ? { fontFamily: ff } : undefined}>{p.displayName}</h1>
+          {team ? <TeamTag /> : null}
           <BiasTag bias={p.bias} accent={p.accent} />
           {p.pinnedBadge ? (
             <span className="p10-pinb" title={p.pinnedBadge.name}>
@@ -209,7 +227,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
           <span className="p10-lvl">{p.level}</span>
         </div>
         <p className="p10-meta">
-          {p.meta.map((seg, i) => (
+          {meta.map((seg, i) => (
             <span key={i}>
               {i > 0 ? ' · ' : null}
               {seg.map((part, j) => (part.href ? <Link key={j} href={part.href}>{part.text}</Link> : <span key={j}>{part.text}</span>))}
@@ -217,15 +235,16 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
           ))}
         </p>
         {p.bio && p.bio.trim() ? <p className="p10-bio">{p.bio.trim()}</p> : null}
+        {team ? <TeamNote surface="profile" /> : null}
       </div>
-      <div className="p10-xpwrap">
+      {team ? null : <div className="p10-xpwrap">
         <div className="p10-xpw">
           <span className="p10-bar" role="progressbar" aria-label="Progress to the next level" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(p.xp.pct)}>
             <i style={{ width: `${p.xp.pct}%`, background: p.theme.bar }} />
           </span>
           <small className="ux-num"><b>{p.xp.have}</b>{p.xp.rest}</small>
         </div>
-      </div>
+      </div>}
       {/* scrolls sideways on phones: focusable region so keyboard users can scroll it (axe scrollable-region-focusable) */}
       <div className="p10-stats" role="region" aria-label="Stats" tabIndex={0}>
         {p.stats.map((s) => <div key={s.label}><b className="ux-num">{s.value}</b><span>{s.label}</span></div>)}
