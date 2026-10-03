@@ -1,5 +1,23 @@
 # C2 wiring rows (V12 backend check)
 
+## Summary (2026-10-03)
+
+- Flag on (:3071, afb83f4, `NEXT_PUBLIC_BT_TRACKING` unset), 67 control rows: PASS 43, FAIL 0, NOT verified until
+  SQL 22 (each checked in its fail-soft form: B06, B07; T04, T05; N05; Q01, Q02, Q04, Q05, H02, H03; S03; V01 to V06;
+  E01 to E04), NOT verified because C2 did not cover them 2 (S02, S04: the share kit only opens after a signed-in
+  publish). WAITING FOR GO 2 (WG1 tracking proof, WG2 live load test).
+- Flag off (:3072, v11-only build of afb83f4): nothing new on any row. 30 of 31 GET checks answer 404, a redirect or
+  no v12 block; `/api/cron/live-expire` answers 401 (auth before flag) and does nothing, which rule 5 allows. All v12
+  write routes 404. Details: `V01-R03.md` "Flag off".
+- Data guard: unchanged from before to after the flag-on run. `plays` +1 during the flag-off run, from an anonymous
+  play on a quiz C2 never opened (10:56:09Z); normalised as a live counter. Test user unchanged. No v12 SQL applied
+  (`schema-probe.txt`).
+- Issues: G3 C2-001 and G8 C2-002 (links to `/live` while it is not open; owner decision: flag off until
+  v12-g4-live.sql, or gate the links on `GET /api/live`), G4 C2-003 (low, `/join` form while closed), G7 C2-004
+  (documentation only).
+- Evidence: `B01-L05.md`, `L06-W05.md`, `N01-Q05.md`, `H01-S03.md`, `V01-R03.md`, `batch*-evidence*.txt`,
+  `creators-sql.txt`, `data-guard-*.txt`, `flag-off-*.txt`; tools in `tools/`.
+
 One row per control of every v12 view (prototype `docs/design/growth-v12/prototype.html`, the 40 states of
 `capture-v12.mjs`, SYSTEM.md 1 to 5.6, the builders' reports). Target: ORCH's flag-on production build of afb83f4
 on `http://localhost:3071` (`NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1`, `NEXT_PUBLIC_BT_TRACKING` unset).
