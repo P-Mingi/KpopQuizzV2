@@ -42,5 +42,12 @@ ORCH runs the file's verification queries read-only and records the result here.
   (Deezer release date and ISRC year, read 2026-10-03; 30 of 30 agree with the year the file writes).
 - File 19 waits for the owner's editorial accounts.
 
+## Go log
+
+- 2026-10-03 owner: `go v12-bundle-a.sql` (the owner pastes it in the SQL editor; waiting for `applied`).
+- 2026-10-03 owner: go for file 8. `v12-bundle-b.sql` written: filtered file 6, file 9 again, file 8, each in its own
+  transaction, then a read-only grid (5 checks, `ok` column; syntax-tested on a throwaway local Postgres 18). Run it
+  after bundle A.
+
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
