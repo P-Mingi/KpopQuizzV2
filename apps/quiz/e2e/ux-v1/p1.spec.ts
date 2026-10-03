@@ -314,7 +314,9 @@ for (const theme of THEMES) {
 
       const fresh = page.locator('.p1-two > div').filter({ has: page.locator('#p1-new-h') });
       await expect(fresh.locator('.ux-sec-h a')).toHaveAttribute('href', '/new');
-      await expect(fresh.locator('.p1-glyph svg').first()).toBeVisible();
+      // Each new quiz row leads with its picture (own cover, group photo or logo), else the type glyph.
+      await expect(fresh.locator('.p1-glyph').first()).toBeVisible();
+      expect(await fresh.locator('.p1-glyph').evaluateAll((ts) => ts.every((t) => t.querySelector('img, svg')))).toBe(true);
       expect((await fresh.locator('.ux-row-end').allTextContents()).every((t) => /ago$|^yesterday$|^just now$/.test(t.trim()))).toBe(true);
 
       const slugs = await page.locator('.p1-qotd a, .p1-home .ux-qcard, .p1-two a.ux-row').evaluateAll((as) => as.map((a) => (a.getAttribute('href') ?? '').replace(/\?.*$/, '')));
