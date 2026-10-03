@@ -49,5 +49,16 @@ ORCH runs the file's verification queries read-only and records the result here.
   transaction, then a read-only grid (5 checks, `ok` column; syntax-tested on a throwaway local Postgres 18). Run it
   after bundle A.
 
+## Added by the F5 fix pass (2026-10-03), not in any bundle yet
+
+- `v12-f5-quiz-rank.sql` (F5a): new functions `get_quiz_rank_v12` and `get_quiz_rank_for_score_v12` with
+  `p_exclude_team boolean DEFAULT false`; the existing rank functions are untouched. After `v12-g9-editorial.sql`.
+  Unlocks: the results rank "#N of M players" without editorial players (flag on). Until applied, today's call.
+- `v12-f5-fandom-war.sql` (F5b): new function `get_fandom_war_map_v12` without editorial plays;
+  `get_fandom_war_map` is untouched. After `v12-g9-editorial.sql`. Unlocks: the fandom war without editorial plays
+  (flag on). Until applied, today's call.
+Both were replayed by their agent on a throwaway local Postgres (refuse before the editorial file, re-run cleanly,
+default answers equal today's).
+
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
