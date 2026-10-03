@@ -93,6 +93,14 @@ Apply only by `go <filename>`; the owner pastes the file in the SQL editor of `r
 
 ## 6. Owner decisions
 
+Answered on 2026-10-03 (details in `run/RUN-STATE.md` "Owner answers"): the cron test amended and fixed; the extra
+script on `/blindtest` accepted after a network check showed it makes no request (`run/NETWORK-BLINDTEST.md`); the v12
+flag stays off in production; the fr, es, id strings reviewed before the flag goes on; no lock on editorial fan
+actions; screenshots kept local; SQL bundled (`v12-bundle-a.sql`), file 6 filtered, file 8 waits on a sample, file 19
+on the accounts. Still open: the live doors commit 4284aaa (unmerged, its spec gate stays closed).
+
+Before the answers:
+
 The full list, numbered, with options, is `run/RUN-STATE.md` "Owner decisions needed" (1 to 23). The ones that
 block turning the flag on or merging:
 
@@ -107,8 +115,9 @@ block turning the flag on or merging:
 - G9: the owner creates 3 to 5 editorial accounts and fills `v12-g9-editorial-accounts.sql`.
 - G4: the project's real Realtime limits before the live load test.
 - 18: refusing editorial accounts on about 25 live write routes was not done (rule of use instead).
-- Repo size: C1 committed about 17 MB of screenshots under `run/checks/pixel/` (v11 also committed its report
-  screenshots); they can be removed before the merge, keeping the numbers.
+- Screenshots (about 43 MB, 888 files under `run/checks/pixel/` and `run/reports/<id>/`): removed from the branch in
+  its last commit on the owner's decision; they stay on the owner's disk. Links to them in the reports point at
+  local files.
 
 ## 7. Env vars and crons
 

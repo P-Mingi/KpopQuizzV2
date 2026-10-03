@@ -125,6 +125,23 @@ The grouped list for the owner, in apply order, is `run/SQL-PENDING.md`.
     - `/api/cron/live-expire` answers 401 instead of 404 with the flag off: `src/lib/live/api.test.ts` L112 to 119 pins the current order (401, then a skipped 200). Owner decision: allow amending that test (then a two-line change), or accept (with the secret the cron does nothing with the flag off).
 23. Parity, `/blindtest` and `/pt/blindtest` with both flags off: after the C3-002 fix the tracking module is in no chunk, but those two pages still list one more `<script>` tag than main (the legacy game chunk is split in two; +1,490 bytes = the no-op tracking hook). Visible HTML, text, links and SEO identical. Accept (the tracking-call exception of rule 5 and SYSTEM.md 1), or have the legacy games keep no tracking hook at all (no runs recorded from the legacy flows).
 
+## Owner answers (2026-10-03)
+
+1. Cron `live-expire` tests: amend them to follow the flag rule. Done (429bd83): 404 with the flag off before auth, the
+   test in `lib/live/api.test.ts` amended on this decision, plus a new case for the secret with the flag on.
+2. The extra script on `/blindtest` (decision 23): accepted if it makes no network request with the flags off.
+   Checked on two production builds, three runs: it makes none (`run/NETWORK-BLINDTEST.md`).
+3. `NEXT_PUBLIC_UX_V12` stays off in production (decision 21). The G3 commit 4284aaa (live doors only while live is
+   open) stays unmerged: its gate (`g3.spec.ts`) was not opened by the owner.
+4. fr, es, id game strings (decision 10): do not block the merge; reviewed before the flag goes on.
+5. No refusal of editorial accounts on fan actions (decision 18): agreed.
+6. Screenshots: removed from the branch in the last commit, kept locally (`.git/info/exclude`); the PR is squash
+   merged.
+7. Port 3021: nothing listens on it (checked); :3071 kept.
+8. SQL: `v12-bundle-a.sql` (files 1 to 5, 7, 9 to 18, each in its own transaction, verification grid);
+   `v12-g2-03b-releases-2026-filtered.sql` for file 6 (without the 5 flagged titles); file 8 waits on the 30-row
+   sample (`docs/growth/catalogue/v12-g2-05-sample30.md`); file 19 after the accounts.
+
 ## Open requests (run/requests/G1.md), to route in Phase 2
 
 - R1: ranked runs are NOT tracked: ranked uses its own hook `components/ranked/ux-v1/use-ranked-run.ts`, unowned. ORCH assigns it (to G1 in a follow-up).
@@ -179,5 +196,6 @@ The grouped list for the owner, in apply order, is `run/SQL-PENDING.md`.
 - 2026-10-03 C3 parity merged (a120b5a). Both flags off, feat/v12 (:3073) vs origin/main (:3074): SEO fields of the 40 URLs identical (only the `/stats` JSON-LD `dateModified` render time moves); sitemap 3008 entries on both, same URLs and hreflang alternates; robots.txt byte identical. Server HTML of 38 pages: 28 identical, 7 differ only by recomputed guess-from-clues figures (allowed), `/news` only by relative times (live). One blocking difference, issue C3-002 (G1): `/blindtest` and `/pt/blindtest` load one extra async chunk (the tracking module, 4.9 KB, inert with tracking off): F4 spawned to remove it. Normalisation added: the next/font CSS-module hash on `<html class>`. v11 specs on :3072: 877 pass, 20 skip, 48 fail, 2 flaky; none of the 48 comes from v12 code (each failing spec and its code are identical to origin/main): 28 legacy colour contrast (known since v11), 8 p5 expecting 86% glass (the shipped deviation is 94%), 6 p3 Notify me (production alerts are on: data), 6 environment (six BTS hub photos never answer on the cold build). v12 specs with v11-only expectations: 45 pass, 252 skip, 2 fail on the same image hang (NOT verified).
 - 2026-10-03 C3-002: F4 (as G1) moved the legacy games' tracking behind a dynamic `import()`; ORCH added G1's R7 (`env` inlines `NEXT_PUBLIC_BT_TRACKING` as '' when unset, 8a39901); integration tsc 0, vitest 1854/1854. Rebuilt feat/v12 with both flags off (served :3073) and re-ran C3's parity (run2): tracking module gone; one extra script tag left on `/blindtest` and `/pt/blindtest` (chunk split, owner decision 23); other differences are live counters (main was built earlier). REPORT.md sections 1 to 5 and 7 written by ORCH.
 - 2026-10-03 REPORT.md complete (888fdef). Check servers :3072 to :3074 stopped and their worktrees removed; :3071 (flag on) kept for the owner. No test-user storage state left in any worktree.
+- 2026-10-03 Owner answers applied: cron order fixed (429bd83); SQL bundle A, filtered file 6, sample of file 8 (3e1779e); network check of `/blindtest` on flag-off production builds of 3e1779e and origin/main, three runs: no request from the extra chunk, 0 to `/api/track`; servers :3073 and :3074 stopped and their worktrees removed. Integration: tsc 0, vitest 1855/1855.
 
-NEXT ACTION: none on the agent side until the owner answers. When `feat/v12` is pushed: open the draft PR `feat/v12` -> `main` (flag default off) with REPORT.md linked, the pending SQL, env vars, crons and the owner decisions. On each `go <filename>`: the owner applies it and answers `applied <filename>`, ORCH runs its verification queries read-only and updates `run/SQL-PENDING.md`. On decision 22 (allow amending the two tests): merge 4284aaa and fix the cron order. Then RUN-STATE says DONE; stop :3071 and remove `.worktrees/v12-integration`.
+NEXT ACTION: the branch is ready to push (owner: `git push -u origin feat/v12`). Then ORCH opens the draft PR `feat/v12` -> `main` (squash merge, flag default off) with REPORT.md. SQL: on `go v12-bundle-a.sql` and `applied v12-bundle-a.sql`, read the grid result with the owner; then `v12-g2-03b-releases-2026-filtered.sql` and a re-run of `v12-g2-06-title-tracks.sql`; file 8 after the owner reads the sample; file 19 after the accounts. Live load test after the Realtime limits. Then RUN-STATE says DONE; stop :3071 and remove `.worktrees/v12-integration`.
