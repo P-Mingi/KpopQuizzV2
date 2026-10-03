@@ -230,7 +230,8 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
   useEffect(() => { setReady(true); }, []);
   // The join page asks GET /api/live once, like the host screen, so a phone learns the
   // mode is not open before it types a code (issue C2-003). Only a clear "not open"
-  // (503 not_live, or 404 with the flag off) closes the form; a network error leaves it.
+  // (503 not_live, or 404 with the flag off) shows the notice; the form stays under it
+  // and fails soft on its own answer (a join then says "Not open yet" too).
   const [closed, setClosed] = useState(false);
   useEffect(() => {
     if (framed) return;
@@ -241,7 +242,7 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
     })();
     return () => { off = true; };
   }, [framed]);
-  const phase = closed && (phone.phase === 'idle' || phone.phase === 'form') ? 'not_live' : phone.phase;
+  const notice = closed && (phone.phase === 'idle' || phone.phase === 'form');
 
   // On the join page the address follows the room, so a reload comes back to it.
   useEffect(() => {
@@ -251,7 +252,7 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
   }, [framed, joined]);
 
   let body: React.ReactNode;
-  switch (phase) {
+  switch (phone.phase) {
     case 'idle':
       body = framed
         ? <Msg icon="plus" tone="ux-c-b" title="Waiting for a room" sub="The host opens it on the big screen." live={false} />
@@ -285,8 +286,9 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
   }
 
   return (
-    <div className="ux-live-pbody" data-phase={phase} data-status={phone.state?.status ?? ''} data-ready={ready ? '1' : undefined}>
+    <div className="ux-live-pbody" data-phase={phone.phase} data-open={closed ? 'no' : undefined} data-status={phone.state?.status ?? ''} data-ready={ready ? '1' : undefined}>
       <Top code={joined} />
+      {notice ? <Msg icon="plus" tone="ux-c-b" title="Not open yet" sub="Live blindtest is not open yet. Come back soon." /> : null}
       {body}
     </div>
   );
