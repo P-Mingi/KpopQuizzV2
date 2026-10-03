@@ -1,0 +1,281 @@
+{
+ "state": "hub-empty-riize",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:00:01.711Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/riize-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.87,
+    "maskedPct": 21.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "be the first",
+     "proto": ".fcreate",
+     "impl": ".g8-fcreate",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the signals are the real ones (G8)"
+    },
+    {
+     "name": "template",
+     "proto": ".tpl",
+     "impl": ".g8-tpl",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-fcreate .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:00:03.279Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/riize-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 5.4,
+    "maskedPct": 21.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "be the first",
+     "proto": ".fcreate",
+     "impl": ".g8-fcreate",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the signals are the real ones (G8)"
+    },
+    {
+     "name": "template",
+     "proto": ".tpl",
+     "impl": ".g8-tpl",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-fcreate .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:00:05.026Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/riize-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.12,
+    "maskedPct": 34.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "be the first",
+     "proto": ".fcreate",
+     "impl": ".g8-fcreate",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the signals are the real ones (G8)"
+    },
+    {
+     "name": "template",
+     "proto": ".tpl",
+     "impl": ".g8-tpl",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-fcreate .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:00:06.860Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/riize-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 1.15,
+    "maskedPct": 34.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "be the first",
+     "proto": ".fcreate",
+     "impl": ".g8-fcreate",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the signals are the real ones (G8)"
+    },
+    {
+     "name": "template",
+     "proto": ".tpl",
+     "impl": ".g8-tpl",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "create button",
+     "proto": ".btn-primary",
+     "impl": ".g8-fcreate .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G8",
+ "auth": "guest",
+ "anchor": ".g8-fcreate",
+ "verdict": "pass"
+}

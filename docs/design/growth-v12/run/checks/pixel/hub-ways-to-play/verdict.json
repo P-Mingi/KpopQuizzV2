@@ -1,0 +1,317 @@
+{
+ "state": "hub-ways-to-play",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:59:46.612Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.11,
+    "maskedPct": 13.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:59:48.560Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.12,
+    "maskedPct": 13.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:59:50.742Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.33,
+    "maskedPct": 26.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:59:52.773Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.4,
+    "maskedPct": 26.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G8",
+ "auth": "guest",
+ "anchor": ".g8-ways",
+ "verdict": "pass"
+}

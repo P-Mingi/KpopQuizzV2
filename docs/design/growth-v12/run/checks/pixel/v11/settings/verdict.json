@@ -1,0 +1,359 @@
+{
+ "state": "settings",
+ "owner": "P10",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:01:10.667Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/settings",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3733
+    ],
+    "implSize": [
+     1440,
+     3917
+    ],
+    "diffPct": 5.71,
+    "maskedPct": 8.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "person preview",
+     "proto": ".personprev",
+     "impl": ".p10-personprev",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "margin-top"
+     ],
+     "why": "A0/P10 documented"
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:01:13.165Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/settings",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     3733
+    ],
+    "implSize": [
+     1440,
+     3917
+    ],
+    "diffPct": 5.78,
+    "maskedPct": 8.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "person preview",
+     "proto": ".personprev",
+     "impl": ".p10-personprev",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "margin-top"
+     ],
+     "why": "A0/P10 documented"
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:01:15.673Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/settings",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4608
+    ],
+    "implSize": [
+     390,
+     4755
+    ],
+    "diffPct": 7,
+    "maskedPct": 25.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "person preview",
+     "proto": ".personprev",
+     "impl": ".p10-personprev",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "margin-top"
+     ],
+     "why": "A0/P10 documented"
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:01:18.231Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/settings",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     4608
+    ],
+    "implSize": [
+     390,
+     4755
+    ],
+    "diffPct": 7.08,
+    "maskedPct": 25.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "person preview",
+     "proto": ".personprev",
+     "impl": ".p10-personprev",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": [],
+     "skipped": [
+      "margin-top"
+     ],
+     "why": "A0/P10 documented"
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

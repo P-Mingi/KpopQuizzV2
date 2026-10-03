@@ -1,0 +1,338 @@
+{
+ "state": "hub-fans-picked",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:59:54.462Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql and v12-g7-song-questions.sql are applied and a group passes the 100-vote floor (no group is ranked: the section and its tile are absent, checked)",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "hiddenForm": {
+    "fansPicked": 0,
+    "fpTile": 0
+   },
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.51,
+    "maskedPct": 15.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:59:56.163Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql and v12-g7-song-questions.sql are applied and a group passes the 100-vote floor (no group is ranked: the section and its tile are absent, checked)",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "hiddenForm": {
+    "fansPicked": 0,
+    "fpTile": 0
+   },
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.13,
+    "maskedPct": 15.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:59:58.139Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql and v12-g7-song-questions.sql are applied and a group passes the 100-vote floor (no group is ranked: the section and its tile are absent, checked)",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "hiddenForm": {
+    "fansPicked": 0,
+    "fpTile": 0
+   },
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.62,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:00:00.093Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g7-this-or-that.sql and v12-g7-song-questions.sql are applied and a group passes the 100-vote floor (no group is ranked: the section and its tile are absent, checked)",
+   "url": "/stray-kids-quiz",
+   "signedIn": false,
+   "hiddenForm": {
+    "fansPicked": 0,
+    "fpTile": 0
+   },
+   "counts": {
+    "pass": 4,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 4
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.94,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "ways tile",
+     "proto": ".gtile",
+     "impl": ".g8-ways .ux-gtile",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [],
+     "mismatches": [],
+     "why": "width, height: the tile count and copy are the group's real ones (G8)"
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".g8-ways .ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "hero action",
+     "proto": ".btn-primary",
+     "impl": "#ghub-play .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G8",
+ "auth": "guest",
+ "anchor": ".g8-ways",
+ "pending": "NOT verified until v12-g7-this-or-that.sql and v12-g7-song-questions.sql are applied and a group passes the 100-vote floor (no group is ranked: the section and its tile are absent, checked)",
+ "verdict": "not verified"
+}

@@ -3,7 +3,7 @@
  "owner": "P8",
  "combos": {
   "1440-light": {
-   "at": "2026-10-03T10:52:35.267Z",
+   "at": "2026-10-03T10:57:13.676Z",
    "base": "http://localhost:3071",
    "verdict": "pass",
    "url": "/community",
@@ -130,10 +130,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 34
   },
   "1440-dark": {
-   "at": "2026-10-03T10:52:37.623Z",
+   "at": "2026-10-03T10:57:47.632Z",
    "base": "http://localhost:3071",
    "verdict": "pass",
    "url": "/community",
@@ -260,18 +260,18 @@
      "mismatches": []
     }
    ],
-   "seconds": 2
+   "seconds": 34
   },
   "390-light": {
-   "at": "2026-10-03T10:52:40.153Z",
+   "at": "2026-10-03T10:58:23.729Z",
    "base": "http://localhost:3071",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/community",
    "signedIn": true,
    "counts": {
     "landmarks": 13,
-    "pass": 9,
-    "fail": 1,
+    "pass": 10,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 3
@@ -286,7 +286,7 @@
      390,
      5432
     ],
-    "diffPct": 2.81,
+    "diffPct": 2.8,
     "maskedPct": 37.2
    },
    "writes": [],
@@ -366,15 +366,9 @@
      "name": "phone rail",
      "proto": ".mrail",
      "impl": ".p8-mrail",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "background-color",
-       "expected": "rgba(0, 0, 0, 0)",
-       "actual": "rgb(255, 255, 255)"
-      }
-     ]
+     "mismatches": []
     },
     {
      "name": "feed controls",
@@ -393,10 +387,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 3
+   "seconds": 36
   },
   "390-dark": {
-   "at": "2026-10-03T10:52:42.767Z",
+   "at": "2026-10-03T10:58:59.825Z",
    "base": "http://localhost:3071",
    "verdict": "pass",
    "url": "/community",
@@ -520,10 +514,10 @@
      "mismatches": []
     }
    ],
-   "seconds": 3
+   "seconds": 36
   }
  },
  "auth": "user",
  "shot": "full",
- "verdict": "fail"
+ "verdict": "pass"
 }
