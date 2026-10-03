@@ -169,6 +169,12 @@ const KIT: Landmark[] = [
   { proto: '.kit .story', impl: '.g8-kit-story .ux-story' },
   { proto: '.kitsec', impl: '.g8-kitsec', skip: ['height'], why: 'the link is the local one' },
 ];
+// At 390 the prototype's kit section is 440px wide, wider than the screen (the
+// prototype scrolls sideways there); the shipped one fits the sheet.
+const KIT_PHONE: Landmark[] = [
+  KIT[0]!,
+  { proto: '.kitsec', impl: '.g8-kitsec', skip: ['height', 'width'], why: 'the prototype overflows a 390 screen; ours fits' },
+];
 const CREATORS: Landmark[] = [
   { proto: '.cbgrid', impl: '.g8-cbgrid', skip: ['height'], why: 'the board rows are the real ones' },
   { proto: '.tiers3', impl: '.g8-tiers' },
@@ -343,8 +349,12 @@ for (const theme of THEMES) {
       await expect.poll(() => kitReads.length).toBeGreaterThanOrEqual(1);
       expect(new URL(kitReads[0]!).searchParams.get('quiz')).toBe(FAKE_QUIZ.id);
       // the tracked link: POST /api/share/generate answered {} locally, so the quiz URL stays
-      await expect.poll(() => calls.filter((c) => c.url.includes('/api/share/generate')).length).toBe(1);
-      expect(JSON.parse(calls.find((c) => c.url.includes('/api/share/generate'))!.body ?? '{}')).toEqual({ quizId: FAKE_QUIZ.id, platform: 'link' });
+      // (a dev server runs the opening effect twice under React StrictMode: one or two
+      // identical calls, never anything else)
+      const gen = (): StubbedCall[] => calls.filter((c) => c.url.includes('/api/share/generate'));
+      await expect.poll(() => gen().length).toBeGreaterThanOrEqual(1);
+      expect(gen().length).toBeLessThanOrEqual(2);
+      for (const g of gen()) expect(JSON.parse(g.body ?? '{}')).toEqual({ quizId: FAKE_QUIZ.id, platform: 'link' });
       await expect(kit.getByTestId('kit-url')).toHaveText(/^localhost:\d+\/q\/g8-e2e-slug$/);
       await expect(kit.getByRole('img', { name: 'QR code of your quiz link' })).toHaveAttribute('src', /^data:image\//);
       await expect(kit.locator('.g8-cap')).toHaveCount(2);
@@ -359,7 +369,7 @@ for (const theme of THEMES) {
       await kit.getByRole('button', { name: 'Copy the X (Twitter) caption' }).click();
       await expect(page.getByTestId('ux-toast')).toHaveText('Caption copied');
 
-      const c = await proof(page, theme, 'share-kit', KIT);
+      const c = await proof(page, theme, 'share-kit', widthOf(page) > 500 ? KIT : KIT_PHONE);
       assertClean(c, 'share-kit');
       expect(await horizontalOverflow(page), 'no sideways scroll').toBeLessThanOrEqual(0);
       expect(await basicA11y(page, '.g8-kit')).toEqual([]);
@@ -367,7 +377,7 @@ for (const theme of THEMES) {
       await page.keyboard.press('Escape');
       await expect(sheet).toHaveCount(0);
       // writes: the tracked link only, answered locally (the publish had its own fake)
-      expect(calls.map((c2) => new URL(c2.url).pathname)).toEqual(['/api/share/generate']);
+      expect([...new Set(calls.map((c2) => new URL(c2.url).pathname))]).toEqual(['/api/share/generate']);
     });
   });
 }

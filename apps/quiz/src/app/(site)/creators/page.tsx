@@ -73,6 +73,52 @@ function Board({ rows, label, empty }: { rows: CreatorCard[]; label: string; emp
   );
 }
 
+/** Rising creator per fandom; nothing when no fandom has one this month. */
+function Rising({ data }: { data: CreatorsPageData }): React.ReactElement | null {
+  if (data.rising.length === 0) return null;
+  return (
+    <section className="ux-sec g8-rising-sec" aria-labelledby="g8-rise-h">
+      <SectionHeader id="g8-rise-h" title="Rising in each fandom" icon="flame" sub="Most plays on a first quiz this month" />
+      <ul className="g8-rising">
+        {data.rising.map((r) => (
+          <li key={`${r.fandom}:${r.username}`} className="g8-rz">
+            <small>{r.fandom}</small>
+            <b><Link href={r.href} prefetch={false}>{r.username}</Link></b>
+            <span><Link href={r.quizHref} prefetch={false}>{r.quizTitle}</Link> · {comma(r.plays)} {r.plays === 1 ? 'play' : 'plays'}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** The side column: how the board counts, the creator badges, Create a quiz. */
+function Side(): React.ReactElement {
+  return (
+    <aside className="g8-cb-side" aria-label="How the creators board works">
+      <section className="g8-rules" aria-labelledby="g8-rules-h">
+        <h2 id="g8-rules-h">How the board counts</h2>
+        <ol>
+          {BOARD_RULES.map((r) => <li key={r}>{r}</li>)}
+        </ol>
+      </section>
+      <section className="g8-rules" aria-labelledby="g8-tiers-h">
+        <h2 id="g8-tiers-h">Creator badges</h2>
+        <ul className="g8-tiers">
+          {CREATOR_TIERS.map((t) => (
+            <li key={t.id}>
+              <BadgeMedal id={t.id} earned size={32} />
+              <span><b>{t.name}</b><span className="ux-muted">{t.line}</span></span>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <UxButton href="/create" size="lg" icon="plus" block className="g8-cb-cta">Create a quiz</UxButton>
+      <p className="g8-cb-back"><Link href="/leaderboard#creators" className="ux-lnk">Back to the leaderboard</Link></p>
+    </aside>
+  );
+}
+
 export default async function CreatorsPage(): Promise<React.ReactElement> {
   if (!isUxV12()) notFound();
   const data = await safeFetch<CreatorsPageData | null>(getCreatorsPage(), null, '[creators] page', 20_000);
@@ -85,67 +131,33 @@ export default async function CreatorsPage(): Promise<React.ReactElement> {
         <p>Fans who make the quizzes everyone plays. Resets on the 1st of each month.</p>
       </header>
 
-      <div className="g8-cbgrid">
-        <div className="g8-cb-main">
-          {data ? (
-            <CreatorsTabs
-              month={(
-                <>
-                  <h2 className="ux-sr">Creators, plays in {data.monthLabel}</h2>
-                  <Board rows={data.month} label="this month" empty={`No play counted yet in ${data.monthLabel}. The board fills as fans play.`} />
-                  <CreatorsPin period="month" />
-                </>
-              )}
-              all={(
-                <>
-                  <h2 className="ux-sr">Creators, plays of all time</h2>
-                  <Board rows={data.all} label="all time" empty="No play counted yet." />
-                  <CreatorsPin period="all" />
-                </>
-              )}
-            />
-          ) : (
-            <p className="ux-muted g8-cr-empty" data-state="unavailable">The board could not load. Try again in a moment.</p>
+      {data ? (
+        <CreatorsTabs
+          month={(
+            <>
+              <h2 className="ux-sr">Creators, plays in {data.monthLabel}</h2>
+              <Board rows={data.month} label="this month" empty={`No play counted yet in ${data.monthLabel}. The board fills as fans play.`} />
+              <CreatorsPin period="month" />
+            </>
           )}
-
-          {data && data.rising.length > 0 ? (
-            <section className="ux-sec g8-rising-sec" aria-labelledby="g8-rise-h">
-              <SectionHeader id="g8-rise-h" title="Rising in each fandom" icon="flame" sub="Most plays on a first quiz this month" />
-              <ul className="g8-rising">
-                {data.rising.map((r) => (
-                  <li key={`${r.fandom}:${r.username}`} className="g8-rz">
-                    <small>{r.fandom}</small>
-                    <b><Link href={r.href} prefetch={false}>{r.username}</Link></b>
-                    <span><Link href={r.quizHref} prefetch={false}>{r.quizTitle}</Link> · {comma(r.plays)} {r.plays === 1 ? 'play' : 'plays'}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
+          all={(
+            <>
+              <h2 className="ux-sr">Creators, plays of all time</h2>
+              <Board rows={data.all} label="all time" empty="No play counted yet." />
+              <CreatorsPin period="all" />
+            </>
+          )}
+          after={<Rising data={data} />}
+          aside={<Side />}
+        />
+      ) : (
+        <div className="g8-cbgrid is-solo">
+          <div className="g8-cb-main">
+            <p className="ux-muted g8-cr-empty" data-state="unavailable">The board could not load. Try again in a moment.</p>
+          </div>
+          <Side />
         </div>
-
-        <aside className="g8-cb-side" aria-label="How the creators board works">
-          <section className="g8-rules" aria-labelledby="g8-rules-h">
-            <h2 id="g8-rules-h">How the board counts</h2>
-            <ol>
-              {BOARD_RULES.map((r) => <li key={r}>{r}</li>)}
-            </ol>
-          </section>
-          <section className="g8-rules" aria-labelledby="g8-tiers-h">
-            <h2 id="g8-tiers-h">Creator badges</h2>
-            <ul className="g8-tiers">
-              {CREATOR_TIERS.map((t) => (
-                <li key={t.id}>
-                  <BadgeMedal id={t.id} earned size={32} />
-                  <span><b>{t.name}</b><span className="ux-muted">{t.line}</span></span>
-                </li>
-              ))}
-            </ul>
-          </section>
-          <UxButton href="/create" size="lg" icon="plus" block className="g8-cb-cta">Create a quiz</UxButton>
-          <p className="g8-cb-back"><Link href="/leaderboard#creators" className="ux-lnk">Back to the leaderboard</Link></p>
-        </aside>
-      </div>
+      )}
     </UxPage>
   );
 }

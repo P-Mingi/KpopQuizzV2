@@ -16,15 +16,23 @@ const PREFIX = 'g8-cr';
 
 /**
  * The period switch of the creators board (prototype .utabs "This month" / "All
- * time"). Both boards are in the server HTML; the tabs only toggle `hidden`.
+ * time"), above the board grid like the prototype: the tabs span the page, then the
+ * grid (main column: the two period panels and `after`; side column: `aside`). Both
+ * boards are in the server HTML; the tabs only toggle `hidden`.
  */
-export function CreatorsTabs({ month, all }: { month: React.ReactNode; all: React.ReactNode }): React.ReactElement {
+export function CreatorsTabs({ month, all, after, aside }: { month: React.ReactNode; all: React.ReactNode; after: React.ReactNode; aside: React.ReactNode }): React.ReactElement {
   const [period, setPeriod] = useState<Period>('month');
   return (
     <>
       <UxTabs items={ITEMS} value={period} onChange={(id) => setPeriod(id === 'all' ? 'all' : 'month')} label="Period" idPrefix={PREFIX} className="g8-cr-tabs" />
-      <div {...tabPanelProps(PREFIX, 'month')} hidden={period !== 'month'} data-period="month">{month}</div>
-      <div {...tabPanelProps(PREFIX, 'all')} hidden={period !== 'all'} data-period="all">{all}</div>
+      <div className="g8-cbgrid">
+        <div className="g8-cb-main">
+          <div {...tabPanelProps(PREFIX, 'month')} hidden={period !== 'month'} data-period="month">{month}</div>
+          <div {...tabPanelProps(PREFIX, 'all')} hidden={period !== 'all'} data-period="all">{all}</div>
+          {after}
+        </div>
+        {aside}
+      </div>
     </>
   );
 }

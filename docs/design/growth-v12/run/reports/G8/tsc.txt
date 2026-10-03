@@ -1,0 +1,1 @@
+tsc --noEmit -p . (whole app, e2e included): exit 0
