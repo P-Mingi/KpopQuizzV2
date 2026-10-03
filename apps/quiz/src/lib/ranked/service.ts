@@ -6,13 +6,15 @@
 // ranked_song_stats through the store, and bt_players only gets a bare row on a
 // player's first finished run (PHASE0 Q2).
 
+import { teamUsernames } from '@/lib/editorial/surfaces/team';
+
 import { DAILY_RUN_LIMIT, ROUND_COUNT, ROUND_MS, RUN_TTL_MS } from './constants';
 import { nextUtcDayStart, runsLeftToday, utcDayStart } from './limits';
 import { answerRound, finalizeRun, startRound } from './run';
 import { applyRun, bestRuns, currentSeason, daysLeft, placement, scoreToBeat, seasonAvgAnswerMs, seasonScore } from './season';
 import { buildRounds } from './select';
 import { nextStep, tierFor } from './tiers';
-import { LADDER_LIMIT, ladderViewFrom } from './view';
+import { LADDER_LIMIT, ladderRowsWithoutTeam, ladderViewFrom } from './view';
 
 import type { FinalRun, PublicRound, RoundReveal, RunRefusal, RunState } from './run';
 import type { FinishedRun, Placement, Season, SeasonImpact } from './season';
@@ -335,11 +337,18 @@ export async function seasonCard(store: RankedStore, userId: string | null, seas
  * Global; "My fandom" needs a main fandom in Settings. Rows carry public profile
  * fields only (what /u/[username] shows), never a user id.
  */
-export async function ladderView(store: RankedStore, season: Season, scope: LadderScope, userId: string | null, limit = LADDER_LIMIT): Promise<LadderView> {
+export async function ladderView(
+  store: RankedStore, season: Season, scope: LadderScope, userId: string | null, limit = LADDER_LIMIT,
+  teamOf: () => Promise<ReadonlySet<string>> = teamUsernames,
+): Promise<LadderView> {
   const empty = (needs: LadderView['needs']): LadderView => ({ season: { id: season.id }, scope, rows: [], me: null, total: 0, needs });
   if (scope !== 'global' && !userId) return empty('sign_in');
   if (scope === 'fandom' && userId && !(await store.mainFandom(userId))) return empty('fandom');
-  return ladderViewFrom(season.id, scope, await store.ladder(season.id, scope, userId, limit), limit);
+  // V12 F5b: editorial accounts are on no ladder. Nobody editorial (flag off, SQL
+  // pending): no extra read and today's call, exactly.
+  const team = await teamOf();
+  if (!team.size) return ladderViewFrom(season.id, scope, await store.ladder(season.id, scope, userId, limit), limit);
+  return ladderViewFrom(season.id, scope, ladderRowsWithoutTeam(await store.ladder(season.id, scope, userId, limit + team.size), team), limit);
 }
 
 // ---- nightly ------------------------------------------------------------------

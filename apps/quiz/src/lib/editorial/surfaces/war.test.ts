@@ -5,6 +5,8 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import type { WarRpcClient } from './war';
+
 vi.mock('next/cache', () => ({ unstable_cache: <T,>(fn: T) => fn, revalidateTag: () => undefined }));
 
 const reads: string[] = [];
@@ -56,7 +58,7 @@ describe('rpcFandomWar', () => {
   it('flag off: today call exactly, no team read', async () => {
     await flags(false);
     const { rpcFandomWar, warCacheKey } = await import('./war');
-    const res = await rpcFandomWar(client, 31);
+    const res = await rpcFandomWar(client as unknown as WarRpcClient, 31);
     expect(reads).toEqual(['rpc:get_fandom_war_map:{"p_limit":31}']);
     expect((res.data as Array<{ slug: string }>).map((r) => r.slug)).toEqual(['ateez', 'bts', 'general-kpop']);
     expect(warCacheKey(['k:v1'])).toEqual(['k:v1']);
@@ -65,7 +67,7 @@ describe('rpcFandomWar', () => {
   it('flag on with team accounts: the v12 function, team plays gone', async () => {
     await flags(true);
     const { rpcFandomWar, warCacheKey } = await import('./war');
-    const res = await rpcFandomWar(client, 31);
+    const res = await rpcFandomWar(client as unknown as WarRpcClient, 31);
     expect(reads).toEqual(['editorial_accounts', 'rpc:get_fandom_war_map_v12:{"p_limit":31}']);
     expect((res.data as Array<{ slug: string }>).map((r) => r.slug)).toEqual(['bts', 'ateez']);
     expect(warCacheKey(['k:v1'])).toEqual(['k:v1', 'v12-no-team']);
@@ -75,7 +77,7 @@ describe('rpcFandomWar', () => {
     await flags(true);
     fake.missing.add('rpc:get_fandom_war_map_v12');
     const { rpcFandomWar } = await import('./war');
-    const res = await rpcFandomWar(client, 5);
+    const res = await rpcFandomWar(client as unknown as WarRpcClient, 5);
     expect(reads).toEqual(['editorial_accounts', 'rpc:get_fandom_war_map_v12:{"p_limit":5}', 'rpc:get_fandom_war_map:{"p_limit":5}']);
     expect(res.error).toBeNull();
   });
@@ -83,7 +85,7 @@ describe('rpcFandomWar', () => {
   it('flag on, nobody editorial: today call', async () => {
     await flags(true, false);
     const { rpcFandomWar } = await import('./war');
-    await rpcFandomWar(client, 5);
+    await rpcFandomWar(client as unknown as WarRpcClient, 5);
     expect(reads).toEqual(['editorial_accounts', 'rpc:get_fandom_war_map:{"p_limit":5}']);
   });
 });
