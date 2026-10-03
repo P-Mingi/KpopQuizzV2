@@ -107,15 +107,27 @@ describe('flag off: no live route exists', () => {
     expect(f.store.players.size).toBe(0);
   });
 
-  it('the cron does nothing with the flag off, and still needs its secret', async () => {
+  // Amended 2026-10-03 on the owner's explicit decision (V12 RUN-STATE decision 22): with the flag off the
+  // cron answers 404 before checking auth, like the other v12 crons; with the flag on it still needs its secret.
+  it('the cron answers 404 with the flag off, with or without the secret, and does nothing', async () => {
     vi.stubEnv('CRON_SECRET', 'test-cron-secret');
     flags.v12 = false;
     const spy = vi.spyOn(f.store, 'expireRooms');
     const noAuth = await cronGET(req('/api/cron/live-expire'));
-    expect(noAuth.status).toBe(401);
+    expect(noAuth.status).toBe(404);
+    expect(await json(noAuth)).toEqual({ error: 'not_found' });
     const res = await cronGET(req('/api/cron/live-expire', { headers: { authorization: 'Bearer test-cron-secret' } }));
-    expect(res.status).toBe(200);
-    expect(await json(res)).toEqual({ ok: true, skipped: 'ux_v12_off' });
+    expect(res.status).toBe(404);
+    expect(await json(res)).toEqual({ error: 'not_found' });
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('the cron still needs its secret with the flag on', async () => {
+    vi.stubEnv('CRON_SECRET', 'test-cron-secret');
+    flags.v12 = true;
+    const spy = vi.spyOn(f.store, 'expireRooms');
+    const noAuth = await cronGET(req('/api/cron/live-expire'));
+    expect(noAuth.status).toBe(401);
     expect(spy).not.toHaveBeenCalled();
   });
 });
