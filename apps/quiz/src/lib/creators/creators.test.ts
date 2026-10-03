@@ -134,7 +134,7 @@ describe('share kit: captions', () => {
   });
 
   it('has no dash that the site bans', () => {
-    for (const c of kitCaptions(q, 'https://kpopquiz.org/s/x')) expect(c.text).not.toMatch(/[–—]/);
+    for (const c of kitCaptions(q, 'https://kpopquiz.org/s/x')) expect(c.text).not.toMatch(/[\u2013\u2014]/);
   });
 });
 
