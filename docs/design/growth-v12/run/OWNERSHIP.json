@@ -238,6 +238,7 @@
     "apps/quiz/src/components/home/infinite-quiz-list.tsx",
     "apps/quiz/src/lib/editorial/surfaces/**",
     "apps/quiz/e2e/ux-v12/f5*.spec.ts",
-    "docs/pending-migrations/v12-f5-*.sql"
+    "docs/pending-migrations/v12-f5-*.sql",
+    "apps/quiz/src/app/api/ux-v1/p4/standing/**"
   ]
 }

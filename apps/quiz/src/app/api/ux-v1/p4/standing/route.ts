@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { isUuid } from '@/lib/anon-claim';
 import { createServerClient } from '@/lib/supabase/server';
+import { quizRankForScore, quizRankForUser } from '@/lib/editorial/surfaces/quiz-rank';
 
 import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 import type { NextRequest } from 'next/server';
@@ -35,7 +36,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (user) {
-    const { data } = await supabase.rpc('get_quiz_rank', { p_quiz_id: quizId, p_user_id: user.id });
+    const { data } = await quizRankForUser(supabase, quizId, user.id);
     const row = (Array.isArray(data) ? data[0] : data) as RankRow | null;
     if (!row || row.best_score === null) return NextResponse.json({ ...NONE, signedIn: true, totalPlayers: row?.total_players ?? null } satisfies P4Standing);
     const { data: best } = await supabase
@@ -59,7 +60,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   if (score === null) return NextResponse.json({ ...NONE, signedIn: false } satisfies P4Standing);
-  const { data, error } = await supabase.rpc('get_quiz_rank_for_score', { p_quiz_id: quizId, p_score: score });
+  const { data, error } = await quizRankForScore(supabase, quizId, score);
   if (error) return NextResponse.json({ ...NONE, signedIn: false } satisfies P4Standing);
   const row = (Array.isArray(data) ? data[0] : data) as { rank: number | null; total_players: number | null } | null;
   return NextResponse.json({ ...NONE, signedIn: false, rank: row?.rank ?? null, totalPlayers: row?.total_players ?? null } satisfies P4Standing);
