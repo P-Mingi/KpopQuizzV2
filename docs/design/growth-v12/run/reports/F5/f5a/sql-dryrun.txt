@@ -1,0 +1,32 @@
+== before v12-g9-editorial.sql (must refuse, write nothing):
+psql:/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a75a3978a3e2d7872/docs/pending-migrations/v12-f5-quiz-rank.sql:53: ERROR:  v12-f5-quiz-rank.sql: apply v12-g9-editorial.sql first (public.is_editorial(uuid) is missing)
+CONTEXT:  PL/pgSQL function inline_code_block line 4 at RAISE
+v12 functions after the refused run: 0
+== apply:
+== re-apply (idempotent):
+== today get_quiz_rank vs v12 default (must be equal), per viewer
+                  u                   |   today   | v12_default | v12_exclude 
+--------------------------------------+-----------+-------------+-------------
+ 00000000-0000-0000-0000-0000000000e1 | (8,8,1,4) | (8,8,1,4)   | (8,8,,3)
+ 00000000-0000-0000-0000-0000000000f1 | (7,8,2,4) | (7,8,2,4)   | (7,8,1,3)
+ 00000000-0000-0000-0000-0000000000f2 | (5,8,3,4) | (5,8,3,4)   | (5,8,2,3)
+ 00000000-0000-0000-0000-0000000000ff | (,,,4)    | (,,,4)      | (,,,3)
+
+== for score: today vs v12 default vs exclude
+ s | today | v12_default | v12_exclude 
+---+-------+-------------+-------------
+ 8 | (1,4) | (1,4)       | (1,3)
+ 7 | (2,4) | (2,4)       | (1,3)
+ 6 | (3,4) | (3,4)       | (2,3)
+ 0 | (5,4) | (5,4)       | (4,3)
+
+== two-argument calls still resolve (no overload)
+ count 
+-------
+     2
+
+== as anon
+ best_score | total_questions | rank | total_players 
+------------+-----------------+------+---------------
+          7 |               8 |    1 |             3
+
