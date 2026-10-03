@@ -53,7 +53,7 @@ export async function withPage<T>(width: number, fn: (page: any, log: Logged[], 
 
 /** Short form of the stubbed (never sent) calls: method, path, body. */
 export function stubLines(stubbed: Array<{ method: string; url: string; body: string | null }>): string[] {
-  return stubbed.map((c) => `STUBBED ${c.method} ${new URL(c.url).pathname}${new URL(c.url).search} body=${c.body ?? ''}`);
+  return stubbed.map((c) => `STUBBED ${c.method} ${new URL(c.url).pathname}${new URL(c.url).search} body=${(c.body ?? '').length > 700 ? `${(c.body ?? '').slice(0, 700)} ...(${(c.body ?? '').length} chars)` : c.body ?? ''}`);
 }
 
 export function logLines(log: Logged[]): string[] {
