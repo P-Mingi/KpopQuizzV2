@@ -1,0 +1,2029 @@
+{
+ "at": "2026-10-03T10:46:25.449Z",
+ "base": "http://localhost:3071",
+ "label": "v12-on",
+ "dpr": 3,
+ "cpuThrottle": 4,
+ "runs": 3,
+ "pages": {
+  "/guess-the-kpop-song": {
+   "local": {
+    "lcpMs": 320,
+    "cls": 0,
+    "jsKB": 280,
+    "totalKB": 695,
+    "lcpEl": "p.g3-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 360,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 320,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 192,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3128,
+    "cls": 0.0029,
+    "jsKB": 280,
+    "totalKB": 693,
+    "lcpEl": "p.g3-lead",
+    "shifts": [
+     {
+      "t": 3578,
+      "v": 0.0029,
+      "src": [
+       "#text.",
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3124,
+      "cls": 0.0029,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3128,
+      "cls": 0.0029,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3132,
+      "cls": 0.0029,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/fr/blind-test-kpop": {
+   "local": {
+    "lcpMs": 228,
+    "cls": 0,
+    "jsKB": 280,
+    "totalKB": 695,
+    "lcpEl": "p.g3-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 228,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 216,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 284,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 38,
+       "total": 695
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3136,
+    "cls": 0.0003,
+    "jsKB": 280,
+    "totalKB": 693,
+    "lcpEl": "p.g3-lead",
+    "shifts": [
+     {
+      "t": 3603,
+      "v": 0.0003,
+      "src": [
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3140,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3128,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3136,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 36,
+       "total": 693
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/blindtest": {
+   "local": {
+    "lcpMs": 220,
+    "cls": 0,
+    "jsKB": 296,
+    "totalKB": 987,
+    "lcpEl": "p.ux-thm-d",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 196,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 44,
+       "total": 987
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 276,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 44,
+       "total": 987
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 220,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 44,
+       "total": 987
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3276,
+    "cls": 0,
+    "jsKB": 296,
+    "totalKB": 986,
+    "lcpEl": "p.ux-thm-d",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3264,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 42,
+       "total": 986
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3280,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 42,
+       "total": 986
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3276,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 296,
+       "css": 278,
+       "img": 261,
+       "font": 88,
+       "doc": 19,
+       "other": 42,
+       "total": 986
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/BTS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/BLACKPINK.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 715,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/NewJeans.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/TWICE.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 939,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/SEVENTEEN.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 870,
+      "rendered": 109,
+      "needed": 326,
+      "servedW": 640,
+      "sizes": "(max-width: 1100px) 30vw, 180px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   }
+  },
+  "/blindtest/5th-gen": {
+   "local": {
+    "lcpMs": 172,
+    "cls": 0,
+    "jsKB": 284,
+    "totalKB": 698,
+    "lcpEl": "p.g3-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 172,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 38,
+       "total": 698
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 176,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 38,
+       "total": 698
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 168,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 38,
+       "total": 698
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3116,
+    "cls": 0,
+    "jsKB": 284,
+    "totalKB": 696,
+    "lcpEl": "p.g3-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3132,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 36,
+       "total": 696
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3116,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 36,
+       "total": 696
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3116,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 10,
+       "other": 36,
+       "total": 696
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/kpop-demon-hunters-quiz": {
+   "local": {
+    "lcpMs": 168,
+    "cls": 0,
+    "jsKB": 381,
+    "totalKB": 928,
+    "lcpEl": "h1",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 168,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 132,
+       "total": 928
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 176,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 130,
+       "total": 926
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 168,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 132,
+       "total": 928
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3072,
+    "cls": 0,
+    "jsKB": 381,
+    "totalKB": 926,
+    "lcpEl": "h1",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3072,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 130,
+       "total": 926
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3072,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 130,
+       "total": 926
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3080,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 381,
+       "css": 278,
+       "img": 38,
+       "font": 88,
+       "doc": 10,
+       "other": 130,
+       "total": 926
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/which-stray-kids-member-are-you": {
+   "local": {
+    "lcpMs": 188,
+    "cls": 0,
+    "jsKB": 280,
+    "totalKB": 713,
+    "lcpEl": "p.ux-pers-lead",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 196,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 55,
+       "total": 713
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 188,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 54,
+       "total": 712
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 176,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 55,
+       "total": 713
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3104,
+    "cls": 0.0003,
+    "jsKB": 280,
+    "totalKB": 711,
+    "lcpEl": "p.ux-pers-lead",
+    "shifts": [
+     {
+      "t": 3571,
+      "v": 0.0003,
+      "src": [
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3032,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 711
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3104,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 711
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3108,
+      "cls": 0.0003,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 280,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 711
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/stray-kids-name-all-members": {
+   "local": {
+    "lcpMs": 180,
+    "cls": 0,
+    "jsKB": 278,
+    "totalKB": 710,
+    "lcpEl": "p",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 180,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 55,
+       "total": 710
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 172,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 55,
+       "total": 710
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 288,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 55,
+       "total": 710
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3020,
+    "cls": 0,
+    "jsKB": 278,
+    "totalKB": 708,
+    "lcpEl": "p",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3020,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 708
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3020,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 708
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3020,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 278,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 11,
+       "other": 53,
+       "total": 708
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/stray-kids-quiz": {
+   "local": {
+    "lcpMs": 316,
+    "cls": 0,
+    "jsKB": 373,
+    "totalKB": 1194,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/Stray%20Kids.jpg&w=1080&q=75",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 216,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 58,
+       "total": 1194
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 316,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 58,
+       "total": 1194
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 348,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 58,
+       "total": 1194
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=1080&q=75",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": 736,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "density": false,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Bang Chan STRYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lee Know STAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Changbin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Hyunjin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Han STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Felix STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 1184,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Seungmin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/I.N stray kids.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 1000,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/ATEEZ.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     },
+     {
+      "src": "/idols/TXT.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 1200,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     },
+     {
+      "src": "/idols/ENHYPEN.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Bang Chan STRYKIDS.jpg&w=640&q=75: served 640px (source 735px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Lee Know STAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Changbin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Hyunjin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Han STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Felix STRAYKIDS.jpg&w=640&q=75: served 640px (source 1184px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Seungmin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/I.N stray kids.jpg&w=640&q=75: served 640px (source 1000px) for 80px x3 = 240px, sizes=80px"
+    ]
+   },
+   "slow4g": {
+    "lcpMs": 3412,
+    "cls": 0.0002,
+    "jsKB": 373,
+    "totalKB": 1192,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/Stray%20Kids.jpg&w=1080&q=75",
+    "shifts": [
+     {
+      "t": 4894,
+      "v": 0.0002,
+      "src": [
+       "#text."
+      ]
+     }
+    ],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3448,
+      "cls": 0.0002,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 56,
+       "total": 1192
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3412,
+      "cls": 0.0002,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 56,
+       "total": 1192
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3392,
+      "cls": 0.0002,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 373,
+       "css": 278,
+       "img": 375,
+       "font": 88,
+       "doc": 22,
+       "other": 56,
+       "total": 1192
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/Stray%20Kids.jpg&w=1080&q=75",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": 736,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "density": false,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     },
+     {
+      "src": "/idols/Bang Chan STRYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 735,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Lee Know STAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Changbin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Hyunjin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Han STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Felix STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 1184,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/Seungmin STRAYKIDS.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 736,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/I.N stray kids.jpg&w=640&q=75",
+      "loaded": true,
+      "natural": 640,
+      "sourceWidth": 1000,
+      "rendered": 80,
+      "needed": 240,
+      "servedW": 640,
+      "sizes": "80px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": true
+     },
+     {
+      "src": "/idols/ATEEZ.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     },
+     {
+      "src": "/idols/TXT.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 1200,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     },
+     {
+      "src": "/idols/ENHYPEN.jpg&w=1200&q=75",
+      "loaded": false,
+      "natural": null,
+      "sourceWidth": 736,
+      "rendered": 40,
+      "needed": 120,
+      "servedW": null,
+      "sizes": "40px",
+      "srcset": true,
+      "density": false,
+      "loading": "lazy",
+      "inView": false,
+      "complete": false
+     }
+    ],
+    "idolImageProblems": [
+     "/idols/Bang Chan STRYKIDS.jpg&w=640&q=75: served 640px (source 735px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Lee Know STAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Changbin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Hyunjin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Han STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Felix STRAYKIDS.jpg&w=640&q=75: served 640px (source 1184px) for 80px x3 = 240px, sizes=80px",
+     "/idols/Seungmin STRAYKIDS.jpg&w=640&q=75: served 640px (source 736px) for 80px x3 = 240px, sizes=80px",
+     "/idols/I.N stray kids.jpg&w=640&q=75: served 640px (source 1000px) for 80px x3 = 240px, sizes=80px"
+    ]
+   }
+  },
+  "/riize-quiz": {
+   "local": {
+    "lcpMs": 212,
+    "cls": 0,
+    "jsKB": 274,
+    "totalKB": 746,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/RIIZE.jpg&w=1080&q=75",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 212,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 48,
+       "total": 748
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 200,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 42,
+       "total": 743
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 260,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 45,
+       "total": 746
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/RIIZE.jpg&w=1080&q=75",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": 736,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "density": false,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3308,
+    "cls": 0,
+    "jsKB": 274,
+    "totalKB": 745,
+    "lcpEl": "img.p3-photo-img /_next/image?url=/idols/RIIZE.jpg&w=1080&q=75",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3308,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 44,
+       "total": 745
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3312,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 44,
+       "total": 745
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3304,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 274,
+       "css": 278,
+       "img": 49,
+       "font": 88,
+       "doc": 12,
+       "other": 44,
+       "total": 745
+      }
+     }
+    ],
+    "idolImages": [
+     {
+      "src": "/idols/RIIZE.jpg&w=1080&q=75",
+      "loaded": true,
+      "natural": 736,
+      "sourceWidth": 736,
+      "rendered": 350,
+      "needed": 1050,
+      "servedW": 1080,
+      "sizes": "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px",
+      "srcset": true,
+      "density": false,
+      "loading": null,
+      "inView": true,
+      "complete": true
+     }
+    ],
+    "idolImageProblems": []
+   }
+  },
+  "/creators": {
+   "local": {
+    "lcpMs": 180,
+    "cls": 0,
+    "jsKB": 284,
+    "totalKB": 1008,
+    "lcpEl": "p",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 172,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 174,
+       "total": 1008
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 188,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 174,
+       "total": 1008
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 180,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 174,
+       "total": 1008
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3016,
+    "cls": 0,
+    "jsKB": 284,
+    "totalKB": 1006,
+    "lcpEl": "p",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3012,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 172,
+       "total": 1006
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3092,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 172,
+       "total": 1006
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3016,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 284,
+       "css": 278,
+       "img": 171,
+       "font": 88,
+       "doc": 13,
+       "other": 172,
+       "total": 1006
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/live": {
+   "local": {
+    "lcpMs": 176,
+    "cls": 0,
+    "jsKB": 277,
+    "totalKB": 691,
+    "lcpEl": "p.ux-muted",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 172,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 38,
+       "total": 691
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 260,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 38,
+       "total": 691
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 176,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 38,
+       "total": 691
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3084,
+    "cls": 0,
+    "jsKB": 277,
+    "totalKB": 689,
+    "lcpEl": "p.ux-muted",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3084,
+      "cls": 0.0351,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 36,
+       "total": 689
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3084,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 36,
+       "total": 689
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3076,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 277,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 9,
+       "other": 36,
+       "total": 689
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  },
+  "/join": {
+   "local": {
+    "lcpMs": 164,
+    "cls": 0,
+    "jsKB": 222,
+    "totalKB": 596,
+    "lcpEl": "h2.ux-live-ph",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 164,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 160,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 196,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   },
+   "slow4g": {
+    "lcpMs": 3028,
+    "cls": 0,
+    "jsKB": 222,
+    "totalKB": 596,
+    "lcpEl": "h2.ux-live-ph",
+    "shifts": [],
+    "runs": [
+     {
+      "status": 200,
+      "lcp": 3028,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3028,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     },
+     {
+      "status": 200,
+      "lcp": 3032,
+      "cls": 0,
+      "lcpStartMs": null,
+      "kb": {
+       "js": 222,
+       "css": 278,
+       "img": 0,
+       "font": 88,
+       "doc": 8,
+       "other": 0,
+       "total": 596
+      }
+     }
+    ],
+    "idolImages": [],
+    "idolImageProblems": []
+   }
+  }
+ }
+}
