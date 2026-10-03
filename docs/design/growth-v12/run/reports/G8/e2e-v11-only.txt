@@ -32,6 +32,6 @@ Running 31 tests using 1 worker
 [29/31] [ux-390] › e2e/ux-v12/g8.spec.ts:463:3 › G8 behaviour › the creators APIs are read only and refuse what they cannot read
 [30/31] [ux-390] › e2e/ux-v12/g8.spec.ts:472:3 › G8 behaviour › leaderboard links the creators board (flag on) and keeps every v11 link
 [31/31] [ux-390] › e2e/ux-v12/g8.spec.ts:482:3 › G8 behaviour › flag off: no addition on the hubs, /creators and its APIs are not served
-  4 skipped
-  27 passed (1.3m)
+  22 skipped
+  9 passed (12.6s)
 EXIT 0

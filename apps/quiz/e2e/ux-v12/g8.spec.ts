@@ -9,7 +9,7 @@ import { signedInTest, skipUnlessSignedIn } from '../ux-v1/helpers/auth';
 import { loadTestEnv } from '../ux-v1/helpers/env';
 import { guardWrites } from '../ux-v1/helpers/guard';
 import { OWNER_DEVIATIONS } from '../ux-v1/helpers/landmarks';
-import { horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from '../ux-v1/helpers/setup-page';
+import { hasShell, horizontalOverflow, preparePage, THEMES, waitHydrated, widthOf } from '../ux-v1/helpers/setup-page';
 import { SAMPLE_DRAFT } from '../../../../docs/design/ux-dashboard-v1/v11/reports/P5/sample-draft.mjs';
 
 import type { APIRequestContext, Page, Route } from '@playwright/test';
@@ -137,7 +137,8 @@ async function shot(page: Page, theme: Theme, state: State, target?: string): Pr
 async function openPage(page: Page, url: string): Promise<void> {
   const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 90_000 });
   expect(res?.status(), `GET ${url}`).toBe(200);
-  await waitHydrated(page);
+  // both flags off: the legacy page has no v11 shell to wait for
+  if (await hasShell(page)) await waitHydrated(page);
 }
 
 /** The group's Fans picked status, from G7's read-only API. */
@@ -324,7 +325,7 @@ async function toCreateDone(page: Page, theme: Theme, linkPlays: number | null):
     } catch { /* blocked */ }
   }, { d: seed });
   await page.goto('/create?resume=publish', { waitUntil: 'domcontentloaded', timeout: 90_000 });
-  await waitHydrated(page);
+  if (await hasShell(page)) await waitHydrated(page);
   return { calls, posts, kitReads };
 }
 
@@ -387,7 +388,7 @@ signedInTest.describe('G8 create done, flag off', () => {
     skipUnlessSignedIn();
     test.skip((await flagState(request)) === 'v12', 'v12 is served here');
     const { calls, kitReads } = await toCreateDone(page, 'light', null);
-    test.skip((await page.locator('.ux-shell, [data-ux-shell]').count()) === 0 && (await page.locator('.p5-col').count()) === 0, 'v11 shell off: legacy create');
+    test.skip(!(await hasShell(page)), 'both flags off: the legacy create page, which G8 does not touch');
     await expect(page.locator('.p5-done')).toBeVisible({ timeout: 60_000 });
     await expect(page.getByRole('link', { name: 'Post a challenge' })).toHaveAttribute('href', '/community?compose=challenge&quiz=g8-e2e-slug');
     await expect(page.getByTestId('open-share-kit')).toHaveCount(0);
@@ -484,7 +485,17 @@ test.describe('G8 behaviour', () => {
     expect([301, 307, 308, 404], `GET /creators ${r.status()}`).toContain(r.status());
     expect((await request.get(`/api/creators/kit?quiz=${FAKE_QUIZ.id}`)).status()).toBe(404);
     expect((await request.get('/api/creators/standing')).status()).toBe(404);
+    // The served HTML of the three reference hubs carries none of the G8 blocks. Its
+    // status is the base's (run/reports/G8/flag-off): with both flags off the legacy
+    // Stray Kids hub answers 500 on a dev server, on the base too (next/image refuses
+    // a quiz cover host in dev), so the check reads the document, not the status.
     for (const url of ['/stray-kids-quiz', '/katseye-quiz', '/riize-quiz']) {
+      const res = await request.get(url);
+      const html = await res.text();
+      for (const mark of ['data-testid="hub-ways"', 'data-testid="hub-nudge"', 'data-testid="hub-first"', 'data-testid="hub-fans-picked"', 'g8-ways', 'g8-nudge', 'g8-fcreate', 'g8-fp', 'id="hub-quizzes"']) {
+        expect(html.includes(mark), `${url}: ${mark}`).toBe(false);
+      }
+      if (res.status() !== 200) { test.info().annotations.push({ type: 'base-behaviour', description: `${url} ${res.status()} (same on the base)` }); continue; }
       await openPage(page, url);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('[data-testid^="hub-"], .g8-ways, .g8-nudge, .g8-fcreate, .g8-fp, #hub-quizzes'), `${url}: no v12 block`).toHaveCount(0);

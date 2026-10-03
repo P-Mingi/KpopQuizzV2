@@ -1,0 +1,31 @@
+Both off (NEXT_PUBLIC_UX_V1 and NEXT_PUBLIC_UX_V12 unset). Base c0a0217 (git archive), candidate 29ab5c1 + working tree. One dev server at a time on :3068, GET only, each page fetched twice (the warm copy kept).
+
+same    api_ux_v1_a0_styles
+same    create
+same    groups
+same    katseye_quiz
+same    leaderboard
+same    riize_quiz
+same    routes
+DIFFERS stray_kids_quiz (5 base lines, 5 candidate lines)
+   -     at defaultLoader (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/.g8-base/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:13875:49)
+   -     at /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/.g8-base/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:11607:39
+   -     at generateImgAttrs (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/.g8-base/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:11607:24)
+   -     at getImgProps (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/.g8-base/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:12000:27)
+   -     at /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/.g8-base/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:14234:82
+   +     at defaultLoader (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:13875:49)
+   +     at /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:11607:39
+   +     at generateImgAttrs (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:11607:24)
+   +     at getImgProps (/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:12000:27)
+   +     at /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a77b52d9ff6fd5044/apps/quiz/.next/dev/server/chunks/ssr/node_modules__pnpm_0ytdjxc._.js:14234:82
+
+8 pages, 1 with a difference
+
+Routes, base:
+301 http://localhost:3068/ GET /creators
+404  GET /api/creators/kit?quiz=0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11
+404  GET /api/creators/standing
+Routes, candidate:
+301 http://localhost:3068/ GET /creators
+404  GET /api/creators/kit?quiz=0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11
+404  GET /api/creators/standing
