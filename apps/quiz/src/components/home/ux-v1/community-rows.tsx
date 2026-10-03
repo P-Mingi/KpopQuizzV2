@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 
 import { UxRow } from '@/components/ux-v1/panel';
+import { TeamTag } from '@/components/ux-v1/team';
 
 import type { CommunityRow, HomeVerse } from '@/lib/ux-v1/p1/home-data';
 
@@ -28,7 +29,7 @@ export function CommunityRows({ rows, verse = null }: { rows: CommunityRow[]; ve
                 </span>
               )}
               title={r.title}
-              sub={r.sub}
+              sub={r.teamAuthor ? <TeamSub sub={r.sub} author={r.teamAuthor} /> : r.sub}
             />
           ))}
         </div>
@@ -56,4 +57,12 @@ export function CommunityRows({ rows, verse = null }: { rows: CommunityRow[]; ve
       </p>
     </>
   );
+}
+
+/** V12 F5b: "Thread · Mina from KpopQuiz [Team] · 4 replies" for an editorial author
+ *  (the sub's second part is the author: home-data builds it that way). */
+function TeamSub({ sub, author }: { sub: string; author: string }): React.ReactElement {
+  const [head, name, ...rest] = sub.split(' · ');
+  if (name !== author) return <>{sub}</>;
+  return <>{head} · {name} <TeamTag />{rest.length ? ` · ${rest.join(' · ')}` : ''}</>;
 }

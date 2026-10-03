@@ -1,5 +1,6 @@
 import { getTeamIds } from '@/lib/editorial/accounts';
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { isUxV12 } from '@/lib/ux-v12';
 
 // Usernames of the active editorial (team) accounts, for the reads that return a
 // username but no user id (ranked ladder rows, quiz author names, community rows).
@@ -17,9 +18,9 @@ export async function teamUsernames(): Promise<Set<string>> {
   return new Set(((data ?? []) as Array<{ username: string | null }>).map((p) => p.username).filter((u): u is string => Boolean(u)));
 }
 
-/** Team ids and usernames together, for surfaces that match either. Empty sets when nobody is editorial. */
-export async function teamKeys(): Promise<{ ids: Set<string>; usernames: Set<string> }> {
-  const ids = await getTeamIds();
-  if (ids.size === 0) return { ids, usernames: new Set() };
-  return { ids, usernames: await teamUsernames() };
+/** Cache key parts for a cache whose value marks or leaves out editorial accounts:
+ *  unchanged with the flag off, its own entry with it on. Read at module load (the
+ *  flag is inlined at build). */
+export function teamCacheKey(base: readonly string[]): string[] {
+  return isUxV12() ? [...base, 'v12-team'] : [...base];
 }
