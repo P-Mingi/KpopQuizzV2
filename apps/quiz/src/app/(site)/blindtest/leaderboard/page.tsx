@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
+import { teamIdsToExclude } from '@/lib/db/queries/profiles';
+import { boardWithoutTeam } from '@/lib/editorial/surfaces/daily-board';
 
 import type { Metadata } from 'next';
 
@@ -81,7 +83,7 @@ export default async function BlindtestLeaderboardPage({ searchParams }: PagePro
     ),
   ]);
 
-  const rows = ((lbRes.data ?? []) as Array<Record<string, unknown>>).map((r): LbRow => ({
+  const allRows = ((lbRes.data ?? []) as Array<Record<string, unknown>>).map((r): LbRow => ({
     rank: Number(r.rank),
     user_id: String(r.user_id),
     username: (r.username as string | null) ?? null,
@@ -90,6 +92,10 @@ export default async function BlindtestLeaderboardPage({ searchParams }: PagePro
     score: Number(r.score),
     time_ms: Number(r.time_ms),
   }));
+  // V12 (F5c): editorial accounts never act as fans, so they leave the board and
+  // the ranks close up. Flag off: null without any read, the rows are untouched.
+  const team = await teamIdsToExclude();
+  const rows = team ? boardWithoutTeam(allRows, new Set(team)) : allRows;
 
   const earliest = ((earliestRes.data ?? []) as Array<{ date: string }>)[0]?.date ?? today;
   const prevDate = shiftDate(date, -1);
