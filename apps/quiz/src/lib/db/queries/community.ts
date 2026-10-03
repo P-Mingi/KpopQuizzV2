@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
+import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -217,7 +218,8 @@ const NON_FANDOM_SLUGS = new Set(['general-kpop']);
 // now share ONE entry: one RPC per hour instead of ~87 per revalidation wave.
 export const getFandomWarMap = unstable_cache(
   fetchFandomWarMap,
-  ['db:community:getFandomWarMap:v1'],
+  // V12 F5b: flag off, the same key; flag on, its own entry (editorial plays left out).
+  warCacheKey(['db:community:getFandomWarMap:v1']),
   { revalidate: CACHE_TTL.stats, tags: ['community'] },
 );
 
@@ -225,7 +227,8 @@ async function fetchFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
   // Over-fetch so excluding the general bucket still leaves a full board of real
   // groups rather than 29.
-  const { data } = await db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size });
+  // V12 F5b: with the flag off this is today's get_fandom_war_map call, exactly.
+  const { data } = await rpcFandomWar(db, limit + NON_FANDOM_SLUGS.size);
   const rows = ((data ?? []) as Array<{
     name: string; slug: string; logo_url: string | null; display_color: string;
     plays_week: number; fans_week: number; plays_prev: number;
