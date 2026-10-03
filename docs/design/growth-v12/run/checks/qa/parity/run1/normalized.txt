@@ -1,0 +1,88 @@
+# a = feat/v12 (both flags off), b = origin/main (both flags off); N1 applied
+# pages with a class: {"C1 recomputed score figure":7,"C3 extra JS chunk (see summary)":2,"C2 live counter":1}
+about: identical
+articles: identical
+articles_who_is_cortis: identical
+blackpink_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->78%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->26%</span>
+blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+blindtest_4th_gen: identical
+blindtest_classic: identical
+blindtest_girl_groups: identical
+blindtest_intro_challenge: identical
+blindtest_title_tracks: identical
+bts_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->92%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->31%</span>
+bts_trivia: identical
+cortis_quiz: identical
+create: identical
+easy_kpop_quizzes: identical
+faq: identical
+groups: identical
+leaderboard: identical
+most_liked: identical
+new: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->180%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->60%</span>
+news: C2 live counter
+  [C2 live counter]
+    b <span class="nw-time">7m ago</span>
+    a <span class="nw-time">6m ago</span>
+  [C2 live counter]
+    b <span class="nw-time">16m ago</span>
+    a <span class="nw-time">15m ago</span>
+  [C2 live counter]
+    b <span class="nw-time">47m ago</span>
+    a <span class="nw-time">46m ago</span>
+pt: identical
+pt_blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+pt_leaderboard: identical
+q_are_you_a_real_coer: identical
+q_are_you_a_real_eyekon: identical
+q_babymonster_quiz: identical
+q_enhypen_guess_the_mv_from_the_screenshot: identical
+q_illit_fans_here: identical
+q_le_sserafim_members_and_music_quiz: identical
+quizzes: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">92<!-- -->%</span>
+    a <span class="quiz-score score-red">31<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">78<!-- -->%</span>
+    a <span class="quiz-score score-red">26<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">124<!-- -->%</span>
+    a <span class="quiz-score score-red">41<!-- -->%</span>
+red_velvet_quiz: identical
+root: identical
+seventeen_quiz: identical
+stats: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.8K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T11:00:04.975Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.8K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T10:58:47.511Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T11:00:04.975Z","license":"https://kpopquiz.org/stats"}</script>
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T10:58:47.511Z","license":"https://kpopquiz.org/stats"}</script>
+  [C1 recomputed score figure]
+    b <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 257 quizzes with at least 30 plays, as of October 3, 2026.</p>
+    a <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 254 quizzes with at least 30 plays, as of October 3, 2026.</p>
+stray_kids_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->124%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->41%</span>
+trending: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->180%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->60%</span>
+u_testtest: identical
