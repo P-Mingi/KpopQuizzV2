@@ -51,8 +51,10 @@ export interface Counted {
   byQuiz: Map<string, number>;
 }
 
-/** Apply the three rules to a list of plays. `since` (ISO) keeps only later plays. */
-export function countPlays(plays: readonly PlayRow[], quizzes: ReadonlyMap<string, QuizRow>, excluded: ReadonlySet<string>, since?: string): Counted {
+/** Apply the three rules to a list of plays. `since` (ISO) keeps only later plays.
+ *  `notPlayers` (V12 F5b: the editorial accounts) drops the plays those accounts made
+ *  on anyone's quiz: they never act as fans, so their plays never count for a creator. */
+export function countPlays(plays: readonly PlayRow[], quizzes: ReadonlyMap<string, QuizRow>, excluded: ReadonlySet<string>, since?: string, notPlayers?: ReadonlySet<string>): Counted {
   const seen = new Set<string>();
   const byCreator = new Map<string, number>();
   const byQuiz = new Map<string, number>();
@@ -62,6 +64,7 @@ export function countPlays(plays: readonly PlayRow[], quizzes: ReadonlyMap<strin
     const creator = quiz?.creator_id;
     if (!quiz || !creator || excluded.has(creator)) continue;
     if (p.player_id && p.player_id === creator) continue;
+    if (p.player_id && notPlayers?.has(p.player_id)) continue;
     const key = `${p.quiz_id}|${playerKey(p)}|${utcDay(p.created_at)}`;
     if (seen.has(key)) continue;
     seen.add(key);
