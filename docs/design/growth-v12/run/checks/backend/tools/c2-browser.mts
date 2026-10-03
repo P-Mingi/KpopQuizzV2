@@ -68,7 +68,9 @@ export function logLines(log: Logged[]): string[] {
 }
 
 export function write(name: string, lines: string[]): void {
-  fs.writeFileSync(path.join(OUT, name), lines.join('\n') + '\n');
+  // C2_LABEL (e.g. v11) writes batchN-evidence-<label>.txt so a flag-off run never overwrites the flag-on one.
+  const file = process.env.C2_LABEL ? name.replace(/\.txt$/, `-${process.env.C2_LABEL}.txt`) : name;
+  fs.writeFileSync(path.join(OUT, file), lines.join('\n') + '\n');
 }
 
 /** GET a URL server side (no browser): status, final location, body text. */
