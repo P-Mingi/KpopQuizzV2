@@ -18,6 +18,7 @@ import {
 import { getTopCreatorsAllTime, getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
 import { getTeamIds, withoutTeam } from '@/lib/editorial/accounts';
+import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
 import { runScoreLabel } from '@/lib/quiz/scoring';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -154,7 +155,8 @@ export function warMapFromRpc(rows: readonly WarRpcRow[], limit: number, facts: 
 async function readWarMapUncached(limit: number): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
   const [res, facts] = await Promise.all([
-    db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size }),
+    // V12 F5b: editorial plays left out with the flag on; flag off, today's call exactly.
+    rpcFandomWar(db, limit + NON_FANDOM_SLUGS.size),
     getGroupFacts(),
   ]);
   must(res, 'war map');
@@ -163,7 +165,7 @@ async function readWarMapUncached(limit: number): Promise<WarMapEntry[]> {
 
 /** The war map (top `limit` groups of the last 7 days), cached like the live one (1 h). The page
  *  and the pinned-row endpoint read the same entry (WAR_READ), so a fan's rank matches the board. */
-export const getWarMap = unstable_cache(readWarMapUncached, ['ux-v1:p9:war-map:v1'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+export const getWarMap = unstable_cache(readWarMapUncached, warCacheKey(['ux-v1:p9:war-map:v1']), { revalidate: CACHE_TTL.stats, tags: ['community'] });
 
 /** The fandom war board: the live war map (last 7 days of quiz plays per group, the
  *  general K-pop bucket excluded), top WAR_BOARD, with fandom names and group photos. */
@@ -209,6 +211,13 @@ const PLAYER_COLS = 'id, username, avatar_url, avatar_kind, avatar_ref, xp, ult_
 /** Rows read past the board size, so a board stays full once team accounts are left out. */
 const TEAM_MARGIN = 5;
 
+/** The players read size: the board plus one row per active team account (never less than
+ *  the margin), so leaving them out can never leave fewer than PLAYERS_BOARD rows (V12 F5b).
+ *  Nobody editorial (flag off, SQL pending): PLAYERS_BOARD + TEAM_MARGIN, the read of today. */
+export function playersReadSize(teamSize: number): number {
+  return PLAYERS_BOARD + Math.max(TEAM_MARGIN, teamSize);
+}
+
 interface PlayerDbRow {
   id: string;
   username: string;
@@ -235,7 +244,8 @@ const getTopPlayersRows = unstable_cache(readTopPlayersRows, ['ux-v1:p9:players:
 /** Players: all-time XP (the XP that sets the passport level), top PLAYERS_BOARD.
  *  Editorial accounts are left out (V12, G9 R3). */
 export async function readPlayers(): Promise<PersonRow[]> {
-  const [all, facts, team] = await Promise.all([getTopPlayersRows(PLAYERS_BOARD + TEAM_MARGIN), getGroupFacts(), getTeamIds()]);
+  const team = await getTeamIds();
+  const [all, facts] = await Promise.all([getTopPlayersRows(playersReadSize(team.size)), getGroupFacts()]);
   const rows = withoutTeam(all, team, (p) => p.id).slice(0, PLAYERS_BOARD);
   const bySlug = new Map(facts.map((g) => [g.slug, g]));
   return rows.map((p, i) => ({
@@ -354,7 +364,7 @@ export interface AroundData {
   /** Happening now: shown only when live (4+ events in 48 hours, live MIN_LIVE). */
   happening: Array<{ id: number; person: AroundPerson | null; name: string; phrase: string; href: string | null; ago: string }>;
   /** Newest quizzes: shown only with 3+ published in the last 30 days (live MIN_FRESH). */
-  fresh: Array<{ id: string; title: string; href: string; by: string; plays: number; group: string }>;
+  fresh: Array<{ id: string; title: string; href: string; by: string; plays: number; group: string; byTeam?: true }>;
   /** Latest quiz comments: shown only from 4 (live MIN_COMMENTS). */
   comments: Array<{ id: string; person: AroundPerson; quizTitle: string; quizHref: string; content: string; score: string | null; ago: string }>;
   /** Latest badge earns (30 days, one per badge): shown only from 3 (live MIN_EARNS). */
@@ -428,7 +438,14 @@ const readFreshCached = unstable_cache(readFreshUncached, ['ux-v1:p9:fresh:v1'],
 export async function readFresh(nowMs: number = Date.now()): Promise<AroundData['fresh']> {
   const rows = (await readFreshCached()).filter((q) => nowMs - new Date(q.createdAt).getTime() <= FRESH_DAYS_MS);
   if (rows.length < MIN_FRESH) return [];
-  return rows.map((q) => ({ id: q.id, title: q.title, href: `/q/${q.slug}`, by: q.by, plays: q.plays, group: q.group }));
+  // V12 F5b: an editorial author carries the Team badge (byTeam). No team (flag off,
+  // SQL pending): no read and the exact rows of today (the key is never set).
+  const team = await readTeamUsernames();
+  return rows.map((q) => {
+    const row: AroundData['fresh'][number] = { id: q.id, title: q.title, href: `/q/${q.slug}`, by: q.by, plays: q.plays, group: q.group };
+    if (team.has(q.by)) row.byTeam = true;
+    return row;
+  });
 }
 
 function todayView(t: TodayStats): AroundData['today'] {
@@ -458,9 +475,24 @@ export async function readFeeds(): Promise<Pick<AroundData, 'happening' | 'comme
   const [f, team] = await Promise.all([readFeedsCached(), readTeamUsernames()]);
   if (!team.size) return f;
   // Editorial accounts never act as fans (V12, G9 R3): none of their rows is a fan event.
+  return feedsWithoutTeam(f, team);
+}
+
+/** Drop the team's rows, then apply each block's minimum again (V12 F5b): a block the
+ *  filter leaves under its floor hides instead of showing a thin list. Pure. */
+export function feedsWithoutTeam(
+  f: Pick<AroundData, 'happening' | 'comments' | 'badges'>,
+  team: ReadonlySet<string>,
+): Pick<AroundData, 'happening' | 'comments' | 'badges'> {
+  if (!team.size) return f;
+  const happening = f.happening.filter((e) => !(e.person && team.has(e.person.username)));
+  const comments = f.comments.filter((c) => !team.has(c.person.username));
+  const badges = f.badges.filter((b) => !team.has(b.person.username));
   return {
-    happening: f.happening.filter((e) => !(e.person && team.has(e.person.username))),
-    comments: f.comments.filter((c) => !team.has(c.person.username)),
-    badges: f.badges.filter((b) => !team.has(b.person.username)),
+    // Happening's live gate counts the events of 48 hours, and that count query already
+    // leaves the team out (getHappeningNow); an emptied list renders nothing.
+    happening,
+    comments: comments.length >= MIN_COMMENTS ? comments : [],
+    badges: badges.length >= MIN_EARNS ? badges : [],
   };
 }
