@@ -8,11 +8,12 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { LIVE_CODE_LENGTH, normalizeRoomCode } from '@/lib/live/code';
 import { LIVE_COLOURS, LIVE_NICK_MAX } from '@/lib/live/constants';
+import { liveAnswerSaysClosed } from '@/lib/live/open';
 import { nicknameInitial } from '@/lib/live/nickname';
 import { BT_TRACKING } from '@/lib/tracking/bt';
 import { answerShape } from '@/lib/ux-v1/a0/answer-shapes';
 
-import { liveErrorText } from './client';
+import { liveCall, liveErrorText } from './client';
 import { useLivePlayer } from './use-player';
 
 import type { PhoneApi } from './use-player';
@@ -227,6 +228,21 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
   // Set once the island is interactive (the e2e spec waits for it before it types).
   const [ready, setReady] = useState(false);
   useEffect(() => { setReady(true); }, []);
+  // The join page asks GET /api/live once, like the host screen, so a phone learns the
+  // mode is not open before it types a code (issue C2-003). Only a clear "not open"
+  // (503 not_live, or 404 with the flag off) shows the notice; the form stays under it
+  // and fails soft on its own answer (a join then says "Not open yet" too).
+  const [closed, setClosed] = useState(false);
+  useEffect(() => {
+    if (framed) return;
+    let off = false;
+    void (async () => {
+      const s = await liveCall<{ ok: boolean }>('/api/live');
+      if (!off && liveAnswerSaysClosed(s)) setClosed(true);
+    })();
+    return () => { off = true; };
+  }, [framed]);
+  const notice = closed && (phone.phase === 'idle' || phone.phase === 'form');
 
   // On the join page the address follows the room, so a reload comes back to it.
   useEffect(() => {
@@ -270,8 +286,9 @@ export function LivePhoneBody({ code, framed }: LivePhoneProps): React.ReactElem
   }
 
   return (
-    <div className="ux-live-pbody" data-phase={phone.phase} data-status={phone.state?.status ?? ''} data-ready={ready ? '1' : undefined}>
+    <div className="ux-live-pbody" data-phase={phone.phase} data-open={closed ? 'no' : undefined} data-status={phone.state?.status ?? ''} data-ready={ready ? '1' : undefined}>
       <Top code={joined} />
+      {notice ? <Msg icon="plus" tone="ux-c-b" title="Not open yet" sub="Live blindtest is not open yet. Come back soon." /> : null}
       {body}
     </div>
   );

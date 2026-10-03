@@ -765,7 +765,6 @@ html.ux-v1.dark,
 /* ---------- language switch (landing pages) ---------- */
 .ux-langsw { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--ux-line); background: var(--ux-raised); max-width: 100%; }
 .ux-langsw > a, .ux-langsw > button { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--ux-muted); white-space: nowrap; text-decoration: none; }
-.ux-langsw > a:hover, .ux-langsw > button:hover { color: var(--ux-ink); }
 .ux-langsw > a[aria-current="page"], .ux-langsw > button[aria-pressed="true"] { background: var(--ux-pink-fill); color: #fff; }
 
 /* ---------- three steps ---------- */

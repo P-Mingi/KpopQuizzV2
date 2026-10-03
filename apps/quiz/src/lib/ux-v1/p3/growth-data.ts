@@ -12,6 +12,7 @@ import { unstable_cache } from 'next/cache';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { getTeamIds } from '@/lib/editorial/accounts';
 import { getFansPicked } from '@/lib/duel/server';
+import { isLiveOpen } from '@/lib/live/server';
 import { getNameAllSet, getNameAllStats } from '@/lib/name-all/server';
 import { prettyPath } from '@/lib/name-all/round';
 import { isNameAllGroup } from '@/lib/name-all/spellings';
@@ -120,7 +121,7 @@ export interface HubGrowthData {
  */
 export async function getHubGrowth(g: { id: number; slug: string; name: string }, published: number, songs: number): Promise<HubGrowthData> {
   const state = hubState(published);
-  const [wmaSlugs, set, fansPicked, recentPlays, btPlays, first, team] = await Promise.all([
+  const [wmaSlugs, set, fansPicked, recentPlays, btPlays, first, team, live] = await Promise.all([
     getWmaGroupSlugs(),
     isNameAllGroup(g.slug) ? soft(() => getNameAllSet(g.slug), null, 'name-all set') : Promise.resolve(null),
     soft<FansPickedResponse | null>(() => getFansPicked(g.slug), null, 'fans picked'),
@@ -128,6 +129,8 @@ export async function getHubGrowth(g: { id: number; slug: string; name: string }
     state === 'empty' && songs > 0 ? soft<number | null>(() => readBtPlays(g.slug), null, 'bt plays') : Promise.resolve(null),
     state !== 'empty' ? soft(() => readFirstCreator(g.id), null, 'first creator') : Promise.resolve(null),
     getTeamIds(),
+    // Play live only while the live mode is open (GET /api/live probe, fail closed: issue C2-002).
+    isLiveOpen(),
   ]);
   const hasWma = wmaSlugs.includes(g.slug);
   const [stats, counts] = await Promise.all([
@@ -144,7 +147,7 @@ export async function getHubGrowth(g: { id: number; slug: string; name: string }
       nameAll: set ? { href: prettyPath(g.slug), members: set.members.length, perfectPct: stats?.perfectPct ?? null } : null,
       whichMember: hasWma ? { href: whichMemberPath(g.slug), results: resultsTotal(counts, MIN_RESULTS_FOR_SHARES) } : null,
       thisOrThat: ranked ? { votes: fansPicked?.votes ?? null } : null,
-      live: true,
+      live,
     },
     fansPicked: ranked ? fansPicked : null,
     recentPlays,

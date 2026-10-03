@@ -9,6 +9,8 @@ import { isTestEnv } from '@/lib/tracking/bt-server';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { LIVE_EVENT, LIVE_TOKEN_HEADER } from './constants';
+import { liveOpenChecker } from './open';
+import { liveStatus } from './service';
 import { LiveNotLiveError } from './store';
 import { supabaseStore } from './supabase-store';
 
@@ -72,6 +74,17 @@ export function liveDeps(): LiveDeps {
     isTest: isTestEnv(),
   };
 }
+
+/**
+ * Is the live mode open (GET /api/live would answer 200)? For the pages that show a
+ * door to /live or /join: a door is shown only when this is true. Same probe as the
+ * route (liveStatus: a GET read on live_rooms), kept 60 seconds per server instance,
+ * false on any error, false with the v12 flag off without any read (lib/live/open.ts).
+ */
+export const isLiveOpen: () => Promise<boolean> = liveOpenChecker({
+  enabled: isUxV12,
+  probe: async () => configured() && (await liveStatus(liveDeps())).status === 200,
+});
 
 const NO_STORE = { 'Cache-Control': 'no-store' } as const;
 
