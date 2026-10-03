@@ -8,6 +8,7 @@ import { PersonName } from '@/components/ux-v1/person-name';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
+import { useTeamUsernames } from '@/components/notifications/ux-v1/use-team';
 import { playComment } from '@/lib/sounds';
 import { isUuid, likeKey, NOT_LIVE, parseExtras, parseReply, REPLY_MAX, resumePayload, writeError } from '@/lib/ux-v1/p4/comments';
 import { relativeTime } from '@/lib/ux-v1/p4/format';
@@ -84,6 +85,23 @@ function ReplyForm({ to, text, setText, busy, chip, me, focusTick, onSend, onClo
   );
 }
 
+/** A comment or reply author's avatar. v12 F5a: an editorial account gets the team
+ *  avatar (UxAvatar ignores `team` unless the v12 flag is on). */
+export function P4CommentAvatar({ username, src, team }: { username: string; src: string | null; team: boolean }): React.ReactElement {
+  return team ? <UxAvatar name={username} src={src} team /> : <UxAvatar name={username} src={src} />;
+}
+
+/** A comment or reply author's name with their flair. v12 F5a: an editorial account
+ *  gets the Team pill and no fan flair (PersonName ignores `isTeam` unless the v12
+ *  flag is on). Comments show no level for anyone. */
+export function P4CommentName({ username, accent, font, bias, team }: {
+  username: string; accent: string | null | undefined; font: string | null | undefined; bias: string | null | undefined; team: boolean;
+}): React.ReactElement {
+  return team
+    ? <PersonName name={username} accent={accent} font={font} bias={bias} href={`/u/${username}`} isTeam />
+    : <PersonName name={username} accent={accent} font={font} bias={bias} href={`/u/${username}`} />;
+}
+
 /**
  * Results comments (DESIGN-SPEC 14.4 / 16.7: folded, a real field, the score chip; 17.7
  * and the prototype #end rows: a heart + count, pink when liked, and Reply).
@@ -133,6 +151,9 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
   const toast = useUxToast();
   const uid = useId().replace(/:/g, '');
   const area = useRef<HTMLTextAreaElement>(null);
+  // v12 F5a: editorial usernames (one shared read, none with the v12 flag off)
+  const teamNames = useTeamUsernames();
+  const isTeam = (username: string): boolean => teamNames.size > 0 && teamNames.has(username.toLowerCase());
 
   // A comment posted while this read is in flight must not cancel it (the list would stay
   // at the new comment alone): the read depends on the server list only, and the two merge.
@@ -351,10 +372,10 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
         return (
           <Fragment key={c.id}>
             <div className={`p4-cmt${fresh.has(c.id) ? ' is-new' : ''}`}>
-              <UxAvatar name={c.username} src={c.avatar_url ?? null} />
+              <P4CommentAvatar username={c.username} src={c.avatar_url ?? null} team={isTeam(c.username)} />
               <div className="p4-cb">
                 <div className="p4-h">
-                  <PersonName name={c.username} accent={c.name_accent} font={c.name_font} bias={c.bias} href={`/u/${c.username}`} />
+                  <P4CommentName username={c.username} accent={c.name_accent} font={c.name_font} bias={c.bias} team={isTeam(c.username)} />
                   {' '}<span>{scoreOf(c.score, c.total)}· {relativeTime(c.created_at)}</span>
                 </div>
                 <p>{c.content}</p>
@@ -376,10 +397,10 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
               const h = heartOf('reply', r.id);
               return (
                 <div key={r.id} className={`p4-cmt p4-cmt-nest${fresh.has(r.id) ? ' is-new' : ''}`}>
-                  <UxAvatar name={r.username} src={r.avatar_url} />
+                  <P4CommentAvatar username={r.username} src={r.avatar_url} team={isTeam(r.username)} />
                   <div className="p4-cb">
                     <div className="p4-h">
-                      <PersonName name={r.username} accent={r.name_accent} font={r.name_font} bias={r.bias} href={`/u/${r.username}`} />
+                      <P4CommentName username={r.username} accent={r.name_accent} font={r.name_font} bias={r.bias} team={isTeam(r.username)} />
                       {' '}<span>{scoreOf(r.score, r.total)}· {relativeTime(r.created_at)}</span>
                     </div>
                     <p>{r.content}</p>
