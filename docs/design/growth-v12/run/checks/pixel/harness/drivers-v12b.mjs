@@ -27,7 +27,7 @@ export const G5 = {
       { name: 'traits', proto: '.traits', impl: '.ux-traits', box: ['w', 'h'] },
       { name: 'result button', proto: '.btn-primary', impl: '.ux-rescard .ux-btn-primary', box: ['h'] },
       { name: 'section title', proto: '.sec-h h2', impl: '.ux-pers-sec .ux-sec-h h2', box: ['h'] },
-      { name: 'distribution', proto: '.dist', impl: '.ux-dist', box: ['x', 'w'] }] },
+      { name: 'distribution', proto: '.dist', impl: '.ux-dist', box: ['x', 'w'], optional: 'real data: the distribution shows only with real shares (G5); absent today, compared when present' }] },
   'wma-question': { owner: 'G5', auth: 'guest', anchor: null, open: wmaQuestion,
     lm: [...NAV, { name: 'question card', proto: '.pq', impl: '.ux-pers-q', box: ['x', 'w'], why: 'height: the stored question and answers are not the sample copy (G5)' },
       { name: 'answer', proto: '.popt', impl: '.ux-pers-opt', box: ['w'], why: 'height: stored answer copy wraps differently (G5)' }] },
@@ -37,7 +37,7 @@ export const G5 = {
       { name: 'traits', proto: '.traits', impl: '.ux-traits', box: ['w', 'h'] },
       { name: 'bias offer', proto: '.biasoffer', impl: '.ux-pers-bias', box: ['x', 'w'], why: 'height: copy (G5)' },
       { name: 'result button', proto: '.btn-primary', impl: '.ux-rescard .ux-btn-primary', box: ['h'] },
-      { name: 'distribution', proto: '.dist', impl: '.ux-dist', box: ['x', 'w'] }] },
+      { name: 'distribution', proto: '.dist', impl: '.ux-dist', box: ['x', 'w'], optional: 'real data: shown only with real shares (G5)' }] },
 };
 
 // ---- G6

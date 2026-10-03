@@ -7,6 +7,9 @@ export const OWNER_DEVIATIONS = [
   // the brief's expected deviations (--ux-tabbar-bg, a0.css)
   { theme: 'light', proto: '.gbar', prop: 'background-color', from: 'rgba(255, 255, 255, 0.86)', to: 'rgba(250, 248, 245, 0.94)' },
   { theme: 'light', proto: '.tabbar', prop: 'background-color', from: 'rgba(255, 255, 255, 0.86)', to: 'rgba(255, 255, 255, 0.94)' },
+  // C1: the phone rail panel is a bordered card on the warm ground, filled by --ux-card-fill (v11 P8 f995a87,
+  // "warm ground token sweep", owner request 2), the same deviation as the text card below
+  { theme: 'light', proto: '.mrail', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)' },
   { theme: 'light', proto: '.tcard', prop: 'background-color', from: 'rgba(0, 0, 0, 0)', to: 'rgb(255, 255, 255)' },
   { theme: 'light', proto: '*', prop: 'background-color', from: 'rgb(247, 246, 244)', to: 'rgb(241, 239, 234)' },
   { theme: 'light', proto: '*', prop: 'background-color', from: 'rgb(240, 238, 234)', to: 'rgb(234, 231, 225)' },

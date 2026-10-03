@@ -3,15 +3,14 @@
  "owner": "P2",
  "combos": {
   "1440-light": {
-   "at": "2026-10-03T10:40:29.153Z",
+   "at": "2026-10-03T10:50:06.182Z",
    "base": "http://localhost:3071",
-   "verdict": "not verified",
-   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "verdict": "pass",
    "url": "/quizzes",
    "signedIn": true,
    "counts": {
-    "landmarks": 4,
-    "pass": 3,
+    "landmarks": 8,
+    "pass": 7,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -60,20 +59,58 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz cards row",
+     "proto": "#q-grid .qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "count",
+       "expected": 12,
+       "actual": 48,
+       "info": true
+      }
+     ]
     }
    ],
-   "seconds": 4
+   "seconds": 35
   },
   "1440-dark": {
-   "at": "2026-10-03T10:40:32.937Z",
+   "at": "2026-10-03T10:50:40.684Z",
    "base": "http://localhost:3071",
-   "verdict": "not verified",
-   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "verdict": "pass",
    "url": "/quizzes",
    "signedIn": true,
    "counts": {
-    "landmarks": 4,
-    "pass": 3,
+    "landmarks": 8,
+    "pass": 7,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -122,20 +159,58 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz cards row",
+     "proto": "#q-grid .qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "count",
+       "expected": 12,
+       "actual": 48,
+       "info": true
+      }
+     ]
     }
    ],
-   "seconds": 4
+   "seconds": 34
   },
   "390-light": {
-   "at": "2026-10-03T10:40:36.696Z",
+   "at": "2026-10-03T10:51:15.245Z",
    "base": "http://localhost:3071",
-   "verdict": "not verified",
-   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "verdict": "pass",
    "url": "/quizzes",
    "signedIn": true,
    "counts": {
-    "landmarks": 4,
-    "pass": 3,
+    "landmarks": 8,
+    "pass": 7,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -184,20 +259,58 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz cards row",
+     "proto": "#q-grid .qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "count",
+       "expected": 12,
+       "actual": 48,
+       "info": true
+      }
+     ]
     }
    ],
-   "seconds": 4
+   "seconds": 35
   },
   "390-dark": {
-   "at": "2026-10-03T10:40:40.323Z",
+   "at": "2026-10-03T10:51:49.850Z",
    "base": "http://localhost:3071",
-   "verdict": "not verified",
-   "reason": "pending P2 (branch waits for the owner; the server shows the pre-P2 page)",
+   "verdict": "pass",
    "url": "/quizzes",
    "signedIn": true,
    "counts": {
-    "landmarks": 4,
-    "pass": 3,
+    "landmarks": 8,
+    "pass": 7,
     "fail": 0,
     "missing": 0,
     "extra": 0,
@@ -246,12 +359,52 @@
      "status": "pass",
      "styleRef": "live prototype",
      "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "quiz card",
+     "proto": ".qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "quiz cards row",
+     "proto": "#q-grid .qcard",
+     "impl": ".p2-grid .ux-qcard",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [
+      {
+       "what": "count",
+       "expected": 12,
+       "actual": 48,
+       "info": true
+      }
+     ]
     }
    ],
-   "seconds": 4
+   "seconds": 35
   }
  },
  "auth": "user",
  "shot": "full",
- "verdict": "not verified"
+ "verdict": "pass",
+ "note": "P2 deviations (v11 RUN-STATE 19, 32): the live H1, intro and breadcrumb (SEO lock) push the grid down; card height follows real titles"
 }

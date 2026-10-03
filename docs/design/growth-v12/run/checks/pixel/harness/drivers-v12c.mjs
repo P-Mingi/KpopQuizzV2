@@ -33,7 +33,7 @@ export const G8 = {
     lm: [...NAV, { name: 'creator board', proto: '.cbgrid', impl: '.g8-cbgrid', box: ['x', 'w'], why: 'height: real rows (G8)' },
       { name: 'tiers', proto: '.tiers3', impl: '.g8-tiers', box: ['w', 'h'] },
       { name: 'create button', proto: '.btn-primary', impl: '.g8-cb-cta', box: ['h'] },
-      { name: 'rising', proto: '.rising', impl: '.g8-rising', box: ['x', 'w'], why: 'height: one row per real fandom (G8)' }] },
+      { name: 'rising', proto: '.rising', impl: '.g8-rising', box: ['x', 'w'], why: 'height: one row per real fandom (G8)', optional: 'real data: Rising in each fandom is hidden while no fandom has a first quiz with plays this month (G8)' }] },
 };
 
 async function shareKit(page) {

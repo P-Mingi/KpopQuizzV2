@@ -17,6 +17,7 @@ export function compareV12(key, prefix, theme, lms, proto, impl, props) {
     const p = proto[l.name]; const i = impl[l.name];
     if (!p && !i) { rows.push({ name: l.name, status: 'absent', note: 'in neither' }); continue; }
     if (!p) { rows.push({ name: l.name, status: 'extra', note: 'not in the reference state (implementation only)' }); continue; }
+    if (!i && l.optional) { rows.push({ name: l.name, proto: l.proto, impl: l.impl, status: 'data-absent', note: l.optional }); continue; }
     if (!i) { rows.push({ name: l.name, proto: l.proto, impl: l.impl, status: 'missing', note: 'in the reference, not found in the implementation' }); continue; }
     const mism = [];
     for (const part of l.box ?? []) {
