@@ -9,6 +9,8 @@ import { unstable_cache } from 'next/cache';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
+import { getTeamIds } from '@/lib/editorial/accounts';
+import { teamCacheKey } from '@/lib/editorial/surfaces/team';
 import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -254,6 +256,9 @@ export interface CommunityRow {
   sub: string;
   at: string;
   avatar: { name: string; photo: string | null; initials: string };
+  /** V12 F5b: the author's name when the author is an editorial account (the row shows
+   *  the Team badge after it). Never set with the flag off or while nobody is editorial. */
+  teamAuthor?: string;
 }
 
 async function readCommunity(today: string): Promise<HomeCommunity> {
@@ -305,6 +310,8 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
   const published = ((optedGroups ?? []) as { id: number; slug: string; name: string }[]).filter((g) => !spaceUnpublished(g.slug));
   const groupIds = published.map((g) => g.id);
   if (groupIds.length > 0) {
+    // V12 F5b: editorial authors get the Team badge. Empty (no read) with the flag off.
+    const team = await getTeamIds();
     const [threadRes, essayRes] = await Promise.all([
       db.from('verse_threads').select('id, group_id, slug, title, created_at').in('group_id', groupIds).eq('status', 'visible')
         .order('created_at', { ascending: false }).limit(1).maybeSingle(),
@@ -324,11 +331,13 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
       if (!summary) throw new Error('[ux-home] verse thread list unavailable');
       const author = summary.author?.displayName;
       const replies = summary.replyCount;
-      rows.push({
+      const row: CommunityRow = {
         kind: 'thread', title: t.title, href: `/verse/${tg.slug}/community/${t.slug}`, at: t.created_at,
         sub: ['Thread', author, `${comma(replies)} ${replies === 1 ? 'reply' : 'replies'}`].filter(Boolean).join(' · '),
         avatar: { name: tg.name, photo: groupPhotoUrl(tg.slug), initials: groupInitials(tg.name) },
-      });
+      };
+      if (author && summary.createdBy && team.has(summary.createdBy)) row.teamAuthor = author;
+      rows.push(row);
     }
 
     const e = essay as { id: number; group_id: number; featured_at: string | null } | null;
@@ -337,11 +346,13 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
       const page = await getEssayPage(e.id);
       if (page && page.status === 'featured') {
         const author = page.author?.displayName || page.author?.username || null;
-        rows.push({
+        const row: CommunityRow = {
           kind: 'blog', title: page.title, href: `/verse/${eg.slug}/essays/${e.id}`, at: e.featured_at ?? page.createdAt,
           sub: ['Blog', author, `${page.readingMin} min read`].filter(Boolean).join(' · '),
           avatar: { name: eg.name, photo: groupPhotoUrl(eg.slug), initials: groupInitials(eg.name) },
-        });
+        };
+        if (author && team.has(page.authorId)) row.teamAuthor = author;
+        rows.push(row);
       }
     }
   }
@@ -349,7 +360,8 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
   return { rows: rows.sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3), verse };
 }
 
-const readCommunityCached = unstable_cache(readCommunity, ['ux-v1:p1:community:v3'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+// V12 F5b: flag off, the same key; flag on, its own entry (rows carry teamAuthor).
+const readCommunityCached = unstable_cache(readCommunity, teamCacheKey(['ux-v1:p1:community:v3']), { revalidate: CACHE_TTL.stats, tags: ['community'] });
 
 /** Up to 3 real community rows (daily debate; while the Verse is public, the latest
  *  thread and featured essay too), newest first, plus the live Verse strip. Empty =
