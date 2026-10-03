@@ -1,0 +1,34 @@
+# C3 perf probe, flag-on build of afb83f4 on :3071, 2026-10-03T10:46:25.449Z
+# v11 method (docs/design/ux-dashboard-v1/v11/checks/qa/perf.mjs, run unchanged): Pixel 5, 390x844, DPR 3, CPU 4x, cache off, median of 3 runs after one warm load.
+# slow4g = 150 ms RTT, 1.6 Mbps down. No gzip proxy: the stylesheet route is served raw by next start (v11 C3 called this on raw).
+# page | profile | LCP ms | CLS | JS KB | total KB | idol photo problems | LCP element
+/guess-the-kpop-song | local | 320 | 0 | 280 | 695 | 0 | p.g3-lead
+/guess-the-kpop-song | slow4g | 3128 | 0.0029 | 280 | 693 | 0 | p.g3-lead
+/fr/blind-test-kpop | local | 228 | 0 | 280 | 695 | 0 | p.g3-lead
+/fr/blind-test-kpop | slow4g | 3136 | 0.0003 | 280 | 693 | 0 | p.g3-lead
+/blindtest | local | 220 | 0 | 296 | 987 | 0 | p.ux-thm-d
+/blindtest | slow4g | 3276 | 0 | 296 | 986 | 0 | p.ux-thm-d
+/blindtest/5th-gen | local | 172 | 0 | 284 | 698 | 0 | p.g3-lead
+/blindtest/5th-gen | slow4g | 3116 | 0 | 284 | 696 | 0 | p.g3-lead
+/kpop-demon-hunters-quiz | local | 168 | 0 | 381 | 928 | 0 | h1
+/kpop-demon-hunters-quiz | slow4g | 3072 | 0 | 381 | 926 | 0 | h1
+/which-stray-kids-member-are-you | local | 188 | 0 | 280 | 713 | 0 | p.ux-pers-lead
+/which-stray-kids-member-are-you | slow4g | 3104 | 0.0003 | 280 | 711 | 0 | p.ux-pers-lead
+/stray-kids-name-all-members | local | 180 | 0 | 278 | 710 | 0 | p
+/stray-kids-name-all-members | slow4g | 3020 | 0 | 278 | 708 | 0 | p
+/stray-kids-quiz | local | 316 | 0 | 373 | 1194 | 8 | img.p3-photo-img /_next/image?url=/idols/Stray%20Kids.jpg&w=1080&q=75
+/stray-kids-quiz | slow4g | 3412 | 0.0002 | 373 | 1192 | 8 | img.p3-photo-img /_next/image?url=/idols/Stray%20Kids.jpg&w=1080&q=75
+/riize-quiz | local | 212 | 0 | 274 | 746 | 0 | img.p3-photo-img /_next/image?url=/idols/RIIZE.jpg&w=1080&q=75
+/riize-quiz | slow4g | 3308 | 0 | 274 | 745 | 0 | img.p3-photo-img /_next/image?url=/idols/RIIZE.jpg&w=1080&q=75
+/creators | local | 180 | 0 | 284 | 1008 | 0 | p
+/creators | slow4g | 3016 | 0 | 284 | 1006 | 0 | p
+/live | local | 176 | 0 | 277 | 691 | 0 | p.ux-muted
+/live | slow4g | 3084 | 0 | 277 | 689 | 0 | p.ux-muted
+/join | local | 164 | 0 | 222 | 596 | 0 | h2.ux-live-ph
+/join | slow4g | 3028 | 0 | 222 | 596 | 0 | h2.ux-live-ph
+
+Notes:
+- CLS: max 0.0029 (/guess-the-kpop-song slow4g); every page is under 0.1.
+- LCP local 164 to 320 ms; slow4g 3016 to 3412 ms on every page, the v11 pages /blindtest (3276) and /stray-kids-quiz (3412) included. v11 C3 loop 2 measured /blackpink-quiz at 3008 ms slow 4G through its gzip proxy. Text LCP elements: the floor here is the document, CSS and fonts over 150 ms RTT, not v12 code.
+- /stray-kids-quiz: 8 photo problems are the v11 P3 hub member faces (components/group/ux-v1/hub.tsx L286, sizes=80px, next.config imageSizes stop at 220, so a DPR 3 phone gets 640w for 240 px needed). Lazy, below the fold, not v12 code, unchanged since v11.
+- Lighthouse not run: the owner has not OK'd it.
