@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   transpilePackages: ['@kpopquiz/shared'],
+  // V12 (G1 request R7, issue C3-002): the blindtest tracking switch is always inlined, as ''
+  // when it is unset, so the legacy blindtest pages drop the tracking import() at build
+  // and load no tracking chunk while tracking is off.
+  env: { NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '' },
   async redirects() {
     const groupSlugs = [
       'bts', 'blackpink', 'stray-kids', 'seventeen', 'twice', 'aespa',
