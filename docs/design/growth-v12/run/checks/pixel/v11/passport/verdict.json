@@ -3,15 +3,15 @@
  "owner": "P10",
  "combos": {
   "1440-light": {
-   "at": "2026-10-03T11:00:52.130Z",
+   "at": "2026-10-03T11:04:16.217Z",
    "base": "http://localhost:3071",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/u/testtest",
    "signedIn": false,
    "counts": {
     "landmarks": 12,
-    "pass": 9,
-    "fail": 1,
+    "pass": 10,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 2
@@ -77,15 +77,9 @@
      "name": "avatar",
      "proto": ".pav",
      "impl": ".p10-pav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgb(255, 255, 255) 0px 0px 0px 4px",
-       "actual": "rgb(250, 248, 245) 0px 0px 0px 4px"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
@@ -142,7 +136,7 @@
    "seconds": 2
   },
   "1440-dark": {
-   "at": "2026-10-03T11:00:53.765Z",
+   "at": "2026-10-03T11:04:17.904Z",
    "base": "http://localhost:3071",
    "verdict": "pass",
    "url": "/u/testtest",
@@ -275,15 +269,15 @@
    "seconds": 2
   },
   "390-light": {
-   "at": "2026-10-03T11:00:55.586Z",
+   "at": "2026-10-03T11:04:19.676Z",
    "base": "http://localhost:3071",
-   "verdict": "fail",
+   "verdict": "pass",
    "url": "/u/testtest",
    "signedIn": false,
    "counts": {
     "landmarks": 12,
-    "pass": 10,
-    "fail": 1,
+    "pass": 11,
+    "fail": 0,
     "missing": 0,
     "extra": 0,
     "absent": 1
@@ -352,15 +346,9 @@
      "name": "avatar",
      "proto": ".pav",
      "impl": ".p10-pav",
-     "status": "fail",
+     "status": "pass",
      "styleRef": "live prototype",
-     "mismatches": [
-      {
-       "what": "box-shadow",
-       "expected": "rgb(255, 255, 255) 0px 0px 0px 4px",
-       "actual": "rgb(250, 248, 245) 0px 0px 0px 4px"
-      }
-     ],
+     "mismatches": [],
      "skipped": [
       "background-image",
       "background-color",
@@ -417,7 +405,7 @@
    "seconds": 2
   },
   "390-dark": {
-   "at": "2026-10-03T11:00:57.337Z",
+   "at": "2026-10-03T11:04:21.517Z",
    "base": "http://localhost:3071",
    "verdict": "pass",
    "url": "/u/testtest",
@@ -556,5 +544,5 @@
  "auth": "guest",
  "shot": "full",
  "note": "checked on /u/testtest as a guest (signed-in /me NOT verified, owner decision 1): no owner controls",
- "verdict": "fail"
+ "verdict": "pass"
 }

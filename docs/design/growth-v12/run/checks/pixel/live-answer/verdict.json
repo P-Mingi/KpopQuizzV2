@@ -1,0 +1,154 @@
+{
+ "state": "live-answer",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:04:36.536Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g4-live.sql (and v12-g4-party-rls.sql) are applied: /api/live answers 503, no room can open; checked in its not-live form",
+   "url": "/live",
+   "signedIn": false,
+   "hiddenForm": {
+    "dataOpen": "no",
+    "dataState": "setup"
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 14.13,
+    "maskedPct": 10
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:04:38.071Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g4-live.sql (and v12-g4-party-rls.sql) are applied: /api/live answers 503, no room can open; checked in its not-live form",
+   "url": "/live",
+   "signedIn": false,
+   "hiddenForm": {
+    "dataOpen": "no",
+    "dataState": "setup"
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 14.47,
+    "maskedPct": 10.1
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:04:39.741Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g4-live.sql (and v12-g4-party-rls.sql) are applied: /api/live answers 503, no room can open; checked in its not-live form",
+   "url": "/live",
+   "signedIn": false,
+   "hiddenForm": {
+    "dataOpen": "no",
+    "dataState": "setup"
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 14.16,
+    "maskedPct": 29.1
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:04:41.337Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g4-live.sql (and v12-g4-party-rls.sql) are applied: /api/live answers 503, no room can open; checked in its not-live form",
+   "url": "/live",
+   "signedIn": false,
+   "hiddenForm": {
+    "dataOpen": "no",
+    "dataState": "setup"
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 17.9,
+    "maskedPct": 29.1
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 2
+  }
+ },
+ "owner": "G4",
+ "auth": "guest",
+ "anchor": null,
+ "pending": "NOT verified until v12-g4-live.sql (and v12-g4-party-rls.sql) are applied: /api/live answers 503, no room can open; checked in its not-live form",
+ "verdict": "not verified"
+}

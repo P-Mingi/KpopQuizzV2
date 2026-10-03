@@ -61,10 +61,14 @@ async function liveNotLive(page, s) {
   s.hidden = { dataOpen: await page.locator('.ux-live-screen').getAttribute('data-open'), dataState: await page.locator('.ux-live-screen').getAttribute('data-state') };
 }
 const LIVE_LM = [...NAV, { name: 'screen', proto: '.screen', impl: '.ux-live-screen', box: ['x', 'w'] }];
-export const G4 = Object.fromEntries(['live-setup', 'live-lobby', 'live-round', 'live-answer', 'live-reveal', 'live-board', 'live-end'].map((id) => [id, { owner: 'G4', auth: 'guest', anchor: null, pending: G4_PENDING, open: liveNotLive, lm: id === 'live-setup' ? LIVE_LM : [] }]));
-G4['live-join'] = { owner: 'G4', auth: 'guest', anchor: null, pending: G4_PENDING,
-  open: async (page, s) => { await openV12(page, '/join', '.ux-live-join'); s.hidden = { join: await page.locator('.ux-live-join form').count() }; },
-  lm: [...NAV, { name: 'phone', proto: '.phone', impl: '.ux-live-phone', box: ['w', 'h'] }] };
+export const G4 = Object.fromEntries(['live-setup', 'live-lobby', 'live-join', 'live-round', 'live-answer', 'live-reveal', 'live-board', 'live-end'].map((id) => [id, { owner: 'G4', auth: 'guest', anchor: null, pending: G4_PENDING, open: liveNotLive, lm: id === 'live-setup' ? LIVE_LM : [] }]));
+// The prototype's live-join is the HOST screen once a phone has joined (lobby + toast), not the /join page: it
+// needs a room too. The /join page itself renders without the SQL; its form is recorded in the hidden form.
+G4['live-join'].open = async (page, s) => {
+  await liveNotLive(page, s);
+  const r = await page.request.get('/join');
+  s.hidden.joinPage = r.status();
+};
 
 // ---- G9 Team posts: the editorial tables do not exist, so no Team post exists; the feed shows none.
 const G9_PENDING = 'NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge';
