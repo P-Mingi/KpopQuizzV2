@@ -1,0 +1,15 @@
+[
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "name, members (label)", "outlet": "The Muze Entertainment", "url": "https://themuze.kr/rescene", "needle": "RESCENE" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "name, label (wiki)", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Rescene", "needle": "The Muze" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "fandom name (outlet)", "outlet": "Soompi", "url": "https://www.soompi.com/article/1674005wpp/rescene-announces-official-fandom-name", "needle": "REMINE" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "fandom name (wiki)", "outlet": "Kpop Wiki", "url": "https://kpop.fandom.com/wiki/RESCENE", "needle": "REMINE" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "debut date (outlet)", "outlet": "Soompi", "url": "https://www.soompi.com/article/1651280wpp/watch-rescene-blooms-in-captivating-debut-mv-for-uhuh", "needle": "March 26" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "debut date (wiki)", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Re:Scene", "needle": "March 26, 2024" },
+  { "deezer_track_id": 0, "artist": "RESCENE", "title": "label (outlet)", "outlet": "Korea JoongAng Daily", "url": "https://www.koreajoongangdaily.com/entertainment/rescene-reveals-members-ahead-of-debut-month/10362446", "needle": "The Muze Entertainment" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "fan club name (official)", "outlet": "NCTzen WISH-JAPAN", "url": "https://nctzenwish-japan.smtown-fc.jp/", "needle": "NCTzen WISH" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "fandom name (wiki)", "outlet": "Kpop Wiki", "url": "https://kpop.fandom.com/wiki/NCT_WISH", "needle": "NCTzen" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "debut date (official, Japan)", "outlet": "avex NCT Japan", "url": "https://nct-jp.net/profile/", "needle": "2024年2月21日" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "debut date (wiki)", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/NCT_Wish", "needle": "February 21, 2024" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "label (wiki)", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/NCT_Wish", "needle": "SM Entertainment" },
+  { "deezer_track_id": 0, "artist": "NCT WISH", "title": "name, label, debut date (label press release 2024-01-19)", "outlet": "SM Entertainment", "url": "https://www.smentertainment.com/en/newsroom/nct-wish-2%EC%9B%94-21%EC%9D%BC-%EB%8D%B0%EB%B7%94-%ED%99%95%EC%A0%95-%EA%BF%88%EC%9D%98-%EB%AC%B4%EB%8C%80-%EB%8F%84%EC%BF%84%EB%8F%94%EC%84%9C-%EB%8D%B0%EB%B7%94-%EC%B6%9C/", "needle": "2월 21일" }
+]

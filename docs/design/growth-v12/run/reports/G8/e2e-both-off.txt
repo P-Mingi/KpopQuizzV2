@@ -1,0 +1,37 @@
+
+Running 31 tests using 1 worker
+
+[1/31] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:206:5 › G8 group hub light › hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked
+[3/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:251:5 › G8 group hub light › hub-thin-katseye: the nudge with the real count, ways to play below it
+[4/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:266:5 › G8 group hub light › hub-empty-riize: Be the first with real signals and three templates, no ways to play
+[5/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:206:5 › G8 group hub dark › hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked
+[6/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:251:5 › G8 group hub dark › hub-thin-katseye: the nudge with the real count, ways to play below it
+[7/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:266:5 › G8 group hub dark › hub-empty-riize: Be the first with real signals and three templates, no ways to play
+[8/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:334:5 › G8 share kit light › share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real
+[9/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:334:5 › G8 share kit dark › share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real
+[10/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:387:3 › G8 create done, flag off › v11 only: create done keeps "Post a challenge" and has no share kit
+[11/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:412:5 › G8 creators light › creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks
+[12/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:412:5 › G8 creators dark › creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks
+[13/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:457:3 › G8 behaviour › flag state is the expected one
+[14/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:463:3 › G8 behaviour › the creators APIs are read only and refuse what they cannot read
+[15/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:472:3 › G8 behaviour › leaderboard links the creators board (flag on) and keeps every v11 link
+[16/31] [ux-1440] › e2e/ux-v12/g8.spec.ts:482:3 › G8 behaviour › flag off: no addition on the hubs, /creators and its APIs are not served
+[17/31] [ux-390] › e2e/ux-v12/g8.spec.ts:206:5 › G8 group hub light › hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked
+[18/31] [ux-390] › e2e/ux-v12/g8.spec.ts:251:5 › G8 group hub light › hub-thin-katseye: the nudge with the real count, ways to play below it
+[19/31] [ux-390] › e2e/ux-v12/g8.spec.ts:266:5 › G8 group hub light › hub-empty-riize: Be the first with real signals and three templates, no ways to play
+[20/31] [ux-390] › e2e/ux-v12/g8.spec.ts:206:5 › G8 group hub dark › hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked
+[21/31] [ux-390] › e2e/ux-v12/g8.spec.ts:251:5 › G8 group hub dark › hub-thin-katseye: the nudge with the real count, ways to play below it
+[22/31] [ux-390] › e2e/ux-v12/g8.spec.ts:266:5 › G8 group hub dark › hub-empty-riize: Be the first with real signals and three templates, no ways to play
+[23/31] [ux-390] › e2e/ux-v12/g8.spec.ts:334:5 › G8 share kit light › share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real
+[24/31] [ux-390] › e2e/ux-v12/g8.spec.ts:334:5 › G8 share kit dark › share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real
+[25/31] [ux-390] › e2e/ux-v12/g8.spec.ts:387:3 › G8 create done, flag off › v11 only: create done keeps "Post a challenge" and has no share kit
+[26/31] [ux-390] › e2e/ux-v12/g8.spec.ts:412:5 › G8 creators light › creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks
+[27/31] [ux-390] › e2e/ux-v12/g8.spec.ts:412:5 › G8 creators dark › creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks
+[28/31] [ux-390] › e2e/ux-v12/g8.spec.ts:457:3 › G8 behaviour › flag state is the expected one
+[29/31] [ux-390] › e2e/ux-v12/g8.spec.ts:463:3 › G8 behaviour › the creators APIs are read only and refuse what they cannot read
+[30/31] [ux-390] › e2e/ux-v12/g8.spec.ts:472:3 › G8 behaviour › leaderboard links the creators board (flag on) and keeps every v11 link
+[31/31] [ux-390] › e2e/ux-v12/g8.spec.ts:482:3 › G8 behaviour › flag off: no addition on the hubs, /creators and its APIs are not served
+  24 skipped
+  7 passed (9.3s)
+EXIT 0

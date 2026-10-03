@@ -6,11 +6,13 @@ import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
 import { analytics } from '@/lib/analytics';
 import { completeDaily, markDailyPlayed } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
+import { btChallengeCodeHere, btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
 import { summarizeRun } from '@/lib/ux-v1/p6/points';
 import { generateBody } from '@/lib/ux-v1/p6/playlists';
 
 import type { BtAnswer, BtMode, BtPhase, BtQuestion } from './types';
 import type { RunSummary } from '@/lib/ux-v1/p6/points';
+import type { BtRunContext } from '@/lib/tracking/bt';
 import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 
 // The run engine of the v11 blindtest (DESIGN-SPEC 14.7, 16.7). It is the live
@@ -24,6 +26,12 @@ import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 // /api/daily/blindtest/submit { score, time_ms }, recordGuestDaily,
 // completeDaily('blindtest')). Free play saves nothing, exactly like today.
 // Points, combo and speed are display only (lib/ux-v1/p6/points.ts).
+//
+// V12 tracking (lib/tracking/bt.ts, its own switch NEXT_PUBLIC_BT_TRACKING): every
+// run started here is recorded through trackBtRun(). start = the first clip really
+// plays; finish = the results screen (completed) or a quit, a new start, leaving
+// the page (completed = false, sendBeacon). With the switch off nothing is sent and
+// nothing below changes what the player sees.
 
 export const TIMER_S = 10;
 /** DESIGN-SPEC 16.7: auto-next after 3 s ("Next song in 3 seconds"). */
@@ -65,8 +73,8 @@ export interface RunApi {
   prepareDaily: () => void;
   /** A friend's challenge link: the frozen rounds, waiting for a tap. */
   prepareChallenge: (pick: BtPick, count: number) => void;
-  /** Start the challenge rounds (inside the tap). */
-  startChallenge: (questions: BtQuestion[], pick: BtPick) => void;
+  /** Start the challenge rounds (inside the tap). `code` is the link's code (tracking only). */
+  startChallenge: (questions: BtQuestion[], pick: BtPick, code?: string) => void;
   pickAnswer: (i: number) => void;
   next: () => void;
   quit: () => void;
@@ -81,12 +89,49 @@ export interface RunApi {
 
 const DAILY_PICK: BtPick = { playlist: 'daily', label: 'Blindtest of the day' };
 
+/**
+ * The sentences the hook itself writes: the three start errors of a free run and the
+ * live-region sentence of each answer. A page in another language passes its own
+ * (V12 landings: lib/growth/bt-strings.ts has this shape); without the option the
+ * hook says exactly what it always said, in English.
+ */
+export interface RunStrings {
+  errNotEnough: string;
+  errNoSongs: string;
+  errStart: string;
+  announce: (kind: 'correct' | 'timeout' | 'missed', points: number, song: { title: string; artist: string } | null) => string;
+}
+
+/** The hook's own English, unchanged from v11 (the default of `strings`). */
+export const RUN_STRINGS_EN: RunStrings = {
+  errNotEnough: 'Not enough songs for this pick. Try another.',
+  errNoSongs: 'No songs found. Try another pick.',
+  errStart: 'Could not start the game. Check your connection.',
+  announce: (kind, points, song) => {
+    const head = kind === 'correct' ? `Correct, plus ${points} points.` : kind === 'timeout' ? 'Time is up.' : 'Missed.';
+    return song ? `${head} ${song.title} by ${song.artist}.` : head;
+  },
+};
+
+/** `strings` over the English defaults, key by key (a partial table never blanks a sentence). */
+export function resolveRunStrings(strings?: Partial<RunStrings> | null): RunStrings {
+  return {
+    errNotEnough: strings?.errNotEnough || RUN_STRINGS_EN.errNotEnough,
+    errNoSongs: strings?.errNoSongs || RUN_STRINGS_EN.errNoSongs,
+    errStart: strings?.errStart || RUN_STRINGS_EN.errStart,
+    announce: strings?.announce ?? RUN_STRINGS_EN.announce,
+  };
+}
+
 export function useBlindtestRun(opts: {
   announce?: (message: string) => void;
   /** Daily results saved (board and "played today" reload). */
   onDailySaved?: () => void;
+  /** Start errors and the answer announcement in the page language (default: English). */
+  strings?: Partial<RunStrings> | null;
 } = {}): RunApi {
-  const { announce, onDailySaved } = opts;
+  const { announce, onDailySaved, strings } = opts;
+  const text = useMemo(() => resolveRunStrings(strings), [strings]);
   const { unlock, loadAndPlay, preload, stop, fadeOut, cleanup, isPlaying, audioRef, play } = useAudioPlayer();
 
   const [phase, setPhase] = useState<BtPhase>('idle');
@@ -113,11 +158,52 @@ export function useBlindtestRun(opts: {
   const mutedRef = useRef(false);
   const submittedRef = useRef(false);
 
+  // V12 tracking. The open run (null when tracking is off or no run is open), and
+  // mirrors of the rounds and answers so a quit or pagehide can report them.
+  const trackRef = useRef<{ ctx: BtRunContext; startedAt: number; started: boolean } | null>(null);
+  const answersRef = useRef<BtAnswer[]>([]);
+  const questionsRef = useRef<BtQuestion[]>([]);
+  // The `c` of a challenge link, read on mount: the page drops it from the URL before the run starts.
+  const [linkCode] = useState<string | null>(() => btChallengeCodeHere());
+
+  /** Close the open run, once. Completed on the results screen, else abandoned (beacon). */
+  const sendFinish = useCallback((completed: boolean) => {
+    const t = trackRef.current;
+    if (!t) return;
+    trackRef.current = null;
+    if (!t.started) return; // no clip ever played: not a run
+    const ans = answersRef.current;
+    const qs = questionsRef.current;
+    const s = summarizeRun(ans.map((a) => ({ correct: a.correct, timeMs: a.time_ms })));
+    trackBtRun({
+      event: 'finish',
+      ...t.ctx,
+      answered: ans.length,
+      correct: s.correct,
+      score: s.points,
+      best_combo: s.bestStreak,
+      duration_ms: Math.max(0, Date.now() - t.startedAt),
+      completed,
+      songs: ans.flatMap((a, i) => {
+        const q = qs[i];
+        return q ? [{ song_id: q.song_id, kind: q.question_type, correct: a.correct, ms: a.time_ms }] : [];
+      }),
+    });
+  }, []);
+
   useEffect(() => () => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (blockedRef.current) clearTimeout(blockedRef.current);
+    sendFinish(false); // left the page mid-run (client navigation)
     cleanup();
-  }, [cleanup]);
+  }, [cleanup, sendFinish]);
+
+  // Tab closed or page left mid-run: the abandoned run still lands (sendBeacon).
+  useEffect(() => {
+    const onHide = (): void => sendFinish(false);
+    window.addEventListener('pagehide', onHide);
+    return () => window.removeEventListener('pagehide', onHide);
+  }, [sendFinish]);
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
@@ -131,6 +217,7 @@ export function useBlindtestRun(opts: {
     const timeMs = Math.min(TIMER_S * 1000, Math.max(0, Date.now() - startRef.current));
     setSelected(picked);
     setBlocked(false);
+    answersRef.current = [...answersRef.current, { picked, correct, time_ms: timeMs }];
     setAnswers((prev) => [...prev, { picked, correct, time_ms: timeMs }]);
     setPhase('reveal');
   }, [fadeOut, stopTimer]);
@@ -143,6 +230,16 @@ export function useBlindtestRun(opts: {
     if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
     loadAndPlay(q.preview_url);
     if (audioRef.current) audioRef.current.muted = mutedRef.current;
+    // Tracking: the run starts when a clip really plays (never for a browser that plays nothing).
+    const open = trackRef.current;
+    if (open && !open.started && audioRef.current) {
+      audioRef.current.addEventListener('playing', () => {
+        if (trackRef.current !== open || open.started) return;
+        open.started = true;
+        open.startedAt = Date.now();
+        trackBtRun({ event: 'start', ...open.ctx });
+      }, { once: true });
+    }
     if (nextUrl) preload(nextUrl);
     startRef.current = Date.now();
     stopTimer();
@@ -166,7 +263,23 @@ export function useBlindtestRun(opts: {
     }, BLOCKED_CHECK_MS);
   }, [audioRef, loadAndPlay, preload, reveal, stopTimer]);
 
-  const begin = useCallback((qs: BtQuestion[], m: BtMode) => {
+  const begin = useCallback((qs: BtQuestion[], m: BtMode, p: BtPick, code?: string | null) => {
+    sendFinish(false); // a run still open is closed as abandoned
+    answersRef.current = [];
+    questionsRef.current = qs;
+    const runId = newBtRunId();
+    trackRef.current = runId ? {
+      ctx: {
+        run_id: runId,
+        playlist: btPlaylistId({ kind: m, playlist: p.playlist, groups: p.group ? [p.group] : null, code: code ?? null }),
+        mode: p.playlist === 'ranked' ? 'ranked' : 'classic',
+        source: btSourceHere(m),
+        locale: btLocale(),
+        rounds: qs.length,
+      },
+      startedAt: Date.now(),
+      started: false,
+    } : null;
     setQuestions(qs);
     setIndex(0);
     setAnswers([]);
@@ -175,7 +288,7 @@ export function useBlindtestRun(opts: {
     analytics.gameStart('blindtest', m === 'daily');
     setPhase('playing');
     playQuestion(qs[0]!, qs[1]?.preview_url);
-  }, [playQuestion]);
+  }, [playQuestion, sendFinish]);
 
   const startFree = useCallback(async (p: BtPick, n: number) => {
     unlock(); // inside the tap (iOS Safari)
@@ -193,15 +306,15 @@ export function useBlindtestRun(opts: {
       });
       const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
       if (runRef.current !== id) return; // the player quit while the songs loaded
-      if (!res.ok) { setError('Not enough songs for this pick. Try another.'); setPhase('idle'); return; }
-      if (!data?.questions?.length) { setError('No songs found. Try another pick.'); setPhase('idle'); return; }
-      begin(data.questions, 'free');
+      if (!res.ok) { setError(text.errNotEnough); setPhase('idle'); return; }
+      if (!data?.questions?.length) { setError(text.errNoSongs); setPhase('idle'); return; }
+      begin(data.questions, 'free', p);
     } catch {
       if (runRef.current !== id) return;
-      setError('Could not start the game. Check your connection.');
+      setError(text.errStart);
       setPhase('idle');
     }
-  }, [begin, unlock]);
+  }, [begin, text, unlock]);
 
   const startDaily = useCallback(async () => {
     unlock();
@@ -216,7 +329,7 @@ export function useBlindtestRun(opts: {
       const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
       if (runRef.current !== id) return; // the player quit while the songs loaded
       if (!data?.questions?.length) { setError('Could not load today\'s blindtest. Try a free run.'); setPhase('idle'); return; }
-      begin(data.questions, 'daily');
+      begin(data.questions, 'daily', DAILY_PICK);
     } catch {
       if (runRef.current !== id) return;
       setError('Could not load today\'s blindtest. Try a free run.');
@@ -239,15 +352,15 @@ export function useBlindtestRun(opts: {
     setPhase('tap');
   }, []);
 
-  const startChallenge = useCallback((qs: BtQuestion[], p: BtPick) => {
+  const startChallenge = useCallback((qs: BtQuestion[], p: BtPick, code?: string) => {
     unlock();
     runRef.current++;
     setError(null);
     setMode('challenge');
     setPick(p);
     setCount(qs.length);
-    begin(qs, 'challenge');
-  }, [begin, unlock]);
+    begin(qs, 'challenge', p, code ?? linkCode);
+  }, [begin, linkCode, unlock]);
 
   const finish = useCallback(() => {
     stopTimer();
@@ -292,14 +405,14 @@ export function useBlindtestRun(opts: {
     const a = answers[i]!;
     const q = questions[i];
     const gain = summary.rounds[i]?.points ?? 0;
-    const head = a.correct ? `Correct, plus ${gain} points.` : a.picked === null ? 'Time is up.' : 'Missed.';
-    announce(q ? `${head} ${q.reveal.title} by ${q.reveal.artist}.` : head);
-  }, [announce, answers, phase, questions, summary.rounds]);
+    announce(text.announce(a.correct ? 'correct' : a.picked === null ? 'timeout' : 'missed', gain, q ? { title: q.reveal.title, artist: q.reveal.artist } : null));
+  }, [announce, answers, phase, questions, summary.rounds, text]);
 
   // Results: the live game's end-of-run effect, unchanged in daily mode.
   useEffect(() => {
     if (phase !== 'results') return;
     lastAnnounced.current = -1;
+    sendFinish(true);
     analytics.gameComplete('blindtest', score, questions.length, mode === 'daily');
     announce?.(`Blindtest finished. ${score} out of ${questions.length}, ${summary.points} points.`);
     if (mode !== 'daily' || submittedRef.current) return;
@@ -332,12 +445,13 @@ export function useBlindtestRun(opts: {
   }, [phase]);
 
   const quit = useCallback(() => {
+    sendFinish(false);
     runRef.current++;
     stopTimer();
     stop();
     setBlocked(false);
     setPhase('idle');
-  }, [stop, stopTimer]);
+  }, [sendFinish, stop, stopTimer]);
 
   const replay = useCallback(() => {
     const a = audioRef.current;

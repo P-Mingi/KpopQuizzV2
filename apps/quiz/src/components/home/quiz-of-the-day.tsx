@@ -4,6 +4,7 @@ import { GroupPill } from '@/components/ui/group-pill';
 import { DifficultyBadge } from '@/components/ui/difficulty-badge';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { formatCount } from '@/lib/utils';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { QuizCardData } from '@/lib/db/types';
 
@@ -12,9 +13,7 @@ interface QuizOfTheDayProps {
 }
 
 export function QuizOfTheDay({ quiz }: QuizOfTheDayProps): React.ReactElement {
-  const avgPct = quiz.total_completions > 0 && quiz.question_count > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions) / quiz.question_count * 100)
-    : null;
+  const avgPct = avgScorePct(quiz);
 
   return (
     <Link href={`/q/${quiz.slug}`} className="block mb-6">

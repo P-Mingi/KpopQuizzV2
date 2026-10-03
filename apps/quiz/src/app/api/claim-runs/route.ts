@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { readAnonCookie, isUuid } from '@/lib/anon-claim';
+import { isEditorialUser } from '@/lib/editorial/accounts';
+import { BT_TRACKING } from '@/lib/tracking/bt-shared';
+import { isNotLiveError } from '@/lib/tracking/bt-server';
 
 import type { NextRequest } from 'next/server';
 
@@ -52,6 +55,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   if (!underRateLimit(user.id)) {
     return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  }
+
+  // V12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6), so it
+  // never becomes the player of a guest run: nothing is claimed, the runs stay
+  // unowned. isEditorialUser() is false (and reads nothing) with the v12 flag off,
+  // and false while editorial_accounts does not exist: no change until then.
+  if (await isEditorialUser(user.id)) {
+    return NextResponse.json({ claimed: { plays: 0, battles: 0 }, reason: 'editorial_account' });
   }
 
   const proven = readAnonCookie(req);
@@ -108,11 +119,31 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'claim_failed' }, { status: 500 });
   }
 
+  // V12: blindtest runs (bt_runs, docs/pending-migrations/v12-g1-bt-runs.sql), under
+  // the SAME contract: the cookie-proven id only, NULL-owner rows only. Behind the
+  // tracking switch, and soft: while the table is not applied, or if this one update
+  // fails, the claim above still stands and the answer keeps its shape.
+  let blindtests: number | undefined;
+  if (BT_TRACKING) {
+    const { data: btRows, error: btErr } = await db
+      .from('bt_runs')
+      .update({ player_id: user.id })
+      .eq('anon_id', proven)
+      .is('player_id', null)
+      .select('id');
+    if (btErr) {
+      if (!isNotLiveError(btErr)) console.error('claim-runs bt_runs failed:', btErr.message);
+    } else {
+      blindtests = btRows?.length ?? 0;
+    }
+  }
+
   return NextResponse.json({
     claimed: {
       plays: playRows?.length ?? 0,
       battles: battleRows?.length ?? 0,
       games: gameRows?.length ?? 0,
+      ...(blindtests !== undefined ? { blindtests } : {}),
     },
   });
 }

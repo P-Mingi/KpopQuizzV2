@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { avgScorePct } from '@/lib/quiz/scoring';
 import { AdminDashboard } from './admin-dashboard';
 
 export default async function AdminPage(): Promise<React.ReactElement> {
@@ -62,7 +63,7 @@ export default async function AdminPage(): Promise<React.ReactElement> {
     // Recent users
     supabase.from('profiles').select('id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, total_quizzes_created, total_plays_received, created_at, banned_at').order('created_at', { ascending: false }).limit(20),
     // All quizzes (first page)
-    supabase.from('quizzes').select('id, title, slug, status, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)').order('created_at', { ascending: false }).limit(20),
+    supabase.from('quizzes').select('id, title, slug, status, quiz_type, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)').order('created_at', { ascending: false }).limit(20),
   ]);
 
   // Process KPIs
@@ -203,9 +204,7 @@ export default async function AdminPage(): Promise<React.ReactElement> {
     status: q.status as string,
     play_count: q.play_count as number,
     report_count: q.report_count as number,
-    avg_score: (q.total_completions as number) > 0 && Array.isArray(q.questions) && q.questions.length > 0
-      ? Math.round(((q.total_score_sum as number) / (q.total_completions as number)) / q.questions.length * 100)
-      : 0,
+    avg_score: avgScorePct({ total_score_sum: q.total_score_sum as number, total_completions: q.total_completions as number, question_count: Array.isArray(q.questions) ? q.questions.length : 0, quiz_type: q.quiz_type as string }) ?? 0,
     question_count: Array.isArray(q.questions) ? q.questions.length : 0,
     difficulty: q.difficulty as string,
     created_at: q.created_at as string,

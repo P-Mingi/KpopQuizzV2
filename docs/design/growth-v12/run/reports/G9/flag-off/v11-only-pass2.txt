@@ -1,0 +1,43 @@
+IDENTICAL (structure)  /community  status 200/200  raw bytes 123569/122872  normalised 40473/40473  js chunks 25/25
+IDENTICAL (structure)  /community/thread/1  status 200/200  raw bytes 66517/65664  normalised 16505/16505  js chunks 25/25
+IDENTICAL (structure)  /community/thread/2  status 200/200  raw bytes 66434/65805  normalised 16496/16496  js chunks 25/25
+IDENTICAL (structure)  /community/debate/2026-09-29  status 200/200  raw bytes 64092/63349  normalised 14628/14628  js chunks 25/25
+DIFFERENT (structure)  /community/debate/2026-09-22  status 200/200  raw bytes 65281/63363  normalised 15869/14636  js chunks 25/25
+  node 21
+    A: <script src="static/chunks/<asset>
+    B: <title>
+  node 22
+    A: .js" noModule="">
+    B: Choreo with props or pure dance | KpopQuiz</title>
+  node 23
+    A: </script>
+    B: <meta name="description" content="A debate in the KpopQuiz community about General K-pop."/>
+  node 24
+    A: </head>
+    B: <meta name="author" content="KpopQuiz"/>
+  node 25
+    A: <body class="bg-primary text-primary font-sans antialiased">
+    B: <link rel="manifest" href="/site.webmanifest"/>
+  node 26
+    A: <div hidden="">
+    B: <meta name="keywords" content="kpop quiz,kpop trivia,BTS quiz,BLACKPINK quiz,Stray Kids quiz,kpop game,kpop test,kpop fan quiz"/>
+DIFFERENT (structure)  /community/blog/2  status 200/200  raw bytes 70567/68653  normalised 17924/16691  js chunks 25/25
+  node 22
+    A: <script src="static/chunks/<asset>
+    B: <title>
+  node 23
+    A: .js" noModule="">
+    B: Why ARMY documents everything: the archive instinct of a fandom | KpopQuiz</title>
+  node 24
+    A: </script>
+    B: <meta name="description" content="Every fandom remembers. ARMY writes it down. Ask a question about any stage, any era, any stray piece of lore, and within minutes someone appears with the…"/>
+  node 25
+    A: </head>
+    B: <meta name="author" content="KpopQuiz"/>
+  node 26
+    A: <body class="bg-primary text-primary font-sans antialiased">
+    B: <link rel="manifest" href="/site.webmanifest"/>
+  node 27
+    A: <div hidden="">
+    B: <meta name="keywords" content="kpop quiz,kpop trivia,BTS quiz,BLACKPINK quiz,Stray Kids quiz,kpop game,kpop test,kpop fan quiz"/>
+2 page(s) differ

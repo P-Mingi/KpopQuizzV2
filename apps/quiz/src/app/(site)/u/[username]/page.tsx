@@ -186,7 +186,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   // ISR), plus two read-only extras (main group fandom name + fandom war rank).
   // Owner-only controls resolve on the client (/api/auth/me), as today.
   if (UX_V1) {
-    const [{ UxPassport }, { buildPassport }, { readFandomName, readWar }] = await Promise.all([
+    const [{ UxPassport }, { buildPassport }, { readFandomName, readWar, readTeamIdentity }] = await Promise.all([
       import('@/components/profile/ux-v1/passport'),
       import('@/lib/ux-v1/p10/build-passport'),
       import('@/lib/ux-v1/p10/passport-data'),
@@ -206,6 +206,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       quizzes: initialQuizzes,
       fandomName,
       war,
+      // v12 (G9 R2): null for everyone with the v12 flag off (no read) and until the
+      // editorial accounts exist.
+      team: await readTeamIdentity(profile.id),
       now: Date.now(),
     });
     return <UxPassport {...props} footer={<><ModNotifyButton recipientUsername={profile.username} />{jsonLd()}</>} />;

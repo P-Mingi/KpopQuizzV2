@@ -1,0 +1,14 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a1bd3e886e4b4a87c/apps/quiz
+
+
+ Test Files  53 passed (53)
+      Tests  1249 passed (1249)
+   Start at  19:51:29
+   Duration  2.96s (import 42%, tests 30%, transform 26%, worker 2%)
+
+  Transform  transforming modules took 2.99s · 26% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+vitest exit 0

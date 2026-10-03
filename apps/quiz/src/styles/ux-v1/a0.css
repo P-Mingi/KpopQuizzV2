@@ -663,3 +663,212 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
   .ux-kit-panes, .ux-kit-grid2 { grid-template-columns: 1fr; }
   .ux-kit-static .ux-sheet { border-radius: 24px; }
 }
+
+/* ==========================================================================
+   UX v12 shared pieces (A1). Everything between the two markers is cut from the
+   served stylesheet unless NEXT_PUBLIC_UX_V12 is on with NEXT_PUBLIC_UX_V1
+   (lib/ux-v1/a0/stylesheet.ts), so a v11-only build serves the bytes it served
+   before this block existed. Keep the markers as they are and keep every v12
+   rule inside them. Source of truth: docs/design/growth-v12/prototype.html
+   (v12.2), last <style> block. Tokens mirrored in lib/design-tokens.ts
+   (UX_V12_TOKENS_*). The G agents' page sheets live in src/styles/ux-v12/.
+   ========================================================================== */
+/* @ux-v12:begin */
+
+/* ---------- v12 tokens: light ---------- */
+html.ux-v1,
+.ux-theme-light {
+  --ux-lt-a: #C93868; --ux-lt-b: #6B4FD8; --ux-lt-c: #0E7C71; --ux-lt-d: #A5600F;
+  --ux-th-hits26: linear-gradient(135deg, #F9C5D6 0%, #FCE3D2 100%);
+  --ux-th-hits25: linear-gradient(135deg, #FBD9C4 0%, #FFF0D6 100%);
+  --ux-th-gen5: linear-gradient(135deg, #D9D2FB 0%, #CFE3FB 100%);
+  --ux-th-gen4: linear-gradient(135deg, #CFE3FB 0%, #D4F1EC 100%);
+  --ux-th-viral: linear-gradient(135deg, #CFF2EA 0%, #F9D0DE 100%);
+  --ux-th-kpdh: linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C93868 100%);
+  --ux-th-title: linear-gradient(135deg, #FFE7B8 0%, #FBD0C0 100%);
+  --ux-th-ink: #1F1B17;
+  --ux-host-bg: linear-gradient(135deg, #FDF1F5 0%, #F3EEFC 60%, #EAF2FB 100%);
+  --ux-good: #1F7A48; --ux-good-soft: #E6F4EC;
+}
+/* ---------- v12 tokens: dark (explicit class, kit pane) ---------- */
+html.ux-v1.dark,
+.ux-theme-dark {
+  --ux-th-hits26: linear-gradient(135deg, #4A2432 0%, #43301F 100%);
+  --ux-th-hits25: linear-gradient(135deg, #46301F 0%, #3F3721 100%);
+  --ux-th-gen5: linear-gradient(135deg, #2E2850 0%, #223250 100%);
+  --ux-th-gen4: linear-gradient(135deg, #223250 0%, #1F3A36 100%);
+  --ux-th-viral: linear-gradient(135deg, #1F3A36 0%, #46202F 100%);
+  --ux-th-title: linear-gradient(135deg, #46381C 0%, #46261F 100%);
+  --ux-th-ink: #F3F0EB;
+  --ux-host-bg: linear-gradient(135deg, #2A1B24 0%, #221D31 60%, #1B2130 100%);
+  --ux-good: #4FC07F; --ux-good-soft: #16261C;
+}
+/* ---------- v12 tokens: dark (system theme, no stored choice) ---------- */
+@media (prefers-color-scheme: dark) {
+  html.ux-v1:not(.light) {
+    --ux-th-hits26: linear-gradient(135deg, #4A2432 0%, #43301F 100%);
+    --ux-th-hits25: linear-gradient(135deg, #46301F 0%, #3F3721 100%);
+    --ux-th-gen5: linear-gradient(135deg, #2E2850 0%, #223250 100%);
+    --ux-th-gen4: linear-gradient(135deg, #223250 0%, #1F3A36 100%);
+    --ux-th-viral: linear-gradient(135deg, #1F3A36 0%, #46202F 100%);
+    --ux-th-title: linear-gradient(135deg, #46381C 0%, #46261F 100%);
+    --ux-th-ink: #F3F0EB;
+    --ux-host-bg: linear-gradient(135deg, #2A1B24 0%, #221D31 60%, #1B2130 100%);
+    --ux-good: #4FC07F; --ux-good-soft: #16261C;
+  }
+}
+
+/* ---------- small shared bits ---------- */
+.ux-badge-new { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+.ux-kicker { font-size: 13px; font-weight: 600; color: var(--ux-pink-ink); display: inline-flex; align-items: center; gap: 6px; }
+.ux-kicker .ux-ico { width: 15px; height: 15px; }
+.ux-urlchip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--ux-surface); color: var(--ux-muted); font: 500 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Team badge (editorial accounts, SYSTEM.md 5.6) ---------- */
+.ux-teamtag { display: inline-flex; align-items: center; height: 18px; padding: 0 7px; margin-left: 6px; border-radius: 999px; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-family: var(--ux-font); font-size: 11px; font-weight: 700; letter-spacing: .02em; vertical-align: 1px; white-space: nowrap; }
+/* As the pinned prototype paints it: the neutral initial with a pink ring (its
+   `.ava.ini` fill wins over `.ava.team`; reference styles.json `.ava.team`). */
+.ux-ava.ux-ava-team { box-shadow: inset 0 0 0 1.5px var(--ux-pink-line); }
+.ux-teamnote { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ux-muted); }
+
+/* ---------- ways-to-play tile ---------- */
+.ux-gtiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.ux-gtiles.ux-gtiles-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ux-gtile { display: flex; flex-direction: column; gap: 8px; padding: 20px; border: 1px solid var(--ux-line); border-radius: 18px; background: var(--ux-raised); color: var(--ux-ink); text-align: left; transition: border-color .2s, transform .2s var(--ux-ease); }
+.ux-gtile:hover { border-color: var(--ux-pink-line); transform: translateY(-2px); }
+.ux-gtile-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--ux-pink-soft); color: var(--ux-pink-ink); }
+.ux-gtile-ic .ux-ico { width: 20px; height: 20px; }
+.ux-gtile-t { font-size: 17px; font-weight: 600; }
+.ux-gtile-d { font-size: 14px; color: var(--ux-muted); }
+.ux-gtile-ft { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--ux-muted); }
+
+/* ---------- theme card (themed playlists) ---------- */
+.ux-thrail { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.ux-thm { display: block; min-width: 0; }
+.ux-thm-cv { position: relative; display: flex; flex-direction: column; justify-content: flex-end; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 16px; padding: 14px; background: var(--ux-th, var(--ux-th-hits26)); color: var(--ux-th-ink); overflow: hidden; transition: transform .2s var(--ux-ease); }
+.ux-thm:hover .ux-thm-cv { transform: translateY(-2px); }
+.ux-thm-cv b { font-size: 19px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
+.ux-thm-cv small { font-size: 12px; font-weight: 600; opacity: .75; margin-top: 4px; }
+.ux-thm-cv.is-dark { color: #fff; }
+.ux-eq { position: absolute; right: 12px; top: 12px; display: flex; gap: 3px; align-items: flex-end; height: 18px; }
+.ux-eq i { width: 3px; border-radius: 2px; background: currentColor; opacity: .5; animation: ux-bar 1.1s ease-in-out infinite; }
+.ux-eq i:nth-child(2) { animation-delay: -.4s; }
+.ux-eq i:nth-child(3) { animation-delay: -.8s; }
+.ux-thm-t { font-size: 15px; font-weight: 600; margin-top: 10px; }
+.ux-thm-d { font-size: 13px; color: var(--ux-muted); }
+.ux-th-hits26 { --ux-th: var(--ux-th-hits26); } .ux-th-hits25 { --ux-th: var(--ux-th-hits25); }
+.ux-th-gen5 { --ux-th: var(--ux-th-gen5); } .ux-th-gen4 { --ux-th: var(--ux-th-gen4); }
+.ux-th-viral { --ux-th: var(--ux-th-viral); } .ux-th-kpdh { --ux-th: var(--ux-th-kpdh); }
+.ux-th-title { --ux-th: var(--ux-th-title); }
+@keyframes ux-bar { 0%, 100% { height: 5px; } 50% { height: 18px; } }
+
+/* ---------- language switch (landing pages) ---------- */
+.ux-langsw { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--ux-line); background: var(--ux-raised); max-width: 100%; }
+.ux-langsw > a, .ux-langsw > button { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--ux-muted); white-space: nowrap; text-decoration: none; }
+.ux-langsw > a[aria-current="page"], .ux-langsw > button[aria-pressed="true"] { background: var(--ux-pink-fill); color: #fff; }
+
+/* ---------- three steps ---------- */
+.ux-steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ux-steps3 > li { padding: 22px; border: 1px solid var(--ux-line); border-radius: 18px; background: var(--ux-raised); }
+.ux-steps3-n { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-weight: 700; font-size: 14px; }
+.ux-steps3-t { font-size: 17px; font-weight: 600; margin-top: 12px; }
+.ux-steps3-d { font-size: 15px; color: var(--ux-muted); margin-top: 4px; }
+
+/* ---------- colour + shape answers (live): host tiles, phone buttons ---------- */
+.ux-c-a { background: var(--ux-lt-a); } .ux-c-b { background: var(--ux-lt-b); }
+.ux-c-c { background: var(--ux-lt-c); } .ux-c-d { background: var(--ux-lt-d); }
+.ux-ltiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
+.ux-lt { position: relative; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 16px; border-radius: 14px; color: #fff; font-size: 18px; font-weight: 700; overflow: hidden; }
+.ux-lt svg, .ux-pb svg { stroke: none; }
+.ux-lt svg { width: 22px; height: 22px; flex: 0 0 22px; fill: #fff; }
+.ux-lt-cnt { margin-left: auto; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ux-lt-bar { position: absolute; left: 0; bottom: 0; height: 5px; background: rgba(255, 255, 255, .55); }
+.ux-ltiles.is-reveal .ux-lt { opacity: .38; }
+.ux-ltiles.is-reveal .ux-lt.is-ok { opacity: 1; box-shadow: 0 0 0 3px var(--ux-raised), 0 0 0 6px var(--ux-good); }
+.ux-pbtns { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; min-height: 0; }
+.ux-pb { border-radius: 18px; display: grid; place-items: center; min-height: 72px; transition: transform .12s var(--ux-ease), opacity .2s; }
+.ux-pb svg { width: 44px; height: 44px; fill: #fff; }
+button.ux-pb:active { transform: scale(.96); }
+.ux-pbtns.is-locked .ux-pb { opacity: .3; }
+.ux-pbtns.is-locked .ux-pb.is-me { opacity: 1; }
+
+/* ---------- result card (which member, bridge quiz) ---------- */
+.ux-rescard { position: relative; overflow: hidden; border-radius: 28px; padding: 36px 36px 32px; background: var(--ux-qotd-bg); border: 1px solid var(--ux-qotd-edge); }
+.ux-rescard-who { display: flex; align-items: center; gap: 20px; }
+.ux-rescard-ph { width: 92px; height: 92px; border-radius: 24px; flex: 0 0 92px; background: var(--ux-surface) center / cover; box-shadow: var(--ux-photo-edge); display: grid; place-items: center; font-size: 34px; font-weight: 800; color: var(--ux-pink-ink); overflow: hidden; }
+.ux-rescard-ph img { width: 100%; height: 100%; object-fit: cover; }
+.ux-rescard-you { font-size: 14px; font-weight: 600; color: var(--ux-pink-ink); }
+.ux-rescard-name { font-size: 44px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.ux-rescard-role { font-size: 15px; color: var(--ux-muted); margin-top: 6px; }
+.ux-rescard-desc { font-size: 18px; line-height: 1.55; margin-top: 22px; max-width: 56ch; }
+.ux-traits { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.ux-traits > li { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--ux-raised); font-size: 14px; font-weight: 600; box-shadow: inset 0 0 0 1px var(--ux-qotd-edge); }
+.ux-same { display: flex; align-items: center; gap: 10px; margin-top: 22px; font-size: 15px; }
+.ux-same .ux-ico { color: var(--ux-pink); }
+.ux-same b { color: var(--ux-pink-ink); }
+.ux-rescard-acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.ux-dist { display: grid; gap: 10px; }
+.ux-dist > li { display: grid; grid-template-columns: 120px minmax(0, 1fr) 44px; align-items: center; gap: 12px; font-size: 14px; }
+.ux-dist-bar { height: 10px; border-radius: 99px; background: var(--ux-surface-2); overflow: hidden; }
+.ux-dist-bar i { display: block; height: 100%; border-radius: 99px; background: var(--ux-pink-line); }
+.ux-dist > li.is-me .ux-dist-bar i { background: var(--ux-pink); }
+.ux-dist > li.is-me b { color: var(--ux-pink-ink); }
+.ux-dist-pct { text-align: right; color: var(--ux-muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- story image preview (share kit; the PNG is drawn by story-image.ts) ---------- */
+.ux-story { position: relative; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #1F1B17 center / cover; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: var(--ux-shadow-card); }
+.ux-story.is-square { aspect-ratio: 1; }
+.ux-story::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .05) 30%, rgba(0, 0, 0, .78) 100%); }
+.ux-story > * { position: relative; }
+.ux-story-top { position: absolute; left: 18px; right: 18px; top: 16px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.ux-story-k { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.ux-story-t { font-size: 19px; line-height: 1.15; font-weight: 800; margin-top: 6px; }
+.ux-story-cta { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; margin-top: 12px; height: 30px; padding: 0 12px; border-radius: 999px; background: #fff; color: #1F1B17; font-size: 12px; font-weight: 700; }
+.ux-story-qr { position: absolute; right: 14px; bottom: 14px; width: 54px; height: 54px; border-radius: 8px; background: #fff; padding: 5px; }
+.ux-story-qr > * { display: block; width: 100%; height: 100%; }
+
+/* ---------- v12 responsive ---------- */
+@media (max-width: 1100px) {
+  .ux-thrail { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ux-gtiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .ux-steps3 { grid-template-columns: 1fr; }
+  .ux-rescard { padding: 24px 20px; }
+  .ux-rescard-name { font-size: 34px; }
+  .ux-rescard-ph { width: 72px; height: 72px; flex-basis: 72px; border-radius: 18px; }
+  .ux-dist > li { grid-template-columns: 90px minmax(0, 1fr) 40px; }
+  .ux-story { max-width: 220px; margin: 0 auto; }
+  .ux-lt { font-size: 15px; min-height: 48px; }
+}
+/* The prototype's four language pills are 361px wide: 11px wider than a 390px
+   phone column. Tighter pills keep all four on one line with no sideways scroll. */
+@media (max-width: 420px) {
+  .ux-langsw > a, .ux-langsw > button { padding: 0 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ux-eq i { animation: none; height: 8px; }
+  .ux-eq i:nth-child(2) { height: 16px; }
+  .ux-eq i:nth-child(3) { height: 11px; }
+  .ux-gtile, .ux-thm-cv, .ux-pb { transition: none; }
+}
+
+/* ---------- v12 kit frames (kit route only: the prototype's host screen and phone) ---------- */
+.ux-kit-col { max-width: 720px; }
+.ux-kit-res { max-width: 760px; }
+.ux-kit-screen { max-width: 812px; border-radius: 22px; background: var(--ux-host-bg); border: 1px solid var(--ux-qotd-edge); padding: 26px 30px; }
+.ux-kit-screen + .ux-kit-screen { margin-top: 16px; }
+.ux-kit-phones { display: flex; flex-wrap: wrap; gap: 24px; }
+.ux-kit-phone { width: 100%; max-width: 280px; aspect-ratio: 9 / 19; border-radius: 40px; background: #1F1B17; padding: 10px; }
+.ux-kit-phone-scr { height: 100%; border-radius: 32px; background: var(--ux-paper); display: flex; flex-direction: column; padding: 34px 16px 18px; }
+.ux-kit-phone-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ux-muted); }
+.ux-kit-phone-top b { color: var(--ux-ink); }
+.ux-kit-phone .ux-pbtns { margin-top: 14px; }
+.ux-kit-phone-foot { display: flex; justify-content: space-between; font-size: 13px; color: var(--ux-muted); margin-top: 12px; }
+.ux-kit-phone-foot b { color: var(--ux-ink); }
+.ux-kit-storyg { display: grid; grid-template-columns: 240px 240px; gap: 28px; align-items: start; }
+@media (max-width: 760px) {
+  .ux-kit-screen { padding: 18px; }
+  .ux-kit-storyg { grid-template-columns: 1fr; }
+}
+/* @ux-v12:end */

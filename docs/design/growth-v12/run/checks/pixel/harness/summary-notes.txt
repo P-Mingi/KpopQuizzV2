@@ -1,0 +1,48 @@
+
+## Extra checks (`_extra/verdict.json` v11 set, `_extra/verdict-v12.json` new controls)
+
+| Check | Result |
+|---|---|
+| Nav fits at 1280 and 1440, signed in and guest (one line, no overlap, no truncation, 65px) | 4 / 4 pass |
+| Hover, v11 controls (quiz card, primary, ghost, text card, tab, nav link, row), light and dark | 14 / 14 pass (light surfaces and pink ink are the owner deviations, recorded in `deviated`) |
+| Hover, v12 controls (theme card, language switch link, live band ghost button, personality answer, This or that song, Ways to play tile, quiz template), light and dark | 12 / 14 pass; language switch link fails in both themes (C1-001, A1) |
+| Keyboard focus ring, v11 controls | 10 / 10 pass |
+| Keyboard focus ring, v12 controls | 14 / 14 pass |
+| Header picture sheet (resting drop zone, ring on keyboard focus only) | light pass, dark pass |
+| Theme tokens, prototype `--x` vs `--ux-x` (59 compared) | dark pass (0 differ); light pass, the 5 that differ are the owner deviations (`--page`, `--surface`, `--surface-2`, `--pink-ink`, `--nav-bg`); `--plum*` have no counterpart (feed only base rules the v11 rules override, as in v11) |
+| Reduced motion (no infinite or long animation, no transition) | v11: home, blindtest game, quiz game pass; v12: land-en, theme-gen5, bthub-live-band, kpdh-question, nta-play, hub-ways-to-play, live-setup pass |
+| No sideways scroll at 390 | every v12 and v11 state measured: 0px overflow (part of each verdict) |
+
+## Comparison notes (every relaxation and its reason)
+
+Owner deviations applied to the reference (`harness/deviations.mjs`): the six rows of `e2e/ux-v1/helpers/landmarks.ts`
+(v11 A0 fix 5 warm ground and surfaces, fix 8 94% nav glass), plus four rows that follow from the same tokens: the
+quiz and blindtest game bars paint `--ux-nav-bg` (94% warm glass), the tab bar is the 94% glass of the brief, the
+community phone rail panel is a bordered card filled by `--ux-card-fill` (v11 P8 warm ground token sweep), and the
+passport avatar ring is drawn in `--ux-page` (the warm ground).
+
+Agent deviations taken from the agents' own specs and reports (skips listed per landmark in `verdict.json` `why`):
+landing hero height (fans playing today eyebrow hidden until bt_runs, G3), `.langsw` 336.8px at 390 (A1 deviation 1),
+theme card and playlist hero heights (copy, G3), personality card heights (stored copy, real shares, G5), Name them
+all card heights (members only, no invented community row, G6), hub tile sizes, nudge, be-the-first and creators
+board heights (real data, G8), kit section at 390 (the prototype overflows, G8). Real-data landmarks compared only
+when present: the personality distribution (kpdh: absent today, wma: present and compared) and Rising in each fandom
+on /creators (absent today).
+
+Harness normalizations: land-en-faq compares x and width, not the viewport top (the FAQ is the page end on both
+sides, so the scroll is clamped by the footer below it, not by the FAQ). live-join: the prototype state is the host
+screen after a phone joined, so its not-live form is /live (the /join page answers 200, recorded in `hiddenForm`).
+quiz-bonus and quiz-bonus-voted use the G7 fixture (the prototype's five BTS pairs) so text-driven boxes compare;
+share-kit uses the G8 fixture (P5 sample draft, publish and kit read answered locally). The v11 `quizzes` state is
+checked now (P2 merged); v11 `btend-ranked`, `ranked`, `post-challenge` keep their v11 reasons (`/api/ranked/me`
+answers 503, no challenge post exists).
+
+## Observed, not filed (real data, pending SQL, harness)
+
+- /blindtest Playlists rail and the landings' theme rail: K-pop hits 2026 and KPop Demon Hunters cards are hidden
+  (under 10 playable songs until v12-g2-03 and v12-g2-07): the hidden form is as specified.
+- Hub Fans picked: section and This or that tile absent on /stray-kids-quiz (`hiddenForm`: 0 and 0), as specified.
+- /community: no Team badge anywhere in the feed (`hiddenForm.teamTags` 0) while the editorial SQL is pending.
+- /live: `data-open` is not "open" (the API answers 503); every live state is checked in that form.
+- /creators: two creators tie at 30 plays and both show rank 4 (data), a long name ellipsizes (data).
+- Reference shots are signed in; v12 states run signed out except share-kit (signed in), so the nav right side differs.

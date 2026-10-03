@@ -1,0 +1,11 @@
+{
+ "state": "kpdh-result",
+ "url": "/kpop-demon-hunters-quiz",
+ "width": 1440,
+ "theme": "light",
+ "overflow": 0,
+ "writesStubbed": [
+  "POST /api/personality/result"
+ ],
+ "violations": []
+}

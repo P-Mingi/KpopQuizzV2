@@ -1,0 +1,19 @@
+C2 batch 3 at 2026-10-03T10:44:12.980Z on http://localhost:3071
+
+## K: /kpop-demon-hunters-quiz (390)
+K: answered 6; mutating calls before the result: 0
+K result excerpt: Blindtest / KPop Demon Hunters songs / Find your girl group Loved HUNTR/X? Find your real girl group Your group is BLACKPINK YG Entertainment · since 2016 Fierce, glamorous and built for stadiums. If Rumi's voice gave you chills, BLACKPINK is where to start. F
+K result links: /blindtest, /blackpink-quiz, /blindtest/group-blackpink
+STUBBED POST /api/personality/result body={"quiz":"kpdh","picks":[0,0,0,0,0,0]}
+K page 200; img tags before the result: 0
+
+## W: /which-stray-kids-member-are-you (1440)
+W: answered 8; mutating calls before the result: 0
+W result excerpt: Groups / Stray Kids / Which member are you Which Stray Kids member are you? H You are Hyunjin Main dancer and rapper You are at ease being the one everyone looks at. You lead with kindness, and it shows. Bold Soft-hearted Quiet 33% of STAY got Hyunjin Share my
+W result links: /groups, /stray-kids-quiz
+W W04 Set bias (signed out): new mutating calls 0; sign-in sheet visible=true
+W second run same day: new mutating calls 0
+STUBBED POST /api/personality/result body={"quiz":"wma","group":"stray-kids","picks":[0,0,0,0,0,0,0,0]}
+W03 SQL personality_results group stray-kids: 195 (bridge rows 0); served "none results"
+K03/W link target /stray-kids-quiz -> 200
+K03/W link target /blindtest/group-stray-kids -> 200

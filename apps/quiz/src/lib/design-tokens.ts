@@ -121,3 +121,40 @@ export const UX_LAYOUT = {
 } as const;
 
 export const UX_TOKENS = { light: UX_TOKENS_LIGHT, dark: UX_TOKENS_DARK } as const;
+
+// ---------------------------------------------------------------------------
+// UX v12 tokens (A1), verbatim from the pinned v12 prototype
+// (docs/design/growth-v12/prototype.html, v12.2). In CSS they live in the v12
+// block of src/styles/ux-v1/a0.css as `--ux-<key>`, served only when
+// NEXT_PUBLIC_UX_V12 is on. lib/ux-v1/a0/ux-v12.test.ts keeps the two in sync.
+// lt-a..d: the four live answer colours (same in both themes, white text AA).
+// th-*: themed playlist cover gradients. host-bg: the live host screen ground.
+// ---------------------------------------------------------------------------
+export const UX_V12_TOKENS_LIGHT = {
+  'lt-a': '#C93868', 'lt-b': '#6B4FD8', 'lt-c': '#0E7C71', 'lt-d': '#A5600F',
+  'th-hits26': 'linear-gradient(135deg,#F9C5D6 0%,#FCE3D2 100%)',
+  'th-hits25': 'linear-gradient(135deg,#FBD9C4 0%,#FFF0D6 100%)',
+  'th-gen5': 'linear-gradient(135deg,#D9D2FB 0%,#CFE3FB 100%)',
+  'th-gen4': 'linear-gradient(135deg,#CFE3FB 0%,#D4F1EC 100%)',
+  'th-viral': 'linear-gradient(135deg,#CFF2EA 0%,#F9D0DE 100%)',
+  'th-kpdh': 'linear-gradient(135deg,#2B1B45 0%,#6B2A5B 55%,#C93868 100%)',
+  'th-title': 'linear-gradient(135deg,#FFE7B8 0%,#FBD0C0 100%)',
+  'th-ink': '#1F1B17',
+  'host-bg': 'linear-gradient(135deg,#FDF1F5 0%,#F3EEFC 60%,#EAF2FB 100%)',
+  good: '#1F7A48', 'good-soft': '#E6F4EC',
+} as const;
+
+export const UX_V12_TOKENS_DARK = {
+  ...UX_V12_TOKENS_LIGHT,
+  'th-hits26': 'linear-gradient(135deg,#4A2432 0%,#43301F 100%)',
+  'th-hits25': 'linear-gradient(135deg,#46301F 0%,#3F3721 100%)',
+  'th-gen5': 'linear-gradient(135deg,#2E2850 0%,#223250 100%)',
+  'th-gen4': 'linear-gradient(135deg,#223250 0%,#1F3A36 100%)',
+  'th-viral': 'linear-gradient(135deg,#1F3A36 0%,#46202F 100%)',
+  'th-title': 'linear-gradient(135deg,#46381C 0%,#46261F 100%)',
+  'th-ink': '#F3F0EB',
+  'host-bg': 'linear-gradient(135deg,#2A1B24 0%,#221D31 60%,#1B2130 100%)',
+  good: '#4FC07F', 'good-soft': '#16261C',
+} as const;
+
+export const UX_V12_TOKENS = { light: UX_V12_TOKENS_LIGHT, dark: UX_V12_TOKENS_DARK } as const;

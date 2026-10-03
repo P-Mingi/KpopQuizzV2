@@ -1,0 +1,105 @@
+DIFFERENT (structure)  /community  status 200/200  raw bytes 126788/122872  normalised 40473/40473  js chunks 25/25
+  node 471
+    A: 2 min ago</span>
+    B: 1 min ago</span>
+  node 873
+    A: 2 min ago</span>
+    B: 1 min ago</span>
+IDENTICAL (structure)  /community/thread/1  status 200/200  raw bytes 65257/64348  normalised 15272/15272  js chunks 25/25
+DIFFERENT (structure)  /community/debate/2026-09-29  status 200/200  raw bytes 65323/63351  normalised 15861/14628  js chunks 25/25
+  node 21
+    A: <script src="static/chunks/<asset>
+    B: <title>
+  node 22
+    A: .js" noModule="">
+    B: Dark concept or bright concept | KpopQuiz</title>
+  node 23
+    A: </script>
+    B: <meta name="description" content="A debate in the KpopQuiz community about General K-pop."/>
+  node 24
+    A: </head>
+    B: <meta name="author" content="KpopQuiz"/>
+  node 25
+    A: <body class="bg-primary text-primary font-sans antialiased">
+    B: <link rel="manifest" href="/site.webmanifest"/>
+  node 26
+    A: <div hidden="">
+    B: <meta name="keywords" content="kpop quiz,kpop trivia,BTS quiz,BLACKPINK quiz,Stray Kids quiz,kpop game,kpop test,kpop fan quiz"/>
+DIFFERENT (structure)  /community/blog/2  status 200/200  raw bytes 69334/69884  normalised 16691/17924  js chunks 25/25
+  node 22
+    A: <title>
+    B: <script src="static/chunks/<asset>
+  node 23
+    A: Why ARMY documents everything: the archive instinct of a fandom | KpopQuiz</title>
+    B: .js" noModule="">
+  node 24
+    A: <meta name="description" content="Every fandom remembers. ARMY writes it down. Ask a question about any stage, any era, any stray piece of lore, and within minutes someone appears with the…"/>
+    B: </script>
+  node 25
+    A: <meta name="author" content="KpopQuiz"/>
+    B: </head>
+  node 26
+    A: <link rel="manifest" href="/site.webmanifest"/>
+    B: <body class="bg-primary text-primary font-sans antialiased">
+  node 27
+    A: <meta name="keywords" content="kpop quiz,kpop trivia,BTS quiz,BLACKPINK quiz,Stray Kids quiz,kpop game,kpop test,kpop fan quiz"/>
+    B: <div hidden="">
+IDENTICAL (structure)  /u/kicoer  status 200/200  raw bytes 416428/415698  normalised 145651/145651  js chunks 26/26
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 254684/253853  normalised 81363/81363  js chunks 26/26
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 235612/234941  normalised 93223/93223  js chunks 25/25
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 147302/146725  normalised 55485/55485  js chunks 25/25
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 126628/125776  normalised 55789/55789  js chunks 26/26
+DIFFERENT (structure)  /notifications  status 307/307  raw bytes 37710/37272  normalised 4460/4451  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_REDIRECT" data-next-error-digest="NEXT_REDIRECT;replace;/login;307;" data-next-error-stack="Error: NEXT_REDIRECT
+    at NotificationsPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61dc9e28198651c1/.G9-base/a
+    B: <template data-next-error-message="NEXT_REDIRECT" data-next-error-digest="NEXT_REDIRECT;replace;/login;307;" data-next-error-stack="Error: NEXT_REDIRECT
+    at NotificationsPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61dc9e28198651c1/apps/quiz/
+IDENTICAL (structure)  /api/ux-v1/a0/styles  status 200/200  raw bytes 167765/167765  normalised 167765/167765  js chunks 0/0
+IDENTICAL (structure)  /api/ux-v1/p11/search  status 200/200  raw bytes 1333/1333  normalised 1333/1333  js chunks 0/0
+DIFFERENT (structure)  /api/cron/editorial-publish  status 404/404  raw bytes 25767/21  normalised 4238/21  js chunks 18/0
+  node 0
+    A: <!DOCTYPE html>
+    B: {"error":"not_found"}
+  node 1
+    A: <html lang="en" class="pretendard_60cdc229-module__<h>
+    B: 
+  node 2
+    A: __variable inter_7773d004-module__<h>
+    B: 
+  node 3
+    A: __variable ux-v1">
+    B: 
+  node 4
+    A: <head>
+    B: 
+  node 5
+    A: <meta charSet="utf-8"/>
+    B: 
+DIFFERENT (structure)  /api/ux-v1/p11/team  status 404/404  raw bytes 25763/21  normalised 4238/21  js chunks 18/0
+  node 0
+    A: <!DOCTYPE html>
+    B: {"error":"not_found"}
+  node 1
+    A: <html lang="en" class="pretendard_60cdc229-module__<h>
+    B: 
+  node 2
+    A: __variable inter_7773d004-module__<h>
+    B: 
+  node 3
+    A: __variable ux-v1">
+    B: 
+  node 4
+    A: <head>
+    B: 
+  node 5
+    A: <meta charSet="utf-8"/>
+    B: 
+IDENTICAL (structure)  /admin/editorial  status 307/307  raw bytes 36/36  normalised 36/36  js chunks 0/0
+DIFFERENT (structure)  /community/thread/e1  status 404/404  raw bytes 39398/38957  normalised 4694/4685  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at CommunityPostPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at CommunityPostPage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a61
+7 page(s) differ

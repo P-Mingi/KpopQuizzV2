@@ -1,6 +1,7 @@
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { photoFocal } from '@/lib/ux-v1/a0/group-photos';
+import { getEditorialLive } from '@/lib/editorial/live';
+import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { plainTextExcerpt, renderTipTapJSON, splitTipTapForFold } from '@/lib/verse/render-content';
 import { verseHidden } from '@/lib/verse/visibility';
 
@@ -17,7 +18,7 @@ import type { FeedPost, P8Features, P8Group, P8Person, PostKind } from './types'
 // layout reads headers) and replies must show right after they are posted.
 
 /** community_likes target types, plus 'essay' = a blog heart (verse_essay_reactions, the existing toggle). */
-export type LikeTarget = 'thread' | 'daily_debate' | 'debate' | 'challenge' | 'comment' | 'debate_vote' | 'reply' | 'essay';
+export type LikeTarget = 'thread' | 'daily_debate' | 'debate' | 'challenge' | 'comment' | 'debate_vote' | 'reply' | 'essay' | 'editorial';
 
 export interface P8Comment {
   id: string;
@@ -51,8 +52,10 @@ export interface P8Post extends FeedPost {
   replyTo:
     | { store: 'verse'; thread_id?: number; entity_type?: 'essay'; entity_id?: string }
     | { store: 'daily_debate'; date: string }
-    | { store: 'community'; target_type: 'debate' | 'challenge'; target_id: number }
+    | { store: 'community'; target_type: 'debate' | 'challenge' | 'editorial'; target_id: number }
     | null;
+  /** v12 editorial post: the sources its facts cite (SYSTEM.md 5.6), listed under the body. */
+  sources?: { label: string; url: string | null }[];
 }
 
 type Db = SupabaseClient;
@@ -224,7 +227,7 @@ async function dailyDebatePost(date: string, f: P8Features, now: number): Promis
 
 interface ReplyRow { id: number; author: string | null; body: string; parent_id: number | null; created_at: string }
 
-async function communityReplies(db: Db, type: 'debate' | 'challenge', id: number, postAuthor: string | null, f: P8Features, now: number, scoreOf?: (uid: string) => string | null): Promise<P8Comment[]> {
+async function communityReplies(db: Db, type: 'debate' | 'challenge' | 'editorial', id: number, postAuthor: string | null, f: P8Features, now: number, scoreOf?: (uid: string) => string | null): Promise<P8Comment[]> {
   const rows = await fetchAllRows<ReplyRow>(() => db.from('community_replies').select('id, author, body, parent_id, created_at')
     .eq('target_type', type).eq('target_id', id).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true }));
   if (!rows.length) return [];
@@ -332,11 +335,61 @@ async function challengePost(id: number, f: P8Features, now: number): Promise<P8
   };
 }
 
+/* ------------------------------------------ editorial thread or blog (v12) --- */
+
+function cleanSources(raw: unknown): { label: string; url: string | null }[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.flatMap((s) => {
+    const o = (s ?? {}) as { label?: unknown; url?: unknown };
+    const label = typeof o.label === 'string' ? o.label.trim() : '';
+    if (!label) return [];
+    // XSS at the sink: only an absolute http(s) URL becomes a link.
+    const url = typeof o.url === 'string' && /^https?:\/\/[^\s<>"']+$/i.test(o.url.trim()) ? o.url.trim() : null;
+    return [{ label, url }];
+  });
+}
+
+async function editorialPost(kind: 'thread' | 'blog', id: number, f: P8Features, now: number): Promise<P8Post | null> {
+  if (!(await getEditorialLive())) return null;
+  const db = createPublicReadClient();
+  const { data } = must(await db.from('editorial_posts').select('id, kind, group_id, author, title, body, sources, created_at')
+    .eq('id', id).eq('kind', kind).eq('status', 'visible').maybeSingle(), 'editorial_post');
+  const r = data as { id: number; kind: 'thread' | 'blog'; group_id: number | null; author: string | null; title: string; body: string; sources: unknown; created_at: string } | null;
+  if (!r) return null;
+  const [groups, people, likes, comments] = await Promise.all([
+    getP8Groups(),
+    readPeople(db, [r.author], { retiredTeam: true }),
+    likeMap('editorial', [String(r.id)], f.likes),
+    f.fanDebates ? communityReplies(db, 'editorial', r.id, r.author, f, now) : Promise.resolve([] as P8Comment[]),
+  ]);
+  const g = r.group_id ? groups.find((x) => x.id === r.group_id) ?? null : null;
+  const n = countTree(comments);
+  const words = r.body.split(/\s+/).filter(Boolean).length;
+  return {
+    kind: r.kind, key: `e${r.id}`, href: `/community/${r.kind}/e${r.id}`, title: r.title,
+    excerpt: null, group: g, author: r.author ? people.get(r.author) ?? null : null,
+    at: r.created_at, ago: timeAgo(r.created_at, now), replies: n,
+    likes: likes ? likes.get(String(r.id)) ?? 0 : null,
+    ...(r.kind === 'blog' ? { blog: { coverUrl: groupPhotoUrl(g?.slug ?? null), coverFocal: photoFocal(r.title), readingMin: readingMinutes(words) } } : {}),
+    editorialId: r.id,
+    paragraphs: paragraphs(r.body), html: null, likeType: 'editorial', openingCommentId: null,
+    comments, commentCount: n,
+    // Replies need community_replies (v11-p8-community.sql) widened by v12-g9-editorial.sql.
+    replyTo: f.fanDebates ? { store: 'community', target_type: 'editorial', target_id: r.id } : null,
+    sources: cleanSources(r.sources),
+  };
+}
+
 /* ------------------------------------------------------------------ entry --- */
 
 /** Parse a post URL key for its kind; null = not a valid key (404). */
-export function parsePostKey(kind: PostKind, key: string): { daily: string } | { id: number } | null {
+export function parsePostKey(kind: PostKind, key: string): { daily: string } | { id: number } | { editorial: number } | null {
   if (kind === 'debate' && DATE_RE.test(key)) return { daily: key };
+  // v12: "e<id>" = a thread or blog of an editorial account (editorial_posts.id).
+  if ((kind === 'thread' || kind === 'blog') && /^e\d{1,12}$/.test(key)) {
+    const eid = Number(key.slice(1));
+    return Number.isSafeInteger(eid) && eid > 0 ? { editorial: eid } : null;
+  }
   if (!/^\d{1,12}$/.test(key)) return null;
   const id = Number(key);
   return Number.isSafeInteger(id) && id > 0 ? { id } : null;
@@ -348,6 +401,7 @@ export function parsePostKey(kind: PostKind, key: string): { daily: string } | {
 export async function getPost(kind: PostKind, key: string, f: P8Features, now: number = Date.now()): Promise<P8Post | null> {
   const k = parsePostKey(kind, key);
   if (!k) return null;
+  if ('editorial' in k) return kind === 'thread' || kind === 'blog' ? editorialPost(kind, k.editorial, f, now) : null;
   // Hidden Verse: a thread or blog URL is a 404 without a single read (verse-gate.ts).
   if (isVerseKind(kind) && verseHidden()) return null;
   if (kind === 'thread' && 'id' in k) return threadPost(k.id, f, now);

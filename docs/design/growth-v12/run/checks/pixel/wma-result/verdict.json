@@ -1,0 +1,457 @@
+{
+ "state": "wma-result",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:52:34.571Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 3.51,
+    "maskedPct": 10
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"wma\",\"group\":\"stray-kids\",\"picks\":[2,0,0,0,0,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: two sentences built from the stored axes (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "bias offer",
+     "proto": ".biasoffer",
+     "impl": ".ux-pers-bias",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: copy (G5)"
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:52:37.706Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 2.61,
+    "maskedPct": 10
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"wma\",\"group\":\"stray-kids\",\"picks\":[2,0,0,0,0,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: two sentences built from the stored axes (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "bias offer",
+     "proto": ".biasoffer",
+     "impl": ".ux-pers-bias",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: copy (G5)"
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-10-03T10:52:40.804Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 4.4,
+    "maskedPct": 34.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"wma\",\"group\":\"stray-kids\",\"picks\":[2,0,0,0,0,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: two sentences built from the stored axes (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "bias offer",
+     "proto": ".biasoffer",
+     "impl": ".ux-pers-bias",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: copy (G5)"
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:52:43.906Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 6
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 4.31,
+    "maskedPct": 34.2
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/personality/result",
+     "body": "{\"quiz\":\"wma\",\"group\":\"stray-kids\",\"picks\":[2,0,0,0,0,0,0,0]}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result card",
+     "proto": ".rescard",
+     "impl": ".ux-rescard",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: two sentences built from the stored axes (G5)"
+    },
+    {
+     "name": "traits",
+     "proto": ".traits",
+     "impl": ".ux-traits",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "bias offer",
+     "proto": ".biasoffer",
+     "impl": ".ux-pers-bias",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: copy (G5)"
+    },
+    {
+     "name": "result button",
+     "proto": ".btn-primary",
+     "impl": ".ux-rescard .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "distribution",
+     "proto": ".dist",
+     "impl": ".ux-dist",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "owner": "G5",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

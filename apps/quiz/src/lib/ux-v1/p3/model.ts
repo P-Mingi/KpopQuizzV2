@@ -4,6 +4,8 @@
 // from real rows (DESIGN-SPEC 16.10: counts from PUBLISHED quizzes, never the
 // stale groups.quiz_count column).
 
+import { avgScorePct } from '@/lib/quiz/scoring';
+
 /** The general K-pop catch-all bucket: a real group row, but not a fandom. It is
  *  listed in the A to Z (it has quizzes) and kept out of "Most played". */
 export const CATCH_ALL_SLUG = 'general-kpop';
@@ -203,11 +205,11 @@ export interface HubQuiz {
   created_at: string;
 }
 
-/** Average score in percent from the quiz's own totals, null without a play. */
-export function averagePct(q: Pick<HubQuiz, 'total_score_sum' | 'total_completions' | 'question_count'>): number | null {
-  if (q.total_completions <= 0 || q.question_count <= 0) return null;
-  const pct = Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100);
-  return Math.max(0, Math.min(100, pct));
+/** Average score in percent from the quiz's own totals, null without a play.
+ *  One rule for the whole site (lib/quiz/scoring.ts): a guess-from-clues quiz
+ *  gives up to 3 points per question, so its maximum is not its question count. */
+export function averagePct(q: Pick<HubQuiz, 'total_score_sum' | 'total_completions' | 'question_count' | 'quiz_type'>): number | null {
+  return avgScorePct(q);
 }
 
 export type HubSort = 'popular' | 'newest' | 'most_liked' | 'hardest';

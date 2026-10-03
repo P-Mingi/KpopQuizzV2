@@ -1,0 +1,289 @@
+{
+ "state": "kpdh-question",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:52:09.902Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.19,
+    "maskedPct": 8.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:52:11.290Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.19,
+    "maskedPct": 8.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T10:52:12.752Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.38,
+    "maskedPct": 15.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:52:14.133Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/kpop-demon-hunters-quiz",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.43,
+    "maskedPct": 15.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 1
+  }
+ },
+ "owner": "G5",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

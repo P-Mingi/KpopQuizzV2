@@ -1,3 +1,5 @@
+import { isUxV12 } from '@/lib/ux-v12';
+
 interface AvatarProps {
   /** Display name or username: the initial is used when there is no image. */
   name: string;
@@ -7,13 +9,24 @@ interface AvatarProps {
   bg?: string | null | undefined;
   fg?: string | null | undefined;
   className?: string | undefined;
+  /** v12 editorial account (SYSTEM.md 5.6): the neutral initial with the pink team
+   *  ring, never a photo or the legacy colours. Ignored unless the v12 flag is on. */
+  team?: boolean | undefined;
 }
 
 /**
  * Round avatar: the real photo, else neutral initials (DESIGN-SPEC 16.8: "neutral
  * initials for avatars"). Decorative (alt="") because the name is always next to it.
  */
-export function UxAvatar({ name, src, size = 32, bg, fg, className }: AvatarProps): React.ReactElement {
+export function UxAvatar({ name, src, size = 32, bg, fg, className, team }: AvatarProps): React.ReactElement {
+  if (team && isUxV12()) {
+    // 13px initial at every size, as the prototype's `.ava` (no inline font size).
+    return (
+      <span className={['ux-ava', 'ux-ava-team', className ?? ''].filter(Boolean).join(' ')} style={{ width: size, height: size }} aria-hidden="true">
+        {(name || 'K').trim().charAt(0).toUpperCase() || 'K'}
+      </span>
+    );
+  }
   const initial = (name || 'K').trim().charAt(0).toUpperCase() || 'K';
   const style: React.CSSProperties = { width: size, height: size, fontSize: Math.max(11, Math.round(size * 0.4)) };
   if (!src && bg) style.background = bg;

@@ -1,0 +1,337 @@
+{
+ "state": "blindtest-playlist-open",
+ "owner": "P6",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:45:05.512Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 8.99,
+    "maskedPct": 17
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist menu",
+     "proto": "#plmenu",
+     "impl": ".p6-plmenu",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "height: the live number of mixes (real data); top measured from the setup row (the SEO-locked lead above it is shorter)"
+    },
+    {
+     "name": "playlist list",
+     "proto": "#plmenu .pl-list",
+     "impl": ".p6-plmenu .p6-pl-list",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist search",
+     "proto": "#plmenu .pl-f",
+     "impl": ".p6-plmenu .p6-pl-f",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:45:07.145Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 10.88,
+    "maskedPct": 17
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist menu",
+     "proto": "#plmenu",
+     "impl": ".p6-plmenu",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "height: the live number of mixes (real data); top measured from the setup row (the SEO-locked lead above it is shorter)"
+    },
+    {
+     "name": "playlist list",
+     "proto": "#plmenu .pl-list",
+     "impl": ".p6-plmenu .p6-pl-list",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist search",
+     "proto": "#plmenu .pl-f",
+     "impl": ".p6-plmenu .p6-pl-f",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:45:08.774Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.5,
+    "maskedPct": 38.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist menu",
+     "proto": "#plmenu",
+     "impl": ".p6-plmenu",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "height: the live number of mixes (real data); top measured from the setup row (the SEO-locked lead above it is shorter)"
+    },
+    {
+     "name": "playlist list",
+     "proto": "#plmenu .pl-list",
+     "impl": ".p6-plmenu .p6-pl-list",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist search",
+     "proto": "#plmenu .pl-f",
+     "impl": ".p6-plmenu .p6-pl-f",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:45:10.372Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 6,
+    "pass": 6,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 11.17,
+    "maskedPct": 38.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist menu",
+     "proto": "#plmenu",
+     "impl": ".p6-plmenu",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "height: the live number of mixes (real data); top measured from the setup row (the SEO-locked lead above it is shorter)"
+    },
+    {
+     "name": "playlist list",
+     "proto": "#plmenu .pl-list",
+     "impl": ".p6-plmenu .p6-pl-list",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "playlist search",
+     "proto": "#plmenu .pl-f",
+     "impl": ".p6-plmenu .p6-pl-f",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "user",
+ "shot": "viewport",
+ "verdict": "pass"
+}

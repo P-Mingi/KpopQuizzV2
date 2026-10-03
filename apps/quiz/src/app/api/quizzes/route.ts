@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { teaserText } from '@/lib/db/queries/quizzes';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { NextRequest } from 'next/server';
 import type { QuizCardData, QuizType, Difficulty } from '@/lib/db/types';
@@ -98,11 +99,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // top_rated: sort by avg score descending
     if (tab === 'top_rated') {
       quizzes.sort((a, b) => {
-        const avgA = a.total_completions > 0 && a.question_count > 0
-          ? (a.total_score_sum / a.total_completions / a.question_count) * 100 : 0;
-        const avgB = b.total_completions > 0 && b.question_count > 0
-          ? (b.total_score_sum / b.total_completions / b.question_count) * 100 : 0;
-        return avgB - avgA;
+        return (avgScorePct(b, true) ?? 0) - (avgScorePct(a, true) ?? 0);
       });
     }
 

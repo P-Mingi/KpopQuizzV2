@@ -1,0 +1,13 @@
+# SEO fields, A = http://localhost:3073 (base), B = http://localhost:3063 (branch), state: both flags off
+same  /blindtest  status 200  title "K-pop Blind Test - Guess the Song from a Clip | KpopQuiz"  h1 ["Name that K-pop song"]  jsonLd 5  faq 7  links A 121 B 121
+same  /pt/blindtest  status 200  title "Blind Test de K-pop: Adivinhe a Musica pelo Clipe | KpopQuiz"  h1 ["Adivinhe a musica de K-pop"]  jsonLd 4  faq 7  links A 25 B 25
+same  /blindtest/classic  status 200  title "Classic - K-pop Blind Test | KpopQuiz"  h1 ["Classic"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/4th-gen  status 200  title "4th gen - K-pop Blind Test | KpopQuiz"  h1 ["4th gen"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/girl-groups  status 200  title "Girl groups - K-pop Blind Test | KpopQuiz"  h1 ["Girl groups"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/speed-round  status 200  title "Speed round - K-pop Blind Test | KpopQuiz"  h1 ["Speed round"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/title-tracks  status 200  title "Title tracks only - K-pop Blind Test | KpopQuiz"  h1 ["Title tracks only"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/random-all  status 200  title "Random all - K-pop Blind Test | KpopQuiz"  h1 ["Random all"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/group-bts  status 200  title "Bts Blind Test - K-pop Blind Test | KpopQuiz"  h1 ["Bts"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/group-stray-kids  status 200  title "Stray Kids Blind Test - K-pop Blind Test | KpopQuiz"  h1 ["Stray Kids"]  jsonLd 2  faq 0  links A 22 B 22
+same  /blindtest/leaderboard  status 200  title "Blindtest of the Day Leaderboard | KpopQuiz"  h1 ["Blindtest of the Day"]  jsonLd 3  faq 0  links A 24 B 24
+all 11 pages: every SEO field equal, no link lost

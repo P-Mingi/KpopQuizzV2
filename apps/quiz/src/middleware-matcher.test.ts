@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 
 import { describe, it, expect } from 'vitest';
 
-import { isKnownRoute } from '@/lib/route-allowlist';
+import { isKnownRoute, isKnownRouteWith, UX_V12_ROUTES } from '@/lib/route-allowlist';
 
 // The middleware matcher (src/middleware.ts) gates which requests INVOKE the
 // middleware function. Next requires it to be an inline literal, so this test
@@ -129,4 +129,63 @@ describe('middleware matcher: assets and api never run', () => {
   for (const p of ['/api/auth/me', '/_next/static/chunk.js', '/favicon.ico', '/sitemap.xml', '/robots.txt', '/logo.png', '/x.svg']) {
     it(`skips ${p}`, () => expect(runsMiddleware(p)).toBe(false));
   }
+});
+
+describe('V12 routes: known only with both flags on', () => {
+  const OFF = { v1: false, v12: false };
+  const V11 = { v1: true, v12: false };
+  const V12_ALONE = { v1: false, v12: true };
+  const BOTH = { v1: true, v12: true };
+  const V12_PATHS = [
+    '/live', '/live/ABC123', '/join', '/join/ABC123', '/creators', '/guess-the-kpop-song',
+    '/fr/blind-test-kpop', '/es/adivina-la-cancion-kpop', '/id/tebak-lagu-kpop',
+    '/personality/stray-kids', '/name-all/stray-kids',
+    '/stray-kids-name-all-members', '/which-stray-kids-member-are-you',
+  ];
+
+  it('every v12 path is unknown unless both flags are on', () => {
+    for (const p of V12_PATHS) {
+      expect(isKnownRouteWith(p, OFF), p).toBe(false);
+      expect(isKnownRouteWith(p, V11), p).toBe(false);
+      expect(isKnownRouteWith(p, V12_ALONE), p).toBe(false);
+      expect(isKnownRouteWith(p, BOTH), p).toBe(true);
+    }
+  });
+
+  it('the suffix rules need a group and a single segment', () => {
+    for (const p of ['/-name-all-members', '/which--member-are-you', '/which-member-are-you',
+      '/x/stray-kids-name-all-members', '/which-stray-kids-member-are-you/r/felix', '/stray-kids-name-all']) {
+      expect(isKnownRouteWith(p, BOTH), p).toBe(false);
+    }
+  });
+
+  it('the v11 flag-only routes still open with NEXT_PUBLIC_UX_V1 alone', () => {
+    for (const p of ['/community', '/ux-v1/kit']) {
+      expect(isKnownRouteWith(p, OFF), p).toBe(false);
+      expect(isKnownRouteWith(p, V11), p).toBe(true);
+      expect(isKnownRouteWith(p, BOTH), p).toBe(true);
+    }
+  });
+
+  it('existing routes do not depend on the flags', () => {
+    for (const p of ['/', '/bts-quiz', '/twice-trivia', '/blindtest', '/blindtest/kpop-hits-2025', '/pt/blindtest',
+      '/quizzes', '/kpop-demon-hunters-quiz']) {
+      for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(true);
+    }
+    for (const p of ['/games', '/fr', '/idols', '/frances']) {
+      for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(false);
+    }
+  });
+
+  it('no v12 prefix shadows an existing known route', () => {
+    for (const r of UX_V12_ROUTES) expect(isKnownRouteWith(r, OFF), r).toBe(false);
+  });
+
+  it('isKnownRoute follows the build flags', () => {
+    const v1 = process.env.NEXT_PUBLIC_UX_V1 === '1' || process.env.NEXT_PUBLIC_UX_V1 === 'true';
+    const v12 = v1 && (process.env.NEXT_PUBLIC_UX_V12 === '1' || process.env.NEXT_PUBLIC_UX_V12 === 'true');
+    for (const p of [...V12_PATHS, '/community', '/bts-quiz']) {
+      expect(isKnownRoute(p), p).toBe(isKnownRouteWith(p, { v1, v12 }));
+    }
+  });
 });

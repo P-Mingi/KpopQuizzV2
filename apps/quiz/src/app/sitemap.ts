@@ -6,7 +6,12 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
+import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
+import { isThemePage } from '@/lib/growth/bt-themes';
+import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
+import { getWmaGroupSlugs } from '@/lib/personality/data';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import type { MetadataRoute } from 'next';
 
@@ -144,12 +149,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Static blind test mode pages (from the in-code catalogue) - evergreen.
-  const blindTestModePages: MetadataRoute.Sitemap = STATIC_MODES.map((mode) => ({
+  // V12 (flag only): STATIC_MODES then also holds the themed modes; one under 10
+  // playable songs is hidden everywhere (G2's rule), so it is not listed. If that
+  // count cannot be read the themed modes are left out (never a URL that 404s).
+  // Flag off: the list is STATIC_MODES itself and no query runs.
+  let listedModes = STATIC_MODES;
+  if (isUxV12()) {
+    try {
+      listedModes = await getPlayableStaticModes();
+    } catch {
+      listedModes = STATIC_MODES.filter((m) => !isThemePage(m.id));
+    }
+  }
+  const blindTestModePages: MetadataRoute.Sitemap = listedModes.map((mode) => ({
     url: `${SITE_URL}/blindtest/${mode.id}`,
     lastModified: STATIC_DATE,
     changeFrequency: 'weekly' as const,
     priority: 0.6,
   }));
+
+  // V12 (flag only): the four blindtest landings (SYSTEM.md 4), one per language.
+  // The hreflang cluster is in each page's own metadata.
+  const blindTestLandingPages: MetadataRoute.Sitemap = isUxV12()
+    ? LANDING_LANGS.map((l) => ({
+        url: `${SITE_URL}${LANDING_PATH[l]}`,
+        lastModified: STATIC_DATE,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }))
+    : [];
+
+  // V12 (flag only, requests G6 R2 and G5 R2): the 17 Name them all pages, the KPop
+  // Demon Hunters bridge quiz and one Which member are you page per group with a
+  // profile set. Pretty URLs only, never /name-all/* or /personality/*. No lastmod:
+  // these pages have no real edit date to report. Flag off: no read runs, no entry.
+  let v12GrowthPages: MetadataRoute.Sitemap = [];
+  if (isUxV12()) {
+    // getWmaGroupSlugs() never throws (it answers [] on a failed read). Bounded like
+    // the other reads so an unreachable database cannot hang the route.
+    const WMA_TIMEOUT_MS = 5000;
+    const wmaSlugs = await Promise.race([
+      getWmaGroupSlugs(),
+      new Promise<string[]>((resolve) => setTimeout(() => resolve([]), WMA_TIMEOUT_MS)),
+    ]);
+    v12GrowthPages = v12GrowthPaths(wmaSlugs).map((path) => ({
+      url: `${SITE_URL}${path}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  }
 
   let quizPages: MetadataRoute.Sitemap = [];
   let groupPages: MetadataRoute.Sitemap = [];
@@ -466,6 +514,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticPages,
     ...articlePages,
     ...blindTestModePages,
+    ...blindTestLandingPages,
+    ...v12GrowthPages,
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,

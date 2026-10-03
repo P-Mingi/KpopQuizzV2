@@ -4,6 +4,8 @@
 // written. Only the viewer's own public fields leave the server (privacy fail-closed:
 // no user id, no email).
 
+import { getTeamIds } from '@/lib/editorial/accounts';
+
 import { WAR_READ, getWarMap } from './data';
 
 import { avatarOf, fandomLabel, levelLine, realFandomName } from './format';
@@ -64,12 +66,20 @@ export async function readStanding(db: SupabaseClient, userId: string, now: Date
   const plays = p.total_plays_received ?? 0;
   const mainSlug = Array.isArray(p.ult_groups) && typeof p.ult_groups[0] === 'string' ? p.ult_groups[0] : null;
 
+  // V12 (G9 R3): editorial accounts are on no board, so they are not counted
+  // above the viewer either. No team (flag off, accounts not inserted): the two
+  // counts are the queries as they were.
+  const team = [...(await getTeamIds())];
+  const noTeam = team.length ? `(${team.join(',')})` : null;
+  const playersQ = db.from('profiles').select('id', { count: 'exact', head: true }).gt('xp', xp);
+  const creatorsQ = db.from('profiles').select('id', { count: 'exact', head: true }).gt('total_quizzes_created', 0).gt('total_plays_received', plays);
+
   const [playersAbove, creatorsAbove, group] = await Promise.all([
     xp > 0
-      ? db.from('profiles').select('id', { count: 'exact', head: true }).gt('xp', xp).then((r) => r.count ?? null)
+      ? (noTeam ? playersQ.not('id', 'in', noTeam) : playersQ).then((r) => r.count ?? null)
       : Promise.resolve(null),
     quizzes > 0
-      ? db.from('profiles').select('id', { count: 'exact', head: true }).gt('total_quizzes_created', 0).gt('total_plays_received', plays).then((r) => r.count ?? null)
+      ? (noTeam ? creatorsQ.not('id', 'in', noTeam) : creatorsQ).then((r) => r.count ?? null)
       : Promise.resolve(null),
     mainSlug
       ? db.from('groups').select('id, slug, name, fandom_name, generation').eq('slug', mainSlug).maybeSingle().then((r) => (r.data as { id: number; slug: string; name: string; fandom_name: string | null; generation: string | null } | null))

@@ -5,6 +5,8 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { Mascot } from '@/components/ui/mascot';
 import { FollowButton } from '@/components/profile/follow-button';
+import { TeamTag } from '@/components/ux-v1/team';
+import { getTeamIds } from '@/lib/editorial/accounts';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -100,7 +102,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
     // (mig 094 trigram GIN). Cookie-free public read, NANO-cheap, limit 20.
     orTerm.length >= 2
       ? publicDb.from('profiles')
-          .select('username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
+          .select('id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, follower_count')
           .or(`username.ilike.*${orTerm}*,display_name.ilike.*${orTerm}*`)
           .is('banned_at', null)
           .order('follower_count', { ascending: false })
@@ -113,8 +115,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   for (const r of [...(qTitle.data ?? []), ...(qGroup.data ?? [])] as unknown as RawQuizRow[]) quizMap.set(r.id, r);
   const quizzes = [...quizMap.values()].map(toQuizCardData).slice(0, 12);
 
-  interface PersonRow { username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }
+  interface PersonRow { id: string; username: string; display_name: string | null; avatar_url: string | null; avatar_bg: string; avatar_text: string; xp: number; follower_count: number }
   const people = (peopleRes.data ?? []) as PersonRow[];
+  // V12: editorial (team) accounts carry the Team pill, never a fan level or title
+  // (SYSTEM.md 5.6). Nobody is one with the v12 flag off or before the accounts exist.
+  const teamIds = people.length > 0 ? await getTeamIds() : new Set<string>();
 
   const hasResults = quizzes.length > 0 || groups.length > 0 || people.length > 0;
 
@@ -190,6 +195,22 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
                 {people.map((p) => {
                   const level = getLevelInfo(p.xp).level;
                   const title = getTitleForLevel(level).en;
+                  const followers = <>{formatCount(p.follower_count)} {p.follower_count === 1 ? 'follower' : 'followers'}</>;
+                  if (teamIds.has(p.id)) {
+                    return (
+                      <div key={p.username} data-team="true"
+                        className="flex items-center gap-3 p-3 rounded-xl border border-default">
+                        <Link href={`/u/${p.username}`} className="flex items-center gap-3 flex-1 min-w-0 hover:opacity-90 transition-opacity">
+                          <UserAvatar username={p.username} avatarUrl={p.avatar_url} bgColor={p.avatar_bg} textColor={p.avatar_text} size={40} />
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-primary truncate">{p.display_name ?? p.username}<TeamTag /></p>
+                            <p className="text-xs text-secondary truncate">{followers}</p>
+                          </div>
+                        </Link>
+                        <FollowButton profileUsername={p.username} />
+                      </div>
+                    );
+                  }
                   return (
                     <div key={p.username}
                       className="flex items-center gap-3 p-3 rounded-xl border border-default">

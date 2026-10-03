@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
 import { analytics } from '@/lib/analytics';
+import { btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
 
 import { RankedApiError, rankedApi, withRetry } from './api';
 
@@ -11,6 +12,7 @@ import type { BtAnswer, BtPhase, BtQuestion } from '@/components/blindtest/ux-v1
 import type { RunApi } from '@/components/blindtest/ux-v1/use-run';
 import type { PublicRound, RoundReveal } from '@/lib/ranked/run';
 import type { IssuedRun, SubmittedRun } from '@/lib/ranked/service';
+import type { BtRunContext, BtRunSong } from '@/lib/tracking/bt';
 import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 import type { RoundPoints, RunSummary } from '@/lib/ux-v1/p6/points';
 
@@ -23,6 +25,16 @@ import type { RoundPoints, RunSummary } from '@/lib/ux-v1/p6/points';
 // POST /api/ranked/run/submit (the server recomputes every point and returns the
 // season impact). Points shown here are the server's, never recomputed locally.
 // Quitting closes the run too: it is recorded with the songs answered (15.4).
+//
+// V12 tracking (lib/tracking/bt.ts, its own switch NEXT_PUBLIC_BT_TRACKING), same
+// rules as components/blindtest/ux-v1/use-run.ts: a ranked run is recorded through
+// trackBtRun() with mode 'ranked' and playlist 'theme:ranked'. start = the first
+// clip really plays; finish = the results screen (completed) or a quit, a lost
+// connection, a new start, leaving the page (completed = false, sendBeacon). The
+// score is the sum of the server's points. The server never sends a song id to the
+// browser, so the song entries carry the round placeholder and the tracking route
+// drops them (the counts are kept). With the switch off nothing is sent and nothing
+// below changes what the player sees or what the ranked API receives.
 
 export const RANKED_TIMER_S = 10;
 export const RANKED_AUTO_NEXT_MS = 3000;
@@ -144,6 +156,31 @@ export function useRankedRun(opts: {
   const mutedRef = useRef(false);
   const closedRef = useRef(false);
 
+  // V12 tracking. The open run (null when tracking is off or no run is open) with
+  // what the server revealed so far, so a quit or pagehide can report it.
+  const trackRef = useRef<{
+    ctx: BtRunContext; startedAt: number; started: boolean; songs: BtRunSong[]; score: number; bestCombo: number;
+  } | null>(null);
+
+  /** Close the open tracked run, once. Completed on the results screen, else abandoned (beacon). */
+  const sendFinish = useCallback((completed: boolean) => {
+    const t = trackRef.current;
+    if (!t) return;
+    trackRef.current = null;
+    if (!t.started) return; // no clip ever played: not a run
+    trackBtRun({
+      event: 'finish',
+      ...t.ctx,
+      answered: t.songs.length,
+      correct: t.songs.filter((x) => x.correct).length,
+      score: t.score,
+      best_combo: t.bestCombo,
+      duration_ms: Math.max(0, Date.now() - t.startedAt),
+      completed,
+      songs: t.songs,
+    });
+  }, []);
+
   useEffect(() => () => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (blockedRef.current) clearTimeout(blockedRef.current);
@@ -154,6 +191,7 @@ export function useRankedRun(opts: {
   // with the songs answered, not only at the next start or the nightly job.
   useEffect(() => {
     const leave = (): void => {
+      sendFinish(false); // tracking: the abandoned run still lands
       const token = tokenRef.current;
       if (!token || closedRef.current) return;
       closedRef.current = true;
@@ -174,7 +212,7 @@ export function useRankedRun(opts: {
       window.removeEventListener('pagehide', leave);
       leave();
     };
-  }, []);
+  }, [sendFinish]);
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
@@ -191,6 +229,7 @@ export function useRankedRun(opts: {
   }, []);
 
   const endEarly = useCallback((message: string) => {
+    sendFinish(false);
     const token = tokenRef.current;
     runRef.current++;
     stopTimer();
@@ -204,10 +243,10 @@ export function useRankedRun(opts: {
       void close(token).then(() => onRecorded?.());
     }
     onClosedEarly?.(message);
-  }, [close, onClosedEarly, onRecorded, stop, stopTimer]);
+  }, [close, onClosedEarly, onRecorded, sendFinish, stop, stopTimer]);
 
   /** Lock the answer of `round` on the server, then show its reveal. */
-  const lock = useCallback(async (round: number, choice: number | null, clientMs: number | null) => {
+  const lock = useCallback(async (round: number, kind: BtRunSong['kind'], choice: number | null, clientMs: number | null) => {
     const token = tokenRef.current;
     if (!token) return;
     const run = runRef.current;
@@ -219,6 +258,12 @@ export function useRankedRun(opts: {
       return;
     }
     if (runRef.current !== run) return;
+    const open = trackRef.current;
+    if (open && open.songs.length < open.ctx.rounds) {
+      open.songs.push({ song_id: `round-${round}`, kind, correct: r.correct, ms: r.effectiveMs ?? RANKED_TIMER_S * 1000 });
+      open.score += r.points;
+      if (r.correct && r.streak > open.bestCombo) open.bestCombo = r.streak;
+    }
     setQuestions((qs) => qs.map((q, i) => (i === round ? revealed(q, r) : q)));
     setAnswers((prev) => [...prev, { picked: r.choice, correct: r.correct, time_ms: r.effectiveMs ?? RANKED_TIMER_S * 1000 }]);
     setRounds((prev) => [...prev, { points: r.points, speed: r.speedBonus, tenths: r.comboTenths, streak: r.streak }]);
@@ -236,6 +281,16 @@ export function useRankedRun(opts: {
     if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
     loadAndPlay(q.preview_url);
     if (audioRef.current) audioRef.current.muted = mutedRef.current;
+    // Tracking: the run starts when a clip really plays (never for a browser that plays nothing).
+    const open = trackRef.current;
+    if (open && !open.started && audioRef.current) {
+      audioRef.current.addEventListener('playing', () => {
+        if (trackRef.current !== open || open.started) return;
+        open.started = true;
+        open.startedAt = Date.now();
+        trackBtRun({ event: 'start', ...open.ctx });
+      }, { once: true });
+    }
     startRef.current = Date.now();
     stopTimer();
     const run = runRef.current;
@@ -248,7 +303,7 @@ export function useRankedRun(opts: {
         if (!answeredRef.current) {
           answeredRef.current = true;
           fadeOut(350);
-          void lock(round, null, null);
+          void lock(round, q.question_type, null, null);
         }
       } else {
         setTimeLeft(remaining);
@@ -283,6 +338,7 @@ export function useRankedRun(opts: {
 
   const startRanked = useCallback(async () => {
     unlock(); // inside the tap (iOS Safari)
+    sendFinish(false); // a tracked run still open is closed as abandoned
     const run = ++runRef.current;
     busyRef.current = false;
     closedRef.current = false;
@@ -310,11 +366,27 @@ export function useRankedRun(opts: {
       return;
     }
     tokenRef.current = got.token;
+    const runId = newBtRunId();
+    trackRef.current = runId ? {
+      ctx: {
+        run_id: runId,
+        playlist: btPlaylistId({ kind: 'free', playlist: RANKED_PICK.playlist }),
+        mode: 'ranked',
+        source: btSourceHere('free'),
+        locale: btLocale(),
+        rounds: got.rounds,
+      },
+      startedAt: Date.now(),
+      started: false,
+      songs: [],
+      score: 0,
+      bestCombo: 0,
+    } : null;
     setIssued(got);
     setQuestions(Array.from({ length: got.rounds }, (_, i) => unreleased(i)));
     analytics.gameStart('blindtest', false);
     await openRound(0);
-  }, [close, onRefused, openRound, unlock]);
+  }, [close, onRefused, openRound, sendFinish, unlock]);
 
   const pickAnswer = useCallback((i: number) => {
     if (answeredRef.current || phase !== 'playing') return;
@@ -325,7 +397,7 @@ export function useRankedRun(opts: {
     fadeOut(350);
     setSelected(i);
     const clientMs = Math.min(RANKED_TIMER_S * 1000, Math.max(0, Date.now() - startRef.current));
-    void lock(index, i, clientMs);
+    void lock(index, q.question_type, i, clientMs);
   }, [fadeOut, index, lock, phase, questions, stopTimer]);
 
   const finish = useCallback(async () => {
@@ -333,13 +405,14 @@ export function useRankedRun(opts: {
     stopTimer();
     stop();
     setPhase('results');
+    sendFinish(true);
     if (!token || closedRef.current) return;
     closedRef.current = true;
     setSubmit({ kind: 'saving' });
     const result = await close(token);
     setSubmit(result ? { kind: 'done', result } : { kind: 'failed' });
     if (result) onRecorded?.();
-  }, [close, onRecorded, stop, stopTimer]);
+  }, [close, onRecorded, sendFinish, stop, stopTimer]);
 
   const next = useCallback(() => {
     if (phase !== 'reveal' || busyRef.current) return;

@@ -1,0 +1,138 @@
+same    admin_blind_tests_runs
+same    api_quizzes_search_q_clues
+same    api_quizzes_tab_popular
+same    api_quizzes_tab_top_rated
+DIFFERS api_track_bt_run (63 base lines, 2 candidate lines)
+   - 404 
+   - <!DOCTYPE html>
+   - <html lang="en" class="pretendard_60cdc229-module__<h>__variable">
+   - <head>
+   - <meta charSet="utf-8"/>
+   - <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   - <link rel="stylesheet" href="static/chunks/<asset>.css" data-precedence="next_static/chunks/<asset>.css"/>
+   - <link rel="preload" as="script" fetchPriority="low" href="static/chunks/<asset>.js"/>
+   - <meta name="robots" content="noindex"/>
+   - <meta name="next-size-adjust" content=""/>
+   - <title>404: This page could not be found.</title>
+   - <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+   - <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)"/>
+   - <meta name="color-scheme" content="light dark"/>
+   - <title>KpopQuiz - Play K-pop Quizzes Made by Fans for Fans</title>
+   - <meta name="description" content="Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."/>
+   - <meta name="author" content="KpopQuiz"/>
+   - <link rel="manifest" href="/site.webmanifest"/>
+   - <meta name="keywords" content="kpop quiz,kpop trivia,BTS quiz,BLACKPINK quiz,Stray Kids quiz,kpop game,kpop test,kpop fan quiz"/>
+   - <meta name="creator" content="KpopQuiz"/>
+   - <meta name="publisher" content="KpopQuiz"/>
+   - <meta name="p:domain_verify" content="78daf33218de9b0d0115f0dbbaf48d6e"/>
+   - <meta name="format-detection" content="telephone=no"/>
+   - <meta property="og:title" content="KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"/>
+   - <meta property="og:description" content="Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."/>
+   - <meta property="og:site_name" content="KpopQuiz"/>
+   - <meta property="og:locale" content="en_US"/>
+   - <meta property="og:image" content="https://kpopquiz.org/og-default.png"/>
+   - <meta property="og:image:width" content="1200"/>
+   - <meta property="og:image:height" content="630"/>
+   - <meta property="og:image:alt" content="KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"/>
+   - <meta property="og:type" content="website"/>
+   - <meta name="twitter:card" content="summary_large_image"/>
+   - <meta name="twitter:title" content="KpopQuiz - Play K-pop Quizzes Made by Fans for Fans"/>
+   - <meta name="twitter:description" content="Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands."/>
+   - <meta name="twitter:image" content="https://kpopquiz.org/og-default.png"/>
+   - <link rel="shortcut icon" href="/favicon.ico"/>
+   - <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+   - <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png"/>
+   - <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png"/>
+   - <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" type="image/png"/>
+   - </head>
+   - <body class="bg-primary text-primary font-sans antialiased">
+   - <div hidden="">
+   - <!--$-->
+   - <!--$-->
+   - <!--/$-->
+   - <!--/$-->
+   - </div>
+   - </div>
+   - </div>
+   - </div>
+   - </div>
+   - <script>(function(){try{var t=localStorage.getItem('theme'),d=document.documentElement;d.classList.remove('light','dark');if(t==='dark')d.classList.add('dark');else if(t==='light')d.classList.add('light');}catch(e){}})();</script>
+   - <div style="font-family:system-ui,&quot;Segoe UI&quot;,Roboto,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;height:100vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+   - <div>
+   - <style>body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}</style>
+   - <h1 class="next-error-h1" style="display:inline-block;margin:0 20px 0 0;padding:0 23px 0 0;font-size:24px;font-weight:500;vertical-align:top;line-height:49px">404</h1>
+   - <div style="display:inline-block">
+   - <h2 style="font-size:14px;font-weight:400;line-height:49px;margin:0">This page could not be found.</h2>
+   - <div class="fixed bottom-6 left-1/2 z-50 flex flex-col gap-2 pointer-events-none">
+   - </body>
+   - </html>
+   + 405 
+   + 
+same    blindtest
+same    blindtest_girl_groups
+DIFFERS bts_quiz (1 base lines, 1 candidate lines)
+   - <span class="text-xs text-secondary">· avg <!-- -->92%</span>
+   + <span class="text-xs text-secondary">· avg <!-- -->31%</span>
+same    easy_kpop_quizzes
+same    embed_q_guess_the_skz_member_from_clues
+same    embed_q_ultimate_bts_era_quiz_only_real_armys_survive
+DIFFERS hard_kpop_quizzes (1 base lines, 1 candidate lines)
+   - <span class="text-xs text-secondary">· avg <!-- -->194%</span>
+   + <span class="text-xs text-secondary">· avg <!-- -->65%</span>
+same    home
+DIFFERS kickflip_quiz (1 base lines, 1 candidate lines)
+   - <span class="text-xs text-secondary">· avg <!-- -->101%</span>
+   + <span class="text-xs text-secondary">· avg <!-- -->100%</span>
+same    most_liked
+DIFFERS new (1 base lines, 1 candidate lines)
+   - <span class="text-xs text-secondary">· avg <!-- -->180%</span>
+   + <span class="text-xs text-secondary">· avg <!-- -->60%</span>
+same    pt_blindtest
+DIFFERS q_guess_the_bts_member_from_clues (3 base lines, 3 candidate lines)
+   - <meta name="description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 92% on average. Can you beat them?"/>
+   - <meta property="og:description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 92% on average. Can you beat them?"/>
+   - <meta name="twitter:description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 92% on average. Can you beat them?"/>
+   + <meta name="description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 31% on average. Can you beat them?"/>
+   + <meta property="og:description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 31% on average. Can you beat them?"/>
+   + <meta name="twitter:description" content="Guess the BTS member from clues: a medium 7-question K-pop quiz on BTS, made by mina. 652 fans have played it, scoring 31% on average. Can you beat them?"/>
+DIFFERS q_guess_the_skz_member_from_clues (4 base lines, 4 candidate lines)
+   - <meta name="description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <meta property="og:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <meta name="twitter:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 123% on average. Can you beat them?"/>
+   - <span class="related-quiz-meta">Stray Kids<!-- --> · <!-- -->603<!-- --> plays</span>
+   + <meta name="description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <meta property="og:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <meta name="twitter:description" content="Guess the SKZ member from clues: a medium 6-question K-pop quiz on Stray Kids, made by mapple. 456 fans have played it, scoring 41% on average. Can you beat them?"/>
+   + <span class="related-quiz-meta">Stray Kids<!-- --> · <!-- -->602<!-- --> plays</span>
+same    q_kickflip_mega_quiz
+same    q_ultimate_bts_era_quiz_only_real_armys_survive
+DIFFERS quizzes (4 base lines, 4 candidate lines)
+   - <span class="quiz-score score-green">92<!-- -->%</span>
+   - </svg>603</span>
+   - <span class="quiz-score score-green">78<!-- -->%</span>
+   - <span class="quiz-score score-green">123<!-- -->%</span>
+   + <span class="quiz-score score-red">31<!-- -->%</span>
+   + </svg>602</span>
+   + <span class="quiz-score score-red">26<!-- -->%</span>
+   + <span class="quiz-score score-red">41<!-- -->%</span>
+DIFFERS quizzes_type_guess_from_clues (4 base lines, 4 candidate lines)
+   - <span class="quiz-score score-green">92<!-- -->%</span>
+   - </svg>603</span>
+   - <span class="quiz-score score-green">78<!-- -->%</span>
+   - <span class="quiz-score score-green">123<!-- -->%</span>
+   + <span class="quiz-score score-red">31<!-- -->%</span>
+   + </svg>602</span>
+   + <span class="quiz-score score-red">26<!-- -->%</span>
+   + <span class="quiz-score score-red">41<!-- -->%</span>
+DIFFERS search_q_skz (2 base lines, 2 candidate lines)
+   - <span class="quiz-score score-green">123<!-- -->%</span>
+   - <span class="quiz-score score-green">225<!-- -->%</span>
+   + <span class="quiz-score score-red">41<!-- -->%</span>
+   + <span class="quiz-score score-green">75<!-- -->%</span>
+same    sitemap_xml
+DIFFERS stats (1 base lines, 1 candidate lines)
+   - <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 256 quizzes with at least 30 plays, as of October 2, 2026.</p>
+   + <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 253 quizzes with at least 30 plays, as of October 2, 2026.</p>
+same    trending
+
+27 pages, 11 with a difference

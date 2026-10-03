@@ -1,0 +1,362 @@
+{
+ "state": "create-1",
+ "owner": "P5",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:44:28.050Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1804
+    ],
+    "implSize": [
+     1440,
+     1894
+    ],
+    "diffPct": 6.62,
+    "maskedPct": 10.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stepper",
+     "proto": ".stepper",
+     "impl": ".p5-stepper",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "fields",
+     "proto": ".cpane.on > .field",
+     "impl": ".p5-pane > .ux-field",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sticky bar",
+     "proto": ".cbar",
+     "impl": ".p5-bar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "next button",
+     "proto": "#cnext",
+     "impl": ".p5-next",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:44:29.929Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     1804
+    ],
+    "implSize": [
+     1440,
+     1894
+    ],
+    "diffPct": 6.94,
+    "maskedPct": 10.5
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stepper",
+     "proto": ".stepper",
+     "impl": ".p5-stepper",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "fields",
+     "proto": ".cpane.on > .field",
+     "impl": ".p5-pane > .ux-field",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sticky bar",
+     "proto": ".cbar",
+     "impl": ".p5-bar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "next button",
+     "proto": "#cnext",
+     "impl": ".p5-next",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:44:31.822Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2085
+    ],
+    "implSize": [
+     390,
+     2221
+    ],
+    "diffPct": 11.66,
+    "maskedPct": 30.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stepper",
+     "proto": ".stepper",
+     "impl": ".p5-stepper",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "fields",
+     "proto": ".cpane.on > .field",
+     "impl": ".p5-pane > .ux-field",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sticky bar",
+     "proto": ".cbar",
+     "impl": ".p5-bar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "next button",
+     "proto": "#cnext",
+     "impl": ".p5-next",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:44:33.660Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 7,
+    "pass": 7,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2085
+    ],
+    "implSize": [
+     390,
+     2221
+    ],
+    "diffPct": 12.18,
+    "maskedPct": 30.6
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "page header",
+     "proto": ".ph",
+     "impl": ".ux-ph",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "page H1",
+     "proto": ".ph h1",
+     "impl": ".ux-ph h1",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "stepper",
+     "proto": ".stepper",
+     "impl": ".p5-stepper",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "fields",
+     "proto": ".cpane.on > .field",
+     "impl": ".p5-pane > .ux-field",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "sticky bar",
+     "proto": ".cbar",
+     "impl": ".p5-bar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "next button",
+     "proto": "#cnext",
+     "impl": ".p5-next",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "note": "known deviation (loop 2, documented by P5): the restored live help lines push the cover field 28.8px down on step 1 (field tops are compared as gaps for information only)",
+ "verdict": "pass"
+}

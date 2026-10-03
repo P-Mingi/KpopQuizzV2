@@ -1,0 +1,970 @@
+# C3 e2e/ux-v1 (all but parity.spec.ts) on :3072, v11-only build of afb83f4, retries 1, 2026-10-03
+# project | spec | test | status (expected = pass) | attempts | skip reason
+setup | auth.setup.ts | parity test user session | expected | 1 | 
+ux-1440 | kit.spec.ts | renders every section, noindex, no horizontal scroll, reference styles, a11y | expected | 1 | 
+ux-1440 | kit.spec.ts | owner request: warm light page ground, white cards and fields, dark unchanged | expected | 1 | 
+ux-390 | kit.spec.ts | renders every section, noindex, no horizontal scroll, reference styles, a11y | expected | 1 | 
+ux-390 | kit.spec.ts | owner request: warm light page ground, white cards and fields, dark unchanged | expected | 1 | 
+ux-1440 | kit.spec.ts | renders every section, noindex, no horizontal scroll, reference styles, a11y | expected | 1 | 
+ux-1440 | kit.spec.ts | owner request: warm light page ground, white cards and fields, dark unchanged | expected | 1 | 
+ux-390 | kit.spec.ts | renders every section, noindex, no horizontal scroll, reference styles, a11y | expected | 1 | 
+ux-390 | kit.spec.ts | owner request: warm light page ground, white cards and fields, dark unchanged | expected | 1 | 
+ux-1440 | kit.spec.ts | share sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-1440 | kit.spec.ts | header sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-1440 | kit.spec.ts | confirm sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-1440 | kit.spec.ts | signin sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-1440 | kit.spec.ts | confirm sheet: the safe action is focused first | expected | 1 | 
+ux-1440 | kit.spec.ts | header picture sheet validates https before the server | expected | 1 | 
+ux-1440 | kit.spec.ts | toast + live region | expected | 1 | 
+ux-1440 | kit.spec.ts | tabs: arrow keys move the selection; segmented aria-pressed; dropdown + removable chip | expected | 1 | 
+ux-1440 | kit.spec.ts | search overlay opens from the kit and closes on Escape | expected | 1 | 
+ux-1440 | kit.spec.ts | link options: Segmented nav of links, UxDropdown link items, soft navigation | expected | 1 | 
+ux-1440 | kit.spec.ts | quiz cards: body line heights and card heights as the prototype | expected | 1 | 
+ux-1440 | kit.spec.ts | streak popover: the real rule (daily quiz or daily blindtest) | expected | 1 | 
+ux-1440 | kit.spec.ts | header picture sheet: the drop zone opens at rest; keyboard focus rings it | expected | 1 | 
+ux-1440 | kit.spec.ts | sheet title: 18px, line height 28.8px, letter-spacing -0.27px | expected | 1 | 
+ux-1440 | kit.spec.ts | search field: no ring, no native clear button, a 2px pink line while focused | flaky | 2 | 
+ux-1440 | kit.spec.ts | quiz card preview mode: no link, data: cover, same card styles | expected | 1 | 
+ux-1440 | kit.spec.ts | tabs: the selected tab keeps pink-soft-ink under the pointer | expected | 1 | 
+ux-1440 | kit.spec.ts | share sheet: Copy link has the focus; phone label wraps under the title | expected | 1 | 
+ux-1440 | kit.spec.ts | dropdown showValue={false}: the trigger keeps its label and width; the chip shows the pick | expected | 1 | 
+ux-1440 | kit.spec.ts | share sheet default story image: four tiles, a 1080 x 1920 PNG, shared as a file or downloaded | expected | 1 | 
+ux-1440 | kit.spec.ts | account menu: My quizzes opens the passport Quizzes tab; draft count from this device | expected | 1 | 
+ux-1440 | kit.spec.ts | viewer state: a late island hydrates without a mismatch (guest) | expected | 1 | 
+ux-390 | kit.spec.ts | share sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-390 | kit.spec.ts | header sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-390 | kit.spec.ts | confirm sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-390 | kit.spec.ts | signin sheet: focus in, trap, Escape / X / backdrop close, focus returns | expected | 1 | 
+ux-390 | kit.spec.ts | confirm sheet: the safe action is focused first | expected | 1 | 
+ux-390 | kit.spec.ts | header picture sheet validates https before the server | expected | 1 | 
+ux-390 | kit.spec.ts | toast + live region | expected | 1 | 
+ux-390 | kit.spec.ts | tabs: arrow keys move the selection; segmented aria-pressed; dropdown + removable chip | expected | 1 | 
+ux-390 | kit.spec.ts | search overlay opens from the kit and closes on Escape | expected | 1 | 
+ux-390 | kit.spec.ts | link options: Segmented nav of links, UxDropdown link items, soft navigation | expected | 1 | 
+ux-390 | kit.spec.ts | quiz cards: body line heights and card heights as the prototype | expected | 1 | 
+ux-390 | kit.spec.ts | streak popover: the real rule (daily quiz or daily blindtest) | expected | 1 | 
+ux-390 | kit.spec.ts | header picture sheet: the drop zone opens at rest; keyboard focus rings it | expected | 1 | 
+ux-390 | kit.spec.ts | sheet title: 18px, line height 28.8px, letter-spacing -0.27px | expected | 1 | 
+ux-390 | kit.spec.ts | search field: no ring, no native clear button, a 2px pink line while focused | flaky | 2 | 
+ux-390 | kit.spec.ts | quiz card preview mode: no link, data: cover, same card styles | expected | 1 | 
+ux-390 | kit.spec.ts | tabs: the selected tab keeps pink-soft-ink under the pointer | expected | 1 | 
+ux-390 | kit.spec.ts | share sheet: Copy link has the focus; phone label wraps under the title | expected | 1 | 
+ux-390 | kit.spec.ts | dropdown showValue={false}: the trigger keeps its label and width; the chip shows the pick | expected | 1 | 
+ux-390 | kit.spec.ts | share sheet default story image: four tiles, a 1080 x 1920 PNG, shared as a file or downloaded | expected | 1 | 
+ux-390 | kit.spec.ts | account menu: My quizzes opens the passport Quizzes tab; draft count from this device | expected | 1 | 
+ux-390 | kit.spec.ts | viewer state: a late island hydrates without a mismatch (guest) | expected | 1 | 
+ux-1440 | kit.spec.ts | a late island hydrates without a mismatch (signed in) | expected | 1 | 
+ux-390 | kit.spec.ts | a late island hydrates without a mismatch (signed in) | expected | 1 | 
+ux-1440 | p1.spec.ts | guest: SEO header, layout and styles vs the reference, axe, no write | expected | 1 | 
+ux-1440 | p1.spec.ts | live ticker: the live component and its two endpoints, restyled | expected | 1 | 
+ux-1440 | p1.spec.ts | quiz of the day: the stored pick, real meta, truthful note, Play | expected | 1 | 
+ux-1440 | p1.spec.ts | groups rail: 10 real groups, published counts, hub links | expected | 1 | 
+ux-1440 | p1.spec.ts | trending, all time best, new: real order, no quiz twice, no photo twice in a row | expected | 1 | 
+ux-1440 | p1.spec.ts | blindtest band: real count, Play the daily, modes link, played state | expected | 1 | 
+ux-1440 | p1.spec.ts | community rows and continue (guest: hidden) | expected | 1 | 
+ux-1440 | p1.spec.ts | keyboard reaches and operates every home control, pink focus ring | expected | 1 | 
+ux-390 | p1.spec.ts | guest: SEO header, layout and styles vs the reference, axe, no write | expected | 1 | 
+ux-390 | p1.spec.ts | live ticker: the live component and its two endpoints, restyled | expected | 1 | 
+ux-390 | p1.spec.ts | quiz of the day: the stored pick, real meta, truthful note, Play | expected | 1 | 
+ux-390 | p1.spec.ts | groups rail: 10 real groups, published counts, hub links | expected | 1 | 
+ux-390 | p1.spec.ts | trending, all time best, new: real order, no quiz twice, no photo twice in a row | expected | 1 | 
+ux-390 | p1.spec.ts | blindtest band: real count, Play the daily, modes link, played state | expected | 1 | 
+ux-390 | p1.spec.ts | community rows and continue (guest: hidden) | expected | 1 | 
+ux-390 | p1.spec.ts | keyboard reaches and operates every home control, pink focus ring | expected | 1 | 
+ux-1440 | p1.spec.ts | guest: SEO header, layout and styles vs the reference, axe, no write | expected | 1 | 
+ux-1440 | p1.spec.ts | live ticker: the live component and its two endpoints, restyled | expected | 1 | 
+ux-1440 | p1.spec.ts | quiz of the day: the stored pick, real meta, truthful note, Play | expected | 1 | 
+ux-1440 | p1.spec.ts | groups rail: 10 real groups, published counts, hub links | expected | 1 | 
+ux-1440 | p1.spec.ts | trending, all time best, new: real order, no quiz twice, no photo twice in a row | expected | 1 | 
+ux-1440 | p1.spec.ts | blindtest band: real count, Play the daily, modes link, played state | expected | 1 | 
+ux-1440 | p1.spec.ts | community rows and continue (guest: hidden) | expected | 1 | 
+ux-1440 | p1.spec.ts | keyboard reaches and operates every home control, pink focus ring | expected | 1 | 
+ux-390 | p1.spec.ts | guest: SEO header, layout and styles vs the reference, axe, no write | expected | 1 | 
+ux-390 | p1.spec.ts | live ticker: the live component and its two endpoints, restyled | expected | 1 | 
+ux-390 | p1.spec.ts | quiz of the day: the stored pick, real meta, truthful note, Play | expected | 1 | 
+ux-390 | p1.spec.ts | groups rail: 10 real groups, published counts, hub links | expected | 1 | 
+ux-390 | p1.spec.ts | trending, all time best, new: real order, no quiz twice, no photo twice in a row | expected | 1 | 
+ux-390 | p1.spec.ts | blindtest band: real count, Play the daily, modes link, played state | expected | 1 | 
+ux-390 | p1.spec.ts | community rows and continue (guest: hidden) | expected | 1 | 
+ux-390 | p1.spec.ts | keyboard reaches and operates every home control, pink focus ring | expected | 1 | 
+ux-1440 | p1.spec.ts | greeting, streak line, continue, band (light) | expected | 1 | 
+ux-1440 | p1.spec.ts | band played state: score, rank, no pulse dot (light) | expected | 1 | 
+ux-1440 | p1.spec.ts | greeting, streak line, continue, band (dark) | expected | 1 | 
+ux-1440 | p1.spec.ts | band played state: score, rank, no pulse dot (dark) | expected | 1 | 
+ux-390 | p1.spec.ts | greeting, streak line, continue, band (light) | expected | 1 | 
+ux-390 | p1.spec.ts | band played state: score, rank, no pulse dot (light) | expected | 1 | 
+ux-390 | p1.spec.ts | greeting, streak line, continue, band (dark) | expected | 1 | 
+ux-390 | p1.spec.ts | band played state: score, rank, no pulse dot (dark) | expected | 1 | 
+ux-1440 | p2.spec.ts | SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-1440 | p2.spec.ts | Type + Level narrow the grid with real counts; chips remove a filter and return focus | expected | 1 | 
+ux-1440 | p2.spec.ts | sort links and the Group menu (under its trigger, inside the viewport) | expected | 1 | 
+ux-390 | p2.spec.ts | SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-390 | p2.spec.ts | Type + Level narrow the grid with real counts; chips remove a filter and return focus | expected | 1 | 
+ux-390 | p2.spec.ts | sort links and the Group menu (under its trigger, inside the viewport) | expected | 1 | 
+ux-1440 | p2.spec.ts | SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-1440 | p2.spec.ts | Type + Level narrow the grid with real counts; chips remove a filter and return focus | expected | 1 | 
+ux-1440 | p2.spec.ts | sort links and the Group menu (under its trigger, inside the viewport) | expected | 1 | 
+ux-390 | p2.spec.ts | SEO lock, grid, sort + filters, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-390 | p2.spec.ts | Type + Level narrow the grid with real counts; chips remove a filter and return focus | expected | 1 | 
+ux-390 | p2.spec.ts | sort links and the Group menu (under its trigger, inside the viewport) | expected | 1 | 
+ux-1440 | p2.spec.ts | Load more appends page 2 in place, updates the address, focuses the first new card | expected | 1 | 
+ux-1440 | p2.spec.ts | ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N | expected | 1 | 
+ux-1440 | p2.spec.ts | a page past the end shows the first page and says so | expected | 1 | 
+ux-1440 | p2.spec.ts | empty states: no match (Clear filters) and a group without quizzes (make the first one) | expected | 1 | 
+ux-1440 | p2.spec.ts | the Level facet follows the facet rule: noindex, canonical /quizzes | expected | 1 | 
+ux-1440 | p2.spec.ts | load-more endpoint: same page as the page itself, card fields only, read only | expected | 1 | 
+ux-390 | p2.spec.ts | Load more appends page 2 in place, updates the address, focuses the first new card | expected | 1 | 
+ux-390 | p2.spec.ts | ?page=2 is pages 1 and 2; the ItemList lists page 2; Previous page and Page 2 of N | expected | 1 | 
+ux-390 | p2.spec.ts | a page past the end shows the first page and says so | expected | 1 | 
+ux-390 | p2.spec.ts | empty states: no match (Clear filters) and a group without quizzes (make the first one) | expected | 1 | 
+ux-390 | p2.spec.ts | the Level facet follows the facet rule: noindex, canonical /quizzes | expected | 1 | 
+ux-390 | p2.spec.ts | load-more endpoint: same page as the page itself, card fields only, read only | expected | 1 | 
+ux-1440 | p2.spec.ts | the same browse page, and nothing is written | expected | 1 | 
+ux-390 | p2.spec.ts | the same browse page, and nothing is written | expected | 1 | 
+ux-1440 | p3.spec.ts | SEO lock, every group, most played, A to Z, landmarks, a11y | expected | 1 | 
+ux-1440 | p3.spec.ts | filter: live narrowing, Most played hidden, count, empty state, keyboard | expected | 1 | 
+ux-390 | p3.spec.ts | SEO lock, every group, most played, A to Z, landmarks, a11y | expected | 1 | 
+ux-390 | p3.spec.ts | filter: live narrowing, Most played hidden, count, empty state, keyboard | expected | 1 | 
+ux-1440 | p3.spec.ts | SEO lock: H1, intro, FAQ = FAQPage, JSON-LD, links; hero, landmarks, a11y | expected | 1 | 
+ux-1440 | p3.spec.ts | quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard | expected | 1 | 
+ux-1440 | p3.spec.ts | no JavaScript: every quiz link is a real link in the server HTML; Show all opens natively | expected | 1 | 
+ux-1440 | p3.spec.ts | Questions fans ask open with the keyboard; community, fans, war, read more | expected | 1 | 
+ux-1440 | p3.spec.ts | members row: one scroll row of prototype tiles, never an orphan line; keyboard scrolls it (X2-004) | expected | 1 | 
+ux-1440 | p3.spec.ts | open Verse space: the community door opens the thread editor, never the bare feed (X1-005) | unexpected | 2 | 
+ux-390 | p3.spec.ts | SEO lock: H1, intro, FAQ = FAQPage, JSON-LD, links; hero, landmarks, a11y | expected | 1 | 
+ux-390 | p3.spec.ts | quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard | expected | 1 | 
+ux-390 | p3.spec.ts | no JavaScript: every quiz link is a real link in the server HTML; Show all opens natively | expected | 1 | 
+ux-390 | p3.spec.ts | Questions fans ask open with the keyboard; community, fans, war, read more | expected | 1 | 
+ux-390 | p3.spec.ts | members row: one scroll row of prototype tiles, never an orphan line; keyboard scrolls it (X2-004) | expected | 1 | 
+ux-390 | p3.spec.ts | open Verse space: the community door opens the thread editor, never the bare feed (X1-005) | unexpected | 2 | 
+ux-1440 | p3.spec.ts | SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y | unexpected | 2 | 
+ux-1440 | p3.spec.ts | Notify me once live: guest gets the sign-in sheet; a fan toggles (stubbed payloads) | expected | 1 | 
+ux-390 | p3.spec.ts | SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y | unexpected | 2 | 
+ux-390 | p3.spec.ts | Notify me once live: guest gets the sign-in sheet; a fan toggles (stubbed payloads) | expected | 1 | 
+ux-1440 | p3.spec.ts | today's content inside the v11 shell | expected | 1 | 
+ux-390 | p3.spec.ts | today's content inside the v11 shell | expected | 1 | 
+ux-1440 | p3.spec.ts | SEO lock, every group, most played, A to Z, landmarks, a11y | expected | 1 | 
+ux-1440 | p3.spec.ts | filter: live narrowing, Most played hidden, count, empty state, keyboard | expected | 1 | 
+ux-390 | p3.spec.ts | SEO lock, every group, most played, A to Z, landmarks, a11y | expected | 1 | 
+ux-390 | p3.spec.ts | filter: live narrowing, Most played hidden, count, empty state, keyboard | expected | 1 | 
+ux-1440 | p3.spec.ts | SEO lock: H1, intro, FAQ = FAQPage, JSON-LD, links; hero, landmarks, a11y | expected | 1 | 
+ux-1440 | p3.spec.ts | quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard | expected | 1 | 
+ux-1440 | p3.spec.ts | no JavaScript: every quiz link is a real link in the server HTML; Show all opens natively | expected | 1 | 
+ux-1440 | p3.spec.ts | Questions fans ask open with the keyboard; community, fans, war, read more | expected | 1 | 
+ux-1440 | p3.spec.ts | members row: one scroll row of prototype tiles, never an orphan line; keyboard scrolls it (X2-004) | expected | 1 | 
+ux-1440 | p3.spec.ts | open Verse space: the community door opens the thread editor, never the bare feed (X1-005) | unexpected | 2 | 
+ux-390 | p3.spec.ts | SEO lock: H1, intro, FAQ = FAQPage, JSON-LD, links; hero, landmarks, a11y | expected | 1 | 
+ux-390 | p3.spec.ts | quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard | expected | 1 | 
+ux-390 | p3.spec.ts | no JavaScript: every quiz link is a real link in the server HTML; Show all opens natively | expected | 1 | 
+ux-390 | p3.spec.ts | Questions fans ask open with the keyboard; community, fans, war, read more | expected | 1 | 
+ux-390 | p3.spec.ts | members row: one scroll row of prototype tiles, never an orphan line; keyboard scrolls it (X2-004) | expected | 1 | 
+ux-390 | p3.spec.ts | open Verse space: the community door opens the thread editor, never the bare feed (X1-005) | unexpected | 2 | 
+ux-1440 | p3.spec.ts | SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y | unexpected | 2 | 
+ux-1440 | p3.spec.ts | Notify me once live: guest gets the sign-in sheet; a fan toggles (stubbed payloads) | expected | 1 | 
+ux-390 | p3.spec.ts | SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y | unexpected | 2 | 
+ux-390 | p3.spec.ts | Notify me once live: guest gets the sign-in sheet; a fan toggles (stubbed payloads) | expected | 1 | 
+ux-1440 | p3.spec.ts | today's content inside the v11 shell | expected | 1 | 
+ux-390 | p3.spec.ts | today's content inside the v11 shell | expected | 1 | 
+ux-1440 | p3.spec.ts | hub and empty hub as the test user: account in the nav, Notify me says not live, zero writes | unexpected | 2 | 
+ux-390 | p3.spec.ts | hub and empty hub as the test user: account in the nav, Notify me says not live, zero writes | unexpected | 2 | 
+ux-1440 | p4.spec.ts | quiz page: SEO blocks in the HTML, layout, reference styles, a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | game: focus shell, timer ring, answer states, fact, Next, live region | expected | 1 | 
+ux-1440 | p4.spec.ts | results (guest): save payload, photocard, stats row, primary by score, a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | results comments (guest, store live): heart + count, pink when liked, Reply opens a field; sign in first; a11y | expected | 1 | 
+ux-390 | p4.spec.ts | quiz page: SEO blocks in the HTML, layout, reference styles, a11y | expected | 1 | 
+ux-390 | p4.spec.ts | game: focus shell, timer ring, answer states, fact, Next, live region | expected | 1 | 
+ux-390 | p4.spec.ts | results (guest): save payload, photocard, stats row, primary by score, a11y | expected | 1 | 
+ux-390 | p4.spec.ts | results comments (guest, store live): heart + count, pink when liked, Reply opens a field; sign in first; a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | quiz page: SEO blocks in the HTML, layout, reference styles, a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | game: focus shell, timer ring, answer states, fact, Next, live region | expected | 1 | 
+ux-1440 | p4.spec.ts | results (guest): save payload, photocard, stats row, primary by score, a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | results comments (guest, store live): heart + count, pink when liked, Reply opens a field; sign in first; a11y | expected | 1 | 
+ux-390 | p4.spec.ts | quiz page: SEO blocks in the HTML, layout, reference styles, a11y | expected | 1 | 
+ux-390 | p4.spec.ts | game: focus shell, timer ring, answer states, fact, Next, live region | expected | 1 | 
+ux-390 | p4.spec.ts | results (guest): save payload, photocard, stats row, primary by score, a11y | expected | 1 | 
+ux-390 | p4.spec.ts | results comments (guest, store live): heart + count, pink when liked, Reply opens a field; sign in first; a11y | expected | 1 | 
+ux-1440 | p4.spec.ts | keyboard: 1-4 answer, Enter next; key hints per pointer | expected | 1 | 
+ux-1440 | p4.spec.ts | timer: warn, danger, then "Time is up" when it runs out | expected | 1 | 
+ux-1440 | p4.spec.ts | quit: no answer leaves at once; after an answer it asks, Keep playing / Leave saves to Continue, resume | expected | 1 | 
+ux-1440 | p4.spec.ts | share this quiz: sheet, copy, closes with Escape and returns focus | expected | 1 | 
+ux-1440 | p4.spec.ts | results share: real numbers, challenge link minted from the run (payload), story + more apps | expected | 1 | 
+ux-1440 | p4.spec.ts | low score: Play again is the primary action and starts a new run | expected | 1 | 
+ux-1440 | p4.spec.ts | like, comments (guest -> sign in to reply), report sheet payload | expected | 1 | 
+ux-1440 | p4.spec.ts | like: a first read that answers after the click never undoes it (C3-004) | expected | 1 | 
+ux-1440 | p4.spec.ts | guest: Sign in to save and Follow open the sign-in sheet and keep the action | expected | 1 | 
+ux-1440 | p4.spec.ts | challenge link: chip on the page and in the game, win line, attempt payload | expected | 1 | 
+ux-1440 | p4.spec.ts | quiz of the day (?daily=quiz): the run also completes the daily through the existing call | expected | 1 | 
+ux-1440 | p4.spec.ts | level up: the save response drives the EXISTS level-up overlay | expected | 1 | 
+ux-1440 | p4.spec.ts | quiz types: true/false, image, clues, intruder render and answer | expected | 1 | 
+ux-1440 | p4.spec.ts | relaxed mode: hidden until the relaxed-run column is live, then toggles the rule | expected | 1 | 
+ux-1440 | p4.spec.ts | phones: sticky Start appears once the first Start scrolls away | skipped | 1 | phone only
+ux-1440 | p4.spec.ts | API: v11 routes are read-only on GET and refuse bad input | expected | 1 | 
+ux-1440 | p4.spec.ts | comment hearts + Reply fail soft: hidden while the store is not live, routes refuse before any write | expected | 1 | 
+ux-390 | p4.spec.ts | keyboard: 1-4 answer, Enter next; key hints per pointer | expected | 1 | 
+ux-390 | p4.spec.ts | timer: warn, danger, then "Time is up" when it runs out | expected | 1 | 
+ux-390 | p4.spec.ts | quit: no answer leaves at once; after an answer it asks, Keep playing / Leave saves to Continue, resume | expected | 1 | 
+ux-390 | p4.spec.ts | share this quiz: sheet, copy, closes with Escape and returns focus | expected | 1 | 
+ux-390 | p4.spec.ts | results share: real numbers, challenge link minted from the run (payload), story + more apps | expected | 1 | 
+ux-390 | p4.spec.ts | low score: Play again is the primary action and starts a new run | expected | 1 | 
+ux-390 | p4.spec.ts | like, comments (guest -> sign in to reply), report sheet payload | expected | 1 | 
+ux-390 | p4.spec.ts | like: a first read that answers after the click never undoes it (C3-004) | expected | 1 | 
+ux-390 | p4.spec.ts | guest: Sign in to save and Follow open the sign-in sheet and keep the action | expected | 1 | 
+ux-390 | p4.spec.ts | challenge link: chip on the page and in the game, win line, attempt payload | expected | 1 | 
+ux-390 | p4.spec.ts | quiz of the day (?daily=quiz): the run also completes the daily through the existing call | expected | 1 | 
+ux-390 | p4.spec.ts | level up: the save response drives the EXISTS level-up overlay | expected | 1 | 
+ux-390 | p4.spec.ts | quiz types: true/false, image, clues, intruder render and answer | expected | 1 | 
+ux-390 | p4.spec.ts | relaxed mode: hidden until the relaxed-run column is live, then toggles the rule | expected | 1 | 
+ux-390 | p4.spec.ts | phones: sticky Start appears once the first Start scrolls away | expected | 1 | 
+ux-390 | p4.spec.ts | API: v11 routes are read-only on GET and refuse bad input | expected | 1 | 
+ux-390 | p4.spec.ts | comment hearts + Reply fail soft: hidden while the store is not live, routes refuse before any write | expected | 1 | 
+ux-1440 | p4.spec.ts | quiz page reads your standing; a run posts the same payload; results say saved | expected | 1 | 
+ux-1440 | p4.spec.ts | no stored play yet: standing answers played:false without a rank; results stay up, no rank line (C2-008) | expected | 1 | 
+ux-390 | p4.spec.ts | quiz page reads your standing; a run posts the same payload; results say saved | expected | 1 | 
+ux-390 | p4.spec.ts | no stored play yet: standing answers played:false without a rank; results stay up, no rank line (C2-008) | expected | 1 | 
+ux-1440 | p4.spec.ts | heart toggles once per fan, Reply posts a nested reply, the sign-in continuation resumes both | expected | 1 | 
+ux-390 | p4.spec.ts | heart toggles once per fan, Reply posts a nested reply, the sign-in continuation resumes both | expected | 1 | 
+ux-1440 | p4.spec.ts | heart toggles once per fan, Reply posts a nested reply, the sign-in continuation resumes both | expected | 1 | 
+ux-390 | p4.spec.ts | heart toggles once per fan, Reply posts a nested reply, the sign-in continuation resumes both | expected | 1 | 
+ux-1440 | p5.spec.ts | server HTML keeps the live title, meta, robots, H1 and intro; no canonical, no JSON-LD change | expected | 1 | 
+ux-390 | p5.spec.ts | server HTML keeps the live title, meta, robots, H1 and intro; no canonical, no JSON-LD change | expected | 1 | 
+ux-1440 | p5.spec.ts | create-1: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-1440 | p5.spec.ts | create-2: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-1440 | p5.spec.ts | create-3: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-1440 | p5.spec.ts | signin: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-390 | p5.spec.ts | create-1: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-390 | p5.spec.ts | create-2: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-390 | p5.spec.ts | create-3: matches the prototype (styles and boxes), axe clean, no write | unexpected | 2 | 
+ux-390 | p5.spec.ts | signin: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-1440 | p5.spec.ts | create-1: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-1440 | p5.spec.ts | create-2: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-1440 | p5.spec.ts | create-3: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-1440 | p5.spec.ts | signin: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-390 | p5.spec.ts | create-1: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-390 | p5.spec.ts | create-2: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-390 | p5.spec.ts | create-3: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-390 | p5.spec.ts | signin: matches the prototype (styles and boxes), axe clean, no write | expected | 1 | 
+ux-1440 | p5.spec.ts | gate, errors, focus, combobox, custom group, type, difficulty, language, cover, autosave | expected | 1 | 
+ux-1440 | p5.spec.ts | title duplicate nudge is soft (GET title-check only) | expected | 1 | 
+ux-1440 | p5.spec.ts | ?group=<slug> deep link pre-selects the group (server rendered) | expected | 1 | 
+ux-390 | p5.spec.ts | gate, errors, focus, combobox, custom group, type, difficulty, language, cover, autosave | expected | 1 | 
+ux-390 | p5.spec.ts | title duplicate nudge is soft (GET title-check only) | expected | 1 | 
+ux-390 | p5.spec.ts | ?group=<slug> deep link pre-selects the group (server rendered) | expected | 1 | 
+ux-1440 | p5.spec.ts | rows, editor, answers, add, duplicate, delete, move, drag, paste, per-type editors | expected | 1 | 
+ux-1440 | p5.spec.ts | true/false, clues, image and intruder editors keep the EXISTS shapes | expected | 1 | 
+ux-390 | p5.spec.ts | rows, editor, answers, add, duplicate, delete, move, drag, paste, per-type editors | expected | 1 | 
+ux-390 | p5.spec.ts | true/false, clues, image and intruder editors keep the EXISTS shapes | expected | 1 | 
+ux-1440 | p5.spec.ts | checklist, not ready hint, sign-in sheet (X / Escape / backdrop), magic link keeps the draft | expected | 1 | 
+ux-1440 | p5.spec.ts | ready: card, checklist, Publish opens "Sign in to publish"; the email link keeps the draft and the action | expected | 1 | 
+ux-390 | p5.spec.ts | checklist, not ready hint, sign-in sheet (X / Escape / backdrop), magic link keeps the draft | expected | 1 | 
+ux-390 | p5.spec.ts | ready: card, checklist, Publish opens "Sign in to publish"; the email link keeps the draft and the action | expected | 1 | 
+ux-1440 | p5.spec.ts | resume after sign-in (?resume=publish) publishes the draft with the legacy payload; done state | expected | 1 | 
+ux-1440 | p5.spec.ts | A0 pending action resumes too; a data-URL cover is uploaded first (multipart), then create | expected | 1 | 
+ux-1440 | p5.spec.ts | Publish button (signed in, with a profile) publishes; a click while publishing is ignored | expected | 1 | 
+ux-1440 | p5.spec.ts | an account without a profile claims a username inline, then publishes (legacy calls) | expected | 1 | 
+ux-1440 | p5.spec.ts | create-done light: "It's live" block, copy, button order and widths match the prototype; axe clean | expected | 1 | 
+ux-1440 | p5.spec.ts | create-done dark: "It's live" block, copy, button order and widths match the prototype; axe clean | expected | 1 | 
+ux-1440 | p5.spec.ts | signed-in create-3: styles and boxes still match (member nav), axe clean | unexpected | 2 | 
+ux-390 | p5.spec.ts | resume after sign-in (?resume=publish) publishes the draft with the legacy payload; done state | expected | 1 | 
+ux-390 | p5.spec.ts | A0 pending action resumes too; a data-URL cover is uploaded first (multipart), then create | expected | 1 | 
+ux-390 | p5.spec.ts | Publish button (signed in, with a profile) publishes; a click while publishing is ignored | expected | 1 | 
+ux-390 | p5.spec.ts | an account without a profile claims a username inline, then publishes (legacy calls) | expected | 1 | 
+ux-390 | p5.spec.ts | create-done light: "It's live" block, copy, button order and widths match the prototype; axe clean | expected | 1 | 
+ux-390 | p5.spec.ts | create-done dark: "It's live" block, copy, button order and widths match the prototype; axe clean | expected | 1 | 
+ux-390 | p5.spec.ts | signed-in create-3: styles and boxes still match (member nav), axe clean | unexpected | 2 | 
+ux-1440 | p5.spec.ts | every step control is reachable and operable from the keyboard | expected | 1 | 
+ux-390 | p5.spec.ts | every step control is reachable and operable from the keyboard | expected | 1 | 
+setup | auth.setup.ts | parity test user session | expected | 1 | 
+ux-1440 | p11.spec.ts | popular lists, rows, prototype styles, axe | expected | 1 | 
+ux-1440 | p11.spec.ts | typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row | expected | 1 | 
+ux-1440 | p11.spec.ts | no results: a real empty state, Enter goes to the full search page | expected | 1 | 
+ux-1440 | p11.spec.ts | a click on a row closes the overlay; Escape closes and returns focus | expected | 1 | 
+ux-390 | p11.spec.ts | popular lists, rows, prototype styles, axe | expected | 1 | 
+ux-390 | p11.spec.ts | typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row | expected | 1 | 
+ux-390 | p11.spec.ts | no results: a real empty state, Enter goes to the full search page | expected | 1 | 
+ux-390 | p11.spec.ts | a click on a row closes the overlay; Escape closes and returns focus | expected | 1 | 
+ux-1440 | p11.spec.ts | popular lists, rows, prototype styles, axe | expected | 1 | 
+ux-1440 | p11.spec.ts | typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row | expected | 1 | 
+ux-1440 | p11.spec.ts | no results: a real empty state, Enter goes to the full search page | expected | 1 | 
+ux-1440 | p11.spec.ts | a click on a row closes the overlay; Escape closes and returns focus | expected | 1 | 
+ux-390 | p11.spec.ts | popular lists, rows, prototype styles, axe | expected | 1 | 
+ux-390 | p11.spec.ts | typing: groups, quizzes of the group, songs; arrows; Enter opens the highlighted row | expected | 1 | 
+ux-390 | p11.spec.ts | no results: a real empty state, Enter goes to the full search page | expected | 1 | 
+ux-390 | p11.spec.ts | a click on a row closes the overlay; Escape closes and returns focus | expected | 1 | 
+ux-1440 | p11.spec.ts | /notifications still sends a guest to /login | expected | 1 | 
+ux-1440 | p11.spec.ts | the search endpoint: flag gated, public catalog only, no user field | expected | 1 | 
+ux-390 | p11.spec.ts | /notifications still sends a guest to /login | expected | 1 | 
+ux-390 | p11.spec.ts | the search endpoint: flag gated, public catalog only, no user field | expected | 1 | 
+ux-1440 | p11.spec.ts | layout and styles match the prototype (streak saved) | expected | 1 | 
+ux-1440 | p11.spec.ts | streak at risk: the real rule and the daily link | expected | 1 | 
+ux-1440 | p11.spec.ts | no streak: no row (min-gate) | expected | 1 | 
+ux-1440 | p11.spec.ts | filters: the count under the H1 follows the filter, All keeps the total (X2-010) | expected | 1 | 
+ux-390 | p11.spec.ts | layout and styles match the prototype (streak saved) | expected | 1 | 
+ux-390 | p11.spec.ts | streak at risk: the real rule and the daily link | expected | 1 | 
+ux-390 | p11.spec.ts | no streak: no row (min-gate) | expected | 1 | 
+ux-390 | p11.spec.ts | filters: the count under the H1 follows the filter, All keeps the total (X2-010) | expected | 1 | 
+ux-1440 | p11.spec.ts | layout and styles match the prototype (streak saved) | expected | 1 | 
+ux-1440 | p11.spec.ts | streak at risk: the real rule and the daily link | expected | 1 | 
+ux-1440 | p11.spec.ts | no streak: no row (min-gate) | expected | 1 | 
+ux-1440 | p11.spec.ts | filters: the count under the H1 follows the filter, All keeps the total (X2-010) | expected | 1 | 
+ux-390 | p11.spec.ts | layout and styles match the prototype (streak saved) | expected | 1 | 
+ux-390 | p11.spec.ts | streak at risk: the real rule and the daily link | expected | 1 | 
+ux-390 | p11.spec.ts | no streak: no row (min-gate) | expected | 1 | 
+ux-390 | p11.spec.ts | filters: the count under the H1 follows the filter, All keeps the total (X2-010) | expected | 1 | 
+ux-1440 | p11.spec.ts | real data: the test user's own notifications, read only | expected | 1 | 
+ux-1440 | p11.spec.ts | filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs | expected | 1 | 
+ux-1440 | p11.spec.ts | bell panel light: latest 6, styles, open a row, See all | expected | 1 | 
+ux-1440 | p11.spec.ts | bell panel dark: latest 6, styles, open a row, See all | expected | 1 | 
+ux-1440 | p11.spec.ts | bell: Mark all read in the header (A0 request 2) sets every row read | expected | 1 | 
+ux-390 | p11.spec.ts | real data: the test user's own notifications, read only | expected | 1 | 
+ux-390 | p11.spec.ts | filters, mark read on open, mark all read, row menu (dismiss, mute), load more: payloads on stubs | expected | 1 | 
+ux-390 | p11.spec.ts | bell panel light: latest 6, styles, open a row, See all | expected | 1 | 
+ux-390 | p11.spec.ts | bell panel dark: latest 6, styles, open a row, See all | expected | 1 | 
+ux-390 | p11.spec.ts | bell: Mark all read in the header (A0 request 2) sets every row read | expected | 1 | 
+ux-1440 | p6.spec.ts | SEO lock, every playlist link, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-1440 | p6.spec.ts | playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body | expected | 1 | 
+ux-1440 | p6.spec.ts | game: orb, keys 1-4, answer states, live region, focus to Next, Enter, sound, replay, quit | expected | 1 | 
+ux-1440 | p6.spec.ts | quit while the songs load: the hub stays, the late answer is ignored | expected | 1 | 
+ux-1440 | p6.spec.ts | results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else | expected | 1 | 
+ux-1440 | p6.spec.ts | daily: one try, the live saves in order, See today's board | expected | 1 | 
+ux-1440 | p6.spec.ts | daily deep link: tap to play the clip, and a played day goes to the board | expected | 1 | 
+ux-1440 | p6.spec.ts | today's board: flair names, your row Play starts the daily; played shows your rank | expected | 1 | 
+ux-1440 | p6.spec.ts | board when played: your rank row and the daily card say so | expected | 1 | 
+ux-1440 | p6.spec.ts | play by group: popular six, index, search + empty state, Show all, a row starts that group | expected | 1 | 
+ux-1440 | p6.spec.ts | challenge link: tap to play with the score to beat, attempt payload, who won | expected | 1 | 
+ux-1440 | p6.spec.ts | expired or unknown challenge link: toast, the hub stays | expected | 1 | 
+ux-1440 | p6.spec.ts | FAQ opens in place (answers in the HTML), theme links and keyboard focus ring | expected | 1 | 
+ux-390 | p6.spec.ts | SEO lock, every playlist link, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-390 | p6.spec.ts | playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body | expected | 1 | 
+ux-390 | p6.spec.ts | game: orb, keys 1-4, answer states, live region, focus to Next, Enter, sound, replay, quit | expected | 1 | 
+ux-390 | p6.spec.ts | quit while the songs load: the hub stays, the late answer is ignored | expected | 1 | 
+ux-390 | p6.spec.ts | results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else | expected | 1 | 
+ux-390 | p6.spec.ts | daily: one try, the live saves in order, See today's board | expected | 1 | 
+ux-390 | p6.spec.ts | daily deep link: tap to play the clip, and a played day goes to the board | expected | 1 | 
+ux-390 | p6.spec.ts | today's board: flair names, your row Play starts the daily; played shows your rank | expected | 1 | 
+ux-390 | p6.spec.ts | board when played: your rank row and the daily card say so | expected | 1 | 
+ux-390 | p6.spec.ts | play by group: popular six, index, search + empty state, Show all, a row starts that group | expected | 1 | 
+ux-390 | p6.spec.ts | challenge link: tap to play with the score to beat, attempt payload, who won | expected | 1 | 
+ux-390 | p6.spec.ts | expired or unknown challenge link: toast, the hub stays | expected | 1 | 
+ux-390 | p6.spec.ts | FAQ opens in place (answers in the HTML), theme links and keyboard focus ring | expected | 1 | 
+ux-1440 | p6.spec.ts | SEO lock, every playlist link, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-1440 | p6.spec.ts | playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body | expected | 1 | 
+ux-1440 | p6.spec.ts | game: orb, keys 1-4, answer states, live region, focus to Next, Enter, sound, replay, quit | expected | 1 | 
+ux-1440 | p6.spec.ts | quit while the songs load: the hub stays, the late answer is ignored | expected | 1 | 
+ux-1440 | p6.spec.ts | results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else | expected | 1 | 
+ux-1440 | p6.spec.ts | daily: one try, the live saves in order, See today's board | expected | 1 | 
+ux-1440 | p6.spec.ts | daily deep link: tap to play the clip, and a played day goes to the board | expected | 1 | 
+ux-1440 | p6.spec.ts | today's board: flair names, your row Play starts the daily; played shows your rank | expected | 1 | 
+ux-1440 | p6.spec.ts | board when played: your rank row and the daily card say so | expected | 1 | 
+ux-1440 | p6.spec.ts | play by group: popular six, index, search + empty state, Show all, a row starts that group | expected | 1 | 
+ux-1440 | p6.spec.ts | challenge link: tap to play with the score to beat, attempt payload, who won | expected | 1 | 
+ux-1440 | p6.spec.ts | expired or unknown challenge link: toast, the hub stays | expected | 1 | 
+ux-1440 | p6.spec.ts | FAQ opens in place (answers in the HTML), theme links and keyboard focus ring | expected | 1 | 
+ux-390 | p6.spec.ts | SEO lock, every playlist link, landmarks, no horizontal scroll, a11y | expected | 1 | 
+ux-390 | p6.spec.ts | playlist menu: all groups + mixes, search, pick, Escape returns focus; rounds; Start sends the live body | expected | 1 | 
+ux-390 | p6.spec.ts | game: orb, keys 1-4, answer states, live region, focus to Next, Enter, sound, replay, quit | expected | 1 | 
+ux-390 | p6.spec.ts | quit while the songs load: the hub stays, the late answer is ignored | expected | 1 | 
+ux-390 | p6.spec.ts | results: stats, Play again, Share sheet, song clips, Copy link payload, free play writes nothing else | expected | 1 | 
+ux-390 | p6.spec.ts | daily: one try, the live saves in order, See today's board | expected | 1 | 
+ux-390 | p6.spec.ts | daily deep link: tap to play the clip, and a played day goes to the board | expected | 1 | 
+ux-390 | p6.spec.ts | today's board: flair names, your row Play starts the daily; played shows your rank | expected | 1 | 
+ux-390 | p6.spec.ts | board when played: your rank row and the daily card say so | expected | 1 | 
+ux-390 | p6.spec.ts | play by group: popular six, index, search + empty state, Show all, a row starts that group | expected | 1 | 
+ux-390 | p6.spec.ts | challenge link: tap to play with the score to beat, attempt payload, who won | expected | 1 | 
+ux-390 | p6.spec.ts | expired or unknown challenge link: toast, the hub stays | expected | 1 | 
+ux-390 | p6.spec.ts | FAQ opens in place (answers in the HTML), theme links and keyboard focus ring | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/classic: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/group-stray-kids: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/girl-groups: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | Play works from the keyboard; a failed generate shows the error and the page stays | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/classic: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/group-stray-kids: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/girl-groups: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | Play works from the keyboard; a failed generate shows the error and the page stays | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/classic: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/group-stray-kids: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | /blindtest/girl-groups: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-1440 | p6.spec.ts | Play works from the keyboard; a failed generate shows the error and the page stays | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/classic: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/group-stray-kids: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | /blindtest/girl-groups: today's SEO copy, Play starts the hub's run, a round to results, nothing saved | expected | 1 | 
+ux-390 | p6.spec.ts | Play works from the keyboard; a failed generate shows the error and the page stays | expected | 1 | 
+ux-1440 | p6.spec.ts | all 18 static modes: today's H1, Play sends their body, the game starts | expected | 1 | 
+ux-1440 | p6.spec.ts | doors: the hub theme link, the group hub Blindtest button and a search song row open a page that plays | unexpected | 2 | 
+ux-1440 | p6.spec.ts | a group without a playlist says so (no dead Play), keeps today's H1 and link | expected | 1 | 
+ux-390 | p6.spec.ts | all 18 static modes: today's H1, Play sends their body, the game starts | expected | 1 | 
+ux-390 | p6.spec.ts | doors: the hub theme link, the group hub Blindtest button and a search song row open a page that plays | unexpected | 2 | 
+ux-390 | p6.spec.ts | a group without a playlist says so (no dead Play), keeps today's H1 and link | expected | 1 | 
+ux-1440 | p6.spec.ts | board endpoint answers its shape; the hub lists every playable group | expected | 1 | 
+ux-1440 | p6.spec.ts | unknown challenge code is a 404 | expected | 1 | 
+ux-390 | p6.spec.ts | board endpoint answers its shape; the hub lists every playable group | expected | 1 | 
+ux-390 | p6.spec.ts | unknown challenge code is a 404 | expected | 1 | 
+ux-1440 | p6.spec.ts | your row, best and played state come from the real board; zero writes | expected | 1 | 
+ux-390 | p6.spec.ts | your row, best and played state come from the real board; zero writes | expected | 1 | 
+ux-1440 | p7.spec.ts | not live today (real API, read only): truthful state, rules, no ladder, noindex, a11y | expected | 1 | 
+ux-1440 | p7.spec.ts | placed player (engine fixture): card, tiers, ladder, pinned row, landmarks, a11y | expected | 1 | 
+ux-1440 | p7.spec.ts | ladder scopes: My fandom, Following, no main fandom = Settings link | expected | 1 | 
+ux-1440 | p7.spec.ts | guest: sign-in call opens the sheet (Escape returns focus); personal scopes ask to sign in | expected | 1 | 
+ux-1440 | p7.spec.ts | placing and no runs left: "3 / 5 placed"; the button is disabled at 0 left | expected | 1 | 
+ux-1440 | p7.spec.ts | a full ranked run: server rounds, server points, results with the season impact | expected | 1 | 
+ux-1440 | p7.spec.ts | keys 1-4 answer and Enter goes on; a timeout sends choice null; quitting records the run | expected | 1 | 
+ux-1440 | p7.spec.ts | refused start (15 a day): toast, no game | expected | 1 | 
+ux-390 | p7.spec.ts | not live today (real API, read only): truthful state, rules, no ladder, noindex, a11y | expected | 1 | 
+ux-390 | p7.spec.ts | placed player (engine fixture): card, tiers, ladder, pinned row, landmarks, a11y | expected | 1 | 
+ux-390 | p7.spec.ts | ladder scopes: My fandom, Following, no main fandom = Settings link | expected | 1 | 
+ux-390 | p7.spec.ts | guest: sign-in call opens the sheet (Escape returns focus); personal scopes ask to sign in | expected | 1 | 
+ux-390 | p7.spec.ts | placing and no runs left: "3 / 5 placed"; the button is disabled at 0 left | expected | 1 | 
+ux-390 | p7.spec.ts | a full ranked run: server rounds, server points, results with the season impact | expected | 1 | 
+ux-390 | p7.spec.ts | keys 1-4 answer and Enter goes on; a timeout sends choice null; quitting records the run | expected | 1 | 
+ux-390 | p7.spec.ts | refused start (15 a day): toast, no game | expected | 1 | 
+ux-1440 | p7.spec.ts | not live today (real API, read only): truthful state, rules, no ladder, noindex, a11y | expected | 1 | 
+ux-1440 | p7.spec.ts | placed player (engine fixture): card, tiers, ladder, pinned row, landmarks, a11y | expected | 1 | 
+ux-1440 | p7.spec.ts | ladder scopes: My fandom, Following, no main fandom = Settings link | expected | 1 | 
+ux-1440 | p7.spec.ts | guest: sign-in call opens the sheet (Escape returns focus); personal scopes ask to sign in | expected | 1 | 
+ux-1440 | p7.spec.ts | placing and no runs left: "3 / 5 placed"; the button is disabled at 0 left | expected | 1 | 
+ux-1440 | p7.spec.ts | a full ranked run: server rounds, server points, results with the season impact | expected | 1 | 
+ux-1440 | p7.spec.ts | keys 1-4 answer and Enter goes on; a timeout sends choice null; quitting records the run | expected | 1 | 
+ux-1440 | p7.spec.ts | refused start (15 a day): toast, no game | expected | 1 | 
+ux-390 | p7.spec.ts | not live today (real API, read only): truthful state, rules, no ladder, noindex, a11y | expected | 1 | 
+ux-390 | p7.spec.ts | placed player (engine fixture): card, tiers, ladder, pinned row, landmarks, a11y | expected | 1 | 
+ux-390 | p7.spec.ts | ladder scopes: My fandom, Following, no main fandom = Settings link | expected | 1 | 
+ux-390 | p7.spec.ts | guest: sign-in call opens the sheet (Escape returns focus); personal scopes ask to sign in | expected | 1 | 
+ux-390 | p7.spec.ts | placing and no runs left: "3 / 5 placed"; the button is disabled at 0 left | expected | 1 | 
+ux-390 | p7.spec.ts | a full ranked run: server rounds, server points, results with the season impact | expected | 1 | 
+ux-390 | p7.spec.ts | keys 1-4 answer and Enter goes on; a timeout sends choice null; quitting records the run | expected | 1 | 
+ux-390 | p7.spec.ts | refused start (15 a day): toast, no game | expected | 1 | 
+ux-1440 | p7.spec.ts | signed in as the test user (real API, read only): not live, nothing written | expected | 1 | 
+ux-390 | p7.spec.ts | signed in as the test user (real API, read only): not live, nothing written | expected | 1 | 
+ux-1440 | p8.spec.ts | guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write | expected | 1 | 
+ux-1440 | p8.spec.ts | tabs (click + arrow keys), the group menu, Following asks a guest to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | keyboard (C3-007): the feed panel is a Tab stop and shows the 16.9 focus ring (A0 shared style) | expected | 1 | 
+ux-1440 | p8.spec.ts | editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet | expected | 1 | 
+ux-390 | p8.spec.ts | guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write | expected | 1 | 
+ux-390 | p8.spec.ts | tabs (click + arrow keys), the group menu, Following asks a guest to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | keyboard (C3-007): the feed panel is a Tab stop and shows the 16.9 focus ring (A0 shared style) | expected | 1 | 
+ux-390 | p8.spec.ts | editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet | expected | 1 | 
+ux-1440 | p8.spec.ts | blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles | expected | 1 | 
+ux-1440 | p8.spec.ts | thread post: report asks to sign in, replies point at the thread | expected | 1 | 
+ux-1440 | p8.spec.ts | today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only | expected | 1 | 
+ux-1440 | p8.spec.ts | unknown kind, unknown id and the pending challenge store answer 404; pending write routes answer before any write | expected | 1 | 
+ux-390 | p8.spec.ts | blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles | expected | 1 | 
+ux-390 | p8.spec.ts | thread post: report asks to sign in, replies point at the thread | expected | 1 | 
+ux-390 | p8.spec.ts | today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only | expected | 1 | 
+ux-390 | p8.spec.ts | unknown kind, unknown id and the pending challenge store answer 404; pending write routes answer before any write | expected | 1 | 
+ux-1440 | p8.spec.ts | composer avatar, Following tab, thread post payload, blog heart payload | expected | 1 | 
+ux-1440 | p8.spec.ts | rail vote + cheer payloads (or the saved vote) | expected | 1 | 
+ux-1440 | p8.spec.ts | blog reply payload | expected | 1 | 
+ux-1440 | p8.spec.ts | thread report payload, thread reply payload | expected | 1 | 
+ux-1440 | p8.spec.ts | compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request | expected | 1 | 
+ux-390 | p8.spec.ts | composer avatar, Following tab, thread post payload, blog heart payload | expected | 1 | 
+ux-390 | p8.spec.ts | rail vote + cheer payloads (or the saved vote) | expected | 1 | 
+ux-390 | p8.spec.ts | blog reply payload | expected | 1 | 
+ux-390 | p8.spec.ts | thread report payload, thread reply payload | expected | 1 | 
+ux-390 | p8.spec.ts | compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request | expected | 1 | 
+ux-1440 | p8.spec.ts | guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write | expected | 1 | 
+ux-1440 | p8.spec.ts | tabs (click + arrow keys), the group menu, Following asks a guest to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | keyboard (C3-007): the feed panel is a Tab stop and shows the 16.9 focus ring (A0 shared style) | expected | 1 | 
+ux-1440 | p8.spec.ts | editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in | expected | 1 | 
+ux-1440 | p8.spec.ts | rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet | expected | 1 | 
+ux-390 | p8.spec.ts | guest: noindex new URL, one H1, real post links, landmarks + styles, no scroll, a11y, no write | expected | 1 | 
+ux-390 | p8.spec.ts | tabs (click + arrow keys), the group menu, Following asks a guest to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | keyboard (C3-007): the feed panel is a Tab stop and shows the 16.9 focus ring (A0 shared style) | expected | 1 | 
+ux-390 | p8.spec.ts | editor: four modes, fields, validation, closes by X / Escape / backdrop with focus back, guest Post asks to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | compose URL (P5 create done link): opens the sheet in challenge mode, drops the params, guest asked to sign in | expected | 1 | 
+ux-390 | p8.spec.ts | rail as a guest: vote, cheer and heart ask to sign in, share opens the share sheet | expected | 1 | 
+ux-1440 | p8.spec.ts | blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles | expected | 1 | 
+ux-1440 | p8.spec.ts | thread post: report asks to sign in, replies point at the thread | expected | 1 | 
+ux-1440 | p8.spec.ts | today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only | expected | 1 | 
+ux-1440 | p8.spec.ts | unknown kind, unknown id and the pending challenge store answer 404; pending write routes answer before any write | expected | 1 | 
+ux-390 | p8.spec.ts | blog post: crumb, one H1, noindex, cover, heart, replies box grows, More from the community, styles | expected | 1 | 
+ux-390 | p8.spec.ts | thread post: report asks to sign in, replies point at the thread | expected | 1 | 
+ux-390 | p8.spec.ts | today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only | expected | 1 | 
+ux-390 | p8.spec.ts | unknown kind, unknown id and the pending challenge store answer 404; pending write routes answer before any write | expected | 1 | 
+ux-1440 | p8.spec.ts | composer avatar, Following tab, thread post payload, blog heart payload | expected | 1 | 
+ux-1440 | p8.spec.ts | rail vote + cheer payloads (or the saved vote) | expected | 1 | 
+ux-1440 | p8.spec.ts | blog reply payload | expected | 1 | 
+ux-1440 | p8.spec.ts | thread report payload, thread reply payload | expected | 1 | 
+ux-1440 | p8.spec.ts | compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request | expected | 1 | 
+ux-390 | p8.spec.ts | composer avatar, Following tab, thread post payload, blog heart payload | expected | 1 | 
+ux-390 | p8.spec.ts | rail vote + cheer payloads (or the saved vote) | expected | 1 | 
+ux-390 | p8.spec.ts | blog reply payload | expected | 1 | 
+ux-390 | p8.spec.ts | thread report payload, thread reply payload | expected | 1 | 
+ux-390 | p8.spec.ts | compose URL (P5 create done link): challenge mode lists the runs of that quiz, latest preselected; all scores on request | expected | 1 | 
+ux-1440 | p8.spec.ts | VERSE_PUBLIC=true: threads and blogs of live spaces only; Thread and Blog list live spaces only; debates list every group | expected | 1 | 
+ux-1440 | p8.spec.ts | VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode | skipped | 1 | this server runs with VERSE_PUBLIC=true: the case above
+ux-390 | p8.spec.ts | VERSE_PUBLIC=true: threads and blogs of live spaces only; Thread and Blog list live spaces only; debates list every group | expected | 1 | 
+ux-390 | p8.spec.ts | VERSE_PUBLIC=false: no thread or blog anywhere, their URLs 404, no Blogs tab, no Thread or Blog mode | skipped | 1 | this server runs with VERSE_PUBLIC=true: the case above
+ux-1440 | p9.spec.ts | guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks | expected | 1 | 
+ux-1440 | p9.spec.ts | tabs: arrow keys, Home / End, hash deep links, URL follows the tab | expected | 1 | 
+ux-1440 | p9.spec.ts | Players (real data): all-time XP board, passport links, flair, no guest pin | expected | 1 | 
+ux-1440 | p9.spec.ts | Creators (real data): plays received board, the switch only with 2+ boards | expected | 1 | 
+ux-1440 | p9.spec.ts | Ranked, not live today (real API, read only, fetched when the tab opens) | expected | 1 | 
+ux-1440 | p9.spec.ts | Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row | expected | 1 | 
+ux-1440 | p9.spec.ts | How points work: three native folds with the real rules, mouse and keyboard | expected | 1 | 
+ux-1440 | p9.spec.ts | Around the community (real data): the live page's links and floors | expected | 1 | 
+ux-390 | p9.spec.ts | guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks | expected | 1 | 
+ux-390 | p9.spec.ts | tabs: arrow keys, Home / End, hash deep links, URL follows the tab | expected | 1 | 
+ux-390 | p9.spec.ts | Players (real data): all-time XP board, passport links, flair, no guest pin | expected | 1 | 
+ux-390 | p9.spec.ts | Creators (real data): plays received board, the switch only with 2+ boards | expected | 1 | 
+ux-390 | p9.spec.ts | Ranked, not live today (real API, read only, fetched when the tab opens) | expected | 1 | 
+ux-390 | p9.spec.ts | Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row | expected | 1 | 
+ux-390 | p9.spec.ts | How points work: three native folds with the real rules, mouse and keyboard | expected | 1 | 
+ux-390 | p9.spec.ts | Around the community (real data): the live page's links and floors | expected | 1 | 
+ux-1440 | p9.spec.ts | guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks | expected | 1 | 
+ux-1440 | p9.spec.ts | tabs: arrow keys, Home / End, hash deep links, URL follows the tab | expected | 1 | 
+ux-1440 | p9.spec.ts | Players (real data): all-time XP board, passport links, flair, no guest pin | expected | 1 | 
+ux-1440 | p9.spec.ts | Creators (real data): plays received board, the switch only with 2+ boards | expected | 1 | 
+ux-1440 | p9.spec.ts | Ranked, not live today (real API, read only, fetched when the tab opens) | expected | 1 | 
+ux-1440 | p9.spec.ts | Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row | expected | 1 | 
+ux-1440 | p9.spec.ts | How points work: three native folds with the real rules, mouse and keyboard | expected | 1 | 
+ux-1440 | p9.spec.ts | Around the community (real data): the live page's links and floors | expected | 1 | 
+ux-390 | p9.spec.ts | guest, Fandom war (real data): SEO lock, podium, 30 hub links, fold, weekly change, guest pin, a11y, landmarks | expected | 1 | 
+ux-390 | p9.spec.ts | tabs: arrow keys, Home / End, hash deep links, URL follows the tab | expected | 1 | 
+ux-390 | p9.spec.ts | Players (real data): all-time XP board, passport links, flair, no guest pin | expected | 1 | 
+ux-390 | p9.spec.ts | Creators (real data): plays received board, the switch only with 2+ boards | expected | 1 | 
+ux-390 | p9.spec.ts | Ranked, not live today (real API, read only, fetched when the tab opens) | expected | 1 | 
+ux-390 | p9.spec.ts | Ranked, live season (P7 engine outputs): season line, podium, rows, your pinned row | expected | 1 | 
+ux-390 | p9.spec.ts | How points work: three native folds with the real rules, mouse and keyboard | expected | 1 | 
+ux-390 | p9.spec.ts | Around the community (real data): the live page's links and floors | expected | 1 | 
+ux-1440 | p9.spec.ts | pins from GET /api/ux-v1/p9/standing, no write (light) | expected | 1 | 
+ux-1440 | p9.spec.ts | a fan with a main fandom (standing fixture): war, players and creators pins (light) | expected | 1 | 
+ux-1440 | p9.spec.ts | pins from GET /api/ux-v1/p9/standing, no write (dark) | expected | 1 | 
+ux-1440 | p9.spec.ts | a fan with a main fandom (standing fixture): war, players and creators pins (dark) | expected | 1 | 
+ux-390 | p9.spec.ts | pins from GET /api/ux-v1/p9/standing, no write (light) | expected | 1 | 
+ux-390 | p9.spec.ts | a fan with a main fandom (standing fixture): war, players and creators pins (light) | expected | 1 | 
+ux-390 | p9.spec.ts | pins from GET /api/ux-v1/p9/standing, no write (dark) | expected | 1 | 
+ux-390 | p9.spec.ts | a fan with a main fandom (standing fixture): war, players and creators pins (dark) | expected | 1 | 
+ux-1440 | shell.spec.ts | frame, nav state, footer, no horizontal scroll, reference styles, axe | expected | 1 | 
+ux-1440 | shell.spec.ts | search overlay: button, "/" key, Escape, backdrop, focus return | expected | 1 | 
+ux-390 | shell.spec.ts | frame, nav state, footer, no horizontal scroll, reference styles, axe | expected | 1 | 
+ux-390 | shell.spec.ts | search overlay: button, "/" key, Escape, backdrop, focus return | expected | 1 | 
+ux-1440 | shell.spec.ts | frame, nav state, footer, no horizontal scroll, reference styles, axe | expected | 1 | 
+ux-1440 | shell.spec.ts | search overlay: button, "/" key, Escape, backdrop, focus return | expected | 1 | 
+ux-390 | shell.spec.ts | frame, nav state, footer, no horizontal scroll, reference styles, axe | expected | 1 | 
+ux-390 | shell.spec.ts | search overlay: button, "/" key, Escape, backdrop, focus return | expected | 1 | 
+ux-1440 | shell.spec.ts | server HTML links to /search; only a plain click opens the overlay | expected | 1 | 
+ux-390 | shell.spec.ts | server HTML links to /search; only a plain click opens the overlay | expected | 1 | 
+ux-1440 | shell.spec.ts | the search link opens the search page | expected | 1 | 
+ux-390 | shell.spec.ts | the search link opens the search page | expected | 1 | 
+ux-1440 | shell.spec.ts | skip link, focus ring, nav / tab bar reachable by keyboard | expected | 1 | 
+ux-1440 | shell.spec.ts | sign-in sheet: focus trap, Escape / X / backdrop close, OAuth + magic link (stubbed) | expected | 1 | 
+ux-1440 | shell.spec.ts | phone: guest "You" tab opens the passport invitation; the sign-in sheet is a bottom sheet | skipped | 1 | phone only
+ux-390 | shell.spec.ts | skip link, focus ring, nav / tab bar reachable by keyboard | expected | 1 | 
+ux-390 | shell.spec.ts | sign-in sheet: focus trap, Escape / X / backdrop close, OAuth + magic link (stubbed) | expected | 1 | 
+ux-390 | shell.spec.ts | phone: guest "You" tab opens the passport invitation; the sign-in sheet is a bottom sheet | expected | 1 | 
+ux-1440 | shell.spec.ts | focus moves to the new page H1, no ring, title updates | expected | 1 | 
+ux-1440 | shell.spec.ts | keyboard: Enter on a nav link lands on the new H1 | expected | 1 | 
+ux-1440 | shell.spec.ts | a page that focuses its own field on mount keeps that focus | expected | 1 | 
+ux-390 | shell.spec.ts | focus moves to the new page H1, no ring, title updates | expected | 1 | 
+ux-390 | shell.spec.ts | keyboard: Enter on a nav link lands on the new H1 | skipped | 1 | desktop nav
+ux-390 | shell.spec.ts | a page that focuses its own field on mount keeps that focus | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1440px (light): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1280px (light): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1100px (light): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1440px (dark): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1280px (dark): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1100px (dark): one line, no overlap, 8px between the pills | expected | 1 | 
+ux-390 | shell.spec.ts | at 1440px (light): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1280px (light): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1100px (light): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1440px (dark): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1280px (dark): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1100px (dark): one line, no overlap, 8px between the pills | skipped | 1 | desktop widths
+ux-1440 | shell.spec.ts | at 1440px (light): Create, streak pill, bell, avatar on one line | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1280px (light): Create, streak pill, bell, avatar on one line | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1440px (dark): Create, streak pill, bell, avatar on one line | expected | 1 | 
+ux-1440 | shell.spec.ts | at 1280px (dark): Create, streak pill, bell, avatar on one line | expected | 1 | 
+ux-390 | shell.spec.ts | at 1440px (light): Create, streak pill, bell, avatar on one line | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1280px (light): Create, streak pill, bell, avatar on one line | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1440px (dark): Create, streak pill, bell, avatar on one line | skipped | 1 | desktop widths
+ux-390 | shell.spec.ts | at 1280px (dark): Create, streak pill, bell, avatar on one line | skipped | 1 | desktop widths
+ux-1440 | shell.spec.ts | nav islands read the real account | expected | 1 | 
+ux-1440 | shell.spec.ts | account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count | expected | 1 | 
+ux-390 | shell.spec.ts | nav islands read the real account | expected | 1 | 
+ux-390 | shell.spec.ts | account menu: My quizzes opens the passport Quizzes tab (also in place) with the draft count | skipped | 1 | the account menu sits in the top bar above 900px (phones and tablets: the You tab)
+ux-1440 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, guest (light) | expected | 1 | 
+ux-1440 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, signed in, no streak and a 4-digit streak (light) | expected | 1 | 
+ux-1440 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, guest (dark) | expected | 1 | 
+ux-1440 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, signed in, no streak and a 4-digit streak (dark) | expected | 1 | 
+ux-1440 | shell.spec.ts | tablet (800px) phone chrome: room under the page and toasts above the tab bar; none of it from 901px | expected | 1 | 
+ux-1440 | shell.spec.ts | legacy toast stack: above the tab bar up to 900px, 24px up from 901px and in create mode | expected | 1 | 
+ux-1440 | shell.spec.ts | room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (light) | expected | 1 | 
+ux-1440 | shell.spec.ts | room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (dark) | expected | 1 | 
+ux-390 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, guest (light) | expected | 1 | 
+ux-390 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, signed in, no streak and a 4-digit streak (light) | expected | 1 | 
+ux-390 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, guest (dark) | expected | 1 | 
+ux-390 | shell.spec.ts | no horizontal scroll from 761 to 1279px, 1px steps, signed in, no streak and a 4-digit streak (dark) | expected | 1 | 
+ux-390 | shell.spec.ts | tablet (800px) phone chrome: room under the page and toasts above the tab bar; none of it from 901px | expected | 1 | 
+ux-390 | shell.spec.ts | legacy toast stack: above the tab bar up to 900px, 24px up from 901px and in create mode | expected | 1 | 
+ux-390 | shell.spec.ts | room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (light) | expected | 1 | 
+ux-390 | shell.spec.ts | room under the footer: 64px on phones, none on desktop, legacy 72px on Verse (dark) | expected | 1 | 
+setup | auth.setup.ts | parity test user session | expected | 1 | 
+ux-1440 | p10.spec.ts | renders the public passport with its SEO head, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | matches the prototype: styles.json + P10 reference | expected | 1 | 
+ux-1440 | p10.spec.ts | tabs: click, arrow keys, the "All N badges" link, badges tab styles | expected | 1 | 
+ux-1440 | p10.spec.ts | quizzes tab: real rows or the empty state | expected | 1 | 
+ux-1440 | p10.spec.ts | draft row of the personal Quizzes tab: prototype styles, geometry within 2px (component markup in the real page CSS) | expected | 1 | 
+ux-1440 | p10.spec.ts | share sheet: focus in, trap, Escape / backdrop / X close, focus returns; copy writes nothing | expected | 1 | 
+ux-1440 | p10.spec.ts | visitor Story image: A0's default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write | expected | 1 | 
+ux-1440 | p10.spec.ts | Follow as a guest opens the sign-in sheet (no write) | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls, keyboard reaches every control | expected | 1 | 
+ux-390 | p10.spec.ts | renders the public passport with its SEO head, no write | expected | 1 | 
+ux-390 | p10.spec.ts | matches the prototype: styles.json + P10 reference | expected | 1 | 
+ux-390 | p10.spec.ts | tabs: click, arrow keys, the "All N badges" link, badges tab styles | expected | 1 | 
+ux-390 | p10.spec.ts | quizzes tab: real rows or the empty state | expected | 1 | 
+ux-390 | p10.spec.ts | draft row of the personal Quizzes tab: prototype styles, geometry within 2px (component markup in the real page CSS) | expected | 1 | 
+ux-390 | p10.spec.ts | share sheet: focus in, trap, Escape / backdrop / X close, focus returns; copy writes nothing | expected | 1 | 
+ux-390 | p10.spec.ts | visitor Story image: A0's default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write | expected | 1 | 
+ux-390 | p10.spec.ts | Follow as a guest opens the sign-in sheet (no write) | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls, keyboard reaches every control | expected | 1 | 
+ux-1440 | p10.spec.ts | renders the public passport with its SEO head, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | matches the prototype: styles.json + P10 reference | expected | 1 | 
+ux-1440 | p10.spec.ts | tabs: click, arrow keys, the "All N badges" link, badges tab styles | expected | 1 | 
+ux-1440 | p10.spec.ts | quizzes tab: real rows or the empty state | expected | 1 | 
+ux-1440 | p10.spec.ts | draft row of the personal Quizzes tab: prototype styles, geometry within 2px (component markup in the real page CSS) | expected | 1 | 
+ux-1440 | p10.spec.ts | share sheet: focus in, trap, Escape / backdrop / X close, focus returns; copy writes nothing | expected | 1 | 
+ux-1440 | p10.spec.ts | visitor Story image: A0's default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write | expected | 1 | 
+ux-1440 | p10.spec.ts | Follow as a guest opens the sign-in sheet (no write) | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls, keyboard reaches every control | expected | 1 | 
+ux-390 | p10.spec.ts | renders the public passport with its SEO head, no write | expected | 1 | 
+ux-390 | p10.spec.ts | matches the prototype: styles.json + P10 reference | expected | 1 | 
+ux-390 | p10.spec.ts | tabs: click, arrow keys, the "All N badges" link, badges tab styles | expected | 1 | 
+ux-390 | p10.spec.ts | quizzes tab: real rows or the empty state | expected | 1 | 
+ux-390 | p10.spec.ts | draft row of the personal Quizzes tab: prototype styles, geometry within 2px (component markup in the real page CSS) | expected | 1 | 
+ux-390 | p10.spec.ts | share sheet: focus in, trap, Escape / backdrop / X close, focus returns; copy writes nothing | expected | 1 | 
+ux-390 | p10.spec.ts | visitor Story image: A0's default 1080 x 1920 card, downloaded (no file sharing) or shared as a file; no network write | expected | 1 | 
+ux-390 | p10.spec.ts | Follow as a guest opens the sign-in sheet (no write) | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls, keyboard reaches every control | expected | 1 | 
+ux-1440 | p10.spec.ts | a guest on /me gets the invitation (not /login): noindex head, one H1, prototype copy, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | /profile as a guest: 307 to /me, then the same invitation | expected | 1 | 
+ux-1440 | p10.spec.ts | matches the prototype: landmark boxes within 2px, computed styles equal | expected | 1 | 
+ux-1440 | p10.spec.ts | Sign in opens the sign-in sheet "Open your passport" (X / Escape / backdrop, focus returns); the email link returns to /me; nothing reaches the server | expected | 1 | 
+ux-1440 | p10.spec.ts | Play a quiz first opens today's daily quiz (GET /daily) | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical (page and sheet), keyboard reaches and operates both controls | expected | 1 | 
+ux-1440 | p10.spec.ts | flag off: a guest on /me and /profile still lands on /login, exactly as today | skipped | 1 | flag on: covered by the tests above
+ux-390 | p10.spec.ts | a guest on /me gets the invitation (not /login): noindex head, one H1, prototype copy, no write | expected | 1 | 
+ux-390 | p10.spec.ts | /profile as a guest: 307 to /me, then the same invitation | expected | 1 | 
+ux-390 | p10.spec.ts | matches the prototype: landmark boxes within 2px, computed styles equal | expected | 1 | 
+ux-390 | p10.spec.ts | Sign in opens the sign-in sheet "Open your passport" (X / Escape / backdrop, focus returns); the email link returns to /me; nothing reaches the server | expected | 1 | 
+ux-390 | p10.spec.ts | Play a quiz first opens today's daily quiz (GET /daily) | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical (page and sheet), keyboard reaches and operates both controls | expected | 1 | 
+ux-390 | p10.spec.ts | flag off: a guest on /me and /profile still lands on /login, exactly as today | skipped | 1 | flag on: covered by the tests above
+ux-1440 | p10.spec.ts | a guest on /me gets the invitation (not /login): noindex head, one H1, prototype copy, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | /profile as a guest: 307 to /me, then the same invitation | expected | 1 | 
+ux-1440 | p10.spec.ts | matches the prototype: landmark boxes within 2px, computed styles equal | expected | 1 | 
+ux-1440 | p10.spec.ts | Sign in opens the sign-in sheet "Open your passport" (X / Escape / backdrop, focus returns); the email link returns to /me; nothing reaches the server | expected | 1 | 
+ux-1440 | p10.spec.ts | Play a quiz first opens today's daily quiz (GET /daily) | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical (page and sheet), keyboard reaches and operates both controls | expected | 1 | 
+ux-1440 | p10.spec.ts | flag off: a guest on /me and /profile still lands on /login, exactly as today | skipped | 1 | flag on: covered by the tests above
+ux-390 | p10.spec.ts | a guest on /me gets the invitation (not /login): noindex head, one H1, prototype copy, no write | expected | 1 | 
+ux-390 | p10.spec.ts | /profile as a guest: 307 to /me, then the same invitation | expected | 1 | 
+ux-390 | p10.spec.ts | matches the prototype: landmark boxes within 2px, computed styles equal | expected | 1 | 
+ux-390 | p10.spec.ts | Sign in opens the sign-in sheet "Open your passport" (X / Escape / backdrop, focus returns); the email link returns to /me; nothing reaches the server | expected | 1 | 
+ux-390 | p10.spec.ts | Play a quiz first opens today's daily quiz (GET /daily) | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical (page and sheet), keyboard reaches and operates both controls | expected | 1 | 
+ux-390 | p10.spec.ts | flag off: a guest on /me and /profile still lands on /login, exactly as today | skipped | 1 | flag on: covered by the tests above
+ux-1440 | p10.spec.ts | owner controls: Change header, Edit passport, no Follow, prototype styles, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | header sheet: prototype styles, focus trap, Escape / backdrop / X close, focus returns | expected | 1 | 
+ux-1440 | p10.spec.ts | upload: multipart to the P10 route, band switches to the new image | expected | 1 | 
+ux-1440 | p10.spec.ts | paste a link: JSON to the P10 link route; theme colour clears header_url through update-profile | expected | 1 | 
+ux-1440 | p10.spec.ts | the sheet refuses a GIF, a big file and an http link before any request | expected | 1 | 
+ux-1440 | p10.spec.ts | the real header routes fail soft and can never write from this test | expected | 1 | 
+ux-390 | p10.spec.ts | owner controls: Change header, Edit passport, no Follow, prototype styles, no write | expected | 1 | 
+ux-390 | p10.spec.ts | header sheet: prototype styles, focus trap, Escape / backdrop / X close, focus returns | expected | 1 | 
+ux-390 | p10.spec.ts | upload: multipart to the P10 route, band switches to the new image | expected | 1 | 
+ux-390 | p10.spec.ts | paste a link: JSON to the P10 link route; theme colour clears header_url through update-profile | expected | 1 | 
+ux-390 | p10.spec.ts | the sheet refuses a GIF, a big file and an http link before any request | expected | 1 | 
+ux-390 | p10.spec.ts | the real header routes fail soft and can never write from this test | expected | 1 | 
+ux-1440 | p10.spec.ts | owner controls: Change header, Edit passport, no Follow, prototype styles, no write | expected | 1 | 
+ux-1440 | p10.spec.ts | header sheet: prototype styles, focus trap, Escape / backdrop / X close, focus returns | expected | 1 | 
+ux-1440 | p10.spec.ts | upload: multipart to the P10 route, band switches to the new image | expected | 1 | 
+ux-1440 | p10.spec.ts | paste a link: JSON to the P10 link route; theme colour clears header_url through update-profile | expected | 1 | 
+ux-1440 | p10.spec.ts | the sheet refuses a GIF, a big file and an http link before any request | expected | 1 | 
+ux-1440 | p10.spec.ts | the real header routes fail soft and can never write from this test | expected | 1 | 
+ux-390 | p10.spec.ts | owner controls: Change header, Edit passport, no Follow, prototype styles, no write | expected | 1 | 
+ux-390 | p10.spec.ts | header sheet: prototype styles, focus trap, Escape / backdrop / X close, focus returns | expected | 1 | 
+ux-390 | p10.spec.ts | upload: multipart to the P10 route, band switches to the new image | expected | 1 | 
+ux-390 | p10.spec.ts | paste a link: JSON to the P10 link route; theme colour clears header_url through update-profile | expected | 1 | 
+ux-390 | p10.spec.ts | the sheet refuses a GIF, a big file and an http link before any request | expected | 1 | 
+ux-390 | p10.spec.ts | the real header routes fail soft and can never write from this test | expected | 1 | 
+ux-1440 | p10.spec.ts | renders every section with prototype styles, reads only, no save bar | expected | 1 | 
+ux-1440 | p10.spec.ts | Your look: live preview, save posts ONLY the changed fields to update-profile (legacy shapes) | expected | 1 | 
+ux-1440 | p10.spec.ts | round trip with no change sends nothing; Discard restores and sends nothing | expected | 1 | 
+ux-1440 | p10.spec.ts | save bar: above the tab bar up to 900px (390, 768, 820, 900), 16px from the bottom from 901px (901, 1280) | expected | 1 | 
+ux-1440 | p10.spec.ts | radio groups work with arrow keys; pinned badge and bias chips are real choices | expected | 1 | 
+ux-1440 | p10.spec.ts | notifications: switches save through /api/notifications/prefs, changed keys only | expected | 1 | 
+ux-1440 | p10.spec.ts | profile fields: username check, photo link, groups; appearance and sounds stay on the device | expected | 1 | 
+ux-1440 | p10.spec.ts | account: download is a read, sign out and delete never write for real | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls | expected | 1 | 
+ux-390 | p10.spec.ts | renders every section with prototype styles, reads only, no save bar | expected | 1 | 
+ux-390 | p10.spec.ts | Your look: live preview, save posts ONLY the changed fields to update-profile (legacy shapes) | expected | 1 | 
+ux-390 | p10.spec.ts | round trip with no change sends nothing; Discard restores and sends nothing | expected | 1 | 
+ux-390 | p10.spec.ts | save bar: above the tab bar up to 900px (390, 768, 820, 900), 16px from the bottom from 901px (901, 1280) | expected | 1 | 
+ux-390 | p10.spec.ts | radio groups work with arrow keys; pinned badge and bias chips are real choices | expected | 1 | 
+ux-390 | p10.spec.ts | notifications: switches save through /api/notifications/prefs, changed keys only | expected | 1 | 
+ux-390 | p10.spec.ts | profile fields: username check, photo link, groups; appearance and sounds stay on the device | expected | 1 | 
+ux-390 | p10.spec.ts | account: download is a read, sign out and delete never write for real | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls | expected | 1 | 
+ux-1440 | p10.spec.ts | renders every section with prototype styles, reads only, no save bar | expected | 1 | 
+ux-1440 | p10.spec.ts | Your look: live preview, save posts ONLY the changed fields to update-profile (legacy shapes) | expected | 1 | 
+ux-1440 | p10.spec.ts | round trip with no change sends nothing; Discard restores and sends nothing | expected | 1 | 
+ux-1440 | p10.spec.ts | save bar: above the tab bar up to 900px (390, 768, 820, 900), 16px from the bottom from 901px (901, 1280) | expected | 1 | 
+ux-1440 | p10.spec.ts | radio groups work with arrow keys; pinned badge and bias chips are real choices | expected | 1 | 
+ux-1440 | p10.spec.ts | notifications: switches save through /api/notifications/prefs, changed keys only | expected | 1 | 
+ux-1440 | p10.spec.ts | profile fields: username check, photo link, groups; appearance and sounds stay on the device | expected | 1 | 
+ux-1440 | p10.spec.ts | account: download is a read, sign out and delete never write for real | expected | 1 | 
+ux-1440 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls | expected | 1 | 
+ux-390 | p10.spec.ts | renders every section with prototype styles, reads only, no save bar | expected | 1 | 
+ux-390 | p10.spec.ts | Your look: live preview, save posts ONLY the changed fields to update-profile (legacy shapes) | expected | 1 | 
+ux-390 | p10.spec.ts | round trip with no change sends nothing; Discard restores and sends nothing | expected | 1 | 
+ux-390 | p10.spec.ts | save bar: above the tab bar up to 900px (390, 768, 820, 900), 16px from the bottom from 901px (901, 1280) | expected | 1 | 
+ux-390 | p10.spec.ts | radio groups work with arrow keys; pinned badge and bias chips are real choices | expected | 1 | 
+ux-390 | p10.spec.ts | notifications: switches save through /api/notifications/prefs, changed keys only | expected | 1 | 
+ux-390 | p10.spec.ts | profile fields: username check, photo link, groups; appearance and sounds stay on the device | expected | 1 | 
+ux-390 | p10.spec.ts | account: download is a read, sign out and delete never write for real | expected | 1 | 
+ux-390 | p10.spec.ts | accessibility: axe 0 serious / critical, named controls | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | home-guest (/) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | groups (/groups) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-ateez (/ateez-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | trivia (/blackpink-trivia) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz-tf (/q/skz-true-or-false-only-real-stays-pass) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz-image (/q/real-coers-cortis-fans-can-take-this-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest-mode (/blindtest/classic) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-thread (/community/thread/1) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | search-page (/search) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | pt (/pt) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | pt-blindtest (/pt/blindtest) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | pt-leaderboard (/pt/leaderboard) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | articles (/articles) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | article (/articles/best-kpop-quiz-sites-2026) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | stats (/stats) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | overlays: search, sign-in sheet | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz game: play, play-answered, end-guest, share (results) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz of the day link: play-qotd | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create: create-2, create-3, signin (guest publish) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest: playlist-open, group-search, btplay, btplay-answered, btend | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | home-guest (/) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | groups (/groups) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-ateez (/ateez-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | trivia (/blackpink-trivia) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz-tf (/q/skz-true-or-false-only-real-stays-pass) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz-image (/q/real-coers-cortis-fans-can-take-this-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest-mode (/blindtest/classic) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-thread (/community/thread/1) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | search-page (/search) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | pt (/pt) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | pt-blindtest (/pt/blindtest) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | pt-leaderboard (/pt/leaderboard) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | articles (/articles) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | article (/articles/best-kpop-quiz-sites-2026) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | stats (/stats) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | overlays: search, sign-in sheet | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz game: play, play-answered, end-guest, share (results) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz of the day link: play-qotd | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create: create-2, create-3, signin (guest publish) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest: playlist-open, group-search, btplay, btplay-answered, btend | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | home (/) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | notifications (/notifications) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | settings (/settings) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | passport (owner view of /u/testtest) (/u/testtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | bell, account menu, header sheet | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | home (/) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | notifications (/notifications) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | settings (/settings) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | passport (owner view of /u/testtest) (/u/testtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | bell, account menu, header sheet | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | home-guest (/) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | groups (/groups) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-ateez (/ateez-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | trivia (/blackpink-trivia) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz-tf (/q/skz-true-or-false-only-real-stays-pass) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz-image (/q/real-coers-cortis-fans-can-take-this-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest-mode (/blindtest/classic) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-thread (/community/thread/1) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | search-page (/search) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | pt (/pt) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | pt-blindtest (/pt/blindtest) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | pt-leaderboard (/pt/leaderboard) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | articles (/articles) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | article (/articles/best-kpop-quiz-sites-2026) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | stats (/stats) | unexpected | 2 | 
+ux-1440 | qa-a11y.spec.ts | overlays: search, sign-in sheet | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz game: play, play-answered, end-guest, share (results) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz of the day link: play-qotd | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create: create-2, create-3, signin (guest publish) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest: playlist-open, group-search, btplay, btplay-answered, btend | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | home-guest (/) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | groups (/groups) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-ateez (/ateez-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | trivia (/blackpink-trivia) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz-tf (/q/skz-true-or-false-only-real-stays-pass) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz-image (/q/real-coers-cortis-fans-can-take-this-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest-mode (/blindtest/classic) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-thread (/community/thread/1) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | search-page (/search) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | pt (/pt) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | pt-blindtest (/pt/blindtest) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | pt-leaderboard (/pt/leaderboard) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | articles (/articles) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | article (/articles/best-kpop-quiz-sites-2026) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | stats (/stats) | unexpected | 2 | 
+ux-390 | qa-a11y.spec.ts | overlays: search, sign-in sheet | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz game: play, play-answered, end-guest, share (results) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz of the day link: play-qotd | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create: create-2, create-3, signin (guest publish) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest: playlist-open, group-search, btplay, btplay-answered, btend | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | home (/) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | notifications (/notifications) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | settings (/settings) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | passport (owner view of /u/testtest) (/u/testtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-1440 | qa-a11y.spec.ts | bell, account menu, header sheet | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | home (/) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | notifications (/notifications) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | settings (/settings) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | passport (owner view of /u/testtest) (/u/testtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | community (/community) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | create-1 (/create) | expected | 1 | 
+ux-390 | qa-a11y.spec.ts | bell, account menu, header sheet | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | home-guest (/) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | groups (/groups) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | create-1 (/create) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | community (/community) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | home-guest (/) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | quizzes (/quizzes) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | groups (/groups) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | hub-blackpink (/blackpink-quiz) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | hub-empty (/chungha-quiz) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | quiz (/q/ultimate-bts-era-quiz-only-real-armys-survive) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | create-1 (/create) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | blindtest (/blindtest) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | ranked (/blindtest/ranked) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | community (/community) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | post-blog (/community/blog/2) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | post-debate (/community/debate/2026-09-22) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | leaderboard (/leaderboard) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | passport (/u/testtest) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | search overlay and sign-in sheet (shell) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | share sheet (quiz page) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | quit confirm (quiz game, after an answer) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | blindtest playlist menu (popover) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | search overlay and sign-in sheet (shell) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | share sheet (quiz page) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | quit confirm (quiz game, after an answer) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | blindtest playlist menu (popover) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | community editor (new post sheet) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | bell popover, account menu, header sheet (/u/testtest as its owner) | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | bell popover, account menu, header sheet (/u/testtest as its owner) | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | quiz: named timer, focused question, live region announces the answer and the result | expected | 1 | 
+ux-1440 | qa-keyboard.spec.ts | blindtest: live region announces each reveal and the result | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | quiz: named timer, focused question, live region announces the answer and the result | expected | 1 | 
+ux-390 | qa-keyboard.spec.ts | blindtest: live region announces each reveal and the result | expected | 1 | 
+
+passed 877 skipped 20 failed 48 flaky 2
+
+Classification of the 48 failures (C3). None comes from v12 code: each failing spec and the code under it is
+byte identical to origin/main (git diff origin/main...HEAD), unless stated.
+- 28 qa-a11y.spec.ts (trivia, /pt, /pt/blindtest, /pt/leaderboard, /articles, an article, /stats; 7 pages x 2 themes
+  x 2 widths): axe color-contrast on legacy content inside the shell. Already recorded by v11 C3
+  (docs/design/ux-dashboard-v1/v11/checks/qa/QA-A11Y-loop2.md rows A0, P3: "legacy content", present with the
+  flag off too). Pre-existing.
+- 8 p5.spec.ts create-1/2/3 and signed-in create-3: "#cbar background-color expected rgba(255,255,255,0.86), got
+  0.94". The 94% nav and tab bar glass is a shipped v11 deviation (v11 REPORT.md "Deviations"); the spec predates it.
+- 6 p3.spec.ts:499 and :602 (empty hub Notify me, guest and signed in): the button reads data-state "live", the spec
+  expects "off". The state comes from the live group alerts read: production data changed (alerts are on now),
+  hub-notify.tsx and p3.spec.ts are unchanged since origin/main.
+- 4 p3.spec.ts:466 (open Verse space, X1-005) and 2 p6.spec.ts:769 (doors from the BTS hub): environment. On this
+  cold `next start`, six /_next/image keys of the BTS hub member photos (w=96) never answer (curl: 60 s timeout each,
+  RM, Jin, Suga, J-Hope, Jimin, V; Jungkook 0.03 s), so the next navigation's "load" never fires. The checker brief
+  names this AVIF key hang. NOT verified on this build.
+- 2 flaky kit.spec.ts:400 (search field box-shadow read right after Tab): passed on retry.
+- Before the batches, a first run with retries 2 was stopped at 169 of 1377 (too slow for one background command);
+  its failures were the same p3 tests.

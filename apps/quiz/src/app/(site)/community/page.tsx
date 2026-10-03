@@ -7,6 +7,7 @@ import { BadgePanel, HappeningPanel, MobileRail } from '@/components/community/u
 import { P8ViewerProvider } from '@/components/community/ux-v1/viewer';
 import { WarStrip } from '@/components/community/ux-v1/war-strip';
 import { UxPage } from '@/components/ux-v1/page';
+import { getEditorialLive } from '@/lib/editorial/live';
 import { safeFetch } from '@/lib/error-handling';
 import { UX_V1 } from '@/lib/ux-v1';
 import { getP8Features, NO_FEATURES } from '@/lib/ux-v1/p8/features';
@@ -47,8 +48,9 @@ async function loadCommunity() {
   ]);
   // No groups read = no live space known = no Verse content (fail closed).
   const verse = verseScope(groups);
-  const src = feedSources(features, verse, now);
-  const [threads, blogs, debates, fanDebates, challenges, today, happening, pulse, badges, war] = await Promise.all([
+  // v12 editorial threads and blogs: false (and no read) unless the flag is on and the SQL is applied.
+  const src = feedSources(features, verse, now, await getEditorialLive());
+  const [threads, blogs, debates, fanDebates, challenges, editorial, today, happening, pulse, badges, war] = await Promise.all([
     // The posts are the page: give a slow database 8s before falling back (the
     // timed-out read still fills its cache for the next visit).
     safeFetch<FeedPost[] | null>(src.threads, null, '[p8] threads', 8000),
@@ -56,13 +58,14 @@ async function loadCommunity() {
     safeFetch<FeedPost[] | null>(src.debates, null, '[p8] debates', 8000),
     safeFetch<FeedPost[] | null>(src.fanDebates, null, '[p8] fan debates', 8000),
     safeFetch<FeedPost[] | null>(src.challenges, null, '[p8] challenges', 8000),
+    safeFetch<FeedPost[]>(src.editorial, [], '[g9] editorial posts', 8000),
     safeFetch(getTodayDebate(utcDate(now)), null, '[p8] today debate'),
     safeFetch(getHappening(5, now), [], '[p8] happening'),
     safeFetch(getPulse(utcDate(now), features, verse.groupIds), { posts: 0, votesToday: 0, newQuizzesWeek: 0 }, '[p8] pulse'),
     safeFetch(getBadgeWatch(3, utcDate(now), verse.open), [], '[p8] badges'),
     safeFetch(getWarEntries(), [], '[p8] war'),
   ]);
-  const posts = mergeFeed([threads ?? [], blogs ?? [], debates ?? [], fanDebates ?? [], challenges ?? []], now);
+  const posts = mergeFeed([threads ?? [], blogs ?? [], debates ?? [], fanDebates ?? [], challenges ?? [], editorial], now);
   // Every always-on source failed (DB blip): say so, never "no posts yet".
   const loadFailed = threads === null && blogs === null && debates === null;
   const editorGroups = groups.map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
@@ -91,7 +94,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
                 <p>Threads, blogs, debates and score challenges from every fandom.</p>
               </header>
               <Composer />
-              <CommunityFeed posts={posts} loadFailed={loadFailed} blogs={verse.open} mtop={mtop} mrail={<MobileRail rows={happening} pulse={pulse} badges={badges} />} />
+              <CommunityFeed posts={posts} loadFailed={loadFailed} blogs={verse.open || posts.some((x) => x.editorialId !== undefined && x.kind === 'blog')} mtop={mtop} mrail={<MobileRail rows={happening} pulse={pulse} badges={badges} />} />
             </div>
             <aside className="p8-rail" aria-label="Community activity">
               {today ? <DebatePanel debate={today} /> : null}

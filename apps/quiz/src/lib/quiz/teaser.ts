@@ -1,3 +1,5 @@
+import { avgScorePct } from './scoring';
+
 import type { QuizCardData, Difficulty } from '@/lib/db/types';
 
 // M1.14 desktop hover preview. Client-safe (imports only types) so the card
@@ -24,9 +26,7 @@ export interface QuizTeaser {
 export function buildTeaser(q: QuizCardData): QuizTeaser | null {
   if (!q.first_question) return null;
   const avgPct =
-    q.total_completions >= MIN_COMPLETIONS_FOR_AVG && q.question_count > 0
-      ? Math.round((q.total_score_sum / q.total_completions / q.question_count) * 100)
-      : null;
+    q.total_completions >= MIN_COMPLETIONS_FOR_AVG ? avgScorePct(q) : null;
   return {
     firstQuestion: q.first_question,
     difficulty: q.difficulty,

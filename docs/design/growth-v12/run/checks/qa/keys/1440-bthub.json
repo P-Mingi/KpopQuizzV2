@@ -1,0 +1,1050 @@
+{
+ "url": "/blindtest",
+ "stops": 129,
+ "cycled": true,
+ "stuck": false,
+ "bad": [
+  {
+   "i": 27,
+   "tag": "input",
+   "name": "Search 79 groups",
+   "ring": false,
+   "visible": true,
+   "key": "INPUT||Search 79 groups|1059,2027"
+  }
+ ],
+ "list": [
+  {
+   "i": 0,
+   "tag": "a",
+   "name": "Skip to content",
+   "ring": true,
+   "visible": true,
+   "key": "A|#main|Skip to content|12,12"
+  },
+  {
+   "i": 1,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,18"
+  },
+  {
+   "i": 2,
+   "tag": "a",
+   "name": "Home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|Home|298,13"
+  },
+  {
+   "i": 3,
+   "tag": "a",
+   "name": "Quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|Quizzes|391,13"
+  },
+  {
+   "i": 4,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|498,13"
+  },
+  {
+   "i": 5,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|600,13"
+  },
+  {
+   "i": 6,
+   "tag": "a",
+   "name": "Community",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Community|714,13"
+  },
+  {
+   "i": 7,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|847,13"
+  },
+  {
+   "i": 8,
+   "tag": "a",
+   "name": "Search",
+   "ring": true,
+   "visible": true,
+   "key": "A|/search|Search|1044,14"
+  },
+  {
+   "i": 9,
+   "tag": "a",
+   "name": "Create",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create|1088,14"
+  },
+  {
+   "i": 10,
+   "tag": "button",
+   "name": "Sign in",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Sign in|1193,14"
+  },
+  {
+   "i": 11,
+   "tag": "button",
+   "name": "PlaylistAll K-pop",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||PlaylistAll K-pop|217,431"
+  },
+  {
+   "i": 12,
+   "tag": "button",
+   "name": "5 songs",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||5 songs|416,435"
+  },
+  {
+   "i": 13,
+   "tag": "button",
+   "name": "10 songs",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||10 songs|507,435"
+  },
+  {
+   "i": 14,
+   "tag": "button",
+   "name": "15 songs",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||15 songs|605,435"
+  },
+  {
+   "i": 15,
+   "tag": "button",
+   "name": "Start",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Start|716,431"
+  },
+  {
+   "i": 16,
+   "tag": "a",
+   "name": "Play in your language",
+   "ring": true,
+   "visible": true,
+   "key": "A|/guess-the-kpop-song|Play in your language|1126,598"
+  },
+  {
+   "i": 17,
+   "tag": "a",
+   "name": "5th gen284 songs5th genThe newest generation: Cort",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/5th-gen|5th gen284 songs5th genThe newest generation: Cort|160,642"
+  },
+  {
+   "i": 18,
+   "tag": "a",
+   "name": "Viral on TikTokCuratedViral on TikTokThe K-pop son",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/tiktok-viral|Viral on TikTokCuratedViral on TikTokThe K-pop son|349,642"
+  },
+  {
+   "i": 19,
+   "tag": "a",
+   "name": "K-pop hits 202551 songsK-pop hits 2025The songs th",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/kpop-hits-2025|K-pop hits 202551 songsK-pop hits 2025The songs th|539,642"
+  },
+  {
+   "i": 20,
+   "tag": "a",
+   "name": "4th gen1,079 songs4th genStray Kids, aespa, IVE, N",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/4th-gen|4th gen1,079 songs4th genStray Kids, aespa, IVE, N|728,642"
+  },
+  {
+   "i": 21,
+   "tag": "a",
+   "name": "Blindtest of the dayTen songs, the same for everyo",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest?daily=true|Blindtest of the dayTen songs, the same for everyo|160,999"
+  },
+  {
+   "i": 22,
+   "tag": "a",
+   "name": "RankedA fixed pool, speed and combos count. Your f",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/ranked|RankedA fixed pool, speed and combos count. Your f|539,999"
+  },
+  {
+   "i": 23,
+   "tag": "a",
+   "name": "Challenge a friendPlay a run, then send a link. Th",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest#bt-start|Challenge a friendPlay a run, then send a link. Th|917,999"
+  },
+  {
+   "i": 24,
+   "tag": "a",
+   "name": "Host a live blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/live|Host a live blindtest|197,1505"
+  },
+  {
+   "i": 25,
+   "tag": "a",
+   "name": "Join with a code",
+   "ring": true,
+   "visible": true,
+   "key": "A|/join|Join with a code|449,1505"
+  },
+  {
+   "i": 26,
+   "tag": "a",
+   "name": "army_mnininnie",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/army_mnininnie|army_mnininnie|256,1722"
+  },
+  {
+   "i": 27,
+   "tag": "input",
+   "name": "Search 79 groups",
+   "ring": false,
+   "visible": true,
+   "key": "INPUT||Search 79 groups|1059,2027"
+  },
+  {
+   "i": 28,
+   "tag": "a",
+   "name": "BTS18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-bts|BTS18 songs|160,2079"
+  },
+  {
+   "i": 29,
+   "tag": "a",
+   "name": "Stray Kids18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-stray-kids|Stray Kids18 songs|349,2079"
+  },
+  {
+   "i": 30,
+   "tag": "a",
+   "name": "BLACKPINK18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-blackpink|BLACKPINK18 songs|539,2079"
+  },
+  {
+   "i": 31,
+   "tag": "a",
+   "name": "NewJeans18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-newjeans|NewJeans18 songs|728,2079"
+  },
+  {
+   "i": 32,
+   "tag": "a",
+   "name": "TWICE18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-twice|TWICE18 songs|917,2079"
+  },
+  {
+   "i": 33,
+   "tag": "a",
+   "name": "SEVENTEEN18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-seventeen|SEVENTEEN18 songs|1107,2079"
+  },
+  {
+   "i": 34,
+   "tag": "a",
+   "name": "(G)I-DLE blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-g-i-dle|(G)I-DLE blindtest, 18 songs|160,2296"
+  },
+  {
+   "i": 35,
+   "tag": "a",
+   "name": "2NE1 blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-2ne1|2NE1 blindtest, 18 songs|448,2296"
+  },
+  {
+   "i": 36,
+   "tag": "a",
+   "name": "2PM blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-2pm|2PM blindtest, 18 songs|736,2296"
+  },
+  {
+   "i": 37,
+   "tag": "a",
+   "name": "aespa blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-aespa|aespa blindtest, 18 songs|1024,2296"
+  },
+  {
+   "i": 38,
+   "tag": "a",
+   "name": "AKMU blindtest, 11 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-akmu|AKMU blindtest, 11 songs|160,2344"
+  },
+  {
+   "i": 39,
+   "tag": "a",
+   "name": "Apink blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-apink|Apink blindtest, 18 songs|448,2344"
+  },
+  {
+   "i": 40,
+   "tag": "a",
+   "name": "ARTMS blindtest, 17 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-artms|ARTMS blindtest, 17 songs|736,2344"
+  },
+  {
+   "i": 41,
+   "tag": "a",
+   "name": "ASTRO blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-astro|ASTRO blindtest, 18 songs|1024,2344"
+  },
+  {
+   "i": 42,
+   "tag": "a",
+   "name": "ATEEZ blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-ateez|ATEEZ blindtest, 18 songs|160,2392"
+  },
+  {
+   "i": 43,
+   "tag": "a",
+   "name": "BABYMONSTER blindtest, 13 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-babymonster|BABYMONSTER blindtest, 13 songs|448,2392"
+  },
+  {
+   "i": 44,
+   "tag": "a",
+   "name": "BIBI blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-bibi|BIBI blindtest, 18 songs|736,2392"
+  },
+  {
+   "i": 45,
+   "tag": "a",
+   "name": "BIGBANG blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-bigbang|BIGBANG blindtest, 18 songs|1024,2392"
+  },
+  {
+   "i": 46,
+   "tag": "a",
+   "name": "Billlie blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-billlie|Billlie blindtest, 18 songs|160,2440"
+  },
+  {
+   "i": 47,
+   "tag": "a",
+   "name": "BLACKPINK blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-blackpink|BLACKPINK blindtest, 18 songs|448,2440"
+  },
+  {
+   "i": 48,
+   "tag": "a",
+   "name": "BOYNEXTDOOR blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-boynextdoor|BOYNEXTDOOR blindtest, 18 songs|736,2440"
+  },
+  {
+   "i": 49,
+   "tag": "a",
+   "name": "BTOB blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-btob|BTOB blindtest, 18 songs|1024,2440"
+  },
+  {
+   "i": 50,
+   "tag": "a",
+   "name": "BTS blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-bts|BTS blindtest, 18 songs|160,2488"
+  },
+  {
+   "i": 51,
+   "tag": "a",
+   "name": "Chungha blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-chungha|Chungha blindtest, 18 songs|448,2488"
+  },
+  {
+   "i": 52,
+   "tag": "a",
+   "name": "Cortis blindtest, 13 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-cortis|Cortis blindtest, 13 songs|736,2488"
+  },
+  {
+   "i": 53,
+   "tag": "a",
+   "name": "DAY6 blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-day6|DAY6 blindtest, 18 songs|1024,2488"
+  },
+  {
+   "i": 54,
+   "tag": "a",
+   "name": "Dreamcatcher blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-dreamcatcher|Dreamcatcher blindtest, 18 songs|160,2536"
+  },
+  {
+   "i": 55,
+   "tag": "a",
+   "name": "ENHYPEN blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-enhypen|ENHYPEN blindtest, 18 songs|448,2536"
+  },
+  {
+   "i": 56,
+   "tag": "a",
+   "name": "EXO blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-exo|EXO blindtest, 18 songs|736,2536"
+  },
+  {
+   "i": 57,
+   "tag": "a",
+   "name": "f(x) blindtest, 18 songs",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-fx|f(x) blindtest, 18 songs|1024,2536"
+  },
+  {
+   "i": 58,
+   "tag": "summary",
+   "name": "Show all 79 groups",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Show all 79 groups|632,2608"
+  },
+  {
+   "i": 59,
+   "tag": "a",
+   "name": "Classic",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/classic|Classic|289,2701"
+  },
+  {
+   "i": 60,
+   "tag": "a",
+   "name": "Intro",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/intro-challenge|Intro|354,2701"
+  },
+  {
+   "i": 61,
+   "tag": "a",
+   "name": "Verse only",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/verse-only|Verse only|402,2701"
+  },
+  {
+   "i": 62,
+   "tag": "a",
+   "name": "Bridge",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/bridge-or-break|Bridge|490,2701"
+  },
+  {
+   "i": 63,
+   "tag": "a",
+   "name": "Speed round",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/speed-round|Speed round|551,2701"
+  },
+  {
+   "i": 64,
+   "tag": "a",
+   "name": "2nd gen",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/2nd-gen|2nd gen|654,2701"
+  },
+  {
+   "i": 65,
+   "tag": "a",
+   "name": "3rd gen",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/3rd-gen|3rd gen|727,2701"
+  },
+  {
+   "i": 66,
+   "tag": "a",
+   "name": "4th gen",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/4th-gen|4th gen|796,2701"
+  },
+  {
+   "i": 67,
+   "tag": "a",
+   "name": "Girl groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/girl-groups|Girl groups|865,2701"
+  },
+  {
+   "i": 68,
+   "tag": "a",
+   "name": "Boy groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/boy-groups|Boy groups|956,2701"
+  },
+  {
+   "i": 69,
+   "tag": "a",
+   "name": "Solo artists",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/solo-artists|Solo artists|1049,2701"
+  },
+  {
+   "i": 70,
+   "tag": "a",
+   "name": "Title tracks only",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/title-tracks|Title tracks only|1141,2701"
+  },
+  {
+   "i": 71,
+   "tag": "a",
+   "name": "B-sides only",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/b-sides|B-sides only|160,2729"
+  },
+  {
+   "i": 72,
+   "tag": "a",
+   "name": "2024-2026 hits",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/recent-hits|2024-2026 hits|260,2729"
+  },
+  {
+   "i": 73,
+   "tag": "a",
+   "name": "K-pop legends",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/kpop-legends|K-pop legends|381,2729"
+  },
+  {
+   "i": 74,
+   "tag": "a",
+   "name": "4th gen girl groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/4th-gen-gg|4th gen girl groups|496,2729"
+  },
+  {
+   "i": 75,
+   "tag": "a",
+   "name": "4th gen boy groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/4th-gen-bg|4th gen boy groups|639,2729"
+  },
+  {
+   "i": 76,
+   "tag": "a",
+   "name": "Random all",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/random-all|Random all|787,2729"
+  },
+  {
+   "i": 77,
+   "tag": "a",
+   "name": "K-pop hits 2025",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/kpop-hits-2025|K-pop hits 2025|878,2729"
+  },
+  {
+   "i": 78,
+   "tag": "a",
+   "name": "5th gen",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/5th-gen|5th gen|1001,2729"
+  },
+  {
+   "i": 79,
+   "tag": "a",
+   "name": "TikTok viral K-pop",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/tiktok-viral|TikTok viral K-pop|1069,2729"
+  },
+  {
+   "i": 80,
+   "tag": "summary",
+   "name": "What is a K-pop blind test?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What is a K-pop blind test?|160,2851"
+  },
+  {
+   "i": 81,
+   "tag": "summary",
+   "name": "How many songs are available?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||How many songs are available?|160,2908"
+  },
+  {
+   "i": 82,
+   "tag": "summary",
+   "name": "Can I play for just one group?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Can I play for just one group?|160,2965"
+  },
+  {
+   "i": 83,
+   "tag": "summary",
+   "name": "How does a round work?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||How does a round work?|160,3022"
+  },
+  {
+   "i": 84,
+   "tag": "summary",
+   "name": "Is the blind test free?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Is the blind test free?|160,3079"
+  },
+  {
+   "i": 85,
+   "tag": "summary",
+   "name": "What generations are covered?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What generations are covered?|160,3136"
+  },
+  {
+   "i": 86,
+   "tag": "summary",
+   "name": "Can I play on mobile?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Can I play on mobile?|160,3193"
+  },
+  {
+   "i": 87,
+   "tag": "a",
+   "name": "Guess the K-pop song",
+   "ring": true,
+   "visible": true,
+   "key": "A|/guess-the-kpop-song|Guess the K-pop song|326,3315"
+  },
+  {
+   "i": 88,
+   "tag": "a",
+   "name": "Blind test K-pop",
+   "ring": true,
+   "visible": true,
+   "key": "A|/fr/blind-test-kpop|Blind test K-pop|494,3315"
+  },
+  {
+   "i": 89,
+   "tag": "a",
+   "name": "Adivina la canción K-pop",
+   "ring": true,
+   "visible": true,
+   "key": "A|/es/adivina-la-cancion-kpop|Adivina la canción K-pop|621,3315"
+  },
+  {
+   "i": 90,
+   "tag": "a",
+   "name": "Tebak lagu K-pop",
+   "ring": true,
+   "visible": true,
+   "key": "A|/id/tebak-lagu-kpop|Tebak lagu K-pop|807,3315"
+  },
+  {
+   "i": 91,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,3513"
+  },
+  {
+   "i": 92,
+   "tag": "a",
+   "name": "Daily quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/daily|Daily quiz|449,3547"
+  },
+  {
+   "i": 93,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|449,3580"
+  },
+  {
+   "i": 94,
+   "tag": "a",
+   "name": "Ranked",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/ranked|Ranked|449,3612"
+  },
+  {
+   "i": 95,
+   "tag": "a",
+   "name": "All quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|All quizzes|449,3645"
+  },
+  {
+   "i": 96,
+   "tag": "a",
+   "name": "Popular quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes/popular-this-week|Popular quizzes|449,3677"
+  },
+  {
+   "i": 97,
+   "tag": "a",
+   "name": "Trivia",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trivia|Trivia|449,3709"
+  },
+  {
+   "i": 98,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|665,3547"
+  },
+  {
+   "i": 99,
+   "tag": "a",
+   "name": "Trending",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trending|Trending|665,3580"
+  },
+  {
+   "i": 100,
+   "tag": "a",
+   "name": "New quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/new|New quizzes|665,3612"
+  },
+  {
+   "i": 101,
+   "tag": "a",
+   "name": "Knowledge Report",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/knowledge-report-2026|Knowledge Report|665,3645"
+  },
+  {
+   "i": 102,
+   "tag": "a",
+   "name": "Pulse",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/pulse|Pulse|665,3677"
+  },
+  {
+   "i": 103,
+   "tag": "a",
+   "name": "Stats",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stats|Stats|665,3709"
+  },
+  {
+   "i": 104,
+   "tag": "a",
+   "name": "Articles",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles|Articles|665,3742"
+  },
+  {
+   "i": 105,
+   "tag": "a",
+   "name": "News",
+   "ring": true,
+   "visible": true,
+   "key": "A|/news|News|665,3774"
+  },
+  {
+   "i": 106,
+   "tag": "a",
+   "name": "Feed",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Feed|881,3547"
+  },
+  {
+   "i": 107,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|881,3580"
+  },
+  {
+   "i": 108,
+   "tag": "a",
+   "name": "Fandoms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/verse|Fandoms|881,3612"
+  },
+  {
+   "i": 109,
+   "tag": "a",
+   "name": "Create a quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create a quiz|881,3645"
+  },
+  {
+   "i": 110,
+   "tag": "a",
+   "name": "Discord",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer|Discord|881,3677"
+  },
+  {
+   "i": 111,
+   "tag": "a",
+   "name": "Reddit",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://reddit.com/r/Kpop_Verse|Reddit|881,3709"
+  },
+  {
+   "i": 112,
+   "tag": "a",
+   "name": "Help",
+   "ring": true,
+   "visible": true,
+   "key": "A|/faq|Help|1096,3547"
+  },
+  {
+   "i": 113,
+   "tag": "a",
+   "name": "About",
+   "ring": true,
+   "visible": true,
+   "key": "A|/about|About|1096,3580"
+  },
+  {
+   "i": 114,
+   "tag": "a",
+   "name": "Contact",
+   "ring": true,
+   "visible": true,
+   "key": "A|/contact|Contact|1096,3612"
+  },
+  {
+   "i": 115,
+   "tag": "a",
+   "name": "Privacy",
+   "ring": true,
+   "visible": true,
+   "key": "A|/privacy|Privacy|1096,3645"
+  },
+  {
+   "i": 116,
+   "tag": "a",
+   "name": "Terms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/terms|Terms|1096,3677"
+  },
+  {
+   "i": 117,
+   "tag": "a",
+   "name": "DMCA",
+   "ring": true,
+   "visible": true,
+   "key": "A|/dmca|DMCA|1096,3709"
+  },
+  {
+   "i": 118,
+   "tag": "a",
+   "name": "BTS",
+   "ring": true,
+   "visible": true,
+   "key": "A|/bts-quiz|BTS|258,3872"
+  },
+  {
+   "i": 119,
+   "tag": "a",
+   "name": "BLACKPINK",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blackpink-quiz|BLACKPINK|303,3872"
+  },
+  {
+   "i": 120,
+   "tag": "a",
+   "name": "Stray Kids",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-quiz|Stray Kids|399,3872"
+  },
+  {
+   "i": 121,
+   "tag": "a",
+   "name": "ATEEZ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/ateez-quiz|ATEEZ|485,3872"
+  },
+  {
+   "i": 122,
+   "tag": "a",
+   "name": "TWICE",
+   "ring": true,
+   "visible": true,
+   "key": "A|/twice-quiz|TWICE|546,3872"
+  },
+  {
+   "i": 123,
+   "tag": "a",
+   "name": "aespa",
+   "ring": true,
+   "visible": true,
+   "key": "A|/aespa-quiz|aespa|609,3872"
+  },
+  {
+   "i": 124,
+   "tag": "a",
+   "name": "NewJeans",
+   "ring": true,
+   "visible": true,
+   "key": "A|/newjeans-quiz|NewJeans|667,3872"
+  },
+  {
+   "i": 125,
+   "tag": "a",
+   "name": "SEVENTEEN",
+   "ring": true,
+   "visible": true,
+   "key": "A|/seventeen-quiz|SEVENTEEN|754,3872"
+  },
+  {
+   "i": 126,
+   "tag": "a",
+   "name": "All groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|All groups|854,3872"
+  },
+  {
+   "i": 127,
+   "tag": "a",
+   "name": "Portugues",
+   "ring": true,
+   "visible": true,
+   "key": "A|/pt/blindtest|Portugues|1090,3918"
+  },
+  {
+   "i": 128,
+   "tag": "button",
+   "name": "Dark mode",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Dark mode|1191,3918"
+  }
+ ]
+}

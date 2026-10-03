@@ -1,0 +1,65 @@
+/* G6 (V12): Name them all (prototype view `nta`: .nta, .ntahead, .nring, .ntaform,
+   .ntameta, .ntagrid, .slot, .ntares, .ntascore). Served by the v11 stylesheet
+   route with the v12 flag only; never imported. */
+
+.ux-page.ux-nta-page { padding-top: 28px; }
+.ux-nta-sep { opacity: .6; }
+.ux-nta { max-width: 880px; margin: 28px auto 0; color: var(--ux-ink); font-size: 16px; line-height: 1.6; }
+
+.ux-nta-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.ux-nta-head h1 { margin: 8px 0 0; font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+.ux-nta-head h1:focus { outline: none; }
+.ux-nta-head p { margin: 6px 0 0; color: var(--ux-muted); }
+
+.ux-nta-ring { position: relative; width: 84px; height: 84px; flex: 0 0 84px; }
+.ux-nta-ring svg { display: block; width: 84px; height: 84px; transform: rotate(-90deg); }
+.ux-nta-ring circle { fill: none; stroke-width: 6; }
+.ux-nta-ring-bg { stroke: var(--ux-surface-2); }
+.ux-nta-ring-fg { stroke: var(--ux-pink); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+.ux-nta-ring.is-low .ux-nta-ring-fg { stroke: var(--ux-no); }
+.ux-nta-ring b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.ux-nta-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 24px; }
+
+.ux-nta-form { display: flex; gap: 10px; margin-top: 28px; }
+.ux-nta-form .ux-inp { flex: 1; min-width: 0; width: auto; height: 56px; font-size: 18px; border-radius: 16px; padding: 0 18px; }
+.ux-nta-form .ux-inp.is-shake { animation: ux-nta-shake .3s; }
+.ux-nta-form .ux-btn { flex: 0 0 auto; }
+@keyframes ux-nta-shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+.ux-nta-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-size: 14px; color: var(--ux-muted); min-height: 22px; }
+.ux-nta-meta b { color: var(--ux-ink); }
+
+.ux-nta-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.ux-nta-grid.is-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ux-nta-slot { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 92px; padding: 14px 16px; border: 1px dashed var(--ux-edge); border-radius: 16px; background: var(--ux-surface); }
+.ux-nta-no { font-size: 12px; font-weight: 600; color: var(--ux-muted); }
+.ux-nta-nm { font-size: 17px; font-weight: 700; color: transparent; background: var(--ux-surface-2); border-radius: 6px; width: 70%; height: 20px; overflow-wrap: anywhere; }
+.ux-nta-slot.is-found { border: 1px solid var(--ux-pink-line); background: var(--ux-pink-soft); }
+.ux-nta-slot.is-new { animation: ux-nta-pop .35s var(--ux-spring); }
+.ux-nta-slot.is-found .ux-nta-nm { color: var(--ux-pink-soft-ink); background: none; width: auto; height: auto; padding-right: 22px; }
+.ux-nta-slot.is-found::after { content: ""; position: absolute; right: 12px; top: 12px; width: 18px; height: 18px; border-radius: 50%; background: var(--ux-pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center / 12px no-repeat; }
+.ux-nta-slot.is-missed { border-style: solid; background: var(--ux-raised); }
+.ux-nta-slot.is-missed .ux-nta-nm { color: var(--ux-muted); background: none; width: auto; height: auto; font-weight: 600; }
+@keyframes ux-nta-pop { 0% { transform: scale(.92); } 100% { transform: scale(1); } }
+
+.ux-nta-res { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; margin-top: 28px; align-items: start; }
+.ux-nta-score { padding: 28px; border-radius: 24px; background: var(--ux-qotd-bg); border: 1px solid var(--ux-qotd-edge); }
+.ux-nta-big { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ux-nta-big small { font-size: 24px; color: var(--ux-muted); font-weight: 700; }
+.ux-nta-score p { margin: 8px 0 0; color: var(--ux-muted); }
+.ux-nta-score .ux-nta-actions { margin-top: 20px; gap: 12px; }
+.ux-nta-stats { margin-top: 20px; }
+
+@media (max-width: 760px) {
+  .ux-nta-head h1 { font-size: 26px; }
+  .ux-nta-ring, .ux-nta-ring svg { width: 68px; height: 68px; flex-basis: 68px; }
+  .ux-nta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ux-nta-res { grid-template-columns: 1fr; }
+  .ux-nta-actions .ux-btn-lg { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ux-nta-ring-fg { transition: none; }
+  .ux-nta-form .ux-inp.is-shake, .ux-nta-slot.is-new { animation: none; }
+}

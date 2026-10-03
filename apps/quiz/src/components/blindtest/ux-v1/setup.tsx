@@ -60,7 +60,15 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
           </div>
         </>
       ) : null}
-      <div className="ux-msep" />
+      {/* V12 themes share the separator's slot: with the flag off the menu keeps its exact shape. */}
+      {hub.themes.length > 0 ? (
+        <>
+          <div className="ux-msep" />
+          <div className="p6-pl-h">Themes</div>
+          {hub.themes.map((m) => item(m, m.label))}
+          <div className="ux-msep" />
+        </>
+      ) : <div className="ux-msep" />}
       <div className="p6-pl-h">Mixes</div>
       {MIXES.map((m) => item(m, m.label))}
       <button type="button" className="ux-mi p6-mi" aria-expanded={gens} aria-controls="p6-pl-gens" onClick={() => setGens((v) => !v)}>

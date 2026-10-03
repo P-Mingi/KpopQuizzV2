@@ -1,0 +1,609 @@
+{
+ "state": "blindtest",
+ "owner": "P6",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:44:54.348Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     4018
+    ],
+    "implSize": [
+     1440,
+     3972
+    ],
+    "diffPct": 5.37,
+    "maskedPct": 19.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".bthero",
+     "impl": ".p6-hero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "play by group head",
+     "proto": ".btg-h",
+     "impl": ".p6-btg-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "popular groups",
+     "proto": "#bt-pop",
+     "impl": ".p6-btpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "playlist tile",
+     "proto": ".bpt",
+     "impl": ".p6-bpt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "board row",
+     "proto": ".lrow",
+     "impl": ".p6-lrow",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:44:57.146Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     4018
+    ],
+    "implSize": [
+     1440,
+     3972
+    ],
+    "diffPct": 12.9,
+    "maskedPct": 19.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".bthero",
+     "impl": ".p6-hero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "play by group head",
+     "proto": ".btg-h",
+     "impl": ".p6-btg-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "popular groups",
+     "proto": "#bt-pop",
+     "impl": ".p6-btpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "playlist tile",
+     "proto": ".bpt",
+     "impl": ".p6-bpt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "board row",
+     "proto": ".lrow",
+     "impl": ".p6-lrow",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-10-03T10:45:00.143Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     6193
+    ],
+    "implSize": [
+     390,
+     5986
+    ],
+    "diffPct": 10.35,
+    "maskedPct": 35.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".bthero",
+     "impl": ".p6-hero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "play by group head",
+     "proto": ".btg-h",
+     "impl": ".p6-btg-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "popular groups",
+     "proto": "#bt-pop",
+     "impl": ".p6-btpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "playlist tile",
+     "proto": ".bpt",
+     "impl": ".p6-bpt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "board row",
+     "proto": ".lrow",
+     "impl": ".p6-lrow",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:45:03.224Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/blindtest",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 15,
+    "pass": 14,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     6193
+    ],
+    "implSize": [
+     390,
+     5986
+    ],
+    "diffPct": 17.61,
+    "maskedPct": 35.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "hero",
+     "proto": ".bthero",
+     "impl": ".p6-hero",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "setup row",
+     "proto": ".bthero .setup",
+     "impl": ".p6-setup",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": [],
+     "why": "phone: the stacked row ends with \"Your best\" only when the viewer has a best today (real data)"
+    },
+    {
+     "name": "start button",
+     "proto": ".bthero .setup .btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "play by group head",
+     "proto": ".btg-h",
+     "impl": ".p6-btg-h",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "popular groups",
+     "proto": "#bt-pop",
+     "impl": ".p6-btpop",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "group search",
+     "proto": ".gsearch",
+     "impl": ".p6-gsearch",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "playlist tile",
+     "proto": ".bpt",
+     "impl": ".p6-bpt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "group index item",
+     "proto": ".gi",
+     "impl": ".p6-gi",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "section title",
+     "proto": ".sec-h h2",
+     "impl": ".ux-sec-h h2",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "start button",
+     "proto": ".btn-primary",
+     "impl": ".p6-setup .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "board row",
+     "proto": ".lrow",
+     "impl": ".p6-lrow",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "pass"
+}

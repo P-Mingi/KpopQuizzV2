@@ -1,0 +1,10 @@
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 233077/232350  normalised 93223/93223  js chunks 25/25
+IDENTICAL (structure)  /groups  status 200/200  raw bytes 123306/122727  normalised 78042/78042  js chunks 25/25
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 125856/125004  normalised 55789/55789  js chunks 26/26
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 144711/144132  normalised 55485/55485  js chunks 25/25
+IDENTICAL (structure)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 109082/108108  normalised 29829/29829  js chunks 26/26
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 253792/253041  normalised 81341/81341  js chunks 26/26
+IDENTICAL (structure)  /blindtest/classic  status 200/200  raw bytes 52159/51548  normalised 12508/12508  js chunks 25/25
+IDENTICAL (structure)  /sitemap.xml  status 200/200  raw bytes 564261/564261  normalised 564261/564261  js chunks 0/0
+IDENTICAL (structure)  /robots.txt  status 200/200  raw bytes 1112/1112  normalised 1112/1112  js chunks 0/0
+all 9 pages identical after normalising build ids and hashed asset names

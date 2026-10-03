@@ -1,5 +1,6 @@
 import { unstable_cache } from 'next/cache';
 
+import { getTeamIds, withoutTeam } from '@/lib/editorial/accounts';
 import { getFandomWarMap } from '@/lib/db/queries/community';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
@@ -111,7 +112,9 @@ async function readHappening(limit: number): Promise<{ rows: Omit<HappeningRow, 
   ]);
   const nameBySlug = new Map(groups.map((g) => [g.slug, g.name] as const));
   const groupName = (slug: string | null): string => (slug ? nameBySlug.get(slug) ?? 'K-pop' : 'K-pop');
-  const picked = collapseSpree((evs ?? []) as EventRow[], limit, (r) => eventPhrase(r, groupName) !== null);
+  // v12: editorial accounts never show in the live activity (SYSTEM.md 5.6).
+  const fanEvents = withoutTeam((evs ?? []) as EventRow[], await getTeamIds(), (r) => r.user_id);
+  const picked = collapseSpree(fanEvents, limit, (r) => eventPhrase(r, groupName) !== null);
   const [people, cheersRes] = await Promise.all([
     readPeople(db, picked.map((r) => r.user_id)),
     picked.length ? db.from('activity_cheers').select('event_id').in('event_id', picked.map((r) => r.id)).then((r) => must(r, 'activity_cheers')) : Promise.resolve({ data: [] as { event_id: number }[] }),
@@ -172,8 +175,9 @@ async function readBadgeWatch(limit: number, today: string, verseOpen: boolean):
   // Earns this week. founding_fan is excluded like components/community/badge-showcase
   // (the mig 104 backfill stamped every account at once; it can never be earned again).
   // While the Verse is hidden only Play badges show (verse-gate.ts badgeShown).
-  const earns = (await fetchAllRows<{ badge_id: string; user_id: string; earned_at: string }>(() => db.from('user_badges')
-    .select('badge_id, user_id, earned_at').gte('earned_at', since).neq('badge_id', 'founding_fan').order('earned_at', { ascending: false })))
+  // v12: an editorial account is not a fan: it never counts in "N fans this week".
+  const earns = withoutTeam(await fetchAllRows<{ badge_id: string; user_id: string; earned_at: string }>(() => db.from('user_badges')
+    .select('badge_id, user_id, earned_at').gte('earned_at', since).neq('badge_id', 'founding_fan').order('earned_at', { ascending: false })), await getTeamIds(), (e) => e.user_id)
     .filter((e) => badgeShown(e.badge_id, verseOpen));
   if (!earns.length) return [];
   const byBadge = new Map<string, { n: number; latest: { user_id: string; earned_at: string } }>();

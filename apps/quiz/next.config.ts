@@ -1,10 +1,27 @@
 import type { NextConfig } from 'next';
 
+// V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
+// rule of lib/ux-v12.ts, inlined because this file is read before the app).
+const on = (v: string | undefined): boolean => v === '1' || v === 'true';
+const UX_V12_ON = on(process.env.NEXT_PUBLIC_UX_V1) && on(process.env.NEXT_PUBLIC_UX_V12);
+
+// V12 G5: the groups that have a profile set in personality_profiles (read 2026-10-02).
+// "Which member are you" is relaunched for these only, and only with the flag on.
+const WMA_GROUPS = [
+  'aespa', 'ateez', 'blackpink', 'bts', 'enhypen', 'g-i-dle', 'itzy', 'ive',
+  'le-sserafim', 'newjeans', 'nmixx', 'seventeen', 'stray-kids', 'twice', 'txt',
+];
+const WMA = WMA_GROUPS.join('|');
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
   transpilePackages: ['@kpopquiz/shared'],
+  // V12 (G1 request R7, issue C3-002): the blindtest tracking switch is always inlined, as ''
+  // when it is unset, so the legacy blindtest pages drop the tracking import() at build
+  // and load no tracking chunk while tracking is off.
+  env: { NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '' },
   async redirects() {
     const groupSlugs = [
       'bts', 'blackpink', 'stray-kids', 'seventeen', 'twice', 'aespa',
@@ -75,10 +92,30 @@ const nextConfig: NextConfig = {
       { source: '/personality', destination: '/quizzes', permanent: true },
       { source: '/personality/:group', destination: '/:group-quiz', permanent: true },
       { source: '/personality/:group/r/:member', destination: '/:group-quiz', permanent: true },
-      { source: '/which-:group-member-are-you', destination: '/:group-quiz', permanent: true },
+      // V12 G5: with the flag on, the relaunched groups are left out of this redirect
+      // (the rewrite below serves them); every other group keeps its 301 to the hub.
+      {
+        source: UX_V12_ON ? `/which-:group((?!(?:${WMA})-member-are-you)[^/]+?)-member-are-you` : '/which-:group-member-are-you',
+        destination: '/:group-quiz',
+        permanent: true,
+      },
       { source: '/which-:group-member-are-you/r/:member', destination: '/:group-quiz', permanent: true },
     ];
     return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...fandomRedirects, ...refonteRedirects];
+  },
+  // V12 pretty URLs (requests run/requests/G6.md R1 and run/requests/G5.md R1). Only
+  // with both flags on at build; with a flag off there is no rewrite: the Name them all
+  // URLs 301 to / in the middleware and the Which member URLs keep their REFONTE 301.
+  // A direct hit on /personality/<group> keeps its REFONTE 301 above.
+  async rewrites() {
+    if (!UX_V12_ON) return [];
+    return [
+      {
+        source: '/:group(bts|blackpink|stray-kids|twice|aespa|newjeans|seventeen|exo|g-i-dle|ive|le-sserafim|red-velvet|ateez|enhypen|txt|itzy|shinee)-name-all-members',
+        destination: '/name-all/:group?via=pretty',
+      },
+      { source: `/which-:group(${WMA})-member-are-you`, destination: '/personality/:group' },
+    ];
   },
   images: {
     formats: ['image/avif', 'image/webp'],

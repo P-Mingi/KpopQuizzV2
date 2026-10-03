@@ -1,0 +1,32 @@
+3c3
+< <html lang="en" class="pretendard_60cdc229-module__UDh0rq__variable">
+---
+> <html lang="en" class="pretendard_60cdc229-module__pUigVW__variable">
+164c164
+< <span class="tabular-nums">139</span>
+---
+> <span class="tabular-nums">138</span>
+269c269
+< <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored 4/5 on a Cortis quiz</span>
+---
+> <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored 9/10 on a Cortis quiz</span>
+530,531c530,531
+< <span class="wm-pod-stat">259<!-- --> plays</span>
+< <span class="wm-pod-sub">2<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-up" aria-label="up 49 percent">
+---
+> <span class="wm-pod-stat">258<!-- --> plays</span>
+> <span class="wm-pod-sub">2<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-up" aria-label="up 48 percent">
+535c535
+< </svg>49<!-- -->%</span>
+---
+> </svg>48<!-- -->%</span>
+564,565c564,565
+< <span class="wm-pod-stat">245<!-- --> plays</span>
+< <span class="wm-pod-sub">4<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-up" aria-label="up 106 percent">
+---
+> <span class="wm-pod-stat">246<!-- --> plays</span>
+> <span class="wm-pod-sub">4<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-up" aria-label="up 108 percent">
+569c569
+< </svg>106<!-- -->%</span>
+---
+> </svg>108<!-- -->%</span>

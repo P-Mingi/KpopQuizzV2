@@ -1,0 +1,505 @@
+{
+ "url": "/creators",
+ "stops": 62,
+ "cycled": true,
+ "stuck": false,
+ "bad": [],
+ "list": [
+  {
+   "i": 0,
+   "tag": "a",
+   "name": "Skip to content",
+   "ring": true,
+   "visible": true,
+   "key": "A|#main|Skip to content|12,12"
+  },
+  {
+   "i": 1,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,18"
+  },
+  {
+   "i": 2,
+   "tag": "a",
+   "name": "Home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|Home|298,13"
+  },
+  {
+   "i": 3,
+   "tag": "a",
+   "name": "Quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|Quizzes|391,13"
+  },
+  {
+   "i": 4,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|498,13"
+  },
+  {
+   "i": 5,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|600,13"
+  },
+  {
+   "i": 6,
+   "tag": "a",
+   "name": "Community",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Community|713,13"
+  },
+  {
+   "i": 7,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|846,13"
+  },
+  {
+   "i": 8,
+   "tag": "a",
+   "name": "Search",
+   "ring": true,
+   "visible": true,
+   "key": "A|/search|Search|1044,14"
+  },
+  {
+   "i": 9,
+   "tag": "a",
+   "name": "Create",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create|1088,14"
+  },
+  {
+   "i": 10,
+   "tag": "button",
+   "name": "Sign in",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Sign in|1193,14"
+  },
+  {
+   "i": 11,
+   "tag": "button",
+   "name": "This month",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||This month|160,255"
+  },
+  {
+   "i": 12,
+   "tag": "div",
+   "name": "Creators, plays in October 2026#1mina7 quizzes60 p",
+   "ring": true,
+   "visible": true,
+   "key": "DIV||Creators, plays in October 2026#1mina7 quizzes60 p|160,341"
+  },
+  {
+   "i": 13,
+   "tag": "a",
+   "name": "mina",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/mina|mina|509,477"
+  },
+  {
+   "i": 14,
+   "tag": "a",
+   "name": "kpophistory",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/kpophistory|kpophistory|227,501"
+  },
+  {
+   "i": 15,
+   "tag": "a",
+   "name": "multistancookie",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/multistancookie|multistancookie|715,501"
+  },
+  {
+   "i": 16,
+   "tag": "a",
+   "name": "mia_lolo123__",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/mia_lolo123__|mia_lolo123__|256,649"
+  },
+  {
+   "i": 17,
+   "tag": "a",
+   "name": "hii",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/hii|hii|256,718"
+  },
+  {
+   "i": 18,
+   "tag": "a",
+   "name": "mapple",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/mapple|mapple|256,787"
+  },
+  {
+   "i": 19,
+   "tag": "a",
+   "name": "skzrealm",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/skzrealm|skzrealm|256,856"
+  },
+  {
+   "i": 20,
+   "tag": "a",
+   "name": "kpopquizz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/kpopquizz|kpopquizz|256,925"
+  },
+  {
+   "i": 21,
+   "tag": "a",
+   "name": "joonified",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/joonified|joonified|256,994"
+  },
+  {
+   "i": 22,
+   "tag": "a",
+   "name": "roseeeyh",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/roseeeyh|roseeeyh|256,1063"
+  },
+  {
+   "i": 23,
+   "tag": "a",
+   "name": "Create a quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create a quiz|940,830"
+  },
+  {
+   "i": 24,
+   "tag": "a",
+   "name": "Back to the leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard#creators|Back to the leaderboard|1024,894"
+  },
+  {
+   "i": 25,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,1284"
+  },
+  {
+   "i": 26,
+   "tag": "a",
+   "name": "Daily quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/daily|Daily quiz|449,1318"
+  },
+  {
+   "i": 27,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|449,1350"
+  },
+  {
+   "i": 28,
+   "tag": "a",
+   "name": "Ranked",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/ranked|Ranked|449,1383"
+  },
+  {
+   "i": 29,
+   "tag": "a",
+   "name": "All quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|All quizzes|449,1415"
+  },
+  {
+   "i": 30,
+   "tag": "a",
+   "name": "Popular quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes/popular-this-week|Popular quizzes|449,1448"
+  },
+  {
+   "i": 31,
+   "tag": "a",
+   "name": "Trivia",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trivia|Trivia|449,1480"
+  },
+  {
+   "i": 32,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|665,1318"
+  },
+  {
+   "i": 33,
+   "tag": "a",
+   "name": "Trending",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trending|Trending|665,1350"
+  },
+  {
+   "i": 34,
+   "tag": "a",
+   "name": "New quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/new|New quizzes|665,1383"
+  },
+  {
+   "i": 35,
+   "tag": "a",
+   "name": "Knowledge Report",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/knowledge-report-2026|Knowledge Report|665,1415"
+  },
+  {
+   "i": 36,
+   "tag": "a",
+   "name": "Pulse",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/pulse|Pulse|665,1448"
+  },
+  {
+   "i": 37,
+   "tag": "a",
+   "name": "Stats",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stats|Stats|665,1480"
+  },
+  {
+   "i": 38,
+   "tag": "a",
+   "name": "Articles",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles|Articles|665,1512"
+  },
+  {
+   "i": 39,
+   "tag": "a",
+   "name": "News",
+   "ring": true,
+   "visible": true,
+   "key": "A|/news|News|665,1545"
+  },
+  {
+   "i": 40,
+   "tag": "a",
+   "name": "Feed",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Feed|881,1318"
+  },
+  {
+   "i": 41,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|881,1350"
+  },
+  {
+   "i": 42,
+   "tag": "a",
+   "name": "Fandoms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/verse|Fandoms|881,1383"
+  },
+  {
+   "i": 43,
+   "tag": "a",
+   "name": "Create a quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create a quiz|881,1415"
+  },
+  {
+   "i": 44,
+   "tag": "a",
+   "name": "Discord",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer|Discord|881,1448"
+  },
+  {
+   "i": 45,
+   "tag": "a",
+   "name": "Reddit",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://reddit.com/r/Kpop_Verse|Reddit|881,1480"
+  },
+  {
+   "i": 46,
+   "tag": "a",
+   "name": "Help",
+   "ring": true,
+   "visible": true,
+   "key": "A|/faq|Help|1096,1318"
+  },
+  {
+   "i": 47,
+   "tag": "a",
+   "name": "About",
+   "ring": true,
+   "visible": true,
+   "key": "A|/about|About|1096,1350"
+  },
+  {
+   "i": 48,
+   "tag": "a",
+   "name": "Contact",
+   "ring": true,
+   "visible": true,
+   "key": "A|/contact|Contact|1096,1383"
+  },
+  {
+   "i": 49,
+   "tag": "a",
+   "name": "Privacy",
+   "ring": true,
+   "visible": true,
+   "key": "A|/privacy|Privacy|1096,1415"
+  },
+  {
+   "i": 50,
+   "tag": "a",
+   "name": "Terms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/terms|Terms|1096,1448"
+  },
+  {
+   "i": 51,
+   "tag": "a",
+   "name": "DMCA",
+   "ring": true,
+   "visible": true,
+   "key": "A|/dmca|DMCA|1096,1480"
+  },
+  {
+   "i": 52,
+   "tag": "a",
+   "name": "BTS",
+   "ring": true,
+   "visible": true,
+   "key": "A|/bts-quiz|BTS|258,1642"
+  },
+  {
+   "i": 53,
+   "tag": "a",
+   "name": "BLACKPINK",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blackpink-quiz|BLACKPINK|303,1642"
+  },
+  {
+   "i": 54,
+   "tag": "a",
+   "name": "Stray Kids",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-quiz|Stray Kids|399,1642"
+  },
+  {
+   "i": 55,
+   "tag": "a",
+   "name": "ATEEZ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/ateez-quiz|ATEEZ|485,1642"
+  },
+  {
+   "i": 56,
+   "tag": "a",
+   "name": "TWICE",
+   "ring": true,
+   "visible": true,
+   "key": "A|/twice-quiz|TWICE|546,1642"
+  },
+  {
+   "i": 57,
+   "tag": "a",
+   "name": "aespa",
+   "ring": true,
+   "visible": true,
+   "key": "A|/aespa-quiz|aespa|609,1642"
+  },
+  {
+   "i": 58,
+   "tag": "a",
+   "name": "NewJeans",
+   "ring": true,
+   "visible": true,
+   "key": "A|/newjeans-quiz|NewJeans|667,1642"
+  },
+  {
+   "i": 59,
+   "tag": "a",
+   "name": "SEVENTEEN",
+   "ring": true,
+   "visible": true,
+   "key": "A|/seventeen-quiz|SEVENTEEN|754,1642"
+  },
+  {
+   "i": 60,
+   "tag": "a",
+   "name": "All groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|All groups|854,1642"
+  },
+  {
+   "i": 61,
+   "tag": "button",
+   "name": "Dark mode",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Dark mode|1191,1689"
+  }
+ ]
+}

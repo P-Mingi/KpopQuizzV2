@@ -1,0 +1,497 @@
+{
+ "url": "/riize-quiz",
+ "stops": 61,
+ "cycled": true,
+ "stuck": false,
+ "bad": [],
+ "list": [
+  {
+   "i": 0,
+   "tag": "a",
+   "name": "Skip to content",
+   "ring": true,
+   "visible": true,
+   "key": "A|#main|Skip to content|12,12"
+  },
+  {
+   "i": 1,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,18"
+  },
+  {
+   "i": 2,
+   "tag": "a",
+   "name": "Home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|Home|298,13"
+  },
+  {
+   "i": 3,
+   "tag": "a",
+   "name": "Quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|Quizzes|391,13"
+  },
+  {
+   "i": 4,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|498,13"
+  },
+  {
+   "i": 5,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|601,13"
+  },
+  {
+   "i": 6,
+   "tag": "a",
+   "name": "Community",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Community|714,13"
+  },
+  {
+   "i": 7,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|847,13"
+  },
+  {
+   "i": 8,
+   "tag": "a",
+   "name": "Search",
+   "ring": true,
+   "visible": true,
+   "key": "A|/search|Search|1044,14"
+  },
+  {
+   "i": 9,
+   "tag": "a",
+   "name": "Create",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create|1088,14"
+  },
+  {
+   "i": 10,
+   "tag": "button",
+   "name": "Sign in",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Sign in|1193,14"
+  },
+  {
+   "i": 11,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|160,93"
+  },
+  {
+   "i": 12,
+   "tag": "a",
+   "name": "Make the first quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=riize|Make the first quiz|160,404"
+  },
+  {
+   "i": 13,
+   "tag": "button",
+   "name": "Notify me",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Notify me|404,404"
+  },
+  {
+   "i": 14,
+   "tag": "a",
+   "name": "Create the first RIIZE quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=riize|Create the first RIIZE quiz|197,817"
+  },
+  {
+   "i": 15,
+   "tag": "a",
+   "name": "Members basicsFour choices each, the classic start",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=riize&type=multiple_choice|Members basicsFour choices each, the classic start|785,611"
+  },
+  {
+   "i": 16,
+   "tag": "a",
+   "name": "True or falseQuick, great for sharing",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=riize&type=true_false|True or falseQuick, great for sharing|785,702"
+  },
+  {
+   "i": 17,
+   "tag": "a",
+   "name": "Guess the member from cluesThree clues each",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=riize&type=guess_from_clues|Guess the member from cluesThree clues each|785,794"
+  },
+  {
+   "i": 18,
+   "tag": "summary",
+   "name": "When did RIIZE debut?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||When did RIIZE debut?|160,1186"
+  },
+  {
+   "i": 19,
+   "tag": "summary",
+   "name": "What is RIIZE's fandom called?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What is RIIZE's fandom called?|160,1288"
+  },
+  {
+   "i": 20,
+   "tag": "summary",
+   "name": "What generation is RIIZE?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What generation is RIIZE?|160,1345"
+  },
+  {
+   "i": 21,
+   "tag": "summary",
+   "name": "Where is RIIZE from?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Where is RIIZE from?|160,1402"
+  },
+  {
+   "i": 22,
+   "tag": "summary",
+   "name": "What label is RIIZE on?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What label is RIIZE on?|160,1459"
+  },
+  {
+   "i": 23,
+   "tag": "a",
+   "name": "Every K-pop Generation Explained",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles/kpop-generations-explained|Every K-pop Generation Explained|920,1022"
+  },
+  {
+   "i": 24,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,1692"
+  },
+  {
+   "i": 25,
+   "tag": "a",
+   "name": "Daily quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/daily|Daily quiz|449,1727"
+  },
+  {
+   "i": 26,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|449,1759"
+  },
+  {
+   "i": 27,
+   "tag": "a",
+   "name": "Ranked",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/ranked|Ranked|449,1791"
+  },
+  {
+   "i": 28,
+   "tag": "a",
+   "name": "All quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|All quizzes|449,1824"
+  },
+  {
+   "i": 29,
+   "tag": "a",
+   "name": "Popular quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes/popular-this-week|Popular quizzes|449,1856"
+  },
+  {
+   "i": 30,
+   "tag": "a",
+   "name": "Trivia",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trivia|Trivia|449,1888"
+  },
+  {
+   "i": 31,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|665,1727"
+  },
+  {
+   "i": 32,
+   "tag": "a",
+   "name": "Trending",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trending|Trending|665,1759"
+  },
+  {
+   "i": 33,
+   "tag": "a",
+   "name": "New quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/new|New quizzes|665,1791"
+  },
+  {
+   "i": 34,
+   "tag": "a",
+   "name": "Knowledge Report",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/knowledge-report-2026|Knowledge Report|665,1824"
+  },
+  {
+   "i": 35,
+   "tag": "a",
+   "name": "Pulse",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/pulse|Pulse|665,1856"
+  },
+  {
+   "i": 36,
+   "tag": "a",
+   "name": "Stats",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stats|Stats|665,1888"
+  },
+  {
+   "i": 37,
+   "tag": "a",
+   "name": "Articles",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles|Articles|665,1921"
+  },
+  {
+   "i": 38,
+   "tag": "a",
+   "name": "News",
+   "ring": true,
+   "visible": true,
+   "key": "A|/news|News|665,1953"
+  },
+  {
+   "i": 39,
+   "tag": "a",
+   "name": "Feed",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Feed|881,1727"
+  },
+  {
+   "i": 40,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|881,1759"
+  },
+  {
+   "i": 41,
+   "tag": "a",
+   "name": "Fandoms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/verse|Fandoms|881,1791"
+  },
+  {
+   "i": 42,
+   "tag": "a",
+   "name": "Create a quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create a quiz|881,1824"
+  },
+  {
+   "i": 43,
+   "tag": "a",
+   "name": "Discord",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer|Discord|881,1856"
+  },
+  {
+   "i": 44,
+   "tag": "a",
+   "name": "Reddit",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://reddit.com/r/Kpop_Verse|Reddit|881,1888"
+  },
+  {
+   "i": 45,
+   "tag": "a",
+   "name": "Help",
+   "ring": true,
+   "visible": true,
+   "key": "A|/faq|Help|1096,1727"
+  },
+  {
+   "i": 46,
+   "tag": "a",
+   "name": "About",
+   "ring": true,
+   "visible": true,
+   "key": "A|/about|About|1096,1759"
+  },
+  {
+   "i": 47,
+   "tag": "a",
+   "name": "Contact",
+   "ring": true,
+   "visible": true,
+   "key": "A|/contact|Contact|1096,1791"
+  },
+  {
+   "i": 48,
+   "tag": "a",
+   "name": "Privacy",
+   "ring": true,
+   "visible": true,
+   "key": "A|/privacy|Privacy|1096,1824"
+  },
+  {
+   "i": 49,
+   "tag": "a",
+   "name": "Terms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/terms|Terms|1096,1856"
+  },
+  {
+   "i": 50,
+   "tag": "a",
+   "name": "DMCA",
+   "ring": true,
+   "visible": true,
+   "key": "A|/dmca|DMCA|1096,1888"
+  },
+  {
+   "i": 51,
+   "tag": "a",
+   "name": "BTS",
+   "ring": true,
+   "visible": true,
+   "key": "A|/bts-quiz|BTS|258,2051"
+  },
+  {
+   "i": 52,
+   "tag": "a",
+   "name": "BLACKPINK",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blackpink-quiz|BLACKPINK|303,2051"
+  },
+  {
+   "i": 53,
+   "tag": "a",
+   "name": "Stray Kids",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-quiz|Stray Kids|399,2051"
+  },
+  {
+   "i": 54,
+   "tag": "a",
+   "name": "ATEEZ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/ateez-quiz|ATEEZ|485,2051"
+  },
+  {
+   "i": 55,
+   "tag": "a",
+   "name": "TWICE",
+   "ring": true,
+   "visible": true,
+   "key": "A|/twice-quiz|TWICE|546,2051"
+  },
+  {
+   "i": 56,
+   "tag": "a",
+   "name": "aespa",
+   "ring": true,
+   "visible": true,
+   "key": "A|/aespa-quiz|aespa|609,2051"
+  },
+  {
+   "i": 57,
+   "tag": "a",
+   "name": "NewJeans",
+   "ring": true,
+   "visible": true,
+   "key": "A|/newjeans-quiz|NewJeans|667,2051"
+  },
+  {
+   "i": 58,
+   "tag": "a",
+   "name": "SEVENTEEN",
+   "ring": true,
+   "visible": true,
+   "key": "A|/seventeen-quiz|SEVENTEEN|754,2051"
+  },
+  {
+   "i": 59,
+   "tag": "a",
+   "name": "All groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|All groups|854,2051"
+  },
+  {
+   "i": 60,
+   "tag": "button",
+   "name": "Dark mode",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Dark mode|1191,2097"
+  }
+ ]
+}

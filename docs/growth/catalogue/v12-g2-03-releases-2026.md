@@ -1,0 +1,214 @@
+# 2026 releases of the groups already in the catalogue
+
+Mode: DRY RUN (anon key, nothing written to the database). Run at 2026-10-02T16:43:25.849Z.
+
+Acts read from the catalogue (gender bg, gg or coed): 153. Looking for 2026 releases, at most 3 per act.
+
+- **(G)I-DLE** (Deezer artist 15065941; 4th/gg; 3 release(s) dated 2026): +3
+  - 4090868561 · Gimme Dat Love · We made (ep, 2026-07-06) · medium · rank 531757
+  - 4070183671 · Crow · Crow (single, 2026-06-15) · medium · rank 491156
+  - 4090868571 · Morning · We made (ep, 2026-07-06) · medium · rank 460120
+- **&TEAM** (Deezer artist 189785997; 4th/bg; 7 release(s) dated 2026): +3
+  - 4265679302 · Good Boy · Mark on Me (ep, 2026-09-09) · iconic · rank 633903
+  - 4265679292 · Mark on Me · Mark on Me (ep, 2026-09-09) · iconic · rank 562108
+  - 4265679332 · Empty · Mark on Me (ep, 2026-09-09) · iconic · rank 459942
+- **8TURN** (Deezer artist 198939617; 5th/bg; 3 release(s) dated 2026): +3
+  - 4140165301 · Stagefright · [8.X] (single, 2026-07-21) · iconic · rank 366988
+  - 4270604242 · BESAME · BESAME (single, 2026-09-14) · iconic · rank 294284
+  - 3775213592 · BRUISE · The 3rd Digital Single BRUISE (single, 2026-01-28) · iconic · rank 271215
+- **aespa** (Deezer artist 113547672; 4th/gg; 15 release(s) dated 2026): +3
+  - 4149903382 · KISS N TELL · KISS N TELL (ep, 2026-07-24) · iconic · rank 734455
+  - 4270077462 · 16 Bit (KARINA Solo) · SYNK : COMPLaeXITY - 2026 Special Digital Single (ep, 2026-09-14) · hard · rank 555731
+  - 4198523812 · Serenade (KARINA & WINTER) · SYNK : aeXIS LINE - 2026 Special Digital Single (single, 2026-08-09) · hard · rank 553946
+- **AKMU** (Deezer artist 9197006; 3rd/coed; 1 release(s) dated 2026): +3
+  - 3920191761 · Joy, Sorrow, A Beautiful Heart · FLOWERING (album, 2026-04-07) · iconic · rank 233930
+  - 3920191731 · Paradise of Rumors · FLOWERING (album, 2026-04-07) · iconic · rank 224734
+  - 3920191771 · Sunshine Bless You · FLOWERING (album, 2026-04-07) · iconic · rank 191656
+- **ARTMS** (Deezer artist 111244772; 3rd/gg; 2 release(s) dated 2026): +3
+  - 4143495621 · Born Stunner · <Born Stunner> (single, 2026-07-24) · iconic · rank 431058
+  - 4173826002 · Blue Blood · <Hyper-Ego> (ep, 2026-08-07) · iconic · rank 408446
+  - 4173826032 · Pixel Memory · <Hyper-Ego> (ep, 2026-08-07) · iconic · rank 290817
+- **ATEEZ** (Deezer artist 49280302; 4th/bg; 8 release(s) dated 2026): +3
+  - 4027935751 · BAD · GOLDEN HOUR : Part.5 (ep, 2026-06-26) · iconic · rank 861386
+  - 4027935761 · MAMACITA · GOLDEN HOUR : Part.5 (ep, 2026-06-26) · popular · rank 623990
+  - 4027935781 · Fallin' · GOLDEN HOUR : Part.5 (ep, 2026-06-26) · medium · rank 549535
+- **BABYMONSTER** (Deezer artist 244386532; 5th/gg; 2 release(s) dated 2026): +3
+  - 3986645071 · CHOOM · 춤 (CHOOM) (ep, 2026-05-04) · iconic · rank 734229
+  - 3986645031 · MOON · 춤 (CHOOM) (ep, 2026-05-04) · iconic · rank 694526
+  - 4056495431 · SUGAR HONEY ICE TEA · SUGAR HONEY ICE TEA (single, 2026-06-08) · iconic · rank 688673
+- **BIGBANG** (Deezer artist 65209; 2nd/bg; 1 release(s) dated 2026): +1
+  - 4223081212 · BiiiG · BiiiG (single, 2026-08-19) · iconic · rank 615488
+- **BLACKPINK** (Deezer artist 10803980; 3rd/gg; 1 release(s) dated 2026): +1
+  - 3866248801 · Fxxxboy · DEADLINE (ep, 2026-02-27) · hard · rank 505840
+- **BOYNEXTDOOR** (Deezer artist 215753985; 5th/bg; 9 release(s) dated 2026): +3
+  - 4311096852 · ANIMAL · HOME: DELUXE (album, 2026-09-29) · iconic · rank 631939
+  - 4311096862 · CLICHE · HOME: DELUXE (album, 2026-09-29) · popular · rank 579598
+  - 4311096962 · 400 Years · HOME: DELUXE (album, 2026-09-29) · medium · rank 493120
+- **BTS** (Deezer artist 6982223; 3rd/bg; 7 release(s) dated 2026): +2
+  - 4076508981 · Come Over · Come Over (single, 2026-06-12) · hard · rank 799281
+  - 3907717251 · No. 29 · ARIRANG (album, 2026-03-20) · hard · rank 635945
+- **Cortis** (Deezer artist 345377831; 5th/bg; 4 release(s) dated 2026): +2
+  - 4235827392 · MONEYMONEYMONEY · GREENGREEN_playextended (ep, 2026-08-24) · medium · rank 683936
+  - 4235827382 · PACK IT UP · GREENGREEN_playextended (ep, 2026-08-24) · medium · rank 577286
+- **CRAVITY** (Deezer artist 11363266; 4th/bg; 2 release(s) dated 2026): +3
+  - 4285321022 · LOUDER · sonorous (album, 2026-09-30) · iconic · rank 409978
+  - 4285321042 · LOVE ME · sonorous (album, 2026-09-30) · iconic · rank 386103
+  - 4285321052 · Seize The Night · sonorous (album, 2026-09-30) · iconic · rank 377807
+- **ENHYPEN** (Deezer artist 113915572; 4th/bg; 26 release(s) dated 2026): +3
+  - 4232461262 · Bloody Paradise · THE SIN : BLISS (ep, 2026-08-21) · iconic · rank 895242
+  - 4232461242 · Stuck · THE SIN : BLISS (ep, 2026-08-21) · popular · rank 667905
+  - 4232461272 · Checkmate · THE SIN : BLISS (ep, 2026-08-21) · medium · rank 617556
+- **EXO** (Deezer artist 88684; 3rd/bg; 1 release(s) dated 2026): +3
+  - 3770700232 · Suffocate · REVERXE - The 8th Album (album, 2026-01-19) · hard · rank 360190
+  - 3770700242 · Moonlight Shadows · REVERXE - The 8th Album (album, 2026-01-19) · hard · rank 301369
+  - 3770700282 · I’m Home · REVERXE - The 8th Album (album, 2026-01-19) · hard · rank 300211
+- **FIFTY FIFTY** (Deezer artist 192285787; 4th/gg; 9 release(s) dated 2026): +3
+  - 4093308791 · My Wonder · See You At Work Tomorrow! (Original Television Soundtrack), Pt. 1 (album, 2026-06-23) · iconic · rank 245403
+  - 4093308781 · Hopping · See You At Work Tomorrow! (Original Television Soundtrack), Pt. 1 (album, 2026-06-23) · iconic · rank 237442
+  - 3789861432 · Still In Time · Spring Fever, Pt. 7 (Original Soundtrack) (single, 2026-01-27) · iconic · rank 225669
+- **fromis_9** (Deezer artist 14981411; 4th/gg; 3 release(s) dated 2026): +3
+  - 4157622882 · Vitamin ME · Glow ME (album, 2026-07-21) · iconic · rank 377081
+  - 4157622942 · Why do I cry? · Glow ME (album, 2026-07-21) · iconic · rank 270904
+  - 4157622932 · Cold Blood · Glow ME (album, 2026-07-21) · medium · rank 219398
+- **FT Island** (Deezer artist 824393; 2nd/bg; 5 release(s) dated 2026): +1
+  - 4306345672 · Like The First Day · Like The First Day (single, 2026-09-30) · iconic · rank 269941
+- **H1-KEY** (Deezer artist 154788011; 4th/gg; 3 release(s) dated 2026): +1
+  - 3878249061 · To. My First Love · LOVECHAPTER (ep, 2026-03-05) · popular · rank 167764
+- **Hearts2Hearts** (Deezer artist 303043121; 5th/gg; 6 release(s) dated 2026): +2
+  - 4197249182 · ICONIC HEART · ICONIC HEART (single, 2026-08-09) · iconic · rank 576987
+  - 4258073911 · Moonride · Moonride (single, 2026-09-09) · popular · rank 508827
+- **ILLIT** (Deezer artist 259645622; 5th/gg; 8 release(s) dated 2026): +3
+  - 4283728522 · Swingin’ Magic · Swingin’ Magic (single, 2026-09-20) · popular · rank 573518
+  - 4166644212 · I Got Your Back (Feat. JISOO, MOMOKA of HANA) · I Got Your Back (single, 2026-07-26) · medium · rank 560791
+  - 3928303661 · Bubee · Bubee (single, 2026-04-05) · hard · rank 375072
+- **ITZY** (Deezer artist 3649631; 4th/gg; 2 release(s) dated 2026): +3
+  - 4021131311 · Undefined (CHAERYEONG) · Motto (album, 2026-05-18) · hard · rank 377895
+  - 4021131291 · Asylum (LIA) · Motto (album, 2026-05-18) · hard · rank 365076
+  - 4021131301 · LOOK (RYUJIN) · Motto (album, 2026-05-18) · hard · rank 349843
+- **IVE** (Deezer artist 153042292; 4th/gg; 7 release(s) dated 2026): +1
+  - 4018650521 · LUCID DREAM · LUCID DREAM (ep, 2026-05-27) · hard · rank 287033
+- **izna** (Deezer artist 291283441; 5th/gg; 4 release(s) dated 2026): +2
+  - 4184612222 · HEADACHE · HANDLE WITH CARE (ep, 2026-09-02) · popular · rank 334950
+  - 4184600862 · DUMB HOT! · DUMB HOT! (single, 2026-08-07) · medium · rank 244370
+- **KARD** (Deezer artist 4331560; 3rd/coed; 1 release(s) dated 2026): +3
+  - 4157200522 · Back To Life · KARD 1st Album 'Where To Now? (Part.2) : NOWHERE' (album, 2026-07-28) · iconic · rank 528118
+  - 4157200552 · Signal · KARD 1st Album 'Where To Now? (Part.2) : NOWHERE' (album, 2026-07-28) · iconic · rank 398343
+  - 4157200532 · Armor · KARD 1st Album 'Where To Now? (Part.2) : NOWHERE' (album, 2026-07-28) · popular · rank 308790
+- **KATSEYE** (Deezer artist 271210292; 5th/gg; 8 release(s) dated 2026): +3
+  - 4159582602 · Animal · Animal (single, 2026-07-27) · iconic · rank 993175
+  - 4208732332 · Hootie Frutti · WILD (ep, 2026-08-14) · iconic · rank 957634
+  - 4208732352 · That Way · WILD (ep, 2026-08-14) · iconic · rank 770387
+- **Kep1er** (Deezer artist 154701791; 4th/gg; 2 release(s) dated 2026): +3
+  - 3928840871 · KILLA (Face the other me) · CRACK CODE (ep, 2026-03-31) · iconic · rank 361551
+  - 3928840861 · I am Kep1 · CRACK CODE (ep, 2026-03-31) · iconic · rank 262680
+  - 3928840881 · MIC CHECK · CRACK CODE (ep, 2026-03-31) · iconic · rank 173437
+- **KiiiKiii** (Deezer artist 302287801; 5th/gg; 3 release(s) dated 2026): +3
+  - 4204204872 · Pop Off Pop Off · WhyKiiiKiii (ep, 2026-08-10) · iconic · rank 671717
+  - 4204204882 · SWEET SOUR · WhyKiiiKiii (ep, 2026-08-10) · iconic · rank 452546
+  - 4204204862 · Hey Hi · WhyKiiiKiii (ep, 2026-08-10) · iconic · rank 447967
+- **KISS OF LIFE** (Deezer artist 6389700; 4th/gg; 4 release(s) dated 2026): +3
+  - 4164951472 · SWEAT · SWEAT (single, 2026-08-04) · iconic · rank 549308
+  - 4164951482 · WHAT! · SWEAT (single, 2026-08-04) · medium · rank 387793
+  - 4275199122 · Was It You · SWEAT -JAPANESE EP- (ep, 2026-09-16) · hard · rank 250666
+- **LE SSERAFIM** (Deezer artist 168158797; 4th/gg; 16 release(s) dated 2026): +3
+  - 4274980322 · Made My Night · Made My Night (single, 2026-09-12) · iconic · rank 736316
+  - 4076509001 · ICONIC BY MISTAKE · ICONIC BY MISTAKE (single, 2026-06-12) · medium · rank 589661
+  - 4274980332 · AEIOU · Made My Night (single, 2026-09-12) · hard · rank 539431
+- **LIGHTSUM** (Deezer artist 135029282; 4th/gg; 3 release(s) dated 2026): +1
+  - 4264198082 · Doshite · Re:idol (ep, 2026-09-23) · popular · rank 151987
+- **MONSTA X** (Deezer artist 5501870; 3rd/bg; 7 release(s) dated 2026): +3
+  - 4258718131 · MAGIC · The Phase (ep, 2026-09-04) · iconic · rank 498628
+  - 4258718151 · SURVIVOR · The Phase (ep, 2026-09-04) · popular · rank 437759
+  - 4296041062 · Trespass (Rerecorded) · NOW PROJECT vol.2 (album, 2026-09-26) · medium · rank 384553
+- **N.Flying** (Deezer artist 9793684; 3rd/bg; 2 release(s) dated 2026): +1
+  - 4293635102 · Our Ending · Our Ending (single, 2026-09-28) · iconic · rank 264924
+- **NCT 127** (Deezer artist 50306442; 3rd/bg; 2 release(s) dated 2026): +3
+  - 4208809742 · Blingy · BLINGY - The 7th Album (album, 2026-08-25) · iconic · rank 524650
+  - 4208809762 · Piñata · BLINGY - The 7th Album (album, 2026-08-25) · popular · rank 356520
+  - 4208809752 · Legacy · BLINGY - The 7th Album (album, 2026-08-25) · medium · rank 350547
+- **NCT WISH** (Deezer artist 250913622; 5th/bg; 5 release(s) dated 2026): +3
+  - 3946155691 · 여우비 Crush · Ode to Love - The 1st Album (album, 2026-04-20) · medium · rank 238267
+  - 3946155701 · Street (2AM) · Ode to Love - The 1st Album (album, 2026-04-20) · medium · rank 225002
+  - 3946155731 · Don't Say You Love Me · Ode to Love - The 1st Album (album, 2026-04-20) · hard · rank 207258
+- **ONEUS** (Deezer artist 58547552; 4th/bg; 3 release(s) dated 2026): +3
+  - 4284865992 · Say Yes! · FIRST LIGHT : 井 (ep, 2026-09-23) · iconic · rank 448944
+  - 4284865982 · Runaway · FIRST LIGHT : 井 (ep, 2026-09-23) · iconic · rank 355537
+  - 4284866022 · We run for youth · FIRST LIGHT : 井 (ep, 2026-09-23) · popular · rank 323691
+- **ONEWE** (Deezer artist 65486902; 4th/bg; 4 release(s) dated 2026): +3
+  - 4223440872 · Scenario · 面 : Unknown Atlas (album, 2026-08-19) · hard · rank 190013
+  - 4223441002 · Beautiful Runaway · 面 : Unknown Atlas (album, 2026-08-19) · hard · rank 175950
+  - 4223441012 · Just You · 面 : Unknown Atlas (album, 2026-08-19) · hard · rank 161234
+- **P1Harmony** (Deezer artist 111567892; 4th/bg; 2 release(s) dated 2026): +2
+  - 4142993731 · VELVET · UNIQUE Japan Edition (Selected Version) (ep, 2026-07-29) · hard · rank 355190
+  - 4142993741 · 1 SECOND · UNIQUE Japan Edition (Selected Version) (ep, 2026-07-29) · hard · rank 292392
+- **PENTAGON** (Deezer artist 62831; 3rd/bg; 1 release(s) dated 2026): +1
+  - 4237086082 · Coward · Coward (single, 2026-09-11) · iconic · rank 401393
+- **PLAVE** (Deezer artist 11135396; 5th/bg; 4 release(s) dated 2026): +3
+  - 3939893671 · Born Savage · Caligo Pt.2 (ep, 2026-04-13) · iconic · rank 341712
+  - 4248967941 · Flame · Flame (single, 2026-09-03) · iconic · rank 183207
+  - 3929165981 · HMPH! (feat. SOLE) · HMPH! (feat. SOLE) (single, 2026-04-03) · iconic · rank 164994
+- **QWER** (Deezer artist 12249278; 5th/gg; 4 release(s) dated 2026): +1
+  - 4289476362 · Dreamer · Special Single 'Dreamer & Picaresque' (single, 2026-09-21) · popular · rank 161998
+- **Red Velvet** (Deezer artist 338654; 3rd/gg; 2 release(s) dated 2026): +3
+  - 4178965332 · Surfin' Boy · Velvet Summer - Summer Mini Album (ep, 2026-08-03) · iconic · rank 557087
+  - 4178965352 · Orchestra · Velvet Summer - Summer Mini Album (ep, 2026-08-03) · popular · rank 425156
+  - 4178965342 · Hot Girls Cold Vibe · Velvet Summer - Summer Mini Album (ep, 2026-08-03) · medium · rank 360272
+- **Red Velvet - IRENE & SEULGI** (Deezer artist 99548022; 3rd/gg; 1 release(s) dated 2026): +3
+  - 4275029852 · Cheetah · Cheetah (ep, 2026-09-13) · iconic · rank 390857
+  - 4275029862 · Fall 4 U · Cheetah (ep, 2026-09-13) · iconic · rank 372861
+  - 4275029882 · Wave · Cheetah (ep, 2026-09-13) · popular · rank 343898
+- **RIIZE** (Deezer artist 225538625; 5th/bg; 6 release(s) dated 2026): +3
+  - 4051286221 · Do your dance · Ⅱ - The 2nd Mini Album (ep, 2026-06-15) · popular · rank 423704
+  - 4051286231 · D-D-Done · Ⅱ - The 2nd Mini Album (ep, 2026-06-15) · medium · rank 327122
+  - 4174060712 · Sunburst · Sunburst (single, 2026-07-26) · hard · rank 260437
+- **SEVENTEEN** (Deezer artist 240582; 3rd/bg; 1 release(s) dated 2026): +1
+  - 3856634281 · Tiny Light · Tiny Light (single, 2026-02-27) · hard · rank 345031
+- **SF9** (Deezer artist 12564416; 3rd/bg; 3 release(s) dated 2026): +3
+  - 4236763352 · PRESSURE · TENACITY (album, 2026-08-26) · popular · rank 274357
+  - 4236763332 · Without Wings · TENACITY (album, 2026-08-26) · popular · rank 265953
+  - 4236763382 · Too Easily · TENACITY (album, 2026-08-26) · popular · rank 256739
+- **STAYC** (Deezer artist 87703262; 4th/gg; 3 release(s) dated 2026): +3
+  - 4063867901 · 2 L0VE · 2:LOVE (single, 2026-06-16) · medium · rank 327044
+  - 4063867911 · WHERE YOU AT? · 2:LOVE (single, 2026-06-16) · hard · rank 223247
+  - 4063867921 · SORRY · 2:LOVE (single, 2026-06-16) · hard · rank 220032
+- **Stray Kids** (Deezer artist 13923487; 4th/bg; 8 release(s) dated 2026): +3
+  - 4204153972 · This & That · THIS & THAT (album, 2026-08-07) · iconic · rank 887299
+  - 4103855641 · RUN IT · RUN IT (single, 2026-06-24) · iconic · rank 808895
+  - 4204153982 · After You · THIS & THAT (album, 2026-08-07) · iconic · rank 762318
+- **TREASURE** (Deezer artist 119559102; 4th/bg; 2 release(s) dated 2026): +3
+  - 4049214851 · IF I · 4th MINI ALBUM [NEW WAV] (ep, 2026-06-01) · iconic · rank 390205
+  - 4049214881 · DANGER · 4th MINI ALBUM [NEW WAV] (ep, 2026-06-01) · iconic · rank 308025
+  - 4049214861 · ZOOM ZOOM · 4th MINI ALBUM [NEW WAV] (ep, 2026-06-01) · iconic · rank 306046
+- **tripleS** (Deezer artist 7712602; 4th/gg; 9 release(s) dated 2026): +3
+  - 4233237592 · DNA (Dream N Access) · <DNA> (single, 2026-09-01) · medium · rank 247517
+  - 4217012982 · World Wild Women · <World Wild Women> (single, 2026-08-17) · hard · rank 211788
+  - 4172467752 · Dream Dress · Dream Dress (single, 2026-08-01) · hard · rank 198982
+- **TWS** (Deezer artist 249377062; 5th/bg; 7 release(s) dated 2026): +3
+  - 4179963532 · SODA SODA · SODA SODA (single, 2026-08-03) · hard · rank 258532
+  - 4179963542 · Palm Tree · SODA SODA (single, 2026-08-03) · hard · rank 235263
+  - 4073624071 · Dream With Us · Dream With Us (single, 2026-06-11) · hard · rank 167097
+- **TXT** (Deezer artist 60552072; 4th/bg; 5 release(s) dated 2026): +3
+  - 4212946562 · Setsuna Hanabi · Setsuna Hanabi (ep, 2026-08-16) · iconic · rank 714219
+  - 4212946572 · Silence · Setsuna Hanabi (ep, 2026-08-16) · hard · rank 451774
+  - 3950788701 · Bed of Thorns · 7TH YEAR: A Moment of Stillness in the Thorns (ep, 2026-04-13) · hard · rank 446329
+- **UNIS** (Deezer artist 9277654; 5th/gg; 7 release(s) dated 2026): +2
+  - 4260806001 · Sky Land, Star Land · Sky Land, Star Land (single, 2026-09-08) · iconic · rank 497189
+  - 4289452762 · Milky Way · Milky Way (single, 2026-09-23) · iconic · rank 360122
+- **VERIVERY** (Deezer artist 51668762; 4th/bg; 1 release(s) dated 2026): +1
+  - 4258150901 · Don't Panic! · CONFETTI (ep, 2026-09-07) · iconic · rank 358551
+- **WayV** (Deezer artist 14106799; 3rd/bg; 1 release(s) dated 2026): +3
+  - 4173621912 · 鸢 Vision Wings · Vision Wings - The 8th Mini Album (ep, 2026-08-10) · iconic · rank 452441
+  - 4173621922 · 焰光蓝 Blue Fever · Vision Wings - The 8th Mini Album (ep, 2026-08-10) · popular · rank 306976
+  - 4173621942 · 主场 Icon · Vision Wings - The 8th Mini Album (ep, 2026-08-10) · popular · rank 289821
+- **YOUNG POSSE** (Deezer artist 237432491; 5th/gg; 6 release(s) dated 2026): +3
+  - 4293055462 · Haze (SUNHYE, JIANA, DOEUN) · Haze (single, 2026-09-22) · medium · rank 200110
+  - 4130517741 · Mr 2026 · young tape (album, 2026-07-13) · medium · rank 197810
+  - 4130517771 · HopeYouFuckUp. (DOEUN, SUNHYE, JIANA) · young tape (album, 2026-07-13) · hard · rank 174279
+- **ZEROBASEONE** (Deezer artist 219364175; 4th/bg; 6 release(s) dated 2026): +3
+  - 4167244632 · Aphrodite · KAIKILOVE (single, 2026-08-19) · hard · rank 216033
+  - 4167244612 · Existence · KAIKILOVE (single, 2026-08-19) · hard · rank 208387
+  - 3802892402 · ROSES · RE-FLOW (ep, 2026-02-03) · hard · rank 166057
+
+Acts with at least one new 2026 song: 58. Left out: 230 track(s) whose ISRC is not from 2026 (re-uploads or new editions of older recordings), 318 track(s) under Deezer rank 150000.
+
+Rows to add: 146. Songs to link to a group row: 0 statement(s).

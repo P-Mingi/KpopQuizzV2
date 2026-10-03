@@ -1,0 +1,127 @@
+/* G8 (V12): group hub additions (ways to play, Fans picked, Be the first, thin hub
+   nudge), the share kit sheet, the creators board (/creators) and the leaderboard
+   link. Prototype: .fcreate, .tpls, .nudge, .fp, .kit, .cbgrid, .rising, .rules,
+   .tiers3. Served by the v11 stylesheet route with the v12 flag only; never imported. */
+
+/* ---------- hub: Be the first (a hub without a quiz) ---------- */
+.g8-fcreate { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 28px; align-items: center; margin-top: 36px; padding: 36px; border: 1px solid var(--ux-qotd-edge); border-radius: 28px; background: var(--ux-qotd-bg); color: var(--ux-ink); }
+.g8-fcreate h2 { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; margin-top: 10px; text-wrap: balance; }
+.g8-fcreate > div > p { color: var(--ux-muted); margin-top: 10px; }
+.g8-fcreate ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+.g8-fcreate li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+.g8-fcreate li .ux-ico { width: 18px; height: 18px; color: var(--ux-pink); flex: 0 0 18px; margin-top: 3px; }
+.g8-fcreate-a { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.g8-tpls { display: grid; gap: 10px; }
+.g8-tpls-h { color: var(--ux-muted); font-size: 14px; font-weight: 600; }
+.g8-tpl { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--ux-line); border-radius: 16px; background: var(--ux-raised); color: var(--ux-ink); text-align: left; transition: border-color .15s; }
+.g8-tpl:hover { border-color: var(--ux-pink-line); }
+.g8-tpl-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--ux-pink-soft); color: var(--ux-pink-ink); flex: 0 0 40px; }
+.g8-tpl-ic .ux-ico { width: 20px; height: 20px; }
+.g8-tpl b { display: block; font-weight: 600; }
+.g8-tpl small { color: var(--ux-muted); font-size: 13px; }
+
+/* ---------- hub: thin hub nudge ---------- */
+.g8-nudge { display: flex; align-items: center; gap: 16px; margin-top: 28px; padding: 18px 20px; border: 1px solid var(--ux-qotd-edge); border-radius: 18px; background: var(--ux-qotd-bg); color: var(--ux-ink); }
+.g8-nudge-ic { color: var(--ux-pink); flex: 0 0 20px; width: 20px; height: 20px; }
+.g8-nudge-t { flex: 1; min-width: 0; }
+.g8-nudge-t b { font-weight: 700; }
+.g8-nudge-t p { font-size: 14px; color: var(--ux-muted); margin-top: 2px; }
+.g8-nudge .ux-btn { flex: 0 0 auto; }
+
+/* ---------- hub: quizzes anchor, first creator ---------- */
+.g8-qs { scroll-margin-top: 88px; }
+.g8-firstby { margin-top: 20px; }
+.g8-firstby a { color: var(--ux-pink-ink); font-weight: 600; }
+.g8-firstby a:hover { text-decoration: underline; }
+
+/* ---------- hub: Fans picked ---------- */
+.g8-fp { scroll-margin-top: 88px; }
+.g8-fp-side { display: flex; align-items: center; gap: 16px; }
+.g8-fp-l { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.g8-fr { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto 56px; align-items: center; gap: 14px; min-height: 58px; border-bottom: 1px solid var(--ux-line); }
+.g8-fr-rk { font-size: 18px; font-weight: 800; color: var(--ux-muted); }
+.g8-fr:nth-child(-n+3) .g8-fr-rk { color: var(--ux-pink-ink); }
+.g8-fr-t { min-width: 0; }
+.g8-fr-t b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.g8-fr-t small { display: block; color: var(--ux-muted); font-size: 13px; }
+.g8-fr-w { font-size: 14px; color: var(--ux-muted); white-space: nowrap; }
+.g8-fr-dl { justify-self: end; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ux-muted); white-space: nowrap; }
+.g8-fr-dl.is-up { color: var(--ux-ok); }
+.g8-fr-dl.is-down { color: var(--ux-no); }
+.g8-fr-dl.is-new { color: var(--ux-pink-ink); }
+.g8-fp-vote:empty { display: none; }
+.g8-fp-note { margin-top: 14px; }
+
+/* ---------- share kit ---------- */
+.g8-kitg { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; }
+.g8-kit-fmt { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+.g8-kitsec { padding: 16px 0; border-bottom: 1px solid var(--ux-line); }
+.g8-kitsec:first-child { padding-top: 0; }
+.g8-kitsec:last-child { border-bottom: 0; }
+.g8-kitsec h3 { font-size: 14px; font-weight: 600; color: var(--ux-muted); margin-bottom: 10px; }
+.g8-kit-url { margin: 0; max-width: 100%; }
+.g8-kit-url span { min-width: 0; }
+.g8-capt { display: grid; gap: 8px; }
+.g8-cap { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--ux-line); border-radius: 14px; font-size: 14px; }
+.g8-cap p { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.g8-cap b { display: block; font-size: 12px; color: var(--ux-muted); margin-bottom: 2px; }
+.g8-cap .ux-btn { flex: 0 0 auto; }
+.g8-kit-ch { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 14px; }
+.g8-livecount { display: flex; align-items: center; gap: 10px; font-size: 15px; margin-bottom: 6px; }
+.g8-livecount .ux-muted { font-size: 14px; }
+.g8-livedot { width: 8px; height: 8px; border-radius: 50%; background: var(--ux-good); animation: g8-blink 1.6s infinite; }
+@keyframes g8-blink { 50% { opacity: .3; } }
+.g8-kit-note { font-size: 14px; }
+
+/* ---------- create done: the kit button ---------- */
+.p5-done-a button.ux-btn .ux-ico { width: 18px; height: 18px; }
+
+/* ---------- creators board ---------- */
+.g8-cr .ux-ph h1 { margin-top: 6px; }
+/* prototype: the period tabs span the page (margin 28), the grid follows at 8 */
+.g8-cr-tabs { margin-top: 28px; }
+.g8-cbgrid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 40px; align-items: start; margin-top: 8px; }
+.g8-cbgrid.is-solo { margin-top: 28px; }
+.g8-cr-empty { margin-top: 32px; }
+.g8-cr-pin { margin-top: 12px; }
+.g8-rising { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.g8-rz { padding: 16px; border: 1px solid var(--ux-line); border-radius: 16px; background: var(--ux-raised); min-width: 0; }
+.g8-rz small { display: block; font-size: 12px; font-weight: 600; color: var(--ux-pink-ink); }
+.g8-rz b { display: block; margin-top: 6px; font-weight: 600; overflow-wrap: anywhere; }
+.g8-rz span { display: block; font-size: 13px; color: var(--ux-muted); overflow-wrap: anywhere; }
+.g8-rz a:hover { color: var(--ux-pink-ink); }
+.g8-rules { padding: 22px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); }
+.g8-rules + .g8-rules { margin-top: 16px; }
+.g8-rules h2 { font-size: 16px; font-weight: 700; line-height: 1.6; }
+.g8-rules ol { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; color: var(--ux-muted); list-style: decimal; }
+.g8-tiers { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.g8-tiers li { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.g8-tiers li > span { min-width: 0; }
+.g8-tiers b { display: block; font-weight: 600; }
+.g8-tiers .ux-bmed { flex: 0 0 32px; }
+.g8-cb-cta { margin-top: 16px; }
+.g8-cb-back { margin-top: 16px; text-align: center; font-size: 14px; }
+
+/* ---------- leaderboard: the link to the creators board ---------- */
+.g8-lb-creators { margin-top: 20px; text-align: center; font-size: 14px; }
+
+@media (max-width: 1100px) {
+  .g8-cbgrid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .g8-fcreate { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
+  .g8-fcreate h2 { font-size: 26px; }
+  .g8-nudge { flex-wrap: wrap; }
+  .g8-nudge-t { flex: 1 1 200px; }
+  .g8-fr { grid-template-columns: 30px minmax(0, 1fr) 48px; gap: 10px; }
+  .g8-fr-w { display: none; }
+  .g8-kitg { grid-template-columns: minmax(0, 1fr); }
+  .g8-kit-story .ux-story { max-width: 220px; margin: 0 auto; }
+  .g8-rising { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g8-livedot { animation: none; }
+  .g8-tpl { transition: none; }
+}

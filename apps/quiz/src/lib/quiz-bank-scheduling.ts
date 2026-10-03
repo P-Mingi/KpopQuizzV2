@@ -1,3 +1,5 @@
+import { avgScorePct } from '@/lib/quiz/scoring';
+
 export interface QuizBankEntry {
   id: string;
   title: string;
@@ -314,6 +316,8 @@ export interface CatalogQuiz {
   total_completions: number;
   total_score_sum: number;
   question_count: number;
+  /** For the average (guess_from_clues is worth 3 points a question); missing = 1 point. */
+  quiz_type?: string | null;
   report_count?: number | null;
   created_at: string;
 }
@@ -352,7 +356,7 @@ export function pickCatalogQotd(
   const score = (q: CatalogQuiz): number => {
     const likeRatio = q.play_count > 0 ? Math.min(1, q.like_count / q.play_count) : 0;
     const completion = q.play_count > 0 ? Math.min(1, q.total_completions / q.play_count) : 0;
-    const avg = q.total_completions > 0 && q.question_count > 0 ? (q.total_score_sum / q.total_completions / q.question_count) * 100 : 50;
+    const avg = avgScorePct(q, true) ?? 50;
     const difficulty = avg >= 40 && avg <= 70 ? 1 : avg >= 25 && avg <= 85 ? 0.6 : 0.3;
     const ageDays = Math.max(0, (dayMs - Date.parse(q.created_at)) / 86_400_000);
     const recency = Math.max(0, 1 - ageDays / 60);

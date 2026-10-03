@@ -1,0 +1,36 @@
+
+Running 30 tests using 1 worker
+
+[1/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:245:5 › G7 bonus card light › quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll
+[2/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:245:5 › G7 bonus card dark › quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll
+[3/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:324:3 › G7 bonus card behaviour › flag state is the expected one
+[4/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:330:3 › G7 bonus card behaviour › five pairs in a row, then the thanks with the real count and the link to the ranking
+[5/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:356:3 › G7 bonus card behaviour › a year the catalogue does not have is not shown
+[6/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:371:3 › G7 bonus card behaviour › Skip after two votes: the count is the real one, no fandom and no ranking are not invented
+[7/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:392:3 › G7 bonus card behaviour › Skip before any vote removes the card and sends nothing
+[8/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:404:3 › G7 bonus card behaviour › a pair with too few votes shows no split, only that the vote counted
+[9/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:418:3 › G7 bonus card behaviour › a refused vote is said, never shown as counted, and can be retried
+[10/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:435:3 › G7 bonus card behaviour › a Deezer cover is asked in a small size and is decorative
+[11/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:448:3 › G7 bonus card behaviour › no pair from the server: no card, the results are the v11 results
+[12/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:459:3 › G7 bonus card behaviour › v11 only: the results never ask for pairs and show no card
+[13/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:477:3 › G7 API (read only, and refusals that never reach the database) › v12 on: pairs and fans-picked answer the documented shape and fail soft
+[14/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:517:3 › G7 API (read only, and refusals that never reach the database) › v12 on: a vote without a pair issued by the server is refused; the cron needs its secret
+[15/30] [ux-1440] › e2e/ux-v12/g7.spec.ts:543:3 › G7 API (read only, and refusals that never reach the database) › v11 only: every G7 route answers 404
+[16/30] [ux-390] › e2e/ux-v12/g7.spec.ts:245:5 › G7 bonus card light › quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll
+[17/30] [ux-390] › e2e/ux-v12/g7.spec.ts:245:5 › G7 bonus card dark › quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll
+[18/30] [ux-390] › e2e/ux-v12/g7.spec.ts:324:3 › G7 bonus card behaviour › flag state is the expected one
+[19/30] [ux-390] › e2e/ux-v12/g7.spec.ts:330:3 › G7 bonus card behaviour › five pairs in a row, then the thanks with the real count and the link to the ranking
+[20/30] [ux-390] › e2e/ux-v12/g7.spec.ts:356:3 › G7 bonus card behaviour › a year the catalogue does not have is not shown
+[21/30] [ux-390] › e2e/ux-v12/g7.spec.ts:371:3 › G7 bonus card behaviour › Skip after two votes: the count is the real one, no fandom and no ranking are not invented
+[22/30] [ux-390] › e2e/ux-v12/g7.spec.ts:392:3 › G7 bonus card behaviour › Skip before any vote removes the card and sends nothing
+[23/30] [ux-390] › e2e/ux-v12/g7.spec.ts:404:3 › G7 bonus card behaviour › a pair with too few votes shows no split, only that the vote counted
+[24/30] [ux-390] › e2e/ux-v12/g7.spec.ts:418:3 › G7 bonus card behaviour › a refused vote is said, never shown as counted, and can be retried
+[25/30] [ux-390] › e2e/ux-v12/g7.spec.ts:435:3 › G7 bonus card behaviour › a Deezer cover is asked in a small size and is decorative
+[26/30] [ux-390] › e2e/ux-v12/g7.spec.ts:448:3 › G7 bonus card behaviour › no pair from the server: no card, the results are the v11 results
+[27/30] [ux-390] › e2e/ux-v12/g7.spec.ts:459:3 › G7 bonus card behaviour › v11 only: the results never ask for pairs and show no card
+[28/30] [ux-390] › e2e/ux-v12/g7.spec.ts:477:3 › G7 API (read only, and refusals that never reach the database) › v12 on: pairs and fans-picked answer the documented shape and fail soft
+[29/30] [ux-390] › e2e/ux-v12/g7.spec.ts:517:3 › G7 API (read only, and refusals that never reach the database) › v12 on: a vote without a pair issued by the server is refused; the cron needs its secret
+[30/30] [ux-390] › e2e/ux-v12/g7.spec.ts:543:3 › G7 API (read only, and refusals that never reach the database) › v11 only: every G7 route answers 404
+  24 skipped
+  6 passed (11.5s)
+exit 0

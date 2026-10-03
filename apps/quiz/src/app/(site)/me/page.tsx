@@ -182,6 +182,8 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       war,
       averagePct,
       history,
+      // v12 (G9 R2): null with the v12 flag off (no read) and until the accounts exist.
+      team: await data.readTeamIdentity(profile.id),
       now: Date.now(),
     });
     return <UxPassport {...props} />;

@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { getFandomWarMap, getActiveFansByGroup } from '@/lib/db/queries/community';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { MIN_SONGS_FOR_GROUP_MODE } from '@/lib/blind-test-modes';
 import { MASTERY, isMastered } from '@/lib/passport';
@@ -91,11 +92,15 @@ export interface GroupFanKnowledge {
 const getGroupMasteryAgg = unstable_cache(
   async (groupId: number): Promise<{ masteredCount: number; avgAccuracy: number | null; trackedPlays: number }> => {
     const db = createPublicReadClient();
-    const { data: rows } = await db
+    const team = await teamIdsToExclude();
+    let mq = db
       .from('player_group_mastery')
       .select('songs_played, songs_correct')
       .eq('group_id', groupId)
       .gt('songs_played', 0);
+    // v12: an editorial account does not count as a fan who mastered the group.
+    if (team) mq = mq.not('player_id', 'in', pgList(team));
+    const { data: rows } = await mq;
     let masteredCount = 0;
     let trackedPlays = 0;
     let accSum = 0;

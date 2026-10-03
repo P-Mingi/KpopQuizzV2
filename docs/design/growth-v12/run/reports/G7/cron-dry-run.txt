@@ -1,0 +1,33 @@
+200 {
+ "ok": true,
+ "dry": true,
+ "computedAt": "2026-10-02T17:07:55.348Z",
+ "editorialExcluded": 0,
+ "groups": [
+  {
+   "group": "aespa",
+   "votes": 2262,
+   "votesPrev": 2262,
+   "ranked": true,
+   "songs": 12,
+   "rankedSongs": 12
+  },
+  {
+   "group": "blackpink",
+   "votes": 1282,
+   "votesPrev": 1282,
+   "ranked": true,
+   "songs": 16,
+   "rankedSongs": 16
+  },
+  {
+   "group": "bts",
+   "votes": 1160,
+   "votesPrev": 1160,
+   "ranked": true,
+   "songs": 16,
+   "rankedSongs": 16
+  }
+ ]
+}
+not dry, SQL not applied: 200 {"ok":false,"reason":"not_applied"}

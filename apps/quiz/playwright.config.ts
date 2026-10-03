@@ -43,23 +43,25 @@ export default defineConfig({
     ...(BYPASS ? { extraHTTPHeaders: { 'x-vercel-protection-bypass': BYPASS } } : {}),
   },
   projects: [
-    { name: 'desktop', testIgnore: /ux-v1\//, use: { ...devices['Desktop Chrome'], channel: CHANNEL, ...LAUNCH } },
-    { name: 'mobile', testIgnore: /ux-v1\//, use: { ...devices['Pixel 5'], channel: CHANNEL, ...LAUNCH } },
+    { name: 'desktop', testIgnore: /ux-v1(2)?\//, use: { ...devices['Desktop Chrome'], channel: CHANNEL, ...LAUNCH } },
+    { name: 'mobile', testIgnore: /ux-v1(2)?\//, use: { ...devices['Pixel 5'], channel: CHANNEL, ...LAUNCH } },
     // UX v11 specs: the two reference widths of v11/capture-prototype.mjs (1440 x 900
     // desktop; 390 x 844 touch phone, DPR 1), after the signed-in setup.
+    // The V12 run's specs (e2e/ux-v12/<id>.spec.ts) run in the same two projects: same
+    // widths as capture-v12.mjs, same setup, and like the v11 ones never on CI.
     ...(UX_E2E
       ? [
           { name: 'setup', testMatch: /ux-v1\/auth\.setup\.ts$/, use: { channel: CHANNEL, ...LAUNCH } },
           {
             name: 'ux-1440',
-            testMatch: /ux-v1\/.*\.spec\.ts$/,
+            testMatch: /ux-v1(2)?\/.*\.spec\.ts$/,
             testIgnore: /ux-v1\/parity\.spec\.ts$/,
             dependencies: ['setup'],
             use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, channel: CHANNEL, ...LAUNCH },
           },
           {
             name: 'ux-390',
-            testMatch: /ux-v1\/.*\.spec\.ts$/,
+            testMatch: /ux-v1(2)?\/.*\.spec\.ts$/,
             testIgnore: /ux-v1\/parity\.spec\.ts$/,
             dependencies: ['setup'],
             use: { ...devices['Desktop Chrome'], userAgent: devices['Pixel 5'].userAgent, viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, channel: CHANNEL, ...LAUNCH },

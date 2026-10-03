@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { isEditorialUser } from '@/lib/editorial/accounts';
+import { getEditorialLive } from '@/lib/editorial/live';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
@@ -32,10 +34,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  // v12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6).
+  if (await isEditorialUser(user.id)) return NextResponse.json({ error: 'editorial_account' }, { status: 403 });
 
   const r = c.value;
   const svc = createServiceRoleClient();
-  const table = r.type === 'debate' ? 'community_debates' : 'community_challenges';
+  // v12: a reply on an editorial thread or blog (editorial_posts); not found until that store is live.
+  if (r.type === 'editorial' && !(await getEditorialLive())) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  const table = r.type === 'debate' ? 'community_debates' : r.type === 'challenge' ? 'community_challenges' : 'editorial_posts';
   const { data: t } = await svc.from(table).select('id, group_id, status').eq('id', r.targetId).maybeSingle();
   const target = t as { id: number; group_id: number | null; status: string } | null;
   if (!target || target.status !== 'visible') return NextResponse.json({ error: 'not_found' }, { status: 404 });

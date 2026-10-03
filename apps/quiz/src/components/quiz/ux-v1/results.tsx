@@ -7,6 +7,7 @@ import { BragButton } from '@/components/discord/brag-button';
 import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { LevelUpOverlay } from '@/components/quiz/level-up-overlay';
 import { StreakBackup } from '@/components/quiz/streak-backup';
+import { ThisOrThatBonus } from '@/components/this-or-that/bonus';
 import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxStatsRow } from '@/components/ux-v1/panel';
@@ -23,6 +24,7 @@ import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration, maxScoreFor } from '@/lib/ux-v1/p4/engine';
 import { stampWords } from '@/lib/ux-v1/p4/format';
 import { parseStanding, rankLine } from '@/lib/ux-v1/p4/standing';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { P4Comments } from './comments';
 import { P4ReportButton } from './report';
@@ -207,6 +209,9 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
         {pct >= 70 ? <BragButton payload={{ kind: 'quiz', title: quiz.title, score: result.score, total: max, quizSlug: quiz.slug }} /> : null}
       </div>
+
+      {/* V12 G7: the This or that bonus (songs of the quiz's group). Flag off: not rendered. */}
+      {isUxV12() ? <ThisOrThatBonus groupSlug={quiz.groupSlug} groupName={quiz.groupName} /> : null}
 
       <section className="ux-sec p4-keep" aria-labelledby="p4-keep-h">
         <SectionHeader id="p4-keep-h" title="Keep playing" icon="play" action={{ href: `/${quiz.groupSlug}-quiz`, label: `All ${quiz.groupName} quizzes` }} />

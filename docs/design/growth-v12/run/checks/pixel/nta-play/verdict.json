@@ -1,0 +1,385 @@
+{
+ "state": "nta-play",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:57:14.598Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.17,
+    "maskedPct": 7.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".nring",
+     "impl": ".ux-nta-ring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:57:49.286Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.17,
+    "maskedPct": 7.3
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".nring",
+     "impl": ".ux-nta-ring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 35
+  },
+  "390-light": {
+   "at": "2026-10-03T10:58:25.322Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.42,
+    "maskedPct": 13.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".nring",
+     "impl": ".ux-nta-ring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 36
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:59:01.274Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.47,
+    "maskedPct": 13.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "timer ring",
+     "proto": ".nring",
+     "impl": ".ux-nta-ring",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 36
+  }
+ },
+ "owner": "G6",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

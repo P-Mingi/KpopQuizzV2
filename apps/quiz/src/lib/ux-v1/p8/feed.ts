@@ -339,6 +339,44 @@ async function replyScores(db: Db, rows: { id: number; quiz_id: string }[], repl
   return out;
 }
 
+/* ------------------------------------------- editorial threads + blogs (v12) --- */
+
+/** Threads and blogs of the editorial accounts (editorial_posts, v12-g9-editorial.sql;
+ *  SYSTEM.md 5.6). Not Verse content: no Verse gate. Replies and hearts use the
+ *  community stores (target type 'editorial') once those exist. */
+async function readEditorialPosts(live: P8Features): Promise<FeedPost[]> {
+  const db = createPublicReadClient();
+  const groups = groupMap(await getP8Groups());
+  const { data } = must(await db.from('editorial_posts').select('id, kind, group_id, author, title, body, created_at')
+    .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP), 'editorial_posts');
+  const rows = (data ?? []) as { id: number; kind: 'thread' | 'blog'; group_id: number | null; author: string | null; title: string; body: string; created_at: string }[];
+  if (!rows.length) return [];
+  const ids = rows.map((r) => r.id);
+  const [replies, people, likes] = await Promise.all([
+    // community_replies comes with the fan debates (v11-p8-community.sql).
+    live.fanDebates
+      ? fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'editorial').in('target_id', ids).eq('status', 'visible'))
+      : Promise.resolve([] as { target_id: number }[]),
+    readPeople(db, rows.map((r) => r.author), { retiredTeam: true }),
+    likeCounts('editorial', ids.map(String), live.likes),
+  ]);
+  const count = new Map<number, number>();
+  for (const r of replies) count.set(r.target_id, (count.get(r.target_id) ?? 0) + 1);
+  return rows.map((r): FeedPost => {
+    const g = r.group_id ? groups.get(r.group_id) ?? null : null;
+    const words = r.body.split(/\s+/).filter(Boolean).length;
+    return {
+      kind: r.kind, key: `e${r.id}`, href: `/community/${r.kind}/e${r.id}`,
+      title: r.title, excerpt: r.body.trim() ? excerpt(r.body, r.kind === 'blog' ? 160 : 220) : null, group: g,
+      author: r.author ? people.get(r.author) ?? null : null,
+      at: r.created_at, ago: '', replies: count.get(r.id) ?? 0,
+      likes: likes ? likes.get(String(r.id)) ?? 0 : null,
+      ...(r.kind === 'blog' ? { blog: { coverUrl: groupPhotoUrl(g?.slug ?? null), coverFocal: photoFocal(r.title), readingMin: readingMinutes(words) } } : {}),
+      editorialId: r.id,
+    };
+  });
+}
+
 /* ------------------------------------------------------------------- feed --- */
 
 const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[]) => readThreads(live, liveGroupIds), ['ux-v1:p8:threads:v3'], { revalidate: 120, tags: ['community'] });
@@ -346,6 +384,7 @@ const cachedBlogs = unstable_cache((liveGroupIds: number[]) => readBlogs(liveGro
 const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v3'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
+const cachedEditorial = unstable_cache((f: P8Features) => readEditorialPosts(f), ['v12:g9:editorial-posts:v1'], { revalidate: 120, tags: ['community', 'editorial'] });
 
 export interface FeedSources {
   threads: Promise<FeedPost[]>;
@@ -353,12 +392,14 @@ export interface FeedSources {
   debates: Promise<FeedPost[]>;
   fanDebates: Promise<FeedPost[]>;
   challenges: Promise<FeedPost[]>;
+  /** v12 editorial threads and blogs; [] unless `editorialLive` (lib/editorial/live.ts). */
+  editorial: Promise<FeedPost[]>;
 }
 
 /** The five sources (each cached, each throws on a read error: wrap in safeFetch).
  *  Threads and blogs pass the Verse gates (scope from verseScope; gateVersePosts again
  *  outside the cache). */
-export function feedSources(f: P8Features, verse: VerseScope, now: number = Date.now()): FeedSources {
+export function feedSources(f: P8Features, verse: VerseScope, now: number = Date.now(), editorialLive = false): FeedSources {
   const today = utcDate(now);
   const ids = verse.open ? verse.groupIds : [];
   return {
@@ -367,6 +408,7 @@ export function feedSources(f: P8Features, verse: VerseScope, now: number = Date
     debates: cachedDebates(f.likes, today),
     fanDebates: cachedFanDebates(f),
     challenges: cachedChallenges(f),
+    editorial: editorialLive ? cachedEditorial(f) : Promise.resolve([]),
   };
 }
 
