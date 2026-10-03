@@ -1,0 +1,58 @@
+3c3
+< <html lang="en" class="pretendard_60cdc229-module__UDh0rq__variable">
+---
+> <html lang="en" class="pretendard_60cdc229-module__pUigVW__variable">
+139,140c139,140
+< <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.8K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T11:00:04.975Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120},{"@type":"PropertyValue","name":"Total Plays","value":69783},{"@type":"PropertyValue","name":"Groups Covered","value":92}]}</script>
+< <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T11:00:04.975Z","license":"https://kpopquiz.org/stats"}</script>
+---
+> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 432 quizzes, 4120 blind test songs, 69.8K total plays across 92 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T12:35:34.017Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":432},{"@type":"PropertyValue","name":"Total Songs","value":4120},{"@type":"PropertyValue","name":"Total Plays","value":69798},{"@type":"PropertyValue","name":"Groups Covered","value":92}]}</script>
+> <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-03T12:35:34.017Z","license":"https://kpopquiz.org/stats"}</script>
+275c275
+< <span class="stats-plays-fill" style="width:60.21884716574982%">
+---
+> <span class="stats-plays-fill" style="width:60.215246636771305%">
+291c291
+< <span class="stats-plays-fill" style="width:47.105955513035155%">
+---
+> <span class="stats-plays-fill" style="width:47.10313901345292%">
+307c307
+< <span class="stats-plays-fill" style="width:29.933030375508253%">
+---
+> <span class="stats-plays-fill" style="width:29.931240657698055%">
+323c323
+< <span class="stats-plays-fill" style="width:19.821812963405883%">
+---
+> <span class="stats-plays-fill" style="width:19.82062780269058%">
+339c339
+< <span class="stats-plays-fill" style="width:16.640755800047835%">
+---
+> <span class="stats-plays-fill" style="width:16.6457399103139%">
+355c355
+< <span class="stats-plays-fill" style="width:15.14589811049988%">
+---
+> <span class="stats-plays-fill" style="width:15.144992526158447%">
+371c371
+< <span class="stats-plays-fill" style="width:14.643625926811769%">
+---
+> <span class="stats-plays-fill" style="width:14.64275037369208%">
+387c387
+< <span class="stats-plays-fill" style="width:11.402774455871802%">
+---
+> <span class="stats-plays-fill" style="width:11.426008968609866%">
+403c403
+< <span class="stats-plays-fill" style="width:11.33700071753169%">
+---
+> <span class="stats-plays-fill" style="width:11.342301943198803%">
+461c461
+< <td class="stats-td stats-td-num">245</td>
+---
+> <td class="stats-td stats-td-num">246</td>
+464c464
+< <span class="stats-trend stats-trend-up">+<!-- -->106<!-- -->%</span>
+---
+> <span class="stats-trend stats-trend-up">+<!-- -->108<!-- -->%</span>
+499c499
+< <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 257 quizzes with at least 30 plays, as of October 3, 2026.</p>
+---
+> <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 254 quizzes with at least 30 plays, as of October 3, 2026.</p>
