@@ -7,23 +7,13 @@ import { Sheet } from '@/components/ux-v1/sheet';
 import { STORY_KIT_GRADIENT, downloadFile, storyCardFile } from '@/components/ux-v1/story-image';
 import { StoryPreview } from '@/components/ux-v1/story-preview';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { qrDataUrl } from '@/lib/live/qr';
 
 import { bareUrl, kitCaptions, kitKicker } from './captions';
 
 import type { KitResponse } from '@/app/api/creators/kit/route';
 import type { StoryFormat } from '@/components/ux-v1/story-image';
 import type { KitQuiz } from './captions';
-
-/**
- * The QR slot. This run's QR encoder is G4's (lib/live/qr.ts); the kit does not
- * import it, the caller hands it in: `render` draws the code inside the story
- * preview, `dataUrl` gives the same code as a picture for the saved PNG. Without
- * it the kit has no QR tile (and says nothing about one).
- */
-export interface KitQr {
-  render: (url: string) => React.ReactNode;
-  dataUrl: (url: string) => string;
-}
 
 export interface ShareKitProps {
   open: boolean;
@@ -33,7 +23,6 @@ export interface ShareKitProps {
   slug: string;
   /** What the creator typed, shown until the server's copy of the quiz arrives. */
   fallbackTitle: string;
-  qr?: KitQr | undefined;
 }
 
 const POLL_MS = 20_000;
@@ -49,6 +38,16 @@ async function readKit(quizId: string): Promise<KitResponse | null> {
     if (!res.ok) return null;
     const raw: unknown = await res.json();
     return isKit(raw) ? raw : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The QR code of the link (G4's encoder, lib/live/qr.ts), as a picture for the
+ *  preview and for the saved PNG. Null when the link cannot be encoded. */
+function qrOf(url: string): string | null {
+  try {
+    return qrDataUrl(url, { level: 'M', quiet: 2 });
   } catch {
     return null;
   }
@@ -90,7 +89,7 @@ async function copyText(text: string): Promise<boolean> {
  * published quiz (GET /api/creators/kit); "plays from your link" shows only when
  * the server has that number (null = the line is not rendered).
  */
-export function ShareKit({ open, onClose, quizId, slug, fallbackTitle, qr }: ShareKitProps): React.ReactElement | null {
+export function ShareKit({ open, onClose, quizId, slug, fallbackTitle }: ShareKitProps): React.ReactElement | null {
   const toast = useUxToast();
   const [kit, setKit] = useState<KitResponse | null>(null);
   const [link, setLink] = useState<string | null>(null);
@@ -117,6 +116,7 @@ export function ShareKit({ open, onClose, quizId, slug, fallbackTitle, qr }: Sha
   }), [kit, fallbackTitle, slug]);
   const captions = useMemo(() => kitCaptions(quiz, url), [quiz, url]);
   const kicker = kitKicker(quiz);
+  const qr = useMemo(() => qrOf(url), [url]);
   const plays = kit?.linkPlays ?? null;
 
   const copy = async (text: string, done: string): Promise<void> => {
@@ -135,7 +135,7 @@ export function ShareKit({ open, onClose, quizId, slug, fallbackTitle, qr }: Sha
         tag: 'New quiz',
         cta: 'Play at kpopquiz.org',
         gradient: STORY_KIT_GRADIENT,
-        qr: qr ? qr.dataUrl(url) : undefined,
+        qr: qr ?? undefined,
       });
       if (!file) { toast('Could not make the image. Try again.'); return; }
       downloadFile(file);
@@ -149,7 +149,10 @@ export function ShareKit({ open, onClose, quizId, slug, fallbackTitle, qr }: Sha
     <Sheet open={open} onClose={onClose} title="Share kit" width={880} className="g8-kit">
       <div className="g8-kitg" data-testid="share-kit">
         <div className="g8-kit-story">
-          <StoryPreview title={quiz.title} kicker={kicker} tag="New quiz" cta="Play at kpopquiz.org" qr={qr ? qr.render(url) : undefined} titleAs="p" />
+          <StoryPreview title={quiz.title} kicker={kicker} tag="New quiz" cta="Play at kpopquiz.org" titleAs="p"
+            // eslint-disable-next-line @next/next/no-img-element -- an inline SVG data URL, nothing to optimise
+            qr={qr ? <img src={qr} alt="QR code of your quiz link" width={44} height={44} /> : undefined}
+          />
           <div className="g8-kit-fmt">
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void save('story'); }} disabled={busy !== null}><Icon name="img" />Story</button>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void save('square'); }} disabled={busy !== null}><Icon name="img" />Square</button>

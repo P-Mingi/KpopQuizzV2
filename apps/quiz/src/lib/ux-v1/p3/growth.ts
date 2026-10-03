@@ -13,8 +13,11 @@ import type { UxIconName } from '@/lib/ux-v1/a0/icons';
 export const HUB_QUIZZES_ID = 'hub-quizzes';
 export const FANS_PICKED_ID = 'fans-picked';
 
-/** The live blindtest (G4). */
-export const LIVE_HREF = '/live';
+/** The live blindtest (G4), opened on the group's playlist (run/requests/G4.md R4:
+ *  /live reads ?playlist=<group slug>&name=<label>). */
+export function liveHref(slug: string, name: string): string {
+  return `/live?playlist=${encodeURIComponent(slug)}&name=${encodeURIComponent(name)}`;
+}
 
 /** Prototype rule: the grid shows with two tiles or more, four at most (one row). */
 export const MIN_TILES = 2;
@@ -133,7 +136,7 @@ export function waysToPlay(i: WaysInput): WayTile[] {
   if (i.live && i.songs > 0 && out.length < MAX_TILES) {
     out.push({
       key: 'live',
-      href: LIVE_HREF,
+      href: liveHref(i.slug, i.name),
       icon: 'users',
       title: 'Play live',
       isNew: false,
