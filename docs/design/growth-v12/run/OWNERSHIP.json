@@ -223,5 +223,21 @@
     "apps/quiz/src/lib/editorial-exclusions.test.ts",
     "apps/quiz/e2e/ux-v12/f2.spec.ts"
   ],
-  "F3": []
+  "F3": [],
+  "F5": [
+    "apps/quiz/src/components/quiz/ux-v1/quiz-page.tsx",
+    "apps/quiz/src/components/quiz/ux-v1/comments.tsx",
+    "apps/quiz/src/lib/ux-v1/p4/queries.ts",
+    "apps/quiz/src/lib/ux-v1/p4/standing.ts",
+    "apps/quiz/src/lib/ux-v1/p4/standing.test.ts",
+    "apps/quiz/src/lib/ux-v1/p4/comments-server.ts",
+    "apps/quiz/src/lib/ux-v1/p4/comments.ts",
+    "apps/quiz/src/components/ranked/ux-v1/ladder.tsx",
+    "apps/quiz/src/lib/ranked/**",
+    "apps/quiz/src/components/home/ux-v1/**",
+    "apps/quiz/src/components/home/infinite-quiz-list.tsx",
+    "apps/quiz/src/lib/editorial/surfaces/**",
+    "apps/quiz/e2e/ux-v12/f5*.spec.ts",
+    "docs/pending-migrations/v12-f5-*.sql"
+  ]
 }
