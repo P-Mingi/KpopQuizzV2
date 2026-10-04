@@ -240,5 +240,17 @@
     "apps/quiz/e2e/ux-v12/f5*.spec.ts",
     "docs/pending-migrations/v12-f5-*.sql",
     "apps/quiz/src/app/api/ux-v1/p4/standing/**"
+  ],
+  "AU1": [
+    "docs/design/growth-v12/run/audit/AU1.md",
+    "docs/design/growth-v12/run/audit/AU1/**"
+  ],
+  "AU2": [
+    "docs/design/growth-v12/run/audit/AU2.md",
+    "docs/design/growth-v12/run/audit/AU2/**"
+  ],
+  "AU3": [
+    "docs/design/growth-v12/run/audit/AU3.md",
+    "docs/design/growth-v12/run/audit/AU3/**"
   ]
 }
