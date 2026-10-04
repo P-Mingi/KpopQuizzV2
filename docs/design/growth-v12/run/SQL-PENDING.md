@@ -85,7 +85,13 @@ Bundle A, file by file, each in its own transaction (statements identical to the
 - Bundle A grid: 21 of 23 lines ok. The two others were foreseen: file 9 reads 22 of 41 (the 19 missing songs come
   with the filtered file 6 of bundle B; the 22 present are all flagged), file 16 reads 84 song questions instead of
   80 (the 4 new groups, see above). duel_votes unchanged at 75,191.
-- Bundle B: pasted by the owner in the SQL editor (too big for the connector); ORCH reads its grid after `applied`.
+- Bundle B: pasted by the owner in the SQL editor (too big for the connector); the owner reported its grid 5 of 5 ok.
+  ORCH check read-only: the 141 songs of the filtered file 6 have the file's md5 (0775ea1d500400420266bc01b2efc5d2),
+  none of the 5 left-out titles is in the table, 4,291 songs in all (4,120 + 20 + 10 + 141).
+- Bundle C (`v12-bundle-c.sql`: file 19, `v12-f5-quiz-rank.sql`, `v12-f5-fandom-war.sql`), applied by ORCH file by
+  file: no error; grid 8 of 8 ok (9 editorial accounts active and recognised, display names kept, rank and war twins
+  answer like today's functions with the default arguments).
+- Nothing else pending in SQL. Still waiting for a go: the live load test.
 
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
