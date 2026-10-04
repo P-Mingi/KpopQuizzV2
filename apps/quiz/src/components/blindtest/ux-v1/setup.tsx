@@ -10,6 +10,7 @@ import { useUxToast } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { ALL_PICK, filterGroups, GENERATIONS, groupPick, initials, MIXES, ROUND_OPTIONS } from '@/lib/ux-v1/p6/playlists';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { useHub } from './hub-context';
 
@@ -21,9 +22,11 @@ import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 
 function Avatar({ slug, name }: { slug: string; name: string }): React.ReactElement {
   const src = groupPhotoUrl(slug);
+  // V12 (F7a): a photo that fails to load shows the initials, never an empty disc.
+  const [failed, setFailed] = useState(false);
   return (
     <span className="p6-gav" aria-hidden="true">
-      {src ? <Image src={src} alt="" width={28} height={28} sizes="28px" /> : initials(name)}
+      {src && !(failed && isUxV12()) ? <Image src={src} alt="" width={28} height={28} sizes="28px" onError={isUxV12() ? () => setFailed(true) : undefined} /> : initials(name)}
     </span>
   );
 }

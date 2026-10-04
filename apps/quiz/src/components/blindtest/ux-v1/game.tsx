@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 
+import { CoverImg } from '@/components/ux-v1/cover-img';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxIconButton } from '@/components/ux-v1/button';
 import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
 import { comboLabel } from '@/lib/ux-v1/p6/points';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { AUTO_NEXT_MS, TIMER_S } from './use-run';
 
@@ -58,6 +60,16 @@ export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: 
   const correctIdx = q ? q.choices.findIndex((c) => c === q.correct_answer) : -1;
   const round = summary.rounds[index];
   const streakTenths = summary.rounds.length ? summary.rounds[summary.rounds.length - 1]!.tenths : 0;
+
+  // V12 (F7a): fetch this song's cover while the clip plays, so the reveal shows the
+  // picture at once instead of an empty tile while it downloads.
+  const cover = q?.reveal.cover ?? null;
+  useEffect(() => {
+    if (!isUxV12() || !cover || phase !== 'playing') return;
+    const im = new Image();
+    im.decoding = 'async';
+    im.src = cover;
+  }, [cover, phase]);
 
   // Keys 1-4 answer, Enter goes on (16.7). Buttons keep their own Enter.
   useEffect(() => {
@@ -124,8 +136,7 @@ export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: 
           {answered && q ? (
             <div className="p6-reveal" key={`r${index}`}>
               {q.reveal.cover
-                // eslint-disable-next-line @next/next/no-img-element -- Deezer album art from the run (any size, any host)
-                ? <img className="p6-cv" src={q.reveal.cover} alt={s.coverAlt(q.reveal.title, q.reveal.artist)} width={140} height={140} decoding="async" />
+                ? <CoverImg className="p6-cv" src={q.reveal.cover} alt={s.coverAlt(q.reveal.title, q.reveal.artist)} width={140} height={140} decoding="async" />
                 : <span className="p6-cv" role="img" aria-label={s.songBy(q.reveal.title, q.reveal.artist)} />}
               <div className={`p6-vd ${answer?.correct ? 'is-ok' : 'is-no'}`}>
                 <Icon name={answer?.correct ? 'check' : 'x'} size="sm" />
