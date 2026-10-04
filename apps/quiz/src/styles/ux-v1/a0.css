@@ -194,6 +194,8 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-nav-in { height: 64px; display: flex; align-items: center; gap: 20px; }
 .ux-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; white-space: nowrap; color: var(--ux-ink); }
 .ux-brand-mk { width: 28px; height: 28px; border-radius: 8px; background: var(--ux-pink-fill); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; letter-spacing: 0; }
+/* F7b (owner 2026-10-04): the rabbit mascot replaces the K tile, same 28px box. */
+.ux-brand-rabbit { display: block; flex: 0 0 auto; width: 28px; height: 28px; object-fit: contain; }
 /* Owner request 2026-09-27 (A0 fix 5): room between the nav pills (prototype .links{gap:0}).
    Each .ux-lsp spacer is 8px and shrinks evenly when the right cluster needs the room
    (signed in with a streak pill at 1248px and up, where the bar is 1120 wide at every
