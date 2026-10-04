@@ -60,5 +60,22 @@ ORCH runs the file's verification queries read-only and records the result here.
 Both were replayed by their agent on a throwaway local Postgres (refuse before the editorial file, re-run cleanly,
 default answers equal today's).
 
+## Applied (2026-10-04, by ORCH through the Supabase connector, on the owner's go for bundles A, B, C)
+
+Bundle A, file by file, each in its own transaction (statements identical to the files, comments left out):
+- 1 `v12-g1-bt-runs.sql`, 2 `v12-g1-bt-fans-today.sql`, 3 `v12-g1-quiz-score-stats.sql`, 4 `v12-g2-01-groups.sql`:
+  applied, no error.
+- 5 `v12-g2-02-songs-new-groups.sql`: applied in two transactions (inserts 1 to 12, then 13 to 20 and the two link
+  updates). Check: the 20 rows' md5 over id, title, artist, album, covers, preview, duration, year, status, tier, rank
+  equals the md5 computed from the file (db0858673b66e8fb1339067454e64e36); KickFlip 10, RESCENE 10, NCT WISH 22,
+  Hearts2Hearts 14 songs linked.
+- 7 `v12-g2-04-years-fix.sql`, 9 `v12-g2-06-title-tracks.sql` (sent as one `where deezer_track_id in (...)` update,
+  same rows and condition), 11 `v12-g2-08-language.sql`: applied, no error.
+- 10 `v12-g2-07-kpdh.sql`: applied; the only status CHECK on songs was `songs_status_check`, recreated with
+  'soundtrack' added; md5 of the 10 rows equals the file's (6f70f430bc2bec8a3cc24ef6d26abf95).
+- 12 `v12-g4-live.sql`: the connector call failed at the transport level ("Invalid or expired requestState"), not in
+  SQL. Read-only check right after: none of its tables, functions or the Realtime policy exists. STOPPED here, as the
+  owner asked (first error). Files 13 to 18, bundle B and bundle C are not applied.
+
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
