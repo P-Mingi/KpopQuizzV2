@@ -157,3 +157,79 @@ async function propsOf(): Promise<Parameters<typeof import('@/components/profile
     spine: null, groupStats: [], collection: { groups_mastered: 0, groups_total: 90, eras: [] }, groups: [], badgeDefs: [], earnedBadgeIds: [], quizzes: [], fandomName: null, war: null, now: NOW,
   } as unknown as Parameters<typeof buildPassport>[0]);
 }
+
+// ---- F6c (AU3-004): a team passport shows no fan's progress -----------------------
+// Props with every fan block filled (streak 12, a mastered group, badges, a pinned
+// badge, the fandom war, history), so each hidden block is proven absent, not empty.
+
+type Passport = typeof import('@/components/profile/ux-v1/passport');
+async function richProps(mode: 'personal' | 'public', team: boolean): Promise<Parameters<Passport['UxPassport']>[0]> {
+  const { buildPassport } = await import('@/lib/ux-v1/p10/build-passport');
+  return buildPassport({
+    mode,
+    profile: {
+      id: MINA, username: 'mina', display_name: 'mina', avatar_url: null, avatar_bg: '#E8457A', avatar_text: '#FFFFFF', bio: null,
+      created_at: '2025-03-04T10:00:00Z', updated_at: '2026-09-01T10:00:00Z', total_quizzes_created: 3, total_plays_received: 210, total_likes_received: 4,
+      xp: 1280, follower_count: 24, following_count: 0, name_accent: 'pink', name_font: 'default', pinned_badge_id: 'perfect_score', avatar_kind: 'photo', avatar_ref: null,
+      stan_since: 2019, header_url: null,
+    },
+    spine: {
+      xp: 1280, total_quizzes_created: 3, total_plays_received: 210, total_likes_received: 4, quizzes_played: 84, blindtests_played: 31, duels_voted: 0, battles_played: 0, battles_won: 0,
+      ult_groups: ['stray-kids'], bias: 'Han', profile_theme: 'default', streak_current: 12, streak_longest: 20, streak_last_active: '2026-10-01', snapshot_at: null,
+    },
+    groupStats: [{ group_id: 2, songs_played: 50, songs_correct: 45, best_score: 0, mastery_level: 1, mastered: true, accuracy: 0.9 }],
+    collection: { groups_mastered: 1, groups_total: 90, eras: [] },
+    groups: [{ id: 2, name: 'Stray Kids', slug: 'stray-kids' }],
+    badgeDefs: [{ id: 'perfect_score', name: 'Perfect score', description: 'Score 100% on any quiz', sort_order: 1 }],
+    earnedBadgeIds: ['perfect_score'],
+    quizzes: [],
+    fandomName: 'STAY',
+    war: { fandom: 'STAY', rank: 2 },
+    averagePct: 71,
+    history: mode === 'personal' ? [{ kind: 'quiz', title: 'Stray Kids basics', href: '/q/stray-kids-basics', groupSlug: 'stray-kids', score: 10, total: 10, at: '2026-10-01T12:00:00Z' }] : null,
+    ...(team ? { team: { displayName: 'Mina from KpopQuiz', beat: 'news' } } : {}),
+    now: NOW,
+  } as Parameters<typeof buildPassport>[0]);
+}
+async function richHtml(mode: 'personal' | 'public', team: boolean): Promise<string> {
+  const { UxPassport } = await import('@/components/profile/ux-v1/passport');
+  return renderToStaticMarkup(createElement(UxPassport, await richProps(mode, team)));
+}
+const tabCount = (html: string): number => (html.match(/role="tab"/g) ?? []).length;
+
+const FAN_PROGRESS = ['<span>streak</span>', '<span>groups mastered</span>', '<span>quizzes played</span>', '<span>average score</span>', '<span>blindtests played</span>',
+  'Groups mastered', 'Pinned badges', 'Recent activity', 'p10-panel-badges', 'p10-panel-history', 'p10-panel-overview', 'no badges yet', 'fandom war', 'Perfect score', 'p10-xpwrap'];
+
+describe('F6c AU3-004: no fan progress on a team passport', () => {
+  for (const mode of ['public', 'personal'] as const) {
+    it(`flag on, ${mode}: no streak, groups mastered, badges, history, war or play stats; quizzes and creator stats stay`, async () => {
+      await flags(true);
+      const html = await richHtml(mode, true);
+      for (const s of FAN_PROGRESS) expect(html, s).not.toContain(s);
+      expect(tabCount(html)).toBe(1);
+      expect(html).toContain('id="p10-panel-quizzes"');
+      expect(html).toContain('<span>quizzes made</span>');
+      if (mode === 'public') expect(html).toContain('<span>plays received</span>');
+      expect(html).toContain('class="ux-teamnote"');
+      expect(html).not.toMatch(/[\u2013\u2014]/);
+    });
+
+    it(`flag on, ${mode}: a fan keeps every block`, async () => {
+      await flags(true);
+      const html = await richHtml(mode, false);
+      for (const s of ['<span>streak</span>', 'Groups mastered', 'Pinned badges', 'p10-panel-badges', 'p10-panel-overview', 'fandom war', 'p10-xpwrap']) expect(html, s).toContain(s);
+    });
+
+    it(`flag off, ${mode}: isTeam changes nothing, and a fan's page is byte for byte the same flag on and off`, async () => {
+      await flags(false);
+      const { UxPassport } = await import('@/components/profile/ux-v1/passport');
+      const props = await richProps(mode, true);
+      const { isTeam: _drop, ...noTeam } = props;
+      expect(renderToStaticMarkup(createElement(UxPassport, props))).toBe(renderToStaticMarkup(createElement(UxPassport, noTeam)));
+      expect(renderToStaticMarkup(createElement(UxPassport, props))).toContain('p10-panel-badges');
+      const fanOff = await richHtml(mode, false);
+      await flags(true);
+      expect(await richHtml(mode, false)).toBe(fanOff);
+    });
+  }
+});

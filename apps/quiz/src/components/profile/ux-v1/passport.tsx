@@ -61,6 +61,10 @@ function teamMeta(meta: MetaSegment[]): MetaSegment[] {
   });
 }
 
+/** A team passport keeps only the account's work as a creator. Every fan's progress
+ *  cell (streak, groups mastered, quizzes or blindtests played, average) is dropped. */
+const TEAM_STATS = new Set(['quizzes made', 'plays received']);
+
 function accentClass(accent: string | null): string {
   return accent && accent !== 'default' && isValidNameAccent(accent) ? `ux-acc-${accent}` : '';
 }
@@ -92,12 +96,16 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
   const meta = team ? teamMeta(p.meta) : p.meta;
   const acc = accentClass(p.accent);
   const ff = fontFamily(p.font);
-  const tabs = [
+  // A team passport (SYSTEM.md 5.6: no streak, no badge, no fan's progress) shows
+  // only its quizzes: no Overview (war strip, mastery, recent plays, badge empty
+  // state), no History, no Badges tab.
+  const tabs = team ? [{ id: 'quizzes', label: 'Quizzes' }] : [
     { id: 'overview', label: 'Overview' },
     { id: 'quizzes', label: 'Quizzes' },
     ...(p.history ? [{ id: 'history', label: 'History' }] : []),
     { id: 'badges', label: 'Badges' },
   ];
+  const stats = team ? p.stats.filter((s) => TEAM_STATS.has(s.label)) : p.stats;
   const recent = p.history?.rows.slice(0, 3) ?? [];
   const nothing = p.pinned.length === 0 && p.mastery.length === 0 && recent.length === 0;
 
@@ -204,8 +212,8 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
     </section>
   );
 
-  const panels: Record<string, React.ReactNode> = { overview, quizzes, badges };
-  if (history) panels.history = history;
+  const panels: Record<string, React.ReactNode> = team ? { quizzes } : { overview, quizzes, badges };
+  if (history && !team) panels.history = history;
 
   return (
     <UxPage width="wide" className="p10-passport">
@@ -247,7 +255,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       </div>}
       {/* scrolls sideways on phones: focusable region so keyboard users can scroll it (axe scrollable-region-focusable) */}
       <div className="p10-stats" role="region" aria-label="Stats" tabIndex={0}>
-        {p.stats.map((s) => <div key={s.label}><b className="ux-num">{s.value}</b><span>{s.label}</span></div>)}
+        {stats.map((s) => <div key={s.label}><b className="ux-num">{s.value}</b><span>{s.label}</span></div>)}
       </div>
       <PassportTabs items={tabs} panels={panels} />
       {p.footer ?? null}
