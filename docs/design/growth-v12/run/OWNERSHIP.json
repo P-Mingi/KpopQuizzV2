@@ -252,5 +252,10 @@
   "AU3": [
     "docs/design/growth-v12/run/audit/AU3.md",
     "docs/design/growth-v12/run/audit/AU3/**"
+  ],
+  "F6": [
+    "apps/quiz/src/app/api/share/click/**",
+    "apps/quiz/src/app/api/quiz/[id]/play/**",
+    "apps/quiz/src/lib/editorial/surfaces/**"
   ]
 }
