@@ -149,6 +149,48 @@ export async function isThemedModePlayable(modeId: string): Promise<boolean> {
   return themedVisible((await getThemedAvailability())[modeId] ?? 0);
 }
 
+// ── F6a (AU1 I2): kpop-legends and title-tracks play as named, only when a round fits ─────────
+// Both are v11 mode pages (their URL, title and copy stay). Under the flag their run reads their
+// own pool, the very pool generate reads for that playlist, only when it holds THEMED_MIN_SONGS
+// songs; otherwise the page keeps its v11 run (lib/ux-v1/p6/modes.ts NAMED_WHEN_PLAYABLE).
+
+/** The count query of generate's pool for a named legacy mode, or null for any other id. */
+function namedPoolCount(modeId: string, curated: boolean): PromiseLike<{ count: number | null; error: unknown }> | null {
+  const db = createPublicReadClient();
+  const base = () => db.from('songs').select('id', { count: 'exact', head: true })
+    .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
+  if (modeId === 'kpop-legends') {
+    const spec = V12_PLAYLISTS['kpop-legends']!;
+    let q = base().in('status', [...specStatuses(spec)]);
+    if (curated && specFollowsCuratedSwitch(spec)) q = q.eq('is_curated', true);
+    return applyPlaylistSpec(q, spec);
+  }
+  if (modeId === 'title-tracks') {
+    // generate's legacy 'title-tracks' case: active, the curated switch, is_title_track.
+    let q = base().eq('status', 'active');
+    if (curated) q = q.eq('is_curated', true);
+    return q.eq('is_title_track', true);
+  }
+  return null;
+}
+
+/**
+ * Does a named legacy mode (kpop-legends, title-tracks) fill a round from its own pool? False
+ * with the flag off (no query), for any other id, and when the read fails (the page then keeps
+ * its v11 run, which always plays).
+ */
+export async function isNamedModePlayable(modeId: string): Promise<boolean> {
+  if (!themedModesOn()) return false;
+  try {
+    const read = namedPoolCount(modeId, process.env.SONGS_IS_CURATED === 'true');
+    if (!read) return false;
+    const { count, error } = await read;
+    return !error && themedVisible(count ?? 0);
+  } catch {
+    return false;
+  }
+}
+
 // W7-CLOSE: /blindtest asks for this twice in one render (once directly for the links,
 // once through getBlindtestGroups for the picker). React cache() dedupes it to a single
 // DB read per request instead of paginating `songs` twice.
