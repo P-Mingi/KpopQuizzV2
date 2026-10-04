@@ -91,6 +91,10 @@ Bundle A, file by file, each in its own transaction (statements identical to the
 - Bundle C (`v12-bundle-c.sql`: file 19, `v12-f5-quiz-rank.sql`, `v12-f5-fandom-war.sql`), applied by ORCH file by
   file: no error; grid 8 of 8 ok (9 editorial accounts active and recognised, display names kept, rank and war twins
   answer like today's functions with the default arguments).
+- 2026-10-04 owner requests, applied by ORCH in one transaction: the 3 production test writes deleted (live room
+  840c04f8-f869-4b16-9a79-3f19d50a07f9, duel vote eab35ec0-6bc9-48d9-a681-da3cdbf62900 and its guard row,
+  name_all_member_results 7735 to 7738); the 9 editorial bios set to "KpopQuiz team · <beat>"; group 91 renamed
+  "Hearts2Hearts" and its This or that prompt. Read-only check: nothing of the tests left, counts back to before.
 - Nothing else pending in SQL. Still waiting for a go: the live load test.
 
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),

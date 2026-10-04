@@ -184,10 +184,21 @@ AU2 (play modes), AU3 (hubs, creators, boards, editorial accounts) in `run/audit
 Re-check AU4: the 4 fixed items pass, 90 of 90 regression URLs clean at 1440. Parity run 4 (both flags off, feat/v12
 vs main): sitemap 3,165 = 3,165, robots.txt identical, only the allowed differences.
 
-Production test writes (owner allowed, to delete at will):
+Production test writes (owner allowed; all three DELETED on the owner's request on 2026-10-04, checked read-only:
+no row left, live_rooms 0, duel_votes 75,191, name_all_member_results 7,524, as before the tests):
 - live room `840c04f8-f869-4b16-9a79-3f19d50a07f9` (code Z88WXE, `is_test` true, closed; players and answers already
   removed);
 - This or that vote `duel_votes` id `eab35ec0-6bc9-48d9-a681-da3cdbf62900` and its `duel_vote_guard` row (voter hash
   af53ecb8700872c70ac74ea3f6f7e53a, 2026-10-04);
 - Name them all `name_all_member_results` ids 7735 to 7738 (round `22031bc9-ff29-4a7f-a35c-1ead98eafd14`);
 - share link play: not done (no share link exists; creating one is a signed-in write the owner did not list).
+
+Owner requests applied in production on 2026-10-04 (one transaction, checked read-only afterwards): the bios of the 9
+editorial accounts read "KpopQuiz team · <their beat>"; group 91 is named "Hearts2Hearts" (was "Hearts2hearts"; the hub
+title and H1 follow, flags on or off) and its This or that prompt reads "Best Hearts2Hearts song?". The application code
+holds no copy of the old spelling (one unit test uses it as an initials input; archived design and evidence files keep
+what they recorded).
+
+fr, es and id copy for the owner's native review: `apps/quiz/src/lib/growth/bt-strings.ts` (game strings, not in the
+prototype), `apps/quiz/src/lib/growth/bt-landing.ts` (landing copy, the prototype's), `apps/quiz/src/lib/growth/bt-themes.ts`
+(themed playlist lines per language).
