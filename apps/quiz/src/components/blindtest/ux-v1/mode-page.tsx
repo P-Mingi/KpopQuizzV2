@@ -2,8 +2,9 @@ import Link from 'next/link';
 
 import { UxPage } from '@/components/ux-v1/page';
 import { getGroupSlugFromModeId, isGroupModeId } from '@/lib/blind-test-modes';
+import { isNamedModePlayable } from '@/lib/blind-test-playlists';
 import { getPlayableGroups, hasDbEnv, settle } from '@/lib/ux-v1/p6/hub-data';
-import { modeRun } from '@/lib/ux-v1/p6/modes';
+import { modeRun, NAMED_WHEN_PLAYABLE } from '@/lib/ux-v1/p6/modes';
 
 import { BtModeControllerLoader, BtModePlayLoader } from './mode-loader';
 
@@ -37,7 +38,10 @@ async function groupState(modeId: string): Promise<{ playable: boolean; name: st
 
 export async function BlindtestModeV11({ mode }: { mode: BlindTestMode }): Promise<React.ReactElement> {
   const group = isGroupModeId(mode.id) ? await groupState(mode.id) : { playable: true, name: null };
-  const preset = modeRun(mode.id, group.name);
+  // F6a: kpop-legends and title-tracks play their own pool (flag on) only when it fills a round;
+  // otherwise, or with the flag off (no query), the v11 run below is unchanged.
+  const named = NAMED_WHEN_PLAYABLE.includes(mode.id) && hasDbEnv() ? await isNamedModePlayable(mode.id) : false;
+  const preset = modeRun(mode.id, group.name, named);
   const playable = group.playable && preset !== null;
 
   const page = (
