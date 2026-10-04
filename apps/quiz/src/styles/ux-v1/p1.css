@@ -94,6 +94,10 @@
   font-size: 20px; font-weight: 700; line-height: 1.6; transition: transform .25s var(--ux-spring);
 }
 .p1-gitem:hover .p1-gav { transform: translateY(-3px); }
+/* F7b: in the grid circle, height: 100% had no definite base (auto row), so the photo
+   kept its own ratio (80 x 120 for a portrait), was centred and cut through the faces.
+   Pinned to the circle, the photo is 80 x 80 and its 25% focal point applies. */
+.p1-gav > .p1-img-fix { position: absolute; inset: 0; }
 .p1-gn { display: block; font-size: 14px; font-weight: 500; line-height: 1.6; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .p1-gitem:hover .p1-gn { color: var(--ux-pink-ink); }
 .p1-gc { font-size: 13px; line-height: 1.6; color: var(--ux-muted); }
@@ -120,6 +124,12 @@
 .p1-glyph .ux-ico { width: 20px; height: 20px; }
 .p1-thumb { position: relative; }
 .p1-thumb img { object-fit: cover; }
+/* New quizzes thumb (F7b, owner 2026-10-04): bigger, and never a grey tile. The
+   type icon is always in the tile on the glyph ground; the picture covers it once
+   it has loaded and is removed when it fails (new-thumb.tsx). */
+.p1-nthumb { position: relative; width: 56px; height: 56px; border-radius: 12px; background: var(--ux-surface-2); color: var(--ux-muted); }
+.p1-nthumb .ux-ico { width: 24px; height: 24px; }
+.p1-nthumb .p1-nimg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- blindtest of the day band (16.7, 17.5 day mode) ---------- */
 .p1-band {
