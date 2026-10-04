@@ -115,3 +115,76 @@ Screenshots are under `run/audit/AU3/` as `<name>-1440.png` and `<name>-390.png`
 ## NOT checked
 - Comment and reply badges (no comment by or on the 9 accounts), community feed and post badges (`editorial_posts`
   0 rows), notifications (signed in), the share-link play (above). Dark mode only through g8.spec (green).
+
+## Re-check after F6 (AU4, 2026-10-04)
+
+Target: ORCH's flag-on production build of the feat/v12 head e00e8f4 (F6a, F6b, F6c, F6d merged) on
+http://localhost:3071, production data, light scheme, 1440x900 and 390x844 (Playwright headless shell 1234).
+Every mutating request was answered locally; the only POST that reached the server is the read-only
+`/api/blind-test/generate` (it reads `songs` and Deezer). 0 production write. Read-only SQL with the service role
+(selects only). Screenshots: `run/audit/AU3/recheck/` (local only). Scratch scripts and raw JSON: the session
+scratchpad (`au4-run.mjs`, `au4-sweep.mjs`, `au4-genprobe.mjs`, `au4-db.mjs` and their `.json`).
+
+| # | Re-check | Result | Evidence |
+|---|---|---|---|
+| 1 | KPDH songs show no cover anywhere; other songs keep theirs (AU1 I1) | pass | below |
+| 2 | kpop-legends and title-tracks play as named (AU1 I2) | pass | below |
+| 3 | No sideways scroll at 390 on the 4 empty hubs (AU3-002) | pass | below |
+| 4 | Editorial profiles: Team badge, no streak, no groups mastered, no badges; normal profile unchanged (AU3-004) | pass | below |
+| 5 | Regression of every feature AU1, AU2, AU3 marked ok | pass, 90 of 90 URLs | below |
+
+### 1. KPop Demon Hunters covers (rule 10)
+- Theme page `/blindtest/kpop-demon-hunters` and its track list: 0 `<img>` at 1440 and 390, 0 Deezer image
+  (`i1-blindtest_kpop-demon-hunters-{1440,390}.png`). Hub `/blindtest` (Playlists rail): 6 images, all idol photos,
+  0 Deezer image (`i1-blindtest-*.png`). `/blindtest/group-twice` track list: 0 image.
+- KPDH run, 1440 and 390: 10 of 10 questions with `album_cover_medium`, `album_cover_big` and `reveal.cover` all
+  null; 10 of 10 reveals show the typographic `span.p6-cv`, 0 `img`; results "Your songs" 10 of 10 rows
+  `span.p6-scv` (`d-run-kpdh-reveal-kpdh{1,2}.png`, `d-run-kpdh-results.png`, `m-run-kpdh-*`).
+- TWICE group run (`/blindtest/group-twice`), 1440 and 390: each run drew both TWICE KPDH songs (Strategy,
+  TAKEDOWN): those 2 reveals and 2 result rows have no cover; the other 8 reveals and 8 rows show their loaded
+  cover (`d-run-twice-a1-reveal-kpdh{1,2}.png`, `d-run-twice-a1-results.png`, `m-run-twice-a1-*`). TWICE's
+  own "Strategy (feat. Megan Thee Stallion)" is a different track, not in the 12, and keeps its cover (correct).
+- All K-pop runs (`/blindtest` Start, 3 at 1440 + 1 at 390): 40 of 40 reveals and rows with a loaded cover. No
+  KPDH song was drawn in a browser All K-pop run (2 eligible songs in a pool of thousands).
+- Generate probe (read only, count 15): `twice` 25 calls, 50 KPDH questions, 0 with any cover field, 325 other
+  questions, 0 without a cover; `all` 15 calls, 225 questions, 0 without a cover, 0 KPDH drawn.
+- Not re-checked live: daily blindtest, ranked and the Verse song page (F6d, unit tests only: calling them
+  writes production or needs a session).
+
+### 2. Named modes
+- Served HTML: `/blindtest/kpop-legends` "Play 10 songs from K-pop legends", `/blindtest/title-tracks` "Play 10
+  songs from Title tracks only". Generate bodies: `playlist: "kpop-legends"` and `"title-tracks"`.
+- Runs at 1440 and 390 plus 3 probe calls each, read back with SQL: legends 46 distinct songs, years 2008 to
+  2017, 0 after 2017, 0 null year; title tracks 26 distinct songs, 26 of 26 `is_title_track = true`. Every
+  question carries a cover (`d-run-legends-*`, `m-run-legends-*`, `d-run-titletracks-*`, `m-run-titletracks-*`).
+
+### 3. Empty hubs at 390
+- `/zerobaseone-quiz`, `/boynextdoor-quiz`, `/riize-quiz`, `/nct-dream-quiz`: `scrollWidth` 390 at 390 and 1440
+  at 1440, no sideways scroll; the Create button wraps on two lines ("Create the first / ZEROBASEONE quiz")
+  (`i3-<hub>-{390,1440}.png`).
+
+### 4. Editorial profiles
+- The 9 `/u/<username>`, 1440 and 390: 1 Team tag and the editorial note, stats "quizzes made" and "plays
+  received" only, one tab (Quizzes); the words streak, groups mastered and badges are absent; no level
+  (`i4-u_<username>-{1440,390}.png`). Bios in a fan voice remain (data, owner decision, as AU3-004 said).
+- `/u/testtest`: unchanged, tabs Overview, Quizzes, Badges, streak, groups mastered and level shown, no Team tag.
+  At 390 a stat row inside its passport is wider than the viewport (r=489) but clipped: page `scrollWidth`
+  stays 390 (no sideways scroll); fan profile code is untouched by F6c.
+
+### 5. Regression pass (1440, one load each)
+- 90 URLs: AU1 (hub, 4 landings, 5 themes, recent-hits, 4th-gen-gg/bg, 4 new group modes, `/live`, `/join`),
+  AU2 (15 Which member, KPDH quiz, 17 Name them all, 4 quiz pages with This or that), AU3 (14 hubs, `/creators`,
+  `/leaderboard`, 9 editorial quiz pages, 3 searches, `/blindtest/leaderboard`, `/`, `/new`, `/trending`,
+  `/most-liked`, `/community`, 2 admin gates).
+- 90 of 90: status 200, `main` visible, 0 page error, 0 broken image, 0 sideways scroll, 0 unexpected console
+  error, 0 mutating request attempted. The 2 admin gates redirect to `/login?returnTo=...` as before.
+  Normalised as in the audits: the `/_vercel/insights` SyntaxError and `/api/ranked/me` 503 on `/blindtest`.
+- Screenshots `reg-<path>-1440.png` (viewport only). Interactions (plays, tabs, votes) were not replayed.
+
+### NOT verified
+- A KPDH song inside a browser All K-pop run (not drawn; the generate path is the same as TWICE's, proven).
+- Daily, ranked, Verse song page, legacy player covers (live calls write or need a session).
+- Share link plays (AU3-003, F6b): still no creator share link in production; unit tests only.
+- Dark mode; the regression pass at 390.
+- Probe note: two probe calls were invalid on my side (`girl-groups` is not a playlist id; KPDH has 12 songs, so
+  count 15 is refused with "Not enough songs"); they are excluded from the numbers above.
