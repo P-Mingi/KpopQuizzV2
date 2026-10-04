@@ -259,5 +259,10 @@
     "apps/quiz/src/lib/editorial/surfaces/**",
     "apps/quiz/src/app/api/daily/blindtest/**",
     "apps/quiz/src/app/(site)/verse/[slug]/songs/[id]/**"
+  ],
+  "F7": [
+    "apps/quiz/src/styles/ux-v1/p1.css",
+    "apps/quiz/src/app/(site)/page.tsx",
+    "apps/quiz/e2e/ux-v12/f7*.spec.ts"
   ]
 }
