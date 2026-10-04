@@ -75,7 +75,17 @@ Bundle A, file by file, each in its own transaction (statements identical to the
   'soundtrack' added; md5 of the 10 rows equals the file's (6f70f430bc2bec8a3cc24ef6d26abf95).
 - 12 `v12-g4-live.sql`: the connector call failed at the transport level ("Invalid or expired requestState"), not in
   SQL. Read-only check right after: none of its tables, functions or the Realtime policy exists. STOPPED here, as the
-  owner asked (first error). Files 13 to 18, bundle B and bundle C are not applied.
+  owner asked (first error).
+- 2026-10-04, after the owner reconnected the connector: 12 `v12-g4-live.sql` retried as is and applied in one
+  transaction. 13 `v12-g4-party-rls.sql` (no party table exists: nothing changed), 14 `v12-g6-name-all.sql` (wrapped
+  in a transaction), 15 `v12-g7-this-or-that.sql`, 16 `v12-g7-song-questions.sql` (a read-only dry count first: 81
+  new questions and 1,251 ratings, not 77 and 1,201, because KickFlip, RESCENE, NCT WISH and Hearts2Hearts now have
+  enough songs), 17 `v12-g8-share-link-plays.sql`, 18 `v12-g9-editorial.sql` (the two community CHECKs only gain
+  'editorial'; both tables were empty): applied, no error.
+- Bundle A grid: 21 of 23 lines ok. The two others were foreseen: file 9 reads 22 of 41 (the 19 missing songs come
+  with the filtered file 6 of bundle B; the 22 present are all flagged), file 16 reads 84 song questions instead of
+  80 (the 4 new groups, see above). duel_votes unchanged at 75,191.
+- Bundle B: pasted by the owner in the SQL editor (too big for the connector); ORCH reads its grid after `applied`.
 
 Write tests that also wait for a go (V12 prompt 4d): the tracking proof (`run/reports/G1/tracking-proof.mjs`, after 1),
 the live load test (`apps/quiz/scripts/live-load/load.mts --real`, after 12 and the Realtime limits).
