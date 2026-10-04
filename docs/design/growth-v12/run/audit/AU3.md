@@ -2,7 +2,8 @@
 
 ## Progress
 - Done: every feature of the AU3 scope checked on :3071 (or marked NOT checked with the reason).
-- Counts: 17 ok, 5 with an issue (2 medium, 1 medium-low, 2 low), 4 NOT checked.
+- Counts (25 rows): 15 ok, 6 with an issue (AU3-001 and AU3-003 medium, AU3-002 medium-low, AU3-004 to 006 low),
+  4 NOT checked.
 - Blocker: the share-link test play was NOT made (no creator share link exists in production; see "Test writes").
 
 ## Method
@@ -52,3 +53,65 @@ Screenshots are under `run/audit/AU3/` as `<name>-1440.png` and `<name>-390.png`
 | 23 | `/admin/blind-tests/runs` gate (no session) | `/admin/blind-tests/runs` | n/a | yes | redirect to `/login?returnTo=...` | `admin-bt-runs-*` | - |
 | 24 | Quiz play from a creator share link (`/s/<code>`) | `/s/<code>` | - | - | `dev_share_links` has 0 rows | - | NOT checked (Test writes) |
 | 25 | Hub counts consistent (legacy intro) | `/katseye-quiz` | yes | partly | intro "3+ tests", "272 plays", About "3 quizzes" vs 2 listed | `hub-katseye-1440.png` | AU3-006 (low, v11) |
+
+## Issues
+
+### AU3-001 (medium) Fans picked never shows, though three groups have enough votes
+- Expected: the hub section "<Fandom> picked" (and the This or that tile) on groups whose song question passed its
+  floor: aespa 2,262 votes, BLACKPINK 1,282, BTS 1,160 (`duel_votes` on active song questions; `min_votes` 500).
+- Actual: hidden on every hub; `GET /api/duel/fans-picked?group=bts` answers `ranked: false, songs: []`;
+  `duel_song_rankings` has 0 rows.
+- Evidence: `hub-bts-1440.png`, `hub-aespa-1440.png`, read-only SQL (counts above).
+- Suspected cause: the ranking is written only by the nightly `/api/cron/fans-picked` (`vercel.json` L62), which
+  never ran on this data: on production it answers 404 while `NEXT_PUBLIC_UX_V12` is off, and nobody ran it after
+  the G7 SQL. The hub hides it correctly (`lib/ux-v1/p3/growth-data.ts` L155). Owner: G7 / ORCH (run the cron once
+  when the flag goes on, or a first ranking as an owner step).
+
+### AU3-002 (medium-low) Sideways scroll at 390 on empty hubs with a long name
+- Expected: no horizontal scroll at 390.
+- Actual: `/zerobaseone-quiz` and `/boynextdoor-quiz` at 390: the button "Create the first ZEROBASEONE quiz" ends at
+  x = 393, so the page scrolls sideways. RIIZE, NCT DREAM, RESCENE, NCT WISH fit.
+- Evidence: `hub-zerobaseone-390.png`, `hub-boynextdoor-390.png`; probe `A.ux-btn.ux-btn-primary.ux-btn-lg r=393`.
+- Suspected cause: `components/group/ux-v1/hub-growth.tsx` L61 (`UxButton size="lg"`, label does not wrap) inside
+  `.g8-fcreate-a` (`styles/ux-v12/g8.css` L13, L113). Owner: G8. Idea: let the label wrap, or a shorter label
+  under 400px.
+
+### AU3-003 (medium) "Plays from your link" can never move
+- Expected (SYSTEM.md 5.4): the share kit shows the live count of plays that came through the creator's link.
+- Actual: `v12-g8-share-link-plays.sql` is applied (table present, 0 rows), so `readLinkPlays`
+  (`lib/creators/link-plays.ts` L79) now answers a number instead of null and the kit will show "0 plays"; but
+  nothing writes the table: G8 requests R1 (cookie in `app/api/share/click/[code]/route.ts`) and R2
+  (`recordLinkPlay` after `record_play` in `app/api/quiz/[id]/play/route.ts`) were never implemented
+  (`recordLinkPlay` has no caller, the click route sets no cookie). The number would stay 0 for ever (rule 7).
+- Evidence: grep of `recordLinkPlay` and `LINK_COOKIE` in `apps/quiz/src` (the lib only); `share_link_plays` 0 rows.
+- Owner: ORCH (R1, R2 are in files nobody owns, `run/requests/G8.md`). Until then the line should stay hidden.
+
+### AU3-004 (low) Editorial profiles still show fan stats
+- `/u/<username>` of the 9 accounts shows "0 days streak", "0 groups mastered" and a Badges tab ("Soojin has no
+  badges yet") under the editorial line; bios are in a fan voice ("girl group enthusiast. deep trivia lover.",
+  "been here since 2nd gen. I quiz everything."). SYSTEM.md 5.6: never pose as fans, no streak, no badge. Level is
+  gone; streak, mastered and badges remain. Evidence: `u-soojinnie-1440.png`, `u-kpophistory-1440.png`.
+  Owner: F2 (passport, `/u/[username]`); bios are data (owner).
+
+### AU3-005 (low, data) Group name casing "Hearts2hearts"
+- Hub H1, tiles and nudge read "Hearts2hearts" (`groups.name`, id 91, a row older than v12); the group writes it
+  Hearts2Hearts. Its `fandom_name` (and KickFlip's) is "fan", correctly treated as none by `realFandomName`.
+  Owner: data, owner decision (the H1 is an SEO field).
+
+### AU3-006 (low, v11 code, same on main) KATSEYE hub counts disagree
+- Intro "play 3+ free tests ... 272 plays" and About "3 free fan-made KATSEYE quizzes" vs 2 published quizzes (list,
+  v12 tile, nudge). `groups.quiz_count` = 3 is a stale stored counter. Not v12.
+
+## Test writes
+- Allowed: one guest quiz play from a creator share link (`/s/<code>`). NOT made. Reason: `dev_share_links` has
+  0 rows in production (read-only count; `dev_share_clicks` 0, `share_link_plays` 0), so no creator share code
+  exists to start from. Minting one needs `POST /api/share/generate` signed in (a write to `dev_share_links`
+  outside the allowance). Even with a code, R1 and R2 are not wired (AU3-003): the play would land in `plays`
+  (and the click route would write `dev_share_clicks` and update `dev_share_links`), never in `share_link_plays`.
+- Rows created by AU3: none. Every other mutating request of every page was answered locally (0 were attempted
+  on the anonymous sweep; g8.spec answered its publish and generate calls locally).
+- Owner decision: allow AU3 (or the owner) to create one share link from the test account, after R1 and R2 land.
+
+## NOT checked
+- Comment and reply badges (no comment by or on the 9 accounts), community feed and post badges (`editorial_posts`
+  0 rows), notifications (signed in), the share-link play (above). Dark mode only through g8.spec (green).
