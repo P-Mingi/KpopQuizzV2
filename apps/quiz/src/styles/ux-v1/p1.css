@@ -120,6 +120,12 @@
 .p1-glyph .ux-ico { width: 20px; height: 20px; }
 .p1-thumb { position: relative; }
 .p1-thumb img { object-fit: cover; }
+/* New quizzes thumb (F7b, owner 2026-10-04): bigger, and never a grey tile. The
+   type icon is always in the tile on the glyph ground; the picture covers it once
+   it has loaded and is removed when it fails (new-thumb.tsx). */
+.p1-nthumb { position: relative; width: 56px; height: 56px; border-radius: 12px; background: var(--ux-surface-2); color: var(--ux-muted); }
+.p1-nthumb .ux-ico { width: 24px; height: 24px; }
+.p1-nthumb .p1-nimg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- blindtest of the day band (16.7, 17.5 day mode) ---------- */
 .p1-band {
