@@ -112,6 +112,8 @@
 @media (max-width: 760px) {
   .g8-fcreate { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
   .g8-fcreate h2 { font-size: 26px; }
+  /* AU3-002: a long group name ("Create the first ZEROBASEONE quiz") must wrap, never overflow at 390. */
+  .g8-fcreate-a .ux-btn-lg { width: 100%; max-width: 100%; height: auto; min-height: 48px; padding-block: 12px; white-space: normal; line-height: 1.25; text-align: center; }
   .g8-nudge { flex-wrap: wrap; }
   .g8-nudge-t { flex: 1 1 200px; }
   .g8-fr { grid-template-columns: 30px minmax(0, 1fr) 48px; gap: 10px; }
