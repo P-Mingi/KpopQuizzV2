@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { applyPlaylistSpec, capByRank, specFollowsCuratedSwitch, specStatuses, v12Playlist } from '@/lib/blind-test-curated';
+import { applyPlaylistSpec, capByRank, specFollowsCuratedSwitch, specStatuses, v12Playlist, withoutKpdhCover } from '@/lib/blind-test-curated';
 
 import type { NextRequest } from 'next/server';
 
@@ -306,6 +306,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       }
     }),
   );
+  // Text and audio only: a KPop Demon Hunters song never carries its cover (the film key art),
+  // whatever the playlist and whatever Deezer answered. Every other song is untouched.
+  for (let i = 0; i < selected.length; i++) selected[i] = withoutKpdhCover(selected[i]!);
 
   // Allocate the whole game's question-type split, then shuffle so 'artist' and
   // 'title' questions interleave unpredictably (not all-one-type, not a fixed

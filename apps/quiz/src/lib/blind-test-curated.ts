@@ -92,6 +92,23 @@ export const KPDH_SONGS: readonly CuratedSong[] = [
 export const TIKTOK_VIRAL_DEEZER_IDS: readonly number[] = TIKTOK_VIRAL.map((s) => s.deezerId);
 export const KPDH_DEEZER_IDS: readonly number[] = KPDH_SONGS.map((s) => s.deezerId);
 
+// Text and audio only (COMMON rule 10, AU1 I1): every KPDH song sits on the Deezer album of the
+// soundtrack, whose cover is the film key art. That cover is never shown, in any playlist (the
+// two TWICE songs are active, so they also come up in All K-pop, girl groups, TWICE...). Not
+// gated by the flag: it is a rule fix for data already in production.
+const KPDH_ID_SET: ReadonlySet<number> = new Set(KPDH_DEEZER_IDS);
+
+/** Is this Deezer track one of the KPop Demon Hunters soundtrack songs? */
+export function isKpdhTrack(deezerTrackId: number | string | null | undefined): boolean {
+  return deezerTrackId != null && KPDH_ID_SET.has(Number(deezerTrackId));
+}
+
+/** A song's covers with the KPDH film art dropped (null); any other song is returned untouched. */
+export function withoutKpdhCover<T extends { deezer_track_id: number; album_cover_medium: string | null; album_cover_big: string | null }>(song: T): T {
+  if (!isKpdhTrack(song.deezer_track_id)) return song;
+  return { ...song, album_cover_medium: null, album_cover_big: null };
+}
+
 // ── The playlist rules ──────────────────────────────
 
 export interface PlaylistSpec {
