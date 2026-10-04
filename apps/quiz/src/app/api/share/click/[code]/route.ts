@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { createHash } from 'crypto';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { isShareCode, LINK_COOKIE, LINK_COOKIE_MAX_AGE } from '@/lib/creators/link-plays';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import type { NextRequest } from 'next/server';
 
@@ -74,5 +76,12 @@ export async function GET(
     ? `${siteUrl}/q/${quiz.slug}`
     : `${siteUrl}/`;
 
-  return NextResponse.redirect(redirectUrl, { status: 302 });
+  const res = NextResponse.redirect(redirectUrl, { status: 302 });
+  // V12 (G8 request R1, AU3-003): remember which creator link this visitor came
+  // through, so the play route can count "plays from your link". Flag off: no
+  // cookie, the response is today's.
+  if (isUxV12() && quiz?.slug && isShareCode(shareCode)) {
+    res.cookies.set(LINK_COOKIE, shareCode, { maxAge: LINK_COOKIE_MAX_AGE, httpOnly: true, sameSite: 'lax', secure: true, path: '/' });
+  }
+  return res;
 }
