@@ -153,3 +153,41 @@ block turning the flag on or merging:
 - Lighthouse (no owner OK); performance was measured with Playwright as in v11.
 - Real devices: iOS Safari audio on `/live`, a phone scanning the QR (decoded by macOS Vision only).
 - The Vercel preview: `feat/v12` is not pushed (owner-gated); every check ran on local production builds.
+
+## 9. Real-data audit (2026-10-04, every v12 SQL applied)
+
+Flag-on production build of the `feat/v12` head on :3071, real production data. Audits AU1 (blindtest, covers, live),
+AU2 (play modes), AU3 (hubs, creators, boards, editorial accounts) in `run/audit/`, fixes F6a to F6d in
+`run/reports/F6/`, re-check AU4 (end of `run/audit/AU3.md`). Screenshots are local only (`run/audit/**`).
+
+| Feature | URL | Visible | Works | Note |
+|---|---|---|---|---|
+| Blindtest hub: Playlists rail, live band, language row | `/blindtest` | yes | yes | live doors show although live is closed (decision 22, kept) |
+| 4 landings | `/guess-the-kpop-song`, `/fr/blind-test-kpop`, `/es/adivina-la-cancion-kpop`, `/id/tebak-lagu-kpop` | yes | yes | fr, es, id game strings to review (decision 10) |
+| Themed playlists (5) | `/blindtest/kpop-hits-2026`, `-2025`, `5th-gen`, `tiktok-viral`, `kpop-demon-hunters` | yes | yes | hits-2026 and KPDH now playable |
+| Named modes | `/blindtest/kpop-legends`, `/blindtest/title-tracks` | yes | yes | fixed (F6a): legends 2008 to 2017, title tracks only |
+| Covers | every blindtest surface | yes | yes | 2,500 stored covers answer 200; KPDH covers removed everywhere (F6a, F6d) |
+| Live blindtest | `/live`, `/join` | yes | yes | one test room, 5 rounds, 2 players, closed |
+| Which member (15 groups) | `/which-<group>-member-are-you` | yes | yes | splits equal `personality_results` |
+| KPop Demon Hunters quiz | `/kpop-demon-hunters-quiz` | yes | yes | |
+| Name them all (17 groups) | `/<group>-name-all-members` | yes | yes | one test round |
+| This or that bonus | quiz results | yes | yes | 84 groups, 585 covers; one test vote |
+| Fans picked | hub section, `/api/duel/fans-picked` | no | yes (dry run) | empty until the nightly cron first runs with the flag on; dry run ranks aespa, BLACKPINK, BTS |
+| Hub ways to play, empty and thin hubs | `/<group>-quiz` | yes | yes | sideways scroll at 390 fixed (F6b) |
+| New groups' hubs | `/rescene-quiz`, `/nct-wish-quiz`, `/kickflip-quiz`, `/hearts2hearts-quiz` | yes | yes | Hearts2Hearts shows the stored name "Hearts2hearts" (owner data) |
+| Share kit, plays from your link | create done, share sheet | yes | not proven | recording built (F6b); no share link exists in production |
+| Creators board | `/creators` | yes | yes | editorial accounts excluded |
+| Leaderboard (4 tabs) | `/leaderboard` | yes | yes | no editorial account listed |
+| Team badge | quiz pages of the 9 accounts, `/u/<username>`, search | yes | yes | Team profiles show no fan progress (F6c); bios still written as fans (owner data) |
+| Admin pages | `/admin/editorial`, `/admin/blind-tests/runs` | gated | gated | redirect to login without an admin session |
+
+Re-check AU4: the 4 fixed items pass, 90 of 90 regression URLs clean at 1440. Parity run 4 (both flags off, feat/v12
+vs main): sitemap 3,165 = 3,165, robots.txt identical, only the allowed differences.
+
+Production test writes (owner allowed, to delete at will):
+- live room `840c04f8-f869-4b16-9a79-3f19d50a07f9` (code Z88WXE, `is_test` true, closed; players and answers already
+  removed);
+- This or that vote `duel_votes` id `eab35ec0-6bc9-48d9-a681-da3cdbf62900` and its `duel_vote_guard` row (voter hash
+  af53ecb8700872c70ac74ea3f6f7e53a, 2026-10-04);
+- Name them all `name_all_member_results` ids 7735 to 7738 (round `22031bc9-ff29-4a7f-a35c-1ead98eafd14`);
+- share link play: not done (no share link exists; creating one is a signed-in write the owner did not list).
