@@ -1,0 +1,16 @@
+3c3
+< <html lang="en" class="pretendard_60cdc229-module__UDh0rq__variable">
+---
+> <html lang="en" class="pretendard_60cdc229-module__pUigVW__variable">
+808c808
+< <span class="quiz-score score-green">93<!-- -->%</span>
+---
+> <span class="quiz-score score-red">31<!-- -->%</span>
+1098c1098
+< <span class="quiz-score score-green">78<!-- -->%</span>
+---
+> <span class="quiz-score score-red">26<!-- -->%</span>
+1235c1235
+< <span class="quiz-score score-green">126<!-- -->%</span>
+---
+> <span class="quiz-score score-red">42<!-- -->%</span>

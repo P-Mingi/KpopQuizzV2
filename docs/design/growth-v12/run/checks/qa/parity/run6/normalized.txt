@@ -1,0 +1,667 @@
+# a = feat/v12 (both flags off), b = origin/main (both flags off); N1 applied
+# pages with a class: {"C1 recomputed score figure":6,"C3 extra JS chunk (see summary)":2,"OTHER":1,"C2 live counter":1}
+about: identical
+articles: identical
+articles_who_is_cortis: identical
+blackpink_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->78%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->26%</span>
+blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+blindtest_4th_gen: identical
+blindtest_classic: identical
+blindtest_girl_groups: identical
+blindtest_intro_challenge: identical
+blindtest_title_tracks: identical
+bts_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->93%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->31%</span>
+bts_trivia: identical
+cortis_quiz: identical
+create: identical
+easy_kpop_quizzes: identical
+faq: identical
+groups: identical
+leaderboard: identical
+most_liked: identical
+new: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->180%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->60%</span>
+news: OTHER, C2 live counter
+  [OTHER]
+    b <link rel="preload" href="https://0.soompi.io/wp-content/uploads/2026/10/04171256/Lee-Jun-Young-Song-Kang.jpeg" as="image" referrerPolicy="no-referrer"/>
+    a <link rel="preload" href="https://0.soompi.io/wp-content/uploads/2026/10/04175518/Between-Steps-1.jpg" as="image" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsArticle","headline":"“Four Hands, Two Sonatas” Ends On Highest Ratings Of Its Entire Run","url":"https://www.soompi.com/article/1875451wpp/four-hands-two-sonatas-ends-on-highest-ratings-of-its-entire-run","datePublished":"2026-10-04T23:17:00.000Z","image":"https://0.soompi.io/wp-content/uploads/2026/10/04171256/Lee-Jun-Young-Song-Kang.jpeg","publisher":{"@type":"Organization","name":"Soompi"}},{"@type":"NewsArticle","headline":"Watch: Jin Young And Cho Yi Hyun Fall In Love During A Magical “Summer Vacat
+    a <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsArticle","headline":"Kim So Hyun And Choo Young Woo Share An Unforgettable First Encounter In “Between Steps”","url":"https://www.soompi.com/article/1875453wpp/kim-so-hyun-and-choo-young-woo-share-an-unforgettable-first-encounter-in-between-steps","datePublished":"2026-10-04T23:59:00.000Z","image":"https://0.soompi.io/wp-content/uploads/2026/10/04175518/Between-Steps-1.jpg","publisher":{"@type":"Organization","name":"Soompi"}},{"@type":"NewsArticle","headline":"“Four Hands, Two Sonatas” Ends On Highest 
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875451wpp/four-hands-two-sonatas-ends-on-highest-ratings-of-its-entire-run" target="_blank" rel="noopener noreferrer nofollow" class="nw-hero">
+    a <a href="https://www.soompi.com/article/1875453wpp/kim-so-hyun-and-choo-young-woo-share-an-unforgettable-first-encounter-in-between-steps" target="_blank" rel="noopener noreferrer nofollow" class="nw-hero">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04171256/Lee-Jun-Young-Song-Kang.jpeg" alt="“Four Hands, Two Sonatas” Ends On Highest Ratings Of Its Entire Run" class="nw-img" loading="eager" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04175518/Between-Steps-1.jpg" alt="Kim So Hyun And Choo Young Woo Share An Unforgettable First Encounter In “Between Steps”" class="nw-img" loading="eager" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <h2 class="nw-hero-title">“Four Hands, Two Sonatas” Ends On Highest Ratings Of Its Entire Run</h2>
+    a <h2 class="nw-hero-title">Kim So Hyun And Choo Young Woo Share An Unforgettable First Encounter In “Between Steps”</h2>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875445wpp/watch-jin-young-and-cho-yi-hyun-fall-in-love-during-a-magical-summer-vacation-in-teaser-for-new-drama" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875451wpp/four-hands-two-sonatas-ends-on-highest-ratings-of-its-entire-run" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04160500/Summer-Vacation.jpg" alt="Watch: Jin Young And Cho Yi Hyun Fall In Love During A Magical “Summer Vacation” In Teaser For New Drama" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04171256/Lee-Jun-Young-Song-Kang.jpeg" alt="“Four Hands, Two Sonatas” Ends On Highest Ratings Of Its Entire Run" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">4h ago</span>
+    a <span class="nw-time">1h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">Watch: Jin Young And Cho Yi Hyun Fall In Love During A Magical “Summer Vacation” In Teaser For New Drama</p>
+    a <p class="nw-card-title">“Four Hands, Two Sonatas” Ends On Highest Ratings Of Its Entire Run</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875442wpp/watch-allday-project-appears-on-amazing-saturday-as-full-group-in-new-preview" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875445wpp/watch-jin-young-and-cho-yi-hyun-fall-in-love-during-a-magical-summer-vacation-in-teaser-for-new-drama" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04145449/ALLDAY-PROJECT.jpg" alt="Watch: ALLDAY PROJECT Appears On “Amazing Saturday” As Full Group In New Preview" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04160500/Summer-Vacation.jpg" alt="Watch: Jin Young And Cho Yi Hyun Fall In Love During A Magical “Summer Vacation” In Teaser For New Drama" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">5h ago</span>
+    a <span class="nw-time">4h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">Watch: ALLDAY PROJECT Appears On “Amazing Saturday” As Full Group In New Preview</p>
+    a <p class="nw-card-title">Watch: Jin Young And Cho Yi Hyun Fall In Love During A Magical “Summer Vacation” In Teaser For New Drama</p>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/famous-aespa-karina-lookalike-showcases-unreal-body-figure/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875442wpp/watch-allday-project-appears-on-amazing-saturday-as-full-group-in-new-preview" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/Kim-Min-Gee-FI-2.jpg" alt="Famous aespa Karina Lookalike Showcases Unreal Body Figure" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04145449/ALLDAY-PROJECT.jpg" alt="Watch: ALLDAY PROJECT Appears On “Amazing Saturday” As Full Group In New Preview" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </span>Soompi</span>
+  [OTHER]
+    b <p class="nw-card-title">Famous aespa Karina Lookalike Showcases Unreal Body Figure</p>
+    a <p class="nw-card-title">Watch: ALLDAY PROJECT Appears On “Amazing Saturday” As Full Group In New Preview</p>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:120ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/aespa-quiz">aespa</a>
+    a <a href="https://www.koreaboo.com/news/famous-aespa-karina-lookalike-showcases-unreal-body-figure/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b </div>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b </div>
+    a <img src="https://image.koreaboo.com/2026/10/Kim-Min-Gee-FI-2.jpg" alt="Famous aespa Karina Lookalike Showcases Unreal Body Figure" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:120ms">
+    a <div class="nw-card-body">
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/women-star-turned-sex-offender-go-young-wook-criticizes-beloved-actress/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </div>
+    a </span>Koreaboo</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <span class="nw-time">5h ago</span>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a <p class="nw-card-title">Famous aespa Karina Lookalike Showcases Unreal Body Figure</p>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a </div>
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </a>
+  [OTHER]
+    b <span class="nw-time">6h ago</span>
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </div>
+    a <div class="nw-pills">
+  [OTHER]
+    b <p class="nw-card-title">“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
+    a <a class="nw-pill nw-pill-link" href="/aespa-quiz">aespa</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875439wpp/four-hands-two-sonatas-and-new-recruit-4-sabotage-dominate-most-buzzworthy-drama-and-actor-rankings" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/women-star-turned-sex-offender-go-young-wook-criticizes-beloved-actress/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04142002/Four-Hands-Two-Sonatas-New-Recruit-4-Sabotage.jpg" alt="“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </span>Soompi</span>
+    a </span>Koreaboo</span>
+  [OTHER]
+    b <p class="nw-card-title">“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings</p>
+    a <p class="nw-card-title">“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/song-kang-receives-public-apology-thai-actor/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875439wpp/four-hands-two-sonatas-and-new-recruit-4-sabotage-dominate-most-buzzworthy-drama-and-actor-rankings" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/Song-Kang-FI-4.jpg" alt="Song Kang Receives Public Apology From Thai Actor For The Most Unexpected Reason" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04142002/Four-Hands-Two-Sonatas-New-Recruit-4-Sabotage.jpg" alt="“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </span>Soompi</span>
+  [OTHER]
+    b <p class="nw-card-title">Song Kang Receives Public Apology From Thai Actor For The Most Unexpected Reason</p>
+    a <p class="nw-card-title">“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875434wpp/stray-kids-evan-enhypen-cortis-illit-tuide-bts-le-sserafim-ateez-and-more-sweep-top-spots-on-billboard-world-albums-chart" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/song-kang-receives-public-apology-thai-actor/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04102601/Stray-Kids-EVAN-ENHYPEN-CORTIS.jpg" alt="Stray Kids, EVAN, ENHYPEN, CORTIS, ILLIT, TUIDE, BTS, LE SSERAFIM, ATEEZ, And More Sweep Top Spots On Billboard World Albums Chart" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/Song-Kang-FI-4.jpg" alt="Song Kang Receives Public Apology From Thai Actor For The Most Unexpected Reason" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </span>Soompi</span>
+    a </span>Koreaboo</span>
+  [C2 live counter]
+    b <span class="nw-time">7h ago</span>
+    a <span class="nw-time">6h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">Stray Kids, EVAN, ENHYPEN, CORTIS, ILLIT, TUIDE, BTS, LE SSERAFIM, ATEEZ, And More Sweep Top Spots On Billboard World Albums Chart</p>
+    a <p class="nw-card-title">Song Kang Receives Public Apology From Thai Actor For The Most Unexpected Reason</p>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:280ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/bts-quiz">BTS</a>
+    a <a href="https://www.soompi.com/article/1875434wpp/stray-kids-evan-enhypen-cortis-illit-tuide-bts-le-sserafim-ateez-and-more-sweep-top-spots-on-billboard-world-albums-chart" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/stray-kids-quiz">Stray Kids</a>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/ateez-quiz">ATEEZ</a>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04102601/Stray-Kids-EVAN-ENHYPEN-CORTIS.jpg" alt="Stray Kids, EVAN, ENHYPEN, CORTIS, ILLIT, TUIDE, BTS, LE SSERAFIM, ATEEZ, And More Sweep Top Spots On Billboard World Albums Chart" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b </div>
+    a <div class="nw-card-body">
+  [OTHER]
+    b </div>
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:280ms">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875402wpp/watch-i-dles-soyeon-takes-2nd-win-for-im-gonna-toesa-on-inkigayo-performances-by-boynextdoor-allday-project-and-more" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a </span>Soompi</span>
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04075356/Soyeon.jpeg" alt="Watch: i-dle’s Soyeon Takes 2nd Win For “I’m gonna TOESA” On “Inkigayo”; Performances By BOYNEXTDOOR, ALLDAY PROJECT, And More" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-time">7h ago</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <p class="nw-card-title">Stray Kids, EVAN, ENHYPEN, CORTIS, ILLIT, TUIDE, BTS, LE SSERAFIM, ATEEZ, And More Sweep Top Spots On Billboard World Albums Chart</p>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a </a>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </span>Soompi</span>
+    a <div class="nw-pills">
+  [OTHER]
+    b <span class="nw-time">8h ago</span>
+    a <a class="nw-pill nw-pill-link" href="/bts-quiz">BTS</a>
+  [OTHER]
+    b </div>
+    a <a class="nw-pill nw-pill-link" href="/stray-kids-quiz">Stray Kids</a>
+  [OTHER]
+    b <p class="nw-card-title">Watch: i-dle’s Soyeon Takes 2nd Win For “I’m gonna TOESA” On “Inkigayo”; Performances By BOYNEXTDOOR, ALLDAY PROJECT, And More</p>
+    a <a class="nw-pill nw-pill-link" href="/ateez-quiz">ATEEZ</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:320ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/boynextdoor-quiz">BOYNEXTDOOR</a>
+    a <a href="https://www.soompi.com/article/1875402wpp/watch-i-dles-soyeon-takes-2nd-win-for-im-gonna-toesa-on-inkigayo-performances-by-boynextdoor-allday-project-and-more" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b </div>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b </div>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04075356/Soyeon.jpeg" alt="Watch: i-dle’s Soyeon Takes 2nd Win For “I’m gonna TOESA” On “Inkigayo”; Performances By BOYNEXTDOOR, ALLDAY PROJECT, And More" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:320ms">
+    a <div class="nw-card-body">
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/ailee-says-heartbreaking-goodbye-pet-dog/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/Ailee-Som-FI.jpg" alt="Ailee Says Heartbreaking Goodbye To Her Pet Dog" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b </div>
+    a </span>Soompi</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <span class="nw-time">8h ago</span>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a <p class="nw-card-title">Watch: i-dle’s Soyeon Takes 2nd Win For “I’m gonna TOESA” On “Inkigayo”; Performances By BOYNEXTDOOR, ALLDAY PROJECT, And More</p>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a </div>
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </a>
+  [OTHER]
+    b <span class="nw-time">8h ago</span>
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </div>
+    a <div class="nw-pills">
+  [OTHER]
+    b <p class="nw-card-title">Ailee Says Heartbreaking Goodbye To Her Pet Dog</p>
+    a <a class="nw-pill nw-pill-link" href="/boynextdoor-quiz">BOYNEXTDOOR</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875421wpp/hearts2hearts-drops-teaser-for-korean-version-of-iconic-heart" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/ailee-says-heartbreaking-goodbye-pet-dog/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04085914/Hearts2Hearts.jpg" alt="Hearts2Hearts Drops Teaser For Korean Version Of “ICONIC HEART”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/Ailee-Som-FI.jpg" alt="Ailee Says Heartbreaking Goodbye To Her Pet Dog" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </span>Soompi</span>
+    a </span>Koreaboo</span>
+  [C2 live counter]
+    b <span class="nw-time">9h ago</span>
+    a <span class="nw-time">8h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">Hearts2Hearts Drops Teaser For Korean Version Of “ICONIC HEART”</p>
+    a <p class="nw-card-title">Ailee Says Heartbreaking Goodbye To Her Pet Dog</p>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:320ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/hearts2hearts-quiz">Hearts2Hearts</a>
+    a <a href="https://www.soompi.com/article/1875421wpp/hearts2hearts-drops-teaser-for-korean-version-of-iconic-heart" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b </div>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b </div>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/04085914/Hearts2Hearts.jpg" alt="Hearts2Hearts Drops Teaser For Korean Version Of “ICONIC HEART”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:320ms">
+    a <div class="nw-card-body">
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/netflix-k-dramas-worst-year-ending-brutally-ridiculed-not-bl/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/4H2S-FI.jpg" alt="Netflix K-Drama’s “Worst Of The Year” Ending Brutally Ridiculed For Not Being BL" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b </div>
+    a </span>Soompi</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <span class="nw-time">9h ago</span>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a <p class="nw-card-title">Hearts2Hearts Drops Teaser For Korean Version Of “ICONIC HEART”</p>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a </div>
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </a>
+  [OTHER]
+    b <span class="nw-time">9h ago</span>
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </div>
+    a <div class="nw-pills">
+  [OTHER]
+    b <p class="nw-card-title">Netflix K-Drama’s “Worst Of The Year” Ending Brutally Ridiculed For Not Being BL</p>
+    a <a class="nw-pill nw-pill-link" href="/hearts2hearts-quiz">Hearts2Hearts</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/allday-project-tarzzan-shocks-after-admitting-regrets-ever-sagging-pants/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/netflix-k-dramas-worst-year-ending-brutally-ridiculed-not-bl/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/TarzzanSagging-FI.jpg" alt="ALLDAY PROJECT’s Tarzzan Shocks After Admitting He Regrets Ever Sagging His Pants" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/4H2S-FI.jpg" alt="Netflix K-Drama’s “Worst Of The Year” Ending Brutally Ridiculed For Not Being BL" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">11h ago</span>
+    a <span class="nw-time">9h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">ALLDAY PROJECT’s Tarzzan Shocks After Admitting He Regrets Ever Sagging His Pants</p>
+    a <p class="nw-card-title">Netflix K-Drama’s “Worst Of The Year” Ending Brutally Ridiculed For Not Being BL</p>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/popular-5th-gen-idol-dumped-older-girlfriend-in-heartbreaking-way/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/allday-project-tarzzan-shocks-after-admitting-regrets-ever-sagging-pants/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/TarzzanBreakup-FI-1.jpg" alt="ALLDAY PROJECT’s Tarzzan Dumped By Older Girlfriend In Heartbreaking Way" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/TarzzanSagging-FI.jpg" alt="ALLDAY PROJECT’s Tarzzan Shocks After Admitting He Regrets Ever Sagging His Pants" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <p class="nw-card-title">ALLDAY PROJECT’s Tarzzan Dumped By Older Girlfriend In Heartbreaking Way</p>
+    a <p class="nw-card-title">ALLDAY PROJECT’s Tarzzan Shocks After Admitting He Regrets Ever Sagging His Pants</p>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/bts-dragged-scathing-military-enlistment-controversy-sparking-fury/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/popular-5th-gen-idol-dumped-older-girlfriend-in-heartbreaking-way/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/btsMilitaryFootball-FI.jpg" alt="BTS Dragged Into Scathing Military Enlistment Controversy, Sparking Fury" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/TarzzanBreakup-FI-1.jpg" alt="ALLDAY PROJECT’s Tarzzan Dumped By Older Girlfriend In Heartbreaking Way" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <p class="nw-card-title">BTS Dragged Into Scathing Military Enlistment Controversy, Sparking Fury</p>
+    a <p class="nw-card-title">ALLDAY PROJECT’s Tarzzan Dumped By Older Girlfriend In Heartbreaking Way</p>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:320ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/bts-quiz">BTS</a>
+    a <a href="https://www.koreaboo.com/news/bts-dragged-scathing-military-enlistment-controversy-sparking-fury/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b </div>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b </div>
+    a <img src="https://image.koreaboo.com/2026/10/btsMilitaryFootball-FI.jpg" alt="BTS Dragged Into Scathing Military Enlistment Controversy, Sparking Fury" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:320ms">
+    a <div class="nw-card-body">
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/nana-gets-heavily-criticized-remark-male-idol-amid-dating-news-top/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <img src="https://image.koreaboo.com/2026/10/Nana-FI-9.jpg" alt="Nana Gets Heavily Criticized Over Remark About Male Idol Amid Dating News With T.O.P" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </div>
+    a </span>Koreaboo</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <span class="nw-time">11h ago</span>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a <p class="nw-card-title">BTS Dragged Into Scathing Military Enlistment Controversy, Sparking Fury</p>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#F59E0B">
+    a </div>
+  [OTHER]
+    b </span>Koreaboo</span>
+    a </a>
+  [OTHER]
+    b <span class="nw-time">13h ago</span>
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </div>
+    a <div class="nw-pills">
+  [OTHER]
+    b <p class="nw-card-title">Nana Gets Heavily Criticized Over Remark About Male Idol Amid Dating News With T.O.P</p>
+    a <a class="nw-pill nw-pill-link" href="/bts-quiz">BTS</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <a href="https://www.koreaboo.com/news/yoo-jae-suk-declines-subscribing-lee-kwang-soo-fan-communication-platform-hilarious-reason/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/nana-gets-heavily-criticized-remark-male-idol-amid-dating-news-top/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://storage.googleapis.com/koreaboo-cdn/2026/10/Yoo-Jae-Suk-1.mp4" alt="Yoo Jae Suk Declines Subscribing To Lee Kwang Soo’s Fan Communication Platform With A Hilarious Reason" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/Nana-FI-9.jpg" alt="Nana Gets Heavily Criticized Over Remark About Male Idol Amid Dating News With T.O.P" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">14h ago</span>
+    a <span class="nw-time">13h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">Yoo Jae Suk Declines Subscribing To Lee Kwang Soo’s Fan Communication Platform With A Hilarious Reason</p>
+    a <p class="nw-card-title">Nana Gets Heavily Criticized Over Remark About Male Idol Amid Dating News With T.O.P</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875388wpp/i-dles-wife-mv-soars-past-100-million-views" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.koreaboo.com/news/yoo-jae-suk-declines-subscribing-lee-kwang-soo-fan-communication-platform-hilarious-reason/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03233621/i-dle.jpg" alt="i-dle’s “Wife” MV Soars Past 100 Million Views" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://storage.googleapis.com/koreaboo-cdn/2026/10/Yoo-Jae-Suk-1.mp4" alt="Yoo Jae Suk Declines Subscribing To Lee Kwang Soo’s Fan Communication Platform With A Hilarious Reason" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a <span class="nw-source-dot" style="background:#F59E0B">
+  [OTHER]
+    b </span>Soompi</span>
+    a </span>Koreaboo</span>
+  [C2 live counter]
+    b <span class="nw-time">18h ago</span>
+    a <span class="nw-time">14h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">i-dle’s “Wife” MV Soars Past 100 Million Views</p>
+    a <p class="nw-card-title">Yoo Jae Suk Declines Subscribing To Lee Kwang Soo’s Fan Communication Platform With A Hilarious Reason</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875384wpp/kim-ji-yeon-and-jang-se-hyuk-try-to-return-to-their-original-bodies-in-dive-into-you" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875388wpp/i-dles-wife-mv-soars-past-100-million-views" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03230532/Dive-into-You-3.jpg" alt="Kim Ji Yeon And Jang Se Hyuk Try To Return To Their Original Bodies In “Dive Into You”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03233621/i-dle.jpg" alt="i-dle’s “Wife” MV Soars Past 100 Million Views" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <p class="nw-card-title">Kim Ji Yeon And Jang Se Hyuk Try To Return To Their Original Bodies In “Dive Into You”</p>
+    a <p class="nw-card-title">i-dle’s “Wife” MV Soars Past 100 Million Views</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875377wpp/blackpink-sets-youtube-records-as-boombayah-mv-hits-1-9-billion-views" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875384wpp/kim-ji-yeon-and-jang-se-hyuk-try-to-return-to-their-original-bodies-in-dive-into-you" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03223046/BLACKPINK.jpg" alt="BLACKPINK Sets YouTube Records As “BOOMBAYAH” MV Hits 1.9 Billion Views" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03230532/Dive-into-You-3.jpg" alt="Kim Ji Yeon And Jang Se Hyuk Try To Return To Their Original Bodies In “Dive Into You”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">19h ago</span>
+    a <span class="nw-time">18h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">BLACKPINK Sets YouTube Records As “BOOMBAYAH” MV Hits 1.9 Billion Views</p>
+    a <p class="nw-card-title">Kim Ji Yeon And Jang Se Hyuk Try To Return To Their Original Bodies In “Dive Into You”</p>
+  [OTHER]
+    b <div class="nw-card-tags">
+    a </div>
+  [OTHER]
+    b <div class="nw-pills">
+    a <div class="nw-grid-slot" style="animation-delay:320ms">
+  [OTHER]
+    b <a class="nw-pill nw-pill-link" href="/blackpink-quiz">BLACKPINK</a>
+    a <a href="https://www.soompi.com/article/1875377wpp/blackpink-sets-youtube-records-as-boombayah-mv-hits-1-9-billion-views" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b </div>
+    a <div class="nw-img-wrap">
+  [OTHER]
+    b </div>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03223046/BLACKPINK.jpg" alt="BLACKPINK Sets YouTube Records As “BOOMBAYAH” MV Hits 1.9 Billion Views" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <div class="nw-grid-slot" style="animation-delay:320ms">
+    a <div class="nw-card-body">
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875374wpp/october-rookie-idol-group-brand-reputation-rankings-announced-4" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <div class="nw-card-meta">
+  [OTHER]
+    b <div class="nw-img-wrap">
+    a <span class="nw-source-badge">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03202937/RESCENE-CORTIS-izna.jpg" alt="October Rookie Idol Group Brand Reputation Rankings Announced" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <span class="nw-source-dot" style="background:#5B7FE5">
+  [OTHER]
+    b </div>
+    a </span>Soompi</span>
+  [OTHER]
+    b <div class="nw-card-body">
+    a <span class="nw-time">19h ago</span>
+  [OTHER]
+    b <div class="nw-card-meta">
+    a </div>
+  [OTHER]
+    b <span class="nw-source-badge">
+    a <p class="nw-card-title">BLACKPINK Sets YouTube Records As “BOOMBAYAH” MV Hits 1.9 Billion Views</p>
+  [OTHER]
+    b <span class="nw-source-dot" style="background:#5B7FE5">
+    a </div>
+  [OTHER]
+    b </span>Soompi</span>
+    a </a>
+  [OTHER]
+    b <span class="nw-time">21h ago</span>
+    a <div class="nw-card-tags">
+  [OTHER]
+    b </div>
+    a <div class="nw-pills">
+  [OTHER]
+    b <p class="nw-card-title">October Rookie Idol Group Brand Reputation Rankings Announced</p>
+    a <a class="nw-pill nw-pill-link" href="/blackpink-quiz">BLACKPINK</a>
+  [OTHER]
+    b </a>
+    a </div>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875158wpp/5-reasons-to-watch-bl-after-moving-seats-the-boy-behind-me-has-a-crush-on-me" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875374wpp/october-rookie-idol-group-brand-reputation-rankings-announced-4" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03153626/After-Moving-Seats-The-Boy-Behind-Me-Has-A-Crush-On-Me.jpg" alt="5 Reasons To Watch BL “After Moving Seats, The Boy Behind Me Has A Crush On Me”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03202937/RESCENE-CORTIS-izna.jpg" alt="October Rookie Idol Group Brand Reputation Rankings Announced" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">22h ago</span>
+    a <span class="nw-time">21h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">5 Reasons To Watch BL “After Moving Seats, The Boy Behind Me Has A Crush On Me”</p>
+    a <p class="nw-card-title">October Rookie Idol Group Brand Reputation Rankings Announced</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875366wpp/xlovs-wumuti-to-sit-out-schedule-due-to-health-concerns" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875158wpp/5-reasons-to-watch-bl-after-moving-seats-the-boy-behind-me-has-a-crush-on-me" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03190021/Wumuti.jpg" alt="XLOV’s Wumuti To Sit Out Schedule Due To Health Concerns" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03153626/After-Moving-Seats-The-Boy-Behind-Me-Has-A-Crush-On-Me.jpg" alt="5 Reasons To Watch BL “After Moving Seats, The Boy Behind Me Has A Crush On Me”" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [C2 live counter]
+    b <span class="nw-time">23h ago</span>
+    a <span class="nw-time">22h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">XLOV’s Wumuti To Sit Out Schedule Due To Health Concerns</p>
+    a <p class="nw-card-title">5 Reasons To Watch BL “After Moving Seats, The Boy Behind Me Has A Crush On Me”</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875367wpp/four-hands-two-sonatas-and-dive-into-you-both-earn-their-highest-ratings-yet" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875366wpp/xlovs-wumuti-to-sit-out-schedule-due-to-health-concerns" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03182015/Four-Hands-Two-Sonatas-Dive-into-You.jpg" alt="“Four Hands, Two Sonatas” And “Dive Into You” Both Earn Their Highest Ratings Yet" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03190021/Wumuti.jpg" alt="XLOV’s Wumuti To Sit Out Schedule Due To Health Concerns" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <p class="nw-card-title">“Four Hands, Two Sonatas” And “Dive Into You” Both Earn Their Highest Ratings Yet</p>
+    a <p class="nw-card-title">XLOV’s Wumuti To Sit Out Schedule Due To Health Concerns</p>
+  [OTHER]
+    b <a href="https://www.soompi.com/article/1875363wpp/the-assassins-surpasses-2-million-moviegoers" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+    a <a href="https://www.soompi.com/article/1875367wpp/four-hands-two-sonatas-and-dive-into-you-both-earn-their-highest-ratings-yet" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
+  [OTHER]
+    b <img src="https://0.soompi.io/wp-content/uploads/2026/10/03174232/The-Assassins.jpg" alt="“The Assassin(s)” Surpasses 2 Million Moviegoers" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://0.soompi.io/wp-content/uploads/2026/10/03182015/Four-Hands-Two-Sonatas-Dive-into-You.jpg" alt="“Four Hands, Two Sonatas” And “Dive Into You” Both Earn Their Highest Ratings Yet" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+  [OTHER]
+    b <span class="nw-time">1d ago</span>
+    a <span class="nw-time">23h ago</span>
+  [OTHER]
+    b <p class="nw-card-title">“The Assassin(s)” Surpasses 2 Million Moviegoers</p>
+    a <p class="nw-card-title">“Four Hands, Two Sonatas” And “Dive Into You” Both Earn Their Highest Ratings Yet</p>
+pt: identical
+pt_blindtest: C3 extra JS chunk (see summary)
+  [C3 extra JS chunk (see summary)]
+    b 
+    a 1 extra async <script src="/_next/static/..."> on feat/v12
+pt_leaderboard: identical
+q_are_you_a_real_coer: identical
+q_are_you_a_real_eyekon: identical
+q_babymonster_quiz: identical
+q_enhypen_guess_the_mv_from_the_screenshot: identical
+q_illit_fans_here: identical
+q_le_sserafim_members_and_music_quiz: identical
+quizzes: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">93<!-- -->%</span>
+    a <span class="quiz-score score-red">31<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">78<!-- -->%</span>
+    a <span class="quiz-score score-red">26<!-- -->%</span>
+  [C1 recomputed score figure]
+    b <span class="quiz-score score-green">126<!-- -->%</span>
+    a <span class="quiz-score score-red">42<!-- -->%</span>
+red_velvet_quiz: identical
+root: identical
+seventeen_quiz: identical
+stats: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 434 quizzes, 4281 blind test songs, 70.2K total plays across 94 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T00:43:54.637Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":434},{"@type":"PropertyValue","name":"Total Songs","value":4281
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 434 quizzes, 4281 blind test songs, 70.2K total plays across 94 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T01:02:59.980Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":434},{"@type":"PropertyValue","name":"Total Songs","value":4281
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T00:43:54.637Z","license":"https://kpopquiz.org/stats"}</script>
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T01:02:59.980Z","license":"https://kpopquiz.org/stats"}</script>
+  [C1 recomputed score figure]
+    b <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 257 quizzes with at least 30 plays, as of October 5, 2026.</p>
+    a <p class="stats-section-desc">The hardest quiz on kpopquiz.org is &quot;Stray Kids: Guess the Song Quiz&quot;, where fans average just 42%. Ranked from 254 quizzes with at least 30 plays, as of October 5, 2026.</p>
+stray_kids_quiz: C1 recomputed score figure
+  [C1 recomputed score figure]
+    b <span class="text-xs text-secondary">· avg <!-- -->126%</span>
+    a <span class="text-xs text-secondary">· avg <!-- -->42%</span>
+trending: identical
+u_testtest: identical
