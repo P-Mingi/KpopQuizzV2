@@ -1,5 +1,6 @@
 import { distributionRows } from '@/lib/ux-v1/a0/distribution';
 
+import { CoverImg } from './cover-img';
 import { Icon } from './icon';
 
 import type { DistributionInput } from '@/lib/ux-v1/a0/distribution';
@@ -45,8 +46,10 @@ export function ResultCard({ eyebrow, name, role, description, traits, photo, sa
     <div className={['ux-rescard', className ?? ''].filter(Boolean).join(' ')}>
       <div className="ux-rescard-who">
         {photo ? (
-          // eslint-disable-next-line @next/next/no-img-element -- a 92px local photo from public/idols
-          <span className="ux-rescard-ph"><img src={photo.src} alt={photo.alt} width={92} height={92} /></span>
+          // A 92px local photo from public/idols. CoverImg never paints the alt text while the
+          // photo loads or after it fails (Firefox does with a plain img), and falls back to
+          // the placeholder (owner request, 2026-10-04).
+          <span className="ux-rescard-ph"><CoverImg src={photo.src} alt={photo.alt} width={92} height={92} /></span>
         ) : <span className="ux-rescard-ph" aria-hidden="true">{initial}</span>}
         <div>
           <div className="ux-rescard-you">{eyebrow}</div>
