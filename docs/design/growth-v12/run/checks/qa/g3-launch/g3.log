@@ -1,0 +1,74 @@
+
+Running 69 tests using 1 worker
+
+[1/69] [setup] › e2e/ux-v1/auth.setup.ts:24:1 › parity test user session
+[2/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › en: the page, the reference landmarks, no sideways scroll, a11y
+[3/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › fr: the page, the reference landmarks, no sideways scroll, a11y
+[4/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › es: the page, the reference landmarks, no sideways scroll, a11y
+[5/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › id: the page, the reference landmarks, no sideways scroll, a11y
+[6/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › en: the page, the reference landmarks, no sideways scroll, a11y
+[7/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › fr: the page, the reference landmarks, no sideways scroll, a11y
+[8/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › es: the page, the reference landmarks, no sideways scroll, a11y
+[9/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › id: the page, the reference landmarks, no sideways scroll, a11y
+[10/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › en: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[11/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › fr: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[12/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › es: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[13/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › id: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[14/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › en: Start plays a full run in the page language, nothing is written
+[15/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › fr: Start plays a full run in the page language, nothing is written
+[16/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › es: Start plays a full run in the page language, nothing is written
+[17/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › id: Start plays a full run in the page language, nothing is written
+[18/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:429:5 › G3 hub light › /blindtest: Playlists rail, live band, language row; the SEO fields are untouched
+[19/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y
+[20/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y
+[21/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y
+[22/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y
+[23/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y
+[24/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:544:5 › G3 hub light › the KPop Demon Hunters bridge card (its markup placed on a playable theme page)
+[25/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:429:5 › G3 hub dark › /blindtest: Playlists rail, live band, language row; the SEO fields are untouched
+[26/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y
+[27/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y
+[28/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y
+[29/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y
+[30/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y
+[31/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:544:5 › G3 hub dark › the KPop Demon Hunters bridge card (its markup placed on a playable theme page)
+[32/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:572:3 › G3 themed playlists: rules › a themed playlist under 10 songs answers like an unknown mode, and is in no list
+[33/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:588:3 › G3 themed playlists: rules › Play on a theme page starts its own playlist (generate answered locally) and saves nothing
+[34/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:612:3 › G3 themed playlists: rules › the hub menu lists the playable themes and starts them
+[35/69] [ux-1440] › e2e/ux-v12/g3.spec.ts:640:3 › G3 with the v12 flag off › no landing, no themed page, no v12 addition on the hub, nothing in the sitemap
+[36/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › en: the page, the reference landmarks, no sideways scroll, a11y
+[37/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › fr: the page, the reference landmarks, no sideways scroll, a11y
+[38/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › es: the page, the reference landmarks, no sideways scroll, a11y
+[39/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings light › id: the page, the reference landmarks, no sideways scroll, a11y
+[40/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › en: the page, the reference landmarks, no sideways scroll, a11y
+[41/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › fr: the page, the reference landmarks, no sideways scroll, a11y
+[42/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › es: the page, the reference landmarks, no sideways scroll, a11y
+[43/69] [ux-390] › e2e/ux-v12/g3.spec.ts:287:7 › G3 landings dark › id: the page, the reference landmarks, no sideways scroll, a11y
+[44/69] [ux-390] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › en: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[45/69] [ux-390] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › fr: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[46/69] [ux-390] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › es: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[47/69] [ux-390] › e2e/ux-v12/g3.spec.ts:344:5 › G3 landings SEO › id: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable
+[48/69] [ux-390] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › en: Start plays a full run in the page language, nothing is written
+[49/69] [ux-390] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › fr: Start plays a full run in the page language, nothing is written
+[50/69] [ux-390] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › es: Start plays a full run in the page language, nothing is written
+[51/69] [ux-390] › e2e/ux-v12/g3.spec.ts:390:5 › G3 landings play › id: Start plays a full run in the page language, nothing is written
+[52/69] [ux-390] › e2e/ux-v12/g3.spec.ts:429:5 › G3 hub light › /blindtest: Playlists rail, live band, language row; the SEO fields are untouched
+[53/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y
+[54/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y
+[55/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y
+[56/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y
+[57/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub light › /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y
+[58/69] [ux-390] › e2e/ux-v12/g3.spec.ts:544:5 › G3 hub light › the KPop Demon Hunters bridge card (its markup placed on a playable theme page)
+[59/69] [ux-390] › e2e/ux-v12/g3.spec.ts:429:5 › G3 hub dark › /blindtest: Playlists rail, live band, language row; the SEO fields are untouched
+[60/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y
+[61/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y
+[62/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y
+[63/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y
+[64/69] [ux-390] › e2e/ux-v12/g3.spec.ts:492:7 › G3 hub dark › /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y
+[65/69] [ux-390] › e2e/ux-v12/g3.spec.ts:544:5 › G3 hub dark › the KPop Demon Hunters bridge card (its markup placed on a playable theme page)
+[66/69] [ux-390] › e2e/ux-v12/g3.spec.ts:572:3 › G3 themed playlists: rules › a themed playlist under 10 songs answers like an unknown mode, and is in no list
+[67/69] [ux-390] › e2e/ux-v12/g3.spec.ts:588:3 › G3 themed playlists: rules › Play on a theme page starts its own playlist (generate answered locally) and saves nothing
+[68/69] [ux-390] › e2e/ux-v12/g3.spec.ts:612:3 › G3 themed playlists: rules › the hub menu lists the playable themes and starts them
+[69/69] [ux-390] › e2e/ux-v12/g3.spec.ts:640:3 › G3 with the v12 flag off › no landing, no themed page, no v12 addition on the hub, nothing in the sitemap
+  6 skipped
+  63 passed (52.9s)

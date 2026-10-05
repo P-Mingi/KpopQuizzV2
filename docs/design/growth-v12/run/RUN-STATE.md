@@ -206,4 +206,10 @@ The grouped list for the owner, in apply order, is `run/SQL-PENDING.md`.
 - 2026-10-03 Parity run 3 after F5 (both flags off, feat/v12 on :3075 vs origin/main on :3074; :3073 is the owner's other session's dev server, never touched): no difference from feat/v12 beyond the allowed ones; the `/leaderboard` comments panel is empty on the main build only (failed read at build, run 2 showed it on the same commit). Servers stopped, worktrees removed. REPORT.md section 3 updated.
 - 2026-10-04 All v12 SQL applied (bundles A by ORCH, B by the owner, C by ORCH; grids read). Real-data audit AU1, AU2, AU3 on :3071; fixes F6a (no KPDH cover, legends and title tracks as named), F6b (empty hub overflow, share link plays recorded), F6c (no fan progress on Team profiles), F6d (no KPDH cover on daily, ranked, Verse song page); re-check AU4 all pass, 90 of 90 regression URLs clean; parity run 4 clean. Integration: tsc 0, vitest 1953/1953, `check:routes` 0. REPORT.md section 9 has the final table and the production test writes.
 
+- 2026-10-05 Launch prep on `v12/launch-prep` (from origin/main a16ee15, PR #91 merged): copy review applied
+  (I18N-REVIEW.md, c23645b; the g3 spec's fr title updated as the review allows); real live load and chaos test
+  passed (`checks/live-load/LIVE-LOAD.md`: 0 failure, 0 wrong score, loss 0.02% and 0.26% all recovered; 7 test rooms
+  deleted); 28 editorial drafts inserted as `draft`, undated (`EDITORIAL-DRAFTS.md`); `SWITCH-ON.md` written, nothing
+  switched on; parity run 7 flags off vs main clean. tsc 0, vitest 1960/1960, `check:routes` green in 3 states.
+
 NEXT ACTION: owner pushes `feat/v12` (PR #91). Open: the share link test play (needs one share link created signed in: owner call), the live load test (after the Realtime limits), Fans picked fills at the first nightly cron with the flag on, decision 22 (live doors commit 4284aaa). When the owner is done looking: stop :3071 and remove `.worktrees/v12-integration`.

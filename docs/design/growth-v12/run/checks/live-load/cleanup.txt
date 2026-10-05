@@ -1,0 +1,7 @@
+to delete [{"id":"328647c6-6b58-4d58-bb05-1be853680d9f","code":"CAKJRP","label":"Expiry test","is_test":true,"status":"lobby","created_at":"2026-10-05T17:34:35.19949+00:00"},{"id":"aba33f6a-9781-41c3-8596-abce8e50a94b","code":"KTTURP","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:31:54.614438+00:00"},{"id":"01189a66-78f3-4bf4-80da-c05c5e51638c","code":"U3ZW28","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:31:54.567899+00:00"},{"id":"eb74a15a-69d1-406f-ab5f-47c15b4de9f2","code":"PNT2PS","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:31:54.845216+00:00"},{"id":"f83e67fa-fc73-4a52-9899-bbc789fef44b","code":"K3L92F","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:31:54.559739+00:00"},{"id":"f7ff75ba-7b49-4713-86ac-211c0f2b3d81","code":"USNJ65","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:31:54.651231+00:00"},{"id":"5e9a1b08-483a-48b2-8eae-7156b48c9fea","code":"6R8KUF","label":"Load test","is_test":true,"status":"closed","created_at":"2026-10-05T17:32:47.349138+00:00"}]
+players 1 answers null
+deleted rooms 7 undefined
+rooms left [{"id":"493fc353-4793-4cb5-a700-0368d0dfe12d","is_test":true,"status":"lobby"}] players left 0 answers left null
+live_rooms 1 
+live_players 0 
+live_answers 0 

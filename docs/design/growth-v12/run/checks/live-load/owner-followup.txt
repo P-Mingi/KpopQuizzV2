@@ -1,0 +1,24 @@
+room before [{"id":"493fc353-4793-4cb5-a700-0368d0dfe12d","is_test":true,"status":"lobby"}]
+room deleted 1 
+live_rooms 0
+live_players 0
+live_answers 0
+soojinnie Soojin -> Nora Nora soojinnie  
+joonified Joon -> Theo Theo joonified  
+pinkvelvet Rosie -> Mae Mae pinkvelvet  
+caratland Carat -> Hana Hana caratland  
+skzrealm Felix_fan -> Leo Leo skzrealm  
+njeansstan Bunny -> Ari Ari njeansstan  
+twiceland Nayeonist -> Sol Sol twiceland  
+exoplanet99 ExoPlanet -> Remy Remy exoplanet99  
+draft 1 [{"id":1,"status":"draft","scheduled_at":null}] 
+draft 2 [{"id":2,"status":"draft","scheduled_at":null}] 
+draft 4 [{"id":4,"status":"draft","scheduled_at":null}] 
+draft 5 [{"id":5,"status":"draft","scheduled_at":null}] 
+draft 7 [{"id":7,"status":"draft","scheduled_at":null}] 
+draft 11 [{"id":11,"status":"draft","scheduled_at":null}] 
+draft 23 [{"id":23,"status":"draft","scheduled_at":null}] 
+draft 26 [{"id":26,"status":"draft","scheduled_at":null}] 
+draft 27 [{"id":27,"status":"draft","scheduled_at":null}] 
+drafts 28 [ 'draft' ] dated 0 reviewed 0
+accounts now Ari, Hana, KpopProf, Leo, Mae, Nora, Remy, Sol, Theo
