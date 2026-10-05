@@ -12,6 +12,7 @@ import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { comma, secs } from '@/lib/ux-v1/p6/points';
 import { filterGroups, initials } from '@/lib/ux-v1/p6/playlists';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { useHub } from './hub-context';
 
@@ -155,6 +156,13 @@ export function BtBoard(): React.ReactElement {
 
 const FIRST = 24;
 
+/** A popular group's photo; V12 (F7a): a photo that fails to load shows the initials, never an empty tile. */
+function PopularPhoto({ src, slug, name }: { src: string | null; slug: string; name: string }): React.ReactElement {
+  const [failed, setFailed] = useState(false);
+  if (!src || (failed && isUxV12())) return <span className="p6-bpi-fb" aria-hidden="true">{initials(name)}</span>;
+  return <Image src={src} alt="" fill sizes="(max-width: 1100px) 30vw, 180px" style={{ objectFit: 'cover', objectPosition: photoFocal(slug) }} onError={isUxV12() ? () => setFailed(true) : undefined} />;
+}
+
 function GroupRow({ g, onStart }: { g: BtGroup; onStart: (g: BtGroup, e: React.MouseEvent) => void }): React.ReactElement {
   return (
     <li>
@@ -205,9 +213,7 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
               <li key={g.slug}>
               <a className="p6-bpt" href={`/blindtest/group-${g.slug}`} onClick={(e) => start(g, e)}>
                 <span className="p6-bpi">
-                  {src
-                    ? <Image src={src} alt="" fill sizes="(max-width: 1100px) 30vw, 180px" style={{ objectFit: 'cover', objectPosition: photoFocal(g.slug) }} />
-                    : <span className="p6-bpi-fb" aria-hidden="true">{initials(g.name)}</span>}
+                  <PopularPhoto src={src} slug={g.slug} name={g.name} />
                 </span>
                 <b>{g.name}</b>
                 <small className="ux-num">{g.songs} songs</small>

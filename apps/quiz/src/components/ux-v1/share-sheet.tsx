@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef } from 'react';
 
+import { CoverImg } from './cover-img';
 import { Icon } from './icon';
 import { Sheet } from './sheet';
 import { downloadFile, storyCardFile } from './story-image';
@@ -101,8 +102,7 @@ export function ShareSheet({ open, onClose, title = 'Share your score', preview,
       {preview ? (
         <div className="ux-minicard">
           <span className="ux-minicard-pv">
-            {/* eslint-disable-next-line @next/next/no-img-element -- tiny run preview, any host */}
-            {preview.image ? <img src={preview.image} alt="" /> : null}
+            {preview.image ? <CoverImg src={preview.image} alt="" /> : null}
           </span>
           <div><b>{preview.line1}</b>{preview.line2 ? <p>{preview.line2}</p> : null}</div>
         </div>

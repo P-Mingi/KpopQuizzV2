@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
 import { UxButton } from '@/components/ux-v1/button';
+import { CoverImg } from '@/components/ux-v1/cover-img';
 import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { ShareSheet } from '@/components/ux-v1/share-sheet';
@@ -147,8 +148,7 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
                   <Icon name="play" />
                 </button>
                 {q.album_cover_medium || q.reveal.cover
-                  // eslint-disable-next-line @next/next/no-img-element -- Deezer album art from the run
-                  ? <img className="p6-scv" src={q.album_cover_medium ?? q.reveal.cover ?? ''} alt="" width={48} height={48} loading="lazy" decoding="async" />
+                  ? <CoverImg className="p6-scv" src={q.album_cover_medium ?? q.reveal.cover ?? ''} alt="" width={48} height={48} loading="lazy" decoding="async" />
                   : <span className="p6-scv" aria-hidden="true" />}
                 <span className="p6-grow">
                   <span className="ux-rt">{q.reveal.title}</span>
