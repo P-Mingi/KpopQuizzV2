@@ -263,6 +263,7 @@
   "F7": [
     "apps/quiz/src/styles/ux-v1/p1.css",
     "apps/quiz/src/app/(site)/page.tsx",
-    "apps/quiz/e2e/ux-v12/f7*.spec.ts"
+    "apps/quiz/e2e/ux-v12/f7*.spec.ts",
+    "apps/quiz/src/app/error.tsx"
   ]
 }
