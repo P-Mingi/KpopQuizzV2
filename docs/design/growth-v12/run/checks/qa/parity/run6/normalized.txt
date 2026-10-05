@@ -112,7 +112,7 @@ news: OTHER, C2 live counter
     b <div class="nw-img-wrap">
     a <span class="nw-source-badge">
   [OTHER]
-    b <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    b <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” \u2014 Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
     a <span class="nw-source-dot" style="background:#F59E0B">
   [OTHER]
     b </div>
@@ -139,7 +139,7 @@ news: OTHER, C2 live counter
     b </div>
     a <div class="nw-pills">
   [OTHER]
-    b <p class="nw-card-title">“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
+    b <p class="nw-card-title">“That’s Women For You” \u2014 Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
     a <a class="nw-pill nw-pill-link" href="/aespa-quiz">aespa</a>
   [OTHER]
     b </a>
@@ -149,7 +149,7 @@ news: OTHER, C2 live counter
     a <a href="https://www.koreaboo.com/news/women-star-turned-sex-offender-go-young-wook-criticizes-beloved-actress/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
   [OTHER]
     b <img src="https://0.soompi.io/wp-content/uploads/2026/10/04142002/Four-Hands-Two-Sonatas-New-Recruit-4-Sabotage.jpg" alt="“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
-    a <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+    a <img src="https://image.koreaboo.com/2026/10/Go-Young-Wook-FI-4.jpg" alt="“That’s Women For You” \u2014 Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress" class="nw-img" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
   [OTHER]
     b <span class="nw-source-dot" style="background:#5B7FE5">
     a <span class="nw-source-dot" style="background:#F59E0B">
@@ -158,7 +158,7 @@ news: OTHER, C2 live counter
     a </span>Koreaboo</span>
   [OTHER]
     b <p class="nw-card-title">“Four Hands, Two Sonatas” And “New Recruit 4: Sabotage” Dominate Most Buzzworthy Drama And Actor Rankings</p>
-    a <p class="nw-card-title">“That’s Women For You” — Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
+    a <p class="nw-card-title">“That’s Women For You” \u2014 Star-Turned-Sex Offender Go Young Wook Criticizes Beloved Actress</p>
   [OTHER]
     b <a href="https://www.koreaboo.com/news/song-kang-receives-public-apology-thai-actor/" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
     a <a href="https://www.soompi.com/article/1875439wpp/four-hands-two-sonatas-and-new-recruit-4-sabotage-dominate-most-buzzworthy-drama-and-actor-rankings" target="_blank" rel="noopener noreferrer nofollow" class="nw-card">
