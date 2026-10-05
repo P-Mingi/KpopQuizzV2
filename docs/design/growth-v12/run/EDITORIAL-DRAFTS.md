@@ -2,31 +2,36 @@
 
 28 drafts written by Claude for the owner's review, inserted in production `editorial_drafts` on 2026-10-05:
 status `draft`, no `scheduled_at`, no reviewer, `created_by` null, `template_key` null. Nothing is approved, nothing
-is published (`editorial_posts` 0). Approve with a date in `/admin/editorial` (see SWITCH-ON.md section 4).
+is published (`editorial_posts` 0). The owner approves them with their dates on the switch-on day in
+`/admin/editorial` (see SWITCH-ON.md section 4).
 
 Rules followed: team voice ("the KpopQuiz team"), never a fan persona; no reply, like or vote between team accounts
-(none written); no song lyrics (titles only); no quote of an idol; no rumour, no news; every date or fact links to the
-page that states it (English Wikipedia, each URL opened on 2026-10-05; 8 details were corrected against the pages
-before writing, e.g. BTS's single album is dated 12 June 2013 and the stage debut 13 June). Debates without a fact
-carry no source. Order: two a day, 9 accounts by beat, never two in a row from one account (the publisher's rule).
+(none written); no song lyrics (titles only); no quote of an idol; no rumour, no news; no promise of a future
+feature or quiz; every date or fact links to the page that states it (English Wikipedia, each URL opened on
+2026-10-05; 8 details were corrected against the pages before writing, e.g. BTS's single album is dated 12 June
+2013 and the stage debut 13 June). Debates without a fact carry no source. Order: two a day, 9 accounts by beat,
+never two in a row from one account (the publisher's rule).
 
-| Account | Beat | Drafts |
-|---|---|---|
-| Soojin | Girl groups and trivia | 4 |
-| Joon | BTS | 3 |
-| Rosie | BLACKPINK and Red Velvet | 3 |
-| Carat | SEVENTEEN | 3 |
-| Felix_fan | Stray Kids and ATEEZ | 3 |
-| Bunny | NewJeans, IVE and LE SSERAFIM | 3 |
-| KpopProf | 2nd generation and K-pop history | 3 |
-| Nayeonist | TWICE and ITZY | 3 |
-| ExoPlanet | EXO and SHINee | 3 |
+Revision of 2026-10-05 (owner): display names renamed in `profiles` and `editorial_accounts`, usernames unchanged;
+promises removed from drafts 1, 2, 4, 5, 7, 11, 23, 26, 27 (the database rows carry the same text).
+
+| Display name | Username | Beat | Drafts |
+|---|---|---|---|
+| Nora | soojinnie | Girl groups and trivia | 4 |
+| Theo | joonified | BTS | 3 |
+| Mae | pinkvelvet | BLACKPINK and Red Velvet | 3 |
+| Hana | caratland | SEVENTEEN | 3 |
+| Leo | skzrealm | Stray Kids and ATEEZ | 3 |
+| Ari | njeansstan | NewJeans, IVE and LE SSERAFIM | 3 |
+| KpopProf | kpophistory | 2nd generation and K-pop history | 3 |
+| Sol | twiceland | TWICE and ITZY | 3 |
+| Remy | exoplanet99 | EXO and SHINee | 3 |
 
 Kinds: 9 topics, 10 debates, 9 blogs.
 
 ## Day 1
 
-### Day 1a · Topic (thread) · Soojin · draft id 1
+### Day 1a · Topic (thread) · Nora · draft id 1
 
 **Girl group trivia night: what should we ask you first?**
 
@@ -34,7 +39,7 @@ Hi, this is the KpopQuiz team. This account covers girl groups and trivia, and w
 
 We are building the next round of girl group questions and we want to start from what you find hard, not from what we find easy. Tell us one girl group question that once stumped you: a debut year, a member line-up, a title track you mixed up with another one.
 
-The best ideas go into a future quiz, and we will credit the thread when it goes live.
+Good ideas may find their way into a future quiz.
 
 ### Day 1b · Blog · KpopProf · draft id 2
 
@@ -51,13 +56,13 @@ A short timeline from the KpopQuiz team, for anyone who started with fourth gene
 
 Six debuts in under five years, from three agencies: SM, YG and JYP.
 
-Which of these debuts would you put in a quiz first? Our 2nd generation questions are coming next.
+Which of these debuts would you put in a quiz first?
 
 Sources: [TVXQ, Wikipedia](https://en.wikipedia.org/wiki/TVXQ) · [Super Junior, Wikipedia](https://en.wikipedia.org/wiki/Super_Junior) · [BigBang, Wikipedia](https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)) · [The Wonder Begins, Wikipedia](https://en.wikipedia.org/wiki/The_Wonder_Begins) · [Girls' Generation, Wikipedia](https://en.wikipedia.org/wiki/Girls%27_Generation) · [SHINee, Wikipedia](https://en.wikipedia.org/wiki/Shinee)
 
 ## Day 2
 
-### Day 2a · Debate · Joon · draft id 3
+### Day 2a · Debate · Theo · draft id 3
 
 **Which BTS album series would you replay first?** (group: BTS)
 
@@ -67,7 +72,7 @@ Options: School trilogy (2013 to 2014) · The Most Beautiful Moment in Life (201
 
 Sources: [BTS, Wikipedia](https://en.wikipedia.org/wiki/BTS)
 
-### Day 2b · Topic (thread) · Rosie · draft id 4
+### Day 2b · Topic (thread) · Mae · draft id 4
 
 **Your first BLACKPINK song, and where you heard it** (group: BLACKPINK)
 
@@ -75,11 +80,11 @@ Hi from the KpopQuiz team. This account covers BLACKPINK and Red Velvet.
 
 Everyone has a first song. Which BLACKPINK track was yours, and where did you hear it: a music show, a friend's playlist, a dance cover, a game?
 
-We are curious which songs bring new fans in, because that shapes which ones we put first in our blindtest playlists.
+We are curious which songs bring new fans in, because it can shape how we order our blindtest playlists.
 
 ## Day 3
 
-### Day 3a · Blog · Carat · draft id 5
+### Day 3a · Blog · Hana · draft id 5
 
 **SEVENTEEN's three units, explained** (group: SEVENTEEN)
 
@@ -94,11 +99,11 @@ The group is split into three units:
 
 Each unit releases and performs on its own, and the thirteen come together for the group's title tracks. That structure is why SEVENTEEN questions on this site often ask which unit a member belongs to.
 
-Which unit do you know best? Our next SEVENTEEN quiz will have a unit round.
+Which unit do you know best?
 
 Sources: [Seventeen (South Korean band), Wikipedia](https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band))
 
-### Day 3b · Debate · Bunny · draft id 6
+### Day 3b · Debate · Ari · draft id 6
 
 **Which debut single hooked you first?**
 
@@ -110,7 +115,7 @@ Sources: [IVE, Wikipedia](https://en.wikipedia.org/wiki/Ive_(group)) · [LE SSER
 
 ## Day 4
 
-### Day 4a · Topic (thread) · Felix_fan · draft id 7
+### Day 4a · Topic (thread) · Leo · draft id 7
 
 **Stray Kids and ATEEZ songs that deserve a blindtest round**
 
@@ -118,9 +123,9 @@ Hi, KpopQuiz team here. This account covers Stray Kids and ATEEZ.
 
 We are reviewing the songs in our blindtest playlists for both groups. Which songs would you add, and which ones are too easy to guess in the first seconds?
 
-Name the song and the group. We read every reply and the suggestions go to the people who build the playlists.
+Name the song and the group. We read every reply.
 
-### Day 4b · Debate · Nayeonist · draft id 8
+### Day 4b · Debate · Sol · draft id 8
 
 **Which TWICE title track made you stay?** (group: TWICE)
 
@@ -132,7 +137,7 @@ Sources: [TWICE, Wikipedia](https://en.wikipedia.org/wiki/Twice) · [Cheer Up (s
 
 ## Day 5
 
-### Day 5a · Blog · ExoPlanet · draft id 9
+### Day 5a · Blog · Remy · draft id 9
 
 **EXO and SHINee: two SM boy group debuts, four years apart** (group: EXO)
 
@@ -148,7 +153,7 @@ Which debut song do you know better, "Replay" or "MAMA"?
 
 Sources: [SHINee, Wikipedia](https://en.wikipedia.org/wiki/Shinee) · [EXO, Wikipedia](https://en.wikipedia.org/wiki/Exo)
 
-### Day 5b · Debate · Soojin · draft id 10
+### Day 5b · Debate · Nora · draft id 10
 
 **Hardest girl group to guess in a blindtest?**
 
@@ -166,9 +171,9 @@ Hi, KpopQuiz team here. This account covers the 2nd generation and K-pop history
 
 Which 2nd generation song could you still recognise from the first beat? Tell us the song, the group, and the year you first heard it if you remember.
 
-We use these replies to decide which older songs go into our classic blindtest playlists.
+Replies like these help us think about our classic blindtest playlists.
 
-### Day 6b · Blog · Joon · draft id 12
+### Day 6b · Blog · Theo · draft id 12
 
 **BTS in four dates** (group: BTS)
 
@@ -185,7 +190,7 @@ Sources: [BTS, Wikipedia](https://en.wikipedia.org/wiki/BTS) · [Dynamite (BTS s
 
 ## Day 7
 
-### Day 7a · Topic (thread) · Bunny · draft id 13
+### Day 7a · Topic (thread) · Ari · draft id 13
 
 **What makes a chorus easy to guess?**
 
@@ -195,7 +200,7 @@ In our blindtest, some choruses get guessed in under two seconds and some stay h
 
 Give us an example of a song you always get right, and one you always miss.
 
-### Day 7b · Debate · Carat · draft id 14
+### Day 7b · Debate · Hana · draft id 14
 
 **Best SEVENTEEN unit?** (group: SEVENTEEN)
 
@@ -207,7 +212,7 @@ Sources: [Seventeen (South Korean band), Wikipedia](https://en.wikipedia.org/wik
 
 ## Day 8
 
-### Day 8a · Blog · Rosie · draft id 15
+### Day 8a · Blog · Mae · draft id 15
 
 **Red Velvet's two sides** (group: Red Velvet)
 
@@ -223,7 +228,7 @@ Which side do you play more often?
 
 Sources: [Red Velvet (group), Wikipedia](https://en.wikipedia.org/wiki/Red_Velvet_(group))
 
-### Day 8b · Debate · Felix_fan · draft id 16
+### Day 8b · Debate · Leo · draft id 16
 
 **Best Stray Kids title track for a blindtest intro?** (group: Stray Kids)
 
@@ -235,7 +240,7 @@ Sources: [God's Menu, Wikipedia](https://en.wikipedia.org/wiki/God%27s_Menu) · 
 
 ## Day 9
 
-### Day 9a · Blog · Nayeonist · draft id 17
+### Day 9a · Blog · Sol · draft id 17
 
 **ITZY: the first year and a half in three releases** (group: ITZY)
 
@@ -251,7 +256,7 @@ Which of the three do you guess fastest?
 
 Sources: [ITZY, Wikipedia](https://en.wikipedia.org/wiki/Itzy) · [Wannabe (Itzy song), Wikipedia](https://en.wikipedia.org/wiki/Wannabe_(Itzy_song)) · [Not Shy, Wikipedia](https://en.wikipedia.org/wiki/Not_Shy)
 
-### Day 9b · Debate · ExoPlanet · draft id 18
+### Day 9b · Debate · Remy · draft id 18
 
 **Best SHINee title track?** (group: SHINee)
 
@@ -263,7 +268,7 @@ Sources: [SHINee, Wikipedia](https://en.wikipedia.org/wiki/Shinee) · [Ring Ding
 
 ## Day 10
 
-### Day 10a · Blog · Soojin · draft id 19
+### Day 10a · Blog · Nora · draft id 19
 
 **Five girl group facts for your next quiz**
 
@@ -289,7 +294,7 @@ Options: TVXQ · Super Junior · BIGBANG · Girls' Generation (7 days)
 
 ## Day 11
 
-### Day 11a · Topic (thread) · Joon · draft id 21
+### Day 11a · Topic (thread) · Theo · draft id 21
 
 **BTS b-sides you would add to the blindtest** (group: BTS)
 
@@ -299,7 +304,7 @@ Our BTS blindtest leans on title tracks. Which b-sides would you add? Tell us th
 
 We read every reply before we update the playlist.
 
-### Day 11b · Blog · Bunny · draft id 22
+### Day 11b · Blog · Ari · draft id 22
 
 **IVE from Eleven to I Am** (group: IVE)
 
@@ -318,7 +323,7 @@ Sources: [IVE, Wikipedia](https://en.wikipedia.org/wiki/Ive_(group)) · [Love Di
 
 ## Day 12
 
-### Day 12a · Topic (thread) · Carat · draft id 23
+### Day 12a · Topic (thread) · Hana · draft id 23
 
 **The SEVENTEEN stage you would show a new fan** (group: SEVENTEEN)
 
@@ -326,9 +331,9 @@ Hi from the KpopQuiz team. This account covers SEVENTEEN.
 
 If a friend had never seen SEVENTEEN perform, which stage would you show them first? A music show, a concert, an award show, a unit stage.
 
-Name the song and where it was performed. We will use the most named songs in our next SEVENTEEN blindtest.
+Name the song and where it was performed.
 
-### Day 12b · Debate · Rosie · draft id 24
+### Day 12b · Debate · Mae · draft id 24
 
 **Best BLACKPINK title track?** (group: BLACKPINK)
 
@@ -340,7 +345,7 @@ Sources: [Square One (single album), Wikipedia](https://en.wikipedia.org/wiki/Sq
 
 ## Day 13
 
-### Day 13a · Blog · Felix_fan · draft id 25
+### Day 13a · Blog · Leo · draft id 25
 
 **ATEEZ in brief** (group: ATEEZ)
 
@@ -354,7 +359,7 @@ Which ATEEZ release do you know best?
 
 Sources: [ATEEZ, Wikipedia](https://en.wikipedia.org/wiki/Ateez)
 
-### Day 13b · Topic (thread) · Nayeonist · draft id 26
+### Day 13b · Topic (thread) · Sol · draft id 26
 
 **TWICE and ITZY songs that are hard to guess**
 
@@ -362,11 +367,9 @@ Hi, KpopQuiz team here. This account covers TWICE and ITZY.
 
 Which TWICE or ITZY song do you think fans miss the most in a blindtest, and why?
 
-Our blindtest is starting to count right and wrong answers per song. Once enough runs are counted, we will compare your guesses with the real figures.
-
 ## Day 14
 
-### Day 14a · Topic (thread) · ExoPlanet · draft id 27
+### Day 14a · Topic (thread) · Remy · draft id 27
 
 **One EXO or SHINee song for a new fan**
 
@@ -374,9 +377,9 @@ Hi from the KpopQuiz team. This account covers EXO and SHINee.
 
 A friend wants to start with EXO or SHINee and asks you for one song. Which one do you send, and why that one?
 
-Replies help us choose the first songs of our EXO and SHINee playlists.
+Replies like these help us think about our EXO and SHINee playlists.
 
-### Day 14b · Debate · Soojin · draft id 28
+### Day 14b · Debate · Nora · draft id 28
 
 **Which new way to play should we feature first?**
 

@@ -37,3 +37,6 @@ p95 5.5 s; one machine drove all 250 phones and the app). With one room at a tim
 
 Cleanup (`cleanup.txt`): the 7 rooms of this run (6 load, 1 expiry) deleted by id, `is_test` checked; afterwards
 `live_rooms` 1 (the room above, not ours), `live_players` 0, `live_answers` 0.
+
+Follow-up (owner, 2026-10-05): the other test room `493fc353...` (lobby, `is_test` true) deleted on the owner's
+request; afterwards `live_rooms` 0, `live_players` 0, `live_answers` 0 (`owner-followup.txt`).
