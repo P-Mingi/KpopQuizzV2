@@ -10,9 +10,9 @@
 // Review status: the landing copy (lib/growth/bt-landing.ts) is the prototype's.
 // The fr, es and id GAME strings below are not in the prototype: they were written
 // for this file with the prototype's own vocabulary (extrait / manche / titre,
-// fragmento / ronda, potongan lagu / ronde) and are listed in reports/G3.md for a
-// native review before the flag goes on. Song titles and artist names are never
-// translated.
+// fragmento / ronda, potongan lagu / ronde), then reviewed on 2026-10-05
+// (run/I18N-REVIEW.md: French in full, Spanish and Indonesian carefully, not by a
+// native speaker). Song titles and artist names are never translated.
 //
 // Client-safe: no import, plain data and pure functions.
 

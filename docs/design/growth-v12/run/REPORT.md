@@ -215,3 +215,15 @@ prototype), `apps/quiz/src/lib/growth/bt-landing.ts` (landing copy, the prototyp
 | 6a | Player data untouched by the SQL | The v12 SQL writes no player table; counts never went down (profiles 278 to 281, plays 70,034 to 70,152, duel votes 75,191 to 75,193, personality 1,255 = 1,255, name all 7,524 = 7,524); every change since the morning is spread one by one over the day (live activity). No pre-SQL baseline existed for XP, badges, likes, comments, follows totals. | None needed. |
 | 6b | Every quiz, hub, 50 profiles | 433 quizzes, 93 hubs, 55 profiles: all 200, 0 discrepancies (play counts behind only by plays of the last hour, page cache). | None needed. Note: the 9 editorial accounts keep XP in the database (not shown anywhere). |
 | 7 | Firefox and WebKit pass | Chromium 52/52, WebKit 52/52, Firefox 48/52: the result card alt text (fixed) and an uncaught Supabase auth lock error on `/q/` pages that the live site also has with the flags off (nothing visible breaks). | Result card fixed. |
+
+## 11. Launch prep (2026-10-05, branch `v12/launch-prep`)
+
+| Item | Result | Evidence |
+|---|---|---|
+| fr, es, id copy review | applied as written (21 strings); `averageAnswer` changed because the value shown is a time; `runTitle` unchanged (it never starts a line) | `I18N-REVIEW.md`, c23645b |
+| Live load test, real | burst 5 x 50, 5 rounds: answer p50 52 ms, p95 1,579 ms, loss 0.02%; long 1 x 50, 20 rounds: p95 126 ms, loss 0.26%; every lost message recovered; 0 failure, 0 wrong score | `checks/live-load/LIVE-LOAD.md` |
+| Chaos (SYSTEM.md 5.5) | same nickname, 51st player, double tap, late answer, phone drop, host reload, expiry: all as expected; expiry cron not called (another expired test room, not ours) | same |
+| Test rooms | 7 deleted; `live_players` 0, `live_answers` 0 | `checks/live-load/cleanup.txt` |
+| Editorial drafts | 28 inserted in production, `draft`, undated, unreviewed; 0 published | `EDITORIAL-DRAFTS.md` |
+| Switch-on runbook | written, nothing switched on | `SWITCH-ON.md` |
+| Checks | tsc 0, vitest 1960/1960, `check:routes` 3 states green; parity flags off vs main: 35/38 identical, 3 live counters only, sitemap 3166 = 3166 | `checks/qa/parity/run7/NOTE.md` |

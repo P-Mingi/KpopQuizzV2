@@ -1,0 +1,82 @@
+# a = feat/v12 (both flags off), b = origin/main (both flags off); N1 applied
+# pages with a class: {"C2 live counter":3,"OTHER":1,"C1 recomputed score figure":2}
+about: identical
+articles: identical
+articles_who_is_cortis: identical
+blackpink_quiz: identical
+blindtest: identical
+blindtest_4th_gen: identical
+blindtest_classic: identical
+blindtest_girl_groups: identical
+blindtest_intro_challenge: identical
+blindtest_title_tracks: identical
+bts_quiz: identical
+bts_trivia: identical
+cortis_quiz: identical
+create: identical
+easy_kpop_quizzes: identical
+faq: identical
+groups: identical
+leaderboard: C2 live counter, OTHER, C1 recomputed score figure
+  [C2 live counter]
+    b <span class="tabular-nums">176</span>
+    a <span class="tabular-nums">175</span>
+  [OTHER]
+    b <a style="display:flex;align-items:center;gap:4px;text-decoration:none" href="/ateez-quiz">
+    a <a style="display:flex;align-items:center;gap:4px;text-decoration:none" href="/nct-127-quiz">
+  [OTHER]
+    b <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored 5/7 on a ATEEZ quiz</span>
+    a <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored 4/6 on a NCT 127 quiz</span>
+  [C2 live counter]
+    b <span class="wm-tile-stat">170<!-- --> plays · <!-- -->4<!-- --> <!-- -->fans</span>
+    a <span class="wm-tile-stat">171<!-- --> plays · <!-- -->4<!-- --> <!-- -->fans</span>
+  [C2 live counter]
+    b <span class="wm-delta wm-down" aria-label="down 13 percent">
+    a <span class="wm-delta wm-down" aria-label="down 12 percent">
+  [C1 recomputed score figure]
+    b </svg>13<!-- -->%</span>
+    a </svg>12<!-- -->%</span>
+  [C2 live counter]
+    b <span class="wm-tile-stat">22<!-- --> plays · <!-- -->0<!-- --> <!-- -->fans</span>
+    a <span class="wm-tile-stat">21<!-- --> plays · <!-- -->0<!-- --> <!-- -->fans</span>
+  [C2 live counter]
+    b <span class="wm-delta wm-down" aria-label="down 12 percent">
+    a <span class="wm-delta wm-down" aria-label="down 16 percent">
+  [C1 recomputed score figure]
+    b </svg>12<!-- -->%</span>
+    a </svg>16<!-- -->%</span>
+most_liked: identical
+new: identical
+news: C2 live counter
+  [C2 live counter]
+    b <span class="nw-time">38m ago</span>
+    a <span class="nw-time">37m ago</span>
+pt: identical
+pt_blindtest: identical
+pt_leaderboard: identical
+q_are_you_a_real_coer: identical
+q_are_you_a_real_eyekon: identical
+q_babymonster_quiz: identical
+q_enhypen_guess_the_mv_from_the_screenshot: identical
+q_illit_fans_here: identical
+q_le_sserafim_members_and_music_quiz: identical
+quizzes: identical
+red_velvet_quiz: identical
+root: identical
+seventeen_quiz: identical
+stats: C1 recomputed score figure, C2 live counter
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 434 quizzes, 4281 blind test songs, 70.4K total plays across 94 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T17:39:33.504Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":434},{"@type":"PropertyValue","name":"Total Songs","value":4281
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"KpopQuiz Platform Statistics","description":"Live statistics from kpopquiz.org: 434 quizzes, 4281 blind test songs, 70.4K total plays across 94 K-pop groups and 5 generations.","url":"https://kpopquiz.org/stats","creator":{"@type":"Organization","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T17:38:41.288Z","temporalCoverage":"2024/2026","variableMeasured":[{"@type":"PropertyValue","name":"Total Quizzes","value":434},{"@type":"PropertyValue","name":"Total Songs","value":4281
+  [C1 recomputed score figure]
+    b <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T17:39:33.504Z","license":"https://kpopquiz.org/stats"}</script>
+    a <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"K-pop Quiz Statistics 2026","url":"https://kpopquiz.org/stats","description":"Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.","isPartOf":{"@type":"WebSite","name":"KpopQuiz","url":"https://kpopquiz.org"},"dateModified":"2026-10-05T17:38:41.288Z","license":"https://kpopquiz.org/stats"}</script>
+  [C2 live counter]
+    b <td class="stats-td stats-td-num">170</td>
+    a <td class="stats-td stats-td-num">171</td>
+  [C1 recomputed score figure]
+    b <span class="stats-trend stats-trend-down">-13<!-- -->%</span>
+    a <span class="stats-trend stats-trend-down">-12<!-- -->%</span>
+stray_kids_quiz: identical
+trending: identical
+u_testtest: identical

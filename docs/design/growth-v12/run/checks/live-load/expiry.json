@@ -1,0 +1,46 @@
+{
+ "create": 201,
+ "room": {
+  "id": "328647c6-6b58-4d58-bb05-1be853680d9f",
+  "is_test": true,
+  "expires_at": "2026-10-05T19:34:35.19949+00:00"
+ },
+ "join_before": 201,
+ "state_before": 200,
+ "expired_rows": 1,
+ "state_after": {
+  "status": 404,
+  "body": {
+   "error": "gone"
+  }
+ },
+ "host_state_after": {
+  "status": 404,
+  "body": {
+   "error": "gone"
+  }
+ },
+ "join_after": {
+  "status": 404,
+  "body": {
+   "error": "not_found"
+  }
+ },
+ "host_start_after": {
+  "status": 404,
+  "body": {
+   "error": "gone"
+  }
+ },
+ "answer_after": {
+  "status": 404,
+  "body": {
+   "error": "gone"
+  }
+ },
+ "expired_test_rooms": [
+  "328647c6-6b58-4d58-bb05-1be853680d9f",
+  "493fc353-4793-4cb5-a700-0368d0dfe12d"
+ ],
+ "cron": "skipped: other expired test rooms exist"
+}

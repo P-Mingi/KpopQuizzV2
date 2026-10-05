@@ -1,0 +1,88 @@
+{
+ "mode": "real",
+ "started_at": "2026-10-05T17:31:53.218Z",
+ "config": {
+  "rooms": 5,
+  "players": 50,
+  "rounds": 5,
+  "long_rounds": 20,
+  "seconds": 5,
+  "limit_connections": 500
+ },
+ "phases": [
+  {
+   "phase": "burst",
+   "rooms": 5,
+   "players_per_room": 50,
+   "rounds": 5,
+   "wall_seconds": 50.5,
+   "answers": 1150,
+   "answer_latency_ms": {
+    "p50": 52,
+    "p95": 1579,
+    "p99": 2142,
+    "max": 2266
+   },
+   "join_latency_ms": {
+    "p50": 1737,
+    "p95": 2216,
+    "max": 2302
+   },
+   "host_action_latency_ms": {
+    "p50": 291,
+    "p95": 5536,
+    "max": 6385
+   },
+   "realtime": {
+    "deliveries_expected": 4000,
+    "deliveries_received": 3999,
+    "message_loss_pct": 0.02,
+    "recovered_by_state_route": 1
+   },
+   "refusals_expected_by_the_scenario": {
+    "full (the 51st player)": 5,
+    "duplicate (double tap)": 175,
+    "late (after the deadline)": 75
+   },
+   "score_mismatches": 0,
+   "failures": [],
+   "failure_count": 0
+  },
+  {
+   "phase": "long",
+   "rooms": 1,
+   "players_per_room": 50,
+   "rounds": 20,
+   "wall_seconds": 100.4,
+   "answers": 1000,
+   "answer_latency_ms": {
+    "p50": 50,
+    "p95": 126,
+    "p99": 139,
+    "max": 217
+   },
+   "join_latency_ms": {
+    "p50": 507,
+    "p95": 659,
+    "max": 669
+   },
+   "host_action_latency_ms": {
+    "p50": 287,
+    "p95": 439,
+    "max": 1337
+   },
+   "realtime": {
+    "deliveries_expected": 3050,
+    "deliveries_received": 3042,
+    "message_loss_pct": 0.26,
+    "recovered_by_state_route": 8
+   },
+   "refusals_expected_by_the_scenario": {},
+   "score_mismatches": 0,
+   "failures": [],
+   "failure_count": 0
+  }
+ ],
+ "finished_at": "2026-10-05T17:34:24.075Z",
+ "ok": true
+}

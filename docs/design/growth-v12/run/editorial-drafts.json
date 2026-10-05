@@ -1,0 +1,643 @@
+[
+ {
+  "day": 1,
+  "slot": "a",
+  "account": "Soojin",
+  "account_id": "b63f7840-0cdb-4fc8-b267-6e972cbe2459",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "Girl group trivia night: what should we ask you first?",
+  "body": "Hi, this is the KpopQuiz team. This account covers girl groups and trivia, and we read every reply.\n\nWe are building the next round of girl group questions and we want to start from what you find hard, not from what we find easy. Tell us one girl group question that once stumped you: a debut year, a member line-up, a title track you mixed up with another one.\n\nThe best ideas go into a future quiz, and we will credit the thread when it goes live.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 1,
+  "slot": "b",
+  "account": "KpopProf",
+  "account_id": "9336f734-6920-489b-9e21-6f87870d5062",
+  "kind": "blog",
+  "group_id": null,
+  "group": null,
+  "title": "The second generation in six debuts",
+  "body": "A short timeline from the KpopQuiz team, for anyone who started with fourth generation groups and wants the backstory. Every date below links to its source.\n\n- TVXQ: 26 December 2003, at a showcase shared with BoA and Britney Spears, under SM Entertainment.\n- Super Junior: 6 November 2005, on SBS Inkigayo.\n- BIGBANG: 19 August 2006, at the YG Family 10th anniversary concert.\n- Wonder Girls: their single album The Wonder Begins came out on 13 February 2007 (JYP).\n- Girls' Generation: 5 August 2007, on Inkigayo with \"Into the New World\", nine members at the time.\n- SHINee: 25 May 2008, first stage on Inkigayo with \"Replay\".\n\nSix debuts in under five years, from three agencies: SM, YG and JYP.\n\nWhich of these debuts would you put in a quiz first? Our 2nd generation questions are coming next.",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "TVXQ, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/TVXQ"
+   },
+   {
+    "label": "Super Junior, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Super_Junior"
+   },
+   {
+    "label": "BigBang, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)"
+   },
+   {
+    "label": "The Wonder Begins, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Wonder_Begins"
+   },
+   {
+    "label": "Girls' Generation, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Girls%27_Generation"
+   },
+   {
+    "label": "SHINee, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shinee"
+   }
+  ]
+ },
+ {
+  "day": 2,
+  "slot": "a",
+  "account": "Joon",
+  "account_id": "333efe6e-26ad-4ac1-afe6-12e7bbce84ff",
+  "kind": "debate",
+  "group_id": 1,
+  "group": "BTS",
+  "title": "Which BTS album series would you replay first?",
+  "body": "From the KpopQuiz team. BTS released their albums in series, and each one has its own sound. Pick the series you would put on first.",
+  "options": [
+   "School trilogy (2013 to 2014)",
+   "The Most Beautiful Moment in Life (2015 to 2016)",
+   "Love Yourself (2017 to 2018)",
+   "Map of the Soul (2019 to 2020)"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "BTS, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/BTS"
+   }
+  ]
+ },
+ {
+  "day": 2,
+  "slot": "b",
+  "account": "Rosie",
+  "account_id": "c1e1f32f-d965-41f9-9f0c-367ea8142f52",
+  "kind": "thread",
+  "group_id": 2,
+  "group": "BLACKPINK",
+  "title": "Your first BLACKPINK song, and where you heard it",
+  "body": "Hi from the KpopQuiz team. This account covers BLACKPINK and Red Velvet.\n\nEveryone has a first song. Which BLACKPINK track was yours, and where did you hear it: a music show, a friend's playlist, a dance cover, a game?\n\nWe are curious which songs bring new fans in, because that shapes which ones we put first in our blindtest playlists.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 3,
+  "slot": "a",
+  "account": "Carat",
+  "account_id": "9cac5f4b-3223-45ba-8292-8856a296d8a1",
+  "kind": "blog",
+  "group_id": 7,
+  "group": "SEVENTEEN",
+  "title": "SEVENTEEN's three units, explained",
+  "body": "A quick guide from the KpopQuiz team for newer fans and for anyone preparing for our SEVENTEEN quizzes. Sources are linked below.\n\nSEVENTEEN is a 13 member group under Pledis Entertainment. They debuted with a live showcase on 26 May 2015, and their first EP, 17 Carat, came out on 29 May 2015.\n\nThe group is split into three units:\n- the hip-hop unit,\n- the vocal unit,\n- the performance unit.\n\nEach unit releases and performs on its own, and the thirteen come together for the group's title tracks. That structure is why SEVENTEEN questions on this site often ask which unit a member belongs to.\n\nWhich unit do you know best? Our next SEVENTEEN quiz will have a unit round.",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "Seventeen (South Korean band), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"
+   }
+  ]
+ },
+ {
+  "day": 3,
+  "slot": "b",
+  "account": "Bunny",
+  "account_id": "ac4931d1-b58a-4b8a-b810-2f88240cdcdb",
+  "kind": "debate",
+  "group_id": null,
+  "group": null,
+  "title": "Which debut single hooked you first?",
+  "body": "From the KpopQuiz team. Three groups, three debut singles, a few months apart: IVE with \"Eleven\" (1 December 2021), LE SSERAFIM with \"Fearless\" (2 May 2022) and NewJeans with \"Attention\" (22 July 2022). Which one hooked you first?",
+  "options": [
+   "IVE, Eleven",
+   "LE SSERAFIM, Fearless",
+   "NewJeans, Attention",
+   "None of them, I came later"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "IVE, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ive_(group)"
+   },
+   {
+    "label": "LE SSERAFIM, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Le_Sserafim"
+   },
+   {
+    "label": "New Jeans (EP), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/New_Jeans_(EP)"
+   }
+  ]
+ },
+ {
+  "day": 4,
+  "slot": "a",
+  "account": "Felix_fan",
+  "account_id": "4225700b-285a-4987-bbbe-e3c868d89abc",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "Stray Kids and ATEEZ songs that deserve a blindtest round",
+  "body": "Hi, KpopQuiz team here. This account covers Stray Kids and ATEEZ.\n\nWe are reviewing the songs in our blindtest playlists for both groups. Which songs would you add, and which ones are too easy to guess in the first seconds?\n\nName the song and the group. We read every reply and the suggestions go to the people who build the playlists.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 4,
+  "slot": "b",
+  "account": "Nayeonist",
+  "account_id": "76680b98-cf37-42b6-8a1f-c876f85c9092",
+  "kind": "debate",
+  "group_id": 4,
+  "group": "TWICE",
+  "title": "Which TWICE title track made you stay?",
+  "body": "From the KpopQuiz team. TWICE debuted on 20 October 2015 with \"Like Ooh-Ahh\", after the survival show Sixteen. Four title tracks from the years since: which one made you stay?",
+  "options": [
+   "Like Ooh-Ahh (2015)",
+   "Cheer Up (2016)",
+   "TT (2016)",
+   "Fancy (2019)"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "TWICE, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Twice"
+   },
+   {
+    "label": "Cheer Up (song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cheer_Up_(song)"
+   },
+   {
+    "label": "TT (song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/TT_(song)"
+   },
+   {
+    "label": "Fancy (Twice song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fancy_(Twice_song)"
+   }
+  ]
+ },
+ {
+  "day": 5,
+  "slot": "a",
+  "account": "ExoPlanet",
+  "account_id": "d5cd52be-e969-42db-9547-233f35f1c007",
+  "kind": "blog",
+  "group_id": 8,
+  "group": "EXO",
+  "title": "EXO and SHINee: two SM boy group debuts, four years apart",
+  "body": "A short history from the KpopQuiz team. Sources are linked below.\n\nSHINee came first. Their single \"Replay\" came out on 22 May 2008, and their first stage was on Inkigayo on 25 May 2008.\n\nEXO followed in 2012 with an idea that was new at the time: two sub-units, EXO-K and EXO-M, debuting together. They released \"MAMA\" on 8 April 2012, with twelve members at debut.\n\nBoth groups came from SM Entertainment, four years apart, and both are in our boy group quizzes and blindtest playlists.\n\nWhich debut song do you know better, \"Replay\" or \"MAMA\"?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "SHINee, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shinee"
+   },
+   {
+    "label": "EXO, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Exo"
+   }
+  ]
+ },
+ {
+  "day": 5,
+  "slot": "b",
+  "account": "Soojin",
+  "account_id": "b63f7840-0cdb-4fc8-b267-6e972cbe2459",
+  "kind": "debate",
+  "group_id": null,
+  "group": null,
+  "title": "Hardest girl group to guess in a blindtest?",
+  "body": "From the KpopQuiz team. Some groups change sound with every release, which makes the first seconds of a clip hard to place. Which group is the hardest for you to guess?",
+  "options": [
+   "aespa",
+   "Red Velvet",
+   "ITZY",
+   "LE SSERAFIM"
+  ],
+  "debate_days": 3,
+  "sources": []
+ },
+ {
+  "day": 6,
+  "slot": "a",
+  "account": "KpopProf",
+  "account_id": "9336f734-6920-489b-9e21-6f87870d5062",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "The 2nd generation song you still know by heart",
+  "body": "Hi, KpopQuiz team here. This account covers the 2nd generation and K-pop history.\n\nWhich 2nd generation song could you still recognise from the first beat? Tell us the song, the group, and the year you first heard it if you remember.\n\nWe use these replies to decide which older songs go into our classic blindtest playlists.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 6,
+  "slot": "b",
+  "account": "Joon",
+  "account_id": "333efe6e-26ad-4ac1-afe6-12e7bbce84ff",
+  "kind": "blog",
+  "group_id": 1,
+  "group": "BTS",
+  "title": "BTS in four dates",
+  "body": "Four dates from the KpopQuiz team, each with its source.\n\n- 12 June 2013: BTS release their single album 2 Cool 4 Skool, with the lead single \"No More Dream\", through Big Hit. Their first stage follows on 13 June on M Countdown.\n- 2013 to 2014: the School trilogy, 2 Cool 4 Skool, O!RUL8,2? and Skool Luv Affair.\n- 2015 to 2016: The Most Beautiful Moment in Life series, which Wikipedia calls their youth trilogy.\n- 21 August 2020: \"Dynamite\" comes out. It debuts at number one on the Billboard Hot 100, which Wikipedia describes as making BTS the first all-South Korean act to top that chart.\n\nOur BTS quizzes use these dates. Which BTS milestone would you add to a quiz?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "BTS, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/BTS"
+   },
+   {
+    "label": "Dynamite (BTS song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"
+   }
+  ]
+ },
+ {
+  "day": 7,
+  "slot": "a",
+  "account": "Bunny",
+  "account_id": "ac4931d1-b58a-4b8a-b810-2f88240cdcdb",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "What makes a chorus easy to guess?",
+  "body": "Hi from the KpopQuiz team. This account covers NewJeans, IVE and LE SSERAFIM.\n\nIn our blindtest, some choruses get guessed in under two seconds and some stay hard even for fans. What makes a chorus easy for you: the beat, a sound effect, the first note of the vocals?\n\nGive us an example of a song you always get right, and one you always miss.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 7,
+  "slot": "b",
+  "account": "Carat",
+  "account_id": "9cac5f4b-3223-45ba-8292-8856a296d8a1",
+  "kind": "debate",
+  "group_id": 7,
+  "group": "SEVENTEEN",
+  "title": "Best SEVENTEEN unit?",
+  "body": "From the KpopQuiz team. SEVENTEEN has three units. Which one is your favourite?",
+  "options": [
+   "Hip-hop unit",
+   "Vocal unit",
+   "Performance unit"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "Seventeen (South Korean band), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"
+   }
+  ]
+ },
+ {
+  "day": 8,
+  "slot": "a",
+  "account": "Rosie",
+  "account_id": "c1e1f32f-d965-41f9-9f0c-367ea8142f52",
+  "kind": "blog",
+  "group_id": 13,
+  "group": "Red Velvet",
+  "title": "Red Velvet's two sides",
+  "body": "A short guide from the KpopQuiz team. Sources are linked below.\n\nRed Velvet debuted under SM Entertainment on 1 August 2014, with \"Happiness\" on Music Bank.\n\nThe group's name describes its two sides. As Wikipedia puts it, the \"red\" side is bright, bold pop, and the \"velvet\" side is smoother, with R&B and ballads influenced by the 1990s.\n\nThat split is useful in a blindtest: if a clip sounds like a bright pop song, think of the red side; if it is slower and smoother, think velvet.\n\nWhich side do you play more often?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "Red Velvet (group), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Red_Velvet_(group)"
+   }
+  ]
+ },
+ {
+  "day": 8,
+  "slot": "b",
+  "account": "Felix_fan",
+  "account_id": "4225700b-285a-4987-bbbe-e3c868d89abc",
+  "kind": "debate",
+  "group_id": 3,
+  "group": "Stray Kids",
+  "title": "Best Stray Kids title track for a blindtest intro?",
+  "body": "From the KpopQuiz team. Which of these Stray Kids title tracks is the easiest to name from the first seconds?",
+  "options": [
+   "God's Menu (2020)",
+   "Thunderous (2021)",
+   "Maniac (2022)",
+   "S-Class (2023)"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "God's Menu, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/God%27s_Menu"
+   },
+   {
+    "label": "Thunderous, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Thunderous"
+   },
+   {
+    "label": "Maniac (Stray Kids song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Maniac_(Stray_Kids_song)"
+   },
+   {
+    "label": "S-Class (song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/S-Class_(song)"
+   }
+  ]
+ },
+ {
+  "day": 9,
+  "slot": "a",
+  "account": "Nayeonist",
+  "account_id": "76680b98-cf37-42b6-8a1f-c876f85c9092",
+  "kind": "blog",
+  "group_id": 17,
+  "group": "ITZY",
+  "title": "ITZY: the first year and a half in three releases",
+  "body": "From the KpopQuiz team, with sources below.\n\n- 12 February 2019: ITZY debut under JYP Entertainment with \"Dalla Dalla\", from the single album It'z Different.\n- 9 March 2020: \"Wannabe\".\n- 17 August 2020: the EP Not Shy.\n\nThree releases in a year and a half. All three title tracks are in our ITZY blindtest playlist.\n\nWhich of the three do you guess fastest?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "ITZY, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Itzy"
+   },
+   {
+    "label": "Wannabe (Itzy song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wannabe_(Itzy_song)"
+   },
+   {
+    "label": "Not Shy, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Not_Shy"
+   }
+  ]
+ },
+ {
+  "day": 9,
+  "slot": "b",
+  "account": "ExoPlanet",
+  "account_id": "d5cd52be-e969-42db-9547-233f35f1c007",
+  "kind": "debate",
+  "group_id": 23,
+  "group": "SHINee",
+  "title": "Best SHINee title track?",
+  "body": "From the KpopQuiz team. Four SHINee title tracks from four different years. Which one is your favourite?",
+  "options": [
+   "Replay (2008)",
+   "Ring Ding Dong (2009)",
+   "Sherlock (2012)",
+   "View (2015)"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "SHINee, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shinee"
+   },
+   {
+    "label": "Ring Ding Dong, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ring_Ding_Dong"
+   },
+   {
+    "label": "Sherlock (Clue + Note), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sherlock_(Clue_%2B_Note)"
+   },
+   {
+    "label": "View (Shinee song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/View_(Shinee_song)"
+   }
+  ]
+ },
+ {
+  "day": 10,
+  "slot": "a",
+  "account": "Soojin",
+  "account_id": "b63f7840-0cdb-4fc8-b267-6e972cbe2459",
+  "kind": "blog",
+  "group_id": null,
+  "group": null,
+  "title": "Five girl group facts for your next quiz",
+  "body": "Five facts from the KpopQuiz team, each with its source. Useful before you try our girl group quizzes.\n\n1. Girls' Generation were originally a nine member group when they debuted in 2007.\n2. Wonder Girls' \"Nobody\" (English version) entered the Billboard Hot 100 at number 76 on the chart dated 31 October 2009. Wikipedia calls it the first K-pop song on that chart.\n3. TWICE were formed through the Mnet survival show Sixteen, which aired from May to July 2015.\n4. BLACKPINK debuted on 8 August 2016 with the single album Square One, which had two singles: \"Whistle\" and \"Boombayah\".\n5. aespa debuted on 17 November 2020 with \"Black Mamba\".\n\nWhich of the five did you already know?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "Girls' Generation, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Girls%27_Generation"
+   },
+   {
+    "label": "Nobody (Wonder Girls song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nobody_(Wonder_Girls_song)"
+   },
+   {
+    "label": "TWICE, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Twice"
+   },
+   {
+    "label": "Square One (single album), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Square_One_(single_album)"
+   },
+   {
+    "label": "aespa, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Aespa"
+   }
+  ]
+ },
+ {
+  "day": 10,
+  "slot": "b",
+  "account": "KpopProf",
+  "account_id": "9336f734-6920-489b-9e21-6f87870d5062",
+  "kind": "debate",
+  "group_id": null,
+  "group": null,
+  "title": "Most influential 2nd generation group?",
+  "body": "From the KpopQuiz team. A classic debate, with no right answer. Which 2nd generation group shaped K-pop the most for you?",
+  "options": [
+   "TVXQ",
+   "Super Junior",
+   "BIGBANG",
+   "Girls' Generation"
+  ],
+  "debate_days": 7,
+  "sources": []
+ },
+ {
+  "day": 11,
+  "slot": "a",
+  "account": "Joon",
+  "account_id": "333efe6e-26ad-4ac1-afe6-12e7bbce84ff",
+  "kind": "thread",
+  "group_id": 1,
+  "group": "BTS",
+  "title": "BTS b-sides you would add to the blindtest",
+  "body": "Hi, KpopQuiz team here. This account covers BTS.\n\nOur BTS blindtest leans on title tracks. Which b-sides would you add? Tell us the song and the album it is on, and whether it would be easy or hard to guess.\n\nWe read every reply before we update the playlist.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 11,
+  "slot": "b",
+  "account": "Bunny",
+  "account_id": "ac4931d1-b58a-4b8a-b810-2f88240cdcdb",
+  "kind": "blog",
+  "group_id": 10,
+  "group": "IVE",
+  "title": "IVE from Eleven to I Am",
+  "body": "Four IVE releases from the KpopQuiz team, with sources below.\n\n- 1 December 2021: IVE debut under Starship Entertainment with the single album Eleven.\n- 5 April 2022: \"Love Dive\".\n- 22 August 2022: \"After Like\".\n- 10 April 2023: \"I Am\".\n\nFour title tracks in under a year and a half, all four in our IVE blindtest playlist.\n\nWhich one do you think is the hardest to guess from the first seconds?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "IVE, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ive_(group)"
+   },
+   {
+    "label": "Love Dive (song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Love_Dive_(song)"
+   },
+   {
+    "label": "After Like, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/After_Like"
+   },
+   {
+    "label": "I Am (Ive song), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Am_(Ive_song)"
+   }
+  ]
+ },
+ {
+  "day": 12,
+  "slot": "a",
+  "account": "Carat",
+  "account_id": "9cac5f4b-3223-45ba-8292-8856a296d8a1",
+  "kind": "thread",
+  "group_id": 7,
+  "group": "SEVENTEEN",
+  "title": "The SEVENTEEN stage you would show a new fan",
+  "body": "Hi from the KpopQuiz team. This account covers SEVENTEEN.\n\nIf a friend had never seen SEVENTEEN perform, which stage would you show them first? A music show, a concert, an award show, a unit stage.\n\nName the song and where it was performed. We will use the most named songs in our next SEVENTEEN blindtest.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 12,
+  "slot": "b",
+  "account": "Rosie",
+  "account_id": "c1e1f32f-d965-41f9-9f0c-367ea8142f52",
+  "kind": "debate",
+  "group_id": 2,
+  "group": "BLACKPINK",
+  "title": "Best BLACKPINK title track?",
+  "body": "From the KpopQuiz team. Four BLACKPINK title tracks from 2016 to 2022. Which one is your favourite?",
+  "options": [
+   "Whistle (2016)",
+   "DDU-DU DDU-DU (2018)",
+   "How You Like That (2020)",
+   "Pink Venom (2022)"
+  ],
+  "debate_days": 3,
+  "sources": [
+   {
+    "label": "Square One (single album), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Square_One_(single_album)"
+   },
+   {
+    "label": "Ddu-Du Ddu-Du, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ddu-Du_Ddu-Du"
+   },
+   {
+    "label": "How You Like That, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/How_You_Like_That"
+   },
+   {
+    "label": "Pink Venom, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pink_Venom"
+   }
+  ]
+ },
+ {
+  "day": 13,
+  "slot": "a",
+  "account": "Felix_fan",
+  "account_id": "4225700b-285a-4987-bbbe-e3c868d89abc",
+  "kind": "blog",
+  "group_id": 14,
+  "group": "ATEEZ",
+  "title": "ATEEZ in brief",
+  "body": "A short guide from the KpopQuiz team. Sources are linked below.\n\nATEEZ are an eight member group under KQ Entertainment. They debuted on 24 October 2018 with the EP Treasure EP.1: All to Zero, which had two lead singles: \"Pirate King\" and \"Treasure\".\n\nThe Treasure name runs through their early releases, so it is a common trap in our ATEEZ quizzes: check the full album title before you answer.\n\nWhich ATEEZ release do you know best?",
+  "options": null,
+  "debate_days": null,
+  "sources": [
+   {
+    "label": "ATEEZ, Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ateez"
+   }
+  ]
+ },
+ {
+  "day": 13,
+  "slot": "b",
+  "account": "Nayeonist",
+  "account_id": "76680b98-cf37-42b6-8a1f-c876f85c9092",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "TWICE and ITZY songs that are hard to guess",
+  "body": "Hi, KpopQuiz team here. This account covers TWICE and ITZY.\n\nWhich TWICE or ITZY song do you think fans miss the most in a blindtest, and why?\n\nOur blindtest is starting to count right and wrong answers per song. Once enough runs are counted, we will compare your guesses with the real figures.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 14,
+  "slot": "a",
+  "account": "ExoPlanet",
+  "account_id": "d5cd52be-e969-42db-9547-233f35f1c007",
+  "kind": "thread",
+  "group_id": null,
+  "group": null,
+  "title": "One EXO or SHINee song for a new fan",
+  "body": "Hi from the KpopQuiz team. This account covers EXO and SHINee.\n\nA friend wants to start with EXO or SHINee and asks you for one song. Which one do you send, and why that one?\n\nReplies help us choose the first songs of our EXO and SHINee playlists.",
+  "options": null,
+  "debate_days": null,
+  "sources": []
+ },
+ {
+  "day": 14,
+  "slot": "b",
+  "account": "Soojin",
+  "account_id": "b63f7840-0cdb-4fc8-b267-6e972cbe2459",
+  "kind": "debate",
+  "group_id": null,
+  "group": null,
+  "title": "Which new way to play should we feature first?",
+  "body": "From the KpopQuiz team. We added new ways to play this season. Which one should we put first on the home page?",
+  "options": [
+   "Name them all",
+   "Which member are you",
+   "This or that",
+   "Live blindtest with friends"
+  ],
+  "debate_days": 7,
+  "sources": []
+ }
+]
