@@ -1,0 +1,60 @@
+-- LOCAL SCRATCH DATABASE ONLY (scripts/v12/catalogue/local-replay.sh). Never run against the project.
+-- The two tables the v12-g2 files touch, with the constraints the repo's migrations give them:
+-- groups (001 schema + the later ADD COLUMNs), songs (024 + 029 deezer_rank, 044 is_curated, 069 tier,
+-- 124 musicbrainz_mbid). Copied so the pending files meet the same checks, uniques and defaults.
+create table public.groups (
+  id serial primary key,
+  name text unique not null,
+  slug text unique not null,
+  fandom_name text not null default 'fan',
+  display_color text not null,
+  text_color text not null,
+  quiz_count integer not null default 0,
+  total_plays integer not null default 0,
+  is_custom boolean not null default false,
+  created_at timestamptz not null default now(),
+  logo_url text,
+  seo_intro text,
+  needs_review boolean not null default false,
+  created_by_user boolean not null default false,
+  deezer_artist_id bigint,
+  generation text,
+  spotify_artist_id text,
+  wikidata_qid text,
+  musicbrainz_mbid text,
+  inception_date date,
+  origin_country text,
+  official_website text,
+  record_label text
+);
+alter table public.groups add constraint slug_format check (slug ~ '^[a-z0-9-]{1,60}$');
+
+create table public.songs (
+  id uuid primary key default gen_random_uuid(),
+  deezer_track_id bigint unique not null,
+  title text not null,
+  artist_name text not null,
+  album_name text,
+  album_cover_small text,
+  album_cover_medium text,
+  album_cover_big text,
+  preview_url text not null,
+  duration integer,
+  group_id integer references public.groups(id),
+  gender text check (gender in ('gg', 'bg', 'solo_female', 'solo_male', 'coed')),
+  generation text check (generation in ('1st', '2nd', '3rd', '4th', '5th')),
+  is_title_track boolean default true,
+  year integer,
+  language text default 'korean',
+  wrong_answers_artist text[] default '{}',
+  wrong_answers_title text[] default '{}',
+  difficulty text default 'medium' check (difficulty in ('easy', 'medium', 'hard')),
+  play_count integer default 0,
+  status text default 'active' check (status in ('active', 'inactive', 'review')),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
+  deezer_rank integer default 0,
+  is_curated boolean default false,
+  tier text check (tier in ('iconic', 'popular', 'medium', 'hard', 'unknown')),
+  musicbrainz_mbid text
+);

@@ -1,0 +1,150 @@
+{
+ "state": "theme-hits26",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:50:06.189Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-03-releases-2026.sql is applied (kpop-hits-2026 has under 10 playable songs; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-hits-2026",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 13.54,
+    "maskedPct": 13.9
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 34
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:50:40.220Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-03-releases-2026.sql is applied (kpop-hits-2026 has under 10 playable songs; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-hits-2026",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 15.39,
+    "maskedPct": 13.9
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 34
+  },
+  "390-light": {
+   "at": "2026-10-03T10:51:14.256Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-03-releases-2026.sql is applied (kpop-hits-2026 has under 10 playable songs; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-hits-2026",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 14.45,
+    "maskedPct": 29.5
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 34
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:51:48.101Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-03-releases-2026.sql is applied (kpop-hits-2026 has under 10 playable songs; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-hits-2026",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 18.44,
+    "maskedPct": 29.5
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 34
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "pending": "NOT verified until v12-g2-03-releases-2026.sql is applied (kpop-hits-2026 has under 10 playable songs; the page answers 404 and the hub hides its card)",
+ "verdict": "not verified"
+}

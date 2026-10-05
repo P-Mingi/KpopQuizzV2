@@ -1,0 +1,17 @@
+{
+ "x": {
+  "focusInsideWhenOpen": true,
+  "closed": true,
+  "focusBackOnOpener": true
+ },
+ "escape": {
+  "focusInsideWhenOpen": true,
+  "closed": true,
+  "focusBackOnOpener": true
+ },
+ "backdrop": {
+  "focusInsideWhenOpen": true,
+  "closed": true,
+  "focusBackOnOpener": true
+ }
+}

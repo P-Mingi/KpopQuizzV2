@@ -1,0 +1,25 @@
+HEAD:apps/quiz/scripts/ingest-blindtest-songs.mts:182:  const { data: stored } = await db.from('songs').select('deezer_track_id, title, group_id, status').ilike('artist_name', cfg.name);
+HEAD:apps/quiz/scripts/ingest-blindtest-songs.mts:215:    const { error } = await db.from('songs').insert(rows);
+HEAD:apps/quiz/scripts/ingest-blindtest-songs.mts:228:  const all = await pageAll<Stored>(() => db.from('songs').select('deezer_track_id, title, artist_name, group_id, gender, generation, status, tier, deezer_rank').order('id'));
+HEAD:apps/quiz/scripts/ingest-blindtest-songs.mts:297:        const { error } = await db.from('songs').insert(rows);
+HEAD:apps/quiz/scripts/v12/catalogue/build-kpdh-sql.mts:16:const { data: stored, error } = await db.from('songs').select('deezer_track_id, title, artist_name, status, group_id').in('deezer_track_id', ids);
+HEAD:apps/quiz/scripts/v12/catalogue/build-language-report.mts:8:const songs = await pageAll<S>(() => anonDb().from('songs').select('deezer_track_id, artist_name, language, group_id').order('id'));
+HEAD:apps/quiz/scripts/v12/catalogue/build-years-sql.mts:26:const songs = await pageAll<S>(() => db.from('songs').select('deezer_track_id, title, artist_name, year, status, gender, generation, is_curated').order('id'));
+HEAD:apps/quiz/scripts/v12/catalogue/match.mts:9:  const { data, error } = await db.from('songs')
+HEAD:apps/quiz/scripts/v12/catalogue/snapshot.mts:8:const songs = await pageAll<S>(() => db.from('songs').select('id, deezer_track_id, title, artist_name, group_id, gender, generation, year, language, status, is_title_track, is_curated, tier, deezer_rank').order('id'));
+HEAD:apps/quiz/src/app/(site)/verse/[slug]/songs/[id]/page.tsx:33:  const { data, error } = await db.from('songs')
+HEAD:apps/quiz/src/app/api/blind-test/generate/route.ts:236:        .from('songs').select('id', { count: 'exact', head: true })
+HEAD:apps/quiz/src/app/api/blind-test/generate/route.ts:269:      .from('songs')
+HEAD:apps/quiz/src/app/api/daily/blindtest/route.ts:103:    .from('songs')
+HEAD:apps/quiz/src/app/api/daily/blindtest/route.ts:117:    .from('songs')
+HEAD:apps/quiz/src/app/sitemap.ts:401:      const { data: songRows } = await svc.from('songs').select('id, groups(slug)').order('id').range(pg * 1000, pg * 1000 + 999);
+HEAD:apps/quiz/src/lib/blind-test-playlists.ts:44:    .from('songs')
+HEAD:apps/quiz/src/lib/blind-test-playlists.ts:118:      let q = db.from('songs').select('id', { count: 'exact', head: true })
+HEAD:apps/quiz/src/lib/db/queries/blindtest.ts:43:      supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+HEAD:apps/quiz/src/lib/db/queries/stats.ts:27:      .from('songs')
+HEAD:apps/quiz/src/lib/db/queries/stats.ts:226:    const { data } = await supabase.from('songs').select('group_id, gender').in('group_id', groupIds).range(from, from + 999);
+HEAD:apps/quiz/src/lib/ranked/db.ts:138:        .from('songs')
+HEAD:apps/quiz/src/lib/ux-v1/p11/search.ts:142:    ? attempt(() => db.from('songs').select(SONG_COLS)
+HEAD:apps/quiz/src/lib/ux-v1/p6/challenge-server.ts:30:  const { data: songs, error: songErr } = await svc.from('songs').select('id, title, artist_name').in('id', ids).eq('status', 'active');
+HEAD:apps/quiz/src/lib/ux-v1/p6/challenge-server.ts:85:  const { data } = await svc.from('songs').select('id, deezer_track_id, preview_url').in('id', ids);
+HEAD:apps/quiz/src/lib/ux-v1/p6/hub-data.ts:86:  const { count, error } = await db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active');

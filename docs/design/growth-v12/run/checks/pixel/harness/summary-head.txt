@@ -1,0 +1,26 @@
+# C1 pixel check (V12 run, Phase 3)
+
+Branch `v12/c1-check` (from `feat/v12` 29dd95a). Implementation: ORCH's shared flag-on production build of afb83f4
+(`NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1`, tracking unset) on http://localhost:3071. Each combo's `at` and `base` in
+`verdict.json` date its run. Reference: `run/checks/reference/` (40 v12 states, `styles.json`) and
+`run/checks/reference/v11/` (38 v11 states on the v12 prototype).
+
+Harness (`harness/`): `c1-pixel-v12.mjs` (v12 states; drivers and landmark pairs in `drivers-v12*.mjs`, taken from
+each agent's own spec), `c1-pixel-v11.mjs` (v11 regression set; the v11 C1 harness retargeted, drivers in
+`drivers-v11.mjs`), `c1-extra.mjs` (v11 extras: nav fit, hover, focus, header sheet, theme tokens, reduced motion),
+`c1-extra-v12.mjs` (hover and focus on the new v12 controls, reduced motion on the new pages), `c1-summary.mjs`
+(this file), `run-batch.sh` (batches of at most 10 states).
+
+Per state and variant: landmark boxes within 2px of the prototype measured live in the same state (the capture
+sequence replayed), computed styles equal to `styles.json` with the owner deviations applied (`deviations.mjs`), or
+to the live prototype for landmarks outside `styles.json` (px within 0.5), no sideways scroll at 390, and a masked
+pixel diff vs the reference PNG (photos and text masked on both sides; information only: real data and page length
+differ). Framing as the reference: v12 states are viewport shots with the anchor 80px from the top; v11 states are
+full pages except overlays and in-game states. Cells: verdict, landmarks passed / compared, masked diff %.
+Evidence: `<state>/<w>-<theme>-side.webp` (reference | implementation), `-diff.webp` (red differs, blue masked),
+`verdict.json` (every number, the url, the writes answered locally). v11 states under `v11/<state>/`.
+
+No production write: every POST / PUT / PATCH / DELETE to `/api/**` or Supabase was answered locally (recorded in
+`verdict.json` `writes`). Signed in only through the Playwright setup project (storage state deleted at the end);
+`/me` and `/profile` never loaded. States whose data waits for pending SQL are "not verified" with the file named,
+checked in their hidden or not-live form (`hiddenForm` in `verdict.json`).

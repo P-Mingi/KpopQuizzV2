@@ -123,6 +123,26 @@ export function ladderEntryFrom(row: LadderDbRow): LadderEntry {
   };
 }
 
+/**
+ * V12 F5b: editorial (team) accounts left out of a ranked_ladder() read (matched on
+ * username: the rows carry no user id). The caller reads `limit + team.size` rows, so
+ * every team row ranked above a top row is in the read and the top rows renumber
+ * exactly: each position drops by the team rows found above it, the scope total by
+ * the team rows found. No team: the rows as they are. Pure.
+ */
+export function ladderRowsWithoutTeam(rows: readonly LadderDbRow[], team: ReadonlySet<string>): LadderDbRow[] {
+  const isTeam = (r: LadderDbRow): boolean => r.username !== null && team.has(r.username);
+  const gone = team.size ? rows.filter(isTeam) : [];
+  if (!gone.length) return [...rows];
+  const above = (field: 'position' | 'scope_position', at: number): number => gone.filter((g) => Number(g[field]) < at).length;
+  return rows.filter((r) => !isTeam(r)).map((r) => ({
+    ...r,
+    position: Number(r.position) - above('position', Number(r.position)),
+    scope_position: Number(r.scope_position) - above('scope_position', Number(r.scope_position)),
+    scope_total: Math.max(0, Number(r.scope_total) - gone.length),
+  }));
+}
+
 /** Split ranked_ladder() rows into the top of the scope and the asking player's row. */
 export function ladderViewFrom(season: number, scope: LadderScope, rows: readonly LadderDbRow[], limit = LADDER_LIMIT): LadderView {
   const entries = rows.map(ladderEntryFrom).sort((a, b) => a.scopePosition - b.scopePosition);

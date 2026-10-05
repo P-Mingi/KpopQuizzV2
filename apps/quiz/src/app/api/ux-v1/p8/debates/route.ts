@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 
+import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
 import { checkDebate, hasLink } from '@/lib/ux-v1/p8/validate';
+import { insertCommunityDebate } from '@/lib/ux-v1/p8/write';
 import { checkText, isBlockedInSpace, isTrusted, underRateCap } from '@/lib/verse/moderation';
 
 import type { NextRequest } from 'next/server';
@@ -31,6 +33,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  // v12: an editorial (team) account never acts as a fan (SYSTEM.md 5.6).
+  if (await isEditorialUser(user.id)) return NextResponse.json({ error: 'editorial_account' }, { status: 403 });
 
   const d = c.value;
   const svc = createServiceRoleClient();
@@ -46,9 +50,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
 
   const closesAt = new Date(Date.now() + d.days * 24 * 3600_000).toISOString();
-  const { data, error } = await svc.from('community_debates')
-    .insert({ group_id: d.groupId, author: user.id, question: d.question, body: d.body, options: d.options, closes_at: closesAt, status: 'visible' })
-    .select('id').single();
-  if (error) return NextResponse.json({ error: 'post_failed' }, { status: 500 });
-  return NextResponse.json({ ok: true, id: (data as { id: number }).id });
+  const r = await insertCommunityDebate(svc, { group_id: d.groupId, author: user.id, question: d.question, body: d.body, options: d.options, closes_at: closesAt });
+  if ('error' in r) return NextResponse.json({ error: 'post_failed' }, { status: 500 });
+  return NextResponse.json({ ok: true, id: r.id });
 }

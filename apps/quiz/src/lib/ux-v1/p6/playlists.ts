@@ -12,6 +12,8 @@
 // 'title-tracks' pool is empty in the curated catalog (SONGS_IS_CURATED=true: 0
 // songs, generate answers 400) and songs.is_title_track is unmaintained.
 
+import { themedModesOn } from '@/lib/blind-test-modes';
+
 export interface BtPick {
   /** generate's `playlist`: 'all', a mix id, or a group slug. */
   playlist: string;
@@ -51,6 +53,21 @@ export const MODE_ONLY_MIXES: readonly MixItem[] = [
   { playlist: 'deep', label: 'Deep cuts' },
 ];
 
+/** V12 (flag only): the playlists generate serves on top of the above when both flags are on
+ *  (lib/blind-test-curated.ts V12_PLAYLISTS): the themed playlists and the legacy modes that
+ *  now play as named (v11 decision 33). Empty with the flag off, so nothing above changes. */
+export const V12_MIXES_ALL: readonly MixItem[] = [
+  { playlist: 'kpop-hits-2026', label: 'K-pop hits 2026' },
+  { playlist: 'kpop-hits-2025', label: 'K-pop hits 2025' },
+  { playlist: 'tiktok-viral', label: 'Viral on TikTok' },
+  { playlist: 'kpop-demon-hunters', label: 'KPop Demon Hunters' },
+  { playlist: 'recent-hits', label: '2024-2026 hits' },
+  { playlist: 'kpop-legends', label: 'K-pop legends' },
+  { playlist: '4th-gen-gg', label: '4th gen girl groups' },
+  { playlist: '4th-gen-bg', label: '4th gen boy groups' },
+];
+export const V12_MIXES: readonly MixItem[] = themedModesOn() ? V12_MIXES_ALL : [];
+
 export const ROUND_OPTIONS = [5, 10, 15] as const;
 export type RoundCount = (typeof ROUND_OPTIONS)[number];
 
@@ -81,14 +98,14 @@ export function filterGroups<T extends { name: string }>(groups: readonly T[], q
 /** Label of a playlist id; a group slug needs its name (null when unknown). */
 export function playlistLabel(playlist: string, groupName?: string | null): string | null {
   if (playlist === ALL_PICK.playlist) return ALL_PICK.label;
-  const mix = [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES].find((m) => m.playlist === playlist);
+  const mix = [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES, ...V12_MIXES].find((m) => m.playlist === playlist);
   if (mix) return mix.label;
   return groupName ?? null;
 }
 
 /** True when the id is one of the fixed (non-group) playlists above. */
 export function isFixedPlaylist(playlist: string): boolean {
-  return playlist === ALL_PICK.playlist || [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES].some((m) => m.playlist === playlist);
+  return playlist === ALL_PICK.playlist || [...MIXES, ...GENERATIONS, TITLE_TRACKS, ...MODE_ONLY_MIXES, ...V12_MIXES].some((m) => m.playlist === playlist);
 }
 
 /** Initials for a group without a photo (typographic avatar, 16.8). */

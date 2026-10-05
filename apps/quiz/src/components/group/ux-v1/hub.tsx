@@ -28,7 +28,7 @@ import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
-import { getGroupComments, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
+import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
 import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
@@ -42,9 +42,11 @@ import {
   quizzesLabel,
   realFandomName,
 } from '@/lib/ux-v1/p3/model';
+import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import { GroupAvatar } from './group-avatar';
+import { HubGrowth } from './hub-growth';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 
 import type { Group } from '@/lib/db/types';
@@ -90,7 +92,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
     quizzes: read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
     index: read(getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
     playable: read(getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
-    comments: read(getGroupComments(g.id), '[group-hub v11] getGroupComments'),
+    comments: read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
   };
   const got = Object.fromEntries(await Promise.all(Object.entries(r).map(async ([k, p]) => [k, await p] as const))) as { [K in keyof typeof r]: Awaited<(typeof r)[K]> };
   await failClosed(`/${g.slug}-quiz`, failedReads(got));
@@ -254,7 +256,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
 
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
-      {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+      {isUxV12() ? (
+        // V12 (G8): the additions take the slot of the quizzes list, which passes
+        // through untouched; the v11-only branch below is the tree as it was.
+        <HubGrowth group={g} published={published} songs={songs}>
+          {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+        </HubGrowth>
+      ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
@@ -325,11 +333,11 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                       <UxRow
                         key={c.id}
                         href={`/q/${c.quizSlug}`}
-                        lead={<UxAvatar name={c.author?.username ?? 'K'} src={c.author?.avatarUrl ?? null} size={40} />}
+                        lead={<UxAvatar name={c.author?.username ?? 'K'} src={c.author?.avatarUrl ?? null} size={40} team={c.author?.team} />}
                         title={`“${commentLine(c.text)}”`}
                         sub={(
                           <>
-                            {c.author ? <PersonName name={c.author.username} accent={c.author.accent} font={c.author.font} showBias={false} /> : 'Someone'}
+                            {c.author ? <PersonName name={c.author.username} accent={c.author.accent} font={c.author.font} showBias={false} isTeam={c.author.team} /> : 'Someone'}
                             {` on ${c.quizTitle} · ${coarseAge(c.createdAt)}`}
                           </>
                         )}

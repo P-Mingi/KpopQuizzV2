@@ -1,0 +1,22 @@
+C2 batch 8 at 2026-10-03T10:53:15.703Z on http://localhost:3071
+
+C03 GET /api/creators/standing (anonymous) -> 200 {"signedIn":false,"me":null,"standing":null}
+C04 /creators 200: /create=true /leaderboard#creators=true; noindex=true
+C04   /create -> 200
+C04   /leaderboard -> 200
+C04 /leaderboard links /creators: true
+
+## C01 /creators tabs (390)
+C01 requests after two tab clicks: 0; all-time board visible after its tab: true
+
+E01 /community 200: "Editorial account of the KpopQuiz team" present=false; team post links 0
+E02 GET /community/thread/e1 -> 404
+E02 GET /community/blog/e1 -> 404
+E04 GET /api/ux-v1/p11/team -> 200 {"usernames":[]}
+E05 GET /admin/editorial -> 307 location /login?returnTo=%2Fadmin%2Feditorial
+E05 GET /api/admin/editorial (anonymous) -> 401 {"error":"Unauthorized"}
+E06/R03 GET /api/cron/editorial-publish -> 401; wrong bearer -> 401
+E06/R03 GET /api/cron/fans-picked -> 401; wrong bearer -> 401
+R01 GET /api/track/bt-run -> 404
+R02 GET /admin/blind-tests/runs -> 307 location /login?returnTo=%2Fadmin%2Fblind-tests%2Fruns
+R02 compare: GET /admin/c2-no-such-page -> 307 location /login?returnTo=%2Fadmin%2Fc2-no-such-page

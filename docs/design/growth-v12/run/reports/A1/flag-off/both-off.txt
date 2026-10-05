@@ -1,0 +1,34 @@
+# both-off: A = feat/v12 836f276 (dev :3070), B = v12/a1-foundation (dev :3060), 2026-10-02T16:36:09Z
+# node e2e/ux-v1/helpers/flag-off-diff.mjs --structure --dev --a http://localhost:3070 --b http://localhost:3060 /ux-v1/kit / /quizzes /groups /blindtest /bts-quiz /q/skz-true-or-false-only-real-stays-pass /community /leaderboard /api/ux-v1/a0/styles /sitemap.xml /robots.txt
+IDENTICAL (structure)  /ux-v1/kit  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+DIFFERENT (structure)  /  status 200/200  raw bytes 270451/268693  normalised 138114/138114  js chunks 26/26
+  node 841
+    A: <div hidden id="S:6">
+    B: <div hidden id="S:4">
+  node 842
+    A: <section class="home-section">
+    B: <section class="home-section home-section-tight">
+  node 845
+    A: Browse by group</p>
+    B: New quizzes</p>
+  node 846
+    A: <a style="font-size:12px;font-weight:600;color:var(--brand);text-decoration:none;white-space:nowrap" href="/groups">
+    B: <a style="font-size:12px;font-weight:600;color:var(--brand);text-decoration:none;white-space:nowrap" href="/new">
+  node 847
+    A: All K-pop groups →</a>
+    B: See all →</a>
+  node 856
+    A: <div class="home-group-rail" role="list" aria-label="Browse quizzes by group">
+    B: <div class="trending-carousel">
+IDENTICAL (structure)  /quizzes  status 200/200  raw bytes 402603/401646  normalised 267226/267226  js chunks 25/25
+IDENTICAL (structure)  /groups  status 200/200  raw bytes 234044/233061  normalised 125357/125357  js chunks 25/25
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 179041/178083  normalised 54395/54395  js chunks 26/26
+IDENTICAL (structure)  /bts-quiz  status 200/200  raw bytes 213678/212619  normalised 95515/95515  js chunks 25/25
+IDENTICAL (structure)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 153903/152588  normalised 52098/52098  js chunks 26/26
+IDENTICAL (structure)  /community  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /leaderboard  status 200/200  raw bytes 375256/373564  normalised 175719/175719  js chunks 26/26
+IDENTICAL (structure)  /api/ux-v1/a0/styles  status 404/404  raw bytes 18/18  normalised 18/18  js chunks 0/0
+IDENTICAL (structure)  /sitemap.xml  status 200/200  raw bytes 564261/564261  normalised 564261/564261  js chunks 0/0
+IDENTICAL (structure)  /robots.txt  status 200/200  raw bytes 1112/1112  normalised 1112/1112  js chunks 0/0
+1 page(s) differ
+exit 1

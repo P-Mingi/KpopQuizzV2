@@ -2,6 +2,9 @@ import Link from 'next/link';
 
 import type { Metadata } from 'next';
 
+import { BT_TRACKING } from '@/lib/tracking/bt-shared';
+import { isUxV12 } from '@/lib/ux-v12';
+
 export const metadata: Metadata = {
   title: 'Admin | KpopQuiz',
   robots: { index: false, follow: true },
@@ -32,6 +35,9 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         <Link href="/admin/verse/entities" className="text-secondary hover:text-primary whitespace-nowrap">Entities</Link>
         <Link href="/admin/verse/quality" className="text-secondary hover:text-primary whitespace-nowrap">Quality</Link>
         <Link href="/admin/verse/suggestions" className="text-secondary hover:text-primary whitespace-nowrap">Suggestions</Link>
+        {/* V12 (G1 R6): each link follows the switch of the page it opens; both off = v11 nav. */}
+        {BT_TRACKING && <Link href="/admin/blind-tests/runs" className="text-secondary hover:text-primary whitespace-nowrap">Blindtest runs</Link>}
+        {isUxV12() && <Link href="/admin/editorial" className="text-secondary hover:text-primary whitespace-nowrap">Editorial</Link>}
       </nav>
       {children}
     </div>

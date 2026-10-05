@@ -8,6 +8,8 @@ import { unstable_cache } from 'next/cache';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+import { isEditorialUser } from '@/lib/editorial/accounts';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 
 /** Profile columns a hall of fame row may show (what /u/[username] already shows). */
 const PERSON_COLS = 'username, avatar_url, name_accent, name_font, bias';
@@ -60,7 +62,7 @@ export const relaxedRunsLive = unstable_cache(
  * relaxed runs once the column is live (DESIGN-SPEC 16.7: relaxed runs do not enter
  * the hall of fame).
  */
-export const getP4HallOfFame = unstable_cache(
+const hallOfFameV11 = unstable_cache(
   async (quizId: string, limit: number, excludeRelaxed: boolean): Promise<P4HofRow[]> => {
     const db = createPublicReadClient();
     let q = db
@@ -95,16 +97,68 @@ export const getP4HallOfFame = unstable_cache(
   { revalidate: CACHE_TTL.stats, tags: ['plays'] },
 );
 
+/** v12 F5a: the same read without the plays of editorial accounts (they never act as
+ *  fans). Guest rows (player_id null) stay: a bare NOT IN would drop them too. Its own
+ *  cache entry; the v11 one above keeps its key and its source text. */
+const hallOfFameNoTeam = unstable_cache(
+  async (quizId: string, limit: number, excludeRelaxed: boolean, team: string[]): Promise<P4HofRow[]> => {
+    const db = createPublicReadClient();
+    let q = db
+      .from('plays')
+      .select(`score, total_questions, time_taken_seconds, player_id, profiles(${PERSON_COLS})`)
+      .eq('quiz_id', quizId)
+      .or(`player_id.is.null,player_id.not.in.${pgList(team)}`);
+    if (excludeRelaxed) q = q.eq('relaxed', false);
+    const { data, error } = await q
+      .order('score', { ascending: false })
+      .order('time_taken_seconds', { ascending: true, nullsFirst: false })
+      .limit(40);
+    if (error) throw new Error(`p4 hall of fame: ${error.message}`);
+    return bestPerPlayer((data ?? []) as unknown as PlayRow[], limit);
+  },
+  ['p4:hall-of-fame:v12-noteam'],
+  { revalidate: CACHE_TTL.stats, tags: ['plays'] },
+);
+
+function bestPerPlayer(rows: PlayRow[], limit: number): P4HofRow[] {
+  const seen = new Set<string>();
+  const out: P4HofRow[] = [];
+  for (const r of rows) {
+    if (r.player_id) {
+      if (seen.has(r.player_id)) continue;
+      seen.add(r.player_id);
+    }
+    const p = r.profiles;
+    out.push({
+      person: p ? { username: p.username, avatarUrl: p.avatar_url, accent: p.name_accent, font: p.name_font, bias: p.bias } : null,
+      score: r.score,
+      total: r.total_questions,
+      timeSeconds: r.time_taken_seconds,
+    });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+/** Hall of fame for the page. Flag off, or no editorial account yet: the v11 read and
+ *  cache entry above, unchanged (teamIdsToExclude reads nothing with the flag off). */
+export async function getP4HallOfFame(quizId: string, limit: number, excludeRelaxed: boolean): Promise<P4HofRow[]> {
+  const team = await teamIdsToExclude();
+  return team ? hallOfFameNoTeam(quizId, limit, excludeRelaxed, [...team].sort()) : hallOfFameV11(quizId, limit, excludeRelaxed);
+}
+
 export interface P4Creator {
   username: string;
   avatarUrl: string | null;
   xp: number;
   quizzes: number;
   playsReceived: number;
+  /** v12: an editorial (team) account. Only ever set with the v12 flag on. */
+  team?: true;
 }
 
 /** "Made by" card: the creator's public counters (profiles.total_quizzes_created, total_plays_received). */
-export const getP4Creator = unstable_cache(
+const creatorV11 = unstable_cache(
   async (creatorId: string): Promise<P4Creator | null> => {
     const db = createPublicReadClient();
     const { data, error } = await db
@@ -120,6 +174,14 @@ export const getP4Creator = unstable_cache(
   ['p4:creator:v1'],
   { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
 );
+
+/** The v11 read; with the v12 flag on, `team: true` for an editorial account (the
+ *  page then shows the Team badge and no level). Flag off: no extra read. */
+export async function getP4Creator(creatorId: string): Promise<P4Creator | null> {
+  const c = await creatorV11(creatorId);
+  if (!c || !(await isEditorialUser(creatorId))) return c;
+  return { ...c, team: true };
+}
 
 /** Published quizzes of a group (DESIGN-SPEC 16.10: counts from published quizzes, never groups.quiz_count). */
 export const getP4GroupQuizCount = unstable_cache(

@@ -1,0 +1,21 @@
+C2 schema probe at 2026-10-03T10:35:54.260Z (GET ?limit=0, service role)
+
+bt_runs	absent	http 404 PGRST205	v12-g1-bt-runs.sql
+bt_song_stats	absent	http 404 PGRST205	v12-g1-bt-runs.sql
+quiz_score_stats	absent	http 404 PGRST205	v12-g1-quiz-score-stats.sql
+live_rooms	absent	http 404 PGRST205	v12-g4-live.sql
+live_players	absent	http 404 PGRST205	v12-g4-live.sql
+live_answers	absent	http 404 PGRST205	v12-g4-live.sql
+duel_vote_guard	absent	http 404 PGRST205	v12-g7-this-or-that.sql
+duel_song_rankings	absent	http 404 PGRST205	v12-g7-this-or-that.sql
+share_link_plays	absent	http 404 PGRST205	v12-g8-share-link-plays.sql
+editorial_accounts	absent	http 404 PGRST205	v12-g9-editorial.sql
+editorial_drafts	absent	http 404 PGRST205	v12-g9-editorial.sql
+editorial_posts	absent	http 404 PGRST205	v12-g9-editorial.sql
+duel_questions	EXISTS	http 200	existing
+duel_votes	EXISTS	http 200	existing
+personality_results	EXISTS	http 200	existing
+name_all_member_results	EXISTS	http 200	existing
+name_all_member_results.found_order,round_seconds	absent	http 400	v12-g6-name-all.sql
+songs with year 2026	0 (limit 1)	v12-g2-03-releases-2026.sql
+groups rescene / nct-wish	none	v12-g2-01-groups.sql

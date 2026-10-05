@@ -1,0 +1,45 @@
+a http://localhost:3075 (feat/v12)
+b http://localhost:3074 (origin/main)
+2026-10-04T16:28:10.571Z
+fields (b = origin/main, a = feat/v12): 1 field(s) differ
+server HTML: 0/38 identical after normalization
+  /: 2 changed line(s), html/root.diff
+  /quizzes: 8 changed line(s), html/quizzes.diff
+  /groups: 2 changed line(s), html/groups.diff
+  /bts-quiz: 4 changed line(s), html/bts_quiz.diff
+  /blackpink-quiz: 4 changed line(s), html/blackpink_quiz.diff
+  /stray-kids-quiz: 4 changed line(s), html/stray_kids_quiz.diff
+  /seventeen-quiz: 2 changed line(s), html/seventeen_quiz.diff
+  /cortis-quiz: 2 changed line(s), html/cortis_quiz.diff
+  /red-velvet-quiz: 2 changed line(s), html/red_velvet_quiz.diff
+  /q/are-you-a-real-coer: 2 changed line(s), html/q_are_you_a_real_coer.diff
+  /q/are-you-a-real-eyekon: 2 changed line(s), html/q_are_you_a_real_eyekon.diff
+  /q/illit-fans-here: 2 changed line(s), html/q_illit_fans_here.diff
+  /q/babymonster-quiz: 2 changed line(s), html/q_babymonster_quiz.diff
+  /q/le-sserafim-members-and-music-quiz: 2 changed line(s), html/q_le_sserafim_members_and_music_quiz.diff
+  /q/enhypen-guess-the-mv-from-the-screenshot: 2 changed line(s), html/q_enhypen_guess_the_mv_from_the_screenshot.diff
+  /blindtest: 4 changed line(s), html/blindtest.diff
+  /blindtest/classic: 2 changed line(s), html/blindtest_classic.diff
+  /blindtest/intro-challenge: 2 changed line(s), html/blindtest_intro_challenge.diff
+  /blindtest/girl-groups: 2 changed line(s), html/blindtest_girl_groups.diff
+  /blindtest/4th-gen: 2 changed line(s), html/blindtest_4th_gen.diff
+  /blindtest/title-tracks: 2 changed line(s), html/blindtest_title_tracks.diff
+  /leaderboard: 2 changed line(s), html/leaderboard.diff
+  /pt: 2 changed line(s), html/pt.diff
+  /pt/leaderboard: 2 changed line(s), html/pt_leaderboard.diff
+  /new: 4 changed line(s), html/new.diff
+  /most-liked: 2 changed line(s), html/most_liked.diff
+  /stats: 8 changed line(s), html/stats.diff
+  /articles: 2 changed line(s), html/articles.diff
+  /articles/who-is-cortis: 2 changed line(s), html/articles_who_is_cortis.diff
+  /faq: 2 changed line(s), html/faq.diff
+  /u/testtest: 2 changed line(s), html/u_testtest.diff
+  /trending: 2 changed line(s), html/trending.diff
+  /bts-trivia: 2 changed line(s), html/bts_trivia.diff
+  /easy-kpop-quizzes: 2 changed line(s), html/easy_kpop_quizzes.diff
+  /about: 2 changed line(s), html/about.diff
+  /news: 4 changed line(s), html/news.diff
+  /create: 2 changed line(s), html/create.diff
+  /pt/blindtest: 4 changed line(s), html/pt_blindtest.diff
+sitemap: a 3165 entries, b 3165; only a 0, only b 0
+robots.txt: byte identical (status 200 / 200)

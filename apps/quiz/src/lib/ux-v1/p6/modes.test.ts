@@ -5,8 +5,10 @@ import { describe, expect, it } from 'vitest';
 
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 
-import { clampRound, modeRun, titleFromSlug } from './modes';
-import { generateBody, isFixedPlaylist, playlistLabel } from './playlists';
+import { themeById } from '@/lib/growth/bt-themes';
+
+import { clampRound, modeRun, staticPlaylistFor, titleFromSlug } from './modes';
+import { generateBody, isFixedPlaylist, playlistLabel, V12_MIXES_ALL } from './playlists';
 
 // X1-001: every /blindtest/<mode> page starts a run generate serves, with the hub's body.
 
@@ -82,5 +84,15 @@ describe('mode runs (lib/ux-v1/p6/modes.ts)', () => {
     expect(playlistLabel('hits')).toBe('Hits');
     expect(titleFromSlug('stray-kids')).toBe('Stray Kids');
     expect([2, 5, 10, 15, 20].map(clampRound)).toEqual([5, 5, 10, 15, 15]);
+  });
+
+  // G3 request R4: the themed playlist has one name everywhere (rail card, page H1,
+  // game bar, results). The game bar and the results print this label.
+  it('V12: the TikTok playlist is labelled "Viral on TikTok", the name its page uses', () => {
+    expect(V12_MIXES_ALL.find((m) => m.playlist === 'tiktok-viral')?.label).toBe('Viral on TikTok');
+    expect(staticPlaylistFor('tiktok-viral', true)).toEqual({ playlist: 'tiktok-viral', label: 'Viral on TikTok', exact: true });
+    expect(themeById('tiktok-viral')?.name).toBe('Viral on TikTok');
+    // Flag off: the mode is not a v11 mode, so nothing is served under that id.
+    expect(staticPlaylistFor('tiktok-viral', false)).toBeUndefined();
   });
 });

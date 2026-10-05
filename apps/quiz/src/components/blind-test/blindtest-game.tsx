@@ -11,6 +11,7 @@ import { hasPlayedDaily, markDailyPlayed, completeDaily } from '@/lib/daily-play
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { StreakBackup } from '@/components/quiz/streak-backup';
 import { useAudioPlayer } from './use-audio-player';
+import { useBtTracking } from './use-bt-tracking';
 
 // ============================================
 // Solo V1 blindtest: 10 songs, 10s each, Deezer preview audio, 4 choices.
@@ -136,7 +137,10 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   // Destructure the hook's stable useCallback fns: the hook returns a NEW object
   // each render, so depending on `audio` directly would re-run effects every
   // render (clearing the timer + tearing down audio). The fns themselves are stable.
-  const { unlock, loadAndPlay, preload, stop, fadeOut, cleanup, isPlaying } = useAudioPlayer();
+  const { unlock, loadAndPlay, preload, stop, fadeOut, cleanup, isPlaying, audioRef } = useAudioPlayer();
+  // V12: every run is recorded through lib/tracking/bt.ts (NEXT_PUBLIC_BT_TRACKING; off = no-op).
+  const tracking = useBtTracking();
+  const questionRef = useRef<Question | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef(0);
   const answeredRef = useRef(false);
@@ -172,17 +176,21 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     fadeOut(350);
     // Time from clip start to answer (or the full timer on a timeout), clamped.
     const timeMs = Math.min(TIMER * 1000, Math.max(0, Date.now() - startRef.current));
+    const asked = questionRef.current;
+    if (asked) tracking.answer({ song_id: asked.song_id, kind: asked.question_type, correct, ms: timeMs });
     setSelected(picked);
     setAnswers((prev) => [...prev, { picked, correct, time_ms: timeMs }]);
     setPhase('reveal');
-  }, [fadeOut, stopTimer]);
+  }, [fadeOut, stopTimer, tracking]);
 
   const playQuestion = useCallback((q: Question, nextUrl?: string) => {
     answeredRef.current = false;
+    questionRef.current = q;
     setSelected(null);
     setTimeLeft(TIMER);
     if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
     loadAndPlay(q.preview_url);
+    tracking.attach(audioRef.current);
     // U-2d: warm the next clip while this one plays so it starts instantly.
     if (nextUrl) preload(nextUrl);
     startRef.current = Date.now();
@@ -197,7 +205,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         setTimeLeft(remaining);
       }
     }, 50);
-  }, [loadAndPlay, preload, reveal, stopTimer]);
+  }, [audioRef, loadAndPlay, preload, reveal, stopTimer, tracking]);
 
   const finish = useCallback(() => {
     stopTimer();
@@ -226,6 +234,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   useEffect(() => {
     if (phase !== 'results') return;
     if (alreadyPlayed) { void loadBoard(); return; }
+    tracking.finish(true);
     analytics.gameComplete('blindtest', score, questions.length, isDailyLaunch());
     if (daily && !dailySubmittedRef.current) {
       dailySubmittedRef.current = true;
@@ -297,6 +306,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setQuestions(data.questions);
       setIndex(0);
       setAnswers([]);
+      tracking.open({ kind: 'free', playlist, groups: selectedGroups, rounds: data.questions.length });
       analytics.gameStart('blindtest', isDailyLaunch());
       setPhase('playing');
       playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
@@ -304,7 +314,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setError('Could not start the game. Check your connection.');
       setPhase('setup');
     }
-  }, [unlock, playlist, playQuestion, roundCount, selectedGroups, groups]);
+  }, [unlock, playlist, playQuestion, roundCount, selectedGroups, groups, tracking]);
 
   // N4 - start the Blindtest of the Day. Runs from a Start tap (not on mount) so
   // the audio unlock happens inside a user gesture (iOS Safari). Fetches the
@@ -322,6 +332,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setIndex(0);
       setAnswers([]);
       dailySubmittedRef.current = false;
+      tracking.open({ kind: 'daily', rounds: data.questions.length });
       analytics.gameStart('blindtest', true);
       setPhase('playing');
       playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
@@ -329,7 +340,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setDailyError(true);
       setPhase('setup');
     }
-  }, [unlock, playQuestion]);
+  }, [unlock, playQuestion, tracking]);
 
   // N4 - leave daily mode for free play (the "Play free mode" action). Resets
   // state and drops ?daily from the URL so a refresh does not re-enter daily.
@@ -597,7 +608,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         <div className="bt-play">
           {/* Top bar */}
           <div className="bt-top">
-            <button type="button" className="bt-quit" onClick={() => { stopTimer(); stop(); setPhase('setup'); }} aria-label="Quit game">Quit</button>
+            <button type="button" className="bt-quit" onClick={() => { tracking.finish(false); stopTimer(); stop(); setPhase('setup'); }} aria-label="Quit game">Quit</button>
             <div className="bt-progress"><div className="bt-progress-fill" style={{ width: `${((index + (answered ? 1 : 0)) / questions.length) * 100}%` }} /></div>
             <span className="bt-count">{index + 1}/{questions.length}</span>
           </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/ux-v1/icon';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl, historyLine, quizLine } from '@/lib/ux-v1/p10/passport-model';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { HistoryRow } from '@/lib/ux-v1/p10/passport-model';
 import type { DraftRowView } from '@/lib/ux-v1/p10/local-draft';
@@ -27,10 +28,9 @@ export function GroupAvatar({ slug, name }: { slug: string; name: string }): Rea
   return <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : name.slice(0, 1)}</span>;
 }
 
-export function quizRowAverage(q: Pick<QuizCardData, 'total_score_sum' | 'total_completions' | 'question_count'>): string | null {
-  if (!q.total_completions || !q.question_count) return null;
-  const pct = Math.round((q.total_score_sum / (q.total_completions * q.question_count)) * 100);
-  return Number.isFinite(pct) ? `${Math.max(0, Math.min(100, pct))}% average` : null;
+export function quizRowAverage(q: Pick<QuizCardData, 'total_score_sum' | 'total_completions' | 'question_count'> & { quiz_type?: QuizCardData['quiz_type'] }): string | null {
+  const pct = avgScorePct(q);
+  return pct === null ? null : `${pct}% average`;
 }
 
 export function QuizRows({ quizzes }: { quizzes: QuizCardData[] }): React.ReactElement {

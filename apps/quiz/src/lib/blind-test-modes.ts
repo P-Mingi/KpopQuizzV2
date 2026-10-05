@@ -1,3 +1,5 @@
+import { isUxV12 } from './ux-v12';
+
 export interface BlindTestMode {
   id: string;
   title: string;
@@ -137,13 +139,72 @@ const SPECIAL_MODES: BlindTestMode[] = [
   },
 ];
 
+// ── THEMED (V12, flag only) ─────────────────────────
+// The five themed playlists of growth v12 (SYSTEM.md 4). They join STATIC_MODES only when
+// the v12 flag is on (both flags); with it off the list is today's 18 modes, unchanged.
+// Each plays the generate playlist of the same id (lib/blind-test-curated.ts, V12_PLAYLISTS).
+// A themed mode with fewer than THEMED_MIN_SONGS playable songs stays hidden: the data check
+// is lib/blind-test-playlists.ts (getThemedAvailability, getPlayableStaticModes).
+export const THEMED_MODES: BlindTestMode[] = [
+  {
+    id: 'kpop-hits-2026', title: 'K-pop hits 2026',
+    description: 'The biggest K-pop songs released in 2026',
+    clip_point: 'chorus', clip_duration: 10, song_count: 10,
+    difficulty: 'medium', filter: { year_min: 2026, year_max: 2026 }, category: 'special',
+  },
+  {
+    id: 'kpop-hits-2025', title: 'K-pop hits 2025',
+    description: 'The biggest K-pop songs released in 2025',
+    clip_point: 'chorus', clip_duration: 10, song_count: 10,
+    difficulty: 'medium', filter: { year_min: 2025, year_max: 2025 }, category: 'special',
+  },
+  {
+    id: '5th-gen', title: '5th gen',
+    description: 'ILLIT, RIIZE, BABYMONSTER, ZEROBASEONE, TWS, KISS OF LIFE and the newest groups',
+    clip_point: 'chorus', clip_duration: 10, song_count: 10,
+    difficulty: 'medium', filter: { generation: '5th' }, category: 'era',
+  },
+  {
+    id: 'tiktok-viral', title: 'TikTok viral K-pop',
+    description: 'K-pop songs that went viral on TikTok. Can you name them from the sound?',
+    clip_point: 'chorus', clip_duration: 10, song_count: 10,
+    difficulty: 'easy', filter: {}, category: 'special',
+  },
+  {
+    id: 'kpop-demon-hunters', title: 'KPop Demon Hunters songs',
+    description: 'KPop Demon Hunters songs blind test. Name the soundtrack songs from a short clip',
+    clip_point: 'chorus', clip_duration: 10, song_count: 10,
+    difficulty: 'easy', filter: {}, category: 'special',
+  },
+];
+
+export const THEMED_MODE_IDS: readonly string[] = THEMED_MODES.map((m) => m.id);
+
+/** A themed playlist needs this many playable songs, else it stays hidden (one full round). */
+export const THEMED_MIN_SONGS = 10;
+
+/** The hidden-under-10 rule. */
+export function themedVisible(playableSongs: number): boolean {
+  return playableSongs >= THEMED_MIN_SONGS;
+}
+
+/**
+ * The v12 flag for everything G2 gates (themed modes, v12 generate playlists): isUxV12() of
+ * lib/ux-v12.ts, true only when NEXT_PUBLIC_UX_V12 and NEXT_PUBLIC_UX_V1 are both on.
+ */
+export function themedModesOn(): boolean {
+  return isUxV12();
+}
+
+/** The static modes of a flag state: the 18 legacy modes, plus the themed ones when v12 is on. */
+export function staticModesFor(v12: boolean): BlindTestMode[] {
+  const legacy = [...DIFFICULTY_MODES, ...ERA_MODES, ...SPECIAL_MODES];
+  return v12 ? [...legacy, ...THEMED_MODES] : legacy;
+}
+
 // ── EXPORTS ─────────────────────────────────────────
 
-export const STATIC_MODES: BlindTestMode[] = [
-  ...DIFFICULTY_MODES,
-  ...ERA_MODES,
-  ...SPECIAL_MODES,
-];
+export const STATIC_MODES: BlindTestMode[] = staticModesFor(themedModesOn());
 
 export function getModeById(id: string): BlindTestMode | undefined {
   return STATIC_MODES.find(m => m.id === id);

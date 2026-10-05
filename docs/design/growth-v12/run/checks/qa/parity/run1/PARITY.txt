@@ -1,0 +1,34 @@
+C3 production parity, V12 prompt section 6. 2026-10-03.
+a = feat/v12 (afb83f4, same app code as the head), both flags unset, http://localhost:3073
+b = origin/main (a94d77c), both flags unset, http://localhost:3074
+Commands: node ../c3-parity.mjs --a http://localhost:3073 --b http://localhost:3074 --out run1
+          node ../c3-parity-normalize.mjs run1
+Files: summary.txt (first pass), fields-diff.txt, a.json, b.json, html/*.diff, sitemap-diff.txt, normalized.txt.
+
+VERDICT: no blocking difference. 0 lines classed OTHER. One difference for ORCH's call, C3 below.
+
+1. SEO fields of the 40 URLs (status, redirect, title, description, canonical, hreflang, robots, x-robots, og,
+   H1, parsed JSON-LD, internal links): identical except /stats JSON-LD, where the only change is
+   "dateModified" of the Dataset and WebPage nodes (render time, 10:58:47 vs 11:00:04): a timestamp.
+2. sitemap.xml: 3008 entries on both, same set of URLs with the same hreflang alternates (lastmod left out).
+3. robots.txt: byte identical, 200 on both.
+4. Server HTML of the 38 pages, after the first pass (the /_next/static paths, the build id and the
+   self.__next_f scripts removed) and N1:
+   - 28 pages identical.
+   - C1, recomputed guess-from-clues figures (allowed; owner decisions 1 and 2), 7 pages: /bts-quiz,
+     /blackpink-quiz, /stray-kids-quiz, /new, /trending ("avg 180%" -> 60%, 124 -> 41, 92 -> 31, 78 -> 26),
+     /quizzes (the same chips, score-green -> score-red), /stats ("Ranked from 257 quizzes" -> 254, clue quizzes
+     left out of the rankings, plus the dateModified timestamp).
+   - C2, live counter (allowed), 1 page: /news, relative times "7m ago" -> "6m ago" (fetched about 1 minute apart).
+   - C3, 2 pages: /blindtest and /pt/blindtest serve ONE extra async script chunk on feat/v12
+     (/_next/static/chunks/0ff8x9iswzu12.js and its group; 723,304 vs 718,397 bytes of JS, +4.9 KB). It is G1's
+     blindtest tracking code (trackBtRun, useBtTracking, /api/track/bt-run, getAnonId), imported by the legacy
+     game. It is inert with NEXT_PUBLIC_BT_TRACKING unset: trackBtRun returns false first thing
+     (lib/tracking/bt.ts L88, BT_TRACKING from lib/tracking/bt-shared.ts L7). COMMON rule 5 names this as the
+     exception to the v12 gating (the legacy tracking calls follow NEXT_PUBLIC_BT_TRACKING alone). The visible
+     HTML, the text and the links are identical; only the script list differs. Section 6 asks for identical
+     server HTML, so this is ORCH's / the owner's call: accept as the documented tracking exception, or have
+     G1 load the tracking module only when BT_TRACKING is on.
+Normalization N1 (written down, applied before the comparison): the next/font CSS module class on <html>
+("pretendard_60cdc229-module__UDh0rq__variable" vs "...__pUigVW__variable") is a build hash, like the
+/_next/static paths. It differed on all 38 pages and nothing else in it.

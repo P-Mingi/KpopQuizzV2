@@ -1,0 +1,310 @@
+{
+ "state": "quiz-bonus",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:59:13.684Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.87,
+    "maskedPct": 6.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":4,\"max_score\":8,\"per_question_times\":[0,0.9,0.8,0.8,0.8,0,0,0],\"anon_id\":\"63ee0a1a-50b7-4c62-9e6a-f3be47ce4c5c\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 6
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:59:17.699Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.01,
+    "maskedPct": 6.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":2,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0,0.8,0,0.8],\"anon_id\":\"4f622e50-f882-40eb-a32c-c928758efca0\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 4
+  },
+  "390-light": {
+   "at": "2026-10-03T10:59:21.415Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.06,
+    "maskedPct": 13
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":1,\"max_score\":8,\"per_question_times\":[0.1,0,0,0,0.9,0,0,0],\"anon_id\":\"53fea5b1-c2e5-4a7a-910f-648b7cef3060\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:59:23.798Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.33,
+    "maskedPct": 13
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play",
+     "body": "{\"score\":8,\"total_questions\":8,\"time_taken_seconds\":0,\"max_score\":8,\"per_question_times\":[0,0,0,0,0,0,0,0],\"anon_id\":\"93329ff4-1d42-48e6-9ac4-11a22f742aa3\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "card",
+     "proto": ".tot",
+     "impl": ".ux-tot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "song option",
+     "proto": ".toto",
+     "impl": ".ux-toto",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "card footer",
+     "proto": ".totf",
+     "impl": ".ux-tot-f",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G7",
+ "auth": "guest",
+ "anchor": ".ux-tot",
+ "note": "pairs answered by the G7 fixture (the prototype's five BTS pairs) so text-driven boxes compare; the save of the play is answered locally",
+ "verdict": "pass"
+}

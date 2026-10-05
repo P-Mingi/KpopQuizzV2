@@ -1,0 +1,873 @@
+{
+ "url": "/stray-kids-quiz",
+ "stops": 108,
+ "cycled": true,
+ "stuck": false,
+ "bad": [],
+ "list": [
+  {
+   "i": 0,
+   "tag": "a",
+   "name": "Skip to content",
+   "ring": true,
+   "visible": true,
+   "key": "A|#main|Skip to content|12,12"
+  },
+  {
+   "i": 1,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,18"
+  },
+  {
+   "i": 2,
+   "tag": "a",
+   "name": "Home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|Home|298,13"
+  },
+  {
+   "i": 3,
+   "tag": "a",
+   "name": "Quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|Quizzes|391,13"
+  },
+  {
+   "i": 4,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|498,13"
+  },
+  {
+   "i": 5,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|601,13"
+  },
+  {
+   "i": 6,
+   "tag": "a",
+   "name": "Community",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Community|714,13"
+  },
+  {
+   "i": 7,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|847,13"
+  },
+  {
+   "i": 8,
+   "tag": "a",
+   "name": "Search",
+   "ring": true,
+   "visible": true,
+   "key": "A|/search|Search|1044,14"
+  },
+  {
+   "i": 9,
+   "tag": "a",
+   "name": "Create",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create|1088,14"
+  },
+  {
+   "i": 10,
+   "tag": "button",
+   "name": "Sign in",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Sign in|1193,14"
+  },
+  {
+   "i": 11,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|160,93"
+  },
+  {
+   "i": 12,
+   "tag": "a",
+   "name": "Play the top quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/skz-true-or-false-only-real-stays-pass|Play the top quiz|160,404"
+  },
+  {
+   "i": 13,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-stray-kids|Blindtest|388,404"
+  },
+  {
+   "i": 14,
+   "tag": "a",
+   "name": "Quizzes29 fan-made Stray Kids quizzes.Most played ",
+   "ring": true,
+   "visible": true,
+   "key": "A|#hub-quizzes|Quizzes29 fan-made Stray Kids quizzes.Most played |160,606"
+  },
+  {
+   "i": 15,
+   "tag": "a",
+   "name": "Blindtest18 Stray Kids songs, ten-second clips.Sol",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/group-stray-kids|Blindtest18 Stray Kids songs, ten-second clips.Sol|444,606"
+  },
+  {
+   "i": 16,
+   "tag": "a",
+   "name": "Name them all NewAll 8 members in 60 seconds.",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-name-all-members|Name them all NewAll 8 members in 60 seconds.|728,606"
+  },
+  {
+   "i": 17,
+   "tag": "a",
+   "name": "Which member are you? NewEight questions about you",
+   "ring": true,
+   "visible": true,
+   "key": "A|/which-stray-kids-member-are-you|Which member are you? NewEight questions about you|1012,606"
+  },
+  {
+   "i": 18,
+   "tag": "button",
+   "name": "Popular",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Popular|164,929"
+  },
+  {
+   "i": 19,
+   "tag": "button",
+   "name": "Newest",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Newest|254,929"
+  },
+  {
+   "i": 20,
+   "tag": "button",
+   "name": "Most liked",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Most liked|342,929"
+  },
+  {
+   "i": 21,
+   "tag": "button",
+   "name": "Hardest",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Hardest|449,929"
+  },
+  {
+   "i": 22,
+   "tag": "button",
+   "name": "Type",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Type|1086,925"
+  },
+  {
+   "i": 23,
+   "tag": "button",
+   "name": "Level",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Level|1186,925"
+  },
+  {
+   "i": 24,
+   "tag": "a",
+   "name": "True/false · EasySKZ true or false - only real STA",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/skz-true-or-false-only-real-stays-pass|True/false · EasySKZ true or false - only real STA|160,993"
+  },
+  {
+   "i": 25,
+   "tag": "a",
+   "name": "Classic · EasyStray Kids basics1.1k playsaverage 8",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-basics|Classic · EasyStray Kids basics1.1k playsaverage 8|539,993"
+  },
+  {
+   "i": 26,
+   "tag": "a",
+   "name": "Classic · EasyStray Kids members deep knowledge603",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-members-deep-knowledge|Classic · EasyStray Kids members deep knowledge603|917,993"
+  },
+  {
+   "i": 27,
+   "tag": "a",
+   "name": "True/false · EasyStray Kids true or false491 plays",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-true-or-false|True/false · EasyStray Kids true or false491 plays|160,1157"
+  },
+  {
+   "i": 28,
+   "tag": "a",
+   "name": "Clues · MediumGuess the SKZ member from clues458 p",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/guess-the-skz-member-from-clues|Clues · MediumGuess the SKZ member from clues458 p|539,1157"
+  },
+  {
+   "i": 29,
+   "tag": "a",
+   "name": "Classic · EasyStray Kids - know each member446 pla",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-know-each-member|Classic · EasyStray Kids - know each member446 pla|917,1157"
+  },
+  {
+   "i": 30,
+   "tag": "a",
+   "name": "Classic · EasyStray Kids Lee Know Quiz Part-1266 p",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-lee-know-quiz-part-1|Classic · EasyStray Kids Lee Know Quiz Part-1266 p|160,1321"
+  },
+  {
+   "i": 31,
+   "tag": "a",
+   "name": "Classic · EasyStray Kids discography challenge205 ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-discography-challenge|Classic · EasyStray Kids discography challenge205 |539,1321"
+  },
+  {
+   "i": 32,
+   "tag": "a",
+   "name": "Classic · EasyHow well do you know SKZ members?197",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/how-well-do-you-know-skz-members|Classic · EasyHow well do you know SKZ members?197|917,1321"
+  },
+  {
+   "i": 33,
+   "tag": "a",
+   "name": "Classic · MediumStray Kids discography test193 pla",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-discography-test|Classic · MediumStray Kids discography test193 pla|160,1485"
+  },
+  {
+   "i": 34,
+   "tag": "a",
+   "name": "Classic · MediumStray Kids NOEASY to MAXIDENT era1",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-noeasy-to-maxident-era|Classic · MediumStray Kids NOEASY to MAXIDENT era1|539,1485"
+  },
+  {
+   "i": 35,
+   "tag": "a",
+   "name": "Classic · EasyOnly real STAYs can ace this Stray K",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/only-real-stays-can-ace-stray-kids-quiz|Classic · EasyOnly real STAYs can ace this Stray K|917,1485"
+  },
+  {
+   "i": 36,
+   "tag": "summary",
+   "name": "Show all 29",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Show all 29|659,1665"
+  },
+  {
+   "i": 37,
+   "tag": "a",
+   "name": "mapple",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/mapple|mapple|414,1727"
+  },
+  {
+   "i": 38,
+   "tag": "ul",
+   "name": "Stray Kids members",
+   "ring": true,
+   "visible": true,
+   "key": "UL||Stray Kids members|158,1975"
+  },
+  {
+   "i": 39,
+   "tag": "a",
+   "name": "Learn before you play: Stray Kids trivia",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-trivia|Learn before you play: Stray Kids trivia|160,2156"
+  },
+  {
+   "i": 40,
+   "tag": "a",
+   "name": "Make your own Stray Kids quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create?group=stray-kids|Make your own Stray Kids quiz|487,2156"
+  },
+  {
+   "i": 41,
+   "tag": "summary",
+   "name": "How many members does Stray Kids have?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||How many members does Stray Kids have?|160,2271"
+  },
+  {
+   "i": 42,
+   "tag": "summary",
+   "name": "When did Stray Kids debut?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||When did Stray Kids debut?|160,2373"
+  },
+  {
+   "i": 43,
+   "tag": "summary",
+   "name": "What is Stray Kids's fandom called?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What is Stray Kids's fandom called?|160,2430"
+  },
+  {
+   "i": 44,
+   "tag": "summary",
+   "name": "What generation is Stray Kids?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What generation is Stray Kids?|160,2487"
+  },
+  {
+   "i": 45,
+   "tag": "summary",
+   "name": "Where is Stray Kids from?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Where is Stray Kids from?|160,2544"
+  },
+  {
+   "i": 46,
+   "tag": "summary",
+   "name": "What label is Stray Kids on?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||What label is Stray Kids on?|160,2601"
+  },
+  {
+   "i": 47,
+   "tag": "summary",
+   "name": "How many Stray Kids quizzes are there?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||How many Stray Kids quizzes are there?|160,2658"
+  },
+  {
+   "i": 48,
+   "tag": "summary",
+   "name": "How many Stray Kids songs can I play in the blind ",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||How many Stray Kids songs can I play in the blind |160,2715"
+  },
+  {
+   "i": 49,
+   "tag": "summary",
+   "name": "Is there a Stray Kids blind test?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Is there a Stray Kids blind test?|160,2772"
+  },
+  {
+   "i": 50,
+   "tag": "summary",
+   "name": "Are the Stray Kids quizzes free?",
+   "ring": true,
+   "visible": true,
+   "key": "SUMMARY||Are the Stray Kids quizzes free?|160,2829"
+  },
+  {
+   "i": 51,
+   "tag": "a",
+   "name": "All posts",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|All posts|1218,1815"
+  },
+  {
+   "i": 52,
+   "tag": "a",
+   "name": "T“This is a good quiz as I just tested it out”tale",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/a-straykids-quiz|T“This is a good quiz as I just tested it out”tale|920,1859"
+  },
+  {
+   "i": 53,
+   "tag": "a",
+   "name": "T“wow amazing quiz”talentless_stay on Stray Kids L",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-lee-know-quiz-part-1|T“wow amazing quiz”talentless_stay on Stray Kids L|920,1936"
+  },
+  {
+   "i": 54,
+   "tag": "a",
+   "name": "ATEEZ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/ateez-quiz|ATEEZ|976,2144"
+  },
+  {
+   "i": 55,
+   "tag": "a",
+   "name": "ATEEZ title tracks and members quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/ateez-title-tracks-and-members-quiz|ATEEZ title tracks and members quiz|1054,2169"
+  },
+  {
+   "i": 56,
+   "tag": "a",
+   "name": "TXT",
+   "ring": true,
+   "visible": true,
+   "key": "A|/txt-quiz|TXT|976,2221"
+  },
+  {
+   "i": 57,
+   "tag": "a",
+   "name": "How well do you know TXT?",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/how-well-do-you-know-txt|How well do you know TXT?|1046,2246"
+  },
+  {
+   "i": 58,
+   "tag": "a",
+   "name": "ENHYPEN",
+   "ring": true,
+   "visible": true,
+   "key": "A|/enhypen-quiz|ENHYPEN|976,2298"
+  },
+  {
+   "i": 59,
+   "tag": "a",
+   "name": "ENHYPEN debut and beyond quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/enhypen-debut-and-beyond-quiz|ENHYPEN debut and beyond quiz|1045,2323"
+  },
+  {
+   "i": 60,
+   "tag": "a",
+   "name": "See the war",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard#fandom-war|See the war|1175,2382"
+  },
+  {
+   "i": 61,
+   "tag": "a",
+   "name": "are a real stay?Sep 26, 2026",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/are-a-real-stay|are a real stay?Sep 26, 2026|920,2498"
+  },
+  {
+   "i": 62,
+   "tag": "a",
+   "name": "SKZ QUIZSep 2, 2026",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/skz-quiz|SKZ QUIZSep 2, 2026|920,2570"
+  },
+  {
+   "i": 63,
+   "tag": "a",
+   "name": "A Straykids QuizAug 25, 2026",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/a-straykids-quiz|A Straykids QuizAug 25, 2026|920,2643"
+  },
+  {
+   "i": 64,
+   "tag": "a",
+   "name": "Stray kids members quizAug 6, 2026",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/stray-kids-members-quiz|Stray kids members quizAug 6, 2026|920,2716"
+  },
+  {
+   "i": 65,
+   "tag": "a",
+   "name": "SKZ - Guess the MV by the screenshotJul 26, 2026",
+   "ring": true,
+   "visible": true,
+   "key": "A|/q/skz-guess-the-mv-by-the-screenshot|SKZ - Guess the MV by the screenshotJul 26, 2026|920,2789"
+  },
+  {
+   "i": 66,
+   "tag": "a",
+   "name": "Stray Kids vs ATEEZ: The 4th-Gen Showdown",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles/stray-kids-vs-ateez|Stray Kids vs ATEEZ: The 4th-Gen Showdown|920,2958"
+  },
+  {
+   "i": 67,
+   "tag": "a",
+   "name": "Every K-pop Generation Explained",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles/kpop-generations-explained|Every K-pop Generation Explained|920,3032"
+  },
+  {
+   "i": 68,
+   "tag": "a",
+   "name": "Ppaws_of_linoLv 4 · Casual Fan70%",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/paws_of_lino|Ppaws_of_linoLv 4 · Casual Fan70%|920,3233"
+  },
+  {
+   "i": 69,
+   "tag": "a",
+   "name": "ZiaATZ OT8Lv 11 · Bias89%",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/light_a_matz|ZiaATZ OT8Lv 11 · Bias89%|920,3309"
+  },
+  {
+   "i": 70,
+   "tag": "a",
+   "name": "levymann11kKaiLv 5 · Casual Fan70%",
+   "ring": true,
+   "visible": true,
+   "key": "A|/u/levymann11k|levymann11kKaiLv 5 · Casual Fan70%|920,3388"
+  },
+  {
+   "i": 71,
+   "tag": "a",
+   "name": "KpopQuiz home",
+   "ring": true,
+   "visible": true,
+   "key": "A|/|KpopQuiz home|160,3711"
+  },
+  {
+   "i": 72,
+   "tag": "a",
+   "name": "Daily quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/daily|Daily quiz|449,3746"
+  },
+  {
+   "i": 73,
+   "tag": "a",
+   "name": "Blindtest",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest|Blindtest|449,3778"
+  },
+  {
+   "i": 74,
+   "tag": "a",
+   "name": "Ranked",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blindtest/ranked|Ranked|449,3811"
+  },
+  {
+   "i": 75,
+   "tag": "a",
+   "name": "All quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes|All quizzes|449,3843"
+  },
+  {
+   "i": 76,
+   "tag": "a",
+   "name": "Popular quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/quizzes/popular-this-week|Popular quizzes|449,3875"
+  },
+  {
+   "i": 77,
+   "tag": "a",
+   "name": "Trivia",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trivia|Trivia|449,3908"
+  },
+  {
+   "i": 78,
+   "tag": "a",
+   "name": "Groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|Groups|665,3746"
+  },
+  {
+   "i": 79,
+   "tag": "a",
+   "name": "Trending",
+   "ring": true,
+   "visible": true,
+   "key": "A|/trending|Trending|665,3778"
+  },
+  {
+   "i": 80,
+   "tag": "a",
+   "name": "New quizzes",
+   "ring": true,
+   "visible": true,
+   "key": "A|/new|New quizzes|665,3811"
+  },
+  {
+   "i": 81,
+   "tag": "a",
+   "name": "Knowledge Report",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/knowledge-report-2026|Knowledge Report|665,3843"
+  },
+  {
+   "i": 82,
+   "tag": "a",
+   "name": "Pulse",
+   "ring": true,
+   "visible": true,
+   "key": "A|/data/pulse|Pulse|665,3875"
+  },
+  {
+   "i": 83,
+   "tag": "a",
+   "name": "Stats",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stats|Stats|665,3908"
+  },
+  {
+   "i": 84,
+   "tag": "a",
+   "name": "Articles",
+   "ring": true,
+   "visible": true,
+   "key": "A|/articles|Articles|665,3940"
+  },
+  {
+   "i": 85,
+   "tag": "a",
+   "name": "News",
+   "ring": true,
+   "visible": true,
+   "key": "A|/news|News|665,3972"
+  },
+  {
+   "i": 86,
+   "tag": "a",
+   "name": "Feed",
+   "ring": true,
+   "visible": true,
+   "key": "A|/community|Feed|881,3746"
+  },
+  {
+   "i": 87,
+   "tag": "a",
+   "name": "Leaderboard",
+   "ring": true,
+   "visible": true,
+   "key": "A|/leaderboard|Leaderboard|881,3778"
+  },
+  {
+   "i": 88,
+   "tag": "a",
+   "name": "Fandoms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/verse|Fandoms|881,3811"
+  },
+  {
+   "i": 89,
+   "tag": "a",
+   "name": "Create a quiz",
+   "ring": true,
+   "visible": true,
+   "key": "A|/create|Create a quiz|881,3843"
+  },
+  {
+   "i": 90,
+   "tag": "a",
+   "name": "Discord",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://discord.gg/X7AW95WFT?utm_source=discord&utm_medium=site&utm_campaign=footer|Discord|881,3875"
+  },
+  {
+   "i": 91,
+   "tag": "a",
+   "name": "Reddit",
+   "ring": true,
+   "visible": true,
+   "key": "A|https://reddit.com/r/Kpop_Verse|Reddit|881,3908"
+  },
+  {
+   "i": 92,
+   "tag": "a",
+   "name": "Help",
+   "ring": true,
+   "visible": true,
+   "key": "A|/faq|Help|1096,3746"
+  },
+  {
+   "i": 93,
+   "tag": "a",
+   "name": "About",
+   "ring": true,
+   "visible": true,
+   "key": "A|/about|About|1096,3778"
+  },
+  {
+   "i": 94,
+   "tag": "a",
+   "name": "Contact",
+   "ring": true,
+   "visible": true,
+   "key": "A|/contact|Contact|1096,3811"
+  },
+  {
+   "i": 95,
+   "tag": "a",
+   "name": "Privacy",
+   "ring": true,
+   "visible": true,
+   "key": "A|/privacy|Privacy|1096,3843"
+  },
+  {
+   "i": 96,
+   "tag": "a",
+   "name": "Terms",
+   "ring": true,
+   "visible": true,
+   "key": "A|/terms|Terms|1096,3875"
+  },
+  {
+   "i": 97,
+   "tag": "a",
+   "name": "DMCA",
+   "ring": true,
+   "visible": true,
+   "key": "A|/dmca|DMCA|1096,3908"
+  },
+  {
+   "i": 98,
+   "tag": "a",
+   "name": "BTS",
+   "ring": true,
+   "visible": true,
+   "key": "A|/bts-quiz|BTS|258,4070"
+  },
+  {
+   "i": 99,
+   "tag": "a",
+   "name": "BLACKPINK",
+   "ring": true,
+   "visible": true,
+   "key": "A|/blackpink-quiz|BLACKPINK|303,4070"
+  },
+  {
+   "i": 100,
+   "tag": "a",
+   "name": "Stray Kids",
+   "ring": true,
+   "visible": true,
+   "key": "A|/stray-kids-quiz|Stray Kids|399,4070"
+  },
+  {
+   "i": 101,
+   "tag": "a",
+   "name": "ATEEZ",
+   "ring": true,
+   "visible": true,
+   "key": "A|/ateez-quiz|ATEEZ|485,4070"
+  },
+  {
+   "i": 102,
+   "tag": "a",
+   "name": "TWICE",
+   "ring": true,
+   "visible": true,
+   "key": "A|/twice-quiz|TWICE|546,4070"
+  },
+  {
+   "i": 103,
+   "tag": "a",
+   "name": "aespa",
+   "ring": true,
+   "visible": true,
+   "key": "A|/aespa-quiz|aespa|609,4070"
+  },
+  {
+   "i": 104,
+   "tag": "a",
+   "name": "NewJeans",
+   "ring": true,
+   "visible": true,
+   "key": "A|/newjeans-quiz|NewJeans|667,4070"
+  },
+  {
+   "i": 105,
+   "tag": "a",
+   "name": "SEVENTEEN",
+   "ring": true,
+   "visible": true,
+   "key": "A|/seventeen-quiz|SEVENTEEN|754,4070"
+  },
+  {
+   "i": 106,
+   "tag": "a",
+   "name": "All groups",
+   "ring": true,
+   "visible": true,
+   "key": "A|/groups|All groups|854,4070"
+  },
+  {
+   "i": 107,
+   "tag": "button",
+   "name": "Dark mode",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Dark mode|1191,4116"
+  }
+ ]
+}

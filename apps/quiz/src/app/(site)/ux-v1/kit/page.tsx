@@ -14,6 +14,7 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { TextCard, TextCardGrid } from '@/components/ux-v1/text-card';
 import { getNewQuizzes, getTrendingQuizzes } from '@/lib/db/queries/quizzes';
 import { UX_V1 } from '@/lib/ux-v1';
+import { isUxV12 } from '@/lib/ux-v12';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { UX_ICONS } from '@/lib/ux-v1/a0/icons';
 import { RARITY_ORDER } from '@/lib/badges';
@@ -21,6 +22,7 @@ import { RARITY_ORDER } from '@/lib/badges';
 import { KitAuthProbeLate } from './kit-auth-probe-late';
 import { KitControls, KitFeedback, KitForms, KitKeepLabel, KitPopovers, KitSheets } from './kit-demos';
 import { KitLinkControls, KitLinkControlsView } from './kit-link-controls';
+import { KitV12 } from './kit-v12';
 
 import type { Metadata } from 'next';
 import type { QuizCardData } from '@/lib/db/types';
@@ -351,6 +353,8 @@ export default async function UxKitPage(): Promise<React.ReactElement> {
           ))}
         </div>
       </KitSection>
+
+      {isUxV12() ? <KitV12 /> : null}
     </UxPage>
   );
 }

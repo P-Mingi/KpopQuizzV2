@@ -1,0 +1,49 @@
+IDENTICAL (structure)  /blindtest  status 200/200  raw bytes 178763/178083  normalised 54395/54395  js chunks 26/26
+IDENTICAL (structure)  /pt/blindtest  status 200/200  raw bytes 115146/114408  normalised 35835/35835  js chunks 27/27
+IDENTICAL (structure)  /blindtest/classic  status 200/200  raw bytes 78983/78309  normalised 23863/23863  js chunks 25/25
+IDENTICAL (structure)  /blindtest/4th-gen  status 200/200  raw bytes 79024/78350  normalised 23875/23875  js chunks 25/25
+IDENTICAL (structure)  /blindtest/girl-groups  status 200/200  raw bytes 79039/78365  normalised 23879/23879  js chunks 25/25
+IDENTICAL (structure)  /blindtest/speed-round  status 200/200  raw bytes 79051/78377  normalised 23891/23891  js chunks 25/25
+IDENTICAL (structure)  /blindtest/title-tracks  status 200/200  raw bytes 79095/78421  normalised 23899/23899  js chunks 25/25
+IDENTICAL (structure)  /blindtest/random-all  status 200/200  raw bytes 78995/78321  normalised 23866/23866  js chunks 25/25
+IDENTICAL (structure)  /blindtest/group-bts  status 200/200  raw bytes 78904/78230  normalised 23809/23809  js chunks 25/25
+IDENTICAL (structure)  /blindtest/group-stray-kids  status 200/200  raw bytes 78995/78321  normalised 23844/23844  js chunks 25/25
+IDENTICAL (structure)  /blindtest/leaderboard  status 200/200  raw bytes 84010/83424  normalised 25788/25788  js chunks 22/22
+IDENTICAL (structure)  /guess-the-kpop-song  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /fr/blind-test-kpop  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /es/adivina-la-cancion-kpop  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (structure)  /id/tebak-lagu-kpop  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+DIFFERENT (structure)  /blindtest/5th-gen  status 404/404  raw bytes 57440/56805  normalised 4692/4684  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+DIFFERENT (structure)  /blindtest/kpop-hits-2025  status 404/404  raw bytes 57454/56819  normalised 4692/4684  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+DIFFERENT (structure)  /blindtest/tiktok-viral  status 404/404  raw bytes 57450/56815  normalised 4692/4684  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+DIFFERENT (structure)  /blindtest/kpop-hits-2026  status 404/404  raw bytes 57454/56819  normalised 4692/4684  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+DIFFERENT (structure)  /blindtest/kpop-demon-hunters  status 404/404  raw bytes 57462/56827  normalised 4692/4684  js chunks 16/16
+  node 49
+    A: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+    B: <template data-next-error-message="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-digest="NEXT_HTTP_ERROR_FALLBACK;404" data-next-error-stack="Error: NEXT_HTTP_ERROR_FALLBACK;404
+    at BlindTestModePage (about://React/Server/file:///Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/agent-a7e
+IDENTICAL (structure)  /sitemap.xml  status 200/200  raw bytes 564261/564261  normalised 564261/564261  js chunks 0/0
+IDENTICAL (structure)  /robots.txt  status 200/200  raw bytes 1112/1112  normalised 1112/1112  js chunks 0/0
+5 page(s) differ
+modes API ids identical

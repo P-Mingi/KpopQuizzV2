@@ -5,6 +5,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { EmbedResizer } from '@/components/embed/embed-resizer';
 import { parseEmbedTheme, embedStyle } from '@/lib/embed/theme';
+import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { Metadata } from 'next';
 
@@ -71,9 +72,7 @@ export default async function EmbedQuizPage({ params, searchParams }: EmbedPageP
   if (!quiz) notFound();
 
   const questionCount = (quiz.questions as unknown[]).length;
-  const passRate = quiz.total_completions > 0 && questionCount > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions / questionCount) * 100)
-    : null;
+  const passRate = avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type });
 
   // The SAME player the real page uses. Reused rather than forked so the two cannot
   // drift apart, and so the end-of-quiz challenge block (W2) comes along for free:

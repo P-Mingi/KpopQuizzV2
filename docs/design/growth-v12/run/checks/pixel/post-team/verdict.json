@@ -1,0 +1,206 @@
+{
+ "state": "post-team",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:05:08.707Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge",
+   "url": "/community",
+   "signedIn": false,
+   "hiddenForm": {
+    "teamTags": 0
+   },
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.72,
+    "maskedPct": 16.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:05:10.455Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge",
+   "url": "/community",
+   "signedIn": false,
+   "hiddenForm": {
+    "teamTags": 0
+   },
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 3.89,
+    "maskedPct": 16.1
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T11:05:12.240Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge",
+   "url": "/community",
+   "signedIn": false,
+   "hiddenForm": {
+    "teamTags": 0
+   },
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.94,
+    "maskedPct": 38.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:05:14.030Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge",
+   "url": "/community",
+   "signedIn": false,
+   "hiddenForm": {
+    "teamTags": 0
+   },
+   "counts": {
+    "pass": 1,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.07,
+    "maskedPct": 38.4
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G9",
+ "auth": "guest",
+ "anchor": null,
+ "pending": "NOT verified until v12-g9-editorial.sql and v12-g9-editorial-accounts.sql are applied (no editorial account or post exists); the feed is checked to carry no Team badge",
+ "verdict": "not verified"
+}

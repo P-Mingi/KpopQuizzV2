@@ -2,13 +2,17 @@
 
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 
+import { CoverImg } from '@/components/ux-v1/cover-img';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxIconButton } from '@/components/ux-v1/button';
-import { comboLabel, comma } from '@/lib/ux-v1/p6/points';
+import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
+import { comboLabel } from '@/lib/ux-v1/p6/points';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { AUTO_NEXT_MS, TIMER_S } from './use-run';
 
 import type { RunApi } from './use-run';
+import type { BtStrings } from '@/lib/growth/bt-strings';
 
 // The blindtest game in day mode (DESIGN-SPEC 16.7, 17.5; prototype #btplay):
 // focus mode, a slim game bar (quit, playlist, one segment per song, points +
@@ -39,9 +43,11 @@ interface BtGameProps {
   intro?: { title: string; state: string } | undefined;
   /** What the tap starts (defaults to today's Blindtest of the day). */
   onTap?: (() => void) | undefined;
+  /** V12 landings: the game in another language (lib/growth/bt-strings.ts). Default: English, unchanged. */
+  strings?: BtStrings | undefined;
 }
 
-export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactElement {
+export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: BtGameProps): React.ReactElement {
   const reduced = useReducedMotion();
   const qRef = useRef<HTMLHeadingElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -54,6 +60,16 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
   const correctIdx = q ? q.choices.findIndex((c) => c === q.correct_answer) : -1;
   const round = summary.rounds[index];
   const streakTenths = summary.rounds.length ? summary.rounds[summary.rounds.length - 1]!.tenths : 0;
+
+  // V12 (F7a): fetch this song's cover while the clip plays, so the reveal shows the
+  // picture at once instead of an empty tile while it downloads.
+  const cover = q?.reveal.cover ?? null;
+  useEffect(() => {
+    if (!isUxV12() || !cover || phase !== 'playing') return;
+    const im = new Image();
+    im.decoding = 'async';
+    im.src = cover;
+  }, [cover, phase]);
 
   // Keys 1-4 answer, Enter goes on (16.7). Buttons keep their own Enter.
   useEffect(() => {
@@ -85,9 +101,9 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
 
   let stateText = '';
   if (phase === 'tap') stateText = intro?.state ?? 'Blindtest of the day · one try';
-  else if (phase === 'loading') stateText = 'Picking your songs';
-  else if (answered) stateText = `Song ${index + 1} of ${total}`;
-  else stateText = `Song ${index + 1} of ${total} · ${isPlaying ? 'listening' : blocked ? 'tap to play' : 'loading clip'}`;
+  else if (phase === 'loading') stateText = s.picking;
+  else if (answered) stateText = s.songOf(index + 1, total);
+  else stateText = `${s.songOf(index + 1, total)} · ${isPlaying ? s.listening : blocked ? s.tapToPlay : s.loadingClip}`;
 
   const choiceCls = (i: number): string => {
     if (!answered) return 'p6-ans';
@@ -97,21 +113,21 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
   };
 
   return (
-    <div className="p6-play" data-phase={phase} data-live="1">
+    <div className="p6-play" data-phase={phase} data-live="1" lang={s.lang === 'en' ? undefined : s.lang}>
       <div className="p6-gbar">
         <div className="ux-stage p6-gbar-in">
-          <UxIconButton icon="x" label="Quit blindtest" onClick={run.quit} />
+          <UxIconButton icon="x" label={s.quit} onClick={run.quit} />
           {chip ? <span className="p6-gt p6-gch">{chip}</span> : <span className="p6-gt">{run.pick.label}</span>}
-          <div className="p6-segs" role="img" aria-label={`Song ${Math.min(index + 1, total)} of ${total}, ${summary.correct} right`}>
+          <div className="p6-segs" role="img" aria-label={s.progress(Math.min(index + 1, total), total, summary.correct)}>
             {Array.from({ length: total }, (_, i) => {
               const a = answers[i];
               const cls = a ? (a.correct ? 'is-ok' : 'is-no') : !answered && i === index && phase === 'playing' ? 'is-cur' : '';
               return <span key={i} className={cls} />;
             })}
           </div>
-          <span className="p6-gscore"><span className="ux-num">{comma(summary.points)}</span> <small>pts</small>{streakTenths > 10 ? <span className="p6-combo ux-num">{comboLabel(streakTenths)}</span> : null}</span>
-          <UxIconButton icon="redo" label="Replay the clip" onClick={run.replay} disabled={phase !== 'playing' && phase !== 'reveal'} />
-          <UxIconButton icon={muted ? 'mute' : 'vol'} label="Mute the clip" aria-pressed={muted} onClick={run.toggleMute} />
+          <span className="p6-gscore"><span className="ux-num">{s.num(summary.points)}</span> <small>{s.pts}</small>{streakTenths > 10 ? <span className="p6-combo ux-num">{comboLabel(streakTenths)}</span> : null}</span>
+          <UxIconButton icon="redo" label={s.replay} onClick={run.replay} disabled={phase !== 'playing' && phase !== 'reveal'} />
+          <UxIconButton icon={muted ? 'mute' : 'vol'} label={s.mute} aria-pressed={muted} onClick={run.toggleMute} />
         </div>
       </div>
 
@@ -120,12 +136,11 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
           {answered && q ? (
             <div className="p6-reveal" key={`r${index}`}>
               {q.reveal.cover
-                // eslint-disable-next-line @next/next/no-img-element -- Deezer album art from the run (any size, any host)
-                ? <img className="p6-cv" src={q.reveal.cover} alt={`${q.reveal.title} by ${q.reveal.artist}, cover art`} width={140} height={140} decoding="async" />
-                : <span className="p6-cv" role="img" aria-label={`${q.reveal.title} by ${q.reveal.artist}`} />}
+                ? <CoverImg className="p6-cv" src={q.reveal.cover} alt={s.coverAlt(q.reveal.title, q.reveal.artist)} width={140} height={140} decoding="async" />
+                : <span className="p6-cv" role="img" aria-label={s.songBy(q.reveal.title, q.reveal.artist)} />}
               <div className={`p6-vd ${answer?.correct ? 'is-ok' : 'is-no'}`}>
                 <Icon name={answer?.correct ? 'check' : 'x'} size="sm" />
-                {answer?.correct ? 'Correct' : answer?.picked === null ? 'Time is up' : 'Missed'}
+                {answer?.correct ? s.correct : answer?.picked === null ? s.timeUp : s.missed}
               </div>
               <div className="p6-rv-t">{q.reveal.title}</div>
               <div className="p6-sa">{q.reveal.artist}{q.reveal.album ? ` · ${q.reveal.album}` : ''}</div>
@@ -139,12 +154,12 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
               {phase === 'tap' || blocked ? (
                 <button type="button" className="p6-tap" onClick={() => { if (phase !== 'tap') run.resume(); else if (onTap) onTap(); else void run.startDaily(); }}>
                   <Icon name="play" size="lg" />
-                  <span>Tap to play the clip</span>
+                  <span>{s.tap}</span>
                 </button>
               ) : (
                 <div>
                   <div className={`p6-eq${isPlaying && phase === 'playing' ? ' is-on' : ''}`} aria-hidden="true"><i /><i /><i /><i /><i /></div>
-                  <div className="p6-sec ux-num" role="timer" aria-label={`${seconds} seconds left`}>{phase === 'playing' ? seconds : TIMER_S}</div>
+                  <div className="p6-sec ux-num" role="timer" aria-label={s.secondsLeft(seconds)}>{phase === 'playing' ? seconds : TIMER_S}</div>
                 </div>
               )}
             </div>
@@ -155,9 +170,9 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
 
         {q && phase !== 'tap' && phase !== 'loading' ? (
           <>
-            <div className="p6-rlab"><span className={artist ? 'is-artist' : ''}>{artist ? 'Artist round' : 'Song round'}</span></div>
-            <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{artist ? 'Who sings this?' : 'Which song is this?'}</h1>
-            <div className="p6-answers" role="group" aria-label="Answers" key={`a${index}`}>
+            <div className="p6-rlab"><span className={artist ? 'is-artist' : ''}>{artist ? s.artistRound : s.songRound}</span></div>
+            <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{artist ? s.whoSings : s.whichSong}</h1>
+            <div className="p6-answers" role="group" aria-label={s.answers} key={`a${index}`}>
               {q.choices.map((c, i) => (
                 <button
                   key={i}
@@ -170,15 +185,15 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
                   <span className="p6-k" aria-hidden="true"><span className="p6-kd">{i + 1}</span><span className="p6-kt">{KEYS[i]}</span></span>
                   <span className="p6-at">{c}</span>
                   <span className="p6-lab">
-                    {answered && i === correctIdx ? <><Icon name="check" size="sm" />Correct</> : null}
-                    {answered && i === selected && i !== correctIdx ? <><Icon name="x" size="sm" />Your pick</> : null}
+                    {answered && i === correctIdx ? <><Icon name="check" size="sm" />{s.correct}</> : null}
+                    {answered && i === selected && i !== correctIdx ? <><Icon name="x" size="sm" />{s.yourPick}</> : null}
                   </span>
                 </button>
               ))}
             </div>
           </>
         ) : (
-          <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{phase === 'tap' ? (intro?.title ?? 'Ten songs, the same for everyone.') : 'Getting your songs ready'}</h1>
+          <h1 className="p6-btq" tabIndex={-1} ref={qRef}>{phase === 'tap' ? (intro?.title ?? 'Ten songs, the same for everyone.') : s.gettingReady}</h1>
         )}
 
         {run.error ? <p className="p6-err" role="alert">{run.error}</p> : null}
@@ -187,9 +202,9 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
           <div className="p6-after">
             <div className="p6-autonext" aria-hidden="true"><i key={index} style={{ animationDuration: `${AUTO_NEXT_MS}ms` }} /></div>
             <div className="p6-nxt">
-              <span>{last ? 'Results' : 'Next song'} in {Math.round(AUTO_NEXT_MS / 1000)} seconds</span>
+              <span>{s.nextIn(last, Math.round(AUTO_NEXT_MS / 1000))}</span>
               <button type="button" ref={nextRef} className="ux-btn ux-btn-sm p6-next" onClick={run.next}>
-                {last ? 'See results' : 'Next'} <kbd className="ux-kbd">Enter</kbd>
+                {last ? s.seeResults : s.next} <kbd className="ux-kbd">Enter</kbd>
               </button>
             </div>
           </div>
@@ -199,7 +214,7 @@ export function BtGame({ run, chip, intro, onTap }: BtGameProps): React.ReactEle
       {answered && answer?.correct && round && !reduced ? (
         <div className="p6-ptsp" aria-hidden="true" key={`p${index}`}>
           +{round.points}
-          <small>speed +{round.speed}{round.tenths > 10 ? ` · ${comboLabel(round.tenths)}` : ''}</small>
+          <small>{s.speed(round.speed)}{round.tenths > 10 ? ` · ${comboLabel(round.tenths)}` : ''}</small>
         </div>
       ) : null}
     </div>

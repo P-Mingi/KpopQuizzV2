@@ -1,0 +1,32 @@
+C2 batch 1 at 2026-10-03T10:41:09.332Z on http://localhost:3071
+
+## /blindtest status 200
+B01 theme links: /blindtest/5th-gen, /blindtest/tiktok-viral, /blindtest/kpop-hits-2025
+B01   /blindtest/5th-gen -> 200
+B01   /blindtest/tiktok-viral -> 200
+B01   /blindtest/kpop-hits-2025 -> 200
+B01 hidden kpop-hits-2026: link present=false status=404
+B01 hidden kpop-demon-hunters: link present=false status=404
+B02 'Play in your language' -> /guess-the-kpop-song present=true
+B03 /live present=true status=200; /join present=true status=200
+B04 landing links: /guess-the-kpop-song=true /fr/blind-test-kpop=true /es/adivina-la-cancion-kpop=true /id/tebak-lagu-kpop=true
+B07 eyebrow 'playing today' in /blindtest HTML: true
+L /guess-the-kpop-song: status 200; L02 /live=true; L03 themes=/blindtest/5th-gen,/blindtest/tiktok-viral,/blindtest/kpop-hits-2025; L04 others=true; B07 eyebrow=false
+L /fr/blind-test-kpop: status 200; L02 /live=true; L03 themes=/blindtest/5th-gen,/blindtest/tiktok-viral,/blindtest/kpop-hits-2025; L04 others=true; B07 eyebrow=false
+L /es/adivina-la-cancion-kpop: status 200; L02 /live=true; L03 themes=/blindtest/5th-gen,/blindtest/tiktok-viral,/blindtest/kpop-hits-2025; L04 others=true; B07 eyebrow=false
+L /id/tebak-lagu-kpop: status 200; L02 /live=true; L03 themes=/blindtest/5th-gen,/blindtest/tiktok-viral,/blindtest/kpop-hits-2025; L04 others=true; B07 eyebrow=false
+
+## B05 hub: Playlist menu, first Themes item, Start (1440)
+B05 Themes item: 5th gen
+GET GET /api/ux-v1/a0/styles?v=local
+GET GET /api/ranked/me
+GET GET /api/ux-v1/p6/board
+PASSED POST /api/blind-test/generate body={"playlist":"5th-gen","count":10,"mode":"challenge"}
+B06 /api/track/bt-run calls (any method): 0
+
+## L01 /guess-the-kpop-song Start (390)
+GET GET /api/ux-v1/a0/styles?v=local
+PASSED POST /api/blind-test/generate body={"playlist":"all","count":10,"mode":"challenge"}
+B06 /api/track/bt-run calls: 0
+
+B06/R01 GET /api/track/bt-run -> 404 (POST is never sent by C2)

@@ -7,6 +7,8 @@ import { notifyMilestone } from '@/lib/notifications';
 import { getLevelInfo } from '@/lib/constants';
 import { checkTierBadges } from '@/lib/badges/award';
 import { recordTimeSample, timeSample } from '@/lib/quiz/time-stats';
+import { LINK_COOKIE, recordLinkPlay } from '@/lib/creators/link-plays';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import type { NextRequest } from 'next/server';
 
@@ -225,6 +227,23 @@ export async function POST(
         .eq('id', result.play_id as string)
         .is('player_id', null);
       if (stampErr) console.error('anon_id stamp failed:', stampErr.message);
+    }
+
+    // V12 (G8 request R2, AU3-003): a play that came through a creator's share link
+    // (cookie set by /api/share/click) is counted once in share_link_plays. Flag off:
+    // no cookie read, no query. recordLinkPlay never throws and skips another quiz,
+    // an unknown code and the link's owner; the play and the response stay as they are.
+    if (isUxV12()) {
+      const linkCode = request.cookies.get(LINK_COOKIE)?.value;
+      if (linkCode) {
+        await recordLinkPlay(admin, {
+          code: linkCode,
+          quizId: id,
+          playerId,
+          anonId: isUuid(anon_id) ? (anon_id as string) : null,
+          isTest: process.env.VERCEL_ENV !== 'production',
+        }).catch(() => 'failed');
+      }
     }
 
     const res = NextResponse.json({

@@ -10,6 +10,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { getSpace } from '@/lib/verse/space';
 import { listPublishedPages } from '@/lib/verse/pages/data';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { withoutKpdhCover } from '@/lib/blind-test-curated';
 
 import type { Metadata } from 'next';
 
@@ -23,7 +24,7 @@ export const revalidate = 3600;
 const normalize = (t: string): string => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
 
 interface SongRow {
-  id: string; title: string; artist_name: string | null; album_name: string | null;
+  id: string; deezer_track_id: number; title: string; artist_name: string | null; album_name: string | null;
   album_cover_medium: string | null; album_cover_big: string | null;
   duration: number | null; year: number | null; language: string | null; group_id: number;
 }
@@ -31,7 +32,7 @@ interface SongRow {
 async function loadSong(groupId: number, id: string): Promise<SongRow | null> {
   const db = createPublicReadClient();
   const { data, error } = await db.from('songs')
-    .select('id, title, artist_name, album_name, album_cover_medium, album_cover_big, duration, year, language, group_id')
+    .select('id, deezer_track_id, title, artist_name, album_name, album_cover_medium, album_cover_big, duration, year, language, group_id')
     .eq('id', id).eq('group_id', groupId).maybeSingle();
   // ISR bake law: this row IS the page. On a query error, throw (500, retried);
   // returning null here would bake a 404 for a real song URL for an hour.
@@ -74,7 +75,9 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
   const curated = (override as { value: string | null } | null)?.value ?? null;
   const story = pages.find((p) => p.kind === 'song_story' && normalize(p.title) === normalize(song.title)) ?? null;
   const album = song.album_name ? space.albums.find((a) => normalize(a.title) === normalize(song.album_name!)) ?? null : null;
-  const cover = [song.album_cover_big, song.album_cover_medium].find((u) => u && isConfiguredImageHost(u)) ?? null;
+  // A KPop Demon Hunters song never shows its cover, the film key art (COMMON rule 10, F6d).
+  const covers = withoutKpdhCover(song);
+  const cover = [covers.album_cover_big, covers.album_cover_medium].find((u) => u && isConfiguredImageHost(u)) ?? null;
   const duration = fmtDuration(song.duration);
 
   return (

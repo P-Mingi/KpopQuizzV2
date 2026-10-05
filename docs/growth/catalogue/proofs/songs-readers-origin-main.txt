@@ -1,0 +1,17 @@
+origin/main:apps/quiz/scripts/ingest-blindtest-songs.mts:56:  const { data: existing } = await db.from('songs').select('deezer_track_id').in('deezer_track_id', tracks.map((t) => t.id));
+origin/main:apps/quiz/scripts/ingest-blindtest-songs.mts:75:    const { error } = await db.from('songs').insert(rows);
+origin/main:apps/quiz/src/app/(site)/verse/[slug]/songs/[id]/page.tsx:33:  const { data, error } = await db.from('songs')
+origin/main:apps/quiz/src/app/api/blind-test/generate/route.ts:227:        .from('songs').select('id', { count: 'exact', head: true })
+origin/main:apps/quiz/src/app/api/blind-test/generate/route.ts:256:      .from('songs')
+origin/main:apps/quiz/src/app/api/daily/blindtest/route.ts:103:    .from('songs')
+origin/main:apps/quiz/src/app/api/daily/blindtest/route.ts:117:    .from('songs')
+origin/main:apps/quiz/src/app/sitemap.ts:401:      const { data: songRows } = await svc.from('songs').select('id, groups(slug)').order('id').range(pg * 1000, pg * 1000 + 999);
+origin/main:apps/quiz/src/lib/blind-test-playlists.ts:42:    .from('songs')
+origin/main:apps/quiz/src/lib/db/queries/blindtest.ts:43:      supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+origin/main:apps/quiz/src/lib/db/queries/stats.ts:27:      .from('songs')
+origin/main:apps/quiz/src/lib/db/queries/stats.ts:226:    const { data } = await supabase.from('songs').select('group_id, gender').in('group_id', groupIds).range(from, from + 999);
+origin/main:apps/quiz/src/lib/ranked/db.ts:138:        .from('songs')
+origin/main:apps/quiz/src/lib/ux-v1/p11/search.ts:142:    ? attempt(() => db.from('songs').select(SONG_COLS)
+origin/main:apps/quiz/src/lib/ux-v1/p6/challenge-server.ts:30:  const { data: songs, error: songErr } = await svc.from('songs').select('id, title, artist_name').in('id', ids).eq('status', 'active');
+origin/main:apps/quiz/src/lib/ux-v1/p6/challenge-server.ts:85:  const { data } = await svc.from('songs').select('id, deezer_track_id, preview_url').in('id', ids);
+origin/main:apps/quiz/src/lib/ux-v1/p6/hub-data.ts:86:  const { count, error } = await db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active');

@@ -1,0 +1,73 @@
+{
+ "url": "/join",
+ "stops": 8,
+ "cycled": true,
+ "stuck": false,
+ "bad": [],
+ "list": [
+  {
+   "i": 0,
+   "tag": "a",
+   "name": "Skip to content",
+   "ring": true,
+   "visible": true,
+   "key": "A|#main|Skip to content|12,12"
+  },
+  {
+   "i": 1,
+   "tag": "input",
+   "name": "CODE",
+   "ring": true,
+   "visible": true,
+   "key": "INPUT||CODE|516,99"
+  },
+  {
+   "i": 2,
+   "tag": "input",
+   "name": "Nickname",
+   "ring": true,
+   "visible": true,
+   "key": "INPUT||Nickname|516,157"
+  },
+  {
+   "i": 3,
+   "tag": "button",
+   "name": "Colour 1",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Colour 1|516,217"
+  },
+  {
+   "i": 4,
+   "tag": "button",
+   "name": "Colour 2",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Colour 2|560,217"
+  },
+  {
+   "i": 5,
+   "tag": "button",
+   "name": "Colour 3",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Colour 3|604,217"
+  },
+  {
+   "i": 6,
+   "tag": "button",
+   "name": "Colour 4",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Colour 4|648,217"
+  },
+  {
+   "i": 7,
+   "tag": "button",
+   "name": "Join",
+   "ring": true,
+   "visible": true,
+   "key": "BUTTON||Join|516,807"
+  }
+ ]
+}

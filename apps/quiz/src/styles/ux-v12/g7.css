@@ -1,0 +1,39 @@
+/* G7 (V12): This or that bonus card on the quiz results (prototype .tot, #e-tot).
+   Served by the v11 stylesheet route with the v12 flag only; never imported. */
+
+.ux-tot { margin-top: 40px; padding: 26px 26px 22px; border: 1px solid var(--ux-qotd-edge); border-radius: 24px; background: var(--ux-qotd-bg); color: var(--ux-ink); font-size: 16px; line-height: 1.6; text-align: left; }
+.ux-tot-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ux-tot h2 { margin: 6px 0 0; font-size: 20px; font-weight: 700; line-height: 1.6; letter-spacing: -0.015em; text-wrap: balance; }
+.ux-tot-dots { display: flex; gap: 6px; flex: 0 0 auto; }
+.ux-tot-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--ux-qotd-edge); }
+.ux-tot-dots i.is-on { background: var(--ux-pink); }
+
+.ux-tot-g { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: stretch; margin-top: 18px; }
+.ux-toto { position: relative; display: flex; flex-direction: column; gap: 6px; justify-content: flex-end; min-height: 132px; padding: 16px; border-radius: 18px; background: var(--ux-raised); border: 1px solid var(--ux-line); color: var(--ux-ink); font: inherit; text-align: left; overflow: hidden; cursor: pointer; transition: border-color .15s, transform .15s var(--ux-ease); }
+.ux-toto:hover { border-color: var(--ux-pink-line); transform: translateY(-2px); }
+.ux-toto-cov { position: absolute; inset: 0 0 auto 0; height: 56px; background: var(--ux-th, var(--ux-th-hits26)); opacity: .9; overflow: hidden; }
+.ux-toto-cov img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* the right side is kept free for the share, so a long title never runs under it */
+.ux-toto b { position: relative; margin-top: 48px; padding-right: 64px; font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.ux-toto small { position: relative; padding-right: 64px; color: var(--ux-muted); font-size: 13px; }
+.ux-toto-fill { position: absolute; left: 0; bottom: 0; height: 6px; width: 0; background: var(--ux-pink); transition: width .6s var(--ux-ease); }
+.ux-toto-pc { position: absolute; right: 14px; bottom: 16px; font-size: 22px; font-weight: 800; }
+.ux-tot-g.is-voted .ux-toto { cursor: default; }
+.ux-tot-g.is-voted .ux-toto:hover { transform: none; border-color: var(--ux-line); }
+.ux-toto[aria-disabled="true"] { cursor: default; }
+.ux-toto.is-picked, .ux-tot-g.is-voted .ux-toto.is-picked:hover { border-color: var(--ux-pink); box-shadow: inset 0 0 0 1px var(--ux-pink); }
+.ux-tot-vs { display: grid; place-items: center; font-size: 13px; font-weight: 800; color: var(--ux-muted); }
+
+.ux-tot-f { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; font-size: 14px; color: var(--ux-muted); min-height: 32px; }
+.ux-tot-f b { color: var(--ux-ink); font-weight: 700; }
+.ux-tot-f .ux-btn, .ux-tot-f .ux-lnk { flex: 0 0 auto; }
+
+@media (max-width: 760px) {
+  .ux-tot-g { grid-template-columns: 1fr; gap: 8px; }
+  .ux-tot-vs { padding: 2px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ux-toto, .ux-toto-fill { transition: none; }
+  .ux-toto:hover { transform: none; }
+}

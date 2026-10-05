@@ -1,0 +1,11 @@
+{
+ "state": "wma-result",
+ "url": "/which-stray-kids-member-are-you",
+ "width": 1440,
+ "theme": "dark",
+ "overflow": 0,
+ "writesStubbed": [
+  "POST /api/personality/result"
+ ],
+ "violations": []
+}

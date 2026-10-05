@@ -1,0 +1,20 @@
+C2 batch 5 at 2026-10-03T10:47:22.061Z on http://localhost:3071
+
+Q01 GET /api/duel/pairs?group=bts -> 200; keys pairs,group,ranked; pairs 0; ranked false; pair keys 
+Q01 GET /api/duel/pairs?group=aespa -> 200; keys pairs,group,ranked; pairs 0; ranked false; pair keys 
+Q01 GET /api/duel/pairs?group=blackpink -> 200; keys pairs,group,ranked; pairs 0; ranked false; pair keys 
+Q01 GET /api/duel/pairs?group=stray-kids -> 200; keys pairs,group,ranked; pairs 0; ranked false; pair keys 
+Q03 POST /api/duel/vote forged token -> 403 {"error":"bad_token"}
+
+## browser: /q/<bts quiz> to results, bonus card (1440)
+card visible: false; heading ""
+Q02 new mutating calls after one tap: 0; card text: 
+Q04 "none" clicked: new mutating calls 0
+Q05 links to #fans-picked on the results page: 0
+GET GET /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/questions
+GET POST (headers none) /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play
+GET GET /api/auth/me
+GET GET /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/like
+GET GET /api/duel/pairs?group=bts
+GET GET /api/ux-v1/p4/standing?quiz=4ba8f255-2401-4220-8559-9a33c9ec1759&score=3
+STUBBED POST /api/quiz/4ba8f255-2401-4220-8559-9a33c9ec1759/play body={"score":3,"total_questions":8,"time_taken_seconds":4,"max_score":8,"per_question_times":[0.9,0.4,0.4,0.4,0.4,0.4,0.4,0.4],"anon_id":"c26d9c1d-fa71-4fa7-93fa-ddae61565fe6"}

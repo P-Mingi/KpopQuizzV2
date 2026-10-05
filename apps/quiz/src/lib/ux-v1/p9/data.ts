@@ -17,6 +17,9 @@ import {
 } from '@/lib/db/queries/community';
 import { getTopCreatorsAllTime, getTopCreatorsThisWeek } from '@/lib/db/queries/profiles';
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
+import { getTeamIds, withoutTeam } from '@/lib/editorial/accounts';
+import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
+import { runScoreLabel } from '@/lib/quiz/scoring';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeQotd } from '@/lib/ux-v1/p1/home-data';
@@ -28,6 +31,7 @@ import {
 
 import type { PersonCardData } from '@/components/profile/person-card';
 import type { TodayStats, WarMapEntry } from '@/lib/db/queries/community';
+import type { QuizType } from '@/lib/db/types';
 import type { AvatarView } from './format';
 
 /** The live page's data TTL (community-content.tsx: unstable_cache revalidate 300). */
@@ -38,6 +42,28 @@ export const WAR_READ = 90;
 function must<T extends { error: { message: string } | null }>(res: T, what: string): T {
   if (res.error) throw new Error(`[ux-leaderboard] ${what}: ${res.error.message}`);
   return res;
+}
+
+/* --------------------------------------------- editorial accounts (V12) --- */
+
+// G9 request R3: editorial (team) accounts are on no board and in no feed. The
+// live queries behind the creators boards and the feeds return no user id, so the
+// rows are matched on the account's username. getTeamIds() answers "nobody" with
+// the v12 flag off or before the owner inserts the accounts: then nothing is read
+// and every board is exactly what it was.
+async function readTeamUsernames(): Promise<Set<string>> {
+  const ids = [...(await getTeamIds())];
+  if (ids.length === 0) return new Set();
+  // A failed read throws: the exclusion fails closed (the callers show "could not
+  // load" for that block) instead of listing a team account among the fans.
+  const res = must(await createPublicReadClient().from('profiles').select('username').in('id', ids), 'team usernames');
+  return new Set(((res.data ?? []) as Array<{ username: string | null }>).map((p) => p.username).filter((u): u is string => Boolean(u)));
+}
+
+/** Drop the team's rows, keep `limit`, renumber the ranks. */
+function withoutTeamRows(rows: PersonRow[], team: ReadonlySet<string>, limit: number): PersonRow[] {
+  if (!team.size) return rows.slice(0, limit);
+  return rows.filter((r) => !team.has(r.username)).slice(0, limit).map((r, i) => ({ ...r, rank: i + 1 }));
 }
 
 /* ------------------------------------------------------------- groups --- */
@@ -129,7 +155,8 @@ export function warMapFromRpc(rows: readonly WarRpcRow[], limit: number, facts: 
 async function readWarMapUncached(limit: number): Promise<WarMapEntry[]> {
   const db = createPublicReadClient();
   const [res, facts] = await Promise.all([
-    db.rpc('get_fandom_war_map', { p_limit: limit + NON_FANDOM_SLUGS.size }),
+    // V12 F5b: editorial plays left out with the flag on; flag off, today's call exactly.
+    rpcFandomWar(db, limit + NON_FANDOM_SLUGS.size),
     getGroupFacts(),
   ]);
   must(res, 'war map');
@@ -138,7 +165,7 @@ async function readWarMapUncached(limit: number): Promise<WarMapEntry[]> {
 
 /** The war map (top `limit` groups of the last 7 days), cached like the live one (1 h). The page
  *  and the pinned-row endpoint read the same entry (WAR_READ), so a fan's rank matches the board. */
-export const getWarMap = unstable_cache(readWarMapUncached, ['ux-v1:p9:war-map:v1'], { revalidate: CACHE_TTL.stats, tags: ['community'] });
+export const getWarMap = unstable_cache(readWarMapUncached, warCacheKey(['ux-v1:p9:war-map:v1']), { revalidate: CACHE_TTL.stats, tags: ['community'] });
 
 /** The fandom war board: the live war map (last 7 days of quiz plays per group, the
  *  general K-pop bucket excluded), top WAR_BOARD, with fandom names and group photos. */
@@ -180,9 +207,19 @@ export interface PersonRow {
   sub: string;
 }
 
-const PLAYER_COLS = 'username, avatar_url, avatar_kind, avatar_ref, xp, ult_groups, name_accent, name_font, bias';
+const PLAYER_COLS = 'id, username, avatar_url, avatar_kind, avatar_ref, xp, ult_groups, name_accent, name_font, bias';
+/** Rows read past the board size, so a board stays full once team accounts are left out. */
+const TEAM_MARGIN = 5;
+
+/** The players read size: the board plus one row per active team account (never less than
+ *  the margin), so leaving them out can never leave fewer than PLAYERS_BOARD rows (V12 F5b).
+ *  Nobody editorial (flag off, SQL pending): PLAYERS_BOARD + TEAM_MARGIN, the read of today. */
+export function playersReadSize(teamSize: number): number {
+  return PLAYERS_BOARD + Math.max(TEAM_MARGIN, teamSize);
+}
 
 interface PlayerDbRow {
+  id: string;
   username: string;
   avatar_url: string | null;
   avatar_kind: string | null;
@@ -202,11 +239,14 @@ async function readTopPlayersRows(limit: number): Promise<PlayerDbRow[]> {
   return (res.data ?? []) as PlayerDbRow[];
 }
 
-const getTopPlayersRows = unstable_cache(readTopPlayersRows, ['ux-v1:p9:players:v1'], { revalidate: TTL, tags: ['profiles'] });
+const getTopPlayersRows = unstable_cache(readTopPlayersRows, ['ux-v1:p9:players:v2'], { revalidate: TTL, tags: ['profiles'] });
 
-/** Players: all-time XP (the XP that sets the passport level), top PLAYERS_BOARD. */
+/** Players: all-time XP (the XP that sets the passport level), top PLAYERS_BOARD.
+ *  Editorial accounts are left out (V12, G9 R3). */
 export async function readPlayers(): Promise<PersonRow[]> {
-  const [rows, facts] = await Promise.all([getTopPlayersRows(PLAYERS_BOARD), getGroupFacts()]);
+  const team = await getTeamIds();
+  const [all, facts] = await Promise.all([getTopPlayersRows(playersReadSize(team.size)), getGroupFacts()]);
+  const rows = withoutTeam(all, team, (p) => p.id).slice(0, PLAYERS_BOARD);
   const bySlug = new Map(facts.map((g) => [g.slug, g]));
   return rows.map((p, i) => ({
     rank: i + 1,
@@ -272,9 +312,9 @@ async function readCreatorsUncached(): Promise<CreatorsBoards> {
   // The live Hall of Fame's three creator reads (it asks for 8; the flag-on board
   // shows 10, a superset in the same order).
   const [all, week, rising] = await Promise.all([
-    getTopCreatorsAllTime(CREATORS_BOARD),
-    getTopCreatorsThisWeek(CREATORS_BOARD),
-    getRisingCreators(CREATORS_BOARD),
+    getTopCreatorsAllTime(CREATORS_BOARD + TEAM_MARGIN),
+    getTopCreatorsThisWeek(CREATORS_BOARD + TEAM_MARGIN),
+    getRisingCreators(CREATORS_BOARD + TEAM_MARGIN),
   ]);
   return {
     all: all.map((c, i) => creatorRow(c, i, c.total_plays_received ?? 0, quizzesLabel(c.total_quizzes_created ?? 0))),
@@ -283,7 +323,17 @@ async function readCreatorsUncached(): Promise<CreatorsBoards> {
   };
 }
 
-export const readCreators = unstable_cache(readCreatorsUncached, ['ux-v1:p9:creators:v1'], { revalidate: TTL, tags: ['profiles'] });
+const readCreatorsCached = unstable_cache(readCreatorsUncached, ['ux-v1:p9:creators:v2'], { revalidate: TTL, tags: ['profiles'] });
+
+/** The three creator boards, top CREATORS_BOARD each, editorial accounts left out (V12, G9 R3). */
+export async function readCreators(): Promise<CreatorsBoards> {
+  const [b, team] = await Promise.all([readCreatorsCached(), readTeamUsernames()]);
+  return {
+    all: withoutTeamRows(b.all, team, CREATORS_BOARD),
+    week: withoutTeamRows(b.week, team, CREATORS_BOARD),
+    rising: withoutTeamRows(b.rising, team, CREATORS_BOARD),
+  };
+}
 
 /** The creator views that clear the board floor, in the order the page offers them. */
 export function creatorViews(b: CreatorsBoards): CreatorsView[] {
@@ -314,7 +364,7 @@ export interface AroundData {
   /** Happening now: shown only when live (4+ events in 48 hours, live MIN_LIVE). */
   happening: Array<{ id: number; person: AroundPerson | null; name: string; phrase: string; href: string | null; ago: string }>;
   /** Newest quizzes: shown only with 3+ published in the last 30 days (live MIN_FRESH). */
-  fresh: Array<{ id: string; title: string; href: string; by: string; plays: number; group: string }>;
+  fresh: Array<{ id: string; title: string; href: string; by: string; plays: number; group: string; byTeam?: true }>;
   /** Latest quiz comments: shown only from 4 (live MIN_COMMENTS). */
   comments: Array<{ id: string; person: AroundPerson; quizTitle: string; quizHref: string; content: string; score: string | null; ago: string }>;
   /** Latest badge earns (30 days, one per badge): shown only from 3 (live MIN_EARNS). */
@@ -336,6 +386,7 @@ async function readFeedsUncached(): Promise<Pick<AroundData, 'happening' | 'comm
     getLatestBadgeEarns(6),
   ]);
   const live = feed.recentCount >= MIN_LIVE && feed.events.length > 0;
+  const types = comments.length >= MIN_COMMENTS ? await readQuizTypes(comments.map((c) => c.quizSlug)) : null;
   return {
     happening: live
       ? feed.events.map((e) => ({ id: e.id, person: e.person ? aroundPerson(e.person) : null, name: e.person?.username ?? e.displayName, phrase: e.phrase, href: e.href, ago: e.ago }))
@@ -347,7 +398,11 @@ async function readFeedsUncached(): Promise<Pick<AroundData, 'happening' | 'comm
         quizTitle: c.quizTitle,
         quizHref: `/q/${c.quizSlug}`,
         content: c.content,
-        score: c.score !== null && c.total !== null ? `after scoring ${c.score}/${c.total}` : null,
+        // G1 request L5: points over the maximum of the run ("18/18", never "18/6" on a
+        // guess-from-clues quiz). Without the quiz type the score is left out.
+        score: c.score !== null && c.total !== null && types?.has(c.quizSlug)
+          ? `after scoring ${runScoreLabel(c.score, c.total, types.get(c.quizSlug))}`
+          : null,
         ago: c.ago,
       }))
       : [],
@@ -357,7 +412,19 @@ async function readFeedsUncached(): Promise<Pick<AroundData, 'happening' | 'comm
   };
 }
 
-const readFeedsCached = unstable_cache(readFeedsUncached, ['ux-v1:p9:feeds:v1'], { revalidate: TTL, tags: ['community'] });
+/** quiz_type by slug for the comment rows (one small read). Null when it fails:
+ *  the feeds read never throws, the score lines are then left out. */
+async function readQuizTypes(slugs: string[]): Promise<Map<string, QuizType> | null> {
+  try {
+    const { data, error } = await createPublicReadClient().from('quizzes').select('slug, quiz_type').in('slug', [...new Set(slugs)]);
+    if (error) return null;
+    return new Map(((data ?? []) as Array<{ slug: string; quiz_type: QuizType }>).map((q) => [q.slug, q.quiz_type]));
+  } catch {
+    return null;
+  }
+}
+
+const readFeedsCached = unstable_cache(readFeedsUncached, ['ux-v1:p9:feeds:v2'], { revalidate: TTL, tags: ['community'] });
 
 // getNewQuizzes throws on a failed read: its own entry, so a blip is never cached.
 async function readFreshUncached(): Promise<Array<{ id: string; title: string; slug: string; by: string; plays: number; group: string; createdAt: string }>> {
@@ -371,7 +438,14 @@ const readFreshCached = unstable_cache(readFreshUncached, ['ux-v1:p9:fresh:v1'],
 export async function readFresh(nowMs: number = Date.now()): Promise<AroundData['fresh']> {
   const rows = (await readFreshCached()).filter((q) => nowMs - new Date(q.createdAt).getTime() <= FRESH_DAYS_MS);
   if (rows.length < MIN_FRESH) return [];
-  return rows.map((q) => ({ id: q.id, title: q.title, href: `/q/${q.slug}`, by: q.by, plays: q.plays, group: q.group }));
+  // V12 F5b: an editorial author carries the Team badge (byTeam). No team (flag off,
+  // SQL pending): no read and the exact rows of today (the key is never set).
+  const team = await readTeamUsernames();
+  return rows.map((q) => {
+    const row: AroundData['fresh'][number] = { id: q.id, title: q.title, href: `/q/${q.slug}`, by: q.by, plays: q.plays, group: q.group };
+    if (team.has(q.by)) row.byTeam = true;
+    return row;
+  });
 }
 
 function todayView(t: TodayStats): AroundData['today'] {
@@ -398,5 +472,27 @@ export async function readQotd(): Promise<AroundData['qotd']> {
 }
 
 export async function readFeeds(): Promise<Pick<AroundData, 'happening' | 'comments' | 'badges'>> {
-  return readFeedsCached();
+  const [f, team] = await Promise.all([readFeedsCached(), readTeamUsernames()]);
+  if (!team.size) return f;
+  // Editorial accounts never act as fans (V12, G9 R3): none of their rows is a fan event.
+  return feedsWithoutTeam(f, team);
+}
+
+/** Drop the team's rows, then apply each block's minimum again (V12 F5b): a block the
+ *  filter leaves under its floor hides instead of showing a thin list. Pure. */
+export function feedsWithoutTeam(
+  f: Pick<AroundData, 'happening' | 'comments' | 'badges'>,
+  team: ReadonlySet<string>,
+): Pick<AroundData, 'happening' | 'comments' | 'badges'> {
+  if (!team.size) return f;
+  const happening = f.happening.filter((e) => !(e.person && team.has(e.person.username)));
+  const comments = f.comments.filter((c) => !team.has(c.person.username));
+  const badges = f.badges.filter((b) => !team.has(b.person.username));
+  return {
+    // Happening's live gate counts the events of 48 hours, and that count query already
+    // leaves the team out (getHappeningNow); an emptied list renders nothing.
+    happening,
+    comments: comments.length >= MIN_COMMENTS ? comments : [],
+    badges: badges.length >= MIN_EARNS ? badges : [],
+  };
 }

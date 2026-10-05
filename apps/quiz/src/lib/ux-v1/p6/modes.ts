@@ -11,9 +11,9 @@
 // is false) and the page says what it plays. The mode's SEO copy (H1, intro,
 // "20 songs · 5s clips") is locked and stays as it is.
 
-import { getGroupSlugFromModeId, isGroupModeId, STATIC_MODES } from '@/lib/blind-test-modes';
+import { getGroupSlugFromModeId, isGroupModeId, STATIC_MODES, themedModesOn } from '@/lib/blind-test-modes';
 
-import { ALL_PICK } from './playlists';
+import { ALL_PICK, TITLE_TRACKS, V12_MIXES_ALL } from './playlists';
 
 import type { BtPick } from './playlists';
 
@@ -57,6 +57,50 @@ const STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: 
   'random-all': { playlist: 'all', label: ALL_PICK.label, exact: true },
 };
 
+// V12 (both flags on): generate also serves year ranges, generation + gender pairs and curated
+// id lists (lib/blind-test-curated.ts), so these modes play as named. Applied on top of the map
+// above only when the v12 flag is on; with it off the v11 runs above are unchanged.
+//
+// Decision 33's modes that still cannot play as named, and why (reports/G2.md):
+//  - intro-challenge, verse-only, bridge-or-break: the clip is the 30 s Deezer preview, there
+//    is no clip point in the data.
+//  - speed-round: 5 s clips and 20 songs are the player's (timer, round length), not a pool.
+//  - b-sides: is_title_track = false is not maintained (false only on rows a script defaulted).
+//
+// kpop-legends (year 2017 or earlier, v12-g2-05-years-backfill.sql) and title-tracks (the sourced
+// title tracks, v12-g2-06-title-tracks.sql) play as named once their data exists (F6a, AU1 I2),
+// but only while their pool fills a round: NAMED_WHEN_PLAYABLE below. Under 10 playable songs the
+// named run stays hidden and the page plays its v11 run, labelled with what it really plays.
+const label = (playlist: string): string => V12_MIXES_ALL.find((m) => m.playlist === playlist)?.label ?? playlist;
+const V12_EXACT: readonly string[] = [
+  // decision 33, playable as named today
+  'recent-hits', '4th-gen-gg', '4th-gen-bg',
+  // themed playlists (each plays the generate playlist of its own id)
+  'kpop-hits-2026', 'kpop-hits-2025', 'tiktok-viral', 'kpop-demon-hunters',
+];
+const V12_STATIC_PLAYLIST: Record<string, { playlist: string; label: string; exact: boolean }> = {
+  ...Object.fromEntries(V12_EXACT.map((id) => [id, { playlist: id, label: label(id), exact: true }])),
+  // '5th-gen' is a legacy playlist of generate; the themed mode of that id plays it.
+  '5th-gen': { playlist: '5th-gen', label: '5th gen', exact: true },
+};
+
+/** Legacy modes that play their own pool (flag on) only when it holds a full round. */
+const NAMED_RUN: Record<string, { playlist: string; label: string; exact: boolean }> = {
+  'kpop-legends': { playlist: 'kpop-legends', label: label('kpop-legends'), exact: true },
+  'title-tracks': { playlist: 'title-tracks', label: TITLE_TRACKS.label, exact: true },
+};
+export const NAMED_WHEN_PLAYABLE: readonly string[] = Object.keys(NAMED_RUN);
+
+/**
+ * The playlist a static mode plays for a flag state (exported for the tests). `namedPlayable`:
+ * the caller has read that the mode's own pool fills a round (lib/blind-test-playlists.ts
+ * isNamedModePlayable); without it a NAMED_WHEN_PLAYABLE mode keeps its v11 run.
+ */
+export function staticPlaylistFor(modeId: string, v12: boolean, namedPlayable = false): { playlist: string; label: string; exact: boolean } | undefined {
+  if (v12 && namedPlayable && NAMED_RUN[modeId]) return NAMED_RUN[modeId];
+  return (v12 ? V12_STATIC_PLAYLIST[modeId] : undefined) ?? STATIC_PLAYLIST[modeId];
+}
+
 export function clampRound(n: number): number {
   return Math.max(MIN_ROUND, Math.min(MAX_ROUND, Math.round(n)));
 }
@@ -69,16 +113,17 @@ export function titleFromSlug(slug: string): string {
 /**
  * The run of a mode page, or null when the id is not a mode. A group mode plays
  * its group; `groupName` (the playable group's real name) labels it, else the
- * page's own title. Whether a group has enough songs is the caller's check.
+ * page's own title. Whether a group has enough songs is the caller's check, and so is
+ * `namedPlayable` (NAMED_WHEN_PLAYABLE: the mode's own pool fills a round).
  */
-export function modeRun(modeId: string, groupName?: string | null): ModeRun | null {
+export function modeRun(modeId: string, groupName?: string | null, namedPlayable = false): ModeRun | null {
   if (isGroupModeId(modeId)) {
     const slug = getGroupSlugFromModeId(modeId);
     if (!slug) return null;
     return { pick: { playlist: slug, label: groupName || titleFromSlug(slug), group: slug }, count: 10, exact: true };
   }
   const mode = STATIC_MODES.find((m) => m.id === modeId);
-  const served = STATIC_PLAYLIST[modeId];
+  const served = staticPlaylistFor(modeId, themedModesOn(), namedPlayable);
   if (!mode || !served) return null;
   return { pick: { playlist: served.playlist, label: served.label }, count: clampRound(mode.song_count), exact: served.exact };
 }

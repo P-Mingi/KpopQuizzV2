@@ -1,0 +1,12 @@
+3c3
+< <html lang="en" class="pretendard_60cdc229-module__UDh0rq__variable">
+---
+> <html lang="en" class="pretendard_60cdc229-module__pUigVW__variable">
+478c478
+< <span class="text-xs text-secondary">· avg <!-- -->124%</span>
+---
+> <span class="text-xs text-secondary">· avg <!-- -->41%</span>
+1018c1018
+< <p class="text-[11px] text-[var(--text-tertiary)] mt-1">829<!-- --> plays · <!-- -->easy</p>
+---
+> <p class="text-[11px] text-[var(--text-tertiary)] mt-1">830<!-- --> plays · <!-- -->easy</p>

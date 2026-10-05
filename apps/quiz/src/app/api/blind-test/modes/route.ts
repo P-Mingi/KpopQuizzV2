@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
-import { STATIC_MODES, buildGroupMode, MIN_SONGS_FOR_GROUP_MODE } from '@/lib/blind-test-modes';
+import { STATIC_MODES, THEMED_MODE_IDS, buildGroupMode, MIN_SONGS_FOR_GROUP_MODE, themedModesOn } from '@/lib/blind-test-modes';
+import { getThemedAvailability, visibleStaticModes } from '@/lib/blind-test-playlists';
 
 import type { BlindTestMode } from '@/lib/blind-test-modes';
 
@@ -42,9 +43,15 @@ export async function GET(): Promise<NextResponse> {
   const supabase = await createServerClient();
 
   // Static modes with availability
+  // V12 (flag only): the themed modes are counted in the pool generate really reads (`songs`),
+  // and one under its floor is left out. Flag off: STATIC_MODES holds no themed mode and
+  // nothing here changes.
+  const v12 = themedModesOn();
+  const themed = v12 ? await getThemedAvailability() : {};
+  const listed = v12 ? visibleStaticModes(STATIC_MODES, themed) : STATIC_MODES;
   const staticModes = await Promise.all(
-    STATIC_MODES.map(async (mode) => {
-      const count = await countSongsForMode(supabase, mode);
+    listed.map(async (mode) => {
+      const count = v12 && THEMED_MODE_IDS.includes(mode.id) ? themed[mode.id] ?? 0 : await countSongsForMode(supabase, mode);
       return { ...mode, song_count_available: count, available: count >= mode.song_count };
     }),
   );

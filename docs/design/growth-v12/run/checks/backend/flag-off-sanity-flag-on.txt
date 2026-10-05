@@ -1,0 +1,33 @@
+C2 flag-off probe (sanity-flag-on) at 2026-10-03T10:54:34.207Z on http://localhost:3071
+
+DIFF V01	GET /api/live = 404	503
+DIFF V04	GET /api/live/rooms/ABCDEF = 404	503
+DIFF Q01	GET /api/duel/pairs?group=bts = 404	200
+DIFF H02	GET /api/duel/fans-picked?group=bts = 404	200
+DIFF S01	GET /api/creators/kit?quiz=x = 404	400
+DIFF C03	GET /api/creators/standing = 404	200
+DIFF E04	GET /api/ux-v1/p11/team = 404	200
+ok   R01	GET /api/track/bt-run = 404	404
+DIFF V07	GET /api/cron/live-expire = 404	401
+DIFF R03	GET /api/cron/fans-picked = 404	401
+DIFF E06	GET /api/cron/editorial-publish = 404	401
+DIFF E05	GET /api/admin/editorial = 404	401
+DIFF L01	GET /guess-the-kpop-song = 404 or 30x away	200 
+DIFF L01	GET /fr/blind-test-kpop = 404 or 30x away	200 
+DIFF L01	GET /es/adivina-la-cancion-kpop = 404 or 30x away	200 
+DIFF L01	GET /id/tebak-lagu-kpop = 404 or 30x away	200 
+DIFF K01	GET /kpop-demon-hunters-quiz = 404 or 30x away	200 
+DIFF N01	GET /stray-kids-name-all-members = 404 or 30x away	200 
+DIFF C01	GET /creators = 404 or 30x away	200 
+DIFF V01	GET /live = 404 or 30x away	200 
+DIFF V04	GET /join = 404 or 30x away	200 
+DIFF V04	GET /join/ABCDEF = 404 or 30x away	200 
+DIFF W01	GET /which-stray-kids-member-are-you = 404 or 30x away	200 
+DIFF B01	/blindtest has no Playlists rail theme link	200
+DIFF B03	/blindtest has no live band	
+DIFF B04	/blindtest has no landing link	
+DIFF H01	/stray-kids-quiz has no ways-to-play / empty / nudge v12 block	200
+DIFF H01	/riize-quiz has no ways-to-play / empty / nudge v12 block	200
+DIFF H01	/katseye-quiz has no ways-to-play / empty / nudge v12 block	200
+DIFF C04	/leaderboard has no /creators link	200
+DIFF T01	/blindtest/5th-gen is the v11 mode page (no "Play this playlist")	200

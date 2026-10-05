@@ -1,0 +1,150 @@
+{
+ "state": "theme-kpdh",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:51:55.403Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-07-kpdh.sql is applied (the KPop Demon Hunters playlist has no songs yet; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-demon-hunters",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 6.2,
+    "maskedPct": 13.2
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 1
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:51:56.520Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-07-kpdh.sql is applied (the KPop Demon Hunters playlist has no songs yet; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-demon-hunters",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 9.7,
+    "maskedPct": 13.2
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 1
+  },
+  "390-light": {
+   "at": "2026-10-03T10:51:57.612Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-07-kpdh.sql is applied (the KPop Demon Hunters playlist has no songs yet; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-demon-hunters",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 14.36,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 1
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:51:58.724Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until v12-g2-07-kpdh.sql is applied (the KPop Demon Hunters playlist has no songs yet; the page answers 404 and the hub hides its card)",
+   "url": "/blindtest/kpop-demon-hunters",
+   "signedIn": false,
+   "hiddenForm": {
+    "status": 404
+   },
+   "counts": {
+    "pass": 0,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 0
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 22.06,
+    "maskedPct": 33.2
+   },
+   "writes": [],
+   "landmarks": [],
+   "seconds": 1
+  }
+ },
+ "owner": "G3",
+ "auth": "guest",
+ "anchor": null,
+ "pending": "NOT verified until v12-g2-07-kpdh.sql is applied (the KPop Demon Hunters playlist has no songs yet; the page answers 404 and the hub hides its card)",
+ "verdict": "not verified"
+}

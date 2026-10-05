@@ -23,6 +23,12 @@ interface Props {
   shareUrl: string;
   /** The server-rendered mode page (the SEO copy of today's page and the Play island). */
   children: React.ReactNode;
+  /** V12 theme pages: false hides "Challenge a friend" on the results and in the Share sheet
+   *  (a KPop Demon Hunters run holds soundtrack rows, which challenge creation refuses:
+   *  lib/ux-v1/p6/challenge-server.ts reads active songs only). Default true, as before. */
+  challengeLink?: boolean | undefined;
+  /** V12 theme pages: an extra class on the page column (styles/ux-v12/g3.css). */
+  className?: string | undefined;
 }
 
 const IN_GAME = new Set(['tap', 'loading', 'playing', 'reveal']);
@@ -34,7 +40,7 @@ const IN_GAME = new Set(['tap', 'loading', 'playing', 'reveal']);
  * the day-mode game (focus mode) and then the results, like the hub does. Free
  * play: it saves nothing, exactly like a free run on the hub.
  */
-export function BtModeController({ preset, shareUrl, children }: Props): React.ReactElement {
+export function BtModeController({ preset, shareUrl, children, challengeLink = true, className }: Props): React.ReactElement {
   const announce = useAnnounce();
   const live = useIsClient();
   const run = useBlindtestRun({ announce });
@@ -63,11 +69,11 @@ export function BtModeController({ preset, shareUrl, children }: Props): React.R
         onAgain={() => { void run.startFree(run.pick, run.count); }}
         onBoard={run.quit}
         shareUrl={shareUrl}
-        challengeLink
+        challengeLink={challengeLink}
         challenge={<p className="p6-moremodes"><Link href="/blindtest">Try another mode</Link></p>}
       />
     );
-  } else body = <div className="ux-wrap ux-pg p6-hub p6-mode" data-live={live || undefined}>{children}</div>;
+  } else body = <div className={`ux-wrap ux-pg p6-hub p6-mode${className ? ` ${className}` : ''}`} data-live={live || undefined}>{children}</div>;
 
   return <ModeCtx value={api}>{body}</ModeCtx>;
 }
@@ -87,4 +93,18 @@ export function BtModePlay(): React.ReactElement | null {
       {run.error ? <p className="p6-err" role="alert">{run.error}</p> : null}
     </>
   );
+}
+
+/** V12 theme page: the hero's primary action, without the mode page's run line. */
+export function BtThemePlay({ label }: { label: string }): React.ReactElement | null {
+  const mode = useMode();
+  if (!mode) return null;
+  const { run, start } = mode;
+  return <UxButton size="lg" icon="play" onClick={start} aria-busy={run.phase === 'loading' || undefined} data-g3="play">{label}</UxButton>;
+}
+
+/** V12 theme page: the start error, under the hero actions. */
+export function BtModeError(): React.ReactElement | null {
+  const mode = useMode();
+  return mode?.run.error ? <p className="p6-err" role="alert">{mode.run.error}</p> : null;
 }

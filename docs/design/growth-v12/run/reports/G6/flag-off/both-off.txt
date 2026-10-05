@@ -1,0 +1,10 @@
+GET /stray-kids-name-all-members -> 301 http://localhost:3066/
+GET /name-all/stray-kids -> 301 http://localhost:3066/
+GET /bts-name-all-members -> 301 http://localhost:3066/
+GET /nct-name-all-members -> 301 http://localhost:3066/
+GET /nope-name-all-members -> 301 http://localhost:3066/
+GET /name-all/nope -> 301 http://localhost:3066/
+GET /name-all/nct -> 301 http://localhost:3066/
+GET /games/name-all/stray-kids -> 308 http://localhost:3066/quizzes
+GET /stray-kids-quiz -> 500 
+POST /api/name-all/result {} -> 404 

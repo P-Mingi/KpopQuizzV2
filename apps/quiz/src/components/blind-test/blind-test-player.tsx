@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { BlindTestEqualizer } from '@/components/game/blind-test-equalizer';
 import { legacyGenerateBody, legacyModeRun, roundFromGenerate } from '@/lib/blind-test/legacy-round';
 
+import { useBtTracking } from './use-bt-tracking';
+
 import type { BlindTestMode } from '@/lib/blind-test-modes';
 import type { Round, RoundSong } from '@/lib/blind-test/legacy-round';
 
@@ -14,6 +16,8 @@ import type { Round, RoundSong } from '@/lib/blind-test/legacy-round';
 // song (lib/blind-test/legacy-round.ts). It used to ask for `{ mode_id }` and
 // read YouTube clips from `songs[]`, a shape the route no longer answers, so Play
 // failed on every mode page. A run saves nothing, like a free run on the hub.
+// V12: the run itself is recorded through lib/tracking/bt.ts (its own switch,
+// NEXT_PUBLIC_BT_TRACKING; off = nothing is sent).
 
 interface PlayerAnswer {
   picked: number;
@@ -25,6 +29,7 @@ type Phase = 'intro' | 'loading' | 'playing' | 'results';
 
 export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactElement {
   const run = legacyModeRun(mode.id);
+  const tracking = useBtTracking();
 
   const [phase, setPhase] = useState<Phase>('intro');
   const [round, setRound] = useState<Round | null>(null);
@@ -105,6 +110,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
     const audio = ensureAudio();
     audio.src = song.preview_url;
     audio.currentTime = 0;
+    tracking.attach(audio);
     void audio.play().catch(() => { /* the 'error' listener skips an unplayable preview */ });
   }
 
@@ -124,6 +130,12 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
     const answerTime = (Date.now() - answerStartRef.current) / 1000;
 
     if (isCorrect) setScore(prev => prev + 1);
+    tracking.answer({
+      song_id: song.song_id,
+      kind: song.choices[song.correct_index] === song.artist ? 'artist' : 'title',
+      correct: isCorrect,
+      ms: Math.min(activeRound.timer * 1000, Math.max(0, Math.round(pickedIndex === -1 ? activeRound.timer * 1000 : answerTime * 1000))),
+    });
 
     setAnswers(prev => ({
       ...prev,
@@ -187,6 +199,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
         return;
       }
 
+      tracking.open({ kind: 'free', playlist: body.playlist, groups: run?.pick.group ? [run.pick.group] : null, rounds: next.songs.length });
       setRound(next);
       roundRef.current = next;
       setCurrentIndex(0);
@@ -209,6 +222,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
 
   function finishGame() {
     try { audioRef.current?.pause(); } catch { /* */ }
+    tracking.finish(true);
     setPhase('results');
   }
 

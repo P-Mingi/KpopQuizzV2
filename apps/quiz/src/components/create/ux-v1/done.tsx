@@ -1,11 +1,14 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
 import { Mascot } from '@/components/ui/mascot';
+import { Icon } from '@/components/ux-v1/icon';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { creatorNudge } from '@/lib/creator-progress';
 import { copyShareLink } from '@/lib/share';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
@@ -14,10 +17,18 @@ import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 // lib/share copyShareLink), Open your quiz, Post a challenge (P8's community
 // composer); then, kept from the live funnel under the prototype's block, the
 // EXISTS creator-progress line and "Create another quiz".
+//
+// V12 (G8, SYSTEM.md 5.4), only when isUxV12(): the second action is "Open the
+// share kit" (prototype #pub-done), and the challenge door moves into the kit.
+// The kit is its own chunk, loaded when a creator opens it; the v11-only branch
+// is the markup as it was.
+
+const ShareKit = dynamic(() => import('@/components/share-kit/share-kit').then((m) => m.ShareKit), { ssr: false });
 
 export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => void }): React.ReactElement | null {
   const toast = useUxToast();
   const [copied, setCopied] = useState(false);
+  const [kit, setKit] = useState(false);
   const p = f.published;
   if (!p) return null;
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
@@ -44,9 +55,18 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
         <a className="ux-btn ux-btn-primary ux-btn-lg" href={`/q/${p.slug}`} target="_blank" rel="noopener noreferrer">
           Open your quiz<span className="ux-sr"> (opens in a new tab)</span>
         </a>
-        <a className="ux-btn ux-btn-ghost ux-btn-lg" href={`/community?compose=challenge&quiz=${encodeURIComponent(p.slug)}`}>
-          Post a challenge
-        </a>
+        {isUxV12() ? (
+          <>
+            <button type="button" className="ux-btn ux-btn-ghost ux-btn-lg" onClick={() => setKit(true)} data-testid="open-share-kit">
+              <Icon name="share" />Open the share kit
+            </button>
+            {kit ? <ShareKit open onClose={() => setKit(false)} quizId={p.id} slug={p.slug} fallbackTitle={f.data.title.trim()} /> : null}
+          </>
+        ) : (
+          <a className="ux-btn ux-btn-ghost ux-btn-lg" href={`/community?compose=challenge&quiz=${encodeURIComponent(p.slug)}`}>
+            Post a challenge
+          </a>
+        )}
       </div>
       {nudge ? <p className="ux-help p5-nudge">{nudge.text}</p> : null}
       <button type="button" className="ux-lnk p5-another" onClick={onAnother}>Create another quiz</button>

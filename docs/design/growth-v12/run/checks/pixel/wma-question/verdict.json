@@ -1,0 +1,289 @@
+{
+ "state": "wma-question",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:52:26.586Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.59,
+    "maskedPct": 11.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the stored question and answers are not the sample copy (G5)"
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: stored answer copy wraps differently (G5)"
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:52:28.121Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.32,
+    "maskedPct": 11.8
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the stored question and answers are not the sample copy (G5)"
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: stored answer copy wraps differently (G5)"
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:52:29.864Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 2.16,
+    "maskedPct": 26.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the stored question and answers are not the sample copy (G5)"
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: stored answer copy wraps differently (G5)"
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:52:31.473Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/which-stray-kids-member-are-you",
+   "signedIn": false,
+   "counts": {
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 3
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.9,
+    "maskedPct": 26.2
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "question card",
+     "proto": ".pq",
+     "impl": ".ux-pers-q",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the stored question and answers are not the sample copy (G5)"
+    },
+    {
+     "name": "answer",
+     "proto": ".popt",
+     "impl": ".ux-pers-opt",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: stored answer copy wraps differently (G5)"
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G5",
+ "auth": "guest",
+ "anchor": null,
+ "verdict": "pass"
+}

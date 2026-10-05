@@ -1,0 +1,258 @@
+{
+ "state": "share-kit",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T11:00:16.590Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create?resume=publish",
+   "signedIn": true,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 4.34,
+    "maskedPct": 19.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "story card",
+     "proto": ".kit .story",
+     "impl": ".g8-kit-story .ux-story",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "kit section",
+     "proto": ".kitsec",
+     "impl": ".g8-kitsec",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the local link; 390 width: the prototype kit is 440px on a 390 screen and scrolls sideways (G8)"
+    }
+   ],
+   "seconds": 3
+  },
+  "1440-dark": {
+   "at": "2026-10-03T11:00:19.816Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create?resume=publish",
+   "signedIn": true,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.72,
+    "maskedPct": 19.7
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "story card",
+     "proto": ".kit .story",
+     "impl": ".g8-kit-story .ux-story",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "kit section",
+     "proto": ".kitsec",
+     "impl": ".g8-kitsec",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the local link; 390 width: the prototype kit is 440px on a 390 screen and scrolls sideways (G8)"
+    }
+   ],
+   "seconds": 3
+  },
+  "390-light": {
+   "at": "2026-10-03T11:00:22.399Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create?resume=publish",
+   "signedIn": true,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 13.03,
+    "maskedPct": 37.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "story card",
+     "proto": ".kit .story",
+     "impl": ".g8-kit-story .ux-story",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "kit section",
+     "proto": ".kitsec",
+     "impl": ".g8-kitsec",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the local link; 390 width: the prototype kit is 440px on a 390 screen and scrolls sideways (G8)"
+    }
+   ],
+   "seconds": 3
+  },
+  "390-dark": {
+   "at": "2026-10-03T11:00:25.173Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/create?resume=publish",
+   "signedIn": true,
+   "counts": {
+    "pass": 2,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 2
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 12.83,
+    "maskedPct": 37.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/share/generate",
+     "body": "{\"quizId\":\"0e8e2c4a-6b1f-4c1e-9a43-0c6f0b9d8a11\",\"platform\":\"link\"}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "story card",
+     "proto": ".kit .story",
+     "impl": ".g8-kit-story .ux-story",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "kit section",
+     "proto": ".kitsec",
+     "impl": ".g8-kitsec",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: the local link; 390 width: the prototype kit is 440px on a 390 screen and scrolls sideways (G8)"
+    }
+   ],
+   "seconds": 3
+  }
+ },
+ "owner": "G8",
+ "auth": "user",
+ "anchor": null,
+ "note": "create done reached with the P5 sample draft, the publish and the kit read answered locally (G8 fixture, linkPlays null: \"plays from your link\" NOT verified until v12-g8-share-link-plays.sql)",
+ "verdict": "pass"
+}

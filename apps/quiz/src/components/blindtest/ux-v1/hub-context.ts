@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react';
 
 import type { RunApi } from './use-run';
 import type { BoardResponse } from '@/lib/ux-v1/p6/board-types';
-import type { BtGroup, BtPick } from '@/lib/ux-v1/p6/playlists';
+import type { BtGroup, BtPick, MixItem } from '@/lib/ux-v1/p6/playlists';
 
 /** What the hub islands (setup, ways to play, board, play by group) share with the controller. */
 export interface HubApi {
@@ -12,6 +12,8 @@ export interface HubApi {
   groups: BtGroup[];
   /** Active songs in the pool (the "All K-pop" count). */
   songs: number;
+  /** V12: the playable themed playlists of the menu (empty with the flag off). */
+  themes: readonly MixItem[];
   pick: BtPick;
   setPick: (p: BtPick) => void;
   rounds: number;

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 
 interface LiveStats { online: number; todayPlays: number; totalPlays: number }
 
@@ -16,9 +17,13 @@ const getLiveStats = unstable_cache(
     const fifteenMinAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString();
     const todayStart = new Date();
     todayStart.setUTCHours(0, 0, 0, 0);
+    // v12: an editorial account is not a fan online. Flag off: no read, same query.
+    const team = await teamIdsToExclude();
+    let recentQ = supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', fifteenMinAgo);
+    if (team) recentQ = recentQ.or(`player_id.is.null,player_id.not.in.${pgList(team)}`);
 
     const [recentRes, todayRes, totalRes] = await Promise.all([
-      supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', fifteenMinAgo),
+      recentQ,
       supabase.from('plays').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
       supabase.from('plays').select('*', { count: 'exact', head: true }),
     ]);

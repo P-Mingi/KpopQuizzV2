@@ -1,0 +1,414 @@
+{
+ "state": "nta-result",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:59:02.789Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 0.27,
+    "maskedPct": 6.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/name-all/result",
+     "body": "{\"group\":\"stray-kids\",\"found\":[\"Hyunjin\",\"Felix\"],\"seconds\":1,\"gaveUp\":true}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: members only, the community line only when its number exists (G6 deviations 1, 2)"
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result block",
+     "proto": ".ntares",
+     "impl": ".ux-nta-res",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: no invented community row (G6)"
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:59:04.417Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     900
+    ],
+    "implSize": [
+     1440,
+     900
+    ],
+    "diffPct": 1.07,
+    "maskedPct": 6.8
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/name-all/result",
+     "body": "{\"group\":\"stray-kids\",\"found\":[\"Hyunjin\",\"Felix\"],\"seconds\":1,\"gaveUp\":true}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: members only, the community line only when its number exists (G6 deviations 1, 2)"
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result block",
+     "proto": ".ntares",
+     "impl": ".ux-nta-res",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: no invented community row (G6)"
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:59:06.026Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.41,
+    "maskedPct": 15.3
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/name-all/result",
+     "body": "{\"group\":\"stray-kids\",\"found\":[\"Hyunjin\",\"Felix\"],\"seconds\":1,\"gaveUp\":true}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: members only, the community line only when its number exists (G6 deviations 1, 2)"
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result block",
+     "proto": ".ntares",
+     "impl": ".ux-nta-res",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: no invented community row (G6)"
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:59:07.636Z",
+   "base": "http://localhost:3071",
+   "verdict": "pass",
+   "url": "/stray-kids-name-all-members",
+   "signedIn": false,
+   "counts": {
+    "pass": 5,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 0,
+    "landmarks": 5
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     844
+    ],
+    "implSize": [
+     390,
+     844
+    ],
+    "diffPct": 0.4,
+    "maskedPct": 15.3
+   },
+   "writes": [
+    {
+     "method": "POST",
+     "path": "/api/name-all/result",
+     "body": "{\"group\":\"stray-kids\",\"found\":[\"Hyunjin\",\"Felix\"],\"seconds\":1,\"gaveUp\":true}"
+    }
+   ],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "box": [
+      "x",
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "game card",
+     "proto": ".nta",
+     "impl": ".ux-nta",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: members only, the community line only when its number exists (G6 deviations 1, 2)"
+    },
+    {
+     "name": "member slot",
+     "proto": ".ntagrid .slot",
+     "impl": ".ux-nta-grid .ux-nta-slot",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    },
+    {
+     "name": "result block",
+     "proto": ".ntares",
+     "impl": ".ux-nta-res",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "x",
+      "w"
+     ],
+     "mismatches": [],
+     "why": "height: no invented community row (G6)"
+    },
+    {
+     "name": "primary button",
+     "proto": ".btn-primary",
+     "impl": ".ux-nta .ux-btn-primary",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "box": [
+      "w",
+      "h"
+     ],
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "owner": "G6",
+ "auth": "guest",
+ "anchor": null,
+ "note": "community line NOT verified until v12-g6-name-all.sql is applied (hidden as specified)",
+ "verdict": "pass"
+}

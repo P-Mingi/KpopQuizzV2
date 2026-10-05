@@ -1,0 +1,18 @@
+F5c flag-off proof (2026-10-03). Both flags off (NEXT_PUBLIC_UX_V1=0, NEXT_PUBLIC_UX_V12=0), next dev -p 3066,
+.next removed between the two states.
+A = base feat/v12 89d893d (its page.tsx restored in the working tree), one warm-up GET per page, then captured
+    and replayed by a static server on :3067.
+B = v12/f5c-legacy d527b1d, live on :3066.
+node e2e/ux-v1/helpers/flag-off-diff.mjs --a http://localhost:3067 --b http://localhost:3066 --dev --structure ...
+
+IDENTICAL (structure)  /new  status 200/200  raw bytes 118038/118038  normalised 55469/55469  js chunks 24/24
+IDENTICAL (structure)  /trending  status 200/200  raw bytes 111921/111921  normalised 48496/48496  js chunks 24/24
+IDENTICAL (structure)  /most-liked  status 200/200  raw bytes 124546/124546  normalised 62304/62304  js chunks 24/24
+IDENTICAL (structure)  /search?q=bts  status 200/200  raw bytes 145476/145476  normalised 61019/61019  js chunks 24/24
+IDENTICAL (structure)  /blindtest/leaderboard  status 200/200  raw bytes 87635/87635  normalised 27359/27359  js chunks 22/22
+all 5 pages identical after normalising build ids and hashed asset names (exit 0)
+
+Normalisation: only the helper's own (--dev request id, build id, hashed assets). A was fetched a few minutes
+before B (sequential, one worktree), so live data could have drifted; raw byte counts are equal on all 5.
+Flags-off check on A: /new has 0 "ux-qcard", /search?q=bts has 24 "quiz-author" (the legacy cards).
+The HTML pairs are not committed (production data, 512 KB).

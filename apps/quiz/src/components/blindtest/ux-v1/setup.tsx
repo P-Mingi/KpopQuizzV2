@@ -10,6 +10,7 @@ import { useUxToast } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { ALL_PICK, filterGroups, GENERATIONS, groupPick, initials, MIXES, ROUND_OPTIONS } from '@/lib/ux-v1/p6/playlists';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import { useHub } from './hub-context';
 
@@ -21,9 +22,11 @@ import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 
 function Avatar({ slug, name }: { slug: string; name: string }): React.ReactElement {
   const src = groupPhotoUrl(slug);
+  // V12 (F7a): a photo that fails to load shows the initials, never an empty disc.
+  const [failed, setFailed] = useState(false);
   return (
     <span className="p6-gav" aria-hidden="true">
-      {src ? <Image src={src} alt="" width={28} height={28} sizes="28px" /> : initials(name)}
+      {src && !(failed && isUxV12()) ? <Image src={src} alt="" width={28} height={28} sizes="28px" onError={isUxV12() ? () => setFailed(true) : undefined} /> : initials(name)}
     </span>
   );
 }
@@ -60,7 +63,15 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
           </div>
         </>
       ) : null}
-      <div className="ux-msep" />
+      {/* V12 themes share the separator's slot: with the flag off the menu keeps its exact shape. */}
+      {hub.themes.length > 0 ? (
+        <>
+          <div className="ux-msep" />
+          <div className="p6-pl-h">Themes</div>
+          {hub.themes.map((m) => item(m, m.label))}
+          <div className="ux-msep" />
+        </>
+      ) : <div className="ux-msep" />}
       <div className="p6-pl-h">Mixes</div>
       {MIXES.map((m) => item(m, m.label))}
       <button type="button" className="ux-mi p6-mi" aria-expanded={gens} aria-controls="p6-pl-gens" onClick={() => setGens((v) => !v)}>

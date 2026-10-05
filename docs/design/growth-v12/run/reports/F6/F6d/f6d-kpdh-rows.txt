@@ -1,0 +1,13 @@
+3412534541 TWICE | TAKEDOWN (JEONGYEON, JIHYO, CHAEYOUNG) | active | group 4 | id 0dc211c6-0e98-4241-85dd-61730428782d | cover yes
+3412534551 HUNTR/X | How It’s Done | soundtrack | group null | id 1c69a9b7-03e1-4b6f-b874-4d979c9c7896 | cover yes
+3412534561 Saja Boys | Soda Pop | soundtrack | group null | id b9f02418-9b87-470d-8cc4-a18d0467fd1e | cover yes
+3412534581 HUNTR/X | Golden | soundtrack | group null | id e66aa282-b386-4a5a-b80e-3cb3097fe23e | cover yes
+3412534591 TWICE | Strategy | active | group 4 | id 4d8c8687-471b-4200-b492-326319c6c758 | cover yes
+3412534601 HUNTR/X | Takedown | soundtrack | group null | id ec0a8ae3-a0b1-454b-8ce1-f8d3186c8730 | cover yes
+3412534611 Saja Boys | Your Idol | soundtrack | group null | id 2e4be435-03fb-4092-b4a2-6986503168d3 | cover yes
+3412534621 Rumi and Jinu | Free | soundtrack | group null | id 7bd6a880-8361-46df-9a95-2ee471c6323c | cover yes
+3412534631 HUNTR/X | What It Sounds Like | soundtrack | group null | id 99643c99-6c00-4eca-a776-2c484969df25 | cover yes
+3412534641 MeloMance | 사랑인가 봐 Love, Maybe | soundtrack | group null | id 91a194d0-0e24-43ac-8b83-2e77f66788e6 | cover yes
+3412534651 Jokers | 오솔길 Path | soundtrack | group null | id 5103945a-5bc1-4124-b766-92d2814e692d | cover yes
+3541756631 Jinu | Jinu’s Lament | soundtrack | group null | id f51d682c-1bf2-4eef-af3a-d039bad2472f | cover yes
+groups [{"id":4,"slug":"twice"}]

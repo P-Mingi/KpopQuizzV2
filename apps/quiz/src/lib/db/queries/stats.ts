@@ -1,6 +1,10 @@
 import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { maxPointsPerQuestion, maxScore } from '@/lib/quiz/scoring';
+
+/** True when a quiz type scores 1 point a question, so its average is a share of right answers. */
+const ranksByRightAnswers = (quizType: unknown): boolean => maxPointsPerQuestion(typeof quizType === 'string' ? quizType : null) === 1;
 
 export interface SiteStats {
   totalSongs: number;
@@ -98,7 +102,7 @@ const fetchQuizScoreExtremes = async (): Promise<QuizExtremes> => {
   const supabase = createPublicReadClient();
   const { data } = await supabase
     .from('quizzes')
-    .select('slug, title, total_score_sum, total_completions, questions, groups(name, slug)')
+    .select('slug, title, quiz_type, total_score_sum, total_completions, questions, groups(name, slug)')
     .eq('status', 'published')
     .gte('total_completions', MIN_COMPLETIONS)
     .limit(600);
@@ -109,7 +113,11 @@ const fetchQuizScoreExtremes = async (): Promise<QuizExtremes> => {
     const completions = (x.total_completions as number) ?? 0;
     const sum = (x.total_score_sum as number) ?? 0;
     if (qc <= 0 || completions <= 0) continue;
-    const avgPct = Math.round((sum / completions / qc) * 100);
+    // V12: a clue quiz is scored in points (up to 3 a question, fewer with each clue
+    // used), so its percentage is not a share of right answers and cannot be ranked
+    // against the others as "hardest" or "easiest". Only 1-point types are ranked.
+    if (!ranksByRightAnswers(x.quiz_type)) continue;
+    const avgPct = Math.round((sum / completions / maxScore(x.quiz_type as string, qc)) * 100);
     // Drop impossible values (edited-after-plays artifacts) so the ranking is honest.
     if (avgPct < 0 || avgPct > 100) continue;
     const grp = x.groups as { name?: string; slug?: string } | null;
@@ -208,7 +216,7 @@ const fetchGroupTypeScores = async (): Promise<GroupTypeScores | null> => {
   const supabase = createPublicReadClient();
   const { data: qData } = await supabase
     .from('quizzes')
-    .select('total_score_sum, total_completions, questions, group_id, groups(slug, is_custom, needs_review)')
+    .select('quiz_type, total_score_sum, total_completions, questions, group_id, groups(slug, is_custom, needs_review)')
     .eq('status', 'published')
     .gte('total_completions', MIN_COMPLETIONS)
     .limit(1000);
@@ -244,7 +252,8 @@ const fetchGroupTypeScores = async (): Promise<GroupTypeScores | null> => {
     const completions = (q.total_completions as number) ?? 0;
     const sum = (q.total_score_sum as number) ?? 0;
     if (qc <= 0 || completions <= 0) continue;
-    const avgPct = (sum / completions / qc) * 100;
+    if (!ranksByRightAnswers(q.quiz_type)) continue; // same rule as the extremes above
+    const avgPct = (sum / completions / maxScore(q.quiz_type as string, qc)) * 100;
     if (avgPct < 0 || avgPct > 100) continue;
     acc[type].pctSum += avgPct; acc[type].n += 1; acc[type].plays += completions;
   }

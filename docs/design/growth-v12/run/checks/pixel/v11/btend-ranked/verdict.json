@@ -1,0 +1,257 @@
+{
+ "state": "btend-ranked",
+ "owner": "P7",
+ "combos": {
+  "1440-light": {
+   "at": "2026-10-03T10:52:20.083Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until the ranked migration is applied (populated ranked state)",
+   "url": "/blindtest/ranked",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2048
+    ],
+    "implSize": [
+     1440,
+     1825
+    ],
+    "diffPct": 13.07,
+    "maskedPct": 12.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "1440-dark": {
+   "at": "2026-10-03T10:52:21.820Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until the ranked migration is applied (populated ranked state)",
+   "url": "/blindtest/ranked",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     1440,
+     2048
+    ],
+    "implSize": [
+     1440,
+     1825
+    ],
+    "diffPct": 17.82,
+    "maskedPct": 12.7
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "proto": ".links a.on",
+     "impl": ".ux-links a[aria-current=\"page\"]",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "tab bar",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-light": {
+   "at": "2026-10-03T10:52:23.658Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until the ranked migration is applied (populated ranked state)",
+   "url": "/blindtest/ranked",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2686
+    ],
+    "implSize": [
+     390,
+     2481
+    ],
+    "diffPct": 14.87,
+    "maskedPct": 32.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  },
+  "390-dark": {
+   "at": "2026-10-03T10:52:25.596Z",
+   "base": "http://localhost:3071",
+   "verdict": "not verified",
+   "reason": "NOT verified until the ranked migration is applied (populated ranked state)",
+   "url": "/blindtest/ranked",
+   "signedIn": true,
+   "counts": {
+    "landmarks": 4,
+    "pass": 3,
+    "fail": 0,
+    "missing": 0,
+    "extra": 0,
+    "absent": 1
+   },
+   "overflowX": 0,
+   "pixel": {
+    "refSize": [
+     390,
+     2686
+    ],
+    "implSize": [
+     390,
+     2481
+    ],
+    "diffPct": 21.87,
+    "maskedPct": 32.9
+   },
+   "writes": [],
+   "landmarks": [
+    {
+     "name": "nav",
+     "proto": ".nav",
+     "impl": ".ux-nav",
+     "status": "pass",
+     "styleRef": "styles.json",
+     "mismatches": []
+    },
+    {
+     "name": "nav active pill",
+     "status": "absent",
+     "note": "in neither"
+    },
+    {
+     "name": "tab bar",
+     "proto": ".tabbar",
+     "impl": ".ux-tabbar",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    },
+    {
+     "name": "footer",
+     "proto": ".foot",
+     "impl": ".ux-foot",
+     "status": "pass",
+     "styleRef": "live prototype",
+     "mismatches": []
+    }
+   ],
+   "seconds": 2
+  }
+ },
+ "auth": "user",
+ "shot": "full",
+ "verdict": "not verified"
+}

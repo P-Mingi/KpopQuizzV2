@@ -3,6 +3,7 @@
 // read-only selects after it. Nothing here writes. Every read fails soft (an
 // empty result), so a DB blip never 500s or bakes an error into the ISR page.
 
+import { getTeamMap } from '@/lib/editorial/accounts';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getGroupWarRank } from '@/lib/db/queries/group-hub';
 
@@ -81,5 +82,17 @@ export async function readHistory(db: SupabaseClient, userId: string, limit = 20
     return rows.sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0)).slice(0, limit);
   } catch {
     return [];
+  }
+}
+
+/** v12: the editorial identity of this passport's owner, or null (SYSTEM.md 5.6).
+ *  Null with the v12 flag off (no read), before the editorial SQL is applied, and on
+ *  any read error: the passport then renders exactly as today. */
+export async function readTeamIdentity(userId: string | null | undefined): Promise<{ displayName: string; beat: string } | null> {
+  if (!userId) return null;
+  try {
+    return (await getTeamMap()).get(userId) ?? null;
+  } catch {
+    return null;
   }
 }

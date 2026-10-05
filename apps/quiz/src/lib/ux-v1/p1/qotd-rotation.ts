@@ -106,7 +106,7 @@ export function supabaseQotdStore(db: SupabaseClient): QotdStore {
     },
     async catalogCandidates() {
       return fetchAllRows<CatalogQuiz>(() => db.from('quizzes')
-        .select('id, group_id, play_count, like_count, total_completions, total_score_sum, question_count, report_count, created_at')
+        .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, report_count, created_at')
         .eq('status', 'published')
         .order('id'));
     },

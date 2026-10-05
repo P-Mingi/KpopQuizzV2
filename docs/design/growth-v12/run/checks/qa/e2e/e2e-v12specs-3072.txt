@@ -1,0 +1,311 @@
+# C3 e2e/ux-v12 (a1, g1, g3 to g9) on :3072, v11-only build of afb83f4, ID_EXPECT v11 (G4 off), retries 1, 2026-10-03
+# project | spec | test | status (expected = pass) | attempts | skip reason
+setup | auth.setup.ts | parity test user session | expected | 1 | 
+ux-1440 | a1.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | a1.spec.ts | both flags on: every v12 section, reference landmarks, no sideways scroll, a11y | skipped | 1 | v12 kit not served here (state: v11)
+ux-1440 | a1.spec.ts | Team badge: pill after the name, team avatar, no level, no fan flair, the line on post and profile | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | theme cards and tiles are real links; steps are an ordered list; language pills are pages | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | answers: four colours and four shapes, reveal state, phone buttons lock on the tapped answer | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | result card parts and the distribution: real shares, the viewer row marked | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | story image variants: the saved PNG is 1080 x 1920, the square one 1080 x 1080 | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | stylesheet: the v12 rules and the ux-v12 page sheets are served with the v12 flag only | expected | 1 | 
+ux-1440 | a1.spec.ts | v11 only: the kit has no v12 section and a team prop changes nothing | expected | 1 | 
+ux-390 | a1.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | a1.spec.ts | both flags on: every v12 section, reference landmarks, no sideways scroll, a11y | skipped | 1 | v12 kit not served here (state: v11)
+ux-390 | a1.spec.ts | Team badge: pill after the name, team avatar, no level, no fan flair, the line on post and profile | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | theme cards and tiles are real links; steps are an ordered list; language pills are pages | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | answers: four colours and four shapes, reveal state, phone buttons lock on the tapped answer | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | result card parts and the distribution: real shares, the viewer row marked | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | story image variants: the saved PNG is 1080 x 1920, the square one 1080 x 1080 | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | stylesheet: the v12 rules and the ux-v12 page sheets are served with the v12 flag only | expected | 1 | 
+ux-390 | a1.spec.ts | v11 only: the kit has no v12 section and a team prop changes nothing | expected | 1 | 
+ux-1440 | a1.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | a1.spec.ts | both flags on: every v12 section, reference landmarks, no sideways scroll, a11y | skipped | 1 | v12 kit not served here (state: v11)
+ux-1440 | a1.spec.ts | Team badge: pill after the name, team avatar, no level, no fan flair, the line on post and profile | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | theme cards and tiles are real links; steps are an ordered list; language pills are pages | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | answers: four colours and four shapes, reveal state, phone buttons lock on the tapped answer | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | result card parts and the distribution: real shares, the viewer row marked | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | story image variants: the saved PNG is 1080 x 1920, the square one 1080 x 1080 | skipped | 1 | v12 kit not served here
+ux-1440 | a1.spec.ts | stylesheet: the v12 rules and the ux-v12 page sheets are served with the v12 flag only | expected | 1 | 
+ux-1440 | a1.spec.ts | v11 only: the kit has no v12 section and a team prop changes nothing | expected | 1 | 
+ux-390 | a1.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | a1.spec.ts | both flags on: every v12 section, reference landmarks, no sideways scroll, a11y | skipped | 1 | v12 kit not served here (state: v11)
+ux-390 | a1.spec.ts | Team badge: pill after the name, team avatar, no level, no fan flair, the line on post and profile | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | theme cards and tiles are real links; steps are an ordered list; language pills are pages | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | answers: four colours and four shapes, reveal state, phone buttons lock on the tapped answer | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | result card parts and the distribution: real shares, the viewer row marked | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | story image variants: the saved PNG is 1080 x 1920, the square one 1080 x 1080 | skipped | 1 | v12 kit not served here
+ux-390 | a1.spec.ts | stylesheet: the v12 rules and the ux-v12 page sheets are served with the v12 flag only | expected | 1 | 
+ux-390 | a1.spec.ts | v11 only: the kit has no v12 section and a team prop changes nothing | expected | 1 | 
+ux-1440 | g1.spec.ts | hub playlist run: start when the clip plays, finish on the results (completed) | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | quit mid-run: one beacon finish with completed = false and the answers so far | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | leaving the page mid-run (pagehide): the abandoned run still lands | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | group run from the hub index: playlist group:<slug> | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | theme page /blindtest/girl-groups: playlist theme:gg | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | daily: playlist daily:<utc date>, source daily; the daily saves are unchanged | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | challenge link: playlist challenge:<code>, source challenge | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | hub playlist run: start when the clip plays, finish on the results (completed) | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | quit mid-run: one beacon finish with completed = false and the answers so far | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | leaving the page mid-run (pagehide): the abandoned run still lands | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | group run from the hub index: playlist group:<slug> | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | theme page /blindtest/girl-groups: playlist theme:gg | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | daily: playlist daily:<utc date>, source daily; the daily saves are unchanged | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | challenge link: playlist challenge:<code>, source challenge | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | legacy hub run to the results, then a quit on the next run | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | legacy daily: playlist daily:<utc date>, source daily | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | legacy playlist page /blindtest/girl-groups: theme:gg, finish on the results | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | legacy hub run to the results, then a quit on the next run | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | legacy daily: playlist daily:<utc date>, source daily | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | legacy playlist page /blindtest/girl-groups: theme:gg, finish on the results | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | a whole run sends no tracking request and the endpoint is a 404 | expected | 1 | 
+ux-390 | g1.spec.ts | a whole run sends no tracking request and the endpoint is a 404 | expected | 1 | 
+ux-1440 | g1.spec.ts | refuses what is not a run and drops bots, always without an error status | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | /admin/blind-tests/runs: a guest is sent away, the page is not indexable | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | refuses what is not a run and drops bots, always without an error status | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | /admin/blind-tests/runs: a guest is sent away, the page is not indexable | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | a ranked run to the results: one start, one completed finish with the server points | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | quitting a ranked run: one beacon finish, completed = false, the answers so far | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-1440 | g1.spec.ts | tracking off: a ranked run sends no tracking request | expected | 1 | 
+ux-390 | g1.spec.ts | a ranked run to the results: one start, one completed finish with the server points | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | quitting a ranked run: one beacon finish, completed = false, the answers so far | skipped | 1 | NEXT_PUBLIC_BT_TRACKING is off on this build
+ux-390 | g1.spec.ts | tracking off: a ranked run sends no tracking request | expected | 1 | 
+ux-1440 | g3.spec.ts | en: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | fr: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | es: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | id: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | en: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | fr: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | es: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | id: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | en: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | fr: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | es: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | id: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | en: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | fr: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | es: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | id: the page, the reference landmarks, no sideways scroll, a11y | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | en: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | fr: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | es: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | id: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | en: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | fr: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | es: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | id: title, description, canonical, hreflang cluster, FAQ + FAQPage, BreadcrumbList, indexable | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | en: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | fr: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | es: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | id: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | en: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | fr: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | es: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-390 | g3.spec.ts | id: Start plays a full run in the page language, nothing is written | skipped | 1 | landings are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest: Playlists rail, live band, language row; the SEO fields are untouched | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | the KPop Demon Hunters bridge card (its markup placed on a playable theme page) | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest: Playlists rail, live band, language row; the SEO fields are untouched | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | the KPop Demon Hunters bridge card (its markup placed on a playable theme page) | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest: Playlists rail, live band, language row; the SEO fields are untouched | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | the KPop Demon Hunters bridge card (its markup placed on a playable theme page) | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest: Playlists rail, live band, language row; the SEO fields are untouched | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-hits-2026: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/5th-gen: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/tiktok-viral: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-demon-hunters: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | /blindtest/kpop-hits-2025: hero, songs, more playlists, landmarks, a11y | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | the KPop Demon Hunters bridge card (its markup placed on a playable theme page) | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | a themed playlist under 10 songs answers like an unknown mode, and is in no list | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | Play on a theme page starts its own playlist (generate answered locally) and saves nothing | skipped | 1 | theme pages are not served here (state: v11)
+ux-1440 | g3.spec.ts | the hub menu lists the playable themes and starts them | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-390 | g3.spec.ts | a themed playlist under 10 songs answers like an unknown mode, and is in no list | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | Play on a theme page starts its own playlist (generate answered locally) and saves nothing | skipped | 1 | theme pages are not served here (state: v11)
+ux-390 | g3.spec.ts | the hub menu lists the playable themes and starts them | skipped | 1 | the v12 hub is not served here (state: v11)
+ux-1440 | g3.spec.ts | no landing, no themed page, no v12 addition on the hub, nothing in the sitemap | expected | 1 | 
+ux-390 | g3.spec.ts | no landing, no themed page, no v12 addition on the hub, nothing in the sitemap | expected | 1 | 
+ux-1440 | g4.spec.ts | the flag state is the expected one; /live and /join are noindex and out of the sitemap | expected | 1 | 
+ux-390 | g4.spec.ts | the flag state is the expected one; /live and /join are noindex and out of the sitemap | expected | 1 | 
+ux-1440 | g4.spec.ts | before the SQL is applied: the pages say the mode is not open yet | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a whole game: one host, three phones, five rounds, podium, play again | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | server time: a late answer is refused; a host reload resumes the room and reveals | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a phone drops and rejoins with its score; a dead socket falls back to the state route | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the host removes a player | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the nickname filter and the errors of the join form | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a room expires after two hours | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the host can play along from the phone frame; settings from the lobby keep the room | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | every state against the prototype reference, a11y, no sideways scroll | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run | skipped | 1 | needs a dev server started with NEXT_PUBLIC_BT_TRACKING=1 and G4_TRACKING=1
+ux-1440 | g4.spec.ts | the join page: a phone screen with named controls, a11y | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | before the SQL is applied: the pages say the mode is not open yet | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a whole game: one host, three phones, five rounds, podium, play again | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | server time: a late answer is refused; a host reload resumes the room and reveals | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a phone drops and rejoins with its score; a dead socket falls back to the state route | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the host removes a player | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the nickname filter and the errors of the join form | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a room expires after two hours | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the host can play along from the phone frame; settings from the lobby keep the room | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | every state against the prototype reference, a11y, no sideways scroll | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run | skipped | 1 | needs a dev server started with NEXT_PUBLIC_BT_TRACKING=1 and G4_TRACKING=1
+ux-390 | g4.spec.ts | the join page: a phone screen with named controls, a11y | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | before the SQL is applied: the pages say the mode is not open yet | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a whole game: one host, three phones, five rounds, podium, play again | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | server time: a late answer is refused; a host reload resumes the room and reveals | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a phone drops and rejoins with its score; a dead socket falls back to the state route | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the host removes a player | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the nickname filter and the errors of the join form | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | a room expires after two hours | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | the host can play along from the phone frame; settings from the lobby keep the room | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | every state against the prototype reference, a11y, no sideways scroll | skipped | 1 | v12 is off here
+ux-1440 | g4.spec.ts | run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run | skipped | 1 | needs a dev server started with NEXT_PUBLIC_BT_TRACKING=1 and G4_TRACKING=1
+ux-1440 | g4.spec.ts | the join page: a phone screen with named controls, a11y | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | before the SQL is applied: the pages say the mode is not open yet | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a whole game: one host, three phones, five rounds, podium, play again | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | server time: a late answer is refused; a host reload resumes the room and reveals | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a phone drops and rejoins with its score; a dead socket falls back to the state route | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the host removes a player | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the nickname filter and the errors of the join form | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | a room expires after two hours | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | the host can play along from the phone frame; settings from the lobby keep the room | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | every state against the prototype reference, a11y, no sideways scroll | skipped | 1 | v12 is off here
+ux-390 | g4.spec.ts | run tracking (only on a server with NEXT_PUBLIC_BT_TRACKING=1): each phone records one live run | skipped | 1 | needs a dev server started with NEXT_PUBLIC_BT_TRACKING=1 and G4_TRACKING=1
+ux-390 | g4.spec.ts | the join page: a phone screen with named controls, a11y | skipped | 1 | v12 is off here
+ux-1440 | g5.spec.ts | kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | wma-question, wma-result: reference landmarks, public role, real shares, bias offer | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | wma-question, wma-result: reference landmarks, public role, real shares, bias offer | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | wma-question, wma-result: reference landmarks, public role, real shares, bias offer | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | kpdh-intro, kpdh-question, kpdh-result: reference landmarks, text only, one saved sheet | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | wma-question, wma-result: reference landmarks, public role, real shares, bias offer | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | g5.spec.ts | flag off: every /which-*, /personality* and the bridge URL answer as today | expected | 1 | 
+ux-1440 | g5.spec.ts | routing with the flag on: pretty URL 200, internal route and other groups keep their 301 | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | SEO: title, description, canonical, indexable, one H1, breadcrumb JSON-LD, server rendered | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | story and square share images are real PNG files of the right size | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | Set bias, signed in: one POST to update-profile with the member name (answered by the spec) | skipped | 1 | v12 not served here
+ux-1440 | g5.spec.ts | a group without a profile set has no page, and every listed group has one | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | g5.spec.ts | flag off: every /which-*, /personality* and the bridge URL answer as today | expected | 1 | 
+ux-390 | g5.spec.ts | routing with the flag on: pretty URL 200, internal route and other groups keep their 301 | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | SEO: title, description, canonical, indexable, one H1, breadcrumb JSON-LD, server rendered | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | story and square share images are real PNG files of the right size | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | Set bias, signed in: one POST to update-profile with the member name (answered by the spec) | skipped | 1 | v12 not served here
+ux-390 | g5.spec.ts | a group without a profile set has no page, and every listed group has one | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | nta-intro, nta-play, nta-result: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | g6.spec.ts | flag off: both URLs answer as today (301 to /) and the route is a 404 | expected | 1 | 
+ux-1440 | g6.spec.ts | accepted spellings: Hangul, birth name, one typo; refused: unknown, short typo, twice | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | all eight found ends the round at once; Again starts a clean round; Share opens the sheet | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | the clock: 60 seconds, then the result without a give up | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | SEO: the pretty URL is indexable, the internal route is its noindex twin | skipped | 1 | v12 not served here
+ux-1440 | g6.spec.ts | the route refuses a request with no browser id or an unknown group | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | g6.spec.ts | flag off: both URLs answer as today (301 to /) and the route is a 404 | expected | 1 | 
+ux-390 | g6.spec.ts | accepted spellings: Hangul, birth name, one typo; refused: unknown, short typo, twice | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | all eight found ends the round at once; Again starts a clean round; Share opens the sheet | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | the clock: 60 seconds, then the result without a give up | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | SEO: the pretty URL is indexable, the internal route is its noindex twin | skipped | 1 | v12 not served here
+ux-390 | g6.spec.ts | the route refuses a request with no browser id or an unknown group | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | quiz-bonus then quiz-bonus-voted: reference landmarks, payload, a11y, no sideways scroll | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | g7.spec.ts | five pairs in a row, then the thanks with the real count and the link to the ranking | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | a year the catalogue does not have is not shown | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | Skip after two votes: the count is the real one, no fandom and no ranking are not invented | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | Skip before any vote removes the card and sends nothing | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | a pair with too few votes shows no split, only that the vote counted | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | a refused vote is said, never shown as counted, and can be retried | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | a Deezer cover is asked in a small size and is decorative | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | no pair from the server: no card, the results are the v11 results | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | v11 only: the results never ask for pairs and show no card | expected | 1 | 
+ux-390 | g7.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | g7.spec.ts | five pairs in a row, then the thanks with the real count and the link to the ranking | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | a year the catalogue does not have is not shown | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | Skip after two votes: the count is the real one, no fandom and no ranking are not invented | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | Skip before any vote removes the card and sends nothing | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | a pair with too few votes shows no split, only that the vote counted | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | a refused vote is said, never shown as counted, and can be retried | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | a Deezer cover is asked in a small size and is decorative | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | no pair from the server: no card, the results are the v11 results | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | v11 only: the results never ask for pairs and show no card | expected | 1 | 
+ux-1440 | g7.spec.ts | v12 on: pairs and fans-picked answer the documented shape and fail soft | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | v12 on: a vote without a pair issued by the server is refused; the cron needs its secret | skipped | 1 | v12 not served here
+ux-1440 | g7.spec.ts | v11 only: every G7 route answers 404 | expected | 1 | 
+ux-390 | g7.spec.ts | v12 on: pairs and fans-picked answer the documented shape and fail soft | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | v12 on: a vote without a pair issued by the server is refused; the cron needs its secret | skipped | 1 | v12 not served here
+ux-390 | g7.spec.ts | v11 only: every G7 route answers 404 | expected | 1 | 
+ux-1440 | g8.spec.ts | hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | hub-thin-katseye: the nudge with the real count, ways to play below it | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | hub-empty-riize: Be the first with real signals and three templates, no ways to play | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-thin-katseye: the nudge with the real count, ways to play below it | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-empty-riize: Be the first with real signals and three templates, no ways to play | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | hub-thin-katseye: the nudge with the real count, ways to play below it | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | hub-empty-riize: Be the first with real signals and three templates, no ways to play | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-ways-to-play and hub-fans-picked (Stray Kids): tiles that exist, the quizzes anchor, Fans picked only when ranked | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-thin-katseye: the nudge with the real count, ways to play below it | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | hub-empty-riize: Be the first with real signals and three templates, no ways to play | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | share-kit: create done opens the kit; link, QR, captions with the fandom, challenge door, plays only when real | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | v11 only: create done keeps "Post a challenge" and has no share kit | expected | 1 | 
+ux-390 | g8.spec.ts | v11 only: create done keeps "Post a challenge" and has no share kit | expected | 1 | 
+ux-1440 | g8.spec.ts | creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | creators: two periods, rules, tiers, noindex; editorial and own plays out (server rule); landmarks | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | g8.spec.ts | the creators APIs are read only and refuse what they cannot read | skipped | 1 | v12 not served here
+ux-1440 | g8.spec.ts | leaderboard links the creators board (flag on) and keeps every v11 link | expected | 1 | 
+ux-1440 | g8.spec.ts | flag off: no addition on the hubs, /creators and its APIs are not served | unexpected | 2 | 
+ux-390 | g8.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | g8.spec.ts | the creators APIs are read only and refuse what they cannot read | skipped | 1 | v12 not served here
+ux-390 | g8.spec.ts | leaderboard links the creators board (flag on) and keeps every v11 link | expected | 1 | 
+ux-390 | g8.spec.ts | flag off: no addition on the hubs, /creators and its APIs are not served | unexpected | 2 | 
+ux-1440 | g9.spec.ts | flag state is the expected one | expected | 1 | 
+ux-1440 | g9.spec.ts | v12 on: the cron and the admin API refuse an anonymous caller, the team list is empty before the SQL | skipped | 1 | v12 is off here
+ux-1440 | g9.spec.ts | v12 on: /admin/editorial is closed to a signed-out visitor and never in the sitemap | skipped | 1 | v12 is off here
+ux-1440 | g9.spec.ts | v12 off: the cron, the team list and editorial post URLs do not exist | expected | 1 | 
+ux-390 | g9.spec.ts | flag state is the expected one | expected | 1 | 
+ux-390 | g9.spec.ts | v12 on: the cron and the admin API refuse an anonymous caller, the team list is empty before the SQL | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | v12 on: /admin/editorial is closed to a signed-out visitor and never in the sitemap | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | v12 off: the cron, the team list and editorial post URLs do not exist | expected | 1 | 
+ux-1440 | g9.spec.ts | community-team-post: the editorial card in the feed matches the reference | skipped | 1 | v12 is off here
+ux-1440 | g9.spec.ts | post-team: the editorial post view matches the reference | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | community-team-post: the editorial card in the feed matches the reference | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | post-team: the editorial post view matches the reference | skipped | 1 | v12 is off here
+ux-1440 | g9.spec.ts | community-team-post: the editorial card in the feed matches the reference | skipped | 1 | v12 is off here
+ux-1440 | g9.spec.ts | post-team: the editorial post view matches the reference | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | community-team-post: the editorial card in the feed matches the reference | skipped | 1 | v12 is off here
+ux-390 | g9.spec.ts | post-team: the editorial post view matches the reference | skipped | 1 | v12 is off here
+
+passed 45 skipped 252 failed 2 flaky 0
+
+The 252 skips are the specs' own rules on a v11-only server (v12 not served; tracking off). Every flag-state
+assertion passed (each spec asserted state v11, G4 off).
+The 2 failures (g8.spec.ts:482, both widths, also on a rerun): the served-HTML part passed (no G8 block on the three
+hubs, /creators and its two APIs not served); the browser step then times out on page.goto('/katseye-quiz') right
+after the Stray Kids hub. Environment, not code: on this cold `next start` some /_next/image keys of the hub member
+photos never answer (curl 60 s timeouts, see e2e-v11specs-3072.txt), they hold Chromium's six HTTP/1.1 connections
+to the host, and the next document waits. The same URL loads in 224 ms in a fresh browser. NOT verified on this build.

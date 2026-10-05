@@ -7,6 +7,11 @@ import { setUnread } from '@/lib/notifications-store';
 import { applyRead, applyRemove, fetchNotifications, markOneRead, onNotificationEvents } from '@/lib/ux-v1/p11/actions';
 import { bellAgo, spokenAgo, targetOf } from '@/lib/ux-v1/p11/notifications';
 
+import { TeamTag } from '@/components/ux-v1/team';
+import { isTeamRow } from '@/lib/ux-v1/p11/team';
+
+import { useTeamUsernames } from './use-team';
+
 import type { P11Notification } from '@/lib/ux-v1/p11/notifications';
 
 // P11 bell panel (DESIGN-SPEC 16.5 "bell (panel with the latest 6, Mark all read,
@@ -35,6 +40,8 @@ function plainClick(e: React.MouseEvent): boolean {
 export function BellPanel({ unread, onClose }: BellPanelProps): React.ReactElement {
   const [items, setItems] = useState<P11Notification[] | null>(cache);
   const [failed, setFailed] = useState(false);
+  // v12: the Team badge on a row about an editorial account (empty unless the flag is on).
+  const teamNames = useTeamUsernames();
   // The unread count the list was last read for.
   const readFor = useRef<number | null>(null);
 
@@ -81,7 +88,7 @@ export function BellPanel({ unread, onClose }: BellPanelProps): React.ReactEleme
           <>
             <span className={`p11-bu${n.is_read ? ' is-read' : ''}`} aria-hidden="true" />
             <span className="p11-bb">
-              <span className="p11-bt">{n.is_read ? null : <span className="ux-sr">Unread: </span>}{n.is_read ? n.title : <b>{n.title}</b>}</span>
+              <span className="p11-bt">{n.is_read ? null : <span className="ux-sr">Unread: </span>}{n.is_read ? n.title : <b>{n.title}</b>}{isTeamRow(n, teamNames) ? <TeamTag /> : null}</span>
               <span className="p11-btm"><span aria-hidden="true">{bellAgo(n.created_at)}</span><span className="ux-sr">, {spokenAgo(n.created_at)}</span></span>
             </span>
           </>

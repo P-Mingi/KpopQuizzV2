@@ -1,0 +1,317 @@
+3c3
+< <html lang="en" class="pretendard_60cdc229-module__UDh0rq__variable">
+---
+> <html lang="en" class="pretendard_60cdc229-module__pUigVW__variable">
+164c164
+< <span class="tabular-nums">232</span>
+---
+> <span class="tabular-nums">231</span>
+269c269
+< <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored a perfect 6/6</span>
+---
+> <span style="font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">scored a perfect 5/5</span>
+564,565c564,565
+< <span class="wm-pod-stat">246<!-- --> plays</span>
+< <span class="wm-pod-sub">2<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-down" aria-label="down 17 percent">
+---
+> <span class="wm-pod-stat">245<!-- --> plays</span>
+> <span class="wm-pod-sub">2<!-- --> <!-- -->fans<!-- --> <span class="wm-delta wm-down" aria-label="down 18 percent">
+569c569
+< </svg>17<!-- -->%</span>
+---
+> </svg>18<!-- -->%</span>
+1033a1034,1327
+> </section>
+> <section style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px">
+> <style>
+> .cp-list{ display:flex; flex-direction:column; }
+> .cp-row{ padding:11px 0; border-top:1px solid var(--border); }
+> .cp-row:first-child{ border-top:none; }
+> .cp-top{ display:flex; align-items:center; gap:8px; }
+> .cp-ago{ font-size:11px; color:var(--txt3); flex-shrink:0; font-variant-numeric:tabular-nums; }
+> .cp-text{
+>   font-size:13.5px; color:var(--txt1); margin:6px 0 0; line-height:1.45; word-break:break-word;
+>   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+> }
+> .cp-meta{ display:flex; align-items:center; gap:8px; margin-top:5px; flex-wrap:wrap; }
+> .cp-score{
+>   font-size:10.5px; font-weight:700; color:var(--brand-dark); background:var(--brand-light);
+>   border-radius:999px; padding:2px 8px;
+> }
+> .cp-on{ font-size:11.5px; color:var(--txt3); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+> .cp-on:hover{ color:var(--brand); }
+> </style>
+> <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--txt3);margin:0">Community picks</p>
+> <p style="font-size:11.5px;color:var(--txt2);margin:4px 0 8px">What fans are saying across the quizzes.</p>
+> <div class="cp-list">
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">19d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">Itss really good!! thank you for creating ~</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->2<!-- -->/<!-- -->8</span>
+> <a class="cp-on" href="/q/fifty-fifty-discography-quiz">on <!-- -->FIFTY FIFTY DISCOGRAPHY QUIZ!!!</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">19d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">Love it, it was hard to me but learn so muucb</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->13<!-- -->/<!-- -->16</span>
+> <a class="cp-on" href="/q/loona-true-or-false">on <!-- -->Loona true or false</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="talentless_stay" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/talentless_stay">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div style="width:38px;height:38px;border-radius:50%;flex-shrink:0;background:#E8457A;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">TA</div>
+> <span aria-hidden="true" style="position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;background:#1D9E75;box-shadow:0 0 0 2px var(--surface)">
+> </span>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#1D9E75;font-family:Georgia, &quot;Times New Roman&quot;, serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Talentless_Stay</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->4<!-- --> <!-- -->·<!-- --> <!-- -->Casual Fan<!-- --> · bias Bang Chan/Seungmin</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">36d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">This is a good quiz as I just tested it out</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->13<!-- -->/<!-- -->14</span>
+> <a class="cp-on" href="/q/a-straykids-quiz">on <!-- -->A Straykids Quiz</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="talentless_stay" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/talentless_stay">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div style="width:38px;height:38px;border-radius:50%;flex-shrink:0;background:#E8457A;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">TA</div>
+> <span aria-hidden="true" style="position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;background:#1D9E75;box-shadow:0 0 0 2px var(--surface)">
+> </span>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#1D9E75;font-family:Georgia, &quot;Times New Roman&quot;, serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Talentless_Stay</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->4<!-- --> <!-- -->·<!-- --> <!-- -->Casual Fan<!-- --> · bias Bang Chan/Seungmin</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">38d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">wow amazing quiz</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->6<!-- -->/<!-- -->11</span>
+> <a class="cp-on" href="/q/stray-kids-lee-know-quiz-part-1">on <!-- -->Stray Kids Lee Know Quiz Part-1</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">42d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">It was Suuper fun, suuperfuun ~</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->4<!-- -->/<!-- -->5</span>
+> <a class="cp-on" href="/q/are-u-a-real-bunnie">on <!-- -->are u a real Bunnie?</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">58d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">Lol, that was really hard</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->2<!-- -->/<!-- -->10</span>
+> <a class="cp-on" href="/q/twice-formula-of-love-era">on <!-- -->TWICE: Formula of Love Era</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">59d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">Niice, good to see a SHINee quiz</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->4<!-- -->/<!-- -->10</span>
+> <a class="cp-on" href="/q/shinee-ring-ding-dong-quiz">on <!-- -->SHINee: Ring Ding Dong Quiz</a>
+> </div>
+> </div>
+> <div class="cp-row">
+> <div class="cp-top">
+> <div style="flex:1;min-width:0">
+> <div data-person-card="" data-username="mingi" style="display:flex;align-items:center;gap:10px;min-width:0">
+> <a style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit" href="/u/mingi">
+> <div style="position:relative;flex-shrink:0;line-height:0">
+> <div class="rounded-full overflow-hidden flex-shrink-0" style="width:38px;height:38px">
+> <img alt="mingi" referrerPolicy="no-referrer" loading="lazy" width="38" height="38" decoding="async" data-nimg="1" class="object-cover w-full h-full" style="color:transparent" sizes="38px" srcSet="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=220&amp;q=75 220w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75 1200w" src="/_next/image?url=https%3A%2F%2Fi.pinimg.com%2F736x%2Fe6%2Fc1%2F02%2Fe6c102498057d6556c593e38fa820db6.jpg&amp;w=1200&amp;q=75"/>
+> </div>
+> <img src="/badges/founding_fan.png" alt="" aria-hidden="true" width="17" height="17" loading="lazy" decoding="async" style="position:absolute;right:-3px;bottom:-3px;width:17px;height:17px;object-fit:contain;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)"/>
+> </div>
+> <div style="min-width:0">
+> <div style="font-size:13px;font-weight:700;color:#E8457A;font-family:ui-monospace, &quot;SF Mono&quot;, Menlo, monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mingi</div>
+> <div style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Lv <!-- -->7<!-- --> <!-- -->·<!-- --> <!-- -->Stan<!-- --> · bias Felix</div>
+> </div>
+> </a>
+> </div>
+> </div>
+> <span class="cp-ago">64d</span>
+> <button type="button" aria-label="Report comment" style="border:none;background:transparent;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0;line-height:0">
+> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+> <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z">
+> </path>
+> <line x1="4" y1="22" x2="4" y2="15">
+> </line>
+> </svg>
+> </button>
+> </div>
+> <p class="cp-text">Love it, really fun !! You should try to share them on reddit or somwhere for people to play it !!</p>
+> <div class="cp-meta">
+> <span class="cp-score">after scoring <!-- -->10<!-- -->/<!-- -->20</span>
+> <a class="cp-on" href="/q/guess-the-group-from-their-lightstick-girl-groups">on <!-- -->Guess the group from their lightstick - Girl Groups</a>
+> </div>
+> </div>
+> </div>

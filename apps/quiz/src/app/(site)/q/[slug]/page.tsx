@@ -21,7 +21,7 @@ import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
-import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -80,9 +80,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   if (!quiz) notFound();
 
   const questionLen = (quiz.questions as unknown[]).length;
-  const avgScore = quiz.total_completions > 0 && questionLen > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionLen * 100)
-    : null;
+  const avgScore = avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
   // SEO indexguard PART 4: the creator's own note (unique, human) beats the template
   // description when present. Re-sanitized on read (defense in depth + old rows), and
@@ -205,8 +203,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       ? extraStats.totalPlaysWithScore
       : quiz.play_count;
   const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
-  const introAvg = perQuestionScore && scoresUnlocked && questionCount > 0 && quiz.total_completions > 0
-    ? Math.round((quiz.total_score_sum / quiz.total_completions) / questionCount * 100)
+  const introAvg = perQuestionScore && scoresUnlocked
+    ? avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type })
     : null;
   // C4: perfect count is only meaningful when a perfect run == qcount;
   // otherwise the underlying rows do not match "perfect" as a user reads it.
