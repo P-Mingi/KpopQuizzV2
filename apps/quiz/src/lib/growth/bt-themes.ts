@@ -40,8 +40,8 @@ export const BT_THEMES: readonly BtTheme[] = [
     sub: { kind: 'text', text: 'Updated every week' }, themed: true,
     loc: {
       fr: { sub: 'Mise à jour chaque semaine', lead: 'Les plus gros titres K-pop de l’année.' },
-      es: { sub: 'Cada semana', lead: 'Las canciones K-pop más grandes del año.' },
-      id: { sub: 'Update tiap minggu', lead: 'Lagu K-pop terbesar tahun ini.' },
+      es: { sub: 'Actualizada cada semana', lead: 'Los mayores éxitos K-pop del año.' },
+      id: { sub: 'Update tiap minggu', lead: 'Lagu K-pop paling hits tahun ini.' },
     },
   },
   {
@@ -81,7 +81,7 @@ export const BT_THEMES: readonly BtTheme[] = [
     loc: {
       fr: { lead: 'Les chansons qui ont marqué l’an dernier.' },
       es: { lead: 'Las canciones que marcaron el año pasado.' },
-      id: { lead: 'Lagu-lagu yang menandai tahun lalu.' },
+      id: { lead: 'Lagu-lagu paling hits tahun lalu.' },
     },
   },
   {

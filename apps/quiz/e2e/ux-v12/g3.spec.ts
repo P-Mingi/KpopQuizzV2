@@ -46,7 +46,7 @@ type Lang = 'en' | 'fr' | 'es' | 'id';
 const LANGS: Lang[] = ['en', 'fr', 'es', 'id'];
 const LAND: Record<Lang, { path: string; h1: string; title: string; start: string; question: RegExp; again: string; your: string }> = {
   en: { path: '/guess-the-kpop-song', h1: 'Guess the K-pop song', title: 'Guess the K-pop song: free K-pop blind test | KpopQuiz', start: 'Start guessing', question: /^(Which song is this\?|Who sings this\?)$/, again: 'Play again', your: 'Your songs' },
-  fr: { path: '/fr/blind-test-kpop', h1: 'Blind test K-pop', title: 'Blind test K-pop gratuit | KpopQuiz', start: 'Lancer le blind test', question: /^(Quelle est cette chanson \?|Qui chante \?)$/, again: 'Rejouer', your: 'Tes chansons' },
+  fr: { path: '/fr/blind-test-kpop', h1: 'Blind test K-pop', title: 'Blind test K-pop gratuit : devine la chanson | KpopQuiz', start: 'Lancer le blind test', question: /^(Quelle est cette chanson \?|Qui chante \?)$/, again: 'Rejouer', your: 'Tes chansons' },
   es: { path: '/es/adivina-la-cancion-kpop', h1: 'Adivina la canción K-pop', title: 'Adivina la canción K-pop gratis | KpopQuiz', start: 'Empezar a adivinar', question: /^(¿Qué canción es\?|¿Quién canta\?)$/, again: 'Jugar otra vez', your: 'Tus canciones' },
   id: { path: '/id/tebak-lagu-kpop', h1: 'Tebak lagu K-pop', title: 'Tebak lagu K-pop gratis | KpopQuiz', start: 'Mulai menebak', question: /^(Lagu apa ini\?|Siapa penyanyinya\?)$/, again: 'Main lagi', your: 'Lagu-lagumu' },
 };

@@ -117,7 +117,7 @@ export const LANDING_COPY: Readonly<Record<BtLang, LandingCopy>> = {
   fr: {
     lang: 'fr',
     path: LANDING_PATH.fr,
-    title: 'Blind test K-pop gratuit',
+    title: 'Blind test K-pop gratuit : devine la chanson',
     h1: { pre: 'Blind test ', emPre: '', emPost: '' },
     h1Text: 'Blind test K-pop',
     leadIntro: 'Écoute dix secondes, trouve la chanson.',
@@ -133,14 +133,14 @@ export const LANDING_COPY: Readonly<Record<BtLang, LandingCopy>> = {
     steps: [
       { title: 'Écoute', body: 'Un extrait de dix secondes, souvent le refrain.' },
       { title: 'Choisis', body: 'Quatre réponses. Trouve le titre, ou l’artiste selon les manches.' },
-      { title: 'Marque des points', body: 'Juste et rapide rapporte plus. Partage ton score ou défie un ami.' },
+      { title: 'Marque des points', body: 'Plus tu réponds vite et juste, plus tu gagnes de points. Partage ton score ou défie tes amis.' },
     ],
     faqHeading: 'Questions fréquentes',
     faqFree: { q: 'C’est gratuit ?', a: 'Oui. Toutes les playlists sont gratuites et aucun compte n’est nécessaire.' },
     faqSongsQ: 'Combien de chansons ?',
-    faqSongsA: (songs, groups) => `${songs} chansons, de la première à la cinquième génération, et ${groups} groupes ont leur propre playlist.`,
+    faqSongsA: (songs, groups) => `${songs} chansons, de la première à la cinquième génération de la K-pop, et ${groups} groupes ont leur propre playlist.`,
     faqFriends: { q: 'On peut jouer à plusieurs ?', a: 'Oui. Lance une partie en direct sur un grand écran, chacun répond depuis son téléphone.' },
-    other: 'Aussi en',
+    other: 'Aussi disponible en',
     songsCount: (n) => `${n} chansons`,
   },
   es: {
@@ -162,7 +162,7 @@ export const LANDING_COPY: Readonly<Record<BtLang, LandingCopy>> = {
     steps: [
       { title: 'Escucha', body: 'Suena un fragmento de diez segundos, casi siempre el estribillo.' },
       { title: 'Elige', body: 'Cuatro opciones. Adivina la canción, o el artista en algunas rondas.' },
-      { title: 'Suma puntos', body: 'Acertar rápido da más puntos. Comparte tu resultado o reta a un amigo.' },
+      { title: 'Suma puntos', body: 'Acertar rápido da más puntos. Comparte tu resultado o reta a tus amigos.' },
     ],
     faqHeading: 'Preguntas frecuentes',
     faqFree: { q: '¿Es gratis?', a: 'Sí. Todas las listas son gratis y no necesitas cuenta.' },
