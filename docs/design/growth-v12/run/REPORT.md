@@ -202,3 +202,16 @@ what they recorded).
 fr, es and id copy for the owner's native review: `apps/quiz/src/lib/growth/bt-strings.ts` (game strings, not in the
 prototype), `apps/quiz/src/lib/growth/bt-landing.ts` (landing copy, the prototype's), `apps/quiz/src/lib/growth/bt-themes.ts`
 (themed playlist lines per language).
+
+## 10. Owner's Firefox test (2026-10-04 and 05)
+
+| # | Owner item | Result | Fix |
+|---|---|---|---|
+| 1 | "Something went wrong" on `/blindtest/kpop-demon-hunters` | Not a page bug: Firefox reused a page from an earlier local build (`next start` sends `stale-while-revalidate`), whose script files no longer existed; the exact screen reproduced with a missing chunk. Production sends `max-age=0, must-revalidate`. | With the flag on, a missing script under `/blindtest` reloads the page once (root error boundary, 55920fe; a first version as a route boundary added a script to 7 flag-off pages, caught by parity run 5, fixed). A run started in every playlist and theme: Firefox 144/144, Chromium 143/144 (f(x) timed out once, passed alone). |
+| 2 | Missing covers ("Bear Hug" by Suho) | The cover answers 200 (107,797 bytes); 2,444 stored covers load in Firefox. Firefox paints the alt text while an image downloads. | `CoverImg`: never paints alt text, gradient while loading, placeholder on error; reveal cover fetched during the clip; also the result card photo (38958a9). |
+| 3 | Blurry, face-cropped home image, full screen at load | Not reproduced: the home header has no image; no full-screen paint in any first-paint probe in three browsers. | The groups rail photos (first images of the page) were 80x120 cut through faces: now 80x80 cover. Owner: screenshot or URL needed if this was another image. |
+| 4 | Rabbit logo | Done | `public/mascot/mascot-default.png` (the favicon art) at 28px next to "KpopQuiz". |
+| 5 | New quizzes thumbs | The four grey tiles had valid pictures: lazy loading in Firefox on a grey ground. | 56px, eager, picture then group photo then logo then the type icon, never empty. |
+| 6a | Player data untouched by the SQL | The v12 SQL writes no player table; counts never went down (profiles 278 to 281, plays 70,034 to 70,152, duel votes 75,191 to 75,193, personality 1,255 = 1,255, name all 7,524 = 7,524); every change since the morning is spread one by one over the day (live activity). No pre-SQL baseline existed for XP, badges, likes, comments, follows totals. | None needed. |
+| 6b | Every quiz, hub, 50 profiles | 433 quizzes, 93 hubs, 55 profiles: all 200, 0 discrepancies (play counts behind only by plays of the last hour, page cache). | None needed. Note: the 9 editorial accounts keep XP in the database (not shown anywhere). |
+| 7 | Firefox and WebKit pass | Chromium 52/52, WebKit 52/52, Firefox 48/52: the result card alt text (fixed) and an uncaught Supabase auth lock error on `/q/` pages that the live site also has with the flags off (nothing visible breaks). | Result card fixed. |
