@@ -84,3 +84,19 @@ https://kpopquiz-private.vercel.app; kpopquiz.org still on `dpl_CPRDSnFf57KbPGDz
 Checks of this pass: tsc 0 errors, vitest 1961 / 1961, docs secret gate green, e2e p3 + p1 + g9 at
 1440: 51 passed, 3 skipped (Verse off, flag-off case); flags-off parity: no code difference (same
 14 live-data fields as the first pass).
+
+## Stylesheet cache (third pass)
+
+- Cause: `app/layout.tsx` versioned the flag-on stylesheet link with
+  `VERCEL_GIT_COMMIT_SHA ?? VERCEL_DEPLOYMENT_ID`; a command-line deploy sets the sha to `''`, so the
+  link was `/api/ux-v1/a0/styles?v=` on every private deploy, one address cached immutable for a year.
+- Fix: `next.config.ts` hashes the sheet the route serves for the build's flags
+  (`uxStylesheetVersion(buildUxStylesheet)`, 12 hex) into `UX_CSS_VERSION`; the layout links
+  `uxStylesheetHref(process.env.UX_CSS_VERSION)`, never an empty `v=`. Test:
+  `src/lib/ux-v1/a0/stylesheet-href.test.ts`. No other long-cache resource is versioned from an
+  environment variable (the stylesheet route is the only `immutable` one).
+- Third private deployment `dpl_E1QFBCoBSgpPDq7zUdThtULNX4yW`
+  (`kpopquiz-3y4retp0s-p-mingis-projects.vercel.app`) from `de1e8e1`, aliased to
+  https://kpopquiz-private.vercel.app: the link is `/api/ux-v1/a0/styles?v=3fa60de3c812`, the sheet
+  holds `.p8-pv-box`, and `/community/debate/2026-10-04` shows both boxes (light: white on the
+  page ground; dark: the raised dark surface). Captures: `checks/private-fixes/deployed/` (local).
