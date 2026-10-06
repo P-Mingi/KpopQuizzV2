@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
@@ -15,7 +16,7 @@ import { likeKey, useP8Viewer, useRequireAuth } from './viewer';
 //   other hearts   POST /api/ux-v1/p8/like { target_type, target_id }  (pending store: 503 until applied)
 //   cheer          POST /api/cheer { event_id }                        (one way)
 //   follow         POST /api/follow { username, action }
-//   report thread  POST /api/verse/flags { target_type: 'comment', target_id, reason }
+//   report         POST /api/verse/flags { target_type, target_id, reason } (Verse thread: its opening post)
 // Guests get the sign-in sheet; the action resumes after sign-in.
 
 async function postJson(url: string, body: unknown): Promise<{ ok: boolean; status: number; data: Record<string, unknown> }> {
@@ -191,25 +192,42 @@ export function FollowButton({ username }: { username: string }): React.ReactEle
 
 /* ------------------------------------------------------------------ report --- */
 
-/** Report a thread: files a patrol flag on its opening post (existing verse flags). */
-export function ReportButton({ commentId }: { commentId: number }): React.ReactElement {
+export type ReportTarget = { type: 'comment' | 'thread' | 'essay' | 'debate' | 'challenge' | 'reply'; id: number };
+
+/** Report a post or a reply (POST /api/verse/flags). A Verse thread reports its opening post
+ *  (`commentId`, as before). v12 community content passes a `target`: one report per account
+ *  (409 already_reported), and the 3rd report by 3 different accounts hides the content for
+ *  everyone (the answer says hidden: the page then refreshes without it). */
+export function ReportButton({ commentId, target, variant = 'post' }: { commentId?: number; target?: ReportTarget; variant?: 'post' | 'comment' }): React.ReactElement {
   const toast = useUxToast();
   const requireAuth = useRequireAuth();
+  const router = useRouter();
   const [done, setDone] = useState(false);
+  const t: ReportTarget | null = target ?? (commentId ? { type: 'comment', id: commentId } : null);
   const report = async (): Promise<void> => {
-    if (done) return;
-    const res = await postJson('/api/verse/flags', { target_type: 'comment', target_id: commentId, reason: 'Reported from the community' });
+    if (done || !t) return;
+    const res = await postJson('/api/verse/flags', { target_type: t.type, target_id: t.id, reason: 'Reported from the community' });
+    if (res.status === 409) { setDone(true); toast('You already reported this.'); return; }
     if (!res.ok) { toast(res.status === 429 ? 'Too many reports for now. Try later.' : 'That did not work. Try again.'); return; }
     setDone(true);
-    toast('Thanks. A moderator will look at it.');
+    if (res.data.hidden === true) {
+      toast(variant === 'post' ? 'Thanks. This post is now hidden.' : 'Thanks. This reply is now hidden.');
+      if (variant === 'post') router.push('/community'); else router.refresh();
+      return;
+    }
+    toast('Thanks for the report.');
   };
+  const onClick = (): void => requireAuth({ title: 'Sign in to report', sub: 'Reports go to the moderators. No password needed.' }, () => { void report(); });
+  if (variant === 'comment') {
+    return <button type="button" onClick={onClick} disabled={done} aria-label={done ? 'Reported' : 'Report this reply'}>{done ? 'Reported' : 'Report'}</button>;
+  }
   return (
     <button
       type="button"
       className="ux-pa2"
       aria-label={done ? 'Reported' : 'Report'}
       disabled={done}
-      onClick={() => requireAuth({ title: 'Sign in to report', sub: 'Reports go to the moderators. No password needed.' }, () => { void report(); })}
+      onClick={onClick}
     >
       <Icon name="flag" />
     </button>

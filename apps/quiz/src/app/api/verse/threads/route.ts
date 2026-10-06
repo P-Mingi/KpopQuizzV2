@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { communityGroupExists, ownPhotoPath, wantsCommunity } from '@/lib/ux-v1/p8/community-write';
 import { checkText, fileFlag, underRateCap, isTrusted, isBlockedInSpace } from '@/lib/verse/moderation';
 import { slugify } from '@/lib/verse/slug';
 
@@ -11,6 +12,9 @@ import type { NextRequest } from 'next/server';
 // verse_threads row + its opening comment (a verse_discussions row carrying the
 // thread_id). Any signed-in user, behind the SAME moderation as comments
 // (rate cap, new-account link guard, banned-term block/flag).
+// v12 (owner, 2026-10-06): { origin: 'community' } posts from /community for any group and
+// General K-pop without the Verse gates (verseWriteGate + lib/ux-v1/p8/community-write.ts), with an optional
+// photo the photo route checked ({ cover: { assetPath } }). Same rate cap and moderation.
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -18,6 +22,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
+  // A community thread (the gate let it through without the Verse gates, community-write.ts).
+  const community = wantsCommunity(body);
   const groupId = Number(body.group_id);
   const title = String(body.title ?? '').trim();
   const text = String(body.body ?? '').trim();
@@ -28,6 +34,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
 
+  if (community && !(await communityGroupExists(groupId))) return NextResponse.json({ error: 'bad_group' }, { status: 400 });
+  const photo = community ? ownPhotoPath(user.id, body.cover) : undefined;
+  if (photo === null) return NextResponse.json({ error: 'bad_photo' }, { status: 400 });
   if (await isBlockedInSpace(user.id, groupId)) return NextResponse.json({ error: 'blocked' }, { status: 403 });
   if (!await underRateCap('verse_threads', 'created_by', user.id, 300, 5)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   const linky = `${title}\n${text}`;
@@ -44,7 +53,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   for (let attempt = 0; attempt < 5 && threadId === null; attempt++) {
     slug = attempt === 0 ? base : `${base}-${attempt + 1}`;
     const { data, error } = await svc.from('verse_threads')
-      .insert({ group_id: groupId, slug, title, created_by: user.id, entity_type: 'group', entity_id: String(groupId), status: 'visible' })
+      .insert({ group_id: groupId, slug, title, created_by: user.id, entity_type: 'group', entity_id: String(groupId), status: 'visible', ...(community ? { origin: 'community', cover: photo ? { assetPath: photo } : null } : {}) })
       .select('id').single();
     if (!error) { threadId = (data as { id: number }).id; break; }
     if (!String(error.message).includes('duplicate') && error.code !== '23505') return NextResponse.json({ error: error.message }, { status: 500 });

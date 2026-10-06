@@ -4,7 +4,8 @@ import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { resolveEntityGroupId } from '@/lib/verse/curate';
-import { fileFlag, underRateCap } from '@/lib/verse/moderation';
+import { underRateCap } from '@/lib/verse/moderation';
+import { reportIsCommunity } from '@/lib/ux-v1/p8/community-write';
 
 import type { NextRequest } from 'next/server';
 
@@ -12,13 +13,39 @@ import type { NextRequest } from 'next/server';
 // space (open flags + target previews). PATCH: resolve / dismiss / hide (curator).
 export const dynamic = 'force-dynamic';
 
+type ReportType = 'comment' | 'thread' | 'essay' | 'debate' | 'challenge' | 'reply';
+const REPORT_TYPES: readonly ReportType[] = ['comment', 'thread', 'essay', 'debate', 'challenge', 'reply'];
+type Svc = ReturnType<typeof createServiceRoleClient>;
+
+/** The reported row: its group and whether it is public now. Null = unknown. */
+async function reportTarget(svc: Svc, type: ReportType, id: number): Promise<{ groupId: number | null; visible: boolean } | null> {
+  if (type === 'comment') {
+    const { data } = await svc.from('verse_discussions').select('id, entity_type, entity_id, status').eq('id', id).maybeSingle();
+    const c = data as { entity_type: string; entity_id: string; status: string } | null;
+    if (!c) return null;
+    return { groupId: await resolveEntityGroupId(c.entity_type, c.entity_id), visible: c.status === 'visible' };
+  }
+  const table = { thread: 'verse_threads', essay: 'verse_essays', debate: 'community_debates', challenge: 'community_challenges', reply: 'community_replies' }[type];
+  const cols = type === 'reply' ? 'id, status' : 'id, group_id, status';
+  const { data } = await svc.from(table).select(cols).eq('id', id).maybeSingle();
+  const r = data as { group_id?: number | null; status: string } | null;
+  if (!r) return null;
+  return { groupId: r.group_id ?? null, visible: type === 'essay' ? r.status === 'featured' : r.status === 'visible' };
+}
+
+// v12 (owner, 2026-10-06): a report on community content (any of REPORT_TYPES) passes the
+// gate (verseWriteGate + community-write.ts); one report per account and content (unique
+// index); the 3rd open report by 3 different accounts hides the content (trigger
+// verse_flags_autohide, migration v12-community-posts.sql). A Verse comment report is as before.
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const gated = await verseWriteGate(req);
   if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
+  const targetType = String(body.target_type) as ReportType;
   const targetId = Number(body.target_id);
-  if (String(body.target_type) !== 'comment' || !targetId) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  const community = REPORT_TYPES.includes(targetType) && await reportIsCommunity(targetType, targetId);
+  if (!targetId || !(community ? REPORT_TYPES.includes(targetType) : targetType === 'comment')) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
 
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
@@ -26,12 +53,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!await underRateCap('verse_flags', 'reporter', user.id, 3600, 20)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
 
   const svc = createServiceRoleClient();
-  const { data: c } = await svc.from('verse_discussions').select('id, entity_type, entity_id').eq('id', targetId).maybeSingle();
-  const cm = c as { id: number; entity_type: string; entity_id: string } | null;
-  if (!cm) return NextResponse.json({ error: 'not_found' }, { status: 404 });
-  const gid = await resolveEntityGroupId(cm.entity_type, cm.entity_id);
-  await fileFlag({ target_type: 'comment', target_id: cm.id, group_id: gid, reporter: user.id, reason: body.reason ? String(body.reason).slice(0, 200) : 'Reported by a member' });
-  return NextResponse.json({ ok: true });
+  const target = await reportTarget(svc, targetType, targetId);
+  if (!target || !target.visible) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  const reason = body.reason ? String(body.reason).slice(0, 200) : 'Reported by a member';
+  const { error } = await svc.from('verse_flags').insert({ target_type: targetType, target_id: targetId, group_id: target.groupId, reporter: user.id, reason, status: 'open' });
+  if (error) {
+    if (error.code === '23505') return NextResponse.json({ error: 'already_reported' }, { status: 409 });
+    return NextResponse.json({ error: 'report_failed' }, { status: 500 });
+  }
+  // The trigger ran inside that insert: is the content hidden now (the 3rd report)?
+  const after = await reportTarget(svc, targetType, targetId);
+  return NextResponse.json({ ok: true, hidden: !!after && !after.visible });
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {

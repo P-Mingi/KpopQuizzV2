@@ -1,0 +1,6 @@
+/* v12 community posts (owner, 2026-10-06): the photo field of the New post editor.
+   Served with the v12 flag only (lib/ux-v1/a0/stylesheet.ts), so a v11-only build keeps
+   its bytes. The post and feed photos reuse .p8-post-cover and .p8-bcov. */
+.p8-photo-prev { display: grid; gap: 10px; justify-items: start; }
+.p8-photo-prev img { display: block; width: 100%; max-height: 240px; object-fit: cover; border-radius: 12px; border: 1px solid var(--ux-line); background: var(--ux-surface); }
+.p8-photo-btn { gap: 8px; }

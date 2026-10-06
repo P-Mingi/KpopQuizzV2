@@ -11,6 +11,7 @@ import { comma, levelLine, plural } from '@/lib/ux-v1/p8/format';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { FollowButton, LikeButton, ReportButton, ShareButton } from './actions';
+import type { ReportTarget } from './actions';
 import { cardMeta } from './feed-card';
 import { DailyDebateVote, FanDebateVote } from './post-debate';
 import { Replies } from './replies';
@@ -49,6 +50,10 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
   const meta = a ? [team ? '' : levelLine(a, true), post.ago].filter(Boolean).join(' · ') : cardMeta(post);
   const ctx = replyContext(post, group && group.slug !== 'general-kpop' ? group.name : null);
   const heart = post.likes === null ? null : <LikeButton type={post.likeType} id={post.key} count={post.likes} />;
+  // v12 community content: the post and its replies take a Report button (3 reports hide it).
+  const reportable = isUxV12() && (post.community === true || ((post.kind === 'debate' && !post.debate?.daily) || post.kind === 'challenge') && !post.editorialId);
+  const report: ReportTarget | null = !reportable || !/^\d+$/.test(post.key) ? null
+    : { type: post.kind === 'blog' ? 'essay' : post.kind, id: Number(post.key) };
 
   return (
     <>
@@ -79,6 +84,13 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
         {team ? <TeamNote surface="post" /> : null}
 
         <Title className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</Title>
+
+        {post.photo ? (
+          <div className="p8-post-cover">
+            {/* eslint-disable-next-line @next/next/no-img-element -- a community thread's photo, checked on upload */}
+            <img src={post.photo} alt="" />
+          </div>
+        ) : null}
 
         {post.blog?.coverUrl ? (
           <div className="p8-post-cover">
@@ -130,13 +142,13 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           {heart}
           <a href="#replies" className="ux-pa2" aria-label={plural(post.commentCount, 'reply', 'replies')}><Icon name="msg" />{comma(post.commentCount)}</a>
           <ShareButton path={post.href} title={post.title} line2={['Community', group?.name].filter(Boolean).join(' · ')} image={post.blog?.coverUrl ?? null} />
-          {post.openingCommentId ? <ReportButton commentId={post.openingCommentId} /> : null}
+          {report ? <ReportButton target={report} /> : post.openingCommentId ? <ReportButton commentId={post.openingCommentId} /> : null}
         </div>
         </div>
       </article>
 
       <section className="ux-sec p8-rep-box" id="replies" aria-labelledby="p8-rep-h">
-        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} />
+        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} reportable={reportable} />
       </section>
 
       {more.length ? (

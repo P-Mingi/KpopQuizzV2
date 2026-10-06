@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { isUxV12 } from '@/lib/ux-v12';
+import { checkText } from '@/lib/verse/moderation';
 
 import type { NextRequest } from 'next/server';
 
@@ -22,6 +24,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const commentText = typeof comment === 'string' ? comment.trim() : null;
   if (commentText && commentText.length > 280) {
     return NextResponse.json({ error: 'comment_too_long' }, { status: 400 });
+  }
+  // v12 (owner, 2026-10-06): a reply to the daily debate goes through the banned terms too.
+  // Flag-on builds only: the public site's debate keeps its behaviour.
+  if (commentText && isUxV12()) {
+    const hit = await checkText(commentText);
+    if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
   }
 
   const supabase = await createServerClient();

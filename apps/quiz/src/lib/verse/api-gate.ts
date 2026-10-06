@@ -18,6 +18,8 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
+import { communityWriteAllowed } from '@/lib/ux-v1/p8/community-write';
+
 import { resolveEntityGroupId } from './curate';
 import { isVerseAdmin } from './roles';
 import { spaceUnpublished, verseHidden } from './visibility';
@@ -142,14 +144,19 @@ async function gate(ref: SpaceRef): Promise<NextResponse | null> {
  */
 export async function verseWriteGate(req: Request): Promise<NextResponse | null> {
   let body: Record<string, unknown> | null = null;
-  if (!verseHidden() && (req.headers.get('content-type') ?? '').includes('application/json')) {
+  if ((req.headers.get('content-type') ?? '').includes('application/json')) {
     try {
       const parsed: unknown = await req.clone().json();
       if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) body = parsed as Record<string, unknown>;
     } catch { /* the handler answers its own bad_json */ }
   }
   let query: URLSearchParams | null = null;
-  try { query = new URL(req.url).searchParams; } catch { /* no query */ }
+  let pathname = '';
+  try { const u = new URL(req.url); query = u.searchParams; pathname = u.pathname; } catch { /* no query */ }
+  // v12 community writes (owner, 2026-10-06): creating a community thread or blog, or replying
+  // to, hearting or reporting community content, on those routes and methods only
+  // (lib/ux-v1/p8/community-write.ts communityWriteAllowed). Everything else: the Verse gates.
+  if (await communityWriteAllowed(req.method, pathname, body)) return null;
   return gate(spaceRefFrom(body, query));
 }
 

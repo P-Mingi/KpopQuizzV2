@@ -4,6 +4,8 @@ import { cache } from 'react';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
+import { findBannedTerm } from './banned-match';
+
 export interface TermHit { action: 'block' | 'flag'; term: string }
 
 /** All banned terms (private list), loaded once per request. */
@@ -13,20 +15,12 @@ const getBannedTerms = cache(async (): Promise<Array<{ term: string; action: 'bl
   return (data ?? []) as Array<{ term: string; action: 'block' | 'flag' }>;
 });
 
-/** The strongest banned-term hit in `text` (block beats flag), or null. Word-ish match. */
+/** The strongest banned-term hit in `text` (block beats flag), or null. Whole words,
+ *  every language of the list, common disguises normalised (lib/verse/banned-match.ts). */
 export async function checkText(text: string): Promise<TermHit | null> {
   const terms = await getBannedTerms();
   if (terms.length === 0) return null;
-  const hay = ` ${text.toLowerCase().replace(/[^a-z0-9]+/g, ' ')} `;
-  let flag: TermHit | null = null;
-  for (const t of terms) {
-    const needle = ` ${t.term.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `;
-    if (needle.trim() && hay.includes(needle)) {
-      if (t.action === 'block') return { action: 'block', term: t.term };
-      flag = { action: 'flag', term: t.term };
-    }
-  }
-  return flag;
+  return findBannedTerm(text, terms);
 }
 
 /** File a patrol flag (user report or a banned-term auto-flag). */

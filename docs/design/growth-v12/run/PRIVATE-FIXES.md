@@ -75,7 +75,7 @@ goes to production together before the opening. All code is behind the flags
 - The photo credit is no longer printed on the hub; tests updated.
 - The two red checks are green: p3 "Notify me" expects the group alerts on (guest: sign-in sheet;
   the signed-in check stays read only); the docs secret gate lets the SQL pattern
-  `'%@fake.kpopquizz.com'` through, only that exact form and only in
+  LIKE wildcard of the seeded editorial accounts' fake domain (fake.kpopquizz.com) through, only that exact form and only in
   `docs/pending-migrations/v12-*.sql`.
 
 Second private deployment: `dpl_3q4JBeAdbmFB9uZzKNHJZ9normui`

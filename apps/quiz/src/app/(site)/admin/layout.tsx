@@ -38,6 +38,7 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         {/* V12 (G1 R6): each link follows the switch of the page it opens; both off = v11 nav. */}
         {BT_TRACKING && <Link href="/admin/blind-tests/runs" className="text-secondary hover:text-primary whitespace-nowrap">Blindtest runs</Link>}
         {isUxV12() && <Link href="/admin/editorial" className="text-secondary hover:text-primary whitespace-nowrap">Editorial</Link>}
+        {isUxV12() && <Link href="/admin/community-reports" className="text-secondary hover:text-primary whitespace-nowrap">Reports</Link>}
       </nav>
       {children}
     </div>

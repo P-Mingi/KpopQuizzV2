@@ -18,6 +18,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   return NextResponse.json({ signedIn: !!user, ...await getReactionSummary(essayId, user?.id ?? null) });
 }
 
+// v12: a heart on a community blog passes the gate (verseWriteGate + community-write.ts).
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const gated = await verseWriteGate(req);
   if (gated) return gated;

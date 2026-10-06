@@ -8,7 +8,7 @@ import { useUxToast } from '@/components/ux-v1/toast';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 import { paragraphs } from '@/lib/ux-v1/p8/format';
 
-import { LikeButton } from './actions';
+import { LikeButton, ReportButton } from './actions';
 import { useP8Viewer, useRequireAuth } from './viewer';
 
 import type { P8Comment, P8Post } from '@/lib/ux-v1/p8/post';
@@ -40,7 +40,7 @@ function errorLine(status: number, code: unknown): string {
   const c = String(code ?? '');
   if (c === 'rate_limited' || status === 429) return 'You are replying fast. Try again in a minute.';
   if (c === 'new_account_no_links') return 'New accounts can post links after their first day.';
-  if (c === 'blocked_term') return 'Some of that wording is not allowed here.';
+  if (c === 'blocked_term') return 'This has words that are not allowed here (insults or sexual content). Edit them and try again. Nothing was posted.';
   if (c === 'blocked') return 'You cannot reply in this group.';
   if (c === 'too_long' || c === 'comment_too_long') return 'That reply is too long.';
   if (status === 503) return 'Replies here open soon.';
@@ -136,9 +136,18 @@ export function ReplyBox({ to, placeholder, chip, onPosted, parentId = null, aut
   );
 }
 
-function CommentItem({ c, nested, canNest, likes, onReply, replyingTo, replyBox }: {
-  c: P8Comment; nested?: boolean; canNest: boolean; likes: boolean; onReply: (id: string) => void; replyingTo: string | null; replyBox: (parentId: string) => React.ReactNode;
+/** The report target of a reply: a thread or blog reply (verse_discussions) or a fan debate /
+ *  challenge reply (community_replies). Null = not reportable here (daily debate votes). */
+function reportOf(c: P8Comment): { type: 'comment' | 'reply'; id: number } | null {
+  const id = Number(c.id);
+  if (!Number.isSafeInteger(id) || id <= 0) return null;
+  return c.likeType === 'comment' ? { type: 'comment', id } : c.likeType === 'reply' ? { type: 'reply', id } : null;
+}
+
+function CommentItem({ c, nested, canNest, likes, onReply, replyingTo, replyBox, reportable }: {
+  c: P8Comment; nested?: boolean; canNest: boolean; likes: boolean; onReply: (id: string) => void; replyingTo: string | null; replyBox: (parentId: string) => React.ReactNode; reportable: boolean;
 }): React.ReactElement {
+  const report = reportable ? reportOf(c) : null;
   const paras = paragraphs(c.body);
   return (
     <>
@@ -152,24 +161,27 @@ function CommentItem({ c, nested, canNest, likes, onReply, replyingTo, replyBox 
             <span className="p8-meta"> · {[c.meta, c.ago].filter(Boolean).join(' · ')}</span>
           </div>
           {(paras.length ? paras : [c.body]).map((p, i) => <p key={i}>{p}</p>)}
-          {(likes && c.likes !== null) || (canNest && c.canReply) ? (
+          {(likes && c.likes !== null) || (canNest && c.canReply) || report ? (
             <div className="p8-ca">
               {likes && c.likes !== null ? <LikeButton type={c.likeType} id={c.id} count={c.likes} variant="comment" /> : null}
               {canNest && c.canReply ? <button type="button" onClick={() => onReply(c.id)} aria-expanded={replyingTo === c.id}>Reply</button> : null}
+              {report ? <ReportButton target={report} variant="comment" /> : null}
             </div>
           ) : null}
         </div>
       </div>
       {replyingTo === c.id ? <div className="p8-subform">{replyBox(c.id)}</div> : null}
       {c.replies.map((r) => (
-        <CommentItem key={r.id} c={r} nested canNest={false} likes={likes} onReply={onReply} replyingTo={replyingTo} replyBox={replyBox} />
+        <CommentItem key={r.id} c={r} nested canNest={false} likes={likes} onReply={onReply} replyingTo={replyingTo} replyBox={replyBox} reportable={reportable} />
       ))}
     </>
   );
 }
 
-export function Replies({ post, likesLive, chip, placeholder, children }: {
+export function Replies({ post, likesLive, chip, placeholder, children, reportable = false }: {
   post: Pick<P8Post, 'key' | 'kind' | 'comments' | 'commentCount' | 'replyTo'>; likesLive: boolean; chip: string | null; placeholder: string; children?: React.ReactNode;
+  /** v12: replies of community content take a Report button (3 reports hide a reply). */
+  reportable?: boolean;
 }): React.ReactElement {
   const [list, setList] = useState<P8Comment[]>(post.comments);
   const [extra, setExtra] = useState(0);
@@ -202,7 +214,7 @@ export function Replies({ post, likesLive, chip, placeholder, children }: {
       {children}
       {visible.map((c) => (
         <CommentItem
-          key={c.id} c={c} canNest={canNest} likes={likesLive}
+          key={c.id} c={c} canNest={canNest} likes={likesLive} reportable={reportable}
           onReply={(id) => setReplyingTo((cur) => (cur === id ? null : id))} replyingTo={replyingTo}
           replyBox={(pid) => (to ? <ReplyBox to={to} placeholder="Reply to this reply" chip={null} parentId={pid} autoFocus compact onPosted={addNested(pid)} pendingKey={`${post.kind}:${post.key}`} /> : null)}
         />

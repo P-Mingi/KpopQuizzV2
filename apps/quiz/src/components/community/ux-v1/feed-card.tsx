@@ -127,6 +127,14 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
     <PostCard
       kind="thread" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta} {...team}
       excerpt={post.excerpt ?? undefined} actions={<>{heart}{replies}{share}</>}
-    />
+    >
+      {post.photo ? (
+        // v12: a community thread's photo, in the blog cover's box.
+        <Link href={post.href} className="p8-bcov" aria-label={`Open the thread: ${post.title}`} tabIndex={-1}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- a checked community photo, lazy, fixed 200 box */}
+          <img src={post.photo} alt="" loading="lazy" />
+        </Link>
+      ) : null}
+    </PostCard>
   );
 }

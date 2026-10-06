@@ -14,7 +14,7 @@ import { getP8Features, NO_FEATURES } from '@/lib/ux-v1/p8/features';
 import { feedSources, getP8Groups, mergeFeed } from '@/lib/ux-v1/p8/feed';
 import { utcDate } from '@/lib/ux-v1/p8/format';
 import { getBadgeWatch, getHappening, getPulse, getTodayDebate, getWarEntries } from '@/lib/ux-v1/p8/rail';
-import { verseScope } from '@/lib/ux-v1/p8/verse-gate';
+import { communityPostsOn, verseScope } from '@/lib/ux-v1/p8/verse-gate';
 
 import type { FeedPost } from '@/lib/ux-v1/p8/types';
 import type { Metadata } from 'next';
@@ -68,7 +68,8 @@ async function loadCommunity() {
   const posts = mergeFeed([threads ?? [], blogs ?? [], debates ?? [], fanDebates ?? [], challenges ?? [], editorial], now);
   // Every always-on source failed (DB blip): say so, never "no posts yet".
   const loadFailed = threads === null && blogs === null && debates === null;
-  const editorGroups = groups.map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
+  // Every group and General K-pop (never the hidden quarantine row): community posts go anywhere (v12).
+  const editorGroups = groups.filter((g) => !g.slug.startsWith('zzz-')).map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
   return { features, verse, posts, loadFailed, editorGroups, today, happening, pulse, badges, war };
 }
 
@@ -86,7 +87,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
   return (
     <UxPage width="wide" className="p8-page">
       <P8ViewerProvider>
-        <EditorProvider groups={editorGroups} features={features} verse={verse}>
+        <EditorProvider groups={editorGroups} features={features} verse={verse} community={communityPostsOn()}>
           <div className="p8-cgrid">
             <div className="p8-main">
               <header className="ux-ph">
