@@ -23,6 +23,7 @@ import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 
 import { NUDGE_DAYS, hubState, resultsTotal } from './growth';
+import { isCategoryGroup } from './model';
 
 import type { FansPickedResponse } from '@/lib/duel/types';
 import type { WaysInput } from './growth';
@@ -135,10 +136,13 @@ export async function getHubGrowth(g: { id: number; slug: string; name: string }
   const state = hubState(published);
   // Before the reads: the first-creator line skips editorial accounts (V12 F5b).
   const team = await getTeamIds();
+  // A category (General K-pop) is not a group: no members to name or match, no song
+  // ranking of its own (owner, 2026-10-06).
+  const category = isCategoryGroup(g.slug);
   const [wmaSlugs, set, fansPicked, recentPlays, btPlays, first, live] = await Promise.all([
-    getWmaGroupSlugs(),
-    isNameAllGroup(g.slug) ? soft(() => getNameAllSet(g.slug), null, 'name-all set') : Promise.resolve(null),
-    soft<FansPickedResponse | null>(() => getFansPicked(g.slug), null, 'fans picked'),
+    category ? Promise.resolve([] as string[]) : getWmaGroupSlugs(),
+    !category && isNameAllGroup(g.slug) ? soft(() => getNameAllSet(g.slug), null, 'name-all set') : Promise.resolve(null),
+    category ? Promise.resolve(null) : soft<FansPickedResponse | null>(() => getFansPicked(g.slug), null, 'fans picked'),
     state === 'thin' ? soft<number | null>(() => readRecentPlays(g.id), null, 'recent plays') : Promise.resolve(null),
     state === 'empty' && songs > 0 ? soft<number | null>(() => readBtPlays(g.slug), null, 'bt plays') : Promise.resolve(null),
     state !== 'empty'

@@ -26,19 +26,21 @@ import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoCredit, groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
 import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 import {
+  categoryTexts,
   commentLine,
   coarseAge,
   debutYearOf,
   hubCommunityDoor,
   hubEyebrow,
   hubFacts,
+  isCategoryGroup,
   quizzesLabel,
   realFandomName,
 } from '@/lib/ux-v1/p3/model';
@@ -103,7 +105,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const newestQuizzes = ok(got.newestQuizzes, []);
   const relatedQuizzes = ok(got.relatedQuizzes, []);
   const triviaAvailable = ok(got.triviaAvailable, false);
-  const nameAllGame = ok(got.nameAllGame, null);
+  // General K-pop is a category, not a group (owner, 2026-10-06): no members, no
+  // group texts. The six name-all games once filed under it now belong to their groups.
+  const category = isCategoryGroup(g.slug);
+  const nameAllGame = category ? null : ok(got.nameAllGame, null);
   const blindtest = ok(got.blindtest, { qualifies: false, songs: 0 });
   const warRank = ok(got.warRank, null);
   const fanKnowledge = ok(got.fanKnowledge, { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] });
@@ -115,25 +120,28 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const playable = ok(got.playable, {} as Record<string, number>);
   const comments = ok(got.comments, []);
 
-  const intro = g.seo_intro || generateDefaultIntro(g);
   const memberCount = nameAllGame?.count ?? null;
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
+  const cat = category ? categoryTexts(g.name, published) : null;
+  const intro = cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
   const hasQuizzes = published > 0;
   const isEmptyGroup = !hasQuizzes;
   const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
   const songs = playable[g.slug] ?? 0;
   const photo = groupPhotoUrl(g.slug);
+  const photoCredit = groupPhotoCredit(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
   const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: g.record_label ?? null, quizzes: published });
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.
-  const groupFaqs = buildGroupFaqs(g, memberCount, blindtest.qualifies);
+  // The category hub has its own lead and FAQ (the same array feeds the FAQPage JSON-LD).
+  const groupFaqs = cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
   const answerFacts = { memberCount, songCount: blindtest.songs };
-  const chunks = buildAnswerChunks(g, answerFacts);
-  const answerLead = chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
+  const chunks = cat ? [] : buildAnswerChunks(g, answerFacts);
+  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
   const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], chunks);
   const updated = formatContentMonth(contentDate);
   const articles = getGroupArticleLinks(g.slug);
@@ -200,7 +208,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       })}
 
       <nav className="ux-crumb p3-crumb" aria-label="Breadcrumb">
-        <Link href="/groups">Groups</Link>
+        {category ? <Link href="/quizzes">Quizzes</Link> : <Link href="/groups">Groups</Link>}
         <span className="p3-sep" aria-hidden="true">/</span>
         <span aria-current="page">{g.name}</span>
       </nav>
@@ -250,6 +258,12 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         {photo ? (
           <div className="p3-photo">
             <Image src={photo} alt={g.name} fill sizes={PHOTO_SIZES} priority className="p3-photo-img" />
+            {photoCredit ? (
+              // A Commons photo (CC BY / BY-SA): its credit, linked to the file page.
+              <a className="p3-photo-cr" href={photoCredit.page} target="_blank" rel="noopener noreferrer">
+                Photo: {photoCredit.author} · {photoCredit.license}
+              </a>
+            ) : null}
           </div>
         ) : null}
       </section>
@@ -273,7 +287,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                 {answerLead ? (
                   <div className="p3-prose">
                     <p>{answerLead}</p>
-                    {g.seo_intro ? <p>{g.seo_intro}</p> : null}
+                    {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
                   </div>
                 ) : null}
                 {nameAllGame && nameAllGame.members.length > 0 ? (

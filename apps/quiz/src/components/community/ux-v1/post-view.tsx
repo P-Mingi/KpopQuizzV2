@@ -6,6 +6,7 @@ import { UxRow } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { TeamNote } from '@/components/ux-v1/team';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { comma, levelLine, plural } from '@/lib/ux-v1/p8/format';
 import { isUxV12 } from '@/lib/ux-v12';
 
@@ -60,8 +61,12 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           <span aria-current="page">{KIND_LABEL[post.kind]}</span>
         </nav>
 
+        {/* The post in a rounded box (owner, 2026-10-06): author, title, body, votes,
+            likes and share; the crumb stays above it. */}
+        <div className="p8-pv-box">
+
         <div className="p8-author">
-          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a?.avatarUrl ?? null} size={36} />}
+          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a ? a.avatarUrl ?? null : SITE_AVATAR_SRC} size={36} />}
           {/* team: a relative line height, so the Team pill gets the prototype's 17.6px (the
               row's 22.4px is absolute); inline, so the v11 stylesheet keeps its bytes */}
           <span className="p8-author-t" style={team ? { lineHeight: 1.6 } : undefined}>
@@ -127,9 +132,10 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           <ShareButton path={post.href} title={post.title} line2={['Community', group?.name].filter(Boolean).join(' · ')} image={post.blog?.coverUrl ?? null} />
           {post.openingCommentId ? <ReportButton commentId={post.openingCommentId} /> : null}
         </div>
+        </div>
       </article>
 
-      <section className="ux-sec" id="replies" aria-labelledby="p8-rep-h">
+      <section className="ux-sec p8-rep-box" id="replies" aria-labelledby="p8-rep-h">
         <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} />
       </section>
 

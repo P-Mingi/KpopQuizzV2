@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
@@ -14,14 +15,15 @@ import { answerShape } from '@/lib/ux-v1/a0/answer-shapes';
 import { ALL_PICK, GENERATIONS, MIXES } from '@/lib/ux-v1/p6/playlists';
 
 import { liveCall, liveErrorText, loadHostSession, saveHostSession } from './client';
-import { LivePhoneFrame } from './phone';
 import { LiveQr } from './qr-code';
 
 import type { HostSession } from './client';
 import type { LiveErrorCode, LiveHostState, LivePublicPlayer } from '@/lib/live/types';
 
-// The host screen of a live blindtest (prototype view `livegame`: `.screen`,
-// `.hostctl` and the phone frame). This tab is the clock: it starts each round,
+// The host screen of a live blindtest (prototype view `livegame`: `.screen` and
+// `.hostctl`). It only shows the game: question, answers, timer, answer count,
+// results, leaderboard. Everyone plays on a phone at /join (owner, 2026-10-06: the
+// phone frame and "Play along here" are gone). This tab is the clock: it starts each round,
 // shows the timer from the server's round start, asks for the reveal when the
 // time is up, and plays the clip. The audio plays here only.
 //
@@ -47,7 +49,11 @@ const POLL_MS = 1000;
 function Head({ right }: { right?: React.ReactNode }): React.ReactElement {
   return (
     <div className="ux-live-sh">
-      <span className="ux-live-logo"><i aria-hidden="true">K</i>KpopQuiz live</span>
+      <span className="ux-live-logo">
+        {/* The brand rabbit (UxBrand's art), not a "K" tile (owner, 2026-10-06). */}
+        <Image src="/mascot/mascot-default.png" alt="" width={22} height={22} className="ux-live-rabbit" aria-hidden="true" />
+        KpopQuiz live
+      </span>
       <span>{right}</span>
     </div>
   );
@@ -172,6 +178,38 @@ export function LiveStage(): React.ReactElement {
   const status = state?.status ?? null;
   const inRoom = view === 'room' && !!state;
 
+  // Kahoot-like host screen (owner, 2026-10-06): once the room is open, the game
+  // screen covers the whole page (no site bar, no intro), and the browser goes full
+  // screen when it allows it. Nobody plays on this screen: everyone uses a phone.
+  const full = inRoom;
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [canFullscreen, setCanFullscreen] = useState(false);
+  useEffect(() => {
+    setCanFullscreen(!!document.fullscreenEnabled);
+    const sync = (): void => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', sync);
+    return () => document.removeEventListener('fullscreenchange', sync);
+  }, []);
+  const enterFullscreen = useCallback((): void => {
+    if (!document.fullscreenEnabled || document.fullscreenElement) return;
+    // Refused (no user gesture left, a browser setting): the game screen still covers the page.
+    document.documentElement.requestFullscreen().catch(() => {});
+  }, []);
+  const exitFullscreen = useCallback((): void => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  }, []);
+  const toggleFullscreen = (): void => {
+    if (document.fullscreenElement) exitFullscreen();
+    else enterFullscreen();
+  };
+  useEffect(() => {
+    if (!full) { exitFullscreen(); return; }
+    // The page under the game screen must not scroll.
+    const root = document.documentElement;
+    root.classList.add('ux-live-lock');
+    return () => root.classList.remove('ux-live-lock');
+  }, [full, exitFullscreen]);
+
   // Who joined (lobby) and how many answered (round): not broadcast, so the host screen asks.
   useEffect(() => {
     if (!session || (status !== 'lobby' && status !== 'round')) return;
@@ -243,19 +281,22 @@ export function LiveStage(): React.ReactElement {
   const openRoom = async (): Promise<void> => {
     if (busy || open === false) return;
     unlock(); // inside the click (iOS Safari): the clips play later, after network calls
+    enterFullscreen(); // inside the click too: the browser asks for a user gesture
     setBusy(true);
     setError(null);
     const questions = await generate(pick, rounds);
-    if (!questions) { setBusy(false); return; }
+    if (!questions) { setBusy(false); exitFullscreen(); return; }
     if (sessionRef.current && stateRef.current?.status === 'lobby') {
       // "Settings" from the lobby: the same room, the players stay.
       if (await hostCall({ action: 'settings', ...settingsBody(questions) })) setView('room');
+      else exitFullscreen();
       setBusy(false);
       return;
     }
     const r = await liveCall<{ code: string; host_token: string; state: LiveHostState }>('/api/live/rooms', { body: settingsBody(questions) });
     setBusy(false);
     if (!r.ok) {
+      exitFullscreen();
       if (r.error === 'not_live') setOpen(false);
       else setError(liveErrorText(r.error));
       return;
@@ -334,6 +375,7 @@ export function LiveStage(): React.ReactElement {
   };
 
   // ----- the screen -----
+  const joinUrl = state ? `${origin?.base ?? 'https://kpopquiz.org'}/join/${state.code}` : '';
   let screen: React.ReactNode;
   let controls: React.ReactNode;
 
@@ -396,7 +438,6 @@ export function LiveStage(): React.ReactElement {
       </>
     );
   } else if (state.status === 'lobby') {
-    const joinUrl = `${origin?.base ?? 'https://kpopquiz.org'}/join/${state.code}`;
     screen = (
       <>
         <Head right={<>Room <b>{state.code}</b></>} />
@@ -517,21 +558,31 @@ export function LiveStage(): React.ReactElement {
   }
 
   const canManage = inRoom && !!state && state.status !== 'ended' && state.players.length > 0;
+  // Once the game is under way (round to podium) the join QR and code stay up, small.
+  const showMini = inRoom && !!state && state.status !== 'lobby';
 
   return (
-    <div className="ux-live-wrap">
+    <div className={full ? 'ux-live-wrap is-full' : 'ux-live-wrap'}>
       <div className="ux-live-main">
         <div className="ux-live-screen" data-state={inRoom && state ? state.status : 'setup'} data-open={open === null ? 'checking' : open ? 'yes' : 'no'}>
           {screen}
+          {showMini && state ? (
+            <div className="ux-live-mini" aria-label={`Join at ${origin?.host ?? 'kpopquiz.org'}/join with code ${state.code.split('').join(' ')}`}>
+              <span className="ux-live-mini-qr"><LiveQr text={joinUrl} label={`QR code to join room ${state.code.split('').join(' ')}`} /></span>
+              <span className="ux-live-mini-t">
+                <span>{origin?.host ?? 'kpopquiz.org'}/join</span>
+                <b>{state.code}</b>
+              </span>
+            </div>
+          ) : null}
         </div>
         <div className="ux-live-ctl">
           {controls}
           {canManage ? <UxButton variant="quiet" size={state.status === 'round' ? 'md' : 'lg'} icon="users" onClick={() => setManaging(true)}>Players</UxButton> : null}
+          {full && canFullscreen ? (
+            <UxButton variant="quiet" size={state?.status === 'round' ? 'md' : 'lg'} onClick={toggleFullscreen} className="ux-live-fs">{isFullscreen ? 'Exit full screen' : 'Full screen'}</UxButton>
+          ) : null}
         </div>
-      </div>
-      <div className="ux-live-side">
-        <LivePhoneFrame code={session ? session.code : null} />
-        <p className="ux-live-cap">Play along here, or join on your own phone.</p>
       </div>
       <Sheet open={managing && !!state} onClose={() => setManaging(false)} title="Players" width={440}>
         <ul className="ux-live-manage">

@@ -224,13 +224,15 @@ for (const theme of THEMES) {
       const all = sec.locator('.ux-sec-h a');
       await expect(all).toHaveAttribute('href', '/groups');
       const { count: groupRows } = await rest<unknown[]>('groups?select=id', true);
-      await expect(all, 'visible groups = all rows minus the quarantine row').toHaveText(`All ${(groupRows ?? 1) - 1} groups`);
+      // General K-pop is a category, not a group (owner, 2026-10-06): out of the count and the rail.
+      await expect(all, 'visible groups = all rows minus the quarantine row and the General K-pop category').toHaveText(`All ${(groupRows ?? 2) - 2} groups`);
       const items = sec.locator('a.p1-gitem');
       expect(await items.count()).toBeGreaterThan(0);
       const hrefs = await items.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       // SEO: every hub the live home links (home-group-pills.tsx ORDER), in its order, first.
-      const { rows: known } = await rest<{ slug: string }[]>(`groups?select=slug&slug=in.(${LIVE_HUBS.join(',')})`);
-      const liveHrefs = LIVE_HUBS.filter((h) => known.some((k) => k.slug === h)).map((h) => `/${h}-quiz`);
+      const railHubs = LIVE_HUBS.filter((h) => h !== 'general-kpop');
+      const { rows: known } = await rest<{ slug: string }[]>(`groups?select=slug&slug=in.(${railHubs.join(',')})`);
+      const liveHrefs = railHubs.filter((h) => known.some((k) => k.slug === h)).map((h) => `/${h}-quiz`);
       expect(hrefs.slice(0, liveHrefs.length), 'the live hub links, in the live order').toEqual(liveHrefs);
       expect(hrefs.length).toBeLessThanOrEqual(liveHrefs.length + 3);
       // ...and they are in the SERVER HTML (crawlable without JS), with today's board link.

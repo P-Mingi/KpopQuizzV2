@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { PostCard, ReplyScores, ScoreChip } from '@/components/ux-v1/post-card';
+import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { closesIn, comma, leaderIndex, levelLine, percents, plural } from '@/lib/ux-v1/p8/format';
 
 import { LikeButton, ShareButton } from './actions';
@@ -14,7 +15,7 @@ import type { DebateData, FeedPost, P8Person } from '@/lib/ux-v1/p8/types';
 
 /** The author PostCard shows: a person, or the site itself for the daily debate. */
 export function cardAuthor(p: P8Person | null): { name: string; accent?: string | null; font?: string | null; bias?: string | null; avatarUrl?: string | null; href?: string } {
-  if (!p) return { name: 'KpopQuiz' };
+  if (!p) return { name: 'KpopQuiz', avatarUrl: SITE_AVATAR_SRC };
   return { name: p.name, accent: p.accent, font: p.font, bias: p.bias, avatarUrl: p.avatarUrl, ...(p.href ? { href: p.href } : {}) };
 }
 

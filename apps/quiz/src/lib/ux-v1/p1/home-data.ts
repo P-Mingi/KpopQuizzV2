@@ -14,6 +14,8 @@ import { teamCacheKey } from '@/lib/editorial/surfaces/team';
 import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
+import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import { avgScorePct } from '@/lib/quiz/scoring';
 import { getEssayPage } from '@/lib/verse/essays';
 import { getVerseDirectory } from '@/lib/verse/space-data';
@@ -154,7 +156,8 @@ async function readGroups(): Promise<HomeGroups> {
     db.from('groups').select('id, slug, name'),
   ]);
   must(groupsRes, 'groups');
-  const groups = ((groupsRes.data ?? []) as GroupRow[]).filter((g) => isVisibleGroupSlug(g.slug));
+  // General K-pop is a category, not a group: out of the rail and of the count (owner, 2026-10-06).
+  const groups = ((groupsRes.data ?? []) as GroupRow[]).filter((g) => isVisibleGroupSlug(g.slug) && !isCategoryGroup(g.slug));
   const stats = new Map<number, { quizzes: number; newest: string }>();
   for (const r of rows) {
     if (r.group_id == null) continue;
@@ -282,7 +285,8 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
       rows.push({
         kind: 'debate', title: question, href: '/community', at: `${debate.date}T00:00:00Z`,
         sub: `Debate · ${comma(votes)} ${votes === 1 ? 'vote' : 'votes'}`,
-        avatar: { name: 'General K-pop', photo: null, initials: 'K' },
+        // What KpopQuiz itself posts: the brand rabbit, not a "K" tile (owner, 2026-10-06).
+        avatar: { name: 'KpopQuiz', photo: SITE_AVATAR_SRC, initials: 'K' },
       });
     }
   }

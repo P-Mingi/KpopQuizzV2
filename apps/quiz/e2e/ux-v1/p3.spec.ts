@@ -135,6 +135,8 @@ for (const theme of THEMES) {
       const hrefs = await page.locator('a.p3-azr').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
       for (const h of hrefs) expect(h).toMatch(/^\/[a-z0-9-]+-quiz$/);
       expect(hrefs).not.toContain('/zzz-quarantine-hidden-quiz');
+      // General K-pop is a category, not a group (owner, 2026-10-06): its hub stays, off this list.
+      expect(hrefs).not.toContain('/general-kpop-quiz');
       const zero = page.locator('a.p3-azr.is-zero');
       expect(await zero.count(), 'groups without a quiz are listed').toBeGreaterThan(0);
       await expect(zero.first().locator('small')).toHaveText('No quiz yet');
@@ -271,6 +273,22 @@ for (const theme of THEMES) {
       const axe = await runAxe(page, { include: '.ux-page' });
       if (axe) expect(axe, 'axe serious / critical').toEqual([]);
       expect(writes, 'the hub writes nothing').toEqual([]);
+    });
+
+    test('General K-pop is a category: no members, category texts and FAQ, Quizzes crumb (owner, 2026-10-06)', async ({ page }) => {
+      await setup(page, theme);
+      test.skip(!(await open(page, '/general-kpop-quiz', '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(.p3-faq)')), 'UX v1 flag is OFF on this build');
+      await expect(page.locator('.p3-members')).toHaveCount(0);
+      await expect(page.locator('.p3-facts')).not.toContainText('member');
+      await expect(page.locator('.p3-prose').first()).toContainText('General K-pop is a category, not a group');
+      await expect(page.locator('main')).not.toContainText('is a K-pop group with');
+      const qs = await page.locator('.p3-acc-q').allTextContents();
+      expect(qs).toContain('What are General K-pop quizzes?');
+      expect(qs.some((q) => /member/i.test(q)), 'no members question').toBe(false);
+      await expect(page.locator('.p3-crumb a').first()).toHaveAttribute('href', '/quizzes');
+      // Nothing that assumes a group: no Name them all / Which member tile, no Fans picked.
+      await expect(page.locator('[data-testid="hub-ways"] a[href*="name-all"], [data-testid="hub-ways"] a[href*="member-are-you"]')).toHaveCount(0);
+      await expect(page.locator('[data-testid="hub-fans-picked"]')).toHaveCount(0);
     });
 
     test('quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard', async ({ page }) => {
