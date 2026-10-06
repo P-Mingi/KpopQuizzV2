@@ -32,6 +32,16 @@ export function isVerseKind(kind: PostKind): boolean {
   return kind === 'thread' || kind === 'blog';
 }
 
+/** The 7 Verse items of the owner's local test account `localdev` (threads 1, 2, 3 with
+ *  their opening posts, and blog 2; July 2026) never show on /community, whatever the
+ *  gates (owner, 2026-10-06). Matched by id AND author, so no other row can match. */
+const RETIRED_AUTHOR = '67358f12-5068-4cd9-ba02-ad19fdadad73';
+const RETIRED: Record<'verse_threads' | 'verse_essays', readonly number[]> = { verse_threads: [1, 2, 3], verse_essays: [2] };
+
+export function retiredVerseRow(table: 'verse_threads' | 'verse_essays', id: number, author: string | null | undefined): boolean {
+  return author === RETIRED_AUTHOR && RETIRED[table].includes(id);
+}
+
 /** Community threads and blogs exist (the v12 flag). */
 export function communityPostsOn(): boolean {
   return isUxV12();

@@ -29,12 +29,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!Number.isSafeInteger(id) || id <= 0) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
 
   const svc = createServiceRoleClient();
-  const { data } = await svc.from('community_autohidden').select('id, target_type, target_id, prev_status, restored_at').eq('id', id).maybeSingle();
-  const row = data as { id: number; target_type: string; target_id: number; prev_status: string; restored_at: string | null } | null;
+  const { data } = await svc.from('community_autohidden').select('id, target_type, target_id, target_ref, prev_status, restored_at').eq('id', id).maybeSingle();
+  const row = data as { id: number; target_type: string; target_id: number; target_ref: string | null; prev_status: string; restored_at: string | null } | null;
   if (!row || row.restored_at) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  const now = new Date().toISOString();
+  // A vote comment of the daily debate (v12-community-comments.sql): shown again, by its uuid.
+  if (row.target_type === 'debate_vote') {
+    if (!row.target_ref) return NextResponse.json({ error: 'bad_target' }, { status: 400 });
+    const { error: ev } = await svc.from('debate_votes').update({ comment_hidden_at: null }).eq('id', row.target_ref);
+    if (ev) return NextResponse.json({ error: 'restore_failed' }, { status: 500 });
+    await svc.from('verse_flags').update({ status: 'dismissed', resolved_by: user.id, resolved_at: now })
+      .eq('target_type', 'debate_vote').eq('target_ref', row.target_ref).eq('status', 'open');
+    await svc.from('community_autohidden').update({ restored_at: now, restored_by: user.id }).eq('id', row.id);
+    return NextResponse.json({ ok: true });
+  }
   const table = TABLE[row.target_type];
   if (!table) return NextResponse.json({ error: 'bad_target' }, { status: 400 });
-  const now = new Date().toISOString();
 
   const { error: e1 } = await svc.from(table).update({ status: row.prev_status, ...(HAS_UPDATED_AT.has(row.target_type) ? { updated_at: now } : {}) })
     .eq('id', row.target_id).eq('status', 'hidden');

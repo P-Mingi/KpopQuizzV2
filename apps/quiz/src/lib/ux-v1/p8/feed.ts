@@ -3,12 +3,14 @@ import { unstable_cache } from 'next/cache';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
+import { isUxV12 } from '@/lib/ux-v12';
 import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
 import { plainTextExcerpt, splitTipTapForFold } from '@/lib/verse/render-content';
 
 import { excerpt, readingMinutes, timeAgo, utcDate } from './format';
+import { dailyKey } from './nesting';
 import { readPeople } from './people';
-import { communityPostsOn, gateVersePosts } from './verse-gate';
+import { communityPostsOn, gateVersePosts, retiredVerseRow } from './verse-gate';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group } from './types';
@@ -103,7 +105,8 @@ async function readThreads(live: boolean, liveGroupIds: number[], community: boo
     (community ? tq.or(scope) : tq.in('group_id', liveGroupIds)).order('created_at', { ascending: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
-  const threads = (must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string; origin: string | null; cover: unknown }[];
+  const threads = ((must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string; origin: string | null; cover: unknown }[])
+    .filter((t) => !retiredVerseRow('verse_threads', t.id, t.created_by)); // owner, 2026-10-06
   if (!threads.length) return [];
   const ids = threads.map((t) => t.id);
 
@@ -169,7 +172,8 @@ async function readBlogs(liveGroupIds: number[], community: boolean): Promise<Fe
     (community ? eq.or(scope) : eq.in('group_id', liveGroupIds)).order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
-  const essays = (must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; origin: string | null }[];
+  const essays = ((must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; origin: string | null }[])
+    .filter((e) => !retiredVerseRow('verse_essays', e.id, e.author)); // owner, 2026-10-06
   if (!essays.length) return [];
   const ids = essays.map((e) => e.id);
   const [reactions, comments, people] = await Promise.all([
@@ -208,18 +212,32 @@ export async function readDailyDebates(db: Db, today: string, days = DEBATE_DAYS
     .order('date', { ascending: false }).limit(days), 'daily_debates');
   const rows = (data ?? []) as { date: string; question_id: string }[];
   if (!rows.length) return [];
-  const [qRes, votes] = await Promise.all([
+  // v12: the debate's own comments (community_replies, v12-community-comments.sql) count
+  // too, and a vote comment hidden by its reports does not.
+  const keys = rows.map((r) => dailyKey(r.date)).filter((k): k is number => k !== null);
+  const [qRes, votes, own] = await Promise.all([
     db.from('debate_questions').select('id, question, side_a, side_b').in('id', rows.map((r) => r.question_id)),
-    fetchAllRows<{ date: string; side: string; comment: string | null }>(() => db.from('debate_votes')
-      .select('date, side, comment').in('date', rows.map((r) => r.date))),
+    fetchAllRows<{ date: string; side: string; comment: string | null; comment_hidden_at?: string | null }>(() => db.from('debate_votes')
+      .select(isUxV12() ? 'date, side, comment, comment_hidden_at' : 'date, side, comment').in('date', rows.map((r) => r.date))),
+    isUxV12() && keys.length
+      ? fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'daily_debate').in('target_id', keys).eq('status', 'visible'))
+      : Promise.resolve([] as { target_id: number }[]),
   ]);
   const qById = new Map(((must(qRes, 'debate_questions').data ?? []) as { id: string; question: string; side_a: string; side_b: string }[]).map((q) => [q.id, q] as const));
   const split = new Map<string, { a: number; b: number; c: number }>();
   for (const v of votes) {
     const s = split.get(v.date) ?? { a: 0, b: 0, c: 0 };
     if (v.side === 'a') s.a++; else s.b++;
-    if (v.comment && v.comment.trim()) s.c++;
+    if (v.comment && v.comment.trim() && !v.comment_hidden_at) s.c++;
     split.set(v.date, s);
+  }
+  for (const r of rows) {
+    const k = dailyKey(r.date);
+    const n = own.filter((x) => Number(x.target_id) === k).length;
+    if (!n) continue;
+    const s = split.get(r.date) ?? { a: 0, b: 0, c: 0 };
+    s.c += n;
+    split.set(r.date, s);
   }
   return rows.map((r) => {
     const q = qById.get(r.question_id);
@@ -399,9 +417,9 @@ async function readEditorialPosts(live: P8Features): Promise<FeedPost[]> {
 
 /* ------------------------------------------------------------------- feed --- */
 
-const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[], community: boolean) => readThreads(live, liveGroupIds, community), ['ux-v1:p8:threads:v4'], { revalidate: 120, tags: ['community'] });
-const cachedBlogs = unstable_cache((liveGroupIds: number[], community: boolean) => readBlogs(liveGroupIds, community), ['ux-v1:p8:blogs:v4'], { revalidate: 120, tags: ['community'] });
-const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v3'], { revalidate: 120, tags: ['community'] });
+const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[], community: boolean) => readThreads(live, liveGroupIds, community), ['ux-v1:p8:threads:v5'], { revalidate: 120, tags: ['community'] });
+const cachedBlogs = unstable_cache((liveGroupIds: number[], community: boolean) => readBlogs(liveGroupIds, community), ['ux-v1:p8:blogs:v5'], { revalidate: 120, tags: ['community'] });
+const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v4'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
 const cachedEditorial = unstable_cache((f: P8Features) => readEditorialPosts(f), ['v12:g9:editorial-posts:v1'], { revalidate: 120, tags: ['community', 'editorial'] });

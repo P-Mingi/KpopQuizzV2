@@ -192,7 +192,10 @@ export function FollowButton({ username }: { username: string }): React.ReactEle
 
 /* ------------------------------------------------------------------ report --- */
 
-export type ReportTarget = { type: 'comment' | 'thread' | 'essay' | 'debate' | 'challenge' | 'reply'; id: number };
+/** v12: a vote comment of the daily debate is reported by its uuid (`ref`, target_ref). */
+export type ReportTarget =
+  | { type: 'comment' | 'thread' | 'essay' | 'debate' | 'challenge' | 'reply'; id: number }
+  | { type: 'debate_vote'; ref: string };
 
 /** Report a post or a reply (POST /api/verse/flags). A Verse thread reports its opening post
  *  (`commentId`, as before). v12 community content passes a `target`: one report per account
@@ -206,7 +209,9 @@ export function ReportButton({ commentId, target, variant = 'post' }: { commentI
   const t: ReportTarget | null = target ?? (commentId ? { type: 'comment', id: commentId } : null);
   const report = async (): Promise<void> => {
     if (done || !t) return;
-    const res = await postJson('/api/verse/flags', { target_type: t.type, target_id: t.id, reason: 'Reported from the community' });
+    const res = await postJson('/api/verse/flags', t.type === 'debate_vote'
+      ? { target_type: 'debate_vote', target_id: 0, target_ref: t.ref, reason: 'Reported from the community' }
+      : { target_type: t.type, target_id: t.id, reason: 'Reported from the community' });
     if (res.status === 409) { setDone(true); toast('You already reported this.'); return; }
     if (!res.ok) { toast(res.status === 429 ? 'Too many reports for now. Try later.' : 'That did not work. Try again.'); return; }
     setDone(true);

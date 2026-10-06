@@ -6,6 +6,7 @@ import { canCurateSpace } from '@/lib/verse/roles';
 import { resolveEntityGroupId } from '@/lib/verse/curate';
 import { underRateCap } from '@/lib/verse/moderation';
 import { reportIsCommunity } from '@/lib/ux-v1/p8/community-write';
+import { isUxV12 } from '@/lib/ux-v12';
 
 import type { NextRequest } from 'next/server';
 
@@ -37,11 +38,43 @@ async function reportTarget(svc: Svc, type: ReportType, id: number): Promise<{ g
 // gate (verseWriteGate + community-write.ts); one report per account and content (unique
 // index); the 3rd open report by 3 different accounts hides the content (trigger
 // verse_flags_autohide, migration v12-community-posts.sql). A Verse comment report is as before.
+const VOTE_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+/** A vote comment of the daily debate: shown while it has text and no 3-report hide. */
+async function voteCommentShown(svc: Svc, ref: string): Promise<boolean | null> {
+  const { data } = await svc.from('debate_votes').select('id, comment, comment_hidden_at').eq('id', ref).maybeSingle();
+  const v = data as { comment: string | null; comment_hidden_at: string | null } | null;
+  if (!v || !v.comment?.trim()) return null;
+  return v.comment_hidden_at === null;
+}
+
+/** v12 (owner, 2026-10-06): a report on a vote comment of the daily debate. Its id is a
+ *  uuid, so it rides in target_ref (target_id 0, migration v12-community-comments.sql);
+ *  one report per account, and the 3rd hides the comment (the vote still counts). */
+async function reportVoteComment(body: Record<string, unknown>): Promise<NextResponse> {
+  const ref = String(body.target_ref ?? '').toLowerCase();
+  if (!isUxV12() || !VOTE_ID.test(ref)) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  const supa = await createServerClient();
+  const { data: { user } } = await supa.auth.getUser();
+  if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  if (!await underRateCap('verse_flags', 'reporter', user.id, 3600, 20)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  const svc = createServiceRoleClient();
+  if (!(await voteCommentShown(svc, ref))) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  const reason = body.reason ? String(body.reason).slice(0, 200) : 'Reported by a member';
+  const { error } = await svc.from('verse_flags').insert({ target_type: 'debate_vote', target_id: 0, target_ref: ref, group_id: null, reporter: user.id, reason, status: 'open' });
+  if (error) {
+    if (error.code === '23505') return NextResponse.json({ error: 'already_reported' }, { status: 409 });
+    return NextResponse.json({ error: 'report_failed' }, { status: 500 });
+  }
+  return NextResponse.json({ ok: true, hidden: (await voteCommentShown(svc, ref)) === false });
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const gated = await verseWriteGate(req);
   if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
+  if (body.target_type === 'debate_vote') return reportVoteComment(body);
   const targetType = String(body.target_type) as ReportType;
   const targetId = Number(body.target_id);
   const community = REPORT_TYPES.includes(targetType) && await reportIsCommunity(targetType, targetId);

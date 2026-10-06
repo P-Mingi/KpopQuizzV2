@@ -66,18 +66,45 @@ export function checkChallenge(body: unknown): Checked<{ playId: string; message
   return { ok: true, value: { playId: playId.toLowerCase(), message: message || null } };
 }
 
-export function checkReply(body: unknown): Checked<{ type: 'debate' | 'challenge' | 'editorial'; targetId: number; body: string; parentId: number | null }> {
+export type ReplyTargetType = 'debate' | 'challenge' | 'editorial' | 'daily_debate';
+
+export interface ReplyInput {
+  type: ReplyTargetType;
+  /** The post's id; for the daily debate its day as YYYYMMDD (community_replies.target_id). */
+  targetId: number;
+  /** The daily debate's day (YYYY-MM-DD); null for the other posts. */
+  date: string | null;
+  body: string;
+  /** A reply to a reply (community_replies.id). */
+  parentId: number | null;
+  /** v12: a reply to a vote comment of the daily debate (debate_votes.id). */
+  parentVote: string | null;
+}
+
+/** A reply on a fan debate, a challenge, an editorial post or (v12) the daily debate,
+ *  whose target_id is its day ('YYYY-MM-DD'). One parent at most: a reply or a vote. */
+export function checkReply(body: unknown): Checked<ReplyInput> {
   const b = (body ?? {}) as Record<string, unknown>;
   const type = String(b.target_type ?? '');
-  if (type !== 'debate' && type !== 'challenge' && type !== 'editorial') return { ok: false, error: 'bad_target' };
-  const targetId = Number(b.target_id);
-  if (!Number.isSafeInteger(targetId) || targetId <= 0) return { ok: false, error: 'bad_target' };
+  if (type !== 'debate' && type !== 'challenge' && type !== 'editorial' && type !== 'daily_debate') return { ok: false, error: 'bad_target' };
+  let targetId: number;
+  let date: string | null = null;
+  if (type === 'daily_debate') {
+    date = String(b.target_id ?? '');
+    if (!DATE.test(date)) return { ok: false, error: 'bad_target' };
+    targetId = Number(date.replace(/-/g, ''));
+  } else {
+    targetId = Number(b.target_id);
+    if (!Number.isSafeInteger(targetId) || targetId <= 0) return { ok: false, error: 'bad_target' };
+  }
   const text = String(b.body ?? '').trim();
   if (!text) return { ok: false, error: 'empty' };
   if (text.length > 2000) return { ok: false, error: 'too_long' };
   const parentId = b.parent_id == null ? null : Number(b.parent_id);
   if (parentId !== null && (!Number.isSafeInteger(parentId) || parentId <= 0)) return { ok: false, error: 'bad_parent' };
-  return { ok: true, value: { type, targetId, body: text, parentId } };
+  const parentVote = b.parent_vote == null ? null : String(b.parent_vote).toLowerCase();
+  if (parentVote !== null && (type !== 'daily_debate' || !UUID.test(parentVote) || parentId !== null)) return { ok: false, error: 'bad_parent' };
+  return { ok: true, value: { type, targetId, date, body: text, parentId, parentVote } };
 }
 
 /** New accounts (< 1 day) cannot post links (the verse rule, lib/verse/moderation). */

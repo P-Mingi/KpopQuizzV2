@@ -6,9 +6,12 @@ import { plainTextExcerpt, renderTipTapJSON, splitTipTapForFold } from '@/lib/ve
 import { verseHidden } from '@/lib/verse/visibility';
 
 import { blogCover, communityPhoto, dailyClosesAt, getP8Groups, readDailyDebates } from './feed';
+import { isUxV12 } from '@/lib/ux-v12';
+
 import { DATE_RE, paragraphs, readingMinutes, timeAgo, utcDate } from './format';
+import { countVisible, dailyKey, MAX_REPLY_DEPTH, nest } from './nesting';
 import { readPeople } from './people';
-import { communityPostsOn, isVerseKind, verseRowShown } from './verse-gate';
+import { communityPostsOn, isVerseKind, retiredVerseRow, verseRowShown } from './verse-gate';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group, P8Person, PostKind } from './types';
@@ -32,10 +35,15 @@ export interface P8Comment {
   at: string;
   ago: string;
   likes: number | null;
-  /** One level of nesting. */
+  /** The replies under this one, at any level (lib/ux-v1/p8/nesting.ts). */
   replies: P8Comment[];
-  /** Reply to this one (thread and blog comments; the daily debate is one vote, one reply). */
+  /** A reply can go under this one (a reply store exists and the 10-level cap is not reached). */
   canReply: boolean;
+  /** Level: 1 = a comment on the post, up to 10. */
+  depth: number;
+  /** v12: a reply hidden by its reports (or deleted) kept for the replies under it. It
+   *  shows "[removed]": no name, no text, no actions (nothing of it reaches the client). */
+  removed?: true;
 }
 
 export interface P8Post extends FeedPost {
@@ -53,6 +61,8 @@ export interface P8Post extends FeedPost {
     | { store: 'verse'; thread_id?: number; entity_type?: 'essay'; entity_id?: string }
     | { store: 'daily_debate'; date: string }
     | { store: 'community'; target_type: 'debate' | 'challenge' | 'editorial'; target_id: number }
+    /** v12: the daily debate's own comments (community_replies, target_id = its day). */
+    | { store: 'community'; target_type: 'daily_debate'; target_id: string }
     | null;
   /** v12 editorial post: the sources its facts cite (SYSTEM.md 5.6), listed under the body. */
   sources?: { label: string; url: string | null }[];
@@ -77,37 +87,35 @@ async function likeMap(type: LikeTarget, ids: string[], live: boolean): Promise<
 
 /* -------------------------------------------------- verse_discussions tree --- */
 
-interface DiscRow { id: number; author: string; body: string; parent_id: number | null; created_at: string }
+interface DiscRow { id: number; author: string; body: string; parent_id: number | null; created_at: string; status?: string }
 
-/** Comments (verse_discussions) as a one-level tree, oldest first, with people + flair. */
-async function discussionTree(db: Db, rows: DiscRow[], postAuthor: string | null, live: boolean, now: number): Promise<P8Comment[]> {
-  if (!rows.length) return [];
-  const [people, likes] = await Promise.all([
-    readPeople(db, rows.map((r) => r.author)),
-    likeMap('comment', rows.map((r) => String(r.id)), live),
-  ]);
-  const mk = (r: DiscRow): P8Comment => {
-    const person = people.get(r.author) ?? null;
-    return {
-      id: String(r.id), likeType: 'comment', person, name: person?.name ?? 'a fan', body: r.body,
-      meta: postAuthor && r.author === postAuthor ? 'author' : null,
-      at: r.created_at, ago: timeAgo(r.created_at, now),
-      likes: likes ? likes.get(String(r.id)) ?? 0 : null, replies: [], canReply: r.parent_id == null,
-    };
-  };
-  const top = rows.filter((r) => r.parent_id == null).map(mk);
-  const byParent = new Map<string, P8Comment[]>();
-  for (const r of rows.filter((x) => x.parent_id != null)) {
-    const list = byParent.get(String(r.parent_id)) ?? [];
-    list.push(mk(r));
-    byParent.set(String(r.parent_id), list);
-  }
-  for (const t of top) t.replies = byParent.get(t.id) ?? [];
-  return top;
+/** A hidden or deleted reply kept for the replies under it ("[removed]"). */
+function removedNode(id: string, likeType: LikeTarget, depth: number, replies: P8Comment[]): P8Comment {
+  return { id, likeType, person: null, name: '[removed]', body: '', meta: null, at: '', ago: '', likes: null, replies, canReply: false, depth, removed: true };
 }
 
-function countTree(list: P8Comment[]): number {
-  return list.reduce((s, c) => s + 1 + c.replies.length, 0);
+/** Comments (verse_discussions, every status: read with the service role) as a tree at
+ *  every level, oldest first, with people + flair. A hidden or deleted row stays only as a
+ *  "[removed]" place over visible replies; its author and text never leave the server. */
+async function discussionTree(db: Db, rows: DiscRow[], postAuthor: string | null, live: boolean, now: number): Promise<P8Comment[]> {
+  if (!rows.length) return [];
+  const shown = rows.filter((r) => r.status === 'visible');
+  const [people, likes] = await Promise.all([
+    readPeople(db, shown.map((r) => r.author)),
+    likeMap('comment', shown.map((r) => String(r.id)), live),
+  ]);
+  const tree = rows.map((r) => ({ row: r, id: String(r.id), parent: r.parent_id == null ? null : String(r.parent_id), visible: r.status === 'visible' }));
+  return nest(tree, (t, depth, replies): P8Comment => {
+    if (!t.visible) return removedNode(t.id, 'comment', depth, replies);
+    const r = t.row;
+    const person = people.get(r.author) ?? null;
+    return {
+      id: t.id, likeType: 'comment', person, name: person?.name ?? 'a fan', body: r.body,
+      meta: postAuthor && r.author === postAuthor ? 'author' : null,
+      at: r.created_at, ago: timeAgo(r.created_at, now),
+      likes: likes ? likes.get(t.id) ?? 0 : null, replies, canReply: depth < MAX_REPLY_DEPTH, depth,
+    };
+  });
 }
 
 /* ----------------------------------------------------------------- thread --- */
@@ -122,24 +130,25 @@ async function threadPost(id: number, f: P8Features, now: number): Promise<P8Pos
   // of a parked space (or an unknown group) is a 404.
   const group = (await getP8Groups()).find((g) => g.id === t.group_id) ?? null;
   if (!verseRowShown(group?.slug, t.origin)) return null;
+  if (retiredVerseRow('verse_threads', t.id, t.created_by)) return null; // owner, 2026-10-06
   const photo = t.origin === 'community' ? communityPhoto(t.cover) : null;
-  const rows = await fetchAllRows<DiscRow>(() => db.from('verse_discussions').select('id, author, body, parent_id, created_at')
-    .eq('thread_id', t.id).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true }));
-  const opening = rows.find((r) => r.parent_id == null) ?? null;
-  const rest = rows.filter((r) => r !== opening && r.parent_id !== opening?.id);
-  // Replies to the opening post are top-level answers to the thread. They cannot take
-  // a nested reply (the discussions route only nests under a top-level comment).
-  const promoted = rows.filter((r) => opening && r.parent_id === opening.id).map((r) => ({ ...r, parent_id: null }));
-  const promotedIds = new Set(promoted.map((r) => String(r.id)));
-  const tree = await discussionTree(db, [...promoted, ...rest].sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at) || a.id - b.id), t.created_by, f.likes, now);
-  for (const c of tree) if (promotedIds.has(c.id)) c.canReply = false;
+  // Every row of the thread, whatever its status, for the "[removed]" places (redacted in
+  // discussionTree). The first top row is the opening post: the thread's own text.
+  const svc = createServiceRoleClient();
+  const all = await fetchAllRows<DiscRow>(() => svc.from('verse_discussions').select('id, author, body, parent_id, created_at, status')
+    .eq('thread_id', t.id).order('created_at', { ascending: true }).order('id', { ascending: true }));
+  const first = all.find((r) => r.parent_id == null) ?? null;
+  const opening = first?.status === 'visible' ? first : null;
+  // Replies to the opening post are comments on the thread (level 1); every other row keeps its parent.
+  const rows = all.filter((r) => r !== first).map((r) => (first && r.parent_id === first.id ? { ...r, parent_id: null } : r));
+  const tree = await discussionTree(db, rows, t.created_by, f.likes, now);
   const [people, likes] = await Promise.all([
     readPeople(db, [t.created_by]),
     likeMap('thread', [String(t.id)], f.likes),
   ]);
   const body = opening?.body ?? '';
   const paras = body.trim() && body.trim() !== t.title.trim() ? paragraphs(body) : [];
-  const n = countTree(tree);
+  const n = countVisible(tree);
   return {
     kind: 'thread', key: String(t.id), href: `/community/thread/${t.id}`, title: t.title,
     excerpt: null, group,
@@ -165,15 +174,18 @@ async function blogPost(id: number, f: P8Features, now: number): Promise<P8Post 
   // of a parked space (or an unknown group) is a 404.
   const g = (await getP8Groups()).find((x) => x.id === e.group_id) ?? null;
   if (!verseRowShown(g?.slug, e.origin)) return null;
+  if (retiredVerseRow('verse_essays', e.id, e.author)) return null; // owner, 2026-10-06
+  const svc = createServiceRoleClient();
   const [people, reactions, rows] = await Promise.all([
     readPeople(db, [e.author]),
     fetchAllRows<{ essay_id: number }>(() => db.from('verse_essay_reactions').select('essay_id').eq('essay_id', e.id)),
-    fetchAllRows<DiscRow>(() => db.from('verse_discussions').select('id, author, body, parent_id, created_at')
-      .eq('entity_type', 'essay').eq('entity_id', String(e.id)).eq('status', 'visible').is('thread_id', null)
+    // every status, for the "[removed]" places (redacted in discussionTree)
+    fetchAllRows<DiscRow>(() => svc.from('verse_discussions').select('id, author, body, parent_id, created_at, status')
+      .eq('entity_type', 'essay').eq('entity_id', String(e.id)).is('thread_id', null)
       .order('created_at', { ascending: true }).order('id', { ascending: true })),
   ]);
   const tree = await discussionTree(db, rows, e.author, f.likes, now);
-  const n = countTree(tree);
+  const n = countVisible(tree);
   const at = e.featured_at ?? e.created_at;
   return {
     kind: 'blog', key: String(e.id), href: `/community/blog/${e.id}`, title: e.title,
@@ -188,6 +200,9 @@ async function blogPost(id: number, f: P8Features, now: number): Promise<P8Post 
 
 /* ------------------------------------------------------------ daily debate --- */
 
+interface VoteRow { id: string; user_id: string; side: string; comment: string | null; created_at: string; comment_hidden_at?: string | null }
+interface ReplyRow { id: number; author: string | null; body: string; parent_id: number | null; parent_vote?: string | null; created_at: string; status?: string }
+
 async function dailyDebatePost(date: string, f: P8Features, now: number): Promise<P8Post | null> {
   const db = createPublicReadClient();
   const today = utcDate(now);
@@ -195,64 +210,93 @@ async function dailyDebatePost(date: string, f: P8Features, now: number): Promis
   const debates = await readDailyDebates(db, date, 1);
   const d = debates[0];
   if (!d || d.date !== date) return null;
-  const [groups, votes] = await Promise.all([
+  // v12 (owner, 2026-10-06): the debate has its own comments (community_replies,
+  // target_id = its day), open or closed, voted or not; any comment, vote comments
+  // included, takes nested replies. v11 keeps the one reply that rides with the vote.
+  const own = isUxV12() && f.fanDebates;
+  const key = dailyKey(date);
+  const svc = createServiceRoleClient();
+  const [groups, votes, replyRows] = await Promise.all([
     getP8Groups(),
-    fetchAllRows<{ id: string; user_id: string; side: string; comment: string | null; created_at: string }>(() => db.from('debate_votes')
-      .select('id, user_id, side, comment, created_at').eq('date', date).order('created_at', { ascending: true })),
+    fetchAllRows<VoteRow>(() => db.from('debate_votes')
+      .select(own ? 'id, user_id, side, comment, created_at, comment_hidden_at' : 'id, user_id, side, comment, created_at').eq('date', date).order('created_at', { ascending: true })),
+    own && key !== null
+      ? fetchAllRows<ReplyRow>(() => svc.from('community_replies').select('id, author, body, parent_id, parent_vote, created_at, status')
+        .eq('target_type', 'daily_debate').eq('target_id', key).order('created_at', { ascending: true }).order('id', { ascending: true }))
+      : Promise.resolve([] as ReplyRow[]),
   ]);
+  const sideOf = new Map(votes.map((v) => [v.user_id, v.side === 'a' ? d.sideA : d.sideB] as const));
   const commented = votes.filter((v) => v.comment && v.comment.trim());
-  const [people, likes, postLikes] = await Promise.all([
-    readPeople(db, commented.map((v) => v.user_id)),
-    likeMap('debate_vote', commented.map((v) => v.id), f.likes),
+  const shownVotes = commented.filter((v) => !v.comment_hidden_at);
+  const shownReplies = replyRows.filter((r) => r.status === 'visible');
+  const [people, likes, replyLikes, postLikes] = await Promise.all([
+    readPeople(db, [...shownVotes.map((v) => v.user_id), ...shownReplies.map((r) => r.author)]),
+    likeMap('debate_vote', shownVotes.map((v) => v.id), f.likes),
+    likeMap('reply', shownReplies.map((r) => String(r.id)), f.likes),
     likeMap('daily_debate', [date], f.likes),
   ]);
-  const comments: P8Comment[] = commented.map((v) => {
-    const person = people.get(v.user_id) ?? null;
+  type Row = { id: string; parent: string | null; visible: boolean; at: string; vote?: VoteRow; reply?: ReplyRow };
+  const rows: Row[] = [
+    ...commented.map((v): Row => ({ id: v.id, parent: null, visible: !v.comment_hidden_at, at: v.created_at, vote: v })),
+    ...replyRows.map((r): Row => ({ id: String(r.id), parent: r.parent_id != null ? String(r.parent_id) : r.parent_vote ?? null, visible: r.status === 'visible', at: r.created_at, reply: r })),
+  ].sort((a, b) => Date.parse(a.at) - Date.parse(b.at) || a.id.localeCompare(b.id));
+  const comments = nest(rows, (row, depth, replies): P8Comment => {
+    const likeType: LikeTarget = row.vote ? 'debate_vote' : 'reply';
+    if (!row.visible) return removedNode(row.id, likeType, depth, replies);
+    const uid = row.vote ? row.vote.user_id : row.reply?.author ?? null;
+    const person = uid ? people.get(uid) ?? null : null;
+    const voted = uid ? sideOf.get(uid) : undefined;
+    const body = row.vote ? row.vote.comment!.trim() : row.reply!.body;
+    const count = row.vote ? (likes ? likes.get(row.id) ?? 0 : null) : (replyLikes ? replyLikes.get(row.id) ?? 0 : null);
     return {
-      id: v.id, likeType: 'debate_vote', person, name: person?.name ?? 'a fan', body: v.comment!.trim(),
-      meta: `voted ${v.side === 'a' ? d.sideA : d.sideB}`, at: v.created_at, ago: timeAgo(v.created_at, now),
-      likes: likes ? likes.get(v.id) ?? 0 : null, replies: [], canReply: false,
+      id: row.id, likeType, person, name: person?.name ?? 'a fan', body,
+      meta: voted ? `voted ${voted}` : null, at: row.at, ago: timeAgo(row.at, now),
+      likes: count, replies, canReply: own && depth < MAX_REPLY_DEPTH, depth,
     };
   });
+  const n = countVisible(comments);
   const open = date === today;
   return {
     kind: 'debate', key: date, href: `/community/debate/${date}`, title: d.question, excerpt: null,
     group: groups.find((g) => g.slug === 'general-kpop') ?? null, author: null,
-    at: `${date}T00:00:00.000Z`, ago: timeAgo(`${date}T00:00:00.000Z`, now), replies: comments.length,
+    at: `${date}T00:00:00.000Z`, ago: timeAgo(`${date}T00:00:00.000Z`, now), replies: n,
     likes: postLikes ? postLikes.get(date) ?? 0 : null,
     debate: {
-      daily: true, open, closesAt: dailyClosesAt(date), comments: comments.length,
+      daily: true, open, closesAt: dailyClosesAt(date), comments: n,
       options: [{ label: d.sideA, votes: d.votesA }, { label: d.sideB, votes: d.votesB }], total: d.votesA + d.votesB,
     },
     paragraphs: [], html: null, likeType: 'daily_debate', openingCommentId: null,
-    comments, commentCount: comments.length, replyTo: open ? { store: 'daily_debate', date } : null,
+    comments, commentCount: n,
+    replyTo: own ? { store: 'community', target_type: 'daily_debate', target_id: date } : open ? { store: 'daily_debate', date } : null,
   };
 }
 
 /* ------------------------------------------------- fan debate (pending) --- */
 
-interface ReplyRow { id: number; author: string | null; body: string; parent_id: number | null; created_at: string }
-
+/** Replies of a fan debate, challenge or editorial post (community_replies, every status:
+ *  service role) as a tree at every level; a hidden or deleted reply stays only as a
+ *  "[removed]" place over visible replies. */
 async function communityReplies(db: Db, type: 'debate' | 'challenge' | 'editorial', id: number, postAuthor: string | null, f: P8Features, now: number, scoreOf?: (uid: string) => string | null): Promise<P8Comment[]> {
-  const rows = await fetchAllRows<ReplyRow>(() => db.from('community_replies').select('id, author, body, parent_id, created_at')
-    .eq('target_type', type).eq('target_id', id).eq('status', 'visible').order('created_at', { ascending: true }).order('id', { ascending: true }));
+  const rows = await fetchAllRows<ReplyRow>(() => createServiceRoleClient().from('community_replies').select('id, author, body, parent_id, created_at, status')
+    .eq('target_type', type).eq('target_id', id).order('created_at', { ascending: true }).order('id', { ascending: true }));
   if (!rows.length) return [];
+  const shown = rows.filter((r) => r.status === 'visible');
   const [people, likes] = await Promise.all([
-    readPeople(db, rows.map((r) => r.author)),
-    likeMap('reply', rows.map((r) => String(r.id)), f.likes),
+    readPeople(db, shown.map((r) => r.author)),
+    likeMap('reply', shown.map((r) => String(r.id)), f.likes),
   ]);
-  const mk = (r: ReplyRow): P8Comment => {
+  const tree = rows.map((r) => ({ row: r, id: String(r.id), parent: r.parent_id == null ? null : String(r.parent_id), visible: r.status === 'visible' }));
+  return nest(tree, (t, depth, replies): P8Comment => {
+    if (!t.visible) return removedNode(t.id, 'reply', depth, replies);
+    const r = t.row;
     const person = r.author ? people.get(r.author) ?? null : null;
     const meta = r.author && postAuthor && r.author === postAuthor ? 'author' : (r.author && scoreOf ? scoreOf(r.author) : null);
     return {
-      id: String(r.id), likeType: 'reply', person, name: person?.name ?? 'a fan', body: r.body, meta,
-      at: r.created_at, ago: timeAgo(r.created_at, now), likes: likes ? likes.get(String(r.id)) ?? 0 : null,
-      replies: [], canReply: r.parent_id == null,
+      id: t.id, likeType: 'reply', person, name: person?.name ?? 'a fan', body: r.body, meta,
+      at: r.created_at, ago: timeAgo(r.created_at, now), likes: likes ? likes.get(t.id) ?? 0 : null,
+      replies, canReply: depth < MAX_REPLY_DEPTH, depth,
     };
-  };
-  const top = rows.filter((r) => r.parent_id == null).map(mk);
-  for (const t of top) t.replies = rows.filter((r) => String(r.parent_id) === t.id).map(mk);
-  return top;
+  });
 }
 
 async function fanDebatePost(id: number, f: P8Features, now: number): Promise<P8Post | null> {
@@ -272,7 +316,7 @@ async function fanDebatePost(id: number, f: P8Features, now: number): Promise<P8
     communityReplies(db, 'debate', r.id, r.author, f, now),
   ]);
   const counts = labels.map((_l, i) => votes.filter((v) => v.option_index === i).length);
-  const n = countTree(comments);
+  const n = countVisible(comments);
   return {
     kind: 'debate', key: String(r.id), href: `/community/debate/${r.id}`, title: r.question, excerpt: null,
     group: r.group_id ? groups.find((g) => g.id === r.group_id) ?? null : null,
@@ -320,7 +364,7 @@ async function challengePost(id: number, f: P8Features, now: number): Promise<P8
     likeMap('challenge', [String(r.id)], f.likes),
     communityReplies(db, 'challenge', r.id, r.author, f, now, scoreOf),
   ]);
-  const n = countTree(comments);
+  const n = countVisible(comments);
   const chips = [...best.entries()].sort((a, b) => b[1].s / b[1].t - a[1].s / a[1].t);
   const who = await readPeople(db, chips.map(([uid]) => uid));
   return {
@@ -369,7 +413,7 @@ async function editorialPost(kind: 'thread' | 'blog', id: number, f: P8Features,
     f.fanDebates ? communityReplies(db, 'editorial', r.id, r.author, f, now) : Promise.resolve([] as P8Comment[]),
   ]);
   const g = r.group_id ? groups.find((x) => x.id === r.group_id) ?? null : null;
-  const n = countTree(comments);
+  const n = countVisible(comments);
   const words = r.body.split(/\s+/).filter(Boolean).length;
   return {
     kind: r.kind, key: `e${r.id}`, href: `/community/${r.kind}/e${r.id}`, title: r.title,

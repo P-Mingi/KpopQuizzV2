@@ -27,22 +27,25 @@ const HREF: Record<string, (id: number) => string | null> = {
   challenge: (id) => `/community/challenge/${id}`,
   comment: () => null,
   reply: () => null,
+  debate_vote: () => null,
 };
 
-async function previews(rows: { target_type: string; target_id: number }[]): Promise<Map<string, string>> {
+async function previews(rows: { target_type: string; target_id: number; target_ref: string | null }[]): Promise<Map<string, string>> {
   const svc = createServiceRoleClient();
   const ids = (t: string): number[] => rows.filter((r) => r.target_type === t).map((r) => r.target_id);
   const out = new Map<string, string>();
   const put = (t: string, list: Array<Record<string, unknown>> | null, field: string): void => {
     for (const r of list ?? []) out.set(`${t}:${String(r.id)}`, String(r[field] ?? '').slice(0, 160));
   };
-  const [th, es, cm, db, ch, rp] = await Promise.all([
+  const refs = rows.filter((r) => r.target_type === 'debate_vote' && r.target_ref).map((r) => r.target_ref as string);
+  const [th, es, cm, db, ch, rp, dv] = await Promise.all([
     ids('thread').length ? svc.from('verse_threads').select('id, title').in('id', ids('thread')) : Promise.resolve({ data: [] }),
     ids('essay').length ? svc.from('verse_essays').select('id, title').in('id', ids('essay')) : Promise.resolve({ data: [] }),
     ids('comment').length ? svc.from('verse_discussions').select('id, body').in('id', ids('comment')) : Promise.resolve({ data: [] }),
     ids('debate').length ? svc.from('community_debates').select('id, question').in('id', ids('debate')) : Promise.resolve({ data: [] }),
     ids('challenge').length ? svc.from('community_challenges').select('id, message').in('id', ids('challenge')) : Promise.resolve({ data: [] }),
     ids('reply').length ? svc.from('community_replies').select('id, body').in('id', ids('reply')) : Promise.resolve({ data: [] }),
+    refs.length ? svc.from('debate_votes').select('id, comment, date').in('id', refs) : Promise.resolve({ data: [] }),
   ]);
   put('thread', th.data as Array<Record<string, unknown>> | null, 'title');
   put('essay', es.data as Array<Record<string, unknown>> | null, 'title');
@@ -50,6 +53,11 @@ async function previews(rows: { target_type: string; target_id: number }[]): Pro
   put('debate', db.data as Array<Record<string, unknown>> | null, 'question');
   put('challenge', ch.data as Array<Record<string, unknown>> | null, 'message');
   put('reply', rp.data as Array<Record<string, unknown>> | null, 'body');
+  // vote comments of the daily debate, keyed by their uuid (target_ref), with their debate's page
+  for (const r of (dv.data ?? []) as Array<{ id: string; comment: string | null; date: string }>) {
+    out.set(`debate_vote:${r.id}`, String(r.comment ?? '').slice(0, 160));
+    out.set(`debate_vote_href:${r.id}`, `/community/debate/${r.date}`);
+  }
   return out;
 }
 
@@ -60,14 +68,15 @@ export default async function CommunityReportsPage(): Promise<React.ReactElement
   if (!user || !isAdmin(user.id)) redirect('/');
 
   const svc = createServiceRoleClient();
-  const { data, error } = await svc.from('community_autohidden').select('id, target_type, target_id, prev_status, reports, hidden_at')
+  const { data, error } = await svc.from('community_autohidden').select('id, target_type, target_id, target_ref, prev_status, reports, hidden_at')
     .is('restored_at', null).order('hidden_at', { ascending: false }).limit(200);
-  const rows = (data ?? []) as { id: number; target_type: string; target_id: number; prev_status: string; reports: number; hidden_at: string }[];
+  const rows = (data ?? []) as { id: number; target_type: string; target_id: number; target_ref: string | null; prev_status: string; reports: number; hidden_at: string }[];
   const pre = rows.length ? await previews(rows) : new Map<string, string>();
+  const key = (r: (typeof rows)[number]): string => (r.target_type === 'debate_vote' ? `debate_vote:${r.target_ref}` : `${r.target_type}:${r.target_id}`);
   const list: HiddenRow[] = rows.map((r) => ({
-    id: r.id, type: r.target_type, reports: r.reports, hiddenAt: r.hidden_at,
-    preview: pre.get(`${r.target_type}:${r.target_id}`) ?? '(no longer in the database)',
-    href: HREF[r.target_type]?.(r.target_id) ?? null,
+    id: r.id, type: r.target_type === 'debate_vote' ? 'vote comment' : r.target_type, reports: r.reports, hiddenAt: r.hidden_at,
+    preview: pre.get(key(r)) ?? '(no longer in the database)',
+    href: r.target_type === 'debate_vote' ? pre.get(`debate_vote_href:${r.target_ref}`) ?? null : HREF[r.target_type]?.(r.target_id) ?? null,
   }));
 
   return (

@@ -1,4 +1,4 @@
-// W4.6 - per-page discussion threads (talk pages) with one level of replies. Public read
+// W4.6 - per-page discussion threads (talk pages) with nested replies. Public read
 // of visible comments (RLS); bylines resolved through the shared V-PROFILE-ONE resolver.
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { resolveIdentities, resolveSpaceIdentities } from '@/lib/verse/identity';
@@ -48,6 +48,8 @@ async function buildTree(rows: CommentRow[], groupId?: number): Promise<DiscComm
   const top = rows.filter((r) => r.parent_id == null).map(mk);
   const byParent = new Map<number, DiscComment[]>();
   for (const r of rows.filter((r) => r.parent_id != null)) { const l = byParent.get(r.parent_id!) ?? []; l.push(mk(r)); byParent.set(r.parent_id!, l); }
-  for (const t of top) t.replies = byParent.get(t.id) ?? [];
+  // v12: replies nest at any level (up to 10, /api/verse/discussions): each reply carries its own.
+  const attach = (c: DiscComment, depth: number): void => { c.replies = depth < 12 ? byParent.get(c.id) ?? [] : []; for (const x of c.replies) attach(x, depth + 1); };
+  for (const t of top) attach(t, 1);
   return top;
 }

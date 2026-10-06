@@ -58,7 +58,8 @@ async function targetVisible(svc: Svc, type: LikeTargetType, id: string): Promis
       return verseSpaceShown(slug);
     }
     case 'daily_debate': return one(svc.from('daily_debates').select('date').eq('date', id).maybeSingle());
-    case 'debate_vote': return one(svc.from('debate_votes').select('id').eq('id', id).not('comment', 'is', null).maybeSingle());
+    // v12: a vote comment hidden by its reports takes no heart (comment_hidden_at, v12-community-comments.sql).
+    case 'debate_vote': return one(svc.from('debate_votes').select('id').eq('id', id).not('comment', 'is', null).is('comment_hidden_at', null).maybeSingle());
     case 'debate': return one(svc.from('community_debates').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'challenge': return one(svc.from('community_challenges').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'editorial': return (await getEditorialLive()) && one(svc.from('editorial_posts').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { fetchAllRows } from '@/lib/db/fetch-all';
+import { canNestUnder, levelOf } from '@/lib/ux-v1/p8/nesting';
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { getDiscussions, getThreadComments } from '@/lib/verse/discussions';
@@ -9,7 +11,7 @@ import { checkText, fileFlag, underRateCap, isTrusted, isBlockedInSpace } from '
 import type { NextRequest } from 'next/server';
 
 // W4.6 - per-page discussion threads. GET is public (visible comments). POST adds a
-// comment or a one-level reply (any signed-in user). PATCH hides a comment (its author,
+// comment or a reply at any level up to 10 (any signed-in user). PATCH hides a comment (its author,
 // or a curator of the entity's space).
 export const dynamic = 'force-dynamic';
 
@@ -66,14 +68,25 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Block state: a member blocked in this space may not post a comment OR a reply.
   const blockGid = await resolveEntityGroupId(entity_type, entity_id);
   if (blockGid && await isBlockedInSpace(user.id, blockGid)) return NextResponse.json({ error: 'blocked' }, { status: 403 });
-  // A reply must attach to a real top-level comment in the SAME scope (thread or
-  // page), one level only.
+  // A reply must attach to a real, visible comment or reply in the SAME scope (thread or
+  // page). v12 (owner, 2026-10-06): replies nest like on Reddit, 10 levels at most
+  // (lib/ux-v1/p8/nesting.ts). In a thread the opening post is the post itself (level 0);
+  // elsewhere a top comment is level 1.
   let parent: number | null = null;
   if (parentId) {
-    const { data: p } = await svc.from('verse_discussions').select('id, parent_id, entity_type, entity_id, thread_id').eq('id', parentId).maybeSingle();
-    const pr = p as { id: number; parent_id: number | null; entity_type: string; entity_id: string; thread_id: number | null } | null;
+    const { data: p } = await svc.from('verse_discussions').select('id, parent_id, entity_type, entity_id, thread_id, status').eq('id', parentId).maybeSingle();
+    const pr = p as { id: number; parent_id: number | null; entity_type: string; entity_id: string; thread_id: number | null; status: string } | null;
     const sameScope = threadId ? pr?.thread_id === threadId : (pr?.thread_id == null && pr?.entity_type === entity_type && pr?.entity_id === entity_id);
-    if (!pr || pr.parent_id != null || !sameScope) return NextResponse.json({ error: 'bad_parent' }, { status: 400 });
+    if (!pr || pr.status !== 'visible' || !sameScope) return NextResponse.json({ error: 'bad_parent' }, { status: 400 });
+    const rows = await fetchAllRows<{ id: number; parent_id: number | null }>(() => {
+      const q = svc.from('verse_discussions').select('id, parent_id');
+      return (threadId ? q.eq('thread_id', threadId) : q.eq('entity_type', entity_type).eq('entity_id', entity_id).is('thread_id', null))
+        .order('created_at', { ascending: true }).order('id', { ascending: true });
+    });
+    const parentOf = new Map(rows.map((x) => [String(x.id), x.parent_id == null ? null : String(x.parent_id)] as const));
+    const opening = threadId ? rows.find((x) => x.parent_id == null) : undefined;
+    const level = levelOf(String(pr.id), parentOf, (id) => (opening && id === String(opening.id) ? 0 : 1));
+    if (!canNestUnder(level)) return NextResponse.json({ error: 'too_deep' }, { status: 400 });
     parent = pr.id;
   }
   const { data, error } = await svc.from('verse_discussions').insert({ entity_type, entity_id, author: user.id, body: text, parent_id: parent, status: 'visible', thread_id: threadId ?? null }).select('id').single();

@@ -13,6 +13,7 @@ import { isUxV12 } from '@/lib/ux-v12';
 export const COMMUNITY_PHOTO_DIR = 'community';
 export const COMMUNITY_PHOTO_BUCKET = 'verse-space-assets';
 
+const VOTE_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const PHOTO_PATH = /^community\/([0-9a-f-]{36})\/[0-9a-f-]{36}\.jpg$/;
 
 /** The asked-for origin is 'community' (and community posts exist: the v12 flag). */
@@ -94,6 +95,8 @@ export async function communityWriteAllowed(method: string, pathname: string, bo
     case '/api/verse/essays/reactions':
       return isCommunityRow('verse_essays', Number(body.essay_id));
     case '/api/verse/flags':
+      // A vote comment of the daily debate (its uuid in target_ref) is community content.
+      if (body.target_type === 'debate_vote') return VOTE_ID.test(String(body.target_ref ?? '').toLowerCase());
       return reportIsCommunity(String(body.target_type ?? ''), Number(body.target_id));
     default:
       return false;

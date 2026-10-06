@@ -35,6 +35,8 @@ function moreSub(p: FeedPost): string {
 
 function replyContext(post: P8Post, fandom: string | null): { placeholder: string; chip: string | null } {
   if (post.kind === 'challenge' && post.challenge) return { placeholder: 'Reply with your score', chip: `Their score: ${post.challenge.score}/${post.challenge.total}` };
+  // v12: the daily debate's own comment box, independent of the vote (open or closed).
+  if (post.kind === 'debate' && post.debate?.daily) return { placeholder: 'Write a comment', chip: null };
   if (post.kind === 'debate') return { placeholder: 'Reply', chip: null };
   return { placeholder: 'Write a reply', chip: fandom ? `Replying in ${fandom}` : null };
 }
@@ -54,6 +56,9 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
   const reportable = isUxV12() && (post.community === true || ((post.kind === 'debate' && !post.debate?.daily) || post.kind === 'challenge') && !post.editorialId);
   const report: ReportTarget | null = !reportable || !/^\d+$/.test(post.key) ? null
     : { type: post.kind === 'blog' ? 'essay' : post.kind, id: Number(post.key) };
+  // v12 (owner, 2026-10-06): every comment and reply takes Report, the daily debate's and
+  // a Team post's included; Verse threads and blogs (not posted from /community) keep theirs off.
+  const repliesReportable = reportable || (isUxV12() && ((post.kind === 'debate' && post.debate?.daily === true) || !!post.editorialId));
 
   return (
     <>
@@ -148,7 +153,7 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
       </article>
 
       <section className="ux-sec p8-rep-box" id="replies" aria-labelledby="p8-rep-h">
-        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} reportable={reportable} />
+        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} reportable={repliesReportable} />
       </section>
 
       {more.length ? (
