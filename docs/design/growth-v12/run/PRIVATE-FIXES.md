@@ -77,3 +77,10 @@ goes to production together before the opening. All code is behind the flags
   the signed-in check stays read only); the docs secret gate lets the SQL pattern
   `'%@fake.kpopquizz.com'` through, only that exact form and only in
   `docs/pending-migrations/v12-*.sql`.
+
+Second private deployment: `dpl_3q4JBeAdbmFB9uZzKNHJZ9normui`
+(`kpopquiz-vayku9vyg-p-mingis-projects.vercel.app`) from `d33b31e`, aliased to
+https://kpopquiz-private.vercel.app; kpopquiz.org still on `dpl_CPRDSnFf57KbPGDzXnc4TxGk8X53`.
+Checks of this pass: tsc 0 errors, vitest 1961 / 1961, docs secret gate green, e2e p3 + p1 + g9 at
+1440: 51 passed, 3 skipped (Verse off, flag-off case); flags-off parity: no code difference (same
+14 live-data fields as the first pass).
