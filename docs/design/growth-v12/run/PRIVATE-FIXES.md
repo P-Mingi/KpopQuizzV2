@@ -9,7 +9,7 @@ goes to production together before the opening. All code is behind the flags
 | # | Ask | Done | Proof (captures, local, not in git) |
 |---|-----|------|-------------------------------------|
 | 1 | General K-pop is a category, not a group | `isCategoryGroup` (lib/ux-v1/p3/model.ts). `/general-kpop-quiz` keeps its URL and H1; lead, About and FAQ are category texts (quizzes about K-pop as a whole), no members row, no "is a K-pop group with N members", no members question, crumb Quizzes. Out of the home groups rail and its count (93), `/groups` and its counts, Which member, Name them all, This or that (no bonus after a General K-pop quiz) and Fans picked. Data: the six name-all games filed under General K-pop now belong to their groups (below). | `checks/private-fixes/{before,after}/p1-*.png` |
-| 2 | A photo for every group and soloist | 59 Wikimedia Commons photos (CC BY or CC BY-SA, no NC/ND), each checked by eye, in Supabase Storage `images/group-photos/<slug>.jpg`, wired in `groupPhotoUrl` (the site's own `public/idols` photo first). Credits in `lib/ux-v1/a0/group-photo-credits.ts` and `run/group-photos.json`; the hub prints "Photo: author · license" on the photo, linked to the file page. Not found: none. | `p2-*.png` |
+| 2 | A photo for every group and soloist | 59 Wikimedia Commons photos (CC BY or CC BY-SA, no NC/ND), each checked by eye, in Supabase Storage `images/group-photos/<slug>.jpg`, wired in `groupPhotoUrl` (the site's own `public/idols` photo first). Credits (author, license, link) kept in `lib/ux-v1/a0/group-photo-credits.ts` and `run/group-photos.json`, not displayed: the owner handles attribution. Not found: none. | `p2-*.png` |
 | 3 | Live like Kahoot | The host screen only shows the game: question, answers, timer, answer count, results, leaderboard. No phone frame, no "Play along here". Once the room is open it covers the page (no site bar, no intro) and asks the browser for full screen (a "Full screen / Exit full screen" control stays). The QR and code are big in the lobby, then small at the top right during the game. Players join only by phone (QR or code). | `p3-live-*.png` |
 | 4 | Boxes on community post pages | The post (author, title, body, votes, likes, share) and the replies each sit in a rounded box: `--ux-raised`, white in light, the dark raised surface in dark. Debate, topic and blog share the same view. | `p4-*.png` |
 | 5 | Rabbit instead of the "K" tiles | KpopQuiz live header; the KpopQuiz avatar of the daily debate on the post page, the feed card and the home "From the community" rows. | `p3-live-*.png`, `p4-*.png` |
@@ -51,7 +51,7 @@ goes to production together before the opening. All code is behind the flags
   local production build): no code difference. The 14 differing fields are live data only (play
   counts, the 430+ quiz count, three URLs published after production cached its sitemap, a newer
   news feed) and the home's `/pt` link that a fresh build shows until its first regeneration.
-  Snapshots: `checks/private-fixes-parity-{main,branch}.json`.
+  Snapshots: `checks/private-fixes/parity-{main,branch}.json`, local, out of git like the captures.
 
 ## Private version
 
@@ -62,3 +62,18 @@ goes to production together before the opening. All code is behind the flags
   Previous private build, for a rollback of the alias: `kpopquiz-9ei2tuvkn-p-mingis-projects.vercel.app`.
 - kpopquiz.org and www still serve `dpl_CPRDSnFf57KbPGDzXnc4TxGk8X53` (main, flags off). Do not promote
   the private build (it bakes the private address into `NEXT_PUBLIC_SITE_URL`).
+
+## Finishing touches (second pass, same day)
+
+- `/general-kpop-quiz`: "Test How Well You Know K-pop" in the H1 and the share image
+  (`/api/og/group/general-kpop`, only with `NEXT_PUBLIC_UX_V1` on: the public image is unchanged).
+  The page title ("General K-pop Quiz: N Free Fan-Made Tests") never held the phrase.
+- `name_all_member_results`: the 707 rows (106 rounds, 2026-08-06 to 2026-09-20) still on group 30
+  moved to their group, each round by its full member set (every round matched exactly one roster):
+  BABYMONSTER 52 rounds / 364 rows, TREASURE 10 / 100, MAMAMOO 18 / 72, NCT DREAM 10 / 70,
+  NMIXX 11 / 66, GOT7 5 / 35. Nothing left on group 30. Rollback: `run/name-all-results-rollback.sql`.
+- The photo credit is no longer printed on the hub; tests updated.
+- The two red checks are green: p3 "Notify me" expects the group alerts on (guest: sign-in sheet;
+  the signed-in check stays read only); the docs secret gate lets the SQL pattern
+  `'%@fake.kpopquizz.com'` through, only that exact form and only in
+  `docs/pending-migrations/v12-*.sql`.
