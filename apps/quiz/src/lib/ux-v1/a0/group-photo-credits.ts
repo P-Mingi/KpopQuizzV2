@@ -2,8 +2,8 @@
 // own in public/idols (owner request, 2026-10-06). Each file was checked by eye for
 // the right subject, converted to JPEG within 1200 px (no crop) and stored in Supabase
 // Storage, public bucket `images`, at group-photos/<slug>.jpg. Free licenses only
-// (CC BY or CC BY-SA, which ask for a credit): the group hub prints it under the photo.
-// Source list with sizes and dates: docs/design/growth-v12/run/group-photos.json.
+// (CC BY or CC BY-SA). The credits stay here and in docs/design/growth-v12/run/group-photos.json
+// (with sizes and dates) but are not displayed: the owner handles the attribution (2026-10-06).
 
 export interface GroupPhotoCredit {
   /** Commons file page. */

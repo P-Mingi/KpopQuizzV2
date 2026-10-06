@@ -12,7 +12,7 @@ import { blankQuestionFor, QUIZ_TYPES } from '@/lib/quiz-question';
 import { activeNav, activeTab, isPlainClick, NAV_ITEMS, TAB_ITEMS } from './nav';
 import { badgeFamily, badgeGlyph, hasBadgeGlyph, RARITY_ART } from './badge-art';
 import { GROUP_PHOTO_CREDITS } from './group-photo-credits';
-import { groupPhotoCredit, groupPhotoUrl, GROUP_PHOTO_SLUGS, photoFocal } from './group-photos';
+import { groupPhotoUrl, GROUP_PHOTO_SLUGS, photoFocal } from './group-photos';
 import { isStartedDraft, MY_QUIZZES_HREF, samePageHash } from './my-quizzes';
 import { streakView } from './streak';
 import { THEME_COLOR } from './theme';
@@ -269,16 +269,15 @@ describe('group photos (16.8)', () => {
     expect(groupPhotoUrl('general-kpop')).toBeNull();
     expect(groupPhotoUrl(null)).toBeNull();
   });
-  it('the other groups get their Commons photo from storage, with a free-license credit', () => {
+  it('the other groups get their Commons photo from storage; each keeps a free-license credit (not displayed)', () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
     try {
       expect(groupPhotoUrl('chungha')).toBe('https://example.supabase.co/storage/v1/object/public/images/group-photos/chungha.jpg');
-      expect(groupPhotoCredit('bts')).toBeNull();
       const slugs = Object.keys(GROUP_PHOTO_CREDITS);
       expect(slugs.length).toBe(59);
       for (const s of slugs) {
         expect(GROUP_PHOTO_SLUGS, s).not.toContain(s);
-        const c = groupPhotoCredit(s);
+        const c = GROUP_PHOTO_CREDITS[s];
         expect(c?.page, s).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
         expect(c?.license, s).toMatch(/^CC BY(-SA)? \d\.\d$/);
         expect(c?.author.trim().length, s).toBeGreaterThan(0);

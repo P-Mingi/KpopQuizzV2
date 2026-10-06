@@ -18,6 +18,12 @@ export function isCategoryGroup(slug: string | null | undefined): boolean {
   return slug === CATCH_ALL_SLUG;
 }
 
+/** What "Test How Well You Know ..." names: the group, or "K-pop" for the category
+ *  (owner, 2026-10-06: "Test How Well You Know K-pop" on the General K-pop H1 and share image). */
+export function knowSubject(slug: string | null | undefined, name: string): string {
+  return isCategoryGroup(slug) ? 'K-pop' : name;
+}
+
 interface CategoryFaq { q: string; text: string; a: string }
 
 /** The category hub's texts (lead under the H1, About paragraph, FAQ), from the real

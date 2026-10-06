@@ -26,7 +26,7 @@ import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
-import { groupPhotoCredit, groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
@@ -41,6 +41,7 @@ import {
   hubEyebrow,
   hubFacts,
   isCategoryGroup,
+  knowSubject,
   quizzesLabel,
   realFandomName,
 } from '@/lib/ux-v1/p3/model';
@@ -130,7 +131,6 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
   const songs = playable[g.slug] ?? 0;
   const photo = groupPhotoUrl(g.slug);
-  const photoCredit = groupPhotoCredit(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
   const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: g.record_label ?? null, quizzes: published });
@@ -224,12 +224,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       <section className={photo ? 'p3-hero' : 'p3-hero is-solo'} aria-labelledby="p3-h1">
         <div className="p3-hero-main">
           <p className="p3-eyebrow">{eyebrow}</p>
-          {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>".
-              The first half is the display title, the rest its second line. */}
+          {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>"
+              ("... Know K-pop" for the General K-pop category). The first half is the
+              display title, the rest its second line. */}
           <h1 id="p3-h1" className="p3-h1">
             <span className="p3-h1-main">{g.name} Quiz</span>
             <span className="ux-sr"> - </span>
-            <span className="p3-h1-tail">Test How Well You Know {g.name}</span>
+            <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>
           </h1>
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
@@ -258,12 +259,6 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         {photo ? (
           <div className="p3-photo">
             <Image src={photo} alt={g.name} fill sizes={PHOTO_SIZES} priority className="p3-photo-img" />
-            {photoCredit ? (
-              // A Commons photo (CC BY / BY-SA): its credit, linked to the file page.
-              <a className="p3-photo-cr" href={photoCredit.page} target="_blank" rel="noopener noreferrer">
-                Photo: {photoCredit.author} · {photoCredit.license}
-              </a>
-            ) : null}
           </div>
         ) : null}
       </section>

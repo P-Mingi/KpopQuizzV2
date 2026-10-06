@@ -8,8 +8,6 @@
 
 import { GROUP_PHOTO_CREDITS } from './group-photo-credits';
 
-import type { GroupPhotoCredit } from './group-photo-credits';
-
 const GROUP_PHOTO_FILE: Record<string, string> = {
   'g-i-dle': '(G)I-DLE.jpg',
   '2ne1': '2NE1.jpg',
@@ -55,13 +53,6 @@ export function groupPhotoUrl(groupSlug: string | null | undefined): string | nu
   if (file) return `/idols/${encodeURIComponent(file)}`;
   const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
   return base && GROUP_PHOTO_CREDITS[groupSlug] ? `${base}/storage/v1/object/public/images/group-photos/${groupSlug}.jpg` : null;
-}
-
-/** The credit of a group's Commons photo (author, license, file page), or null for
- *  the site's own photos and for groups without a photo. */
-export function groupPhotoCredit(groupSlug: string | null | undefined): GroupPhotoCredit | null {
-  if (!groupSlug || GROUP_PHOTO_FILE[groupSlug]) return null;
-  return GROUP_PHOTO_CREDITS[groupSlug] ?? null;
 }
 
 /** The slugs that have a group photo (for tests and the kit). */
