@@ -522,7 +522,9 @@ for (const theme of THEMES) {
       await expect(page.locator('.p3-actions a', { hasText: 'Make the first quiz' })).toHaveAttribute('href', '/create?group=chungha');
       await expect(page.locator('.p3-qs')).toHaveCount(0);
       await expect(page.locator('section[aria-labelledby="p3-com-h"]')).toHaveCount(0);
-      await expect(page.locator('.p3-hero')).toHaveClass(/is-solo/);
+      // Every group has a photo now (owner, 2026-10-06): Chungha's is a Commons photo, credited on it.
+      await expect(page.locator('.p3-hero')).not.toHaveClass(/is-solo/);
+      await expect(page.locator('.p3-photo .p3-photo-cr')).toContainText(/^Photo: .+ · CC BY(-SA)? \d\.\d$/);
 
       // The real route (read only) says "not live" until the pending migration runs:
       // the click explains it and writes nothing.
