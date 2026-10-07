@@ -173,7 +173,8 @@ test.describe('G9 routes and gating (GET only)', () => {
     const body = await team.json() as { usernames?: unknown };
     expect(Array.isArray(body.usernames)).toBe(true);
     // An editorial post URL is a 404 until the store exists and holds it.
-    for (const u of ['/community/thread/e999999999', '/community/blog/e999999999', '/community/debate/e1', '/community/thread/e0']) {
+    // e999999999999: the largest editorial id a post URL accepts (12 digits), never reached.
+    for (const u of ['/community/thread/e999999999999', '/community/blog/e999999999999', '/community/debate/e1', '/community/thread/e0']) {
       expect((await page.request.get(u)).status(), u).toBe(404);
     }
   });

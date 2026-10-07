@@ -5,6 +5,7 @@ import { expect, test } from '@playwright/test';
 
 import { basicA11y, runAxe } from './helpers/a11y';
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
+import { firstPostPath } from './helpers/community';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
 import { hasShell, preparePage, THEMES, waitHydrated, widthOf } from './helpers/setup-page';
@@ -36,7 +37,8 @@ function record(entry: Record<string, unknown>): void {
 
 const QUIZ = '/q/ultimate-bts-era-quiz-only-real-armys-survive';
 
-interface PageCase { id: string; owner: string; path: string; ready: string; pending?: string }
+/** `resolve`: the path is the first post of that kind linked from /community (helpers/community). */
+interface PageCase { id: string; owner: string; path: string; ready: string; pending?: string; resolve?: 'thread' | 'blog' }
 const GUEST_PAGES: PageCase[] = [
   { id: 'home-guest', owner: 'P1', path: '/', ready: '.p1-home' },
   { id: 'quizzes', owner: 'P2', path: '/quizzes', ready: '.ux-main', pending: 'P2 not merged (pre-P2 page inside the shell)' },
@@ -53,8 +55,8 @@ const GUEST_PAGES: PageCase[] = [
   { id: 'blindtest-mode', owner: 'P6', path: '/blindtest/classic', ready: '.ux-main' },
   { id: 'ranked', owner: 'P7', path: '/blindtest/ranked', ready: '.p7-page' },
   { id: 'community', owner: 'P8', path: '/community', ready: '.p8-page' },
-  { id: 'post-blog', owner: 'P8', path: '/community/blog/2', ready: '.p8-post-page' },
-  { id: 'post-thread', owner: 'P8', path: '/community/thread/1', ready: '.p8-post-page' },
+  { id: 'post-blog', owner: 'P8', path: '/community/blog/(first in the feed)', resolve: 'blog', ready: '.p8-post-page' },
+  { id: 'post-thread', owner: 'P8', path: '/community/thread/(first in the feed)', resolve: 'thread', ready: '.p8-post-page' },
   { id: 'post-debate', owner: 'P8', path: '/community/debate/2026-09-22', ready: '.p8-post-page' },
   { id: 'leaderboard', owner: 'P9', path: '/leaderboard', ready: '.p9-lb' },
   { id: 'passport', owner: 'P10', path: '/u/testtest', ready: '.p10-passport' },
@@ -158,7 +160,9 @@ for (const theme of THEMES) {
     for (const c of GUEST_PAGES) {
       test(`${c.id} (${c.path})`, async ({ page }) => {
         const calls = await guardWrites(page, env.supabaseUrl);
-        test.skip(!(await openPage(page, c)), 'flag off');
+        const at = c.resolve ? await firstPostPath(page, c.resolve) : c.path;
+        test.skip(!at, `no community ${c.resolve ?? ''} linked from /community`);
+        test.skip(!(await openPage(page, { ...c, path: at! })), 'flag off');
         const f = await check(page, c.id, c.owner, theme, 'guest', c.pending ? { pending: c.pending } : {});
         if (c.pending) test.info().annotations.push({ type: 'pending', description: c.pending });
         expect.soft(calls.filter((x) => !/\/api\/(analytics|track|vitals)/.test(x.url)), 'no write on view').toEqual([]);

@@ -11,10 +11,15 @@
 // stay in sync. 'battle_beaten' is NEW and needs
 // docs/pending-migrations/154_battle_challenge_notification.sql applied by the
 // owner before the DB will accept it; the insert fails soft until then.
+//
+// V12 (owner, 2026-10-07): 'community_reply' (someone replied to your comment or reply)
+// and 'community_comment' (someone commented on your post), Social, written by
+// lib/ux-v1/p8/notify.ts (docs/pending-migrations/v12-community-notifications.sql).
 export const NOTIFICATION_TYPES = [
   'milestone', 'rating', 'comment', 'admin_dm', 'new_follower',
   'streak_milestone', 'group_mastered', 'followed_new_quiz',
   'badge_earned', 'cheer', 'verse_watch', 'battle_beaten',
+  'community_reply', 'community_comment',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
@@ -28,7 +33,7 @@ export interface NotificationCategory {
 }
 export const NOTIFICATION_CATEGORIES: NotificationCategory[] = [
   { key: 'your_quizzes', label: 'Activity on your quizzes', description: 'Play milestones, reactions, and comments on quizzes you made.', types: ['milestone', 'rating', 'comment'] },
-  { key: 'social', label: 'Social', description: 'New followers, cheers, and battle challenges.', types: ['new_follower', 'cheer', 'battle_beaten', 'verse_watch'] },
+  { key: 'social', label: 'Social', description: 'New followers, cheers, and battle challenges.', types: ['new_follower', 'cheer', 'battle_beaten', 'verse_watch', 'community_reply', 'community_comment'] },
   { key: 'achievements', label: 'Achievements and streaks', description: 'Badges, mastered groups, and streak milestones.', types: ['badge_earned', 'group_mastered', 'streak_milestone'] },
   { key: 'following', label: 'From creators you follow', description: 'New quizzes from people you follow.', types: ['followed_new_quiz'] },
   { key: 'announcements', label: 'Announcements', description: 'Messages from the KpopQuiz team.', types: ['admin_dm'] },

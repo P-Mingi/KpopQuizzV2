@@ -38,3 +38,9 @@ html.ux-v1.dark .p8-dopt:not(.is-win) i, .ux-theme-dark .p8-dopt:not(.is-win) i 
   html.ux-v1:not(.light) .p8-dopt { background: var(--ux-surface-2); box-shadow: inset 0 0 0 1px var(--ux-edge); }
   html.ux-v1:not(.light) .p8-dopt:not(.is-win) i { background: #4A4440; }
 }
+
+/* v12 notifications (owner, 2026-10-07): the reply a notification opened is highlighted for a
+   moment (replies.tsx, ?reply=<id>). Without motion it stays tinted for the same time. */
+.p8-cmt.is-flash { border-radius: 12px; margin-inline: -8px; padding-inline: 8px; animation: p8-flash 2.6s ease-out both; }
+@keyframes p8-flash { 0%, 40% { background: var(--ux-pink-soft); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .p8-cmt.is-flash { animation: none; background: var(--ux-pink-soft); } }

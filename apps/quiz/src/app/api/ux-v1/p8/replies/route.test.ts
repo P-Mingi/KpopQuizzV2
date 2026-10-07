@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // database is an in-memory fake that honours eq filters (no network).
 
 type Row = Record<string, unknown>;
-const h = vi.hoisted(() => ({ tables: {} as Record<string, Row[]>, inserts: [] as Row[], blockedWords: ['fuck'] }));
+const h = vi.hoisted(() => ({ tables: {} as Record<string, Row[]>, inserts: [] as Row[], blockedWords: ['fuck'], notified: [] as Row[] }));
 
 function query(table: string): unknown {
   const filters: [string, unknown][] = [];
@@ -27,6 +27,8 @@ vi.mock('@/lib/supabase/server', () => ({
 vi.mock('@/lib/ux-v1/p8/features', () => ({ tableLive: async () => true }));
 vi.mock('@/lib/editorial/accounts', () => ({ isEditorialUser: async () => false }));
 vi.mock('@/lib/editorial/live', () => ({ getEditorialLive: async () => true }));
+// The bell (lib/ux-v1/p8/notify.ts, unit tested on its own): who the route tells, and when.
+vi.mock('@/lib/ux-v1/p8/notify', () => ({ notifyCommunity: async (n: Row) => { h.notified.push(n); } }));
 vi.mock('@/lib/verse/moderation', () => ({
   checkText: async (t: string) => (h.blockedWords.some((w) => t.toLowerCase().includes(w)) ? { action: 'block', term: 'x' } : null),
   isBlockedInSpace: async () => false,
@@ -35,13 +37,14 @@ vi.mock('@/lib/verse/moderation', () => ({
 }));
 
 const VOTE = 'a1b2c3d4-0000-4000-8000-00000000abcd';
+const OTHER_VOTE = 'b2c3d4e5-0000-4000-8000-00000000abcd';
 const YESTERDAY = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
 const TOMORROW = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10);
 const KEY = Number(YESTERDAY.replace(/-/g, ''));
 
 /** Replies 1..n of fan debate 4, each under the one before (reply k is level k). */
 function chainOnDebate(n: number): Row[] {
-  return Array.from({ length: n }, (_x, i) => ({ id: i + 1, target_type: 'debate', target_id: 4, parent_id: i === 0 ? null : i, parent_vote: null, status: 'visible' }));
+  return Array.from({ length: n }, (_x, i) => ({ id: i + 1, target_type: 'debate', target_id: 4, parent_id: i === 0 ? null : i, parent_vote: null, status: 'visible', author: `u-${i + 1}` }));
 }
 
 async function post(body: unknown): Promise<{ status: number; data: Record<string, unknown> }> {
@@ -55,11 +58,15 @@ async function post(body: unknown): Promise<{ status: number; data: Record<strin
 
 beforeEach(() => {
   h.inserts = [];
+  h.notified = [];
   h.tables = {
     daily_debates: [{ date: YESTERDAY, question_id: 'q1' }],
     debate_questions: [{ id: 'q1', side_a: 'Agree', side_b: 'Disagree' }],
-    debate_votes: [{ id: VOTE, date: YESTERDAY, user_id: 'u-fan', side: 'a', comment: 'Obviously', comment_hidden_at: null }],
-    community_debates: [{ id: 4, group_id: null, status: 'visible' }, { id: 5, group_id: null, status: 'visible' }],
+    debate_votes: [
+      { id: VOTE, date: YESTERDAY, user_id: 'u-fan', side: 'a', comment: 'Obviously', comment_hidden_at: null },
+      { id: OTHER_VOTE, date: YESTERDAY, user_id: 'u-voter', side: 'b', comment: 'No way', comment_hidden_at: null },
+    ],
+    community_debates: [{ id: 4, group_id: null, status: 'visible', author: 'u-post' }, { id: 5, group_id: null, status: 'visible', author: 'u-post' }],
     community_replies: [],
   };
 });
@@ -126,5 +133,27 @@ describe('replies nest under any visible reply of the same post, 10 levels at mo
     expect(r.status).toBe(422);
     expect(r.data.error).toBe('blocked_term');
     expect(h.inserts).toEqual([]);
+  });
+});
+
+describe('the bell: who the route tells (owner, 2026-10-07)', () => {
+  it('a reply at level 3 tells the author of the reply it answers, with a link to the new reply', async () => {
+    h.tables.community_replies = chainOnDebate(2);
+    await post({ target_type: 'debate', target_id: 4, body: 'level three', parent_id: 2 });
+    expect(h.notified).toEqual([{ type: 'community_reply', recipient: 'u-2', actor: 'u-fan', groupKey: 'reply:reply:2', ref: 'reply:999', link: '/community/debate/4?reply=999', text: 'level three' }]);
+  });
+  it('a comment on a fan debate tells its author', async () => {
+    await post({ target_type: 'debate', target_id: 4, body: 'Good question' });
+    expect(h.notified).toEqual([expect.objectContaining({ type: 'community_comment', recipient: 'u-post', groupKey: 'post:debate:4', link: '/community/debate/4?reply=999' })]);
+  });
+  it('a reply to a vote comment tells the voter', async () => {
+    await post({ target_type: 'daily_debate', target_id: YESTERDAY, body: 'Why not?', parent_vote: OTHER_VOTE });
+    expect(h.notified).toEqual([expect.objectContaining({ type: 'community_reply', recipient: 'u-voter', groupKey: `reply:vote:${OTHER_VOTE}`, link: `/community/debate/${YESTERDAY}?reply=999` })]);
+  });
+  it('a comment on the daily debate tells no one (the site posts it); a refused text tells no one', async () => {
+    await post({ target_type: 'daily_debate', target_id: YESTERDAY, body: 'Still agree' });
+    h.tables.community_replies = chainOnDebate(2);
+    await post({ target_type: 'debate', target_id: 4, body: 'this is fucking great', parent_id: 2 });
+    expect(h.notified).toEqual([]);
   });
 });

@@ -29,6 +29,9 @@ import type { P8Comment, P8Post } from '@/lib/ux-v1/p8/post';
 // levels "Continue this thread" opens the rest (?branch=<id>); a button folds a whole
 // branch; a hidden reply keeps its place as "[removed]". A signed-out visitor sees the box:
 // a click goes through sign-in, then back to this post.
+// v12 (owner, 2026-10-07): a notification opens the post on its reply (?reply=<id>): the
+// branch unfolds, "Continue this thread" opens when the reply sits deeper than 6 levels, the
+// list grows to include it, then it scrolls into view and is highlighted for a moment.
 
 const FIRST = 4;
 const MORE = 10;
@@ -76,6 +79,16 @@ export function replyRequest(to: ReplyTo, body: string, parent: ReplyParent | nu
 /** A copy of the tree with `c` added under the node `parentId`. */
 function insertUnder(list: P8Comment[], parentId: string, c: P8Comment): P8Comment[] {
   return list.map((x) => (x.id === parentId ? { ...x, replies: [...x.replies, c] } : x.replies.length ? { ...x, replies: insertUnder(x.replies, parentId, c) } : x));
+}
+
+/** The nodes from the top comment down to `id` (null = not in the tree). */
+function pathTo(list: P8Comment[], id: string): P8Comment[] | null {
+  for (const x of list) {
+    if (x.id === id) return [x];
+    const below = pathTo(x.replies, id);
+    if (below) return [x, ...below];
+  }
+  return null;
 }
 
 function findNode(list: P8Comment[], id: string): P8Comment | null {
@@ -202,6 +215,8 @@ interface NodeCtx {
   onReply: (c: P8Comment) => void;
   onPosted: (parentId: string) => (c: P8Comment) => void;
   folded: ReadonlySet<string>;
+  /** The reply a notification opened, highlighted for a moment. */
+  flash: string | null;
   toggleFold: (id: string) => void;
   openBranch: (id: string, e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
@@ -243,7 +258,7 @@ function CommentNode({ c, level, ctx }: { c: P8Comment; level: number; ctx: Node
           </div>
         </div>
       ) : (
-        <div className={`p8-cmt${c.ago === 'just now' ? ' is-new' : ''}`}>
+        <div className={`p8-cmt${c.ago === 'just now' ? ' is-new' : ''}${ctx.flash === c.id ? ' is-flash' : ''}`}>
           <div className="p8-cmt-l">
             <UxAvatar name={c.name} src={c.person?.avatarUrl ?? null} size={32} team={c.person?.isTeam} />
             {fold}
@@ -313,6 +328,10 @@ export function Replies({ post, likesLive, chip, placeholder, children, reportab
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [folded, setFolded] = useState<ReadonlySet<string>>(new Set());
   const [branch, setBranch] = useState<string | null>(null);
+  const [flash, setFlash] = useState<string | null>(null);
+  const opened = useRef<string | null>(null);
+  const timers = useRef<number[]>([]);
+  const [target, setTarget] = useState<string | null>(null);
   const to = post.replyTo;
   const canNest = !!to && to.store !== 'daily_debate';
   const pendingKey = `${post.kind}:${post.key}`;
@@ -351,6 +370,31 @@ export function Replies({ post, likesLive, chip, placeholder, children, reportab
     setBranch(null);
   };
 
+  // A notification link (?reply=<id>): read on load, after each navigation (the server
+  // renders the post again, so its comments change) and on back or forward.
+  useEffect(() => {
+    const read = (): void => { try { setTarget(new URLSearchParams(window.location.search).get('reply')); } catch { setTarget(null); } };
+    read();
+    window.addEventListener('popstate', read);
+    return () => window.removeEventListener('popstate', read);
+  }, [post.comments]);
+  useEffect(() => {
+    if (!target || opened.current === target) return;
+    const path = pathTo(list, target);
+    if (!path) return;
+    opened.current = target;
+    const top = list.indexOf(path[0]!);
+    if (top >= shown) setShown(top + 1);
+    setFolded((s) => { const n = new Set(s); for (const x of path) n.delete(x.id); return n; });
+    setBranch(path.length > SHOWN_DEPTH ? path[SHOWN_DEPTH - 1]!.id : null);
+    setFlash(target);
+    timers.current.push(
+      window.setTimeout(() => document.getElementById(`reply-${target}`)?.scrollIntoView({ block: 'center' }), 80),
+      window.setTimeout(() => setFlash((f) => (f === target ? null : f)), 2600),
+    );
+  }, [target, list, shown]);
+  useEffect(() => () => { for (const t of timers.current) window.clearTimeout(t); }, []);
+
   // A visitor who clicked Reply on a comment comes back from sign-in with that box open.
   useEffect(() => {
     if (!v.signedIn) return;
@@ -372,6 +416,7 @@ export function Replies({ post, likesLive, chip, placeholder, children, reportab
       setReplyingTo(null);
     },
     folded,
+    flash,
     toggleFold: (id) => setFolded((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; }),
     openBranch,
   };

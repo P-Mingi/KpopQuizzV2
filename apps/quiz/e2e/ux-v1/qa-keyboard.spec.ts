@@ -4,6 +4,7 @@ import path from 'node:path';
 import { expect, test } from '@playwright/test';
 
 import { signedInTest, skipUnlessSignedIn } from './helpers/auth';
+import { firstPostPath } from './helpers/community';
 import { loadTestEnv } from './helpers/env';
 import { guardWrites } from './helpers/guard';
 import { hasShell, preparePage, waitHydrated, widthOf } from './helpers/setup-page';
@@ -86,7 +87,8 @@ async function blindtestFixtures(page: Page): Promise<void> {
   await page.route((u) => u.pathname === '/api/daily/blindtest', (r) => json(r, { date: 'fixture', questions: BT_QUESTIONS, timer_duration: 10, songs_count: 10 }));
 }
 
-const WALK: { id: string; owner: string; path: string; ready: string; pending?: string }[] = [
+/** `resolve`: the path is the first post of that kind linked from /community (helpers/community). */
+const WALK: { id: string; owner: string; path: string; ready: string; pending?: string; resolve?: 'thread' | 'blog' }[] = [
   { id: 'home-guest', owner: 'P1', path: '/', ready: '.p1-home' },
   { id: 'quizzes', owner: 'P2', path: '/quizzes', ready: '.ux-main', pending: 'P2 not merged' },
   { id: 'groups', owner: 'P3', path: '/groups', ready: '.p3-groups' },
@@ -97,7 +99,7 @@ const WALK: { id: string; owner: string; path: string; ready: string; pending?: 
   { id: 'blindtest', owner: 'P6', path: '/blindtest', ready: '.p6-hub[data-live]' },
   { id: 'ranked', owner: 'P7', path: '/blindtest/ranked', ready: '.p7-page' },
   { id: 'community', owner: 'P8', path: '/community', ready: '.p8-page' },
-  { id: 'post-blog', owner: 'P8', path: '/community/blog/2', ready: '.p8-post-page' },
+  { id: 'post-blog', owner: 'P8', path: '/community/blog/(first in the feed)', resolve: 'blog', ready: '.p8-post-page' },
   { id: 'post-debate', owner: 'P8', path: '/community/debate/2026-09-22', ready: '.p8-post-page' },
   { id: 'leaderboard', owner: 'P9', path: '/leaderboard', ready: '.p9-lb' },
   { id: 'passport', owner: 'P10', path: '/u/testtest', ready: '.p10-passport' },
@@ -305,12 +307,14 @@ test.describe('QA keyboard walk (light)', () => {
       const calls = await guardWrites(page, env.supabaseUrl);
       // never follow a link during the walk
       await page.addInitScript(() => document.addEventListener('click', (e) => { if ((e.target as Element | null)?.closest?.('a[href]')) e.preventDefault(); }, true));
-      test.skip(!(await openPage(page, c)), 'flag off');
+      const at = c.resolve ? await firstPostPath(page, c.resolve) : c.path;
+      test.skip(!at, `no community ${c.resolve ?? ''} linked from /community`);
+      test.skip(!(await openPage(page, { ...c, path: at! })), 'flag off');
       const w = await walk(page);
       const noRing = w.stops.filter((s) => s.qa !== null && !s.ring).map((s) => `${s.tag} "${s.name}"`);
       const lost = w.stops.filter((s, i) => s.tag === 'body' && i > 0 && i < w.stops.length - 1);
       const d = await disclosures(page);
-      record({ kind: 'walk', state: c.id, owner: c.owner, width: widthOf(page), url: c.path, pending: c.pending ?? null, candidates: w.candidates, stops: w.stops.length, reached: new Set(w.stops.map((s) => s.qa).filter(Boolean)).size, unreached: w.unreached, noRing: [...new Set(noRing)], focusToBody: lost.length, disclosures: d, writes: calls.map((x) => `${x.method} ${new URL(x.url).pathname}`) });
+      record({ kind: 'walk', state: c.id, owner: c.owner, width: widthOf(page), url: at, pending: c.pending ?? null, candidates: w.candidates, stops: w.stops.length, reached: new Set(w.stops.map((s) => s.qa).filter(Boolean)).size, unreached: w.unreached, noRing: [...new Set(noRing)], focusToBody: lost.length, disclosures: d, writes: calls.map((x) => `${x.method} ${new URL(x.url).pathname}`) });
       expect.soft(w.unreached, 'every visible control is reached by Tab').toEqual([]);
       expect.soft([...new Set(noRing)], 'every Tab stop shows a focus indicator').toEqual([]);
       expect.soft(lost.length, 'focus never falls back to <body> mid-walk').toBe(0);

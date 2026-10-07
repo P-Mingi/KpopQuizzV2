@@ -630,7 +630,10 @@ for (const theme of THEMES) {
       await harness(page, theme);
       const probe = await page.goto('/community');
       test.skip(!probe || probe.status() !== 200, 'UX v1 flag is OFF on this build');
-      for (const p of ['/community/poll/1', '/community/thread/999999999', '/community/blog/abc', '/community/challenge/1', '/community/debate/2099-01-01']) {
+      // Ids that never exist (owner, 2026-10-07): 999999999999 is the largest id a post URL
+      // accepts (lib/ux-v1/p8/post.ts parsePostKey, 12 digits), a trillion rows past any
+      // sequence here, so the check no longer rests on what the live database holds.
+      for (const p of ['/community/poll/1', '/community/thread/999999999999', '/community/blog/abc', '/community/challenge/999999999999', '/community/debate/2099-01-01']) {
         const r = await page.goto(p);
         expect(r?.status(), p).toBe(404);
       }

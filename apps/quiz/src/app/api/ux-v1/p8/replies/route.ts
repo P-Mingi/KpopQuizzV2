@@ -8,6 +8,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
 import { utcDate } from '@/lib/ux-v1/p8/format';
 import { canNestUnder, levelOf } from '@/lib/ux-v1/p8/nesting';
+import { notifyCommunity } from '@/lib/ux-v1/p8/notify';
 import { checkReply, hasLink } from '@/lib/ux-v1/p8/validate';
 import { isUxV12 } from '@/lib/ux-v12';
 import { checkText, isBlockedInSpace, isTrusted, underRateCap } from '@/lib/verse/moderation';
@@ -66,6 +67,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const svc = createServiceRoleClient();
   let groupId: number | null = null;
+  // For the bell (v12): the post's author (fan debate, challenge), its page, and the parent's author.
+  let postAuthor: string | null = null;
+  let postPath = r.type === 'daily_debate' ? `/community/debate/${r.date}` : `/community/${r.type}/${r.targetId}`;
+  let parentAuthor: string | null = null;
   if (r.type === 'daily_debate') {
     // Any published day up to today, open or closed.
     if (!r.date || r.date > utcDate()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
@@ -75,10 +80,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // v12: a reply on an editorial thread or blog (editorial_posts); not found until that store is live.
     if (r.type === 'editorial' && !(await getEditorialLive())) return NextResponse.json({ error: 'not_found' }, { status: 404 });
     const table = r.type === 'debate' ? 'community_debates' : r.type === 'challenge' ? 'community_challenges' : 'editorial_posts';
-    const { data: t } = await svc.from(table).select('id, group_id, status').eq('id', r.targetId).maybeSingle();
-    const target = t as { id: number; group_id: number | null; status: string } | null;
+    const { data: t } = await svc.from(table).select(r.type === 'editorial' ? 'id, group_id, status, kind' : 'id, group_id, status, author').eq('id', r.targetId).maybeSingle();
+    const target = t as unknown as { id: number; group_id: number | null; status: string; author?: string | null; kind?: string } | null;
     if (!target || target.status !== 'visible') return NextResponse.json({ error: 'not_found' }, { status: 404 });
     groupId = target.group_id;
+    // An editorial post's author is a Team account: never notified (notify.ts).
+    if (r.type !== 'editorial') postAuthor = target.author ?? null;
+    else postPath = `/community/${target.kind === 'blog' ? 'blog' : 'thread'}/e${r.targetId}`;
   }
   if (groupId !== null && await isBlockedInSpace(user.id, groupId)) return NextResponse.json({ error: 'blocked' }, { status: 403 });
 
@@ -86,15 +94,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // The parent belongs to this post and is visible; the new reply stays within 10 levels.
     let level: number | null;
     if (r.parentVote !== null) {
-      const { data: v } = await svc.from('debate_votes').select('id, date, comment, comment_hidden_at').eq('id', r.parentVote).maybeSingle();
-      const vote = v as { date: string; comment: string | null; comment_hidden_at: string | null } | null;
+      const { data: v } = await svc.from('debate_votes').select('id, date, comment, comment_hidden_at, user_id').eq('id', r.parentVote).maybeSingle();
+      const vote = v as { date: string; comment: string | null; comment_hidden_at: string | null; user_id: string } | null;
       if (!vote || vote.date !== r.date || !vote.comment?.trim() || vote.comment_hidden_at) return NextResponse.json({ error: 'bad_parent' }, { status: 400 });
       level = 1; // a vote comment is a comment on the post
+      parentAuthor = vote.user_id;
     } else {
-      const rows = await fetchAllRows<{ id: number; parent_id: number | null; parent_vote: string | null; status: string }>(() => svc.from('community_replies')
-        .select('id, parent_id, parent_vote, status').eq('target_type', r.type).eq('target_id', r.targetId).order('id', { ascending: true }));
+      const rows = await fetchAllRows<{ id: number; parent_id: number | null; parent_vote: string | null; status: string; author: string | null }>(() => svc.from('community_replies')
+        .select('id, parent_id, parent_vote, status, author').eq('target_type', r.type).eq('target_id', r.targetId).order('id', { ascending: true }));
       const parent = rows.find((x) => Number(x.id) === r.parentId);
       if (!parent || parent.status !== 'visible') return NextResponse.json({ error: 'bad_parent' }, { status: 400 });
+      parentAuthor = parent.author;
       const parentOf = new Map<string, string | null>();
       for (const x of rows) {
         parentOf.set(String(x.id), x.parent_id != null ? String(x.parent_id) : x.parent_vote);
@@ -114,6 +124,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     .insert({ target_type: r.type, target_id: r.targetId, parent_id: r.parentId, ...(r.parentVote ? { parent_vote: r.parentVote } : {}), author: user.id, body: r.body, status: 'visible' })
     .select('id').single();
   if (error) return NextResponse.json({ error: 'post_failed' }, { status: 500 });
+  const id = (data as { id: number }).id;
+  // v12 (owner, 2026-10-07): the bell (lib/ux-v1/p8/notify.ts). A reply tells its parent's
+  // author (a reply or a vote comment); a comment tells the author of the fan debate or the
+  // challenge (the daily debate has none, a Team post's is never told).
+  const link = `${postPath}?reply=${id}`;
+  if (r.parentVote !== null) await notifyCommunity({ type: 'community_reply', recipient: parentAuthor, actor: user.id, groupKey: `reply:vote:${r.parentVote}`, ref: `reply:${id}`, link, text: r.body });
+  else if (r.parentId !== null) await notifyCommunity({ type: 'community_reply', recipient: parentAuthor, actor: user.id, groupKey: `reply:reply:${r.parentId}`, ref: `reply:${id}`, link, text: r.body });
+  else if (postAuthor) await notifyCommunity({ type: 'community_comment', recipient: postAuthor, actor: user.id, groupKey: `post:${r.type}:${r.targetId}`, ref: `reply:${id}`, link, text: r.body });
   const meta = r.type === 'daily_debate' && r.date ? await votedMeta(svc, user.id, r.date) : null;
-  return NextResponse.json({ ok: true, id: (data as { id: number }).id, ...(meta ? { meta } : {}) });
+  return NextResponse.json({ ok: true, id, ...(meta ? { meta } : {}) });
 }
