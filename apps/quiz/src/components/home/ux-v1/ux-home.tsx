@@ -65,7 +65,8 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-trend-h">
           <SectionHeader id="p1-trend-h" icon="flame" title="Trending this week" action={{ href: '/quizzes/popular-this-week', label: 'See all' }} />
           {/* Six cards as the live home (four in view at 1440 as the prototype, the
-              rest in the same scrolling row, like the groups rail). */}
+              rest in the same scrolling row, like the groups rail). v12: eight, in two
+              rows of four (styles/ux-v12/home.css). */}
           <div className="p1-trend">
             <UxQuizGrid>
               {lists.trending.map((q) => <UxQuizCard key={q.id} quiz={q} />)}

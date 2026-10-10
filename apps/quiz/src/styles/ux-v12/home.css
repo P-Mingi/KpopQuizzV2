@@ -1,0 +1,22 @@
+/* V12 home (owner, 2026-10-10): "Trending this week" in two rows of four (eight quizzes,
+   lib/ux-v1/p1/home-data.ts) instead of six cards in one scrolling row (p1.css). Served by
+   /api/ux-v1/a0/styles only when isUxV12() (lib/ux-v1/a0/stylesheet.ts), so a v11-only build
+   keeps its bytes. Rows fill left to right, so DOM order = reading order. Between 761 and
+   1100 three columns are in view and the fourth scrolls in, both rows together. Phones keep
+   the one scrolling row of a0.css. */
+@media (min-width: 761px) {
+  .p1-trend .ux-qgrid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px;
+    overflow: visible; scroll-snap-type: none; padding: 0; margin: 0;
+  }
+  .p1-trend .ux-qgrid > .ux-qcard { flex: none; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .p1-trend .ux-qgrid {
+    grid-template-columns: repeat(4, calc((100% - 2 * 24px) / 3));
+    overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
+    padding: 4px 2px 26px; margin: -4px -2px -26px;
+  }
+  .p1-trend .ux-qgrid::-webkit-scrollbar { display: none; }
+  .p1-trend .ux-qgrid > .ux-qcard { scroll-snap-align: start; }
+}
