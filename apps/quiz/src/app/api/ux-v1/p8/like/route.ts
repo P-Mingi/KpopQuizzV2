@@ -4,6 +4,7 @@ import { isEditorialUser } from '@/lib/editorial/accounts';
 import { getEditorialLive } from '@/lib/editorial/live';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
+import { commentIsCommunity, isCommunityRow } from '@/lib/ux-v1/p8/community-write';
 import { tableLive } from '@/lib/ux-v1/p8/features';
 import { getP8Groups } from '@/lib/ux-v1/p8/feed';
 import { checkLike } from '@/lib/ux-v1/p8/validate';
@@ -39,21 +40,26 @@ async function targetVisible(svc: Svc, type: LikeTargetType, id: string): Promis
   const one = async (q: PromiseLike<{ data: unknown; error: unknown }>): Promise<boolean> => { const r = await q; return !r.error && !!r.data; };
   switch (type) {
     case 'thread': {
-      if (verseHidden()) return false;
+      // v12: a community thread passes for any group (community-write.ts).
+      const community = await isCommunityRow('verse_threads', Number(id));
+      if (verseHidden() && !community) return false;
       if (!(await one(svc.from('verse_threads').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle()))) return false;
-      return verseSpaceShown(await verseSlug(svc, 'verse_threads', Number(id)));
+      return community || verseSpaceShown(await verseSlug(svc, 'verse_threads', Number(id)));
     }
     case 'comment': {
-      if (verseHidden()) return false;
+      const community = await commentIsCommunity(Number(id));
+      if (verseHidden() && !community) return false;
       const { data, error } = await svc.from('verse_discussions').select('id, thread_id, entity_type, entity_id').eq('id', Number(id)).eq('status', 'visible').maybeSingle();
       const c = !error ? data as { thread_id: number | null; entity_type: string | null; entity_id: string | null } | null : null;
       if (!c) return false;
+      if (community) return true;
       const slug = c.thread_id !== null ? await verseSlug(svc, 'verse_threads', c.thread_id)
         : c.entity_type === 'essay' && c.entity_id && /^\d+$/.test(c.entity_id) ? await verseSlug(svc, 'verse_essays', Number(c.entity_id)) : null;
       return verseSpaceShown(slug);
     }
     case 'daily_debate': return one(svc.from('daily_debates').select('date').eq('date', id).maybeSingle());
-    case 'debate_vote': return one(svc.from('debate_votes').select('id').eq('id', id).not('comment', 'is', null).maybeSingle());
+    // v12: a vote comment hidden by its reports takes no heart (comment_hidden_at, v12-community-comments.sql).
+    case 'debate_vote': return one(svc.from('debate_votes').select('id').eq('id', id).not('comment', 'is', null).is('comment_hidden_at', null).maybeSingle());
     case 'debate': return one(svc.from('community_debates').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'challenge': return one(svc.from('community_challenges').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());
     case 'editorial': return (await getEditorialLive()) && one(svc.from('editorial_posts').select('id').eq('id', Number(id)).eq('status', 'visible').maybeSingle());

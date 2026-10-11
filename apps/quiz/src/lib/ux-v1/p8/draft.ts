@@ -6,10 +6,11 @@ export type EditorMode = 'thread' | 'blog' | 'debate' | 'challenge';
 
 const ALL_MODES: EditorMode[] = ['thread', 'blog', 'debate', 'challenge'];
 
-/** The editor's modes. Thread and Blog write to the Verse (verse_threads, verse_essays), so
- *  they exist only while the Verse is open with at least one live space (the Verse gates,
- *  lib/ux-v1/p8/verse-gate). No mode at all when nothing can be posted: the composer hides
- *  (no dead door); a pending store is shown next to a live one with its honest line. */
+/** The editor's modes. Thread and Blog write to verse_threads and verse_essays: they exist
+ *  while the Verse is open with at least one live space, or (v12) as community posts, which
+ *  the editor passes as `verseOpen` (lib/ux-v1/p8/verse-gate communityPostsOn). No mode at all
+ *  when nothing can be posted: the composer hides (no dead door); a pending store is shown
+ *  next to a live one with its honest line. */
 export function editorModes(verseOpen: boolean, f: { fanDebates: boolean; challenges: boolean }): EditorMode[] {
   if (verseOpen) return ALL_MODES;
   return f.fanDebates || f.challenges ? ['debate', 'challenge'] : [];
@@ -33,6 +34,8 @@ export interface Draft {
   days: '1' | '3' | '7';
   playId: string | null;
   message: string;
+  /** v12: the checked photo of a community thread or blog (the photo route's answer). */
+  photo?: { assetPath: string; url: string } | null;
 }
 
 export type DraftErrors = Partial<Record<'groupId' | 'title' | 'body' | 'question' | 'options' | 'playId' | 'form', string>>;

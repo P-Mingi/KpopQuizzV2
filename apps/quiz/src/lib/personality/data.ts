@@ -15,7 +15,7 @@ import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { createPublicReadClient } from '@/lib/supabase/server';
-import { realFandomName } from '@/lib/ux-v1/p3/model';
+import { isCategoryGroup, realFandomName } from '@/lib/ux-v1/p3/model';
 
 import { BRIDGE_RESULT_KEY, BRIDGE_SLUGS } from './bridge';
 import { isGroupSlug, parseCounts, parseProfiles, parseQuestions } from './parse';
@@ -90,7 +90,8 @@ const readSlugs = unstable_cache(async (): Promise<string[]> => {
     const rows = (data ?? []) as unknown as Array<{ groups: { slug?: unknown } | Array<{ slug?: unknown }> | null }>;
     for (const r of rows) {
       const g = Array.isArray(r.groups) ? r.groups[0] : r.groups;
-      if (g && isGroupSlug(g.slug)) slugs.set(g.slug, (slugs.get(g.slug) ?? 0) + 1);
+      // A category (General K-pop) has no members to match (owner, 2026-10-06).
+      if (g && isGroupSlug(g.slug) && !isCategoryGroup(g.slug)) slugs.set(g.slug, (slugs.get(g.slug) ?? 0) + 1);
     }
     if (rows.length < 1000) break;
   }

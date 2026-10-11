@@ -14,6 +14,8 @@ import { teamCacheKey } from '@/lib/editorial/surfaces/team';
 import { getBrowseQuizzes, getMostLikedQuizzes, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
+import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import { avgScorePct } from '@/lib/quiz/scoring';
 import { getEssayPage } from '@/lib/verse/essays';
 import { getVerseDirectory } from '@/lib/verse/space-data';
@@ -24,6 +26,7 @@ import { aboutMinutes, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds,
 import { LIVE_HUB_ORDER } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
+import { isUxV12 } from '@/lib/ux-v12';
 
 /** A read that failed must THROW inside unstable_cache: a thrown read is not
  *  cached (the caller's safeFetch hides the section for this render only and the
@@ -154,7 +157,8 @@ async function readGroups(): Promise<HomeGroups> {
     db.from('groups').select('id, slug, name'),
   ]);
   must(groupsRes, 'groups');
-  const groups = ((groupsRes.data ?? []) as GroupRow[]).filter((g) => isVisibleGroupSlug(g.slug));
+  // General K-pop is a category, not a group: out of the rail and of the count (owner, 2026-10-06).
+  const groups = ((groupsRes.data ?? []) as GroupRow[]).filter((g) => isVisibleGroupSlug(g.slug) && !isCategoryGroup(g.slug));
   const stats = new Map<number, { quizzes: number; newest: string }>();
   for (const r of rows) {
     if (r.group_id == null) continue;
@@ -195,6 +199,8 @@ export interface HomeLists {
 
 /** Six of each, as the live home: it links 6 trending, 6 most liked and 6 new quizzes. */
 export const LIST_SIZE = 6;
+/** v12 (owner, 2026-10-10): Trending this week shows two rows of four (styles/ux-v12/home.css). */
+export const TRENDING_SIZE_V12 = 8;
 
 const getMostLikedCached = unstable_cache(
   () => getMostLikedQuizzes(0, 12),
@@ -217,10 +223,10 @@ export async function getHomeLists(exclude: string[] = []): Promise<HomeLists> {
     getBrowseQuizzes({ sort: 'new', offset: 0, limit: 12 }),
   ]);
   const seen = new Set(exclude);
-  const take = (list: QuizCardData[]): QuizCardData[] => {
+  const take = (list: QuizCardData[], size: number = LIST_SIZE): QuizCardData[] => {
     const out: QuizCardData[] = [];
     for (const q of list) {
-      if (out.length >= LIST_SIZE) break;
+      if (out.length >= size) break;
       if (seen.has(q.id)) continue;
       seen.add(q.id);
       out.push(q);
@@ -229,7 +235,7 @@ export async function getHomeLists(exclude: string[] = []): Promise<HomeLists> {
   };
   // 16.8: never the same photo twice side by side. A card without its own cover
   // shows its group's photo (or its typographic cover), so group = photo.
-  const trending = spreadBy(take(trendingSrc), (q) => q.cover_image_url ?? `group:${q.group_slug}`);
+  const trending = spreadBy(take(trendingSrc, isUxV12() ? TRENDING_SIZE_V12 : LIST_SIZE), (q) => q.cover_image_url ?? `group:${q.group_slug}`);
   const best = take(likedSrc);
   const fresh = take(newestSrc);
   return { trending, best, fresh };
@@ -282,7 +288,8 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
       rows.push({
         kind: 'debate', title: question, href: '/community', at: `${debate.date}T00:00:00Z`,
         sub: `Debate · ${comma(votes)} ${votes === 1 ? 'vote' : 'votes'}`,
-        avatar: { name: 'General K-pop', photo: null, initials: 'K' },
+        // What KpopQuiz itself posts: the brand rabbit, not a "K" tile (owner, 2026-10-06).
+        avatar: { name: 'KpopQuiz', photo: SITE_AVATAR_SRC, initials: 'K' },
       });
     }
   }

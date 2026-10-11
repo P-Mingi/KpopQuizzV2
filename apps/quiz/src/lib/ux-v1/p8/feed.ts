@@ -3,12 +3,14 @@ import { unstable_cache } from 'next/cache';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
+import { isUxV12 } from '@/lib/ux-v12';
 import { spaceAssetUrl } from '@/lib/verse/presentation/asset-url';
 import { plainTextExcerpt, splitTipTapForFold } from '@/lib/verse/render-content';
 
 import { excerpt, readingMinutes, timeAgo, utcDate } from './format';
+import { dailyKey } from './nesting';
 import { readPeople } from './people';
-import { gateVersePosts } from './verse-gate';
+import { communityPostsOn, gateVersePosts, retiredVerseRow } from './verse-gate';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group } from './types';
@@ -77,18 +79,34 @@ async function likeCounts(targetType: string, ids: string[], live: boolean): Pro
 
 /* ---------------------------------------------------------------- threads --- */
 
-async function readThreads(live: boolean, liveGroupIds: number[]): Promise<FeedPost[]> {
-  if (!liveGroupIds.length) return []; // hidden Verse or no live space: nothing is read
+/** A community post's photo (cover = { assetPath } in the space-assets bucket), or null. */
+export function communityPhoto(cover: unknown): string | null {
+  const c = (cover && typeof cover === 'object' ? cover : {}) as { assetPath?: unknown };
+  return typeof c.assetPath === 'string' ? spaceAssetUrl(c.assetPath) : null;
+}
+
+/** The rows of a thread or blog source /community may read: community posts of every
+ *  group (v12) and Verse posts of the live spaces. Null = nothing to read. */
+function scopeFilter(liveGroupIds: number[], community: boolean): string | null {
+  const parts = [community ? 'origin.eq.community' : '', liveGroupIds.length ? `group_id.in.(${liveGroupIds.join(',')})` : ''].filter(Boolean);
+  return parts.length ? parts.join(',') : null;
+}
+
+async function readThreads(live: boolean, liveGroupIds: number[], community: boolean): Promise<FeedPost[]> {
+  const scope = scopeFilter(liveGroupIds, community);
+  if (!scope) return []; // hidden Verse, no live space and no community posts: nothing is read
   const db = createPublicReadClient();
   // Three rounds at most (groups + threads, then comments + people + hearts, then the
   // opening bodies): the page must render fast even when the database is slow.
+  // The live spaces only (the query as before v12), or with the community posts of every group.
+  const tq = db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at, origin, cover').eq('status', 'visible');
   const [groupList, threadRes] = await Promise.all([
     getP8Groups(),
-    db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at')
-      .eq('status', 'visible').in('group_id', liveGroupIds).order('created_at', { ascending: false }).limit(SRC_CAP),
+    (community ? tq.or(scope) : tq.in('group_id', liveGroupIds)).order('created_at', { ascending: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
-  const threads = (must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string }[];
+  const threads = ((must(threadRes, 'threads').data ?? []) as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string; origin: string | null; cover: unknown }[])
+    .filter((t) => !retiredVerseRow('verse_threads', t.id, t.created_by)); // owner, 2026-10-06
   if (!threads.length) return [];
   const ids = threads.map((t) => t.id);
 
@@ -119,6 +137,7 @@ async function readThreads(live: boolean, liveGroupIds: number[]): Promise<FeedP
     const body = openId !== undefined ? bodies.get(openId) ?? '' : '';
     // A thread's opening post repeats the title when it had no text of its own.
     const ex = body.trim() && body.trim() !== t.title.trim() ? excerpt(body, 220) : null;
+    const photo = t.origin === 'community' ? communityPhoto(t.cover) : null;
     return {
       kind: 'thread', key: String(t.id), href: `/community/thread/${t.id}`,
       title: t.title, excerpt: ex, group: g,
@@ -126,6 +145,8 @@ async function readThreads(live: boolean, liveGroupIds: number[]): Promise<FeedP
       at: t.created_at, ago: '',
       replies: Math.max(0, (count.get(t.id) ?? 0) - 1),
       likes: likes ? likes.get(String(t.id)) ?? 0 : null,
+      ...(t.origin === 'community' ? { community: true as const } : {}),
+      ...(photo ? { photo } : {}),
     };
   });
 }
@@ -141,16 +162,18 @@ export function blogCover(cover: unknown, groupSlug: string | null): string | nu
   return groupPhotoUrl(groupSlug);
 }
 
-async function readBlogs(liveGroupIds: number[]): Promise<FeedPost[]> {
-  if (!liveGroupIds.length) return []; // hidden Verse or no live space: nothing is read
+async function readBlogs(liveGroupIds: number[], community: boolean): Promise<FeedPost[]> {
+  const scope = scopeFilter(liveGroupIds, community);
+  if (!scope) return []; // hidden Verse, no live space and no community posts: nothing is read
   const db = createPublicReadClient();
+  const eq = db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at, origin').eq('status', 'featured');
   const [groupList, essayRes] = await Promise.all([
     getP8Groups(),
-    db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at')
-      .eq('status', 'featured').in('group_id', liveGroupIds).order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
+    (community ? eq.or(scope) : eq.in('group_id', liveGroupIds)).order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
   ]);
   const groups = groupMap(groupList);
-  const essays = (must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string }[];
+  const essays = ((must(essayRes, 'essays').data ?? []) as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; origin: string | null }[])
+    .filter((e) => !retiredVerseRow('verse_essays', e.id, e.author)); // owner, 2026-10-06
   if (!essays.length) return [];
   const ids = essays.map((e) => e.id);
   const [reactions, comments, people] = await Promise.all([
@@ -173,6 +196,7 @@ async function readBlogs(liveGroupIds: number[]): Promise<FeedPost[]> {
       replies: replies.get(String(e.id)) ?? 0,
       likes: hearts.get(e.id) ?? 0,
       blog: { coverUrl: blogCover(e.cover, g?.slug ?? null), coverFocal: photoFocal(e.title), readingMin: readingMinutes(splitTipTapForFold(e.content).totalWords) },
+      ...(e.origin === 'community' ? { community: true as const } : {}),
     };
   });
 }
@@ -188,18 +212,32 @@ export async function readDailyDebates(db: Db, today: string, days = DEBATE_DAYS
     .order('date', { ascending: false }).limit(days), 'daily_debates');
   const rows = (data ?? []) as { date: string; question_id: string }[];
   if (!rows.length) return [];
-  const [qRes, votes] = await Promise.all([
+  // v12: the debate's own comments (community_replies, v12-community-comments.sql) count
+  // too, and a vote comment hidden by its reports does not.
+  const keys = rows.map((r) => dailyKey(r.date)).filter((k): k is number => k !== null);
+  const [qRes, votes, own] = await Promise.all([
     db.from('debate_questions').select('id, question, side_a, side_b').in('id', rows.map((r) => r.question_id)),
-    fetchAllRows<{ date: string; side: string; comment: string | null }>(() => db.from('debate_votes')
-      .select('date, side, comment').in('date', rows.map((r) => r.date))),
+    fetchAllRows<{ date: string; side: string; comment: string | null; comment_hidden_at?: string | null }>(() => db.from('debate_votes')
+      .select(isUxV12() ? 'date, side, comment, comment_hidden_at' : 'date, side, comment').in('date', rows.map((r) => r.date))),
+    isUxV12() && keys.length
+      ? fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'daily_debate').in('target_id', keys).eq('status', 'visible'))
+      : Promise.resolve([] as { target_id: number }[]),
   ]);
   const qById = new Map(((must(qRes, 'debate_questions').data ?? []) as { id: string; question: string; side_a: string; side_b: string }[]).map((q) => [q.id, q] as const));
   const split = new Map<string, { a: number; b: number; c: number }>();
   for (const v of votes) {
     const s = split.get(v.date) ?? { a: 0, b: 0, c: 0 };
     if (v.side === 'a') s.a++; else s.b++;
-    if (v.comment && v.comment.trim()) s.c++;
+    if (v.comment && v.comment.trim() && !v.comment_hidden_at) s.c++;
     split.set(v.date, s);
+  }
+  for (const r of rows) {
+    const k = dailyKey(r.date);
+    const n = own.filter((x) => Number(x.target_id) === k).length;
+    if (!n) continue;
+    const s = split.get(r.date) ?? { a: 0, b: 0, c: 0 };
+    s.c += n;
+    split.set(r.date, s);
   }
   return rows.map((r) => {
     const q = qById.get(r.question_id);
@@ -379,9 +417,9 @@ async function readEditorialPosts(live: P8Features): Promise<FeedPost[]> {
 
 /* ------------------------------------------------------------------- feed --- */
 
-const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[]) => readThreads(live, liveGroupIds), ['ux-v1:p8:threads:v3'], { revalidate: 120, tags: ['community'] });
-const cachedBlogs = unstable_cache((liveGroupIds: number[]) => readBlogs(liveGroupIds), ['ux-v1:p8:blogs:v3'], { revalidate: 120, tags: ['community'] });
-const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v3'], { revalidate: 120, tags: ['community'] });
+const cachedThreads = unstable_cache((live: boolean, liveGroupIds: number[], community: boolean) => readThreads(live, liveGroupIds, community), ['ux-v1:p8:threads:v5'], { revalidate: 120, tags: ['community'] });
+const cachedBlogs = unstable_cache((liveGroupIds: number[], community: boolean) => readBlogs(liveGroupIds, community), ['ux-v1:p8:blogs:v5'], { revalidate: 120, tags: ['community'] });
+const cachedDebates = unstable_cache((live: boolean, today: string) => readDebatePosts(live, today), ['ux-v1:p8:debates:v4'], { revalidate: 120, tags: ['community'] });
 const cachedFanDebates = unstable_cache((f: P8Features) => readFanDebates(f), ['ux-v1:p8:fan-debates:v1'], { revalidate: 120, tags: ['community'] });
 const cachedChallenges = unstable_cache((f: P8Features) => readChallengePosts(f), ['ux-v1:p8:challenges:v1'], { revalidate: 120, tags: ['community'] });
 const cachedEditorial = unstable_cache((f: P8Features) => readEditorialPosts(f), ['v12:g9:editorial-posts:v1'], { revalidate: 120, tags: ['community', 'editorial'] });
@@ -402,9 +440,10 @@ export interface FeedSources {
 export function feedSources(f: P8Features, verse: VerseScope, now: number = Date.now(), editorialLive = false): FeedSources {
   const today = utcDate(now);
   const ids = verse.open ? verse.groupIds : [];
+  const community = communityPostsOn();
   return {
-    threads: ids.length ? cachedThreads(f.likes, ids).then(gateVersePosts) : Promise.resolve([]),
-    blogs: ids.length ? cachedBlogs(ids).then(gateVersePosts) : Promise.resolve([]),
+    threads: ids.length || community ? cachedThreads(f.likes, ids, community).then(gateVersePosts) : Promise.resolve([]),
+    blogs: ids.length || community ? cachedBlogs(ids, community).then(gateVersePosts) : Promise.resolve([]),
     debates: cachedDebates(f.likes, today),
     fanDebates: cachedFanDebates(f),
     challenges: cachedChallenges(f),

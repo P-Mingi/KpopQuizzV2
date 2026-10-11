@@ -61,6 +61,9 @@ const TYPE_ICON: Record<NotificationType, UxIconName> = {
   cheer: 'heart',
   verse_watch: 'eye',
   battle_beaten: 'trophy',
+  // v12 community replies and comments (lib/ux-v1/p8/notify.ts)
+  community_reply: 'msg',
+  community_comment: 'msg',
 };
 
 export function iconOf(type: string): UxIconName {

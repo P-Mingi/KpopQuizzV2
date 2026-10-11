@@ -14,7 +14,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
-import { directoryStats, isHiddenGroup } from './model';
+import { directoryStats, isCategoryGroup, isHiddenGroup } from './model';
 
 import type { GroupsIndex, HubQuiz, IndexGroup } from './model';
 
@@ -47,7 +47,9 @@ async function fetchGroupsIndex(): Promise<GroupsIndex> {
     count.set(q.group_id, (count.get(q.group_id) ?? 0) + 1);
     plays.set(q.group_id, (plays.get(q.group_id) ?? 0) + (q.play_count ?? 0));
   }
-  const rows = (groupsRes.data ?? []) as { id: number; slug: string; name: string; generation: string | null }[];
+  // General K-pop is a category, not a group: out of the list and of the counts (owner, 2026-10-06).
+  const rows = ((groupsRes.data ?? []) as { id: number; slug: string; name: string; generation: string | null }[])
+    .filter((g) => !isCategoryGroup(g.slug));
   return {
     groups: rows
       .filter((g) => !isHiddenGroup(g.slug))

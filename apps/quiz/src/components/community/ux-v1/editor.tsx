@@ -29,6 +29,10 @@ import type { VerseScope } from '@/lib/ux-v1/p8/verse-gate';
 // A guest gets the sign-in sheet at Post; the draft is kept and posting continues.
 // Verse gates (lib/ux-v1/p8/verse-gate): Thread and Blog write to the Verse, so they exist
 // only while the Verse is public, and their group picker lists the live spaces only.
+// v12 (owner, 2026-10-06, `community`): Thread and Blog are community posts instead, for
+// every group and General K-pop, the Verse open or not: { origin: 'community' } on the same
+// routes; a blog is published at once (no space to join, no review); both may carry a photo,
+// shrunk to a JPEG here and checked on the server (POST /api/ux-v1/p8/photo) before posting.
 // /community?compose=<mode> opens the sheet in that mode on arrival; with
 // compose=challenge&quiz=<slug> (P5's create done link) the score picker lists the
 // fan's runs of that quiz and preselects the latest one.
@@ -54,8 +58,10 @@ export function useEditor(): EditorCtx { return useContext(Ctx); }
 interface Result { id: string; label: string; sub: string; thumb: string | null }
 const QUIZ_SLUG = /^[a-z0-9][a-z0-9-]{0,150}$/i;
 
+const BLOG_NOW = 'A longer piece. It is published right away, with your name.';
+
 function emptyDraft(mode: EditorMode, groupId: number | null): Draft {
-  return { mode, groupId, title: '', body: '', question: '', options: ['', ''], days: '3', playId: null, message: '' };
+  return { mode, groupId, title: '', body: '', question: '', options: ['', ''], days: '3', playId: null, message: '', photo: null };
 }
 
 async function send(method: 'POST' | 'PATCH', url: string, body: unknown): Promise<{ ok: boolean; status: number; data: Record<string, unknown> }> {
@@ -73,7 +79,10 @@ function errorLine(status: number, code: unknown): string {
   if (status === 401) return 'Sign in to post.';
   if (c === 'rate_limited' || status === 429) return 'You are posting fast. Try again in a few minutes.';
   if (c === 'new_account_no_links') return 'New accounts can post links after their first day.';
-  if (c === 'blocked_term') return 'Some of that wording is not allowed here. Edit it and try again.';
+  if (c === 'blocked_term') return 'This has words that are not allowed here (insults or sexual content). Edit them and try again. Nothing was posted.';
+  if (c === 'nsfw_image') return 'This photo cannot be posted here. Pick another one.';
+  if (c === 'bad_photo') return 'That photo is no longer available. Add it again.';
+  if (c === 'bad_group') return 'Pick a group.';
   if (c === 'blocked') return 'You cannot post in this group.';
   if (c === 'too_long') return 'That is too long. Shorten it and try again.';
   if (c === 'membership_required') return 'Join the group space first.';
@@ -83,7 +92,7 @@ function errorLine(status: number, code: unknown): string {
 
 const isVerseMode = (m: EditorMode): boolean => m === 'thread' || m === 'blog';
 
-export function EditorProvider({ children, groups, features, verse }: { children: React.ReactNode; groups: EditorGroup[]; features: P8Features; verse: VerseScope }): React.ReactElement {
+export function EditorProvider({ children, groups, features, verse, community = false }: { children: React.ReactNode; groups: EditorGroup[]; features: P8Features; verse: VerseScope; community?: boolean }): React.ReactElement {
   const [mode, setMode] = useState<EditorMode | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft('thread', null));
   const v = useP8Viewer();
@@ -102,10 +111,10 @@ export function EditorProvider({ children, groups, features, verse }: { children
   const composed = useRef(false);
 
   const verseIds = useMemo(() => new Set(verse.groupIds), [verse.groupIds]);
-  const modes = useMemo(() => editorModes(verse.open && verse.groupIds.length > 0, features), [verse.open, verse.groupIds.length, features]);
+  const modes = useMemo(() => editorModes((verse.open && verse.groupIds.length > 0) || community, features), [verse.open, verse.groupIds.length, features, community]);
   const modeOptions = useMemo(() => MODES.filter((x) => modes.includes(x.value)), [modes]);
-  /** A group a mode may post to: Thread and Blog only in a live space. */
-  const groupFor = useCallback((m: EditorMode, id: number | null): number | null => (id !== null && isVerseMode(m) && !verseIds.has(id) ? null : id), [verseIds]);
+  /** A group a mode may post to: Thread and Blog only in a live space (any group as community posts). */
+  const groupFor = useCallback((m: EditorMode, id: number | null): number | null => (id !== null && isVerseMode(m) && !community && !verseIds.has(id) ? null : id), [verseIds, community]);
   const defaultGroup = useMemo(() => groups.find((g) => g.slug === v.mainGroup)?.id ?? null, [groups, v.mainGroup]);
 
   const open = useCallback((want?: EditorMode) => {
@@ -171,14 +180,25 @@ export function EditorProvider({ children, groups, features, verse }: { children
     }
     setBusy(true);
     const g = groups.find((x) => x.id === d.groupId);
+    const extra = community ? { origin: 'community', ...(d.photo ? { cover: { assetPath: d.photo.assetPath } } : {}) } : {};
     if (d.mode === 'thread') {
-      const r = await send('POST', '/api/verse/threads', { group_id: d.groupId, title: d.title.trim(), body: d.body.trim() });
+      const r = await send('POST', '/api/verse/threads', { group_id: d.groupId, title: d.title.trim(), body: d.body.trim(), ...extra });
       setBusy(false);
       if (!r.ok) { setErrors({ form: errorLine(r.status, r.data.error) }); return; }
       close();
       setDraft(emptyDraft('thread', d.groupId));
       toast(g ? `Posted to ${g.name}` : 'Posted');
       router.push(`/community/thread/${String(r.data.id)}`);
+      return;
+    }
+    if (d.mode === 'blog' && community) {
+      const c = await send('POST', '/api/verse/essays', { group_id: d.groupId, title: d.title.trim(), content: draftToDoc(d.body), ...extra });
+      setBusy(false);
+      if (!c.ok || typeof c.data.id !== 'number') { setErrors({ form: errorLine(c.status, c.data.error) }); return; }
+      close();
+      setDraft(emptyDraft('blog', d.groupId));
+      toast(g ? `Blog posted to ${g.name}` : 'Blog posted');
+      router.push(`/community/blog/${String(c.data.id)}`);
       return;
     }
     if (d.mode === 'blog') {
@@ -212,7 +232,7 @@ export function EditorProvider({ children, groups, features, verse }: { children
     setDraft(emptyDraft('challenge', d.groupId));
     toast('Challenge posted');
     router.push(`/community/challenge/${String(r.data.id)}`);
-  }, [v.signedIn, groups, signIn, toast, close, router, groupFor]);
+  }, [v.signedIn, groups, signIn, toast, close, router, groupFor, community]);
 
   // Back from sign-in: reopen with the kept draft and continue posting (16.6).
   useEffect(() => {
@@ -220,6 +240,9 @@ export function EditorProvider({ children, groups, features, verse }: { children
     resumed.current = true;
     const p = takePendingAction('p8-post');
     const d = p?.payload as Draft | undefined;
+    // Signed in to add a photo: the draft comes back open, nothing is posted yet.
+    const kept = takePendingAction('p8-draft')?.payload as Draft | undefined;
+    if (!d && kept && kept.mode && modes.includes(kept.mode)) { queueMicrotask(() => { setDraft(kept); setMode(kept.mode); }); return; }
     if (!d || !d.mode || !modes.includes(d.mode)) return;
     // Continue from the stored action (an external store), outside the effect body.
     queueMicrotask(() => { setDraft(d); setMode(d.mode); void submit(d); });
@@ -242,12 +265,12 @@ export function EditorProvider({ children, groups, features, verse }: { children
       {children}
       <Sheet open={mode !== null} onClose={close} title={HEAD[m][0]} width={640} className="p8-ed">
         <Segmented options={modeOptions} value={m} onChange={(x) => { setDraft((d) => ({ ...d, mode: x, groupId: groupFor(x, d.groupId) })); setMode(x); setErrors({}); setJoinFor(null); }} label="Post type" className="p8-modes4" />
-        <p className="p8-help">{HEAD[m][1]}</p>
+        <p className="p8-help">{m === 'blog' && community ? BLOG_NOW : HEAD[m][1]}</p>
 
         <div className="ux-field">
           <label htmlFor={`p8-g-${uid}`}>Group</label>
-          <GroupPicker id={`p8-g-${uid}`} groups={isVerseMode(m) ? groups.filter((g) => verseIds.has(g.id)) : groups} value={draft.groupId} onChange={(id) => set('groupId', id)} invalid={!!errors.groupId}
-            empty={isVerseMode(m) ? 'No open fandom space matches.' : 'No group matches.'} />
+          <GroupPicker id={`p8-g-${uid}`} groups={isVerseMode(m) && !community ? groups.filter((g) => verseIds.has(g.id)) : groups} value={draft.groupId} onChange={(id) => set('groupId', id)} invalid={!!errors.groupId}
+            empty={isVerseMode(m) && !community ? 'No open fandom space matches.' : 'No group matches.'} />
           {errors.groupId ? <p className="p8-ed-err">{errors.groupId}</p> : null}
         </div>
 
@@ -265,6 +288,10 @@ export function EditorProvider({ children, groups, features, verse }: { children
                 aria-invalid={errors.body ? true : undefined} onChange={(e) => set('body', e.target.value)} />
               {errors.body ? <p className="p8-ed-err">{errors.body}</p> : null}
             </div>
+            {community ? (
+              <PhotoField id={`p8-p-${uid}`} photo={draft.photo ?? null} onChange={(ph) => set('photo', ph)} signedIn={v.signedIn === true}
+                onSignIn={() => signIn({ title: 'Sign in to add a photo', sub: 'Photos are checked before they are posted. Your draft is kept.', action: { id: 'p8-draft', payload: draft } })} />
+            ) : null}
           </>
         ) : null}
 
@@ -348,6 +375,76 @@ export function EditorProvider({ children, groups, features, verse }: { children
         </div>
       </Sheet>
     </Ctx>
+  );
+}
+
+/* ------------------------------------------------------------- photo field --- */
+
+const MAX_SIDE = 1600;
+
+/** The chosen picture as a JPEG of at most 1600 px a side (also drops its EXIF data). */
+async function toJpeg(file: File): Promise<Blob> {
+  const bmp = await createImageBitmap(file, { imageOrientation: 'from-image' });
+  const scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(bmp.width * scale));
+  canvas.height = Math.max(1, Math.round(bmp.height * scale));
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('no_canvas');
+  ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+  bmp.close();
+  return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('no_blob'))), 'image/jpeg', 0.86));
+}
+
+/** Photo of a community thread or blog: picked, shrunk here, checked and stored by the
+ *  server before the post exists (nothing is posted with a refused photo). */
+function PhotoField({ id, photo, onChange, signedIn, onSignIn }: { id: string; photo: { assetPath: string; url: string } | null; onChange: (p: { assetPath: string; url: string } | null) => void; signedIn: boolean; onSignIn: () => void }): React.ReactElement {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const pick = async (file: File | undefined): Promise<void> => {
+    if (!file) return;
+    setError(null);
+    if (!file.type.startsWith('image/')) { setError('Pick a photo (JPEG, PNG or WebP).'); return; }
+    setBusy(true);
+    try {
+      const jpeg = await toJpeg(file);
+      const r = await fetch('/api/ux-v1/p8/photo', { method: 'POST', credentials: 'include', headers: { 'content-type': 'image/jpeg' }, body: jpeg });
+      const data = (await r.json().catch(() => ({}))) as { assetPath?: string; url?: string; error?: string };
+      if (r.ok && data.assetPath && data.url) onChange({ assetPath: data.assetPath, url: data.url });
+      else if (data.error === 'nsfw_image') setError('This photo cannot be posted here. Pick another one.');
+      else if (r.status === 413 || data.error === 'too_big') setError('That photo is too large. Pick a smaller one.');
+      else if (r.status === 429) setError('You added many photos in a short time. Try again later.');
+      else if (r.status === 401) setError('Sign in to add a photo.');
+      else setError('The photo could not be added. Try again.');
+    } catch {
+      setError('That file could not be read as a photo.');
+    } finally {
+      setBusy(false);
+      if (input.current) input.current.value = '';
+    }
+  };
+  return (
+    <div className="ux-field p8-photo">
+      <label htmlFor={id}>Photo <small>Optional</small></label>
+      {photo ? (
+        <div className="p8-photo-prev">
+          {/* eslint-disable-next-line @next/next/no-img-element -- the checked photo just uploaded, shown at its stored address */}
+          <img src={photo.url} alt="The photo of your post" />
+          <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => onChange(null)}>Remove the photo</button>
+        </div>
+      ) : (
+        <>
+          <input ref={input} id={id} type="file" accept="image/jpeg,image/png,image/webp" className="ux-sr" disabled={busy}
+            onChange={(e) => { void pick(e.target.files?.[0]); }} />
+          <button type="button" className="ux-btn ux-btn-ghost p8-photo-btn" disabled={busy} aria-busy={busy || undefined}
+            onClick={() => { if (!signedIn) { onSignIn(); return; } input.current?.click(); }}>
+            <Icon name="img" />{busy ? 'Checking the photo...' : 'Add a photo'}
+          </button>
+        </>
+      )}
+      {error ? <p className="p8-ed-err" role="alert">{error}</p> : null}
+    </div>
   );
 }
 

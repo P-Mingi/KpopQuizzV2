@@ -33,12 +33,15 @@ import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
 import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 import {
+  categoryTexts,
   commentLine,
   coarseAge,
   debutYearOf,
   hubCommunityDoor,
   hubEyebrow,
   hubFacts,
+  isCategoryGroup,
+  knowSubject,
   quizzesLabel,
   realFandomName,
 } from '@/lib/ux-v1/p3/model';
@@ -103,7 +106,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const newestQuizzes = ok(got.newestQuizzes, []);
   const relatedQuizzes = ok(got.relatedQuizzes, []);
   const triviaAvailable = ok(got.triviaAvailable, false);
-  const nameAllGame = ok(got.nameAllGame, null);
+  // General K-pop is a category, not a group (owner, 2026-10-06): no members, no
+  // group texts. The six name-all games once filed under it now belong to their groups.
+  const category = isCategoryGroup(g.slug);
+  const nameAllGame = category ? null : ok(got.nameAllGame, null);
   const blindtest = ok(got.blindtest, { qualifies: false, songs: 0 });
   const warRank = ok(got.warRank, null);
   const fanKnowledge = ok(got.fanKnowledge, { masteredCount: 0, avgAccuracy: null, trackedPlays: 0, topFans: [] });
@@ -115,10 +121,11 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const playable = ok(got.playable, {} as Record<string, number>);
   const comments = ok(got.comments, []);
 
-  const intro = g.seo_intro || generateDefaultIntro(g);
   const memberCount = nameAllGame?.count ?? null;
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
+  const cat = category ? categoryTexts(g.name, published) : null;
+  const intro = cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
   const hasQuizzes = published > 0;
   const isEmptyGroup = !hasQuizzes;
   const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
@@ -130,10 +137,11 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.
-  const groupFaqs = buildGroupFaqs(g, memberCount, blindtest.qualifies);
+  // The category hub has its own lead and FAQ (the same array feeds the FAQPage JSON-LD).
+  const groupFaqs = cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
   const answerFacts = { memberCount, songCount: blindtest.songs };
-  const chunks = buildAnswerChunks(g, answerFacts);
-  const answerLead = chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
+  const chunks = cat ? [] : buildAnswerChunks(g, answerFacts);
+  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
   const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], chunks);
   const updated = formatContentMonth(contentDate);
   const articles = getGroupArticleLinks(g.slug);
@@ -200,7 +208,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       })}
 
       <nav className="ux-crumb p3-crumb" aria-label="Breadcrumb">
-        <Link href="/groups">Groups</Link>
+        {category ? <Link href="/quizzes">Quizzes</Link> : <Link href="/groups">Groups</Link>}
         <span className="p3-sep" aria-hidden="true">/</span>
         <span aria-current="page">{g.name}</span>
       </nav>
@@ -216,12 +224,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       <section className={photo ? 'p3-hero' : 'p3-hero is-solo'} aria-labelledby="p3-h1">
         <div className="p3-hero-main">
           <p className="p3-eyebrow">{eyebrow}</p>
-          {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>".
-              The first half is the display title, the rest its second line. */}
+          {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>"
+              ("... Know K-pop" for the General K-pop category). The first half is the
+              display title, the rest its second line. */}
           <h1 id="p3-h1" className="p3-h1">
             <span className="p3-h1-main">{g.name} Quiz</span>
             <span className="ux-sr"> - </span>
-            <span className="p3-h1-tail">Test How Well You Know {g.name}</span>
+            <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>
           </h1>
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
@@ -273,7 +282,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
                 {answerLead ? (
                   <div className="p3-prose">
                     <p>{answerLead}</p>
-                    {g.seo_intro ? <p>{g.seo_intro}</p> : null}
+                    {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
                   </div>
                 ) : null}
                 {nameAllGame && nameAllGame.members.length > 0 ? (

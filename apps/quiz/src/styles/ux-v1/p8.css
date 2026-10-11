@@ -136,6 +136,12 @@
 .p8-nextq .ux-rt { font-size: 17px; line-height: 1.4; }
 .p8-nextq .p8-go { margin-left: auto; width: 40px; height: 40px; border-radius: 50%; background: var(--ux-pink-fill); color: #fff; display: grid; place-items: center; flex: 0 0 auto; }
 .p8-pacts { margin-top: 20px; }
+/* The post and its replies, each in a rounded box (owner, 2026-10-06): the feed
+   card's surface, white in light and the raised dark surface in dark. */
+.p8-pv-box, .p8-rep-box { border: 1px solid var(--ux-line); border-radius: 20px; padding: 24px 26px; background: var(--ux-raised); color: var(--ux-ink); }
+.p8-pv-box { margin-top: 16px; }
+.p8-pv-box > :first-child { margin-top: 0; }
+@media (max-width: 760px) { .p8-pv-box, .p8-rep-box { padding: 20px 18px; } }
 .p8-post-page .ux-sec > .ux-h2 { margin-bottom: 8px; }
 
 /* reply box + replies (17.7: heart + count, pink when liked) */

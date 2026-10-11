@@ -24,6 +24,7 @@ import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration, maxScoreFor } from '@/lib/ux-v1/p4/engine';
 import { stampWords } from '@/lib/ux-v1/p4/format';
 import { parseStanding, rankLine } from '@/lib/ux-v1/p4/standing';
+import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { P4Comments } from './comments';
@@ -211,7 +212,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
       </div>
 
       {/* V12 G7: the This or that bonus (songs of the quiz's group). Flag off: not rendered. */}
-      {isUxV12() ? <ThisOrThatBonus groupSlug={quiz.groupSlug} groupName={quiz.groupName} /> : null}
+      {/* Not after a General K-pop quiz: a category has no songs of its own to pick (owner, 2026-10-06). */}
+      {isUxV12() && !isCategoryGroup(quiz.groupSlug) ? <ThisOrThatBonus groupSlug={quiz.groupSlug} groupName={quiz.groupName} /> : null}
 
       <section className="ux-sec p4-keep" aria-labelledby="p4-keep-h">
         <SectionHeader id="p4-keep-h" title="Keep playing" icon="play" action={{ href: `/${quiz.groupSlug}-quiz`, label: `All ${quiz.groupName} quizzes` }} />

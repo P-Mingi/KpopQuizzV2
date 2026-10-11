@@ -7,8 +7,51 @@
 import { avgScorePct } from '@/lib/quiz/scoring';
 
 /** The general K-pop catch-all bucket: a real group row, but not a fandom. It is
- *  listed in the A to Z (it has quizzes) and kept out of "Most played". */
+ *  kept out of "Most played". */
 export const CATCH_ALL_SLUG = 'general-kpop';
+
+/** Owner, 2026-10-06: General K-pop is a category (quizzes about K-pop as a whole,
+ *  every group mixed), not a group. Its hub and its URL stay; it is left out of the
+ *  group lists and counts (home rail, /groups) and of everything that assumes a
+ *  group: members, Which member, Name them all, This or that, Fans picked. */
+export function isCategoryGroup(slug: string | null | undefined): boolean {
+  return slug === CATCH_ALL_SLUG;
+}
+
+/** What "Test How Well You Know ..." names: the group, or "K-pop" for the category
+ *  (owner, 2026-10-06: "Test How Well You Know K-pop" on the General K-pop H1 and share image). */
+export function knowSubject(slug: string | null | undefined, name: string): string {
+  return isCategoryGroup(slug) ? 'K-pop' : name;
+}
+
+interface CategoryFaq { q: string; text: string; a: string }
+
+/** The category hub's texts (lead under the H1, About paragraph, FAQ), from the real
+ *  count of published quizzes. They replace the group texts ("is a K-pop group with
+ *  N members", the members FAQ) on the category hub only. */
+export function categoryTexts(name: string, quizzes: number): { intro: string; about: string; faqs: CategoryFaq[] } {
+  const n = quizzes.toLocaleString('en-US');
+  const many = quizzes === 1 ? 'quiz' : 'quizzes';
+  const faqs: CategoryFaq[] = [
+    {
+      q: `What are ${name} quizzes?`,
+      text: `Quizzes about K-pop in general, across every group and soloist: debuts, labels, fandom names, records, songs and eras. They are not about one group.`,
+    },
+    ...(quizzes > 0 ? [{ q: `How many ${name} quizzes are there?`, text: `KpopQuiz has ${n} free fan-made ${name} ${many}.` }] : []),
+    {
+      q: 'Do I need to follow one group to play?',
+      text: 'No. These quizzes mix many groups, so any K-pop fan can play. To test yourself on one group, open its page from the groups list.',
+    },
+    ...(quizzes > 0 ? [{ q: `Are the ${name} quizzes free?`, text: `Yes. Every ${name} quiz on KpopQuiz is free to play, with no account needed.` }] : []),
+  ].map((f) => ({ ...f, a: f.text }));
+  return {
+    intro: quizzes > 0
+      ? `Quizzes about K-pop as a whole, not one group: debuts, labels, fandom names, records, songs and eras across every generation. ${n} free fan-made ${many}, from easy trivia to deep cuts.`
+      : 'Quizzes about K-pop as a whole, not one group: debuts, labels, fandom names, records, songs and eras across every generation.',
+    about: `${name} is a category, not a group: it holds the quizzes that mix every group and soloist, from K-pop history and labels to fandoms, charts and trivia.${quizzes > 0 ? ` On kpopquiz.org you can play ${n} of them for free.` : ''}`,
+    faqs,
+  };
+}
 
 /** Hidden rows (the quarantine group, slug zzz-*): never listed (90 visible of 91). */
 export function isHiddenGroup(slug: string): boolean {

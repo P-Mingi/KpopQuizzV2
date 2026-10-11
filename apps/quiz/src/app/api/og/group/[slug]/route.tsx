@@ -2,6 +2,8 @@ import { ImageResponse } from 'next/og';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { UX_V1 } from '@/lib/ux-v1';
+import { knowSubject } from '@/lib/ux-v1/p3/model';
 
 import type { NextRequest } from 'next/server';
 
@@ -143,7 +145,8 @@ export async function GET(
 
         {/* Subtitle */}
         <div style={{ display: 'flex', justifyContent: 'center', fontSize: 24, color: '#888780', marginBottom: 36, textAlign: 'center' }}>
-          {`Test How Well You Know ${row.name}`}
+          {/* Redesign only: the General K-pop category reads "... Know K-pop" (owner, 2026-10-06). */}
+          {`Test How Well You Know ${UX_V1 ? knowSubject(row.slug, row.name) : row.name}`}
         </div>
 
         {/* Stats row */}

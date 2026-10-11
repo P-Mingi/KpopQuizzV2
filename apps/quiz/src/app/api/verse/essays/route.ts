@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { communityGroupExists, ownPhotoPath, wantsCommunity } from '@/lib/ux-v1/p8/community-write';
 import { canCurateSpace, getSpaceRole, roleAtLeast } from '@/lib/verse/roles';
 import { getFeaturedEssays, getUserEssays, getSubmittedEssays } from '@/lib/verse/essays';
 import { slugify } from '@/lib/verse/slug';
@@ -39,11 +40,15 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   return NextResponse.json({ error: 'bad_scope' }, { status: 400 });
 }
 
+// v12 (owner, 2026-10-06): { origin: 'community' } publishes a blog from /community at once,
+// for any group and General K-pop: no Verse gate (verseWriteGate lets it through), no space
+// membership, no curator review (publishCommunityBlog below).
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const gated = await verseWriteGate(req);
   if (gated) return gated;
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
+  const community = wantsCommunity(body);
   const groupId = Number(body.group_id);
   const title = String(body.title ?? '').trim().slice(0, 160);
   const content = body.content;
@@ -55,6 +60,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
 
   const svc = createServiceRoleClient();
+  if (community) return publishCommunityBlog(svc, { userId: user.id, groupId, title, content, id, cover: body.cover });
   if (id) {
     const { data: cur } = await svc.from('verse_essays').select('group_id, author, status').eq('id', id).maybeSingle();
     const c = cur as { group_id: number; author: string; status: string } | null;
@@ -87,6 +93,29 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 // asset path (existing uploads), never a raw URL / upload. Series must be one this
 // group has approved, or one this author proposed (else dropped).
 type Svc = ReturnType<typeof createServiceRoleClient>;
+
+/** A community blog: checked like a submitted essay (not empty, banned terms on the title
+ *  and the text), then stored as published ('featured') with its slug and photo. */
+async function publishCommunityBlog(svc: Svc, b: { userId: string; groupId: number; title: string; content: unknown; id: number | null; cover: unknown }): Promise<NextResponse> {
+  if (b.id) return NextResponse.json({ error: 'bad_params' }, { status: 400 }); // no edit of a published blog here
+  if (!(await communityGroupExists(b.groupId))) return NextResponse.json({ error: 'bad_group' }, { status: 400 });
+  const photo = ownPhotoPath(b.userId, b.cover);
+  if (photo === null) return NextResponse.json({ error: 'bad_photo' }, { status: 400 });
+  if (contentIsEmpty(b.content)) return NextResponse.json({ error: 'empty' }, { status: 400 });
+  if (!await underRateCap('verse_essays', 'author', b.userId, 3600, 10)) return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  const hit = await checkText(`${b.title} ${renderTipTapJSON(b.content).replace(/<[^>]*>/g, ' ')}`);
+  if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
+  const now = new Date().toISOString();
+  const { data, error } = await svc.from('verse_essays').insert({
+    group_id: b.groupId, author: b.userId, title: b.title, content: b.content, status: 'featured', featured_at: now,
+    origin: 'community', cover: photo ? { assetPath: photo } : {},
+  }).select('id').single();
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  const id = (data as { id: number }).id;
+  const ascii = slugify(b.title).replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 100);
+  await svc.from('verse_essays').update({ slug: ascii ? `${ascii}-${id}` : `essay-${id}` }).eq('id', id);
+  return NextResponse.json({ ok: true, id, status: 'featured' });
+}
 async function essayMeta(body: Record<string, unknown>, groupId: number, userId: string, svc: Svc): Promise<Record<string, unknown>> {
   const out: Record<string, unknown> = {};
   if ('cover' in body) {

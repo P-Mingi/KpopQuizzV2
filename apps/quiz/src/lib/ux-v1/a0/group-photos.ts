@@ -3,6 +3,10 @@
 // never hot-linked. Keyed by groups.slug (as read on 2026-09-25: 33 visible groups
 // have a group photo). A group without a photo gets the typographic cover.
 // Member photos in the same folder are not group covers and are not listed here.
+// The groups without a file here get their Wikimedia Commons photo from Supabase
+// Storage (group-photo-credits.ts).
+
+import { GROUP_PHOTO_CREDITS } from './group-photo-credits';
 
 const GROUP_PHOTO_FILE: Record<string, string> = {
   'g-i-dle': '(G)I-DLE.jpg',
@@ -40,11 +44,15 @@ const GROUP_PHOTO_FILE: Record<string, string> = {
   'wonder-girls': 'Wonder Girls.jpg',
 };
 
-/** Public URL of a group's photo (encoded for spaces, quotes and parentheses), or null. */
+/** Public URL of a group's photo (encoded for spaces, quotes and parentheses), or null.
+ *  The site's own file first, else the group's Commons photo in Supabase Storage
+ *  (group-photo-credits.ts, owner request 2026-10-06). */
 export function groupPhotoUrl(groupSlug: string | null | undefined): string | null {
   if (!groupSlug) return null;
   const file = GROUP_PHOTO_FILE[groupSlug];
-  return file ? `/idols/${encodeURIComponent(file)}` : null;
+  if (file) return `/idols/${encodeURIComponent(file)}`;
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  return base && GROUP_PHOTO_CREDITS[groupSlug] ? `${base}/storage/v1/object/public/images/group-photos/${groupSlug}.jpg` : null;
 }
 
 /** The slugs that have a group photo (for tests and the kit). */

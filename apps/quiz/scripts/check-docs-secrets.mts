@@ -52,6 +52,17 @@ function isPlaceholderEmail(address: string): boolean {
 }
 
 /**
+ * A SQL LIKE pattern is not an address. The v12 editorial-account SQL checks that each account's
+ * email ends with the domain of the seeded test accounts (`LIKE '%@fake.kpopquizz.com'`), so the
+ * address regex reads the `%` wildcard as a local part. Only that exact wildcard form, and only
+ * in docs/pending-migrations/v12-*.sql, passes (owner, 2026-10-06); a real address on that
+ * domain, or the pattern anywhere else, still fails.
+ */
+function isV12FakeDomainPattern(file: string, match: string): boolean {
+  return /\/docs\/pending-migrations\/v12-[^/]+\.sql$/.test(file) && match.toLowerCase() === '%@fake.kpopquizz.com';
+}
+
+/**
  * Binary files tracked under docs/ (screenshots, design captures) are not text: read as
  * UTF-8 their bytes produce address-shaped noise. They are skipped by extension, and any
  * other file holding a NUL byte is skipped too.
@@ -156,7 +167,7 @@ function scan(file: string): Finding[] {
 
     EMAIL.lastIndex = 0;
     for (const m of text.matchAll(EMAIL)) {
-      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0])) {
+      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0]) && !isV12FakeDomainPattern(file, m[0])) {
         findings.push({ file, line: lineNo, pattern: 'EMAIL-NOT-ALLOWLISTED' });
       }
     }

@@ -135,6 +135,8 @@ for (const theme of THEMES) {
       const hrefs = await page.locator('a.p3-azr').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
       for (const h of hrefs) expect(h).toMatch(/^\/[a-z0-9-]+-quiz$/);
       expect(hrefs).not.toContain('/zzz-quarantine-hidden-quiz');
+      // General K-pop is a category, not a group (owner, 2026-10-06): its hub stays, off this list.
+      expect(hrefs).not.toContain('/general-kpop-quiz');
       const zero = page.locator('a.p3-azr.is-zero');
       expect(await zero.count(), 'groups without a quiz are listed').toBeGreaterThan(0);
       await expect(zero.first().locator('small')).toHaveText('No quiz yet');
@@ -271,6 +273,23 @@ for (const theme of THEMES) {
       const axe = await runAxe(page, { include: '.ux-page' });
       if (axe) expect(axe, 'axe serious / critical').toEqual([]);
       expect(writes, 'the hub writes nothing').toEqual([]);
+    });
+
+    test('General K-pop is a category: no members, category texts and FAQ, Quizzes crumb (owner, 2026-10-06)', async ({ page }) => {
+      await setup(page, theme);
+      test.skip(!(await open(page, '/general-kpop-quiz', '.p3-hub:has(.p3-qs[data-live] .ux-tcard):has(.p3-faq)')), 'UX v1 flag is OFF on this build');
+      expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('General K-pop Quiz - Test How Well You Know K-pop');
+      await expect(page.locator('.p3-members')).toHaveCount(0);
+      await expect(page.locator('.p3-facts')).not.toContainText('member');
+      await expect(page.locator('.p3-prose').first()).toContainText('General K-pop is a category, not a group');
+      await expect(page.locator('main')).not.toContainText('is a K-pop group with');
+      const qs = await page.locator('.p3-acc-q').allTextContents();
+      expect(qs).toContain('What are General K-pop quizzes?');
+      expect(qs.some((q) => /member/i.test(q)), 'no members question').toBe(false);
+      await expect(page.locator('.p3-crumb a').first()).toHaveAttribute('href', '/quizzes');
+      // Nothing that assumes a group: no Name them all / Which member tile, no Fans picked.
+      await expect(page.locator('[data-testid="hub-ways"] a[href*="name-all"], [data-testid="hub-ways"] a[href*="member-are-you"]')).toHaveCount(0);
+      await expect(page.locator('[data-testid="hub-fans-picked"]')).toHaveCount(0);
     });
 
     test('quizzes: sorts match the live feed, Type / Level filters, Show all, keyboard', async ({ page }) => {
@@ -496,7 +515,7 @@ for (const theme of THEMES) {
   test.describe(`empty group hub ${theme}`, () => {
     test.describe.configure({ timeout: 240_000 });
 
-    test('SEO lock, Make the first quiz, fail-soft Notify me (real route), landmarks, a11y', async ({ page }, info) => {
+    test('SEO lock, Make the first quiz, Notify me live (real route, guest: sign-in sheet), landmarks, a11y', async ({ page }, info) => {
       const writes = await setup(page, theme);
       test.skip(!(await open(page, EMPTY, '.p3-notify[data-state]')), 'UX v1 flag is OFF on this build');
       expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('Chungha Quiz - Test How Well You Know Chungha');
@@ -504,15 +523,22 @@ for (const theme of THEMES) {
       await expect(page.locator('.p3-actions a', { hasText: 'Make the first quiz' })).toHaveAttribute('href', '/create?group=chungha');
       await expect(page.locator('.p3-qs')).toHaveCount(0);
       await expect(page.locator('section[aria-labelledby="p3-com-h"]')).toHaveCount(0);
-      await expect(page.locator('.p3-hero')).toHaveClass(/is-solo/);
+      // Every group has a photo now (owner, 2026-10-06): Chungha's is a Commons photo. No credit
+      // is printed on it (the owner handles attribution; the sources stay in group-photos.json).
+      await expect(page.locator('.p3-hero')).not.toHaveClass(/is-solo/);
+      await expect(page.locator('.p3-photo img')).toHaveCount(1);
+      await expect(page.locator('.p3-photo')).toHaveText('');
 
-      // The real route (read only) says "not live" until the pending migration runs:
-      // the click explains it and writes nothing.
+      // Group alerts are live (the v12 SQL is applied): for a guest, the real route offers the
+      // sign-in sheet and nothing is written.
       const notify = page.locator('.p3-notify');
-      await expect(notify).toHaveAttribute('data-state', 'off');
+      await expect(notify).toHaveAttribute('data-state', 'live');
       await expect(notify).toHaveAttribute('aria-pressed', 'false');
       await notify.click();
-      await expect(page.getByTestId('ux-toast')).toContainText('Group alerts are not switched on yet');
+      const dlg = page.getByRole('dialog', { name: 'Sign in to get notified' });
+      await expect(dlg).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(dlg).toBeHidden();
       await expect(notify).toHaveAttribute('aria-pressed', 'false');
 
       expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
@@ -599,15 +625,16 @@ for (const theme of THEMES) {
 
 signedInTest.describe('signed in (read only)', () => {
   signedInTest.describe.configure({ timeout: 240_000 });
-  signedInTest('hub and empty hub as the test user: account in the nav, Notify me says not live, zero writes', async ({ page }) => {
+  signedInTest('hub and empty hub as the test user: account in the nav, Notify me live (not clicked), zero writes', async ({ page }) => {
     skipUnlessSignedIn();
     const writes = await setup(page, 'light');
     test.skip(!(await open(page, EMPTY, '.p3-notify[data-state]')), 'UX v1 flag is OFF on this build');
     await expect(page.locator('.ux-nav-signin')).toHaveCount(0, { timeout: 30_000 });
+    // Group alerts are live (the v12 SQL is applied). Read only: the button is not clicked
+    // (a click would subscribe the test account); a signed-in fan never gets the sign-in sheet.
     const notify = page.locator('.p3-notify');
-    await expect(notify).toHaveAttribute('data-state', 'off');
-    await notify.click();
-    await expect(page.getByTestId('ux-toast')).toContainText('Group alerts are not switched on yet');
+    await expect(notify).toHaveAttribute('data-state', 'live');
+    await expect(notify).toHaveAttribute('aria-pressed', /^(true|false)$/);
     await expect(page.getByRole('dialog')).toHaveCount(0);
     expect(await open(page, HUB, '.p3-qs[data-live] .ux-tcard')).toBe(true);
     await expect(page.locator('.p3-qs .ux-tcard:visible')).toHaveCount(FIRST);

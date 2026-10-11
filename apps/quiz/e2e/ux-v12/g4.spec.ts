@@ -121,6 +121,25 @@ async function joinRoom(p: Phone, code: string, nickname: string, opts: { typeCo
 
 const screen = (page: Page) => page.locator('.ux-live-screen');
 const ctl = (page: Page) => page.locator('.ux-live-ctl');
+
+/** Game mode (owner, 2026-10-06, Kahoot-like): once the room is open the host screen
+ *  covers the whole viewport, the site bar and the page intro under it. */
+async function expectGameMode(page: Page): Promise<void> {
+  await expect(page.locator('.ux-live-wrap')).toHaveClass(/is-full/);
+  const cover = await page.evaluate(() => {
+    const wrap = document.querySelector('.ux-live-wrap');
+    if (!wrap) return null;
+    const r = wrap.getBoundingClientRect();
+    const top = document.elementFromPoint(window.innerWidth / 2, 4);
+    return { x: r.left, y: r.top, w: r.width, h: r.height, vw: window.innerWidth, vh: window.innerHeight, onTop: !!top && wrap.contains(top) };
+  });
+  expect(cover, 'the live wrap is rendered').not.toBeNull();
+  expect(cover!.x).toBe(0);
+  expect(cover!.y).toBe(0);
+  expect(Math.round(cover!.w)).toBe(cover!.vw);
+  expect(Math.round(cover!.h)).toBe(cover!.vh);
+  expect(cover!.onTop, 'the game screen is on top of the site bar').toBe(true);
+}
 const phoneMsg = (p: Phone) => p.page.locator('.ux-live-pmsg b');
 const phoneFoot = (p: Phone) => p.page.locator('.ux-live-pfoot');
 
@@ -154,12 +173,10 @@ const PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-botto
 interface Landmark { proto: string; impl: string }
 const LM: Record<string, Landmark> = {
   screen: { proto: '.screen', impl: '.ux-live-screen' },
-  phone: { proto: '.phone', impl: '.ux-live-phone' },
   lobby: { proto: '.lobby', impl: '.ux-live-lobby' },
   qrbox: { proto: '.qrbox', impl: '.ux-live-qrbox' },
   players: { proto: '.players', impl: '.ux-live-players' },
   lt: { proto: '.ltiles .lt', impl: '.ux-live-screen .ux-ltiles .ux-lt' },
-  pb: { proto: '.pbtns .pb', impl: '.ux-live-phone .ux-pbtns .ux-pb' },
   reveal: { proto: '.reveal2', impl: '.ux-live-round2.is-reveal' },
   board: { proto: '.board', impl: '.ux-live-board' },
   podium: { proto: '.podium2', impl: '.ux-live-podium' },
@@ -353,8 +370,8 @@ for (const theme of THEMES) {
       await expect(screen(page)).toHaveAttribute('data-open', 'no');
       await expect(screen(page).locator('.ux-live-closed')).toHaveText('Live blindtest is not open yet. It opens here soon.');
       await expect(ctl(page).getByRole('button', { name: 'Open the room' })).toBeDisabled();
-      // The phone frame waits; nothing was created.
-      await expect(page.locator('.ux-live-phone .ux-live-pmsg b')).toHaveText('Waiting for a room');
+      // Nothing was created; the host page has no phone (everyone plays on their own).
+      await expect(page.locator('.ux-live-phone')).toHaveCount(0);
       expect(local.live.store.rooms.size).toBe(0);
 
       const phone = await newPhone(browser, local, theme);
@@ -375,7 +392,9 @@ for (const theme of THEMES) {
       await expect(screen(page)).toHaveAttribute('data-state', 'setup');
       await expect(screen(page).getByRole('heading', { name: 'Host a live blindtest' })).toBeVisible();
       await expect(screen(page).getByRole('radio', { name: 'All K-pop' })).toHaveAttribute('aria-checked', 'true');
-      await expect(page.locator('.ux-live-phone .ux-live-pmsg b')).toHaveText('Waiting for a room');
+      // Display only (owner, 2026-10-06): no phone frame, no "Play along here".
+      await expect(page.locator('.ux-live-phone')).toHaveCount(0);
+      await expect(page.getByText('Play along here')).toHaveCount(0);
       await screen(page).getByRole('radio', { name: 'Girl groups' }).click();
       const code = await openRoom(page, local, { rounds: 5, seconds: 10 });
       const room = roomOf(local, code);
@@ -391,8 +410,8 @@ for (const theme of THEMES) {
       await expect(qr).toHaveAttribute('aria-label', `QR code to join room ${code.split('').join(' ')}`);
       expect(await qr.locator('path').getAttribute('d')).toBe(qrPath(encodeQr(`${origin}/join/${code}`, { level: 'M' }), 2));
       await expect(ctl(page).getByRole('button', { name: 'Start' })).toBeDisabled();
-      // The phone frame next to the screen offers to join this room.
-      await expect(page.locator('.ux-live-phone').getByLabel('Room code')).toHaveValue(code);
+      // The room is open: the game screen covers the page (no site bar, no intro).
+      await expectGameMode(page);
 
       // ----- three phones: the QR link, the typed code, and the same nickname twice -----
       const [a, b, c] = [await newPhone(browser, local, theme), await newPhone(browser, local, theme), await newPhone(browser, local, theme)];
@@ -756,41 +775,46 @@ for (const theme of THEMES) {
       expect(local.live.store.players.size).toBe(0);
     });
 
-    test('the host can play along from the phone frame; settings from the lobby keep the room', async ({ page }) => {
+    test('the host screen only shows the game: no phone, game mode, settings keep the room', async ({ page }) => {
       test.setTimeout(60_000);
       test.skip((await openLive(page)) !== 'v12', 'v12 is off here');
       const code = await openRoom(page, local, { rounds: 5, seconds: 15 });
-      const frame = page.locator('.ux-live-phone');
-      await frame.getByLabel('Nickname').fill('host');
-      await frame.getByRole('button', { name: 'Join' }).click();
-      await expect(frame.locator('.ux-live-pmsg b')).toHaveText('You are in!');
+      await expect(page.locator('.ux-live-phone')).toHaveCount(0);
+      await expectGameMode(page);
       // The address of the host page does not change (only /join follows the room).
       expect(new URL(page.url()).pathname).toBe('/live');
-      await addBots(local, code, [['sofia', 2]]);
+      const bots = await addBots(local, code, [['sofia', 2], ['jae', 3]]);
       await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(2);
 
-      // Settings: back to the setup, another length, the same room and players.
+      // Settings: back to the setup (the page again), another length, the same room and players.
       await ctl(page).getByRole('button', { name: 'Settings' }).click();
       await expect(screen(page)).toHaveAttribute('data-state', 'setup');
+      await expect(page.locator('.ux-live-wrap')).not.toHaveClass(/is-full/);
       await screen(page).getByRole('group', { name: 'Rounds' }).getByRole('button', { name: '10', exact: true }).click();
       await ctl(page).getByRole('button', { name: 'Back to the room' }).click();
       await expect(screen(page)).toHaveAttribute('data-state', 'lobby');
+      await expectGameMode(page);
       await expect(page.locator('.ux-live-code')).toHaveText(code);
       expect(local.live.store.rooms.size).toBe(1);
       expect(roomOf(local, code)).toMatchObject({ rounds: 10, status: 'lobby' });
       await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(2);
 
+      // During the game the join QR and code stay on screen, small.
       await ctl(page).getByRole('button', { name: 'Start' }).click();
       await expect(screen(page).locator('.ux-live-sh')).toContainText('Round 1 of 10');
-      await expect(frame.locator('.ux-pb')).toHaveCount(4);
-      await frame.locator('.ux-pb').nth(fakeCorrect(1)).click();
-      await expect(frame.locator('.ux-pbtns')).toHaveClass(/is-locked/);
+      await expect(screen(page).locator('.ux-live-mini b')).toHaveText(code);
+      await expect(screen(page).locator('.ux-live-mini svg')).toHaveAttribute('aria-label', `QR code to join room ${code.split('').join(' ')}`);
+      expect(await botAnswer(local, code, bots[0]!, fakeCorrect(1))).toBe(200);
       await expect(screen(page).locator('.ux-live-answered')).toHaveText('1 of 2 answered');
+      await expectGameMode(page);
       // One socket for the page, whoever listens on it.
       expect(host.sockets.length).toBeLessThanOrEqual(1);
     });
 
-    test('every state against the prototype reference, a11y, no sideways scroll', async ({ page }, info) => {
+    // The owner's Kahoot-like host screen (2026-10-06) replaced the prototype's in-page
+    // screen and phone frame: only the setup page is still measured against the prototype
+    // (its controls and the steps); every room state checks the game mode instead.
+    test('every state: setup against the prototype, the room in game mode, a11y, no sideways scroll', async ({ page }, info) => {
       test.setTimeout(120_000);
       local.questions = protoQuestions;
       test.skip((await openLive(page)) !== 'v12', 'v12 is off here');
@@ -807,7 +831,8 @@ for (const theme of THEMES) {
         // 1 ms transitions the shell gives every property under reduced motion.
         await page.mouse.move(0, 0);
         await page.waitForTimeout(120);
-        add(await measure(page, w, theme, state, marks, skip));
+        if (marks.length > 0) add(await measure(page, w, theme, state, marks, skip));
+        else await expectGameMode(page);
         expect(await horizontalOverflow(page), `${state}: no sideways scroll`).toBeLessThanOrEqual(0);
         await shot(page, w, theme, state);
       };
@@ -815,11 +840,8 @@ for (const theme of THEMES) {
         const found = await runAxe(page, { include: '.ux-live-page' });
         if (found) expect(found, `axe serious / critical in ${state}`).toEqual([]);
       };
-      // The lobby box height follows the chips; the players' box is compared for its styles and width.
-      const frame = page.locator('.ux-live-phone');
-
       // setup
-      await check('live-setup', [LM.screen!, LM.phone!, LM.primary!, LM.steps!, LM.h2!]);
+      await check('live-setup', [LM.primary!, LM.steps!, LM.h2!]);
       expect(await basicA11y(page)).toEqual([]);
       await axe('setup');
 
@@ -832,41 +854,40 @@ for (const theme of THEMES) {
       const firstWave = w > 500 && refRows > 40 ? 5 : 4;
       const bots = await addBots(local, code, PROTO_NAMES.slice(0, firstWave));
       await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(firstWave);
-      await check('live-lobby', [LM.screen!, LM.lobby!, LM.qrbox!, LM.players!, LM.phone!, LM.primary!]);
+      await check('live-lobby', []);
       await axe('lobby');
       bots.push(...await addBots(local, code, PROTO_NAMES.slice(firstWave)));
       await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(5);
 
-      // join: the host plays along as "mingi" from the phone frame
-      await frame.getByLabel('Nickname').fill('mingi');
-      await frame.getByRole('button', { name: 'Join' }).click();
-      await expect(frame.locator('.ux-live-pmsg b')).toHaveText('You are in!');
+      // join: a sixth phone ("mingi") joins
+      const mingi = (await addBots(local, code, [['mingi', 1]]))[0]!;
       await expect(screen(page).locator('.ux-live-players > li')).toHaveCount(6);
-      await check('live-join', [LM.screen!, LM.lobby!, LM.qrbox!, LM.players!, LM.phone!, LM.primary!]);
+      await check('live-join', []);
 
       // round
       await ctl(page).getByRole('button', { name: 'Start' }).click();
       await expect(screen(page)).toHaveAttribute('data-state', 'round');
-      await expect(frame.locator('.ux-pb')).toHaveCount(4);
-      await check('live-round', [LM.screen!, LM.lt!, LM.phone!, LM.pb!]);
+      await expect(screen(page).locator('.ux-ltiles .ux-lt')).toHaveCount(4);
+      await expect(screen(page).locator('.ux-live-mini b')).toHaveText(code);
+      await check('live-round', []);
       await axe('round');
 
-      // answer: the phone is locked on its pick
-      await frame.locator('.ux-pb').nth(0).click();
-      await expect(frame.locator('.ux-pbtns')).toHaveClass(/is-locked/);
-      await check('live-answer', [LM.screen!, LM.lt!, LM.phone!, LM.pb!]);
+      // answer: one phone answers, the screen counts it
+      expect(await botAnswer(local, code, mingi, 0)).toBe(200);
+      await expect(screen(page).locator('.ux-live-answered')).toHaveText('1 of 6 answered');
+      await check('live-answer', []);
 
       // reveal
       for (const [i, t] of bots.entries()) expect(await botAnswer(local, code, t, i < 3 ? 0 : i - 2)).toBe(200);
       await expect(screen(page)).toHaveAttribute('data-state', 'reveal', { timeout: 15_000 });
-      await check('live-reveal', [LM.screen!, LM.lt!, LM.reveal!, LM.phone!, LM.primary!]);
+      await check('live-reveal', []);
       await axe('reveal');
 
       // board
       await ctl(page).getByRole('button', { name: 'Show the leaderboard' }).click();
       await expect(screen(page)).toHaveAttribute('data-state', 'board');
       await expect(screen(page).locator('.ux-live-br')).toHaveCount(5);
-      await check('live-board', [LM.screen!, LM.board!, LM.phone!, LM.primary!]);
+      await check('live-board', []);
       await axe('board');
 
       // end: play the four other rounds through the service, then the podium
@@ -880,7 +901,7 @@ for (const theme of THEMES) {
       }
       await ctl(page).getByRole('button', { name: 'Show the podium' }).click();
       await expect(screen(page)).toHaveAttribute('data-state', 'ended');
-      await check('live-end', [LM.screen!, LM.podium!, LM.phone!, LM.primary!]);
+      await check('live-end', []);
       await axe('end');
 
       await info.attach('g4-landmarks.json', { body: JSON.stringify(all, null, 1), contentType: 'application/json' });

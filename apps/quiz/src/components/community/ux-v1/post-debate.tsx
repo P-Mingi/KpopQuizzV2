@@ -35,7 +35,7 @@ export function DailyDebateVote({ date, question, sides, votes, open }: { date: 
     if (ok && comment) {
       const c: P8Comment = {
         id: `vote-${Date.now()}`, likeType: 'debate_vote', person: v.username ? { name: v.displayName ?? v.username, username: v.username, href: `/u/${v.username}`, avatarUrl: v.avatarUrl, accent: null, font: null, bias: null, level: null, levelTitle: null, isSystem: false } : null,
-        name: v.displayName ?? v.username ?? 'You', body: comment, meta: `voted ${s === 'a' ? sides[0] : sides[1]}`, at: new Date().toISOString(), ago: 'just now', likes: null, replies: [], canReply: false,
+        name: v.displayName ?? v.username ?? 'You', body: comment, meta: `voted ${s === 'a' ? sides[0] : sides[1]}`, at: new Date().toISOString(), ago: 'just now', likes: null, replies: [], canReply: false, depth: 1,
       };
       window.dispatchEvent(new CustomEvent(REPLY_EVENT, { detail: c }));
       setText('');

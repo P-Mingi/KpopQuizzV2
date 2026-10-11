@@ -224,13 +224,15 @@ for (const theme of THEMES) {
       const all = sec.locator('.ux-sec-h a');
       await expect(all).toHaveAttribute('href', '/groups');
       const { count: groupRows } = await rest<unknown[]>('groups?select=id', true);
-      await expect(all, 'visible groups = all rows minus the quarantine row').toHaveText(`All ${(groupRows ?? 1) - 1} groups`);
+      // General K-pop is a category, not a group (owner, 2026-10-06): out of the count and the rail.
+      await expect(all, 'visible groups = all rows minus the quarantine row and the General K-pop category').toHaveText(`All ${(groupRows ?? 2) - 2} groups`);
       const items = sec.locator('a.p1-gitem');
       expect(await items.count()).toBeGreaterThan(0);
       const hrefs = await items.evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
       // SEO: every hub the live home links (home-group-pills.tsx ORDER), in its order, first.
-      const { rows: known } = await rest<{ slug: string }[]>(`groups?select=slug&slug=in.(${LIVE_HUBS.join(',')})`);
-      const liveHrefs = LIVE_HUBS.filter((h) => known.some((k) => k.slug === h)).map((h) => `/${h}-quiz`);
+      const railHubs = LIVE_HUBS.filter((h) => h !== 'general-kpop');
+      const { rows: known } = await rest<{ slug: string }[]>(`groups?select=slug&slug=in.(${railHubs.join(',')})`);
+      const liveHrefs = railHubs.filter((h) => known.some((k) => k.slug === h)).map((h) => `/${h}-quiz`);
       expect(hrefs.slice(0, liveHrefs.length), 'the live hub links, in the live order').toEqual(liveHrefs);
       expect(hrefs.length).toBeLessThanOrEqual(liveHrefs.length + 3);
       // ...and they are in the SERVER HTML (crawlable without JS), with today's board link.
@@ -290,13 +292,23 @@ for (const theme of THEMES) {
       const trend = page.locator('section[aria-labelledby="p1-trend-h"]');
       await expect(trend.locator('.ux-sec-h a')).toHaveAttribute('href', '/quizzes/popular-this-week');
       const cards = trend.locator('a.ux-qcard');
-      expect(await cards.count()).toBeLessThanOrEqual(6);
+      // v12 (owner, 2026-10-10): eight cards in two rows of four (styles/ux-v12/home.css).
+      const v12 = (await page.request.post('/api/ux-v1/p8/photo', { data: '' })).status() !== 404;
+      expect(await cards.count()).toBeLessThanOrEqual(v12 ? 8 : 6);
       const photos = await cards.evaluateAll((as) => as.map((a) => { const i = a.querySelector('img'); return i ? (new URL(i.currentSrc || i.src).searchParams.get('url') ?? i.src) : `fb:${a.querySelector('.ux-qg')?.textContent ?? ''}`; }));
       for (let i = 1; i < photos.length; i++) expect(photos[i], 'never the same photo twice side by side (16.8)').not.toBe(photos[i - 1]);
-      if (widthOf(page) > 760) {
+      if (widthOf(page) > 760 && !v12) {
         // Four in view as the prototype's grid, the rest in the same scrolling row.
         const inView = await cards.evaluateAll((as) => as.filter((a) => { const r = a.getBoundingClientRect(); const p = a.parentElement!.getBoundingClientRect(); return r.left >= p.left - 1 && r.right <= p.right + 1; }).length);
         expect(inView).toBe(Math.min(4, await cards.count()));
+      }
+      if (widthOf(page) > 1100 && v12) {
+        // Two rows of four, all in view, filled left to right (DOM order = reading order).
+        const boxes = await cards.evaluateAll((as) => as.map((a) => { const r = a.getBoundingClientRect(); const p = a.parentElement!.getBoundingClientRect(); return { top: Math.round(r.top), left: Math.round(r.left), inside: r.left >= p.left - 1 && r.right <= p.right + 1 }; }));
+        expect(boxes.every((b) => b.inside), 'every card in view').toBe(true);
+        const rowsTop = [...new Set(boxes.map((b) => b.top))];
+        expect(rowsTop.length, 'two rows at most').toBeLessThanOrEqual(2);
+        if (boxes.length > 4) expect(boxes.slice(0, 4).every((b) => b.top === boxes[0]!.top) && boxes[4]!.top > boxes[0]!.top, 'first four on the first row').toBe(true);
       }
 
       const best = page.locator('.p1-two > div').filter({ has: page.locator('#p1-best-h') });

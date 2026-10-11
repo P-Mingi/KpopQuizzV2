@@ -78,6 +78,11 @@ export interface FeedPost {
   /** v12: a thread or blog of an editorial account (editorial_posts.id). Its hearts
    *  and replies use the community stores with target type 'editorial'. */
   editorialId?: number;
+  /** v12: a thread or blog posted from /community (origin = 'community'): shown for any
+   *  group whatever the Verse gates. ABSENT for Verse posts (a v11 payload is unchanged). */
+  community?: true;
+  /** v12: a community thread's photo (blogs carry theirs in `blog.coverUrl`). */
+  photo?: string;
 }
 
 export interface HappeningRow {

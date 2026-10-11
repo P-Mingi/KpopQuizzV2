@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
 import { UX_V1 } from '@/lib/ux-v1';
+import { uxStylesheetHref } from '@/lib/ux-v1/a0/stylesheet-href';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -64,8 +65,10 @@ const HTML_CLASS = UX_V1
 
 // UX v11 stylesheet (tokens + shared components + page styles of styles/ux-v1/),
 // linked ONLY when the flag is on, so flag-off pages carry no extra tag or byte
-// (see app/api/ux-v1/a0/styles/route.ts). Versioned per commit for caching.
-const UX_CSS_HREF = `/api/ux-v1/a0/styles?v=${(process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.VERCEL_DEPLOYMENT_ID ?? 'local').slice(0, 12)}`;
+// (see app/api/ux-v1/a0/styles/route.ts). Versioned by a hash of its content, computed
+// at build time in next.config.ts (UX_CSS_VERSION), so the address follows the CSS
+// whatever the way of deploying (a command-line deploy has no commit sha).
+const UX_CSS_HREF = uxStylesheetHref(process.env.UX_CSS_VERSION);
 
 // Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only
 // when it is an absolute https origin - never let a dev value

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -47,6 +48,15 @@ export interface UxStylesheetOptions {
   v12: boolean;
   /** src/styles (holds ux-v1/ and ux-v12/). Default: the app's own folder. */
   stylesDir?: string;
+}
+
+/** The ?v= of the stylesheet link: 12 hex characters of the sha256 of the served bytes, so the
+ *  address changes whenever the CSS does, however the build was deployed. next.config.ts computes
+ *  it at build time (UX_CSS_VERSION). Before, the link read VERCEL_GIT_COMMIT_SHA ?? ..., which a
+ *  command-line deploy sets to '' (so `??` kept it): every such deploy linked `?v=`, one immutable
+ *  address cached for a year with the first deploy's CSS (owner, 2026-10-06). */
+export function uxStylesheetVersion(css: string): string {
+  return createHash('sha256').update(css).digest('hex').slice(0, 12);
 }
 
 export function buildUxStylesheet({ v12, stylesDir = path.join(process.cwd(), 'src/styles') }: UxStylesheetOptions): string {

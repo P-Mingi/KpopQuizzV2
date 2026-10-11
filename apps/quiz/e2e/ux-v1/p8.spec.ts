@@ -183,6 +183,15 @@ function verseMode(request: APIRequestContext): Promise<'open' | 'hidden'> {
     .then((r) => (r.status() >= 300 && r.status() < 400 && /\/verse\/?$/.test(r.headers().location ?? '') ? 'hidden' : 'open'));
   return verseModeP;
 }
+// ---- v12 community (owner, 2026-10-06), read from the server itself -----------------------
+let v12P: Promise<boolean> | null = null;
+/** True when the server runs v12: its photo route exists (a guest gets 401, v11 gets 404).
+ *  v12 changes, by the owner's requests: Thread and Blog for every fan from /community (the
+ *  Verse closed), and the daily debate's own comment box, open or closed. */
+function v12On(request: APIRequestContext): Promise<boolean> {
+  v12P ??= request.post('/api/ux-v1/p8/photo', { data: '', timeout: 150_000 }).then((r) => r.status() !== 404);
+  return v12P;
+}
 const VERSE_OPEN_ONLY = 'reads Verse content: this server runs with VERSE_PUBLIC off (the "Verse gates" block covers it)';
 /** lib/verse/visibility LIVE_SPACES (today 'bts' only), by display name. */
 const LIVE_SPACE_NAMES = ['BTS'];
@@ -582,7 +591,7 @@ for (const theme of THEMES) {
       expect(h.writes).toEqual([]);
     });
 
-    test("today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only", async ({ page }, info) => {
+    test("today's debate: vote first, results after, reply rides with the vote; a closed debate shows results only", async ({ page, request }, info) => {
       const h = await harness(page, theme);
       const res = await page.goto(`/community/debate/${TODAY}`);
       test.skip(!res || res.status() !== 200 || !(await hasShell(page)), 'flag off or no debate today');
@@ -602,7 +611,8 @@ for (const theme of THEMES) {
       await page.keyboard.press('Escape');
       await expect(buttons.nth(1)).toBeFocused();
 
-      // A closed debate from the feed: bars, "closed", no vote, no reply box.
+      // A closed debate from the feed: bars, "closed", no vote, no reply box (v11). v12: its
+      // own comment box stays open after the close (owner, 2026-10-06).
       await page.goto('/community');
       const closed = page.locator('.p8-feed .ux-ptt a[href^="/community/debate/"]').first();
       if (await closed.count()) {
@@ -610,7 +620,8 @@ for (const theme of THEMES) {
         await expect(page.locator('.p8-pv .p8-dopts')).toBeVisible();
         await expect(page.locator('.p8-pv .p8-help')).toContainText('closed');
         await expect(page.locator('.p8-pv .p8-vote')).toHaveCount(0);
-        await expect(page.locator('.p8-cform')).toHaveCount(0);
+        if (await v12On(request)) await expect(page.locator('#replies .p8-cform').getByPlaceholder('Write a comment')).toBeVisible();
+        else await expect(page.locator('.p8-cform')).toHaveCount(0);
       }
       expect(h.writes).toEqual([]);
     });
@@ -619,7 +630,10 @@ for (const theme of THEMES) {
       await harness(page, theme);
       const probe = await page.goto('/community');
       test.skip(!probe || probe.status() !== 200, 'UX v1 flag is OFF on this build');
-      for (const p of ['/community/poll/1', '/community/thread/999999999', '/community/blog/abc', '/community/challenge/1', '/community/debate/2099-01-01']) {
+      // Ids that never exist (owner, 2026-10-07): 999999999999 is the largest id a post URL
+      // accepts (lib/ux-v1/p8/post.ts parsePostKey, 12 digits), a trillion rows past any
+      // sequence here, so the check no longer rests on what the live database holds.
+      for (const p of ['/community/poll/1', '/community/thread/999999999999', '/community/blog/abc', '/community/challenge/999999999999', '/community/debate/2099-01-01']) {
         const r = await page.goto(p);
         expect(r?.status(), p).toBe(404);
       }
@@ -831,22 +845,28 @@ test.describe('Verse gates', () => {
     test.skip((await verseMode(request)) === 'open', 'this server runs with VERSE_PUBLIC=true: the case above');
     const h = await harness(page, 'light');
     test.skip(!(await open(page, '/community')), 'UX v1 flag is OFF on this build');
+    // v12 (owner, 2026-10-06): fans post threads and blogs from /community, the Verse closed:
+    // those community posts may show, and the editor offers all four modes. Verse posts never do.
+    const v12 = await v12On(request);
     const types = (await page.locator('.p8-feed article.ux-post .ux-ptype').allTextContents()).map((t) => t.replace(/\s+/g, ' ').trim());
-    expect(types.filter((t) => /^(Thread|Blog)\b/.test(t)), 'no Verse post in the feed').toEqual([]);
-    expect(await page.locator('a[href^="/community/thread/"], a[href^="/community/blog/"]').count(), 'no link to a Verse post').toBe(0);
+    if (!v12) expect(types.filter((t) => /^(Thread|Blog)\b/.test(t)), 'no Verse post in the feed').toEqual([]);
+    if (!v12) expect(await page.locator('a[href^="/community/thread/"], a[href^="/community/blog/"]').count(), 'no link to a Verse post').toBe(0);
+    expect(await page.locator('a[href="/community/thread/1"], a[href="/community/blog/2"]').count(), 'no link to a live-space Verse post').toBe(0);
     await expect(page.locator('[role="tab"]').first()).toBeVisible();
     await expect(page.getByRole('tab', { name: 'Blogs' })).toHaveCount(0);
     if (await page.locator('.p8-composer').count()) {
-      await expect(page.locator('.p8-composer-in')).toHaveText('Start a debate or a challenge');
+      await expect(page.locator('.p8-composer-in')).toHaveText(v12 ? 'Start a thread, a blog, a debate or a challenge' : 'Start a debate or a challenge');
       await page.locator('.p8-composer-in').click();
-      await expect(page.getByRole('dialog').locator('.p8-modes4 button')).toHaveText(['Debate', 'Challenge']);
+      await expect(page.getByRole('dialog').locator('.p8-modes4 button')).toHaveText(v12 ? ['Thread', 'Blog', 'Debate', 'Challenge'] : ['Debate', 'Challenge']);
       await page.keyboard.press('Escape');
     }
     // Real live-space rows (thread 1 and blog 2 are BTS): 404 like the Verse, noindex.
     for (const p of ['/community/thread/1', '/community/blog/2']) expect((await request.get(p, { timeout: 120_000 })).status(), p).toBe(404);
-    // A compose URL for a Verse mode opens nothing.
+    // A compose URL for a Verse mode opens nothing (v11). v12: Thread is a /community mode
+    // for every fan, so it opens the editor.
     await open(page, '/community?compose=thread');
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    if (v12) await expect(page.getByRole('dialog')).toBeVisible();
+    else await expect(page.getByRole('dialog')).toHaveCount(0);
     expect(h.writes).toEqual([]);
   });
 });

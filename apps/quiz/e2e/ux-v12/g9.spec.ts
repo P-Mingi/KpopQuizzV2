@@ -52,7 +52,12 @@ const PROPS = ['width', 'height', 'padding-top', 'padding-right', 'padding-botto
   'border-top-width', 'border-top-color', 'border-radius', 'background-color', 'background-image', 'color', 'font-size',
   'font-weight', 'line-height', 'letter-spacing', 'box-shadow', 'gap'] as const;
 
-interface Landmark { proto: string; impl: string; state: 'community-team-post' | 'post-team' }
+interface Landmark {
+  proto: string; impl: string; state: 'community-team-post' | 'post-team';
+  /** Inside the post's rounded box (owner, 2026-10-06): its width is the prototype's minus
+   *  the box's horizontal padding and borders, measured live. */
+  inBox?: true;
+}
 
 const FEED_LANDMARKS: Landmark[] = [
   { proto: '.teamtag', impl: '[data-g9-fixture="card"] .ux-teamtag', state: 'community-team-post' },
@@ -61,7 +66,7 @@ const FEED_LANDMARKS: Landmark[] = [
 const POST_LANDMARKS: Landmark[] = [
   { proto: '.teamtag', impl: 'article.p8-pv .ux-teamtag', state: 'post-team' },
   { proto: '.ava.team', impl: 'article.p8-pv .ux-ava-team', state: 'post-team' },
-  { proto: '.teamnote', impl: 'article.p8-pv .ux-teamnote', state: 'post-team' },
+  { proto: '.teamnote', impl: 'article.p8-pv .ux-teamnote', state: 'post-team', inBox: true },
   { proto: '.sec-h h2', impl: '.ux-sec-h h2', state: 'post-team' },
 ];
 
@@ -102,6 +107,12 @@ interface Compared { checked: string[]; missing: string[]; mismatches: { landmar
 async function compare(page: Page, theme: Theme, landmarks: Landmark[]): Promise<Compared> {
   const w = widthOf(page);
   const got = await computed(page, landmarks.map((l) => l.impl));
+  const inset = await page.evaluate(() => {
+    const box = document.querySelector('.p8-pv-box');
+    if (!box) return 0;
+    const cs = getComputedStyle(box);
+    return ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'].reduce((n, k) => n + parseFloat(cs[k as 'paddingLeft']), 0);
+  });
   const out: Compared = { checked: [], missing: [], mismatches: [], rows: [] };
   for (const l of landmarks) {
     const key = refKey(w, theme, l.state);
@@ -113,7 +124,8 @@ async function compare(page: Page, theme: Theme, landmarks: Landmark[]): Promise
     if (!act) { out.missing.push(`${l.impl} (${key})`); continue; }
     out.checked.push(`${l.proto} @ ${key}`);
     for (const p of PROPS) {
-      const e = exp[p]; const a = act[p];
+      const a = act[p];
+      const e = p === 'width' && l.inBox && exp[p] !== undefined ? `${parseFloat(exp[p]!) - inset}px` : exp[p];
       if (e === undefined || a === undefined) continue;
       if (!close(e, a)) out.mismatches.push({ landmark: l.proto, key, prop: p, expected: e, actual: a });
     }
@@ -161,7 +173,8 @@ test.describe('G9 routes and gating (GET only)', () => {
     const body = await team.json() as { usernames?: unknown };
     expect(Array.isArray(body.usernames)).toBe(true);
     // An editorial post URL is a 404 until the store exists and holds it.
-    for (const u of ['/community/thread/e999999999', '/community/blog/e999999999', '/community/debate/e1', '/community/thread/e0']) {
+    // e999999999999: the largest editorial id a post URL accepts (12 digits), never reached.
+    for (const u of ['/community/thread/e999999999999', '/community/blog/e999999999999', '/community/debate/e1', '/community/thread/e0']) {
       expect((await page.request.get(u)).status(), u).toBe(404);
     }
   });
@@ -276,8 +289,9 @@ for (const theme of THEMES) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('h1')).toHaveText('Which b-side deserves a comeback stage?');
       await expect(art.locator('.ux-bias')).toHaveCount(0);
-      // The line sits between the author row and the title (prototype openPost('team')).
-      const order = await art.evaluate((el) => [...el.children].map((c) => c.className.split(' ')[0]));
+      // The line sits between the author row and the title (prototype openPost('team')), inside
+      // the post's rounded box (owner, 2026-10-06).
+      const order = await art.locator('.p8-pv-box').evaluate((el) => [...el.children].map((c) => c.className.split(' ')[0]));
       expect(order.indexOf('ux-teamnote')).toBe(order.indexOf('p8-author') + 1);
       expect(order.indexOf('p8-post-t')).toBe(order.indexOf('ux-teamnote') + 1);
 

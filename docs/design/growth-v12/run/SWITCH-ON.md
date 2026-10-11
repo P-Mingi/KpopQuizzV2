@@ -11,9 +11,28 @@ wait in `editorial_drafts`, status `draft`, no date (run/EDITORIAL-DRAFTS.md).
 ## 0. The day before
 
 - Note the current production deployment URL (Vercel, project `quiz`, Deployments, the one marked Production).
-  It is the rollback target of section 7. Write it here: `______________________`.
+  It is the rollback target of section 7. Noted on 2026-10-05: `kpopquiz-5bonmsgow-p-mingis-projects.vercel.app`
+  (`dpl_CPRDSnFf57KbPGDzXnc4TxGk8X53`, merge of #92, flags off; also the target of the crons).
 - `node docs/release/snapshot.mjs --base https://kpopquiz.org --out docs/release/snapshots/before-v12.json`
-  (the 40-URL snapshot, flags off).
+  (the 40-URL snapshot, flags off). Taken on 2026-10-05 (`docs/release/snapshots/before-v12.json`).
+
+## Private production test (2026-10-05, before section 1)
+
+- Production build with the flags passed to that build only (Production variables untouched):
+  `vercel deploy --prod --skip-domain` with `--build-env` and `--env` `NEXT_PUBLIC_UX_V1=1`, `NEXT_PUBLIC_UX_V12=1`,
+  `NEXT_PUBLIC_BT_TRACKING=1`, plus `NEXT_PUBLIC_SITE_URL=https://kpopquiz-private.vercel.app` so that sign-in
+  comes back to the private address (the sign-in callback is built from that variable). Then
+  `vercel alias set <deployment> kpopquiz-private.vercel.app`.
+- Protected by Vercel Authentication (the project protects every address except the custom domains): without a
+  Vercel session every path answers 302 to vercel.com.
+- Supabase Auth, URL Configuration, Redirect URLs must list `https://kpopquiz-private.vercel.app/**`.
+- It reads and writes the production database: plays, runs (`bt_runs`), votes, live rooms (not marked test) are
+  real rows. Crons keep running on the public deployment only.
+- Vercel also moves the internal alias `kpopquiz-p-mingis-projects.vercel.app` to each `--prod` build (protected,
+  not a custom domain); kpopquiz.org and www stay on the public deployment.
+- A private build bakes the private address into `NEXT_PUBLIC_SITE_URL`: it must NOT be promoted. For section 2,
+  build once more from the same commit without that override (the Production variables then carry the flags) and
+  promote that one.
 - Read the 28 drafts in `run/EDITORIAL-DRAFTS.md`; reject or edit in `/admin/editorial` the ones you do not want.
   Do not approve any yet (section 4).
 

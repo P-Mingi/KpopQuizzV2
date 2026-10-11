@@ -10,16 +10,53 @@
 .ux-live-hostbar .ux-h1 { margin-top: 6px; }
 .ux-live-hostbar p { margin-top: 4px; }
 
-/* ---------- layout: host screen | phone ---------- */
-.ux-live-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; align-items: start; }
+/* ---------- layout: the host screen only (everyone plays on a phone at /join) ---------- */
+.ux-live-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start; }
 .ux-live-main { min-width: 0; }
+
+/* Game mode (room open, lobby to podium): the screen covers the page, site bar and
+   intro included, like a Kahoot host screen. Under the scrim (80), sheets (90) and
+   toasts (100), above the nav and the tab bar (60). */
+html.ux-live-lock, html.ux-live-lock body { overflow: hidden; }
+.ux-live-wrap.is-full {
+  position: fixed; inset: 0; z-index: 75; display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  background: var(--ux-page);
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 24px calc(16px + env(safe-area-inset-bottom, 0px));
+}
+.ux-live-wrap.is-full .ux-live-main { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.ux-live-wrap.is-full .ux-live-screen { flex: 1; aspect-ratio: auto; min-height: 0; padding: 28px 36px; }
+.ux-live-wrap.is-full .ux-live-ctl { justify-content: center; }
+.ux-live-wrap.is-full .ux-live-sh { font-size: 16px; }
+.ux-live-wrap.is-full .ux-live-logo { font-size: 18px; }
+.ux-live-wrap.is-full .ux-live-logo .ux-live-rabbit { width: 28px; height: 28px; }
+.ux-live-wrap.is-full .ux-live-h3 { font-size: clamp(28px, 3.4vw, 48px); line-height: 1.35; }
+.ux-live-wrap.is-full .ux-live-orb, .ux-live-wrap.is-full .ux-live-orb svg { width: 140px; height: 140px; }
+.ux-live-wrap.is-full .ux-live-orb b { font-size: 44px; }
+.ux-live-wrap.is-full .ux-live-answered { font-size: 18px; }
+.ux-live-wrap.is-full .ux-live-qrbox { width: min(300px, 34vh); padding: 14px; }
+.ux-live-wrap.is-full .ux-live-qrbox svg { width: 100%; height: auto; }
+.ux-live-wrap.is-full .ux-live-url { font-size: 30px; }
+.ux-live-wrap.is-full .ux-live-code { font-size: clamp(64px, 9vw, 112px); }
+.ux-live-wrap.is-full .ux-live-players { max-height: 30vh; }
+.ux-live-wrap.is-full .ux-live-lobby { grid-template-columns: auto minmax(0, auto); justify-content: center; gap: 48px; }
+.ux-live-wrap.is-full .ux-live-board { max-width: 720px; }
+.ux-live-wrap.is-full .ux-live-br { height: 56px; font-size: 20px; }
+
+/* During the game: the join QR and code, small, top right of the screen. */
+.ux-live-mini { position: absolute; top: 14px; right: 16px; display: flex; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 14px; background: var(--ux-raised); box-shadow: inset 0 0 0 1px var(--ux-line); }
+.ux-live-mini-qr { display: block; width: 64px; height: 64px; border-radius: 8px; overflow: hidden; }
+.ux-live-mini-qr svg { display: block; width: 100%; height: 100%; }
+.ux-live-mini-t { display: flex; flex-direction: column; font-size: 12px; color: var(--ux-muted); line-height: 1.3; }
+.ux-live-mini-t b { font: 800 22px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .06em; color: var(--ux-pink-ink); }
+.ux-live-screen[data-state="round"] .ux-live-sh, .ux-live-screen[data-state="reveal"] .ux-live-sh,
+.ux-live-screen[data-state="board"] .ux-live-sh, .ux-live-screen[data-state="ended"] .ux-live-sh { padding-right: 190px; min-height: 64px; }
 
 /* ---------- the host screen ---------- */
 .ux-live-screen { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-radius: 22px; background: var(--ux-host-bg); border: 1px solid var(--ux-qotd-edge); overflow: hidden; padding: 26px 30px; display: flex; flex-direction: column; }
 .ux-live-sh { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--ux-muted); }
 .ux-live-sh b { color: var(--ux-ink); }
 .ux-live-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ux-ink); font-size: 14px; }
-.ux-live-logo i { width: 22px; height: 22px; border-radius: 6px; background: var(--ux-pink-fill); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 12px; font-weight: 800; }
+.ux-live-logo .ux-live-rabbit { width: 22px; height: 22px; flex: none; }
 .ux-live-sfoot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 12px; font-size: 14px; color: var(--ux-muted); }
 .ux-live-sfoot b { color: var(--ux-ink); }
 
@@ -100,7 +137,6 @@
 .ux-live-phone { position: sticky; top: 88px; width: 100%; max-width: 280px; margin: 0 auto; aspect-ratio: 9 / 19; border-radius: 40px; background: #1F1B17; padding: 10px; box-shadow: var(--ux-shadow-ov), 0 0 0 1px var(--ux-edge); }
 .ux-live-scr { position: relative; height: 100%; border-radius: 32px; background: var(--ux-page); overflow: hidden; display: flex; flex-direction: column; padding: 34px 16px 18px; }
 .ux-live-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 84px; height: 22px; border-radius: 12px; background: #1F1B17; z-index: 2; }
-.ux-live-cap { margin-top: 14px; font-size: 13px; color: var(--ux-muted); text-align: center; }
 .ux-live-pbody { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 .ux-live-ptop { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ux-muted); min-height: 15px; }
 .ux-live-ptop b { color: var(--ux-ink); }
@@ -139,6 +175,15 @@
 }
 @media (max-width: 760px) {
   .ux-live-screen { aspect-ratio: auto; min-height: 420px; padding: 18px; }
+  .ux-live-wrap.is-full { padding-left: 12px; padding-right: 12px; }
+  .ux-live-wrap.is-full .ux-live-screen { padding: 18px; }
+  .ux-live-wrap.is-full .ux-live-lobby { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .ux-live-wrap.is-full .ux-live-qrbox { width: 200px; }
+  .ux-live-wrap.is-full .ux-live-url { font-size: 22px; }
+  .ux-live-mini { top: auto; bottom: 12px; right: 12px; }
+  .ux-live-mini-qr { width: 48px; height: 48px; }
+  .ux-live-screen[data-state] .ux-live-sh { padding-right: 0; min-height: 0; }
+  .ux-live-screen[data-state="round"], .ux-live-screen[data-state="reveal"], .ux-live-screen[data-state="board"], .ux-live-screen[data-state="ended"] { padding-bottom: 84px; }
   .ux-live-lobby { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
   .ux-live-qrbox { width: 150px; }
   .ux-live-qrbox svg { width: 126px; height: 126px; }

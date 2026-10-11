@@ -6,10 +6,12 @@ import { UxRow } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { TeamNote } from '@/components/ux-v1/team';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { comma, levelLine, plural } from '@/lib/ux-v1/p8/format';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { FollowButton, LikeButton, ReportButton, ShareButton } from './actions';
+import type { ReportTarget } from './actions';
 import { cardMeta } from './feed-card';
 import { DailyDebateVote, FanDebateVote } from './post-debate';
 import { Replies } from './replies';
@@ -33,6 +35,8 @@ function moreSub(p: FeedPost): string {
 
 function replyContext(post: P8Post, fandom: string | null): { placeholder: string; chip: string | null } {
   if (post.kind === 'challenge' && post.challenge) return { placeholder: 'Reply with your score', chip: `Their score: ${post.challenge.score}/${post.challenge.total}` };
+  // v12: the daily debate's own comment box, independent of the vote (open or closed).
+  if (post.kind === 'debate' && post.debate?.daily) return { placeholder: 'Write a comment', chip: null };
   if (post.kind === 'debate') return { placeholder: 'Reply', chip: null };
   return { placeholder: 'Write a reply', chip: fandom ? `Replying in ${fandom}` : null };
 }
@@ -48,6 +52,13 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
   const meta = a ? [team ? '' : levelLine(a, true), post.ago].filter(Boolean).join(' · ') : cardMeta(post);
   const ctx = replyContext(post, group && group.slug !== 'general-kpop' ? group.name : null);
   const heart = post.likes === null ? null : <LikeButton type={post.likeType} id={post.key} count={post.likes} />;
+  // v12 community content: the post and its replies take a Report button (3 reports hide it).
+  const reportable = isUxV12() && (post.community === true || ((post.kind === 'debate' && !post.debate?.daily) || post.kind === 'challenge') && !post.editorialId);
+  const report: ReportTarget | null = !reportable || !/^\d+$/.test(post.key) ? null
+    : { type: post.kind === 'blog' ? 'essay' : post.kind, id: Number(post.key) };
+  // v12 (owner, 2026-10-06): every comment and reply takes Report, the daily debate's and
+  // a Team post's included; Verse threads and blogs (not posted from /community) keep theirs off.
+  const repliesReportable = reportable || (isUxV12() && ((post.kind === 'debate' && post.debate?.daily === true) || !!post.editorialId));
 
   return (
     <>
@@ -60,8 +71,12 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           <span aria-current="page">{KIND_LABEL[post.kind]}</span>
         </nav>
 
+        {/* The post in a rounded box (owner, 2026-10-06): author, title, body, votes,
+            likes and share; the crumb stays above it. */}
+        <div className="p8-pv-box">
+
         <div className="p8-author">
-          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a?.avatarUrl ?? null} size={36} />}
+          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a ? a.avatarUrl ?? null : SITE_AVATAR_SRC} size={36} />}
           {/* team: a relative line height, so the Team pill gets the prototype's 17.6px (the
               row's 22.4px is absolute); inline, so the v11 stylesheet keeps its bytes */}
           <span className="p8-author-t" style={team ? { lineHeight: 1.6 } : undefined}>
@@ -74,6 +89,13 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
         {team ? <TeamNote surface="post" /> : null}
 
         <Title className="p8-post-t" id="p8-post-t" tabIndex={-1}>{post.title}</Title>
+
+        {post.photo ? (
+          <div className="p8-post-cover">
+            {/* eslint-disable-next-line @next/next/no-img-element -- a community thread's photo, checked on upload */}
+            <img src={post.photo} alt="" />
+          </div>
+        ) : null}
 
         {post.blog?.coverUrl ? (
           <div className="p8-post-cover">
@@ -125,12 +147,13 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
           {heart}
           <a href="#replies" className="ux-pa2" aria-label={plural(post.commentCount, 'reply', 'replies')}><Icon name="msg" />{comma(post.commentCount)}</a>
           <ShareButton path={post.href} title={post.title} line2={['Community', group?.name].filter(Boolean).join(' · ')} image={post.blog?.coverUrl ?? null} />
-          {post.openingCommentId ? <ReportButton commentId={post.openingCommentId} /> : null}
+          {report ? <ReportButton target={report} /> : post.openingCommentId ? <ReportButton commentId={post.openingCommentId} /> : null}
+        </div>
         </div>
       </article>
 
-      <section className="ux-sec" id="replies" aria-labelledby="p8-rep-h">
-        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} />
+      <section className="ux-sec p8-rep-box" id="replies" aria-labelledby="p8-rep-h">
+        <Replies post={post} likesLive={likesLive} chip={ctx.chip} placeholder={ctx.placeholder} reportable={repliesReportable} />
       </section>
 
       {more.length ? (
