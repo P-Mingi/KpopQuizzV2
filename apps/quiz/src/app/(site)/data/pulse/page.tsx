@@ -12,7 +12,7 @@ const SITE_URL = 'https://kpopquiz.org';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Monthly K-pop Pulse - First-Party Fan Data from kpopquiz.org',
+  title: 'Monthly K-pop Pulse: First-Party Fan Data',
   description:
     'A monthly K-pop data report from kpopquiz.org: the fandom of the month by real quiz plays, the most-played quizzes, fan duel verdicts, and honest community growth. First-party, dated, and free to cite with a link.',
   openGraph: {

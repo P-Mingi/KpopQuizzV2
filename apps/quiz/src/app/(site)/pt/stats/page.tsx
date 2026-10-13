@@ -11,7 +11,7 @@ import type { SiteStats } from '@/lib/db/queries/stats';
 export const revalidate = 604800;
 
 export const metadata: Metadata = {
-  title: 'Estatisticas do KpopQuiz: Dados ao Vivo sobre Quizzes, Musicas e Grupos de K-pop',
+  title: 'Estatisticas de K-pop ao Vivo: Quizzes e Grupos',
   description:
     'Estatisticas em tempo real do kpopquiz.org: total de quizzes, musicas, jogadas e cobertura de grupos em 5 geracoes de K-pop. Atualizado semanalmente.',
   openGraph: {

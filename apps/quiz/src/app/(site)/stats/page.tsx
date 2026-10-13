@@ -16,7 +16,7 @@ export const revalidate = 3600;
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: `K-pop Quiz Statistics ${YEAR} - Fan Data from kpopquiz.org`,
+  title: `K-pop Quiz Statistics ${YEAR}: Live Fan Data`,
   description:
     'Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts. Free to cite with a link.',
   openGraph: {
