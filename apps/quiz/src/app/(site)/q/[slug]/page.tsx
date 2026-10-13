@@ -262,7 +262,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   }
 
   // Conditional trivia entry point: only shown when this group actually has a
-  // trivia page (>=12 facts post-override), so ineligible groups link nowhere.
+  // trivia page (>= TRIVIA_MIN_FACTS facts post-override), so ineligible groups link nowhere.
   const triviaAvailable = await safeFetch(
     hasTriviaPage(quiz.group_id, quiz.group_slug),
     false,

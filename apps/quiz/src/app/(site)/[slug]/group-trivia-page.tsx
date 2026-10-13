@@ -11,6 +11,7 @@ import { getGroupNameAllGame, getGroupBlindtestInfo } from '@/lib/db/queries/gro
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -102,8 +103,8 @@ function TriviaFactCard({ item }: { item: TriviaFact }) {
 // caller already resolved it to run the TRIVIA_MIN_FACTS eligibility gate, and
 // getOverriddenFacts is cache()'d, so this costs no extra query). Leading with
 // it gives every trivia page a concrete, true reason to click instead of one
-// generic title shared by all 37 of them. The gate guarantees >= 12, so the
-// count is always plural.
+// generic title shared by all 37 of them. The gate guarantees >= TRIVIA_MIN_FACTS
+// (9), so the count is always plural.
 export function generateGroupTriviaMetadata(group: Group, factCount: number): Metadata {
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
@@ -139,7 +140,8 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
     safeFetch(getGroupContentDate(group.id), null, '[group-trivia] getGroupContentDate'),
   ]);
 
-  if (uniqueFacts.length < 12) {
+  // The same floor as the route's metadata gate and the sitemap (one constant, never a copy).
+  if (uniqueFacts.length < TRIVIA_MIN_FACTS) {
     notFound();
   }
 
