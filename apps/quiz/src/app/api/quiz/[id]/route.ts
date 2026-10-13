@@ -2,8 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { validateQuestions } from '@/lib/quiz-validation';
+import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 
 import type { NextRequest } from 'next/server';
+
+/** The slug of a quiz's embedded group (PostgREST returns an object or a one-row array). */
+function groupSlugOf(groups: unknown): string | null {
+  const g = Array.isArray(groups) ? groups[0] : groups;
+  return g && typeof g === 'object' && typeof (g as { slug?: unknown }).slug === 'string' ? (g as { slug: string }).slug : null;
+}
 
 export async function PUT(
   request: NextRequest,
@@ -20,7 +27,7 @@ export async function PUT(
   // Verify ownership
   const { data: existing } = await supabase
     .from('quizzes')
-    .select('id, creator_id, slug, status')
+    .select('id, creator_id, slug, status, groups(slug)')
     .eq('id', id)
     .single();
 
@@ -121,6 +128,13 @@ export async function PUT(
     return NextResponse.json({ error: 'Failed to update quiz', detail: updateError.message, code: updateError.code }, { status: 500 });
   }
 
+  // SEO: the edited quiz page and the hubs it is listed on (the old group's and, when
+  // the edit moved it, the new one's) show the edit now; IndexNow hears of it.
+  if (existing.status === 'published') {
+    const { data: newGroup } = await supabase.from('groups').select('slug').eq('id', input.group_id as number).maybeSingle();
+    onQuizChanged('edited', existing.slug, [groupSlugOf(existing.groups), (newGroup as { slug: string } | null)?.slug]);
+  }
+
   return NextResponse.json({ success: true, slug: existing.slug });
 }
 
@@ -144,7 +158,7 @@ export async function DELETE(
 
   const { data: existing } = await supabase
     .from('quizzes')
-    .select('id, creator_id, status')
+    .select('id, creator_id, status, slug, groups(slug)')
     .eq('id', id)
     .maybeSingle();
 
@@ -167,6 +181,10 @@ export async function DELETE(
     console.error('Failed to delete own quiz:', removeError);
     return NextResponse.json({ error: 'Failed to delete quiz' }, { status: 500 });
   }
+
+  // SEO: the quiz page answers 404 now (not after its hour of ISR), it leaves its hub,
+  // /new and the sitemap, and IndexNow hears of the removal.
+  onQuizChanged('removed', existing.slug, [groupSlugOf(existing.groups)]);
 
   return NextResponse.json({ success: true });
 }
