@@ -17,6 +17,11 @@ import type { MetadataRoute } from 'next';
 
 const SITE_URL = 'https://kpopquiz.org';
 
+// SEO (owner, 2026-10-13): the sitemap is rebuilt hourly, not only at deploy. A quiz
+// created today is listed within the hour, with no deploy (it used to wait for the
+// next one). Every read below is bounded, so a regeneration can never hang.
+export const revalidate = 3600;
+
 // Caps to prevent timeouts as the dataset grows. Google's sitemap limit is
 // 50,000 URLs per file, so anything above these values should eventually be
 // split into sub-sitemaps. For now a safe ceiling.
@@ -25,14 +30,18 @@ const QUIZZES_LIMIT = 10000;
 // LASTMOD honesty (SEO audit v2): evergreen pages (legal/info) carry a STABLE
 // date so we stop emitting `new Date()` every deploy - false "changed today"
 // signals poison Google's recrawl prioritization. Catalog-driven pages instead
-// carry `contentDate` = the newest quiz updated_at (computed at request time),
+// carry `contentDate` = the newest quiz created_at (computed at request time),
 // and each group page carries its own group's newest quiz date. Terms/Privacy
 // keep their own real edit dates.
+//
+// created_at, never updated_at (owner, 2026-10-13): record_play bumps a quiz's
+// updated_at on every play, so it said "changed" for every quiz played that day.
+// A lastmod that is wrong that often is one Google learns to ignore site-wide.
 const STATIC_DATE = new Date('2026-06-15');
 const TERMS_DATE = new Date('2026-03-27');
 
 // URLs whose content is derived from the live quiz catalogue: their lastmod is
-// the newest quiz updated_at, not the deploy time.
+// the newest quiz created_at, not the deploy time.
 const CATALOG_PATHS = new Set<string>([
   '', '/groups', '/data/knowledge-report-2026', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
   '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
@@ -223,12 +232,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 15s is generous (sitemap usually finishes <5s) and well under Vercel's
     // 60s per-page build cap. On timeout we emit just the static URLs below.
     type Row = { data: Array<Record<string, unknown>> | null };
+    type QuizRow = { slug: string; created_at: string; group_id: number | null; questions: unknown; title: string; question_count: number | null; play_count: number | null; like_count: number | null };
     const SITEMAP_BATCH_TIMEOUT_MS = 15000;
     const timeoutSentinel = Symbol('sitemap-batch-timeout');
     const raced = await Promise.race([
       Promise.all([
-        supabase.from('quizzes').select('slug, updated_at, group_id, questions, title, question_count, play_count, like_count').eq('status', 'published').order('updated_at', { ascending: false }).limit(QUIZZES_LIMIT),
-        supabase.from('groups').select('id, slug, quiz_count'),
+        // Paginated past the 1000-row PostgREST cap (recorded law): a plain .limit()
+        // silently stopped at 1000 published quizzes. Ordered by a unique key so
+        // pages never overlap.
+        fetchAllRows<QuizRow>(
+          () => supabase.from('quizzes').select('slug, created_at, group_id, questions, title, question_count, play_count, like_count').eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
+        ).then((rows) => ({ data: rows.slice(0, QUIZZES_LIMIT) })),
+        supabase.from('groups').select('id, slug'),
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
         getAdvertisablePlaylists(),
@@ -240,15 +255,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       throw new Error('sitemap batch timeout');
     }
     const [quizzesResult, groupsResult, advertisablePlaylists] =
-      raced as [Row, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>];
+      raced as [{ data: QuizRow[] }, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>];
 
-    // LASTMOD: quizzes are ordered updated_at desc, so [0] is the newest content
-    // change on the site. Also fold the per-group newest date for group pages.
-    const quizRows = (quizzesResult.data ?? []) as Array<{ slug: string; updated_at: string; group_id: number | null; title: string; question_count: number | null; play_count: number | null; like_count: number | null }>;
-    if (quizRows[0]?.updated_at) contentDate = new Date(quizRows[0].updated_at);
+    // LASTMOD: quizzes are ordered created_at desc, so [0] is the newest content
+    // on the site. Also fold the per-group newest date and the per-group count of
+    // published quizzes for group pages.
+    const quizRows = quizzesResult.data;
+    if (quizRows[0]?.created_at) contentDate = new Date(quizRows[0].created_at);
+    const publishedByGroup = new Map<number, number>();
     for (const q of quizRows) {
-      if (q.group_id == null || !q.updated_at) continue;
-      const d = new Date(q.updated_at);
+      if (q.group_id == null) continue;
+      publishedByGroup.set(q.group_id, (publishedByGroup.get(q.group_id) ?? 0) + 1);
+      if (!q.created_at) continue;
+      const d = new Date(q.created_at);
       const prev = groupLatest.get(q.group_id);
       if (!prev || d > prev) groupLatest.set(q.group_id, d);
     }
@@ -272,19 +291,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const slugByGroupId = new Map<number, string>(
       (groupsResult.data ?? []).map((g) => [g.id as number, g.slug as string]),
     );
-    const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(
-      (quizzesResult.data ?? []) as Array<{ group_id: number | null; slug: string; questions: unknown }>,
-      slugByGroupId,
-    );
+    const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(quizRows, slugByGroupId);
 
-    groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string; quiz_count: number | null }>).flatMap((g) => {
+    groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string }>).flatMap((g) => {
       const entries: MetadataRoute.Sitemap = [];
       // Honest lastmod: the group page changes when one of its quizzes changes.
       const groupDate = groupLatest.get(g.id) ?? contentDate;
 
-      // `-quiz` page renders an empty "be the first" state when quiz_count
-      // is 0 - thin content that Google soft-404s. Skip those.
-      if ((g.quiz_count ?? 0) > 0) {
+      // `-quiz` page renders an empty "be the first" state when the group has no
+      // published quiz - thin content that Google soft-404s. Skip those. Counted
+      // from the published rows above, not groups.quiz_count (a stored counter
+      // that also counts drafts and removed quizzes).
+      if ((publishedByGroup.get(g.id) ?? 0) > 0) {
         entries.push({
           url: `${SITE_URL}/${g.slug}-quiz`,
           lastModified: groupDate,
@@ -326,7 +344,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     quizPages = [...bestByTitle.values()].map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
-      lastModified: new Date(q.updated_at),
+      lastModified: new Date(q.created_at),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));

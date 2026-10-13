@@ -54,9 +54,20 @@ export const getGroupBySlug = unstable_cache(
       throw new Error(`Failed to fetch group: ${error.message}`);
     }
 
-    return data as Group;
+    // SEO (owner, 2026-10-13): quiz_count is a stored counter that also counts drafts
+    // and removed quizzes (BLACKPINK said 29, 24 are published), and the hub's title,
+    // description and JSON-LD print it ("29+ free BLACKPINK quizzes"). The group read
+    // carries the published count instead; a failed count keeps the stored one.
+    const group = data as Group;
+    const { count, error: countError } = await supabase
+      .from('quizzes')
+      .select('id', { count: 'exact', head: true })
+      .eq('group_id', group.id)
+      .eq('status', 'published');
+    if (!countError && typeof count === 'number') group.quiz_count = count;
+    return group;
   },
-  ['db:groups:getGroupBySlug:v1'],
+  ['db:groups:getGroupBySlug:v2'],
   { revalidate: CACHE_TTL.catalog, tags: ['groups'] },
 );
 
