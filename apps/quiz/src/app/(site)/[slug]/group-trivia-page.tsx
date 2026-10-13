@@ -15,6 +15,7 @@ import { getOverriddenFacts } from '@/lib/trivia/facts';
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 import type { TriviaCategory, TriviaFact } from '@/lib/trivia/types';
+import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 
 // Fact types, categorization, dedup, fetching + the override layer now live in
 // src/lib/trivia/* (shared with hasTriviaPage and the corpus extraction script).
@@ -251,20 +252,23 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
 
       {/* W-NAV step 5: crawlable cross-link into the group's Verse space (mirrors
           the quiz hub). Additive <a>, SEO-positive; closes the trivia -> Verse gap. */}
-      <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
-        <span className="trivia-entry-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+      {/* SEO (2026-10-13): only when the space is open; /verse/<slug> 302s while the Verse is closed. */}
+      {verseSpaceOpen(group.slug) ? (
+        <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Explore the {group.fandom_name} space on Verse</span>
+            <span className="trivia-entry-sub">Members, discography, timeline and community for {group.name}</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </span>
-        <span className="trivia-entry-text">
-          <span className="trivia-entry-title">Explore the {group.fandom_name} space on Verse</span>
-          <span className="trivia-entry-sub">Members, discography, timeline and community for {group.name}</span>
-        </span>
-        <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </Link>
+        </Link>
+      ) : null}
 
       {/* JSON-LD */}
       <script

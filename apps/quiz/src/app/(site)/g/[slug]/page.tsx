@@ -17,7 +17,10 @@ export const revalidate = 60;
 export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
   const { slug } = await params;
   const game = await getGameBySlug(slug);
-  if (!game) return {};
+  // SEO (owner, 2026-10-13): only a blind test game has a page. Deciding it here, before the
+  // body renders, gives a true 404 (the body's notFound() came after a 200 had been sent: a
+  // soft 404 with an injected noindex on about 50 retired game URLs).
+  if (!game || game.game_type !== 'blind_test') notFound();
 
   if (game.game_type === 'blind_test') {
     const content = game.content as BlindTestContent;

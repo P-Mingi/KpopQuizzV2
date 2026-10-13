@@ -27,6 +27,8 @@ import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
+import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
 
@@ -73,51 +75,38 @@ interface QuizPageProps {
   params: Promise<{ slug: string }>;
 }
 
+/**
+ * The quiz row, or a true 404 when no published quiz has this slug. SEO (owner, 2026-10-13):
+ * a failed or slow read THROWS instead of falling back to null. With the null fallback a
+ * database blip became a cached "not found" (noindex) for an hour on a real, indexed quiz;
+ * thrown, the render fails uncached and ISR keeps serving the last good page.
+ */
+async function quizOr404(slug: string): Promise<NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>> {
+  const TIMEOUT = Symbol('timeout');
+  const quiz = await Promise.race([
+    getQuizBySlug(slug),
+    new Promise<typeof TIMEOUT>((resolve) => setTimeout(() => resolve(TIMEOUT), 8000)),
+  ]);
+  if (quiz === TIMEOUT) throw new Error(`[q/[slug]] getQuizBySlug timed out for ${slug}`);
+  if (!quiz) notFound();
+  return quiz;
+}
+
 export async function generateMetadata({ params }: QuizPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const quiz = await safeFetch(getQuizBySlug(slug), null, '[q/[slug] metadata] getQuizBySlug');
-
-  if (!quiz) notFound();
+  const quiz = await quizOr404(slug);
 
   const questionLen = (quiz.questions as unknown[]).length;
   const avgScore = avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
-  // SEO indexguard PART 4: the creator's own note (unique, human) beats the template
-  // description when present. Re-sanitized on read (defense in depth + old rows), and
-  // trimmed to a meta-friendly length (Google truncates ~155).
+  // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
+  // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
-  // CTR sprint W1: the template used to name the GROUP but never the quiz itself,
-  // so two different quizzes in the same group with the same difficulty, question
-  // count, creator, play count and average rendered a byte-identical description
-  // (check:metadata-dupes caught 2 such pairs live). Leading with the quiz's own
-  // title makes it vary by construction, and it is better copy: the searcher sees
-  // what this specific quiz is about.
-  const templateDescription = `${quiz.title}: a ${quiz.difficulty} ${questionLen}-question K-pop quiz on ${quiz.group_name}, made by ${quiz.creator_username}.${
-    avgScore !== null
-      ? ` ${quiz.play_count.toLocaleString('en-US')} fans have played it, scoring ${avgScore}% on average.`
-      : ` Played by ${quiz.play_count.toLocaleString('en-US')} fans.`
-  } Can you beat them?`;
-  const description = creatorNote
-    ? (creatorNote.length > 155 ? `${creatorNote.slice(0, 152).trimEnd()}...` : creatorNote)
-    : templateDescription;
-
-  // Unique, descriptive <title>: "<Quiz Title> - <N> questions" (layout template
-  // appends " | KpopQuiz"). Distinct per quiz so Google stops sampling templates.
-  // Bing flagged long titles: keep the rendered <title> (core + " | KpopQuiz")
-  // under ~60 chars. Add the question count only when it fits; truncate a very
-  // long user title rather than overflow.
-  // CTR sprint W1: head-truncation collided. Quiz titles in this catalogue are
-  // routinely distinguished by their LAST few words ("... girl groups" vs
-  // "... boy groups", "... artists (2)"), so cutting the tail off made two
-  // different quizzes render one identical title. Ellipsize the MIDDLE instead:
-  // the head keeps the keyword, the tail keeps what makes this quiz distinct.
-  const countSuffix = ` · ${questionLen} questions`;
-  const titleRoom = 49 - countSuffix.length;
-  const TAIL = 12;
-  const titleCore = quiz.title.length <= titleRoom
-    ? quiz.title
-    : `${quiz.title.slice(0, titleRoom - 3 - TAIL).trimEnd()}...${quiz.title.slice(-TAIL).trimStart()}`;
-  const title = `${titleCore}${countSuffix}`;
+  const description = quizDescription({
+    title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
+    creator: quiz.creator_username, plays: quiz.play_count, avgScore, creatorNote: creatorNote ?? null,
+  });
+  const title = quizTitle(quiz.title, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
@@ -142,9 +131,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
 
 export default async function QuizPage({ params }: QuizPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  const quiz = await safeFetch(getQuizBySlug(slug), null, '[q/[slug]] getQuizBySlug');
-
-  if (!quiz) notFound();
+  const quiz = await quizOr404(slug);
 
   const questionCount = (quiz.questions as unknown[]).length;
 
@@ -240,12 +227,24 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   // SEO Fix 3: related quizzes - same group first (by plays), topped up with
   // popular quizzes so every quiz page exposes 4-6 crawlable <a href> links.
-  const sameGroup = await safeFetch(
-    getQuizzesByGroup(quiz.group_id, 'popular', 0, 8),
-    [],
-    '[q/[slug]] related sameGroup',
-  );
-  const related = sameGroup.filter((q) => q.id !== quiz.id).slice(0, 6);
+  // SEO (2026-10-13): half most played, half newest. Every quiz page of a group then links
+  // the group's newest quizzes, so a new quiz is reached from pages Google already knows
+  // (with the most played only, every page of a group showed the same six cards).
+  const [sameGroup, newestInGroup] = await Promise.all([
+    safeFetch(getQuizzesByGroup(quiz.group_id, 'popular', 0, 8), [], '[q/[slug]] related sameGroup'),
+    safeFetch(getQuizzesByGroup(quiz.group_id, 'newest', 0, 8), [], '[q/[slug]] related newest'),
+  ]);
+  const related: typeof sameGroup = [];
+  {
+    const seen = new Set<string>([quiz.id]);
+    const popularPick = sameGroup.filter((q) => !seen.has(q.id));
+    const newestPick = newestInGroup.filter((q) => !seen.has(q.id));
+    for (let i = 0; related.length < 6 && (i < popularPick.length || i < newestPick.length); i++) {
+      for (const q of [popularPick[i], newestPick[i]]) {
+        if (q && !seen.has(q.id) && related.length < 6) { related.push(q); seen.add(q.id); }
+      }
+    }
+  }
   if (related.length < 4) {
     const popular = await safeFetch(
       getBrowseQuizzes({ sort: 'most_played', offset: 0, limit: 12 }),
@@ -369,7 +368,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       url: `https://kpopquiz.org/u/${quiz.creator_username}`,
     },
     dateCreated: quiz.created_at,
-    dateModified: quiz.updated_at,
+    // Not updated_at: record_play bumps it on every play (a play is not an edit).
+    dateModified: quiz.created_at,
     interactionStatistic: [
       {
         '@type': 'InteractionCounter',
@@ -405,7 +405,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       .filter((text): text is string => typeof text === 'string' && text.length > 0)
       .map((text) => ({ '@type': 'Question', name: text })),
     numberOfQuestions: questionCount,
-    inLanguage: 'en',
+    inLanguage: quiz.language && /^[a-z]{2}$/.test(quiz.language) ? quiz.language : 'en',
     url: `https://kpopquiz.org/q/${quiz.slug}`,
   };
 
