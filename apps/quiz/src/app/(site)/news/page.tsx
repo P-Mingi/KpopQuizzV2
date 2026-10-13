@@ -5,6 +5,9 @@ import { Mascot } from '@/components/ui/mascot';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
 
+import { compareFeedDatesDesc, feedTimeAgo } from './feed-date';
+import { newsItemListLd } from './news-ld';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -24,6 +27,7 @@ export const revalidate = 3600;
 interface FeedItem {
   title: string;
   link: string;
+  /** The feed's raw pubDate ('' when absent); may be unparseable, read via ./feed-date. */
   date: string;
   source: string;
   image: string | null;
@@ -130,7 +134,8 @@ async function fetchFeed(url: string, source: string): Promise<FeedItem[]> {
       items.push({
         title,
         link,
-        date: pubDate || new Date().toISOString(),
+        // No pubDate stays '' (no time label, sorted last), never a made-up "now".
+        date: pubDate,
         source,
         image: extractImage(itemXml),
       });
@@ -158,18 +163,6 @@ async function enrichWithOgImages(items: FeedItem[]): Promise<FeedItem[]> {
     });
   }
   return items;
-}
-
-function timeAgo(dateStr: string): string {
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  if (isNaN(then)) return '';
-  const mins = Math.floor((now - then) / 60000);
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  return `${days}d ago`;
 }
 
 interface GroupMatch {
@@ -212,6 +205,13 @@ function SourceBadge({ source }: { source: string }): React.ReactElement {
       {source}
     </span>
   );
+}
+
+// The relative time of a headline; omitted (not "NaNm ago", not a throw) when the
+// feed date is missing or unparseable.
+function FeedTime({ date }: { date: string }): React.ReactElement | null {
+  const label = feedTimeAgo(date);
+  return label ? <span className="nw-time">{label}</span> : null;
 }
 
 function ArticleImage({
@@ -365,7 +365,7 @@ export default async function NewsPage(): Promise<React.ReactElement> {
   const allItems = await enrichWithOgImages(
     feedResults
       .flat()
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .sort((a, b) => compareFeedDatesDesc(a.date, b.date))
       .slice(0, 40),
   );
 
@@ -381,24 +381,14 @@ export default async function NewsPage(): Promise<React.ReactElement> {
   const gridItems = allItems.slice(1);
   const seenFunnels = new Set<string>();
 
-  // NewsArticle JSON-LD per item. Publisher is the REAL source (allkpop /
-  // Soompi / Koreaboo), never kpopquiz - we aggregate and link out, we do not
-  // publish these, so claiming otherwise would be dishonest provenance.
-  const newsLd = {
-    '@context': 'https://schema.org',
-    '@graph': allItems.slice(0, 20).map((it) => ({
-      '@type': 'NewsArticle',
-      headline: it.title,
-      url: it.link,
-      datePublished: new Date(it.date).toISOString(),
-      ...(it.image ? { image: it.image } : {}),
-      publisher: { '@type': 'Organization', name: it.source },
-    })),
-  };
+  // SEO (owner, 2026-10-13): an ItemList of the outbound headlines shown, not one
+  // NewsArticle per item. These articles are allkpop / Soompi / Koreaboo pages, not
+  // ours; see ./news-ld.
+  const newsLd = newsItemListLd(allItems);
 
   return (
     <div className="nw-page">
-      {allItems.length > 0 && (
+      {newsLd && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLdString(newsLd) }}
@@ -442,7 +432,7 @@ export default async function NewsPage(): Promise<React.ReactElement> {
               <div className="nw-hero-overlay">
                 <div className="nw-hero-meta">
                   <SourceBadge source={hero.source} />
-                  <span className="nw-time">{timeAgo(hero.date)}</span>
+                  <FeedTime date={hero.date} />
                 </div>
                 <h2 className="nw-hero-title">{hero.title}</h2>
                 <GroupPills mentions={heroMentions} />
@@ -480,7 +470,7 @@ export default async function NewsPage(): Promise<React.ReactElement> {
                     <div className="nw-card-body">
                       <div className="nw-card-meta">
                         <SourceBadge source={item.source} />
-                        <span className="nw-time">{timeAgo(item.date)}</span>
+                        <FeedTime date={item.date} />
                       </div>
                       <p className="nw-card-title">{item.title}</p>
                     </div>

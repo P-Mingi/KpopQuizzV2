@@ -1,6 +1,8 @@
 // Server reads for the v11 /quizzes browse (P2). Public data only (cookie-free
 // client, RLS applies), every read cached at the stats TTL like the live page's
-// reads (FREE-VIABILITY), and only called when NEXT_PUBLIC_UX_V1 is on.
+// reads (FREE-VIABILITY), and only called when NEXT_PUBLIC_UX_V1 is on. One
+// exception, SEO (owner, 2026-10-13): /quizzes generateMetadata (both flags) reads
+// getP2FacetRows for ?page=N to know the last page (see app/(site)/quizzes/index-rule).
 //
 // Parity by construction: a view the live page can show (no Level) is read with
 // the live query itself (getBrowseQuizzes, same params, same cache entry), so the
