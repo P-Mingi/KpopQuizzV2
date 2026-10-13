@@ -6,6 +6,7 @@ import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
 import { BlindtestGroupV12, groupBlindtestMetadata } from '@/components/blindtest/ux-v1/group-page';
 import { BlindtestModeV11 } from '@/components/blindtest/ux-v1/mode-page';
 import { BlindtestThemeV12, themeMetadata } from '@/components/blindtest/ux-v1/theme-page';
+import { DUPLICATE_CANONICAL, isDuplicateMode } from '@/lib/growth/bt-mode-pool';
 import { isThemePage, themeById } from '@/lib/growth/bt-themes';
 import { UX_V1 } from '@/lib/ux-v1';
 import { getPlayableGroups, hasDbEnv, settle } from '@/lib/ux-v1/p6/hub-data';
@@ -94,7 +95,8 @@ export async function generateMetadata({ params }: ModePageProps): Promise<Metad
   return {
     title: `${mode.title} - K-pop Blind Test`,
     description: `${mode.description}. ${mode.song_count} songs, ${mode.clip_duration}s clips.`,
-    alternates: { canonical: `/blindtest/${mode.id}` },
+    // V12 (owner, 2026-10-13: SEO): a mode that plays the classic pool points at the classic page.
+    alternates: { canonical: isUxV12() && isDuplicateMode(mode.id) ? DUPLICATE_CANONICAL : `/blindtest/${mode.id}` },
   };
 }
 

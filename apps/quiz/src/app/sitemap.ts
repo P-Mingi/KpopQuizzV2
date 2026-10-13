@@ -8,6 +8,7 @@ import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
 import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
+import { isDuplicateMode } from '@/lib/growth/bt-mode-pool';
 import { isThemePage } from '@/lib/growth/bt-themes';
 import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
@@ -170,6 +171,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       listedModes = STATIC_MODES.filter((m) => !isThemePage(m.id));
     }
   }
+  // V12: a mode that plays the classic pool canonicals to /blindtest/classic, so it is not listed.
+  if (isUxV12()) listedModes = listedModes.filter((m) => !isDuplicateMode(m.id));
   const blindTestModePages: MetadataRoute.Sitemap = listedModes.map((mode) => ({
     url: `${SITE_URL}/blindtest/${mode.id}`,
     lastModified: STATIC_DATE,
