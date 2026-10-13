@@ -96,7 +96,7 @@ export function FanDebateVote({ id, question, debate }: { id: number; question: 
     if (busy || picked !== null) return;
     setBusy(true);
     let ok = false;
-    let data: { counts?: number[]; error?: string } = {};
+    let data: { counts?: number[]; mine?: number | null; error?: string } = {};
     try {
       const r = await fetch('/api/ux-v1/p8/debate-vote', { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ debate_id: id, option_index: i }) });
       data = (await r.json().catch(() => ({}))) as typeof data;
@@ -104,9 +104,11 @@ export function FanDebateVote({ id, question, debate }: { id: number; question: 
     } catch { ok = false; }
     setBusy(false);
     if (!ok) { toast(data.error === 'closed' ? 'This debate is closed.' : 'Your vote did not go through. Try again.'); return; }
-    setPicked(i);
+    // One vote per fan: the server keeps the first one and says which it is.
+    const mine = typeof data.mine === 'number' ? data.mine : i;
+    setPicked(mine);
     if (Array.isArray(data.counts)) setCounts(data.counts);
-    toast('Vote counted');
+    toast(mine === i ? 'Vote counted' : 'You already voted on this one');
   };
 
   useEffect(() => {
