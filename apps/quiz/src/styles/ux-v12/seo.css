@@ -4,3 +4,14 @@
 .g3-links { display: grid; gap: 10px; margin-top: 12px; font-size: 15px; line-height: 1.5; }
 .g3-links .ux-muted { color: var(--ux-muted); font-size: 14px; }
 @media (min-width: 761px) { .g3-links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; } }
+/* Running text and a native <details> (crawlable, starts closed) on the enriched pages. */
+.g3-prose { display: grid; gap: 12px; max-width: 66ch; margin-top: 12px; font-size: 15px; line-height: 1.65; color: var(--ux-muted); }
+.g3-acc { margin-top: 12px; border-top: 1px solid var(--ux-hair); border-bottom: 1px solid var(--ux-hair); }
+.g3-acc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 12px 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.g3-acc summary::-webkit-details-marker { display: none; }
+.g3-acc summary .ux-ico { color: var(--ux-muted); transition: transform .2s var(--ux-ease); }
+.g3-acc[open] summary .ux-ico { transform: rotate(180deg); }
+.g3-lineup { display: grid; gap: 8px; margin: 0 0 16px; padding-left: 24px; font-size: 15px; line-height: 1.5; }
+.g3-lineup .ux-muted { color: var(--ux-muted); font-size: 14px; }
+.g3-results { list-style: none; padding-left: 0; gap: 16px; }
+.g3-results p { margin: 4px 0 0; max-width: 66ch; }

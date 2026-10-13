@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { NameAllAbout } from '@/components/name-all/about';
 import { NameAllGame } from '@/components/name-all/game';
 import { UxPage } from '@/components/ux-v1/page';
 import { ROUND_SECONDS, prettyPath } from '@/lib/name-all/round';
 import { getNameAllSet, getNameAllStats } from '@/lib/name-all/server';
+import { getAllGroups } from '@/lib/db/queries/groups';
+import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { jsonLdString } from '@/lib/seo/json-ld';
+import { getPlayableGroups, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { NameAllSet } from '@/lib/name-all/server';
@@ -61,7 +65,14 @@ export default async function NameAllPage({ params }: PageProps): Promise<React.
   const { group } = await params;
   const set = await load(group);
   if (!set) notFound();
-  const stats = await getNameAllStats(set);
+  // The links below the game: settled reads, so a blip drops a link, never the page.
+  const [stats, wma, bt, groups] = await Promise.all([
+    getNameAllStats(set),
+    getWmaGroupSlugs(),
+    settle(() => getPlayableGroups(), null),
+    settle(() => getAllGroups(), null),
+  ]);
+  const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
   const hub = `/${set.group.slug}-quiz`;
   const breadcrumb = {
     '@context': 'https://schema.org',
@@ -87,6 +98,7 @@ export default async function NameAllPage({ params }: PageProps): Promise<React.
         stats={stats}
         path={prettyPath(set.group.slug)}
       />
+      <NameAllAbout set={set} stats={stats} wmaSlugs={wma} blindtestSlugs={(bt.value ?? []).map((g) => g.slug)} names={names} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumb) }} />
     </UxPage>
   );
