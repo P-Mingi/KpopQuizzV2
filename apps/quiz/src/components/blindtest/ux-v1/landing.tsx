@@ -13,6 +13,7 @@ import {
 import { BT_STRINGS } from '@/lib/growth/bt-strings';
 import { themeCard, visibleThemes } from '@/lib/growth/bt-themes';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import { BtLandingControllerLoader, BtLandingErrorLoader, BtLandingStartLoader } from './mode-loader';
 
@@ -35,7 +36,7 @@ export function landingMetadata(lang: BtLang): Metadata {
     title: copy.title,
     description,
     alternates: { canonical: copy.path, languages: landingAlternates() },
-    openGraph: { title: copy.title, description, url: copy.path, locale: lang },
+    openGraph: { title: copy.title, description, url: copy.path, locale: lang, images: [DEFAULT_OG_IMAGE] },
     robots: { index: true, follow: true },
   };
 }

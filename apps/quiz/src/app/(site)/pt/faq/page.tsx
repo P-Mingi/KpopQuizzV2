@@ -1,5 +1,6 @@
 import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
     description: 'Tudo que voce precisa saber sobre jogar e criar quizzes de K-pop no KpopQuiz.',
     url: '/pt/faq',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

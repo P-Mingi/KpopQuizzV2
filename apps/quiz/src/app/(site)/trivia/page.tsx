@@ -5,6 +5,7 @@ import { getTriviaEligibleGroups } from '@/lib/db/queries/trivia';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     url: 'https://kpopquiz.org/trivia',
     siteName: 'KpopQuiz',
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

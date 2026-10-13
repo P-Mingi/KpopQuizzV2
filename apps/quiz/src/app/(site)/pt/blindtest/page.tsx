@@ -6,6 +6,7 @@ import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtes
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
     description: 'Ouca um clipe de 10 segundos e adivinhe a musica de K-pop. Mais de 300 musicas, 60+ grupos.',
     url: '/pt/blindtest',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

@@ -3,6 +3,7 @@ import { BrowseQuizzes } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 import type { BrowseGroup } from '@/components/quiz/browse-quizzes';
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
     description: 'Todos os quizzes de K-pop em um lugar. Filtre por grupo ou tipo.',
     url: '/pt/quizzes',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

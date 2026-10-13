@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByDifficulty } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     description: 'Comece aqui: quizzes faceis de K-pop perfeitos para novos fas.',
     url: '/pt/easy-kpop-quizzes',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

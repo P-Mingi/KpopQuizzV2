@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     description: 'Parecem faceis. Nao sao. Teste seu conhecimento de K-pop.',
     url: '/pt/kpop-true-or-false',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

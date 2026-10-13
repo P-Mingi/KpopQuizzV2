@@ -5,6 +5,7 @@ import {
 } from '@/lib/db/queries/profiles';
 import { LeaderboardTabs } from '@/app/(site)/leaderboard/leaderboard-tabs';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
     description: 'Top criadores e jogadores de K-pop no kpopquiz.org.',
     url: '/pt/leaderboard',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

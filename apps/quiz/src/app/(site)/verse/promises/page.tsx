@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { COVENANT, splitPromise } from '@/lib/verse/covenant';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 // V-TRUST step 1 - THE PROMISE PAGE. The covenant is owner-authored and LOCKED
 // (docs/workstream-vtrust.md, 2026-08-01); it renders verbatim from the single
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   title: COVENANT.title,
   description: COVENANT.standfirst,
   alternates: { canonical: CANONICAL },
-  openGraph: { title: COVENANT.title, description: COVENANT.standfirst, url: CANONICAL, type: 'article' },
+  openGraph: { title: COVENANT.title, description: COVENANT.standfirst, url: CANONICAL, type: 'article', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary', title: COVENANT.title, description: COVENANT.standfirst },
 };
 

@@ -11,6 +11,7 @@ import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getPlayableGroups, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
+import { groupOgImage } from '@/lib/seo/og';
 
 import type { NameAllSet } from '@/lib/name-all/server';
 import type { Metadata } from 'next';
@@ -56,7 +57,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     description,
     alternates: { canonical },
     robots: pretty ? { index: true, follow: true } : { index: false, follow: true },
-    openGraph: { title, description, url: `${SITE}${canonical}`, type: 'website' },
+    openGraph: { title, description, url: `${SITE}${canonical}`, type: 'website', images: [groupOgImage(set.group.slug, title)] },
     twitter: { card: 'summary', title, description },
   };
 }

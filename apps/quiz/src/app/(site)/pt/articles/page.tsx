@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
 import { ARTICLES } from '@/lib/articles/registry';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     description: 'Guias, comparacoes e dados originais sobre quizzes de K-pop e cultura fan.',
     url: '/pt/articles',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
   alternates: {
     canonical: '/pt/articles',

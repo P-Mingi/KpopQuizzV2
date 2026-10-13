@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Mascot } from '@/components/ui/mascot';
 import { getSiteStats } from '@/lib/db/queries/stats';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 import type { SiteStats } from '@/lib/db/queries/stats';
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     description: 'Dados ao vivo sobre quizzes, musicas de blind test e engajamento dos fas em mais de 87 grupos.',
     url: '/pt/stats',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
   alternates: {
     canonical: '/pt/stats',

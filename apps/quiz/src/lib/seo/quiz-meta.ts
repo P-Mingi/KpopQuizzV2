@@ -12,6 +12,8 @@
 
 export const TITLE_MAX = 49;
 export const DESCRIPTION_MAX = 158;
+/** Bing reports descriptions under about 120 characters as too short: a short one gets a last line. */
+export const DESCRIPTION_MIN = 120;
 /** A creator note shorter than this is not used as the description. */
 export const NOTE_MIN = 70;
 const TAIL_MAX = 14;
@@ -86,5 +88,7 @@ export function quizDescription(q: QuizDescriptionInput): string {
       ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it, scoring ${q.avgScore}% on average.`
       : ` Played by ${plays} ${q.plays === 1 ? 'fan' : 'fans'}.`, ' Can you beat them?'];
   for (const p of parts) if ((s + p).length <= DESCRIPTION_MAX) s += p;
+  const tail = ' Free to play, no sign-up.';
+  if (s.length < DESCRIPTION_MIN && (s + tail).length <= DESCRIPTION_MAX) s += tail;
   return clipWords(s, DESCRIPTION_MAX);
 }

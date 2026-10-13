@@ -54,7 +54,7 @@ export function groupBlindtestCopy(name: string, songs: number): { title: string
     title: `${name} Blind Test: Guess the Song`,
     h1: `${name} blind test`,
     lead: `${n} ${name} songs, ten-second clips. Ten rounds: name each song before the clip ends.`,
-    description: `Guess the ${name} song from a ten-second clip. ${n} songs in the pool, ten rounds a game, free and no sign-up.`,
+    description: `Guess the ${name} song from a ten-second clip: ${n} songs in the pool, ten rounds a game. Free, no sign-up, and you can play it live with friends.`,
   };
 }
 

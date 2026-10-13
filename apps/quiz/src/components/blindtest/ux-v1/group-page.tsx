@@ -9,6 +9,7 @@ import { SITE } from '@/lib/growth/bt-landing';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { modeRun } from '@/lib/ux-v1/p6/modes';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { groupOgImage } from '@/lib/seo/og';
 
 import { BtModeControllerLoader, BtModeErrorLoader, BtThemePlayLoader } from './mode-loader';
 
@@ -30,7 +31,7 @@ export function groupBlindtestMetadata(group: BtGroup): Metadata {
     title: copy.title,
     description: copy.description,
     alternates: { canonical: path },
-    openGraph: { title: `${copy.title} | KpopQuiz`, description: copy.description, url: path },
+    openGraph: { title: `${copy.title} | KpopQuiz`, description: copy.description, url: path, images: [groupOgImage(group.slug, copy.title)] },
   };
 }
 

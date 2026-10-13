@@ -8,6 +8,7 @@ import { getSiteStats } from '@/lib/db/queries/stats';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { quizzesFaqs } from './faq';
 import { quizzesIndexRule, quizzesLastPage, quizzesNeedsLastPage, readQuizzesUrl } from './index-rule';
 
@@ -69,6 +70,7 @@ export async function generateMetadata(
       title: 'Browse K-pop Quizzes | KpopQuiz',
       description: 'Every K-pop quiz, filtered and sorted your way.',
       url: canonical,
+      images: [DEFAULT_OG_IMAGE],
     },
     twitter: { card: 'summary_large_image' },
     alternates: {

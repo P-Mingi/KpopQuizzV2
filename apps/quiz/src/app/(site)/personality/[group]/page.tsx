@@ -13,6 +13,7 @@ import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { whichMemberPath } from '@/lib/personality/view';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { groupOgImage } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title: `${title} | KpopQuiz`, description, url, type: 'website' },
+    openGraph: { title: `${title} | KpopQuiz`, description, url, type: 'website', images: [groupOgImage(page.group.slug, title)] },
   };
 }
 

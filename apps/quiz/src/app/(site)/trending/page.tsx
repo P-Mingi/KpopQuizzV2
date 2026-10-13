@@ -1,6 +1,7 @@
 import { getTrendingQuizzes } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     title: 'Trending K-pop Quizzes | KpopQuiz',
     description: 'The most popular K-pop quizzes right now.',
     url: '/trending',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/trending' },

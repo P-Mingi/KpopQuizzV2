@@ -4,6 +4,7 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import { getGameBySlug } from '@/lib/db/queries/games';
 import { BlindTestPlayer } from '@/components/game/blind-test-player';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
         title: game.title,
         description: `${content.settings.song_count} songs, ${content.settings.clip_duration}s clips. Can you beat the average?`,
         url: `https://kpopquiz.org/g/${game.slug}`,
+        images: [DEFAULT_OG_IMAGE],
       },
     };
   }

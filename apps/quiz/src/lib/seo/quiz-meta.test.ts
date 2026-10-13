@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clipWords, NOTE_MIN, quizDescription, quizTitle, TITLE_MAX } from './quiz-meta';
+import { clipWords, DESCRIPTION_MIN, NOTE_MIN, quizDescription, quizTitle, TITLE_MAX } from './quiz-meta';
 
 // The title and description of every quiz page (owner, 2026-10-13: SEO). Real titles from
 // the catalogue, including the ones the old middle-cut broke ("Can you guess the IV...rom 3 clues?").
@@ -51,5 +51,14 @@ describe('quiz page description', () => {
     expect(d.length).toBeLessThanOrEqual(158);
     expect(d).not.toMatch(/Can you beat\.\.\.$/); // the call to action is whole or absent
     expect(clipWords('one two three four', 12)).toBe('one two...');
+  });
+});
+
+describe('quiz page description floor', () => {
+  it('a short description gets a last line, never past the snippet', () => {
+    const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, avgScore: null, creatorNote: null });
+    expect(d.length).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
+    expect(d.length).toBeLessThanOrEqual(158);
+    expect(d.endsWith('Free to play, no sign-up.')).toBe(true);
   });
 });
