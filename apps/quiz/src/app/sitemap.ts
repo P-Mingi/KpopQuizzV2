@@ -171,8 +171,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       listedModes = STATIC_MODES.filter((m) => !isThemePage(m.id));
     }
   }
-  // V12: a mode that plays the classic pool canonicals to /blindtest/classic, so it is not listed.
-  if (isUxV12()) listedModes = listedModes.filter((m) => !isDuplicateMode(m.id));
+  // The modes that play the classic pool (lib/growth/bt-mode-pool.ts DUPLICATE_MODES) are
+  // not advertised, whatever the flags: one sitemap URL for one game. With the v12 flag their
+  // canonical is /blindtest/classic; the pages themselves still answer.
+  listedModes = listedModes.filter((m) => !isDuplicateMode(m.id));
   const blindTestModePages: MetadataRoute.Sitemap = listedModes.map((mode) => ({
     url: `${SITE_URL}/blindtest/${mode.id}`,
     lastModified: STATIC_DATE,
