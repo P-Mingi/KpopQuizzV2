@@ -338,7 +338,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // it adds no per-request cost.
     const bestByTitle = new Map<string, (typeof quizRows)[number]>();
     for (const q of quizRows) {
-      const key = `${q.title} ${q.question_count ?? ''}`;
+      const key = `${q.title}\u0000${q.question_count ?? ''}`;
       const cur = bestByTitle.get(key);
       const better =
         !cur
