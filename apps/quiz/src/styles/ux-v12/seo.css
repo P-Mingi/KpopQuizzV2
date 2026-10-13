@@ -1,0 +1,6 @@
+/* V12 SEO pages (owner, 2026-10-13): plain link lists of the group blindtest page
+   (components/blindtest/ux-v1/group-page.tsx) and other enriched pages. Served only with
+   the v12 flag (lib/ux-v1/a0/stylesheet.ts reads every file of src/styles/ux-v12/). */
+.g3-links { display: grid; gap: 10px; margin-top: 12px; font-size: 15px; line-height: 1.5; }
+.g3-links .ux-muted { color: var(--ux-muted); font-size: 14px; }
+@media (min-width: 761px) { .g3-links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; } }
