@@ -44,6 +44,9 @@ of how the pages were served, not because of what fans wrote.
 | /quizzes facets: `lang`, unknown params, `?page=999` indexable | Unbounded duplicate URL space | Pure index rule: only /quizzes, pages 2..N and the sole group facet index; the rest noindex,follow | 016ec26 |
 | /news: 20 `NewsArticle` entities for Soompi, Koreaboo and allkpop URLs; one bad feed date 500s the page | Structured data claiming third-party articles; crash risk | `ItemList` of links; feed dates that cannot throw | 016ec26 |
 | Trivia facts: emoji walls, notes to the player, answer restatements, other languages | Low-quality text on 25 pages | `isUsableFact` before the count; floor 9 clean facts (was 12 with junk); /cortis-trivia and /illit-trivia kept | 36af251 |
+| 36 pages set their own `openGraph` without `images` (Next merges shallowly) | Shared with no picture: home, /groups, /quizzes, /trending, /pt, the v12 game pages | Group card or site card on every page; a test fails on any openGraph without images | cec186d |
+| Descriptions under about 120 characters (group blindtests, modes, themes, /new, short quizzes) | Bing reports them as too short | A last line that stays within 160 | cec186d |
+| Brand twice or over 65 characters in the title (/stats, /pt/stats, /data/pulse) | Truncated in results | Shorter titles | 1c20a98 |
 | `UserAvatar` handed `next/image` any avatar host | A profile with a `share.google` avatar 500s /pt/leaderboard on its next render | Unregistered host shows initials | 95020ac |
 
 ## Every new quiz, from publish to index
@@ -79,7 +82,7 @@ ISR.
 
 ## Checks
 
-- **Tests and types:** `vitest` 2175 tests pass (117 files plus the new ones), and `tsc --noEmit` is clean.
+- **Tests and types:** `vitest` passes all 2177 tests in 119 files, and `tsc --noEmit` is clean.
 - **Static gates:**
   - `check:routes` passes (382 routes);
   - `check:docs-secrets` passes;
@@ -88,7 +91,8 @@ ISR.
   - 713 pass;
   - 6 answered 500 under the gate's own load: 4 quiz pages hit the deliberate 8 s read timeout, /blindtest/classic hit a transient dev cache read, and /pt/leaderboard was the avatar bug, now fixed in 95020ac. All 6 answer 200 when fetched alone;
   - 5 timed out on dev: /data/pulse months and /verse.
-- **`check:metadata-dupes`:** passes on the 494 URLs the dev server answered in time.
+- **`check:metadata-dupes`:** passes on all 724 URLs: every title and description is unique, and none is blank.
+- **`check:orphans`:** passes. All 722 non-verse sitemap URLs have at least one inbound internal link, over a complete crawl.
 - **Live checks on the dev server:**
   - a made-up /q, /g, /blindtest/group or hub slug is a 404;
   - hub titles show published counts (BLACKPINK 24+, BTS 27+);
@@ -106,10 +110,38 @@ ISR.
   `e2e/ux-v1/p2.spec.ts` pins "a page past the end shows page 1".
 - **Hubs with no published quiz:** noindex,follow, and the sitemap already left them out.
 
+## Found on the way: 7 popular quizzes taken offline by anonymous reports
+
+`handle_new_report()` flags a quiz (it 404s and leaves every list) on its 5th report row of
+any kind, and the policy `reports_insert_all` lets anyone insert. On 2026-10-13, 7 quizzes
+were flagged, with 5,210 plays between them and **zero signed-in reporters**. Every report
+was an anonymous "[Battle question]" row filed by the retired Battle mode, one per question,
+plus the app's own "[Auto]" image-moderation rows:
+
+| Quiz | Plays | Reports |
+|---|---|---|
+| bts-true-or-false-bet-you-cant-get-100 | 1,273 | 5 |
+| seventeen-members-mega-quiz-all-13 | 1,178 | 9 |
+| stray-kids-albums-and-b-sides-deep-dive | 1,144 | 6 |
+| enhypen-world-ultimate-fan-challenge | 890 | 5 |
+| illit-quiz (59 Google clicks) | 428 | 6 |
+| only-real-monstiez (read its content first) | 227 | 8 |
+| katseye-quiz | 70 | 8 |
+
+The same rule lets 5 anonymous requests take any quiz offline. Owner-gated SQL, not applied:
+- `docs/pending-migrations/seo-report-autoflag.sql`: auto-flag only on 5 distinct signed-in
+  reporters, and only from `published`. Its rollback is
+  `docs/pending-migrations/seo-report-autoflag-rollback.sql`.
+- `docs/pending-migrations/seo-restore-battle-flagged.sql`: optional, restores the 7. It
+  re-checks in the database that no signed-in user reported them.
+
 ## Owner actions
 
 - Push and merge, in order: `fix/community-feed-vote`, `seo/indexation-max`,
   `v12/launch-report`.
+- Moderation: read `only-real-monstiez`. Then decide whether to apply
+  `seo-report-autoflag.sql` (recommended: closes the anonymous takedown) and
+  `seo-restore-battle-flagged.sql`.
 - After the deploy, in Search Console:
   - resubmit `https://kpopquiz.org/sitemap.xml`;
   - press "Validate fix" on "Crawled, currently not indexed" and on "Blocked by robots.txt".
