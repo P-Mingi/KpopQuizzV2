@@ -19,7 +19,7 @@ import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { safeFetch } from '@/lib/error-handling';
+import { isNextInternalError, safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
@@ -77,16 +77,36 @@ interface QuizPageProps {
 
 /**
  * The quiz row, or a true 404 when no published quiz has this slug. SEO (owner, 2026-10-13):
- * a failed or slow read THROWS instead of falling back to null. With the null fallback a
- * database blip became a cached "not found" (noindex) for an hour on a real, indexed quiz;
- * thrown, the render fails uncached and ISR keeps serving the last good page.
+ * at request time a failed or slow read THROWS instead of falling back to null. With the null
+ * fallback a database blip became a cached "not found" (noindex) for an hour on a real,
+ * indexed quiz; thrown, the render fails uncached and ISR keeps serving the last good page.
+ *
+ * At build (the TOP_PRERENDER pages) a throw fails the whole deploy: a CI build died on one
+ * slow read (2026-10-14). There the read gets 25 s and one retry, and if it still fails the
+ * page falls back to the 404 it had before this change, which ISR replaces within the hour.
  */
+const BUILDING = process.env.NEXT_PHASE === 'phase-production-build';
 async function quizOr404(slug: string): Promise<NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>> {
   const TIMEOUT = Symbol('timeout');
-  const quiz = await Promise.race([
+  const read = (ms: number): Promise<Awaited<ReturnType<typeof getQuizBySlug>> | typeof TIMEOUT> => Promise.race([
     getQuizBySlug(slug),
-    new Promise<typeof TIMEOUT>((resolve) => setTimeout(() => resolve(TIMEOUT), 8000)),
+    new Promise<typeof TIMEOUT>((resolve) => setTimeout(() => resolve(TIMEOUT), ms)),
   ]);
+  if (BUILDING) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const quiz = await read(25000);
+        if (quiz === TIMEOUT) continue;
+        if (!quiz) notFound();
+        return quiz;
+      } catch (err) {
+        if (isNextInternalError(err)) throw err;
+      }
+    }
+    console.warn(`[q/[slug]] build: the quiz read failed twice for ${slug}; on-demand ISR re-renders it`);
+    notFound();
+  }
+  const quiz = await read(8000);
   if (quiz === TIMEOUT) throw new Error(`[q/[slug]] getQuizBySlug timed out for ${slug}`);
   if (!quiz) notFound();
   return quiz;
