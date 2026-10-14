@@ -12,7 +12,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: 'K-pop True or False Quizzes',
   description:
-    "How well do you really know K-pop facts? Play true or false quizzes about BTS, BLACKPINK, SEVENTEEN, Stray Kids, and 30+ groups. They look easy - they're not.",
+    "How well do you really know K-pop facts? Play true or false quizzes about BTS, BLACKPINK, SEVENTEEN, Stray Kids, and many more groups. They look easy - they're not.",
   alternates: {
     canonical: '/kpop-true-or-false',
     languages: {

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getModeById, isGroupModeId, getGroupSlugFromModeId, STATIC_MODES } from '@/lib/blind-test-modes';
+import { getGroupBySlug } from '@/lib/db/queries/groups';
 import { getPlayableStaticModes, isThemedModePlayable } from '@/lib/blind-test-playlists';
 import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
 import { BlindtestGroupV12, groupBlindtestMetadata } from '@/components/blindtest/ux-v1/group-page';
@@ -69,6 +70,20 @@ async function playableGroup(modeId: string): Promise<{ group: BtGroup | null; l
   return { group: read.value.find((g) => g.slug === slug) ?? null, list: read.value };
 }
 
+/**
+ * The group's name as the groups table writes it (BTS, aespa), for the fallback path when the
+ * playable list could not be read (owner, 2026-10-14: never a title-cased slug like "Bts").
+ */
+async function groupName(slug: string): Promise<string> {
+  try {
+    const g = await getGroupBySlug(slug);
+    if (g?.name) return g.name;
+  } catch {
+    // fall through: the slug words are all we have
+  }
+  return slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
 export async function generateMetadata({ params }: ModePageProps): Promise<Metadata> {
   const { mode: modeId } = await params;
 
@@ -77,7 +92,7 @@ export async function generateMetadata({ params }: ModePageProps): Promise<Metad
     if (v12.list && !v12.group) notFound();
     if (v12.group) return groupBlindtestMetadata(v12.group);
     const slug = getGroupSlugFromModeId(modeId) || '';
-    const name = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const name = await groupName(slug);
     return {
       title: `${name} Blind Test - K-pop Blind Test`,
       description: `How well do you know ${name}? Listen to clips and guess the song.`,
@@ -120,7 +135,7 @@ export default async function BlindTestModePage({ params }: ModePageProps): Prom
     if (v12.group && v12.list) return <BlindtestGroupV12 group={v12.group} others={v12.list} />;
     mode = {
       id: modeId,
-      title: groupSlug!.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+      title: await groupName(groupSlug!),
       description: '',
       clip_point: 'chorus',
       clip_duration: 10,

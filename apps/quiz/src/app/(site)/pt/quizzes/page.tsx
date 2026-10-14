@@ -13,7 +13,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Quiz de K-pop - Todos os Quizzes',
   description:
-    'Explore todos os quizzes de K-pop: BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Filtre por grupo, tipo e dificuldade. Feito por fas.',
+    'Explore todos os quizzes de K-pop: BTS, BLACKPINK, Stray Kids, aespa, NewJeans e muitos outros grupos. Filtre por grupo, tipo e dificuldade. Feito por fas.',
   alternates: {
     canonical: '/pt/quizzes',
     languages: {

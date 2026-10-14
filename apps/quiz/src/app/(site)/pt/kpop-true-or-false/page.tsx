@@ -12,7 +12,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: 'K-pop Verdadeiro ou Falso - Quizzes',
   description:
-    'O quanto voce realmente sabe sobre fatos de K-pop? Jogue quizzes de verdadeiro ou falso sobre BTS, BLACKPINK, SEVENTEEN, Stray Kids e mais de 30 grupos.',
+    'O quanto voce realmente sabe sobre fatos de K-pop? Jogue quizzes de verdadeiro ou falso sobre BTS, BLACKPINK, SEVENTEEN, Stray Kids e muitos outros grupos.',
   alternates: {
     canonical: '/pt/kpop-true-or-false',
     languages: {

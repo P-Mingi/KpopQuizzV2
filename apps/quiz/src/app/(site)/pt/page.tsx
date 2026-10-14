@@ -18,10 +18,10 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'KpopQuiz - Quiz de K-pop Feito por Fas',
-  description: 'Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos. Feito por fas de verdade, jogado por milhares.',
+  description: 'Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e muitos outros grupos. Feito por fas de verdade, jogado por milhares.',
   openGraph: {
     title: 'KpopQuiz - Quiz de K-pop Feito por Fas',
-    description: 'Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.',
+    description: 'Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e muitos outros grupos.',
     url: '/pt',
     locale: 'pt_BR',
     images: [DEFAULT_OG_IMAGE],
@@ -53,7 +53,7 @@ function PtHero(): React.ReactElement {
         Quiz de <span style={{ color: 'var(--brand)' }}>K-pop</span> feito por fas
       </h1>
       <p style={{ fontSize: 14, color: 'var(--txt2)', margin: '0 0 16px', lineHeight: 1.5 }}>
-        Jogue e crie quizzes sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.
+        Jogue e crie quizzes sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e muitos outros grupos.
       </p>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
         <Link href="/quizzes" className="btn-primary">Explorar quizzes</Link>

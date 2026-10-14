@@ -120,3 +120,21 @@ export async function getPublicStatsOrNull(timeoutMs = 5000): Promise<PublicStat
     return null;
   }
 }
+
+/** Words for a token when the counts cannot be read: vague, and true. */
+const TOKEN_FALLBACK: Record<string, string> = {
+  quizzes: 'hundreds of', groups: 'dozens of', groupsListed: 'dozens of', songs: 'thousands of', songGroups: 'dozens of', plays: 'tens of thousands of',
+};
+
+/**
+ * Fill the count tokens of a static text ("{quizzes} quizzes across {groups} groups") with
+ * the live counts, rounded by atLeast. For copy kept as data (article FAQ answers and
+ * descriptions), which cannot call the stats function itself. Unknown tokens stay as they are.
+ */
+export function fillStats(text: string, stats: PublicStats | null): string {
+  return text.replace(/\{(quizzes|groups|groupsListed|songs|songGroups|plays)\}/g, (_m, key: string) => {
+    if (!stats) return TOKEN_FALLBACK[key]!;
+    const n = key === 'groups' ? stats.groupsWithQuizzes : (stats as unknown as Record<string, number>)[key]!;
+    return atLeast(n);
+  });
+}

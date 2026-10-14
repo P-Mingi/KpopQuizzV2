@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
 import { getArticleBySlug, getAllArticleSlugs } from '@/lib/articles/registry';
+import { fillStats, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { loadArticleContent } from '@/lib/articles/content';
 
 import type { Metadata } from 'next';
@@ -22,9 +23,25 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   return getAllArticleSlugs().map((slug) => ({ slug }));
 }
 
+/**
+ * The article with its count tokens filled from the live stats (lib/stats/site-stats.ts
+ * fillStats; owner, 2026-10-14): FAQ answers and descriptions kept as data said "330+
+ * quizzes covering 87+ groups" long after the catalogue moved on.
+ */
+async function liveArticle(slug: string): Promise<ReturnType<typeof getArticleBySlug>> {
+  const article = getArticleBySlug(slug);
+  if (!article) return article;
+  const stats = await getPublicStatsOrNull();
+  return {
+    ...article,
+    description: fillStats(article.description, stats),
+    faq: article.faq.map((f) => ({ ...f, answer: fillStats(f.answer, stats) })),
+  };
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await liveArticle(slug);
   if (!article) return {};
 
   return {
@@ -97,7 +114,7 @@ function IconArrow(): React.ReactElement {
 
 export default async function ArticlePage({ params }: PageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await liveArticle(slug);
   if (!article) notFound();
 
   const ArticleBody = await loadArticleContent(slug);

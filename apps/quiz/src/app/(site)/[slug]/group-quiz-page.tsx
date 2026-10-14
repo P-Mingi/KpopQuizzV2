@@ -16,6 +16,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
+import { atLeast } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -27,7 +28,7 @@ export function generateDefaultIntro(group: Group): string {
   // W3: lead with the exact "{group} quizzes" anchor (body-copy keyword prominence).
   // Only used when a group has no curated seo_intro, so the high-value hubs that
   // carry their own intro are untouched.
-  return `${group.name} quizzes, made by fans who actually know ${group.name}: play ${group.quiz_count}+ free tests, from easy trivia to impossible deep cuts, and prove you're a real ${group.fandom_name}. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
+  return `${group.name} quizzes, made by fans who actually know ${group.name}: play ${atLeast(group.quiz_count)} free tests, from easy trivia to impossible deep cuts, and prove you're a real ${group.fandom_name}. ${group.total_plays.toLocaleString('en-US')} plays and counting.`;
 }
 
 // W2: hub FAQ built from REAL group facts only, reusing the hero's gates so a
@@ -122,7 +123,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
   // seo_intro is now additive and VISIBLE only: it renders as the intro paragraph
   // at the top of the page (see `intro` below). The CTR formula always wins here.
   const description = override
-    ? `Play ${group.quiz_count}+ free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
+    ? `Play ${atLeast(group.quiz_count)} free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
     : n >= 2
     ? `Play ${n} free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`
     : `Play the free ${group.name} quiz made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
@@ -135,7 +136,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
     alternates: { canonical: `/${group.slug}-quiz` },
     openGraph: {
       title: `${group.name} Quiz | KpopQuiz`,
-      description: `${group.quiz_count}+ free ${group.name} quizzes. Can you pass them all?`,
+      description: `${atLeast(group.quiz_count)} free ${group.name} quizzes. Can you pass them all?`,
       url: `https://kpopquiz.org/${group.slug}-quiz`,
       images: [{ url: ogImage, width: 1200, height: 630, alt: `${group.name} Quiz` }],
     },

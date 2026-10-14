@@ -106,7 +106,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Which K-pop quiz site has the most quizzes?',
         answer:
-          'KpopQuiz.org has one of the largest libraries with 330+ quizzes covering 87+ groups, plus blind tests, This or That games, and Name All Members challenges. Sporcle also has a large user-generated library.',
+          'KpopQuiz.org has a large library with {quizzes} quizzes covering {groups} groups, plus blind tests, This or That games, and Name All Members challenges. Sporcle also has a large user-generated library.',
       },
       {
         question: 'Can I create my own K-pop quiz?',
@@ -210,12 +210,12 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Where can I play a free K-pop blind test?',
         answer:
-          'KpopQuiz.org offers a free K-pop blind test with nearly 4,000 songs across 87+ groups. You can play by group, by generation, or in a mixed all-K-pop mode. No account required to start playing.',
+          'KpopQuiz.org offers a free K-pop blind test with {songs} songs across {songGroups} groups. You can play by group, by generation, or in a mixed all-K-pop mode. No account required to start playing.',
       },
       {
         question: 'How many songs are in the KpopQuiz blind test?',
         answer:
-          'The KpopQuiz.org blind test library includes nearly 4,000 songs spanning 87+ K-pop groups across all five generations. New songs are added regularly as groups release new music.',
+          'The KpopQuiz.org blind test library includes {songs} songs spanning {songGroups} K-pop groups across all five generations. New songs are added regularly as groups release new music.',
       },
     ],
   },

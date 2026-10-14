@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     'Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts. Free to cite with a link.',
   openGraph: {
     title: 'KpopQuiz Stats',
-    description: 'Live data on K-pop quizzes, blind test songs, and fan engagement across 87+ groups.',
+    description: 'Live data on K-pop quizzes, blind test songs, and fan engagement on kpopquiz.org.',
     url: '/stats',
-    images: [{ url: '/api/og/page?title=KpopQuiz+Stats&subtitle=Live+data+on+quizzes%2C+songs%2C+and+fan+engagement+across+87%2B+groups.&accent=%2310b981', width: 1200, height: 630, alt: 'KpopQuiz Stats' }],
+    images: [{ url: '/api/og/page?title=KpopQuiz+Stats&subtitle=Live+data+on+quizzes%2C+songs%2C+and+fan+engagement.&accent=%2310b981', width: 1200, height: 630, alt: 'KpopQuiz Stats' }],
   },
   twitter: { card: 'summary_large_image' },
   alternates: {
