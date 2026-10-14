@@ -133,7 +133,8 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const photo = groupPhotoUrl(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
-  const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: g.record_label ?? null, quizzes: published });
+  // No label until it is sourced (see lib/seo/answer-first.ts; owner, 2026-10-14).
+  const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: null, quizzes: published });
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.

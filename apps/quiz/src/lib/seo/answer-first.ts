@@ -139,12 +139,10 @@ export function buildAnswerChunks(group: Group, facts: GroupFacts): AnswerChunk[
       answer: `${g.name} is from ${g.origin_country}.`,
     });
   }
-  if (g.record_label) {
-    chunks.push({
-      question: `What label is ${g.name} on?`,
-      answer: `${g.name} is on ${g.record_label}.`,
-    });
-  }
+  // Owner, 2026-10-14 (SEO Mission 1, facts): no label answer until the label is sourced.
+  // groups.record_label mixes Korean labels with US distribution partners and carries no
+  // source ("BTS is on Columbia Records"; BTS is a BIGHIT MUSIC artist, a HYBE label). A
+  // fact shows on an indexable page only with a verified source (rulebook section 5.5).
   if (facts.songCount > 0) {
     chunks.push({
       question: `How many ${g.name} songs can I play in the blind test?`,

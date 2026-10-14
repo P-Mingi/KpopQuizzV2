@@ -141,3 +141,11 @@ describe('isUsableFact: junk is dropped', () => {
     expect(isUsableFact('BLACKPINK adalah girl group yang dibentuk oleh YG Entertainment')).toBe(false);
   });
 });
+
+describe('isUsableFact: pasted answer fragments (2026-10-14)', () => {
+  it('a "Song mentioned:" line is a quiz answer, not a fact', () => {
+    expect(isUsableFact('Song mentioned: ITZY - Gold, from their 2024 album')).toBe(false);
+    expect(isUsableFact('Songs mentioned: Ditto and OMG by NewJeans, both from 2022')).toBe(false);
+    expect(isUsableFact('The song mentioned in this clue is a 2019 BLACKPINK single')).toBe(true);
+  });
+});

@@ -39,7 +39,7 @@ function homeCopy(quizzes: string | null): { title: string; social: string; desc
   return {
     title: `K-pop Quiz - ${n}Free Fan-Made Quizzes for Every Group`,
     social: `K-pop Quiz - ${n}Free Fan-Made Quizzes | KpopQuiz`,
-    description: `Play ${n}free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.`,
+    description: `Play ${n}free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up.`,
   };
 }
 

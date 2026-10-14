@@ -10,7 +10,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Sobre o KpopQuiz',
   description:
-    'O KpopQuiz e uma plataforma gratuita feita por fas para jogar e criar quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa e muitos outros grupos, com mini-jogos e rankings.',
+    'O KpopQuiz e um site gratuito feito por fas para jogar e criar quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa e outros, com blind tests e rankings.',
   alternates: {
     canonical: '/pt/about',
     languages: {

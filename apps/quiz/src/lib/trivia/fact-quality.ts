@@ -65,6 +65,8 @@ const JUNK_PATTERNS: readonly RegExp[] = [
   /\bthe answer is\b/iu,
   /^(?:the )?intruder (?:is|was)\b/iu,
   /^this (?:is|was) from\b/iu,
+  // A quiz answer pasted as a fragment ("Song mentioned: ITZY - Gold"; owner, 2026-10-14).
+  /^songs? mentioned\s*:/iu,
 ];
 
 // Common function words, used only to tell an English line from a line in another

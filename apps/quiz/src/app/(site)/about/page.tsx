@@ -10,7 +10,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About KpopQuiz',
   description:
-    'KpopQuiz is a free, fan-made platform to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and many more groups, with mini-games and leaderboards.',
+    'KpopQuiz is a free fan-made site to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and more, with blind tests and leaderboards.',
   alternates: {
     canonical: '/about',
     languages: {

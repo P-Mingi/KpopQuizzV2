@@ -18,7 +18,7 @@ const YEAR = new Date().getFullYear();
 export const metadata: Metadata = {
   title: `K-pop Quiz Statistics ${YEAR}: Live Fan Data`,
   description:
-    'Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts. Free to cite with a link.',
+    'Original K-pop fan data from kpopquiz.org: the most-played fandoms this week, the hardest and easiest quizzes by real average score, free to cite.',
   openGraph: {
     title: 'KpopQuiz Stats',
     description: 'Live data on K-pop quizzes, blind test songs, and fan engagement on kpopquiz.org.',
@@ -164,7 +164,7 @@ export default async function StatsPage(): Promise<React.ReactElement> {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name: 'KpopQuiz Platform Statistics',
-    description: `Live statistics from kpopquiz.org: ${stats.totalQuizzes} quizzes, ${stats.totalSongs} blind test songs, ${formatNumber(stats.totalPlays)} total plays across ${stats.totalGroups} K-pop groups and ${stats.generationsCovered} generations.`,
+    description: `Live statistics from kpopquiz.org: ${stats.totalQuizzes} published quizzes, ${stats.totalSongs} blind test songs and ${formatNumber(stats.totalPlays)} quiz plays.`,
     url: 'https://kpopquiz.org/stats',
     creator: {
       '@type': 'Organization',

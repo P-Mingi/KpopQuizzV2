@@ -1,15 +1,23 @@
 import Link from 'next/link';
 
-export function ArticleBody(): React.ReactElement {
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+
+// SEO Mission 1 (owner, 2026-10-14): counts are live (lib/stats/site-stats.ts) instead of
+// typed ("399 quizzes", "16 groups tracked" beside tables of 7), and the 5th generation is
+// attributed to named sources instead of stated as settled. The full rebuild is Mission 2.
+const JOONGANG_2023 = 'https://koreajoongangdaily.com/entertainment/factcheck-has-kpop-already-entered-its-fifth-generation/10480537';
+const KTIMES_2025 = 'https://koreatimes.co.kr/entertainment/k-pop/20250131/japanese-girl-group-cosmosy-raises-questions-about-k-pops-generational-identity';
+
+export async function ArticleBody(): Promise<React.ReactElement> {
+  const stats = await getPublicStatsOrNull();
   return (
     <>
       <p className="art-lead">
-        K-pop has evolved through five distinct generations, each defined by new sounds,
-        business models, and global breakthroughs. Understanding these generations helps
-        fans appreciate how the industry grew from a niche Korean export into the
-        dominant force in global pop music. kpopquiz.org tracks 87 groups across all
-        generations, with 399 published quizzes and over 57,600 plays. Here is every
-        generation explained, with the key groups and defining moments of each era.
+        Four K-pop generations are widely recognized, each defined by new sounds, business
+        models and global breakthroughs. Groups that debuted from 2023 are commonly described
+        as a fifth generation, though the label is not official (
+        <a href={JOONGANG_2023}>Korea JoongAng Daily, 2023</a>). Here is every generation
+        explained, with the key groups and defining moments of each era.
       </p>
 
       <h2 id="1st-gen">1st Generation (1996 - 2003): The Foundation</h2>
@@ -42,7 +50,6 @@ export function ArticleBody(): React.ReactElement {
       <h2 id="2nd-gen">2nd Generation (2003 - 2012): The Hallyu Wave</h2>
       <p>
         The second generation turned K-pop into a regional and then global export.
-        kpopquiz.org tracks 10 active 2nd-gen groups with quizzes and blind tests.
         YouTube launched in 2005 and gave groups unprecedented international reach.
         TVXQ, Super Junior, and BIGBANG built massive fanbases across Asia. Girls&apos;
         Generation and 2NE1 proved girl groups could match boy groups in scale.
@@ -72,8 +79,7 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="3rd-gen">3rd Generation (2012 - 2017): Global Breakthrough</h2>
       <p>
-        The third generation is when K-pop truly went global, and it remains the
-        most quizzed era on the platform with 16 groups tracked. BTS went from a
+        The third generation is when K-pop truly went global. BTS went from a
         small-agency underdog to the biggest act on the planet. BLACKPINK became
         the highest-charting female K-pop act. EXO dominated physical album sales.
         TWICE set streaming records across Asia. Social media and streaming
@@ -104,8 +110,7 @@ export function ArticleBody(): React.ReactElement {
 
       <h2 id="4th-gen">4th Generation (2018 - 2022): The Streaming Era</h2>
       <p>
-        With 17 groups tracked, the 4th generation is the most represented era on
-        kpopquiz.org. Fourth-generation groups debuted into an industry already
+        Fourth-generation groups debuted into an industry already
         global. Competition was fierce. Stray Kids, ATEEZ, and ENHYPEN built loyal
         international fanbases through digital-first strategies. aespa introduced
         metaverse concepts. IVE and NewJeans challenged expectations with
@@ -134,27 +139,28 @@ export function ArticleBody(): React.ReactElement {
         </table>
       </div>
 
-      <h2 id="5th-gen">5th Generation (2023+): The Current Wave</h2>
+      <h2 id="5th-gen">5th Generation (2023+): The Newest Wave</h2>
       <p>
-        The fifth generation is still taking shape, with 9 groups already tracked
-        on kpopquiz.org. Groups like BABYMONSTER (YG), RIIZE (SM), ILLIT (BELIFT),
-        TWS (Pledis), and KATSEYE (HYBE/Geffen) are building fanbases in a
-        post-pandemic landscape where debuts instantly reach global audiences. The
-        line between K-pop and global pop continues to blur.
+        Groups that debuted from 2023, such as BABYMONSTER (YG) and ILLIT (BELIFT LAB), are
+        commonly described as 5th generation (<a href={KTIMES_2025}>Korea Times, 2025</a>), a
+        label that is not official (<a href={JOONGANG_2023}>Korea JoongAng Daily, 2023</a>).
+        Other recent debuts such as RIIZE (SM) and TWS (Pledis) are building fanbases in a
+        landscape where debuts instantly reach global audiences.
       </p>
 
       <h2 id="platform-stats">K-pop on kpopquiz.org: by the numbers</h2>
       <p>
-        The platform tracks 87 groups across all generations, with a blind test
-        catalog of 4,120 Deezer songs covering 81 groups. Fans have played over
-        57,600 quiz rounds across 399 published quizzes. For a visual timeline of
+        {stats
+          ? `kpopquiz.org has ${atLeast(stats.quizzes)} published quizzes about ${atLeast(stats.groupsWithQuizzes)} groups, a blind test of ${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} groups, and ${atLeast(stats.plays)} quiz plays so far. `
+          : 'kpopquiz.org has quizzes and a blind test for groups of every generation. '}
+        For a visual timeline of
         how these eras overlap, read the{' '}
         <Link href="/articles/kpop-eras-timeline">K-pop eras timeline</Link>.
       </p>
 
       <h2 id="test-your-knowledge">Test Your K-pop Generation Knowledge</h2>
       <p>
-        Think you can identify songs across all five generations? Try the K-pop blind
+        Think you can identify songs across every generation? Try the K-pop blind
         test to see how well you know each era, or challenge yourself with group-specific
         quizzes.
       </p>

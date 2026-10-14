@@ -1,156 +1,113 @@
 import Link from 'next/link';
 
-export function ArticleBody(): React.ReactElement {
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+
+// SEO Mission 1 (owner, 2026-10-14; rulebook section 12.5): a comparison that includes our
+// own site says so first, shows its criteria, and does not rank us first by default. Every
+// listed site was checked live on 2026-10-14. Removed: Kpop-Quiz.com (the domain did not
+// resolve) and QuizUp (offline since 24 March 2021). Our counts are live.
+
+const CHECKED = '14 October 2026';
+
+export async function ArticleBody(): Promise<React.ReactElement> {
+  const stats = await getPublicStatsOrNull();
   return (
     <>
       <p className="art-lead">
-        Looking for the best place to test your K-pop knowledge in 2026? Whether you want to
-        identify songs in a blind test, prove you know every BTS member&apos;s birthday, or just
-        have fun with friends, there are several free K-pop quiz sites worth checking out. Here
-        is an honest comparison of the top options, what each does well, and where they fall short.
+        We run kpopquiz.org, so we are not neutral. This page compares free places to play K-pop
+        quizzes in 2026 on plain criteria: what you can play, who writes the quizzes, whether you
+        can make your own, and what it costs. Every site below was checked live on {CHECKED}.
       </p>
 
-      <h2 id="comparison-table">Quick Comparison Table</h2>
+      <h2 id="comparison-table">Which K-pop quiz sites did we compare?</h2>
+      <p>Three sites with free K-pop quizzes that were online when we checked. The table lists facts, not a ranking.</p>
       <div className="art-table-wrap">
         <table className="art-table">
           <thead>
             <tr>
               <th>Site</th>
-              <th>Quiz types</th>
-              <th>Groups covered</th>
-              <th>Create your own?</th>
-              <th>Free?</th>
+              <th>What you can play</th>
+              <th>Who writes the quizzes</th>
+              <th>Make your own?</th>
+              <th>Cost</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>KpopQuiz.org</strong></td>
-              <td>Quizzes, blind tests, This or That, Name All, rankings</td>
-              <td>87+ groups</td>
-              <td>Yes</td>
-              <td>100% free</td>
-            </tr>
-            <tr>
-              <td><strong>Sporcle</strong></td>
-              <td>Timed quizzes (type answers)</td>
-              <td>Varies (user-generated)</td>
-              <td>Yes</td>
-              <td>Free with ads</td>
-            </tr>
-            <tr>
-              <td><strong>Kpop-Quiz.com</strong></td>
-              <td>Multiple choice</td>
-              <td>~30 groups</td>
-              <td>No</td>
+              <td><strong>kpopquiz.org</strong> (our site)</td>
+              <td>Fan-made quizzes in five formats, a blind test, Name them all, Which member are you, live quiz rooms</td>
+              <td>Fans, plus a few accounts labelled Team</td>
+              <td>Yes, with a free account</td>
               <td>Free</td>
             </tr>
             <tr>
-              <td><strong>Soompi Quiz</strong></td>
-              <td>Personality + knowledge quizzes</td>
-              <td>Major groups</td>
-              <td>No</td>
-              <td>Free</td>
+              <td><strong>Sporcle</strong> (K-pop tag)</td>
+              <td>Timed quizzes where you type the answers, on many topics including K-pop</td>
+              <td>Its users</td>
+              <td>Yes</td>
+              <td>Free, with ads</td>
             </tr>
             <tr>
-              <td><strong>QuizUp / Trivia apps</strong></td>
-              <td>Multiplayer trivia</td>
-              <td>General K-pop only</td>
+              <td><strong>Soompi</strong> (quizzes)</td>
+              <td>Personality and knowledge quizzes published as articles</td>
+              <td>Soompi</td>
               <td>No</td>
-              <td>Free with IAP</td>
+              <td>Free</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h2 id="kpopquiz-org">1. KpopQuiz.org: The All-in-One K-pop Quiz Platform</h2>
+      <h2 id="kpopquiz-org">What can you play on kpopquiz.org?</h2>
       <p>
-        KpopQuiz.org is a fan-made platform built specifically for K-pop fans. It goes
-        beyond simple multiple-choice quizzes with a blind test mode (guess songs from
-        short audio clips), This or That face-off games, Name All Members challenges,
-        and community-driven rankings.
-      </p>
-      <p>
-        With 330+ quizzes across 87+ groups and nearly 4,000 blind test songs, it has
-        one of the deepest K-pop quiz libraries available. Any registered user can create
-        and publish their own quizzes for free.
-      </p>
-      <p className="art-highlight">
-        <strong>Best for:</strong> fans who want variety beyond multiple-choice, group-specific
-        challenges, and the ability to create their own quizzes.
+        Quizzes written by fans, in five formats (multiple choice, pictures, odd one out, true or
+        false, guess from clues), plus a blind test where you name a song from a short clip, Name
+        them all games, Which member are you quizzes, and live rooms where friends play together
+        on their phones.{' '}
+        {stats
+          ? `On ${CHECKED} it had ${atLeast(stats.quizzes)} published quizzes about ${atLeast(stats.groupsWithQuizzes)} groups, and a blind test of ${atLeast(stats.songs)} songs.`
+          : null}
       </p>
       <div className="art-cta-inline">
         <Link href="/quizzes" className="art-cta-btn">Browse quizzes</Link>
-        <Link href="/blindtest" className="art-cta-btn art-cta-secondary">Try blind test</Link>
+        <Link href="/blindtest" className="art-cta-btn art-cta-secondary">Try the blind test</Link>
       </div>
 
-      <h2 id="sporcle">2. Sporcle: The Classic Quiz Platform</h2>
+      <h2 id="sporcle">What is Sporcle like for K-pop?</h2>
       <p>
-        Sporcle is one of the oldest quiz platforms on the web, and its user-generated library
-        includes hundreds of K-pop quizzes. The format is type-to-answer with a timer, which
-        is great for testing real recall (no multiple-choice safety net).
-      </p>
-      <p>
-        The downside: Sporcle is not K-pop-focused, so navigation can be clunky. The quiz
-        quality varies wildly because anyone can publish. Expect ads on the free tier.
-      </p>
-      <p className="art-highlight">
-        <strong>Best for:</strong> quiz purists who enjoy timed, type-to-answer challenges
-        and do not mind searching through a general quiz library.
+        Sporcle is a general quiz site with a long history. Its users publish quizzes on every
+        topic, and its <a href="https://www.sporcle.com/games/tags/kpop">K-pop tag</a> collects the
+        K-pop ones. Most are timed and you type the answers, which tests recall rather than
+        recognition. Quality varies because anyone can publish.
       </p>
 
-      <h2 id="kpop-quiz-com">3. Kpop-Quiz.com: Simple and Fast</h2>
+      <h2 id="soompi">What are Soompi quizzes?</h2>
       <p>
-        Kpop-Quiz.com offers straightforward multiple-choice quizzes about K-pop groups.
-        It covers around 30 groups with clean, mobile-friendly design. No account needed,
-        no quiz creation, no frills.
-      </p>
-      <p className="art-highlight">
-        <strong>Best for:</strong> casual fans who want a quick quiz without signing up or
-        learning a new platform.
+        Soompi, an English-language K-pop news site, publishes{' '}
+        <a href="https://www.soompi.com/category/quizzes">quizzes</a> as articles, mostly
+        personality quizzes. You read and answer them like an article; there is no quiz creation.
       </p>
 
-      <h2 id="soompi">4. Soompi Quizzes: News Site Bonus</h2>
+      <h2 id="gone">Which K-pop quiz sites are no longer available?</h2>
       <p>
-        Soompi, one of the biggest K-pop news sites, occasionally publishes personality and
-        knowledge quizzes as articles. They are polished and well-written, but the library
-        is small and not always easy to find on the site.
-      </p>
-      <p className="art-highlight">
-        <strong>Best for:</strong> readers who already follow Soompi for news and want
-        an occasional quiz between articles.
+        QuizUp, the multiplayer trivia app, shut down: its servers went offline on 24 March 2021
+        (<a href="https://en.wikipedia.org/wiki/QuizUp">Wikipedia</a>). We also removed Kpop-Quiz.com
+        from this comparison: on {CHECKED} its domain did not resolve.
       </p>
 
-      <h2 id="mobile-apps">5. Mobile Quiz Apps (QuizUp, K-pop Trivia)</h2>
+      <h2 id="what-to-look-for">What makes a good K-pop quiz site?</h2>
       <p>
-        Several mobile apps offer K-pop trivia, including general trivia apps with a K-pop
-        category. These tend to have broader, more general questions and may include
-        in-app purchases for extra lives or categories.
-      </p>
-      <p className="art-highlight">
-        <strong>Best for:</strong> mobile-first users who prefer app-based trivia with
-        multiplayer features.
+        Look at group coverage (does it include your favorite groups?), quiz formats (audio,
+        pictures, text), freshness (are new quizzes added?), community features (leaderboards,
+        making your own quizzes) and how many ads you see. Audio blind tests and picture quizzes
+        test different skills than text trivia, so a mix keeps things interesting.
       </p>
 
-      <h2 id="what-to-look-for">What Makes a Good K-pop Quiz Site?</h2>
+      <h2 id="which-to-pick">Which one should you pick?</h2>
       <p>
-        When choosing a K-pop quiz platform, consider these factors: group coverage
-        (does it include your favorite groups?), quiz variety (audio, visual, text-based),
-        freshness (are new quizzes added regularly?), community features (leaderboards,
-        quiz creation), and ad intrusiveness.
-      </p>
-      <p>
-        The best quiz sites update regularly with new content, cover both mainstream and
-        lesser-known groups, and offer more than just multiple-choice questions. Audio
-        blind tests and visual recognition quizzes test different skills than text-based
-        trivia and keep the experience fresh.
-      </p>
-
-      <h2 id="verdict">The Verdict</h2>
-      <p>
-        For the deepest, most varied K-pop quiz experience in 2026, KpopQuiz.org offers
-        the most game modes and the largest group-specific library. Sporcle is the go-to
-        if you prefer classic timed quizzes. Kpop-Quiz.com works for a quick, no-signup
-        session. Each serves a different need, and they are all free to try.
+        It depends on how you like to play. For timed recall quizzes on many topics, Sporcle. For
+        a light personality quiz between news reads, Soompi. For K-pop quizzes made by fans, a song
+        blind test and games to play with friends, kpopquiz.org. All three are free to try.
       </p>
     </>
   );

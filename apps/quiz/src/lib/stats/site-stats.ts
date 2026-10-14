@@ -110,7 +110,7 @@ export function exact(n: number): string {
  * The counts, or null when they cannot be read within `timeoutMs` (a page then writes a
  * sentence without a number; it never shows a stale or invented one).
  */
-export async function getPublicStatsOrNull(timeoutMs = 5000): Promise<PublicStats | null> {
+export async function getPublicStatsOrNull(timeoutMs = 8000): Promise<PublicStats | null> {
   try {
     return await Promise.race([
       getPublicStats(),
