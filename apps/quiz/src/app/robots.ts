@@ -24,6 +24,13 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
       },
       {
+        // SEO (owner, 2026-10-14): ChatGPT search's crawler, named explicitly so its access
+        // never depends on how it reads the * group. Same rules as *.
+        userAgent: 'OAI-SearchBot',
+        allow: ['/', ...API_RENDER_ALLOW],
+        disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
+      },
+      {
         userAgent: 'GPTBot',
         allow: ['/', ...API_RENDER_ALLOW],
         disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
