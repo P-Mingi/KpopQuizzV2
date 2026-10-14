@@ -21,6 +21,7 @@ import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
 
@@ -31,7 +32,21 @@ import type { Metadata } from 'next';
 // (SSR), otherwise this revalidate window kicks in and Supabase load drops.
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
+// Owner, 2026-10-14: the quiz count is live (lib/stats/site-stats.ts), the same number the
+// rest of the site prints; it said "380+" for 455 published quizzes.
+function homeCopy(quizzes: string | null): { title: string; social: string; description: string } {
+  const n = quizzes ? `${quizzes} ` : '';
+  return {
+    title: `K-pop Quiz - ${n}Free Fan-Made Quizzes for Every Group`,
+    social: `K-pop Quiz - ${n}Free Fan-Made Quizzes | KpopQuiz`,
+    description: `Play ${n}free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.`,
+  };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const stats = await getPublicStatsOrNull();
+  const copy = homeCopy(stats ? atLeast(stats.quizzes) : null);
+  return {
   // SEO P1.1: the home is the #1 page and it is what ranks for the head term
   // "kpop quiz" (5127 impr, pos 9.14, CTR 4.21%). A plain string title gets the
   // root template `%s | KpopQuiz` appended, which doubled the brand
@@ -39,18 +54,18 @@ export const metadata: Metadata = {
   // template stays correct for every OTHER page), leading with the head term and a
   // benefit, with the brand carried once by the site name / OG. No hardcoded
   // suffix (see the quiz-metadata-title-template gotcha).
-  title: { absolute: 'K-pop Quiz - 380+ Free Fan-Made Quizzes for Every Group' },
-  description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.',
+  title: { absolute: copy.title },
+  description: copy.description,
   openGraph: {
-    title: 'K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz',
-    description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.',
+    title: copy.social,
+    description: copy.description,
     url: '/',
     images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz',
-    description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group.',
+    title: copy.social,
+    description: copy.description,
   },
   alternates: {
     canonical: '/',
@@ -60,7 +75,8 @@ export const metadata: Metadata = {
       'x-default': '/',
     },
   },
-};
+  };
+}
 
 const SEE_ALL: React.CSSProperties = {
   fontSize: 12, fontWeight: 600, color: 'var(--brand)', textDecoration: 'none', whiteSpace: 'nowrap',

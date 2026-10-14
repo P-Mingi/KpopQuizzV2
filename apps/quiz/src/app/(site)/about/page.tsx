@@ -2,13 +2,15 @@ import Link from 'next/link';
 
 import { DiscordCommunity } from '@/components/discord/discord-community';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+import type { PublicStats } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About KpopQuiz',
   description:
-    'KpopQuiz is a free, fan-made platform to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and 30+ groups, with mini-games and leaderboards.',
+    'KpopQuiz is a free, fan-made platform to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and many more groups, with mini-games and leaderboards.',
   alternates: {
     canonical: '/about',
     languages: {
@@ -25,11 +27,17 @@ export const metadata: Metadata = {
   },
 };
 
-const STATS = [
-  { num: '42k+', label: 'Quizzes played' },
-  { num: '500+', label: 'Quizzes created' },
-  { num: '3k+', label: 'Fans every week' },
-];
+// Owner, 2026-10-14: live counts (lib/stats/site-stats.ts), the same as every other page.
+// This said "42k+" plays for 73,425, "500+" quizzes for 456, and "3k+ fans every week",
+// which nothing measures (removed).
+function statsOf(s: PublicStats | null): Array<{ num: string; label: string }> {
+  if (!s) return [];
+  return [
+    { num: atLeast(s.plays), label: 'Quizzes played' },
+    { num: atLeast(s.quizzes), label: 'Quizzes published' },
+    { num: atLeast(s.groupsWithQuizzes), label: 'Groups with quizzes' },
+  ];
+}
 
 const FEATURES = [
   {
@@ -76,7 +84,8 @@ const FEATURES = [
   },
 ];
 
-export default function AboutPage(): React.ReactElement {
+export default async function AboutPage(): Promise<React.ReactElement> {
+  const STATS = statsOf(await getPublicStatsOrNull());
   return (
     <div className="py-8 max-w-2xl mx-auto">
       {/* Hero */}

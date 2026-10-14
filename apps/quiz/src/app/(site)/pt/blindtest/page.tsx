@@ -2,18 +2,30 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
-import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtest';
+import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { atLeast, floorShown, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { safeFetch } from '@/lib/error-handling';
-import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+function ptCount(n: number): string {
+  const v = floorShown(n);
+  return v < 100 ? String(v) : `mais de ${v.toLocaleString('pt-BR')}`;
+}
+
+/** "mais de 4.200 musicas de 84 grupos", or no number when the counts cannot be read. */
+function ptCatalog(stats: { songs: number; groups: number } | null): string | null {
+  return stats ? `${ptCount(stats.songs)} musicas de ${ptCount(stats.groups)} grupos` : null;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cat = ptCatalog(await getStats());
+  return {
   title: 'Blind Test de K-pop: Adivinhe a Musica pelo Clipe',
   description:
-    'Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica. Mais de 300 musicas de mais de 60 grupos. Sem cadastro.',
+    `Jogue o blind test de K-pop gratuito: ouca um clipe de 10 segundos e adivinhe a musica.${cat ? ` ${cat[0]!.toUpperCase()}${cat.slice(1)}.` : ''} Sem cadastro.`,
   alternates: {
     canonical: '/pt/blindtest',
     languages: {
@@ -24,23 +36,23 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Blind Test de K-pop - Adivinhe a Musica pelo Clipe',
-    description: 'Ouca um clipe de 10 segundos e adivinhe a musica de K-pop. Mais de 300 musicas, 60+ grupos.',
+    description: `Ouca um clipe de 10 segundos e adivinhe a musica de K-pop.${cat ? ` ${cat[0]!.toUpperCase()}${cat.slice(1)}.` : ''}`,
     url: '/pt/blindtest',
     locale: 'pt_BR',
     images: [DEFAULT_OG_IMAGE],
   },
-};
+  };
+}
 
 export const revalidate = 3600;
 
 // PERF NAV: see /blindtest. The old cookie client forced this pt mirror dynamic too;
 // the shared cookie-free cached getBlindtestStats flips it back to Static/ISR.
-async function getStats() {
-  try {
-    return await getBlindtestStats();
-  } catch {
-    return { songs: 300, groups: 60 };
-  }
+// Owner, 2026-10-14: the live counts of lib/stats/site-stats.ts, the same as /blindtest
+// (this said 60+ groups, and the old read counted every group, not the ones with songs).
+async function getStats(): Promise<{ songs: number; groups: number } | null> {
+  const stats = await getPublicStatsOrNull();
+  return stats ? { songs: stats.songs, groups: stats.songGroups } : null;
 }
 
 function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
@@ -57,14 +69,16 @@ function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
   );
 }
 
-const FAQ_ITEMS = [
+function faqItemsPt(stats: { songs: number; groups: number } | null): Array<{ q: string; a: string }> {
+  const cat = ptCatalog(stats);
+  return [
   {
     q: 'O que e um blind test de K-pop?',
     a: 'Um blind test toca um clipe curto de uma musica de K-pop e voce precisa adivinhar qual musica ou artista e. Voce so ouve a musica, sem visuais ou letras na tela. E a melhor forma de testar o quanto voce realmente conhece K-pop.',
   },
   {
     q: 'Quantas musicas estao disponiveis?',
-    a: 'O catalogo tem mais de 300 musicas em mais de 60 grupos de todas as geracoes de K-pop, desde lendas da 1a geracao ate os debuts mais recentes da 5a geracao. Novas musicas sao adicionadas regularmente.',
+    a: `O catalogo tem ${cat ?? 'musicas'} de todas as geracoes de K-pop, desde lendas da 1a geracao ate os debuts mais recentes. Novas musicas sao adicionadas regularmente.`,
   },
   {
     q: 'Posso jogar so com um grupo?',
@@ -86,13 +100,15 @@ const FAQ_ITEMS = [
     q: 'Posso jogar no celular?',
     a: 'Sim. O blind test funciona em qualquer dispositivo com navegador e audio. Nao precisa baixar app. Basta visitar kpopquiz.org/blindtest e apertar Iniciar.',
   },
-];
+  ];
+}
 
 export default async function PtBlindtestPage(): Promise<React.ReactElement> {
   const [groups, stats] = await Promise.all([
     safeFetch(getBlindtestGroups(), [], '[pt/blindtest] getBlindtestGroups'),
     getStats(),
   ]);
+  const FAQ_ITEMS = faqItemsPt(stats);
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -118,11 +134,11 @@ export default async function PtBlindtestPage(): Promise<React.ReactElement> {
       <div className="bt-hub-seo">
         <div className="bt-hub-stats">
           <div className="bt-hub-stat">
-            <span className="bt-hub-stat-n">{formatCount(stats.songs)}+</span>
+            <span className="bt-hub-stat-n">{stats ? atLeast(stats.songs) : null}</span>
             <span className="bt-hub-stat-l">musicas</span>
           </div>
           <div className="bt-hub-stat">
-            <span className="bt-hub-stat-n">{stats.groups}+</span>
+            <span className="bt-hub-stat-n">{stats ? atLeast(stats.groups) : null}</span>
             <span className="bt-hub-stat-l">grupos</span>
           </div>
           <div className="bt-hub-stat">

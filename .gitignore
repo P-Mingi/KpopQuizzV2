@@ -63,6 +63,7 @@ apps/quiz/.env.local.bak.deadproject
 !.claude/skills/
 .claude/skills/*
 !.claude/skills/verse-laws/
+!.claude/skills/kpopquiz-seo/
 # docs/ stays out by default, but the Working System V2 bus + proofs + the
 # ratified working-system docs are tracked (Cowork/owner read them from git).
 docs/*

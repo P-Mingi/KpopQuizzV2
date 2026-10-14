@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/queries/quizzes';
 import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
-import { getSiteStats } from '@/lib/db/queries/stats';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -56,16 +56,16 @@ export async function generateMetadata(
 
   const { canonical, index: isIndexable } = quizzesIndexRule(url, { validGroup, lastPage });
 
-  // CTR sprint: lead the title with the real catalog size. Floor to the nearest
-  // 10 so "N+" is always true and can only ever undersell as the catalog grows.
-  // getSiteStats is unstable_cached (weekly), so this adds no per-request cost.
-  const stats = await safeFetch<Awaited<ReturnType<typeof getSiteStats>> | null>(getSiteStats(), null, '[browse meta] getSiteStats');
-  const countLabel = `${Math.max(380, Math.floor((stats?.totalQuizzes ?? 0) / 10) * 10)}+`;
+  // CTR sprint: lead the title with the real catalog size, rounded down by the shared
+  // helper so "N+" is always true (owner, 2026-10-14: the live stats of
+  // lib/stats/site-stats.ts; the old floor of 380 and a week-old cache said 430+ for 455).
+  const stats = await getPublicStatsOrNull();
+  const countLabel = stats ? `${atLeast(stats.quizzes)} ` : '';
 
   return {
-    title: `K-pop Quizzes: ${countLabel} Free Fan-Made Tests, Every Group`,
+    title: `K-pop Quizzes: ${countLabel}Free Fan-Made Tests, Every Group`,
     description:
-      `Browse ${countLabel} free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.`,
+      `Browse ${countLabel}free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.`,
     openGraph: {
       title: 'Browse K-pop Quizzes | KpopQuiz',
       description: 'Every K-pop quiz, filtered and sorted your way.',
@@ -219,7 +219,8 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
   // group-canonicalized facet URLs.
   const showFaq = !resolvedGroup && page === 1;
   const faqLink: React.CSSProperties = { color: 'var(--brand)', fontWeight: 600 };
-  const quizFaqs = quizzesFaqs((href, label) => <Link href={href} style={faqLink}>{label}</Link>);
+  const faqStats = await getPublicStatsOrNull();
+  const quizFaqs = quizzesFaqs((href, label) => <Link href={href} style={faqLink}>{label}</Link>, faqStats ? { quizzes: atLeast(faqStats.quizzes), groups: atLeast(faqStats.groupsWithQuizzes) } : null);
 
   return (
     <div className="pt-4 md:pt-6 pb-8">

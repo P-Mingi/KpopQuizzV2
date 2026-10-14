@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import { DiscordCommunity } from '@/components/discord/discord-community';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { floorShown, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+import type { PublicStats } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
 
@@ -26,11 +28,20 @@ export const metadata: Metadata = {
   },
 };
 
-const STATS = [
-  { num: '42k+', label: 'Quizzes jogados' },
-  { num: '500+', label: 'Quizzes criados' },
-  { num: '3k+', label: 'Fas por semana' },
-];
+// Owner, 2026-10-14: os numeros ao vivo de lib/stats/site-stats.ts, como em /about.
+function ptNum(n: number): string {
+  const v = floorShown(n);
+  return v < 100 ? String(v) : `${v.toLocaleString('pt-BR')}+`;
+}
+
+function statsOf(s: PublicStats | null): Array<{ num: string; label: string }> {
+  if (!s) return [];
+  return [
+    { num: ptNum(s.plays), label: 'Quizzes jogados' },
+    { num: ptNum(s.quizzes), label: 'Quizzes publicados' },
+    { num: ptNum(s.groupsWithQuizzes), label: 'Grupos com quizzes' },
+  ];
+}
 
 const FEATURES = [
   {
@@ -77,7 +88,8 @@ const FEATURES = [
   },
 ];
 
-export default function PtAboutPage(): React.ReactElement {
+export default async function PtAboutPage(): Promise<React.ReactElement> {
+  const STATS = statsOf(await getPublicStatsOrNull());
   return (
     <div className="py-8 max-w-2xl mx-auto">
       <div className="text-center">

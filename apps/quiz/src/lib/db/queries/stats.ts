@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { maxPointsPerQuestion, maxScore } from '@/lib/quiz/scoring';
+import { readPublicStats, STATS_REVALIDATE } from '@/lib/stats/site-stats';
 
 /** True when a quiz type scores 1 point a question, so its average is a share of right answers. */
 const ranksByRightAnswers = (quizType: unknown): boolean => maxPointsPerQuestion(typeof quizType === 'string' ? quizType : null) === 1;
@@ -21,23 +22,16 @@ export interface SiteStats {
   updatedAt: string;
 }
 
-const STATS_TTL = 604800; // 1 week
+// The four counts come from the one public stats read (lib/stats/site-stats.ts) and share
+// its cache window, so /stats, /quizzes and every other page print the same numbers
+// (owner, 2026-10-14). The old window was a week: the home page and /stats disagreed.
+const STATS_TTL = STATS_REVALIDATE;
 
 const fetchSiteStats = async (): Promise<SiteStats> => {
   const supabase = createPublicReadClient();
 
-  const [songsRes, quizzesRes, playsRes, groupsRes] = await Promise.all([
-    supabase
-      .from('songs')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'active'),
-    supabase
-      .from('quizzes')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'published'),
-    supabase
-      .from('plays')
-      .select('id', { count: 'exact', head: true }),
+  const [counts, groupsRes] = await Promise.all([
+    readPublicStats(),
     supabase
       .from('groups')
       .select('name, slug, quiz_count, total_plays')
@@ -45,10 +39,6 @@ const fetchSiteStats = async (): Promise<SiteStats> => {
       .order('total_plays', { ascending: false })
       .limit(10),
   ]);
-
-  const totalGroups = await supabase
-    .from('groups')
-    .select('id', { count: 'exact', head: true });
 
   const topQuizzesByGroup = (groupsRes.data ?? []).map((g) => ({
     groupName: g.name as string,
@@ -58,19 +48,19 @@ const fetchSiteStats = async (): Promise<SiteStats> => {
   }));
 
   return {
-    totalSongs: songsRes.count ?? 0,
-    totalQuizzes: quizzesRes.count ?? 0,
-    totalPlays: playsRes.count ?? 0,
-    totalGroups: totalGroups.count ?? 0,
+    totalSongs: counts.songs,
+    totalQuizzes: counts.quizzes,
+    totalPlays: counts.plays,
+    totalGroups: counts.groupsListed,
     generationsCovered: 5,
     topQuizzesByGroup,
-    updatedAt: new Date().toISOString(),
+    updatedAt: counts.asOf,
   };
 };
 
 export const getSiteStats = unstable_cache(
   fetchSiteStats,
-  ['db:stats:getSiteStats:v1'],
+  ['db:stats:getSiteStats:v2'],
   { revalidate: STATS_TTL, tags: ['stats'] },
 );
 
