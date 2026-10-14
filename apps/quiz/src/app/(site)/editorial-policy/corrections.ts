@@ -15,6 +15,35 @@ export interface Correction {
 export const CORRECTIONS: readonly Correction[] = [
   {
     date: '2026-10-14',
+    page: 'BTS trivia',
+    href: '/bts-trivia',
+    what: 'Removed a fact that tied the 2018 UN speech to the Love Myself campaign (it launched UNICEF Generation Unlimited), facts without a subject, and unsourced fan items. Dynamite topped the Billboard Hot 100 dated September 5, 2020, not August 22. Epiphany was a comeback trailer, not the intro track.',
+  },
+  {
+    date: '2026-10-14',
+    page: 'General K-pop trivia',
+    href: '/general-kpop-trivia',
+    what: 'TWICE has five Korean members, not six. Jennie is also Korean-born, not only Jisoo. Jackson Wang joined JYP, not SM. Minnie is the only Thai member of (G)I-DLE. Out-of-date and wrong items (labels, Grammy and chart firsts, Coachella, debut dates, member counts) and items about health or legal matters were removed. The page is kept out of search results until every fact is verified.',
+  },
+  {
+    date: '2026-10-14',
+    page: 'Group hubs',
+    what: 'Removed the "What label is the group on?" answer: our label data mixed Korean labels with US distribution partners (it said BTS is on Columbia Records; BTS is a BIGHIT MUSIC artist). It returns when the data is sourced.',
+  },
+  {
+    date: '2026-10-14',
+    page: 'K-pop generations explained',
+    href: '/articles/kpop-generations-explained',
+    what: 'Four generations are widely recognized; the 5th generation is now credited to the sources that use it, and noted as unofficial. Group counts that did not match the tables were removed.',
+  },
+  {
+    date: '2026-10-14',
+    page: 'K-pop quiz sites comparison',
+    href: '/articles/best-kpop-quiz-sites-2026',
+    what: 'The page now says first that we run kpopquiz.org and compares sites on criteria instead of ranking them. QuizUp (offline since March 2021) and Kpop-Quiz.com (its domain no longer resolves) were removed.',
+  },
+  {
+    date: '2026-10-14',
     page: 'Group hubs',
     what: 'The number of songs in each group blind test came from an outdated table (BTS showed 28, the game plays 20; Stray Kids showed 14, the game plays 21). Hubs now count the songs the game really plays.',
   },

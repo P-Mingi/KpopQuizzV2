@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
 import { getArticleBySlug, getAllArticleSlugs } from '@/lib/articles/registry';
+import { FOUNDER, founderPerson } from '@/lib/seo/org';
 import { fillStats, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { loadArticleContent } from '@/lib/articles/content';
 
@@ -127,11 +128,8 @@ export default async function ArticlePage({ params }: PageProps): Promise<React.
     description: article.description,
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
-    author: {
-      '@type': 'Organization',
-      name: 'KpopQuiz Team',
-      url: SITE_URL,
-    },
+    // SEO Mission 1 (owner, 2026-10-14): a named author who links to /about (lib/seo/org.ts).
+    author: founderPerson(),
     publisher: {
       '@type': 'Organization',
       name: 'KpopQuiz',
@@ -206,7 +204,7 @@ export default async function ArticlePage({ params }: PageProps): Promise<React.
                 <Mascot variant="default" size={28} alt="" />
               </span>
               <span>
-                <span className="art-author">KpopQuiz Team</span>
+                <span className="art-author">By <Link href="/about">{FOUNDER.name}</Link>, founder of kpopquiz.org</span>
                 <span className="art-date">
                   <IconClock /> Last updated: {formatDate(article.updatedAt)}
                 </span>

@@ -2,6 +2,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { FOUNDER, founderPerson } from '@/lib/seo/org';
 
 import type { Metadata } from 'next';
 
@@ -91,7 +92,8 @@ export default function KnowledgeReportPage(): React.ReactElement {
     url: CANONICAL,
     datePublished: '2026-08-17',
     inLanguage: 'en',
-    author: { '@type': 'Organization', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
+    // SEO Mission 1 (owner, 2026-10-14): a named author who links to /about.
+    author: founderPerson(),
     publisher: { '@type': 'Organization', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
     isBasedOn: {
       '@type': 'Dataset',
@@ -117,6 +119,7 @@ export default function KnowledgeReportPage(): React.ReactElement {
       <header className="kr-head">
         <h1 className="kr-title">The K-pop Knowledge Report 2026</h1>
         <p className="kr-standfirst">Fans know the people. They don&apos;t know the catalogue.</p>
+        <p className="kr-dek">By <Link href="/about" className="kr-inline-link">{FOUNDER.name}</Link>, founder of kpopquiz.org</p>
         <p className="kr-dek">
           kpopquiz.org · 1 May 2026 to a snapshot on 17 August 2026 · 17,425 measured attempts ·{' '}
           <a href={DATASET_URL} className="kr-inline-link">full dataset</a>
