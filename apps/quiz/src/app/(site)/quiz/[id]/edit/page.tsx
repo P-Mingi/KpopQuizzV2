@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 // editor in owner mode (owner-scoped PUT, no status control) and is gated to the
 // creator (or an admin).
 export const metadata: Metadata = {
-  title: 'Edit your quiz | KpopQuiz',
+  title: 'Edit your quiz',
   robots: { index: false, follow: false },
 };
 
