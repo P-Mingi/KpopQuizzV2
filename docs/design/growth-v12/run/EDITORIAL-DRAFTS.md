@@ -12,6 +12,10 @@ feature or quiz; every date or fact links to the page that states it (English Wi
 2013 and the stage debut 13 June). Debates without a fact carry no source. Order: two a day, 9 accounts by beat,
 never two in a row from one account (the publisher's rule).
 
+Revision of 2026-10-11 (switch-on day): draft 5 (SEVENTEEN) no longer says the thirteen come together for the
+group's title tracks (most members are doing or starting their military service, through October 2026); it now says
+the thirteen come together as one group, as the linked page does. Drafts 1 to 8 approved for days 1 to 4.
+
 Revision of 2026-10-05 (owner): display names renamed in `profiles` and `editorial_accounts`, usernames unchanged;
 promises removed from drafts 1, 2, 4, 5, 7, 11, 23, 26, 27 (the database rows carry the same text).
 
@@ -97,7 +101,7 @@ The group is split into three units:
 - the vocal unit,
 - the performance unit.
 
-Each unit releases and performs on its own, and the thirteen come together for the group's title tracks. That structure is why SEVENTEEN questions on this site often ask which unit a member belongs to.
+Each unit can release and perform on its own, and the thirteen members come together as one group. That structure is why SEVENTEEN questions on this site often ask which unit a member belongs to.
 
 Which unit do you know best?
 
