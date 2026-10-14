@@ -31,7 +31,8 @@ export async function generateStaticParams(): Promise<Array<{ month: string }>> 
 
 function summarize(monthLabel: string, fandom: string | null, plays: number): string {
   const lead = fandom ? `${fandom} was ${monthLabel}'s most-played fandom on kpopquiz.org` : `${monthLabel} on kpopquiz.org`;
-  return `${lead}, drawn from ${plays.toLocaleString('en-US')} real quiz plays. Fandom of the month, most-played quizzes, fan duel verdict, and community growth. Free to cite with a link.`;
+  // Within 160 characters (Bing): the lead, the count with its window, what the report holds.
+  return `${lead}, from ${plays.toLocaleString('en-US')} real quiz plays: fandom of the month, top quizzes and community growth.`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

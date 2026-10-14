@@ -23,7 +23,7 @@ const DATASET_URL = `${CANONICAL}/dataset`;
 export const metadata: Metadata = {
   title: 'The K-pop Knowledge Report 2026',
   description:
-    'We scored 17,425 K-pop quiz attempts to measure what fans actually know. Fans name members at 97.5% and place eras at 41.6%. Method, full dataset and the findings we discarded.',
+    'We scored 17,425 K-pop quiz attempts to measure what fans know: members named at 97.5%, eras placed at 41.6%. Method, full dataset and discarded findings.',
   alternates: { canonical: '/data/knowledge-report-2026' },
   openGraph: {
     title: 'The K-pop Knowledge Report 2026',
