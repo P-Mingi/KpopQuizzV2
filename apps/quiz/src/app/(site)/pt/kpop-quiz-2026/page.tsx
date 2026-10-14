@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByYear } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
     description: 'Os quizzes de K-pop mais recentes de 2026. Atualizado diariamente pelos fas.',
     url: '/pt/kpop-quiz-2026',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

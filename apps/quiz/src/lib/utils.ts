@@ -29,14 +29,30 @@ export function formatCount(n: number): string {
   return n.toString();
 }
 
+export const SLUG_MAX = 60;
+
+/**
+ * The URL slug of a new quiz or game, from its title. SEO (owner, 2026-10-13): accents
+ * are folded ("Você" gives "voce", not "voc"), a separator between two words keeps
+ * them apart ("BTS/BLACKPINK"), the slug never starts or ends with a hyphen (titles
+ * ending in "?" used to give "...-from-3-clues-"), and a long title is cut on a word
+ * boundary. Existing slugs are never rewritten: they are live, indexed URLs.
+ */
 export function generateSlug(title: string): string {
-  return title
+  const slug = title
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim()
+    .replace(/[/\\|_+&]/g, ' ')
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .slice(0, 60);
+    .replace(/^-|-$/g, '');
+  if (slug.length <= SLUG_MAX) return slug;
+  const cut = slug.slice(0, SLUG_MAX + 1);
+  const end = cut.lastIndexOf('-');
+  return (end >= SLUG_MAX / 2 ? cut.slice(0, end) : slug.slice(0, SLUG_MAX)).replace(/-$/, '');
 }
 
 export function formatRelativeDate(dateString: string): string {

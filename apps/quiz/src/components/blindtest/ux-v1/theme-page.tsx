@@ -11,6 +11,7 @@ import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
 import { KPDH_ID, themeCard, visibleThemes } from '@/lib/growth/bt-themes';
 import { modeRun } from '@/lib/ux-v1/p6/modes';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import { BtModeControllerLoader, BtModeErrorLoader, BtThemePlayLoader } from './mode-loader';
 
@@ -31,12 +32,27 @@ import type { Metadata } from 'next';
 // other; there is no poster, still, character art or logo anywhere on the page.
 
 /** Title, description and canonical of a theme page (a new URL: no v11 field to keep). */
+/**
+ * A theme's lead, with the last line that brings it between 120 characters (Bing reports
+ * shorter ones) and 160 (the snippet); the longest that fits when none lands in between.
+ */
+export function themeDescription(theme: BtTheme): string {
+  const tails = [
+    ' Free K-pop blind test: hear a short clip of each song and name it before time runs out. No sign-up.',
+    ' Free K-pop blind test: name each song from a short clip. No sign-up.',
+    ' Free K-pop blind test, no sign-up.',
+    '',
+  ];
+  const all = tails.map((t) => theme.lead + t).filter((d) => d.length <= 160);
+  return all.find((d) => d.length >= 120) ?? all.sort((a, b) => b.length - a.length)[0] ?? theme.lead;
+}
+
 export function themeMetadata(theme: BtTheme): Metadata {
   return {
     title: theme.h1,
-    description: theme.lead,
+    description: themeDescription(theme),
     alternates: { canonical: `/blindtest/${theme.id}` },
-    openGraph: { title: theme.h1, description: theme.lead, url: `/blindtest/${theme.id}` },
+    openGraph: { title: theme.h1, description: themeDescription(theme), url: `/blindtest/${theme.id}`, images: [DEFAULT_OG_IMAGE] },
   };
 }
 

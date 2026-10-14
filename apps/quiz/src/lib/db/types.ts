@@ -161,6 +161,8 @@ export interface QuizWithGroup {
   id: string;
   title: string;
   slug: string;
+  /** quizzes.language (the full select reads it; optional for the rows built elsewhere). */
+  language?: Language;
   quiz_type: QuizType;
   questions: Question[];
   settings: QuizSettings;

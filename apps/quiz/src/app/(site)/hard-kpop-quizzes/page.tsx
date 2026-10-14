@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByDifficulty } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     title: 'Hardest K-pop Quizzes | KpopQuiz',
     description: 'Only true stans survive these quizzes. Average pass rate under 30%.',
     url: 'https://kpopquiz.org/hard-kpop-quizzes',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: { card: 'summary_large_image' },
 };

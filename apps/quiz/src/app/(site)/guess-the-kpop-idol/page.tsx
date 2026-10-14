@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     title: 'Guess the K-pop Idol | KpopQuiz',
     description: 'How many clues do you need? Play guess-from-clues K-pop quizzes.',
     url: 'https://kpopquiz.org/guess-the-kpop-idol',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: { card: 'summary_large_image' },
 };

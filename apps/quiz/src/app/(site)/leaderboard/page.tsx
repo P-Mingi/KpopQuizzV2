@@ -1,6 +1,7 @@
 import { CommunityContent } from '@/components/community/community-content';
 import { LeaderboardV11 } from '@/components/leaderboard/ux-v1/leaderboard';
 import { UX_V1 } from '@/lib/ux-v1';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -12,7 +13,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: 'K-pop Fandom Leaderboard: Who Wins This Week',
   description: 'See which K-pop fandom is winning the week on the fandom war map, watch what fans are playing right now, and follow the top quiz creators.',
-  openGraph: { title: 'Community | KpopQuiz', description: 'The fandom war map, a live feed of what fans are playing, and the top creators on kpopquiz.org.', url: '/leaderboard' },
+  openGraph: { title: 'Community | KpopQuiz', description: 'The fandom war map, a live feed of what fans are playing, and the top creators on kpopquiz.org.', url: '/leaderboard', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary_large_image' },
   alternates: {
     canonical: '/leaderboard',

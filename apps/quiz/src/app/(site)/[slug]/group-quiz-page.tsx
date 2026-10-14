@@ -143,6 +143,10 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
       card: 'summary_large_image',
       images: [ogImage],
     },
+    // SEO (owner, 2026-10-13): a hub with no published quiz is an empty "be the first"
+    // page; it stays reachable but out of the index (and out of the sitemap) until its
+    // first quiz is published.
+    ...(n === 0 ? { robots: { index: false, follow: true } } : {}),
   };
 }
 

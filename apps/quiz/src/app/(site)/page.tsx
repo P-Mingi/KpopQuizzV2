@@ -20,6 +20,7 @@ import { QuizCard } from '@/components/ui/quiz-card';
 import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
     title: 'K-pop Quiz - 380+ Free Fan-Made Quizzes | KpopQuiz',
     description: 'Play 380+ free K-pop quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every K-pop group. No sign-up, instant play.',
     url: '/',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',

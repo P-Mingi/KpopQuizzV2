@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+import { isConfiguredImageHost } from '@/lib/image-hosts';
+
 interface UserAvatarProps {
   username: string;
   avatarUrl: string | null;
@@ -17,7 +19,10 @@ export function UserAvatar({ username, avatarUrl, bgColor, textColor, size }: Us
   const initials = username.slice(0, 2).toUpperCase();
   const fontSize = Math.round(size * 0.4);
 
-  if (avatarUrl && !imgError) {
+  // next/image throws during render on a host missing from remotePatterns (lib/image-hosts.ts),
+  // so one profile with such an avatar (a share.google link, 2026-10-13) took /pt/leaderboard
+  // down with a 500. An avatar on an unregistered host shows the initials instead.
+  if (avatarUrl && !imgError && isConfiguredImageHost(avatarUrl)) {
     return (
       <div
         className="rounded-full overflow-hidden flex-shrink-0"

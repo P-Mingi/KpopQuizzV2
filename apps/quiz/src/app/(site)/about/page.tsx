@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { DiscordCommunity } from '@/components/discord/discord-community';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
     title: 'About KpopQuiz',
     description: 'A free, fan-made home for K-pop quizzes, mini-games, and leaderboards.',
     url: '/about',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

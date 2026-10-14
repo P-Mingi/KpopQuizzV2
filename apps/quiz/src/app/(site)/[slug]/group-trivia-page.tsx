@@ -11,10 +11,12 @@ import { getGroupNameAllGame, getGroupBlindtestInfo } from '@/lib/db/queries/gro
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 import type { TriviaCategory, TriviaFact } from '@/lib/trivia/types';
+import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 
 // Fact types, categorization, dedup, fetching + the override layer now live in
 // src/lib/trivia/* (shared with hasTriviaPage and the corpus extraction script).
@@ -101,8 +103,8 @@ function TriviaFactCard({ item }: { item: TriviaFact }) {
 // caller already resolved it to run the TRIVIA_MIN_FACTS eligibility gate, and
 // getOverriddenFacts is cache()'d, so this costs no extra query). Leading with
 // it gives every trivia page a concrete, true reason to click instead of one
-// generic title shared by all 37 of them. The gate guarantees >= 12, so the
-// count is always plural.
+// generic title shared by all 37 of them. The gate guarantees >= TRIVIA_MIN_FACTS
+// (9), so the count is always plural.
 export function generateGroupTriviaMetadata(group: Group, factCount: number): Metadata {
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
@@ -138,7 +140,8 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
     safeFetch(getGroupContentDate(group.id), null, '[group-trivia] getGroupContentDate'),
   ]);
 
-  if (uniqueFacts.length < 12) {
+  // The same floor as the route's metadata gate and the sitemap (one constant, never a copy).
+  if (uniqueFacts.length < TRIVIA_MIN_FACTS) {
     notFound();
   }
 
@@ -251,20 +254,23 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
 
       {/* W-NAV step 5: crawlable cross-link into the group's Verse space (mirrors
           the quiz hub). Additive <a>, SEO-positive; closes the trivia -> Verse gap. */}
-      <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
-        <span className="trivia-entry-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+      {/* SEO (2026-10-13): only when the space is open; /verse/<slug> 302s while the Verse is closed. */}
+      {verseSpaceOpen(group.slug) ? (
+        <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
+          <span className="trivia-entry-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z" /><path d="M20 5a2 2 0 0 0-2-2h-5v18h5a2 2 0 0 0 2-2z" />
+            </svg>
+          </span>
+          <span className="trivia-entry-text">
+            <span className="trivia-entry-title">Explore the {group.fandom_name} space on Verse</span>
+            <span className="trivia-entry-sub">Members, discography, timeline and community for {group.name}</span>
+          </span>
+          <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </span>
-        <span className="trivia-entry-text">
-          <span className="trivia-entry-title">Explore the {group.fandom_name} space on Verse</span>
-          <span className="trivia-entry-sub">Members, discography, timeline and community for {group.name}</span>
-        </span>
-        <svg className="trivia-entry-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </Link>
+        </Link>
+      ) : null}
 
       {/* JSON-LD */}
       <script

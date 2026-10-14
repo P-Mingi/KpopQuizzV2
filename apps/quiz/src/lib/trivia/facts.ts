@@ -6,6 +6,7 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 
 import { categorizeFact } from './categorize';
 import { normalizeFactKey } from './fact-key';
+import { isUsableFact } from './fact-quality';
 import { applyOverrides } from './overrides';
 
 import type { TriviaFact } from './types';
@@ -32,8 +33,14 @@ export interface FactSourceQuiz {
 /**
  * Pure (no DB) fact build: pull every quiz's fun_facts, dedupe by canonical
  * key, then apply the group's overrides. Single source of truth shared by
- * getOverriddenFacts (page rendering + the >=12 gate) and the sitemap, so all
+ * getOverriddenFacts (page rendering + the TRIVIA_MIN_FACTS gate) and the sitemap, so all
  * three agree on the exact eligible set AFTER suppressions/replacements.
+ *
+ * SEO (owner, 2026-10-13): each raw fun_fact must pass isUsableFact (length and
+ * word floor, no emoji walls, chatter, notes to the player, answer restatements
+ * or non-English lines) BEFORE dedupe, so a junk line never wins a dedupe slot
+ * and the TRIVIA_MIN_FACTS gate counts usable facts only. It replaces the old >20 char check.
+ * Override replacements are owner-verified text and are not re-filtered.
  */
 export function buildOverriddenFacts(
   groupSlug: string,
@@ -43,7 +50,7 @@ export function buildOverriddenFacts(
   for (const quiz of quizzes) {
     const questions = (Array.isArray(quiz.questions) ? quiz.questions : []) as Question[];
     for (const q of questions) {
-      if (q.fun_fact && q.fun_fact.trim().length > 20) {
+      if (q.fun_fact && isUsableFact(q.fun_fact)) {
         allFacts.push({
           fact: q.fun_fact.trim(),
           category: categorizeFact(q.fun_fact, q.question || ''),
@@ -88,7 +95,9 @@ export const getOverriddenFacts = cache(
 
       return buildOverriddenFacts(groupSlug, quizzes as FactSourceQuiz[]);
     },
-    ['trivia:getOverriddenFacts:v1'],
+    // v2 (2026-10-13): the fact quality filter changed the result for the same
+    // input, so a fresh key keeps a deploy from serving the pre-filter cache.
+    ['trivia:getOverriddenFacts:v2'],
     { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
   ),
 );

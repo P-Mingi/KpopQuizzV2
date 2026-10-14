@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { DiscordCommunity } from '@/components/discord/discord-community';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     description: 'Uma plataforma gratuita feita por fas para quizzes de K-pop, mini-jogos e rankings.',
     url: '/pt/about',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

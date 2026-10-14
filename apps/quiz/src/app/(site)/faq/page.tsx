@@ -1,5 +1,6 @@
 import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
     title: 'KpopQuiz FAQ',
     description: 'Everything you need to know about playing and creating K-pop quizzes on KpopQuiz.',
     url: '/faq',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

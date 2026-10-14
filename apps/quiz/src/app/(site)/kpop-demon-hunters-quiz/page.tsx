@@ -6,6 +6,7 @@ import { BRIDGE_PATH } from '@/lib/personality/bridge';
 import { getBridgePage, SITE } from '@/lib/personality/server';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import SlugPage, { generateMetadata as slugMetadata } from '../[slug]/page';
 
@@ -34,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: TITLE,
     description: DESCRIPTION,
     alternates: { canonical: BRIDGE_PATH },
-    openGraph: { title: `${TITLE} | KpopQuiz`, description: DESCRIPTION, url: BRIDGE_PATH, type: 'website' },
+    openGraph: { title: `${TITLE} | KpopQuiz`, description: DESCRIPTION, url: BRIDGE_PATH, type: 'website', images: [DEFAULT_OG_IMAGE] },
   };
 }
 

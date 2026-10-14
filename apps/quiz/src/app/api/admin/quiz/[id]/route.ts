@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 
 import type { NextRequest } from 'next/server';
 
@@ -86,8 +87,18 @@ export async function PATCH(
     }
   }
 
-  const { error } = await adminDb.from('quizzes').update(update).eq('id', id);
+  const { data: saved, error } = await adminDb.from('quizzes').update(update).eq('id', id).select('slug, status, groups(slug)').maybeSingle();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // SEO: the quiz page, its hub, /new and the sitemap reflect the change now (a removed
+  // quiz 404s at once); IndexNow hears of it.
+  if (saved) {
+    const row = saved as { slug: string; status: string; groups: unknown };
+    const g = Array.isArray(row.groups) ? row.groups[0] : row.groups;
+    const groupSlug = g && typeof g === 'object' ? (g as { slug?: string }).slug ?? null : null;
+    const change = row.status !== 'published' ? 'removed' : typeof body.status === 'string' ? 'published' : 'edited';
+    onQuizChanged(change, row.slug, [groupSlug]);
+  }
 
   return NextResponse.json({ success: true });
 }

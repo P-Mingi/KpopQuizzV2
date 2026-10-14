@@ -62,6 +62,10 @@ jobs:
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}
       NEXT_PUBLIC_SITE_URL: https://kpopquiz.org
       NEXT_PUBLIC_SITE_NAME: KpopQuiz
+      # Production runs with the v11 and v12 flags on since 2026-10-11, so the gates build and
+      # grade the site the public sees, not the flags-off one (owner, 2026-10-14).
+      NEXT_PUBLIC_UX_V1: '1'
+      NEXT_PUBLIC_UX_V12: '1'
       # NOT A CREDENTIAL. This is a placeholder that cannot authenticate, and that is the
       # point. @supabase/supabase-js throws "supabaseKey is required." at CONSTRUCTION
       # when the key is absent, and createServiceRoleClient() is called as a bare

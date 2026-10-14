@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { WmaAbout } from '@/components/personality/about';
 import { PersonalityQuiz } from '@/components/personality/quiz';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
+import { getAllGroups } from '@/lib/db/queries/groups';
+import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { getWmaPage, SITE } from '@/lib/personality/server';
+import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { whichMemberPath } from '@/lib/personality/view';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
+import { groupOgImage } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -47,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title: `${title} | KpopQuiz`, description, url, type: 'website' },
+    openGraph: { title: `${title} | KpopQuiz`, description, url, type: 'website', images: [groupOgImage(page.group.slug, title)] },
   };
 }
 
@@ -58,6 +63,9 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   if (!page) notFound();
   const { group, view, blindtestSongs } = page;
   const hub = `/${group.slug}-quiz`;
+  // The cross-links below the quiz: settled reads, so a blip drops a link, never the page.
+  const [wma, groups] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
+  const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
 
   // "Also on <group>": real doors only, and the grid only with two of them.
   const also = blindtestSongs !== null ? (
@@ -95,6 +103,7 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
       <div className="ux-pers-body">
         <PersonalityQuiz view={view} also={also} />
       </div>
+      <WmaAbout group={group} view={view} wmaSlugs={wma} names={names} />
     </UxPage>
   );
 }

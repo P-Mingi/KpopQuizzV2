@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
-import { pingIndexNow } from '@/lib/indexnow';
+import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 import { validateQuestions } from '@/lib/quiz-validation';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 
@@ -164,10 +164,17 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // The group's slug: the hub the new quiz is listed on (revalidated after publish)
+  // and the base of the slug of a title with no Latin letter.
+  const { data: groupRow } = await supabase.from('groups').select('slug').eq('id', groupId).maybeSingle();
+  const groupSlug = (groupRow as { slug: string } | null)?.slug ?? null;
+
   // 5. Generate unique slug
   const title = (input.title as string).trim();
   let slug = generateSlug(title);
-  if (!slug) slug = `quiz-${Date.now()}`;
+  // A title with no Latin letter (Korean, Japanese) has no slug of its own: name the
+  // URL after the group ("bts-fan-quiz", then "-2"...), never "quiz-<timestamp>".
+  if (!slug) slug = `${groupSlug ?? 'kpop'}-fan-quiz`;
 
   const { data: slugCheck } = await supabase
     .from('quizzes')
@@ -240,9 +247,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const quiz = quizResult as { id: string; slug: string };
 
-  // SEO (audit v2): push the freshly published quiz URL to IndexNow so Bing
-  // (our #1 referrer) recrawls it immediately. Fire-and-forget, never blocks.
-  void pingIndexNow([`/q/${quiz.slug}`]);
+  // SEO: the new quiz is on /new, its hub and the sitemap now, and IndexNow hears
+  // of it once the response is sent (lib/seo/quiz-freshness.ts). Never blocks.
+  onQuizChanged('published', quiz.slug, [groupSlug]);
 
   // M1.11 - fan out a followed_new_quiz notification to the creator's followers.
   // Flag-gated here (the env kill-switch lives in TS); the actual fan-out is one

@@ -10,6 +10,7 @@ import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { ScrollRow } from '@/components/ui/scroll-row';
 import { Mascot } from '@/components/ui/mascot';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     description: 'Jogue e crie quizzes de K-pop sobre BTS, BLACKPINK, Stray Kids, aespa, NewJeans e mais de 30 grupos.',
     url: '/pt',
     locale: 'pt_BR',
+    images: [DEFAULT_OG_IMAGE],
   },
   alternates: {
     canonical: '/pt',

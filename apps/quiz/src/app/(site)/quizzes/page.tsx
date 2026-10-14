@@ -8,8 +8,9 @@ import { getSiteStats } from '@/lib/db/queries/stats';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
-import { UX_V1 } from '@/lib/ux-v1';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { quizzesFaqs } from './faq';
+import { quizzesIndexRule, quizzesLastPage, quizzesNeedsLastPage, readQuizzesUrl } from './index-rule';
 
 import type { Metadata } from 'next';
 
@@ -23,44 +24,37 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const sp = await searchParams;
 
-  // Faceted URL strategy: only single-group is the indexable facet.
-  // /quizzes and /quizzes?group=<valid> self-canonical and stay indexable.
-  // Everything else (sort, type, multi-param combos, search) canonicals to
-  // base /quizzes and gets noindex,follow.
-  const groupSlug = first(sp.group);
-  const hasType = first(sp.type) != null;
-  const hasSort = first(sp.sort) != null;
-  const hasSearch = first(sp.search) != null;
-  // UX v11 (P2): `level` is a filter facet only the flag-on page has; it follows the
-  // facet rule above (canonical /quizzes, noindex,follow). Flag off it is ignored,
-  // exactly as today.
-  const hasLevel = UX_V1 && first(sp.level) != null;
-  const pageNum = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1);
+  // Faceted URL strategy, SEO (owner, 2026-10-13): the whole rule lives in
+  // ./index-rule (pure, unit-tested). Only /quizzes, its pages 2..N (self
+  // canonical) and the sole real group facet are indexable. Part B (cannibalization
+  // fix) is unchanged: /quizzes?group=<valid> (and its pagination) canonicals to
+  // /<slug>-quiz so the group page owns the "<group> quiz" query. Every other facet
+  // (lang and level included), 2+ facets, unknown params, a malformed ?page and a
+  // page past the end get noindex,follow and a canonical to the closest clean URL.
+  const url = readQuizzesUrl(sp);
 
   let validGroup = false;
-  if (groupSlug && !hasType && !hasSort && !hasSearch && !hasLevel) {
+  if (url.soleGroup !== null) {
     const groups = await safeFetch(getAllGroups(), [], '[browse meta] getAllGroups');
-    validGroup = groups.some((g) => g.slug === groupSlug);
+    validGroup = groups.some((g) => g.slug === url.soleGroup);
   }
 
-  const isIndexable = !hasType && !hasSort && !hasSearch && !hasLevel && (!groupSlug || validGroup);
-
-  // Part B (cannibalization fix): a valid single-group facet like
-  // /quizzes?group=exo used to self-canonical and compete with /exo-quiz for the
-  // "<group> quiz" query. The dedicated group page should own that query, so the
-  // facet (and its pagination) now canonicals to /<slug>-quiz, consolidating the
-  // ranking signal there. Canonical alone does the dedup - no noindex, since a
-  // noindex + cross-URL canonical would be a conflicting signal. All other
-  // non-indexable variants still collapse to base /quizzes with noindex,follow.
-  let canonical: string;
-  if (validGroup) {
-    canonical = `/${groupSlug}-quiz`;
-  } else {
-    const canonicalParams = new URLSearchParams();
-    if (isIndexable && pageNum > 1) canonicalParams.set('page', String(pageNum));
-    const qs = canonicalParams.toString();
-    canonical = qs ? `/quizzes?${qs}` : '/quizzes';
+  // The result size, only for ?page=N (N > 1) of an indexable view: the published
+  // facet rows the v11 render counts its pages from (same inner joins as the browse
+  // query, 1 h cache, so this is the page's own count). Imported on demand so the
+  // flag-off route loads it only for ?page=N. A failed read = size unknown (the
+  // page is then taken to be in range, never noindexed on a DB blip).
+  let lastPage: number | null = null;
+  if (quizzesNeedsLastPage(url, validGroup)) {
+    const { getP2FacetRows } = await import('@/lib/ux-v1/p2/queries');
+    const rows = await safeFetch(getP2FacetRows(), [], '[browse meta] facet rows');
+    if (rows.length > 0) {
+      const total = validGroup ? rows.filter((r) => r.groupSlug === url.soleGroup).length : rows.length;
+      lastPage = quizzesLastPage(total, PAGE_SIZE);
+    }
   }
+
+  const { canonical, index: isIndexable } = quizzesIndexRule(url, { validGroup, lastPage });
 
   // CTR sprint: lead the title with the real catalog size. Floor to the nearest
   // 10 so "N+" is always true and can only ever undersell as the catalog grows.
@@ -76,6 +70,7 @@ export async function generateMetadata(
       title: 'Browse K-pop Quizzes | KpopQuiz',
       description: 'Every K-pop quiz, filtered and sorted your way.',
       url: canonical,
+      images: [DEFAULT_OG_IMAGE],
     },
     twitter: { card: 'summary_large_image' },
     alternates: {

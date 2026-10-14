@@ -1,6 +1,7 @@
 import { getMostLikedQuizzes } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     title: 'Most Liked K-pop Quizzes | KpopQuiz',
     description: 'The most loved K-pop quizzes as voted by fans.',
     url: '/most-liked',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/most-liked' },

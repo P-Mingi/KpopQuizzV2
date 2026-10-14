@@ -7,6 +7,7 @@ import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
     url: 'https://kpopquiz.org/groups',
     siteName: 'KpopQuiz',
     type: 'website',
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

@@ -1,6 +1,7 @@
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
 
@@ -9,11 +10,12 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'New K-pop Quizzes',
-  description: 'The newest K-pop quizzes just published by fans. Fresh trivia about your favorite groups - be the first to play.',
+  description: 'The newest K-pop quizzes just published by fans, updated as they go live. Fresh trivia about your favorite groups: be the first to play.',
   openGraph: {
     title: 'New K-pop Quizzes | KpopQuiz',
     description: 'The newest K-pop quizzes just published by fans.',
     url: '/new',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/new' },
