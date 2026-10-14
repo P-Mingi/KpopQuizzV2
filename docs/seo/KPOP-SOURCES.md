@@ -1,56 +1,63 @@
-# KPOP-SOURCES - the grounding layer for the content engine
+# KPOP-SOURCES: where K-pop facts come from
 
-The authoritative sources the engine grounds facts and freshness on. Every K-pop claim in an article
-(a group's members, debut date, fandom name, generation, discography) must trace to one of these, and
-boundary/uncertain claims must be reframed or dropped. This is the layer that stops the
-generation-label class of error (Stray Kids labelled 3rd gen, NewJeans/ILLIT/BABYMONSTER pinned to a
-single gen) that v1 caught in review - see `docs/seo/CONTENT-ENGINE.md`.
+Version 2, 2026-10-14 (SEO Mission 1; rulebook `.claude/skills/kpopquiz-seo/SKILL.md`, section 5).
+Every K-pop claim on an indexable page (members, debut date, label, fandom name, generation,
+discography, records) traces to one of the sources below, and the source link sits next to the
+fact on the page. This replaces version 1, which put kprofiles and the Fandom wiki first.
 
-**Golden rule:** two independent sources agree, or it does not go in as a fact. If sources conflict
-or are thin (very new groups), state it qualitatively ("a recent breakout rookie") instead of
-asserting a number, roster, or label. A vaguer true sentence always beats a precise wrong one.
+**Golden rule:** two agreeing sources, one of them official, Wikidata or Wikipedia, or it does not
+go in as a fact. If sources conflict or are thin (very new groups), write a vaguer sentence that is
+true ("a 2024 debut") instead of a number, a roster or a label. A vaguer true sentence always beats
+a precise wrong one.
 
-## Tier A - profiles / factual data (members, debut dates, fandom names, discography)
-Use these to verify a roster, a debut date, a fandom name, or a song list.
-- **kprofiles.com** (kprofiles.com/{group}-members-profile) - the most complete fan-maintained
-  profile DB. Trust for: member lists, positions, birth names, debut dates, fandom names. Caveat:
-  fan-edited, so cross-check debut date + roster against the label profile for anything load-bearing.
-- **Kpop Wiki (kpop.fandom.com)** - community wiki. Trust for: discography, release dates,
-  member/lineup history (good for lineup changes). Cross-check with kprofiles.
-- **Official label + group profiles** - HYBE / SM / YG / JYP / label artist pages and the group's
-  official site. Trust as the primary source for debut date, current lineup, official romanization.
-  This overrides fan sources on conflict.
+## Level A: the sources a fact can rest on
+- **Official sites and verified accounts**: the group's official site, its label's artist page
+  (HYBE, SM, YG, JYP, Starship, Pledis and the rest), and the group's or label's verified accounts
+  (X, Instagram, Weverse, YouTube). The primary source for the current lineup, the debut date, the
+  official romanization and the fandom name. On conflict, official wins.
+- **Wikidata**: the structured record (members, inception, record label, genre) and the stable ID
+  used in our JSON-LD `sameAs`. Fetch IDs by script, never type a QID.
+- **MusicBrainz**: releases, release dates, track lists, artist relationships.
+- **Wikipedia**: the narrative record with its own citations; check the cited source when a fact is
+  load-bearing.
 
-## Tier B - news / comebacks / debuts (freshness signal)
-Use these to decide whether a comeback/debut is live enough to prefer for freshness.
-- **Soompi (soompi.com)** - English K-pop news, reliable dates + confirmations. Trust for: comeback
-  announcements, debut confirmations, official statements.
-- **allkpop (allkpop.com)** - English K-pop news. Trust for: the same freshness signal; treat
-  headlines as leads to confirm, not as facts on their own.
-- **Official group / label SNS** (X, Instagram, Weverse) - the primary announcement channel. Trust a
-  label/group post as confirmation of a date or lineup; do not trust fan reposts.
+## Charts and records
+- **Circle Chart** (circlechart.kr, formerly Gaon): what charts in Korea, certifications.
+- **Billboard** (billboard.com): Global and US charts.
+- Records and "firsts" need one of these two or a level A source. Streaming counts move every day:
+  never print one as a lasting fact.
 
-## Tier C - chart / streaming context (is a song actually big right now)
-Use these only for "which songs are charting" context, never for roster/date facts.
-- **Circle Chart (circlechart.kr)** - the official Korean chart (ex-Gaon). Trust for: what is
-  actually charting in Korea now.
-- **Billboard (billboard.com)** - Global / K-pop charts for international context.
-- **Spotify / YouTube public counts** - streaming context for "most-streamed" style phrasing; round
-  and hedge ("one of the most-streamed"), never quote an exact count as a durable fact.
+## Leads, never a source on their own
+- **Soompi, allkpop** and similar news sites: good for spotting a comeback, a debut or a lineup
+  change. Confirm in a level A source before writing it as a fact.
+- **Bylined reputable outlets** (Korea JoongAng Daily, Korea Times, Korea Herald, Yonhap, Billboard,
+  NME): may be cited for a dated event, and to attribute a debate ("commonly described as 5th
+  generation (Korea Times, 2025)").
 
-## Fact-check rules (apply in every article)
-1. **Members / roster**: only from Tier A, cross-checked. Never invent or omit a member. If unsure of
-   the exact count, say "the group" not "the N members".
-2. **Debut date**: Tier A + a Tier B confirmation for recent debuts. Give the year, not a precise day,
-   unless two sources agree on the day.
-3. **Generation labels**: only from consensus, and only for uncontested groups. Boundary groups
-   (debut near a gen line, or actively argued) get a neutral phrase, never a number. Safe buckets:
-   3rd = BTS/BLACKPINK/TWICE/SEVENTEEN/EXO; 4th = aespa/IVE/LE SSERAFIM/ENHYPEN/ITZY. Everything after
-   ~2023 (Cortis, ILLIT, BABYMONSTER, RIIZE, etc.) is "rookie / newest wave", not a gen number.
-4. **Song titles / counts**: only assert a title you can source; never a fabricated tracklist. For
-   counts that the site itself cannot confirm (e.g. the blindtest song count, 300-vs-4000 unresolved),
-   stay qualitative.
-5. **Fandom names**: Tier A. (This is how v1 learned COER = the Cortis fandom, not a separate group -
-   see `docs/seo/AUDIT.md`.)
-6. **On any conflict or thin sourcing**: reframe to a true, vaguer statement. Log the uncertainty in
-   the article's EMAIL payload fact-check notes so the human reviewer sees what was hedged and why.
+## Not sources: never extracted, copied or cited
+- **kprofiles** and **Fandom wikis** (kpop.fandom.com and the rest), and any similar fan database.
+  They are fan-edited and their content is theirs. Citation over extraction: we never scrape them,
+  copy them or link them as a source.
+- Facts drawn from user-made quizzes (fun facts) are review candidates, never facts on their own.
+
+## Generation labels
+Generation labels come from the group data, with a confidence level, and every page reads the same
+field, so the site never contradicts itself:
+- **consensus**: the generation is not disputed; show the number ("3rd generation").
+- **attributed**: a named reliable source says it; write "commonly described as 5th generation
+  (Korea Times, 2025)" with the link.
+- **contested** or **newest**: say so, show both views, or write "newest wave".
+
+## Fact-check rules (every page, every article)
+1. **Members and roster**: level A, two agreeing sources. Never invent or omit a member. If unsure of
+   the exact count, write "the group", not "the N members".
+2. **Debut date**: level A plus a second source. Give the year unless two sources agree on the day.
+3. **Generation**: the confidence rule above, from the group data.
+4. **Songs and counts**: only a title you can source; never a made-up tracklist. Our own counts
+   (quizzes, songs in the blind test, plays) come only from the site stats function
+   (`apps/quiz/src/lib/stats/site-stats.ts`), never typed.
+5. **Fandom names**: official first, then Wikipedia or Wikidata.
+6. **Privacy and safety**: stage names and public roles only. No dating, health, family, scandal or
+   private life. Minors: stage role only. No lyrics.
+7. **On conflict or thin sourcing**: write the vaguer true sentence, and log the correction with a
+   date in the corrections section of /editorial-policy.
