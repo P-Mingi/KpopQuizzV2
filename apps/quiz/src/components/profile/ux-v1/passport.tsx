@@ -12,6 +12,7 @@ import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '
 import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 
 import { LocalDraftOrEmpty, LocalDraftRow, MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
+import { OwnQuizRows } from './own-quiz-row';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
 import type { BadgeTile, BandMode, HistoryRow, MasteryRow, MetaSegment, StatCell } from '@/lib/ux-v1/p10/passport-model';
@@ -179,10 +180,10 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       />
       {p.quizzes.length > 0 ? (
         <div className="ux-rows">
-          <QuizRows quizzes={p.quizzes} />
+          {personal ? <OwnQuizRows quizzes={p.quizzes} /> : <QuizRows quizzes={p.quizzes} />}
           {/* personal only: this device's create draft as the last row (client, after mount) */}
           {p.quizzesTotal > p.quizzes.length
-            ? <MoreQuizzes creatorId={p.creatorId} offset={p.quizzes.length} total={p.quizzesTotal} tail={personal ? <LocalDraftRow /> : undefined} />
+            ? <MoreQuizzes creatorId={p.creatorId} offset={p.quizzes.length} total={p.quizzesTotal} owner={personal} tail={personal ? <LocalDraftRow /> : undefined} />
             : personal ? <LocalDraftRow /> : null}
         </div>
       ) : personal ? (

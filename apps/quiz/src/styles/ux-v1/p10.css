@@ -172,3 +172,15 @@
   .p10-bandimg { transition: none; }
   .p10-savebar { animation: none; }
 }
+
+/* "Your quizzes" on /me (owner, 2026-10-14): the row opens the quiz; Edit and Delete sit at
+   its end. Under 560px the two buttons drop under the title, aligned with it. */
+.p10-own .p10-own-link { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; color: inherit; }
+.p10-own .p10-own-link:hover .ux-rt { color: var(--ux-pink-ink); }
+.p10-own .ux-err { display: block; margin-top: 4px; font-size: 13px; }
+.p10-own-act { display: flex; gap: 8px; flex-shrink: 0; }
+.p10-own-del:hover { color: var(--ux-pink-ink); }
+@media (max-width: 560px) {
+  .p10-own { flex-wrap: wrap; row-gap: 8px; }
+  .p10-own-act { width: 100%; padding-left: 72px; }
+}
