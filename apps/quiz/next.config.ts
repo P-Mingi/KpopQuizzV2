@@ -74,8 +74,10 @@ const nextConfig: NextConfig = {
       // 1. Games hub + all mini games (sort-it, match-up, name-them-all, name-all,
       // this-or-that). The group-specific game slugs are not group-prefixed in the
       // path, so they cannot be resolved statically and go to /quizzes.
+      // SEO (owner, 2026-10-14): except /games/name-all and everything under it, which the
+      // middleware answers one by one (301 to the group's Name them all page, else 410).
       { source: '/games', destination: '/quizzes', permanent: true },
-      { source: '/games/:path*', destination: '/quizzes', permanent: true },
+      { source: '/games/:path((?!name-all(?:/|$)).*)', destination: '/quizzes', permanent: true },
       { source: '/pt/games', destination: '/pt/quizzes', permanent: true },
       // 2. Rankings (this-or-that verdicts). The hub -> /quizzes; a group ranking
       // carries group intent -> the group hub.

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
 import { isKnownRoute } from '@/lib/route-allowlist';
+import { GONE_HTML, legacyNameAllAnswer } from '@/lib/seo/legacy-urls';
+import { isUxV12 } from '@/lib/ux-v12';
 import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
 
 import type { NextRequest } from 'next/server';
@@ -61,6 +63,14 @@ export async function middleware(request: NextRequest) {
       const to = new URL('/create', request.url);
       to.search = request.nextUrl.search;
       return NextResponse.redirect(to);
+    }
+    // SEO (owner, 2026-10-14): the retired /games/name-all/* URLs Bing still crawls. A
+    // name-all-<group> game goes 301 to its V12 page; the rest are 410 Gone
+    // (lib/seo/legacy-urls.ts). next.config leaves these paths to us.
+    const nameAll = legacyNameAllAnswer(pathname, isUxV12());
+    if (nameAll) {
+      if (nameAll.status === 301) return NextResponse.redirect(new URL(nameAll.location, request.url), 301);
+      return new NextResponse(GONE_HTML, { status: 410, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
     // REFONTE P1: the /battle-preview -> /battle redirect and the
     // /which-{group}-member-are-you -> /personality rewrite were removed with the
