@@ -16,3 +16,6 @@ END;
 $function$;
 
 ALTER FUNCTION public.handle_new_report() RESET search_path;
+
+ALTER POLICY reports_insert_all ON public.reports
+  WITH CHECK (true);

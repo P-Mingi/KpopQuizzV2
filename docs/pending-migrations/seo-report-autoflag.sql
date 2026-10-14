@@ -1,4 +1,5 @@
--- SEO / moderation (2026-10-13). OWNER-GATED: not applied. Rollback: seo-report-autoflag-rollback.sql.
+-- SEO / moderation (2026-10-13). APPLIED 2026-10-14 by the owner's session (this file matches the
+-- database). Rollback: seo-report-autoflag-rollback.sql.
 --
 -- What it fixes. public.handle_new_report() flags a quiz (status 'flagged', which takes it
 -- off the site: /q/<slug> 404s, it leaves lists and the sitemap) on its 5th report row of
@@ -36,3 +37,11 @@ BEGIN
   RETURN NEW;
 END;
 $function$;
+
+-- A report is anonymous or in the name of the signed-in user, never in another account's
+-- name: without this, 5 reports "from" 5 real accounts (any uuid in reporter_id) would pass
+-- the distinct-reporter rule above. Tested in a rolled-back transaction: a report in another
+-- account's name is refused; anonymous and own-name reports (the site's three report paths,
+-- and the app's "[Auto]" moderation rows with reporter_id null) still pass.
+ALTER POLICY reports_insert_all ON public.reports
+  WITH CHECK (reporter_id IS NULL OR reporter_id = auth.uid());
