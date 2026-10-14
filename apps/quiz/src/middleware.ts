@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
 import { isKnownRoute } from '@/lib/route-allowlist';
-import { GONE_HTML, legacyNameAllAnswer } from '@/lib/seo/legacy-urls';
+import {
+  GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyNameAllAnswer,
+} from '@/lib/seo/legacy-urls';
 import { isUxV12 } from '@/lib/ux-v12';
 import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
 
@@ -71,6 +73,14 @@ export async function middleware(request: NextRequest) {
     if (nameAll) {
       if (nameAll.status === 301) return NextResponse.redirect(new URL(nameAll.location, request.url), 301);
       return new NextResponse(GONE_HTML, { status: 410, headers: { 'content-type': 'text/html; charset=utf-8' } });
+    }
+    // SEO (owner, 2026-10-14): /battle?quiz=<slug> goes 301 to /q/<slug> or 404. That needs
+    // a database read, which the middleware never does: the request is handed to the route
+    // handler. A bare /battle never gets here (its next.config redirect runs first).
+    if (pathname === LEGACY_BATTLE_PATH && request.nextUrl.searchParams.has('quiz')) {
+      const to = new URL(LEGACY_BATTLE_HANDLER, request.url);
+      to.searchParams.set('quiz', request.nextUrl.searchParams.get('quiz') ?? '');
+      return NextResponse.rewrite(to);
     }
     // REFONTE P1: the /battle-preview -> /battle redirect and the
     // /which-{group}-member-are-you -> /personality rewrite were removed with the

@@ -6,7 +6,7 @@ import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
 import { prettyPath } from '@/lib/name-all/round';
 import { isKnownRouteWith } from '@/lib/route-allowlist';
 import {
-  LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, legacyNameAllAnswer,
+  LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, battleQuizSlug, legacyNameAllAnswer,
 } from './legacy-urls';
 
 // SEO (owner, 2026-10-14): the retired URLs Bing reported (docs/seo/bing-2026-10-14,
@@ -152,6 +152,27 @@ describe('next.config hands the legacy URLs to the middleware', () => {
   it('the other retired /games URLs keep their redirect', async () => {
     for (const p of ['/games', '/games/sort-it', '/games/this-or-that/all', '/games/name-them-all/name-all-kpop-groups', '/games/name-allx']) {
       expect((await firstRedirect(p))?.destination, p).toBe('/quizzes');
+    }
+  });
+
+  it('/battle?quiz= reaches the middleware; a bare /battle keeps its redirect', async () => {
+    expect(await firstRedirect('/battle', { quiz: 'illit-quiz' })).toBeUndefined();
+    expect((await firstRedirect('/battle'))?.destination).toBe('/quizzes');
+    expect((await firstRedirect('/battle/abc'))?.destination).toBe('/quizzes');
+  });
+});
+
+describe('/battle?quiz=: the slug worth a database read', () => {
+  it('takes a live slug as it is', () => {
+    for (const s of ['illit-quiz', 'stray-kids-know-each-member', 'can-you-guess-the-ive-song-from-3-clues-', '-nct-find-the-intruder']) {
+      expect(battleQuizSlug(s)).toBe(s);
+    }
+    expect(battleQuizSlug(' illit-quiz ')).toBe('illit-quiz');
+  });
+
+  it('refuses what no published slug looks like', () => {
+    for (const s of [null, '', '-', '---', '../admin', 'a/b', 'Illit-Quiz', 'illit quiz', 'x'.repeat(121), 'quiz?x=1']) {
+      expect(battleQuizSlug(s), String(s)).toBeNull();
     }
   });
 });

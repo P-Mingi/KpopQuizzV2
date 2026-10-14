@@ -57,3 +57,29 @@ export const GONE_HTML =
   '<body style="font-family:system-ui,sans-serif;max-width:36rem;margin:4rem auto;padding:0 1rem">' +
   '<h1>This page was removed</h1><p>This game is no longer on KpopQuiz.</p>' +
   '<p><a href="/">Play a K-pop quiz</a></p></body></html>';
+
+/** The body of a 404 for a legacy URL that points at no published quiz. */
+export const NOT_FOUND_HTML =
+  '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+  '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+  '<meta name="robots" content="noindex"><title>Quiz not found</title></head>' +
+  '<body style="font-family:system-ui,sans-serif;max-width:36rem;margin:4rem auto;padding:0 1rem">' +
+  '<h1>Quiz not found</h1><p>No published quiz has this address.</p>' +
+  '<p><a href="/quizzes">Browse K-pop quizzes</a></p></body></html>';
+
+// /battle?quiz=<slug> was the 1v1 duel on one quiz (REFONTE P1 removed it). Its exact
+// successor is the quiz itself, /q/<slug>, when a published quiz has that slug; otherwise
+// 404. The middleware hands these to /api/legacy/battle, which reads the database (the
+// middleware never does). A bare /battle keeps its next.config redirect.
+export const LEGACY_BATTLE_PATH = '/battle';
+export const LEGACY_BATTLE_HANDLER = '/api/legacy/battle';
+
+/** Live slugs are lowercase letters, digits and hyphens (some start or end with one). */
+const QUIZ_SLUG_RE = /^[a-z0-9-]{1,120}$/;
+
+/** The quiz slug of a /battle?quiz= value worth a database read, or null (a plain 404). */
+export function battleQuizSlug(raw: string | null): string | null {
+  if (raw === null) return null;
+  const slug = raw.trim();
+  return QUIZ_SLUG_RE.test(slug) && /[a-z0-9]/.test(slug) ? slug : null;
+}

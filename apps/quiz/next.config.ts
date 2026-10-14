@@ -91,9 +91,11 @@ const nextConfig: NextConfig = {
       { source: '/tier-list/share', destination: '/quizzes', permanent: true },
       { source: '/tier-list/mine/:path*', destination: '/quizzes', permanent: true },
       { source: '/tier-list/subject/:group/:kind', destination: '/:group-quiz', permanent: true },
-      // 4. Battle / duel 1v1 (was noindex). -> /quizzes.
-      { source: '/battle', destination: '/quizzes', permanent: true },
-      { source: '/battle/:path*', destination: '/quizzes', permanent: true },
+      // 4. Battle / duel 1v1 (was noindex). -> /quizzes. SEO (owner, 2026-10-14): not with a
+      // ?quiz=<slug>, which the middleware sends to that quiz (301) or to a 404.
+      { source: '/battle', missing: [{ type: 'query' as const, key: 'quiz' }], destination: '/quizzes', permanent: true },
+      // `+`, not `*`: `*` also matched a bare /battle, and caught /battle?quiz= after all.
+      { source: '/battle/:path+', destination: '/quizzes', permanent: true },
       { source: '/battle-preview', destination: '/quizzes', permanent: true },
       { source: '/battle-preview/:path*', destination: '/quizzes', permanent: true },
       // 5. Personality ("which member are you"). The pretty /which-* URLs and the
