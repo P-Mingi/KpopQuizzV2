@@ -6,6 +6,7 @@ import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { closesIn, comma, leaderIndex, levelLine, percents, plural } from '@/lib/ux-v1/p8/format';
 
 import { LikeButton, ShareButton } from './actions';
+import { FanDebateVote } from './post-debate';
 
 import type { DebateData, FeedPost, P8Person } from '@/lib/ux-v1/p8/types';
 
@@ -93,13 +94,22 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
   }
 
   if (post.kind === 'debate' && post.debate) {
+    // An open fan (or Team) debate takes the vote right in the feed (owner, 2026-10-13), the same
+    // control as its post page; a closed one, or a past daily debate, shows its results.
+    const inline = !post.debate.daily && post.debate.open && /^\d+$/.test(post.key);
     return (
       <PostCard
         kind="debate" className="p8-card" {...chip} title={post.title} href={post.href} author={author} meta={meta} {...team}
         excerpt={post.excerpt ?? undefined} actions={<>{heart}{replies}{share}</>}
       >
-        <DebateBars debate={post.debate} label={`Results: ${post.title}`} />
-        <p className="p8-help">{debateLine(post.debate)}</p>
+        {inline ? (
+          <FanDebateVote id={Number(post.key)} question={post.title} debate={post.debate} />
+        ) : (
+          <>
+            <DebateBars debate={post.debate} label={`Results: ${post.title}`} />
+            <p className="p8-help">{debateLine(post.debate)}</p>
+          </>
+        )}
       </PostCard>
     );
   }
