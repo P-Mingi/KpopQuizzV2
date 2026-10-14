@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { DiscordCommunity } from '@/components/discord/discord-community';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { CONTACT_EMAIL, FOUNDER } from '@/lib/seo/org';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import type { PublicStats } from '@/lib/stats/site-stats';
 
@@ -114,6 +115,48 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           </div>
         ))}
       </div>
+
+      {/* Owner, 2026-10-14 (SEO Mission 1, trust): who runs the site, how the quizzes are
+          made, where facts come from, and how to reach us. The owner chose to appear by his
+          first name and role only. */}
+      <section className="mt-9 space-y-6 text-[15px] leading-relaxed text-[var(--text-secondary)]" aria-label="About the site">
+        <div>
+          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Who runs KpopQuiz?</h2>
+          <p>
+            KpopQuiz (kpopquiz.org) is run by {FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
+            with any artist, label or agency.
+          </p>
+        </div>
+        <div>
+          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">How are the quizzes made?</h2>
+          <p>
+            Fans write the quizzes. Anyone with an account can create one, and their name is shown on it. A few accounts
+            are labelled <b>Team</b>: they publish quizzes and articles for the site, through an editorial review. Play
+            counts, scores and averages come from real recorded plays, never from estimates.
+          </p>
+          <p className="mt-2">
+            Players can report a quiz. A quiz is hidden from the site when 5 different signed-in accounts report it, until
+            it is reviewed.
+          </p>
+        </div>
+        <div>
+          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Where do the facts come from?</h2>
+          <p>
+            Facts on our pages come from official sources, Wikidata, MusicBrainz and Wikipedia, and every correction is
+            logged with its date. Read the{' '}
+            <Link href="/editorial-policy" className="font-medium text-[var(--accent)] hover:underline">editorial policy</Link>
+            {' '}for the details.
+          </p>
+        </div>
+        <div>
+          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">How can I contact you?</h2>
+          <p>
+            Write to{' '}
+            <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-[var(--accent)] hover:underline">{CONTACT_EMAIL}</a>
+            {' '}for questions, corrections or press requests.
+          </p>
+        </div>
+      </section>
 
       {/* Features */}
       <h2 className="mt-9 mb-3 text-sm font-bold uppercase tracking-wide text-[var(--text-tertiary)]">

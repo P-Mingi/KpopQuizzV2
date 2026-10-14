@@ -7,7 +7,7 @@ import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
-import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
+import { organizationJsonLd } from '@/lib/seo/org';
 import { UX_V1 } from '@/lib/ux-v1';
 // The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
 // flag-off pages never download it; only a tiny loader sits in this layout's bundle.
@@ -31,21 +31,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: jsonLdString({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'KpopQuiz',
-            url: 'https://kpopquiz.org',
-            logo: 'https://kpopquiz.org/logo-512.png',
-            sameAs: [
-              SOCIAL_LINKS.reddit.url,
-              SOCIAL_LINKS.discord.invite,
-              SOCIAL_LINKS.pinterest.url,
-              SOCIAL_LINKS.tiktok.url,
-              SOCIAL_LINKS.youtube.url,
-              SOCIAL_LINKS.instagram.url,
-            ],
-          }),
+          // Owner, 2026-10-14 (SEO Mission 1): alternateName, contact, the named founder, and
+          // sameAs only to the profiles the owner confirmed are live (lib/seo/org.ts).
+          __html: jsonLdString(organizationJsonLd()),
         }}
       />
       <script

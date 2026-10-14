@@ -75,6 +75,7 @@ export function Footer(): React.ReactElement {
             <p style={{ fontSize: 8, fontWeight: 700, color: 'var(--txt3)', margin: 0, marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>Support</p>
             {[
               { label: 'About', href: '/about' },
+              { label: 'Editorial policy', href: '/editorial-policy' },
               { label: 'FAQ', href: '/faq' },
               { label: 'Contact', href: '/contact' },
               { label: 'Terms', href: '/terms' },

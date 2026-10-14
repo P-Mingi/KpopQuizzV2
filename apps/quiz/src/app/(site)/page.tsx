@@ -265,6 +265,8 @@ const WEBSITE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'KpopQuiz',
+  // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
+  alternateName: 'kpopquiz.org',
   url: 'https://kpopquiz.org',
   description: 'K-pop quizzes made by fans, played by thousands.',
   potentialAction: {
