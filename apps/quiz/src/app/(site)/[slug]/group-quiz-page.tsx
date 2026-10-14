@@ -83,21 +83,25 @@ export function buildGroupFaqs(
 // in the description is interpolated live from group.quiz_count (never stale).
 // ILLIT has no name-all game, so its entry makes no member claim (light touch).
 // All other ~80 groups fall through to the formula below. No em dashes (house rule).
+// SEO (owner, 2026-10-14): every title stays within 60 characters with the " | KpopQuiz"
+// suffix (rulebook 2.2; the CTR freeze on these ended 2026-08-31). Five were shortened:
+// "(2026)" dropped where that was enough, Cortis and BABYMONSTER reworded. Pinned by
+// lib/seo/titles.test.ts.
 const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string }> = {
-  seventeen: { title: 'SEVENTEEN Quiz: Can You Name All 13 Members? (2026)', hook: 'Name all 13 members, guess the era, and prove you are a real CARAT' },
+  seventeen: { title: 'SEVENTEEN Quiz: Can You Name All 13 Members?', hook: 'Name all 13 members, guess the era, and prove you are a real CARAT' },
   bts: { title: 'BTS Quiz: Only Real ARMY Can Name All 7 (2026)', hook: 'Name all 7 members, guess the song from the lyrics, and prove you are a real ARMY' },
   aespa: { title: 'aespa Quiz: Name All 4 Members and More (2026)', hook: 'Name all 4 members, guess the era, and prove you are a real MY' },
-  blackpink: { title: 'BLACKPINK Quiz: Can Every BLINK Name All 4? (2026)', hook: 'Name all 4 members, guess the song, and prove you are a real BLINK' },
+  blackpink: { title: 'BLACKPINK Quiz: Can Every BLINK Name All 4?', hook: 'Name all 4 members, guess the song, and prove you are a real BLINK' },
   twice: { title: 'TWICE Quiz: Can You Name All 9 Members? (2026)', hook: 'Name all 9 members, guess the era, and prove you are a real ONCE' },
-  'stray-kids': { title: 'Stray Kids Quiz: Name All 8 Members and More (2026)', hook: 'Name all 8 members, guess the song, and prove you are a real STAY' },
+  'stray-kids': { title: 'Stray Kids Quiz: Name All 8 Members and More', hook: 'Name all 8 members, guess the song, and prove you are a real STAY' },
   illit: { title: 'ILLIT Quiz: Free Fan-Made Tests for GLLIT (2026)', hook: "Test your knowledge of ILLIT's members, songs, and eras, then prove you are a real GLLIT" },
   // W2: Cortis is the #1 hub by impressions (freshness weapon). No name-all game
   // (no member claim) and the DB fandom is a placeholder, so the hook leans on the
   // 2025 debut angle rather than a member count or fandom name.
-  cortis: { title: 'Cortis Quiz: Test How Well You Know the Rookie Group (2026)', hook: "Test your knowledge of Cortis's members, songs, and 2025 debut" },
+  cortis: { title: 'Cortis Quiz: Test How Well You Know the Rookies', hook: "Test your knowledge of Cortis's members, songs, and 2025 debut" },
   // W3: BABYMONSTER (816i, YG rookie) had no override. Neutral hook (no specific
   // member count - the lineup has shifted - and no fandom claim).
-  babymonster: { title: 'BABYMONSTER Quiz: Free Fan-Made Tests for the YG Rookies (2026)', hook: "Test your knowledge of BABYMONSTER's members, songs, and eras" },
+  babymonster: { title: 'BABYMONSTER Quiz: Free Tests for the YG Rookies', hook: "Test your knowledge of BABYMONSTER's members, songs, and eras" },
 };
 
 export function generateGroupQuizMetadata(group: Group): Metadata {

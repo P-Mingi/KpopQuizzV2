@@ -41,7 +41,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-blind-test-2026',
-    title: 'K-pop Blind Test 2026: Guess This Year’s Biggest Songs',
+    title: 'K-pop Blind Test 2026: This Year’s Biggest Songs',
     description:
       'The 2026 K-pop blind test, explained: which groups you will hear, how the 10-second guessing game works, and how to name a song in the first two seconds.',
     category: 'guide',
@@ -152,7 +152,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'bts-vs-blackpink-quiz',
-    title: 'BTS vs BLACKPINK: Which Fandom Knows Their Group Better?',
+    title: 'BTS vs BLACKPINK: Which Fandom Knows More?',
     description:
       'A data-driven comparison of BTS and BLACKPINK quizzes: average scores, hardest questions, and fandom knowledge depth. Find out which fandom truly knows more.',
     category: 'comparison',
@@ -185,7 +185,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-blind-test-guide',
-    title: 'K-pop Blind Test: How to Recognize Any Song in 10 Seconds',
+    title: 'K-pop Blind Test: Name Any Song in 10 Seconds',
     description:
       'Learn how to play K-pop blind tests, improve your song recognition skills, and discover the best blind test platforms. 7 tips from top scorers.',
     category: 'guide',
@@ -295,7 +295,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'most-played-kpop-quizzes',
-    title: 'The Most-Played K-pop Quizzes This Month (Live Data)',
+    title: 'The Most-Played K-pop Quizzes This Month',
     description:
       'The most-played K-pop quizzes on kpopquiz.org over the trailing 30 days, ranked live by real play counts. The chart moves week to week as fandoms rally around new quizzes.',
     category: 'data',
@@ -333,7 +333,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'girl-groups-vs-boy-groups-kpop-quiz',
-    title: 'Girl Groups vs Boy Groups: Who Scores Higher on K-pop Quizzes?',
+    title: 'Girl Groups vs Boy Groups: Who Scores Higher?',
     description:
       'Do fans score higher on girl-group or boy-group K-pop quizzes? A live comparison from kpopquiz.org, plus what actually drives the gap: audience concentration and catalogue depth, not difficulty.',
     category: 'comparison',
@@ -376,7 +376,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'hardest-kpop-groups-to-memorize',
-    title: 'The Hardest K-pop Groups to Fully Memorize (Member Count Data)',
+    title: 'Hardest K-pop Groups to Memorize, by Member Count',
     description:
       'Which K-pop groups are hardest to fully memorise? Live roster sizes from the group catalogues on kpopquiz.org, plus why large lineups are hard to recall and how to learn them in units.',
     category: 'data',
@@ -415,7 +415,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'stray-kids-vs-ateez',
-    title: 'Stray Kids vs ATEEZ: The 4th-Gen Boy Group Showdown',
+    title: 'Stray Kids vs ATEEZ: 4th-Gen Boy Group Showdown',
     description:
       'Stray Kids vs ATEEZ compared: both 4th-generation, both eight members, both self-producing. A member, sound, and blind-test comparison to decide which K-pop quiz to take.',
     category: 'comparison',
@@ -448,7 +448,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'aespa-vs-newjeans-quiz',
-    title: 'aespa vs NewJeans: The 4th-Gen Girl Group Quiz Face-Off',
+    title: 'aespa vs NewJeans: 4th-Gen Girl Group Face-Off',
     description:
       'aespa vs NewJeans compared: two defining 4th-generation girl groups with opposite sounds. Members, style, and blind-test difficulty to help you pick your K-pop quiz.',
     category: 'comparison',
@@ -481,7 +481,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-blind-test-by-group-ranked',
-    title: 'K-pop Blind Test by Group: Every Playlist Ranked by Difficulty',
+    title: 'K-pop Blind Test by Group, Ranked by Difficulty',
     description:
       'A practical difficulty ranking of the K-pop blind test group playlists on kpopquiz.org, and what actually decides difficulty: how recognisable a catalogue is in the first few seconds.',
     category: 'listicle',
@@ -580,7 +580,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-eras-timeline',
-    title: 'K-pop Eras Timeline: How Long Have You Really Been a Fan?',
+    title: 'K-pop Eras Timeline: When Did You Become a Fan?',
     description:
       'The five K-pop generations on one timeline, with approximate years and era markers from 1st gen to 5th gen. Find where you started and test your era knowledge with a blind test.',
     category: 'guide',
@@ -614,7 +614,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'newjeans-fan-guide',
-    title: 'How Well Do You Know NewJeans? The Complete Fan Guide',
+    title: 'How Well Do You Know NewJeans? A Full Fan Guide',
     description:
       'A NewJeans fan guide: the five members (Minji, Hanni, Danielle, Haerin, Hyein), why their sound is easy to recognize, and how to get quiz-ready. Includes the NewJeans quiz.',
     category: 'guide',
@@ -647,7 +647,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'bts-discography-guide',
-    title: 'The Ultimate BTS Discography Guide (Test Every Era)',
+    title: 'The BTS Discography Guide (Test Every Era)',
     description:
       'A guide to the BTS discography for quiz fans: seven members, nine Korean studio albums, 200+ songs, and how to study the catalog era by era. Includes the BTS quiz and blind test.',
     category: 'guide',
@@ -680,7 +680,7 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'rookie-kpop-groups-2026',
-    title: 'The Rookie K-pop Groups Taking Over 2026 (With Quizzes)',
+    title: 'The Rookie K-pop Groups Taking Over 2026',
     description:
       'How to spot rising rookie K-pop groups through real quiz activity on kpopquiz.org, using the live most-played chart instead of predictions the scene will outrun.',
     category: 'guide',
