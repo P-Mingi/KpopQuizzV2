@@ -70,6 +70,7 @@ function topicOverlap(a: Set<string>, b: Set<string>, groupWords: Set<string>): 
 // Near duplicates: the same fact asked in other words. The words of a question plus its right
 // answer, without the topic stop words, compared by Jaccard against every existing question.
 const NEAR_DUP = 0.6;
+const LOT_REPEAT = 0.5;
 type AnyQ = { question?: string; options?: unknown; correct?: unknown };
 const answerText = (x: AnyQ): string => (Array.isArray(x.options) && typeof x.correct === 'number' ? String(x.options[x.correct] ?? '') : typeof x.correct === 'boolean' ? String(x.correct) : '');
 const factWords = (x: AnyQ): Set<string> => topicWords(`${x.question ?? ''} ${answerText(x)}`);
@@ -160,6 +161,15 @@ async function main(): Promise<void> {
       for (let i = 1; i < seq.length; i++) { run = seq[i] === seq[i - 1] ? run + 1 : 1; maxRun = Math.max(maxRun, run); }
       if (cycle(1) || cycle(-1)) warn(at, `right answers follow a cycle (${seq.join('')})`);
       else if (maxRun >= 4) warn(at, `right answer on the same position ${maxRun} times in a row (${seq.join('')})`);
+    }
+  }
+
+  // The same fact on two days of the lot: the earlier quiz gives the later one away.
+  const lotFacts = lot.flatMap((q) => (q.questions ?? []).map((x, i) => ({ date: q.scheduled_date, n: i + 1, words: factWords(x as AnyQ) })));
+  for (let a = 0; a < lotFacts.length; a++) {
+    for (let b = a + 1; b < lotFacts.length; b++) {
+      const x = lotFacts[a]!; const y = lotFacts[b]!;
+      if (x.date !== y.date && jaccard(x.words, y.words) >= LOT_REPEAT) warn(`${y.date} Q${y.n}`, `same fact as ${x.date} Q${x.n} in this lot`);
     }
   }
 
