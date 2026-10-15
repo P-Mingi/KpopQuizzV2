@@ -1,0 +1,408 @@
+{
+  "version": 1,
+  "group": "cortis",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/Cortis",
+  "officialSite": "https://cortisofficial.us/",
+  "wikidata": "Q135668928",
+  "members": [
+    "James",
+    "Juhoon",
+    "Martin",
+    "Seonghyeon",
+    "Keonho"
+  ],
+  "groupsData": {
+    "name": "Cortis",
+    "generation": null,
+    "memberCount": null,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "cortis-members",
+      "level": "easy",
+      "question": "How many members are in Cortis?",
+      "answer": "Five",
+      "text": "Cortis has five members: James, Juhoon, Martin, Seonghyeon and Keonho.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q135668928",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-agency",
+      "level": "easy",
+      "question": "Which label formed Cortis?",
+      "answer": "BIGHIT MUSIC",
+      "text": "Cortis is a boy band formed by BIGHIT MUSIC in 2025.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q135668928",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-debut",
+      "level": "easy",
+      "question": "When did Cortis debut?",
+      "answer": "August 18, 2025",
+      "text": "Cortis made their official debut on August 18, 2025.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q135668928",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-debut-single",
+      "level": "easy",
+      "question": "What was the debut single of Cortis?",
+      "answer": "What You Want",
+      "text": "Cortis debuted with the single What You Want, performed with choreography on treadmills.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-name",
+      "level": "easy",
+      "question": "Which phrase does the name Cortis come from?",
+      "answer": "Color Outside the Lines",
+      "text": "The name Cortis is made of six letters taken from the phrase Color Outside the Lines.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-third-group",
+      "level": "medium",
+      "question": "Which BIGHIT MUSIC groups came before Cortis?",
+      "answer": "BTS and TOMORROW X TOGETHER",
+      "text": "Cortis is the third BIGHIT MUSIC group, after BTS and TOMORROW X TOGETHER.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-first-ep",
+      "level": "medium",
+      "question": "What was the first EP released by Cortis?",
+      "answer": "Color Outside the Lines",
+      "text": "Cortis released their debut EP, Color Outside the Lines, on September 8, 2025, with the single Fashion.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-go",
+      "level": "medium",
+      "question": "Which pre-debut single did Cortis release on August 11, 2025?",
+      "answer": "Go!",
+      "text": "Cortis released the pre-debut single Go! on August 11, 2025, with a music video filmed in Los Angeles.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-teezo",
+      "level": "medium",
+      "question": "Which American singer is featured on the English version of the Cortis song What You Want?",
+      "answer": "Teezo Touchdown",
+      "text": "The English version of What You Want by Cortis features the American singer Teezo Touchdown.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-greengreen",
+      "level": "medium",
+      "question": "Which Cortis EP was led by the single RedRed?",
+      "answer": "GreenGreen",
+      "text": "GreenGreen, the second Cortis EP, came out on May 4, 2026, led by the single RedRed.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-golden-disc",
+      "level": "medium",
+      "question": "Which award did Cortis win at the 40th Golden Disc Awards?",
+      "answer": "Rookie Artist of the Year",
+      "text": "Cortis won Rookie Artist of the Year at the 40th Golden Disc Awards in January 2026, alongside AllDay Project.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-fashion-mv",
+      "level": "hard",
+      "question": "In which New Zealand city was the Cortis music video for Fashion filmed?",
+      "answer": "Christchurch",
+      "text": "The music video for Fashion by Cortis was filmed in Christchurch, New Zealand.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-mic-drop",
+      "level": "hard",
+      "question": "Which BTS song did Cortis cover at Tokyo National Stadium in December 2025?",
+      "answer": "Mic Drop",
+      "text": "Cortis covered the BTS song Mic Drop at Tokyo National Stadium during the 2025 Music Bank Global Festival in Japan.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-nba",
+      "level": "hard",
+      "question": "Which 2026 NBA All-Star event made Cortis the first K-pop group to headline its halftime show?",
+      "answer": "The NBA All-Star Celebrity Game",
+      "text": "Cortis performed at halftime of the 2026 NBA All-Star Celebrity Game, the first K-pop group to headline a halftime show at the event.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-song-camp",
+      "level": "hard",
+      "question": "In which city did the Cortis members attend a song camp for their debut album?",
+      "answer": "Los Angeles",
+      "text": "From April to May 2024, the Cortis members attended a song camp in Los Angeles to work on their debut album.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-rec-cotl",
+      "level": "records",
+      "question": "At what position did the Cortis EP Color Outside the Lines enter the Billboard 200?",
+      "answer": "No. 15",
+      "text": "Color Outside the Lines by Cortis entered the Billboard 200 at No. 15 on the chart dated September 27, 2025.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/cortis/chart-history/tlp/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "CORTIS Chart History: Billboard 200"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-rec-greengreen",
+      "level": "records",
+      "question": "How high did the Cortis EP GreenGreen reach on the Billboard 200?",
+      "answer": "No. 3",
+      "text": "GreenGreen by Cortis debuted at No. 3 on the Billboard 200 dated May 23, 2026.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/cortis/chart-history/tlp/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "CORTIS Chart History: Billboard 200"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-rec-greengreen-sales",
+      "level": "records",
+      "question": "Which Cortis EP gave the group its first No. 1 on Billboard's Top Album Sales chart?",
+      "answer": "GreenGreen",
+      "text": "GreenGreen gave Cortis their first No. 1 on Billboard's Top Album Sales chart, dated May 23, 2026.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/cortis-greengreen-first-no-1-top-album-sales-chart-1236252277/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "CORTIS Achieves First No. 1 on Top Album Sales Chart With 'GREENGREEN'"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "cortis-rec-redred",
+      "level": "records",
+      "question": "Which Cortis single reached No. 1 on the Circle Digital Chart in 2026?",
+      "answer": "RedRed",
+      "text": "RedRed, released by Cortis in April 2026, reached No. 1 on South Korea's Circle Digital Chart.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cortis",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Cortis"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}
