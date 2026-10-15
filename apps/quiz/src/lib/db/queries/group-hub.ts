@@ -4,7 +4,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { getFandomWarMap, getActiveFansByGroup } from '@/lib/db/queries/community';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
-import { MIN_SONGS_FOR_GROUP_MODE } from '@/lib/blind-test-modes';
+import { ROUND_SIZE } from '@/lib/blind-test-playlists';
 import { MASTERY, isMastered } from '@/lib/passport';
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -53,21 +53,28 @@ export const getGroupNameAllGame = unstable_cache(
   { revalidate: CACHE_TTL.catalog, tags: ['groups'] },
 );
 
-/** Blindtest qualification: active clip songs for this group; >= MIN qualifies. */
+/**
+ * Blindtest qualification, by THE playlist rule of the site (lib/blind-test-playlists.ts): the
+ * group's clean active songs in `songs`, the pool /api/blind-test/generate plays, and a group
+ * qualifies when they fill a round (ROUND_SIZE). Owner, 2026-10-14: this read the legacy
+ * blind_test_songs table with a floor of 5, so the BTS hub said "28 BTS songs" while the game
+ * plays 20, Stray Kids said 14 for 21, and a hub could link a group blindtest page that 404s.
+ */
 export const getGroupBlindtestInfo = unstable_cache(
   async (groupId: number): Promise<{ qualifies: boolean; songs: number }> => {
   const db = createPublicReadClient();
-  const { count } = await db
-    .from('blind_test_songs')
+  const { count, error } = await db
+    .from('songs')
     .select('id', { count: 'exact', head: true })
     .eq('group_id', groupId)
     .eq('status', 'active')
-    .not('clip_chorus', 'is', null);
+    .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
+  if (error) throw new Error(`[group-hub] blindtest songs: ${error.message}`);
   const songs = count ?? 0;
-  return { qualifies: songs >= MIN_SONGS_FOR_GROUP_MODE, songs };
+  return { qualifies: songs >= ROUND_SIZE, songs };
   },
-  ['db:group-hub:getGroupBlindtestInfo:v1'],
-  { revalidate: CACHE_TTL.catalog, tags: ['groups'] },
+  ['db:group-hub:getGroupBlindtestInfo:v2'],
+  { revalidate: CACHE_TTL.catalog, tags: ['groups', 'songs'] },
 );
 
 /** This group's fandom war-map rank + weekly delta, or null when uncharted. */

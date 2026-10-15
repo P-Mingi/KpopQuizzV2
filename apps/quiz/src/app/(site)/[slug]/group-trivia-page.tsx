@@ -105,6 +105,9 @@ function TriviaFactCard({ item }: { item: TriviaFact }) {
 // it gives every trivia page a concrete, true reason to click instead of one
 // generic title shared by all 37 of them. The gate guarantees >= TRIVIA_MIN_FACTS
 // (9), so the count is always plural.
+/** Trivia pages kept out of the index until their facts are verified. */
+export const UNVERIFIED_TRIVIA = 'general-kpop';
+
 export function generateGroupTriviaMetadata(group: Group, factCount: number): Metadata {
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
@@ -112,6 +115,10 @@ export function generateGroupTriviaMetadata(group: Group, factCount: number): Me
     title: `${group.name} Trivia: ${factCount} Facts Only Real Fans Know`,
     description: `How well do you really know ${group.name}? ${factCount} surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes.`,
     alternates: { canonical: `/${group.slug}-trivia` },
+    // SEO Mission 1 (owner, 2026-10-14): the general K-pop trivia mixes 600+ fan facts across
+    // every group and is not fully verified yet. It stays reachable but out of the index (and
+    // out of the sitemap) until it is.
+    ...(group.slug === UNVERIFIED_TRIVIA ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: `${group.name} Trivia | KpopQuiz`,
       description: `Fun facts about ${group.name} that even hardcore fans might not know.`,

@@ -99,8 +99,10 @@ export default function LoginPage(): React.ReactElement {
           </div>
 
           <div className="bp-stats">
-            <div><div className="bp-stat-n">30+</div><div className="bp-stat-l">groups</div></div>
-            <div><div className="bp-stat-n">100k+</div><div className="bp-stat-l">plays</div></div>
+            {/* Owner, 2026-10-14: no typed counts ("100k+ plays" was false: the stats function
+                holds the real ones). */}
+            <div><div className="bp-stat-n">Fan-made</div><div className="bp-stat-l">quizzes</div></div>
+            <div><div className="bp-stat-n">Blind</div><div className="bp-stat-l">tests</div></div>
             <div><div className="bp-stat-n">Free</div><div className="bp-stat-l">forever</div></div>
           </div>
         </div>

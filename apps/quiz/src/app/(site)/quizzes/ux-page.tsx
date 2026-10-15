@@ -10,6 +10,7 @@ import {
   p2Trigger, parseP2Filters, quizCountLabel, typeLabel,
 } from '@/lib/ux-v1/p2/filters';
 import { P2QuizzesPage } from '@/components/quizzes/ux-v1/quizzes-page';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
 
 import type { P2ChipData, P2Empty } from '@/components/quizzes/ux-v1/quizzes-page';
@@ -138,7 +139,8 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
     })),
   } : null;
   const showFaq = !group && f.page === 1;
-  const faqs = quizzesFaqs((href, label) => <Link href={href} className="p2-inl">{label}</Link>);
+  const faqStats = await getPublicStatsOrNull();
+  const faqs = quizzesFaqs((href, label) => <Link href={href} className="p2-inl">{label}</Link>, faqStats ? { quizzes: atLeast(faqStats.quizzes), groups: atLeast(faqStats.groupsWithQuizzes) } : null);
 
   return (
     <P2QuizzesPage

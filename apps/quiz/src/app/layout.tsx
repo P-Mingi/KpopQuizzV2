@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     template: '%s | KpopQuiz',
   },
   description:
-    'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
+    'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and many more groups. Made by real fans, played by thousands.',
   keywords: ['kpop quiz', 'kpop trivia', 'BTS quiz', 'BLACKPINK quiz', 'Stray Kids quiz', 'kpop game', 'kpop test', 'kpop fan quiz'],
   authors: [{ name: 'KpopQuiz' }],
   creator: 'KpopQuiz',
@@ -98,14 +98,14 @@ export const metadata: Metadata = {
     siteName: 'KpopQuiz',
     title: 'KpopQuiz - Play K-pop Quizzes Made by Fans for Fans',
     description:
-      'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
+      'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and many more groups. Made by real fans, played by thousands.',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'KpopQuiz - Play K-pop Quizzes Made by Fans for Fans' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'KpopQuiz - Play K-pop Quizzes Made by Fans for Fans',
     description:
-      'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and 30+ groups. Made by real fans, played by thousands.',
+      'Play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and many more groups. Made by real fans, played by thousands.',
     images: ['/og-default.png'],
   },
   other: {

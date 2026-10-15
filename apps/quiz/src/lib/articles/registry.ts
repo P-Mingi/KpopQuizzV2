@@ -79,13 +79,15 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'best-kpop-quiz-sites-2026',
-    title: 'Best Free K-pop Quiz Sites in 2026: 5 Ranked and Reviewed',
+    // SEO Mission 1 (owner, 2026-10-14): we run kpopquiz.org, so the page says so first,
+    // compares on criteria without ranking us first, and lists only sites checked live.
+    title: 'K-pop Quiz Sites in 2026: A Fair Comparison',
     description:
-      'We ranked 5 free K-pop quiz sites for 2026, from fan-made platforms to mobile apps. See which one fits how you like to test your K-pop knowledge.',
+      'We run kpopquiz.org, so we say so: a plain comparison of free K-pop quiz sites in 2026, checked live, with what you can play, who writes it and what it costs.',
     category: 'listicle',
     publishedAt: '2026-06-21',
-    updatedAt: '2026-06-21',
-    coverAlt: 'Collage of K-pop quiz websites compared side by side',
+    updatedAt: '2026-10-14',
+    coverAlt: 'Table comparing free K-pop quiz sites',
     tags: ['quiz sites', 'comparison', 'free quizzes'],
     relatedLinks: [
       { label: 'Browse all quizzes', href: '/quizzes' },
@@ -94,24 +96,24 @@ export const ARTICLES: ArticleMeta[] = [
     ],
     faq: [
       {
-        question: 'What is the best free K-pop quiz site in 2026?',
+        question: 'Which free K-pop quiz sites are there in 2026?',
         answer:
-          'The best free K-pop quiz sites in 2026 include KpopQuiz.org (fan-made quizzes with blind tests and games), Sporcle (classic quiz format with user-generated K-pop content), and Kpop-Quiz.com (simple multiple-choice quizzes). Each has different strengths depending on what kind of quiz experience you prefer.',
+          'Three free options we checked live on 14 October 2026: kpopquiz.org (fan-made K-pop quizzes, a blind test and games; we run it), Sporcle (a general quiz site with a K-pop tag) and Soompi (quizzes published as articles).',
       },
       {
         question: 'Are K-pop quiz sites free to use?',
         answer:
-          'Most K-pop quiz sites are completely free. KpopQuiz.org, Sporcle, and Kpop-Quiz.com all offer free access to their quiz libraries. Some mobile apps may have premium features, but the core quiz experience is typically free.',
+          'All three are free to play. Sporcle shows ads; kpopquiz.org and Soompi do not charge for their quizzes.',
       },
       {
-        question: 'Which K-pop quiz site has the most quizzes?',
+        question: 'How many quizzes does kpopquiz.org have?',
         answer:
-          'KpopQuiz.org has one of the largest libraries with 330+ quizzes covering 87+ groups, plus blind tests, This or That games, and Name All Members challenges. Sporcle also has a large user-generated library.',
+          'kpopquiz.org has {quizzes} published quizzes covering {groups} groups, plus a blind test of {songs} songs.',
       },
       {
         question: 'Can I create my own K-pop quiz?',
         answer:
-          'Yes. KpopQuiz.org lets any registered user create and publish quizzes for free. Sporcle also has a quiz creation tool. Most other K-pop quiz sites are play-only.',
+          'Yes on kpopquiz.org, with a free account, and on Sporcle. Soompi quizzes are written by Soompi.',
       },
     ],
   },
@@ -119,10 +121,10 @@ export const ARTICLES: ArticleMeta[] = [
     slug: 'kpop-generations-explained',
     title: 'Every K-pop Generation Explained (1st to 5th Gen)',
     description:
-      'A definitive guide to all five K-pop generations, from H.O.T. and S.E.S. in the 1990s to the latest 5th-gen groups. Includes timelines, key groups, and era quizzes.',
+      'A guide to the K-pop generations, from H.O.T. and S.E.S. in the 1990s to the newest wave of groups, with timelines, key groups, sources and era quizzes.',
     category: 'guide',
     publishedAt: '2026-06-21',
-    updatedAt: '2026-06-21',
+    updatedAt: '2026-10-14',
     coverAlt: 'Timeline showing K-pop generations from 1st to 5th gen',
     tags: ['generations', 'history', 'guide'],
     relatedLinks: [
@@ -134,7 +136,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'How many K-pop generations are there?',
         answer:
-          'There are five widely recognized K-pop generations. 1st gen (1996-2003) featured H.O.T., S.E.S., and BoA. 2nd gen (2003-2012) included BIGBANG, SNSD, and 2NE1. 3rd gen (2012-2017) brought BTS, BLACKPINK, and EXO. 4th gen (2018-2022) introduced Stray Kids, aespa, and ATEEZ. 5th gen (2023+) includes groups like BABYMONSTER and RIIZE.',
+          'Four K-pop generations are widely recognized: 1st gen (1996 to 2003) with H.O.T., S.E.S. and BoA; 2nd gen (2003 to 2012) with BIGBANG, Girls\' Generation and 2NE1; 3rd gen (2012 to 2017) with BTS, BLACKPINK and EXO; 4th gen (2018 to 2022) with Stray Kids, aespa and ATEEZ. Groups that debuted from 2023, such as BABYMONSTER and ILLIT, are commonly described as 5th generation (Korea Times, 2025), a label that is not official (Korea JoongAng Daily, 2023).',
       },
       {
         question: 'What gen is BTS?',
@@ -144,7 +146,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'What gen is NewJeans?',
         answer:
-          'NewJeans debuted in July 2022 and are generally classified as late 4th gen or early 5th gen, depending on the classification system used. Their debut marked a transition point between generations.',
+          'NewJeans debuted on 22 July 2022 and is commonly described as a 4th generation group (Korea JoongAng Daily, 2023; Korea Times, 2025).',
       },
     ],
   },
@@ -210,12 +212,12 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'Where can I play a free K-pop blind test?',
         answer:
-          'KpopQuiz.org offers a free K-pop blind test with nearly 4,000 songs across 87+ groups. You can play by group, by generation, or in a mixed all-K-pop mode. No account required to start playing.',
+          'KpopQuiz.org offers a free K-pop blind test with {songs} songs across {songGroups} groups. You can play by group, by generation, or in a mixed all-K-pop mode. No account required to start playing.',
       },
       {
         question: 'How many songs are in the KpopQuiz blind test?',
         answer:
-          'The KpopQuiz.org blind test library includes nearly 4,000 songs spanning 87+ K-pop groups across all five generations. New songs are added regularly as groups release new music.',
+          'The KpopQuiz.org blind test library includes {songs} songs spanning {songGroups} K-pop groups across all five generations. New songs are added regularly as groups release new music.',
       },
     ],
   },
@@ -596,7 +598,7 @@ export const ARTICLES: ArticleMeta[] = [
       {
         question: 'How many K-pop generations are there?',
         answer:
-          'K-pop is usually split into five generations. The approximate ranges are 1st gen 1996 to 2003, 2nd gen 2004 to 2011, 3rd gen 2012 to 2017, 4th gen 2018 to 2022, and 5th gen 2023 to present. The edges are debated.',
+          'Four K-pop generations are widely recognized. The approximate ranges are 1st gen 1996 to 2003, 2nd gen 2004 to 2011, 3rd gen 2012 to 2017 and 4th gen 2018 to 2022. Groups that debuted from 2023 are commonly described as 5th generation, a label that is not official. The edges are debated.',
       },
       {
         question: 'How do I know which K-pop generation I started in?',

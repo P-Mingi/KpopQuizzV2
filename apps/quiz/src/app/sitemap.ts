@@ -316,7 +316,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
 
-      if (triviaEligibleGroupIds.has(g.id)) {
+      // general-kpop trivia is noindex until verified (owner, 2026-10-14), so it is not listed.
+      if (triviaEligibleGroupIds.has(g.id) && g.slug !== 'general-kpop') {
         entries.push({
           url: `${SITE_URL}/${g.slug}-trivia`,
           lastModified: groupDate,

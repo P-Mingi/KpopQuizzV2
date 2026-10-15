@@ -3,19 +3,31 @@ import Link from 'next/link';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
 import { BlindtestHubV11 } from '@/components/blindtest/ux-v1/hub';
-import { getBlindtestGroups, getBlindtestStats } from '@/lib/db/queries/blindtest';
+import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+
+import type { PublicStats } from '@/lib/stats/site-stats';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { safeFetch } from '@/lib/error-handling';
-import { formatCount } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+// Owner, 2026-10-14: every count on this page is live (lib/stats/site-stats.ts), the same
+// numbers as the rest of the site; it said "300+ songs across 60+ groups" for about 4,200
+// songs across 84 groups. Without the counts, the sentences say no number at all.
+function catalogLine(stats: PublicStats | null): string {
+  return stats ? `${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} groups` : 'Songs from every K-pop generation';
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const stats = await getPublicStatsOrNull();
+  const line = catalogLine(stats);
+  return {
   title: 'K-pop Blind Test - Guess the Song from a Clip',
   description:
-    'Play the free K-pop blind test: hear a 10-second clip and guess the song. 300+ songs across 60+ groups, from every generation. No sign-up.',
+    `Play the free K-pop blind test: hear a 10-second clip and guess the song. ${line}, from every generation. No sign-up.`,
   alternates: {
     canonical: '/blindtest',
     languages: {
@@ -26,11 +38,12 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'K-pop Blind Test - Guess the Song from a Clip',
-    description: 'Listen to a 10-second clip and guess the K-pop song. 300+ songs, 60+ groups, every generation.',
+    description: `Listen to a 10-second clip and guess the K-pop song. ${line}, every generation.`,
     url: '/blindtest',
-    images: [{ url: '/api/og/page?title=K-pop+Blind+Test&subtitle=Guess+the+song+from+a+10-second+clip.+300%2B+songs+across+60%2B+groups.&accent=%237c5cfc', width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
+    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(`Guess the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
   },
-};
+  };
+}
 
 export const revalidate = 3600;
 
@@ -40,12 +53,9 @@ export const revalidate = 3600;
 // getBlindtestStats is cookie-free + unstable_cache'd, so the route goes back to
 // Static/ISR. The try/catch stays OUTSIDE the cache so a DB blip at build/render
 // falls back to the label defaults WITHOUT caching that fallback.
-async function getStats() {
-  try {
-    return await getBlindtestStats();
-  } catch {
-    return { songs: 300, groups: 60 };
-  }
+async function getStats(): Promise<{ songs: number; groups: number } | null> {
+  const stats = await getPublicStatsOrNull();
+  return stats ? { songs: stats.songs, groups: stats.songGroups } : null;
 }
 
 function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
@@ -62,14 +72,17 @@ function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
   );
 }
 
-const FAQ_ITEMS = [
+function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
+  return [
   {
     q: 'What is a K-pop blind test?',
     a: 'A blind test plays a short audio clip from a K-pop song and you have to guess which song or artist it is. You only hear the music, no visuals or lyrics on screen. It is the best way to test how well you really know K-pop.',
   },
   {
     q: 'How many songs are available?',
-    a: 'The catalog has 300+ songs across 60+ groups spanning every generation of K-pop, from 1st gen legends to the latest 5th gen debuts. New songs are added regularly.',
+    a: stats
+      ? `The catalog has ${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} groups spanning every generation of K-pop, from 1st gen legends to the newest debuts. New songs are added regularly.`
+      : 'The catalog spans every generation of K-pop, from 1st gen legends to the newest debuts. New songs are added regularly.',
   },
   {
     q: 'Can I play for just one group?',
@@ -91,19 +104,20 @@ const FAQ_ITEMS = [
     q: 'Can I play on mobile?',
     a: 'Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit kpopquiz.org/blindtest and hit Start.',
   },
-];
+  ];
+}
 
-const faqJsonLd = {
+const faqJsonLdOf = (items: Array<{ q: string; a: string }>): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: FAQ_ITEMS.map(({ q, a }) => ({
+  mainEntity: items.map(({ q, a }) => ({
     '@type': 'Question',
     name: q,
     acceptedAnswer: { '@type': 'Answer', text: a },
   })),
-};
+});
 
-const webAppJsonLd = {
+const webAppJsonLdOf = (stats: PublicStats | null): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'K-pop Blind Test',
@@ -111,12 +125,16 @@ const webAppJsonLd = {
   applicationCategory: 'GameApplication',
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  description: 'Free K-pop blind test with 300+ songs across 60+ groups. Listen to a 10-second clip and guess the song or artist. Pick All K-pop, a generation, or a specific group.',
-};
+  description: `Free K-pop blind test${stats ? ` with ${catalogLine(stats)}` : ''}. Listen to a 10-second clip and guess the song or artist. Pick All K-pop, a generation, or a specific group.`,
+});
 
 export default async function BlindtestPage(): Promise<React.ReactElement> {
   // UX v11 (NEXT_PUBLIC_UX_V1, default off): the day-mode hub. Same metadata, H1,
   // intro, FAQ and JSON-LD; flag off renders exactly the page below.
+  const live = await getPublicStatsOrNull();
+  const FAQ_ITEMS = faqItems(live);
+  const faqJsonLd = faqJsonLdOf(FAQ_ITEMS);
+  const webAppJsonLd = webAppJsonLdOf(live);
   if (UX_V1) return <BlindtestHubV11 faq={FAQ_ITEMS} faqJsonLd={faqJsonLd} webAppJsonLd={webAppJsonLd} />;
 
   const [groups, stats, playlists] = await Promise.all([
@@ -146,14 +164,18 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
       <div className="bt-hub-seo">
         {/* Stats strip */}
         <div className="bt-hub-stats">
-          <div className="bt-hub-stat">
-            <span className="bt-hub-stat-n">{formatCount(stats.songs)}+</span>
-            <span className="bt-hub-stat-l">songs</span>
-          </div>
-          <div className="bt-hub-stat">
-            <span className="bt-hub-stat-n">{stats.groups}+</span>
-            <span className="bt-hub-stat-l">groups</span>
-          </div>
+          {stats ? (
+            <>
+              <div className="bt-hub-stat">
+                <span className="bt-hub-stat-n">{atLeast(stats.songs)}</span>
+                <span className="bt-hub-stat-l">songs</span>
+              </div>
+              <div className="bt-hub-stat">
+                <span className="bt-hub-stat-n">{atLeast(stats.groups)}</span>
+                <span className="bt-hub-stat-l">groups</span>
+              </div>
+            </>
+          ) : null}
           <div className="bt-hub-stat">
             <span className="bt-hub-stat-n">5</span>
             <span className="bt-hub-stat-l">generations</span>

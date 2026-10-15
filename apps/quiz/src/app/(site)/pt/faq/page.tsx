@@ -48,7 +48,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Quais grupos de K-pop estao disponiveis?',
-    a: 'BTS, BLACKPINK, Stray Kids, aespa, NewJeans, TWICE, SEVENTEEN, ENHYPEN, IVE, LE SSERAFIM e mais de 30 outros, com novos grupos adicionados pela comunidade.',
+    a: 'BTS, BLACKPINK, Stray Kids, aespa, NewJeans, TWICE, SEVENTEEN, ENHYPEN, IVE, LE SSERAFIM e muitos outros, com novos grupos adicionados pela comunidade.',
   },
   {
     q: 'O que sao os mini-jogos?',
