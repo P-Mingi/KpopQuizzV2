@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   description: 'Create a K-pop quiz in minutes and challenge your fandom.',
   // The creation tool is not indexable content.
   robots: { index: false, follow: true },
+  // SEO (owner, 2026-10-14): every /create?group=<slug> deep link names /create as its
+  // canonical, so the parameter variants fold into the clean URL (rulebook 9.5).
+  alternates: { canonical: '/create' },
 };
 
 interface CreatePageProps {

@@ -63,7 +63,8 @@ export async function generateMetadata(
   const countLabel = stats ? `${atLeast(stats.quizzes)} ` : '';
 
   return {
-    title: `K-pop Quizzes: ${countLabel}Free Fan-Made Tests, Every Group`,
+    // SEO (owner, 2026-10-14): within 60 characters with the suffix (", Every Group" dropped).
+    title: `K-pop Quizzes: ${countLabel}Free Fan-Made Tests`,
     description:
       `Browse ${countLabel}free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.`,
     openGraph: {

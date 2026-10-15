@@ -7,7 +7,8 @@ import { ARTICLES } from '@/lib/articles/registry';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'K-pop Articles: Guides, Comparisons, and Original Data',
+  // SEO (owner, 2026-10-14): within 60 characters with the suffix.
+  title: 'K-pop Articles: Guides, Comparisons and Data',
   description:
     'Original articles about K-pop quizzes, blind tests, and fan culture. Guides, group comparisons, quiz site reviews, and data-driven analysis from the KpopQuiz team.',
   openGraph: {

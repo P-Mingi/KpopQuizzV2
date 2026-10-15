@@ -14,6 +14,7 @@ import { whichMemberPath } from '@/lib/personality/view';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { groupOgImage } from '@/lib/seo/og';
+import { fitTitle } from '@/lib/seo/title-fit';
 
 import type { Metadata } from 'next';
 
@@ -45,7 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // reason as the trivia gate in app/(site)/[slug]/page.tsx).
   if (!page) notFound();
   const name = page.group.name;
-  const title = `Which ${name} member are you? Personality quiz`;
+  // SEO (owner, 2026-10-14): within 60 characters with the suffix (lib/seo/title-fit.ts).
+  const title = fitTitle(
+    `Which ${name} member are you? Personality quiz`,
+    `Which ${name} member are you? Take the quiz`,
+    `Which ${name} member are you?`,
+  );
   const description = `Eight questions about you, no right answers, no timer. Find out which ${name} member matches how you move through life, then see how other fans came out.`;
   const url = whichMemberPath(page.group.slug);
   return {

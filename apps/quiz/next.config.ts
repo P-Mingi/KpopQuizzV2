@@ -74,8 +74,10 @@ const nextConfig: NextConfig = {
       // 1. Games hub + all mini games (sort-it, match-up, name-them-all, name-all,
       // this-or-that). The group-specific game slugs are not group-prefixed in the
       // path, so they cannot be resolved statically and go to /quizzes.
+      // SEO (owner, 2026-10-14): except /games/name-all and everything under it, which the
+      // middleware answers one by one (301 to the group's Name them all page, else 410).
       { source: '/games', destination: '/quizzes', permanent: true },
-      { source: '/games/:path*', destination: '/quizzes', permanent: true },
+      { source: '/games/:path((?!name-all(?:/|$)).*)', destination: '/quizzes', permanent: true },
       { source: '/pt/games', destination: '/pt/quizzes', permanent: true },
       // 2. Rankings (this-or-that verdicts). The hub -> /quizzes; a group ranking
       // carries group intent -> the group hub.
@@ -89,9 +91,11 @@ const nextConfig: NextConfig = {
       { source: '/tier-list/share', destination: '/quizzes', permanent: true },
       { source: '/tier-list/mine/:path*', destination: '/quizzes', permanent: true },
       { source: '/tier-list/subject/:group/:kind', destination: '/:group-quiz', permanent: true },
-      // 4. Battle / duel 1v1 (was noindex). -> /quizzes.
-      { source: '/battle', destination: '/quizzes', permanent: true },
-      { source: '/battle/:path*', destination: '/quizzes', permanent: true },
+      // 4. Battle / duel 1v1 (was noindex). -> /quizzes. SEO (owner, 2026-10-14): not with a
+      // ?quiz=<slug>, which the middleware sends to that quiz (301) or to a 404.
+      { source: '/battle', missing: [{ type: 'query' as const, key: 'quiz' }], destination: '/quizzes', permanent: true },
+      // `+`, not `*`: `*` also matched a bare /battle, and caught /battle?quiz= after all.
+      { source: '/battle/:path+', destination: '/quizzes', permanent: true },
       { source: '/battle-preview', destination: '/quizzes', permanent: true },
       { source: '/battle-preview/:path*', destination: '/quizzes', permanent: true },
       // 5. Personality ("which member are you"). The pretty /which-* URLs and the

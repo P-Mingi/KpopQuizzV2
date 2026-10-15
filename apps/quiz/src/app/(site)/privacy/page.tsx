@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for KpopQuiz - how we collect, use, and protect your data.',
+  // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
+  description: 'KpopQuiz privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/privacy' },
 };

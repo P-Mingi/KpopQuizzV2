@@ -12,6 +12,7 @@ import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-
 import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { fitTitle } from '@/lib/seo/title-fit';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -112,7 +113,12 @@ export function generateGroupTriviaMetadata(group: Group, factCount: number): Me
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 
   return {
-    title: `${group.name} Trivia: ${factCount} Facts Only Real Fans Know`,
+    // SEO (owner, 2026-10-14): within 60 characters with the suffix (lib/seo/title-fit.ts).
+    title: fitTitle(
+      `${group.name} Trivia: ${factCount} Facts Only Real Fans Know`,
+      `${group.name} Trivia: ${factCount} Facts for Real Fans`,
+      `${group.name} Trivia: ${factCount} Facts`,
+    ),
     description: `How well do you really know ${group.name}? ${factCount} surprising facts about the members, the music, and the records they broke, then test yourself with fan-made quizzes.`,
     alternates: { canonical: `/${group.slug}-trivia` },
     // SEO Mission 1 (owner, 2026-10-14): the general K-pop trivia mixes 600+ fan facts across

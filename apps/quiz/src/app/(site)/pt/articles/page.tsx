@@ -7,7 +7,8 @@ import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Artigos de K-pop: Guias, Comparacoes e Dados Originais',
+  // SEO (owner, 2026-10-14): within 60 characters with the suffix.
+  title: 'Artigos de K-pop: Guias, Comparacoes e Dados',
   description:
     'Artigos originais sobre quizzes de K-pop, blind tests e cultura fan. Guias, comparacoes de grupos, analises de sites e dados originais da equipe KpopQuiz.',
   openGraph: {

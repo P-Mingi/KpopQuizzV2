@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'Terms of service for KpopQuiz - a fan-powered K-pop quiz platform.',
+  // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
+  description: 'KpopQuiz terms of service: who can play and create quizzes, what you may not publish, who owns your quizzes, how moderation works and how to contact us.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/terms' },
 };
