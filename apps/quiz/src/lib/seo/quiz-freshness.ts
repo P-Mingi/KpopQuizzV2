@@ -12,13 +12,17 @@
 //    those URLs inside after(): the ping runs once the response is sent and the
 //    function stays alive until it ends. A bare `void ping()` could be frozen with the
 //    function before its request left.
+//    SEO Mission 3 (2026-10-15): the same step writes the IndexNow outbox and marks the
+//    URLs submitted when IndexNow accepts them (lib/seo/indexnow-outbox.ts), so the
+//    hourly flush does not send them again. Before the outbox SQL is applied it pings
+//    exactly as before.
 //
 // Never throws: a failed revalidation or ping must not fail a publish.
 
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { after } from 'next/server';
 
-import { pingIndexNow } from '@/lib/indexnow';
+import { submitFastPath } from '@/lib/seo/indexnow-outbox';
 
 export type QuizChange = 'published' | 'edited' | 'removed';
 
@@ -39,7 +43,7 @@ export function onQuizChanged(change: QuizChange, slug: string, groupSlugs: Read
   }
   try {
     after(async () => {
-      await pingIndexNow(paths);
+      await submitFastPath(paths, `quiz:${change}`);
     });
   } catch (err) {
     console.error('[quiz-freshness] IndexNow not scheduled:', err);
