@@ -21,8 +21,9 @@ export const KNOWN_ROUTES = [
   // partner's iframe silently shows our homepage.
   '/embed/',
   // REFONTE P1: /games, /tier-list, /rankings, /which-, /personality, /battle were
-  // removed with their features (see next.config.ts for the 301 redirects). '/g/'
-  // stays: /g/[slug] is the kept blind-test game.
+  // removed with their features. The middleware answers them 410 before this list is
+  // read (lib/seo/legacy-urls.ts), except the per-group personality URLs, which
+  // next.config.ts redirects. '/g/' stays: /g/[slug] is the kept blind-test game.
   '/', '/q/', '/g/', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/terms', '/privacy', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
@@ -51,11 +52,6 @@ export const KNOWN_ROUTES = [
   // PROTECTED_PATH_PREFIXES (no Supabase round trip in the middleware).
   '/build',
   '/articles',
-  // REFONTE P1: /tier-list is gone EXCEPT this one resolver route, which 301s a
-  // published tier list to its subject group's kept hub (the rest of /tier-list is
-  // 301'd in next.config, which runs before the middleware). The narrow '/tier-list/l/'
-  // prefix keeps the resolver reachable while every other /tier-list/* stays unknown.
-  '/tier-list/l/',
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
   // One '/data' prefix covers both via startsWith.
   '/data',

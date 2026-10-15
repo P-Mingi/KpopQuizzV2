@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
 import { isKnownRoute } from '@/lib/route-allowlist';
 import {
-  GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyNameAllAnswer,
+  GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyAnswer,
 } from '@/lib/seo/legacy-urls';
 import { isUxV12 } from '@/lib/ux-v12';
 import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
@@ -66,27 +66,31 @@ export async function middleware(request: NextRequest) {
       to.search = request.nextUrl.search;
       return NextResponse.redirect(to);
     }
-    // SEO (owner, 2026-10-14): the retired /games/name-all/* URLs Bing still crawls. A
-    // name-all-<group> game goes 301 to its V12 page; the rest are 410 Gone
-    // (lib/seo/legacy-urls.ts). next.config leaves these paths to us.
-    const nameAll = legacyNameAllAnswer(pathname, isUxV12());
-    if (nameAll) {
-      if (nameAll.status === 301) return NextResponse.redirect(new URL(nameAll.location, request.url), 301);
-      return new NextResponse(GONE_HTML, { status: 410, headers: { 'content-type': 'text/html; charset=utf-8' } });
-    }
     // SEO (owner, 2026-10-14): /battle?quiz=<slug> goes 301 to /q/<slug> or 404. That needs
     // a database read, which the middleware never does: the request is handed to the route
-    // handler. A bare /battle never gets here (its next.config redirect runs first).
+    // handler. Checked before the retired families below, which answer a bare /battle 410.
     if (pathname === LEGACY_BATTLE_PATH && request.nextUrl.searchParams.has('quiz')) {
       const to = new URL(LEGACY_BATTLE_HANDLER, request.url);
       to.searchParams.set('quiz', request.nextUrl.searchParams.get('quiz') ?? '');
       return NextResponse.rewrite(to);
     }
+    // SEO (owner, 2026-10-14 and 2026-10-15): the URLs of the retired features (games,
+    // rankings, tier lists, battle, the personality index). A 301 to the exact successor
+    // (a name-all-<group> game -> its V12 page), else 410 Gone (lib/seo/legacy-urls.ts).
+    // next.config leaves these paths to us.
+    const legacy = legacyAnswer(pathname, isUxV12());
+    if (legacy) {
+      if (legacy.status === 301) return NextResponse.redirect(new URL(legacy.location, request.url), 301);
+      return new NextResponse(GONE_HTML, {
+        status: 410,
+        headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' },
+      });
+    }
     // REFONTE P1: the /battle-preview -> /battle redirect and the
     // /which-{group}-member-are-you -> /personality rewrite were removed with the
-    // battle and personality features. The pretty /which-* URLs now 301 to the
-    // group hub via next.config.ts (an edge redirect that runs before this), and
-    // /battle-preview / /battle fall through to the unknown-route 301 below.
+    // battle and personality features. The pretty /which-* URLs of groups without a V12
+    // page 301 to the group hub via next.config.ts (an edge redirect that runs before
+    // this); /battle-preview and /battle answer 410 above.
     // SEO: unknown legacy URLs 301 to home so the link equity carries over.
     if (!isKnownRoute(pathname)) {
       return NextResponse.redirect(new URL('/', request.url), 301);
