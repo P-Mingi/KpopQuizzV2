@@ -27,6 +27,8 @@ export const KNOWN_ROUTES = [
   '/trivia',
   '/terms', '/privacy', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+  // SEO Mission 2 (owner, 2026-10-15): /kpop-games, every game of the site in one page.
+  '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
