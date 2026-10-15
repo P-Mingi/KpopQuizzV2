@@ -28,6 +28,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
 import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+import { redirectIfRenamed, renamedPath } from '@/lib/seo/slug-redirects';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -108,7 +109,11 @@ async function quizOr404(slug: string): Promise<NonNullable<Awaited<ReturnType<t
   }
   const quiz = await read(8000);
   if (quiz === TIMEOUT) throw new Error(`[q/[slug]] getQuizBySlug timed out for ${slug}`);
-  if (!quiz) notFound();
+  if (!quiz) {
+    // SEO Mission 3 D1: a renamed quiz answers a permanent redirect to its new slug, not a 404.
+    await redirectIfRenamed('quiz', slug, renamedPath.quiz);
+    notFound();
+  }
   return quiz;
 }
 

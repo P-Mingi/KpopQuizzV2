@@ -1,0 +1,23 @@
+# local dev server of seo/m3-monitoring on :3091, SEO_WATCH_DRY_RUN=1 and INDEXNOW_DRY_RUN=1, reads production, sends nothing, 2026-10-15T22:02Z
+## GET /api/cron/seo-linked-urls without the secret: 401
+## GET /api/cron/seo-linked-urls?dry=1
+{"ok":true,"dryRun":true,"checked":22,"fromTable":"not_applied","failures":[],"alert":"none"}
+## GET /api/cron/seo-spikes?dry=1
+{"ok":true,"dryRun":true,"groupsWithPlays":46,"spikes":[],"email":"none","discord":"none","indexnow":"none"}
+## AI visit counting through the middleware (dev log lines, dry run)
+curl /bts-quiz (no referrer: not counted), /bts-quiz Referer https://chatgpt.com/ (counted), /q/illit-quiz?utm_source=chatgpt.com (counted),
+/bts-quiz Referer https://www.perplexity.ai/ with RSC and Next-Router-Prefetch headers (counted: Next strips those headers
+before the middleware; in a browser a prefetch carries kpopquiz.org as Referer, so it is never an AI visit),
+/bts-quiz Referer https://chatgpt.com.example.net/ (look-alike: not counted)
+1 [seo/ai-visits] dry run: chatgpt /bts-quiz
+1 [seo/ai-visits] dry run: chatgpt /q/illit-quiz
+1 [seo/ai-visits] dry run: perplexity /bts-quiz
+## renamed-slug lookup before the migration (fail soft: 404 stays 404, pages stay 200)
+/q/zzz-not-a-real-quiz-xyz 404
+/zzz-fake-group-quiz 404
+/zzz-fake-group-trivia 404
+/blindtest/group-zzz-fake 404
+/q/illit-quiz 200
+/cortis-trivia 200
+/blindtest/group-bts 200
+/bts-quiz 200

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getGroupBySlug } from '@/lib/db/queries/groups';
+import { redirectIfRenamed, renamedPath } from '@/lib/seo/slug-redirects';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
@@ -44,6 +45,8 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   return [];
 }
 
+const renamedFamily = (type: 'quiz' | 'trivia'): ((slug: string) => string) => (type === 'quiz' ? renamedPath.groupHub : renamedPath.groupTrivia);
+
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;
   if (slug.endsWith('-quiz')) return { type: 'quiz', groupSlug: slug.replace(/-quiz$/, '') };
@@ -57,7 +60,12 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   if (!parsed) return {};
 
   const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group) return {};
+  if (!group) {
+    // SEO Mission 3 D1: a renamed group answers a permanent redirect to its new hub or trivia
+    // page here, before the body streams, instead of a 404.
+    await redirectIfRenamed('group', parsed.groupSlug, renamedFamily(parsed.type));
+    return {};
+  }
 
   if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
 
@@ -78,7 +86,10 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
   if (!parsed) notFound();
 
   const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group) notFound();
+  if (!group) {
+    await redirectIfRenamed('group', parsed.groupSlug, renamedFamily(parsed.type));
+    notFound();
+  }
 
   // UX v11 (NEXT_PUBLIC_UX_V1, default off): the v11 hub, same metadata, H1, intro,
   // FAQ, JSON-LD and links. Flag off renders exactly today's page. The -trivia
