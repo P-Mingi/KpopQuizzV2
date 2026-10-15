@@ -67,6 +67,19 @@ function topicOverlap(a: Set<string>, b: Set<string>, groupWords: Set<string>): 
   return shared.length / Math.min(a.size, b.size);
 }
 
+// Near duplicates: the same fact asked in other words. The words of a question plus its right
+// answer, without the topic stop words, compared by Jaccard against every existing question.
+const NEAR_DUP = 0.6;
+type AnyQ = { question?: string; options?: unknown; correct?: unknown };
+const answerText = (x: AnyQ): string => (Array.isArray(x.options) && typeof x.correct === 'number' ? String(x.options[x.correct] ?? '') : typeof x.correct === 'boolean' ? String(x.correct) : '');
+const factWords = (x: AnyQ): Set<string> => topicWords(`${x.question ?? ''} ${answerText(x)}`);
+function jaccard(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let shared = 0;
+  for (const w of a) if (b.has(w)) shared += 1;
+  return shared / (a.size + b.size - shared);
+}
+
 const addDays = (d: string, n: number): string => new Date(Date.parse(`${d}T00:00:00Z`) + n * 86400000).toISOString().slice(0, 10);
 
 async function main(): Promise<void> {
@@ -86,6 +99,7 @@ async function main(): Promise<void> {
   const groupWords = new Set(groups.flatMap((g) => [...topicWords(g.name), ...topicWords(g.slug.replace(/-/g, ' '))]));
   const seenQuestions = new Map<string, string>();
   for (const q of [...bank, ...quizzes]) for (const x of q.questions ?? []) if (x?.question) seenQuestions.set(norm(x.question), q.title);
+  const seenFacts = [...bank, ...quizzes].flatMap((q) => (q.questions ?? []).filter((x) => x?.question).map((x) => ({ title: q.title, words: factWords(x as AnyQ) })));
 
   const lotTitles = new Set<string>();
   const lotQuestions = new Map<string, string>();
@@ -117,6 +131,11 @@ async function main(): Promise<void> {
       const k = norm(x.question);
       if (seenQuestions.has(k)) err(w, `duplicate of a question in "${seenQuestions.get(k)}"`);
       if (lotQuestions.has(k)) err(w, `duplicate of a question in "${lotQuestions.get(k)}"`);
+      if (!seenQuestions.has(k)) {
+        const mineF = factWords(x as AnyQ);
+        const near = seenFacts.find((f) => jaccard(mineF, f.words) >= NEAR_DUP);
+        if (near) warn(w, `near duplicate of a question in "${near.title}"`);
+      }
       lotQuestions.set(k, q.title);
       if (q.quiz_type === 'multiple_choice') {
         const m = x as McQuestion;
