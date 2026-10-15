@@ -152,6 +152,15 @@ async function main(): Promise<void> {
     });
     if (q.quiz_type === 'true_false' && (falseCount < 4 || falseCount > 6)) warn(at, `${falseCount} false statements (aim 4 to 6)`);
     if (q.quiz_type === 'multiple_choice' && [...positions.values()].some((n) => n > 4)) warn(at, 'right answers bunched on one position');
+    // A pattern players can spot: a strict cycle (0-1-2-3-0... or 3-2-1-0...), or four in a row on one slot.
+    const seq = q.quiz_type === 'multiple_choice' ? (q.questions ?? []).map((x) => (x as McQuestion).correct) : [];
+    if (seq.length >= 4) {
+      const cycle = (step: number): boolean => seq.every((c, i) => c === (((seq[0]! + step * i) % 4) + 4) % 4);
+      let run = 1, maxRun = 1;
+      for (let i = 1; i < seq.length; i++) { run = seq[i] === seq[i - 1] ? run + 1 : 1; maxRun = Math.max(maxRun, run); }
+      if (cycle(1) || cycle(-1)) warn(at, `right answers follow a cycle (${seq.join('')})`);
+      else if (maxRun >= 4) warn(at, `right answer on the same position ${maxRun} times in a row (${seq.join('')})`);
+    }
   }
 
   // Schedule.
