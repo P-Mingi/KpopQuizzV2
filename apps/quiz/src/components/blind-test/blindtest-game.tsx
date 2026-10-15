@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
+import { DeezerAttribution } from '@/components/deezer-attribution';
 import { Mascot } from '@/components/ui/mascot';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
@@ -693,6 +694,8 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
               </button>
             ))}
           </div>
+
+          <DeezerAttribution className="bt-dz" />
         </div>
       </div>
     );
