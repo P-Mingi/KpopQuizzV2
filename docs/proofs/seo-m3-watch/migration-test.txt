@@ -1,0 +1,160 @@
+# seo-watch.sql on a throwaway local PostgreSQL 18.2 (never production), 2026-10-15T21:41Z
+# setup: migration-test-setup.sql (production column shapes of quizzes and groups, read 2026-10-15)
+NOTICE:  database "t2" does not exist, skipping
+## apply: ok
+NOTICE:  ok  quiz rename records old -> new
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  chain collapsed: first slug points at the newest
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  middle slug points at the newest
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  no row points at a dead slug
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  live slug never redirects
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  no self loop
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  both older slugs point at the live one
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  counter, title and same-slug updates write nothing
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  group rename records old -> new
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  kinds stay separate
+ expect 
+--------
+ 
+(1 row)
+
+ seo_record_slug_redirect 
+--------------------------
+ 
+(1 row)
+
+NOTICE:  ok  service role records a merge redirect
+ expect 
+--------
+ 
+(1 row)
+
+WARNING:  seo_slug_on_quiz: relation "public.seo_slug_redirects" does not exist (42P01), the slug change itself is kept
+NOTICE:  ok  rename kept when the history table is missing
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  anon reads seo_slug_redirects
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  anon cannot write seo_slug_redirects
+NOTICE:  ok  anon cannot read seo_ai_visits_daily
+NOTICE:  ok  anon cannot call seo_ai_visit_hit
+NOTICE:  ok  anon cannot call seo_record_slug_redirect
+NOTICE:  ok  anon cannot read seo_watch_runs
+NOTICE:  ok  anon cannot read seo_linked_urls
+NOTICE:  ok  authenticated cannot call seo_ai_visit_hit
+NOTICE:  ok  rename by a non-service role still records
+ expect 
+--------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+ seo_ai_visit_hit 
+------------------
+ 
+(1 row)
+
+NOTICE:  ok  hits counted per day, source and path
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  unknown source and bad paths ignored
+ expect 
+--------
+ 
+(1 row)
+
+NOTICE:  ok  service role logs a run
+ expect 
+--------
+ 
+(1 row)
+
+## rollback
+objects left: 0
+## re-apply twice
+tables: seo_ai_visits_daily,seo_linked_urls,seo_slug_redirects,seo_watch_runs
+triggers: seo_slug_redirect_on_group,seo_slug_redirect_on_quiz
+functions: seo_ai_visit_hit,seo_record_slug_redirect,seo_slug_on_group,seo_slug_on_quiz,seo_slug_redirect_put

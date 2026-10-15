@@ -7,8 +7,10 @@ import {
 } from '@/lib/seo/legacy-urls';
 import { isUxV12 } from '@/lib/ux-v12';
 import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
+import { aiVisitFromRequest } from '@/lib/seo/watch/ai-referrer';
+import { recordAiVisit } from '@/lib/seo/watch/ai-visit-record';
 
-import type { NextRequest } from 'next/server';
+import type { NextFetchEvent, NextRequest } from 'next/server';
 
 // Paths that actually require a user session check. Everything else is public
 // and must NEVER call Supabase from middleware - the auth-getUser round trip
@@ -34,8 +36,13 @@ function needsAuth(pathname: string): boolean {
 // degrades auth instead of 504-ing the whole site.
 const MIDDLEWARE_TIMEOUT_MS = 2500;
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest, event?: NextFetchEvent) {
   const pathname = request.nextUrl.pathname;
+  // SEO Mission 3 D4: a page load referred by an AI assistant adds 1 to that day's counter
+  // (assistant + landing path, nothing about the visitor), after the response, never blocking it.
+  // Only known routes: an unknown path is 301'd below and is not a landing page.
+  const aiVisit = aiVisitFromRequest(request);
+  if (aiVisit && isKnownRoute(pathname) && event) event.waitUntil(recordAiVisit(aiVisit.source, aiVisit.path));
   // RENDER-FIX: the x-pathname header is gone. It existed only so the root layout
   // could branch chrome on/off for /embed via await headers(), which forced every
   // page dynamic. /embed now lives outside the (site) route group, so the chrome
@@ -136,5 +143,18 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
+    // SEO Mission 3 D4: the pages skipped above still run the middleware when, and only when,
+    // the visit comes from an AI assistant (Referer host, or utm_source), so it can be counted.
+    // Rare requests, so no cost regression. The two values are copies of AI_REFERER_MATCHER and
+    // AI_UTM_MATCHER in lib/seo/watch/ai-referrer.ts (a matcher must be a literal here);
+    // ai-referrer.test.ts fails if they drift.
+    {
+      source: '/((?!api/|_next/|[^?]*\\.[a-z0-9]+$).*)',
+      has: [{ type: 'header', key: 'referer', value: 'https?://(?:[a-z0-9-]+\\.)*(?:chatgpt\\.com|perplexity\\.ai|copilot\\.microsoft\\.com|gemini\\.google\\.com)(?:[/:?#].*)?' }],
+    },
+    {
+      source: '/((?!api/|_next/|[^?]*\\.[a-z0-9]+$).*)',
+      has: [{ type: 'query', key: 'utm_source', value: '(?:chatgpt\\.com|perplexity(?:\\.ai)?|copilot(?:\\.microsoft\\.com)?|gemini(?:\\.google\\.com)?)' }],
+    },
   ],
 };

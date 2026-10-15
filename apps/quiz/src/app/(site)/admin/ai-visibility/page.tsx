@@ -5,6 +5,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 
 import { AiVisibilityDashboard } from './ai-visibility-dashboard';
+import { AiVisitsSection } from './ai-visits-section';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,11 +58,15 @@ export default async function AiVisibilityPage(): Promise<React.ReactElement> {
     .limit(200);
 
   return (
-    <AiVisibilityDashboard
-      checks={(checks as AiCheck[]) ?? []}
-      trackedQueries={TRACKED_QUERIES}
-      platforms={PLATFORMS}
-      userId={user.id}
-    />
+    <>
+      <AiVisibilityDashboard
+        checks={(checks as AiCheck[]) ?? []}
+        trackedQueries={TRACKED_QUERIES}
+        platforms={PLATFORMS}
+        userId={user.id}
+      />
+      {/* SEO Mission 3 D4: AI assistant visits and the monitoring jobs, server-rendered. */}
+      <AiVisitsSection />
+    </>
   );
 }
