@@ -27,7 +27,7 @@ import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
-import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+import { qualifiedQuizTitle, quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -73,6 +73,21 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
 
 interface QuizPageProps {
   params: Promise<{ slug: string }>;
+}
+
+/**
+ * SEO Mission 2 (rulebook 1.5): the title the page shows in its <title>, H1 and Quiz JSON-LD.
+ * The creator's own title, unless it is a generic "{group} quiz" that competes with the hub:
+ * then a qualifier read from the questions (lib/seo/quiz-meta.ts qualifiedQuizTitle).
+ */
+function shownTitle(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>): string {
+  const prompts = ((quiz.questions as Array<{ question?: unknown }> | null) ?? [])
+    .map((q) => (q && typeof q.question === 'string' ? q.question : ''))
+    .filter(Boolean);
+  return qualifiedQuizTitle({
+    title: quiz.title, groupName: quiz.group_name, groupSlug: quiz.group_slug,
+    quizType: quiz.quiz_type, difficulty: quiz.difficulty, prompts,
+  });
 }
 
 /**
@@ -122,11 +137,12 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
+  const shown = shownTitle(quiz);
   const description = quizDescription({
-    title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
+    title: shown, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
     creator: quiz.creator_username, plays: quiz.play_count, avgScore, creatorNote: creatorNote ?? null,
   });
-  const title = quizTitle(quiz.title, questionLen);
+  const title = quizTitle(shown, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
@@ -369,10 +385,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // - `interactionStatistic`: play count + a second counter for
   //   completions when total_completions > 0
   // - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
+  const heading = shownTitle(quiz);
   const quizJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Quiz',
-    name: quiz.title,
+    // The H1 (the qualified title for a generic "{group} quiz", else the creator's title).
+    name: heading,
     description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
     educationalAlignment: {
       '@type': 'AlignmentObject',
@@ -434,6 +452,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   if (UX_V1) {
     return renderUxQuizPage({
       quiz,
+      heading,
       questionCount,
       intro,
       introAvg,
