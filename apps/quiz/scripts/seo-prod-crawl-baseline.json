@@ -1,131 +1,339 @@
 {
   "_readme": [
-    "Known findings of the nightly production crawl (scripts/seo-prod-crawl.mts), one per entry, each with a one-line reason.",
+    "Known findings of the nightly production crawl (scripts/seo-prod-crawl.mts), grouped per check type, in families that share one reason.",
     "The crawl fails only on findings NOT listed here. An entry whose page was graded and no longer shows the finding is printed as \"fixed, remove from baseline\".",
     "RULE: entries may only be REMOVED. Never add one without the owner's OK, and never to make a red run green.",
-    "Key: rule|where|detail, exactly as the crawler prints it under each new finding.",
-    "Seeded on 2026-10-15 from a 30-URL sample (--limit 30 --discover 15, 14 legacy URLs, www host), so the first complete nightly will also report findings on URLs outside that sample."
+    "Key: rule|where|detail, exactly as the crawler prints it under each new finding. Every key sits under its own check type.",
+    "Seeded on 2026-10-15 from one complete crawl of production (736 sitemap URLs, 150 discovered links, 14 legacy URLs, the www host)."
   ],
-  "entries": [
+  "counts": [
     {
-      "key": "jsonld|/|ItemList name: Trending K-pop quizzes",
-      "reason": "markup fix pending: the home trending ItemList name is not the visible heading"
+      "reason": "count definition mismatch on group lists: the home picker and /groups A to Z show 93 groups and /groups says 46 with a quiz, the stats function counts 95 groups and 47 with a published quiz; owner decision pending",
+      "keys": [
+        "counts|/|body: 93 groups",
+        "counts|/groups|body: 46 groups",
+        "counts|/groups|body: 93 groups"
+      ]
     },
     {
-      "key": "jsonld|/|list item: K-pop Music Video Records",
-      "reason": "markup fix pending: the home trending JSON-LD lists a quiz the visible list does not show"
+      "reason": "the blind test group-playlist count (83) is written as a group count next to the 85 song groups of the stats function, in body and JSON-LD; seen on fresh cache hits, not stale; owner decision pending",
+      "keys": [
+        "counts|/blindtest|body: 83 groups",
+        "counts|/guess-the-kpop-song|body: 83 groups",
+        "counts|/guess-the-kpop-song|JSON-LD: 83 groups",
+        "counts|/fr/blind-test-kpop|body: 83 playlists de groupes",
+        "counts|/fr/blind-test-kpop|body: 83 groupes",
+        "counts|/fr/blind-test-kpop|JSON-LD: 83 groupes",
+        "counts|/es/adivina-la-cancion-kpop|body: 83 listas de grupos",
+        "counts|/es/adivina-la-cancion-kpop|body: 83 grupos",
+        "counts|/es/adivina-la-cancion-kpop|JSON-LD: 83 grupos"
+      ]
     },
     {
-      "key": "counts|/|body: 93 groups",
-      "reason": "count definition mismatch: the home group picker says \"All 93 groups\", the stats function counts 95 rows in groups; owner decision pending (one number, or document the picker query)"
+      "reason": "/stats and /pt/stats round with K (73.9K plays, 4.3K songs, which rounds 4,281 up), not with atLeast() or exact(); fix pending",
+      "keys": [
+        "counts|/stats|body: 73.9K total plays",
+        "counts|/stats|body: 4.3K Songs",
+        "counts|/stats|body: 73.9K Total plays",
+        "counts|/stats|JSON-LD: 73.9K quiz plays",
+        "counts|/pt/stats|body: 73.9K jogadas",
+        "counts|/pt/stats|body: 4.3K Musicas",
+        "counts|/pt/stats|body: 73.9K Jogadas"
+      ]
     },
     {
-      "key": "jsonld|/quizzes|FAQ answer: Popular hubs include the BTS quiz, BLACKPINK quiz and Stray",
-      "reason": "markup fix pending: the FAQ JSON-LD answer ends \"or open a group hub\", the visible answer does not"
+      "reason": "PERMANENT: the dated corrections log (rulebook 5.8) quotes the old wrong counts, and the count on that date, on purpose",
+      "keys": [
+        "counts|/editorial-policy|body: 60+ groups",
+        "counts|/editorial-policy|body: more than 80 groups",
+        "counts|/editorial-policy|body: 380+ quizzes",
+        "counts|/editorial-policy|body: 42k+ plays",
+        "counts|/editorial-policy|body: 30+ groups"
+      ]
     },
     {
-      "key": "counts|/groups|body: 46 groups",
-      "reason": "count definition mismatch: /groups says \"46 groups\" with a quiz, the stats function counts 47 groups with a published quiz (likely the general-kpop catch-all, not verified)"
+      "reason": "counts typed into article copy (4,000 songs, 87 groups) are stale against the stats function; fix pending (fillStats tokens)",
+      "keys": [
+        "counts|/articles/kpop-blind-test-guide|body: 4,000 songs",
+        "counts|/articles/kpop-blind-test-guide|body: 87+ groups",
+        "counts|/articles/kpop-eras-timeline|body: 87 groups"
+      ]
+    }
+  ],
+  "description": [
+    {
+      "reason": "static or listing page description outside 120 to 160 characters; copy fix pending",
+      "keys": [
+        "description|/quizzes/popular-this-week|under 120",
+        "description|/most-liked|under 120",
+        "description|/easy-kpop-quizzes|over 160",
+        "description|/guess-the-kpop-idol|over 160",
+        "description|/contact|under 120",
+        "description|/kpop-true-or-false|over 160",
+        "description|/dmca|under 120",
+        "description|/articles|over 160",
+        "description|/data/pulse|over 160",
+        "description|/pt/faq|over 160",
+        "description|/pt/easy-kpop-quizzes|over 160",
+        "description|/pt/guess-the-kpop-idol|over 160",
+        "description|/guess-the-kpop-song|under 120",
+        "description|/verse/promises|under 120"
+      ]
     },
     {
-      "key": "counts|/groups|body: 93 groups",
-      "reason": "count definition mismatch: /groups A to Z says 93 groups, the stats function counts 95 rows in groups; owner decision pending"
+      "reason": "article descriptions in the article registry run over 160 characters; copy fix pending",
+      "keys": [
+        "description|/articles/kpop-quiz-statistics|over 160",
+        "description|/articles/most-played-kpop-quizzes|over 160",
+        "description|/articles/girl-groups-vs-boy-groups-kpop-quiz|over 160",
+        "description|/articles/stray-kids-vs-ateez|over 160",
+        "description|/articles/aespa-vs-newjeans-quiz|over 160",
+        "description|/articles/kpop-blind-test-by-group-ranked|over 160",
+        "description|/articles/hardest-kpop-groups-to-memorize|over 160",
+        "description|/articles/best-kpop-quizzes-for-beginners|over 160",
+        "description|/articles/kpop-eras-timeline|over 160",
+        "description|/articles/newjeans-fan-guide|over 160",
+        "description|/articles/guess-the-kpop-idol-guide|over 160",
+        "description|/articles/bts-discography-guide|over 160",
+        "description|/articles/rookie-kpop-groups-2026|over 160",
+        "description|/articles/kpop-facts-every-fan-should-know|over 160"
+      ]
     },
     {
-      "key": "counts|/blindtest|body: 83 groups",
-      "reason": "count definition mismatch: \"Show all 83 groups\" counts group playlists while the same page says 85 groups (songGroups); seen on a fresh cache HIT, not a stale page"
+      "reason": "the group hub description template reaches 161 characters with a long group name (Girls' Generation); template fix pending",
+      "keys": [
+        "description|/girls-generation-quiz|over 160"
+      ]
     },
     {
-      "key": "description|/articles|over 160",
-      "reason": "copy fix pending: 163 characters; owner decision"
+      "reason": "creator-written quiz descriptions under 120 characters (user content); owner decision pending: complete them from quiz data, or accept",
+      "keys": [
+        "description|/q/hardest-blackpink-quiz|under 120",
+        "description|/q/solo-los-verdaderos-monstiez-pueden-responder-correctamente|under 120",
+        "description|/q/who-said-it-snsd-version|under 120",
+        "description|/q/how-well-do-you-know-about-bts-as-a-army|under 120",
+        "description|/q/a-pretty-hard-itzy-quiz|under 120",
+        "description|/q/-nct-find-the-intruder|under 120"
+      ]
     },
     {
-      "key": "jsonld|/articles|CollectionPage name: K-pop Articles",
-      "reason": "markup fix pending: the CollectionPage name is not the visible heading"
+      "reason": "the profile description template (\"{name}'s K-pop quizzes on KpopQuiz. N quizzes created, M total plays.\") is 68 to 83 characters; template fix pending",
+      "keys": [
+        "description|/u/kpopquizz|under 120",
+        "description|/u/light_a_matz|under 120",
+        "description|/u/stanloona|under 120",
+        "description|/u/exoplanet99|under 120",
+        "description|/u/kpophistory|under 120",
+        "description|/u/skzrealm|under 120",
+        "description|/u/njeansstan|under 120",
+        "description|/u/joonified|under 120",
+        "description|/u/mina|under 120",
+        "description|/u/mingi|under 120",
+        "description|/u/pinkvelvet|under 120",
+        "description|/u/mapple|under 120",
+        "description|/u/soojinnie|under 120",
+        "description|/u/twiceland|under 120",
+        "description|/u/caratland|under 120",
+        "description|/u/roseeeyh|under 120",
+        "description|/u/kpopfan_official|under 120",
+        "description|/u/fearnot|under 120",
+        "description|/u/weflip|under 120",
+        "description|/u/ersopa|under 120",
+        "description|/u/lea_mnm|under 120",
+        "description|/u/newjeans|under 120",
+        "description|/u/chuuchaos|under 120",
+        "description|/u/drunken_spillz|under 120",
+        "description|/u/carat|under 120",
+        "description|/u/idol_expert|under 120",
+        "description|/u/kicoer|under 120",
+        "description|/u/multistancookie|under 120",
+        "description|/u/hii|under 120"
+      ]
+    }
+  ],
+  "dash": [
+    {
+      "reason": "third-party news headlines (and their image alts) are shown verbatim with em dashes; owner decision pending: normalize at render",
+      "keys": [
+        "dash|/news|visible text",
+        "dash|/news|alt"
+      ]
     },
     {
-      "key": "counts|/fr/blind-test-kpop|body: 83 playlists de groupes",
-      "reason": "same 83 group-playlists count as /blindtest, on the French page; owner decision pending"
+      "reason": "article copy uses en dashes in member lists; copy fix pending",
+      "keys": [
+        "dash|/articles/newjeans-fan-guide|visible text",
+        "dash|/articles/bts-discography-guide|visible text"
+      ]
     },
     {
-      "key": "counts|/fr/blind-test-kpop|body: 83 groupes",
-      "reason": "same 83 group-playlists count as /blindtest, written as a group count on the French page; owner decision pending"
+      "reason": "album titles from the song catalogue contain an en dash (source data) and show on blind test group pages; owner decision pending: normalize at render",
+      "keys": [
+        "dash|/blindtest/group-exo|visible text",
+        "dash|/blindtest/group-fifty-fifty|visible text",
+        "dash|/blindtest/group-nct-127|visible text"
+      ]
+    }
+  ],
+  "noindex": [
+    {
+      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX",
+      "keys": [
+        "noindex|/blindtest/ranked|noindex",
+        "noindex|/community|noindex",
+        "noindex|/live|noindex"
+      ]
     },
     {
-      "key": "counts|/fr/blind-test-kpop|JSON-LD: 83 groupes",
-      "reason": "same 83 group-playlists count as /blindtest, in the French page JSON-LD; owner decision pending"
+      "reason": "the general-kpop catch-all trivia page is noindex; owner decision pending: keep it out of the index, then add the reason to DOCUMENTED_NOINDEX",
+      "keys": [
+        "noindex|/general-kpop-trivia|noindex"
+      ]
+    }
+  ],
+  "redirect": [
+    {
+      "reason": "owner decision pending: REFONTE P1 sends these URLs to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410",
+      "keys": [
+        "redirect|/games/sort-it|generic",
+        "redirect|/tier-list/new|generic"
+      ]
     },
     {
-      "key": "jsonld|/data/knowledge-report-2026|Dataset name: K-pop Knowledge Report 2026: figures, queries and sample siz",
-      "reason": "markup fix pending: the Dataset name is not shown on the page"
+      "reason": "owner decision pending: middleware.ts sends unknown URLs 301 to the home page; rulebook 9.3 wants a real 404",
+      "keys": [
+        "redirect|/zz-seo-nightly-probe-not-a-page|expected HTTP 404"
+      ]
+    }
+  ],
+  "jsonld": [
+    {
+      "reason": "list and collection pages: the JSON-LD list name or items differ from the visible list (home trending, /trivia, /news, /articles); markup fix pending",
+      "keys": [
+        "jsonld|/|ItemList name: Trending K-pop quizzes",
+        "jsonld|/|list item",
+        "jsonld|/trivia|list item",
+        "jsonld|/articles|CollectionPage name: K-pop Articles",
+        "jsonld|/news|ItemList name: K-pop news headlines"
+      ]
     },
     {
-      "key": "counts|/es/adivina-la-cancion-kpop|body: 83 listas de grupos",
-      "reason": "same 83 group-playlists count as /blindtest, on the Spanish page; owner decision pending"
+      "reason": "the /quizzes FAQ JSON-LD answer ends \"or open a group hub\", the visible answer does not; markup fix pending",
+      "keys": [
+        "jsonld|/quizzes|FAQ answer: Popular hubs include the BTS quiz, BLACKPINK quiz and Stray"
+      ]
     },
     {
-      "key": "counts|/es/adivina-la-cancion-kpop|body: 83 grupos",
-      "reason": "same 83 group-playlists count as /blindtest, written as a group count on the Spanish page; owner decision pending"
+      "reason": "data pages: JSON-LD names (Dataset, CollectionPage, WebPage) are not visible headings; markup fix pending",
+      "keys": [
+        "jsonld|/data/knowledge-report-2026|Dataset name: K-pop Knowledge Report #: figures, queries and sample siz",
+        "jsonld|/stats|Dataset name: KpopQuiz Platform Statistics",
+        "jsonld|/stats|WebPage name: K-pop Quiz Statistics #",
+        "jsonld|/data/pulse|CollectionPage name: Monthly K-pop Pulse",
+        "jsonld|/data/pulse|Dataset name: K-pop Pulse: September #",
+        "jsonld|/data/pulse|Dataset name: K-pop Pulse: August #",
+        "jsonld|/data/pulse|Dataset name: K-pop Pulse: July #"
+      ]
     },
     {
-      "key": "counts|/es/adivina-la-cancion-kpop|JSON-LD: 83 grupos",
-      "reason": "same 83 group-playlists count as /blindtest, in the Spanish page JSON-LD; owner decision pending"
+      "reason": "group hubs: the JSON-LD list name \"Ways to play {Group} on KpopQuiz\" is not a visible heading; template fix pending",
+      "keys": [
+        "jsonld|/babymonster-quiz|ItemList name: Ways to play BABYMONSTER on KpopQuiz",
+        "jsonld|/zerobaseone-quiz|ItemList name: Ways to play ZEROBASEONE on KpopQuiz",
+        "jsonld|/nct-127-quiz|ItemList name: Ways to play NCT # on KpopQuiz",
+        "jsonld|/enhypen-quiz|ItemList name: Ways to play ENHYPEN on KpopQuiz",
+        "jsonld|/bigbang-quiz|ItemList name: Ways to play BIGBANG on KpopQuiz",
+        "jsonld|/akmu-quiz|ItemList name: Ways to play AKMU on KpopQuiz",
+        "jsonld|/exo-quiz|ItemList name: Ways to play EXO on KpopQuiz",
+        "jsonld|/got7-quiz|ItemList name: Ways to play GOT# on KpopQuiz",
+        "jsonld|/general-kpop-quiz|ItemList name: Ways to play General K-pop on KpopQuiz",
+        "jsonld|/stray-kids-quiz|ItemList name: Ways to play Stray Kids on KpopQuiz",
+        "jsonld|/bts-quiz|ItemList name: Ways to play BTS on KpopQuiz",
+        "jsonld|/red-velvet-quiz|ItemList name: Ways to play Red Velvet on KpopQuiz",
+        "jsonld|/seventeen-quiz|ItemList name: Ways to play SEVENTEEN on KpopQuiz",
+        "jsonld|/blackpink-quiz|ItemList name: Ways to play BLACKPINK on KpopQuiz",
+        "jsonld|/shinee-quiz|ItemList name: Ways to play SHINee on KpopQuiz",
+        "jsonld|/g-i-dle-quiz|ItemList name: Ways to play (G)I-DLE on KpopQuiz",
+        "jsonld|/kiiikiii-quiz|ItemList name: Ways to play Kiiikiii on KpopQuiz",
+        "jsonld|/hearts2hearts-quiz|ItemList name: Ways to play Hearts#Hearts on KpopQuiz",
+        "jsonld|/loossemble-quiz|ItemList name: Ways to play Loossemble on KpopQuiz",
+        "jsonld|/loona-quiz|ItemList name: Ways to play LOONA on KpopQuiz",
+        "jsonld|/kickflip-quiz|ItemList name: Ways to play KickFlip on KpopQuiz",
+        "jsonld|/team-quiz|ItemList name: Ways to play &TEAM on KpopQuiz",
+        "jsonld|/cortis-quiz|ItemList name: Ways to play Cortis on KpopQuiz",
+        "jsonld|/fifty-fifty-quiz|ItemList name: Ways to play FIFTY FIFTY on KpopQuiz",
+        "jsonld|/xikers-quiz|ItemList name: Ways to play XIKERS on KpopQuiz",
+        "jsonld|/tuide-quiz|ItemList name: Ways to play TUIDE on KpopQuiz",
+        "jsonld|/aespa-quiz|ItemList name: Ways to play aespa on KpopQuiz",
+        "jsonld|/katseye-quiz|ItemList name: Ways to play KATSEYE on KpopQuiz",
+        "jsonld|/txt-quiz|ItemList name: Ways to play TXT on KpopQuiz",
+        "jsonld|/ateez-quiz|ItemList name: Ways to play ATEEZ on KpopQuiz",
+        "jsonld|/nmixx-quiz|ItemList name: Ways to play NMIXX on KpopQuiz",
+        "jsonld|/treasure-quiz|ItemList name: Ways to play TREASURE on KpopQuiz",
+        "jsonld|/le-sserafim-quiz|ItemList name: Ways to play LE SSERAFIM on KpopQuiz",
+        "jsonld|/tws-quiz|ItemList name: Ways to play TWS on KpopQuiz",
+        "jsonld|/dreamcatcher-quiz|ItemList name: Ways to play Dreamcatcher on KpopQuiz",
+        "jsonld|/astro-quiz|ItemList name: Ways to play ASTRO on KpopQuiz",
+        "jsonld|/young-posse-quiz|ItemList name: Ways to play Young posse on KpopQuiz",
+        "jsonld|/monsta-x-quiz|ItemList name: Ways to play MONSTA X on KpopQuiz",
+        "jsonld|/twice-quiz|ItemList name: Ways to play TWICE on KpopQuiz",
+        "jsonld|/newjeans-quiz|ItemList name: Ways to play NewJeans on KpopQuiz",
+        "jsonld|/nct-quiz|ItemList name: Ways to play NCT on KpopQuiz",
+        "jsonld|/artms-quiz|ItemList name: Ways to play ARTMS on KpopQuiz",
+        "jsonld|/itzy-quiz|ItemList name: Ways to play ITZY on KpopQuiz",
+        "jsonld|/ive-quiz|ItemList name: Ways to play IVE on KpopQuiz",
+        "jsonld|/girls-generation-quiz|ItemList name: Ways to play Girls' Generation on KpopQuiz",
+        "jsonld|/illit-quiz|ItemList name: Ways to play ILLIT on KpopQuiz",
+        "jsonld|/mamamoo-quiz|ItemList name: Ways to play MAMAMOO on KpopQuiz"
+      ]
     },
     {
-      "key": "jsonld|/verse|navigation item: several",
-      "reason": "Verse is paused: its pages emit the site navigation JSON-LD without showing that navigation"
+      "reason": "trivia pages: the JSON-LD headline \"{Group} Trivia - N Fun Facts\" differs from the visible H1; template fix pending",
+      "keys": [
+        "jsonld|/babymonster-trivia|Article headline: BABYMONSTER Trivia - # Fun Facts",
+        "jsonld|/enhypen-trivia|Article headline: ENHYPEN Trivia - # Fun Facts",
+        "jsonld|/exo-trivia|Article headline: EXO Trivia - # Fun Facts",
+        "jsonld|/got7-trivia|Article headline: GOT# Trivia - # Fun Facts",
+        "jsonld|/stray-kids-trivia|Article headline: Stray Kids Trivia - # Fun Facts",
+        "jsonld|/bts-trivia|Article headline: BTS Trivia - # Fun Facts",
+        "jsonld|/red-velvet-trivia|Article headline: Red Velvet Trivia - # Fun Facts",
+        "jsonld|/seventeen-trivia|Article headline: SEVENTEEN Trivia - # Fun Facts",
+        "jsonld|/blackpink-trivia|Article headline: BLACKPINK Trivia - # Fun Facts",
+        "jsonld|/shinee-trivia|Article headline: SHINee Trivia - # Fun Facts",
+        "jsonld|/g-i-dle-trivia|Article headline: (G)I-DLE Trivia - # Fun Facts",
+        "jsonld|/loona-trivia|Article headline: LOONA Trivia - # Fun Facts",
+        "jsonld|/cortis-trivia|Article headline: Cortis Trivia - # Fun Facts",
+        "jsonld|/katseye-trivia|Article headline: KATSEYE Trivia - # Fun Facts",
+        "jsonld|/aespa-trivia|Article headline: aespa Trivia - # Fun Facts",
+        "jsonld|/txt-trivia|Article headline: TXT Trivia - # Fun Facts",
+        "jsonld|/ateez-trivia|Article headline: ATEEZ Trivia - # Fun Facts",
+        "jsonld|/le-sserafim-trivia|Article headline: LE SSERAFIM Trivia - # Fun Facts",
+        "jsonld|/astro-trivia|Article headline: ASTRO Trivia - # Fun Facts",
+        "jsonld|/monsta-x-trivia|Article headline: MONSTA X Trivia - # Fun Facts",
+        "jsonld|/twice-trivia|Article headline: TWICE Trivia - # Fun Facts",
+        "jsonld|/newjeans-trivia|Article headline: NewJeans Trivia - # Fun Facts",
+        "jsonld|/nct-trivia|Article headline: NCT Trivia - # Fun Facts",
+        "jsonld|/itzy-trivia|Article headline: ITZY Trivia - # Fun Facts",
+        "jsonld|/ive-trivia|Article headline: IVE Trivia - # Fun Facts",
+        "jsonld|/illit-trivia|Article headline: ILLIT Trivia - # Fun Facts",
+        "jsonld|/mamamoo-trivia|Article headline: MAMAMOO Trivia - # Fun Facts"
+      ]
     },
     {
-      "key": "description|/verse/promises|under 120",
-      "reason": "Verse is paused; copy fix pending (104 characters); owner decision"
-    },
+      "reason": "Verse is paused: its pages emit the site navigation JSON-LD without showing that navigation",
+      "keys": [
+        "jsonld|/verse|navigation item",
+        "jsonld|/verse/promises|navigation item"
+      ]
+    }
+  ],
+  "host": [
     {
-      "key": "jsonld|/verse/promises|navigation item: several",
-      "reason": "Verse is paused: its pages emit the site navigation JSON-LD without showing that navigation"
-    },
-    {
-      "key": "description|/quizzes/popular-this-week|under 120",
-      "reason": "copy fix pending: 106 characters; owner decision"
-    },
-    {
-      "key": "jsonld|/babymonster-trivia|Article headline: BABYMONSTER Trivia - 15 Fun Facts",
-      "reason": "markup fix pending: the trivia template headline differs from the visible H1"
-    },
-    {
-      "key": "jsonld|/young-posse-quiz|ItemList name: Ways to play Young posse on KpopQuiz",
-      "reason": "markup fix pending: the hub \"Ways to play\" ItemList name is not visible"
-    },
-    {
-      "key": "noindex|/blindtest/ranked|noindex",
-      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
-    },
-    {
-      "key": "noindex|/community|noindex",
-      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
-    },
-    {
-      "key": "noindex|/live|noindex",
-      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
-    },
-    {
-      "key": "redirect|/games/sort-it|generic",
-      "reason": "owner decision pending: REFONTE P1 sends every /games/* URL to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410"
-    },
-    {
-      "key": "redirect|/tier-list/new|generic",
-      "reason": "owner decision pending: REFONTE P1 sends the tier list maker to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410"
-    },
-    {
-      "key": "redirect|/zz-seo-nightly-probe-not-a-page|expected HTTP 404",
-      "reason": "owner decision pending: middleware.ts sends unknown URLs 301 to the home page; rulebook 9.3 wants a real 404"
-    },
-    {
-      "key": "host|https://www.kpopquiz.org/|serves 200",
-      "reason": "owner click pending: Vercel > kpopquiz > Settings > Domains > www.kpopquiz.org > Redirect to kpopquiz.org (308)"
-    },
-    {
-      "key": "host|https://www.kpopquiz.org/bts-quiz|serves 200",
-      "reason": "owner click pending: same www redirect as above"
+      "reason": "owner click pending: Vercel > kpopquiz > Settings > Domains > www.kpopquiz.org > Redirect to kpopquiz.org (308)",
+      "keys": [
+        "host|https://www.kpopquiz.org/|serves 200",
+        "host|https://www.kpopquiz.org/bts-quiz|serves 200"
+      ]
     }
   ]
 }

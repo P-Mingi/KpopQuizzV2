@@ -54,6 +54,11 @@ describe('extractCountClaims (phrases read on production, 15 October 2026)', () 
     expect(one('Over 450 quizzes to play')).toMatchObject({ value: 450, floor: true });
   });
 
+  it('a number that already has another noun does not borrow the next one', () => {
+    expect(extractCountClaims('quizzes with over 30+ questions Groups I like')).toEqual([]);
+    expect(extractCountClaims('10 questions quiz')).toEqual([]);
+  });
+
   it('ignores numbers without a count noun and decimals', () => {
     expect(extractCountClaims('members named at 97.5%, eras placed at 41.6%')).toEqual([]);
     expect(extractCountClaims('10 questions, about 1 min, Name all 7 members')).toEqual([]);

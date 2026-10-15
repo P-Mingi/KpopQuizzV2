@@ -287,15 +287,28 @@ describe('findings baseline', () => {
     expect(r.fixed.map((e) => e.key)).toEqual(['counts|/groups|body: 93 groups']);
   });
 
-  it('rejects a baseline without reasons, with malformed keys or with duplicates', () => {
-    expect(parseBaseline({}).errors).toEqual(['the baseline has no "entries" array']);
-    const p = parseBaseline({ entries: [
-      { key: 'noindex|/live|noindex', reason: 'owner decision pending' },
-      { key: 'noindex|/live|noindex', reason: 'owner decision pending' },
-      { key: 'no-pipes', reason: 'owner decision pending' },
-      { key: 'h1|/x|not exactly one', reason: '' },
-    ] });
-    expect(p.entries).toHaveLength(1);
-    expect(p.errors).toHaveLength(3);
+  it('reads entries grouped per check type in families that share a reason', () => {
+    const p = parseBaseline({
+      _readme: ['ignored'],
+      noindex: [{ reason: 'owner decision pending: noindex on purpose?', keys: ['noindex|/live|noindex', 'noindex|/community|noindex'] }],
+      host: [{ reason: 'owner click pending: www redirect', keys: ['host|https://www.kpopquiz.org/|serves 200'] }],
+    });
+    expect(p.errors).toEqual([]);
+    expect(p.entries.map((e) => e.key)).toEqual(['noindex|/live|noindex', 'noindex|/community|noindex', 'host|https://www.kpopquiz.org/|serves 200']);
+    expect(p.entries[1]!.reason).toBe('owner decision pending: noindex on purpose?');
+  });
+
+  it('rejects families without a reason or keys, malformed keys, misfiled keys and duplicates', () => {
+    expect(parseBaseline([]).errors).toEqual(['the baseline must be an object of check types']);
+    const p = parseBaseline({
+      noindex: [
+        { reason: 'owner decision pending', keys: ['noindex|/live|noindex', 'noindex|/live|noindex', 'no-pipes', 'title|/x|over 60'] },
+        { reason: '', keys: ['noindex|/a|noindex'] },
+        { reason: 'owner decision pending', keys: [] },
+      ],
+      h1: 'not a list',
+    });
+    expect(p.entries.map((e) => e.key)).toEqual(['noindex|/live|noindex']);
+    expect(p.errors).toHaveLength(6);
   });
 });

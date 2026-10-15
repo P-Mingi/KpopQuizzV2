@@ -504,22 +504,34 @@ export const keyWhere = (key: string): string => key.split('|')[1] ?? '';
 
 export interface BaselineEntry { key: string; reason: string }
 
-/** The entries of a baseline file, or the reasons it is not a valid one. */
+/**
+ * The entries of a baseline file, or the reasons it is not a valid one. The file groups its
+ * entries per check type, and within a type in families that share one reason:
+ *   { "_readme": [...], "counts": [{ "reason": "...", "keys": ["counts|/|body: 93 groups"] }] }
+ * Every key must start with the check type it is filed under.
+ */
 export function parseBaseline(raw: unknown): { entries: BaselineEntry[]; errors: string[] } {
   const errors: string[] = [];
-  const list = raw && typeof raw === 'object' ? (raw as { entries?: unknown }).entries : undefined;
-  if (!Array.isArray(list)) return { entries: [], errors: ['the baseline has no "entries" array'] };
   const entries: BaselineEntry[] = [];
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { entries, errors: ['the baseline must be an object of check types'] };
   const seen = new Set<string>();
-  list.forEach((e, i) => {
-    const key = (e as BaselineEntry | null)?.key;
-    const reason = (e as BaselineEntry | null)?.reason;
-    if (typeof key !== 'string' || key.split('|').length < 3) { errors.push(`entry ${i}: key must read "rule|where|detail"`); return; }
-    if (typeof reason !== 'string' || reason.trim().length < 10) { errors.push(`entry ${i} (${key}): a one-line reason is required`); return; }
-    if (seen.has(key)) { errors.push(`entry ${i}: duplicate key ${key}`); return; }
-    seen.add(key);
-    entries.push({ key, reason });
-  });
+  for (const [rule, families] of Object.entries(raw as Record<string, unknown>)) {
+    if (rule.startsWith('_')) continue;
+    if (!Array.isArray(families)) { errors.push(`${rule}: must be a list of { reason, keys } families`); continue; }
+    families.forEach((fam, i) => {
+      const reason = (fam as { reason?: unknown } | null)?.reason;
+      const keys = (fam as { keys?: unknown } | null)?.keys;
+      if (typeof reason !== 'string' || reason.trim().length < 10) { errors.push(`${rule} family ${i}: a one-line reason is required`); return; }
+      if (!Array.isArray(keys) || keys.length === 0) { errors.push(`${rule} family ${i}: "keys" must list at least one key`); return; }
+      for (const key of keys) {
+        if (typeof key !== 'string' || key.split('|').length < 3) { errors.push(`${rule} family ${i}: key must read "rule|where|detail": ${String(key)}`); continue; }
+        if (!key.startsWith(`${rule}|`)) { errors.push(`${rule} family ${i}: ${key} is filed under the wrong check type`); continue; }
+        if (seen.has(key)) { errors.push(`${rule} family ${i}: duplicate key ${key}`); continue; }
+        seen.add(key);
+        entries.push({ key, reason });
+      }
+    });
+  }
   return { entries, errors };
 }
 

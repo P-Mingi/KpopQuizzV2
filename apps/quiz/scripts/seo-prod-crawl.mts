@@ -34,9 +34,10 @@
  * (/api/stats/live is a different 60 second count), adding one would ship a new public
  * route only to serve the same numbers, and robots.txt disallows /api/ anyway.
  *
- * BASELINE. scripts/seo-prod-crawl-baseline.json lists the findings already known, each with
- * a one-line reason. The run fails only on findings NOT in it (matched by a stable key,
- * rule|where|detail, printed under each new finding). An entry whose page was graded and no
+ * BASELINE. scripts/seo-prod-crawl-baseline.json lists the findings already known, grouped per
+ * check type in families that share a one-line reason. The run fails only on findings NOT in
+ * it (matched by a stable key, rule|where|detail, printed under each new finding; volatile
+ * parts such as digits in a JSON-LD headline or the text around a dash stay out of the key). An entry whose page was graded and no
  * longer shows the finding is printed as "fixed, remove from baseline", so the list only
  * shrinks. Entries are added only with the owner's OK (the file header says so).
  *
@@ -282,16 +283,17 @@ function pageFindings(url: string, res: Res, inSitemap: boolean): { findings: Fi
   }
 
   // Always: dashes and alt (UI copy rules hold on every page, indexable or not).
-  // The key keeps 15 characters around the dash (stable); the message keeps 40 (readable).
-  const dashes = (where: string, s: string): void => {
-    const near = dashSnippets(s, 15);
-    dashSnippets(s).forEach((d, i) => add('dash', `${where}: ${near[i]}`, `${where}: ${d}`));
+  // One finding per page and place: the key names the page and where (news headlines and
+  // user content change daily, the fix does not), the message shows the first examples.
+  const dashes = (where: string, found: string[]): void => {
+    if (found.length) add('dash', where, `${found.length} dash(es) in ${where}, e.g. ${found.slice(0, 3).join('; ')}`);
   };
-  dashes('visible text', text);
-  dashes('title', title);
-  dashes('meta description', description);
-  for (const a of alts) dashes('alt', a);
-  for (const src of imagesWithoutAlt(html)) add('img-alt', src.replace(/[?&]w=\d+.*$/, '').slice(0, 100), `<img> without alt: ${src.slice(0, 100)}`);
+  dashes('visible text', dashSnippets(text));
+  dashes('title', dashSnippets(title));
+  dashes('meta description', dashSnippets(description));
+  dashes('alt', alts.flatMap((a) => dashSnippets(a)));
+  const noAlt = imagesWithoutAlt(html);
+  if (noAlt.length) add('img-alt', 'missing alt', `${noAlt.length} <img> without alt, e.g. ${noAlt.slice(0, 3).map((x) => x.slice(0, 100)).join(', ')}`);
 
   if (indexable) {
     const t = titleProblem(title);
@@ -308,9 +310,13 @@ function pageFindings(url: string, res: Res, inSitemap: boolean): { findings: Fi
     // page is one fix, so it reads as one finding with examples, not 27.
     const byWhere = new Map<string, string[]>();
     for (const c of jsonLdMismatches(jsonLdVisibleClaims(ld.nodes), corpus)) byWhere.set(c.where, [...(byWhere.get(c.where) ?? []), c.text]);
+    // List and navigation items change with what is trending, so their key is the kind alone.
     for (const [where, texts] of byWhere) {
-      if (texts.length <= 3) for (const t2 of texts) add('jsonld', `${where}: ${t2.slice(0, 60)}`, `${where} not on the page: "${t2.slice(0, 140)}"`);
-      else add('jsonld', `${where}: several`, `${texts.length} ${where} values not on the page, e.g. ${texts.slice(0, 3).map((t2) => `"${t2.slice(0, 60)}"`).join(', ')}`);
+      const volatile = where === 'list item' || where === 'navigation item';
+      if (volatile || texts.length > 3) add('jsonld', volatile ? where : `${where}: several`, `${texts.length} ${where} value(s) not on the page, e.g. ${texts.slice(0, 3).map((t2) => `"${t2.slice(0, 60)}"`).join(', ')}`);
+      // Digits masked in the key: "BTS Trivia - 113 Fun Facts" became "99 Fun Facts" between two
+      // runs; the mismatch, not the count inside it, is what the baseline tracks.
+      else for (const t2 of texts) add('jsonld', `${where}: ${t2.slice(0, 60).replace(/\d+/g, '#')}`, `${where} not on the page: "${t2.slice(0, 140)}"`);
     }
     for (const desc of jsonLdDescriptions(ld.nodes)) {
       const missing = numbersMissingFrom(desc, text);

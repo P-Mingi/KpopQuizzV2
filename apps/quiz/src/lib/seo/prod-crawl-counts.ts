@@ -87,6 +87,9 @@ const CLAIM_RE = new RegExp(
   'giu',
 );
 
+/** Nouns that count something else: a number followed by one of these is not a site count. */
+const OTHER_NOUN = /^(questions?|facts?|members?|albums?|eras?|years?|days?|hours?|minutes?|seconds?|points?|rounds?|clues?|levels?|answers?|results?|attempts?|characters?|images?|photos?|videos?|generations?|perguntas|preguntas|fatos|membros)$/;
+
 /** Every count stated in a text, with its noun. */
 export function extractCountClaims(text: string): CountClaim[] {
   const out: CountClaim[] = [];
@@ -95,6 +98,8 @@ export function extractCountClaims(text: string): CountClaim[] {
     if (!parsed) continue;
     const words = (m[4] ?? '').trim().split(/\s+/).filter(Boolean);
     for (let i = 0; i <= 2 && i < words.length; i++) {
+      // "30+ questions Groups": the number already has its own noun, so the next word is not it.
+      if (OTHER_NOUN.test(fold(words[i]!))) break;
       const noun = nounOf(words[i]!, words[i + 1] ?? '');
       if (!noun) continue;
       const tail = words.slice(0, i + 1 + (noun === 'plays' && /^quiz/i.test(words[i]!) ? 1 : 0)).join(' ');
