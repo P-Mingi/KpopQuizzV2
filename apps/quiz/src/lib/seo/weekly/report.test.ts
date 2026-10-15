@@ -28,7 +28,7 @@ const baseInput = (over: Partial<WeeklyInput> = {}): WeeklyInput => ({
 });
 
 // Real e-mail clients and the owner's rule: no em dash or en dash anywhere.
-const DASHES = /[–—]/;
+const DASHES = /[\u2013\u2014]/;
 
 describe('helpers', () => {
   it('pathOf folds a URL to its path', () => {
