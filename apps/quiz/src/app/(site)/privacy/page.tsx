@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -12,7 +13,7 @@ export default function PrivacyPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
+      <p className="text-sm text-secondary mb-8">Last updated: October 15, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
         KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
@@ -99,12 +100,16 @@ export default function PrivacyPage(): React.ReactElement {
 
       <h2 className="text-lg font-medium mt-8 mb-3">6. Data retention</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        Your data is retained as long as your account is active. If you want to delete your account and all
-        associated data, contact us at{' '}
+        Your data is retained as long as your account is active. We delete accounts by hand. Send a request
+        from the{' '}
+        <Link href="/contact" className="text-primary underline hover:no-underline">
+          contact page
+        </Link>{' '}
+        or to{' '}
         <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
           contact@kpopquiz.org
         </a>{' '}
-        and we will process your request within 30 days.
+        and we delete your account within 30 days. Your published quizzes are deleted with it.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">7. Children&apos;s privacy</h2>
