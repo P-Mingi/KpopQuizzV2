@@ -28,7 +28,6 @@ const TO_QUIZZES = [
   '/games/match-up',
   '/games/name-them-all',
   '/games/this-or-that',
-  '/games/name-all/bts-members',
   '/rankings',
   '/tier-list',
   '/tier-list/new',
@@ -48,6 +47,20 @@ const GROUP_SCOPED: Array<[string, string]> = [
   ['/which-bts-member-are-you', '/bts-quiz'],
   ['/which-le-sserafim-member-are-you', '/le-sserafim-quiz'],
 ];
+
+// Owner rule, 2026-10-14 (SEO Mission 1, rulebook 9.4): a retired /games/name-all/* URL
+// answers its exact successor (301 to /<group>-name-all-members, V12 only) or a real 410,
+// never a generic page. These two have no successor in either flag state.
+const NAME_ALL_GONE = ['/games/name-all/bts-members', '/games/name-all/name-top-10-bts-songs'];
+
+test.describe('Retired /games/name-all/* without a successor answer 410', () => {
+  for (const path of NAME_ALL_GONE) {
+    test(`${path} -> 410`, async ({ request }) => {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status(), `${path} status`).toBe(410);
+    });
+  }
+});
 
 test.describe('REFONTE P1 kill: 301/308 redirect matrix', () => {
   for (const path of TO_QUIZZES) {
