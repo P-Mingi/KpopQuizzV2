@@ -3,6 +3,9 @@ import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FOUNDER, founderPerson } from '@/lib/seo/org';
+import { EASIEST, HARDEST, REPORT_CREDIT } from '@/lib/report/knowledge-report-2026';
+import { CiteLicence } from '@/components/cite/cite-licence';
+import { ChartDownloads } from '@/components/cite/chart-downloads';
 
 import type { Metadata } from 'next';
 
@@ -40,23 +43,10 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 };
 
-const HARDEST = [
-  ['40.0%', '71', 'BLACKPINK world records and achievements'],
-  ['41.5%', '86', 'Stray Kids: Guess the Song'],
-  ['41.6%', '781', 'Ultimate BTS era quiz - only real ARMYs survive'],
-  ['52.3%', '59', 'BTS concerts and tour moments'],
-  ['54.2%', '400', 'BLACKPINK ultimate fan challenge'],
-];
+// The score tables live in lib/report/knowledge-report-2026.ts (SEO Mission 3, part F.3), so
+// the page and its chart exports print the same rows. Unchanged values, unchanged order.
 
-const EASIEST = [
-  ['99.4%', '53', 'Find the Non-BLACKPINK Member'],
-  ['97.5%', '61', 'BTS members real names'],
-  ['97.2%', '96', 'SEVENTEEN true or false'],
-  ['96.8%', '101', 'How well do you know SKZ members?'],
-  ['96.3%', '378', 'K-pop fandom names true or false'],
-];
-
-function ScoreTable({ caption, rows }: { caption: string; rows: string[][] }): React.ReactElement {
+function ScoreTable({ caption, rows }: { caption: string; rows: ReadonlyArray<readonly [string, string, string]> }): React.ReactElement {
   return (
     <div className="kr-table-wrap">
       <table className="kr-table">
@@ -246,6 +236,11 @@ export default function KnowledgeReportPage(): React.ReactElement {
           - which is exactly the question a fandom refuses to settle.
         </p>
       </section>
+
+      {/* SEO Mission 3, part F.3: the licence block, with the three report charts as files. */}
+      <CiteLicence credit={REPORT_CREDIT}>
+        <ChartDownloads />
+      </CiteLicence>
 
       <footer className="kr-foot">
         <p>
