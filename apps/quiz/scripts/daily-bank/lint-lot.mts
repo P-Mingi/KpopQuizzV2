@@ -27,6 +27,9 @@ const FORBIDDEN_DOMAIN = /kprofiles|fandom\.com|soompi|allkpop|sporcle|reddit|na
 const FORBIDDEN_WORD = /\b(dating|girlfriend|boyfriend|scandal|rumou?r|weight|height)\b/i;
 const MUSIC = /\b(song|single|track|album|title track|b-side|ep|mini album|lyrics?)\b/i;
 const DASH = /[\u2013\u2014]/;
+// Double quotes anywhere, or a single-quoted span that opens after a space or a bracket and
+// closes before a space or punctuation. A possessive ("Girls' Generation's") is not a quote.
+const QUOTED = /["\u201c\u201d]|(?:^|[\s(])['\u2018][^'\u2018\u2019]+['\u2019](?=[\s,.?!:;)]|$)/;
 
 interface Finding { level: 'error' | 'warn'; where: string; msg: string }
 const findings: Finding[] = [];
@@ -91,7 +94,7 @@ async function main(): Promise<void> {
       checkSource(w, x.source);
       if (!x.fun_fact || x.fun_fact.length < 20) warn(w, 'fun fact missing or very short');
       if (x.question.length > 140) warn(w, `question ${x.question.length} characters`);
-      if (MUSIC.test(x.question) && /["“”‘’]|'[^']+'/.test(x.question)) err(w, 'quoted text in a music question');
+      if (MUSIC.test(x.question) && QUOTED.test(x.question)) err(w, 'quoted text in a music question');
       const k = norm(x.question);
       if (seenQuestions.has(k)) err(w, `duplicate of a question in "${seenQuestions.get(k)}"`);
       if (lotQuestions.has(k)) err(w, `duplicate of a question in "${lotQuestions.get(k)}"`);
