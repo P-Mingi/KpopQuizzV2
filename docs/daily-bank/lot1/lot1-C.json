@@ -1,0 +1,670 @@
+[
+  {
+    "scheduled_date": "2026-10-30",
+    "title": "K-pop Album Chart Peaks True or False",
+    "description": "True or false: where did famous K-pop albums from 10 artists peak on the Billboard 200, Korea's Gaon chart and Japan's Oricon?",
+    "group_slug": null,
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "NewJeans reached No. 1 on the Billboard 200 with their 2023 EP Get Up.",
+        "correct": true,
+        "fun_fact": "Get Up was also their first Billboard 200 entry, and it made NewJeans the second K-pop girl group to top the chart, after BLACKPINK.",
+        "source": "https://en.wikipedia.org/wiki/Get_Up_(EP)"
+      },
+      {
+        "question": "ATEEZ scored their first Billboard 200 No. 1 with The World EP.1: Movement.",
+        "correct": false,
+        "fun_fact": "The World EP.1: Movement peaked at No. 3 in 2022, which still gave ATEEZ their first top 10 on the Billboard 200.",
+        "source": "https://en.wikipedia.org/wiki/The_World_EP.1:_Movement"
+      },
+      {
+        "question": "TVXQ's 2011 Japanese album Tone, released as Tohoshinki, peaked at No. 2 on the Oricon Albums Chart.",
+        "correct": false,
+        "fun_fact": "Tone went to No. 1 on the Oricon Albums Chart with 205,000 copies sold in its first week, the group's first original album to top it.",
+        "source": "https://en.wikipedia.org/wiki/Tone_(TVXQ_album)"
+      },
+      {
+        "question": "TXT earned their first Billboard 200 No. 1 with The Name Chapter: Temptation.",
+        "correct": true,
+        "fun_fact": "The EP opened at No. 1 with 161,500 album-equivalent units, and its pre-orders passed 2.16 million copies, a career high for the group.",
+        "source": "https://en.wikipedia.org/wiki/The_Name_Chapter:_Temptation"
+      },
+      {
+        "question": "TWICE's 2023 EP Ready to Be debuted at No. 1 on the Billboard 200.",
+        "correct": false,
+        "fun_fact": "Ready to Be debuted at No. 2 with 153,000 units, making TWICE the first female K-pop act with three top-three albums in the US.",
+        "source": "https://en.wikipedia.org/wiki/Ready_to_Be"
+      },
+      {
+        "question": "When 2NE1's Crush debuted in 2014, it became the highest-charting Korean album on the Billboard 200.",
+        "correct": true,
+        "fun_fact": "Crush entered at No. 61 after selling over 5,000 copies in the US in four days, making it the best-selling Korean album there at the time.",
+        "source": "https://en.wikipedia.org/wiki/Crush_(2NE1_album)"
+      },
+      {
+        "question": "ENHYPEN's 2024 album Romance: Untold reached No. 1 on the Billboard 200.",
+        "correct": false,
+        "fun_fact": "Romance: Untold peaked at No. 2 on the Billboard 200, though it did reach No. 1 in South Korea, Japan and France.",
+        "source": "https://en.wikipedia.org/wiki/Romance:_Untold"
+      },
+      {
+        "question": "Monsta X's English-language album All About Luv reached No. 5 on the Billboard 200.",
+        "correct": true,
+        "fun_fact": "Released on February 14, 2020, it debuted with 52,000 album-equivalent units, 50,000 of them pure album sales.",
+        "source": "https://en.wikipedia.org/wiki/All_About_Luv"
+      },
+      {
+        "question": "SEVENTEEN's 2023 EP FML debuted at No. 1 on the Billboard 200.",
+        "correct": false,
+        "fun_fact": "FML debuted at No. 2, but the IFPI named it the best-selling album worldwide in 2023, with 6.4 million units sold.",
+        "source": "https://en.wikipedia.org/wiki/FML_(EP)"
+      },
+      {
+        "question": "The Korean version of EXO's second studio album Exodus topped the weekly Gaon album chart for four straight weeks.",
+        "correct": true,
+        "fun_fact": "Exodus came out on March 30, 2015, with Call Me Baby as its lead single. Its Chinese-language version peaked at No. 2 on the same chart.",
+        "source": "https://en.wikipedia.org/wiki/Exodus_(Exo_album)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Get_Up_(EP)",
+      "https://www.billboard.com/charts/billboard-200/2023-08-05/",
+      "https://en.wikipedia.org/wiki/The_World_EP.1:_Movement",
+      "https://en.wikipedia.org/wiki/Tone_(TVXQ_album)",
+      "https://www.wikidata.org/wiki/Q192983",
+      "https://en.wikipedia.org/wiki/The_Name_Chapter:_Temptation",
+      "https://www.billboard.com/charts/billboard-200/2023-02-11/",
+      "https://en.wikipedia.org/wiki/Ready_to_Be",
+      "https://en.wikipedia.org/wiki/Crush_(2NE1_album)",
+      "https://en.wikipedia.org/wiki/Romance:_Untold",
+      "https://www.billboard.com/charts/billboard-200/2024-07-27/",
+      "https://en.wikipedia.org/wiki/All_About_Luv",
+      "https://en.wikipedia.org/wiki/FML_(EP)",
+      "https://en.wikipedia.org/wiki/Exodus_(Exo_album)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-31",
+    "title": "BLACKPINK: The Born Pink Era",
+    "description": "Pink Venom, Shut Down, chart records and a record-breaking world tour: test what you remember about BLACKPINK's 2022 to 2023 era.",
+    "group_slug": "blackpink",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which song came out in August 2022 as the pre-release single from Born Pink?",
+        "options": [
+          "Shut Down",
+          "Pink Venom",
+          "Lovesick Girls",
+          "Typa Girl"
+        ],
+        "correct": 1,
+        "fun_fact": "BLACKPINK performed Pink Venom at the 2022 MTV Video Music Awards, the first female K-pop group ever to perform at the show.",
+        "source": "https://en.wikipedia.org/wiki/Born_Pink"
+      },
+      {
+        "question": "Which traditional Korean instrument plays the opening chords of Pink Venom?",
+        "options": [
+          "Haegeum",
+          "Janggu",
+          "Geomungo",
+          "Daegeum"
+        ],
+        "correct": 2,
+        "fun_fact": "The track blends EDM and hip-hop with traditional Korean instruments, and the gayageum can be heard on it too.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Venom"
+      },
+      {
+        "question": "Pink Venom was the first song by a girl group to reach No. 1 on which Billboard chart?",
+        "options": [
+          "Billboard Hot 100",
+          "Mainstream Top 40",
+          "Hot Dance/Electronic Songs",
+          "Billboard Global 200"
+        ],
+        "correct": 3,
+        "fun_fact": "It held the top spot for two weeks and stayed on the Global 200 for 30 weeks in total.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Venom"
+      },
+      {
+        "question": "The title track Shut Down loops a violin sample from which classical piece?",
+        "options": [
+          "La Campanella",
+          "Für Elise",
+          "The Four Seasons",
+          "Canon in D"
+        ],
+        "correct": 0,
+        "fun_fact": "The sample comes from Paganini's second violin concerto. Shut Down also became the first song by a K-pop act to top Spotify's weekly chart.",
+        "source": "https://en.wikipedia.org/wiki/Shut_Down_(Blackpink_song)"
+      },
+      {
+        "question": "Born Pink was the first album by a female group to top the Billboard 200 since which group did it in 2008?",
+        "options": [
+          "Destiny's Child",
+          "The Pussycat Dolls",
+          "Fifth Harmony",
+          "Danity Kane"
+        ],
+        "correct": 3,
+        "fun_fact": "Born Pink also topped the UK Albums Chart, a first for a K-pop girl group, which earned BLACKPINK two Guinness World Records.",
+        "source": "https://en.wikipedia.org/wiki/Born_Pink"
+      },
+      {
+        "question": "Born Pink became the first album by a K-pop girl group to sell more than how many copies?",
+        "options": [
+          "One million",
+          "Two million",
+          "Three million",
+          "Five million"
+        ],
+        "correct": 1,
+        "fun_fact": "It debuted at No. 1 on the Circle Album Chart with 2,141,281 copies sold in less than two days of tracking.",
+        "source": "https://en.wikipedia.org/wiki/Blackpink"
+      },
+      {
+        "question": "In which city did the Born Pink World Tour open on October 15, 2022?",
+        "options": [
+          "Dallas",
+          "Bangkok",
+          "Seoul",
+          "London"
+        ],
+        "correct": 2,
+        "fun_fact": "The tour also ended in Seoul, on September 17, 2023, after 66 concerts in 22 countries.",
+        "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"
+      },
+      {
+        "question": "With a $330 million gross, the Born Pink World Tour broke whose record for highest-grossing female group tour?",
+        "options": [
+          "Spice Girls",
+          "Little Mix",
+          "Destiny's Child",
+          "TLC"
+        ],
+        "correct": 0,
+        "fun_fact": "It ranked No. 10 on Billboard's 2023 year-end tours chart and drew 1.8 million fans over its 66 shows.",
+        "source": "https://en.wikipedia.org/wiki/Born_Pink_World_Tour"
+      },
+      {
+        "question": "Which California festival did BLACKPINK headline in April 2023, a first for an Asian act?",
+        "options": [
+          "Outside Lands",
+          "Coachella",
+          "BottleRock Napa Valley",
+          "Rolling Loud California"
+        ],
+        "correct": 1,
+        "fun_fact": "They headlined on both festival weekends, on April 15 and April 22, 2023.",
+        "source": "https://en.wikipedia.org/wiki/Blackpink"
+      },
+      {
+        "question": "In July 2023, BLACKPINK became the first Korean band to headline a major UK festival. Which one?",
+        "options": [
+          "Glastonbury",
+          "Reading Festival",
+          "British Summer Time Hyde Park",
+          "Wireless Festival"
+        ],
+        "correct": 2,
+        "fun_fact": "The London show took place on July 2, 2023, just before the encore stadium leg of the tour in France and the United States.",
+        "source": "https://en.wikipedia.org/wiki/Blackpink"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Born_Pink",
+      "https://en.wikipedia.org/wiki/Pink_Venom",
+      "https://en.wikipedia.org/wiki/Shut_Down_(Blackpink_song)",
+      "https://en.wikipedia.org/wiki/Born_Pink_World_Tour",
+      "https://en.wikipedia.org/wiki/Blackpink",
+      "https://www.billboard.com/lists/girl-groups-number-one-albums-billboard-200/"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-01",
+    "title": "K-pop on the Billboard Charts",
+    "description": "From Wonder Girls in 2009 to APT. in 2025: a hard quiz on K-pop's first Hot 100 entries and Billboard 200 number ones.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Which act gave K-pop its first Billboard Hot 100 entry, on the chart dated October 31, 2009?",
+        "options": [
+          "BoA",
+          "Wonder Girls",
+          "Girls' Generation",
+          "BIGBANG"
+        ],
+        "correct": 1,
+        "fun_fact": "The English version of Nobody entered at No. 76. A PopCrush editor credited the group's slot opening for the Jonas Brothers' US summer tour.",
+        "source": "https://en.wikipedia.org/wiki/Nobody_(Wonder_Girls_song)"
+      },
+      {
+        "question": "Who became the first South Korean artist to place an album on the Billboard 200, in 2009?",
+        "options": [
+          "Rain",
+          "Se7en",
+          "BoA",
+          "Wonder Girls"
+        ],
+        "correct": 2,
+        "fun_fact": "The album was her self-titled record BoA, her only English-language studio album, and it peaked at No. 127.",
+        "source": "https://en.wikipedia.org/wiki/BoA_(album)"
+      },
+      {
+        "question": "Which song kept PSY's Gangnam Style stuck at No. 2 on the Hot 100 in 2012?",
+        "options": [
+          "Call Me Maybe",
+          "Somebody That I Used to Know",
+          "We Are Never Ever Getting Back Together",
+          "One More Night"
+        ],
+        "correct": 3,
+        "fun_fact": "Gangnam Style spent seven straight weeks at No. 2 behind Maroon 5, the highest Hot 100 peak by a South Korean artist at the time.",
+        "source": "https://en.wikipedia.org/wiki/Gangnam_Style"
+      },
+      {
+        "question": "Which BTS song gave a K-pop group its first top 10 hit on the Billboard Hot 100?",
+        "options": [
+          "Fake Love",
+          "DNA",
+          "Mic Drop",
+          "Idol"
+        ],
+        "correct": 0,
+        "fun_fact": "It was also the first K-pop song to debut inside the top 10, beating PSY's Gentleman, which had started at No. 12.",
+        "source": "https://www.billboard.com/pro/bts-first-hot-100-top-10-k-pop-group-fake-love/"
+      },
+      {
+        "question": "Which album gave K-pop its first No. 1 on the Billboard 200, in 2018?",
+        "options": [
+          "Wings",
+          "Love Yourself: Her",
+          "Love Yourself: Tear",
+          "Map of the Soul: Persona"
+        ],
+        "correct": 2,
+        "fun_fact": "It debuted with 135,000 album-equivalent units and became BTS' highest-charting album in a Western market at the time.",
+        "source": "https://en.wikipedia.org/wiki/Love_Yourself:_Tear"
+      },
+      {
+        "question": "Which act became the first Korean act to top the Billboard 200 with its debut release, in 2019?",
+        "options": [
+          "SuperM",
+          "TXT",
+          "ITZY",
+          "Stray Kids"
+        ],
+        "correct": 0,
+        "fun_fact": "SuperM was unveiled at Capitol Congress in August 2019, and its debut EP came out on October 4, 2019.",
+        "source": "https://en.wikipedia.org/wiki/SuperM_(EP)"
+      },
+      {
+        "question": "Stray Kids' very first Billboard 200 entry went straight to No. 1. Which release was it?",
+        "options": [
+          "Noeasy",
+          "Maxident",
+          "5-Star",
+          "Oddinary"
+        ],
+        "correct": 3,
+        "fun_fact": "With it, Stray Kids became the third Korean act to top the Billboard 200, after BTS and SuperM.",
+        "source": "https://en.wikipedia.org/wiki/Oddinary"
+      },
+      {
+        "question": "With which song did Jimin become the first South Korean soloist to debut at No. 1 on the Hot 100?",
+        "options": [
+          "Set Me Free Pt. 2",
+          "Like Crazy",
+          "Who",
+          "Filter"
+        ],
+        "correct": 1,
+        "fun_fact": "It topped the chart dated April 8, 2023, making Jimin the fourth Asian artist to lead the Hot 100, after Kyu Sakamoto, Far East Movement and BTS.",
+        "source": "https://en.wikipedia.org/wiki/Like_Crazy_(song)"
+      },
+      {
+        "question": "What was the Hot 100 peak of APT. by Rosé and Bruno Mars?",
+        "options": [
+          "No. 1",
+          "No. 8",
+          "No. 3",
+          "No. 5"
+        ],
+        "correct": 2,
+        "fun_fact": "APT. debuted at No. 8 and climbed to No. 3 on the chart dated February 1, 2025, where it stayed for two weeks.",
+        "source": "https://en.wikipedia.org/wiki/APT._(song)"
+      },
+      {
+        "question": "Which girl group's Cupid climbed to No. 17 on the Billboard Hot 100 in 2023?",
+        "options": [
+          "NewJeans",
+          "Fifty Fifty",
+          "LE SSERAFIM",
+          "IVE"
+        ],
+        "correct": 1,
+        "fun_fact": "Cupid first entered the Hot 100 at No. 100, making Fifty Fifty the fastest Korean act to reach the chart after debuting.",
+        "source": "https://en.wikipedia.org/wiki/Cupid_(Fifty_Fifty_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Nobody_(Wonder_Girls_song)",
+      "https://www.billboard.com/charts/hot-100/2009-10-31/",
+      "https://en.wikipedia.org/wiki/BoA_(album)",
+      "https://www.billboard.com/charts/billboard-200/2009-04-04/",
+      "https://en.wikipedia.org/wiki/Gangnam_Style",
+      "https://www.billboard.com/charts/hot-100/2012-10-20/",
+      "https://www.billboard.com/pro/bts-first-hot-100-top-10-k-pop-group-fake-love/",
+      "https://www.billboard.com/charts/hot-100/2018-06-02/",
+      "https://en.wikipedia.org/wiki/Love_Yourself:_Tear",
+      "https://www.billboard.com/charts/billboard-200/2018-06-02/",
+      "https://en.wikipedia.org/wiki/SuperM_(EP)",
+      "https://www.billboard.com/charts/billboard-200/2019-10-19/",
+      "https://en.wikipedia.org/wiki/Oddinary",
+      "https://www.billboard.com/charts/billboard-200/2022-04-02/",
+      "https://en.wikipedia.org/wiki/Like_Crazy_(song)",
+      "https://www.billboard.com/charts/hot-100/2023-04-08/",
+      "https://en.wikipedia.org/wiki/APT._(song)",
+      "https://www.billboard.com/charts/hot-100/2025-02-01/",
+      "https://en.wikipedia.org/wiki/Cupid_(Fifty_Fifty_song)",
+      "https://www.billboard.com/charts/hot-100/2023-04-01/",
+      "https://www.billboard.com/charts/hot-100/2023-05-20/",
+      "https://en.wikipedia.org/wiki/List_of_K-pop_songs_on_the_Billboard_charts",
+      "https://en.wikipedia.org/wiki/List_of_K-pop_albums_on_the_Billboard_charts"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-02",
+    "title": "Girls' Generation: From Gee to Forever 1",
+    "description": "Gee, Genie, The Boys, Lion Heart and the TTS sub-unit: how well do you know the Girls' Generation discography and its milestones?",
+    "group_slug": "girls-generation",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "For how many consecutive weeks was Gee the No. 1 song on the music show Music Bank in 2009?",
+        "options": [
+          "Five",
+          "Seven",
+          "Nine",
+          "Twelve"
+        ],
+        "correct": 2,
+        "fun_fact": "Gee was also the top-performing song of the 2000s decade on the Korean streaming platform Melon.",
+        "source": "https://en.wikipedia.org/wiki/Gee_(Girls'_Generation_song)"
+      },
+      {
+        "question": "Which song was released as Girls' Generation's debut single in Japan in September 2010?",
+        "options": [
+          "Genie",
+          "Gee",
+          "Mr. Taxi",
+          "Paparazzi"
+        ],
+        "correct": 0,
+        "fun_fact": "The Japanese version of Genie peaked at No. 4 on the Oricon Singles Chart.",
+        "source": "https://en.wikipedia.org/wiki/Genie_(Girls'_Generation_song)"
+      },
+      {
+        "question": "Which producer helped compose and arrange The Boys, the 2011 title track?",
+        "options": [
+          "Timbaland",
+          "Teddy Riley",
+          "Pharrell Williams",
+          "Rodney Jerkins"
+        ],
+        "correct": 1,
+        "fun_fact": "Riley also wrote the English version, which was released in the United States on December 20, 2011, through Interscope Records.",
+        "source": "https://en.wikipedia.org/wiki/The_Boys_(Girls'_Generation_song)"
+      },
+      {
+        "question": "On which late-night show did Girls' Generation make their US TV debut with The Boys in 2012?",
+        "options": [
+          "The Tonight Show with Jay Leno",
+          "Jimmy Kimmel Live!",
+          "Late Show with David Letterman",
+          "Conan"
+        ],
+        "correct": 2,
+        "fun_fact": "They also sang it on the daytime show Live! in February 2012, about three months after performing it at an SM Town concert at Madison Square Garden.",
+        "source": "https://en.wikipedia.org/wiki/The_Boys_(Girls'_Generation_song)"
+      },
+      {
+        "question": "Which award did the I Got a Boy music video win at the first YouTube Music Awards in 2013?",
+        "options": [
+          "Artist of the Year",
+          "Video of the Year",
+          "Response of the Year",
+          "Breakthrough of the Year"
+        ],
+        "correct": 1,
+        "fun_fact": "The ceremony took place at Pier 36 in New York on November 3, 2013, and the group beat nominees such as Justin Bieber and PSY.",
+        "source": "https://en.wikipedia.org/wiki/I_Got_a_Boy_(song)"
+      },
+      {
+        "question": "Which single, released in July 2015, was the lead single of the album Lion Heart?",
+        "options": [
+          "You Think",
+          "Lion Heart",
+          "Party",
+          "Catch Me If You Can"
+        ],
+        "correct": 2,
+        "fun_fact": "Party topped the Gaon Digital Chart, and Lion Heart and You Think followed as singles in August 2015.",
+        "source": "https://en.wikipedia.org/wiki/Lion_Heart_(album)"
+      },
+      {
+        "question": "The 2017 album Holiday Night was released to mark which anniversary of the group's debut?",
+        "options": [
+          "Seventh",
+          "Tenth",
+          "Twelfth",
+          "Fifteenth"
+        ],
+        "correct": 1,
+        "fun_fact": "Its single All Night was written by Kenzie, the songwriter behind the group's debut single Into the New World.",
+        "source": "https://en.wikipedia.org/wiki/Holiday_Night"
+      },
+      {
+        "question": "Forever 1 (2022) was Girls' Generation's first release after a break of how many years?",
+        "options": [
+          "Two",
+          "Three",
+          "Four",
+          "Five"
+        ],
+        "correct": 3,
+        "fun_fact": "Forever 1 is their seventh Korean studio album, released in August 2022 for their 15th anniversary.",
+        "source": "https://en.wikipedia.org/wiki/Forever_1"
+      },
+      {
+        "question": "TTS, the first Girls' Generation sub-unit, debuted in 2012 with which EP?",
+        "options": [
+          "Holler",
+          "Dear Santa",
+          "Mr.Mr.",
+          "Twinkle"
+        ],
+        "correct": 3,
+        "fun_fact": "Twinkle reached No. 126 on the Billboard 200, the highest peak for a K-pop album on that chart at the time.",
+        "source": "https://en.wikipedia.org/wiki/Twinkle_(EP)"
+      },
+      {
+        "question": "With which album did Girls' Generation become the first female group to win the Golden Disc Album Daesang?",
+        "options": [
+          "Oh!",
+          "Mr.Mr.",
+          "The Boys",
+          "Lion Heart"
+        ],
+        "correct": 0,
+        "fun_fact": "Oh! was their second studio album, released in January 2010, and its repackage Run Devil Run followed that March.",
+        "source": "https://en.wikipedia.org/wiki/Oh!_(Girls'_Generation_album)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Gee_(Girls'_Generation_song)",
+      "https://en.wikipedia.org/wiki/Genie_(Girls'_Generation_song)",
+      "https://en.wikipedia.org/wiki/The_Boys_(Girls'_Generation_song)",
+      "https://en.wikipedia.org/wiki/I_Got_a_Boy_(song)",
+      "https://en.wikipedia.org/wiki/Lion_Heart_(album)",
+      "https://en.wikipedia.org/wiki/Holiday_Night",
+      "https://en.wikipedia.org/wiki/Forever_1",
+      "https://en.wikipedia.org/wiki/Twinkle_(EP)",
+      "https://en.wikipedia.org/wiki/Girls'_Generation-TTS",
+      "https://en.wikipedia.org/wiki/Oh!_(Girls'_Generation_album)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-03",
+    "title": "K-pop Songs With Repeated Words",
+    "description": "From Bloom Bloom to Ddu-Du Ddu-Du: name the K-pop group behind each hit whose title repeats a word or a sound.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which boy group released Bloom Bloom in 2019?",
+        "options": [
+          "ASTRO",
+          "The Boyz",
+          "ONEUS",
+          "VIXX"
+        ],
+        "correct": 1,
+        "fun_fact": "Bloom Bloom led the group's second single album and earned them their first music show win, on The Show in May 2019.",
+        "source": "https://en.wikipedia.org/wiki/Bloom_Bloom"
+      },
+      {
+        "question": "Which boy group released Bang Bang Bang in 2015?",
+        "options": [
+          "BIGBANG",
+          "2PM",
+          "Block B",
+          "iKON"
+        ],
+        "correct": 0,
+        "fun_fact": "Bang Bang Bang topped the Gaon Digital Chart and won Song of the Year at the 2015 Melon Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)"
+      },
+      {
+        "question": "Which girl group released Dun Dun in 2020?",
+        "options": [
+          "Dreamcatcher",
+          "CLC",
+          "EVERGLOW",
+          "Weeekly"
+        ],
+        "correct": 2,
+        "fun_fact": "Dun Dun was the lead single of the group's first EP, Reminiscence, a four-track release from February 3, 2020.",
+        "source": "https://en.wikipedia.org/wiki/Reminiscence_(EP)"
+      },
+      {
+        "question": "Which boy group released Again & Again in 2009?",
+        "options": [
+          "Beast",
+          "MBLAQ",
+          "U-KISS",
+          "2PM"
+        ],
+        "correct": 3,
+        "fun_fact": "Park Jin-young wrote and composed it, and it became the group's first No. 1 single, from their second single album 2:00PM Time for Change.",
+        "source": "https://en.wikipedia.org/wiki/Again_%26_Again_(2PM_song)"
+      },
+      {
+        "question": "Which girl group released Dumb Dumb in 2015?",
+        "options": [
+          "Oh My Girl",
+          "Lovelyz",
+          "GFRIEND",
+          "Red Velvet"
+        ],
+        "correct": 3,
+        "fun_fact": "Dumb Dumb was the lead single of the group's first studio album, The Red, and peaked at No. 2 on the Gaon Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Dumb_Dumb_(Red_Velvet_song)"
+      },
+      {
+        "question": "Which girl group released No No No in 2013?",
+        "options": [
+          "Apink",
+          "Girl's Day",
+          "Secret",
+          "SISTAR"
+        ],
+        "correct": 0,
+        "fun_fact": "No No No came out with the EP Secret Garden and peaked at No. 2 on the Billboard K-pop Hot 100.",
+        "source": "https://en.wikipedia.org/wiki/No_No_No_(Apink_song)"
+      },
+      {
+        "question": "Which girl group released Bo Peep Bo Peep in 2009?",
+        "options": [
+          "Wonder Girls",
+          "KARA",
+          "T-ara",
+          "4Minute"
+        ],
+        "correct": 2,
+        "fun_fact": "Bo Peep Bo Peep earned five weekly No. 1 awards on the music shows Music Bank and Inkigayo.",
+        "source": "https://en.wikipedia.org/wiki/Bo_Peep_Bo_Peep"
+      },
+      {
+        "question": "Which girl group released Yes or Yes in 2018?",
+        "options": [
+          "MOMOLAND",
+          "TWICE",
+          "GFRIEND",
+          "Weki Meki"
+        ],
+        "correct": 1,
+        "fun_fact": "Yes or Yes debuted at No. 1 on the Gaon Digital Chart, the group's ninth chart-topping single in a row.",
+        "source": "https://en.wikipedia.org/wiki/Yes_or_Yes_(song)"
+      },
+      {
+        "question": "Which girl group released Ddu-Du Ddu-Du in 2018?",
+        "options": [
+          "2NE1",
+          "ITZY",
+          "BLACKPINK",
+          "(G)I-DLE"
+        ],
+        "correct": 2,
+        "fun_fact": "Its music video became the first by a K-pop group to pass two billion views on YouTube.",
+        "source": "https://en.wikipedia.org/wiki/Ddu-Du_Ddu-Du"
+      },
+      {
+        "question": "Which girl group released Rum Pum Pum Pum in 2013?",
+        "options": [
+          "f(x)",
+          "Girls' Generation",
+          "miss A",
+          "After School"
+        ],
+        "correct": 0,
+        "fun_fact": "The song's Korean title translates to First Wisdom Teeth, and it was the lead single of the album Pink Tape.",
+        "source": "https://en.wikipedia.org/wiki/Rum_Pum_Pum_Pum"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Bloom_Bloom",
+      "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)",
+      "https://en.wikipedia.org/wiki/Reminiscence_(EP)",
+      "https://en.wikipedia.org/wiki/Again_%26_Again_(2PM_song)",
+      "https://en.wikipedia.org/wiki/Dumb_Dumb_(Red_Velvet_song)",
+      "https://en.wikipedia.org/wiki/No_No_No_(Apink_song)",
+      "https://en.wikipedia.org/wiki/Bo_Peep_Bo_Peep",
+      "https://en.wikipedia.org/wiki/Yes_or_Yes_(song)",
+      "https://en.wikipedia.org/wiki/Ddu-Du_Ddu-Du",
+      "https://en.wikipedia.org/wiki/Rum_Pum_Pum_Pum"
+    ]
+  }
+]
