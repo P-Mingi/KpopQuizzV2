@@ -15,6 +15,7 @@ import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
+import { EmbedQuizToggle } from '@/components/embed/embed-quiz-toggle';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
@@ -463,6 +464,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       {/* Owner / admin actions (Edit, Delete, Remove). Renders nothing for
           everyone else - client island so the page shell stays cacheable. */}
       <QuizOwnerActions quizId={quiz.id} creatorId={quizIntro.creatorId} />
+
+      {/* SEO Mission 3, part F.1: the public embed generator (a client island). */}
+      <EmbedQuizToggle slug={quiz.slug} title={quiz.title} />
 
       {/* UI-1 zone 5 - every server-rendered SEO block below the player now
           lives inside one "About this quiz" drawer. Server renders it OPEN, so
