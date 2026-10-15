@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
+import { DeezerAttribution } from '@/components/deezer-attribution';
 import { BlindTestEqualizer } from '@/components/game/blind-test-equalizer';
 import { legacyGenerateBody, legacyModeRun, roundFromGenerate } from '@/lib/blind-test/legacy-round';
 
@@ -370,6 +371,8 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
           {!answered && (
             <p className="text-xs text-[var(--text-tertiary)] text-center mt-4">tap to pick</p>
           )}
+
+          <DeezerAttribution className="mt-4 text-[var(--text-secondary)]" />
         </div>
       )}
 
