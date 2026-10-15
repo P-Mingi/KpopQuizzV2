@@ -1,7 +1,10 @@
+import Link from 'next/link';
+
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
+import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
@@ -58,6 +61,10 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
             action={groups.visibleGroups > 0 ? { href: '/groups', label: `All ${groups.visibleGroups} groups` } : { href: '/groups', label: 'All groups' }}
           />
           <GroupsRail groups={groups.groups} />
+          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor. */}
+          <p className="p1-note" style={{ marginTop: 12 }}>
+            <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
+          </p>
         </section>
       ) : null}
 
