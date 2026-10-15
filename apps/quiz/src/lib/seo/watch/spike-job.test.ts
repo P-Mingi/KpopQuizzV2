@@ -120,6 +120,6 @@ describe('spikeEmail', () => {
 
   it('no em or en dash', () => {
     const m = spikeEmail([row, { ...row, group: 'ILLIT' }], 'direct');
-    expect(`${m.subject}${m.text}`).not.toMatch(/[–—]/);
+    expect(`${m.subject}${m.text}`).not.toMatch(/[\u2013\u2014]/);
   });
 });
