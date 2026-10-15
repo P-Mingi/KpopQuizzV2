@@ -1,0 +1,112 @@
+2026-10-16  bank-pulled TWICE: Feel Special Quiz [group_specific, group 4]
+2026-10-17  bank-pulled K-pop Idols and Food [fun]
+2026-10-18  bank-pulled K-pop Idols Who Act [knowledge]
+2026-10-19  bank-pulled K-pop Company Facts True or False [true_false]
+2026-10-20  bank        ILLIT: Magnetic Debut Quiz [group_specific, group 68]
+2026-10-21  bank        K-pop at Big Sporting Events [knowledge]
+2026-10-22  bank        BTS: The Dynamite to Proof Era [era, group 1]
+2026-10-23  bank        K-pop Weather and Season Songs [fun]
+2026-10-24  bank        K-pop First Studio Albums True or False [true_false]
+2026-10-25  bank        Stray Kids: From 5-Star to KARMA [group_specific, group 3]
+2026-10-26  bank        SEVENTEEN: The Face the Sun Era [era, group 7]
+2026-10-27  bank        K-pop Hits and Their Albums [knowledge]
+2026-10-28  bank        K-pop Hitmakers and Their Groups [fun]
+2026-10-29  bank        ENHYPEN: Sweet Venom to The Sin Quiz [group_specific, group 15]
+2026-10-30  bank        K-pop Album Chart Peaks True or False [true_false]
+2026-10-31  bank        BLACKPINK: The Born Pink Era [era, group 2]
+2026-11-01  bank        K-pop on the Billboard Charts [knowledge]
+2026-11-02  bank        Girls' Generation: From Gee to Forever 1 [group_specific, group 87]
+2026-11-03  bank        K-pop Songs With Repeated Words [fun]
+2026-11-04  bank        aespa: The Supernova Era [era, group 5]
+2026-11-05  bank        K-pop Solo Artists True or False [true_false]
+2026-11-06  bank        TWICE: Cheer Up to Fancy Quiz [group_specific, group 4]
+2026-11-07  bank        K-pop Grand Prize Winners [knowledge]
+2026-11-08  bank        K-pop Virtual Idols [fun]
+2026-11-09  none        CATALOG FALLBACK (bank empty)
+2026-11-10  none        CATALOG FALLBACK (bank empty)
+2026-11-11  none        CATALOG FALLBACK (bank empty)
+2026-11-12  none        CATALOG FALLBACK (bank empty)
+2026-11-13  none        CATALOG FALLBACK (bank empty)
+2026-11-14  none        CATALOG FALLBACK (bank empty)
+2026-11-15  none        CATALOG FALLBACK (bank empty)
+2026-11-16  none        CATALOG FALLBACK (bank empty)
+2026-11-17  none        CATALOG FALLBACK (bank empty)
+2026-11-18  none        CATALOG FALLBACK (bank empty)
+2026-11-19  none        CATALOG FALLBACK (bank empty)
+2026-11-20  none        CATALOG FALLBACK (bank empty)
+2026-11-21  none        CATALOG FALLBACK (bank empty)
+2026-11-22  none        CATALOG FALLBACK (bank empty)
+2026-11-23  none        CATALOG FALLBACK (bank empty)
+2026-11-24  none        CATALOG FALLBACK (bank empty)
+2026-11-25  none        CATALOG FALLBACK (bank empty)
+2026-11-26  none        CATALOG FALLBACK (bank empty)
+2026-11-27  none        CATALOG FALLBACK (bank empty)
+2026-11-28  none        CATALOG FALLBACK (bank empty)
+2026-11-29  none        CATALOG FALLBACK (bank empty)
+2026-11-30  none        CATALOG FALLBACK (bank empty)
+2026-12-01  none        CATALOG FALLBACK (bank empty)
+2026-12-02  none        CATALOG FALLBACK (bank empty)
+2026-12-03  none        CATALOG FALLBACK (bank empty)
+2026-12-04  none        CATALOG FALLBACK (bank empty)
+2026-12-05  none        CATALOG FALLBACK (bank empty)
+2026-12-06  none        CATALOG FALLBACK (bank empty)
+2026-12-07  none        CATALOG FALLBACK (bank empty)
+2026-12-08  none        CATALOG FALLBACK (bank empty)
+2026-12-09  none        CATALOG FALLBACK (bank empty)
+2026-12-10  none        CATALOG FALLBACK (bank empty)
+2026-12-11  none        CATALOG FALLBACK (bank empty)
+2026-12-12  none        CATALOG FALLBACK (bank empty)
+2026-12-13  none        CATALOG FALLBACK (bank empty)
+2026-12-14  none        CATALOG FALLBACK (bank empty)
+2026-12-15  none        CATALOG FALLBACK (bank empty)
+2026-12-16  none        CATALOG FALLBACK (bank empty)
+2026-12-17  none        CATALOG FALLBACK (bank empty)
+2026-12-18  none        CATALOG FALLBACK (bank empty)
+2026-12-19  none        CATALOG FALLBACK (bank empty)
+2026-12-20  none        CATALOG FALLBACK (bank empty)
+2026-12-21  none        CATALOG FALLBACK (bank empty)
+2026-12-22  none        CATALOG FALLBACK (bank empty)
+2026-12-23  none        CATALOG FALLBACK (bank empty)
+2026-12-24  none        CATALOG FALLBACK (bank empty)
+2026-12-25  none        CATALOG FALLBACK (bank empty)
+2026-12-26  none        CATALOG FALLBACK (bank empty)
+2026-12-27  none        CATALOG FALLBACK (bank empty)
+2026-12-28  none        CATALOG FALLBACK (bank empty)
+2026-12-29  none        CATALOG FALLBACK (bank empty)
+2026-12-30  none        CATALOG FALLBACK (bank empty)
+2026-12-31  none        CATALOG FALLBACK (bank empty)
+2027-01-01  none        CATALOG FALLBACK (bank empty)
+2027-01-02  none        CATALOG FALLBACK (bank empty)
+2027-01-03  none        CATALOG FALLBACK (bank empty)
+2027-01-04  none        CATALOG FALLBACK (bank empty)
+2027-01-05  none        CATALOG FALLBACK (bank empty)
+2027-01-06  none        CATALOG FALLBACK (bank empty)
+2027-01-07  none        CATALOG FALLBACK (bank empty)
+2027-01-08  none        CATALOG FALLBACK (bank empty)
+2027-01-09  none        CATALOG FALLBACK (bank empty)
+2027-01-10  none        CATALOG FALLBACK (bank empty)
+2027-01-11  none        CATALOG FALLBACK (bank empty)
+2027-01-12  none        CATALOG FALLBACK (bank empty)
+2027-01-13  none        CATALOG FALLBACK (bank empty)
+2027-01-14  none        CATALOG FALLBACK (bank empty)
+2027-01-15  none        CATALOG FALLBACK (bank empty)
+2027-01-16  none        CATALOG FALLBACK (bank empty)
+2027-01-17  none        CATALOG FALLBACK (bank empty)
+2027-01-18  none        CATALOG FALLBACK (bank empty)
+2027-01-19  none        CATALOG FALLBACK (bank empty)
+2027-01-20  none        CATALOG FALLBACK (bank empty)
+2027-01-21  none        CATALOG FALLBACK (bank empty)
+2027-01-22  none        CATALOG FALLBACK (bank empty)
+2027-01-23  none        CATALOG FALLBACK (bank empty)
+2027-01-24  none        CATALOG FALLBACK (bank empty)
+2027-01-25  none        CATALOG FALLBACK (bank empty)
+2027-01-26  none        CATALOG FALLBACK (bank empty)
+2027-01-27  none        CATALOG FALLBACK (bank empty)
+2027-01-28  none        CATALOG FALLBACK (bank empty)
+2027-01-29  none        CATALOG FALLBACK (bank empty)
+2027-01-30  none        CATALOG FALLBACK (bank empty)
+2027-01-31  none        CATALOG FALLBACK (bank empty)
+2027-02-01  none        CATALOG FALLBACK (bank empty)
+2027-02-02  none        CATALOG FALLBACK (bank empty)
+
+110 days from 2026-10-16: 86 day(s) on the catalog fallback, 0 bank row(s) left.
