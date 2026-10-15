@@ -18,9 +18,9 @@ import type { LotQuiz, McQuestion, TfQuestion } from './lib.mts';
 const ALLOWED = [
   'en.wikipedia.org', 'www.wikidata.org', 'wikidata.org', 'musicbrainz.org', 'circlechart.kr', 'www.circlechart.kr',
   'www.billboard.com', 'billboard.com', 'koreajoongangdaily.joins.com', 'koreajoongangdaily.com', 'www.koreaherald.com',
-  'koreaherald.com', 'www.koreatimes.co.kr', 'koreatimes.co.kr', 'en.yna.co.kr', 'www.nme.com', 'nme.com',
+  'www.koreajoongangdaily.com', 'koreaherald.com', 'www.koreatimes.co.kr', 'koreatimes.co.kr', 'en.yna.co.kr', 'www.nme.com', 'nme.com',
   'ibighit.com', 'www.ibighit.com', 'smtown.com', 'www.smtown.com', 'ygfamily.com', 'www.ygfamily.com', 'jype.com',
-  'www.jype.com', 'hybecorp.com', 'www.hybecorp.com', 'belift.kr', 'www.belift.kr', 'starship-ent.com', 'pledis.co.kr',
+  'www.jype.com', 'hybecorp.com', 'www.hybecorp.com', 'belift.kr', 'www.belift.kr', 'beliftlab.com', 'www.beliftlab.com', 'highup-ent.com', 'www.highup-ent.com', 'starship-ent.com', 'pledis.co.kr',
   'www.pledis.co.kr', 'www.grammy.com', 'www.officialcharts.com', 'officialcharts.com', 'www.riaa.com', 'www.guinnessworldrecords.com',
 ];
 const FORBIDDEN_DOMAIN = /kprofiles|fandom\.com|soompi|allkpop|sporcle|reddit|namu\.wiki|quiz/i;
