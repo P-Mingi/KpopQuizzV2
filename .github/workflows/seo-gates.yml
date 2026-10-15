@@ -173,3 +173,118 @@ jobs:
           curl -sS -X POST -H 'Content-Type: application/json' \
             -d "{\"content\":\"SEO nightly on ${GITHUB_REF_NAME}: ${what}. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}\"}" \
             "$WEBHOOK"
+
+  # SEO Mission 3, part B. The jobs above grade a CI build; this one grades PRODUCTION,
+  # https://kpopquiz.org, the pages Google, Bing and the AI assistants actually receive. It
+  # builds nothing: it reads the sitemap and every URL in it with plain GET requests (2 workers,
+  # a pause after each request, robots.txt respected, a generic user agent, no cookies), follows
+  # up to 150 internal links that are not in the sitemap, and checks the legacy URLs and the
+  # www host. Rules and the reasons behind each one: apps/quiz/scripts/seo-prod-crawl.mts.
+  #
+  # The expected counts come from readPublicStats() itself (lib/stats/site-stats.ts), run here
+  # with the same anon key production pages use. It is the stats function, not a copy, and a
+  # fresh read, so a stale page cache shows up instead of being agreed with.
+  #
+  # SONGS_IS_CURATED decides which songs the stats function counts. It must hold the same value
+  # as in Vercel production, or every song count reads as wrong. It is a repository VARIABLE
+  # (Settings > Secrets and variables > Actions > Variables), not a secret; unset means "not
+  # curated". On 15 October 2026 production printed the not-curated counts (4,281 songs across
+  # 85 groups), so unset matches production today.
+  prod-crawl:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.QUIZ_SUPABASE_ANON_KEY }}
+      SONGS_IS_CURATED: ${{ vars.SONGS_IS_CURATED }}
+      # Production runs both flags (owner, 2026-10-14). The crawler cannot set them on
+      # production; it checks they are on (the v1 stylesheet and a V12-only URL) and fails if not.
+      NEXT_PUBLIC_UX_V1: '1'
+      NEXT_PUBLIC_UX_V12: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: check:prod-seo (crawl production)
+        id: crawl
+        working-directory: apps/quiz
+        shell: bash
+        run: |
+          pnpm run check:prod-seo --out /tmp/prod-seo-report.json | tee /tmp/prod-seo.txt
+          exit "${PIPESTATUS[0]}"
+
+      # Mission 2 (part E) adds a "fact-lint" test. Run it here once it exists, under either
+      # form (a check:fact-lint script, or a *fact-lint* vitest file). Until then the step says
+      # so in the log instead of passing silently.
+      - name: fact-lint (when it exists)
+        id: factlint
+        if: always()
+        working-directory: apps/quiz
+        shell: bash
+        run: |
+          if node -e "process.exit(require('./package.json').scripts['check:fact-lint'] ? 0 : 1)"; then
+            pnpm run check:fact-lint
+          else
+            files=$(git ls-files '*fact-lint*.test.ts')
+            if [ -n "$files" ]; then
+              npx vitest run $files
+            else
+              echo "fact-lint: not in the repository yet (SEO Mission 2, part E). Skipped, NOT passed."
+            fi
+          fi
+
+      - name: Summary for the Actions page
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '### Production SEO crawl'
+            echo '```'
+            if [ -f /tmp/prod-seo.txt ]; then sed -n '/^Coverage:/,$p' /tmp/prod-seo.txt | head -n 400; else echo 'no crawl output'; fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod-seo-report
+          path: /tmp/prod-seo-report.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Report failure to Discord
+        if: failure()
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_ALERT_WEBHOOK }}
+          CRAWL_OUTCOME: ${{ steps.crawl.outcome }}
+          FACTLINT_OUTCOME: ${{ steps.factlint.outcome }}
+        run: |
+          failed=""
+          [ "$CRAWL_OUTCOME" = "failure" ]    && failed="$failed check:prod-seo"
+          [ "$FACTLINT_OUTCOME" = "failure" ] && failed="$failed fact-lint"
+          if [ -n "$failed" ]; then
+            line=$(grep -m1 '^FAILED:' /tmp/prod-seo.txt 2>/dev/null || true)
+            what="production check(s) failed:$failed. $line"
+          else
+            what="setup failed before the production crawl ran (checkout or install)"
+          fi
+          echo "$what"
+          if [ -z "$WEBHOOK" ]; then
+            echo "No DISCORD_ALERT_WEBHOOK secret set, so this is only visible in the Actions tab."
+            exit 0
+          fi
+          payload=$(node -e 'console.log(JSON.stringify({ content: process.argv[1] }))' "SEO production crawl: ${what} Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
+          curl -sS -X POST -H 'Content-Type: application/json' -d "$payload" "$WEBHOOK"
