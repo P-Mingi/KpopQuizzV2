@@ -8,7 +8,8 @@
  *   npm run check:prod-seo                         # every sitemap URL (the nightly)
  *   npm run check:prod-seo -- --limit 30 --discover 15   # a quick local sample
  *
- * It fails (exit 1) on any of, per the rulebook (.claude/skills/kpopquiz-seo/SKILL.md):
+ * It fails (exit 1) on any NEW finding (see BASELINE below) of, per the rulebook
+ * (.claude/skills/kpopquiz-seo/SKILL.md):
  *   counts        a count in the title, description, body, FAQ or JSON-LD that differs from
  *                 the stats function (section 4; logic in src/lib/seo/prod-crawl-counts.ts)
  *   title         over 60 characters with the " | KpopQuiz" suffix (2.2)
@@ -33,13 +34,26 @@
  * (/api/stats/live is a different 60 second count), adding one would ship a new public
  * route only to serve the same numbers, and robots.txt disallows /api/ anyway.
  *
- * Env (CI sets them; locally .env.local is read when present):
+ * BASELINE. scripts/seo-prod-crawl-baseline.json lists the findings already known, each with
+ * a one-line reason. The run fails only on findings NOT in it (matched by a stable key,
+ * rule|where|detail, printed under each new finding). An entry whose page was graded and no
+ * longer shows the finding is printed as "fixed, remove from baseline", so the list only
+ * shrinks. Entries are added only with the owner's OK (the file header says so).
+ *
+ * Env (CI sets them; locally .env.local is read when present, never over a set variable):
  *   NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY   read-only anon access
- *   SONGS_IS_CURATED   must equal production's value, or the song counts differ
+ *   SONGS_IS_CURATED   must mirror production EXACTLY. The stats function tests === 'true', so
+ *                      production counts curated songs only if its value is the exact string
+ *                      "true". The Vercel value is encrypted and unknown to us. On 15 October
+ *                      2026 production printed the NOT-curated counts (85 song groups, where
+ *                      curated gives 84), so unset is what matches it today. The owner should
+ *                      check the Vercel value; locally, pass SONGS_IS_CURATED=false over
+ *                      .env.local (which says true).
  *
  * Flags: --base URL (default https://kpopquiz.org, the sitemap and canonical host)
  *        --limit N  --discover N (default 150)  --concurrency N (2)  --delay-ms N (750)
  *        --lag-hours N (48)  --out report.json  --alias-hosts www.kpopquiz.org
+ *        --baseline FILE (default the file above; "none" grades with no baseline)
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -48,8 +62,9 @@ import { createClient } from '@supabase/supabase-js';
 
 import { readPublicStats, type PublicStats } from '../src/lib/stats/site-stats.ts';
 import {
-  REDIRECT_SEEDS, altTexts, ariaLabels, classifyRedirect, countH1, dashSnippets, descriptionProblem,
-  duplicates, extractCanonical, extractMetaDescription, extractMetaRobots, extractTitle, imagesWithoutAlt,
+  DESCRIPTION_MAX_RENDERED as DESCRIPTION_MAX, DESCRIPTION_MIN_RENDERED as DESCRIPTION_MIN, REDIRECT_SEEDS,
+  TITLE_MAX_RENDERED as TITLE_MAX, altTexts, applyBaseline, ariaLabels, charLength, classifyRedirect, countH1,
+  dashSnippets, descriptionProblem, duplicates, extractCanonical, findingKey, parseBaseline, type BaselineEntry, extractMetaDescription, extractMetaRobots, extractTitle, imagesWithoutAlt,
   internalLinks, isDisallowed, isNoindex, jsonLdDescriptions, jsonLdMismatches, jsonLdStrings,
   jsonLdVisibleClaims, noindexVerdict, parseJsonLd, robotsDisallows, sameUrl, samplePaths, sitemapLocs,
   titleProblem, visibleText, type Hop,
@@ -78,6 +93,7 @@ const CONCURRENCY = Math.max(1, Math.min(4, num('concurrency', 2)));
 const DELAY_MS = num('delay-ms', 750);
 const LAG_HOURS = num('lag-hours', 48);
 const OUT = flag('out');
+const BASELINE_PATH = flag('baseline') ?? new URL('./seo-prod-crawl-baseline.json', import.meta.url).pathname;
 const ALIAS_HOSTS = (flag('alias-hosts') ?? 'www.kpopquiz.org').split(',').map((s) => s.trim()).filter(Boolean);
 // A generic browser user agent: no name, no contact, nothing personal (rules file).
 const UA = 'Mozilla/5.0';
@@ -163,13 +179,17 @@ async function walk(url: string): Promise<{ hops: Hop[]; last: Res | null }> {
 // ---- findings ------------------------------------------------------------------------------------
 
 type Rule = 'counts' | 'title' | 'description' | 'h1' | 'img-alt' | 'dash' | 'noindex' | 'redirect' | 'jsonld' | 'sitemap' | 'host' | 'flags' | 'stats';
-interface Finding { rule: Rule; url: string; message: string }
+/** `key` (rule|where|detail) is what the baseline matches; `message` is for people. */
+interface Finding { rule: Rule; url: string; key: string; message: string }
 const failures: Finding[] = [];
-const warnings: Finding[] = [];
+const warnings: Array<{ rule: Rule; url: string; message: string }> = [];
 const notes: string[] = [];
-const fail = (rule: Rule, url: string, message: string): void => { failures.push({ rule, url, message }); };
-const warn = (rule: Rule, url: string, message: string): void => { warnings.push({ rule, url, message }); };
 const short = (u: string): string => (u.startsWith(ORIGIN) ? u.slice(ORIGIN.length) || '/' : u);
+const finding = (rule: Rule, url: string, detail: string, message: string): Finding => ({ rule, url, key: findingKey(rule, short(url), detail), message });
+const fail = (rule: Rule, url: string, detail: string, message: string): void => { failures.push(finding(rule, url, detail, message)); };
+const warn = (rule: Rule, url: string, message: string): void => { warnings.push({ rule, url, message }); };
+/** Every `where` this run graded: only those baseline entries can be declared fixed. */
+const graded = new Set<string>(['-']);
 
 // ---- the database side: stats, lag allowance, empty hubs --------------------------------------------
 
@@ -180,7 +200,7 @@ const sb = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPAB
   : null;
 
 async function readStats(): Promise<void> {
-  if (!sb) { fail('stats', '-', 'NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not set, so no count can be graded'); return; }
+  if (!sb) { fail('stats', '-', 'stats unreadable', 'NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not set, so no count can be graded'); return; }
   try {
     stats = await readPublicStats();
     const since = new Date(Date.now() - LAG_HOURS * 3600e3).toISOString();
@@ -200,7 +220,7 @@ async function readStats(): Promise<void> {
     });
   } catch (e) {
     stats = null;
-    fail('stats', '-', `the stats function could not be read (${(e as Error).message}), so no count can be graded`);
+    fail('stats', '-', 'stats unreadable', `the stats function could not be read (${(e as Error).message}), so no count can be graded`);
   }
 }
 
@@ -240,12 +260,13 @@ async function hubIsEmpty(kind: 'quiz' | 'blindtest', slug: string): Promise<boo
 
 const descriptionByUrl = new Map<string, string>();
 const linkCounts = new Map<string, number>();
+const lengthLabel = (s: string, min: number, max: number): string => (!s ? 'missing' : charLength(s) < min ? `under ${min}` : charLength(s) > max ? `over ${max}` : 'ok');
 
 /** Content checks of one 200 HTML page. Returns the findings without recording them. */
 function pageFindings(url: string, res: Res, inSitemap: boolean): { findings: Finding[]; indexable: boolean; description: string; canonical: string } {
   const html = res.body;
   const out: Finding[] = [];
-  const add = (rule: Rule, message: string): void => { out.push({ rule, url, message }); };
+  const add = (rule: Rule, detail: string, message: string): void => { out.push(finding(rule, url, detail, message)); };
   const robots = extractMetaRobots(html);
   const indexable = !isNoindex(robots, res.xRobots);
   const canonical = extractCanonical(html);
@@ -255,57 +276,59 @@ function pageFindings(url: string, res: Res, inSitemap: boolean): { findings: Fi
   const alts = altTexts(html);
 
   if (inSitemap) {
-    if (!indexable) add('sitemap', `in the sitemap but noindex (${res.xRobots && /noindex|none/i.test(res.xRobots) ? 'X-Robots-Tag' : `meta robots "${robots}"`})`);
-    if (!canonical) add('sitemap', 'in the sitemap but has no canonical');
-    else if (!sameUrl(canonical, url)) add('sitemap', `in the sitemap but canonical points to ${canonical}`);
+    if (!indexable) add('sitemap', 'noindex', `in the sitemap but noindex (${res.xRobots && /noindex|none/i.test(res.xRobots) ? 'X-Robots-Tag' : `meta robots "${robots}"`})`);
+    if (!canonical) add('sitemap', 'no canonical', 'in the sitemap but has no canonical');
+    else if (!sameUrl(canonical, url)) add('sitemap', 'canonical elsewhere', `in the sitemap but canonical points to ${canonical}`);
   }
 
   // Always: dashes and alt (UI copy rules hold on every page, indexable or not).
-  for (const d of dashSnippets(text)) add('dash', `visible text: ${d}`);
-  for (const d of dashSnippets(title)) add('dash', `title: ${d}`);
-  for (const d of dashSnippets(description)) add('dash', `meta description: ${d}`);
-  for (const a of alts) for (const d of dashSnippets(a)) add('dash', `alt: ${d}`);
-  for (const src of imagesWithoutAlt(html)) add('img-alt', `<img> without alt: ${src.slice(0, 100)}`);
+  // The key keeps 15 characters around the dash (stable); the message keeps 40 (readable).
+  const dashes = (where: string, s: string): void => {
+    const near = dashSnippets(s, 15);
+    dashSnippets(s).forEach((d, i) => add('dash', `${where}: ${near[i]}`, `${where}: ${d}`));
+  };
+  dashes('visible text', text);
+  dashes('title', title);
+  dashes('meta description', description);
+  for (const a of alts) dashes('alt', a);
+  for (const src of imagesWithoutAlt(html)) add('img-alt', src.replace(/[?&]w=\d+.*$/, '').slice(0, 100), `<img> without alt: ${src.slice(0, 100)}`);
 
   if (indexable) {
     const t = titleProblem(title);
-    if (t) add('title', t);
+    if (t) add('title', lengthLabel(title, 1, TITLE_MAX), t);
     const d = descriptionProblem(description);
-    if (d) add('description', d);
+    if (d) add('description', lengthLabel(description, DESCRIPTION_MIN, DESCRIPTION_MAX), d);
     const h1 = countH1(html);
-    if (h1 !== 1) add('h1', `${h1} H1 elements (exactly one expected)`);
+    if (h1 !== 1) add('h1', 'not exactly one', `${h1} H1 elements (exactly one expected)`);
 
     const ld = parseJsonLd(html);
-    for (const e of ld.errors) add('jsonld', e);
+    for (const e of ld.errors) add('jsonld', 'unparseable', e);
     const corpus = [text, ...ariaLabels(html), ...alts].join(' \n ');
     // One line per kind and page: a template that names 27 list items differently from the
     // page is one fix, so it reads as one finding with examples, not 27.
     const byWhere = new Map<string, string[]>();
     for (const c of jsonLdMismatches(jsonLdVisibleClaims(ld.nodes), corpus)) byWhere.set(c.where, [...(byWhere.get(c.where) ?? []), c.text]);
     for (const [where, texts] of byWhere) {
-      if (texts.length <= 3) for (const t of texts) add('jsonld', `${where} not on the page: "${t.slice(0, 140)}"`);
-      else add('jsonld', `${texts.length} ${where} values not on the page, e.g. ${texts.slice(0, 3).map((t) => `"${t.slice(0, 60)}"`).join(', ')}`);
+      if (texts.length <= 3) for (const t2 of texts) add('jsonld', `${where}: ${t2.slice(0, 60)}`, `${where} not on the page: "${t2.slice(0, 140)}"`);
+      else add('jsonld', `${where}: several`, `${texts.length} ${where} values not on the page, e.g. ${texts.slice(0, 3).map((t2) => `"${t2.slice(0, 60)}"`).join(', ')}`);
     }
     for (const desc of jsonLdDescriptions(ld.nodes)) {
       const missing = numbersMissingFrom(desc, text);
-      if (missing.length) add('jsonld', `JSON-LD description states ${missing.join(', ')}, not shown on the page: "${desc.slice(0, 140)}"`);
+      if (missing.length) add('jsonld', 'description numbers', `JSON-LD description states ${missing.join(', ')}, not shown on the page: "${desc.slice(0, 140)}"`);
     }
 
     if (stats) {
-      const seen = new Set<string>();
       for (const [where, s] of [['title', title], ['meta description', description], ['body', text], ['JSON-LD', jsonLdStrings(ld.nodes)]] as const) {
         for (const claim of extractCountClaims(s)) {
           const v = judgeClaim(claim, stats, allowance);
-          if (v.ok || v.ignored) continue;
-          const key = `${where}|${claim.raw}`;
-          if (seen.has(key)) continue;
-          seen.add(key);
-          add('counts', `${where}: ${v.reason}`);
+          if (!v.ok && !v.ignored) add('counts', `${where}: ${claim.raw}`, `${where}: ${v.reason}`);
         }
       }
     }
   }
-  return { findings: out, indexable, description, canonical };
+  // The same finding twice on one page (a count repeated in the body) is one finding.
+  const unique = new Map(out.map((f) => [f.key, f]));
+  return { findings: [...unique.values()], indexable, description, canonical };
 }
 
 /** The noindex allowlist check of one non-sitemap page (rulebook 9.2). */
@@ -316,52 +339,69 @@ async function gradeNoindex(url: string): Promise<void> {
   const empty = v.hub ? await hubIsEmpty(v.hub.kind, v.hub.slug) : null;
   if (empty === true) return;
   const hub = v.hub ? ` and the ${v.hub.kind} hub is ${empty === false ? 'NOT empty' : 'not verifiable as empty'}` : '';
-  fail('noindex', url, `noindex outside the rulebook allowlist (9.2)${hub}; make it indexable or add a written reason to DOCUMENTED_NOINDEX`);
+  fail('noindex', url, 'noindex', `noindex outside the rulebook allowlist (9.2)${hub}; make it indexable or add a written reason to DOCUMENTED_NOINDEX`);
 }
 
 /** Grade one fetched page; a STALE cache hit with findings is graded again once regenerated. */
 async function gradePage(url: string, first: Res, inSitemap: boolean): Promise<void> {
+  graded.add(short(url));
   let res = first;
   if (res.status >= 300 && res.status < 400) {
-    if (inSitemap) fail('sitemap', url, `in the sitemap but answers ${res.status} to ${res.location ? short(res.location) : '?'} (the sitemap lists final URLs only)`);
+    if (inSitemap) fail('sitemap', url, 'redirects', `in the sitemap but answers ${res.status} to ${res.location ? short(res.location) : '?'} (the sitemap lists final URLs only)`);
     return;
   }
   if (res.status !== 200) {
-    if (inSitemap) fail('sitemap', url, `in the sitemap but answers HTTP ${res.status}`);
+    if (inSitemap) fail('sitemap', url, `HTTP ${res.status}`, `in the sitemap but answers HTTP ${res.status}`);
     else warn('redirect', url, `internal link to a page answering HTTP ${res.status}`);
     return;
   }
   if (!/html/.test(res.type)) return;
 
-  let graded = pageFindings(url, res, inSitemap);
-  if (graded.findings.length && res.cache === 'STALE') {
+  let result = pageFindings(url, res, inSitemap);
+  if (result.findings.length && res.cache === 'STALE') {
     await sleep(8000);
     const again = await get(url);
     if (again && again.status === 200) {
       res = again;
-      graded = pageFindings(url, res, inSitemap);
+      result = pageFindings(url, res, inSitemap);
       notes.push(`${short(url)} was a STALE cache hit with findings; graded again after regeneration`);
     }
   }
-  failures.push(...graded.findings);
-  if (graded.indexable) descriptionByUrl.set(url, graded.description);
+  failures.push(...result.findings);
+  if (result.indexable) descriptionByUrl.set(url, result.description);
   if (!inSitemap) {
-    if (!graded.indexable) await gradeNoindex(url);
-    else if (sameUrl(graded.canonical || url, url)) warn('sitemap', url, 'indexable and self-canonical, but not in the sitemap');
+    if (!result.indexable) await gradeNoindex(url);
+    else if (sameUrl(result.canonical || url, url)) warn('sitemap', url, 'indexable and self-canonical, but not in the sitemap');
   }
   for (const l of internalLinks(res.body, ORIGIN)) linkCounts.set(l, (linkCounts.get(l) ?? 0) + 1);
 }
 
 async function crawlSitemapUrl(url: string): Promise<void> {
   const res = await get(url);
-  if (!res) { fail('sitemap', url, 'no response (timeout or network error, after one retry)'); return; }
+  if (!res) { graded.add(short(url)); fail('sitemap', url, 'no response', 'no response (timeout or network error, after one retry)'); return; }
   await gradePage(url, res, true);
 }
 
 // ---- main ------------------------------------------------------------------------------------------
 
 const started = new Date();
-console.log(`Production SEO crawl of ${BASE} (${UA}, ${CONCURRENCY} workers, ${DELAY_MS} ms pause, lag window ${LAG_HOURS} h)`);
+
+// The baseline: known findings, each with its reason, that do not fail the run.
+let baseline: BaselineEntry[] = [];
+if (BASELINE_PATH !== 'none') {
+  try {
+    const parsed = parseBaseline(JSON.parse(readFileSync(BASELINE_PATH, 'utf8')));
+    if (parsed.errors.length) {
+      console.error(`The baseline ${BASELINE_PATH} is not valid:\n${parsed.errors.map((e) => `  - ${e}`).join('\n')}`);
+      process.exit(2);
+    }
+    baseline = parsed.entries;
+  } catch (e) {
+    console.error(`Could not read the baseline ${BASELINE_PATH} (${(e as Error).message}). Pass --baseline none to run without one.`);
+    process.exit(2);
+  }
+}
+console.log(`Production SEO crawl of ${BASE} (${UA}, ${CONCURRENCY} workers, ${DELAY_MS} ms pause, lag window ${LAG_HOURS} h, baseline ${BASELINE_PATH === 'none' ? 'none' : `${baseline.length} entries`})`);
 
 const robotsRes = await get(`${ORIGIN}/robots.txt`);
 const disallows = robotsRes?.status === 200 ? robotsDisallows(robotsRes.body) : [];
@@ -378,10 +418,10 @@ if (/<sitemapindex\b/i.test(smRes.body)) {
   for (const child of children) {
     const c = await get(child);
     if (c?.status === 200) locs.push(...sitemapLocs(c.body));
-    else fail('sitemap', child, `sitemap index child answers HTTP ${c?.status ?? 'no response'}`);
+    else { graded.add(short(child)); fail('sitemap', child, 'index child unreadable', `sitemap index child answers HTTP ${c?.status ?? 'no response'}`); }
   }
 }
-for (const l of locs) if (!l.startsWith(`${ORIGIN}/`) && l !== ORIGIN) fail('sitemap', l, `sitemap URL is not on the canonical host ${ORIGIN}`);
+for (const l of locs) if (!l.startsWith(`${ORIGIN}/`) && l !== ORIGIN) { graded.add(l); fail('sitemap', l, 'other host', `sitemap URL is not on the canonical host ${ORIGIN}`); }
 const sitemapUrls = [...new Set(locs.filter((l) => l === ORIGIN || l.startsWith(`${ORIGIN}/`)).map((l) => l.replace(/\/+$/, '') || ORIGIN))];
 const pathOf = (u: string): string => new URL(u).pathname.replace(/\/+$/, '') || '/';
 const sitemapPathSet = new Set(sitemapUrls.map(pathOf));
@@ -400,7 +440,8 @@ await mapPolite(chosen, crawlSitemapUrl);
 
 // Flags: the flags-on build links the v1 stylesheet from every page (app/layout.tsx).
 const home = await get(ORIGIN);
-if (!home || !home.body.includes('/api/ux-v1/a0/styles')) fail('flags', ORIGIN, 'the home page does not load the NEXT_PUBLIC_UX_V1 stylesheet: production is not the flags-on site this crawl expects');
+graded.add('/');
+if (!home || !home.body.includes('/api/ux-v1/a0/styles')) fail('flags', ORIGIN, 'v1 stylesheet missing', 'the home page does not load the NEXT_PUBLIC_UX_V1 stylesheet: production is not the flags-on site this crawl expects');
 
 // Discovery: internal links that are not sitemap URLs (noindex pages, redirects, missing pages).
 const discovered = [...linkCounts.entries()]
@@ -410,18 +451,19 @@ const discovered = [...linkCounts.entries()]
   .map(([u]) => u);
 console.log(`Discovery: ${linkCounts.size} distinct internal links seen; following ${discovered.length} that are not in the sitemap.`);
 await mapPolite(discovered, async (u) => {
+  graded.add(short(u));
   const { hops, last } = await walk(u);
   if (hops.length > 1 || (last && last.status >= 300 && last.status < 400)) {
     const v = classifyRedirect(hops);
     const trail = hops.map((h) => `${short(h.url)} (${h.status})`).join(' -> ');
-    if (v.kind === 'chain') fail('redirect', u, `internal link starts a redirect chain of ${v.hops} hops: ${trail}`);
-    else if (v.kind === 'generic') fail('redirect', u, `internal link redirects to a generic page instead of an exact successor: ${trail}`);
-    else if (v.kind === 'loop' || v.kind === 'unfinished') fail('redirect', u, `redirect ${v.kind}: ${trail}`);
+    if (v.kind === 'chain') fail('redirect', u, 'chain', `internal link starts a redirect chain of ${v.hops} hops: ${trail}`);
+    else if (v.kind === 'generic') fail('redirect', u, 'generic', `internal link redirects to a generic page instead of an exact successor: ${trail}`);
+    else if (v.kind === 'loop' || v.kind === 'unfinished') fail('redirect', u, v.kind, `redirect ${v.kind}: ${trail}`);
     else warn('redirect', u, `internal link points at a redirect; link the target directly: ${trail}`);
     return;
   }
   if (last) await gradePage(u, last, false);
-  else fail('redirect', u, 'no response');
+  else fail('redirect', u, 'no response', 'no response');
 });
 
 // Legacy URLs the code answers: each must be one hop to its exact successor, or a 410/404.
@@ -431,21 +473,22 @@ await mapPolite(REDIRECT_SEEDS, async (seed) => {
   const { hops, last } = await walk(url);
   const trail = hops.map((h) => `${short(h.url)} (${h.status})`).join(' -> ') || 'no response';
   const first = hops[0];
-  if (!first) { fail('redirect', url, `no response (${seed.why})`); return; }
+  graded.add(short(url));
+  if (!first) { fail('redirect', url, 'no response', `no response (${seed.why})`); return; }
   if (seed.status) {
-    if (first.status !== seed.status) fail(seed.flagsProbe ? 'flags' : 'redirect', url, `expected HTTP ${seed.status} (${seed.why}), got ${trail}`);
+    if (first.status !== seed.status) fail(seed.flagsProbe ? 'flags' : 'redirect', url, `expected HTTP ${seed.status}`, `expected HTTP ${seed.status} (${seed.why}), got ${trail}`);
     return;
   }
   const v = classifyRedirect(hops);
   if (seed.probe) {
-    if (v.kind === 'chain' || v.kind === 'generic' || v.kind === 'loop' || v.kind === 'unfinished') fail('redirect', url, `${v.kind === 'generic' ? 'dumped on a generic page instead of an exact successor or a 410' : `redirect ${v.kind}`} (${seed.why}): ${trail}`);
+    if (v.kind === 'chain' || v.kind === 'generic' || v.kind === 'loop' || v.kind === 'unfinished') fail('redirect', url, v.kind, `${v.kind === 'generic' ? 'dumped on a generic page instead of an exact successor or a 410' : `redirect ${v.kind}`} (${seed.why}): ${trail}`);
     return;
   }
-  if (v.kind !== 'ok') { fail('redirect', url, `expected one permanent redirect to ${seed.to} (${seed.why}), got ${v.kind}: ${trail}`); return; }
+  if (v.kind !== 'ok') { fail('redirect', url, `not one redirect: ${v.kind}`, `expected one permanent redirect to ${seed.to} (${seed.why}), got ${v.kind}: ${trail}`); return; }
   const got = new URL(v.to);
-  if (`${got.pathname}${got.search}` !== seed.to) fail('redirect', url, `redirects to ${short(v.to)}, not the exact successor ${seed.to} (${seed.why})`);
-  else if (first.status !== 301 && first.status !== 308) fail('redirect', url, `temporary ${first.status} to ${seed.to}; a removed URL needs a permanent 301/308 (${seed.why})`);
-  else if (last && last.status !== 200) fail('redirect', url, `the successor ${seed.to} answers HTTP ${last.status} (${seed.why})`);
+  if (`${got.pathname}${got.search}` !== seed.to) fail('redirect', url, 'not exact successor', `redirects to ${short(v.to)}, not the exact successor ${seed.to} (${seed.why})`);
+  else if (first.status !== 301 && first.status !== 308) fail('redirect', url, 'temporary', `temporary ${first.status} to ${seed.to}; a removed URL needs a permanent 301/308 (${seed.why})`);
+  else if (last && last.status !== 200) fail('redirect', url, 'successor not 200', `the successor ${seed.to} answers HTTP ${last.status} (${seed.why})`);
 });
 
 // Second hosts: www (and any --alias-hosts) must redirect to the canonical host, path kept.
@@ -454,51 +497,66 @@ for (const host of ALIAS_HOSTS) {
     const url = `https://${host}${p}`;
     const r = await get(url);
     await sleep(DELAY_MS);
+    graded.add(url);
     if (!r) { warn('host', url, 'no response'); continue; }
     const expected = `${ORIGIN}${p === '/' ? '' : p}`;
-    if (r.status === 200) fail('host', url, `serves the site itself (HTTP 200) instead of a 308 to ${expected}: two hosts, one site`);
-    else if (r.status >= 300 && r.status < 400 && r.location && !sameUrl(r.location, expected)) fail('host', url, `redirects to ${r.location}, not ${expected}`);
+    if (r.status === 200) fail('host', url, 'serves 200', `serves the site itself (HTTP 200) instead of a 308 to ${expected}: two hosts, one site`);
+    else if (r.status >= 300 && r.status < 400 && r.location && !sameUrl(r.location, expected)) fail('host', url, 'wrong target', `redirects to ${r.location}, not ${expected}`);
   }
 }
 
 // Descriptions shared by two URLs (graded across every page this run saw).
-for (const [value, urls] of duplicates(descriptionByUrl)) {
-  fail('description', urls[0]!, `meta description shared by ${urls.length} URLs (${urls.map(short).join(', ')}): "${value.slice(0, 120)}"`);
+for (const [value, found] of duplicates(descriptionByUrl)) {
+  const urls = [...found].sort(); // crawl order varies run to run; the key must not
+  fail('description', urls[0]!, 'duplicate', `meta description shared by ${urls.length} URLs (${urls.map(short).join(', ')}): "${value.slice(0, 120)}"`);
 }
 
-// ---- report ------------------------------------------------------------------------------------------
+// ---- baseline and report -----------------------------------------------------------------------------
 
 const ORDER: Rule[] = ['flags', 'stats', 'sitemap', 'counts', 'title', 'description', 'h1', 'img-alt', 'dash', 'noindex', 'redirect', 'jsonld', 'host'];
 const finished = new Date();
+const result = applyBaseline(failures, baseline, graded);
+
+if (stats && result.fresh.some((f) => f.rule === 'counts' && /songs|songGroups/.test(f.message))) {
+  notes.push(`a NEW song count finding: if EVERY song count fails, SONGS_IS_CURATED here (${process.env.SONGS_IS_CURATED ?? 'unset'}) probably does not mirror production`);
+}
+
 console.log(`\nCoverage: ${complete ? 'COMPLETE' : 'SAMPLE'} - ${chosen.length} of ${sitemapUrls.length} sitemap URLs, ${discovered.length} discovered links, ${REDIRECT_SEEDS.length} legacy URLs, ${ALIAS_HOSTS.length} alias host(s); ${requests} requests in ${Math.round((finished.getTime() - started.getTime()) / 1000)} s.`);
 if (!complete) console.log('A SAMPLE run proves the checks run; only the complete nightly run covers every URL (and every duplicate description).');
 for (const n of notes) console.log(`  note: ${n}`);
 
-if (warnings.length) {
-  console.log(`\nWarnings (${warnings.length}, not failing):`);
+if (warnings.length || result.fixed.length) {
+  console.log(`\nWarnings (${warnings.length + result.fixed.length}, not failing):`);
+  for (const e of result.fixed) console.log(`  ! [baseline] fixed, remove from baseline: ${e.key}`);
   for (const w of warnings) console.log(`  ! [${w.rule}] ${short(w.url)}: ${w.message}`);
 }
 
+if (result.known.length) {
+  console.log(`\nKnown (${result.known.length}, in the baseline, not failing):`);
+  for (const k of result.known) console.log(`  ~ ${k.finding.key}  (${k.reason})`);
+}
+if (result.unchecked.length) console.log(`\nBaseline entries not graded by this run: ${result.unchecked.length} (their page was outside the sample).`);
+
 const byRule = new Map<Rule, Finding[]>();
-for (const f of failures) byRule.set(f.rule, [...(byRule.get(f.rule) ?? []), f]);
-if (failures.length) {
-  console.log(`\nFAILED: ${failures.length} finding(s) - ${ORDER.filter((r) => byRule.has(r)).map((r) => `${r} ${byRule.get(r)!.length}`).join(', ')}`);
+for (const f of result.fresh) byRule.set(f.rule, [...(byRule.get(f.rule) ?? []), f]);
+if (result.fresh.length) {
+  console.log(`\nFAILED: ${result.fresh.length} NEW finding(s), not in the baseline - ${ORDER.filter((r) => byRule.has(r)).map((r) => `${r} ${byRule.get(r)!.length}`).join(', ')}`);
   for (const r of ORDER) {
     const list = byRule.get(r);
     if (!list) continue;
     console.log(`\n[${r}] ${list.length}`);
-    for (const f of list) console.log(`  x ${short(f.url)}: ${f.message}`);
+    for (const f of list) console.log(`  x ${short(f.url)}: ${f.message}\n      key: ${f.key}`);
   }
 } else {
-  console.log('\nPASSED: every graded page meets the rulebook checks.');
+  console.log(`\nPASSED: no new finding (${result.known.length} known, listed in the baseline).`);
 }
 
 if (OUT) {
   writeFileSync(OUT, `${JSON.stringify({
     base: BASE, startedAt: started.toISOString(), finishedAt: finished.toISOString(), complete,
     graded: chosen.length, sitemapUrls: sitemapUrls.length, discovered: discovered.length, requests,
-    stats, allowance, failures, warnings, notes,
+    stats, allowance, fresh: result.fresh, known: result.known, fixed: result.fixed, unchecked: result.unchecked.length, warnings, notes,
   }, null, 2)}\n`);
   console.log(`\nReport written to ${OUT}.`);
 }
-process.exit(failures.length ? 1 : 0);
+process.exit(result.fresh.length ? 1 : 0);

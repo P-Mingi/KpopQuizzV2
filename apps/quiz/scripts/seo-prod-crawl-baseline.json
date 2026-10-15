@@ -1,0 +1,131 @@
+{
+  "_readme": [
+    "Known findings of the nightly production crawl (scripts/seo-prod-crawl.mts), one per entry, each with a one-line reason.",
+    "The crawl fails only on findings NOT listed here. An entry whose page was graded and no longer shows the finding is printed as \"fixed, remove from baseline\".",
+    "RULE: entries may only be REMOVED. Never add one without the owner's OK, and never to make a red run green.",
+    "Key: rule|where|detail, exactly as the crawler prints it under each new finding.",
+    "Seeded on 2026-10-15 from a 30-URL sample (--limit 30 --discover 15, 14 legacy URLs, www host), so the first complete nightly will also report findings on URLs outside that sample."
+  ],
+  "entries": [
+    {
+      "key": "jsonld|/|ItemList name: Trending K-pop quizzes",
+      "reason": "markup fix pending: the home trending ItemList name is not the visible heading"
+    },
+    {
+      "key": "jsonld|/|list item: K-pop Music Video Records",
+      "reason": "markup fix pending: the home trending JSON-LD lists a quiz the visible list does not show"
+    },
+    {
+      "key": "counts|/|body: 93 groups",
+      "reason": "count definition mismatch: the home group picker says \"All 93 groups\", the stats function counts 95 rows in groups; owner decision pending (one number, or document the picker query)"
+    },
+    {
+      "key": "jsonld|/quizzes|FAQ answer: Popular hubs include the BTS quiz, BLACKPINK quiz and Stray",
+      "reason": "markup fix pending: the FAQ JSON-LD answer ends \"or open a group hub\", the visible answer does not"
+    },
+    {
+      "key": "counts|/groups|body: 46 groups",
+      "reason": "count definition mismatch: /groups says \"46 groups\" with a quiz, the stats function counts 47 groups with a published quiz (likely the general-kpop catch-all, not verified)"
+    },
+    {
+      "key": "counts|/groups|body: 93 groups",
+      "reason": "count definition mismatch: /groups A to Z says 93 groups, the stats function counts 95 rows in groups; owner decision pending"
+    },
+    {
+      "key": "counts|/blindtest|body: 83 groups",
+      "reason": "count definition mismatch: \"Show all 83 groups\" counts group playlists while the same page says 85 groups (songGroups); seen on a fresh cache HIT, not a stale page"
+    },
+    {
+      "key": "description|/articles|over 160",
+      "reason": "copy fix pending: 163 characters; owner decision"
+    },
+    {
+      "key": "jsonld|/articles|CollectionPage name: K-pop Articles",
+      "reason": "markup fix pending: the CollectionPage name is not the visible heading"
+    },
+    {
+      "key": "counts|/fr/blind-test-kpop|body: 83 playlists de groupes",
+      "reason": "same 83 group-playlists count as /blindtest, on the French page; owner decision pending"
+    },
+    {
+      "key": "counts|/fr/blind-test-kpop|body: 83 groupes",
+      "reason": "same 83 group-playlists count as /blindtest, written as a group count on the French page; owner decision pending"
+    },
+    {
+      "key": "counts|/fr/blind-test-kpop|JSON-LD: 83 groupes",
+      "reason": "same 83 group-playlists count as /blindtest, in the French page JSON-LD; owner decision pending"
+    },
+    {
+      "key": "jsonld|/data/knowledge-report-2026|Dataset name: K-pop Knowledge Report 2026: figures, queries and sample siz",
+      "reason": "markup fix pending: the Dataset name is not shown on the page"
+    },
+    {
+      "key": "counts|/es/adivina-la-cancion-kpop|body: 83 listas de grupos",
+      "reason": "same 83 group-playlists count as /blindtest, on the Spanish page; owner decision pending"
+    },
+    {
+      "key": "counts|/es/adivina-la-cancion-kpop|body: 83 grupos",
+      "reason": "same 83 group-playlists count as /blindtest, written as a group count on the Spanish page; owner decision pending"
+    },
+    {
+      "key": "counts|/es/adivina-la-cancion-kpop|JSON-LD: 83 grupos",
+      "reason": "same 83 group-playlists count as /blindtest, in the Spanish page JSON-LD; owner decision pending"
+    },
+    {
+      "key": "jsonld|/verse|navigation item: several",
+      "reason": "Verse is paused: its pages emit the site navigation JSON-LD without showing that navigation"
+    },
+    {
+      "key": "description|/verse/promises|under 120",
+      "reason": "Verse is paused; copy fix pending (104 characters); owner decision"
+    },
+    {
+      "key": "jsonld|/verse/promises|navigation item: several",
+      "reason": "Verse is paused: its pages emit the site navigation JSON-LD without showing that navigation"
+    },
+    {
+      "key": "description|/quizzes/popular-this-week|under 120",
+      "reason": "copy fix pending: 106 characters; owner decision"
+    },
+    {
+      "key": "jsonld|/babymonster-trivia|Article headline: BABYMONSTER Trivia - 15 Fun Facts",
+      "reason": "markup fix pending: the trivia template headline differs from the visible H1"
+    },
+    {
+      "key": "jsonld|/young-posse-quiz|ItemList name: Ways to play Young posse on KpopQuiz",
+      "reason": "markup fix pending: the hub \"Ways to play\" ItemList name is not visible"
+    },
+    {
+      "key": "noindex|/blindtest/ranked|noindex",
+      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
+    },
+    {
+      "key": "noindex|/community|noindex",
+      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
+    },
+    {
+      "key": "noindex|/live|noindex",
+      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX"
+    },
+    {
+      "key": "redirect|/games/sort-it|generic",
+      "reason": "owner decision pending: REFONTE P1 sends every /games/* URL to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410"
+    },
+    {
+      "key": "redirect|/tier-list/new|generic",
+      "reason": "owner decision pending: REFONTE P1 sends the tier list maker to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410"
+    },
+    {
+      "key": "redirect|/zz-seo-nightly-probe-not-a-page|expected HTTP 404",
+      "reason": "owner decision pending: middleware.ts sends unknown URLs 301 to the home page; rulebook 9.3 wants a real 404"
+    },
+    {
+      "key": "host|https://www.kpopquiz.org/|serves 200",
+      "reason": "owner click pending: Vercel > kpopquiz > Settings > Domains > www.kpopquiz.org > Redirect to kpopquiz.org (308)"
+    },
+    {
+      "key": "host|https://www.kpopquiz.org/bts-quiz|serves 200",
+      "reason": "owner click pending: same www redirect as above"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  DESCRIPTION_MAX_RENDERED, DESCRIPTION_MIN_RENDERED, REDIRECT_SEEDS, TITLE_MAX_RENDERED, altTexts, classifyRedirect,
+  DESCRIPTION_MAX_RENDERED, DESCRIPTION_MIN_RENDERED, REDIRECT_SEEDS, TITLE_MAX_RENDERED, altTexts, applyBaseline, classifyRedirect,
   countH1, dashSnippets, decodeEntities, descriptionProblem, duplicates, extractCanonical, extractMetaDescription,
-  extractMetaRobots, extractTitle, imagesWithoutAlt, internalLinks, isDisallowed, isGenericRedirect, isNoindex,
-  jsonLdDescriptions, jsonLdMismatches, jsonLdStrings, jsonLdVisibleClaims, noindexVerdict, parseJsonLd,
+  extractMetaRobots, extractTitle, findingKey, imagesWithoutAlt, internalLinks, isDisallowed, isGenericRedirect, isNoindex,
+  jsonLdDescriptions, jsonLdMismatches, jsonLdStrings, jsonLdVisibleClaims, keyWhere, noindexVerdict, parseBaseline, parseJsonLd,
   robotsDisallows, routeType, sameUrl, samplePaths, sitemapLocs, titleProblem, visibleText,
 } from './prod-crawl';
 
@@ -250,5 +250,52 @@ describe('JSON-LD (rulebook 7)', () => {
     expect(s).toContain('458 quizzes and 73.9K plays');
     expect(s).not.toContain('https://');
     expect(s.match(/KpopQuiz/g)).toHaveLength(1);
+  });
+});
+
+describe('findings baseline', () => {
+  const f = (rule: string, where: string, detail: string) => ({ key: findingKey(rule, where, detail), message: `${rule} on ${where}` });
+
+  it('builds and reads stable keys', () => {
+    expect(findingKey('counts', '/groups', 'body: 93 groups')).toBe('counts|/groups|body: 93 groups');
+    expect(keyWhere('host|https://www.kpopquiz.org/|serves 200')).toBe('https://www.kpopquiz.org/');
+    expect(keyWhere('redirect|/battle?quiz=illit-quiz|not exact successor')).toBe('/battle?quiz=illit-quiz');
+  });
+
+  it('a finding fails only when the baseline does not list it', () => {
+    const entries = [{ key: 'noindex|/live|noindex', reason: 'owner decision pending: noindex on purpose?' }];
+    const r = applyBaseline([f('noindex', '/live', 'noindex'), f('noindex', '/community', 'noindex')], entries, new Set(['/live', '/community']));
+    expect(r.fresh.map((x) => x.key)).toEqual(['noindex|/community|noindex']);
+    expect(r.known.map((x) => [x.finding.key, x.reason])).toEqual([['noindex|/live|noindex', 'owner decision pending: noindex on purpose?']]);
+    expect(r.fixed).toEqual([]);
+  });
+
+  it('an entry that no longer occurs on a graded page is fixed; on an ungraded page it is unchecked', () => {
+    const entries = [
+      { key: 'description|/articles|over 160', reason: 'owner decision pending: shorten it' },
+      { key: 'title|/q/far-away|over 60', reason: 'owner decision pending: shorter title' },
+    ];
+    const r = applyBaseline([], entries, new Set(['/articles']));
+    expect(r.fixed.map((e) => e.key)).toEqual(['description|/articles|over 160']);
+    expect(r.unchecked.map((e) => e.key)).toEqual(['title|/q/far-away|over 60']);
+  });
+
+  it('a changed detail is a new finding (the wrong number moved, so it is looked at again)', () => {
+    const entries = [{ key: 'counts|/groups|body: 93 groups', reason: 'count definition mismatch to settle' }];
+    const r = applyBaseline([f('counts', '/groups', 'body: 94 groups')], entries, new Set(['/groups']));
+    expect(r.fresh).toHaveLength(1);
+    expect(r.fixed.map((e) => e.key)).toEqual(['counts|/groups|body: 93 groups']);
+  });
+
+  it('rejects a baseline without reasons, with malformed keys or with duplicates', () => {
+    expect(parseBaseline({}).errors).toEqual(['the baseline has no "entries" array']);
+    const p = parseBaseline({ entries: [
+      { key: 'noindex|/live|noindex', reason: 'owner decision pending' },
+      { key: 'noindex|/live|noindex', reason: 'owner decision pending' },
+      { key: 'no-pipes', reason: 'owner decision pending' },
+      { key: 'h1|/x|not exactly one', reason: '' },
+    ] });
+    expect(p.entries).toHaveLength(1);
+    expect(p.errors).toHaveLength(3);
   });
 });

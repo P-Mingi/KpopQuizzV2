@@ -489,3 +489,68 @@ export function ariaLabels(html: string): string[] {
   }
   return out;
 }
+
+// ---- the findings baseline (scripts/seo-prod-crawl-baseline.json) ------------------------
+
+/**
+ * A finding's stable key: "rule|where|detail". `where` is the path (or the full URL for
+ * another host), `detail` a short stable label ("body: 93 groups", "over 160"), never a
+ * message that embeds today's counts.
+ */
+export const findingKey = (rule: string, where: string, detail: string): string => `${rule}|${where}|${detail.replace(/\s+/g, ' ').trim()}`;
+
+/** The `where` part of a key (paths contain no "|"). */
+export const keyWhere = (key: string): string => key.split('|')[1] ?? '';
+
+export interface BaselineEntry { key: string; reason: string }
+
+/** The entries of a baseline file, or the reasons it is not a valid one. */
+export function parseBaseline(raw: unknown): { entries: BaselineEntry[]; errors: string[] } {
+  const errors: string[] = [];
+  const list = raw && typeof raw === 'object' ? (raw as { entries?: unknown }).entries : undefined;
+  if (!Array.isArray(list)) return { entries: [], errors: ['the baseline has no "entries" array'] };
+  const entries: BaselineEntry[] = [];
+  const seen = new Set<string>();
+  list.forEach((e, i) => {
+    const key = (e as BaselineEntry | null)?.key;
+    const reason = (e as BaselineEntry | null)?.reason;
+    if (typeof key !== 'string' || key.split('|').length < 3) { errors.push(`entry ${i}: key must read "rule|where|detail"`); return; }
+    if (typeof reason !== 'string' || reason.trim().length < 10) { errors.push(`entry ${i} (${key}): a one-line reason is required`); return; }
+    if (seen.has(key)) { errors.push(`entry ${i}: duplicate key ${key}`); return; }
+    seen.add(key);
+    entries.push({ key, reason });
+  });
+  return { entries, errors };
+}
+
+export interface BaselineResult<F> {
+  /** Findings not in the baseline: these fail the run. */
+  fresh: F[];
+  /** Findings the baseline already lists, with its reason. */
+  known: Array<{ finding: F; reason: string }>;
+  /** Entries whose page was graded this run and no longer shows the finding: remove them. */
+  fixed: BaselineEntry[];
+  /** Entries whose page this run did not grade (a sample run): neither fixed nor known. */
+  unchecked: BaselineEntry[];
+}
+
+/**
+ * Split a run's findings against the baseline. Only an entry whose `where` was graded this
+ * run can be declared fixed, so a 30-URL sample never "fixes" what it did not look at.
+ */
+export function applyBaseline<F extends { key: string }>(findings: readonly F[], entries: readonly BaselineEntry[], graded: ReadonlySet<string>): BaselineResult<F> {
+  const reasons = new Map(entries.map((e) => [e.key, e.reason]));
+  const seen = new Set<string>();
+  const out: BaselineResult<F> = { fresh: [], known: [], fixed: [], unchecked: [] };
+  for (const f of findings) {
+    seen.add(f.key);
+    const reason = reasons.get(f.key);
+    if (reason === undefined) out.fresh.push(f);
+    else out.known.push({ finding: f, reason });
+  }
+  for (const e of entries) {
+    if (seen.has(e.key)) continue;
+    (graded.has(keyWhere(e.key)) ? out.fixed : out.unchecked).push(e);
+  }
+  return out;
+}

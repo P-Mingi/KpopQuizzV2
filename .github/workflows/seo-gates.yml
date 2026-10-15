@@ -185,11 +185,18 @@ jobs:
   # with the same anon key production pages use. It is the stats function, not a copy, and a
   # fresh read, so a stale page cache shows up instead of being agreed with.
   #
-  # SONGS_IS_CURATED decides which songs the stats function counts. It must hold the same value
-  # as in Vercel production, or every song count reads as wrong. It is a repository VARIABLE
-  # (Settings > Secrets and variables > Actions > Variables), not a secret; unset means "not
-  # curated". On 15 October 2026 production printed the not-curated counts (4,281 songs across
-  # 85 groups), so unset matches production today.
+  # Known findings live in apps/quiz/scripts/seo-prod-crawl-baseline.json, each with a reason:
+  # the job fails only on findings that are NOT in it, and prints the entries that are fixed so
+  # they get removed. Entries are only ever removed, or added with the owner's OK.
+  #
+  # SONGS_IS_CURATED decides which songs the stats function counts, and it must MIRROR
+  # PRODUCTION EXACTLY, or every song count reads as wrong. The function tests === 'true', so
+  # production counts curated songs only when its value is the exact string "true" ("1" or
+  # "true " count as off). It is a repository VARIABLE (Settings > Secrets and variables >
+  # Actions > Variables), not a secret; unset means "not curated". The Vercel production value
+  # is encrypted and unknown to us. On 15 October 2026 production printed the NOT-curated counts
+  # (4,281 songs across 85 groups, where curated gives 84), so unset matches it today. The owner
+  # should check the Vercel value, and set this variable to the same effective setting.
   prod-crawl:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
