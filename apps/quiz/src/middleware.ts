@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
-import { isKnownRoute } from '@/lib/route-allowlist';
+import { NOT_FOUND_REWRITE, isFilePath, isKnownRoute } from '@/lib/route-allowlist';
 import {
   GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyAnswer,
 } from '@/lib/seo/legacy-urls';
@@ -91,9 +91,13 @@ export async function middleware(request: NextRequest) {
     // battle and personality features. The pretty /which-* URLs of groups without a V12
     // page 301 to the group hub via next.config.ts (an edge redirect that runs before
     // this); /battle-preview and /battle answer 410 above.
-    // SEO: unknown legacy URLs 301 to home so the link equity carries over.
+    // SEO (owner, 2026-10-15): an unknown URL answers a real 404, never a redirect to the
+    // home page (it 301'd to / before). A page path renders the site's not-found page
+    // (a rewrite: status 404, the address bar keeps the URL); a file path goes on to
+    // Next, which serves it from public/ or answers 404 (lib/route-allowlist.ts).
     if (!isKnownRoute(pathname)) {
-      return NextResponse.redirect(new URL('/', request.url), 301);
+      if (isFilePath(pathname)) return passthrough();
+      return NextResponse.rewrite(new URL(NOT_FOUND_REWRITE, request.url));
     }
     return passthrough();
   }
@@ -125,16 +129,17 @@ export async function middleware(request: NextRequest) {
 //     /admin (auth), and the retired /blind-test, /create-preview 301s, all still
 //     handled here;
 //   - genuinely UNKNOWN paths (not in any excluded prefix), so the unknown-route
-//     301-to-home still fires.
+//     404 still fires.
 // Exclusion rules mirror isKnownRoute (route-allowlist.ts): slash-terminated prefixes
-// exclude WITH the slash so `/q` (unknown -> 301) still runs while `/q/slug` skips;
+// exclude WITH the slash so `/q` (unknown -> 404) still runs while `/q/slug` skips;
 // word prefixes use a `(?:/|$)` boundary so `/create-preview` (redirect) still runs
 // while `/create` skips; `$` excludes the home page. INVARIANT (subset property): the
 // excluded prefixes must be a subset of isKnownRoute, so a path is only skipped when
 // the allowlist already knows it. REFONTE P1 removed games, tier-list, rankings,
 // battle and personality from BOTH the allowlist and this exclusion together;
-// requests to those now reach the unknown-route 301 (or the next.config redirect that
-// runs before middleware). `g/` stays: /g/[slug] (blind test) is a kept cached page.
+// requests to those now reach the middleware's 410 (or, for the per-group personality
+// URLs, the next.config redirect that runs before it). `g/` stays: /g/[slug] (blind
+// test) is a kept cached page.
 // A prefix added to the allowlist but not here only costs a wasted invocation, never
 // wrong behaviour. See middleware-matcher.test.ts for the full path matrix.
 export const config = {
