@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { LiveStage } from '@/components/live/stage';
@@ -6,6 +7,7 @@ import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { Steps3 } from '@/components/ux-v1/steps';
 import { isUxV12 } from '@/lib/ux-v12';
+import { jsonLdScript } from '@/lib/verse/jsonld';
 
 import type { Metadata } from 'next';
 
@@ -35,10 +37,26 @@ const STEPS = [
   { title: 'Fastest right answer wins', body: 'Up to 1,000 points a round, a streak bonus, and a podium at the end.' },
 ] as const;
 
+// SEO Mission 2 (owner, 2026-10-15): the live blindtest is one of the K-pop games.
+const BREADCRUMB_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'K-pop games', item: 'https://kpopquiz.org/kpop-games' },
+    { '@type': 'ListItem', position: 2, name: 'Live blindtest', item: 'https://kpopquiz.org/live' },
+  ],
+};
+
 export default function LivePage(): React.ReactElement {
   if (!isUxV12()) notFound();
   return (
     <UxPage width="wide" className="ux-live-page">
+      {jsonLdScript(BREADCRUMB_JSONLD)}
+      <nav className="ux-crumb kg-crumb" aria-label="Breadcrumb">
+        <Link href="/kpop-games">K-pop games</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Live blindtest</span>
+      </nav>
       <div className="ux-live-hostbar">
         <div>
           <span className="ux-kicker"><Icon name="users" />Live blindtest</span>
