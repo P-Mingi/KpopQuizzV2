@@ -35,6 +35,7 @@ export default function AdminLayout({ children }: AdminLayoutProps): React.React
         <Link href="/admin/verse/entities" className="text-secondary hover:text-primary whitespace-nowrap">Entities</Link>
         <Link href="/admin/verse/quality" className="text-secondary hover:text-primary whitespace-nowrap">Quality</Link>
         <Link href="/admin/verse/suggestions" className="text-secondary hover:text-primary whitespace-nowrap">Suggestions</Link>
+        <Link href="/admin/seo" className="text-secondary hover:text-primary whitespace-nowrap">SEO refresh</Link>
         {/* V12 (G1 R6): each link follows the switch of the page it opens; both off = v11 nav. */}
         {BT_TRACKING && <Link href="/admin/blind-tests/runs" className="text-secondary hover:text-primary whitespace-nowrap">Blindtest runs</Link>}
         {isUxV12() && <Link href="/admin/editorial" className="text-secondary hover:text-primary whitespace-nowrap">Editorial</Link>}
