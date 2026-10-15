@@ -1,3 +1,5 @@
+import { erasSummary } from '@/lib/generations/generations';
+
 import type { ArticleMeta } from './types';
 
 export const ARTICLES: ArticleMeta[] = [
@@ -119,36 +121,25 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-generations-explained',
-    title: 'Every K-pop Generation Explained (1st to 5th Gen)',
+    // SEO Mission 2, part C (owner, 2026-10-15): the generations hub, same URL. The asked-for
+    // "K-pop Generations Explained: 1st to 5th Gen Timeline" is 63 characters with the
+    // " | KpopQuiz" suffix (rulebook 2.2: 60 at most), so "1st to 5th" became "1st-5th".
+    // The FAQ moved into the body as question headings, generated from
+    // lib/generations/group-generations.json like every other generation claim on the site.
+    title: 'K-pop Generations Explained: 1st-5th Gen Timeline',
     description:
-      'A guide to the K-pop generations, from H.O.T. and S.E.S. in the 1990s to the newest wave of groups, with timelines, key groups, sources and era quizzes.',
+      'K-pop generations explained: a sourced timeline from 1st to 5th gen, why the lines are debated, and the generation of every group we cover, with sources.',
     category: 'guide',
     publishedAt: '2026-06-21',
-    updatedAt: '2026-10-14',
-    coverAlt: 'Timeline showing K-pop generations from 1st to 5th gen',
-    tags: ['generations', 'history', 'guide'],
+    updatedAt: '2026-10-15',
+    coverAlt: 'Timeline of the K-pop generations from 1st to 5th gen',
+    tags: ['generations', 'history', 'timeline'],
     relatedLinks: [
       { label: 'K-pop blind test', href: '/blindtest' },
-      { label: 'Browse K-pop quizzes', href: '/quizzes' },
-      { label: 'Browse quizzes by group', href: '/quizzes' },
+      { label: 'K-pop eras timeline', href: '/articles/kpop-eras-timeline' },
+      { label: 'All K-pop groups', href: '/groups' },
     ],
-    faq: [
-      {
-        question: 'How many K-pop generations are there?',
-        answer:
-          'Four K-pop generations are widely recognized: 1st gen (1996 to 2003) with H.O.T., S.E.S. and BoA; 2nd gen (2003 to 2012) with BIGBANG, Girls\' Generation and 2NE1; 3rd gen (2012 to 2017) with BTS, BLACKPINK and EXO; 4th gen (2018 to 2022) with Stray Kids, aespa and ATEEZ. Groups that debuted from 2023, such as BABYMONSTER and ILLIT, are commonly described as 5th generation (Korea Times, 2025), a label that is not official (Korea JoongAng Daily, 2023).',
-      },
-      {
-        question: 'What gen is BTS?',
-        answer:
-          'BTS is a 3rd generation K-pop group. They debuted in June 2013 under Big Hit Entertainment (now HYBE) and became the defining act of the 3rd gen era.',
-      },
-      {
-        question: 'What gen is NewJeans?',
-        answer:
-          'NewJeans debuted on 22 July 2022 and is commonly described as a 4th generation group (Korea JoongAng Daily, 2023; Korea Times, 2025).',
-      },
-    ],
+    faq: [],
   },
   {
     slug: 'bts-vs-blackpink-quiz',
@@ -580,25 +571,29 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'kpop-eras-timeline',
+    // SEO Mission 2, part C (owner, 2026-10-15): this page owns "when did you become a fan",
+    // not the generations cluster (TARGETS.md: /articles/kpop-generations-explained). Its title
+    // never said "generations timeline"; the description stops promising the generation
+    // timeline, the body links the hub with that anchor, and the year ranges come from the
+    // same file as the hub (lib/generations/group-generations.json).
     title: 'K-pop Eras Timeline: When Did You Become a Fan?',
     description:
-      'The five K-pop generations on one timeline, with approximate years and era markers from 1st gen to 5th gen. Find where you started and test your era knowledge with a blind test.',
+      'Find the K-pop era you started in: approximate years and era markers from the first idols to the newest wave, plus a blind test to check where you really began.',
     category: 'guide',
     publishedAt: '2026-07-23',
-    updatedAt: '2026-07-23',
-    coverAlt: 'Timeline of the five K-pop generations from 1996 to today',
+    updatedAt: '2026-10-15',
+    coverAlt: 'Timeline of the K-pop eras from 1996 to today',
     tags: ['generations', 'eras', 'timeline'],
     relatedLinks: [
       { label: 'Play by generation', href: '/blindtest' },
       { label: 'Browse K-pop quizzes', href: '/quizzes' },
-      { label: 'Generations explained', href: '/articles/kpop-generations-explained' },
-      { label: 'Browse all quizzes', href: '/quizzes' },
+      { label: 'K-pop generations timeline', href: '/articles/kpop-generations-explained' },
     ],
     faq: [
       {
         question: 'How many K-pop generations are there?',
         answer:
-          'Four K-pop generations are widely recognized. The approximate ranges are 1st gen 1996 to 2003, 2nd gen 2004 to 2011, 3rd gen 2012 to 2017 and 4th gen 2018 to 2022. Groups that debuted from 2023 are commonly described as 5th generation, a label that is not official. The edges are debated.',
+          `Four K-pop generations are widely recognized. The approximate ranges are ${erasSummary()}. Groups that debuted from 2023 are often called 5th generation, a label that is not official. The edges are debated.`,
       },
       {
         question: 'How do I know which K-pop generation I started in?',
