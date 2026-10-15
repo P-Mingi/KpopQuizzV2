@@ -14,6 +14,12 @@ export interface Correction {
 
 export const CORRECTIONS: readonly Correction[] = [
   {
+    date: '2026-10-15',
+    page: 'Trivia for BTS, aespa, IVE, ILLIT, BABYMONSTER and Cortis',
+    href: '/trivia',
+    what: 'These six trivia pages no longer show fun facts taken from fan-made quizzes. They are now question and answer banks in which every answer was checked against its source (Billboard, Wikipedia, Wikidata or an official site) and links to it.',
+  },
+  {
     date: '2026-10-14',
     page: 'BTS trivia',
     href: '/bts-trivia',

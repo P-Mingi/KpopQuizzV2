@@ -44,13 +44,14 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
         <h1 className="trivia-hub-title">K-pop trivia and fun facts</h1>
         <p className="trivia-hub-intro">
           Surprising facts about your favorite K-pop groups: their origins, members, music, and
-          records, all pulled from fan-made quizzes. Pick a group to dive in.
+          records. Pages marked with sourced questions link every answer to its source; the others
+          gather fun facts from fan-made quizzes. Pick a group to dive in.
         </p>
       </header>
 
       {eligible.length > 0 ? (
         <ul className="trivia-hub-grid">
-          {eligible.map(({ group, factCount }) => (
+          {eligible.map(({ group, factCount, sourced }) => (
             <li key={group.id}>
               <Link href={`/${group.slug}-trivia`} className="trivia-hub-card">
                 <GroupLogo
@@ -62,7 +63,7 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
                 />
                 <div className="trivia-hub-card-body">
                   <p className="trivia-hub-card-name">{group.name}</p>
-                  <p className="trivia-hub-card-meta">{factCount} fun facts</p>
+                  <p className="trivia-hub-card-meta">{sourced ? `${factCount} sourced questions` : `${factCount} fun facts`}</p>
                 </div>
                 <svg
                   className="trivia-hub-card-arrow"
