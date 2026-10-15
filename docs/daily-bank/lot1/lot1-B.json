@@ -1,0 +1,716 @@
+[
+  {
+    "scheduled_date": "2026-10-25",
+    "title": "Stray Kids: From 5-Star to KARMA",
+    "description": "Ten questions on Stray Kids since 2023: 5-Star, Rock-Star, ATE, Hop, KARMA, the Japanese releases and the Dominate stadium tour.",
+    "group_slug": "stray-kids",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Before its June 2023 release, 5-Star set a K-pop preorder record. Roughly how many preorders did it gather?",
+        "options": [
+          "About 1.5 million",
+          "About 2.4 million",
+          "About 5.1 million",
+          "About 8 million"
+        ],
+        "correct": 2,
+        "fun_fact": "The 12-track album was the group's first release in eight months, according to Yonhap.",
+        "source": "https://en.yna.co.kr/view/AEN20230602003200315"
+      },
+      {
+        "question": "Which song, the lead single of Rock-Star, became Stray Kids' first entry on the Billboard Hot 100?",
+        "options": [
+          "S-Class",
+          "Lalalala",
+          "Chk Chk Boom",
+          "Ceremony"
+        ],
+        "correct": 1,
+        "fun_fact": "Its Korean title, Rak, means pleasure, and it entered the Hot 100 at number 90.",
+        "source": "https://en.wikipedia.org/wiki/Lalalala"
+      },
+      {
+        "question": "Which two actors appear in the Chk Chk Boom music video, dressed as Deadpool and Wolverine?",
+        "options": [
+          "Ryan Reynolds and Hugh Jackman",
+          "Chris Evans and Chris Hemsworth",
+          "Tom Holland and Zendaya",
+          "Keanu Reeves and Halle Berry"
+        ],
+        "correct": 0,
+        "fun_fact": "I.N had said he wanted to try Latin music in the group's own colors, and the song mixes hip-hop with reggaeton.",
+        "source": "https://en.wikipedia.org/wiki/Chk_Chk_Boom"
+      },
+      {
+        "question": "Which world tour did Stray Kids launch in August 2024 in support of ATE?",
+        "options": [
+          "Maniac",
+          "Dominate",
+          "5-Star Dome Tour",
+          "Run It"
+        ],
+        "correct": 1,
+        "fun_fact": "JYP Entertainment said the title reflects the group's ambition to dominate the stage as global top artists.",
+        "source": "https://en.wikipedia.org/wiki/Dominate_World_Tour"
+      },
+      {
+        "question": "On the Dominate tour, Stray Kids became the first act ever to perform at which Toronto venue?",
+        "options": [
+          "Scotiabank Arena",
+          "BMO Field",
+          "Rogers Stadium",
+          "Massey Hall"
+        ],
+        "correct": 2,
+        "fun_fact": "The tour's concert film, The Dominate Experience, was shot at SoFi Stadium and premiered in February 2026.",
+        "source": "https://en.wikipedia.org/wiki/Dominate_World_Tour"
+      },
+      {
+        "question": "Hop, released in December 2024, was marketed as the first record in which Stray Kids series?",
+        "options": [
+          "SKZhop Hiptape",
+          "SKZ It Tape",
+          "SKZ-Replay",
+          "SKZ-Player"
+        ],
+        "correct": 0,
+        "fun_fact": "Its lead single was Walkin on Water, while Canadian rapper Tablo is featured on a different track, U.",
+        "source": "https://en.wikipedia.org/wiki/Hop_(mixtape)"
+      },
+      {
+        "question": "Which song was the lead single of KARMA, the studio album Stray Kids released in August 2025?",
+        "options": [
+          "Walkin on Water",
+          "Chk Chk Boom",
+          "Lalalala",
+          "Ceremony"
+        ],
+        "correct": 3,
+        "fun_fact": "Its futuristic sports-themed music video features a cameo from professional gamer Faker.",
+        "source": "https://en.wikipedia.org/wiki/Ceremony_(Stray_Kids_song)"
+      },
+      {
+        "question": "When KARMA debuted at No. 1 on the Billboard 200 in 2025, which No. 1 was it for Stray Kids?",
+        "options": [
+          "Their fifth",
+          "Their sixth",
+          "Their seventh",
+          "Their eighth"
+        ],
+        "correct": 2,
+        "fun_fact": "It also put Stray Kids ahead of BTS for the most Billboard 200 No. 1s by a K-pop act.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/stray-kids-earns-7th-billboard-200-no-1/12269264"
+      },
+      {
+        "question": "Which Japanese singer-songwriter is featured on Social Path, from Stray Kids' 2023 Japanese EP?",
+        "options": [
+          "Ado",
+          "LiSA",
+          "Aimyon",
+          "Utada Hikaru"
+        ],
+        "correct": 1,
+        "fun_fact": "The EP topped the Oricon Albums Chart and was certified million by the Recording Industry Association of Japan.",
+        "source": "https://en.wikipedia.org/wiki/Social_Path_/_Super_Bowl_(Japanese_Ver.)"
+      },
+      {
+        "question": "Night and Falling Up, singles from the 2024 Japanese album Giant, are themes for which anime?",
+        "options": [
+          "Jujutsu Kaisen",
+          "Spy x Family",
+          "Demon Slayer",
+          "Tower of God"
+        ],
+        "correct": 3,
+        "fun_fact": "The album reached No. 1 on the Oricon Albums Chart and on Billboard Japan Hot Albums, and went double platinum in Japan.",
+        "source": "https://en.wikipedia.org/wiki/Giant_(Stray_Kids_album)"
+      }
+    ],
+    "sources": [
+      "https://en.yna.co.kr/view/AEN20230602003200315",
+      "https://en.wikipedia.org/wiki/5-Star_(Stray_Kids_album)",
+      "https://en.wikipedia.org/wiki/Lalalala",
+      "https://en.wikipedia.org/wiki/Rock-Star_(EP)",
+      "https://en.wikipedia.org/wiki/Chk_Chk_Boom",
+      "https://en.wikipedia.org/wiki/Ate_(EP)",
+      "https://en.wikipedia.org/wiki/Dominate_World_Tour",
+      "https://en.wikipedia.org/wiki/Hop_(mixtape)",
+      "https://en.wikipedia.org/wiki/Ceremony_(Stray_Kids_song)",
+      "https://en.wikipedia.org/wiki/Karma_(Stray_Kids_album)",
+      "https://www.koreajoongangdaily.com/entertainment/stray-kids-earns-7th-billboard-200-no-1/12269264",
+      "https://en.wikipedia.org/wiki/Social_Path_/_Super_Bowl_(Japanese_Ver.)",
+      "https://en.wikipedia.org/wiki/Giant_(Stray_Kids_album)",
+      "https://en.wikipedia.org/wiki/Stray_Kids"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-26",
+    "title": "SEVENTEEN: The Face the Sun Era",
+    "description": "Relive SEVENTEEN's 2022 run: Face the Sun, Hot, Darl+ing, the Inner Shadows trailers, Sector 17 with _World and the Be the Sun tour.",
+    "group_slug": "seventeen",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which song was the lead single of SEVENTEEN's 2022 album Face the Sun?",
+        "options": [
+          "Rock with You",
+          "Hot",
+          "Ready to Love",
+          "Super"
+        ],
+        "correct": 1,
+        "fun_fact": "Woozi co-wrote it with writers including Bumzu and August Rigo, and the track is built around Western-style guitar riffs.",
+        "source": "https://en.wikipedia.org/wiki/Hot_(Seventeen_song)"
+      },
+      {
+        "question": "Face the Sun is which full-length studio album in SEVENTEEN's discography?",
+        "options": [
+          "Their second",
+          "Their third",
+          "Their fourth",
+          "Their fifth"
+        ],
+        "correct": 2,
+        "fun_fact": "It was the group's first studio album since An Ode in 2019, and Pledis released it through YG Plus.",
+        "source": "https://en.wikipedia.org/wiki/Face_the_Sun"
+      },
+      {
+        "question": "Which song, released ahead of Face the Sun in April 2022, was SEVENTEEN's first English-lyric single?",
+        "options": [
+          "Darl+ing",
+          "_World",
+          "Cheers",
+          "Domino"
+        ],
+        "correct": 0,
+        "fun_fact": "Dedicated to the group's international fans, it topped the iTunes music charts in 34 countries after its April release.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/celeb-seventeen-is-staying-strong-even-seven-years-in/10396221"
+      },
+      {
+        "question": "Roughly how many pre-orders did Face the Sun collect before its release?",
+        "options": [
+          "About 1 million",
+          "About 5 million",
+          "About 500,000",
+          "About 2 million"
+        ],
+        "correct": 3,
+        "fun_fact": "It beat the group's previous pre-order best of 1.41 million, set by their EP Attacca.",
+        "source": "https://en.wikipedia.org/wiki/Face_the_Sun"
+      },
+      {
+        "question": "At what position did Face the Sun debut on the US Billboard 200, the group's first top 10 there?",
+        "options": [
+          "No. 7",
+          "No. 1",
+          "No. 15",
+          "No. 20"
+        ],
+        "correct": 0,
+        "fun_fact": "It earned 44,000 equivalent album units in its first week, and 42,000 of those came from album sales.",
+        "source": "https://www.billboard.com/music/chart-beat/bad-bunny-un-verano-sin-ti-billboard-200-no-1-return-1235086178/"
+      },
+      {
+        "question": "Which world tour did SEVENTEEN launch in 2022 to support Face the Sun?",
+        "options": [
+          "Ode to You",
+          "Follow",
+          "Right Here",
+          "Be the Sun"
+        ],
+        "correct": 3,
+        "fun_fact": "The tour opened with two Seoul concerts on June 25 and 26, 2022, before heading to the US and Canada.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/celeb-seventeen-is-staying-strong-even-seven-years-in/10396221"
+      },
+      {
+        "question": "What was the title of the July 2022 repackage of Face the Sun?",
+        "options": [
+          "Attacca",
+          "Sector 17",
+          "Dream",
+          "Your Choice"
+        ],
+        "correct": 1,
+        "fun_fact": "The repackage had already passed 1.2 million pre-orders a few days before its July 18, 2022 release.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/seventeen-to-drop-repackaged-fourth-fulllength-album-this-evening/10567023"
+      },
+      {
+        "question": "Which song was the lead track of the repackage Sector 17?",
+        "options": [
+          "Cheers",
+          "Circles",
+          "_World",
+          "Fallin' Flower"
+        ],
+        "correct": 2,
+        "fun_fact": "Pledis explained that the underscore stands for all the open ways SEVENTEEN and their fans can interpret the world.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/seventeen-to-drop-repackaged-fourth-fulllength-album-this-evening/10567023"
+      },
+      {
+        "question": "Which 13-part YouTube trailer series did SEVENTEEN start on April 26, 2022 to tease Face the Sun?",
+        "options": [
+          "Inner Shadows",
+          "Going Seventeen",
+          "Power of Love",
+          "Caratland"
+        ],
+        "correct": 0,
+        "fun_fact": "According to Hoshi, the album marked the group leaving its old image behind and growing up.",
+        "source": "https://en.wikipedia.org/wiki/Face_the_Sun"
+      },
+      {
+        "question": "Hot won first place on M Countdown in June 2022. On which KBS music show did it also win?",
+        "options": [
+          "Inkigayo",
+          "Music Bank",
+          "Show! Music Core",
+          "The Show"
+        ],
+        "correct": 1,
+        "fun_fact": "The song was also nominated for Best K-Pop at the MTV Video Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/Hot_(Seventeen_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Hot_(Seventeen_song)",
+      "https://en.wikipedia.org/wiki/Face_the_Sun",
+      "https://www.koreajoongangdaily.com/entertainment/celeb-seventeen-is-staying-strong-even-seven-years-in/10396221",
+      "https://www.koreajoongangdaily.com/entertainment/seventeens-face-the-sun-gets-2-million-orders/10296387",
+      "https://www.billboard.com/music/pop/seventeen-darling-english-single-video-1235059079/",
+      "https://www.billboard.com/music/chart-beat/bad-bunny-un-verano-sin-ti-billboard-200-no-1-return-1235086178/",
+      "https://www.koreajoongangdaily.com/entertainment/seventeen-to-drop-repackaged-fourth-fulllength-album-this-evening/10567023",
+      "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-27",
+    "title": "K-pop Hits and Their Albums",
+    "description": "Match ten famous K-pop singles to the albums they belong to, with one hit each from ten groups, from BIGBANG and Apink to IVE.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Baddie, released in October 2023, was a single from which IVE release?",
+        "options": [
+          "Love Dive",
+          "I've IVE",
+          "I've Mine",
+          "After Like"
+        ],
+        "correct": 2,
+        "fun_fact": "It spent three weeks at No. 1 on the Circle Digital Chart, giving IVE a fifth chart-topper there.",
+        "source": "https://en.wikipedia.org/wiki/Baddie_(song)"
+      },
+      {
+        "question": "Pink Venom was the lead single of which BLACKPINK album?",
+        "options": [
+          "Born Pink",
+          "The Album",
+          "Square Up",
+          "Kill This Love"
+        ],
+        "correct": 0,
+        "fun_fact": "It held No. 1 on the Billboard Global 200 for two weeks; no girl group had led that chart before.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Venom"
+      },
+      {
+        "question": "Talk That Talk, released in August 2022, was the lead single of which TWICE EP?",
+        "options": [
+          "Taste of Love",
+          "Fancy You",
+          "Ready to Be",
+          "Between 1&2"
+        ],
+        "correct": 3,
+        "fun_fact": "Collapsedone, who had co-composed earlier TWICE singles like Knock Knock and The Feels, wrote the music with Like; Danke penned the lyrics.",
+        "source": "https://en.wikipedia.org/wiki/Talk_That_Talk_(Twice_song)"
+      },
+      {
+        "question": "Mr. Chu, from 2014, was the lead single of which Apink mini album?",
+        "options": [
+          "Secret Garden",
+          "Pink Blossom",
+          "Une Année",
+          "Pink Luv"
+        ],
+        "correct": 1,
+        "fun_fact": "Composed by Duble Sidekick, the song earned Apink six music show trophies.",
+        "source": "https://en.wikipedia.org/wiki/Mr._Chu"
+      },
+      {
+        "question": "Supernova was the lead single of which aespa album?",
+        "options": [
+          "Savage",
+          "Armageddon",
+          "My World",
+          "Drama"
+        ],
+        "correct": 1,
+        "fun_fact": "It was aespa's first song to top the Circle Digital Chart, where it spent eleven non-consecutive weeks at No. 1.",
+        "source": "https://en.wikipedia.org/wiki/Supernova_(Aespa_song)"
+      },
+      {
+        "question": "Ko Ko Bop, from 2017, was the lead single of which EXO studio album?",
+        "options": [
+          "XOXO",
+          "Don't Mess Up My Tempo",
+          "Exodus",
+          "The War"
+        ],
+        "correct": 3,
+        "fun_fact": "SM Entertainment released the song in two versions, one in Korean and one in Chinese.",
+        "source": "https://en.wikipedia.org/wiki/Ko_Ko_Bop"
+      },
+      {
+        "question": "Red Flavor was the lead single of which Red Velvet EP?",
+        "options": [
+          "The Red Summer",
+          "Russian Roulette",
+          "The Perfect Red Velvet",
+          "The ReVe Festival: Day 1"
+        ],
+        "correct": 0,
+        "fun_fact": "Written by Kenzie, the summery dance-pop song arrived in July 2017 with a fruit-filled music video.",
+        "source": "https://en.wikipedia.org/wiki/Red_Flavor"
+      },
+      {
+        "question": "Wannabe was the lead single of which ITZY release?",
+        "options": [
+          "It'z Icy",
+          "Guess Who",
+          "It'z Me",
+          "Crazy in Love"
+        ],
+        "correct": 2,
+        "fun_fact": "Galactika, the team that made ITZY's debut hit Dalla Dalla, handled both the writing and the production.",
+        "source": "https://en.wikipedia.org/wiki/Wannabe_(Itzy_song)"
+      },
+      {
+        "question": "Fantastic Baby came out alongside which 2012 BIGBANG EP?",
+        "options": [
+          "Remember",
+          "Made",
+          "Tonight",
+          "Alive"
+        ],
+        "correct": 3,
+        "fun_fact": "BIGBANG's G-Dragon and T.O.P co-wrote it with Teddy Park, and G-Dragon and Teddy also composed and produced it.",
+        "source": "https://en.wikipedia.org/wiki/Fantastic_Baby"
+      },
+      {
+        "question": "Kick It, from 2020, was the lead single of which NCT 127 studio album?",
+        "options": [
+          "Neo Zone",
+          "Sticker",
+          "Fact Check",
+          "2 Baddies"
+        ],
+        "correct": 0,
+        "fun_fact": "Its Korean title means hero, and its music video has a martial arts theme.",
+        "source": "https://en.wikipedia.org/wiki/Kick_It_(NCT_127_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Baddie_(song)",
+      "https://en.wikipedia.org/wiki/Pink_Venom",
+      "https://en.wikipedia.org/wiki/Talk_That_Talk_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Mr._Chu",
+      "https://en.wikipedia.org/wiki/Supernova_(Aespa_song)",
+      "https://en.wikipedia.org/wiki/Ko_Ko_Bop",
+      "https://en.wikipedia.org/wiki/Red_Flavor",
+      "https://en.wikipedia.org/wiki/Wannabe_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/Fantastic_Baby",
+      "https://en.wikipedia.org/wiki/Kick_It_(NCT_127_song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-28",
+    "title": "K-pop Hitmakers and Their Groups",
+    "description": "Who is behind the hits? Match ten K-pop producers and songwriting teams, from Pdogg and Teddy Park to Black Eyed Pilseung, with their groups.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "The production duo Black Eyed Pilseung wrote Like Ooh-Ahh, Cheer Up and TT for which group?",
+        "options": [
+          "Red Velvet",
+          "Oh My Girl",
+          "GFRIEND",
+          "TWICE"
+        ],
+        "correct": 3,
+        "fun_fact": "The duo later set up High Up Entertainment and debuted their own girl group, STAYC, in November 2020.",
+        "source": "https://en.wikipedia.org/wiki/Black_Eyed_Pilseung"
+      },
+      {
+        "question": "Which Big Hit producer helped bring a young RM to the label and went on to become BTS's main producer?",
+        "options": [
+          "Teddy Park",
+          "Pdogg",
+          "Kenzie",
+          "Yoo Young-jin"
+        ],
+        "correct": 1,
+        "fun_fact": "KOMCA named him the highest-earning songwriter and composer of 2018 at its February 2019 awards.",
+        "source": "https://en.wikipedia.org/wiki/Pdogg"
+      },
+      {
+        "question": "London duo LDN Noise is best known in K-pop for tracks for groups from which agency?",
+        "options": [
+          "SM Entertainment",
+          "YG Entertainment",
+          "HYBE",
+          "JYP Entertainment"
+        ],
+        "correct": 0,
+        "fun_fact": "Greg Bonnick and Hayden Chapman got their first writing credit with Chris Brown's Turn Up the Music, a UK No. 1 in 2012.",
+        "source": "https://en.wikipedia.org/wiki/LDN_Noise"
+      },
+      {
+        "question": "Longtime SM songwriter Kenzie wrote which Girls' Generation debut song?",
+        "options": [
+          "Genie",
+          "Gee",
+          "Into the New World",
+          "Run Devil Run"
+        ],
+        "correct": 2,
+        "fun_fact": "Kenzie graduated from Berklee College of Music in 1999, where she majored in music production and engineering.",
+        "source": "https://en.wikipedia.org/wiki/Kenzie_(songwriter)"
+      },
+      {
+        "question": "Longtime SM producer Yoo Young-jin, who left the label in 2023, wrote songs for which first-generation boy band?",
+        "options": [
+          "H.O.T.",
+          "g.o.d",
+          "Sechs Kies",
+          "NRG"
+        ],
+        "correct": 0,
+        "fun_fact": "His credits run from S.E.S. and BoA to TVXQ, Girls' Generation, SHINee, EXO, Red Velvet, NCT and aespa.",
+        "source": "https://en.wikipedia.org/wiki/Yoo_Young-jin"
+      },
+      {
+        "question": "Sweetune, a team known for 1980s-style synth-pop, produced the albums Lupin and Step for which group?",
+        "options": [
+          "Wonder Girls",
+          "2NE1",
+          "Kara",
+          "Miss A"
+        ],
+        "correct": 2,
+        "fun_fact": "Founded by Han Jae-ho and Kim Seung-soo, the team also produced for Infinite, Rainbow and Nine Muses.",
+        "source": "https://en.wikipedia.org/wiki/Sweetune"
+      },
+      {
+        "question": "Duble Sidekick rose to fame in 2012 by producing the EP 100% Ver. for which boy band?",
+        "options": [
+          "2PM",
+          "Beast",
+          "Infinite",
+          "MBLAQ"
+        ],
+        "correct": 3,
+        "fun_fact": "The duo pairs lyricist Park Jang-geun with composer Mikey, a former member of the group One Way.",
+        "source": "https://en.wikipedia.org/wiki/Duble_Sidekick"
+      },
+      {
+        "question": "Producer Ryan S. Jhun's first hands-on K-pop track was Lucifer. Which group recorded it?",
+        "options": [
+          "Super Junior",
+          "SHINee",
+          "TVXQ",
+          "EXO"
+        ],
+        "correct": 1,
+        "fun_fact": "His first released song was Chitty Chitty Bang Bang, on Lee Hyori's 2010 album H-Logic.",
+        "source": "https://en.wikipedia.org/wiki/Ryan_S._Jhun"
+      },
+      {
+        "question": "Before producing for YG Entertainment, Teddy Park debuted in 1998 as a member of which hip hop group?",
+        "options": [
+          "Jinusean",
+          "1TYM",
+          "Epik High",
+          "Drunken Tiger"
+        ],
+        "correct": 1,
+        "fun_fact": "He went on to produce the KPop Demon Hunters soundtrack, and its song Golden brought him an Academy Award for Best Original Song.",
+        "source": "https://en.wikipedia.org/wiki/Teddy_Park"
+      },
+      {
+        "question": "J.Y. Park co-wrote Nobody, which took him onto the Billboard Hot 100 in 2009. Which group sang it?",
+        "options": [
+          "Miss A",
+          "2PM",
+          "Girls' Generation",
+          "Wonder Girls"
+        ],
+        "correct": 3,
+        "fun_fact": "Park and Rainstone became the first Korean songwriters on the Hot 100 when the song debuted at No. 76 in October 2009.",
+        "source": "https://en.wikipedia.org/wiki/J._Y._Park"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Black_Eyed_Pilseung",
+      "https://en.wikipedia.org/wiki/Pdogg",
+      "https://en.wikipedia.org/wiki/LDN_Noise",
+      "https://en.wikipedia.org/wiki/Kenzie_(songwriter)",
+      "https://en.wikipedia.org/wiki/Yoo_Young-jin",
+      "https://en.wikipedia.org/wiki/Sweetune",
+      "https://en.wikipedia.org/wiki/Duble_Sidekick",
+      "https://en.wikipedia.org/wiki/Ryan_S._Jhun",
+      "https://en.wikipedia.org/wiki/Teddy_Park",
+      "https://en.wikipedia.org/wiki/J._Y._Park"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-29",
+    "title": "ENHYPEN: Sweet Venom to The Sin Quiz",
+    "description": "Ten easy questions on ENHYPEN's 2023 to 2026 releases: Orange Blood, Romance: Untold, Desire: Unleash, The Sin series and a first Billboard No. 1.",
+    "group_slug": "enhypen",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which song was the title track of ENHYPEN's November 2023 EP Orange Blood?",
+        "options": [
+          "Sweet Venom",
+          "Bite Me",
+          "Polaroid Love",
+          "Fever"
+        ],
+        "correct": 0,
+        "fun_fact": "Hanteo counted more than 1.38 million copies of Orange Blood sold on release day alone.",
+        "source": "https://en.wikipedia.org/wiki/Orange_Blood"
+      },
+      {
+        "question": "At San Diego Comic-Con 2026, ENHYPEN shared a panel with actors from which vampire film series?",
+        "options": [
+          "Hotel Transylvania",
+          "Blade",
+          "Twilight",
+          "Underworld"
+        ],
+        "correct": 2,
+        "fun_fact": "On the panel, the members talked about why vampire stories keep drawing in each new generation.",
+        "source": "https://en.wikipedia.org/wiki/Enhypen"
+      },
+      {
+        "question": "What was the lead single of ENHYPEN's July 2024 studio album Romance: Untold?",
+        "options": [
+          "Knife",
+          "XO (Only If You Say Yes)",
+          "Bloody Paradise",
+          "Sweet Venom"
+        ],
+        "correct": 1,
+        "fun_fact": "The album was teased with a short film made in collaboration with director Lee Chung-hyun.",
+        "source": "https://en.wikipedia.org/wiki/Romance:_Untold"
+      },
+      {
+        "question": "Which song led Romance: Untold -Daydream-, the reissue ENHYPEN released in November 2024?",
+        "options": [
+          "Daydream",
+          "Loose",
+          "Bite Me",
+          "No Doubt"
+        ],
+        "correct": 3,
+        "fun_fact": "Released on November 11, 2024, the reissue added two new songs to the original album.",
+        "source": "https://en.wikipedia.org/wiki/Romance:_Untold"
+      },
+      {
+        "question": "Bad Desire (With or Without You), released in June 2025, is a single from which ENHYPEN EP?",
+        "options": [
+          "Desire: Unleash",
+          "Orange Blood",
+          "The Sin: Vanish",
+          "Manifesto: Day 1"
+        ],
+        "correct": 0,
+        "fun_fact": "Its pre-orders topped 2.18 million, giving ENHYPEN a third album in the double-million club.",
+        "source": "https://en.wikipedia.org/wiki/Desire:_Unleash"
+      },
+      {
+        "question": "Which US talk show hosted ENHYPEN's first performance on American television, in April 2025?",
+        "options": [
+          "The Tonight Show Starring Jimmy Fallon",
+          "The Late Show with Stephen Colbert",
+          "Jimmy Kimmel Live!",
+          "The Kelly Clarkson Show"
+        ],
+        "correct": 2,
+        "fun_fact": "They performed Loose, a digital single the group had released earlier that month.",
+        "source": "https://en.wikipedia.org/wiki/Enhypen"
+      },
+      {
+        "question": "ENHYPEN played the Sahara Tent at which US festival in April 2025?",
+        "options": [
+          "Lollapalooza",
+          "Coachella",
+          "Governors Ball",
+          "Austin City Limits"
+        ],
+        "correct": 1,
+        "fun_fact": "At the end of their second weekend set, they revealed the title and release date of their next EP.",
+        "source": "https://en.wikipedia.org/wiki/Enhypen"
+      },
+      {
+        "question": "Which song led The Sin: Vanish, the January 2026 EP that opened ENHYPEN's The Sin series?",
+        "options": [
+          "Knife",
+          "Bloody Paradise",
+          "No Doubt",
+          "XO (Only If You Say Yes)"
+        ],
+        "correct": 0,
+        "fun_fact": "To tease the EP, the group launched a fictional news website called Vampire Now.",
+        "source": "https://en.wikipedia.org/wiki/The_Sin:_Vanish"
+      },
+      {
+        "question": "What was the lead single of The Sin: Bliss, the EP ENHYPEN released in August 2026?",
+        "options": [
+          "Knife",
+          "Sweet Venom",
+          "No Doubt",
+          "Bloody Paradise"
+        ],
+        "correct": 3,
+        "fun_fact": "A preview of the Brazilian funk song was first played at the group's concert in Brazil on the Blood Saga Tour.",
+        "source": "https://en.wikipedia.org/wiki/The_Sin:_Bliss"
+      },
+      {
+        "question": "Which release gave ENHYPEN their first No. 1 on the US Billboard 200, in 2026?",
+        "options": [
+          "Orange Blood",
+          "Desire: Unleash",
+          "The Sin: Bliss",
+          "The Sin: Vanish"
+        ],
+        "correct": 2,
+        "fun_fact": "It debuted at the top with 98,000 equivalent album units, 92,000 of them from album sales.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/enhypen-claims-1st-no-1-on-billboard-200-with-the-sin-bliss/12851061"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Orange_Blood",
+      "https://en.wikipedia.org/wiki/Romance:_Untold",
+      "https://en.wikipedia.org/wiki/Desire:_Unleash",
+      "https://en.wikipedia.org/wiki/Enhypen",
+      "https://en.wikipedia.org/wiki/The_Sin:_Vanish",
+      "https://en.wikipedia.org/wiki/The_Sin:_Bliss",
+      "https://www.koreajoongangdaily.com/entertainment/enhypen-claims-1st-no-1-on-billboard-200-with-the-sin-bliss/12851061"
+    ]
+  }
+]
