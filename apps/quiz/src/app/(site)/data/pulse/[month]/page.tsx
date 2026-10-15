@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Mascot } from '@/components/ui/mascot';
 import { PulseReportView } from '@/components/pulse/report-view';
 import { getPulseReport, listPulseReports, PULSE_MONTH_RE } from '@/lib/pulse/data';
+import { FOUNDER, founderPerson } from '@/lib/seo/org';
 
 import type { Metadata } from 'next';
 
@@ -30,7 +31,8 @@ export async function generateStaticParams(): Promise<Array<{ month: string }>> 
 
 function summarize(monthLabel: string, fandom: string | null, plays: number): string {
   const lead = fandom ? `${fandom} was ${monthLabel}'s most-played fandom on kpopquiz.org` : `${monthLabel} on kpopquiz.org`;
-  return `${lead}, drawn from ${plays.toLocaleString('en-US')} real quiz plays. Fandom of the month, most-played quizzes, fan duel verdict, and community growth. Free to cite with a link.`;
+  // Within 160 characters (Bing): the lead, the count with its window, what the report holds.
+  return `${lead}, from ${plays.toLocaleString('en-US')} real quiz plays: fandom of the month, top quizzes and community growth.`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -101,7 +103,8 @@ export default async function PulseMonthPage({ params }: PageProps): Promise<Rea
     description: summarize(payload.monthLabel, payload.fandom?.name ?? null, payload.community.plays),
     datePublished: payload.generatedAt,
     dateModified: report.updatedAt,
-    author: { '@type': 'Organization', name: 'KpopQuiz', url: SITE_URL },
+    // SEO Mission 1 (owner, 2026-10-14): a named author who links to /about.
+    author: founderPerson(),
     publisher: { '@type': 'Organization', name: 'KpopQuiz', url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-512.png` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
     isAccessibleForFree: true,
@@ -135,7 +138,7 @@ export default async function PulseMonthPage({ params }: PageProps): Promise<Rea
           <div>
             <span className="pulse-eyebrow">Monthly K-pop Pulse</span>
             <h1 className="pulse-title font-display">{payload.monthLabel}</h1>
-            <p className="pulse-subtitle">First-party fan data from kpopquiz.org, one report a month</p>
+            <p className="pulse-subtitle">First-party fan data from kpopquiz.org, one report a month. By <Link href="/about">{FOUNDER.name}</Link>, founder of kpopquiz.org</p>
           </div>
           <div className="pulse-mascot" aria-hidden="true">
             <Mascot variant="celebrate" size={56} alt="" />

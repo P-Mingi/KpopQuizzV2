@@ -46,6 +46,7 @@ function columns(showFandoms: boolean): FooterCol[] {
     { title: 'Support', links: [
       { label: 'Help', href: '/faq' },
       { label: 'About', href: '/about' },
+      { label: 'Editorial policy', href: '/editorial-policy' },
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
