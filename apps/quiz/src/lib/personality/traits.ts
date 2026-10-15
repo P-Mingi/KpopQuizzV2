@@ -60,3 +60,8 @@ export function playerDescription(axes: Axes): string {
   const s = strongest(axes);
   return `${s[0]!.pole.line} ${s[1]!.pole.line}`;
 }
+
+/** The two ends of each axis by their trait words, for the "How your result is calculated" section. */
+export function axisEnds(): Array<{ key: AxisKey; low: string; high: string }> {
+  return AXIS_KEYS.map((key) => ({ key, low: POLES[key].low.trait, high: POLES[key].high.trait }));
+}
