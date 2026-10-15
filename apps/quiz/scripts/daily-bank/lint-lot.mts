@@ -53,6 +53,20 @@ function checkSource(where: string, url: string | undefined): void {
   if (!ALLOWED.includes(h)) warn(where, `source domain to confirm as official or allowed: ${h}`);
 }
 
+// Topic words of a title: what is left after the words every quiz title shares. Two titles
+// whose topic words overlap this much target the same search (the new page would compete
+// with the old one), so the lot gets a warning to rethink the topic, not just the wording.
+const STOP = new Set(['k', 'pop', 'kpop', 'quiz', 'quizzes', 'test', 'trivia', 'the', 'a', 'an', 'and', 'or', 'of', 'in', 'on', 'to', 'for', 'with', 'from', 'by', 'true', 'false', 'era', 'eras', 'can', 'you', 'your', 'how', 'well', 'do', 'know', 'only', 'real', 'fans', 'pass', 'this', 'that', 'guess', 'name', 'which', 'what', 'who', 'facts', 'edition', 'challenge', 'ultimate', 'deep', 'dive', 'level']);
+const topicWords = (t: string): Set<string> => new Set(norm(t).split(' ').filter((w) => w.length > 1 && !STOP.has(w)).map((w) => w.replace(/s$/, '')));
+// Share of the smaller title's topic words found in the other one. Words of a group name
+// alone ("ILLIT" in "ILLIT quiz") do not make two quizzes the same topic.
+function topicOverlap(a: Set<string>, b: Set<string>, groupWords: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  const shared = [...a].filter((w) => b.has(w));
+  if (shared.every((w) => groupWords.has(w))) return 0;
+  return shared.length / Math.min(a.size, b.size);
+}
+
 const addDays = (d: string, n: number): string => new Date(Date.parse(`${d}T00:00:00Z`) + n * 86400000).toISOString().slice(0, 10);
 
 async function main(): Promise<void> {
@@ -68,6 +82,8 @@ async function main(): Promise<void> {
   ]);
   const slugs = new Map(groups.map((g) => [g.slug, g]));
   const seenTitles = new Set([...bank, ...quizzes].map((q) => norm(q.title)));
+  const seenTopics = [...bank, ...quizzes].map((q) => ({ title: q.title, words: topicWords(q.title) }));
+  const groupWords = new Set(groups.flatMap((g) => [...topicWords(g.name), ...topicWords(g.slug.replace(/-/g, ' '))]));
   const seenQuestions = new Map<string, string>();
   for (const q of [...bank, ...quizzes]) for (const x of q.questions ?? []) if (x?.question) seenQuestions.set(norm(x.question), q.title);
 
@@ -80,6 +96,9 @@ async function main(): Promise<void> {
     if (q.title.length > 45) err(at, `title over 45 characters (${q.title.length})`);
     if (seenTitles.has(norm(q.title))) err(at, 'title already used in the bank or the catalogue');
     if (lotTitles.has(norm(q.title))) err(at, 'title used twice in the lot');
+    const mine = topicWords(q.title);
+    const close = seenTopics.filter((x) => mine.size > 0 && x.words.size > 0 && topicOverlap(mine, x.words, groupWords) >= 1 && norm(x.title) !== norm(q.title));
+    if (close.length) warn(at, `same topic as existing: ${close.slice(0, 3).map((x) => `"${x.title}"`).join(', ')}${close.length > 3 ? ` (+${close.length - 3})` : ''}`);
     lotTitles.add(norm(q.title));
     const g = q.group_slug ? slugs.get(q.group_slug) : null;
     if (q.group_slug && !g) err(at, `unknown group slug: ${q.group_slug}`);
