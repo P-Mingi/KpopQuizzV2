@@ -14,6 +14,12 @@
 //      computed a few minutes later reads the same rows). Concurrent first reads of one key wait for one fetch
 //      (a mkdir lock per key). The store holds response bodies of anonymous and service reads: it lives in
 //      KPQ/cache/parity/ (outside the repository) and is removed with its run unless --keep.
+//   3. Strict (O1_FREEZE_STRICT=1, the gate's crawl of the kept parity build): a request with another method than GET
+//      or HEAD to any origin that is not this machine is refused and logged too, so a page outside the write-audited
+//      URL list cannot post anything anywhere (a webhook, a ping, a mail API).
+//   4. Offline (O1_FREEZE_OFFLINE=1): a read that is not in the store, and any other Supabase request, is answered
+//      503 locally and logged in <store>/offline.log, never sent: the kept build is served on its frozen state only,
+//      with no production read at all (tests of the gate plumbing).
 // No value of a header is ever written: the key holds a sha256 of the auth headers, the log holds method and path.
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -23,6 +29,18 @@ import { rpcVerdict } from './rpc-verdict.mjs';
 
 const DIR = process.env.O1_FREEZE_DIR;
 const TARGET = (process.env.O1_FREEZE_TARGET || '').replace(/\/+$/, '');
+const STRICT = process.env.O1_FREEZE_STRICT === '1';
+const OFFLINE = process.env.O1_FREEZE_OFFLINE === '1';
+
+/** This machine: loopback addresses and the *.localhost names of the three dev hosts. */
+export function isLocal(url) {
+  try {
+    const h = new URL(url).hostname.replace(/^\[|\]$/g, '');
+    return h === 'localhost' || h.endsWith('.localhost') || h === '::1' || /^127\./.test(h);
+  } catch {
+    return false;
+  }
+}
 
 export function maskVolatile(s) {
   return s.replace(/\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?/g, '<ts>');
@@ -66,6 +84,16 @@ function log(file, line) { try { fs.appendFileSync(path.join(DIR, file), `${PHAS
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const KEEP_HEADERS = ['content-type', 'content-range', 'preference-applied'];
 
+function refusedResponse() {
+  return new Response(JSON.stringify({ code: 'O1RO', message: 'parity: refused, the parity run never writes', details: null, hint: null }),
+    { status: 403, headers: { 'content-type': 'application/json' } });
+}
+
+function offlineResponse() {
+  return new Response(JSON.stringify({ code: 'O1OFF', message: 'parity: offline replay, not in the frozen state', details: null, hint: null }),
+    { status: 503, headers: { 'content-type': 'application/json' } });
+}
+
 async function stored(file) {
   const s = JSON.parse(fs.readFileSync(file, 'utf8'));
   return new Response(s.status === 204 || s.status === 304 ? null : s.body, { status: s.status, headers: s.headers });
@@ -77,18 +105,31 @@ export function install(orig = globalThis.fetch) {
   globalThis.__o1FreezeInstalled = true;
   globalThis.fetch = async function o1FreezeFetch(input, init) {
     const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input?.url;
-    if (!url || !url.startsWith(TARGET + '/')) return orig(input, init);
     const method = (init?.method ?? (input instanceof Request ? input.method : 'GET')).toUpperCase();
+    if (!url || !url.startsWith(TARGET + '/')) {
+      if (STRICT && url && method !== 'GET' && method !== 'HEAD' && !isLocal(url)) {
+        const u = new URL(url);
+        log('refused.log', `${method} ${u.origin}${u.pathname} strict: not a read`);
+        return refusedResponse();
+      }
+      return orig(input, init);
+    }
     const pathname = new URL(url).pathname;
     const c = classify(method, pathname);
-    if (c === 'allow') return orig(input, init);
+    if (c === 'allow') {
+      if (OFFLINE) { log('offline.log', `${method} ${pathname}`); return offlineResponse(); }
+      return orig(input, init);
+    }
     if (c !== 'freeze') {
       log('refused.log', `${method} ${pathname} ${c}`);
-      return new Response(JSON.stringify({ code: 'O1RO', message: 'parity: refused, the parity run never writes', details: null, hint: null }),
-        { status: 403, headers: { 'content-type': 'application/json' } });
+      return refusedResponse();
     }
     const body = init?.body;
-    if (body != null && typeof body !== 'string') { log('passthrough.log', `${method} ${pathname} non-string body`); return orig(input, init); }
+    if (body != null && typeof body !== 'string') {
+      if (OFFLINE) { log('offline.log', `${method} ${pathname} non-string body`); return offlineResponse(); }
+      log('passthrough.log', `${method} ${pathname} non-string body`);
+      return orig(input, init);
+    }
     const key = keyOf(method, url, body, input, init);
     const file = path.join(DIR, `${key}.json`); const lock = path.join(DIR, `${key}.lock`);
     let haveLock = false; // a lock left by a killed process is waited for 60 s, then ignored
@@ -98,6 +139,7 @@ export function install(orig = globalThis.fetch) {
     }
     try {
       if (fs.existsSync(file)) return stored(file);
+      if (OFFLINE) { log('offline.log', `${method} ${pathname}`); return offlineResponse(); }
       let res;
       try { res = await orig(input, init); } catch (e) { log('errors.log', `${method} ${pathname} ${e?.cause?.code ?? e?.name ?? 'error'}`); throw e; }
       const text = await res.text();

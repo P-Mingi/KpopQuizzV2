@@ -1,6 +1,8 @@
 #!/bin/bash
 # Run O1: the kpopquiz.org parity check (RUN-O1-PROMPT rule 5). The ONLY thing in the run that reads production.
 #   scripts/o1/parity.sh <base-ref> <head-ref> [--evidence <dir>] [--urls <file>] [--keep] [--recheck]
+#   scripts/o1/parity.sh --serve-kept <head-sha> <port> [--offline]      (gate-checks.sh: serve the kept head build)
+#   scripts/o1/parity.sh --check-kept <head-sha> [--offline] -- <cmd...> (gate-checks.sh: a check in the parity env)
 # Builds base and head back to back, each in a clean detached worktree (node_modules linked from O1), under the
 # build lock, with KPQ/secrets/kpop-parity.env (sourced, never printed) and the production flags; serves both with
 # `next start`; compares the URL list with apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only, A and B fetched
@@ -25,7 +27,13 @@
 # - Determinism: result.txt holds no time, no byte count and no live number outside a diff. --recheck runs the pair
 #   again (the cache is ignored, the stored data state replayed) and fails unless result.txt is byte-identical.
 # - --keep keeps both worktrees, their builds and the frozen state (KPQ/cache/parity/<key>/freeze) for the gate's
-#   per-site checks; the next parity run removes them.
+#   per-site checks, and names them in KPQ/cache/parity/kept.json; the next parity run removes all three. A cached
+#   result is used with --keep only while the kept build is the one of that pair (else the pair is run again).
+# - --serve-kept serves the kept head build (production flags, frozen state, writes refused, and in strict mode any
+#   non-read to any other origin refused too) for gate-checks.sh, holding the parity lock so no run removes it
+#   meanwhile; --check-kept runs one command (check:indexability, which reads the catalogue itself) in the same
+#   environment. Both refuse the cron window and a head that is not the kept one. --offline answers every read that
+#   is not in the frozen state with a local 503: no production read at all (tests of the gate plumbing).
 set -uo pipefail
 ROOT=/Users/louis/IT/Dev/projects/KpopQuizzV2
 O1="$ROOT/.claude/worktrees/o1"
@@ -52,6 +60,44 @@ run_env() { # cmd... ; the parity environment with the frozen data source
 }
 # Internal entry: build-lock.sh runs `parity.sh --run-env-internal <cmd...>` so a build gets the same environment.
 if [ "${1:-}" = "--run-env-internal" ]; then shift; FREEZE="${O1_PARITY_FREEZE:?}"; run_env "$@"; exit $?; fi
+CACHE="$KPQ/cache/parity"
+KEPT="$CACHE/kept.json"
+kill_tree() { local c; for c in $(pgrep -P "$1" 2>/dev/null); do kill_tree "$c"; done; kill "$1" 2>/dev/null; }
+kept_get() { jq -r ".$1 // empty" "$KEPT" 2>/dev/null; }
+kept_check() { # head-sha offline -> FREEZE and KWT set, or exit
+  [ "$2" = 1 ] || [ "$(date -u +%H)" != "00" ] || die "refused: 00:00 to 01:00 UTC is the cron window" 6
+  [ -f "$ENVF" ] || die "$ENVF missing (setup-o1.sh step 5)" 4
+  [ -f "$KEPT" ] || die "no kept parity build (run parity.sh --keep first)" 4
+  [ "$(kept_get head)" = "$1" ] || die "the kept parity build is of $(kept_get head | cut -c1-12), not of $(echo "$1" | cut -c1-12)" 4
+  KWT="$(kept_get worktree)"; FREEZE="$(kept_get freeze)"
+  [ -f "$KWT/apps/quiz/.next/BUILD_ID" ] || die "the kept head worktree has no build ($KWT)" 4
+  [ -d "$FREEZE" ] || die "the kept frozen state is gone ($FREEZE)" 4
+}
+if [ "${1:-}" = "--serve-kept" ] || [ "${1:-}" = "--check-kept" ]; then
+  mode="$1"; khead="${2:?head sha}"; shift 2
+  kport=""; [ "$mode" = "--serve-kept" ] && { kport="${1:?port}"; shift; }
+  koff=0; [ "${1:-}" = "--offline" ] && { koff=1; shift; }
+  [ "${1:-}" = "--" ] && shift
+  kept_check "$khead" "$koff"
+  export O1_FREEZE_STRICT=1
+  [ $koff = 1 ] && export O1_FREEZE_OFFLINE=1
+  if [ "$mode" = "--check-kept" ]; then
+    [ $# -gt 0 ] || die "--check-kept needs a command" 2
+    O1_FREEZE_PHASE=gate-check run_env "$@"; exit $?
+  fi
+  COMMON="$("$G" -C "$O1" rev-parse --git-common-dir)"; PLOCK="$COMMON/o1-parity.lock"
+  until mkdir "$PLOCK" 2>/dev/null; do
+    pid="$(cat "$PLOCK/pid" 2>/dev/null || echo 0)"; kill -0 "$pid" 2>/dev/null || { rm -rf "$PLOCK"; continue; }
+    echo "parity: --serve-kept waits for the parity lock (pid $pid)"; sleep 15
+  done
+  echo $$ > "$PLOCK/pid"
+  kept_check "$khead" "$koff" # a run may have replaced it while this one waited
+  spid=""
+  trap '[ -n "$spid" ] && kill_tree "$spid"; rm -rf "$PLOCK"' EXIT INT TERM
+  ( cd "$KWT/apps/quiz" && O1_FREEZE_PHASE=gate-serve run_env ./node_modules/.bin/next start -p "$kport" -H 127.0.0.1 ) &
+  spid=$!
+  wait "$spid"; exit $?
+fi
 base_ref="${1:?usage: parity.sh <base> <head> [--evidence dir] [--urls file] [--keep] [--recheck]}"; head_ref="${2:?head}"; shift 2
 evidence=""; urls=""; keep=0; recheck=0
 while [ $# -gt 0 ]; do case "$1" in
@@ -68,7 +114,7 @@ if [ -z "$urls" ]; then
   urls="$HARNESS/apps/quiz/e2e/o1/parity/urls.txt"; [ -f "$urls" ] || urls="$HERE/parity-urls.seed.txt"
 fi
 [ -f "$urls" ] || die "no URL list" 4
-CACHE="$KPQ/cache/parity"; mkdir -p "$CACHE"
+mkdir -p "$CACHE"
 key="${base:0:12}-${head:0:12}-$(shasum -a 256 "$urls" | cut -c1-8)"
 OUT="$CACHE/$key"
 publish() { # copy the verdict into the evidence folder
@@ -77,7 +123,8 @@ publish() { # copy the verdict into the evidence folder
   for f in result.txt result.json diff.log refused.txt determinism.txt; do [ -f "$OUT/$f" ] && cp "$OUT/$f" "$evidence/parity-$f"; done
   return 0
 }
-if [ $recheck = 0 ] && [ -f "$CACHE/$key.json" ]; then
+kept_ok() { [ "$(kept_get head)" = "$head" ] && [ "$(kept_get base)" = "$base" ] && [ -f "$(kept_get worktree)/apps/quiz/.next/BUILD_ID" ] && [ -d "$(kept_get freeze)" ]; }
+if [ $recheck = 0 ] && [ -f "$CACHE/$key.json" ] && { [ $keep = 0 ] || kept_ok; }; then
   echo "parity: cached result $CACHE/$key.json"
   publish; grep -q '"identical": true' "$CACHE/$key.json"; exit $?
 fi
@@ -97,6 +144,11 @@ until mkdir "$PLOCK" 2>/dev/null; do
   sleep 15
 done
 echo $$ > "$PLOCK/pid"
+# The kept build of an earlier run goes now: its worktrees (prep below) and its frozen state (never this run's own,
+# which a recheck has copied aside).
+if [ -f "$KEPT" ]; then
+  kf="$(kept_get freeze)"; case "$kf" in "$CACHE"/*/freeze) rm -rf "$kf" ;; esac; rm -f "$KEPT"
+fi
 pids=()
 drop_wt() { # role
   local w="$ROOT/.claude/worktrees/o1-parity-$1"
@@ -167,6 +219,10 @@ identical=false; [ $rc -eq 0 ] && identical=true
 rsha="$(shasum -a 256 "$OUT.tmp/result.txt" | cut -c1-64)"
 rm -rf "$OUT"; mv "$OUT.tmp" "$OUT"; FREEZE="$OUT/freeze"; rm -rf "$OUT.prev"
 [ $keep = 1 ] || rm -rf "$OUT/freeze"
+if [ $keep = 1 ]; then
+  printf '{ "base": "%s", "head": "%s", "key": "%s", "worktree": "%s", "baseWorktree": "%s", "freeze": "%s", "when": "%s" }\n' \
+    "$base" "$head" "$key" "$wh" "$wb" "$OUT/freeze" "$(date -u +%FT%TZ)" > "$KEPT"
+fi
 printf '{ "base": "%s", "head": "%s", "identical": %s, "urls": %s, "urlList": "%s", "resultSha256": "%s", "recheck": %s, "deterministic": %s, "liveReads": %s, "frozenReads": %s, "refusedWrites": %s, "seconds": %s, "when": "%s" }\n' \
   "$base" "$head" "$identical" "${#list[@]}" "${urls#$HARNESS/}" "$rsha" "$([ $recheck = 1 ] && echo true || echo false)" "${det:-null}" \
   "${misses:-0}" "${hits:-0}" "${refused:-0}" $((t1 - t0)) "$(date -u +%FT%TZ)" > "$CACHE/$key.json"

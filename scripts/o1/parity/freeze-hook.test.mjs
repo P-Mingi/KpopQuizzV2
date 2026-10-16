@@ -10,7 +10,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { classify, keyOf, maskVolatile } from './freeze-hook.mjs';
+import { classify, isLocal, keyOf, maskVolatile } from './freeze-hook.mjs';
 import { rpcVerdict } from './rpc-verdict.mjs';
 
 const HOOK = path.join(path.dirname(fileURLToPath(import.meta.url)), 'freeze-hook.mjs');
@@ -101,6 +101,49 @@ test('guard: a write never reaches the server and is logged', async () => {
     assert.equal(logged.length, 3);
     assert.match(logged[1], /^run POST \/rest\/v1\/rpc\/ensure_daily_debate rpc ensure_daily_debate \(writes/);
     assert.doesNotMatch(logged.join('\n'), /"x":1/); // bodies are never logged
+  } finally { s.srv.close(); fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('isLocal: loopback and the dev hosts only', () => {
+  for (const u of ['http://127.0.0.1:4021/x', 'http://localhost:3000/', 'http://anime.localhost:4022/', 'http://[::1]:80/']) assert.equal(isLocal(u), true, u);
+  for (const u of ['https://kpopquiz.org/', 'https://x.supabase.co/rest/v1/a', 'http://10.0.0.1/', 'not a url']) assert.equal(isLocal(u), false, u);
+});
+
+test('strict: a non-read to any other origin is refused before it leaves, reads and local calls pass', async () => {
+  const s = await serve(); const other = await serve();
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'o1-freeze-'));
+  const env = { O1_FREEZE_DIR: dir, O1_FREEZE_TARGET: `http://127.0.0.1:${s.port}`, O1_FREEZE_STRICT: '1', O1_FREEZE_PHASE: 'gate-serve' };
+  const code = `const a = await fetch('https://o1-strict.invalid/hook?token=t', { method: 'POST', body: 'x' });
+    const b = await fetch('https://o1-strict.invalid/page').then(() => 'sent', () => 'sent (no such host)');
+    const c = await fetch('http://127.0.0.1:${other.port}/local', { method: 'POST', body: 'y' });
+    console.log(JSON.stringify({ a: a.status, b, c: c.status }));`;
+  try {
+    const r = await child(code, env);
+    assert.deepEqual(r, { a: 403, b: 'sent (no such host)', c: 200 });
+    assert.equal(other.count(), 1);
+    const logged = fs.readFileSync(path.join(dir, 'refused.log'), 'utf8').trim().split('\n');
+    assert.deepEqual(logged, ['gate-serve POST https://o1-strict.invalid/hook strict: not a read']); // no query, no body
+    const off = await child(`const a = await fetch('https://o1-strict.invalid/hook', { method: 'POST', body: 'x' }).then((r) => r.status, () => 'sent (no such host)');
+      console.log(JSON.stringify({ a }));`, { ...env, O1_FREEZE_STRICT: '' });
+    assert.deepEqual(off, { a: 'sent (no such host)' }, 'without strict the hook leaves other origins alone');
+  } finally { s.srv.close(); other.srv.close(); fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('offline: the frozen state replays, nothing else reaches the target', async () => {
+  const s = await serve();
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'o1-freeze-'));
+  const env = { O1_FREEZE_DIR: dir, O1_FREEZE_TARGET: `http://127.0.0.1:${s.port}` };
+  const u = `http://127.0.0.1:${s.port}/rest/v1/quizzes?select=id`;
+  try {
+    const rec = await child(`const a = await (await fetch('${u}')).json(); console.log(JSON.stringify({ n: a.n }));`, env);
+    assert.equal(s.count(), 1);
+    const r = await child(`const a = await (await fetch('${u}')).json();
+      const b = await fetch('${u}&other=1'); const c = await fetch('http://127.0.0.1:${s.port}/auth/v1/user');
+      const d = await fetch('http://127.0.0.1:${s.port}/rest/v1/rpc/get_today_stats', { method: 'POST', body: new Blob(['{}']) });
+      console.log(JSON.stringify({ n: a.n, b: b.status, c: c.status, d: d.status, code: (await b.json()).code }));`, { ...env, O1_FREEZE_OFFLINE: '1' });
+    assert.deepEqual(r, { n: rec.n, b: 503, c: 503, d: 503, code: 'O1OFF' });
+    assert.equal(s.count(), 1, 'no request reached the target in offline mode');
+    assert.equal(fs.readFileSync(path.join(dir, 'offline.log'), 'utf8').trim().split('\n').length, 3);
   } finally { s.srv.close(); fs.rmSync(dir, { recursive: true, force: true }); }
 });
 
