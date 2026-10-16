@@ -10,7 +10,12 @@ and serves the three sites and checks every line).
 1. No kpop page file is edited to serve another site. Every anime and hub page lives under
    `apps/quiz/src/app/sites/[site]/...`, outside the `(site)` group, with its own layout.
 2. `app/sites/[site]/layout.tsx`: `generateStaticParams` returns only the build's site (`siteStaticParams()`: `[]` on
-   kpop), `dynamicParams = false`, and the guard `if (!isServedSite(site)) notFound()`.
+   kpop), `dynamicParams = false`, and the guard `if (!isServedSite(site)) notFound()`. The layout also renders the
+   shared chrome as `app/(site)/layout.tsx` does with UX v1 on (`UxShell`, the site JSON-LD from the registry), TWINS
+   row 28. The spike's layout renders no chrome: it is a routing placeholder (TWINS.md 1 rule 4).
+2b. Rule 18: every page under `app/sites/[site]/` is built from its kpop twin (`TWINS.md`), imports the shared
+   components of its row and serves only the sites of its rows (on any other site it calls `notFound()`: the hub
+   build compiles the anime pages too). No page there exists without a TWINS row.
 3. On a non-kpop build only, `next.config.ts` returns `{ beforeFiles: rewritesFor(SITE_ID), afterFiles: [],
    fallback: [] }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty list) from `redirects()`. The kpop build
    keeps both functions exactly as today.
@@ -100,15 +105,19 @@ needs no kpop change: `/auth/passport/out`, `/auth/arrive`, `/auth/authorize`, `
 |---|---|---|
 | `/` | `page.tsx` | O1 |
 | `/series` | `series/page.tsx` | O2 |
-| `/{series}-quiz`, `/anime-mix-quiz`, `/{series}-trivia` | `[slug]/page.tsx` (dispatch on the suffix, like kpop's `[slug]`) | O2 |
-| `/q/{slug}` | `q/[slug]/page.tsx` | O3 |
-| `/which-{series}-character-are-you` | `which-character/[series]/page.tsx` (rule 4) | O5 |
+| `/{series}-quiz`, `/anime-mix-quiz`, `/{series}-trivia` | `[slug]/page.tsx` (dispatch on the suffix, like kpop's `[slug]`; twin `app/(site)/[slug]/page.tsx`) | O2 |
+| `/q/{slug}` | `q/[slug]/page.tsx` (twin `app/(site)/q/[slug]/`) | O3 |
+| `/which-{series}-character-are-you` | `which-character/[series]/page.tsx` (rule 4; twin `app/(site)/personality/[group]/page.tsx`) | O5 |
 | `/{series}-openings-quiz` | rule 4 to `blindtest/series-{series}` | O6 |
-| `/blindtest`, `/blindtest/series-{series}` | `blindtest/page.tsx`, `blindtest/[playlist]/page.tsx` | O6 |
-| `/name-all/{series}/{set}` | `name-all/[series]/[set]/page.tsx` | O5 |
+| `/blindtest`, `/blindtest/series-{series}` | `blindtest/page.tsx`, `blindtest/[mode]/page.tsx` (the twin folder name; twin `app/(site)/blindtest/[mode]/page.tsx`, group playlist branch) | O6 |
+| `/name-all/{series}/{set}` | `name-all/[series]/[set]/page.tsx` (twin `app/(site)/name-all/[group]/page.tsx`; the `{set}` level selects a set by URL, no set picker: the twin has none, a picker is a CR) | O5 |
 | this or that | no route: a bonus inside quiz results and hubs, as on kpop (`components/this-or-that/bonus.tsx`) | O5 |
 | `/daily` | `daily/route.ts` (redirects to today's quiz, like kpop) | O1 |
-| `/opening-of-the-day` | `opening-of-the-day/page.tsx` | O6 |
+| `/opening-of-the-day` | `opening-of-the-day/page.tsx` (twin `app/(site)/blindtest/[mode]/page.tsx`, mode `daily`) | O6 |
+| `/quizzes`, `/quizzes/popular-today`, `/quizzes/popular-this-week`, `/quizzes/popular-this-month` | `quizzes/page.tsx` and one folder per list (CR-001, TWINS rows 31 to 31d) | O2 |
+| `/new`, `/most-liked`, `/trending` | one folder each (CR-001, TWINS rows 32 to 32c) | O2 |
+| `/trivia` | `trivia/page.tsx` (CR-001, TWINS row 33) | O2 |
+| `/faq`, `/leaderboard`, `/dmca` | one folder each (CR-001, TWINS rows 34 to 36; Team accounts off the leaderboard) | O1 |
 | `/create/**` | `create/...` | O4 |
 | `/me`, `/u/{username}`, `/settings/**` | `me/`, `u/[username]/`, `settings/...` | P1 |
 | `/login`, `/onboarding/**` | `login/`, `onboarding/` | P1 |
@@ -119,8 +128,8 @@ needs no kpop change: `/auth/passport/out`, `/auth/arrive`, `/auth/authorize`, `
 | `/auth/confirm`, `/auth/arrive`, `/auth/authorize`, `/auth/land`, `/auth/passport/out` | shared `app/(site)/auth/...` handlers reading `SITE` | B4, B7 |
 | `/api/*` | shared `app/api/...` | each lane |
 | `/robots.txt`, `/sitemap.xml`, `/llms.txt` | `robots.txt/route.ts`, `sitemap.xml/route.ts`, `llms.txt/route.ts` | O1 |
-| OG images | shared `app/api/og/...` (anime: `app/api/og/series/`, typographic) | O1 |
-| anything else | `[...rest]/page.tsx` (notFound) and `not-found.tsx` | O1 (from the spike) |
+| OG images | the twin routes `app/api/og/[slug]` and `app/api/og/group/[slug]`, reading the registry brand (typographic, no character art; no new OG route; TWINS rows 30 and 30b); the default OG image is `brand.ogTemplate` | O1 |
+| anything else | `[...rest]/page.tsx` (notFound, the spike's routing code) and `not-found.tsx` | O1; the 404 follows the twin `app/(site)/not-found.tsx` (TWINS rows 27 and H-8); the spike's `not-found.tsx` is a routing placeholder |
 
 The internal path of a pretty URL also answers when requested directly (`/blindtest/series-x` is public by
 BACKLOG; `/which-character/x` mirrors kpop's `/personality/x`): its page sets the canonical to the pretty URL.
@@ -156,13 +165,18 @@ Reserved for P2, 404 now: `/auth/start`, `/auth/continue` (no handler exists). L
 
 Every kpop-only page family, one sample each: `KPOP_ONLY_SAMPLES` in routing.ts (the landings
 `/guess-the-kpop-idol`, `/guess-the-kpop-song`, `/kpop-true-or-false`, `/easy-kpop-quizzes`, `/hard-kpop-quizzes`,
-`/kpop-quiz-2026`, `/idols-in-kdramas`, `/pt`, `/fr/`, `/es/`, `/id/`; the Verse; live and join; embed; the kpop
-browse, data, article, news, leaderboard and creator pages; the V12 pretty URLs; share links; the builder; the UX
-kit). Tested: `isKnownRouteFor` is false for each on anime and hub.
+`/kpop-quiz-2026`, `/idols-in-kdramas`, `/pt`, `/fr/`, `/es/`, `/id/`; the Verse; live and join; embed; the data,
+article, news and creator pages; the V12 pretty URLs; share links; the builder; the UX kit). Tested:
+`isKnownRouteFor` is false for each on anime and hub.
+
+CR-001 (rule 18): the kpop browse, help and board pages whose anime twin exists (`/quizzes` and its three lists,
+`/new`, `/most-liked`, `/trending`, `/trivia`, `/faq`, `/leaderboard`, `/dmca`) are `TWIN_SAMPLES`: routes of anime,
+404 on the hub. News, articles, data pages (`/stats`, `/data/*`) and ranked stay must-404 on anime (code F).
 
 kpop paths shaped like an anime route (`KPOP_DATA_SAMPLES`: `/bts-quiz`, `/kpop-demon-hunters-quiz`,
-`/general-kpop-quiz`, `/twice-trivia`) are anime route shapes: they 404 there because no anime series has the slug
-(the `[slug]` page reads through the site scope), and they are unknown on the hub.
+`/general-kpop-quiz`, `/twice-trivia`, `/blindtest/ranked`) are anime route shapes: they 404 there because no anime
+series or blind test mode has the slug (the `[slug]` page reads through the site scope; the `[mode]` page has no ranked
+mode, code F), and they are unknown on the hub.
 
 Q0a's route-leak suite requests both lists on the anime and hub builds and expects 404 for each.
 

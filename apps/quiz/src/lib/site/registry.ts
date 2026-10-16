@@ -138,7 +138,9 @@ const ANIME: SiteConfig = {
     mascot: 'Fuki',
     logo: '/brand/anime/logo-512.png',
     favicon: '/brand/anime/favicon.svg',
-    ogTemplate: '/api/og/site',
+    // The default OG image, as kpop's /og-default.png. Quiz and hub OG images are the twin routes
+    // app/api/og/[slug] and app/api/og/group/[slug] reading the registry brand (TWINS rows 30, 30b).
+    ogTemplate: '/brand/anime/og-default.png',
   },
   vocabulary: {
     topic: 'series', topicPlural: 'series', member: 'character', memberPlural: 'characters',
@@ -149,12 +151,13 @@ const ANIME: SiteConfig = {
     },
   },
   // BACKLOG lane O1: image quiz off, fandom war off, MV pulse off, airing banner on, live off
-  // at launch (G0 default), Verse off.
+  // at launch (G0 default), Verse off. CR-001 (rule 18): leaderboards on (TWINS row 35, Team
+  // accounts off every board); news, articles, data pages and ranked stay off (code F).
   features: {
     ...ALL_OFF,
     quizzes: true, topicHubs: true, trivia: true, create: true, dailyQuiz: true,
     blindTest: true, openingOfTheDay: true, nameAll: true, personality: true, thisOrThat: true,
-    airingBanner: true, spoilers: true, community: true, challenges: true,
+    airingBanner: true, spoilers: true, community: true, challenges: true, leaderboards: true,
   },
   routes: {
     allow: [
@@ -164,6 +167,9 @@ const ANIME: SiteConfig = {
       '/create/**', '/me', '/u/{username}', '/settings/**', '/login', '/onboarding/**',
       '/notifications', '/search', '/community/**', '/about', '/editorial-policy', '/privacy',
       '/terms', '/contact', '/admin/**',
+      // CR-001 (rule 18): the twins of the browse, help and board pages (TWINS rows 31 to 36).
+      '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+      '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
     ],
   },
   seo: {
@@ -216,7 +222,7 @@ const HUB: SiteConfig = {
     mascot: null,
     logo: '/brand/hub/logo-512.png',
     favicon: '/brand/hub/favicon.svg',
-    ogTemplate: '/api/og/site',
+    ogTemplate: '/brand/hub/og-default.png',
   },
   vocabulary: {
     topic: 'site', topicPlural: 'sites', member: 'member', memberPlural: 'members',

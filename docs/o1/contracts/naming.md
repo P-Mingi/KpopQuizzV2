@@ -47,8 +47,8 @@ Frozen by BACKLOG 5.1 unless marked "F0 decision". Code: `apps/quiz/src/lib/site
 | network client layer | `apps/quiz/src/lib/network/` (B6), types in `lib/network/types.ts` (F0) |
 | passport types and helpers | `apps/quiz/src/lib/passport/` (types F0, code B3 and B4) |
 | anime domain types and helpers | `apps/quiz/src/lib/anime/` (types F0, code K1, O2 to O6) |
-| anime and hub pages | `apps/quiz/src/app/sites/[site]/...` only (routes.md); never a page under `app/(site)/` |
-| per-site CSS | `apps/quiz/src/styles/sites/<site>/<lane>.css` (B1 includes them by site; tokens.md) |
+| anime and hub pages | `apps/quiz/src/app/sites/[site]/...` only (routes.md); never a page under `app/(site)/`; built from their kpop twin (TWINS.md), never from the spike |
+| per-site CSS | `apps/quiz/src/styles/sites/<site>/tokens.css` and one sheet per lane for its listed blocks only, classes `<site>-<lane>-*` (tokens.md 3.3 rule 6; B1 includes them by site) |
 | per-site, per-lane copy | `apps/quiz/src/copy/<site>/<lane>.ts` (copy-keys.md); never `lib/i18n` |
 | per-site brand assets | `apps/quiz/public/brand/<site>/` (never under `public/sites/`, which would shadow the internal `/sites` prefix) |
 | SQL | `docs/pending-migrations/multisite/NNN-<topic>.sql` and `NNN-<topic>.rollback.sql`; launch rows `docs/pending-migrations/multisite/launch/LNN-<lane>-<topic>.sql` (manifest.md) |

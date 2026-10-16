@@ -36,7 +36,7 @@ kpopquiz.org is byte-identical (parity).
 | `NEXT_PUBLIC_NET_BEACON` | public | B6 | `NetLink` sends `shown` and `click` beacons, `via-catcher` sends `land` (`POST /api/n/b`) | no beacon; `/api/n/b` answers 204 and counts nothing |
 | `NEXT_PUBLIC_NET_FOOTER` | public | B6 | the network footer line, `Organization.parentOrganization`, the llms.txt network line | none of them |
 | `NEXT_PUBLIC_NET_MENU` | public | B6 | "Your sites" in the account menu (2 or more sites, or a "yes" preference) and the kpop settings Account row for multi-site users | today's menu and settings |
-| `NEXT_PUBLIC_NET_WELCOME` | public | P1 | the welcome card on a first signed-in arrival: on anime and hub for every arrival, on kpop only when `via_code` starts with `a.` | no welcome card |
+| `NEXT_PUBLIC_NET_WELCOME` | public | P1 | the welcome card on a first signed-in arrival: on anime and hub for every arrival, on kpop only when `via_code` starts with `a.`; pending rule 18 (CR-002 and CR-006, the owner decides): nothing reads it before they are approved | no welcome card |
 | `NEXT_PUBLIC_NET_FACTS` | public | X1 | crossover fact lines and links (`CrossoverFact`, `CrossoverLink`) | nothing rendered |
 | `PASSPORT_JUMP` | server | B4 | the jump of P S1 (`/auth/passport/out` mints a ticket, `/auth/arrive` bounces, `/auth/authorize` issues codes) | `/auth/passport/out` sends a 302 to the target page signed out, with `via`; `/auth/arrive` sends a 302 to `next` with no bounce; `/auth/authorize`, `/auth/land` and `/api/passport/redeem` answer 404 |
 | `PASSPORT_CONTINUE` | server | B4 | reserved for P2 (`/auth/start`, `/auth/continue`); inert in the run | the routes answer 404 whatever the value |

@@ -48,7 +48,8 @@ BACKLOG's shorthand list maps onto these names: "card" is `card-fill`; "focus" i
 
 `--ux-on-ok` keeps its existing meaning (text on an `ok` fill). kpop also reads it for the key letter on a `no` fill
 (`.p4-ans.is-no .p4-k`, `.p6-ans.is-no .p6-k`): a site keeps `on-ok` readable on its `no` fill, or overrides those two
-rules to `var(--ux-on-no)` in its own sheet.
+rules to `var(--ux-on-no)` in its own sheet (the only shared-class rules a site sheet may write, with the focus ring
+colour of section 6: rule 6 of 3.3).
 
 ## 2. kpop: one change, under parity
 
@@ -75,8 +76,12 @@ kpop CSS byte is a parity failure. So:
 ### 3.1 Where the sheets live and how they ship
 
 - `apps/quiz/src/styles/sites/<site>/tokens.css`: the site's token values (O1 for anime, H1 for hub).
-- `apps/quiz/src/styles/sites/<site>/<lane>.css` (lane id in lower case, e.g. `o2.css`): one sheet per lane for that
-  lane's component rules and overrides. ORCH assigns each file to its lane (request F0-2).
+- `apps/quiz/src/styles/sites/<site>/<lane>.css` (lane id in lower case, e.g. `o2.css`): one sheet per lane for the
+  classes of the anime or hub blocks its TWINS rows list (A1 to A7, H1 to H4), named `<site>-<lane>-*`; never a rule on
+  a class of `components/ux-v1/**` or of an area component (rule 18: a shared component that needs a difference gets
+  a prop or a token from its owner). Only the lanes whose rows list a block get a sheet: O1 (`tokens.css`, A6, A7), O2
+  (A1 to A4, A7), O3 (A5), O4 (A5 in create), O5 (A5 in name-all), O6 (A4), X1 (the A4 credit slot), H1
+  (`tokens.css`, H1 to H4). ORCH assigns each file to its lane (request F0-2).
 - B1's `buildUxStylesheet()` appends, on a build whose `SITE_ID` is `anime` or `hub` only, the files of
   `styles/sites/<SITE_ID>/` after the existing sheets: `tokens.css` first, then the others by file name. The kpop
   build reads nothing from `styles/sites/` (its bytes and its `?v=` hash stay today's).
@@ -96,7 +101,7 @@ The site light selector ties with kpop's dark selectors (0,2,1) and wins by sour
 Hence the rule: **a site sheet that sets a name in one theme sets it in all three blocks**, else a dark page shows
 the site's light value. `data-site` is set on `<html>` by B1's root layout, from `SITE_ID`, on non-kpop builds only.
 
-### 3.3 Rules every site sheet follows (contract.test.ts checks 1 to 4, R checks 5)
+### 3.3 Rules every site sheet follows (contract.test.ts checks 1 to 4 and 6, R checks 5)
 
 1. Every selector of every rule starts with `html.ux-v1[data-site="<site>"]` or `html.ux-v1.dark[data-site="<site>"]`
    for the folder's own site, so a sheet can never style another site even if it were shipped there.
@@ -107,6 +112,12 @@ the site's light value. `data-site` is set on `<html>` by B1's root layout, from
 4. No dash characters (U+2013, U+2014) and no emoji, comments included (rule 10).
 5. Component rules of a site use tokens, never a hex value that duplicates one (a new colour need is a token value,
    inside the frozen names).
+6. Rule 18. After the site scope, a selector names only the lane's own block classes (`<site>-<lane>-*`, from the sheet's
+   file name; `tokens.css` names none). The only rules a site sheet may write on a shared class are the token swaps
+   this file lists, each setting one colour from a token: `.p4-ans.is-no .p4-k` and `.p6-ans.is-no .p6-k` (`color`,
+   section 1.2), and `.ux-app :focus-visible` (`outline-color`, section 6). A rule on the bare scope (a token block)
+   declares custom properties only. So a sheet cannot change the layout, spacing, type size, order or visibility of a
+   shared component, and a planted fork of `.ux-panel`, `.ux-tabbar`, `.p1-home` or `.ux-btn-primary` fails the test.
 
 ## 4. Values
 
@@ -183,7 +194,8 @@ WCAG 2 ratios on the exact values. Text needs 4.5:1, large text (24 px, or 18.66
 
 The focus ring stays `outline: 2px solid var(--ux-pink)` on every site (Option A: 3.57 on the light page, above
 3.0). A site that wants another ring colour overrides `.ux-app :focus-visible` in its sheet with an existing token
-(`pink-fill` light, `pink-ink` dark, as S 5.2 suggests); there is no focus token.
+(`pink-fill` light, `pink-ink` dark, as S 5.2 suggests) through `outline-color` only (3.3 rule 6); there is no focus
+token.
 
 ## 7. Outside the stylesheet
 

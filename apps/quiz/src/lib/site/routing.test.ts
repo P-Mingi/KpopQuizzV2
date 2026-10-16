@@ -16,8 +16,8 @@ import { KNOWN_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/lib/route-allow
 
 import { REGISTRY } from './registry';
 import {
-  KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_ROOT_FILES, compileRoutePattern, internalPath, isKnownRouteFor,
-  isServedSite, middlewareStep, redirectsFor, rewritesFor, siteStaticParams,
+  KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_ROOT_FILES, TWIN_SAMPLES, compileRoutePattern, internalPath,
+  isKnownRouteFor, isServedSite, middlewareStep, redirectsFor, rewritesFor, siteStaticParams,
 } from './routing';
 import { SITE_IDS } from './types';
 
@@ -78,7 +78,7 @@ function resolve(rewrites: readonly SiteRewrite[], pathname: string): string | n
 
 describe('kpop: today\'s answers, nothing added', () => {
   const samples = [
-    ...repoRoutes(), ...KNOWN_ROUTES, ...UX_V12_ROUTES, ...KPOP_ONLY_SAMPLES, ...KPOP_DATA_SAMPLES,
+    ...repoRoutes(), ...KNOWN_ROUTES, ...UX_V12_ROUTES, ...KPOP_ONLY_SAMPLES, ...KPOP_DATA_SAMPLES, ...TWIN_SAMPLES,
     '/bts-quiz', '/twice-trivia', '/which-bts-member-are-you', '/bts-name-all-members',
     '/sites/anime', '/sites/kpop', '/unknown-page', '/q', '/create-preview', '/blind-test/x',
   ];
@@ -189,6 +189,15 @@ describe('the route map of anime and hub', () => {
         expect(isKnownRouteFor(site, p, flags), `${site} ${p}`).toBe(false);
       }
     }
+  });
+
+  it('CR-001: the twins of the browse, help and board pages are anime routes and never hub routes', () => {
+    for (const p of TWIN_SAMPLES) {
+      expect(isKnownRouteFor('anime', p, flags), `anime ${p}`).toBe(true);
+      expect(isKnownRouteFor('hub', p, flags), `hub ${p}`).toBe(false);
+      expect(isKnownRouteWith(p, flags), `kpop ${p}`).toBe(true);
+    }
+    expect(KPOP_ONLY_SAMPLES.some((p) => TWIN_SAMPLES.includes(p))).toBe(false);
   });
 
   it('kpop data routes are anime route shapes (data 404) and unknown on the hub', () => {

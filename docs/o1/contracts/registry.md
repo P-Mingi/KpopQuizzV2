@@ -48,13 +48,15 @@ leaderboards, news, articles, dataPages, localizedLandings, verse, embed, passpo
 | site | on |
 |---|---|
 | kpop | every key except openingOfTheDay, airingBanner, spoilers, passportPages, directory |
-| anime | quizzes, topicHubs, trivia, create, dailyQuiz, blindTest, openingOfTheDay, nameAll, personality, thisOrThat, airingBanner, spoilers, community, challenges |
+| anime | quizzes, topicHubs, trivia, create, dailyQuiz, blindTest, openingOfTheDay, nameAll, personality, thisOrThat, airingBanner, spoilers, community, challenges, leaderboards |
 | hub | passportPages (directory is an optional stretch of H1: off) |
 
 Anime off, with the reason: imageQuiz (no character, poster, logo or cover image, rule 8), fandomWar and mvPulse
-(kpop only), live (off at launch, G0 default), verse, embed, localizedLandings, news, articles, dataPages, ranked,
-dailyBlindTest, trueFalse (no route in the BACKLOG 5.1 map), leaderboards (no `/leaderboard` in the map; Team
-accounts stay off boards anyway).
+(kpop only), live (off at launch, G0 default), verse, embed, localizedLandings; news, articles, dataPages and ranked
+(code F of TWINS.md, CR-001: the slot is absent from nav, tab bar, footer and home); dailyBlindTest (the anime daily
+opening is `openingOfTheDay`, TWINS row 13), trueFalse (no route in the BACKLOG 5.1 map, a kpop landing family).
+Leaderboards are on (CR-001, TWINS row 35): the twin of `/leaderboard` exists, Team accounts stay off every board
+(rule 7).
 
 ## Rules for the wiring lanes
 

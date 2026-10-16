@@ -201,22 +201,34 @@ export function isServedSite(param: string, build: SiteId = SITE_ID): boolean {
  * kpop pages that must 404 on anime and hub (routes.md, "Must 404"): one sample path per
  * kpop-only page family. Q0's route-leak suite and the spike checks use them. Data routes
  * (a kpop group hub on /{series}-quiz) are not listed: they 404 through the site scope.
+ * CR-001 (rule 18) moved the browse, help and board pages that have an anime twin to
+ * TWIN_SAMPLES; news, articles, data pages and ranked stay here (code F of TWINS.md).
  */
 export const KPOP_ONLY_SAMPLES: readonly string[] = [
   '/guess-the-kpop-idol', '/guess-the-kpop-song', '/kpop-true-or-false', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/idols-in-kdramas', '/pt', '/pt/faq', '/fr/', '/es/', '/id/', '/verse', '/verse/bts',
   '/live', '/join', '/embed/q/sample', '/g/sample', '/groups', '/group/bts', '/stats',
-  '/data/pulse', '/articles', '/news', '/leaderboard', '/creators', '/trending', '/new',
-  '/most-liked', '/quizzes', '/trivia', '/personality/bts', '/name-all/bts',
+  '/data/pulse', '/data/knowledge-report-2026', '/articles', '/news', '/creators',
+  '/personality/bts', '/name-all/bts',
   '/bts-name-all-members', '/which-bts-member-are-you', '/tier-list/l/sample', '/build/sample',
-  '/s/sample', '/ux-v1/kit', '/dmca', '/faq', '/banned', '/profile', '/quiz/sample/edit',
+  '/s/sample', '/ux-v1/kit', '/banned', '/profile', '/quiz/sample/edit',
 ];
 
 /**
- * kpop paths shaped like an anime route (/{series}-quiz, /{series}-trivia): known to the anime
- * route map, they 404 there because no anime series has the slug (the [slug] page reads
- * through the site scope). The hub knows none of them.
+ * kpop paths whose anime twin exists (CR-001, TWINS rows 31 to 36): routes of anime, still
+ * 404 on the hub (Q0a's leak suite expects 404 for them on hub only).
+ */
+export const TWIN_SAMPLES: readonly string[] = [
+  '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+  '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
+];
+
+/**
+ * kpop paths shaped like an anime route (/{series}-quiz, /{series}-trivia, /blindtest/{mode}):
+ * known to the anime route map, they 404 there because no anime series or mode has the slug
+ * (the [slug] page reads through the site scope; the blindtest [mode] page knows no ranked
+ * mode, code F). The hub knows none of them.
  */
 export const KPOP_DATA_SAMPLES: readonly string[] = [
-  '/bts-quiz', '/kpop-demon-hunters-quiz', '/general-kpop-quiz', '/twice-trivia',
+  '/bts-quiz', '/kpop-demon-hunters-quiz', '/general-kpop-quiz', '/twice-trivia', '/blindtest/ranked',
 ];

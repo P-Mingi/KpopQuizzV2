@@ -31,6 +31,8 @@ marked "F0 decision" in the file that freezes it. A G0 default the owner has not
 | `link-allowlist.md` | cross-site links allowed in crawlable HTML | Q0a, B6, X1, H1, O1 | pending |
 | `LANES.md` | every lane of BACKLOG section 1 and the sections it cites | all, R | pending |
 | `defaults.md` | the G0 defaults, each "default, pending" | all, ORCH | written |
+| `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | D0, O1 to O6, P1, H1, E1b, X1, Q0a, R | written |
+| `twins.json` | the machine form of `TWINS.md` (same rows), read by Q0a's `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` | Q0a, gate, R | written |
 | `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | gate | on `o1/F0s` |
 
 Code that implements the contract on `o1/F0` (compiling stubs, imported by nothing on the kpop path until B1

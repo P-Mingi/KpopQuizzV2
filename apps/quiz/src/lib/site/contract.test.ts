@@ -54,9 +54,25 @@ function splitSelectors(prelude: string): string[] {
   return out;
 }
 
-/** The problems of one per-site sheet (tokens.md 3.3, rules 1 to 4). Empty when it follows them. */
-export function checkSiteSheet(site: SiteId, raw: string): string[] {
+/**
+ * The token swaps a site sheet may write on a shared class (tokens.md 3.3 rule 6): the selector
+ * after the site scope, and the one property it may set, always to a token.
+ */
+const TOKEN_SWAPS: readonly { readonly tail: string; readonly prop: string }[] = [
+  { tail: '.p4-ans.is-no .p4-k', prop: 'color' },
+  { tail: '.p6-ans.is-no .p6-k', prop: 'color' },
+  { tail: '.ux-app :focus-visible', prop: 'outline-color' },
+];
+
+/**
+ * The problems of one per-site sheet (tokens.md 3.3, rules 1 to 4 and 6). Empty when it follows
+ * them. `file` is the sheet's name in styles/sites/<site>/: `tokens.css` holds token blocks and
+ * token swaps only; `<lane>.css` also styles the lane's own block classes, `<site>-<lane>-*`.
+ */
+export function checkSiteSheet(site: SiteId, raw: string, file = 'tokens.css'): string[] {
   const problems: string[] = [];
+  const lane = file.replace(/\.css$/, '');
+  const blockPrefix = lane === 'tokens' ? null : `${site}-${lane}-`;
   if (DASHES.test(raw)) problems.push('dash character');
   if (EMOJI.test(raw)) problems.push('emoji');
   const css = stripComments(raw);
@@ -72,6 +88,32 @@ export function checkSiteSheet(site: SiteId, raw: string): string[] {
       } else if (!name.startsWith(`${site}-`)) {
         problems.push(`custom property --${name} in ${where} (use --${site}-*)`);
       }
+    }
+  };
+
+  // Rule 6: after the scope, a selector names only the lane's own block classes, or is one of the
+  // token swaps; the bare scope (a token block) declares custom properties only.
+  const checkTarget = (sel: string, body: string): void => {
+    const p = scopes.find((x) => sel.startsWith(x))!;
+    const tail = sel.slice(p.length).replace(/^:not\(\.light\)/, '').trim().replace(/\s+/g, ' ');
+    const decls = body.split(';').map((d) => d.trim()).filter(Boolean);
+    if (tail === '') {
+      for (const d of decls) if (!d.startsWith('--')) problems.push(`token block "${sel}" sets ${d.split(':')[0]!.trim()}`);
+      return;
+    }
+    const swap = TOKEN_SWAPS.find((t) => t.tail === tail);
+    if (swap) {
+      const ok = decls.length === 1 && new RegExp(`^${swap.prop}\\s*:\\s*var\\(--ux-[a-z0-9-]+\\)$`).test(decls[0]!);
+      if (!ok) problems.push(`token swap "${tail}" may set only ${swap.prop} to one token`);
+      return;
+    }
+    const classes = [...tail.matchAll(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g)].map((m) => m[1]!);
+    if (!blockPrefix) {
+      problems.push(`selector "${sel}" in ${file}: tokens.css holds token blocks and token swaps only`);
+    } else if (classes.length === 0) {
+      problems.push(`selector "${sel}" names no ${blockPrefix}* block class`);
+    } else {
+      for (const c of classes) if (!c.startsWith(blockPrefix)) problems.push(`selector "${sel}" targets the shared class .${c}`);
     }
   };
 
@@ -103,6 +145,7 @@ export function checkSiteSheet(site: SiteId, raw: string): string[] {
           if (body.includes('{')) problems.push(`nested rule inside "${prelude}"`);
           for (const sel of splitSelectors(prelude)) {
             if (!scoped(sel)) problems.push(`selector "${sel}" is not scoped to ${site}`);
+            else checkTarget(sel, body);
           }
           checkDecls(body, prelude);
         }
@@ -184,20 +227,52 @@ describe('theme token names (tokens.md 1)', () => {
   });
 });
 
-describe('per-site sheets (tokens.md 3.3)', () => {
+describe('per-site sheets (tokens.md 3.3, rules 1 to 4 and 6)', () => {
   const good = `/* anime tokens */
 html.ux-v1[data-site="anime"] { --ux-page: #F4F5F7; --ux-on-accent: #FFFFFF; --anime-gap: 8px; }
 html.ux-v1.dark[data-site="anime"] { --ux-page: #11131A; }
 @media (prefers-color-scheme: dark) {
   html.ux-v1[data-site="anime"]:not(.light) { --ux-page: #11131A; }
 }
-html.ux-v1[data-site="anime"] .ux-btn-primary, html.ux-v1[data-site="anime"] :is(.a, .b) > i { color: var(--ux-on-accent); }
+html.ux-v1[data-site="anime"] .anime-o2-arcs, html.ux-v1[data-site="anime"] :is(.anime-o2-a, .anime-o2-b) > i { color: var(--ux-on-accent); }
 @keyframes anime-pop { from { opacity: 0; } to { opacity: 1; } }
-@supports (display: grid) { html.ux-v1[data-site="anime"] .x { display: grid; } }
+@supports (display: grid) { html.ux-v1[data-site="anime"] .anime-o2-facts { display: grid; } }
+`;
+  const goodTokens = `html.ux-v1[data-site="anime"] { --ux-page: #F4F5F7; --ux-on-accent: #FFFFFF; }
+html.ux-v1.dark[data-site="anime"] { --ux-page: #11131A; }
+@media (prefers-color-scheme: dark) { html.ux-v1[data-site="anime"]:not(.light) { --ux-page: #11131A; } }
+html.ux-v1[data-site="anime"] .p4-ans.is-no .p4-k, html.ux-v1[data-site="anime"] .p6-ans.is-no .p6-k { color: var(--ux-on-no); }
+html.ux-v1[data-site="anime"] .ux-app :focus-visible { outline-color: var(--ux-pink-fill); }
 `;
 
   it('accepts a sheet that follows the rules', () => {
-    expect(checkSiteSheet('anime', good)).toEqual([]);
+    expect(checkSiteSheet('anime', good, 'o2.css')).toEqual([]);
+    expect(checkSiteSheet('anime', goodTokens, 'tokens.css')).toEqual([]);
+  });
+
+  it('rule 6: refuses a sheet that restyles or re-lays-out the shared kit (R audit attack 4)', () => {
+    const fork = [
+      'html.ux-v1[data-site="anime"] .ux-panel { display: grid; grid-template-columns: 1fr 1fr; padding: 40px; border-radius: 0; }',
+      'html.ux-v1[data-site="anime"] .p3-h1 { font-size: 64px; text-align: center; }',
+      'html.ux-v1[data-site="anime"] .ux-tabbar { flex-direction: column; }',
+      'html.ux-v1[data-site="anime"] .p1-home > * { order: -1; }',
+      'html.ux-v1[data-site="anime"] .ux-btn-primary { background: var(--ux-accent2); }',
+      'html.ux-v1[data-site="anime"] .ux-sec:nth-of-type(3) { display: none; }',
+    ];
+    for (const rule of fork) {
+      expect(checkSiteSheet('anime', rule, 'o1.css').join('; '), rule).toMatch(/shared class/);
+      expect(checkSiteSheet('anime', rule, 'tokens.css').join('; '), rule).toMatch(/token blocks and token swaps only/);
+    }
+    const others: [string, string, RegExp][] = [
+      ['html.ux-v1[data-site="anime"] h1 { color: red; }', 'o1.css', /names no anime-o1-\* block class/],
+      ['html.ux-v1[data-site="anime"] .anime-o3-x { color: red; }', 'o2.css', /shared class \.anime-o3-x/],
+      ['html.ux-v1[data-site="anime"] .anime-o2-x .ux-panel { color: red; }', 'o2.css', /shared class \.ux-panel/],
+      ['html.ux-v1[data-site="anime"] { color: red; }', 'tokens.css', /token block .* sets color/],
+      ['html.ux-v1[data-site="anime"] .p4-ans.is-no .p4-k { color: red; }', 'tokens.css', /token swap/],
+      ['html.ux-v1[data-site="anime"] .p4-ans.is-no .p4-k { color: var(--ux-on-no); font-size: 2px; }', 'o1.css', /token swap/],
+      ['html.ux-v1[data-site="anime"] .ux-app :focus-visible { outline: 4px solid var(--ux-pink); }', 'tokens.css', /token swap/],
+    ];
+    for (const [css, f, re] of others) expect(checkSiteSheet('anime', css, f).join('; '), css).toMatch(re);
   });
 
   it('reports each planted break', () => {
@@ -221,7 +296,7 @@ html.ux-v1[data-site="anime"] .ux-btn-primary, html.ux-v1[data-site="anime"] :is
   it('every real sheet under styles/sites/anime and styles/sites/hub follows the rules', () => {
     for (const site of ['anime', 'hub'] as const) {
       const dir = `${SRC}styles/sites/${site}/`;
-      for (const f of listCss(dir)) expect(checkSiteSheet(site, read(`${dir}${f}`)), `${site}/${f}`).toEqual([]);
+      for (const f of listCss(dir)) expect(checkSiteSheet(site, read(`${dir}${f}`), f), `${site}/${f}`).toEqual([]);
     }
   });
 });
@@ -549,5 +624,195 @@ describe('schema.sql', () => {
     for (const a of adds) {
       expect(a[2]).toBe(`text not null default 'kpop' constraint ${a[1]}_site_id_fkey references public.sites(id);`);
     }
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// Twins (TWINS.md and twins.json, rule 18): the table and the JSON agree, every path exists, every
+// code is closed and fits the row's site, and every mustImport is what the twin really imports.
+
+interface TwinRow {
+  readonly id: string;
+  readonly site: SiteId;
+  readonly route: string;
+  readonly file: string | null;
+  readonly twin: string | null;
+  readonly mustImport: readonly string[];
+  readonly renders: readonly string[];
+  readonly allowed: readonly string[];
+  readonly owner: string;
+  readonly body: string;
+  readonly notes: string;
+}
+
+interface TwinsDoc {
+  readonly version: string;
+  readonly differenceCodes: Readonly<Record<string, { readonly sites: readonly SiteId[]; readonly text: string }>>;
+  readonly pages: readonly TwinRow[];
+}
+
+/** One table row of TWINS.md, as its cells (an escaped `\|` stays inside a cell). */
+type TwinCells = { readonly site: SiteId; readonly cells: readonly string[] };
+
+/** The rows of the TWINS.md tables: section 3 is anime, section 4 is hub. */
+export function twinsTableRows(md: string): TwinCells[] {
+  const out: TwinCells[] = [];
+  let site: SiteId | null = null;
+  for (const line of md.split('\n')) {
+    if (line.startsWith('## ')) site = line.startsWith('## 3. ') ? 'anime' : line.startsWith('## 4. ') ? 'hub' : null;
+    if (!site || !line.startsWith('| ') || line.startsWith('| id |') || line.startsWith('|---')) continue;
+    const cells = line.slice(2, -2).split(/ (?<!\\)\| /).map((c) => c.replace(/\\\|/g, '|'));
+    out.push({ site, cells });
+  }
+  return out;
+}
+
+const unpath = (cell: string): string | null => (cell === '(none)' ? null : `apps/quiz/src/${cell.replace(/^`|`$/g, '')}`);
+const unlist = (cell: string): string[] =>
+  cell === '(none)' ? [] : cell.split(', ').map((s) => s.replace(/^`|`$/g, ''));
+
+/** The problems between the TWINS.md table and twins.json (same rows, same order, same cells). */
+export function compareTwins(md: string, doc: TwinsDoc): string[] {
+  const problems: string[] = [];
+  const table = twinsTableRows(md);
+  if (table.length !== doc.pages.length) problems.push(`table has ${table.length} rows, twins.json ${doc.pages.length}`);
+  table.forEach((t, i) => {
+    const r = doc.pages[i];
+    if (!r) return;
+    const c = t.cells;
+    if (c.length !== 10) { problems.push(`row ${c[0]}: ${c.length} cells`); return; }
+    const same: [string, unknown, unknown][] = [
+      ['site', t.site, r.site], ['id', c[0], r.id], ['route', c[1], r.route], ['file', unpath(c[2]!), r.file],
+      ['twin', unpath(c[3]!), r.twin], ['mustImport', unlist(c[4]!), r.mustImport], ['renders', c[5], r.renders.join(', ')],
+      ['allowed', c[6] === 'none' ? [] : c[6]!.split(' '), r.allowed], ['owner', c[7], r.owner], ['body', c[8], r.body],
+      ['notes', c[9], r.notes],
+    ];
+    for (const [name, a, b] of same) {
+      if (JSON.stringify(a) !== JSON.stringify(b)) problems.push(`row ${r.id}: ${name} differs (table ${JSON.stringify(a)}, json ${JSON.stringify(b)})`);
+    }
+  });
+  return problems;
+}
+
+/** Module specifiers a file imports, static and dynamic; relative ones resolved to the `@/` form. */
+export function importsOf(text: string, fileUnderSrc: string): string[] {
+  const dir = fileUnderSrc.split('/').slice(0, -1);
+  const specs = [
+    ...[...text.matchAll(/^import\s+(?!type\s)[^;]*?from\s+'([^']+)'/gm)].map((m) => m[1]!),
+    ...[...text.matchAll(/import\(\s*'([^']+)'\s*\)/g)].map((m) => m[1]!),
+  ];
+  return specs.map((s) => {
+    if (!s.startsWith('.')) return s;
+    const parts = [...dir];
+    for (const seg of s.split('/')) {
+      if (seg === '..') parts.pop();
+      else if (seg !== '.') parts.push(seg);
+    }
+    return `@/${parts.join('/')}`;
+  });
+}
+
+/** The problems of twins.json on its own; `fileText(repoPath)` is null for a missing file. */
+export function checkTwins(doc: TwinsDoc, fileText: (repoPath: string) => string | null, folderFiles: (repoDir: string) => string[]): string[] {
+  const problems: string[] = [];
+  if (doc.version !== 'o1-contract-v1') problems.push(`version ${doc.version}`);
+  const ids = new Set<string>();
+  const resolve = (spec: string): string | null => {
+    if (!spec.startsWith('@/')) return null;
+    for (const ext of ['.ts', '.tsx', '/index.ts', '/index.tsx']) {
+      const p = `apps/quiz/src/${spec.slice(2)}${ext}`;
+      if (fileText(p) !== null) return p;
+    }
+    return null;
+  };
+  for (const r of doc.pages) {
+    if (ids.has(r.id)) problems.push(`duplicate id ${r.id}`);
+    ids.add(r.id);
+    if (!(SITE_IDS as readonly string[]).includes(r.site) || r.site === 'kpop') problems.push(`row ${r.id}: site ${r.site}`);
+    if (!['shared', 'local', 'none'].includes(r.body)) problems.push(`row ${r.id}: body ${r.body}`);
+    if (r.file !== null && !r.file.startsWith('apps/quiz/src/app/sites/[site]/')) problems.push(`row ${r.id}: file outside app/sites/[site]`);
+    if (r.file === null && r.body !== 'none') problems.push(`row ${r.id}: a screen without a file`);
+    if (r.body === 'none' && r.mustImport.length > 0) problems.push(`row ${r.id}: no screen but a mustImport`);
+    for (const code of r.allowed) {
+      const def = doc.differenceCodes[code];
+      if (!def) problems.push(`row ${r.id}: unknown code ${code}`);
+      else if (!def.sites.includes(r.site)) problems.push(`row ${r.id}: code ${code} is not a ${r.site} code`);
+    }
+    if (r.twin === null) {
+      if (r.body !== 'none') problems.push(`row ${r.id}: a screen without a twin`);
+      continue;
+    }
+    if (r.twin.includes('/app/sites/')) problems.push(`row ${r.id}: the twin is a site page`);
+    if (fileText(r.twin) === null) { problems.push(`row ${r.id}: twin ${r.twin} does not exist`); continue; }
+    const dir = r.twin.split('/').slice(0, -1).join('/');
+    const imported = new Set<string>();
+    for (const f of folderFiles(dir)) {
+      const text = fileText(`${dir}/${f}`);
+      if (text !== null) for (const s of importsOf(text, `${dir}/${f}`.replace(/^apps\/quiz\/src\//, ''))) imported.add(s);
+    }
+    for (const spec of r.mustImport) {
+      if (resolve(spec) === null) problems.push(`row ${r.id}: ${spec} does not resolve`);
+      if (!imported.has(spec)) problems.push(`row ${r.id}: the twin does not import ${spec}`);
+    }
+  }
+  return problems;
+}
+
+describe('twins (TWINS.md, twins.json, rule 18)', () => {
+  const md = read(`${CONTRACTS}TWINS.md`);
+  const doc = JSON.parse(read(`${CONTRACTS}twins.json`)) as TwinsDoc;
+  const fileText = (p: string): string | null => (existsSync(`${REPO}${p}`) ? read(`${REPO}${p}`) : null);
+  const folderFiles = (d: string): string[] =>
+    existsSync(`${REPO}${d}`) ? readdirSync(`${REPO}${d}`).filter((f) => /\.tsx?$/.test(f)) : [];
+
+  it('the table and twins.json say the same thing, row by row', () => {
+    expect(compareTwins(md, doc)).toEqual([]);
+  });
+
+  it('every path exists, every code is closed and fits its site, every mustImport is imported by the twin', () => {
+    expect(checkTwins(doc, fileText, folderFiles)).toEqual([]);
+  });
+
+  it('covers the draft: rows 1 to 37 and H-0 to H-8, each with a closed list', () => {
+    const base = new Set(doc.pages.map((r) => r.id.replace(/[a-d]$/, '')));
+    for (let i = 1; i <= 37; i++) expect(base.has(String(i)), `row ${i}`).toBe(true);
+    for (let i = 0; i <= 8; i++) expect(base.has(`H-${i}`), `row H-${i}`).toBe(true);
+    for (const r of doc.pages) expect(Array.isArray(r.allowed), r.id).toBe(true);
+    expect(Object.keys(doc.differenceCodes).sort()).toEqual(
+      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'B', 'Bf', 'C', 'F', 'H1', 'H2', 'H3', 'H4', 'N', 'T', 'Tn', 'V'].sort(),
+    );
+  });
+
+  it('every anime route pattern of the registry is the route of a row (no screen without a twin)', () => {
+    const allow = REGISTRY.anime.routes.allow;
+    expect(Array.isArray(allow)).toBe(true);
+    const routes = doc.pages.filter((r) => r.site === 'anime').map((r) => r.route).join(' ');
+    for (const p of allow as readonly string[]) {
+      const head = p.replace(/\/\*\*$/, '');
+      expect(routes.includes(head), p).toBe(true);
+    }
+  });
+
+  it('reports each planted break', () => {
+    const one = (patch: Partial<TwinRow>): TwinsDoc => ({ ...doc, pages: [{ ...doc.pages[0]!, ...patch }] });
+    const planted: [TwinsDoc, RegExp][] = [
+      [one({ allowed: ['T', 'X9'] }), /unknown code X9/],
+      [one({ allowed: ['H3'] }), /not a anime code/],
+      [one({ twin: 'apps/quiz/src/app/(site)/nope/page.tsx' }), /does not exist/],
+      [one({ mustImport: ['@/components/ux-v1/panel'] }), /does not import @\/components\/ux-v1\/panel/],
+      [one({ mustImport: ['@/components/ux-v1/no-such'] }), /does not resolve/],
+      [one({ file: 'apps/quiz/src/app/(site)/page.tsx' }), /outside app\/sites/],
+      [one({ body: 'none' }), /no screen but a mustImport/],
+      [{ ...doc, pages: [doc.pages[0]!, doc.pages[0]!] }, /duplicate id/],
+    ];
+    for (const [d, re] of planted) expect(checkTwins(d, fileText, folderFiles).join('; ')).toMatch(re);
+    const edited = md.replace('| 1 | / |', '| 1 | /home |');
+    expect(compareTwins(edited, doc).join('; ')).toMatch(/row 1: route differs/);
+    expect(compareTwins(md, { ...doc, pages: doc.pages.slice(1) }).join('; ')).toMatch(/rows/);
+  });
+
+  it('importsOf resolves relative, dynamic and skips type-only imports', () => {
+    const text = "import { A } from './ux-page';\nimport type { B } from '@/x/b';\nconst m = import('@/components/c');\nimport D from '../d';\n";
+    expect(importsOf(text, 'app/(site)/q/[slug]/page.tsx')).toEqual(['@/app/(site)/q/[slug]/ux-page', '@/app/(site)/q/d', '@/components/c']);
   });
 });
