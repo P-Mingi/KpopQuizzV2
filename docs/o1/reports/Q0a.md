@@ -39,7 +39,8 @@ Tested how (slice 1):
 - The hook inside `next dev` (offline env, port 3106, `NODE_OPTIONS=--import .../freeze-hook.mjs`, target
   127.0.0.1:9): GET `/quizzes` answered 200 and the hook logged 16 Supabase reads of the server render
   (`errors.log`, connection refused as expected offline). So the wrapper sits in Next's fetch chain.
-- `bash -n scripts/o1/parity.sh`. No build, no parity run, no production read yet.
+- `bash -n scripts/o1/parity.sh`; `tsc --noEmit` in apps/quiz: no error (the lane's files are .mjs, .sh, .txt, .md).
+  No build, no parity run, no production read yet.
 
 Deviations: none from the brief. Interpretation of N1 in Decisions (D1).
 
