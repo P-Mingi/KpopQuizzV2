@@ -1,0 +1,423 @@
+{
+  "_note": "Run O1. Globs relative to the repo root (o1-owner-guard.mjs dialect: ** any depth, * no slash, {a,b}, [ ] ( ) literal, ! excludes). A commit by lane X (git config --worktree o1.agent X) may only touch paths matching X's globs. docs/o1/reports/<id>.md, docs/o1/reports/<id>/** and docs/o1/requests/<id>.md are implicitly owned by <id>. Written by ORCH in Phase 0 (2026-10-16) from BACKLOG.md section 3 and COLLISION-MAP.md section 2, one owner per file at any time (scripts/o1/ownership-check.mjs proves it on every commit of this file). Where BACKLOG and COLLISION-MAP disagree, BACKLOG wins (B6 owns beforeSend and the footer line, B5 owns the daily quiz and the writers, B7 owns emails). A file nobody owns belongs to nobody: a lane that needs it files a request and ORCH assigns it. Files edited by a phase-1 lane and needed later by a phase-2 lane (B1's codemod targets, F0's app/sites spike, E1a then E1b) move at the later lane's start: ORCH edits this file and records the transfer in LEDGER.md. F0s is the routing spike of F0 on branch o1/F0s: it never merges, so it may touch the routing files ORCH owns; ownership-check excludes it.",
+  "_waves": {
+    "0": [
+      "ORCH",
+      "F0",
+      "F0s",
+      "Q0a",
+      "D0",
+      "DUMMY"
+    ],
+    "1": [
+      "Q0b",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "E1a",
+      "K1",
+      "K2",
+      "K3",
+      "K4"
+    ],
+    "2": [
+      "O1",
+      "O2",
+      "O3",
+      "O4",
+      "O5",
+      "O6",
+      "P1",
+      "H1",
+      "E1b"
+    ],
+    "3": [
+      "X1",
+      "L1"
+    ],
+    "4": [
+      "C1",
+      "C2",
+      "C3",
+      "RPT"
+    ]
+  },
+  "ORCH": [
+    "docs/o1/*.md",
+    "docs/o1/*.json",
+    "docs/o1/*.txt",
+    "docs/o1/*.tsv",
+    "!docs/o1/REPORT.md",
+    "docs/o1/briefs/**",
+    "docs/o1/reviews/**",
+    "docs/o1/evidence/**",
+    "docs/o1/issues/**",
+    "docs/o1/requests/ORCH.md",
+    "docs/o1/.gitignore",
+    "scripts/o1/**",
+    "!scripts/o1/parity.sh",
+    "!scripts/o1/parity/**",
+    "!scripts/o1/gate-checks.sh",
+    "!scripts/o1/dev-multi.sh",
+    "!scripts/o1/leak/**",
+    "!scripts/o1/local-pg.sh",
+    "!scripts/o1/q0b/**",
+    "!scripts/o1/launch/**",
+    "scripts/o1-owner-guard.mjs",
+    "scripts/o1-hooks/**",
+    ".gitignore",
+    "package.json",
+    "pnpm-lock.yaml",
+    "apps/quiz/package.json",
+    "apps/quiz/playwright.config.ts",
+    "apps/quiz/vercel.json",
+    "apps/quiz/next.config.ts",
+    "apps/quiz/src/middleware.ts",
+    "apps/quiz/src/middleware-matcher.test.ts",
+    "apps/quiz/src/lib/route-allowlist.ts",
+    "apps/quiz/src/lib/route-allowlist.test.ts",
+    "apps/quiz/scripts/check-route-allowlist.mts",
+    "docs/pending-migrations/multisite/README.md",
+    ".claude/settings.json",
+    ".claude/hooks/**"
+  ],
+  "F0": [
+    "docs/o1/contracts/**",
+    "apps/quiz/src/lib/site/types.ts",
+    "apps/quiz/src/lib/site/registry.ts",
+    "apps/quiz/src/lib/site/registry.test.ts",
+    "apps/quiz/src/lib/site/index.ts",
+    "apps/quiz/src/lib/site/routing.ts",
+    "apps/quiz/src/lib/site/routing.test.ts",
+    "apps/quiz/src/lib/site/contract.test.ts",
+    "apps/quiz/src/lib/network/types.ts",
+    "apps/quiz/src/lib/passport/types.ts",
+    "apps/quiz/src/lib/anime/types.ts",
+    "apps/quiz/src/lib/db/contract.types.ts",
+    "apps/quiz/src/lib/db/types.ts",
+    "apps/quiz/src/app/sites/**",
+    "apps/quiz/scripts/o1/check-contract.mts",
+    "apps/quiz/scripts/o1/gen-contract-types.mts",
+    "apps/quiz/scripts/o1/contract/**"
+  ],
+  "F0s": [
+    "docs/o1/contracts/**",
+    "apps/quiz/src/lib/site/**",
+    "apps/quiz/src/app/sites/**",
+    "apps/quiz/next.config.ts",
+    "apps/quiz/src/middleware.ts",
+    "apps/quiz/src/middleware-matcher.test.ts",
+    "apps/quiz/src/lib/route-allowlist.ts",
+    "apps/quiz/src/lib/route-allowlist.test.ts",
+    "apps/quiz/src/lib/network/types.ts",
+    "apps/quiz/src/lib/passport/types.ts",
+    "apps/quiz/src/lib/anime/types.ts"
+  ],
+  "Q0a": [
+    "scripts/o1/parity.sh",
+    "scripts/o1/parity/**",
+    "scripts/o1/gate-checks.sh",
+    "scripts/o1/dev-multi.sh",
+    "scripts/o1/leak/**",
+    "apps/quiz/scripts/o1/*.mts",
+    "apps/quiz/scripts/o1/*.mjs",
+    "apps/quiz/scripts/o1/*.ts",
+    "!apps/quiz/scripts/o1/check-contract.mts",
+    "!apps/quiz/scripts/o1/gen-contract-types.mts",
+    "!apps/quiz/scripts/o1/check-site-scope.mts",
+    "apps/quiz/scripts/o1/q0a/**",
+    "apps/quiz/e2e/o1/parity/**",
+    "apps/quiz/e2e/o1/leak/**",
+    "apps/quiz/e2e/o1/helpers/**",
+    "apps/quiz/e2e/o1/dev-multi/**",
+    "apps/quiz/playwright.o1.config.ts"
+  ],
+  "D0": [
+    "design/o1-prototype/**"
+  ],
+  "Q0b": [
+    "scripts/o1/local-pg.sh",
+    "scripts/o1/q0b/**",
+    "apps/quiz/scripts/o1/q0b/**",
+    "apps/quiz/scripts/o1/fixtures/**",
+    "apps/quiz/e2e/o1/auth/**",
+    "apps/quiz/e2e/o1/equivalence/**"
+  ],
+  "B1": [
+    "apps/quiz/src/lib/site/kpop.ts",
+    "apps/quiz/src/lib/site/kpop.test.ts",
+    "apps/quiz/src/lib/site/metadata.ts",
+    "apps/quiz/src/lib/site/fonts.ts",
+    "apps/quiz/src/lib/site/jsonld.ts",
+    "apps/quiz/src/lib/site/cron.ts",
+    "apps/quiz/src/lib/site/brand.ts",
+    "apps/quiz/src/lib/site/b1/**",
+    "apps/quiz/src/app/layout.tsx",
+    "apps/quiz/src/app/(site)/layout.tsx",
+    "apps/quiz/src/lib/seo/org.ts",
+    "apps/quiz/src/lib/seo/og.ts",
+    "apps/quiz/src/lib/ux-v1/a0/nav.ts",
+    "apps/quiz/src/lib/ux-v1/a0/stylesheet.ts",
+    "apps/quiz/src/components/ux-v1/brand.tsx",
+    "apps/quiz/src/components/layout/logo.tsx",
+    "apps/quiz/src/components/layout/footer.tsx",
+    "apps/quiz/src/components/layout/site-footer.tsx",
+    "apps/quiz/src/components/layout/top-nav*.tsx",
+    "apps/quiz/src/components/layout/mobile-*.tsx",
+    "apps/quiz/src/components/layout/theme-init.tsx",
+    "apps/quiz/src/components/layout/ux-v1/ux-nav-links.tsx",
+    "apps/quiz/src/components/layout/ux-v1/ux-tab-bar.tsx",
+    "apps/quiz/src/components/layout/ux-v1/ux-search.tsx",
+    "apps/quiz/src/app/sitemap.ts",
+    "apps/quiz/src/app/robots.ts",
+    "apps/quiz/src/app/llms.txt/**",
+    "apps/quiz/src/lib/indexnow.ts",
+    "apps/quiz/src/app/api/indexnow/**",
+    "apps/quiz/src/lib/seo/quiz-freshness.ts",
+    "apps/quiz/src/lib/seo/quiz-jsonld.ts",
+    "apps/quiz/src/app/api/og/**",
+    "apps/quiz/src/app/api/search/**",
+    "apps/quiz/src/components/search/**",
+    "apps/quiz/src/styles/ux-v1/a0.css",
+    "apps/quiz/src/styles/globals.css",
+    "apps/quiz/src/styles/sites/kpop/**",
+    "apps/quiz/src/lib/design-tokens.ts",
+    "apps/quiz/tailwind.config.ts",
+    "apps/quiz/src/lib/share.ts",
+    "apps/quiz/src/components/ux-v1/story-image.ts",
+    "apps/quiz/src/lib/cron-auth.ts",
+    "apps/quiz/src/lib/level-titles.ts",
+    "apps/quiz/src/lib/db/queries/**",
+    "apps/quiz/scripts/o1/b1/**"
+  ],
+  "B2": [
+    "docs/pending-migrations/multisite/001-*",
+    "docs/pending-migrations/multisite/002*",
+    "apps/quiz/src/lib/site/scope.ts",
+    "apps/quiz/src/lib/site/scope.test.ts",
+    "apps/quiz/src/lib/passport.ts",
+    "apps/quiz/src/components/profile/badge-shelf.tsx",
+    "apps/quiz/src/app/api/notifications/**",
+    "apps/quiz/src/lib/notifications.ts",
+    "apps/quiz/src/lib/notification-types.ts",
+    "apps/quiz/src/lib/notifications-store.ts",
+    "apps/quiz/scripts/o1/check-site-scope.mts",
+    "apps/quiz/scripts/o1/site-scope/**",
+    "apps/quiz/e2e/o1/B2/**"
+  ],
+  "B3": [
+    "docs/pending-migrations/multisite/003-*",
+    "docs/pending-migrations/multisite/004-*",
+    "docs/pending-migrations/multisite/005-*",
+    "docs/pending-migrations/multisite/007-*",
+    "docs/pending-migrations/multisite/launch/L*-b3-*",
+    "apps/quiz/src/lib/network/profile.ts",
+    "apps/quiz/src/lib/network/profile.test.ts",
+    "apps/quiz/src/lib/passport/**",
+    "!apps/quiz/src/lib/passport/types.ts",
+    "!apps/quiz/src/lib/passport/jump/**",
+    "!apps/quiz/src/lib/passport/deletion/**",
+    "!apps/quiz/src/lib/passport/email/**",
+    "apps/quiz/src/components/ux-v1/person-name.tsx",
+    "apps/quiz/src/lib/passport-flair.ts",
+    "apps/quiz/e2e/o1/B3/**"
+  ],
+  "B4": [
+    "docs/pending-migrations/multisite/006-*",
+    "apps/quiz/src/lib/passport/jump/**",
+    "apps/quiz/src/app/(site)/auth/passport/**",
+    "apps/quiz/src/app/(site)/auth/arrive/**",
+    "apps/quiz/src/app/(site)/auth/authorize/**",
+    "apps/quiz/src/app/(site)/auth/land/**",
+    "apps/quiz/src/app/api/passport/redeem/**",
+    "apps/quiz/src/app/api/passport/after-signin/**",
+    "apps/quiz/src/app/api/passport/revalidate/**",
+    "apps/quiz/src/app/api/cron/passport-cleanup/**",
+    "apps/quiz/src/app/(site)/auth/callback/**",
+    "apps/quiz/src/components/ux-v1/sign-in-sheet.tsx",
+    "apps/quiz/src/app/(site)/login/**",
+    "apps/quiz/src/lib/auth/return-to.ts",
+    "apps/quiz/src/lib/auth/use-me.ts",
+    "apps/quiz/src/lib/auth/google-id-token.ts",
+    "apps/quiz/src/components/profile/ux-v1/passport-guest-sign-in.tsx",
+    "apps/quiz/src/lib/supabase/middleware.ts",
+    "apps/quiz/src/components/layout/ux-v1/ux-nav-actions.tsx",
+    "apps/quiz/src/components/layout/user-dropdown.tsx",
+    "apps/quiz/e2e/o1/B4/**"
+  ],
+  "B5": [
+    "docs/pending-migrations/multisite/008-*",
+    "docs/pending-migrations/multisite/009-*",
+    "docs/pending-migrations/multisite/010-*",
+    "docs/pending-migrations/multisite/b5-rollback/**",
+    "apps/quiz/src/lib/daily-streak.ts",
+    "apps/quiz/src/lib/streak.ts",
+    "apps/quiz/src/lib/guest-streak.ts",
+    "apps/quiz/src/lib/ux-v1/a0/streak.ts",
+    "apps/quiz/src/lib/badges/award.ts",
+    "apps/quiz/src/lib/badges/catalog.ts",
+    "apps/quiz/src/lib/badges.ts",
+    "apps/quiz/src/lib/ux-v1/p1/qotd-rotation.ts",
+    "apps/quiz/src/app/api/cron/ensure-daily-quiz/**",
+    "apps/quiz/src/app/api/qotd/**",
+    "apps/quiz/src/app/api/admin/set-qotd/**",
+    "apps/quiz/src/app/api/admin/auto-select-qotd/**",
+    "apps/quiz/src/app/api/admin/quiz-bank/**",
+    "apps/quiz/src/lib/quiz-bank-scheduling.ts",
+    "apps/quiz/src/app/(site)/daily/**",
+    "apps/quiz/src/lib/site/daily.ts",
+    "apps/quiz/scripts/o1/b5/**",
+    "apps/quiz/e2e/o1/B5/**"
+  ],
+  "B6": [
+    "apps/quiz/src/lib/network/**",
+    "!apps/quiz/src/lib/network/types.ts",
+    "!apps/quiz/src/lib/network/profile.ts",
+    "!apps/quiz/src/lib/network/profile.test.ts",
+    "!apps/quiz/src/lib/network/crossovers.ts",
+    "!apps/quiz/src/lib/network/crossovers.test.ts",
+    "apps/quiz/src/app/api/n/**",
+    "apps/quiz/src/components/network/**",
+    "!apps/quiz/src/components/network/crossover-*",
+    "apps/quiz/src/components/site/analytics.tsx",
+    "apps/quiz/src/components/layout/ux-v1/ux-footer.tsx",
+    "apps/quiz/src/lib/ux-v1/p4/challenge.ts",
+    "apps/quiz/src/lib/analytics.ts",
+    "apps/quiz/e2e/o1/B6/**"
+  ],
+  "B7": [
+    "docs/pending-migrations/multisite/016-*",
+    "docs/pending-migrations/multisite/launch/L*-b7-*",
+    "supabase/functions/send-email/**",
+    "apps/quiz/src/lib/passport/deletion/**",
+    "apps/quiz/src/lib/passport/email/**",
+    "apps/quiz/src/app/(site)/auth/confirm/**",
+    "apps/quiz/src/app/api/passport/delete/**",
+    "apps/quiz/src/app/api/passport/cancel/**",
+    "apps/quiz/src/app/api/passport/leave/**",
+    "apps/quiz/src/app/api/cron/passport-deletions/**",
+    "docs/o1/b7/**",
+    "apps/quiz/e2e/o1/B7/**"
+  ],
+  "E1a": [
+    "scripts/anime/editorial/**",
+    "docs/anime/editorial/**"
+  ],
+  "E1b": [
+    "docs/pending-migrations/multisite/012-*",
+    "apps/quiz/src/lib/editorial/**",
+    "apps/quiz/src/app/api/cron/editorial-publish/**",
+    "apps/quiz/e2e/o1/E1b/**"
+  ],
+  "K1": [
+    "docs/pending-migrations/multisite/011-*",
+    "docs/pending-migrations/multisite/launch/L*-k1-*",
+    "scripts/anime/adapters/**",
+    "scripts/anime/k1/**",
+    "docs/anime/ANIME-SOURCES.md",
+    "docs/anime/SPOILER-POLICY.md",
+    "docs/anime/EDITORIAL-POLICY.md",
+    "docs/anime/TARGETS-anime.md",
+    "docs/anime/series/**",
+    "docs/anime/data/series/**"
+  ],
+  "K2": [
+    "docs/pending-migrations/multisite/launch/L*-k2-*",
+    "scripts/anime/k2/**",
+    "docs/anime/creators/**",
+    "docs/anime/data/catalogue/**"
+  ],
+  "K3": [
+    "docs/pending-migrations/multisite/launch/L*-k3-*",
+    "scripts/anime/k3/**",
+    "docs/anime/data/daily/**",
+    "docs/anime/data/formats/**"
+  ],
+  "K4": [
+    "docs/pending-migrations/multisite/launch/L*-k4-*",
+    "scripts/anime/k4/**",
+    "docs/anime/data/openings/**",
+    "docs/anime/data/crossovers/**"
+  ],
+  "O1": [
+    "apps/quiz/src/lib/site/anime.ts",
+    "apps/quiz/src/lib/site/anime/**",
+    "apps/quiz/src/styles/sites/anime/**",
+    "apps/quiz/e2e/o1/O1/**"
+  ],
+  "O2": [
+    "apps/quiz/src/components/series/**",
+    "apps/quiz/e2e/o1/O2/**"
+  ],
+  "O3": [
+    "docs/pending-migrations/multisite/015-*",
+    "apps/quiz/src/lib/anime/spoilers/**",
+    "apps/quiz/src/components/spoilers/**",
+    "apps/quiz/e2e/o1/O3/**"
+  ],
+  "O4": [
+    "apps/quiz/src/lib/anime/create/**",
+    "apps/quiz/src/components/anime-create/**",
+    "apps/quiz/e2e/o1/O4/**"
+  ],
+  "O5": [
+    "docs/pending-migrations/multisite/013-*",
+    "apps/quiz/src/lib/anime/formats/**",
+    "apps/quiz/src/components/anime-formats/**",
+    "apps/quiz/e2e/o1/O5/**"
+  ],
+  "O6": [
+    "docs/pending-migrations/multisite/014-*",
+    "apps/quiz/src/lib/anime/openings/**",
+    "apps/quiz/src/components/openings/**",
+    "apps/quiz/src/app/api/cron/ensure-daily-opening/**",
+    "apps/quiz/e2e/o1/O6/**"
+  ],
+  "P1": [
+    "apps/quiz/src/components/passport-ui/**",
+    "apps/quiz/src/lib/passport-ui/**",
+    "apps/quiz/e2e/o1/P1/**"
+  ],
+  "H1": [
+    "apps/quiz/src/lib/site/hub.ts",
+    "apps/quiz/src/lib/site/hub/**",
+    "apps/quiz/src/styles/sites/hub/**",
+    "apps/quiz/src/components/hub/**",
+    "apps/quiz/e2e/o1/H1/**"
+  ],
+  "X1": [
+    "docs/pending-migrations/multisite/launch/L*-x1-*",
+    "apps/quiz/src/lib/network/crossovers.ts",
+    "apps/quiz/src/lib/network/crossovers.test.ts",
+    "apps/quiz/src/components/network/crossover-*",
+    "scripts/anime/x1/**",
+    "docs/anime/x1/**",
+    "apps/quiz/e2e/o1/X1/**"
+  ],
+  "L1": [
+    "docs/pending-migrations/multisite/launch/L*-l1-*",
+    "docs/pending-migrations/multisite/launch/README.md",
+    "scripts/o1/launch/**",
+    "docs/network/**",
+    "apps/quiz/e2e/o1/L1/**"
+  ],
+  "C1": [
+    "apps/quiz/e2e/o1/C1/**"
+  ],
+  "C2": [
+    "apps/quiz/e2e/o1/C2/**"
+  ],
+  "C3": [
+    "apps/quiz/e2e/o1/C3/**"
+  ],
+  "RPT": [
+    "docs/o1/REPORT.md"
+  ],
+  "DUMMY": [
+    "docs/o1/dummy/**"
+  ]
+}

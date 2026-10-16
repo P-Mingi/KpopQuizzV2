@@ -1,0 +1,7 @@
+{
+  "_note": "Run O1 gate configuration per lane (read by scripts/o1/gate.sh and merge-lane.sh). sites: the builds the gate makes (kpop is built through parity.sh whenever the diff can reach kpop). spike: a never-merged branch the gate also builds, serves and checks. specs: e2e specs gate-checks.sh runs (Q0a). hotExempt: only for never-merged spike branches. ORCH adds a lane here when it starts.",
+  "DUMMY": { "sites": ["kpop", "anime", "hub"], "kind": "code" },
+  "F0": { "sites": ["kpop", "anime", "hub"], "kind": "code", "spike": "o1/F0s" },
+  "Q0a": { "sites": ["kpop", "anime", "hub"], "kind": "code" },
+  "D0": { "sites": [], "kind": "static" }
+}

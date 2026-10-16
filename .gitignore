@@ -75,6 +75,8 @@ docs/*
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/
+# Run O1 bus and run folder (RUN-O1-PROMPT section 2): tracked on o1/* branches.
+!docs/o1/
 !docs/design/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md

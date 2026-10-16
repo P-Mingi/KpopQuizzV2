@@ -1,0 +1,23 @@
+# Phase 0 seed list (ORCH). Q0a replaces it with the 60 URLs of apps/quiz/e2e/o1/parity/urls.txt.
+/
+/quizzes
+/groups
+/bts-quiz
+/blackpink-quiz
+/blindtest
+/daily
+/trivia
+/about
+/editorial-policy
+/privacy
+/terms
+/faq
+/pt
+/fr/blind-test-kpop
+/es/adivina-la-cancion-kpop
+/id/tebak-lagu-kpop
+/guess-the-kpop-idol
+/kpop-demon-hunters-quiz
+/sitemap.xml
+/robots.txt
+/llms.txt

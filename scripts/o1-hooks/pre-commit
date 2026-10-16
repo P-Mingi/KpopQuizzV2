@@ -1,0 +1,21 @@
+#!/bin/sh
+# Run O1: ownership guard, installed PER WORKTREE only by scripts/o1/new-lane.sh
+# (or: sh scripts/o1-hooks/install.sh <lane id>).
+# No-op when `git config o1.agent` is unset (the owner's normal commits are never blocked).
+#
+# The guard script and OWNERSHIP.json are taken from HEAD (the committed
+# versions), so an uncommitted edit of either cannot loosen the check.
+agent="$(git config --get o1.agent)"
+[ -z "$agent" ] && [ -z "$O1_AGENT" ] && exit 0
+root="$(git rev-parse --show-toplevel)" || exit 2
+guard=scripts/o1-owner-guard.mjs
+own=docs/o1/OWNERSHIP.json
+if git cat-file -e "HEAD:$guard" 2>/dev/null && git cat-file -e "HEAD:$own" 2>/dev/null; then
+  tmp="${TMPDIR:-/tmp}/o1-owner-guard-$$.mjs"
+  git show "HEAD:$guard" > "$tmp" || exit 2
+  node "$tmp" --ownership-ref HEAD
+  rc=$?
+  rm -f "$tmp"
+  exit $rc
+fi
+exec node "$root/$guard"

@@ -1,0 +1,5 @@
+# Run O1: large or local-only outputs stay out of git.
+evidence/**/*.full.log
+evidence/**/parity-out/
+evidence/**/serve-*.log
+reviews/**/*.png
