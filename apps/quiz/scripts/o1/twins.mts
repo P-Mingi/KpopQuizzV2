@@ -5,10 +5,14 @@
 //
 // Called by scripts/o1/check.sh on every gate (O1's merged copy of this file, so a lane cannot weaken its judge).
 // twins.json is F0's contract (docs/o1/contracts/twins.json):
-//   {version, differenceCodes, pages: [{id, site, route, file, twin, mustImport: ["@/components/..."], allowed, notes}]}
-// `file` and `twin` may also be arrays (a row that covers several routes). Paths are relative to apps/quiz/src (the
-// forms "apps/quiz/src/...", "src/..." and "@/..." are accepted too). A row whose `twin` is null or empty is a
-// technical row (row 37 of TWINS.md): its file must render nothing visible.
+//   {version, differenceCodes, pages: [{id, site, route, file, twin, mustImport: ["@/components/..."], renders,
+//    allowed, owner, body, notes}]}
+// Read here: id, site, route, file, twin, mustImport (renders, allowed, owner, body and notes are for D0 and R; F0's
+// contract.test.ts checks them). `file` and `twin` may also be arrays (a row that covers several routes). Paths are
+// relative to apps/quiz/src (the forms "apps/quiz/src/...", "src/..." and "@/..." are accepted too). `file: null` is a
+// row with no file under app/sites (a shared route such as the OG images, or technical routes served elsewhere): it
+// lists nothing, so a screen file for it under app/sites is unlisted; a missing `file` key is a contract error. A row
+// whose `twin` is null or empty is a technical row (rows 27b and 37 of TWINS.md): its file must render nothing visible.
 //
 // Fails (exit 1) on:
 //   (a) unlisted-page: a screen file under apps/quiz/src/app/sites/ that no row lists (an invented screen). Screen
@@ -24,9 +28,14 @@
 //       A wrapper module outside the page's folder does not count. mustimport-unresolved: a mustImport module that
 //       does not exist in the tree under test (renamed or deleted).
 //       exempt-renders: a technical row's file that contains JSX.
-//   (c) copy: a block of code of a protected file found in another file. Protected: every code file of
-//       apps/quiz/src/components/ux-v1/** and every module named in any mustImport. Scanned: every code file of
-//       apps/quiz/src/** and packages/*/src/** (protected files included, each against the others).
+//   (c) copy: a block of code of a protected file found in another file. Protected, test files excepted: every code
+//       file of apps/quiz/src/components/** (rule 18: components/ux-v1/** and the components of each area; the
+//       contract's mustImport lists name only the top module of a row, so what it renders is protected this way),
+//       every module named in any mustImport, every kpop twin file of a row (a `local` twin's body is page markup
+//       that rule 18 moves into a shared component, never into a copy; TWINS.md section 1, column body), and the
+//       modules of app/ outside app/sites that those reach (a twin's own page modules). Scanned: every code file of
+//       apps/quiz/src/** and packages/*/src/** (protected files included, each against the others; of two protected
+//       files the one the contract names is the original, else the later path is reported).
 //       Normalization, per source line: comments and whitespace dropped (the TypeScript parser's tokens), import
 //       declarations, `export ... from` and 'use client' or 'use server' directives dropped, every use of a name the
 //       file declares (variables, parameters, destructured names, functions, classes, interfaces, type aliases,
@@ -59,6 +68,7 @@ export const SHINGLE = 8;
 export const SRC = 'apps/quiz/src';
 export const SITES_DIR = 'apps/quiz/src/app/sites';
 export const UXV1_DIR = 'apps/quiz/src/components/ux-v1';
+export const COMPONENTS_DIR = 'apps/quiz/src/components';
 const CODE_EXT = ['.tsx', '.ts', '.jsx', '.js', '.mts', '.mjs', '.cts', '.cjs'];
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'coverage', 'out']);
 const SCREEN_RE = /^(page|layout|template|not-found|error|global-error|loading|default|forbidden|unauthorized|opengraph-image|twitter-image|icon|apple-icon)\.(tsx|ts|jsx|js|mdx)$/;
@@ -97,7 +107,9 @@ export function loadTwins(json: unknown): { rows: Row[]; problems: string[] } {
   pages.forEach((p: Record<string, unknown>, i: number) => {
     const id = String(p?.id ?? `#${i + 1}`);
     const files = toArr(p?.file ?? p?.files).map(repoPath);
-    if (!files.length) problems.push(`row ${id}: no "file"`);
+    // An explicit `file: null` declares a route with no file under app/sites; a row without the key is a typo.
+    const declaredNone = p !== null && typeof p === 'object' && (('file' in p && p.file === null) || ('files' in p && p.files === null));
+    if (!files.length && !declaredNone) problems.push(`row ${id}: no "file"`);
     if (p?.mustImport !== undefined && !Array.isArray(p.mustImport)) problems.push(`row ${id}: "mustImport" is not an array`);
     const mustImport = toArr(p?.mustImport);
     const twins = toArr(p?.twin).map(repoPath);
@@ -108,6 +120,7 @@ export function loadTwins(json: unknown): { rows: Row[]; problems: string[] } {
 
 const isFile = (abs: string): boolean => { try { return fs.statSync(abs).isFile(); } catch { return false; } };
 const isCode = (rel: string): boolean => CODE_EXT.some((e) => rel.endsWith(e)) && !rel.endsWith('.d.ts');
+const isTest = (rel: string): boolean => /\.(test|spec)\.[cm]?[jt]sx?$/.test(rel) || rel.includes('/__tests__/') || rel.includes('/__mocks__/');
 
 function tryFile(root: string, base: string): string | null {
   if (isFile(path.join(root, base)) && isCode(base)) return base;
@@ -360,7 +373,7 @@ function shingles(lines: NLine[], k: number): string[] {
 }
 
 /** Copy pairs between protected files and scanned files: blocks [candStart, candEnd, protStart, protEnd] (source lines). */
-export function findCopies(tree: Tree, protectedFiles: string[], scanned: string[], k: number): CopyPair[] {
+export function findCopies(tree: Tree, protectedFiles: string[], scanned: string[], k: number, rank: (f: string) => number = () => 0): CopyPair[] {
   const norm = new Map<string, NLine[]>();
   const linesOf = (f: string): NLine[] => {
     let l = norm.get(f);
@@ -381,8 +394,8 @@ export function findCopies(tree: Tree, protectedFiles: string[], scanned: string
     shingles(linesOf(f), k).forEach((h, j) => {
       for (const { file: p, i } of index.get(h) ?? []) {
         if (p === f) continue;
-        // Two protected files: one pair, the candidate is the later path.
-        if (isProt.has(f) && f < p) continue;
+        // Two protected files: one pair; the candidate is the less protected one (higher rank), else the later path.
+        if (isProt.has(f) && (rank(f) < rank(p) || (rank(f) === rank(p) && f < p))) continue;
         const key = `${f}\u0000${p}`;
         let rec = pairs.get(key);
         if (!rec) { rec = { candidate: f, protected: p, hits: [] }; pairs.set(key, rec); }
@@ -466,18 +479,30 @@ export function check(root: string, rows: Row[], opts: { shingle?: number; basel
     }
   }
 
-  // (c) copies of protected files.
+  // (c) copies of protected files. Rank 0: the ux-v1 kit, every mustImport module, every kpop twin file (the files
+  // the contract names). Rank 1: the rest of components/** (rule 18: "the components of each area") and the modules
+  // of app/ outside app/sites that a rank 0 file reaches (a twin's own page modules, such as group-quiz-page.tsx).
+  // Test files are scanned, never protected.
   const all = codeFiles(root);
-  const prot = [...new Set([...all.filter((f) => f.startsWith(`${UXV1_DIR}/`)), ...mustTargets])].filter(isCode).sort();
+  const twinFiles = rows.flatMap((r) => r.twins).filter((t) => isFile(path.join(root, t)) && isCode(t) && !t.startsWith(`${SITES_DIR}/`));
+  const named = new Set([...all.filter((f) => f.startsWith(`${UXV1_DIR}/`)), ...mustTargets, ...twinFiles].filter((f) => isCode(f) && !isTest(f)));
+  const inApp = (f: string): boolean => f.startsWith(`${SRC}/app/`) && !f.startsWith(`${SITES_DIR}/`) && isCode(f);
+  const wider = new Set(all.filter((f) => f.startsWith(`${COMPONENTS_DIR}/`) && !isTest(f)));
+  for (const f of named) if (inApp(f)) for (const x of tree.reach(f, inApp)) if (inApp(x) && !isTest(x)) wider.add(x);
+  for (const f of named) wider.delete(f);
+  const prot = [...named, ...wider].sort();
+  const rank = (f: string): number => (named.has(f) ? 0 : wider.has(f) ? 1 : 2);
   const base = new Map((opts.baseline?.shingle === k ? opts.baseline.pairs : []).map((p) => [pairKey(p.files[0], p.files[1]), p.lines]));
   const known: CopyPair[] = [];
-  for (const c of findCopies(tree, prot, all, k)) {
+  for (const c of findCopies(tree, prot, all, k, rank)) {
     const allowed = base.get(pairKey(c.candidate, c.protected));
     if (allowed !== undefined && c.lines <= allowed) { known.push(c); continue; }
     const where = c.blocks.map(([a, b, x, y]) => `${a}-${b} (from ${x}-${y})`).join(', ');
+    // Two components of the same rank: which one is the original is not known from the tree alone.
+    const verb = rank(c.candidate) === rank(c.protected) ? 'shares a block with' : 'copies';
     violations.push({
       kind: 'copy', file: c.candidate,
-      detail: `copies ${c.protected}: ${c.lines} meaningful lines at ${where}${allowed !== undefined ? ` (base had ${allowed})` : ''}; import the shared component, or ask its owner for a prop`,
+      detail: `${verb} ${c.protected}: ${c.lines} meaningful lines at ${where}${allowed !== undefined ? ` (base had ${allowed})` : ''}; import the shared component, or ask its owner for a prop`,
     });
   }
 

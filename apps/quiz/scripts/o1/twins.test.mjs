@@ -28,8 +28,62 @@ const TWINS = {
       mustImport: ['@/components/group/ux-v1/hub', '@/components/group/ux-v1/hub-quizzes', '@/components/ux-v1/panel'], allowed: ['T', 'B', 'V', 'C', 'F', 'N'],
     },
     { id: '37', site: 'anime', route: 'technical', file: [`${S}/[...rest]/page.tsx`, `${S}/robots.txt/route.ts`], twin: null, mustImport: [], allowed: [] },
+    // Rows in the shape of F0's contract: a `local` twin body, a shared route with no file under app/sites, technical
+    // routes served elsewhere (file and twin null).
+    { id: '24', site: 'anime', route: '/about', file: `${S}/about/page.tsx`, twin: 'apps/quiz/src/app/(site)/about/page.tsx', mustImport: [], renders: ['page-local markup'], allowed: ['T', 'B', 'C'], owner: 'O1', body: 'local' },
+    { id: '30', site: 'anime', route: 'OG image of a quiz', file: null, twin: 'apps/quiz/src/app/api/og/[slug]/route.tsx', mustImport: [], allowed: ['T', 'B'], body: 'none' },
+    { id: '37b', site: 'anime', route: '/auth/arrive', file: null, twin: null, mustImport: [], allowed: [], body: 'none' },
   ],
 };
+
+// A kpop twin whose body is page-local markup (body `local` in TWINS.md), and a shared component that no mustImport
+// names (the contract lists the top module of a row; this one stands for what it renders).
+const ABOUT_TWIN = `import { Panel } from '@/components/ux-v1/panel';
+
+export const metadata = { title: 'About KpopQuiz' };
+
+export default function AboutPage() {
+  return (
+    <main className="ux-legal ux-about">
+      <h1 className="ux-legal-title">About KpopQuiz</h1>
+      <p className="ux-legal-lead">A fan-made quiz site for K-pop fans.</p>
+      <section className="ux-legal-section" aria-labelledby="who">
+        <h2 id="who">Who makes it</h2>
+        <p>Fans who play every day.</p>
+      </section>
+      <section className="ux-legal-section" aria-labelledby="how">
+        <h2 id="how">How quizzes are made</h2>
+        <p>Every quiz is written by a fan and checked.</p>
+      </section>
+      <section className="ux-legal-section" aria-labelledby="data">
+        <h2 id="data">Where facts come from</h2>
+        <p>Official sources only.</p>
+      </section>
+      <Panel title="Contact">
+        <a className="ux-link" href="/contact">Write to us</a>
+      </Panel>
+    </main>
+  );
+}
+`;
+const HOME_HEADER = `export function HomeHeader({ name, streak, level }: { name: string; streak: number; level: number }) {
+  return (
+    <header className="ux-home-header">
+      <p className="ux-home-hello">Welcome back</p>
+      <h1 className="ux-home-name">{name}</h1>
+      <div className="ux-home-stats">
+        <span className="ux-home-stat" data-kind="streak">{streak} day streak</span>
+        <span className="ux-home-stat" data-kind="level">Level {level}</span>
+      </div>
+      <nav className="ux-home-links" aria-label="Shortcuts">
+        <a href="/daily">Daily quiz</a>
+        <a href="/blindtest">Blind test</a>
+        <a href="/create">Create</a>
+      </nav>
+    </header>
+  );
+}
+`;
 
 // The shared components of the fixture (the real panel.tsx, a small shared hub that renders hub-quizzes).
 const SHARED = {
@@ -37,6 +91,8 @@ const SHARED = {
   'apps/quiz/src/components/ux-v1/icon.tsx': "export type UxIconName = 'star';\nexport function Icon({ name }: { name: UxIconName }) { return <i data-icon={name} />; }\n",
   'apps/quiz/src/components/group/ux-v1/hub-quizzes.tsx': "export function HubQuizzes({ items }: { items: string[] }) {\n  return <ul className=\"ux-hubq\">{items.map((t) => <li key={t}>{t}</li>)}</ul>;\n}\n",
   'apps/quiz/src/components/group/ux-v1/hub.tsx': "import { HubQuizzes } from './hub-quizzes';\nexport function GroupHub({ name, quizzes, slots }: { name: string; quizzes: string[]; slots?: React.ReactNode }) {\n  return <main className=\"ux-hub\"><h1>{name}</h1>{slots}<HubQuizzes items={quizzes} /></main>;\n}\n",
+  'apps/quiz/src/app/(site)/about/page.tsx': ABOUT_TWIN,
+  'apps/quiz/src/components/home/ux-v1/home-header.tsx': HOME_HEADER,
 };
 
 // A clean anime tree: ordinary imports, short JSX patterns, a module of the page's own folder, a technical row.
@@ -172,6 +228,50 @@ test('counting rules: a type-only import, an unused import and a side-effect imp
     const r = run(files);
     assert.equal(r.code, 0, r.stdout);
   }
+});
+
+test('F0 shape: rows with file null (a shared route, technical routes) are declarations, exit 0', () => {
+  const r = run(CLEAN);
+  assert.equal(r.code, 0, r.stdout);
+  assert.ok(r.json.pending.includes(`24 ${S}/about/page.tsx`), 'the about page is not built yet');
+  // A screen file for a route whose row has file null is unlisted (row 37 of TWINS.md).
+  const auth = run({ ...CLEAN, [`${S}/auth/arrive/page.tsx`]: "import { redirect } from 'next/navigation';\nexport default function Arrive(): never { redirect('/'); }\n" });
+  assert.deepEqual(auth.kinds, ['unlisted-page']);
+});
+
+test('a copy of a local twin body (the kpop about page, brand words swapped): copy', () => {
+  const anime = ABOUT_TWIN.replace(/KpopQuiz/g, 'OtakuQuiz').replace('K-pop fans', 'anime fans').replace('AboutPage', 'AnimeAbout');
+  const r = run({ ...CLEAN, [`${S}/about/page.tsx`]: anime });
+  assert.equal(r.code, 1, r.stdout);
+  assert.deepEqual(r.kinds, ['copy']);
+  assert.equal(r.json.violations[0].file, `${S}/about/page.tsx`);
+  assert.match(r.json.violations[0].detail, /^copies apps\/quiz\/src\/app\/\(site\)\/about\/page\.tsx: \d+ meaningful lines/);
+  // The same route written with its own structure and the shared kit passes.
+  const own = "import { Panel } from '@/components/ux-v1/panel';\nexport default function About() {\n  return <Panel title=\"About OtakuQuiz\"><p>A fan-made anime quiz site.</p></Panel>;\n}\n";
+  assert.equal(run({ ...CLEAN, [`${S}/about/page.tsx`]: own }).code, 0);
+});
+
+test('a copy of a component no mustImport names (what a row renders): copy, in a page and in components/', () => {
+  // Renamed and reindented; the props are kept, so the call site passes the same names.
+  const fork = HOME_HEADER.replace(/HomeHeader/g, 'SeriesHeader').split('\n').map((l) => (l ? `  ${l}` : l)).join('\n');
+  const inPage = run({ ...CLEAN, [`${S}/page.tsx`]: `import { Panel } from '@/components/ux-v1/panel';\n${fork}\nexport default function Home() { return <Panel title="x"><SeriesHeader name="a" streak={1} level={2} /></Panel>; }\n` });
+  assert.equal(inPage.code, 1, inPage.stdout);
+  assert.deepEqual(inPage.kinds, ['copy']);
+  assert.equal(inPage.json.violations[0].file, `${S}/page.tsx`);
+  assert.match(inPage.json.violations[0].detail, /^copies apps\/quiz\/src\/components\/home\/ux-v1\/home-header\.tsx/);
+  const inComponents = run({ ...CLEAN, 'apps/quiz/src/components/anime/series-header.tsx': fork });
+  assert.equal(inComponents.code, 1, inComponents.stdout);
+  assert.deepEqual(inComponents.kinds, ['copy']);
+  const v = inComponents.json.violations[0];
+  assert.deepEqual([v.file, v.detail.split(' ')[4].replace(/:$/, '')].sort(), ['apps/quiz/src/components/anime/series-header.tsx', 'apps/quiz/src/components/home/ux-v1/home-header.tsx']);
+  assert.match(v.detail, /^shares a block with /);
+});
+
+test('test files are scanned, never protected: two tests sharing a mock setup pass', () => {
+  const setup = (name) => `import { vi, test, expect } from 'vitest';\nvi.mock('@/lib/supabase/server', () => ({\n  createClient: () => ({\n    from: () => ({\n      select: () => ({\n        eq: () => ({\n          order: () => ({\n            limit: async () => ({ data: [{ id: 1, title: 'a' }], error: null }),\n          }),\n        }),\n      }),\n    }),\n    auth: { getUser: async () => ({ data: { user: null } }) },\n  }),\n}));\nvi.mock('next/navigation', () => ({ notFound: vi.fn(), redirect: vi.fn() }));\ntest('${name}', () => { expect(1).toBe(1); });\n`;
+  assert.ok(meaningful(setup('a')) >= SHINGLE + 2, 'the shared setup is long enough to count as a copy between protected files');
+  const r = run({ ...CLEAN, 'apps/quiz/src/components/quiz/a.test.tsx': setup('a'), 'apps/quiz/src/components/quiz/b.test.tsx': setup('b') });
+  assert.equal(r.code, 0, r.stdout);
 });
 
 test('a wrapper outside the page folder does not count (no anime version of the hub)', () => {
