@@ -51,7 +51,13 @@ CONTENT reviews up to 3 batches per entry and re-verifies 10% of the facts from 
    or a Referer); no secret in the diff (`secrets.log`); the service role never reachable from a browser.
 8. Content: allowed sources only, the second pass, similarity under threshold, spoiler tags present and plausible,
    banned words, dashes and images absent.
-9. UX: screens against D0 at 390 and 1440, light and dark; axe without serious issues; keyboard path; AA contrast.
+9. UX: screens against D0 at 390 and 1440, light and dark; same structure and same components as the kpop twin
+   (rule 18): open the anime or FanQuiz screen next to its twin listed in `docs/o1/contracts/TWINS.md` (the D0 frame
+   and the real kpop page), check the same layout, sections in the same order, the same shared components imported
+   (the `twins` step of the gate evidence, and your own read of the imports), the same interactions and the same copy
+   structure; every difference must be in the row's closed list or in an approved CR of `LEDGER.md`; a forked,
+   copied or rewritten shared component, an "anime version" of a kpop component, or a screen or block that is not in
+   the list is a blocker. Then axe without serious issues; keyboard path; AA contrast.
 10. SEO: the `kpopquiz-seo` skill's section 14 checklist (`O1/.claude/skills/kpopquiz-seo/SKILL.md`); indexability
     rules; canonical and OG on the right domain; never a cross-domain canonical; noindex where the backlog says so.
 11. The copy rules of COMMON.md (`copy.log` covers added lines; read the visible copy yourself).
