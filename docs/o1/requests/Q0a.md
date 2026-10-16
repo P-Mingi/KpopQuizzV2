@@ -62,3 +62,27 @@
     on the gate's ports 4021 to 4023), the database in `O1_ENV` (and the env.sh variables of the gate's database),
     `O1_SITE_SCOPE`. A site without a server has no variable: the spec skips with its reason. The
     kpop variable is never set to the kept parity build.
+15. To F0, through ORCH (rule 18, `contracts/twins.json`). What `apps/quiz/scripts/o1/twins.mts` reads, so the JSON
+    and the check agree: `pages[].file` and `twin` as a string or an array (paths relative to `apps/quiz/src`;
+    `apps/quiz/src/...`, `src/...` and `@/...` accepted); `mustImport` as module specifiers (`@/components/...`) or
+    paths; a row whose `twin` is null or empty is a technical row whose file must contain no JSX (row 37). Screen
+    files that need a row: every `page`, `layout`, `template`, `not-found`, `error`, `global-error`, `loading`,
+    `default`, `forbidden`, `unauthorized`, `opengraph-image`, `twitter-image`, `icon`, `apple-icon` under
+    `app/sites/` outside `_folders` (route handlers such as `robots.txt/route.ts` need none). One file can sit in
+    several rows (anime and hub share `app/sites/[site]/page.tsx`): each row's mustImport is checked on it.
+    A mustImport module counts when the page reaches it directly, through a module of the page's own folder, or as a
+    dependency of another mustImport module of the same row that the page reaches (so listing what `hub.tsx` renders
+    next to `hub.tsx` is fine); never through a wrapper module elsewhere.
+16. To F0 and ORCH (rule 18, the spike). Dry run of twins.mts on the spike files (`a74c82f`, five files under
+    `app/sites/[site]/`) in a scratch copy of the tree, against a twins.json shaped from `TWINS-draft.md`: 29 failures,
+    all `missing-import`: `layout.tsx` (rows 28 and H-0: none of the shell modules), `page.tsx` (rows 1 and H-1),
+    `not-found.tsx` (rows 27 and H-8: no `@/components/ui/mascot`). `[...rest]/page.tsx` passes as a technical row (no
+    JSX). Why it matters: once both twins.mts and twins.json are in O1, a lane tree carrying these placeholders fails
+    the `twins` step. Options for ORCH: keep the spike placeholders off o1/integration (O1 and H1 write the real
+    pages from the twins), or have F0's layout, home and 404 already render their twins' shared components. The
+    check gives no placeholder exception (it would be the loophole rule 18 closes).
+17. To ORCH, `scripts/o1/check.sh` (owner ORCH). (a) Merge order: once twins.mts is in O1 and twins.json is in
+    neither O1 nor the lane, check.sh exits 1 ("cannot check") on every lane's gate. Merge F0's twins.json before or
+    with Q0a, or let check.sh print `pending` until O1 has it. (b) Optional: pass `--json "$EVIDENCE/twins.json"`
+    (when the gate gives check.sh its evidence folder) so R reads the structured result. (c) The check takes about
+    20 s on the real tree (1455 files parsed); the harness-unit step gains about 30 s for twins.test.mjs under load.

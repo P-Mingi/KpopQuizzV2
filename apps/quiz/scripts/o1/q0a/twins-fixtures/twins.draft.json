@@ -1,0 +1,974 @@
+{
+  "version": "fixture-2026-10-16",
+  "differenceCodes": {
+    "T": "see TWINS-draft.md",
+    "B": "see TWINS-draft.md",
+    "V": "see TWINS-draft.md",
+    "C": "see TWINS-draft.md",
+    "F": "see TWINS-draft.md",
+    "N": "see TWINS-draft.md",
+    "A1": "see TWINS-draft.md",
+    "A2": "see TWINS-draft.md",
+    "A3": "see TWINS-draft.md",
+    "A4": "see TWINS-draft.md",
+    "A5": "see TWINS-draft.md",
+    "A6": "see TWINS-draft.md",
+    "A7": "see TWINS-draft.md",
+    "Tn": "see TWINS-draft.md",
+    "Bf": "see TWINS-draft.md",
+    "H1": "see TWINS-draft.md",
+    "H2": "see TWINS-draft.md",
+    "H3": "see TWINS-draft.md",
+    "H4": "see TWINS-draft.md"
+  },
+  "pages": [
+    {
+      "id": "1",
+      "site": "anime",
+      "route": "/",
+      "file": "app/sites/[site]/page.tsx",
+      "twin": "app/(site)/page.tsx",
+      "mustImport": [
+        "@/components/home/ux-v1/ux-home",
+        "@/components/home/ux-v1/home-header",
+        "@/components/home/ux-v1/qotd-row",
+        "@/components/home/ux-v1/quiz-rows",
+        "@/components/home/ux-v1/groups-rail",
+        "@/components/home/ux-v1/blindtest-band",
+        "@/components/home/ux-v1/continue-playing",
+        "@/components/home/ux-v1/community-rows",
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/quiz-card"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "2",
+      "site": "anime",
+      "route": "/series",
+      "file": "app/sites/[site]/series/page.tsx",
+      "twin": "app/(site)/groups/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/groups-index",
+        "@/components/group/ux-v1/groups-browser",
+        "@/components/group/ux-v1/group-avatar"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "3",
+      "site": "anime",
+      "route": "/{series}-quiz",
+      "file": "app/sites/[site]/[slug]/page.tsx",
+      "twin": "app/(site)/[slug]/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/hub",
+        "@/components/group/ux-v1/hub-quizzes",
+        "@/components/group/ux-v1/hub-growth",
+        "@/components/group/ux-v1/hub-notify",
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/panel",
+        "@/components/ux-v1/button",
+        "@/components/ux-v1/person-name"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "4",
+      "site": "anime",
+      "route": "/anime-mix-quiz",
+      "file": "app/sites/[site]/[slug]/page.tsx",
+      "twin": "app/(site)/[slug]/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/hub",
+        "@/components/group/ux-v1/hub-quizzes",
+        "@/components/group/ux-v1/hub-growth",
+        "@/components/group/ux-v1/hub-notify",
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/panel",
+        "@/components/ux-v1/button",
+        "@/components/ux-v1/person-name"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "5",
+      "site": "anime",
+      "route": "/{series}-trivia",
+      "file": "app/sites/[site]/[slug]/page.tsx",
+      "twin": "app/(site)/[slug]/group-trivia-page.tsx",
+      "mustImport": [
+        "@/components/group/answer-first",
+        "@/components/trivia/trivia-share-button"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A5",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "6",
+      "site": "anime",
+      "route": "/q/{slug}",
+      "file": "app/sites/[site]/q/[slug]/page.tsx",
+      "twin": [
+        "app/(site)/q/[slug]/page.tsx",
+        "app/(site)/q/[slug]/ux-page.tsx"
+      ],
+      "mustImport": [
+        "@/components/quiz/ux-v1/quiz-page",
+        "@/components/quiz/ux-v1/intro-islands",
+        "@/components/quiz/ux-v1/comments",
+        "@/components/quiz/ux-v1/report",
+        "@/components/quiz/ux-v1/run-context",
+        "@/components/ux-v1/text-card",
+        "@/components/ux-v1/panel",
+        "@/components/ux-v1/person-name"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "7",
+      "site": "anime",
+      "route": "play (inside /q/{slug})",
+      "file": "app/sites/[site]/q/[slug]/page.tsx",
+      "twin": "app/(site)/q/[slug]/ux-page.tsx",
+      "mustImport": [
+        "@/components/quiz/ux-v1/game",
+        "@/components/quiz/ux-v1/quiz-run",
+        "@/components/ux-v1/answer-tiles"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "8",
+      "site": "anime",
+      "route": "results (inside /q/{slug})",
+      "file": "app/sites/[site]/q/[slug]/page.tsx",
+      "twin": "app/(site)/q/[slug]/ux-page.tsx",
+      "mustImport": [
+        "@/components/quiz/ux-v1/results",
+        "@/components/quiz/ux-v1/story",
+        "@/components/ux-v1/result-card",
+        "@/components/ux-v1/story-image",
+        "@/components/ux-v1/share-sheet",
+        "@/components/this-or-that/bonus"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "9",
+      "site": "anime",
+      "route": "/create",
+      "file": "app/sites/[site]/create/page.tsx",
+      "twin": "app/(site)/create/page.tsx",
+      "mustImport": [
+        "@/components/create/ux-v1/loader",
+        "@/components/create/ux-v1/create",
+        "@/components/create/ux-v1/details",
+        "@/components/create/ux-v1/questions",
+        "@/components/create/ux-v1/publish",
+        "@/components/create/ux-v1/done",
+        "@/components/create/ux-v1/group-field"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "10",
+      "site": "anime",
+      "route": "/daily",
+      "file": "app/sites/[site]/daily/route.ts",
+      "twin": "app/(site)/daily/route.ts",
+      "mustImport": [],
+      "allowed": [],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "11",
+      "site": "anime",
+      "route": "/blindtest",
+      "file": "app/sites/[site]/blindtest/page.tsx",
+      "twin": "app/(site)/blindtest/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/hub",
+        "@/components/blindtest/ux-v1/hub-v12"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "12",
+      "site": "anime",
+      "route": "/{series}-openings-quiz",
+      "file": "app/sites/[site]/blindtest/[playlist]/page.tsx",
+      "twin": "app/(site)/blindtest/[mode]/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/group-page",
+        "@/components/blindtest/ux-v1/game",
+        "@/components/blindtest/ux-v1/setup",
+        "@/components/blindtest/ux-v1/results",
+        "@/components/blindtest/ux-v1/use-run"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "13",
+      "site": "anime",
+      "route": "/opening-of-the-day",
+      "file": "app/sites/[site]/opening-of-the-day/page.tsx",
+      "twin": "app/(site)/blindtest/[mode]/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/mode-page",
+        "@/components/blindtest/ux-v1/game",
+        "@/components/blindtest/ux-v1/results"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "14",
+      "site": "anime",
+      "route": "/which-{series}-character-are-you",
+      "file": "app/sites/[site]/which-character/[series]/page.tsx",
+      "twin": "app/(site)/personality/[group]/page.tsx",
+      "mustImport": [
+        "@/components/personality/quiz",
+        "@/components/personality/about",
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/ways-tile"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "15",
+      "site": "anime",
+      "route": "/name-all/{series}/{set}",
+      "file": "app/sites/[site]/name-all/[series]/[set]/page.tsx",
+      "twin": "app/(site)/name-all/[group]/page.tsx",
+      "mustImport": [
+        "@/components/name-all/game",
+        "@/components/name-all/about",
+        "@/components/ux-v1/page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "16",
+      "site": "anime",
+      "route": "/me",
+      "file": "app/sites/[site]/me/page.tsx",
+      "twin": "app/(site)/me/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport",
+        "@/components/profile/ux-v1/passport-band",
+        "@/components/profile/ux-v1/passport-tabs",
+        "@/components/profile/ux-v1/passport-actions",
+        "@/components/profile/ux-v1/rows",
+        "@/components/profile/ux-v1/own-quiz-row",
+        "@/components/profile/ux-v1/passport-guest",
+        "@/components/ux-v1/badge-medal",
+        "@/components/ux-v1/team"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "17",
+      "site": "anime",
+      "route": "/u/{username}",
+      "file": "app/sites/[site]/u/[username]/page.tsx",
+      "twin": "app/(site)/u/[username]/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport",
+        "@/components/ux-v1/team"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "18",
+      "site": "anime",
+      "route": "/settings",
+      "file": "app/sites/[site]/settings/page.tsx",
+      "twin": "app/(site)/settings/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/settings",
+        "@/components/layout/ux-v1/ux-appearance-setting"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "19",
+      "site": "anime",
+      "route": "/login",
+      "file": "app/sites/[site]/login/page.tsx",
+      "twin": [
+        "app/(site)/login/page.tsx",
+        "components/ux-v1/sign-in-sheet.tsx"
+      ],
+      "mustImport": [
+        "@/components/ux-v1/sign-in-sheet",
+        "@/components/ux-v1/sheet",
+        "@/components/ux-v1/button"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C",
+        "F"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "20",
+      "site": "anime",
+      "route": "/onboarding",
+      "file": "app/sites/[site]/onboarding/page.tsx",
+      "twin": "app/(site)/onboarding/page.tsx",
+      "mustImport": [
+        "@/app/(site)/onboarding/onboarding-form"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "21",
+      "site": "anime",
+      "route": "/notifications",
+      "file": "app/sites/[site]/notifications/page.tsx",
+      "twin": "app/(site)/notifications/page.tsx",
+      "mustImport": [
+        "@/components/notifications/notifications-center",
+        "@/components/ux-v1/page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "22",
+      "site": "anime",
+      "route": "/search",
+      "file": "app/sites/[site]/search/page.tsx",
+      "twin": "app/(site)/search/page.tsx",
+      "mustImport": [
+        "@/components/layout/ux-v1/ux-search",
+        "@/components/ux-v1/quiz-card",
+        "@/components/ux-v1/team"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "23",
+      "site": "anime",
+      "route": "/community",
+      "file": "app/sites/[site]/community/page.tsx",
+      "twin": "app/(site)/community/page.tsx",
+      "mustImport": [
+        "@/components/community/ux-v1/feed",
+        "@/components/community/ux-v1/feed-card",
+        "@/components/community/ux-v1/rail",
+        "@/components/community/ux-v1/debate-panel",
+        "@/components/community/ux-v1/editor",
+        "@/components/community/ux-v1/viewer",
+        "@/components/community/ux-v1/post-view",
+        "@/components/community/ux-v1/replies"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "24",
+      "site": "anime",
+      "route": "/about",
+      "file": "app/sites/[site]/about/page.tsx",
+      "twin": "app/(site)/about/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "25",
+      "site": "anime",
+      "route": "/editorial-policy",
+      "file": "app/sites/[site]/editorial-policy/page.tsx",
+      "twin": "app/(site)/editorial-policy/page.tsx",
+      "mustImport": [],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A5"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "26",
+      "site": "anime",
+      "route": "/privacy, /terms, /contact",
+      "file": [
+        "app/sites/[site]/privacy/page.tsx",
+        "app/sites/[site]/terms/page.tsx",
+        "app/sites/[site]/contact/page.tsx"
+      ],
+      "twin": [
+        "app/(site)/privacy/page.tsx",
+        "app/(site)/terms/page.tsx",
+        "app/(site)/contact/page.tsx"
+      ],
+      "mustImport": [],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "27",
+      "site": "anime",
+      "route": "404",
+      "file": "app/sites/[site]/not-found.tsx",
+      "twin": "app/(site)/not-found.tsx",
+      "mustImport": [
+        "@/components/ui/mascot"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C",
+        "F"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "28",
+      "site": "anime",
+      "route": "shell: nav, tab bar, footer",
+      "file": "app/sites/[site]/layout.tsx",
+      "twin": [
+        "components/layout/ux-v1/ux-shell.tsx",
+        "components/layout/ux-v1/ux-footer.tsx"
+      ],
+      "mustImport": [
+        "@/components/layout/ux-v1/ux-shell",
+        "@/components/layout/ux-v1/ux-footer",
+        "@/components/layout/ux-v1/ux-nav-links",
+        "@/components/layout/ux-v1/ux-tab-bar",
+        "@/components/layout/ux-v1/ux-nav-actions",
+        "@/components/ux-v1/brand",
+        "@/lib/ux-v1/a0/nav"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A6"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "29",
+      "site": "anime",
+      "route": "/admin/review",
+      "file": "app/sites/[site]/admin/review/page.tsx",
+      "twin": "app/(site)/admin/editorial/page.tsx",
+      "mustImport": [
+        "@/app/(site)/admin/editorial/editorial-admin"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "31",
+      "site": "anime",
+      "route": "/quizzes and its lists",
+      "file": [
+        "app/sites/[site]/quizzes/page.tsx",
+        "app/sites/[site]/quizzes/popular-today/page.tsx",
+        "app/sites/[site]/quizzes/popular-this-week/page.tsx",
+        "app/sites/[site]/quizzes/popular-this-month/page.tsx"
+      ],
+      "twin": "app/(site)/quizzes/page.tsx",
+      "mustImport": [
+        "@/components/quizzes/ux-v1/quizzes-page",
+        "@/components/quizzes/ux-v1/controls"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "32",
+      "site": "anime",
+      "route": "/new, /most-liked, /trending",
+      "file": [
+        "app/sites/[site]/new/page.tsx",
+        "app/sites/[site]/most-liked/page.tsx",
+        "app/sites/[site]/trending/page.tsx"
+      ],
+      "twin": [
+        "app/(site)/new/page.tsx",
+        "app/(site)/most-liked/page.tsx",
+        "app/(site)/trending/page.tsx"
+      ],
+      "mustImport": [
+        "@/components/home/infinite-quiz-list"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "33",
+      "site": "anime",
+      "route": "/trivia",
+      "file": "app/sites/[site]/trivia/page.tsx",
+      "twin": "app/(site)/trivia/page.tsx",
+      "mustImport": [],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A7"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "34",
+      "site": "anime",
+      "route": "/faq",
+      "file": "app/sites/[site]/faq/page.tsx",
+      "twin": "app/(site)/faq/page.tsx",
+      "mustImport": [],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "35",
+      "site": "anime",
+      "route": "/leaderboard",
+      "file": "app/sites/[site]/leaderboard/page.tsx",
+      "twin": "app/(site)/leaderboard/page.tsx",
+      "mustImport": [
+        "@/components/leaderboard/ux-v1/leaderboard"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "36",
+      "site": "anime",
+      "route": "/dmca",
+      "file": "app/sites/[site]/dmca/page.tsx",
+      "twin": "app/(site)/dmca/page.tsx",
+      "mustImport": [],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "37",
+      "site": "anime",
+      "route": "technical routes without a screen",
+      "file": [
+        "app/sites/[site]/[...rest]/page.tsx",
+        "app/sites/[site]/robots.txt/route.ts",
+        "app/sites/[site]/sitemap.xml/route.ts",
+        "app/sites/[site]/llms.txt/route.ts"
+      ],
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-0",
+      "site": "hub",
+      "route": "shell: nav, tab bar, footer",
+      "file": "app/sites/[site]/layout.tsx",
+      "twin": [
+        "components/layout/ux-v1/ux-shell.tsx",
+        "components/layout/ux-v1/ux-footer.tsx"
+      ],
+      "mustImport": [
+        "@/components/layout/ux-v1/ux-shell",
+        "@/components/layout/ux-v1/ux-footer",
+        "@/components/layout/ux-v1/ux-nav-links",
+        "@/components/layout/ux-v1/ux-tab-bar",
+        "@/components/layout/ux-v1/ux-nav-actions",
+        "@/components/ux-v1/brand"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-1",
+      "site": "hub",
+      "route": "/",
+      "file": "app/sites/[site]/page.tsx",
+      "twin": "app/(site)/about/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/panel"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H1",
+        "H2"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-2",
+      "site": "hub",
+      "route": "/privacy",
+      "file": "app/sites/[site]/privacy/page.tsx",
+      "twin": "app/(site)/privacy/page.tsx",
+      "mustImport": [],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-3",
+      "site": "hub",
+      "route": "/passport",
+      "file": "app/sites/[site]/passport/page.tsx",
+      "twin": "app/(site)/me/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport",
+        "@/components/profile/ux-v1/passport-band",
+        "@/components/profile/ux-v1/passport-tabs",
+        "@/components/ux-v1/badge-medal"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H3"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-4",
+      "site": "hub",
+      "route": "/u/{username}",
+      "file": "app/sites/[site]/u/[username]/page.tsx",
+      "twin": "app/(site)/u/[username]/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H3"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-5",
+      "site": "hub",
+      "route": "/settings",
+      "file": "app/sites/[site]/settings/page.tsx",
+      "twin": "app/(site)/settings/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/settings",
+        "@/components/layout/ux-v1/ux-appearance-setting"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H4"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-6",
+      "site": "hub",
+      "route": "/login",
+      "file": "app/sites/[site]/login/page.tsx",
+      "twin": [
+        "app/(site)/login/page.tsx",
+        "components/ux-v1/sign-in-sheet.tsx"
+      ],
+      "mustImport": [
+        "@/components/ux-v1/sign-in-sheet"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-7",
+      "site": "hub",
+      "route": "/directory",
+      "file": "app/sites/[site]/directory/page.tsx",
+      "twin": "app/(site)/groups/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/groups-index"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    },
+    {
+      "id": "H-8",
+      "site": "hub",
+      "route": "404",
+      "file": "app/sites/[site]/not-found.tsx",
+      "twin": "app/(site)/not-found.tsx",
+      "mustImport": [
+        "@/components/ui/mascot"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "notes": "fixture made by Q0a from ORCH briefs/TWINS-draft.md; F0 docs/o1/contracts/twins.json replaces it"
+    }
+  ]
+}
