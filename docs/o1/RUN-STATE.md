@@ -48,3 +48,4 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 
 | tick | started (UTC) | lanes | result |
 |---|---|---|---|
+| 1 | 2026-10-16T11:25Z | F0 (+ spike F0s), Q0a, D0; maxCode 2, maxOther 2, maxSlices 3; Workflow run wf_9a4593ba-f57 | running |
