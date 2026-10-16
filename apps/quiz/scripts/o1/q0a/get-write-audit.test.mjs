@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
 
-import { resolveRoute, rpcWrites, writeSites } from './get-write-audit.mjs';
+import { rpcVerdict } from '../../../../../scripts/o1/parity/rpc-verdict.mjs';
+import { resolveRoute, writeSites } from './get-write-audit.mjs';
 
 test('writeSites finds table writes, storage uploads, RPCs and non-GET fetches', () => {
   const src = [
@@ -20,10 +21,12 @@ test('writeSites finds table writes, storage uploads, RPCs and non-GET fetches',
   assert.deepEqual(got.sort(), ['delete:<table>', 'fetch:POST', 'rpc:ensure_daily_debate', 'rpc:get_today_stats', 'update:quiz_time_stats', 'upload:storage'].sort());
 });
 
-test('rpcWrites reads the SQL definition', () => {
-  assert.equal(rpcWrites('ensure_daily_debate').verdict, 'writes');
-  assert.equal(rpcWrites('get_today_stats').verdict, 'reads');
-  assert.equal(rpcWrites('no_such_function_o1').verdict, 'unknown');
+test('rpcVerdict reads every SQL definition, recursively', () => {
+  assert.equal(rpcVerdict('ensure_daily_debate').verdict, 'writes');
+  assert.equal(rpcVerdict('record_play').verdict, 'writes');
+  assert.equal(rpcVerdict('award_xp').verdict, 'writes');
+  assert.equal(rpcVerdict('get_today_stats').verdict, 'reads');
+  assert.equal(rpcVerdict('no_such_function_o1').verdict, 'unknown');
 });
 
 test('resolveRoute: static, dynamic, pretty URLs, special files, unknown paths', () => {

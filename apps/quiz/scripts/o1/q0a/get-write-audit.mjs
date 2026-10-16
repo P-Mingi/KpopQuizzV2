@@ -8,9 +8,9 @@
 // import closure of those files (static imports, re-exports, dynamic import()). In every server module of the
 // closure ('use client' modules run their effects in the browser, 'use server' modules only on a POST) it lists:
 //   - table writes: .from('<table>') ... .insert/.upsert/.update/.delete in one statement, storage .upload;
-//   - RPC calls, each looked up in supabase/migrations and docs/pending-migrations: the last definition of the
-//     function is read and marked "writes" when its body has an INSERT, UPDATE, DELETE or a PERFORM/SELECT of a
-//     known writing function;
+//   - RPC calls, each judged by scripts/o1/parity/rpc-verdict.mjs (every definition in supabase/migrations and
+//     docs/pending-migrations must be read-only: STABLE or IMMUTABLE, or a body without a write and without a call
+//     of a writing function);
 //   - fetch calls with a non-GET method (external writes).
 // A module reachable from a URL is not proof that the write runs on that GET, so every reachable write site must be
 // listed in REVIEWED below with the reason it does not run on an anonymous GET render. Exit 1 when a reachable write
@@ -20,6 +20,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { rpcVerdict } from '../../../../../scripts/o1/parity/rpc-verdict.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const QUIZ = path.resolve(HERE, '../../..'); // apps/quiz
@@ -34,10 +36,10 @@ const JSON_OUT = opt('--json', null);
 // Reviewed write sites: "<file relative to apps/quiz/src>:<op>:<target>" -> why it never runs on an anonymous GET.
 // A site is keyed by file, operation and table or function, not by line, so unrelated edits do not void a review.
 export const REVIEWED = {
-  'lib/passport.ts:update:profiles': 'writePassportSnapshot and the counter fallback: called from /me (signed in) and API routes, never from a public render',
-  'lib/passport.ts:upsert:passport_group_snapshots': 'writePassportSnapshot: /me only (signed in)',
-  'lib/passport.ts:delete:passport_group_snapshots': 'writePassportSnapshot: /me only (signed in)',
-  'lib/passport.ts:rpc:increment_passport_counter': 'bumpPassportCounter: called from API routes after a play, never from a render',
+  'lib/passport.ts:update:profiles': 'snapshotIfStale (called by app/(site)/me/page.tsx only, signed in); the bumpPassportCounter fallback and updatePassportIdentity have no caller in src',
+  'lib/passport.ts:upsert:passport_group_snapshots': 'snapshotIfStale: called by app/(site)/me/page.tsx only (signed in)',
+  'lib/passport.ts:delete:passport_group_snapshots': 'snapshotIfStale: called by app/(site)/me/page.tsx only (signed in)',
+  'lib/passport.ts:rpc:increment_passport_counter': 'bumpPassportCounter has no caller in src',
   'lib/db/queries/plays.ts:rpc:record_play': 'recordPlay has no caller in src (the /q/ page imports getQuizExtraStats only)',
   'lib/db/queries/debate.ts:rpc:ensure_daily_debate': 'getDailyDebate runs inside CommunityContent, which /leaderboard renders only with NEXT_PUBLIC_UX_V1 off; the production flags render LeaderboardV11. /community (which does call it) is not in the list',
   'lib/duel/server.ts:rpc:duel_cast_song_vote': 'DuelStore.vote: called by POST /api/duel/vote only; the hubs call getFansPicked (reads)',
@@ -148,31 +150,6 @@ export function closure(entries) {
 }
 
 // ---------- write sites ----------
-const SQL_DIRS = [path.join(REPO, 'supabase/migrations'), path.join(REPO, 'docs/pending-migrations')];
-let sqlFiles = null;
-function allSql() {
-  if (sqlFiles) return sqlFiles;
-  sqlFiles = [];
-  const walk = (d) => { for (const e of listDir(d)) { const f = path.join(d, e.name); if (e.isDirectory()) walk(f); else if (e.name.endsWith('.sql') && !e.name.endsWith('.rollback.sql')) sqlFiles.push(f); } };
-  SQL_DIRS.forEach(walk); sqlFiles.sort(); return sqlFiles;
-}
-const fnCache = new Map();
-export function rpcWrites(name) {
-  if (fnCache.has(name)) return fnCache.get(name);
-  let last = null;
-  const head = new RegExp(`create\\s+(or\\s+replace\\s+)?function\\s+(public\\.)?"?${name}"?\\s*\\(`, 'i');
-  for (const f of allSql()) {
-    const s = read(f); const m = s && s.match(head); if (!m) continue;
-    const start = m.index; const tail = s.slice(start);
-    const tag = tail.match(/as\s+(\$[A-Za-z_]*\$)/i);
-    let body = tail.slice(0, 4000);
-    if (tag) { const a = tail.indexOf(tag[1]) + tag[1].length; const b = tail.indexOf(tag[1], a); body = tail.slice(a, b < 0 ? a + 8000 : b); }
-    last = { file: path.relative(REPO, f), body };
-  }
-  const r = !last ? { verdict: 'unknown', file: null }
-    : { verdict: /\b(insert\s+into|update\s+[a-z_."]+\s+set|delete\s+from|on\s+conflict)\b/i.test(last.body) ? 'writes' : 'reads', file: last.file };
-  fnCache.set(name, r); return r;
-}
 export function writeSites(src) {
   const out = [];
   const lineOf = (i) => src.slice(0, i).split('\n').length;
@@ -220,11 +197,11 @@ function main() {
       if (kind !== 'server') continue;
       for (const s of writeSites(read(f))) {
         const key = `${rel(f)}:${s.op}:${s.target}`;
-        const rpc = s.op === 'rpc' && !s.target.startsWith('<') ? rpcWrites(s.target) : null;
+        const rpc = s.op === 'rpc' && !s.target.startsWith('<') ? rpcVerdict(s.target) : null;
         const isWrite = s.op === 'rpc' ? !(rpc && rpc.verdict === 'reads') : true;
-        if (!isWrite) { sites.push({ ...s, file: rel(f), status: `read-only rpc (${rpc.file})` }); continue; }
+        if (!isWrite) { sites.push({ ...s, file: rel(f), status: `read-only rpc (${rpc.files.join(', ')})` }); continue; }
         const why = REVIEWED[key];
-        sites.push({ ...s, file: rel(f), status: why ? `reviewed: ${why}` : `UNREVIEWED${rpc ? ` (rpc ${rpc.verdict}${rpc.file ? `, ${rpc.file}` : ''})` : ''}` });
+        sites.push({ ...s, file: rel(f), status: why ? `reviewed: ${why}` : `UNREVIEWED${rpc ? ` (rpc ${rpc.verdict}: ${rpc.why})` : ''}` });
         if (!why) bad++;
       }
     }
