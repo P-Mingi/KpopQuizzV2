@@ -268,7 +268,7 @@ export interface SiteEditorial {
 }
 
 export interface SiteDaily {
-  /** Mirror of sites.system_user_id: author of the daily quiz. null until set (anime: launch L03). */
+  /** Mirror of sites.system_user_id: author of the daily quiz. null until set (anime: launch L02). */
   readonly systemUserId: string | null;
   /** Mirror of sites.fallback_group_slug: topic of a bank row without a group. */
   readonly fallbackGroupSlug: string | null;

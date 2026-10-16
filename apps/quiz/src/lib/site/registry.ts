@@ -271,7 +271,7 @@ export const PLACEHOLDERS: Readonly<Record<SiteId, readonly string[]>> = {
     'brand.logo (O1)', 'brand.favicon (O1)', 'brand.ogTemplate (O1)', 'brand.mascot (G18, Fuki placeholder)',
     'vocabulary.* text (O1)', 'seo.indexNowKey (O1)', 'seo.organization.email (owner)',
     'theme.light and theme.dark (O1, Option A after G5)', 'levelTitles (G6)',
-    'editorial.quizDailyCap (G0)', 'daily.systemUserId (launch L03)',
+    'editorial.quizDailyCap (G0)', 'daily.systemUserId (launch L02)',
   ],
   hub: [
     'brand.logo (H1)', 'brand.favicon (H1)', 'brand.ogTemplate (H1)', 'vocabulary.* text (H1)',

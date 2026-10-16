@@ -21,7 +21,7 @@ Frozen by BACKLOG 5.1 unless marked "F0 decision". Code: `apps/quiz/src/lib/site
 | never | always | note |
 |---|---|---|
 | a `World` type, prefix or file (`WorldId`, `currentWorld`) | `SiteId`, `SITE`, `site` | the word "world" survives only as a value: `SiteKind = 'world'`, and the frozen SQL names `world_memberships`, `world_follows`, `world_progress`, `award_world_xp`, `bump_world_counter`, `passport_leave_world` |
-| `BRIDGE_*` constants, a `lib/bridge*` path, a `Bridge*` type | `lib/network/`, the `Net` prefix (`NetMe`, `NetLink`, `NetFooterLine`, `NetSitesMenu`) | "bridge" survives only inside the frozen names `NetBridgeId`, `bridge_daily`, `net_bridge_bump`, `bridgeHref` and the `bridge` field of `POST /api/n/b`. The existing `lib/personality/bridge.ts` is kpop code and is not renamed |
+| `BRIDGE_*` constants, a `lib/bridge*` path, a `Bridge*` type | `lib/network/`, the `Net` prefix (`NetMe`, `NetLink`, `NetFooterLine`, `NetSitesMenu`) | "bridge" survives only inside the frozen names `NetBridgeId`, `bridge_daily` (and its `bridge` column), `net_bridge_bump`, `bridgeHref` and the `bridge` field of `POST /api/n/b`. The existing `lib/personality/bridge.ts` is kpop code and is not renamed |
 | a hub id spelled as the two letters of research A | `hub` | the id research A proposed is refused by `resolveSiteId` |
 | `show_on_other_worlds`, `site_preferences`, `network_settings` | `show_elsewhere`, one `passport_prefs` table | BACKLOG 8, rows 9 and 10 |
 | `/auth/passport/callback` | `/auth/arrive`, `/auth/authorize`, `/auth/land` (P mechanics), `/auth/passport/out` (click endpoint) | BACKLOG 8, row 17 |
@@ -33,7 +33,8 @@ Frozen by BACKLOG 5.1 unless marked "F0 decision". Code: `apps/quiz/src/lib/site
 - `NetBridgeId`: Q's list (frozen in `lib/network/types.ts`, F0 slice 3).
 - Series slug: `groups.slug` of the anime topic row, `^[a-z0-9-]{1,60}$`, unique across sites (routes.md).
 - Username: unchanged, `^[a-z0-9_]{3,20}$` (`lib/ux-v1/p5/funnel.ts` USERNAME_RE), unique across the network.
-- SQL: `site_id text not null default 'kpop' references public.sites(id)` on every scoped table; the passport schema
+- SQL: `site_id text not null default 'kpop' references public.sites(id)` on every shared scoped table (002a), and
+  `site_id text not null` with no default on a new table keyed by site; the passport schema
   is `passport` (not exposed to the Data API); network functions start with `net_`, passport functions with
   `passport_`; triggers `trg_<table>_<purpose>` (schema.sql).
 - Analytics: no new event name without a CR; `beforeSend` (B6) strips identifiers.

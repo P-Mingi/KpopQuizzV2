@@ -40,7 +40,7 @@ Status words: `default, pending` (G0 not answered), `accepted` (the owner alread
 |---|---|---|---|
 | RUN-1 | 600 launch quizzes: tier A 8 series x 32, tier B 12 x 20, tier C 10 x 10, Anime Mix 4 | default, pending | formats.md (quiz draft), K2 targets |
 | RUN-2 | 20 series-dedicated creators and 10 theme creators, 20 quizzes each, all with the Team badge | default, pending | fixtures.md (Team creator fixture), copy-keys.md (`anime.p1.team`) |
-| RUN-3 | One extra system account "OtakuQuiz Team" for the daily quiz and Anime Mix | default, pending | registry.md (`daily.systemUserId`, launch L03), schema.sql (`sites.system_user_id`) |
+| RUN-3 | One extra system account "OtakuQuiz Team" for the daily quiz and Anime Mix | default, pending | registry.md (`daily.systemUserId`, launch L02), schema.sql (`sites.system_user_id`) |
 | RUN-4 | Team creators earn XP only from real events (creation, real likes), never on boards | default, pending | registry.md (anime `leaderboards` off), rpcs.md (`award_world_xp` callers) |
 | RUN-5 | Anime publisher 25 to 40 quizzes a day, never two in a row from one account; kpopquiz.org unchanged | default, pending | registry.md (`editorial.quizDailyCap`: anime 40, kpop 0), section 3 |
 | RUN-6 | Live rooms off on OtakuQuiz at launch | default, pending | registry.md (anime `features.live` false), routes.md (live must 404 on anime) |

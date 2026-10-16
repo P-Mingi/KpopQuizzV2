@@ -34,7 +34,7 @@ the CR rules of `CONTRACT.md` (values of anime and hub are 5.2: extendable; the 
 | `auth` | providers, googleClientIdEnv, emailLanding, signOutModes | google, discord, email; null (Supabase OAuth redirect, unchanged); `/auth/callback`; global | google, email; `NEXT_PUBLIC_GOOGLE_CLIENT_ID`; `/auth/confirm`; global, local | same as anime |
 | `passport` | probeOrder (P2 hook) | `[]` (inert) | `[]` | `[]` |
 | `editorial` | dailyItemCap, quizDailyCap, weeklyGroupLimit | 3 (MAX_PER_DAY), 0 (no quiz kind today), 3 (quiz-bank-scheduling.ts) | 3, 40 (G0 default: 25 to 40), 2 | 0, 0, 0 |
-| `daily` | systemUserId, fallbackGroupSlug (mirror of the `sites` row) | `00000000-0000-0000-0000-000000000001`, `general-kpop` (migration 042; G3's dump confirms) | null until launch L03, `anime-mix` | null, null |
+| `daily` | systemUserId, fallbackGroupSlug (mirror of the `sites` row) | `00000000-0000-0000-0000-000000000001`, `general-kpop` (migration 042; G3's dump confirms) | null until launch L02 (manifest.md), `anime-mix` | null, null |
 | `copy` | namespace | `kpop` | `anime` | `hub` |
 
 `PLACEHOLDERS` (registry.ts) lists, per site, every value that is a placeholder and who sets it. kpop has none.

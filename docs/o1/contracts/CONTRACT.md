@@ -18,8 +18,9 @@ marked "F0 decision" in the file that freezes it. A G0 default the owner has not
 | `registry.md` | `SiteId`, `SiteConfig`, `SITE`, `NETWORK`, the three entries | B1, O1, H1, B6, P1 | written |
 | `routes.md` | route map per site, otakuquiz.org URL scheme, the rewrite design, the "must 404" list | ORCH, B1, O1 to O6, H1, Q0a, D0 | written |
 | `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | written |
-| `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | pending |
-| `manifest.md` | SQL file names, order, owner, transaction mode, production phase | every SQL lane, ORCH (`migrate-dev.sh`) | pending |
+| `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | written |
+| `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, used only on a local cluster before G3 | F0 scripts, Q0b | written |
+| `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | every SQL lane, ORCH (`migrate-dev.sh`) | written |
 | `rpcs.md` | function signatures, SECURITY mode, grants, callers | B2 to B7, E1, O3, O5, O6, H1, P1 | pending |
 | `apis.md` | every HTTP route of BACKLOG 5.1 | B4, B6, B7, H1, P1, Q0b | pending |
 | `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | written |
@@ -35,7 +36,8 @@ marked "F0 decision" in the file that freezes it. A G0 default the owner has not
 Code that implements the contract on `o1/F0` (compiling stubs, imported by nothing on the kpop path until B1
 wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts`, `routing.test.ts`
 and `contract.test.ts` (the checkable rules of the contract files: token names, per-site sheets, copy files, the
-flag and secret tables, the G0 list; it grows with every slice). Pending: `lib/network/types.ts`,
+flag and secret tables, the G0 list, the SQL manifest and the conventions of `schema.sql`; it grows with every
+slice). Pending: `lib/network/types.ts`,
 `lib/passport/types.ts`, `lib/anime/types.ts`, `lib/db/contract.types.ts` (generated),
 `apps/quiz/scripts/o1/gen-contract-types.mts`, `apps/quiz/scripts/o1/check-contract.mts`.
 
