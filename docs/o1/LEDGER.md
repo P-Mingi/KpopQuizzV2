@@ -41,7 +41,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 
 | gate | what | needed by | needed on | status |
 |---|---|---|---|---|
-| G0 | confirm the defaults (21 decisions of the v2 plan, the 9 of the run plan, the Working System exceptions) | F0 freeze | 2026-10-17 | asked 2026-10-16 (Phase 0 packet); exceptions of rule 17 accepted in the start message |
+| G0 | confirm the defaults (21 decisions of the v2 plan, the 9 of the run plan, the Working System exceptions) | F0 freeze | 2026-10-17 | ANSWERED 2026-10-16 17:07 UTC: "ok pour tous les choix par défaut" |
 | G1 | create o1-dev and o1-scratch, run KPQ/fill-dev-env.sh | Q0b, B2 first SQL | 2026-10-18 | asked 2026-10-16 |
 | G3 | pg_dump schema-only of public + prod-inventory.sql into KPQ | Q0b, branch-parity, B5 | 2026-10-18 | asked 2026-10-16 |
 | G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | asked 2026-10-16 |
@@ -57,13 +57,13 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 
 | gate | status | asked | answered |
 |---|---|---|---|
-| G0 | asked | 2026-10-16 | |
+| G0 | answered: all defaults confirmed | 2026-10-16 | 2026-10-16 |
 | G1 | asked | 2026-10-16 | |
 | G2 | asked (after G1) | 2026-10-16 | |
 | G3 | asked | 2026-10-16 | |
 | G4 | only if a content agent hits a network block (override 6) | | |
 | G5 | when D0 passes R | | |
-| G6 | asked (30 series, creator personas) | 2026-10-16 | |
+| G6 | partly answered: the default 30-series list and the persona method (K2 drafts, owner validates) confirmed with G0; personas themselves to validate when K2 drafts them | 2026-10-16 | 2026-10-16 (list and method) |
 | G7 | day 1 packet | | |
 | G8 | day 1 packet | | |
 | G9 | day 1 packet | | |
@@ -136,6 +136,15 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   zero rows; a hide-when-empty behaviour is a prop request to the home's owner, not a new block; (4) D0 draws one slot
   placement per anime block inside the shared hub, the hub's owner confirms the slots when O2 starts; (5) D0 draws no
   frame for CR-002 to CR-006 until the owner approves them, and no frame for row 37 (technical routes).
+- D-021 G0 answered by the owner on 2026-10-16 at 17:07 UTC ("ok pour tous les choix par défaut"): confirmed the 21
+  decisions of the v2 plan section 9, the 9 defaults of the run plan section 8 (600 quizzes split 8 x 32, 12 x 20,
+  10 x 10, 4 Anime Mix; 20 series and 10 theme creators, 20 quizzes each, Team badge; the "OtakuQuiz Team" system
+  account; Team XP from real events only, off every board; anime publisher 25 to 40 a day, never two in a row from one
+  account; live off on OtakuQuiz at launch; quiz sites at listing level only; Cowboy Bebop and Vinland Saga for Pokemon
+  and Berserk; the two parity normalisations), and the Working System exceptions of rule 17. Read as also confirming
+  the default 30-series list and the persona method of G6 (K2 drafts, the owner validates the personas). Not read as
+  approving CR-002 to CR-006: they were proposals, not defaults, and stay pending. F0 marks every default of
+  `defaults.md` "confirmed by the owner (G0, 2026-10-16)" instead of "default, pending".
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
