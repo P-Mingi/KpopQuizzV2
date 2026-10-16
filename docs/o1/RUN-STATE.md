@@ -50,4 +50,4 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 | tick | started (UTC) | lanes | result |
 |---|---|---|---|
 | 1 | 2026-10-16T11:25Z | F0 (+ spike F0s), Q0a, D0; maxCode 2, maxOther 2, maxSlices 3; Workflow run wf_9a4593ba-f57 | stopped by ORCH for rule 18 (D-019): F0 e5b51a5 and Q0a 3f51f62 in progress, D0 dd39d7d interrupted |
-| 2 | 2026-10-16T17:05Z | F0 (+ F0s, reviewers ARCH and UX), Q0a, D0 (rework from its rule 18 audit); maxSlices 3; Workflow run wf_d31d9a73-9c8 | running |
+| 2 | 2026-10-16T16:42Z | F0 (+ F0s, reviewers ARCH and UX), Q0a, D0 (rework from its rule 18 audit); maxSlices 3; Workflow run wf_d31d9a73-9c8 | running |
