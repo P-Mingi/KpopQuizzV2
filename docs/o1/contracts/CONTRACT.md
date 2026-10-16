@@ -17,26 +17,27 @@ marked "F0 decision" in the file that freezes it. A G0 default the owner has not
 | `naming.md` | identifiers, naming traps, file and folder names | all | written |
 | `registry.md` | `SiteId`, `SiteConfig`, `SITE`, `NETWORK`, the three entries | B1, O1, H1, B6, P1 | written |
 | `routes.md` | route map per site, otakuquiz.org URL scheme, the rewrite design, the "must 404" list | ORCH, B1, O1 to O6, H1, Q0a, D0 | written |
-| `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | pending |
+| `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | written |
 | `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | pending |
 | `manifest.md` | SQL file names, order, owner, transaction mode, production phase | every SQL lane, ORCH (`migrate-dev.sh`) | pending |
 | `rpcs.md` | function signatures, SECURITY mode, grants, callers | B2 to B7, E1, O3, O5, O6, H1, P1 | pending |
 | `apis.md` | every HTTP route of BACKLOG 5.1 | B4, B6, B7, H1, P1, Q0b | pending |
-| `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | pending |
-| `flags-env.md` | flags, env names, secret names, dev hosts | all code lanes, L1 | pending |
+| `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | written |
+| `flags-env.md` | flags, env names, secret names, dev hosts | all code lanes, L1 | written |
 | `fixtures.md` + `fixtures/` | fixture users, series fixtures | Q0b, B3, B4, B7, O2 to O5, P1, H1 | pending |
 | `formats.md` + `schemas/` | JSON Schemas of the content formats | E1a, K1 to K4, X1 | pending |
-| `copy-keys.md` | copy keys per site and lane (keys only) | D0, O1 to O6, P1, H1, B6, X1 | pending |
+| `copy-keys.md` | copy keys per site and lane (keys only) | D0, O1 to O6, P1, H1, B6, X1 | written |
 | `link-allowlist.md` | cross-site links allowed in crawlable HTML | Q0a, B6, X1, H1, O1 | pending |
 | `LANES.md` | every lane of BACKLOG section 1 and the sections it cites | all, R | pending |
-| `defaults.md` | the G0 defaults, each "default, pending" | all, ORCH | pending |
+| `defaults.md` | the G0 defaults, each "default, pending" | all, ORCH | written |
 | `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | gate | on `o1/F0s` |
 
 Code that implements the contract on `o1/F0` (compiling stubs, imported by nothing on the kpop path until B1
-wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts` and
-`routing.test.ts`. Pending: `lib/network/types.ts`, `lib/passport/types.ts`, `lib/anime/types.ts`,
-`lib/db/contract.types.ts` (generated), `lib/site/contract.test.ts`, `apps/quiz/scripts/o1/gen-contract-types.mts`,
-`apps/quiz/scripts/o1/check-contract.mts`.
+wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts`, `routing.test.ts`
+and `contract.test.ts` (the checkable rules of the contract files: token names, per-site sheets, copy files, the
+flag and secret tables, the G0 list; it grows with every slice). Pending: `lib/network/types.ts`,
+`lib/passport/types.ts`, `lib/anime/types.ts`, `lib/db/contract.types.ts` (generated),
+`apps/quiz/scripts/o1/gen-contract-types.mts`, `apps/quiz/scripts/o1/check-contract.mts`.
 
 ## Change requests (CR)
 
@@ -56,7 +57,8 @@ wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `re
 - New optional `SiteConfig` fields; new feature keys (default false on every site that does not set them); anime and
   hub registry values (vocabulary text, titles, token values within the frozen token names).
 - New anime or hub routes. Never a new kpop route beyond the ones `routes.md` lists.
-- New `NetBridgeId` values, new flag names, new copy keys and all copy text.
+- New `NetBridgeId` values, new flag names, new copy keys and all copy text (keys inside a lane's own copy files
+  need no CR at all: copy-keys.md 2).
 - New fixture users or series; new check codes after C14; new optional content format fields.
 - New `handoff_events` outcomes.
 

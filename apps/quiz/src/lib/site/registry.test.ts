@@ -13,7 +13,8 @@ import { LEVEL_TITLES } from '@/lib/level-titles';
 import { validateSchedule, type QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 
 import {
-  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, isSiteId, resolveSiteId, siteConfig,
+  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, flagOn, isSiteId, netOrigin, parseNetOrigins,
+  resolveSiteId, siteConfig, siteForOrigin,
 } from './registry';
 import { SITE_IDS } from './types';
 
@@ -127,15 +128,17 @@ describe('kpop entry = today\'s literals', () => {
     const dark = parse(block('html.ux-v1.dark,\n.ux-theme-dark {'));
     const check = (tokens: ThemeTokens, live: Map<string, string>): void => {
       for (const [name, value] of Object.entries(tokens) as [ThemeTokenName, string][]) {
-        if (name === 'on-accent') continue; // new token: replaces the literal #fff (B1)
+        // New token: absent before B1, then declared by B1 with exactly the registry value.
+        if (name === 'on-accent' && !live.has(name)) continue;
         expect(live.get(name), name).toBe(value);
       }
     };
     check(kpop.theme.light, light);
     check(kpop.theme.dark, dark);
-    // The literal the new --ux-on-accent replaces.
-    expect(css).toMatch(/\.ux-btn-primary[^}]*color:\s*#fff/i);
+    // The literal the new --ux-on-accent replaces (before B1), or the token itself (after B1).
+    expect(css).toMatch(/\.ux-btn-primary[^}]*color:\s*(#fff\b|var\(--ux-on-accent\))/i);
     expect(kpop.theme.light['on-accent']).toBe('#FFFFFF');
+    expect(kpop.theme.dark['on-accent']).toBe('#FFFFFF');
   });
 
   it('auth: kpop keeps /auth/callback, Supabase OAuth for Google, and one sign-out scope', () => {
@@ -231,5 +234,50 @@ describe('the site of a build', () => {
     expect(siteConfig('anime')).toBe(REGISTRY.anime);
     expect(isSiteId('hub')).toBe(true);
     expect(isSiteId(LEGACY_HUB_ID)).toBe(false);
+  });
+});
+
+describe('flags (flags-env.md 3)', () => {
+  it('on is 1 or true, everything else is off', () => {
+    expect(flagOn('1')).toBe(true);
+    expect(flagOn('true')).toBe(true);
+    for (const v of [undefined, '', '0', 'false', 'TRUE', 'yes', ' 1']) expect(flagOn(v), String(v)).toBe(false);
+  });
+});
+
+describe('origins outside production (flags-env.md 4)', () => {
+  const DEV = 'kpop=http://kpop.localhost:3000,anime=http://anime.localhost:3001 hub=http://hub.localhost:3002';
+
+  it('parses the dev map and keeps registry urls for sites without an entry', () => {
+    expect(parseNetOrigins(DEV)).toEqual({
+      kpop: 'http://kpop.localhost:3000', anime: 'http://anime.localhost:3001', hub: 'http://hub.localhost:3002',
+    });
+    expect(parseNetOrigins(undefined)).toEqual({});
+    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('http://anime.localhost:3001');
+    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app' })).toBe('https://otakuquiz.org');
+    expect(netOrigin('hub', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app', VERCEL_ENV: 'preview' }))
+      .toBe('https://fq-staging.vercel.app');
+  });
+
+  it('production ignores the map entirely', () => {
+    expect(netOrigin('kpop', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBe('https://kpopquiz.org');
+    expect(siteForOrigin('http://anime.localhost:3001', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBeNull();
+    expect(siteForOrigin('https://otakuquiz.org', { VERCEL_ENV: 'production' })).toBe('anime');
+  });
+
+  it('maps an origin back to its site, registry urls first', () => {
+    expect(siteForOrigin('https://fanquiz.org', {})).toBe('hub');
+    expect(siteForOrigin('http://hub.localhost:3002', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('hub');
+    expect(siteForOrigin('https://evil.example', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBeNull();
+  });
+
+  it('refuses malformed entries', () => {
+    for (const bad of [
+      'anime', 'anime=', `${LEGACY_HUB_ID}=https://fanquiz.org`, 'world=https://x.org',
+      'anime=https://otakuquiz.org/', 'anime=https://otakuquiz.org/path', 'anime=http://otakuquiz.org',
+      'anime=javascript:alert(1)', 'anime=https://a.org,anime=https://b.org',
+    ]) {
+      expect(() => parseNetOrigins(bad), bad).toThrow(/NEXT_PUBLIC_NET_ORIGINS/);
+    }
   });
 });

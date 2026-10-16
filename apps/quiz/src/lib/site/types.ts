@@ -181,14 +181,42 @@ export interface SiteAudio {
   readonly kit: 'required';
 }
 
-/** Names of the frozen theme tokens (docs/o1/contracts/tokens.md), without the `--ux-` prefix. */
-export type ThemeTokenName =
-  | 'page' | 'surface' | 'surface-2' | 'raised' | 'paper' | 'card-fill'
-  | 'hair' | 'line' | 'line-2' | 'edge' | 'input'
-  | 'ink' | 'muted'
-  | 'pink' | 'pink-fill' | 'pink-fill-h' | 'pink-ink' | 'pink-soft' | 'pink-soft-ink' | 'pink-line'
-  | 'ok' | 'ok-soft' | 'no' | 'no-soft' | 'warn'
-  | 'on-ok' | 'on-accent' | 'on-no' | 'accent2';
+/**
+ * Every theme token name styles/ux-v1/a0.css declares on its token blocks today (origin/main
+ * 30e7091), without the `--ux-` prefix, in file order (docs/o1/contracts/tokens.md). Frozen and
+ * never extendable inside the run (BACKLOG 5.3); contract.test.ts compares it with the file.
+ * Component-scoped custom properties (`--ux-rc`, `--ux-rar-ink`, `--ux-th`) are not theme tokens.
+ */
+export const UX_TOKEN_NAMES = [
+  'page', 'surface', 'surface-2', 'raised', 'paper', 'card-fill',
+  'hair', 'line', 'line-2', 'edge', 'pink-line', 'input', 'ink', 'muted',
+  'pink', 'pink-fill', 'pink-fill-h', 'pink-ink', 'pink-soft', 'pink-soft-ink',
+  'ok', 'ok-soft', 'no', 'no-soft', 'warn', 'on-ok', 'knob-off',
+  'nav-bg', 'tabbar-bg', 'photo-edge', 'shadow-card', 'shadow-ov', 'scrim', 'theme-band',
+  'qotd-bg', 'qotd-edge', 'bt-bg', 'lav-soft', 'lav-ink', 'hl', 'bulb', 'bulb-fill',
+  'acc-pink', 'acc-purple', 'acc-blue', 'acc-teal', 'acc-amber', 'acc-coral',
+  'rar-common', 'rar-uncommon', 'rar-rare', 'rar-epic', 'rar-legendary',
+  'ease', 'spring', 'wide', 'text', 'stage', 'gut', 'font',
+  'lt-a', 'lt-b', 'lt-c', 'lt-d',
+  'th-hits26', 'th-hits25', 'th-gen5', 'th-gen4', 'th-viral', 'th-kpdh', 'th-title', 'th-ink',
+  'host-bg', 'good', 'good-soft',
+] as const;
+
+/**
+ * The new theme token names of the run (BACKLOG 5.1; `--ux-on-ok` already exists). Only
+ * `on-accent` is ever declared for kpop (B1, white, replacing the `#fff` literals); the others
+ * are declared and read only by the per-site sheets of anime and hub (tokens.md).
+ */
+export const UX_NEW_TOKEN_NAMES = ['on-accent', 'on-no', 'accent2', 'font-display'] as const;
+
+/** A frozen theme token name, without the `--ux-` prefix. */
+export type UxTokenName = (typeof UX_TOKEN_NAMES)[number] | (typeof UX_NEW_TOKEN_NAMES)[number];
+
+/**
+ * A token a site's registry theme may carry a value for. `--ux-font-display` is derived from
+ * `SiteTheme.fontDisplay`, so it is not a value key.
+ */
+export type ThemeTokenName = Exclude<UxTokenName, 'font-display'>;
 
 export type ThemeTokens = Readonly<Partial<Record<ThemeTokenName, string>>>;
 

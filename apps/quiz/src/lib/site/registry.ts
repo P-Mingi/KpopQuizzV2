@@ -10,6 +10,7 @@
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the
 // middleware (edge) read it through lib/site/routing.ts.
 
+import { SITE_IDS } from './types';
 import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
@@ -318,4 +319,116 @@ export const SITE: SiteConfig = REGISTRY[SITE_ID];
 /** The registry entry of any site. */
 export function siteConfig(id: SiteId): SiteConfig {
   return REGISTRY[id];
+}
+
+// ---------------------------------------------------------------------------------------------
+// Flags, env names and secret names (docs/o1/contracts/flags-env.md). contract.test.ts compares
+// these lists with the tables of flags-env.md, so the document and the code cannot drift.
+
+/** Where a flag is read: inlined in client code at build (`public`) or read on the server. */
+export type FlagScope = 'public' | 'server';
+
+export interface O1Flag {
+  readonly name: string;
+  readonly scope: FlagScope;
+  /** The lane that reads the flag. */
+  readonly lane: string;
+  /** Reserved flags gate nothing in the run (P2, P3a): reading them is a review finding. */
+  readonly reserved: boolean;
+}
+
+/** The run's flags (BACKLOG 5.1). Every one is off by default on every site. */
+export const O1_FLAGS: readonly O1Flag[] = [
+  { name: 'SITE_SCOPE', scope: 'server', lane: 'B2', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_BEACON', scope: 'public', lane: 'B6', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_FOOTER', scope: 'public', lane: 'B6', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_MENU', scope: 'public', lane: 'B6', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_WELCOME', scope: 'public', lane: 'P1', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_FACTS', scope: 'public', lane: 'X1', reserved: false },
+  { name: 'PASSPORT_JUMP', scope: 'server', lane: 'B4', reserved: false },
+  { name: 'PASSPORT_CONTINUE', scope: 'server', lane: 'B4', reserved: true },
+  { name: 'PASSPORT_SEED', scope: 'server', lane: 'B4', reserved: true },
+];
+
+/** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */
+export const UNTOUCHED_FLAGS: readonly string[] = [
+  'NEXT_PUBLIC_UX_V1', 'NEXT_PUBLIC_UX_V12', 'QOTD_ROTATION_FIX', 'NEXT_PUBLIC_KDRAMA',
+];
+
+/** Secret names of the run (BACKLOG 5.1). Values never enter the repo, a log or a report. */
+export const O1_SECRET_NAMES: readonly string[] = [
+  'PASSPORT_TICKET_SECRET', 'PASSPORT_REVALIDATE_SECRET', 'SEND_EMAIL_HOOK_SECRET',
+  'RESEND_API_KEY', 'NET_IP_HASH_SALT', 'NEXT_PUBLIC_GOOGLE_CLIENT_ID',
+];
+
+/**
+ * The repo's flag convention: '1' or 'true' is on, anything else (unset, empty, '0', 'false')
+ * is off. Pass the value, written out in full where it is read (`flagOn(process.env.NAME)`), so
+ * Next inlines public flags in client code.
+ */
+export function flagOn(value: string | undefined): boolean {
+  return value === '1' || value === 'true';
+}
+
+// ---------------------------------------------------------------------------------------------
+// Browser origins outside production (flags-env.md "Origins"). `SiteConfig.url` is the
+// canonical origin (SEO, JSON-LD, sitemaps, editorial links) on every deployment. Where a browser
+// must actually go (jump redirects, the /auth/land target, signed-in cross-site links, the brand of an
+// email link), code asks `netOrigin`, which honours NEXT_PUBLIC_NET_ORIGINS on dev servers and
+// staging projects and ignores it on a production deployment.
+
+export interface NetOriginEnv {
+  readonly NEXT_PUBLIC_NET_ORIGINS?: string | undefined;
+  readonly VERCEL_ENV?: string | undefined;
+}
+
+const ORIGIN_RE = /^(https?):\/\/([a-z0-9.-]+)(:[0-9]{1,5})?$/;
+
+/**
+ * Parses NEXT_PUBLIC_NET_ORIGINS: entries `<site>=<origin>` separated by commas or spaces, e.g.
+ * `kpop=http://kpop.localhost:3000,anime=http://anime.localhost:3001`. An origin has no path and
+ * no trailing slash; `http:` is allowed only for `localhost` and `*.localhost` hosts. Any
+ * malformed entry throws (a misconfigured staging project fails loudly instead of sending a
+ * browser to the wrong place). Returns the overrides only; a site without one keeps its url.
+ */
+export function parseNetOrigins(raw: string | undefined): Partial<Record<SiteId, string>> {
+  const out: Partial<Record<SiteId, string>> = {};
+  for (const entry of (raw ?? '').split(/[\s,]+/).filter(Boolean)) {
+    const eq = entry.indexOf('=');
+    const id = eq > 0 ? entry.slice(0, eq) : '';
+    const origin = eq > 0 ? entry.slice(eq + 1) : '';
+    if (!isSiteId(id)) throw new Error(`NEXT_PUBLIC_NET_ORIGINS: unknown site in "${entry}"`);
+    if (out[id] !== undefined) throw new Error(`NEXT_PUBLIC_NET_ORIGINS: ${id} is listed twice`);
+    const m = ORIGIN_RE.exec(origin);
+    if (!m) throw new Error(`NEXT_PUBLIC_NET_ORIGINS: "${origin}" is not a bare origin`);
+    const host = m[2]!;
+    if (m[1] === 'http' && host !== 'localhost' && !host.endsWith('.localhost')) {
+      throw new Error(`NEXT_PUBLIC_NET_ORIGINS: http is allowed only on localhost hosts ("${origin}")`);
+    }
+    out[id] = origin;
+  }
+  return out;
+}
+
+/**
+ * Where a browser reaches `id` on this deployment: the NEXT_PUBLIC_NET_ORIGINS override outside
+ * production, else the registry url. On VERCEL_ENV=production the override is ignored, so a
+ * production deployment only ever redirects to the three production domains.
+ */
+export function netOrigin(id: SiteId, env: NetOriginEnv): string {
+  if (env.VERCEL_ENV === 'production') return REGISTRY[id].url;
+  return parseNetOrigins(env.NEXT_PUBLIC_NET_ORIGINS)[id] ?? REGISTRY[id].url;
+}
+
+/**
+ * The site an origin belongs to on this deployment (the email hook's brand, the `client` check of
+ * /auth/authorize): a registry url always matches; an override matches only outside production.
+ * Unknown origins return null.
+ */
+export function siteForOrigin(origin: string, env: NetOriginEnv): SiteId | null {
+  for (const id of SITE_IDS) if (REGISTRY[id].url === origin) return id;
+  if (env.VERCEL_ENV === 'production') return null;
+  const o = parseNetOrigins(env.NEXT_PUBLIC_NET_ORIGINS);
+  for (const id of SITE_IDS) if (o[id] === origin) return id;
+  return null;
 }

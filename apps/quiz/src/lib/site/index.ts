@@ -7,12 +7,14 @@ export type {
   SignOutMode, SiteAudio, SiteAuth, SiteBrand, SiteConfig, SiteCopy, SiteDaily, SiteEditorial,
   SiteFavouritesVocabulary, SiteFeatures, SiteId, SiteKind, SiteLetter, SiteOrganization,
   SitePassport, SiteRoutes, SiteSeo, SiteTheme, SiteVocabulary, ThemeTokenName, ThemeTokens,
+  UxTokenName,
 } from './types';
-export { SITE_IDS } from './types';
+export { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 export {
-  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, isSiteId, resolveSiteId, siteConfig,
+  NETWORK, O1_FLAGS, O1_SECRET_NAMES, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, UNTOUCHED_FLAGS,
+  flagOn, isSiteId, netOrigin, parseNetOrigins, resolveSiteId, siteConfig, siteForOrigin,
 } from './registry';
-export type { SiteEnv } from './registry';
+export type { FlagScope, NetOriginEnv, O1Flag, SiteEnv } from './registry';
 export {
   CATCH_ALL_PATTERN, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_ROOT_FILES, SESSION_PREFIXES_NON_KPOP,
   SHARED_PREFIXES, SITES_PREFIX, compileRoutePattern, internalPath, isKnownRouteFor,
