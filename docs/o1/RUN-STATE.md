@@ -1,6 +1,7 @@
 # Run O1: state
 
-NEXT ACTION: rule 18 audits of D0 and F0 by R, then tick 2 (F0 TWINS first, Q0a twins.mts first, D0 rework). Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
+NEXT ACTION: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
+rework). Owner: Phase 0 packet answers pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
 G14, G15, G17, GH, GU). On resume: read LEDGER.md "Lanes", check each lane worktree and sha, start a new tick from it.
 
 Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
@@ -49,3 +50,4 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 | tick | started (UTC) | lanes | result |
 |---|---|---|---|
 | 1 | 2026-10-16T11:25Z | F0 (+ spike F0s), Q0a, D0; maxCode 2, maxOther 2, maxSlices 3; Workflow run wf_9a4593ba-f57 | stopped by ORCH for rule 18 (D-019): F0 e5b51a5 and Q0a 3f51f62 in progress, D0 dd39d7d interrupted |
+| 2 | 2026-10-16T17:05Z | F0 (+ F0s, reviewers ARCH and UX), Q0a, D0 (rework from its rule 18 audit); maxSlices 3; Workflow run wf_d31d9a73-9c8 | running |
