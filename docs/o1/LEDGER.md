@@ -109,8 +109,14 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   1440).
 - D-014 Parity builds use the production flags `NEXT_PUBLIC_UX_V1=1` and `NEXT_PUBLIC_UX_V12=1` (v12 launch report,
   PR #97), pending Q0a's confirmation from the repo.
-- D-015 The dummy lane of Phase 0 (id DUMMY, `docs/o1/dummy/**`) went through worktree, slice, gate (3 builds under
-  the lock), review and merge: see the Merge log and `docs/o1/reviews/DUMMY-r1-ARCH.md`.
+- D-015 Dummy lane DUMMY (`docs/o1/dummy/**`), 2026-10-16: worktree by new-lane.sh; one slice committed under the
+  guard (a commit outside its paths was refused); gate green on 674c086 (guard, hot, copy, secrets, tsc 36 s, unit
+  18 s, builds kpop 93 s, anime 56 s, hub 52 s serialized under the lock, parity skipped for a docs-only diff); R ARCH
+  PASS with 4 minor findings (`docs/o1/reviews/DUMMY-r1-ARCH.md`); merged by merge-lane.sh as 8f4ab45; worktree
+  removed by remove-lane.sh. `migrate-dev.sh --self-test` refuses the production ref and a URL without the branch ref.
+- D-017 R's DUMMY findings applied: the guard never owns a path with a `.` or `..` segment (it accepted
+  `docs/o1/dummy/../../...` in --paths mode); the gate marks a step not needed as `skipped` (was `pending`) and
+  explains both in summary.json. The DUMMY report being thin is accepted (pipeline test).
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -122,6 +128,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 
 | lane | round | profile | sha | verdict | file |
 |---|---|---|---|---|---|
+| DUMMY | 1 | ARCH | 674c086 | PASS (4 minor) | reviews/DUMMY-r1-ARCH.md |
 
 ## Owner approvals of content batches
 

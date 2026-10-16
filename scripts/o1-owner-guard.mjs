@@ -139,6 +139,8 @@ const positive = compile(globs.filter((g) => !g.startsWith('!')).concat([
 const negative = compile(globs.filter((g) => g.startsWith('!')).map((g) => g.slice(1)));
 
 function isOwned(p) {
+  // a path with a '.' or '..' segment, or an absolute path, is never owned (no escape through ../)
+  if (p.startsWith('/') || p.split('/').some((seg) => seg === '..' || seg === '.')) return false;
   return positive.some((r) => r.test(p)) && !negative.some((r) => r.test(p));
 }
 

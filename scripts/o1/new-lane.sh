@@ -21,9 +21,9 @@ if [ ! -d "$WT" ]; then
   n_gate=$("$G" -C "$O1" worktree list --porcelain | grep '^worktree ' | grep -cE "/.claude/worktrees/o1-(gate|parity|merge)-" || true)
   [ $((n - n_gate)) -lt 6 ] || { echo "new-lane: refused, already 6 lane worktrees" >&2; exit 4; }
   if "$G" -C "$O1" show-ref --verify --quiet "refs/heads/$BR"; then
-    "$G" -C "$O1" worktree add "$WT" "$BR"
+    "$G" -C "$O1" worktree add --quiet "$WT" "$BR"
   else
-    "$G" -C "$O1" worktree add --no-track -b "$BR" "$WT" "$from"
+    "$G" -C "$O1" worktree add --quiet --no-track -b "$BR" "$WT" "$from"
   fi
 fi
 cd "$WT"

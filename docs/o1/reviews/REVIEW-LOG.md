@@ -13,3 +13,9 @@ R reads it before every review and never edits it.
 - Copy: the gate's `copy` step covers added lines only; read the visible strings of new screens yourself.
 
 ## Entries
+
+### DUMMY r1 ARCH (2026-10-16): PASS
+- Good practice confirmed: check the evidence tree hash against the worktree, re-run the guard yourself, test the
+  guard with an escaping path. ORCH fixed the guard (paths with `.` or `..` segments are never owned).
+- A report must carry the sha, the evidence folder, the tsc and unit results, Decisions and Open points: thin
+  reports are a minor finding on real lanes, a major one when a claim cannot be traced.

@@ -64,7 +64,7 @@ step() { # name cmd... ; records rc and seconds
   [ $rc -eq 0 ] && echo "gate $lane: $name ok" || echo "gate $lane: $name FAILED (rc $rc, $EV/$name.log)"
   return 0
 }
-pending() { printf '%s\tpending\t0\n' "$1" >> "$EV/steps.tsv"; echo "$2" > "$EV/$1.log"; }
+pending() { printf '%s\t%s\t0\n' "$1" "${3:-pending}" >> "$EV/steps.tsv"; echo "$2" > "$EV/$1.log"; } # rc: skipped (not needed) or pending (not built yet)
 
 WT="$(prep "$lane" "$sha")" || exit 3; WTS+=("$WT")
 dbenv=offline; [ -f "$KPQ/secrets/dev.env" ] && dbenv=dev
@@ -116,7 +116,7 @@ done
 if [ "$touches_kpop" = true ]; then
   step parity "$O1/scripts/o1/parity.sh" "$base" "$sha" --evidence "$EV"
 else
-  pending parity "no path outside the anime, hub and run-only folders: parity not needed"
+  pending parity "no path outside the anime, hub and run-only folders: parity not needed" skipped
 fi
 # 8. Spike (F0): the spike branch tip, built for the three sites, served, and checked route by route.
 serve_site() { # worktree site port
@@ -160,7 +160,7 @@ fi
 [ -x "$O1/scripts/o1/gate-checks.sh" ] && step site-checks "$O1/scripts/o1/gate-checks.sh" "$lane" "$WT" "$EV" "$sites" \
   || pending site-checks "check:routes runs inside every build; check:indexability, metadata-dupes, orphans, sitemap-hygiene, site-scope, the leak suite and the lane specs arrive with Q0a (scripts/o1/gate-checks.sh)"
 
-failed="$(awk -F'\t' '$2!="0" && $2!="pending" {print $1}' "$EV/steps.tsv" | tr '\n' ' ')"
+failed="$(awk -F'\t' '$2!="0" && $2!="pending" && $2!="skipped" {print $1}' "$EV/steps.tsv" | tr '\n' ' ')"
 green=true; [ -n "$failed" ] && green=false
 failures=""
 for n in $failed; do failures="$failures$n: $(grep -vE '^\s*$' "$EV/$n.log" | tail -3 | tr '\n' ' ' | cut -c1-300); "; done
@@ -169,5 +169,6 @@ jq -n --arg lane "$lane" --arg sha "$sha" --arg tree "$tree" --arg base "$base" 
   --argjson green $green --argjson touchesKpop $touches_kpop --rawfile steps "$EV/steps.tsv" \
   '{lane:$lane, sha:$sha, tree:$tree, base:$base, green:$green, touchesKpop:$touchesKpop, evidenceDir:$ev, failures:$failures,
     sites:($sites|split(" ")), dbEnv:$dbenv, started:$started, ended:$ended, madeBy:"scripts/o1/gate.sh",
-    steps:($steps|split("\n")|map(select(length>0)|split("\t")|{name:.[0], rc:.[1], seconds:(.[2]|tonumber)}))}' > "$EV/summary.json"
+    steps:($steps|split("\n")|map(select(length>0)|split("\t")|{name:.[0], rc:.[1], seconds:(.[2]|tonumber)})),
+    notes:"rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"}' > "$EV/summary.json"
 cat "$EV/summary.json"
