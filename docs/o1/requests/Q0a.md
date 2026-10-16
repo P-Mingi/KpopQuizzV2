@@ -5,11 +5,14 @@
    Why: the done test "gate-checks.sh runs on a gate worktree with the three site builds and writes one log per
    check" can then be proven by the gate's own evidence, the only evidence R accepts. Q0a's diff stays in the
    neutral folders, so the gate builds kpop, anime and hub itself and parity is skipped.
-2. To ORCH, `scripts/o1/gate.sh`. When the gate calls parity (`touches_kpop`), pass `--keep`, and hand the kept head
-   build (`ROOT/.claude/worktrees/o1-parity-head/apps/quiz/.next` and `KPQ/cache/parity/<key>/freeze`) to
-   gate-checks.sh for the kpop checks; the next parity run removes the kept worktrees. Why: the brief asks gate.sh
-   to skip its own kpop build when parity runs, and an offline kpop build has no data for check:orphans and
-   check:indexability. Exact interface comes with gate-checks.sh (next slices); this item is the heads-up.
+2. To ORCH, `scripts/o1/gate.sh`, step 7. When the gate calls parity (`touches_kpop`), pass `--keep`:
+   `step parity "$O1/scripts/o1/parity.sh" "$base" "$sha" --evidence "$EV" --keep`. Nothing else: gate-checks.sh
+   finds the kept head build itself through `KPQ/cache/parity/kept.json` (written by Q0a's parity.sh v2 on
+   `--keep`), checks that it is the build of the gate's head, and serves it with `parity.sh --serve-kept`; the next
+   parity run removes the kept worktrees, their frozen state and kept.json. Why: the kpop check:indexability,
+   metadata-dupes, orphans and sitemap-hygiene grade production data (a 600 URL floor, the priority hubs, the live
+   catalogue), which only the kept parity build has; without `--keep` they are recorded `pending` with this
+   request named, never as a pass. (Interface final as of slice 3.)
 3. To ORCH, `scripts/o1/gate.sh`, optional. Build kpop with `NEXT_PUBLIC_BT_TRACKING=1` too: production runs with it
    (`docs/design/growth-v12/run/LAUNCH-REPORT.md` step 2). parity.sh now sets it.
 4. To F0 and B6, through ORCH (contract note). The client wrapper that gives `<Analytics />` its `beforeSend` must
@@ -40,3 +43,22 @@
 10. To F0, through ORCH (contract note, `fixtures.md`). Give the series fixtures' slugs and their quiz slugs (Death
     Note, One Piece, Spy x Family, 5 quizzes each) in `contracts/fixtures/`. Why: the content leak cases search the
     kpop lists for the fixture names today; exact slugs make them immune to a K-pop title that shares a word.
+11. To ORCH, `scripts/o1/gate.sh`, step 6, once G1 is open (dbenv dev). Keep the kpop gate build (`build-kpop`, on the
+    dev branch) when the diff touches kpop, next to the parity run. Why: gate-checks.sh then serves the kept parity
+    build for the production-data checks (phase A) and swaps in this dev kpop build for the content leak and the
+    lane's specs (phase B): those must never meet the kept parity build (a browser on it would reach the production
+    Supabase directly, and production holds no anime row, so the content leak would prove nothing). Without it they
+    are skipped with this request named. Before G1 nothing changes.
+12. To B2, through ORCH (contract note). gate-checks.sh runs `check-site-scope.mts` as
+    `cd apps/quiz && scripts/o1/env.sh offline -- tsx scripts/o1/check-site-scope.mts` (no argument, from the head
+    under test; exit 0 = zero findings, any other exit = a failure, findings on stdout). It also serves the gate
+    builds with `SITE_SCOPE=1` when `apps/quiz/src/lib/site/scope.ts` exists and the gate runs on a dev branch, and
+    tells the leak suite so (`O1_SITE_SCOPE=1`). If the script needs arguments or another path, a CR to Q0a.
+13. To F0, O1 and H1, through ORCH (contract note, `routes.md`). gate-checks.sh runs check:metadata-dupes on an anime
+    or hub build when the head has `apps/quiz/src/app/sites/[site]/sitemap.xml/route.ts` (the path routes.md names),
+    and fails when the base had it and the head lost it. A different path: tell Q0a.
+14. To ORCH, for every lane that writes specs (contract note next to item 9). Lane specs get their servers in
+    `O1_KPOP_URL`, `O1_ANIME_URL`, `O1_HUB_URL` (also `O1_LEAK_<SITE>_URL`; base URLs `http://<site>.localhost:<port>`
+    on the gate's ports 4021 to 4023), the database in `O1_ENV` (and the env.sh variables of the gate's database),
+    `O1_SITE_SCOPE`. A site without a server has no variable: the spec skips with its reason. The
+    kpop variable is never set to the kept parity build.

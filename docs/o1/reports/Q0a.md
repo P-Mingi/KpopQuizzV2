@@ -4,15 +4,48 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 2 of about 5 done (2026-10-16).
+Slices: 3 of about 5 done (2026-10-16).
 
 | # | Slice | State |
 |---|---|---|
 | 1 | URL list, GET write proof, G0 normalisations, frozen data source and write guard, parity.sh v2 | done |
 | 2 | Leak suite (`apps/quiz/e2e/o1/leak/`, `playwright.o1.config.ts`), `check-network-links.mts` | done |
-| 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs) | next |
-| 4 | `dev-multi.sh` and the cookie isolation test | |
-| 5 | Proof runs: parity determinism and planted change (budget below), leak suite on the gate's site builds, report | |
+| 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs), parity.sh kept-build entries | done |
+| 4 | `dev-multi.sh` and the cookie isolation test | next |
+| 5 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | |
+
+Done in slice 3 (section "Gate checks" below for the design):
+- `scripts/o1/gate-checks.sh <lane> <worktree> <evidence dir> <sites>`: serves the gate's site builds (three
+  `next start` at once from per-site link folders), or the kept parity head build for kpop, runs every check, one log
+  per check in `<evidence dir>/checks/` plus `checks.tsv` and `plan.json`, exit 1 on any failure. The header holds
+  the per-check build choice.
+- `apps/quiz/scripts/o1/q0a/gate-plan.mjs`: the decision table as a pure function (`plan(facts)`) plus the fact
+  reader; gate-checks.sh executes its JSON.
+- `scripts/o1/parity.sh`: `--keep` names the kept build in `KPQ/cache/parity/kept.json` (base, head, worktree,
+  frozen state); the next run removes the three; a cached result is used with `--keep` only while the kept build
+  is the one of that pair. New entries `--serve-kept <head> <port> [--offline]` and `--check-kept <head>
+  [--offline] -- <cmd>` (cron window refused, head must be the kept one, the serve holds the parity lock).
+- `scripts/o1/parity/freeze-hook.mjs`: strict mode (`O1_FREEZE_STRICT=1`: any non-read to any non-local origin
+  refused and logged) and offline replay (`O1_FREEZE_OFFLINE=1`: nothing outside the frozen state reaches the
+  target, a local 503 instead).
+- `scripts/o1/leak/gate-selftest.sh`: gate-checks.sh on the planted stand-ins, seven scenarios.
+- `apps/quiz/e2e/o1/helpers/leak.ts`: the folder in `O1_LEAK_CASES` (the lane's own folder in the head) replaces the
+  harness copy of the same lane. `check-network-links.mts`: header comment on the kpop sitemap paths (D23).
+
+Tested how (slice 3):
+- `node --test --test-timeout=60000 scripts/o1/parity/*.test.mjs apps/quiz/scripts/o1/q0a/*.test.mjs
+  apps/quiz/scripts/o1/*.test.mjs`: 54 of 54 pass (16 new: 11 plan cases incl. today's base, kept build, phase B,
+  parity without --keep, wiring and sitemap ratchet, lane specs, given servers, facts from temp folders; strict and
+  offline hook modes in child processes; parity.sh `--check-kept` environment and both entries' refusals).
+- `bash scripts/o1/leak/gate-selftest.sh`: every scenario as expected (table below): exit 0 and no failing check on
+  clean stand-ins, exit 1 and exactly the planted check failing otherwise, one non-empty log per check every time.
+  The four kpop check:* scripts ran unchanged from the harness through their `*_BASE_URL` (scenario
+  kpop-production-source: each failed on the stand-in's 2-URL sitemap, as it must).
+- `bash scripts/o1/leak/selftest.sh` again after the `leakCases` change: the same 25 rows as slice 2, all ok.
+- `tsc --noEmit` in apps/quiz: no error. `vitest run`: 124 files, 2269 tests pass.
+- Not yet run: gate-checks.sh serving real `.next-<site>` builds and the kept parity build (no build in this slice).
+  Q0a's own gate proves the first (request 1); slice 5 the second.
+- No build, no parity run, no production read.
 
 Done in slice 2 (section "Leak suite" below for the design):
 - `apps/quiz/scripts/o1/leak-lib.mjs`: the pure core (HTML layers, link, identity, string, NetMe and forbidden-string
@@ -80,10 +113,12 @@ Tested how (slice 1):
 
 Deviations: none from the brief. The route leak, string leak, link leak, canonical and NetMe tests of anime and hub
 skip on today's base (the builds are not wired as sites yet), with the reason printed, and fail instead when
-`O1_LEAK_REQUIRE` names the site (D9).
+`O1_LEAK_REQUIRE` names the site (D9). Three of the four existing check:* scripts are kpop-only by construction and
+are skipped on anime and hub with the reason (D16).
 
-Requests: `docs/o1/requests/Q0a.md` items 1 to 10 (new in slice 2: 6 allowlist JSON in F0's contract, 7
-`data-site` on every anime and hub page, 8 O3's spoiler cases file, 9 lane specs named `*.o1.ts`, 10 fixture slugs).
+Requests: `docs/o1/requests/Q0a.md` items 1 to 14 (slice 3: item 2 made final, gate.sh passes `--keep`; new 11 the
+dev kpop build next to parity once G1 is open, 12 the check-site-scope interface for B2, 13 the per-site sitemap
+route path, 14 the variables lane specs get).
 
 SQL files: none (the lane writes no SQL).
 
@@ -93,6 +128,50 @@ production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURAT
 Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 0 used.
 
 Production reads made by this lane: none.
+
+## Gate checks
+
+`scripts/o1/gate-checks.sh <lane> <worktree> <evidence dir> <sites>`, called by gate.sh step 9 (`site-checks`).
+Order: the plan (`checks/plan.json`), the checks that need no server, phase A (servers up, every server check),
+phase B when needed (the kpop gate build takes the kept parity build's port), servers down, `checks.tsv` (name,
+rc, seconds; rc `skipped` and `pending` are not failures, each log says why), exit 1 on any failure.
+
+| Check | Server and data | Run from |
+|---|---|---|
+| harness-unit | none: node --test of the harness tests of the head | head |
+| site-scope | none: B2's lint when `apps/quiz/scripts/o1/check-site-scope.mts` exists, else skipped | head |
+| kpop-indexability | kept parity head build (frozen production state, strict guard); the script's own catalogue read through `parity.sh --check-kept` | harness |
+| kpop-metadata-dupes, kpop-orphans, kpop-sitemap-hygiene | kept parity head build; script offline | harness |
+| the four kpop ones, no parity | skipped: kpop unchanged, and an offline or dev build fails them by construction | |
+| the four kpop ones, parity without --keep | pending (request 2) | |
+| anime-metadata-dupes, hub-metadata-dupes | the gate build of a wired site with a sitemap.xml route; skipped unwired or without the route; failed when the wiring is required (base or head next.config.ts has rewritesFor) or the base had the route | harness |
+| anime and hub indexability, orphans, sitemap-hygiene | skipped: kpopquiz.org and the kpop catalogue are hardcoded | |
+| network-links | every served site (an unwired anime or hub left out), parity list plus 200 sitemap paths | harness |
+| leak | every served site, build folders for the wiring, O1_LEAK_REQUIRE, the lane's leak cases from the head; content leak left out on the kept parity build | harness |
+| kpop-refused-writes | the kept build's freeze logs, phase `gate-*`: reads frozen and live, any refused write fails | |
+| leak-content | phase B, the dev kpop gate build (request 11); skipped without it | harness |
+| lane-specs | lanes.json `specs` (`*.o1.ts`), project `lanes` of the head's config; gate builds only, never the kept parity build | head |
+
+Serving: gate builds from per-site folders in a temporary directory, each a link to every entry of the worktree's
+`apps/quiz` except `.next*`, plus `.next` linked to `.next-<site>`; `next start` on 127.0.0.1, ports 4021 4022 4023
+(waits up to 10 minutes for a busy port), env.sh of the gate's database, the gate's build flags (`NEXT_PUBLIC_SITE_ID`,
+UX_V1, UX_V12), `SITE_SCOPE=1` on a dev branch once B2's module exists. The kept parity build is served by
+`parity.sh --serve-kept` (production flags, frozen state, strict guard, parity lock held while it serves, up to 30
+minutes of waiting for the lock). Suites reach the servers on `<site>.localhost:<port>`, the SEO scripts on
+127.0.0.1.
+
+Self-test (`scripts/o1/leak/gate-selftest.sh`, stand-ins given as `O1_GATE_URL_<SITE>`, this checkout as the
+worktree):
+
+| Scenario | Plant or setting | Failing checks (exactly) | Exit |
+|---|---|---|---|
+| clean | none | none (17 checks: harness-unit, network-links and leak ok, 14 skipped with their reasons) | 0 |
+| link-kpop | a link to otakuquiz.org on kpop /quizzes | network-links, leak | 1 |
+| string-anime | "Top K-pop groups" on anime /series | leak | 1 |
+| netme-hub | `/api/n/me` in the hub page data | leak | 1 |
+| kpop-production-source | `O1_GATE_KPOP_SOURCE=parity` on the stand-in | the four kpop check:* scripts | 1 |
+| lane-spec-missing | lanes.json lists a spec the head lacks | lane-specs | 1 |
+| no-hub-server | no hub server and no hub build | hub-metadata-dupes | 1 |
 
 ## GET write proof
 
@@ -244,6 +323,38 @@ shapes; the failing set must equal the expected set exactly):
   `spoilerJsonLd`, request 8). A lane can add cases, never remove the suite's own.
 - D14 Content leak search pages are judged on their result links (a link to `/q/...`, `/x-quiz` or `/x-trivia` whose
   text names the fixture), since a search page echoes its query.
+- D15 gate-checks.sh is a plan plus an executor: `gate-plan.mjs` decides (pure, unit tested), the shell runs. The
+  judge (the plan, the leak suite, check-network-links, the four check:* scripts) runs from the harness checkout
+  (O1 once merged), as parity does (D5); what belongs to the head (its harness tests, B2's lint, the lane's specs
+  and leak cases) runs from the gate worktree.
+- D16 Per-check build choice: the table in "Gate checks". The four existing check:* scripts are run unchanged
+  (RATCHET LAW); three of them are kpop-only by construction (kpopquiz.org, the 600 URL floor, the priority hubs,
+  the article registry), so on anime and hub they are skipped with that reason and the leak suite's canonical and
+  sitemap checks cover the per-site domain part. check:metadata-dupes keeps the path of any loc and runs everywhere.
+- D17 Three servers at once from one gate worktree: `next start` needs `.next` in its project folder, so each site
+  gets a folder of links with `.next` pointing at `.next-<site>`. Nothing is written in the worktree outside the
+  build folders (Next's own cache), so gate.sh's cleanup and `worktree remove` stay as they are.
+- D18 The kept parity build is served by parity.sh itself (`--serve-kept`), so production is still read by one
+  thing; the serve holds the parity lock, so no parity run removes the build under it, and refuses the cron window
+  and a head that is not the kept one. check:indexability, which reads the catalogue itself, runs through
+  `--check-kept` (same frozen state and guard). These reads count as a parity run (brief).
+- D19 Strict guard for the gate's crawl: the parity list's GETs are audited, the 700 sitemap pages are not, so in
+  the gate phases any non-read to any origin that is not this machine is refused too (a webhook, a ping, a mail
+  API), and `kpop-refused-writes` fails on any refused request.
+- D20 Offline replay (`--offline`, `O1_GATE_KEPT_OFFLINE=1`): the kept build answered from its frozen state only, a
+  local 503 for the rest, for plumbing tests with zero production reads. The gate never sets it.
+- D21 The content leak and lane specs never meet the kept parity build (a browser there would read the production
+  Supabase directly; production has no anime row by Verrou 0). Phase B swaps in a dev kpop gate build (request 11).
+- D22 Ratchets: the wiring is required on anime and hub when the base or the head next.config.ts calls
+  rewritesFor; the sitemap.xml route of a site is required once the base has it. A lane cannot turn a failure into a
+  skip by removing the thing checked.
+- D23 In the gate, kpop sitemap paths are crawled too (check-network-links 200, the leak suite 20): every kpop server
+  gate-checks starts is offline or under the strict guard. Outside the gate the defaults stay as in slice 2.
+- D24 A lane's leak cases are read from the head (`O1_LEAK_CASES` = its folder) and replace the harness copy of the
+  same lane: the head version is judged, once (no duplicate test titles).
+- D25 gate.sh's macOS `/bin/bash` is 3.2: gate-checks.sh uses no associative array and no case modifier.
+- D26 Lane specs run from the head with the head's `playwright.o1.config.ts` (project `lanes`); a head without it
+  fails the check with "merge o1/integration first".
 
 ## Open points
 
@@ -263,3 +374,12 @@ shapes; the failing set must equal the expected set exactly):
   F0's fixtures (request 10) would remove that risk.
 - P2's lint ("flags select(...bias...) from profiles in any code path a non-kpop build bundles") is not in Q0a's
   brief; it fits B2 (site scope) or check-site-scope. To confirm with ORCH.
+- gate-checks.sh serving real builds (the link folders) and the kept parity build is proven only by a real gate run:
+  Q0a's own gate (request 1: three offline site builds, parity skipped since the diff is neutral) and slice 5 (the
+  kept build of a parity run, first with `O1_GATE_KEPT_OFFLINE=1`, then once for real within the budget).
+- A per-site SEO gate for anime and hub (sitemap against noindex, title and self canonical; orphans; hygiene, keyed
+  on the registry domain) does not exist: the existing scripts are kpop's and may not be edited. Q0a can write one
+  in `apps/quiz/scripts/o1/` if ORCH wants it before launch (an O1 or H1 task otherwise).
+- The kpop SEO checks on the kept build read production for every page outside the frozen state (about 700 sitemap
+  pages, check:indexability's 25 quizzes and 25 groups): one parity-sized read per kpop gate, at the scripts' own
+  concurrency (10, 8, 1).
