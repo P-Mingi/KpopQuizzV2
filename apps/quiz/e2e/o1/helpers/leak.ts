@@ -8,9 +8,11 @@
 //   O1_LEAK_REQUIRE                                       sites that must be live (comma list): for them a build
 //                                                         that is not wired fails instead of skipping.
 //   O1_LEAK_SITEMAP_N                                     sitemap paths added to an anime or hub page set (20).
-//   O1_LEAK_KPOP_SITEMAP_N                                the same on kpop (0: the kpop set is the parity list,
-//                                                         whose GETs are write-audited).
-//   O1_LEAK_CASES                                         extra folder of leak-cases*.json files (self-test).
+//   O1_LEAK_KPOP_SITEMAP_N                                the same on kpop (default 0: the kpop set is the parity
+//                                                         list, whose GETs are write-audited; gate-checks.sh sets 20,
+//                                                         its kpop servers are offline or under the strict guard).
+//   O1_LEAK_CASES                                         extra folder of leak-cases*.json files: the lane's own
+//                                                         folder in the head (gate-checks.sh), the self-test's cases.
 // Wiring: before F0's rewrites are in next.config.ts an anime or hub build is a kpop build under another name, so
 // every anime and hub test skips, saying so; gate-checks.sh sets O1_LEAK_REQUIRE once the target has the wiring.
 import fs from 'node:fs';
@@ -139,19 +141,23 @@ export interface LeakCase {
 /**
  * Cases other lanes add to the suite without editing it: apps/quiz/e2e/o1/<LANE>/leak-cases.json, shape
  * { "<kind>": [ { "site", "path", "forbidden": [strings], "note" } ] } (kind 'spoilerJsonLd' for O3). Read from the
- * harness checkout, plus O1_LEAK_CASES for the self-test. A lane can add cases, never remove the suite's own.
+ * harness checkout, plus the folder O1_LEAK_CASES (gate-checks.sh: the lane's own folder in the head under test; the
+ * self-test: its planted cases). That folder replaces the harness copy of the same lane, so a lane's edited cases are
+ * judged once, in their head version. A lane can add cases, never remove the suite's own.
  */
 export function leakCases(kind: string): LeakCase[] {
   const dirs = [path.join(APP_DIR, 'e2e/o1')];
+  const extra = process.env.O1_LEAK_CASES;
+  const extraLane = extra ? path.basename(path.resolve(extra)) : '';
   const files: string[] = [];
   for (const d of dirs) {
     if (!fs.existsSync(d)) continue;
     for (const lane of fs.readdirSync(d).sort()) {
+      if (lane === extraLane) continue;
       const f = path.join(d, lane, 'leak-cases.json');
       if (fs.existsSync(f)) files.push(f);
     }
   }
-  const extra = process.env.O1_LEAK_CASES;
   if (extra && fs.existsSync(extra)) for (const f of fs.readdirSync(extra).sort()) if (/^leak-cases.*\.json$/.test(f)) files.push(path.join(extra, f));
   const out: LeakCase[] = [];
   for (const f of files) {

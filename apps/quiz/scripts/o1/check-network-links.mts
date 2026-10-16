@@ -12,8 +12,9 @@
 //       [--sitemap 200] [--sitemap kpop=0] [--allowlist <json>] [--out <dir>]
 // Page set of a site: the --urls list (kpop default: the 60-URL parity list), else the route map's static paths,
 // plus the first --sitemap paths of the site's own sitemap.xml (default 200, Q-bridges D0). The parity list's GETs
-// are write-audited (reports/Q0a.md); sitemap paths are not, so a kpop server that reads production gets
-// --sitemap kpop=0 (gate-checks.sh does that).
+// are write-audited (reports/Q0a.md); sitemap paths are not, so a kpop server that reads production without the
+// strict guard gets --sitemap kpop=0. gate-checks.sh gives 200 on every site: every kpop server it starts is offline
+// or the kept parity build under parity.sh's strict guard (any write refused, before it leaves the machine).
 // Output: one line per page (ok, FAIL with the violation, or the status of a page that is not HTML 200), then the
 // verdict; deterministic (list order, no time, no byte count). <out>/network-links.txt and .json when --out is given.
 // Exit 0 = clean, 1 = a violation, 2 = bad input or a server that does not answer.
