@@ -49,23 +49,31 @@ function repoRoutes(): string[] {
   return [...out].sort();
 }
 
-/** First matching rewrite, resolved the way Next resolves a custom rewrite. */
+/**
+ * The path a list of beforeFiles rewrites leaves, resolved the way Next resolves them
+ * (next/dist/server/lib/router-utils/resolve-routes.js): every rule in order, once, each one
+ * seeing the path the previous ones left, no filesystem check in between (before_files_rewrite
+ * routes carry no `check`). null when no rule matched.
+ */
 function resolve(rewrites: readonly SiteRewrite[], pathname: string): string | null {
+  let current = pathname;
+  let rewritten = false;
   for (const r of rewrites) {
     const match = getPathMatch(r.source, {
       strict: true,
       removeUnnamedParams: true,
       regexModifier: (re: string) => modifyRouteRegex(re),
     });
-    const params = match(pathname);
+    const params = match(current);
     if (params) {
       const { parsedDestination } = prepareDestination({
         appendParamsToQuery: true, destination: r.destination, params, query: {},
       });
-      return parsedDestination.pathname;
+      current = parsedDestination.pathname ?? current;
+      rewritten = true;
     }
   }
-  return null;
+  return rewritten ? current : null;
 }
 
 describe('kpop: today\'s answers, nothing added', () => {
@@ -111,6 +119,10 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['anime', '/verse', '/sites/anime/verse'],
     ['anime', '/verse/bts/studio', '/sites/anime/verse/bts/studio'],
     ['anime', '/sites/anime', '/sites/anime/sites/anime'],
+    ['anime', '/sites', '/sites/anime/sites'],
+    ['anime', '/sites/anime/one-piece-openings-quiz', '/sites/anime/sites/anime/one-piece-openings-quiz'],
+    ['anime', '/sites/anime/robots.txt', '/sites/anime/sites/anime/robots.txt'],
+    ['anime', '/sites/hub/logo.png', '/sites/anime/sites/hub/logo.png'],
     ['anime', '/robots.txt', '/sites/anime/robots.txt'],
     ['anime', '/sitemap.xml', '/sites/anime/sitemap.xml'],
     ['anime', '/llms.txt', '/sites/anime/llms.txt'],
@@ -148,6 +160,11 @@ describe('anime and hub rewrites (Next matcher)', () => {
       for (const r of rewritesFor(site)) {
         expect(() => getPathMatch(r.source, { strict: true })).not.toThrow();
         expect(r.destination.startsWith(`/sites/${site}`)).toBe(true);
+      }
+      // Only the catch-all and the home rule read a public path; the root-file rules read a
+      // dotted path the catch-all skips; the pretty rules read the prefixed path.
+      for (const r of rewritesFor(site).slice(2)) {
+        expect(r.source === '/robots.txt' || r.source === '/sitemap.xml' || r.source === '/llms.txt' || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
       }
     }
   });

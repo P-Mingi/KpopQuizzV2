@@ -38,7 +38,8 @@ export const PER_SITE_ROOT_FILES: readonly string[] = ['/robots.txt', '/sitemap.
 
 /**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
- * Path-to-regexp syntax of next.config rewrites: `:name` is one lazy segment chunk.
+ * `source` is the public path; next.config receives it prefixed with /sites/<site> (see
+ * rewritesFor). Path-to-regexp syntax: `:name` is one lazy segment chunk.
  */
 const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; internal: string }[]>> = {
   kpop: [],
@@ -55,10 +56,12 @@ const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; intern
  * The catch-all of a non-kpop build: any first segment except the framework and shared
  * prefixes, and any path whose last segment is not a file name (a dot and an extension), so
  * public files (favicons, fonts, og-default.png, IndexNow key files) are served as they are.
+ * A path under /sites is always caught, file name or not, so a direct request to an internal
+ * file route (/sites/anime/robots.txt) is a 404 too.
  * Path-to-regexp rules: groups inside a parameter pattern must start with `?`.
  */
 export const CATCH_ALL_PATTERN =
-  '(?!(?:_next|_vercel|api|auth)(?:/|$))(?!__nextjs)(?!(?:.*/)?[^/]*\\.[A-Za-z0-9]{1,12}$).+';
+  '(?!(?:_next|_vercel|api|auth)(?:/|$))(?!__nextjs)(?!(?!sites(?:/|$))(?:.*/)?[^/]*\\.[A-Za-z0-9]{1,12}$).+';
 
 export interface SiteRewrite {
   readonly source: string;
@@ -72,17 +75,25 @@ export function internalPath(site: SiteId, pathname: string): string {
 }
 
 /**
- * The beforeFiles rewrites of a build. kpop: none. anime and hub: the per-site root files,
- * the pretty URLs, the home page and the catch-all, in that order (first match wins).
+ * The beforeFiles rewrites of a build. kpop: none.
+ *
+ * Next applies beforeFiles rewrites in sequence, each rule once, every rule seeing the path
+ * the previous ones left (they do not stop at the first match and do not check the
+ * filesystem in between; measured on next dev 16.2.1, recorded in reports/F0.md). So:
+ *   1. the catch-all prefixes every public path once with /sites/<site> (a direct
+ *      /sites/... request becomes /sites/<site>/sites/..., which only [...rest] matches: 404);
+ *   2. '/' (not caught by 1) becomes /sites/<site>;
+ *   3. the per-site root files (dotted, so not caught by 1) go to their /sites/<site> routes;
+ *   4. the pretty URLs match the already prefixed path.
  */
 export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
   if (site === 'kpop') return [];
   const base = `${SITES_PREFIX}/${site}`;
   return [
-    ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
-    ...PRETTY_REWRITES[site].map((r) => ({ source: r.source, destination: `${base}${r.internal}` })),
-    { source: '/', destination: base },
     { source: `/:path(${CATCH_ALL_PATTERN})`, destination: `${base}/:path` },
+    { source: '/', destination: base },
+    ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
+    ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
   ];
 }
 
