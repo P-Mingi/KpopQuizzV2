@@ -131,18 +131,32 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   (3 slices, 3f51f62) had sliced out cleanly; D0 was interrupted in slice 3 (dd39d7d plus 8 uncommitted files). R
   audits everything already drawn or built against rule 18 (`reviews/D0-rule18-UX.md`, `reviews/F0-rule18-UX.md`)
   before tick 2; what departs goes back to its builder.
+- D-020 Rulings on R's D0 rule 18 audit, section 8: (1) no A5 on the home (row 1 keeps its list); (2) CR-007, no
+  locale switcher on anime; (3) the home community section is drawn exactly as the shared component renders it with
+  zero rows; a hide-when-empty behaviour is a prop request to the home's owner, not a new block; (4) D0 draws one slot
+  placement per anime block inside the shared hub, the hub's owner confirms the slots when O2 starts; (5) D0 draws no
+  frame for CR-002 to CR-006 until the owner approves them, and no frame for row 37 (technical routes).
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
 
 | CR | lane | change | review | status |
 |---|---|---|---|---|
+| CR-001 | F0 (O1, O2) | Rule 18 ruling on R's F0 audit M1: the anime twins of `/quizzes` and its three lists, `/new`, `/most-liked`, `/trending`, `/trivia`, `/faq`, `/leaderboard` (Team accounts excluded) and `/dmca` exist (TWINS rows 31 to 36); news, articles, data pages (`/stats`, `/data/*`) and ranked join F (off at launch, slot absent); technical auth routes without a screen are row 37; the hub shell is row H-0. F0 updates routes.md, `routes.allow`, `KPOP_ONLY_SAMPLES` and copy keys accordingly | ORCH ruling (rule 15), R-ARCH checks it in F0's next review | approved 2026-10-16 |
+| CR-002 | P1 | Welcome card on the first signed-in arrival (P W5 A and C, D4), shared components only | owner | proposed, owner to decide |
+| CR-003 | P1 | "How I appear here" (P 8.2), shared components only | owner | proposed, owner to decide |
+| CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | proposed, owner to decide |
+| CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | proposed, owner to decide |
+| CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
+| CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
 
 ## Review verdicts
 
 | lane | round | profile | sha | verdict | file |
 |---|---|---|---|---|---|
 | DUMMY | 1 | ARCH | 674c086 | PASS (4 minor) | reviews/DUMMY-r1-ARCH.md |
+| F0 (+ F0s) | rule 18 audit | UX | e5b51a5, a74c82f | FIX (2 blockers, 6 majors, 6 minors) | reviews/F0-rule18-UX.md |
+| D0 | rule 18 audit | UX | dd39d7d plus uncommitted | FIX (6 blockers, 10 majors, 7 minors) | reviews/D0-rule18-UX.md |
 
 ## Owner approvals of content batches
 

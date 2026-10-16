@@ -14,7 +14,9 @@ Rounded 1c for display text); **B** brand (OtakuQuiz wordmark, the Fuki mascot w
 template); **V** vocabulary (series for group, character for member, oshi with a star for bias with a heart); **C**
 copy text from per-site, per-lane files, same slots and same structure as the twin; **F** features off on otakuquiz.org
 (image quizzes, fandom war, MV pulse, live rooms, Verse, Discord, cover art: the slot is absent, nothing replaces it);
-**N** no K-pop text or link (artist credits excepted).
+**N** no K-pop text or link (artist credits excepted). CR-001 adds to F, off at launch with the slot absent from nav,
+tab bar, footer and home: news, articles, data pages (`/stats`, `/data/*`) and ranked; the twins of `/quizzes` and its
+lists, `/new`, `/most-liked`, `/trending`, `/trivia`, `/faq`, `/leaderboard` and `/dmca` exist (rows 31 to 36).
 
 Anime blocks, allowed only on the rows that list them: **A1** series header facts with "Sources (i)", "Now airing"
 only with a verified record; **A2** arcs (story map, quizzes grouped by arc); **A3** characters list (monogram and
@@ -64,11 +66,19 @@ visibility, Profile, Sign-in and security, Your data) with Leave a world and Del
 | 28 | shell: nav, tab bar, footer | `components/layout/ux-v1/ux-shell.tsx`, `ux-footer.tsx`, `ux-nav-links.tsx`, `ux-tab-bar.tsx`, `ux-nav-actions.tsx`; `components/ux-v1/brand.tsx`; `lib/ux-v1/a0/nav.ts` | the same files, configured by the anime registry entry | T B V C F N A6 |
 | 29 | `/admin/review` | `app/(site)/admin/editorial/page.tsx`, `editorial-admin.tsx` | `editorial-admin.tsx` (kind `quiz` added by its owner) | T C (sampling and the 2-error batch rule as data, not a new screen) |
 | 30 | OG images | `app/api/og/[slug]`, `app/api/og/group/` | the same route code, registry brand | T B (typographic, no character art) |
+| 31 | `/quizzes`, `/quizzes/popular-today`, `/quizzes/popular-this-week`, `/quizzes/popular-this-month` (CR-001) | `app/(site)/quizzes/page.tsx` (UX v1 branch `ux-page.tsx`) and its three subfolders | `components/quizzes/ux-v1/quizzes-page.tsx`, `controls.tsx` | T B V C F N |
+| 32 | `/new`, `/most-liked`, `/trending` (CR-001) | `app/(site)/new/page.tsx`, `most-liked/page.tsx`, `trending/page.tsx` | `components/home/infinite-quiz-list.tsx` | T B V C N |
+| 33 | `/trivia` (CR-001) | `app/(site)/trivia/page.tsx` | the twin's sections | T B V C N A7 |
+| 34 | `/faq` (CR-001) | `app/(site)/faq/page.tsx` | the twin's sections | T B V C N |
+| 35 | `/leaderboard` (CR-001) | `app/(site)/leaderboard/page.tsx`, `leaderboard-tabs.tsx` | `components/leaderboard/ux-v1/leaderboard.tsx` | T B V C F (no fandom war board) N; Team accounts excluded (rule 7) |
+| 36 | `/dmca` (CR-001) | `app/(site)/dmca/page.tsx` | the twin's sections | T B C |
+| 37 | technical routes without a screen: `/auth/arrive`, `/auth/authorize`, `/auth/land`, `/auth/passport/out`, `/auth/confirm` | none (redirects, or a page that renders no visible content) | none | exempt from the twins check, listed so a visible page there fails it |
 
 ## fanquiz.org
 
 | # | Route | kpop twin (page file) | Shared components it must import | Allowed differences |
 |---|---|---|---|---|
+| H-0 | shell: nav, tab bar, footer | row 28's files, configured by the hub registry entry | the same files | Tn Bf C N |
 | H-1 | `/` (network page) | `app/(site)/about/page.tsx` | `components/ux-v1/page.tsx`, `section-header.tsx`, `panel.tsx` | Tn Bf C N H1 H2 |
 | H-2 | `/privacy` | `app/(site)/privacy/page.tsx` | the twin's sections | Tn Bf C (the network policy) |
 | H-3 | `/passport` | `app/(site)/me/page.tsx` | `components/profile/ux-v1/passport.tsx`, `passport-band.tsx`, `passport-tabs.tsx`, `components/ux-v1/badge-medal.tsx` | Tn Bf C N H3 |
@@ -83,6 +93,14 @@ visibility, Profile, Sign-in and security, Your data) with Leave a world and Del
 Footer network line (B6, NET_FOOTER), Your sites menu block (B6, NET_MENU), settings Account row for multi-site users
 (B6), song-row crossover tag and hub fact line (X1, NET_FACTS): each is a change of the kpop page itself, shown in D0
 as before and after, and off by default.
+
+## Surfaces without a kpop twin: CRs proposed, the owner decides (LEDGER CR-002 to CR-006)
+
+CR-002 welcome card on the first signed-in arrival (P W5 cases A and C, D4); CR-003 "How I appear here" (P 8.2);
+CR-004 "Keep anime in your passport? Yes, Not now" after the third play (P 3.2); CR-005 the post-result oshi row on
+quiz results (S 2.5, row 8); CR-006 the kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, flag
+NET_WELCOME). Each is proposed as built only from shared components (Panel, Sheet, Button, Chip), placed in an
+existing slot of its twin, with no new component. None is built before the owner says yes.
 
 ## Consequences for the backlog (ORCH, recorded in LEDGER D-018)
 
