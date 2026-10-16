@@ -4,15 +4,56 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 3 of about 5 done (2026-10-16).
+Slices: 4 of about 6 done (2026-10-16). Slice 4 started with the checkpoint merge of o1/integration (1aaf144).
 
 | # | Slice | State |
 |---|---|---|
 | 1 | URL list, GET write proof, G0 normalisations, frozen data source and write guard, parity.sh v2 | done |
 | 2 | Leak suite (`apps/quiz/e2e/o1/leak/`, `playwright.o1.config.ts`), `check-network-links.mts` | done |
 | 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs), parity.sh kept-build entries | done |
-| 4 | `dev-multi.sh` and the cookie isolation test | next |
-| 5 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | |
+| 4 | `twins.mts` (rule 18, deliverable 5) with its self-test and base baseline; dev-multi feasibility probe | done |
+| 5 | `dev-multi.sh` and the cookie isolation test (needs request 18 for three dev servers at once) | next |
+| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | |
+
+Done in slice 4 (section "Twins check" below for the design):
+- `apps/quiz/scripts/o1/twins.mts --root <worktree> --twins <twins.json> [--json <out>]`, the rule 18 check run by
+  `scripts/o1/check.sh` (O1's merged copy) on every gate: (a) `unlisted-page`, a screen file under `app/sites/` that
+  no row lists; (b) `missing-import`, a listed page that does not reach a module of its row's `mustImport` (directly,
+  through a module of its own folder, or as a dependency of another mustImport module of the row), plus
+  `mustimport-unresolved` and `exempt-renders` (a technical row whose file has JSX); (c) `copy`, a block of 8
+  meaningful lines of a protected file (every `components/ux-v1/**` file and every mustImport module) found in any
+  other code file of `apps/quiz/src` or `packages/*/src`. Exit 0, 1, or 2 (usage or unreadable contract).
+- `apps/quiz/scripts/o1/q0a/twins-baseline.json`: the 123 copy pairs of the base (kpop's own lineages), measured
+  all against all, so the check passes on the base whatever F0's mustImport lists name.
+- `apps/quiz/scripts/o1/q0a/twins-fixtures/twins.draft.json`: 45 rows in twins.json's shape, made from ORCH's
+  `TWINS-draft.md` and F0's route map, every mustImport module checked to exist (a contract artifact until F0's
+  `contracts/twins.json` exists; check.sh never reads it).
+- `apps/quiz/scripts/o1/twins.test.mjs`: 14 tests, fixture trees written to a temporary folder at test time.
+- Requests 15 to 18 (`docs/o1/requests/Q0a.md`).
+
+Tested how (slice 4):
+- `node --test apps/quiz/scripts/o1/twins.test.mjs`: 14 of 14 pass. Each scenario gives exactly its expected
+  violations: clean tree (ordinary imports, short JSX patterns, an own-folder module, a technical row, a private
+  `_folder`) exit 0; planted unlisted page exit 1 `unlisted-page`; page missing its hub import exit 1 two
+  `missing-import` (the hub and what it renders); partial copy of `components/ux-v1/panel.tsx` (Panel and UxBox,
+  locals renamed, comments dropped, reindented) exit 1 `copy`; the threshold edge (7 meaningful lines of panel.tsx
+  pass, the same block with its 8th line fails); a fork in `components/anime/` fails too; a type-only, an unused and
+  a side-effect import do not count, a dynamic import and an `export ... from` do; a wrapper module outside the page
+  folder does not count; `exempt-renders`; `mustimport-unresolved`; the baseline (a base pair passes within its
+  size, fails when it grows, is ignored at another shingle size); exit 2 cases; identical output twice; the spawned
+  command's process exits 0, 1, 2.
+- The real base (this worktree, draft fixture, default baseline): `twins: ok`, exit 0, 117 protected files against
+  1455 files, 6 ux-v1 lineage pairs within their recorded size, about 20 s (load average near 100).
+- Dry run on F0's spike files (`git archive a74c82f` of `app/sites/` into a scratch copy of the tree): 29
+  `missing-import` on the layout, home and 404 placeholders, the catch-all passes as a technical row (request 16).
+- Harness tests (`node --test` of the three harness folders): 68 of 68 pass (54 before, 14 new).
+- `tsc --noEmit` in apps/quiz: no error; twins.mts alone under strict, noUncheckedIndexedAccess and
+  exactOptionalPropertyTypes: no error (apps/quiz's tsconfig does not include `.mts` files).
+- `vitest run`: with the default 5 s test timeout, 12 tests of 5 files timed out (load average 91 to 108 from other
+  lanes' builds; they scan source files or render, none is in a file this slice touched); `vitest run
+  --testTimeout=60000`: 124 files, 2269 tests pass, the slice 3 counts. No test edited.
+- dev-multi probe (below, D37): `next dev` from a per-site folder of links answers 404 on every path, with Turbopack
+  and with webpack. No build, no parity run, no production read.
 
 Done in slice 3 (section "Gate checks" below for the design):
 - `scripts/o1/gate-checks.sh <lane> <worktree> <evidence dir> <sites>`: serves the gate's site builds (three
@@ -116,16 +157,18 @@ skip on today's base (the builds are not wired as sites yet), with the reason pr
 `O1_LEAK_REQUIRE` names the site (D9). Three of the four existing check:* scripts are kpop-only by construction and
 are skipped on anime and hub with the reason (D16).
 
-Requests: `docs/o1/requests/Q0a.md` items 1 to 14 (slice 3: item 2 made final, gate.sh passes `--keep`; new 11 the
+Requests: `docs/o1/requests/Q0a.md` items 1 to 18 (slice 3: item 2 made final, gate.sh passes `--keep`; new 11 the
 dev kpop build next to parity once G1 is open, 12 the check-site-scope interface for B2, 13 the per-site sitemap
-route path, 14 the variables lane specs get).
+route path, 14 the variables lane specs get; slice 4: 15 what twins.mts reads in twins.json, 16 the spike
+placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a dev output folder per site).
 
 SQL files: none (the lane writes no SQL).
 
 Owner actions: none yet. (Optional, for fidelity: the owner confirms that `KPQ/secrets/kpop-parity.env` carries the
 production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.)
 
-Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 0 used.
+Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 0 used. (Slice 4's two dev
+probes were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
 Production reads made by this lane: none.
 
@@ -172,6 +215,43 @@ worktree):
 | kpop-production-source | `O1_GATE_KPOP_SOURCE=parity` on the stand-in | the four kpop check:* scripts | 1 |
 | lane-spec-missing | lanes.json lists a spec the head lacks | lane-specs | 1 |
 | no-hub-server | no hub server and no hub build | hub-metadata-dupes | 1 |
+
+## Twins check
+
+`apps/quiz/scripts/o1/twins.mts` (header of the file for every rule). What it reads: `twins.json` (`pages[]`: `id`,
+`site`, `route`, `file` string or array, `twin` string, array or null, `mustImport` specifiers or paths, `allowed`,
+`notes`; request 15), the tree under `--root`, and its baseline next to itself (O1's copy at the gate).
+
+Screen files (a): `page`, `layout`, `template`, `not-found`, `error`, `global-error`, `loading`, `default`,
+`forbidden`, `unauthorized`, `opengraph-image`, `twitter-image`, `icon`, `apple-icon` under `app/sites/`, outside
+`_folders`. A listed file that does not exist yet is "not built yet", not a failure (today every row).
+
+Copies (c), normalisation per source line with the TypeScript parser's tokens: comments and whitespace gone,
+imports, `export ... from` and directives dropped, every use of a name the file declares replaced by `_` (member
+names, JSX attributes and keys stay), quotes unified. A meaningful line keeps an identifier the file does not
+declare, a literal or JSX text; `return (`, `) : null}`, `{children}`, `</div>` and `_,` are not meaningful.
+
+Threshold, measured on the base (draft fixture, 117 protected files against 1455; pairs that would fail without a
+baseline):
+
+| Shingle (meaningful lines) | Pairs | What matched |
+|---|---|---|
+| 6 | 12 | generic patterns an honest page can write (two schema.org FAQPage JSON-LD literals, a quiz props interface, a choice button) next to the real lineages |
+| 7 | 8 | still the quiz props interface (`run-context.tsx` and `quiz-page.tsx`, 7 lines), next to the real lineages |
+| 8 | 6 | only real copies: group-quiz-page and the hub (29), use-ranked-run and the blind test run (32), the bell and the nav polling effect (9), blindtest-game and use-run (9), settings and the appearance setting (8, renamed locals), story-image and story (8) |
+
+8 is the brief's "about 8 meaningful lines" and the smallest size whose base matches are all real copies. Limit: a
+fork that edits a line inside every 8 meaningful lines evades it (R's review covers that). Time: about 20 s on the
+real tree under load (parsing 1455 files is most of it).
+
+Baseline: all code files of the base outside `app/sites/` against each other at shingle 8 (123 pairs: pt pages and
+their English twins, admin routes, v0 ancestors of ux-v1), so it holds whatever F0's mustImport lists name. Keyed by
+the unordered pair, with the larger of the two sides' matched lines. A new pair, or a recorded pair that grows,
+fails. Only Q0a re-measures it (`--write-baseline`), from a base, never for a lane.
+
+Spike dry run (request 16): F0's placeholders `layout.tsx`, `page.tsx` and `not-found.tsx` render none of their
+twins' shared components (29 `missing-import` against the draft rows 1, 27, 28, H-0, H-1, H-8); `[...rest]/page.tsx`
+(notFound, no JSX) passes as a technical row.
 
 ## GET write proof
 
@@ -355,6 +435,42 @@ shapes; the failing set must equal the expected set exactly):
 - D25 gate.sh's macOS `/bin/bash` is 3.2: gate-checks.sh uses no associative array and no case modifier.
 - D26 Lane specs run from the head with the head's `playwright.o1.config.ts` (project `lanes`); a head without it
   fails the check with "merge o1/integration first".
+- D27 twins.mts reads code with the TypeScript compiler API (`typescript` 5.9.3, already a dependency of apps/quiz):
+  real import declarations and tokens, so comments, strings and JSX are never confused. It runs under tsx (check.sh)
+  and under Node 25's type stripping (the tests import it), so it uses erasable syntax only.
+- D28 Route handlers (`route.ts`) and metadata routes (sitemap, robots, manifest) need no row: they render no screen.
+  Image routes (`opengraph-image`, `icon`) do. A listed handler is checked like any row.
+- D29 Import counting: a value binding used in the file, a dynamic `import()`, a `require()` or an `export ... from`.
+  `import type`, type-only bindings, unused bindings and side-effect imports do not render a component, so they do
+  not count.
+- D30 "Directly or through a module of its own folder" (brief) plus one more path: a mustImport module that is a
+  dependency of another mustImport module of the same row that the page reaches. The draft lists `hub.tsx` "with"
+  what it renders; F0 may list them; a page that renders `hub.tsx` renders them. A wrapper outside the page folder
+  still never counts, and the top module of a row must be reached by the page itself.
+- D31 A row whose `twin` is null or empty is technical (draft row 37): its file must contain no JSX, so a visible page
+  cannot hide there.
+- D32 Copy normalisation replaces only names the file declares (the brief's "local variables"), and only where they
+  are used as names: member names, JSX attributes and keys stay, which keeps lines specific (measured: with members
+  normalised too, `className` became `_` wherever a component destructures `className`).
+- D33 Shingle 8 meaningful lines (table in "Twins check").
+- D34 Baseline measured all against all and keyed by the unordered pair (D33's table), Q0a-owned, read from the
+  script's own folder: a lane can neither edit it (guard) nor substitute its own (check.sh runs O1's script).
+- D35 The self-test writes its fixture trees to a temporary folder at test time: the partial copy of panel.tsx is
+  made from the real file there and never committed, so the repository holds no copy for the check to find, and the
+  fixture follows panel.tsx when its owner changes it (the test asserts the block still has 8 meaningful lines).
+  Scenarios call `main()` in process (one TypeScript load); one test spawns the command for the process exit codes.
+  With one process per scenario the file took 4 minutes under load average 90; in process, 29 s.
+- D36 The draft-shaped `twins.draft.json` is a contract artifact (rule 17): it lets the check run on the real tree
+  before F0's contract exists and documents the shape. F0's `contracts/twins.json` replaces it as the judge; the
+  baseline does not depend on it (D34).
+- D37 dev-multi needs one output folder per site. Next 16.2 takes a lock at `<distDir>/dev/lock` ("Another next dev
+  server is already running in this directory"), `distDir` is set only in next.config.ts (HOT), and the programmatic
+  server's `conf` does not reach the dev bundler (router-server reloads next.config.ts from the folder). A per-site
+  project folder of links (the gate-checks D17 method) starts but serves no route: every path answers 404, with
+  Turbopack (68 s first compile) and with webpack (4.3 min), anime and kpop hosts alike; the base has no SITE_ID
+  logic, so the folder of links is the cause (Next resolves the linked `src` to its real path outside the project
+  folder). Turbopack's inferred root is ROOT's workspace file, which is why every lane's `next dev` resolves O1's
+  node_modules. Way forward: request 18.
 
 ## Open points
 
@@ -383,3 +499,9 @@ shapes; the failing set must equal the expected set exactly):
 - The kpop SEO checks on the kept build read production for every page outside the frozen state (about 700 sitemap
   pages, check:indexability's 25 quizzes and 25 groups): one parity-sized read per kpop gate, at the scripts' own
   concurrency (10, 8, 1).
+- twins.mts finds copies by consecutive normalized lines: a reformat that rewraps lines (prettier at another
+  nesting depth) or an edit inside every 8 meaningful lines evades it. R's review (REVIEWER point 9) covers what the
+  check cannot.
+- Under the current load (load average 90 to 108) the default 5 s vitest timeout fails 12 tests of 5 files that pass
+  with a longer timeout. The gate's `unit` step runs `vitest run` as is (RATCHET LAW: no test edited); if gates go red
+  on these timeouts, ORCH can serialize gates against heavy builds or ask the owner.

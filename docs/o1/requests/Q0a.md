@@ -86,3 +86,11 @@
     with Q0a, or let check.sh print `pending` until O1 has it. (b) Optional: pass `--json "$EVIDENCE/twins.json"`
     (when the gate gives check.sh its evidence folder) so R reads the structured result. (c) The check takes about
     20 s on the real tree (1455 files parsed); the harness-unit step gains about 30 s for twins.test.mjs under load.
+18. To ORCH, for the owner of `apps/quiz/next.config.ts` once it leaves the HOT list (F0 wires it). One line:
+    `distDir: process.env.O1_NEXT_DIST_DIR || '.next'`. Why: `scripts/o1/dev-multi.sh` (deliverable 4) runs three
+    `next dev` at once from one worktree; Next 16.2 refuses a second dev server on the same output folder (lock at
+    `<distDir>/dev/lock`), the programmatic server's `conf` does not reach the dev bundler, and a per-site folder of
+    links serves no route (404 everywhere, Turbopack and webpack; report D37). With the variable, dev-multi sets
+    `.next/multi-<site>` (inside the ignored `.next/`). Unset, the config is byte for byte today's: builds and
+    parity do not change. Until then dev-multi.sh can only run the sites one at a time, and its cookie test runs
+    against three `next start` servers of the gate's site builds (gate-checks.sh already serves them).
