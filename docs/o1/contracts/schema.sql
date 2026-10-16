@@ -14,10 +14,12 @@
 -- (COMMON rule 17): they raise 'o1-contract stub', or return NEW for trigger functions. 008's and 010's kpop
 -- branches are today's bodies verbatim (from G3's pg_get_functiondef), never these stubs.
 --
--- Loading: gen-contract-types.mts and check-contract.mts load schema.base.sql (local cluster, before G3) or use
--- the branch's own production schema (o1-scratch, after G3), then this file, in ONE transaction that is rolled
--- back after the catalog is read. Never apply this file to a branch or to production outside that transaction:
--- its stubs would replace live functions.
+-- Loading: apps/quiz/scripts/o1/gen-contract-types.mts and check-contract.mts load a base (schema.base.sql on a
+-- throwaway local cluster before G3; after G3 the stand-in roles and the production dump, or with
+-- gen-contract-types --base db the o1-scratch branch's own schema), then this file section by section, in ONE
+-- transaction that is rolled back after the catalog is read: the contract is what each "@file" section changes.
+-- check-contract.mts then reads a branch's catalog in a read-only transaction and diffs it. Never apply this file
+-- to a branch or to production outside that transaction: its stubs would replace live functions.
 --
 -- Conventions frozen here (naming.md): on the shared tables of 002a, site_id text not null default 'kpop' references
 -- public.sites(id) with the FK named <table>_site_id_fkey; a new table keyed by site (favourites, world_follows,

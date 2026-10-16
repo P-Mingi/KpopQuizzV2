@@ -1,13 +1,18 @@
 // Run O1 contract o1-contract-v1: the rules of docs/o1/contracts/ that code can check. Each
 // checker is proven on planted good and bad inputs, then run on every real file it governs
 // (per-site sheets and copy files that later lanes add), so a Wave 2 lane learns at once when a
-// file breaks the contract. Grows in F0's later slices (naming traps, lanes); slice 3 adds schema.sql and manifest.md.
+// file breaks the contract. Grows in F0's later slices (naming traps, lanes); slice 3 adds schema.sql and manifest.md;
+// slice 5 adds the logic of gen-contract-types.mts and check-contract.mts and the freshness of contract.types.ts.
 
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
+import {
+  checkUnion, compareContract, contractFrom, functionsNamed, renderTypes, splitSections, stampOf, tsType,
+} from '../../../scripts/o1/contract/lib';
 import { O1_FLAGS, O1_SECRET_NAMES, REGISTRY, UNTOUCHED_FLAGS } from './registry';
 import { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 
@@ -824,5 +829,149 @@ describe('twins (TWINS.md, twins.json, rule 18)', () => {
   it('importsOf resolves relative, dynamic and skips type-only imports', () => {
     const text = "import { A } from './ux-page';\nimport type { B } from '@/x/b';\nconst m = import('@/components/c');\nimport D from '../d';\n";
     expect(importsOf(text, 'app/(site)/q/[slug]/page.tsx')).toEqual(['@/app/(site)/q/[slug]/ux-page', '@/app/(site)/q/d', '@/components/c']);
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// The contract database tools (F0 slice 5): scripts/o1/contract/lib.ts, lib/db/contract.types.ts.
+// The Postgres runs themselves (a database built from schema.sql gives zero diffs, every planted
+// difference is reported) are `check-contract.mts --self-test`, run by the gate; these tests prove
+// the logic on synthetic catalogs and keep the generated file in step with schema.sql.
+
+type Snap = Record<string, { v: Record<string, unknown>; m: Record<string, unknown> | null }>;
+
+describe('contract database tools (scripts/o1/contract/lib.ts)', () => {
+  const col = (type: string, notNull: boolean, def: string | null = null, ord = 1) => ({
+    v: { type, notNull, default: def, identity: '', generated: '' }, m: { ord, typeName: type },
+  });
+  const fn = (security: string, acl: string[], params: unknown[] = [], retType = 'integer', nDefaults = 0) => ({
+    v: { kind: 'f', args: '', result: retType, security, config: ['search_path=public'], acl },
+    m: { name: 'f', retType, retSet: false, nDefaults, params },
+  });
+  const base: Snap = {
+    'rel:public.t': { v: { kind: 'r', rls: false, forceRls: false, options: [], acl: [] }, m: null },
+    'col:public.t.id': col('integer', true),
+    'con:public.t.t_old_key': { v: { type: 'u', def: 'UNIQUE (id)' }, m: null },
+    'fn:public.f()': fn('definer', ['service_role:EXECUTE']),
+  };
+  const s1: Snap = {
+    ...base,
+    'rel:public.n': { v: { kind: 'r', rls: true, forceRls: false, options: [], acl: [] }, m: null },
+    'col:public.n.id': col('bigint', true, "nextval('n_id_seq'::regclass)", 1),
+    'col:public.n.kind': col('text', true, null, 2),
+    'con:public.n.n_kind_check': { v: { type: 'c', def: "CHECK ((kind = ANY (ARRAY['a'::text, 'b'::text])))" }, m: null },
+    'col:public.t.site_id': col('text', true, "'kpop'::text", 2),
+  };
+  const { 'con:public.t.t_old_key': _dropped, ...s2 } = s1;
+  const sections = [
+    { file: '001-a', sql: 'create table public.n (id bigserial, kind text);\nalter table public.t add column site_id text;' },
+    { file: '002-b', sql: 'create or replace function public.f() returns integer as $$ select 1 $$ language sql;\nalter table public.t drop constraint t_old_key;' },
+  ];
+  const contract = contractFrom([base, s1, s2], sections);
+
+  it('splits schema.sql into its @file sections, the header with the first', () => {
+    const sql = read(`${CONTRACTS}schema.sql`);
+    const secs = splitSections(sql);
+    expect(secs.map((x) => x.file)).toEqual(schemaSections(sql).map((x) => x.name));
+    expect(secs[0]!.sql.startsWith('-- Run O1 contract')).toBe(true);
+    expect(secs.map((x) => x.sql).join('\n')).toBe(sql);
+    expect(() => splitSections('select 1;')).toThrow(/no "-- @file" marker/);
+  });
+
+  it('names the functions a section creates or replaces', () => {
+    expect(functionsNamed('create function public.a(x int)\n  create or replace function passport.b ()\ncreate table public.c (')).toEqual(['public.a', 'passport.b']);
+  });
+
+  it('builds the contract from consecutive catalogs: owner section, new or existing, dropped objects', () => {
+    const byKey = new Map(contract.items.map((i) => [i.key, i]));
+    expect(byKey.get('rel:public.n')).toMatchObject({ file: '001-a', isNew: true });
+    expect(byKey.get('col:public.t.site_id')).toMatchObject({ file: '001-a', isNew: true });
+    expect(byKey.get('fn:public.f()')).toMatchObject({ file: '002-b', isNew: false });
+    expect(byKey.get('con:public.t.t_old_key')).toMatchObject({ file: '002-b', v: null });
+    expect(byKey.has('col:public.t.id')).toBe(false);
+    expect(byKey.has('rel:public.t')).toBe(false);
+  });
+
+  it('reports zero diffs on an equal catalog and each planted difference', () => {
+    expect(compareContract(contract, s2).diffs).toEqual([]);
+    const planted: [Snap, string, string, string?][] = [
+      [{ ...s2, 'col:public.n.kind': col('character varying', true, null, 2) }, 'col:public.n.kind', 'changed', 'type'],
+      [{ ...s2, 'col:public.n.kind': col('text', false, null, 2) }, 'col:public.n.kind', 'changed', 'notNull'],
+      [{ ...s2, 'col:public.t.site_id': col('text', true, "'anime'::text", 2) }, 'col:public.t.site_id', 'changed', 'default'],
+      [{ ...s2, 'fn:public.f()': fn('invoker', ['service_role:EXECUTE']) }, 'fn:public.f()', 'changed', 'security'],
+      [{ ...s2, 'fn:public.f()': fn('definer', ['anon:EXECUTE', 'service_role:EXECUTE']) }, 'fn:public.f()', 'changed', 'acl'],
+      [{ ...s1 }, 'con:public.t.t_old_key', 'present'],
+      [(({ 'rel:public.n': _r, ...rest }) => rest)(s2), 'rel:public.n', 'missing'],
+    ];
+    for (const [snap, key, kind, field] of planted) {
+      const diffs = compareContract(contract, snap).diffs;
+      expect(diffs.some((d) => d.key === key && d.kind === kind && (field === undefined || d.field === field)), `${key} ${kind} ${field ?? ''}`).toBe(true);
+    }
+  });
+
+  it('applied-only skips a section none of whose new objects exist, never a partial one', () => {
+    const none = compareContract(contract, base, true);
+    expect(none.notApplied).toEqual(['001-a']);
+    expect(none.diffs.map((d) => `${d.kind} ${d.key}`)).toEqual(['present con:public.t.t_old_key']);
+    const partial = (({ 'col:public.n.kind': _k, ...rest }) => rest)(s2);
+    const c = compareContract(contract, partial, true);
+    expect(c.notApplied).toEqual([]);
+    expect(c.diffs.map((d) => `${d.kind} ${d.key}`)).toEqual(['missing col:public.n.kind']);
+  });
+
+  it('reads literal unions from text checks and maps Postgres types', () => {
+    expect(checkUnion("CHECK ((kind = ANY (ARRAY['world'::text, 'hub'::text])))")).toEqual({ column: 'kind', values: ['world', 'hub'] });
+    expect(checkUnion("CHECK ((id ~ '^[a-z]{2,12}$'::text))")).toBeNull();
+    expect(checkUnion("CHECK (((kind = ANY (ARRAY['a'::text])) OR (x IS NULL)))")).toBeNull();
+    expect(tsType('timestamp with time zone')).toBe('string');
+    expect(tsType('character varying(40)')).toBe('string');
+    expect(tsType('smallint')).toBe('number');
+    expect(tsType('jsonb')).toBe('Json');
+    expect(tsType('text[]')).toBe('string[]');
+    expect(tsType('mood', { 'public.mood': ['up', 'down'] })).toBe("'up' | 'down'");
+    expect(() => tsType('tsrange')).toThrow(/no TypeScript type/);
+  });
+
+  it('renders Supabase-shaped maps keyed by the SQL names', () => {
+    const text = renderTypes({ contract, snapshot: s2, header: ['schema.sql sha256 0123456789abcdef'] });
+    expect(stampOf(text)).toBe('0123456789abcdef');
+    expect(text).toContain("  'public.n': {\n    Row: {\n      id: number;\n      kind: 'a' | 'b';\n    };\n    Insert: {\n      id?: number;\n      kind: 'a' | 'b';");
+    expect(text).toContain("  'public.t': {\n    site_id: string;\n  };");
+    expect(text).toContain('  f: {\n    Args: Record<string, never>;\n    Returns: number | null;');
+    expect(text).toContain("export type TableRow<K extends keyof ContractTables> = ContractTables[K]['Row'];");
+  });
+});
+
+describe('lib/db/contract.types.ts (generated)', () => {
+  const sql = read(`${CONTRACTS}schema.sql`);
+  const types = read(`${SRC}lib/db/contract.types.ts`);
+  const code = sql.replace(/--[^\n]*/g, '');
+  const block = (name: string): string => {
+    const start = types.indexOf(`export interface ${name} {`);
+    return start < 0 ? '' : types.slice(start, types.indexOf('\n}\n', start));
+  };
+
+  it('was generated from the current schema.sql (else run gen-contract-types.mts)', () => {
+    const sha = createHash('sha256').update(readFileSync(`${CONTRACTS}schema.sql`)).digest('hex').slice(0, 16);
+    expect(stampOf(types)).toBe(sha);
+  });
+
+  it('has every table, view and callable function that schema.sql creates', () => {
+    const tables = [...code.matchAll(/create table ((?:public|passport)\.[a-z_]+)/g)].map((m) => m[1]!);
+    const views = [...code.matchAll(/create view ((?:public|passport)\.[a-z_]+)/g)].map((m) => m[1]!);
+    expect(tables.length).toBeGreaterThan(15);
+    for (const t of tables) expect(block('ContractTables'), t).toContain(`  '${t}': {`);
+    for (const v of views) expect(block('ContractViews'), v).toContain(`  '${v}': {`);
+    const callable = [...code.matchAll(/create (?:or replace )?function public\.([a-z0-9_]+)\s*\(/g)]
+      .filter((m) => !/^[^;]*?\breturns trigger\b/.test(code.slice(m.index)))
+      .map((m) => m[1]!);
+    expect(callable.length).toBeGreaterThan(25);
+    for (const f of callable) expect(block('ContractFunctions'), f).toContain(`  ${f}: {`);
+  });
+
+  it('carries no dash, emoji or naming trap', () => {
+    expect(DASHES.test(types)).toBe(false);
+    expect(EMOJI.test(types)).toBe(false);
+    expect(NAMING_TRAPS.test(types)).toBe(false);
   });
 });

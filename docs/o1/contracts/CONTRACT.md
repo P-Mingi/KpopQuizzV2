@@ -21,6 +21,7 @@ CR-002 to CR-006 are not defaults: they stay pending until the owner decides the
 | `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | written |
 | `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | written |
 | `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, used only on a local cluster before G3 | F0 scripts, Q0b | written |
+| `lib/db/contract.types.ts` | generated from `schema.sql` by `gen-contract-types.mts` (never edited by hand); stamped with the sha256 of `schema.sql` | B2 to B7, K1, E1, O3, O5, O6, H1, P1 | written |
 | `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | every SQL lane, ORCH (`migrate-dev.sh`) | written |
 | `rpcs.md` | function signatures, SECURITY mode, grants, callers | B2 to B7, E1, O3, O5, O6, H1, P1 | pending |
 | `apis.md` | every HTTP route of BACKLOG 5.1 | B4, B6, B7, H1, P1, Q0b | pending |
@@ -40,9 +41,29 @@ Code that implements the contract on `o1/F0` (compiling stubs, imported by nothi
 wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts`, `routing.test.ts`
 and `contract.test.ts` (the checkable rules of the contract files: token names, per-site sheets, copy files, the
 flag and secret tables, the G0 list, the SQL manifest and the conventions of `schema.sql`; it grows with every
-slice). Pending: `lib/network/types.ts`,
-`lib/passport/types.ts`, `lib/anime/types.ts`, `lib/db/contract.types.ts` (generated),
-`apps/quiz/scripts/o1/gen-contract-types.mts`, `apps/quiz/scripts/o1/check-contract.mts`.
+slice). Pending: `lib/network/types.ts`, `lib/passport/types.ts`, `lib/anime/types.ts`.
+
+### The schema contract in a database (slice 5)
+
+- `apps/quiz/scripts/o1/gen-contract-types.mts` writes `apps/quiz/src/lib/db/contract.types.ts` from `schema.sql`
+  (override 8: psql and the catalog, never the Supabase command line): it loads the base, then `schema.sql` section
+  by section, in one rolled-back transaction on a throwaway local Postgres 18 cluster (or, `--base db`, on
+  o1-scratch only). The file maps the frozen SQL names to types, shaped like Supabase's `Database` type:
+  `ContractTables` (Row, Insert), `ContractAddedColumns`, `ContractViews`, `ContractFunctions` (Args, Returns) and
+  the helpers `TableRow`, `TableInsert`, `ViewRow`, `FnArgs`, `FnReturns`. Its header stamps the sha256 of
+  `schema.sql`; `contract.test.ts` fails when the stamp is stale, and `--check` exits 1 when the text differs.
+- `apps/quiz/scripts/o1/check-contract.mts` diffs a database against the contract. The contract is the delta that
+  each `@file` section makes on the base: relation kind, RLS, view options and grants; column type, nullability,
+  default and identity; constraint and index definitions; function arguments with defaults, result, SECURITY
+  mode, search_path and EXECUTE grants; trigger definitions; policy command, roles and mode (policy expressions
+  are intent, frozen as comments, not compared); enum labels; the objects a section drops must be absent. Grants
+  are read for PUBLIC, anon, authenticated and service_role only; MAINTAIN (Postgres 17 and later) is ignored.
+  `--self-test` is the done test (a database built from `schema.sql`: zero diffs; 19 planted differences: each
+  reported). `--target db` reads a branch (`scripts/o1/env.sh scratch|dev`) in a read-only transaction;
+  `--applied-only` lists a section none of whose new objects exist yet as not applied instead of failing, and
+  requires every object of a section that is partly there.
+- Both scripts refuse a database URL that names the production project or lacks the branch ref (exit 5) and never
+  print it. Local clusters live under `O1_PG_TMP` (else the OS temp folder) and are deleted at exit.
 
 ## Change requests (CR)
 
