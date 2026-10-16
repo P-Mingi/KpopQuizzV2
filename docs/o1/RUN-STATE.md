@@ -1,7 +1,7 @@
 # Run O1: state
 
 NEXT ACTION: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
-rework). Owner: Phase 0 packet answers pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
+rework). Owner: G0 answered (D-021); G1, G3, GH, GU, G14, G15, G17 pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
 G14, G15, G17, GH, GU). On resume: read LEDGER.md "Lanes", check each lane worktree and sha, start a new tick from it.
 
 Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
