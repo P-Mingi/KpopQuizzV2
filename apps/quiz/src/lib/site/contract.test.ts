@@ -373,11 +373,21 @@ describe('G0 defaults (defaults.md)', () => {
     );
   });
 
-  it('every row carries a status word', () => {
+  // G0 was answered on 2026-10-16 (LEDGER D-021): every default is confirmed, so the pending
+  // status word of slices 2 to 4 no longer passes (stricter than before, never looser).
+  it('every row carries a status word: confirmed by the owner (G0) or accepted before G0', () => {
     expect(rows.length).toBeGreaterThan(30);
     for (const r of rows) {
-      expect(r.cells.some((c) => /^(default, pending|accepted|confirmed \(G0, [0-9-]+\))$/.test(c.trim())), r.id).toBe(true);
+      expect(r.cells.some((c) => /^(accepted|confirmed by the owner \(G0, 2026-10-16\))$/.test(c.trim())), r.id).toBe(true);
+      expect(r.cells.some((c) => /^default, pending$/.test(c.trim())), r.id).toBe(false);
     }
+  });
+
+  it('no contract file still marks a G0 default as pending', () => {
+    const offenders = readdirSync(CONTRACTS)
+      .filter((f) => f.endsWith('.md') || f.endsWith('.sql') || f.endsWith('.json'))
+      .filter((f) => /default, pending|G0 default\b/.test(read(`${CONTRACTS}${f}`)));
+    expect(offenders).toEqual([]);
   });
 });
 

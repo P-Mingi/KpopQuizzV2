@@ -149,4 +149,4 @@ they are not S, and they become lane keys (or S) only when the owner approves th
 Topic and member words (series, character, oshi, group, bias) come from `SITE.vocabulary` (registry.md), not from
 copy files: a component that says "Your series" on anime and "Your groups" on kpop composes the registry word with
 its own lane key. "worlds" appears only on fanquiz.org copy; kpopquiz.org and otakuquiz.org say "sites" (v2 decision 3,
-default, pending).
+confirmed by the owner, G0, 2026-10-16).

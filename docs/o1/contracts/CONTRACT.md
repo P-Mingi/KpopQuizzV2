@@ -6,8 +6,9 @@ commit; from then on a change to a frozen item is a change request (CR, below).
 Sources, in order of authority: `RUN-O1-PROMPT.md` (section 9 overrides), then `BACKLOG.md` (section 5: the contract
 list; section 4: database objects; section 8: resolved contradictions), then `COLLISION-MAP.md`. Where this
 contract decides something no document fixed, the decision is listed in `docs/o1/reports/F0.md` ("Decisions") and
-marked "F0 decision" in the file that freezes it. A G0 default the owner has not confirmed yet is marked
-"default, pending" and listed in `defaults.md`.
+marked "F0 decision" in the file that freezes it. The G0 defaults are listed in `defaults.md`; the owner confirmed
+every one of them on 16 October 2026 (LEDGER D-021), so each is marked "confirmed by the owner (G0, 2026-10-16)".
+CR-002 to CR-006 are not defaults: they stay pending until the owner decides them.
 
 ## Files
 
@@ -30,7 +31,7 @@ marked "F0 decision" in the file that freezes it. A G0 default the owner has not
 | `copy-keys.md` | copy keys per site and lane (keys only) | D0, O1 to O6, P1, H1, B6, X1 | written |
 | `link-allowlist.md` | cross-site links allowed in crawlable HTML | Q0a, B6, X1, H1, O1 | pending |
 | `LANES.md` | every lane of BACKLOG section 1 and the sections it cites | all, R | pending |
-| `defaults.md` | the G0 defaults, each "default, pending" | all, ORCH | written |
+| `defaults.md` | the G0 defaults, each "confirmed by the owner (G0, 2026-10-16)" | all, ORCH | written |
 | `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | D0, O1 to O6, P1, H1, E1b, X1, Q0a, R | written |
 | `twins.json` | the machine form of `TWINS.md` (same rows), read by Q0a's `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` | Q0a, gate, R | written |
 | `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | gate | on `o1/F0s` |

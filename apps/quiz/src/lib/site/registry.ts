@@ -151,7 +151,7 @@ const ANIME: SiteConfig = {
     },
   },
   // BACKLOG lane O1: image quiz off, fandom war off, MV pulse off, airing banner on, live off
-  // at launch (G0 default), Verse off. CR-001 (rule 18): leaderboards on (TWINS row 35, Team
+  // at launch (G0, confirmed by the owner 2026-10-16), Verse off. CR-001 (rule 18): leaderboards on (TWINS row 35, Team
   // accounts off every board); news, articles, data pages and ranked stay off (code F).
   features: {
     ...ALL_OFF,
@@ -187,14 +187,15 @@ const ANIME: SiteConfig = {
   audio: { source: 'deezer', kit: 'required' },
   // Option A values arrive with O1 (D0 prototype, G5); until then the kpop values stand in.
   theme: { light: KPOP_LIGHT, dark: KPOP_DARK, fontDisplay: 'M PLUS Rounded 1c' },
-  // Placeholder ladder until the owner approves the anime title ladder (G6).
+  // The anime ladder of the v2 plan (section 3, validated: decision 9, confirmed by the owner
+  // with G0 on 2026-10-16), on the kpop thresholds (rule 18: same seven steps, new words).
   levelTitles: {
-    1: { en: 'Newcomer' },
-    3: { en: 'Viewer' },
-    6: { en: 'Fan' },
+    1: { en: 'New Viewer' },
+    3: { en: 'Casual Watcher' },
+    6: { en: 'Binge Watcher' },
     10: { en: 'Otaku' },
-    15: { en: 'Veteran' },
-    21: { en: 'Sensei' },
+    15: { en: 'Ride-or-Die' },
+    21: { en: 'Superfan' },
     30: { en: 'Legend' },
   },
   auth: {
@@ -204,7 +205,8 @@ const ANIME: SiteConfig = {
     signOutModes: ['global', 'local'],
   },
   passport: { probeOrder: [] },
-  // G0 defaults: 25 to 40 quizzes a day (top of the range as the cap), at most 2 a week per series.
+  // G0 (confirmed by the owner 2026-10-16): 25 to 40 quizzes a day (top of the range as the cap),
+  // at most 2 a week per series.
   editorial: { dailyItemCap: 3, quizDailyCap: 40, weeklyGroupLimit: 2 },
   daily: { systemUserId: null, fallbackGroupSlug: 'anime-mix' },
   copy: { namespace: 'anime' },
@@ -276,8 +278,7 @@ export const PLACEHOLDERS: Readonly<Record<SiteId, readonly string[]>> = {
   anime: [
     'brand.logo (O1)', 'brand.favicon (O1)', 'brand.ogTemplate (O1)', 'brand.mascot (G18, Fuki placeholder)',
     'vocabulary.* text (O1)', 'seo.indexNowKey (O1)', 'seo.organization.email (owner)',
-    'theme.light and theme.dark (O1, Option A after G5)', 'levelTitles (G6)',
-    'editorial.quizDailyCap (G0)', 'daily.systemUserId (launch L02)',
+    'theme.light and theme.dark (O1, Option A after G5)', 'daily.systemUserId (launch L02)',
   ],
   hub: [
     'brand.logo (H1)', 'brand.favicon (H1)', 'brand.ogTemplate (H1)', 'vocabulary.* text (H1)',

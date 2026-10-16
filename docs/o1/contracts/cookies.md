@@ -58,7 +58,7 @@ s       = b64u(HMAC(PASSPORT_TICKET_SECRET, "pp-ticket.v1." + p))
   used_at IS NULL AND expires_at > now() AND to_site = $2 RETURNING ...`; a second attempt is `replay`.
 - Refused at issue time (no code minted, the RP receives `error=login_required`): no session, email not
   confirmed, `profiles.banned_at` set, a pending deletion request, rate limit reached (30 per user per hour,
-  60 per IP hash per hour; default, pending G15), unknown `client`.
+  60 per IP hash per hour; confirmed by the owner (G0, 2026-10-16), G15 may still move the numbers), unknown `client`.
 
 ## 4. The landing fragment
 

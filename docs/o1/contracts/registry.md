@@ -30,10 +30,10 @@ the CR rules of `CONTRACT.md` (values of anime and hub are 5.2: extendable; the 
 | `seo` | titleTemplate, indexNowKey, minPublishedForIndexableHub, organization {name, alternateName, logo, email}, llmsTxt {title} | `%s \| KpopQuiz`, `4b2f9a7ce8d1465fb0a3e6c95d47128a` (lib/indexnow.ts), 1 (a hub is noindex at 0 quizzes), KpopQuiz / kpopquiz.org / /logo-512.png / contact@kpopquiz.org (lib/seo/org.ts), kpopquiz.org (llms.txt) | `%s \| OtakuQuiz`, null (O1), 3, OtakuQuiz / otakuquiz.org / O1 / null (owner), otakuquiz.org | `%s \| FanQuiz`, null (H1), 0, FanQuiz / fanquiz.org / H1 / null, fanquiz.org |
 | `audio` | `{ source: 'deezer', kit: 'required' }` | same on every site (rule 9) | | |
 | `theme` | light, dark (token values by frozen name: `ThemeTokenName`, every name of tokens.md but `font-display`), fontDisplay | a0.css values (tokens.md), Inter | kpop values stand in until O1 (Option A after G5), M PLUS Rounded 1c | kpop values stand in until H1, Inter |
-| `levelTitles` | threshold to {en, kr?} | lib/level-titles.ts LEVEL_TITLES | placeholder ladder until G6 | placeholder (`Member`) |
+| `levelTitles` | threshold to {en, kr?} | lib/level-titles.ts LEVEL_TITLES | the v2 ladder (v2 section 3, decision 9, confirmed with G0): New Viewer, Casual Watcher, Binge Watcher, Otaku, Ride-or-Die, Superfan, Legend, on the kpop thresholds 1, 3, 6, 10, 15, 21, 30 | placeholder (`Member`) |
 | `auth` | providers, googleClientIdEnv, emailLanding, signOutModes | google, discord, email; null (Supabase OAuth redirect, unchanged); `/auth/callback`; global | google, email; `NEXT_PUBLIC_GOOGLE_CLIENT_ID`; `/auth/confirm`; global, local | same as anime |
 | `passport` | probeOrder (P2 hook) | `[]` (inert) | `[]` | `[]` |
-| `editorial` | dailyItemCap, quizDailyCap, weeklyGroupLimit | 3 (MAX_PER_DAY), 0 (no quiz kind today), 3 (quiz-bank-scheduling.ts) | 3, 40 (G0 default: 25 to 40), 2 | 0, 0, 0 |
+| `editorial` | dailyItemCap, quizDailyCap, weeklyGroupLimit | 3 (MAX_PER_DAY), 0 (no quiz kind today), 3 (quiz-bank-scheduling.ts) | 3, 40 (G0 range 25 to 40, confirmed by the owner 2026-10-16), 2 | 0, 0, 0 |
 | `daily` | systemUserId, fallbackGroupSlug (mirror of the `sites` row) | `00000000-0000-0000-0000-000000000001`, `general-kpop` (migration 042; G3's dump confirms) | null until launch L02 (manifest.md), `anime-mix` | null, null |
 | `copy` | namespace | `kpop` | `anime` | `hub` |
 
@@ -52,7 +52,7 @@ leaderboards, news, articles, dataPages, localizedLandings, verse, embed, passpo
 | hub | passportPages (directory is an optional stretch of H1: off) |
 
 Anime off, with the reason: imageQuiz (no character, poster, logo or cover image, rule 8), fandomWar and mvPulse
-(kpop only), live (off at launch, G0 default), verse, embed, localizedLandings; news, articles, dataPages and ranked
+(kpop only), live (off at launch, G0 confirmed by the owner 2026-10-16), verse, embed, localizedLandings; news, articles, dataPages and ranked
 (code F of TWINS.md, CR-001: the slot is absent from nav, tab bar, footer and home); dailyBlindTest (the anime daily
 opening is `openingOfTheDay`, TWINS row 13), trueFalse (no route in the BACKLOG 5.1 map, a kpop landing family).
 Leaderboards are on (CR-001, TWINS row 35): the twin of `/leaderboard` exists, Team accounts stay off every board

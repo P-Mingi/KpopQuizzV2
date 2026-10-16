@@ -104,7 +104,7 @@ export interface SiteFeatures {
   readonly airingBanner: boolean;
   /** Spoiler system (anime). */
   readonly spoilers: boolean;
-  /** Live rooms (/live, /join). Off on anime at launch (G0 default). */
+  /** Live rooms (/live, /join). Off on anime at launch (G0, confirmed by the owner 2026-10-16). */
   readonly live: boolean;
   /** Community threads and debates. */
   readonly community: boolean;
