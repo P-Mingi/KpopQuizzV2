@@ -97,11 +97,18 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
   ];
 }
 
+export interface SiteRedirect {
+  readonly source: string;
+  readonly destination: string;
+  readonly permanent: boolean;
+}
+
 /**
  * The redirects of a build: null on kpop (next.config.ts keeps today's list, untouched);
- * an empty list on anime and hub (none of the kpop legacy redirects applies there).
+ * an empty list on anime and hub (none of the kpop legacy redirects applies there; a site's
+ * own redirects are a CR that adds them here).
  */
-export function redirectsFor(site: SiteId): readonly SiteRewrite[] | null {
+export function redirectsFor(site: SiteId): readonly SiteRedirect[] | null {
   return site === 'kpop' ? null : [];
 }
 

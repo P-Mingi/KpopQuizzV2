@@ -18,4 +18,4 @@ export {
   SHARED_PREFIXES, SITES_PREFIX, compileRoutePattern, internalPath, isKnownRouteFor,
   isServedSite, middlewareStep, redirectsFor, rewritesFor, siteStaticParams,
 } from './routing';
-export type { RouteFlags, SiteRewrite } from './routing';
+export type { RouteFlags, SiteRedirect, SiteRewrite } from './routing';
