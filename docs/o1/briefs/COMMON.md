@@ -1,6 +1,7 @@
 # Run O1: common rules for every agent (builders, reviewer, gate and merge steps)
 
-Copied by ORCH in Phase 0 from `RUN-O1-PROMPT.md` section 0 (rules 1 to 17), with the run environment. Every brief
+Copied by ORCH in Phase 0 from `RUN-O1-PROMPT.md` section 0 (rules 1 to 18; rule 18 added by the owner on 16 October
+2026), with the run environment. Every brief
 and every agent prompt points here. Where a brief and this file differ, this file wins, then `RUN-O1-PROMPT.md`,
 then `BACKLOG.md`.
 
@@ -77,6 +78,21 @@ brief cites.
     allowed, production SQL stays owner-run; the Play triple proof is satisfied by `parity.sh` plus R's UX runs at
     390 and 1440. Never use `graphify-out/` (it describes an old checkout). RATCHET LAW unchanged: never edit, weaken
     or delete an existing test or gate to go green.
+18. Same product, new skin (owner, 16 October 2026). OtakuQuiz is kpopquiz.org with small changes, not a new design.
+    Every anime page starts from its kpop twin (home, group hub to series page, quiz page, play, results, create,
+    daily, blind test, /me, /u, settings, sign-in, about, editorial policy) and keeps its layout, components,
+    interactions and copy structure. Anime pages import the shared components (`components/ux-v1/**` and the
+    components of each area) and never fork, copy (even in part) or rewrite them, and never make an "anime version"
+    of one. When a shared component needs a difference, its owner adds a prop or a theme token, on request
+    (`docs/o1/requests/<lane>.md`). What changes, and nothing else: the theme tokens (Persimmon palette, M PLUS
+    Rounded 1c for display, the Fuki mascot, the wordmark), the vocabulary (series for group, character for member,
+    oshi with a star for bias), and only the anime blocks of the spec (series header facts, arcs, characters list,
+    openings table, spoiler shield, no image quizzes). fanquiz.org uses the same kit with a neutral theme. The twin of
+    every anime and FanQuiz page, the shared components it must import and the closed list of its allowed
+    differences are in `O1/docs/o1/contracts/TWINS.md` (machine form `twins.json`, checked by
+    `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` on every gate). A difference outside that list
+    needs a change request approved in `LEDGER.md` before it is built. D0 shows each anime screen next to its kpop
+    twin, and R fails any anime or FanQuiz screen whose structure differs from its kpop twin without such a reason.
 
 ## How a builder works
 
