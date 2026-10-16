@@ -100,6 +100,8 @@ secrets_check() {
   rm -f "$diff"; [ $bad = 0 ] && echo "secrets: clean"; return $bad
 }
 step secrets secrets_check
+# 4b. Static checks of the tree (scripts/o1/check.sh): rule 18 twins, then what Q0a adds there.
+step twins "$O1/scripts/o1/check.sh" "$WT"
 # 5. Types and unit tests (RATCHET LAW: the existing tests run untouched).
 step tsc bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false' _ "$WT"
 step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run' _ "$WT"

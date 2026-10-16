@@ -57,6 +57,18 @@ checks, and `dev:multi`.
    proving the three hosts keep separate cookies; the dev fallback name for `__Host-` cookies on plain http is B4's
    (write the helper test only). ORCH adds the `dev:multi` alias when `package.json` leaves the HOT list.
 
+5. `apps/quiz/scripts/o1/twins.mts` (rule 18, owner, 16 October 2026; do this first in your next slice), run by
+   `scripts/o1/check.sh` on every gate: `tsx apps/quiz/scripts/o1/twins.mts --root <worktree> --twins <twins.json>`.
+   It fails (a) when a page file under `apps/quiz/src/app/sites/` is not in `twins.json` (an invented screen), (b) when
+   a listed page does not import every module of its `mustImport` (directly or through a module of its own folder),
+   (c) when a file of `apps/quiz/src/components/ux-v1/**`, or of a component listed in any `mustImport`, is copied
+   elsewhere, even in part: normalized code (comments, whitespace and identifiers of local variables normalized)
+   compared by shingles of consecutive lines; choose and document the threshold so that a copied block of about 8
+   meaningful lines fails and ordinary imports and short JSX patterns pass. Self-test with fixtures: a planted
+   unlisted page, a page missing an import, a partial copy of `components/ux-v1/panel.tsx`, and a clean page, each
+   giving the expected exit. Until F0 merges, read F0's draft `twins.json` from
+   `ROOT/.claude/worktrees/o1-F0/docs/o1/contracts/twins.json` (read only) or a fixture of the same shape.
+
 ## Your exception to "builders never build" (recorded in LEDGER.md)
 You build the harness, so you may run `next build` (only through `O1/scripts/o1/build-lock.sh run Q0a-<x> -- ...`)
 and your own `parity.sh` at most 4 times in total (production reads), never between 00:00 and 01:00 UTC, each run

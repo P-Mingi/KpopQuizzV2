@@ -7,9 +7,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 
 | lane | wave | kind | prio | needs | mergeAfter | reviewers | stage | round | sha | worktree |
 |---|---|---|---|---|---|---|---|---|---|---|
-| F0 | 0 | code | 0 | | | ARCH | building | 1 | | o1-F0 (+ spike o1-F0s) |
-| Q0a | 0 | code | 0 | | | ARCH | building | 1 | | o1-Q0a |
-| D0 | 0 | static | 1 | | F0 | UX | building | 1 | | o1-D0 |
+| F0 | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | e5b51a5 (spike a74c82f) | o1-F0 (+ spike o1-F0s) |
+| Q0a | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | 3f51f62 | o1-Q0a |
+| D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
 | Q0b | 1 | code | 1 | F0, Q0a | | ARCH | waits G1, G3 | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
@@ -117,6 +117,20 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 - D-017 R's DUMMY findings applied: the guard never owns a path with a `.` or `..` segment (it accepted
   `docs/o1/dummy/../../...` in --paths mode); the gate marks a step not needed as `skipped` (was `pending`) and
   explains both in summary.json. The DUMMY report being thin is accepted (pipeline test).
+- D-018 Rule 18 (owner, 16 October 2026, start of tick 2): OtakuQuiz and FanQuiz are kpopquiz.org re-skinned. Copied
+  into COMMON.md (rule 18), REVIEWER.md (point 9), REVIEW-LOG.md, the D0 brief and new brief stubs for O1 to O6, P1,
+  H1, E1b. ORCH drafted the twins table (`briefs/TWINS-draft.md`); F0 freezes it as `contracts/TWINS.md` and
+  `contracts/twins.json`; Q0a writes `apps/quiz/scripts/o1/twins.mts`, run by the new `scripts/o1/check.sh` on every
+  gate (step `twins`). Consequences: O2 builds no `components/series/hub.tsx` (the series page renders the shared
+  `components/group/ux-v1/hub.tsx` with slots added by its owner); O1, P1, H1 build no new shell, passport or settings
+  UI; the post-result oshi row on quiz results has no kpop twin and needs a CR. New dependency for Wave 2: many twin
+  components are HOT today (hub.tsx, hub-growth.tsx, ux-home.tsx, blindtest-band.tsx, quiz-page.tsx, quiz-run.tsx,
+  results.tsx, run-context.tsx, profile settings.tsx): importing them is free, adding a prop waits for their SEO or
+  Mission U branch.
+- D-019 Tick 1 stopped by ORCH (TaskStop) to apply rule 18 at once: F0 (3 slices, e5b51a5, spike a74c82f) and Q0a
+  (3 slices, 3f51f62) had sliced out cleanly; D0 was interrupted in slice 3 (dd39d7d plus 8 uncommitted files). R
+  audits everything already drawn or built against rule 18 (`reviews/D0-rule18-UX.md`, `reviews/F0-rule18-UX.md`)
+  before tick 2; what departs goes back to its builder.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests

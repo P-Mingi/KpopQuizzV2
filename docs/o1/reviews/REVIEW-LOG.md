@@ -12,6 +12,11 @@ R reads it before every review and never edits it.
   that fails offline is a finding.
 - Copy: the gate's `copy` step covers added lines only; read the visible strings of new screens yourself.
 
+- Rule 18 (owner, 16 October 2026): OtakuQuiz and FanQuiz are kpopquiz.org re-skinned. Every anime or hub screen
+  is judged next to its kpop twin of `docs/o1/contracts/TWINS.md`: same layout, sections, components, interactions
+  and copy structure; differences only from the row's closed list or an approved CR. A forked or copied shared
+  component, an invented screen or an unlisted block is a blocker, whatever its quality.
+
 ## Entries
 
 ### DUMMY r1 ARCH (2026-10-16): PASS
