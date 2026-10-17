@@ -4,7 +4,8 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 4 of about 6 done (2026-10-16). Slice 4 started with the checkpoint merge of o1/integration (1aaf144).
+Slices: 5 of about 6 done (2026-10-16). Slice 5 (tick 2, slice 2) started with the checkpoint merge of o1/integration
+(d6e51ff).
 
 | # | Slice | State |
 |---|---|---|
@@ -12,8 +13,50 @@ Slices: 4 of about 6 done (2026-10-16). Slice 4 started with the checkpoint merg
 | 2 | Leak suite (`apps/quiz/e2e/o1/leak/`, `playwright.o1.config.ts`), `check-network-links.mts` | done |
 | 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs), parity.sh kept-build entries | done |
 | 4 | `twins.mts` (rule 18, deliverable 5) with its self-test and base baseline; dev-multi feasibility probe | done |
-| 5 | `dev-multi.sh` and the cookie isolation test (needs request 18 for three dev servers at once) | next |
-| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | |
+| 5 | twins.mts on F0's real contract; `dev-multi.sh` (mirrors) and the cookie isolation test, with its plant proof | done |
+| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | next |
+
+Done in slice 5 (sections "Twins check" and "dev-multi" below):
+- twins.mts first (rule 18): F0's `docs/o1/contracts/twins.json` now exists (`o1/F0` 79e3a8b, 56 rows). Read as written:
+  `file: null` rows (30 and 30b, the shared OG routes; 37, the auth routes) are declarations, a missing `file` key is
+  still a contract error (D38). Protected set widened (D40): every file of `components/**` (rule 18: "the components
+  of each area"; F0's mustImport names only the top module of a row, so what it renders was unprotected), every
+  kpop twin file (a `local` twin body copied into an anime page is a fork), and the app modules those reach; test
+  files are never protected; of two protected files the one the contract names is reported as the original. The
+  draft fixture `q0a/twins-fixtures/twins.draft.json` is removed (F0's contract replaces it). Four new self-test
+  cases (18 in all).
+- `scripts/o1/dev-multi.sh [offline|scratch|dev] [--sites] [--ports] [--interval] [--test] [--clean]`: three `next dev`
+  at once from one worktree, each from an APFS-cloned mirror of apps/quiz under the worktree's ignored `.next/`,
+  kept in sync (D39). Request 18 is no longer blocking.
+- `apps/quiz/e2e/o1/dev-multi/cookies.o1.ts` (project `dev-multi`, timeout 15 min for that project only): one person,
+  three hosts; each host gets the session-shaped cookies of its site (Supabase session, `nq_anon`, the dev `pp_tx`,
+  a script cookie); the jar of each host holds only its own; a real request to each server carries its own once and
+  nothing of the two others; no Set-Cookie of the servers has a Domain attribute (D41). The `__Host-` fallback
+  conformance table (12 rows of cookies.md section 2) runs when B4's helper exists (request 19).
+- `scripts/o1/leak/dev-multi-selftest.sh` and the `cookie-domain` plant of `planted-server.mjs`: the cookie test
+  passes on three separate stand-in hosts and fails on a planted shared cookie.
+- Requests: 16 rewritten against F0's contract, 18 no longer blocking, 19 new (B4's helper name and signature).
+
+Tested how (slice 5):
+- `node --test apps/quiz/scripts/o1/twins.test.mjs`: 18 of 18 pass (new: F0-shape null-file rows and an unlisted
+  page for a null-file route; a copy of a `local` twin body with the brand words swapped fails, the same route
+  written with the shared kit passes; a copy of a component no mustImport names fails in a page and in
+  `components/anime/` (there reported as "shares a block with"); two tests sharing a mock setup pass).
+- twins.mts on the base with F0's contract (copied read only from `o1-F0`): `twins: ok`, exit 0, 56 rows, 53 files not
+  built yet, 524 protected files against 1455, 38 base pairs within their recorded size (the all-against-all baseline
+  of slice 4 holds for the wider set, as designed). About 18 s of CPU.
+- twins.mts on the spike tree (`o1-F0s` ab42803, read only) with F0's contract: exit 1, 4 `missing-import` (layout:
+  rows 28 and H-0; page: row 1; not-found: row 27); no copy; request 16.
+- dev-multi on the real tree, offline, ports 3106 3107 3108: three servers up, warm-up `/robots.txt` 200 on each,
+  the cookie test passed (1 passed, the B4 table skipped with its reason). A file added to `apps/quiz/src` reached the
+  three mirrors in 11 s and its deletion in 6 s (load average 50 to 117). First run: the browser did not start
+  within the 3 minute test budget under load 117 (raised for the dev-multi project only), and the first sync loop
+  copied all three mirrors on every pass (fixed: one find per pass, clones keep their times).
+- `bash scripts/o1/leak/dev-multi-selftest.sh`: none passes, cookie-domain fails (caught by the Domain check:
+  Chromium did not apply `Domain=localhost`, so the wire check saw no shared value; it would have, as it now rejects
+  a second value under a name).
+- `tsc --noEmit` in apps/quiz (includes the new spec): no error (21 minutes of wall time under load).
+- No build, no parity run, no production read.
 
 Done in slice 4 (section "Twins check" below for the design):
 - `apps/quiz/scripts/o1/twins.mts --root <worktree> --twins <twins.json> [--json <out>]`, the rule 18 check run by
@@ -157,10 +200,11 @@ skip on today's base (the builds are not wired as sites yet), with the reason pr
 `O1_LEAK_REQUIRE` names the site (D9). Three of the four existing check:* scripts are kpop-only by construction and
 are skipped on anime and hub with the reason (D16).
 
-Requests: `docs/o1/requests/Q0a.md` items 1 to 18 (slice 3: item 2 made final, gate.sh passes `--keep`; new 11 the
+Requests: `docs/o1/requests/Q0a.md` items 1 to 19 (slice 3: item 2 made final, gate.sh passes `--keep`; new 11 the
 dev kpop build next to parity once G1 is open, 12 the check-site-scope interface for B2, 13 the per-site sitemap
 route path, 14 the variables lane specs get; slice 4: 15 what twins.mts reads in twins.json, 16 the spike
-placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a dev output folder per site).
+placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a dev output folder per site; slice 5: 16
+measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table).
 
 SQL files: none (the lane writes no SQL).
 
@@ -168,7 +212,7 @@ Owner actions: none yet. (Optional, for fidelity: the owner confirms that `KPQ/s
 production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.)
 
 Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 0 used. (Slice 4's two dev
-probes were `next dev` with `scripts/o1/env.sh offline`, not builds.)
+probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
 Production reads made by this lane: none.
 
@@ -219,8 +263,16 @@ worktree):
 ## Twins check
 
 `apps/quiz/scripts/o1/twins.mts` (header of the file for every rule). What it reads: `twins.json` (`pages[]`: `id`,
-`site`, `route`, `file` string or array, `twin` string, array or null, `mustImport` specifiers or paths, `allowed`,
-`notes`; request 15), the tree under `--root`, and its baseline next to itself (O1's copy at the gate).
+`site`, `route`, `file` string, array or null, `twin` string, array or null, `mustImport` specifiers or paths; F0's
+`renders`, `allowed`, `owner`, `body` and `notes` are for D0 and R, checked by F0's contract.test.ts; request 15), the
+tree under `--root`, and its baseline next to itself (O1's copy at the gate).
+
+Protected files (check c), slice 5: every code file of `components/**` except tests (rank 1), plus, ranked 0 (the
+files the contract names), every `components/ux-v1/**` file, every mustImport module and every kpop twin file; plus
+(rank 1) the modules of `app/` outside `app/sites` that a rank 0 file reaches (the twin's own page modules such as
+`[slug]/group-quiz-page.tsx`). A pair of two protected files is reported on the less protected one ("copies"), or on
+the later path when both have the same rank ("shares a block with": the tree alone cannot tell the original). On the
+base with F0's contract: 524 protected files against 1455, 38 base pairs within their recorded size, exit 0.
 
 Screen files (a): `page`, `layout`, `template`, `not-found`, `error`, `global-error`, `loading`, `default`,
 `forbidden`, `unauthorized`, `opengraph-image`, `twitter-image`, `icon`, `apple-icon` under `app/sites/`, outside
@@ -250,8 +302,32 @@ the unordered pair, with the larger of the two sides' matched lines. A new pair,
 fails. Only Q0a re-measures it (`--write-baseline`), from a base, never for a lane.
 
 Spike dry run (request 16): F0's placeholders `layout.tsx`, `page.tsx` and `not-found.tsx` render none of their
-twins' shared components (29 `missing-import` against the draft rows 1, 27, 28, H-0, H-1, H-8); `[...rest]/page.tsx`
-(notFound, no JSX) passes as a technical row.
+twins' shared components: 4 `missing-import` against F0's contract (rows 28 and H-0, 1, 27; 29 against the draft rows,
+which also listed what each module renders); `[...rest]/page.tsx` (notFound, no JSX) passes as the technical row 27b.
+
+## dev-multi
+
+`scripts/o1/dev-multi.sh [offline|scratch|dev] [--worktree <wt>] [--sites kpop,anime,hub] [--ports p1,p2,p3]
+[--interval <s>] [--test] [--clean]` (header of the file). Each site runs `next dev -p <port> -H 127.0.0.1` with
+`NEXT_PUBLIC_SITE_ID` and `SITE_ID` set, UX_V1 and UX_V12 on, through O1's `env.sh`; ports from `ports.tsv` (the lane
+of the branch). Hosts: `kpop.localhost`, `anime.localhost`, `hub.localhost` (Next's dev origin check allows
+`*.localhost` by default). `--test` warms up `/robots.txt` on each server, then runs the Playwright project
+`dev-multi` with `O1_KPOP_URL`, `O1_ANIME_URL`, `O1_HUB_URL` and stops everything.
+
+Mirrors (D39): `<wt>/.next/multi-<site>/` holds APFS clones (`cp -c -R -p`) of `apps/quiz/src`, `public` and the
+top-level files, and a link to the worktree's node_modules. Same depth as apps/quiz, so `tsconfig.json` paths
+(`../../packages/shared/src`) and `process.cwd()/../..` (the knowledge-report dataset route) resolve as in apps/quiz,
+and the folder is ignored by git (`.next/`). The sync loop: every 2 s one `find -newer` over the watched paths; when
+anything changed, `rsync -a --delete` into each mirror. Measured under load 50 to 117: an added file in all three
+mirrors after 11 s, a deletion after 6 s. Edits go to apps/quiz, never to a mirror.
+
+Cookie isolation (`apps/quiz/e2e/o1/dev-multi/cookies.o1.ts`): see D41. Proofs: real servers (slice 5, offline,
+3106 to 3108): passed. Stand-ins (`scripts/o1/leak/dev-multi-selftest.sh`):
+
+| Scenario | Plant | Result |
+|---|---|---|
+| none | three separate hosts | the session test passes, the B4 table skips |
+| cookie-domain | anime's `/robots.txt` sets `sb-127-auth-token` with `Domain=localhost` | the session test fails (Set-Cookie with a Domain attribute) |
 
 ## GET write proof
 
@@ -472,6 +548,31 @@ shapes; the failing set must equal the expected set exactly):
   folder). Turbopack's inferred root is ROOT's workspace file, which is why every lane's `next dev` resolves O1's
   node_modules. Way forward: request 18.
 
+- D38 twins.mts reads F0's contract as written: `file: null` declares a route with no file under app/sites (rows 30,
+  30b, 37); it lists nothing, so a screen file for such a route is unlisted. A row with no `file` key at all stays a
+  contract error (exit 2), so a typo cannot silently drop a row.
+- D39 dev-multi runs each site from a mirror of apps/quiz instead of waiting for request 18: Next 16.2's dev lock and
+  the HOT next.config.ts rule out a second dev server in apps/quiz, symlinked folders serve 404 (D37), and private
+  Next variables (`__NEXT_PRIVATE_STANDALONE_CONFIG`) would drop the config's functions (rewrites, headers). The
+  mirror is a real folder at apps/quiz's depth, cloned (no disk cost for unchanged files) and synced. Cost: a few
+  seconds before an edit reaches the three sites. Once request 18 lands, dev-multi can switch to
+  `O1_NEXT_DIST_DIR=.next/multi-<site>` in apps/quiz itself.
+- D40 Protected set of check (c) widened to `components/**`, the kpop twin files and their app modules. Why: F0's
+  mustImport names only the top module of each row (`ux-home`), so its parts (`home-header.tsx` and the rest of
+  `renders`) were unprotected, and rule 18 names "the components of each area"; a `local` twin's body (about,
+  privacy, terms) is page markup that rule 18 moves into a shared component, so copying it into an anime page is the
+  fork the rule forbids. Free on the base (the baseline was measured all against all) and cheap (the files are parsed
+  for the scan anyway). Tests are scanned but never protected: suites legitimately repeat mock setups.
+- D41 Cookie isolation test: a probe path that the test itself answers (never sent to a server) sets each host's
+  session-shaped cookies, so the test needs no sign-in, no database and no B4 code; the proof that matters is on the
+  wire (the Cookie header of a real request to each server, from Playwright's `allHeaders()`) and in each host's
+  jar. The Set-Cookie check (no Domain attribute) holds the servers to cookies.md ("no Domain") from today, so B4's
+  `pp_tx` and any later cookie stay host-only. A real sign-in on three hosts needs fixture users (G2) and Q0b's auth
+  suite; the leak suite's content cases already wait for them.
+- D42 The `__Host-` fallback is B4's (brief); Q0a wrote the conformance table from cookies.md section 2 (12 rows,
+  including the near-miss hosts `127.0.0.1`, `evil-localhost.com` and `localhost.evil.com` and `VERCEL_ENV=production`
+  on http) and runs it when the module exists; request 19 asks B4 to confirm the path and signature.
+
 ## Open points
 
 - The freeze store holds response bodies of the parity reads (anonymous and service role) in
@@ -499,6 +600,9 @@ shapes; the failing set must equal the expected set exactly):
 - The kpop SEO checks on the kept build read production for every page outside the frozen state (about 700 sitemap
   pages, check:indexability's 25 quizzes and 25 groups): one parity-sized read per kpop gate, at the scripts' own
   concurrency (10, 8, 1).
+- dev-multi's mirrors hold a copy of the lane's tree under `.next/`: harmless for git and tsc (tsc skips dot folders,
+  vitest collects `src/**` of apps/quiz only), but a person must not edit a mirror (the next sync overwrites it).
+  `--clean` removes them. The B4 conformance table and a signed-in three-site run wait for B4 and G2.
 - twins.mts finds copies by consecutive normalized lines: a reformat that rewraps lines (prettier at another
   nesting depth) or an edit inside every 8 meaningful lines evades it. R's review (REVIEWER point 9) covers what the
   check cannot.

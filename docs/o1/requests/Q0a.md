@@ -73,14 +73,17 @@
     A mustImport module counts when the page reaches it directly, through a module of the page's own folder, or as a
     dependency of another mustImport module of the same row that the page reaches (so listing what `hub.tsx` renders
     next to `hub.tsx` is fine); never through a wrapper module elsewhere.
-16. To F0 and ORCH (rule 18, the spike). Dry run of twins.mts on the spike files (`a74c82f`, five files under
-    `app/sites/[site]/`) in a scratch copy of the tree, against a twins.json shaped from `TWINS-draft.md`: 29 failures,
-    all `missing-import`: `layout.tsx` (rows 28 and H-0: none of the shell modules), `page.tsx` (rows 1 and H-1),
-    `not-found.tsx` (rows 27 and H-8: no `@/components/ui/mascot`). `[...rest]/page.tsx` passes as a technical row (no
-    JSX). Why it matters: once both twins.mts and twins.json are in O1, a lane tree carrying these placeholders fails
-    the `twins` step. Options for ORCH: keep the spike placeholders off o1/integration (O1 and H1 write the real
-    pages from the twins), or have F0's layout, home and 404 already render their twins' shared components. The
-    check gives no placeholder exception (it would be the loophole rule 18 closes).
+16. To F0 and ORCH (rule 18, the spike). Dry run of twins.mts on the spike tree (`o1/F0s` at `ab42803`, read only)
+    against F0's contract `docs/o1/contracts/twins.json` (`o1/F0` at `79e3a8b`): exit 1, 4 failures, all
+    `missing-import`: `layout.tsx` (rows 28 and H-0: `@/components/layout/ux-v1/ux-shell`), `page.tsx` (row 1:
+    `@/components/home/ux-v1/ux-home`; row H-1 has an empty mustImport), `not-found.tsx` (row 27:
+    `@/components/ui/mascot`; H-8 empty). `[...rest]/page.tsx` passes as the technical row 27b (no JSX), the
+    `robots.txt/route.ts` handler needs no row, and no copy. (Against the earlier draft rows, which listed what each
+    module renders, it was 29.) Why it matters: once twins.mts and twins.json are both in O1, a lane tree carrying
+    these placeholders fails the `twins` step. TWINS.md rule 4 already keeps the spike pages as routing placeholders
+    that O1 and H1 replace: either keep them off o1/integration until then, or let F0s's layout, home and 404 import
+    the shell, the home and the mascot as their twins do. The check gives no placeholder exception (it would be the
+    loophole rule 18 closes).
 17. To ORCH, `scripts/o1/check.sh` (owner ORCH). (a) Merge order: once twins.mts is in O1 and twins.json is in
     neither O1 nor the lane, check.sh exits 1 ("cannot check") on every lane's gate. Merge F0's twins.json before or
     with Q0a, or let check.sh print `pending` until O1 has it. (b) Optional: pass `--json "$EVIDENCE/twins.json"`
@@ -90,7 +93,16 @@
     `distDir: process.env.O1_NEXT_DIST_DIR || '.next'`. Why: `scripts/o1/dev-multi.sh` (deliverable 4) runs three
     `next dev` at once from one worktree; Next 16.2 refuses a second dev server on the same output folder (lock at
     `<distDir>/dev/lock`), the programmatic server's `conf` does not reach the dev bundler, and a per-site folder of
-    links serves no route (404 everywhere, Turbopack and webpack; report D37). With the variable, dev-multi sets
-    `.next/multi-<site>` (inside the ignored `.next/`). Unset, the config is byte for byte today's: builds and
-    parity do not change. Until then dev-multi.sh can only run the sites one at a time, and its cookie test runs
-    against three `next start` servers of the gate's site builds (gate-checks.sh already serves them).
+    links serves no route (404 everywhere, Turbopack and webpack; report D37). Unset, the config is byte for byte
+    today's: builds and parity do not change. No longer blocking (slice 5, D39): dev-multi.sh runs each site from an
+    APFS-cloned mirror of apps/quiz under the worktree's ignored `.next/`, synced every 2 s. With the variable, the
+    mirrors and their sync delay can go (dev-multi then sets `.next/multi-<site>` in apps/quiz itself).
+19. To B4, through ORCH (cookies.md section 2, the dev fallback of `__Host-pp_tx`). Q0a's brief: "the dev fallback
+    name for `__Host-` cookies on plain http is B4's (write the helper test only)". The test is written:
+    `apps/quiz/e2e/o1/dev-multi/cookies.o1.ts`, "the dev fallback name of the __Host- transaction cookie", skipped
+    until the helper exists. It imports `apps/quiz/src/lib/passport/tx-cookie.ts` (or the path B4 gives in
+    `O1_TX_COOKIE_MODULE`) and calls `txCookieName(url: string | URL, env?: { VERCEL_ENV?: string }): string` on 12
+    rows: `__Host-pp_tx` for every https URL, for `VERCEL_ENV=production` even on an http localhost, for an http
+    host that is not `localhost` or `*.localhost` (127.0.0.1, `evil-localhost.com`, `localhost.evil.com`); `pp_tx`
+    only for http `localhost` and `*.localhost`. Ask: B4 names the module and the export (or confirms these), so the
+    table runs at B4's gate. A different signature is fine: tell Q0a, the test adapts, the rows stay.

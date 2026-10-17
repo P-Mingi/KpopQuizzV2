@@ -6,7 +6,9 @@
 // fails on its planted leak and passes on the clean pages. It is never a site under test in a gate.
 //   node scripts/o1/leak/planted-server.mjs --ports 3106,3107,3108 [--plant <id>]
 // Plants: route-anime route-hub unwired string-anime string-anime-data string-kpop link-kpop link-via link-nofollow
-// link-hydrated canonical og-site-name sitemap netme spoiler content content-mirror.
+// link-hydrated canonical og-site-name sitemap netme spoiler content content-mirror cookie-domain (the last one for
+// the dev-multi cookie test: anime's robots.txt sets a session cookie with Domain=localhost, shared by every
+// *.localhost host).
 import http from 'node:http';
 
 const args = process.argv.slice(2);
@@ -130,7 +132,9 @@ function serve(site, port) {
     }
     const rf = rootFile(site, path);
     if (rf) {
-      res.writeHead(200, { 'content-type': rf.type });
+      const extra = P('cookie-domain') && site === 'anime' && path === '/robots.txt'
+        ? { 'set-cookie': 'sb-127-auth-token=planted-shared; Domain=localhost; Path=/; SameSite=Lax' } : {};
+      res.writeHead(200, { 'content-type': rf.type, ...extra });
       return res.end(rf.body);
     }
     if (path === '/favicon.ico') {

@@ -25,7 +25,8 @@ export default defineConfig({
   use: { headless: true, ...LAUNCH },
   projects: [
     { name: 'leak', testMatch: /leak\/.*\.o1\.ts$/, use: { ...devices['Desktop Chrome'], ...LAUNCH } },
-    { name: 'dev-multi', testMatch: /dev-multi\/.*\.o1\.ts$/, use: { ...devices['Desktop Chrome'], ...LAUNCH } },
+    // next dev compiles on the first request and the browser starts slowly on a loaded machine: a longer budget.
+    { name: 'dev-multi', testMatch: /dev-multi\/.*\.o1\.ts$/, timeout: 900_000, use: { ...devices['Desktop Chrome'], ...LAUNCH } },
     { name: 'lanes', testIgnore: /(leak|dev-multi|parity)\//, use: { ...devices['Desktop Chrome'], ...LAUNCH } },
   ],
 });
