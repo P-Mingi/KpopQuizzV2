@@ -106,3 +106,41 @@
     host that is not `localhost` or `*.localhost` (127.0.0.1, `evil-localhost.com`, `localhost.evil.com`); `pp_tx`
     only for http `localhost` and `*.localhost`. Ask: B4 names the module and the export (or confirms these), so the
     table runs at B4's gate. A different signature is fine: tell Q0a, the test adapts, the rows stay.
+20. To ORCH and R, a CR proposal (BACKLOG 5.2: parity may be made stricter, never looser). flag-off-diff (not Q0a's,
+    never edited) replaces every hashed asset name (`static/css/<hash>.css`, `static/chunks/...js`) before it diffs,
+    and nothing compares what those files hold: a change in `globals.css`, a CSS module or a Tailwind class that
+    exists only in CSS changes the served style of kpopquiz.org and still passes parity. Proposal: `compare.mjs`
+    adds one check, run on every URL that flag-off-diff found identical too: the set of stylesheets each page links,
+    fetched once per run from A and B, compared by content after the same name normalisation (and N1 for the UX
+    stylesheet only). A difference fails the page as `css-content`, with the first differing rule in `result.txt`.
+    It reads only the two local servers (no production read), adds about one second per distinct stylesheet, and
+    keeps determinism (contents, not times). Q0a writes it once approved (owned paths); until then the gap is
+    written in parity.sh's header. JS chunks stay out (behaviour is the lanes' e2e and R's UX runs, not parity).
+21. To ORCH, for the owner (the G0 normalisations are the owner's: a CR; blocks every real parity run). Q0a's offline
+    parity rehearsal (2026-10-17, report section "Parity rehearsal", evidence
+    `apps/quiz/e2e/o1/parity/rehearsal-2026-10-17/`): parity.sh unchanged, its KPQ pointed at a stand-in whose
+    `kpop-parity.env` names the offline Supabase (127.0.0.1:9), so no production read; base b5e8c55, head the same
+    tree with one line of visible text changed on /about. Result: 34 of 60 pages DIFFERENT. 31 differ only in the
+    module ids of the Flight client references in the inline page data (`I[418146,[...],"ThemeInit"]` against
+    `I[755668,[...],"ThemeInit"]`, on every page that answered 200; export names and normalised chunk lists equal);
+    1 (/blindtest/group-bts) only in where the Flight stream is cut into `self.__next_f.push` tags (the same rows,
+    pushed in another order); 1 (/bts-name-all-members, a 500 offline) in its error digests; 1 (/about) is the plant,
+    caught in the HTML and in the page data. No client code differs between the two trees, so Turbopack (Next 16.2.1)
+    gives one client module two ids in two builds. Consequence: with flag-off-diff at the bytes level and only N1 and
+    N2, parity says DIFFERENT for any two builds; every lane that touches kpop paths would fail the parity step and
+    the merge step, and each such run spends a production read. N2 (the Analytics reference) is this same symptom on
+    one reference. Options:
+    (a) N3: in the inline page data, a Flight client reference `I[<number>,` reads `I[<id>,` on both sides (export
+        name and chunk list still compared; the server HTML still compared byte for byte); N4: the Flight stream of
+        a page is joined from all its pushes and compared as its sorted rows, so where the stream is cut into script
+        tags, and the order in which rows stream, do not count (every row, and the rest of the document, still
+        compared). Measured on the rehearsal's stored pages: 58 of 60 equal, /about DIFFERENT (the plant, in the HTML
+        and the rows) and /bts-name-all-members (error digests of an offline 500 page). Q0a's recommendation.
+    (b) flag-off-diff's own `--structure` level (the v11 and v12 proofs used it): drops the client script tags and the
+        whole inline page data. Simpler, but blind to the page data.
+    (c) First learn whether one build folder for both sides keeps the ids stable: one more offline rehearsal (two
+        builds, no production read). Even if it does, a client change in a shared layout still moves every id
+        (flag-off-diff's own comment), so (a) is likely needed anyway.
+    Until a decision: Q0a runs no real parity run (each would fail and spend a production read). Once approved, Q0a
+    writes N3 and N4 in `scripts/o1/parity/compare.mjs` with tests (owned paths) and reruns the rehearsal, then the
+    real runs of the done test within D-005.

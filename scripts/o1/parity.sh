@@ -23,9 +23,15 @@
 # - Frozen data source and write guard: scripts/o1/parity/freeze-hook.mjs is preloaded (NODE_OPTIONS --import) into
 #   both builds and both servers. The base build records every database read, the head build and the servers replay
 #   them, so base and head render one database state; every request that could write is refused before it leaves
-#   the machine and listed in freeze/refused.log (a refused write fails the run). --recheck replays the stored state.
+#   the machine and listed in freeze/refused.log. scripts/o1/parity/refusals.mjs judges them: a write refused while
+#   the URL list is fetched, or one the head build adds, fails the run; a build-time write the base build makes too
+#   (today: rpc ensure_daily_debate from a prerendered page outside the list) is listed in refused.txt only.
+#   --recheck replays the stored state.
 # - Determinism: result.txt holds no time, no byte count and no live number outside a diff. --recheck runs the pair
 #   again (the cache is ignored, the stored data state replayed) and fails unless result.txt is byte-identical.
+# - Known gap: flag-off-diff replaces hashed asset names and nothing compares what the files hold, so a change that
+#   lives only in CSS (globals.css, a CSS module, a class that exists only in CSS) passes. Q0a's request 20 proposes
+#   a stricter check (stylesheet contents of A and B, local servers only); until it is approved this stays a gap.
 # - --keep keeps both worktrees, their builds and the frozen state (KPQ/cache/parity/<key>/freeze) for the gate's
 #   per-site checks, and names them in KPQ/cache/parity/kept.json; the next parity run removes all three. A cached
 #   result is used with --keep only while the kept build is the one of that pair (else the pair is run again).
@@ -45,6 +51,7 @@ ENVF="$KPQ/secrets/kpop-parity.env"
 FOD="$HARNESS/apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs"
 COMPARE="$HERE/parity/compare.mjs"
 HOOK="$HERE/parity/freeze-hook.mjs"
+REFUSALS="$HERE/parity/refusals.mjs"
 die() { echo "parity: $1" >&2; exit "${2:-3}"; }
 # Production flags (header). The env file is sourced in a subshell, never printed; the hook targets its Supabase.
 PROD_FLAGS='NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 NEXT_PUBLIC_BT_TRACKING=1'
@@ -106,7 +113,7 @@ while [ $# -gt 0 ]; do case "$1" in
 hour=$(date -u +%H)
 [ "$hour" != "00" ] || die "refused: 00:00 to 01:00 UTC is the cron window" 6
 [ -f "$ENVF" ] || die "$ENVF missing (setup-o1.sh step 5)" 4
-for f in "$FOD" "$COMPARE" "$HOOK"; do [ -f "$f" ] || die "harness file missing: $f" 4; done
+for f in "$FOD" "$COMPARE" "$HOOK" "$REFUSALS"; do [ -f "$f" ] || die "harness file missing: $f" 4; done
 base="$("$G" -C "$O1" rev-parse --verify "$base_ref^{commit}")" || die "unknown base $base_ref" 2
 head="$("$G" -C "$O1" rev-parse --verify "$head_ref^{commit}")" || die "unknown head $head_ref" 2
 # URL list: the harness's 60 URLs, else the Phase 0 seed list.
@@ -165,7 +172,10 @@ cleanup() {
 trap cleanup EXIT INT TERM
 # The previous run's results stay readable until this one ends; the frozen state is kept only for a recheck.
 rm -rf "$OUT.tmp"; mkdir -p "$OUT.tmp"
-if [ $recheck = 1 ]; then cp -R "$OUT.prev/freeze" "$OUT.tmp/freeze"; else mkdir -p "$OUT.tmp/freeze"; fi
+if [ $recheck = 1 ]; then
+  # The stored reads are replayed; the logs start empty so this run's counts and refusals are its own.
+  cp -R "$OUT.prev/freeze" "$OUT.tmp/freeze"; rm -f "$OUT.tmp/freeze"/*.log
+else mkdir -p "$OUT.tmp/freeze"; fi
 FREEZE="$OUT.tmp/freeze"
 prep() { # role sha
   local w="$ROOT/.claude/worktrees/o1-parity-$1"
@@ -206,7 +216,11 @@ node "$COMPARE" --a "http://127.0.0.1:$PA" --b "http://127.0.0.1:$PB" --fod-out 
 rc=$?
 [ $rc -le 1 ] || { tail -5 "$OUT.tmp/compare.log" >&2; [ $fod_rc -le 1 ] || tail -5 "$OUT.tmp/diff.log" >&2; die "compare failed (rc $rc, flag-off-diff rc $fod_rc)" 7; }
 # A refused write is a failure of the run, whatever the HTML says.
-if [ -s "$FREEZE/refused.log" ]; then sort "$FREEZE/refused.log" | uniq -c > "$OUT.tmp/refused.txt"; rc=1; echo "parity: writes were refused, see refused.txt" >&2; fi
+if [ -s "$FREEZE/refused.log" ]; then
+  # Judged by refusals.mjs: a write refused outside the builds, or one the head build adds, fails the run; a build
+  # write the base build makes too is listed only.
+  node "$REFUSALS" "$FREEZE/refused.log" "$OUT.tmp/refused.txt" || { rc=1; echo "parity: a refused write fails the run, see refused.txt" >&2; }
+fi
 t1=$(date +%s)
 det=""
 if [ $recheck = 1 ]; then

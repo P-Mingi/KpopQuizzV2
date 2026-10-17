@@ -4,8 +4,9 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 5 of about 6 done (2026-10-16). Slice 5 (tick 2, slice 2) started with the checkpoint merge of o1/integration
-(d6e51ff).
+Slices: 5 of about 6 done (2026-10-16); slice 6 (tick 3, 2026-10-17) done in part, then blocked on request 21 (an
+owner decision on the parity normalisations, below). Slice 5 (tick 2, slice 2) started with the checkpoint merge of
+o1/integration (d6e51ff); o1/integration has not moved since (910c84a).
 
 | # | Slice | State |
 |---|---|---|
@@ -14,7 +15,44 @@ Slices: 5 of about 6 done (2026-10-16). Slice 5 (tick 2, slice 2) started with t
 | 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs), parity.sh kept-build entries | done |
 | 4 | `twins.mts` (rule 18, deliverable 5) with its self-test and base baseline; dev-multi feasibility probe | done |
 | 5 | twins.mts on F0's real contract; `dev-multi.sh` (mirrors) and the cookie isolation test, with its plant proof | done |
-| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | next |
+| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | in part: offline rehearsal done, it found that two builds never compare equal (request 21); real runs wait for the owner's decision |
+
+Done in slice 6 (tick 3, 2026-10-17; section "Parity rehearsal" below):
+- Slice 5's work, left uncommitted when tick 2 stopped on the usage limit, re-proved and committed (b5e8c55):
+  harness tests 72 of 72, twins.mts on F0's current contract (unchanged since 79e3a8b) `twins: ok`, the dev-multi
+  self-test as expected, tsc and vitest green.
+- The offline parity rehearsal (D43): parity.sh, unchanged, run once with its KPQ pointed at a stand-in whose
+  `kpop-parity.env` names the offline Supabase, base b5e8c55 against the same tree with one visible line changed on
+  /about. No production read. It worked end to end (two builds under the lock, frozen-state hook, two servers,
+  flag-off-diff, compare.mjs, result.txt, evidence copy, worktrees removed) and found two defects that would have
+  failed every real run:
+  1. Two builds never compare equal at the bytes level: on every page that answered 200, Turbopack gives the same
+     client modules other ids in the inline page data, and one dynamic page streams its Flight rows in another
+     order. 34 of 60 DIFFERENT, of which 31 for client module ids only. A fix is a new normalisation, which G0 makes
+     the owner's: request 21 (CR, options, recommendation, measured effect: 58 of 60 equal and the plant caught).
+  2. Each build refuses one write (`rpc ensure_daily_debate`, from the prerender of a page outside the list), and
+     a refused write failed the run. Fixed in the harness (D44): `scripts/o1/parity/refusals.mjs` judges the
+     refusals; a write refused while the list is fetched, or one the head build adds, still fails the run.
+- Evidence kept in `apps/quiz/e2e/o1/parity/rehearsal-2026-10-17/` (result.txt, refused.txt, parity.json, and
+  classes.txt: the cause of each page's verdict).
+- Request 20 (CR proposal: compare stylesheet contents, parity stricter; the open point of slice 1) and request 21.
+  The CSS gap is written in parity.sh's header until request 20 is decided.
+- Not done, and why (D45): the real parity runs of the done test (determinism, planted change). Each would read
+  production and fail on defect 1; the owner's message that opened tick 3 also says "pas d'accès à la prod". They
+  wait for the decision on request 21 and ORCH's go. gate-checks.sh on real site builds stays with Q0a's own gate
+  (request 1).
+
+Tested how (slice 6):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 79 of 79 pass (7 new: refusals.mjs on the rehearsal's own two lines, a write
+  the head adds, another reason on the same path, a base-only write, every phase outside the builds, order and
+  counts, the command's exits 0, 1, 2).
+- The rehearsal itself (21:03 to 21:07 UTC, 197 s of builds and comparison, load average about 10): table in
+  "Parity rehearsal". The proposed N3 and N4, applied by a throwaway script to the 60 stored page pairs (not in the
+  harness: they wait for the owner), leave /about (the plant) and one offline 500 page.
+- `bash -n scripts/o1/parity.sh`. `tsc --noEmit` in apps/quiz: no error. `vitest run`: 124 files, 2269 tests pass
+  (default timeout; the machine was quiet).
+- One parity run (offline, two builds) of the D-005 budget; no production read.
 
 Done in slice 5 (sections "Twins check" and "dev-multi" below):
 - twins.mts first (rule 18): F0's `docs/o1/contracts/twins.json` now exists (`o1/F0` 79e3a8b, 56 rows). Read as written:
@@ -204,17 +242,23 @@ Requests: `docs/o1/requests/Q0a.md` items 1 to 19 (slice 3: item 2 made final, g
 dev kpop build next to parity once G1 is open, 12 the check-site-scope interface for B2, 13 the per-site sitemap
 route path, 14 the variables lane specs get; slice 4: 15 what twins.mts reads in twins.json, 16 the spike
 placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a dev output folder per site; slice 5: 16
-measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table).
+measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table; slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order, which
+blocks every real parity run).
 
 SQL files: none (the lane writes no SQL).
 
 Owner actions: none yet. (Optional, for fidelity: the owner confirms that `KPQ/secrets/kpop-parity.env` carries the
 production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.)
 
-Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 0 used. (Slice 4's two dev
-probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
+Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 1 used, counting a parity run
+once (2 of 4 if each `next build` inside it counts; ORCH to say which).
+| # | When (UTC) | What | Result |
+|---|---|---|---|
+| 1 | 2026-10-17 21:03:41 to 21:07:09 | `O1_KPQ=<scratchpad stand-in> scripts/o1/parity.sh b5e8c55 648e77c` (offline rehearsal; build-lock labels `parity-base-b5e8c552`, `parity-head-648e77cb`) | exit 1: 34 of 60 DIFFERENT, 2 refused writes; no production read (section "Parity rehearsal") |
+(Slice 4's two dev probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
-Production reads made by this lane: none.
+Production reads made by this lane: none (the rehearsal's Supabase was 127.0.0.1:9; flag-off-diff and compare.mjs
+fetch only the two local servers).
 
 ## Gate checks
 
@@ -377,6 +421,38 @@ servers replay it, so base and head render one database state. ISO timestamps ar
 "last 7 days" filter computed a few minutes later reads the same rows. Determinism of the output: `result.txt` lists
 per URL the verdict, the status pair and the normalisations used, plus the differing nodes of a DIFFERENT page, and
 nothing that moves between runs (no time, no byte count). `--recheck` proves it on a sha pair.
+
+## Parity rehearsal (offline, 2026-10-17)
+
+Why: parity.sh v2 had never run end to end, and a real run is scarce (D-005 budget, a production read each). How:
+parity.sh unchanged, `O1_KPQ` pointed at a stand-in folder in the scratchpad whose `secrets/kpop-parity.env` holds
+the offline values of `scripts/o1/env.sh offline` (Supabase 127.0.0.1:9), so its cache, kept build and env file are
+the stand-in's and the real `KPQ/cache/parity` is untouched (it did not exist). Base b5e8c55 (this branch); head
+648e77c, a commit object on no branch (`git commit-tree`): the same tree with "Made by fans, for fans" changed to
+"Made by fans, for every fan" on /about. Both builds under the build lock with the production flags and the freeze
+hook, served on 4011 and 4012, the 60 URLs, worktrees `o1-parity-base` and `o1-parity-head` removed at the end.
+Evidence: `apps/quiz/e2e/o1/parity/rehearsal-2026-10-17/`.
+
+| Pages | Cause of the verdict (classes.txt) |
+|---|---|
+| 26 IDENTICAL | 500 pages offline (group hubs, `/q/`, two trivia hubs: no data), the redirects, sitemap.xml, robots.txt, llms.txt |
+| 31 DIFFERENT | only the module ids of Flight client references in the inline page data (`I[<id>,[chunks],"Name"]`), every page that answered 200 |
+| 1 DIFFERENT | /blindtest/group-bts: the same Flight rows, cut into other `self.__next_f.push` tags in another order |
+| 1 DIFFERENT | /bts-name-all-members (a 500 offline): its error digests |
+| 1 DIFFERENT | /about: the plant, in the HTML and in the page data (found) |
+
+Refused writes: one `POST /rest/v1/rpc/ensure_daily_debate` in each build (`build-base`, `build-head`), none while
+the list was fetched. `getDailyDebate` (lib/db/queries/debate.ts) calls it inside CommunityContent, from the
+prerender of a page outside the list (the GET write audit already keeps /community out). A production build writes
+it every deploy today; the hook refused it, as it must, and v2 then failed the run (fixed, D44).
+
+So the pipeline works (two builds, frozen-state hook, servers, flag-off-diff, compare.mjs, result.txt, evidence,
+cleanup) and catches a one-line visible change, but at the bytes level two builds never compare equal: Turbopack
+(Next 16.2.1) gave the same client modules other ids although no client code changed. G0's N2 (the Analytics
+reference) is that symptom on one reference. Request 21 asks the owner for N3 (client reference ids) and N4 (Flight
+rows compared as a sorted set, whatever the cut); a throwaway script applying both to the 60 stored pairs leaves
+exactly /about and the offline 500 page. Not yet known: whether the ids move with the build folder or on every
+build (request 21 option c).
 
 ## Leak suite
 
@@ -572,6 +648,21 @@ shapes; the failing set must equal the expected set exactly):
 - D42 The `__Host-` fallback is B4's (brief); Q0a wrote the conformance table from cookies.md section 2 (12 rows,
   including the near-miss hosts `127.0.0.1`, `evil-localhost.com` and `localhost.evil.com` and `VERCEL_ENV=production`
   on http) and runs it when the module exists; request 19 asks B4 to confirm the path and signature.
+- D43 The first parity run is an offline rehearsal, not a production one: the pipeline had never run end to end, a
+  real run is a production read from a budget of 4, and a mechanical failure there would waste one. parity.sh gets
+  no offline mode: `O1_KPQ` (already its KPQ override, used by its tests) points it at a stand-in env file with the
+  offline values, so the production-reading script itself is unchanged and its real cache untouched. Counted in
+  D-005 (once, or twice if ORCH counts each build).
+- D44 Refused writes: v2 failed the run on any refusal, so every run failed on the build-time
+  `rpc ensure_daily_debate` that the base makes too. Now `scripts/o1/parity/refusals.mjs` judges them: a refusal
+  while the list is fetched (the GET write proof) fails, a head-build refusal the base build did not make (a write
+  the lane adds to deploys) fails, a build refusal the base makes too is listed only; nothing is ever let through.
+  On a recheck the freeze logs start empty, so its counts and refusals are its own. Not a weakened gate: v2 has
+  never run as a gate (its first run is this rehearsal), and the GET write proof it serves is unchanged.
+- D45 No real parity run in tick 3: each would fail on the client ids (request 21) and spend a production read, and
+  the owner's message that opened the tick says "pas d'accès à la prod" (written for ORCH's G3 work; read here too,
+  the stricter way). The done test's parity items wait for the owner's decision on request 21 and ORCH's go; Q0a
+  returns blocked on that decision (rule 15: the G0 normalisations are the owner's).
 
 ## Open points
 
@@ -582,8 +673,10 @@ shapes; the failing set must equal the expected set exactly):
   COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED is unknown. Parity compares base and head under the same values, so
   a missing value lowers fidelity to production, not the validity of the comparison.
 - flag-off-diff normalises hashed CSS file names but does not compare their content: a change in `globals.css` or a
-  CSS module would pass parity. The brief allows no other normalisation, but a content check of the hashed
-  stylesheets would be stricter, not looser. To propose to R and ORCH (a CR) in slice 5.
+  CSS module would pass parity. Proposed as request 20 (stricter, not looser); written in parity.sh's header.
+- Error digests (`E{"digest":"..."}`) differ between two builds: a page that fails on both sides still compares
+  DIFFERENT (seen offline on /bts-name-all-members). On production data the 60 pages answer 200; if a real run hits
+  a 500 on both sides, the verdict says so and R reads it (no normalisation asked).
 - Relative times rendered on the server ("3 min ago") baked at two build times could still differ; none seen in the
   release snapshots. Slice 5 runs will tell.
 - The content leak cases use the fixture names of BACKLOG 5.1 (Death Note, One Piece, Spy x Family; BTS, BLACKPINK,
