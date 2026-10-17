@@ -113,6 +113,13 @@ test('judge: a status or redirect difference is never normalised', async () => {
   assert.match(l.found[0].b, /quizzes/);
 });
 
+test('render: the normalisations a page needed in this run stay out of result.txt (they move with request timing)', () => {
+  const run1 = [{ page: '/blindtest/group-bts', status: '200/200', identical: true, normalised: ['analytics-ref', 'flight-rows'], found: [], sheets: 3 }];
+  const run2 = [{ page: '/blindtest/group-bts', status: '200/200', identical: true, normalised: [], found: [], sheets: 3 }];
+  assert.equal(render(run1, 'urls.txt', 'abc'), render(run2, 'urls.txt', 'abc'));
+  assert.doesNotMatch(render(run1, 'urls.txt', 'abc'), /normalised|flight-rows/);
+});
+
 test('render is deterministic and has no time or byte count', () => {
   const rows = [{ page: '/', status: '200/200', identical: true, normalised: [], found: [] }];
   const t = render(rows, 'urls.txt', 'abc');

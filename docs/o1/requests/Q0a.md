@@ -148,3 +148,13 @@
     found the cause (report D46): Next takes ROOT's pnpm-workspace.yaml as the workspace root, so every module path
     carries the worktree folder name; parity.sh now builds both sides at one path. Request 20 answered by CR-009,
     done in slice 7 (the css-content check).
+22. To ORCH, `scripts/o1/parity.sh` of O1 (Q0a's file, merged copy). Until Q0a's slice 7 merges, every parity run
+    leaves its two `next-server` processes listening on 4011 and 4012 (`next start` forks them; the cleanup kills the
+    subshell and its direct child only), and the next run stops on "port 4011 busy" (exit 8). Seen twice on
+    2026-10-17: after Q0a's slice 6 rehearsal (stopped by Q0a in slice 7) and after the gate's F0 parity run
+    (d77a26f against 62dbff3; its servers, pids 95936 and 95937 with their subshells 95934 and 95935, cwd the deleted
+    o1-parity-base and o1-parity-head, were stopped by Q0a at 23:19 UTC so that Q0a's run and the gate's spike parity
+    waiting behind it could serve). Fixed in Q0a 69f3019 (kill_tree). Until it merges, before a gate or merge parity
+    run: `lsof -tiTCP:4011 -sTCP:LISTEN` and 4012 empty, or stop the orphans (parent 1, cwd under a deleted
+    o1-parity-* folder). Also after Q0a merges: parity serves both sides from `o1-parity-build` (D50), and with
+    `--keep` the kept head build is there (kept.json names it).

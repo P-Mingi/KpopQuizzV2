@@ -26,8 +26,12 @@
 // for the UX sheet only, N1. A difference makes the page DIFFERENT as css-content, with the first differing rule.
 // A page whose status differs, or whose redirect target differs (re-read with one GET per side, 3xx only), is
 // DIFFERENT whatever its body. Output (deterministic: no time, no byte count, no live number outside a diff):
-//   <out>/result.txt  one line per URL in list order, then the verdict line
-//   <out>/result.json the same as data
+//   <out>/result.txt  one line per URL in list order (verdict, status pair, stylesheets compared, and the differing
+//                     nodes, rows or rule of a DIFFERENT page), then the verdict line
+//   <out>/result.json the same as data, plus the normalisations each page needed in this run. Those stay out of
+//                     result.txt: whether a page needed one depends on what flag-off-diff saw on that request (a page
+//                     whose rows stream in a random order needs N4 on one run and nothing on the next), its verdict
+//                     does not (report D51).
 // Exit 0 = every page identical after the allowed normalisations, 1 = a real difference, 2 = bad input.
 //
 //   node scripts/o1/parity/compare.mjs --a http://127.0.0.1:4011 --b http://127.0.0.1:4012 \
@@ -313,7 +317,7 @@ export async function judge({ page, a, b, fod, css, loc, sheets }) {
 export function render(rows, listName, listSha) {
   const lines = [`# parity verdict, rules ${RULES_VERSION}, list ${listName} sha256 ${listSha}`];
   for (const r of rows) {
-    lines.push(`${r.identical ? 'IDENTICAL' : 'DIFFERENT'} ${r.page} status ${r.status}${r.normalised.length ? ` normalised ${r.normalised.join(',')}` : ''}${r.sheets ? ` css ${r.sheets}` : ''}`);
+    lines.push(`${r.identical ? 'IDENTICAL' : 'DIFFERENT'} ${r.page} status ${r.status}${r.sheets ? ` css ${r.sheets}` : ''}`);
     for (const d of r.found) lines.push(`  ${typeof d.at === 'number' ? `node ${d.at}` : d.at}`, `    A: ${d.a}`, `    B: ${d.b}`);
   }
   const diff = rows.filter((r) => !r.identical).length;
