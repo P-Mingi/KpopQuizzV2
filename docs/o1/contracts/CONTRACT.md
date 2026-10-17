@@ -23,8 +23,8 @@ CR-002 to CR-006 are not defaults: they stay pending until the owner decides the
 | `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, used only on a local cluster before G3 | F0 scripts, Q0b | written |
 | `lib/db/contract.types.ts` | generated from `schema.sql` by `gen-contract-types.mts` (never edited by hand); stamped with the sha256 of `schema.sql` | B2 to B7, K1, E1, O3, O5, O6, H1, P1 | written |
 | `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | every SQL lane, ORCH (`migrate-dev.sh`) | written |
-| `rpcs.md` | function signatures, SECURITY mode, grants, callers | B2 to B7, E1, O3, O5, O6, H1, P1 | pending |
-| `apis.md` | every HTTP route of BACKLOG 5.1 | B4, B6, B7, H1, P1, Q0b | pending |
+| `rpcs.md` | callers, roles and semantics of every function of `schema.sql`; the server modules and component props of BACKLOG 5.1 with their signature types; the projection of another member's row | B1 to B7, E1, K2, O2, O3, O5, O6, H1, P1, X1 | written |
+| `apis.md` | every HTTP route of BACKLOG 5.1 (method, sites, flag, inputs, answers, logged outcomes), the new crons, the existing shared routes the run extends | B4, B5, B6, B7, E1b, O6, H1, P1, L1, Q0b | written |
 | `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | written |
 | `flags-env.md` | flags, env names, secret names, dev hosts | all code lanes, L1 | written |
 | `fixtures.md` + `fixtures/` | fixture users, series fixtures | Q0b, B3, B4, B7, O2 to O5, P1, H1 | pending |
@@ -41,7 +41,12 @@ Code that implements the contract on `o1/F0` (compiling stubs, imported by nothi
 wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts`, `routing.test.ts`
 and `contract.test.ts` (the checkable rules of the contract files: token names, per-site sheets, copy files, the
 flag and secret tables, the G0 list, the SQL manifest and the conventions of `schema.sql`; it grows with every
-slice). Pending: `lib/network/types.ts`, `lib/passport/types.ts`, `lib/anime/types.ts`.
+slice). Types and constants (slice 6): `lib/network/types.ts` (NetBridgeId, NetMe, the beacon, caps, crossover
+entry, NetLink and CrossoverFact props), `lib/passport/types.ts` (memberships, the member projection, the handoff
+formats, the HTTP bodies of apis.md) and `lib/anime/types.ts` (series rows, question tags, spoiler level and
+progress, bank categories). The server modules of BACKLOG 5.1 are frozen as signature types (`SiteServerFns`,
+`PassportServerFns`, `NetLinkFns`, `NetEligibilityFns`, `AnimeSpoilerFns`): an owner lane implements one as
+`export const forSite: SiteServerFns['forSite'] = ...`, so a drifting signature fails tsc (rpcs.md 3).
 
 ### The schema contract in a database (slice 5)
 

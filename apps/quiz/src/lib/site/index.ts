@@ -3,10 +3,10 @@
 // './src/lib/site/routing' directly (no path alias there).
 
 export type {
-  AuthProvider, FeatureKey, LevelTitle, LevelTitles, NetworkConfig, PickIcon, RoutePattern,
+  AuthProvider, FeatureKey, LevelInfo, LevelTitle, LevelTitles, NetworkConfig, PickIcon, RoutePattern,
   SignOutMode, SiteAudio, SiteAuth, SiteBrand, SiteConfig, SiteCopy, SiteDaily, SiteEditorial,
-  SiteFavouritesVocabulary, SiteFeatures, SiteId, SiteKind, SiteLetter, SiteOrganization,
-  SitePassport, SiteRoutes, SiteSeo, SiteTheme, SiteVocabulary, ThemeTokenName, ThemeTokens,
+  SiteFavouritesVocabulary, SiteFeatures, SiteFilterable, SiteId, SiteKind, SiteLetter, SiteOrganization,
+  SitePassport, SiteRoutes, SiteSeo, SiteServerFns, SiteTheme, SiteVocabulary, ThemeTokenName, ThemeTokens,
   UxTokenName,
 } from './types';
 export { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';

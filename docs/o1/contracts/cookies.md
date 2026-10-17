@@ -43,8 +43,8 @@ s       = b64u(HMAC(PASSPORT_TICKET_SECRET, "pp-ticket.v1." + p))
   - `state`: 16 random bytes, `b64u` (22 characters).
   - `verifier`: the PKCE code verifier, 32 random bytes, `b64u` (43 characters, RFC 7636 section 4.1).
   - `next`: the validated target path; `from`: the IdP site; `via`: the code or `null`; `iat`: unix seconds.
-- Valid for 300 s from `iat`. Cleared (Max-Age=0, same name and attributes) by `/api/passport/redeem` on success
-  and on every failure, and by `/auth/land` on `error=login_required`.
+- Valid for 300 s from `iat`. Cleared (Max-Age=0, same name and attributes) by `/api/passport/redeem` on every
+  answer: success, every failure, and the `error=login_required` that `/auth/land` posts to it (apis.md 2.4, 2.5).
 - One transaction at a time per browser and site: a new jump overwrites it.
 
 ## 3. PKCE and the one-time code
@@ -64,8 +64,8 @@ s       = b64u(HMAC(PASSPORT_TICKET_SECRET, "pp-ticket.v1." + p))
 
 `https://<to origin>/auth/land#code=<code>&state=<state>` on success, `#error=login_required&state=<state>` for every
 refusal (the RP never learns why; the IdP logs the real outcome). The land page strips the fragment with
-`history.replaceState(null, '', '/auth/land')` before any other script and POSTs `{code, state}` to
-`/api/passport/redeem`. Headers of `/auth/land` and the 302 that leads to it: `Cache-Control: no-store`,
+`history.replaceState(null, '', '/auth/land')` before any other script and POSTs `{code, state}` (or
+`{error: "login_required", state}`) to `/api/passport/redeem`, then goes to the `next` of the answer (apis.md 2.4). Headers of `/auth/land` and the 302 that leads to it: `Cache-Control: no-store`,
 `Referrer-Policy: no-referrer`, `Content-Security-Policy` with a nonce and `frame-ancestors 'none'`; no analytics, no
 third-party script.
 
@@ -112,7 +112,7 @@ No new cookie is added on kpopquiz.org outside `/auth/*` responses: the network 
 | `pp_seeded` | cookie | B4, reserved (P3a, PASSPORT_SEED) | never set in the run |
 | `fq.net.caps.v1` | localStorage | B6 | cross-site link impression counters and dismissals (Q 2.4), JSON, try/catch on every access |
 | `fq.net.via` | sessionStorage | B6 (`via-catcher`) | the validated `via` of this tab, read by the sign-in `redirectTo`; removed after sign-in |
-| `anime.spoiler.v1` | localStorage | O3 (`SpoilerShield`) | guest progress per series `{[seriesSlug]: {arc: number, scope: string}}`, claimed into `series_progress` at sign-in |
+| `anime.spoiler.v1` | localStorage | O3 (`SpoilerShield`) | guest progress per series `{[seriesSlug]: {arc: number, scope: 'anime' \| 'manga'}}` (`AnimeSpoilerStore`: `scope` is the medium followed, `arc` 0 the spoiler-free view, 32767 "Show everything"), claimed into `series_progress` (medium, arc_ord) at sign-in |
 | `anime.oshi.pending.v1` | localStorage | P1 | a guest's oshi choice per series, claimed at sign-in; pending CR-005 (the post-result oshi row of TWINS row 8, the owner decides): unused before it is approved |
 
 Keys of localStorage and sessionStorage are per origin, so the same key on two sites never collides. Every access is

@@ -7,6 +7,9 @@
 //
 // Naming traps (BACKLOG 0, invariant 5): the type is SiteId, the hub id is 'hub'.
 
+import type { getLevelInfo } from '../constants';
+import type { QuizCardData } from '../db/types';
+
 /** The three sites of the network. Never extendable inside the run (BACKLOG 5.3). */
 export type SiteId = 'kpop' | 'anime' | 'hub';
 
@@ -308,4 +311,39 @@ export interface SiteConfig {
   readonly editorial: SiteEditorial;
   readonly daily: SiteDaily;
   readonly copy: SiteCopy;
+}
+
+/** What `getLevelInfo` returns today (lib/constants.ts); the per-site version keeps the shape. */
+export type LevelInfo = ReturnType<typeof getLevelInfo>;
+
+/** A query builder that can be filtered by site; Supabase's filter builders satisfy it (rpcs.md 3). */
+export interface SiteFilterable<Q> {
+  eq(column: 'site_id', value: SiteId): Q;
+}
+
+/**
+ * The signatures of the site-aware server modules (BACKLOG 5.1 "Server module contracts"; rpcs.md 3 gives the
+ * owner and module of each). An implementation is `export const forSite: SiteServerFns['forSite'] = ...`. Where a
+ * `site` parameter is optional its default is the build's site (`SITE.id`), so every kpop call of today keeps its
+ * answer on the kpop build.
+ */
+export interface SiteServerFns {
+  /**
+   * B2 (`lib/site/scope.ts`): `query.eq('site_id', site)`. On the kpop build only when SITE_SCOPE is on (else the
+   * query itself); on anime and hub builds always (flags-env.md 3, fail closed).
+   */
+  forSite<Q extends SiteFilterable<Q>>(query: Q, site?: SiteId): Q;
+  /** B2: a copy of `row` with `site_id` set, for every insert into a scoped table (an explicit value wins). */
+  withSite<T extends object>(row: T, site?: SiteId): T & { readonly site_id: SiteId };
+  /**
+   * B1 (`lib/site/cron.ts`): null when the build's site is in `sites` (the cron runs), else a 200 JSON response
+   * `{ skipped: true }` that the route returns at once (manifest.md, cron table).
+   */
+  cronForSite(sites: readonly SiteId[]): Response | null;
+  /** B5: the quiz of the day of `site` (today's `getQuizOfTheDay()` for kpop, unchanged). */
+  getQuizOfTheDay(site?: SiteId): Promise<QuizCardData | null>;
+  /** The level ladder of `site` (`REGISTRY[site].levelTitles`): kpop's is today's ladder. */
+  levelTitlesFor(site: SiteId): LevelTitles;
+  /** Today's curve on every site (same levels for the same xp); only `name` comes from `levelTitlesFor(site)`. */
+  getLevelInfo(xp: number, site?: SiteId): LevelInfo;
 }

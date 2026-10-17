@@ -2,7 +2,8 @@
 // checker is proven on planted good and bad inputs, then run on every real file it governs
 // (per-site sheets and copy files that later lanes add), so a Wave 2 lane learns at once when a
 // file breaks the contract. Grows in F0's later slices (naming traps, lanes); slice 3 adds schema.sql and manifest.md;
-// slice 5 adds the logic of gen-contract-types.mts and check-contract.mts and the freshness of contract.types.ts.
+// slice 5 adds the logic of gen-contract-types.mts and check-contract.mts and the freshness of contract.types.ts;
+// slice 6 adds rpcs.md, apis.md and the agreement of lib/{network,passport,anime}/types.ts with schema.sql.
 
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -13,9 +14,24 @@ import { describe, expect, it } from 'vitest';
 import {
   checkUnion, compareContract, contractFrom, functionsNamed, renderTypes, splitSections, stampOf, tsType,
 } from '../../../scripts/o1/contract/lib';
+import {
+  ANIME_BANK_CATEGORIES, ANIME_SPOILER_STORE_KEY, SPOILER_SCOPES, SPOILER_SHOW_ALL,
+} from '../anime/types';
+import { NET_BEACON_STEPS, NET_LINK_IDS, NET_STEPS, VIA_RE } from '../network/types';
+import {
+  B64U_16_RE, B64U_32_RE, CODE_HASH_RE, HANDOFF_OUTCOMES, JOINED_VIA, MAC_LABELS, MEMBER_FILTER_COLUMNS,
+  MEMBER_PRIVATE_COLUMNS, MEMBER_PUBLIC_COLUMNS, MEMBERSHIP_PATCH_KEYS_ANY_SITE, MEMBERSHIP_PATCH_KEYS_NON_KPOP,
+  PASSPORT_LIMITS, PASSPORT_SECONDS, PROFILE_FROM_MEMBERSHIP, TX_COOKIE_NAMES,
+} from '../passport/types';
 import { O1_FLAGS, O1_SECRET_NAMES, REGISTRY, UNTOUCHED_FLAGS } from './registry';
 import { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 
+import type { SpoilerScope } from '../anime/types';
+import type { ContractAddedColumns, ContractTables, FnReturns } from '../db/contract.types';
+import type { NetSitesMenuMode, NetStep } from '../network/types';
+import type {
+  HandoffOutcome, JoinedVia, MyPassportRow, PassportPrefsPatch, PublicPassportRow,
+} from '../passport/types';
 import type { SiteId } from './types';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
@@ -973,5 +989,296 @@ describe('lib/db/contract.types.ts (generated)', () => {
     expect(DASHES.test(types)).toBe(false);
     expect(EMOJI.test(types)).toBe(false);
     expect(NAMING_TRAPS.test(types)).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// rpcs.md, apis.md and the type modules of lib/network, lib/passport and lib/anime (F0 slice 6)
+
+type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
+type Row<K extends keyof ContractTables> = ContractTables[K]['Row'];
+
+/** Compile-time agreement of the hand-written types with the generated contract types (tsc fails on a false). */
+const TYPE_AGREEMENT: [
+  Equal<JoinedVia, Row<'public.world_memberships'>['joined_via']>,
+  Equal<HandoffOutcome, Row<'passport.handoff_events'>['outcome']>,
+  Equal<NetStep, Row<'public.bridge_daily'>['step']>,
+  Equal<SpoilerScope, NonNullable<ContractAddedColumns['public.quizzes']['spoiler_scope']>>,
+  Equal<keyof MyPassportRow, keyof FnReturns<'my_passport'>[number]>,
+  Equal<keyof PublicPassportRow, keyof FnReturns<'public_passport'>[number]>,
+  Equal<keyof PassportPrefsPatch, Exclude<keyof Row<'public.passport_prefs'>, 'user_id' | 'updated_at'>>,
+  Equal<NetSitesMenuMode, Row<'public.passport_prefs'>['your_sites_menu']>,
+] = [true, true, true, true, true, true, true, true];
+
+/** The text of one `## ` or `### ` section of a contract file (up to the next heading of level 2 or 3). */
+function sectionText(md: string, heading: string): string {
+  const start = md.indexOf(`${heading}\n`);
+  expect(start, heading).toBeGreaterThan(-1);
+  const rest = md.slice(start + heading.length + 1);
+  const end = rest.search(/\n#{2,3} /);
+  return end === -1 ? rest : rest.slice(0, end);
+}
+
+/** The cells of every body row of the markdown tables in `text` (header and rule rows skipped). */
+function tableRows(text: string): string[][] {
+  const rows: string[][] = [];
+  for (const block of text.split(/\n(?!\|)/)) {
+    const lines = block.split('\n').filter((l) => l.startsWith('|'));
+    for (const line of lines.slice(2)) {
+      rows.push(line.slice(1, -1).split(/(?<!\\)\|/).map((c) => c.trim()));
+    }
+  }
+  return rows;
+}
+
+/** The values of a single-column `check (col in (...))` constraint of schema.sql. */
+function checkValues(sql: string, constraint: string): string[] {
+  const m = new RegExp(`constraint ${constraint} check \\(\\w+ in \\(([^)]*)\\)\\)`).exec(sql);
+  expect(m, constraint).not.toBeNull();
+  return [...m![1]!.matchAll(/'([^']+)'/g)].map((v) => v[1]!);
+}
+
+/** The callable functions of schema.sql: name, parameter names, SECURITY mode, EXECUTE roles, replaced or new. */
+function schemaFunctions(sql: string): { name: string; params: string[]; definer: boolean; roles: string[]; replaced: boolean }[] {
+  const code = sql.replace(/--[^\n]*/g, '');
+  const out: { name: string; params: string[]; definer: boolean; roles: string[]; replaced: boolean }[] = [];
+  for (const m of code.matchAll(/create (or replace )?function public\.([a-z0-9_]+)\(([^)]*)\)/g)) {
+    const tail = code.slice(m.index + m[0].length, code.indexOf('$$', m.index));
+    if (/\breturns trigger\b/.test(tail)) continue;
+    const name = m[2]!;
+    const params = m[3]!.split(',').map((p) => p.trim().split(/\s+/)[0]!).filter(Boolean);
+    const grant = new RegExp(`grant execute on function public\\.${name}\\([^)]*\\) to ([a-z_, ]+);`).exec(code);
+    out.push({
+      name, params, definer: /security definer/.test(tail), replaced: Boolean(m[1]),
+      roles: grant ? grant[1]!.split(',').map((r) => r.trim()) : [],
+    });
+  }
+  return out;
+}
+
+/** Columns of one `create table` of schema.sql, in order. */
+function tableColumns(sql: string, table: string): string[] {
+  const start = sql.indexOf(`create table ${table} (`);
+  expect(start, table).toBeGreaterThan(-1);
+  const body = sql.slice(start, sql.indexOf('\n);', start));
+  return [...body.matchAll(/^\s+([a-z_]+)\s+(uuid|text|timestamptz|integer|smallint|date|boolean|jsonb|bigint)\b/gm)]
+    .map((m) => m[1]!);
+}
+
+describe('rpcs.md (functions and server modules)', () => {
+  const md = read(`${CONTRACTS}rpcs.md`);
+  const sql = read(`${CONTRACTS}schema.sql`);
+  const fns = schemaFunctions(sql);
+  const rowsOf = (heading: string): string[][] => tableRows(sectionText(md, heading));
+  const signature = (cell: string): { name: string; params: string[] } => {
+    const m = /^`([a-z0-9_]+)\(([^)]*)\)`$/.exec(cell);
+    expect(m, cell).not.toBeNull();
+    return { name: m![1]!, params: m![2]!.split(',').map((p) => p.trim()).filter(Boolean) };
+  };
+
+  it('2.1 lists every new callable function of schema.sql once, with its parameters, SECURITY and EXECUTE roles', () => {
+    const rows = rowsOf('### 2.1 New callable functions');
+    const fresh = fns.filter((f) => !f.replaced && f.name !== 'merge_anon_passport');
+    expect(rows.map((r) => signature(r[0]!).name).sort()).toEqual(fresh.map((f) => f.name).sort());
+    for (const r of rows) {
+      const { name, params } = signature(r[0]!);
+      const f = fresh.find((x) => x.name === name)!;
+      expect(params, name).toEqual(f.params);
+      expect(r[2]!.startsWith('definer'), name).toBe(f.definer);
+      expect(r[3]!.split(',').map((x) => x.trim()).sort(), name).toEqual([...f.roles].sort());
+      expect(r[4]!.length, `${name}: callers`).toBeGreaterThan(10);
+    }
+  });
+
+  it('2.2 lists exactly the replaced functions, ACL as today', () => {
+    const rows = rowsOf('### 2.2 Replaced functions (008, 010): signature, return type and ACL as today');
+    const replaced = fns.filter((f) => f.replaced || f.name === 'merge_anon_passport');
+    expect(rows.map((r) => signature(r[0]!).name).sort()).toEqual(replaced.map((f) => f.name).sort());
+    for (const r of rows) {
+      const { name, params } = signature(r[0]!);
+      expect(params, name).toEqual(replaced.find((f) => f.name === name)!.params);
+      expect(r[3]!.startsWith('as today'), name).toBe(true);
+    }
+  });
+
+  it('2.3 names the trigger of every new trigger function as schema.sql creates it', () => {
+    const rows = rowsOf('### 2.3 Trigger functions (no EXECUTE grant; the trigger names are frozen)');
+    for (const fn of ['quizzes_site_guard', 'profiles_membership', 'world_follows_counts']) {
+      const row = rows.find((r) => r[0] === `\`${fn}()\``);
+      expect(row, fn).toBeDefined();
+      const trigger = /^`([a-z_]+)`/.exec(row![1]!)![1]!;
+      expect(sql).toContain(`create trigger ${trigger} `);
+      expect(sql).toContain(`execute function public.${fn}();`);
+    }
+  });
+
+  it('3 gives every server module and component of BACKLOG 5.1 a signature type that declares it', () => {
+    const rows = rowsOf('## 3. Server modules and component props (BACKLOG 5.1)');
+    const sources: Record<string, string> = {
+      SiteServerFns: read(`${SRC}lib/site/types.ts`),
+      PassportServerFns: read(`${SRC}lib/passport/types.ts`),
+      PersonNameTagProps: read(`${SRC}lib/passport/types.ts`),
+      NetLinkFns: read(`${SRC}lib/network/types.ts`),
+      NetEligibilityFns: read(`${SRC}lib/network/types.ts`),
+      NetLinkProps: read(`${SRC}lib/network/types.ts`),
+      CrossoverFactProps: read(`${SRC}lib/network/types.ts`),
+      AnimeSpoilerFns: read(`${SRC}lib/anime/types.ts`),
+      SpoilerShieldProps: read(`${SRC}lib/anime/types.ts`),
+    };
+    const backlog = [
+      'forSite', 'withSite', 'profileForSite', 'awardXpForSite', 'getQuizOfTheDay', 'levelTitlesFor', 'getLevelInfo',
+      'safeReturnTo', 'bridgeHref', 'editorialHref', 'eligibleFor', 'canShow', 'computeSpoilerLevel', 'cronForSite',
+      'PersonName', 'NetLink', 'CrossoverFact', 'SpoilerShield',
+    ];
+    for (const name of backlog) {
+      const row = rows.find((r) => r[0]!.startsWith(`\`${name}`));
+      expect(row, name).toBeDefined();
+      const type = /^`([A-Za-z]+)`$/.exec(row![1]!)?.[1];
+      expect(type && sources[type], `${name}: ${row![1]}`).toBeTruthy();
+      const src = sources[type!]!;
+      const block = src.slice(src.indexOf(`export interface ${type}`), src.indexOf('\n}\n', src.indexOf(`export interface ${type}`)));
+      expect(block.length, type).toBeGreaterThan(20);
+      if (type!.endsWith('Fns')) expect(block, `${type} declares ${name}`).toMatch(new RegExp(`\\n  ${name}(<[^\\n]*>)?\\(`));
+      expect(row![2], `${name}: module`).toMatch(/^`(lib|components)\/[a-z0-9/.-]+`$/);
+      expect(row![3], `${name}: owner`).toMatch(/^(B[1-7]|O[1-6]|X1|no owner yet)/);
+    }
+  });
+
+  it('section 4: the member projection lists cover world_memberships exactly once', () => {
+    const cols = tableColumns(sql, 'public.world_memberships');
+    expect(cols.length).toBeGreaterThan(30);
+    const all = [...MEMBER_PUBLIC_COLUMNS, ...MEMBER_FILTER_COLUMNS, ...MEMBER_PRIVATE_COLUMNS];
+    expect(new Set(all).size).toBe(all.length);
+    expect([...all].sort()).toEqual([...cols].sort());
+    for (const k of [...MEMBERSHIP_PATCH_KEYS_ANY_SITE, ...MEMBERSHIP_PATCH_KEYS_NON_KPOP]) expect(cols).toContain(k);
+    for (const v of Object.values(PROFILE_FROM_MEMBERSHIP)) expect(MEMBER_PUBLIC_COLUMNS as readonly string[]).toContain(v);
+    expect(md).toContain('`MEMBER_PUBLIC_COLUMNS`');
+  });
+});
+
+describe('the type modules agree with schema.sql and cookies.md', () => {
+  const sql = read(`${CONTRACTS}schema.sql`);
+  const cookies = read(`${CONTRACTS}cookies.md`);
+
+  it('the enumerations equal the SQL checks', () => {
+    expect(TYPE_AGREEMENT.every(Boolean)).toBe(true);
+    expect([...HANDOFF_OUTCOMES]).toEqual(checkValues(sql, 'handoff_events_outcome_check'));
+    expect([...JOINED_VIA]).toEqual(checkValues(sql, 'world_memberships_joined_via_check'));
+    expect([...NET_STEPS]).toEqual(checkValues(sql, 'bridge_daily_step_check'));
+    expect([...SPOILER_SCOPES]).toEqual(checkValues(sql, 'quizzes_spoiler_scope_check'));
+    const bank = checkValues(sql, 'quiz_bank_category_check');
+    expect([...ANIME_BANK_CATEGORIES]).toEqual(bank.slice(bank.indexOf('series_specific')));
+    expect(bank.slice(0, bank.indexOf('series_specific'))).toEqual(['group_specific', 'knowledge', 'true_false', 'fun', 'era']);
+  });
+
+  it('every outcome of cookies.md 5 is in HANDOFF_OUTCOMES, and back', () => {
+    const table = tableRows(sectionText(cookies, '## 5. Outcomes (`passport.handoff_events.outcome`)'));
+    expect(table.map((r) => r[0]!.replace(/`/g, ''))).toEqual([...HANDOFF_OUTCOMES]);
+  });
+
+  it('link ids, steps and via codes follow the bridge_daily and via checks', () => {
+    expect(NET_LINK_IDS.length).toBe(25);
+    expect(new Set(NET_LINK_IDS).size).toBe(NET_LINK_IDS.length);
+    for (const id of NET_LINK_IDS) {
+      expect(id).toMatch(/^[a-z]{2,8}$/);
+      for (const letter of ['k', 'a', 'f']) expect(VIA_RE.test(`${letter}.${id}`)).toBe(true);
+    }
+    expect(VIA_RE.test('x.menu')).toBe(false);
+    expect(VIA_RE.test('k.m')).toBe(false);
+    expect(sql).toContain(`via_code ~ '${VIA_RE.source}'`);
+    expect(NET_BEACON_STEPS.every((s) => (NET_STEPS as readonly string[]).includes(s))).toBe(true);
+    expect(NET_BEACON_STEPS).not.toContain('join');
+    expect(NET_BEACON_STEPS).not.toContain('first_play');
+    for (const id of SITE_IDS) expect(VIA_RE.test(`${REGISTRY[id].letter}.menu`), id).toBe(true);
+  });
+
+  it('the handoff constants are the ones cookies.md freezes', () => {
+    expect(PASSPORT_SECONDS).toEqual({ ticket: 600, txCookie: 300, code: 60, freshSignIn: 600 });
+    expect(PASSPORT_LIMITS).toEqual({ nextMaxLength: 2048, codesPerUserHour: 30, codesPerIpHashHour: 60 });
+    expect(cookies).toContain(`| name | \`${TX_COOKIE_NAMES.https}\` | \`${TX_COOKIE_NAMES.devHttp}\` |`);
+    expect(cookies).toContain(`"${MAC_LABELS.ticket}" + p`);
+    expect(cookies).toContain(`"${MAC_LABELS.tx}" + p`);
+    expect(B64U_32_RE.test('A'.repeat(43))).toBe(true);
+    expect(B64U_32_RE.test('A'.repeat(42))).toBe(false);
+    expect(B64U_16_RE.test('a_-'.repeat(7) + 'b')).toBe(true);
+    expect(CODE_HASH_RE.test('0'.repeat(64))).toBe(true);
+    expect(CODE_HASH_RE.test('A'.repeat(64))).toBe(false);
+    expect(sql).toContain(`code_hash ~ '${CODE_HASH_RE.source}'`);
+    expect(sql).toContain(`code_challenge ~ '${B64U_32_RE.source}'`);
+    expect(ANIME_SPOILER_STORE_KEY).toBe('anime.spoiler.v1');
+    expect(cookies).toContain(`\`${ANIME_SPOILER_STORE_KEY}\``);
+    expect(SPOILER_SHOW_ALL).toBe(32767);
+  });
+
+  it('the new type modules carry no dash, emoji or naming trap', () => {
+    for (const f of ['lib/network/types.ts', 'lib/passport/types.ts', 'lib/anime/types.ts']) {
+      const text = read(`${SRC}${f}`);
+      expect(DASHES.test(text), f).toBe(false);
+      expect(EMOJI.test(text), f).toBe(false);
+      expect(NAMING_TRAPS.test(text), f).toBe(false);
+      // The word survives only inside the frozen names of naming.md: remove them, then nothing may be left.
+      const rest = text
+        .replace(/`bridge`|\bbridge: NetBridgeId|\{dst, bridge, step\}/g, '')
+        .replace(/NetBridgeId|bridgeHref|bridge_daily(\.bridge)?|net_bridge_bump/g, '');
+      expect(new RegExp(`b${'ridge'}`, 'i').test(rest), f).toBe(false);
+    }
+  });
+
+  it('lib/passport never gets an index.ts: @/lib/passport stays the kpop module', async () => {
+    expect(existsSync(`${SRC}lib/passport/index.ts`)).toBe(false);
+    expect(existsSync(`${SRC}lib/passport.ts`)).toBe(true);
+    const kpop = await import('@/lib/passport');
+    expect(kpop.MASTERY).toBeDefined();
+  });
+});
+
+describe('apis.md (HTTP routes)', () => {
+  const md = read(`${CONTRACTS}apis.md`);
+  const routes = read(`${CONTRACTS}routes.md`);
+  const manifest = read(`${CONTRACTS}manifest.md`);
+  const index = tableRows(sectionText(md, '## 1. Index'));
+  const paths = index.map((r) => r[0]!.replace(/`/g, ''));
+
+  it('lists every route of BACKLOG 5.1 once, each with a method, sites, owner and section', () => {
+    const backlog = [
+      '/auth/passport/out', '/auth/arrive', '/auth/authorize', '/auth/land', '/api/passport/redeem',
+      '/api/passport/after-signin', '/auth/confirm', '/api/passport/revalidate', '/api/passport/delete',
+      '/api/passport/cancel', '/api/passport/leave', '/api/n/me', '/api/n/b',
+    ];
+    for (const p of backlog) expect(paths, p).toContain(p);
+    expect(new Set(paths).size).toBe(paths.length);
+    for (const r of index) {
+      expect(r).toHaveLength(6);
+      expect(r[1], r[0]).toMatch(/^(GET|POST)( \(page\))?$/);
+      for (const s of r[2]!.split(',').map((x) => x.trim())) expect(SITE_IDS as readonly string[], r[0]).toContain(s);
+      expect(r[3], r[0]).toMatch(/^(B[1-7]|O[1-6]|L1|E1b|H1|P1|X1)$/);
+      const section = r[5]!;
+      if (section !== '7') expect(md, `${r[0]} section ${section}`).toMatch(new RegExp(`\\n#{2,3} ${section.replace('.', '\\.')}[ .]`));
+    }
+  });
+
+  it('agrees with routes.md (the new kpop routes) and manifest.md (the crons)', () => {
+    const para = routes.slice(routes.indexOf('New kpop routes in the run'), routes.indexOf('No other kpop route may be added'));
+    const kpopNew = [...para.matchAll(/`(\/[a-z/-]+)`/g)].map((m) => m[1]!)
+      .filter((p) => !p.endsWith('/') && !['/admin', '/auth/callback', '/auth/confirm'].includes(p));
+    expect(kpopNew.length).toBe(9);
+    const servedOnKpop = index.filter((r) => r[2]!.includes('kpop')).map((r) => r[0]!.replace(/`/g, ''));
+    for (const p of kpopNew) expect(servedOnKpop, p).toContain(p);
+    for (const p of servedOnKpop) {
+      if (p.startsWith('/api/cron/')) continue;
+      expect(kpopNew, p).toContain(p);
+    }
+    for (const p of paths.filter((x) => x.startsWith('/api/cron/'))) expect(manifest, p).toContain(`| \`${p}\` |`);
+    const confirm = index.find((r) => r[0] === '`/auth/confirm`')!;
+    expect(confirm[2]).not.toContain('kpop');
+  });
+
+  it('every body type it names exists in lib/passport/types.ts or lib/network/types.ts', () => {
+    const passport = read(`${SRC}lib/passport/types.ts`);
+    const network = read(`${SRC}lib/network/types.ts`);
+    const named = new Set([...md.matchAll(/`([A-Z][A-Za-z]+(Request|Response|Failure|Error))\b/g)].map((m) => m[1]!));
+    expect(named.size).toBeGreaterThan(8);
+    for (const t of named) expect(passport.includes(`export interface ${t}`) || passport.includes(`export type ${t}`) || network.includes(`export interface ${t}`), t).toBe(true);
+    for (const t of ['NetMe', 'NetBeacon']) expect(network).toContain(`export interface ${t} `);
   });
 });

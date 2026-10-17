@@ -446,10 +446,12 @@ create function public.public_passport(p_username text)
 revoke all on function public.public_passport(text) from public, anon, authenticated;
 grant execute on function public.public_passport(text) to anon, authenticated, service_role;
 
--- my_passport: auth.uid()'s full summary, one row per membership (fanquiz.org/passport, /api/n/me).
+-- my_passport: auth.uid()'s full summary, one row per membership (fanquiz.org/passport, /api/n/me). plays: kpop
+-- profiles.quizzes_played + blindtests_played; other sites quizzes_played + blindtests_played + games_played of the
+-- membership (NetMe.sites[].plays, rpcs.md 2).
 create function public.my_passport()
   returns table (site_id text, joined_at timestamptz, joined_via text, via_code text, activated_at timestamptz,
-                 xp integer, daily_streak integer, quizzes_created integer, show_elsewhere boolean)
+                 xp integer, plays integer, daily_streak integer, quizzes_created integer, show_elsewhere boolean)
   language plpgsql stable security definer set search_path = public
   as $$ begin raise exception 'o1-contract stub'; end $$;
 revoke all on function public.my_passport() from public, anon, authenticated;
@@ -878,11 +880,13 @@ revoke all on function public.passport_run_deletion(uuid, boolean) from public, 
 grant execute on function public.passport_run_deletion(uuid, boolean) to service_role;
 
 -- passport_leave_world: removes p_user's rows of one non-kpop site only (membership, favourites, follows,
--- progress, oshi); raises on 'kpop'; dry run by default.
-create function public.passport_leave_world(p_user uuid, p_site text, p_dry_run boolean default true) returns jsonb
+-- progress, oshi); the user's quizzes of that site go to the site's sentinel when p_keep_quizzes, else are deleted;
+-- raises on 'kpop'; dry run by default (counts only).
+create function public.passport_leave_world(p_user uuid, p_site text, p_dry_run boolean default true,
+  p_keep_quizzes boolean default true) returns jsonb
   language plpgsql security definer set search_path = public
   as $$ begin raise exception 'o1-contract stub'; end $$;
-revoke all on function public.passport_leave_world(uuid, text, boolean) from public, anon, authenticated;
-grant execute on function public.passport_leave_world(uuid, text, boolean) to service_role;
+revoke all on function public.passport_leave_world(uuid, text, boolean, boolean) from public, anon, authenticated;
+grant execute on function public.passport_leave_world(uuid, text, boolean, boolean) to service_role;
 
 revoke all on all tables in schema passport from public, anon, authenticated;
