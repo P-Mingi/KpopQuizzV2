@@ -11,7 +11,10 @@
  *   ... gen-contract-types.mts --check                                            exit 1 when the file is stale
  *                                                                                (the "// base:" header line is not compared)
  *   ... gen-contract-types.mts --base-file <sql> [--base-file <sql>...]            another local base (after G3)
- *   scripts/o1/env.sh scratch -- ./node_modules/.bin/tsx ... --base db              on o1-scratch (ORCH, after G1)
+ *   scripts/o1/env.sh scratch -- ./node_modules/.bin/tsx ... --base db              on o1-scratch (ORCH, after G1);
+ *                                                                                it first adds the kpop seed rows
+ *                                                                                009 needs where the branch lacks
+ *                                                                                them (BRANCH_SEED_SQL, rolled back)
  *
  * Local mode starts a throwaway Postgres 18 cluster (initdb in O1_PG_TMP or the OS temp folder, TCP on
  * 127.0.0.1 only, no unix socket) and deletes it at exit. `--base db` refuses any target but o1-scratch,
@@ -21,9 +24,10 @@
 
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { CONTRACT_SCHEMAS, contractFrom, renderTypes } from './contract/lib.ts';
+import { BRANCH_SEED_SQL, CONTRACT_SCHEMAS, contractFrom, renderTypes } from './contract/lib.ts';
 import { GuardError, branchConn, loadRolledBack, psqlCommand, startCluster, workDir } from './contract/pg.ts';
 
 const REPO = fileURLToPath(new URL('../../../../', import.meta.url));
@@ -63,7 +67,10 @@ async function main(): Promise<number> {
   if (base === 'db') {
     const conn = branchConn(true);
     const version = psqlCommand(conn, 'show server_version', 'server version').trim();
-    loaded = loadRolledBack(conn, [], schemaSql, CONTRACT_SCHEMAS, work);
+    // The kpop seed rows 009 needs, only where the branch lacks them, rolled back with the rest (decision 83).
+    const seed = join(work, 'branch-seed.sql');
+    writeFileSync(seed, BRANCH_SEED_SQL);
+    loaded = loadRolledBack(conn, [seed], schemaSql, CONTRACT_SCHEMAS, work);
     header = [`schema.sql sha256 ${sha16(SCHEMA)}`, `base: the o1-scratch branch's own schema; Postgres ${version.split(' ')[0]}`];
   } else {
     const cluster = await startCluster();

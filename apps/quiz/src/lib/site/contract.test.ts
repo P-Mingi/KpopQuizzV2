@@ -1,10 +1,12 @@
 // Run O1 contract o1-contract-v1: the rules of docs/o1/contracts/ that code can check. Each
 // checker is proven on planted good and bad inputs, then run on every real file it governs
 // (per-site sheets and copy files that later lanes add), so a Wave 2 lane learns at once when a
-// file breaks the contract. Grows in F0's later slices (naming traps, lanes); slice 3 adds schema.sql and manifest.md;
+// file breaks the contract. Slice 3 adds schema.sql and manifest.md;
 // slice 5 adds the logic of gen-contract-types.mts and check-contract.mts and the freshness of contract.types.ts;
 // slice 6 adds rpcs.md, apis.md and the agreement of lib/{network,passport,anime}/types.ts with schema.sql;
-// slice 8 adds the content formats (schemas/ and their validator), the fixtures and the link allowlist.
+// slice 8 adds the content formats (schemas/ and their validator), the fixtures and the link allowlist;
+// slice 9 adds LANES.md (every lane, its citations both ways, what the files assign it) and the naming trap sweep of
+// every file F0 owns.
 
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -16,8 +18,8 @@ import {
   formatOfFile, unknownKeywords, unresolvedRefs, validate, validateEntries,
 } from '../../../scripts/o1/contract/json-schema';
 import {
-  BASE_PUBLIC_MARKER, BASE_ROWS_MARKER, PROD_COPY_RESET, baseParts, checkUnion, compareContract, compareContracts,
-  contractFrom, formatDelta, functionsNamed, renderTypes, splitSections, stampOf, tsType,
+  BASE_PUBLIC_MARKER, BASE_ROWS_MARKER, BRANCH_SEED_SQL, PROD_COPY_RESET, baseParts, checkUnion, compareContract,
+  compareContracts, contractFrom, formatDelta, functionsNamed, renderTypes, splitSections, stampOf, tsType,
 } from '../../../scripts/o1/contract/lib';
 import {
   ANIME_BANK_CATEGORIES, ANIME_QUESTION_KINDS, ANIME_SPOILER_STORE_KEY, MIN_PLAYABLE_THEMES, SPOILER_SCOPES,
@@ -980,6 +982,18 @@ describe('contract database tools (scripts/o1/contract/lib.ts)', () => {
     expect(PROD_COPY_RESET).toMatch(/reset check_function_bodies;\nreset search_path;/);
   });
 
+  it('the branch seed of --base db holds the values of schema.base.sql\'s rows, each insert guarded (decision 83)', () => {
+    const { rows } = baseParts(read(`${CONTRACTS}schema.base.sql`));
+    for (const v of ["'00000000-0000-0000-0000-000000000001'", "'kpopquizz'", "'KpopQuizz Team'", "'General K-pop'", "'general-kpop'", "'#F1EFE8'", "'#444441'"]) {
+      expect(rows, v).toContain(v);
+      expect(BRANCH_SEED_SQL, v).toContain(v);
+    }
+    const inserts = BRANCH_SEED_SQL.split(/(?=insert into)/).filter((x) => x.trim());
+    expect(inserts).toHaveLength(2);
+    for (const i of inserts) expect(i, i).toMatch(/where (exists [\s\S]* and )?not exists/);
+    expect(BRANCH_SEED_SQL).not.toMatch(/\b(delete|update|drop|alter|truncate|commit)\b/i);
+  });
+
   it('compares two contracts object by object: only in one, another section, novelty or value', () => {
     const other = contractFrom([base, s1, s2], sections);
     expect(compareContracts(contract, other)).toEqual([]);
@@ -1830,6 +1844,320 @@ describe('link allowlist (link-allowlist.md, link-allowlist.json)', () => {
     for (const f of readdirSync(`${CONTRACTS}schemas/`)) {
       const t = read(`${CONTRACTS}schemas/${f}`);
       expect(DASHES.test(t) || EMOJI.test(t) || NAMING_TRAPS.test(t), f).toBe(false);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// LANES.md and the naming traps of every file F0 owns (F0 slice 9)
+
+/** BACKLOG section 1: its lanes, as written there. */
+const BACKLOG_LANES = [
+  'ORCH', 'F0', 'D0', 'Q0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'E1', 'K1', 'K2', 'K3', 'K4', 'O1', 'O2', 'O3',
+  'O4', 'O5', 'O6', 'P1', 'H1', 'X1', 'L1', 'C1', 'C2', 'C3', 'RPT',
+] as const;
+/** The run's splits of a BACKLOG lane (OWNERSHIP.json): Q0 and E1 in two phases, F0 with its never-merged spike. */
+const LANE_SPLITS: Readonly<Record<string, readonly string[]>> = { Q0: ['Q0a', 'Q0b'], E1: ['E1a', 'E1b'], F0: ['F0', 'F0s'] };
+/** The files every lane cites (LANES.md 1). */
+const CITED_BY_ALL = ['CONTRACT.md', 'naming.md', 'LANES.md', 'defaults.md'];
+/** Readers named in CONTRACT.md's column that are not lanes. */
+const NOT_LANES = new Set(['R', 'gate']);
+
+const ticks = (cell: string): string[] => [...cell.matchAll(/`([^`]+)`/g)].map((m) => m[1]!);
+const listCell = (cell: string): string[] => (cell === 'none' ? [] : cell.split(',').map((s) => s.trim()).filter(Boolean));
+const sameSet = (a: readonly string[], b: readonly string[]): boolean => [...a].sort().join('\n') === [...b].sort().join('\n');
+
+/** The text of a `## ` or `### ` section up to the next heading of level 2 or 3; '' when the heading is missing. */
+function sectionOrEmpty(md: string, heading: string): string {
+  const start = md.indexOf(`${heading}\n`);
+  if (start === -1) return '';
+  const rest = md.slice(start + heading.length + 1);
+  const end = rest.search(/\n#{2,3} /);
+  return end === -1 ? rest : rest.slice(0, end);
+}
+
+/** The text of a `## ` chapter, its `### ` subsections included; '' when the heading is missing. */
+function chapter(md: string, heading: string): string {
+  const start = md.indexOf(`${heading}\n`);
+  if (start === -1) return '';
+  const rest = md.slice(start + heading.length + 1);
+  const end = rest.search(/\n## /);
+  return end === -1 ? rest : rest.slice(0, end);
+}
+
+/** The lane ids named in `text`, each once, in order; `outside` skips what is in parentheses ("K2 (L1 script)"). */
+export function lanesIn(text: string, lanes: readonly string[], outside = false): string[] {
+  const t = outside ? text.replace(/\([^)]*\)/g, '') : text;
+  const alt = [...lanes].sort((a, b) => b.length - a.length).join('|');
+  // A request number such as F0-12 or a reviewer such as R-SQL is not a lane.
+  const re = new RegExp(`(?<![A-Za-z0-9-])(${alt})(?![A-Za-z0-9]|-\\d)`, 'g');
+  return [...new Set([...t.matchAll(re)].map((m) => m[1]!))];
+}
+
+export interface LaneSources {
+  readonly lanesMd: string;
+  readonly contractMd: string;
+  readonly ownership: Readonly<Record<string, unknown>>;
+  readonly manifestMd: string;
+  readonly twins: TwinsDoc;
+  readonly copyMd: string;
+  readonly apisMd: string;
+  readonly rpcsMd: string;
+  readonly flagsMd: string;
+  readonly formatsMd: string;
+  readonly routesMd: string;
+}
+
+type Assigned = Record<'sql' | 'twins' | 'copy' | 'endpoints' | 'modules' | 'flags' | 'formats', string[]>;
+/** LANES.md 2: column index, the item kind, and the files a lane with such an item must cite. */
+const ASSIGNED_COLUMNS: readonly [keyof Assigned, number, readonly string[]][] = [
+  ['sql', 1, ['schema.sql', 'manifest.md']], ['twins', 2, ['TWINS.md']], ['copy', 3, ['copy-keys.md']],
+  ['endpoints', 4, ['apis.md']], ['modules', 5, ['rpcs.md']], ['flags', 6, ['flags-env.md']], ['formats', 7, ['formats.md']],
+];
+
+/** What the contract files themselves assign to each lane (LANES.md 2). */
+export function laneAssignments(src: LaneSources, lanes: readonly string[]): { map: Map<string, Assigned>; problems: string[] } {
+  const problems: string[] = [];
+  const map = new Map<string, Assigned>(lanes.map((l) => [l, { sql: [], twins: [], copy: [], endpoints: [], modules: [], flags: [], formats: [] }]));
+  const add = (lane: string | undefined, kind: keyof Assigned, item: string, where: string): void => {
+    const a = lane === undefined ? undefined : map.get(lane);
+    if (!a) { problems.push(`${where}: ${item} has no lane of LANES.md`); return; }
+    if (!a[kind].includes(item)) a[kind].push(item);
+  };
+  const one = (names: string[], kind: keyof Assigned, item: string, where: string): void => {
+    if (names.length === 0) add(undefined, kind, item, where);
+    for (const l of names) add(l, kind, item, where);
+  };
+  for (const r of parseManifest(src.manifestMd)) one(lanesIn(r.owner, lanes, true), 'sql', r.id, 'manifest.md 1');
+  for (const p of src.twins.pages) one(lanesIn(p.owner, lanes, true), 'twins', p.id, 'twins.json');
+  for (const r of tableRows(chapter(src.copyMd, '## 3. Initial keys per site and lane'))) {
+    const ns = ticks(r[0] ?? '')[0] ?? '';
+    add(lanes.find((l) => l.toLowerCase() === ns.split('.')[1]), 'copy', ns, 'copy-keys.md 3');
+  }
+  for (const r of tableRows(sectionOrEmpty(src.apisMd, '## 1. Index'))) one(lanesIn(r[3] ?? '', lanes), 'endpoints', ticks(r[0] ?? '')[0] ?? '', 'apis.md 1');
+  for (const r of tableRows(sectionOrEmpty(src.rpcsMd, '## 3. Server modules and component props (BACKLOG 5.1)'))) {
+    const name = (ticks(r[0] ?? '')[0] ?? '').replace(/\(.*$/, '');
+    const owners = lanesIn(r[3] ?? '', lanes);
+    if (owners.length === 0 && /no owner yet/.test(r[3] ?? '')) continue; // getLevelInfo: request F0-12
+    one(owners, 'modules', name, 'rpcs.md 3');
+  }
+  for (const r of tableRows(sectionOrEmpty(src.flagsMd, '## 3. Flags'))) one(lanesIn(r[2] ?? '', lanes), 'flags', ticks(r[0] ?? '')[0] ?? '', 'flags-env.md 3');
+  for (const r of tableRows(sectionOrEmpty(src.formatsMd, '## 13. Who writes and reads what'))) one(lanesIn(r[1] ?? '', lanes, true), 'formats', r[0] ?? '', 'formats.md 13');
+  return { map, problems };
+}
+
+/** The problems of LANES.md against OWNERSHIP.json, CONTRACT.md and the files that assign items to lanes. */
+export function checkLanes(src: LaneSources): string[] {
+  const p: string[] = [];
+  const s1 = tableRows(sectionOrEmpty(src.lanesMd, '## 1. Lanes and the files they cite'));
+  const lanes = s1.map((r) => r[0]!);
+  if (new Set(lanes).size !== lanes.length) p.push('section 1: a lane listed twice');
+  const expected = BACKLOG_LANES.flatMap((l) => LANE_SPLITS[l] ?? [l]);
+  if (!sameSet(lanes, expected)) p.push(`section 1: lanes ${lanes.join(' ')}; BACKLOG section 1 with the run's splits gives ${expected.join(' ')}`);
+  const owned = Object.keys(src.ownership).filter((k) => !k.startsWith('_') && k !== 'DUMMY');
+  if (!sameSet(lanes, owned)) p.push(`section 1: lanes differ from OWNERSHIP.json (${owned.join(' ')})`);
+  const waves = (src.ownership._waves ?? {}) as Readonly<Record<string, readonly string[]>>;
+  for (const r of s1) {
+    const wave = Object.entries(waves).find(([, ls]) => ls.includes(r[0]!))?.[0];
+    if (r[1] !== wave) p.push(`section 1: ${r[0]} in wave ${r[1]}, OWNERSHIP.json says ${wave}`);
+  }
+
+  // The files of CONTRACT.md and its lanes column.
+  const files = new Map<string, string>();
+  for (const r of tableRows(sectionOrEmpty(src.contractMd, '## Files'))) {
+    const key = (ticks(r[0] ?? '')[0] ?? '').replace(/^lib\/db\//, '');
+    files.set(key, r[2] ?? '');
+  }
+  const known = [...files.keys()];
+  const cites = new Map<string, string[]>();
+  for (const r of s1) {
+    const c = ticks(r[4] ?? '');
+    cites.set(r[0]!, c);
+    if (new Set(c).size !== c.length) p.push(`section 1: ${r[0]} cites a file twice`);
+    for (const f of c) if (!known.includes(f)) p.push(`section 1: ${r[0]} cites ${f}, which CONTRACT.md does not list`);
+    for (const f of CITED_BY_ALL) if (!c.includes(f)) p.push(`section 1: ${r[0]} does not cite ${f}`);
+  }
+  if (!sameSet(cites.get('F0') ?? [], known)) p.push('section 1: F0 must cite every file of CONTRACT.md');
+  for (const [f, cell] of files) {
+    const tokens = cell.split(',').map((s) => s.trim()).filter(Boolean);
+    for (const t of tokens) if (t !== 'all' && !NOT_LANES.has(t) && !lanes.includes(t)) p.push(`CONTRACT.md ${f}: ${t} is not a lane`);
+    const named = tokens.includes('all') ? lanes : tokens.filter((t) => lanes.includes(t));
+    const citing = lanes.filter((l) => cites.get(l)?.includes(f));
+    if (!sameSet(named, citing)) p.push(`CONTRACT.md ${f}: names ${named.join(', ')}; LANES.md 1 has ${citing.join(', ')}`);
+  }
+
+  // Section 2 against the files, and the citations an item needs.
+  const s2 = new Map(tableRows(sectionOrEmpty(src.lanesMd, '## 2. What the files assign to each lane')).map((r) => [r[0]!, r]));
+  const { map, problems } = laneAssignments(src, lanes);
+  p.push(...problems);
+  for (const l of lanes) {
+    const row = s2.get(l);
+    if (!row) { p.push(`section 2: no row for ${l}`); continue; }
+    for (const [kind, col, need] of ASSIGNED_COLUMNS) {
+      const got = listCell(row[col] ?? '');
+      const want = map.get(l)![kind];
+      if (!sameSet(got, want)) p.push(`section 2: ${l} ${kind} is ${got.join(', ') || 'none'}; the files give ${want.join(', ') || 'none'}`);
+      if (want.length > 0) for (const f of need) if (!cites.get(l)!.includes(f)) p.push(`section 1: ${l} has ${kind} but does not cite ${f}`);
+    }
+  }
+  for (const k of s2.keys()) if (!lanes.includes(k)) p.push(`section 2: ${k} is not a lane of section 1`);
+  for (const r of tableRows(chapter(src.routesMd, '## 3. Route map per site'))) {
+    for (const l of lanesIn(r[2] ?? '', lanes)) if (!cites.get(l)?.includes('routes.md')) p.push(`section 1: ${l} owns a route of routes.md 3 but does not cite routes.md`);
+  }
+  for (const r of tableRows(sectionOrEmpty(src.formatsMd, '## 13. Who writes and reads what'))) {
+    for (const l of lanesIn(r[2] ?? '', lanes)) if (!cites.get(l)?.includes('formats.md')) p.push(`section 1: ${l} reads ${r[0]} (formats.md 13) but does not cite formats.md`);
+  }
+
+  // Section 3: one line per lane, naming exactly the files it cites beyond the four.
+  const s3 = sectionOrEmpty(src.lanesMd, '## 3. Sections to read first, per lane');
+  const seen = new Set<string>();
+  for (const chunk of s3.split(/\n(?=- \*\*)/)) {
+    const m = /^- \*\*([A-Za-z0-9]+)\*\*: /.exec(chunk.trim());
+    if (!m) continue;
+    const l = m[1]!;
+    if (seen.has(l)) p.push(`section 3: two lines for ${l}`);
+    seen.add(l);
+    if (!lanes.includes(l)) { p.push(`section 3: ${l} is not a lane of section 1`); continue; }
+    const named = [...new Set(ticks(chunk).filter((t) => known.includes(t)))];
+    const want = cites.get(l)!.filter((f) => !CITED_BY_ALL.includes(f));
+    if (!sameSet(named, want)) p.push(`section 3: ${l} names ${named.join(', ')}; it cites ${want.join(', ')}`);
+  }
+  for (const l of lanes) if (!seen.has(l)) p.push(`section 3: no line for ${l}`);
+  return p;
+}
+
+describe('lanes (LANES.md)', () => {
+  const src: LaneSources = {
+    lanesMd: read(`${CONTRACTS}LANES.md`),
+    contractMd: read(`${CONTRACTS}CONTRACT.md`),
+    ownership: JSON.parse(read(`${REPO}docs/o1/OWNERSHIP.json`)) as Record<string, unknown>,
+    manifestMd: read(`${CONTRACTS}manifest.md`),
+    twins: JSON.parse(read(`${CONTRACTS}twins.json`)) as TwinsDoc,
+    copyMd: read(`${CONTRACTS}copy-keys.md`),
+    apisMd: read(`${CONTRACTS}apis.md`),
+    rpcsMd: read(`${CONTRACTS}rpcs.md`),
+    flagsMd: read(`${CONTRACTS}flags-env.md`),
+    formatsMd: read(`${CONTRACTS}formats.md`),
+    routesMd: read(`${CONTRACTS}routes.md`),
+  };
+
+  it('every lane of BACKLOG section 1 and OWNERSHIP.json, the citations both ways, the assignments, one line each', () => {
+    expect(checkLanes(src)).toEqual([]);
+  });
+
+  it('every UI lane (a TWINS row, a screen route) cites TWINS.md, and the assignments are not empty', () => {
+    const lanes = tableRows(sectionOrEmpty(src.lanesMd, '## 1. Lanes and the files they cite')).map((r) => r[0]!);
+    const { map } = laneAssignments(src, lanes);
+    for (const l of ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'P1', 'H1', 'E1b']) expect(map.get(l)!.twins.length, l).toBeGreaterThan(0);
+    expect(map.get('B2')!.sql).toEqual(['001', 'L01', '002a', '002b', '002c', '002d']);
+    expect(map.get('B4')!.endpoints).toContain('/auth/passport/out');
+    expect(map.get('K3')!.formats).toContain('daily bank row');
+    expect(lanesIn('K2 (L1 script), no owner yet (request F0-12), R-SQL x2', lanes, true)).toEqual(['K2']);
+    expect(lanesIn('E1b (review), O1 (shell)', lanes)).toEqual(['E1b', 'O1']);
+  });
+
+  it('reports each planted break', () => {
+    const plant = (patch: Partial<LaneSources>): string[] => checkLanes({ ...src, ...patch });
+    const lanesMd = src.lanesMd;
+    const swap = (from: string, to: string): string => {
+      expect(lanesMd, from).toContain(from);
+      return lanesMd.replace(from, to);
+    };
+    const rpt = lanesMd.split('\n').find((l) => l.startsWith('| RPT | 4 |'))!;
+    const cases: [string, Partial<LaneSources>, RegExp][] = [
+      ['a lane missing', { lanesMd: lanesMd.replace(`${rpt}\n`, '') }, /lanes differ from OWNERSHIP|BACKLOG section 1/],
+      ['a wrong wave', { lanesMd: swap('| Q0b | 1 |', '| Q0b | 0 |') }, /Q0b in wave 0/],
+      ['a file the lane must cite', { lanesMd: swap('| L1 | 3 | code + docs | R-ARCH | `CONTRACT.md`, `naming.md`, `routes.md`, `schema.sql`, `manifest.md`, `apis.md`, ', '| L1 | 3 | code + docs | R-ARCH | `CONTRACT.md`, `naming.md`, `routes.md`, `schema.sql`, `manifest.md`, ') }, /L1 has endpoints but does not cite apis\.md/],
+      ['a lane missing from CONTRACT.md', { contractMd: src.contractMd.replace('| F0, Q0a, D0, B1, O1, O2, O3, O4, O5, O6, P1, H1, C1 |', '| F0, Q0a, D0, B1, O1, O2, O3, O5, O6, P1, H1, C1 |') }, /CONTRACT\.md tokens\.md/],
+      ['a section 2 cell', { lanesMd: swap('| B2 | 001, L01, 002a, 002b, 002c, 002d |', '| B2 | 001, 002a, 002b, 002c, 002d |') }, /B2 sql/],
+      ['a twins owner', { twins: { ...src.twins, pages: src.twins.pages.map((pg) => (pg.id === '9' ? { ...pg, owner: 'O2' } : pg)) } }, /O4 twins/],
+      ['a section 3 line', { lanesMd: swap('`apis.md` 1.1, `cookies.md`,', '`apis.md` 1.1,') }, /section 3: C2/],
+      ['an unknown lane in section 3', { lanesMd: `${lanesMd}- **Z9**: \`routes.md\`.\n` }, /Z9 is not a lane/],
+    ];
+    for (const [name, patch, re] of cases) expect(plant(patch).join('\n'), name).toMatch(re);
+  });
+});
+
+/** naming.md traps beyond NAMING_TRAPS, assembled from fragments so this file never spells one. */
+const MORE_TRAPS: readonly { readonly name: string; readonly re: RegExp }[] = [
+  { name: 'a type named after the old word for a cross-site link', re: new RegExp(`\\b${'Bri'}dge\\w*`) },
+  { name: 'a lib folder named after it', re: new RegExp(`lib/${'bri'}dge`, 'i') },
+  { name: 'the old network name', re: new RegExp(`\\b${'ver'}ser\\b`, 'i') },
+  { name: 'the refused jump route', re: new RegExp(`/auth/passport/${'call'}back`) },
+  {
+    name: 'the hub id of research A',
+    re: new RegExp([
+      `\\b(?:site|siteId|site_id|SITE_ID|NEXT_PUBLIC_SITE_ID|dst|src)\\s*(?:===?|:|=)\\s*['"]${'i'}d['"]`,
+      `\\bsites/${'i'}d\\b`, `\\b${'i'}d\\.localhost\\b`,
+    ].join('|')),
+  },
+];
+
+/** Every naming trap of naming.md found in `text` (the table that defines them is removed by the caller). */
+export function namingTrapsIn(text: string): string[] {
+  const out: string[] = [];
+  if (NAMING_TRAPS.test(text)) out.push('a trap word of naming.md');
+  for (const t of MORE_TRAPS) if (t.re.test(text)) out.push(t.name);
+  return out;
+}
+
+/** The files of OWNERSHIP.json globs of one lane that exist in this tree (only `dir/**` and plain paths are used). */
+function ownedFiles(globs: readonly string[]): { files: string[]; unread: string[] } {
+  const files: string[] = [];
+  const unread: string[] = [];
+  const walk = (dir: string): void => {
+    if (!existsSync(dir)) return;
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const path = `${dir}/${e.name}`;
+      if (e.isDirectory()) walk(path);
+      else files.push(path);
+    }
+  };
+  for (const g of globs) {
+    if (g.endsWith('/**') && !/[*{[]/.test(g.slice(0, -3))) walk(`${REPO}${g.slice(0, -3)}`);
+    else if (!/[*{[!]/.test(g)) { if (existsSync(`${REPO}${g}`)) files.push(`${REPO}${g}`); }
+    else unread.push(g);
+  }
+  return { files, unread };
+}
+
+describe('naming traps, dashes and emoji in every file F0 owns (naming.md, rule 10)', () => {
+  const own = JSON.parse(read(`${REPO}docs/o1/OWNERSHIP.json`)) as Record<string, readonly string[]>;
+  const { files, unread } = ownedFiles(own.F0!);
+
+  it('reads every glob of F0 and finds the contract, the type modules and the scripts', () => {
+    expect(unread).toEqual([]);
+    const rel = files.map((f) => f.slice(REPO.length));
+    for (const f of ['docs/o1/contracts/LANES.md', 'apps/quiz/src/lib/site/registry.ts', 'apps/quiz/src/lib/db/contract.types.ts', 'apps/quiz/scripts/o1/contract/lib.ts']) {
+      expect(rel).toContain(f);
+    }
+    expect(rel.some((f) => f.startsWith('apps/quiz/src/app/sites/')), 'o1/F0 carries no page under app/sites').toBe(false);
+  });
+
+  it('no file carries a trap, a dash or an emoji (naming.md\'s own trap table excepted)', () => {
+    const found: string[] = [];
+    for (const f of files) {
+      let text = read(f);
+      if (f.endsWith('docs/o1/contracts/naming.md')) text = text.replace(chapter(text, '## Naming traps (BACKLOG 0, invariant 5; R-ARCH greps every diff)'), '');
+      for (const t of namingTrapsIn(text)) found.push(`${f.slice(REPO.length)}: ${t}`);
+      if (DASHES.test(text)) found.push(`${f.slice(REPO.length)}: a dash`);
+      if (EMOJI.test(text)) found.push(`${f.slice(REPO.length)}: an emoji`);
+    }
+    expect(found).toEqual([]);
+  });
+
+  it('reports each planted trap', () => {
+    const word = (a: string, b: string): string => `${a}${b}`;
+    for (const planted of [
+      `type ${word('Wor', 'ld')}Id = string;`, `const ${word('BRI', 'DGE')}_X = 1;`, `export type ${word('Bri', 'dge')}Link = {};`,
+      `import x from '@/lib/${word('bri', 'dge')}s';`, `see ${word('ver', 'ser')}.gg`, `href="/auth/passport/${word('call', 'back')}"`,
+      `if (site === '${word('i', 'd')}') {}`, `insert into sites (id) values ('kpop'); update t set site_id = '${word('i', 'd')}';`,
+      `http://${word('i', 'd')}.localhost:3002/`, `create table ${word('site_pre', 'ferences')} ();`,
+    ]) {
+      expect(namingTrapsIn(planted), planted).not.toEqual([]);
+    }
+    for (const clean of ['type NetBridgeId = string;', 'bridgeHref(dst, path, bridge)', 'insert into public.bridge_daily', 'const id = row.id;', "site: 'hub'"]) {
+      expect(namingTrapsIn(clean), clean).toEqual([]);
     }
   });
 });

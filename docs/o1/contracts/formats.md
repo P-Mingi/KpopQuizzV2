@@ -200,14 +200,14 @@ the owner's approval is also recorded in LEDGER (rule 16).
 
 | format | written by | read by | lands in |
 |---|---|---|---|
-| fact | K1, E1 | E1 checks and verifier, review packets, O2 (trivia) | `trivia`, `entity_sources` |
-| quiz draft | K2, X1 (through E1) | E1, `/admin/review`, publisher | `editorial_drafts.payload`, then `quizzes` |
-| daily bank row | K3 | K3 dry run, E1, emitter | `quiz_bank` |
-| creator profile | K2 | owner's account script, E1 prompts, O1, P1 | `profiles`, `editorial_accounts`, `world_memberships`, `sites` |
+| fact | K1, E1a | E1a checks and verifier, review packets, O2 (trivia) | `trivia`, `entity_sources` |
+| quiz draft | K2, X1 (through E1a's draft step) | E1a checks, E1b (`/admin/review`, publisher) | `editorial_drafts.payload`, then `quizzes` |
+| daily bank row | K3 | K3 dry run, E1a checks and emitter | `quiz_bank` |
+| creator profile | K2 | owner's account script, E1a prompts, O1, P1 | `profiles`, `editorial_accounts`, `world_memberships`, `sites` |
 | playlist | K4 | O6 | files (no table) |
 | Which character question set | K3 | O5 | `personality_questions` |
 | Which character set | K3 | O5 | `personality_profiles` |
 | name-all set | K3 | O5 | `games` (`name_all_characters`) |
 | this-or-that bracket | K3 | O5 | `games` (`this_or_that`) |
 | crossover entry | K4 | X1, owner check | `lib/network/crossovers.ts` |
-| review packet | E1 (for K1 to K4, X1) | owner, R-CONTENT | `review_batches`, LEDGER |
+| review packet | E1a (for K1 to K4, X1) | owner, R-CONTENT | `review_batches`, LEDGER |

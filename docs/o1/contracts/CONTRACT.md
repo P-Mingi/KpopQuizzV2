@@ -12,30 +12,33 @@ CR-002 to CR-006 are not defaults: they stay pending until the owner decides the
 
 ## Files
 
+The "lanes that cite it" column is the inverse of `LANES.md` section 1 (`contract.test.ts` checks it): `all` is
+every lane of `LANES.md`; R and the gate are named where they read the file.
+
 | file | what it freezes | lanes that cite it | status |
 |---|---|---|---|
 | `CONTRACT.md` | this index, the CR process | all | written |
 | `naming.md` | identifiers, naming traps, file and folder names | all | written |
-| `registry.md` | `SiteId`, `SiteConfig`, `SITE`, `NETWORK`, the three entries | B1, O1, H1, B6, P1 | written |
-| `routes.md` | route map per site, otakuquiz.org URL scheme, the rewrite design, the "must 404" list | ORCH, B1, O1 to O6, H1, Q0a, D0 | written |
-| `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | written |
-| `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | written |
-| `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, so the scripts run on a local cluster with no file from outside the repository; `check-contract.mts --prod-copy` proves it gives production's contract (G3, 2026-10-17: 0 of 557 objects differ) | F0 scripts, Q0b | written, checked against G3 |
-| `lib/db/contract.types.ts` | generated from `schema.sql` by `gen-contract-types.mts` (never edited by hand); stamped with the sha256 of `schema.sql` | B2 to B7, K1, E1, O3, O5, O6, H1, P1 | written |
-| `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | every SQL lane, ORCH (`migrate-dev.sh`) | written |
-| `rpcs.md` | callers, roles and semantics of every function of `schema.sql`; the server modules and component props of BACKLOG 5.1 with their signature types; the projection of another member's row | B1 to B7, E1, K2, O2, O3, O5, O6, H1, P1, X1 | written |
-| `apis.md` | every HTTP route of BACKLOG 5.1 (method, sites, flag, inputs, answers, logged outcomes), the new crons, the existing shared routes the run extends | B4, B5, B6, B7, E1b, O6, H1, P1, L1, Q0b | written |
-| `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | written |
-| `flags-env.md` | flags, env names, secret names, dev hosts | all code lanes, L1 | written |
-| `fixtures.md` + `fixtures/` | the 38 fixture accounts (`users.json`, the list ORCH's `fixtures/run.mts` creates) and the three fixture series (`series/*.json`, `series-fixture.schema.json`): who loads what and when | Q0b, B3, B4, B7, O2 to O5, P1, H1, D0, ORCH | written |
-| `formats.md` + `schemas/` | the content formats (fact, quiz draft, daily bank row, creator profile, playlist, Which character question set and set, name-all set, this-or-that bracket, crossover entry, review packet) as JSON Schemas, with where each lands | E1a, E1b, K1 to K4, O5, O6, X1 | written |
-| `copy-keys.md` | copy keys per site and lane (keys only) | D0, O1 to O6, P1, H1, B6, X1 | written |
-| `link-allowlist.md` + `link-allowlist.json` | cross-site links allowed in crawlable HTML (the JSON is read by Q0a's `check-network-links.mts`) | Q0a, B6, X1, H1, O1 | written |
-| `LANES.md` | every lane of BACKLOG section 1 and the sections it cites | all, R | pending |
-| `defaults.md` | the G0 defaults, each "confirmed by the owner (G0, 2026-10-16)" | all, ORCH | written |
-| `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | D0, O1 to O6, P1, H1, E1b, X1, Q0a, R | written |
-| `twins.json` | the machine form of `TWINS.md` (same rows), read by Q0a's `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` | Q0a, gate, R | written |
-| `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | gate | on `o1/F0s` |
+| `registry.md` | `SiteId`, `SiteConfig`, `SITE`, `NETWORK`, the three entries | F0, F0s, B1, B2, B3, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, X1, C3 | written |
+| `routes.md` | route map per site, otakuquiz.org URL scheme, the rewrite design, the "must 404" list | ORCH, F0, F0s, Q0a, D0, B1, B2, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, L1, C1, C3 | written |
+| `tokens.md` | theme token names, selectors, new tokens | F0, Q0a, D0, B1, O1, O2, O3, O4, O5, O6, P1, H1, C1 | written |
+| `schema.sql` | DDL shape of every BACKLOG 4.1 object | ORCH, F0, Q0b, B2, B3, B4, B5, B7, E1a, K1, K2, K3, K4, O3, O5, O6, E1b, X1, L1, C2 | written |
+| `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, so the scripts run on a local cluster with no file from outside the repository; `check-contract.mts --prod-copy` proves it gives production's contract (G3, 2026-10-17: 0 of 557 objects differ) | ORCH, F0, Q0b | written, checked against G3 |
+| `lib/db/contract.types.ts` | generated from `schema.sql` by `gen-contract-types.mts` (never edited by hand); stamped with the sha256 of `schema.sql` | ORCH, F0, B2, B3, B4, B5, B6, B7, E1a, K1, O2, O3, O4, O5, O6, P1, H1, E1b | written |
+| `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | ORCH, F0, Q0b, B1, B2, B3, B4, B5, B7, E1a, K1, K2, K3, K4, O3, O5, O6, E1b, X1, L1, C2, RPT | written |
+| `rpcs.md` | callers, roles and semantics of every function of `schema.sql`; the server modules and component props of BACKLOG 5.1 with their signature types; the projection of another member's row | F0, B1, B2, B3, B4, B5, B6, B7, K2, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, C2 | written |
+| `apis.md` | every HTTP route of BACKLOG 5.1 (method, sites, flag, inputs, answers, logged outcomes), the new crons, the existing shared routes the run extends | F0, Q0b, B1, B4, B5, B6, B7, O6, P1, H1, E1b, L1, C2 | written |
+| `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | F0, Q0a, Q0b, B4, B6, B7, O3, P1, H1, C2 | written |
+| `flags-env.md` | flags, env names, secret names, dev hosts | ORCH, F0, F0s, Q0a, Q0b, B1, B2, B3, B4, B5, B6, B7, E1a, K1, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1, C2, C3 | written |
+| `fixtures.md` + `fixtures/` | the 38 fixture accounts (`users.json`, the list ORCH's `fixtures/run.mts` creates) and the three fixture series (`series/*.json`, `series-fixture.schema.json`): who loads what and when | ORCH, F0, Q0a, D0, Q0b, B2, B3, B4, B5, B6, B7, E1a, K1, K2, O1, O2, O3, O4, O5, P1, H1 | written |
+| `formats.md` + `schemas/` | the content formats (fact, quiz draft, daily bank row, creator profile, playlist, Which character question set and set, name-all set, this-or-that bracket, crossover entry, review packet) as JSON Schemas, with where each lands | F0, E1a, K1, K2, K3, K4, O1, O2, O4, O5, O6, P1, E1b, X1 | written |
+| `copy-keys.md` | copy keys per site and lane (keys only) | ORCH, F0, Q0a, D0, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1 | written |
+| `link-allowlist.md` + `link-allowlist.json` | cross-site links allowed in crawlable HTML (the JSON is read by Q0a's `check-network-links.mts`) | F0, Q0a, B6, O1, H1, X1, C3 | written |
+| `LANES.md` | every lane of BACKLOG section 1 (with the run's splits), the files it cites, what each file assigns it, the sections to read first | all, R | written |
+| `defaults.md` | the G0 defaults, each "confirmed by the owner (G0, 2026-10-16)" | all | written |
+| `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | ORCH, F0, F0s, Q0a, D0, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, C1, C3, R | written |
+| `twins.json` | the machine form of `TWINS.md` (same rows), read by Q0a's `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` | ORCH, F0, F0s, Q0a, gate, R | written |
+| `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | ORCH, F0, F0s, Q0a, gate | on `o1/F0s` |
 
 Code that implements the contract on `o1/F0` (compiling stubs, imported by nothing on the kpop path until B1
 wires them): `apps/quiz/src/lib/site/{types,registry,routing,index}.ts` with `registry.test.ts`, `routing.test.ts`

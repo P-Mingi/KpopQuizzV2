@@ -280,6 +280,23 @@ export function baseParts(baseSql: string): { platform: string; publicStandIn: s
   return { platform: baseSql.slice(0, p + 1), publicStandIn: baseSql.slice(p + 1, r + 1), rows: baseSql.slice(r + 1) };
 }
 
+/**
+ * The kpop seed rows schema.sql needs on a branch (009 points `sites.system_user_id` at profile ...0001; the kpop
+ * fallback group is `general-kpop`), with the values of schema.base.sql's rows. `gen-contract-types --base db` loads
+ * them first inside its rolled-back transaction, each only when the branch lacks it, so the run works before ORCH's
+ * fixture step (request F0-13) and changes nothing once that step has run (F0 decision 83). Never committed.
+ */
+export const BRANCH_SEED_SQL = [
+  'insert into public.profiles (id, username, display_name)',
+  "  select '00000000-0000-0000-0000-000000000001', 'kpopquizz', 'KpopQuizz Team'",
+  "  where exists (select 1 from auth.users where id = '00000000-0000-0000-0000-000000000001')",
+  "    and not exists (select 1 from public.profiles where id = '00000000-0000-0000-0000-000000000001');",
+  'insert into public.groups (name, slug, display_color, text_color)',
+  "  select 'General K-pop', 'general-kpop', '#F1EFE8', '#444441'",
+  "  where not exists (select 1 from public.groups where slug = 'general-kpop');",
+  '',
+].join('\n');
+
 /** Loaded right after production's catalog copy: undoes the session settings the copy sets before schema.sql loads. */
 export const PROD_COPY_RESET = 'reset check_function_bodies;\nreset search_path;\nreset client_min_messages;\n';
 
