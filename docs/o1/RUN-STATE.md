@@ -1,7 +1,7 @@
 # Run O1: state
 
-NEXT ACTION: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
-rework). Owner: G0 answered (D-021); G1, G3, GH, GU, G14, G15, G17 pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
+NEXT ACTION: tick 4 running (parity offline, D-025). Previously: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
+rework). Owner: G0, G1, G3 answered; G2 command given (D-023); GH, GU, G14, G15, G17 pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
 G14, G15, G17, GH, GU). On resume: read LEDGER.md "Lanes", check each lane worktree and sha, start a new tick from it.
 
 Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
@@ -20,7 +20,8 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 - Builds: only `scripts/o1/gate.sh` and `scripts/o1/parity.sh` (and Q0a, by exception), always under
   `scripts/o1/build-lock.sh`. Measured in Phase 0: a kpop build offline takes about 90 s, `.next` is about 220 MB,
   symlinked node_modules work with Turbopack.
-- Databases: none yet (G1 open). `scripts/o1/env.sh offline` for every build and test until then.
+- Databases: o1-scratch and o1-dev (G1, 2026-10-17), public schema rebuilt from production's by branch-parity.sh on
+  2026-10-17 (only accepted differences, D-022). `scripts/o1/env.sh scratch|dev`; gate builds use dev.
 - Parity: `scripts/o1/parity.sh` reads production with `KPQ/secrets/kpop-parity.env` (5 values, copied by setup-o1.sh
   from `.worktrees/play-games/apps/quiz/.env.local`, never printed). Seed URL list `scripts/o1/parity-urls.seed.txt`
   (22 URLs) until Q0a's 60.
@@ -50,4 +51,6 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 | tick | started (UTC) | lanes | result |
 |---|---|---|---|
 | 1 | 2026-10-16T11:25Z | F0 (+ spike F0s), Q0a, D0; maxCode 2, maxOther 2, maxSlices 3; Workflow run wf_9a4593ba-f57 | stopped by ORCH for rule 18 (D-019): F0 e5b51a5 and Q0a 3f51f62 in progress, D0 dd39d7d interrupted |
-| 2 | 2026-10-16T16:42Z | F0 (+ F0s, reviewers ARCH and UX), Q0a, D0 (rework from its rule 18 audit); maxSlices 3; Workflow run wf_d31d9a73-9c8 | running |
+| 2 | 2026-10-16T16:42Z | F0 (+ F0s, reviewers ARCH and UX), Q0a, D0 (rework from its rule 18 audit); maxSlices 3; Workflow run wf_d31d9a73-9c8 | stopped by the weekly usage limit (F0 and Q0a interrupted, D0 sliced out) |
+| 3 | 2026-10-17T20:57Z | F0, Q0a, D0; Workflow run wf_cd81ad8c-6dd | F0 f83b0d0 and D0 bb643ba in progress; Q0a 62cb3b1 blocked on request 21 (answered: CR-008, CR-009, D-025) |
+| 4 | 2026-10-17T22:20Z | F0, Q0a, D0 | running |

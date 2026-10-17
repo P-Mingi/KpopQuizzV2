@@ -42,9 +42,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | gate | what | needed by | needed on | status |
 |---|---|---|---|---|
 | G0 | confirm the defaults (21 decisions of the v2 plan, the 9 of the run plan, the Working System exceptions) | F0 freeze | 2026-10-17 | ANSWERED 2026-10-16 17:07 UTC: "ok pour tous les choix par défaut" |
-| G1 | create o1-dev and o1-scratch, run KPQ/fill-dev-env.sh | Q0b, B2 first SQL | 2026-10-18 | asked 2026-10-16 |
-| G3 | pg_dump schema-only of public + prod-inventory.sql into KPQ | Q0b, branch-parity, B5 | 2026-10-18 | asked 2026-10-16 |
-| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | asked 2026-10-16 |
+| G1 | create o1-dev and o1-scratch, run KPQ/fill-dev-env.sh | Q0b, B2 first SQL | 2026-10-18 | ANSWERED 2026-10-17: dev.env and scratch.env in KPQ/secrets; keys checked ok (D-022) |
+| G3 | pg_dump schema-only of public + prod-inventory.sql into KPQ | Q0b, branch-parity, B5 | 2026-10-18 | ANSWERED 2026-10-17: schema copy from the catalogs and inventory, md5 checked (D-022) |
+| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | asked again 2026-10-17 with the command `sh O1/scripts/o1/fixtures.sh` (D-023) |
 | GH | merge seo/redirects-exact into main | ORCH routing wiring, B1 middleware and allowlist, every Wave 2 page lane | 2026-10-18 | open (5 commits ahead of main, not merged) |
 | GU-D | Mission U part D (account-deletion) merged | B7 | 2026-10-21 | open |
 | G10 | Auth redirect URLs and email hook secret on both branches | B4, B7 integration | 2026-10-21 | day 1 packet |
@@ -58,9 +58,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | gate | status | asked | answered |
 |---|---|---|---|
 | G0 | answered: all defaults confirmed | 2026-10-16 | 2026-10-16 |
-| G1 | asked | 2026-10-16 | |
-| G2 | asked (after G1) | 2026-10-16 | |
-| G3 | asked | 2026-10-16 | |
+| G1 | answered | 2026-10-16 | 2026-10-17 |
+| G2 | asked, command ready (D-023) | 2026-10-16 | |
+| G3 | answered | 2026-10-16 | 2026-10-17 |
 | G4 | only if a content agent hits a network block (override 6) | | |
 | G5 | when D0 passes R | | |
 | G6 | partly answered: the default 30-series list and the persona method (K2 drafts, owner validates) confirmed with G0; personas themselves to validate when K2 drafts them | 2026-10-16 | 2026-10-16 (list and method) |
@@ -145,6 +145,43 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   the default 30-series list and the persona method of G6 (K2 drafts, the owner validates the personas). Not read as
   approving CR-002 to CR-006: they were proposals, not defaults, and stay pending. F0 marks every default of
   `defaults.md` "confirmed by the owner (G0, 2026-10-16)" instead of "default, pending".
+- D-022 G1 and G3 answered (owner, 2026-10-17). G3: `prod-public.sql` (not a pg_dump: generated read-only from the
+  production catalogs, no data, no owners, no CREATE SCHEMA public) and `prod-inventory.txt` copied from
+  `ROOT/docs/strategy/o1/prod-schema/` into KPQ, mode 600, md5 58cbb70bfa3a7bf6378bc0bd05d6e22a and
+  921a8f48e7c4ff8b6f934d31fba48595 as given. G1: a script decoded the JWT keys without printing them: in dev.env and
+  scratch.env the anon key has role anon, the service role key role service_role, both with ref = O1_BRANCH_REF; the
+  URLs and pooler strings name their branch, the two refs differ (scratch.env quotes its values; the shell reads them
+  the same). branch-parity.sh fixed on the owner's instructions: triggers recreated only when their function lives in
+  public (on_auth_user_created_blindtest), storage triggers untouched, a storage policy created only when missing in a
+  DO block that turns a privilege refusal into a WARNING, header rewritten; and by ORCH: Supabase's default privileges
+  are set BEFORE the copy (DROP SCHEMA public drops them, and the copy's functions rely on them), without FOR ROLE.
+  Tested on a local cluster where postgres owns neither storage table. Rebuilds: o1-scratch at 21:04 UTC and o1-dev at
+  21:07 UTC, both TOTAL 8, only accepted differences (extensions: branch only pg_net; publication_tables: the 7 dated
+  realtime.messages partitions); every fingerprint section, auth and storage triggers and storage policies at 0; no
+  warning in either apply log (`evidence/branch-parity/scratch-20261017T210434Z.md`, `dev-20261017T210735Z.md`).
+  Branches run Postgres 17.11 (production 17.6). Lanes may now use `scripts/o1/env.sh scratch|dev`.
+- D-023 G2 command written by ORCH (the fixture script was Q0b's, not started; `apps/quiz/scripts/o1/fixtures/**` moves
+  from Q0b to ORCH): `sh O1/scripts/o1/fixtures.sh` creates on o1-scratch then o1-dev 7 fixture users (kpop only,
+  kpop heavy, dual, anime new, banned, unconfirmed, admin reviewer) and the 31 editorial accounts (oq_creator_01 to
+  30 as placeholders until K2's personas, otakuquiz_team), emails under example.com, email_confirm true (no email, no
+  password), profiles rows, idempotent, list in `docs/o1/fixtures-<branch>.json`. Memberships, editorial_accounts and
+  sites.system_user_id come later with the B2, B3 and B5 SQL. Dry run green on both branches. Finding: on both branches
+  3 users created directly in auth.users on 2026-10-17 have NULL confirmation_token, recovery_token,
+  email_change_token_new and email_change, so GoTrue's admin listUsers fails ("Database error finding users"); the
+  fixture script reads its own users with psql instead. Owner to decide whether those 3 rows get '' in those columns.
+- D-024 Tick 3 (2026-10-17): F0 f83b0d0 and D0 bb643ba keep building (sliced out); Q0a 62cb3b1 returned blocked on its
+  request 21. Answered by CR-008 and CR-009; requests 16 (spike placeholders fail twins: the spike never merges and
+  check.sh only checks the lane tree; O1 and H1 replace them), 17 (check.sh prints pending while no twins.json exists
+  in O1 or the lane, and writes the JSON result into the evidence folder: done), 18 (`distDir` from
+  `O1_NEXT_DIST_DIR` in next.config.ts: queued for ORCH's routing wiring once the file leaves the HOT list), 19 (to
+  B4's brief) recorded.
+- D-025 Production reads paused until the owner answers. His G3 message of 2026-10-17 ends "pas de connecteur et pas
+  d'accès à la prod". Rule 5 lets parity.sh read production (builds with KPQ/secrets/kpop-parity.env, then GETs to
+  two local servers); asked whether that still stands. Until then `docs/o1/PARITY-OFFLINE` exists: gate.sh and
+  merge-lane.sh run parity with both sides built against the offline Supabase (no production read), recorded as
+  "offline (D-025)" in the evidence and the Merge log; Q0a's 4 production runs of D-005 are suspended (offline
+  rehearsals do not count). When the owner says yes, ORCH removes the file and a production parity run of
+  o1/integration catches up before the next merge that reaches kpop.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -157,6 +194,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | proposed, owner to decide |
 | CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | proposed, owner to decide |
 | CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
+| CR-008 | Q0a | Parity normalisations N3 (a Flight client reference `I[<module id>,` reads `I[<id>,` on both sides; export names and chunk lists still compared) and N4 (a page's Flight stream compared as its sorted rows, however it is cut into `self.__next_f.push` tags); the server HTML and every row stay compared. Q0a request 21, option (a): Turbopack gives one client module two ids in two builds, so without them parity says DIFFERENT for any two builds | ORCH ruling under rule 15 (the v12 rule 12 noise list names the order of the streamed page data; module ids are build-internal), R-ARCH checks the tests in Q0a's review | approved 2026-10-17 |
+| CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
 | CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
 
 ## Review verdicts

@@ -3,13 +3,21 @@
 #   scripts/o1/branch-parity.sh scratch|dev --yes      rebuild o1-scratch or o1-dev (destructive on that branch only)
 #   scripts/o1/branch-parity.sh --local-test <url>     same steps on a local throwaway cluster (127.0.0.1 only)
 #   scripts/o1/branch-parity.sh --fingerprint scratch|dev   only compare the branch against the production inventory
-# Inputs (owner gate G3): KPQ/prod-public.sql (pg_dump 18 --schema-only --schema=public --no-owner) and
-# KPQ/prod-inventory.txt (scripts/o1/prod-inventory.sql run read-only on production).
+# Inputs (owner gate G3, 2026-10-17): KPQ/prod-public.sql and KPQ/prod-inventory.txt.
+#   prod-public.sql is NOT a pg_dump: it is a schema-only copy of the production public schema generated read-only from
+#   the production catalogs (no data, no owners, no CREATE SCHEMA public). Its tables and sequences start from REVOKE
+#   ALL and explicit GRANTs; the functions it does not grant explicitly rely on Supabase's default privileges, which
+#   therefore must be active while it is applied.
+#   prod-inventory.txt is scripts/o1/prod-inventory.sql run read-only on production.
 # Steps: refuse the production ref; save the branch's public schema; create missing extensions and schemas;
-# in ONE transaction: DROP SCHEMA public CASCADE, CREATE SCHEMA public with Supabase's default grants and default
-# privileges (after the dump, whose own GRANTs carry production's ACLs), apply prod-public.sql (ON_ERROR_STOP), recreate the auth.* and storage.* triggers, the storage policies
-# and the publication membership from the inventory (no cron jobs); then fingerprint the branch against the
-# production inventory: zero difference, or each one listed for the LEDGER.
+# in ONE transaction: DROP SCHEMA public CASCADE (it also drops the schema's default privileges), CREATE SCHEMA public
+# with Supabase's grants and default privileges, apply prod-public.sql (ON_ERROR_STOP), then recreate only what the
+# CASCADE removed outside public: the auth.* triggers whose function lives in public (today on_auth_user_created_blindtest),
+# a storage policy only when it is missing (created in a DO block that turns a privilege refusal into a WARNING:
+# postgres does not own storage.buckets or storage.objects, supabase_storage_admin does), and the publication
+# membership of public tables. Storage triggers are never touched; no cron jobs. Then fingerprint the branch against
+# the production inventory: zero difference, or each one listed for the LEDGER.
+# If the copy file ever does carry CREATE SCHEMA public (a real pg_dump), the default privileges are set after it.
 # Never "reset", "merge", "rebase" or "pull" a branch from the Supabase dashboard: rebuilding means this script.
 set -uo pipefail
 PROD_REF="rdkgouofytwfdpbxbzio"
@@ -80,17 +88,25 @@ if [ $fp_only = 0 ]; then
   cat > "$WORK/21-grants.sql" <<'SQL'
 GRANT USAGE ON SCHEMA public TO postgres, anon, authenticated, service_role;
 GRANT ALL ON SCHEMA public TO postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
 SQL
   {
     echo "SET search_path = pg_catalog;"
+    # Triggers: only those whose function lives in public (DROP SCHEMA public CASCADE removed them). Never DROP:
+    # create when missing. Storage triggers call storage.* functions: untouched.
     section "$INV" auth_storage_triggers_ddl | while IFS=$'\t' read -r tbl name ddl; do
-      printf 'DROP TRIGGER IF EXISTS %s ON %s;\n%s\n' "\"$name\"" "$tbl" "$ddl"
+      case "$ddl" in *"FUNCTION public."*) ;; *) continue ;; esac
+      t_schema="${tbl%%.*}"; t_name="${tbl#*.}"
+      printf 'DO $o1$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_trigger t JOIN pg_class c ON c.oid = t.tgrelid JOIN pg_namespace n ON n.oid = c.relnamespace WHERE n.nspname = %s AND c.relname = %s AND t.tgname = %s) THEN EXECUTE %s; END IF; END $o1$;\n' \
+        "'$t_schema'" "'$t_name'" "'$name'" "\$ddl\$$ddl\$ddl\$"
     done
+    # Storage policies: no DROP; create only when missing; a privilege refusal becomes a WARNING.
     section "$INV" storage_policies_ddl | while IFS=$'\t' read -r tbl name ddl; do
-      printf 'DROP POLICY IF EXISTS %s ON %s;\n%s\n' "\"$name\"" "$tbl" "$ddl"
+      p_schema="${tbl%%.*}"; p_table="${tbl#*.}"
+      printf 'DO $o1$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE schemaname = %s AND tablename = %s AND policyname = %s) THEN BEGIN EXECUTE %s; EXCEPTION WHEN OTHERS THEN RAISE WARNING %s, SQLERRM; END; END IF; END $o1$;\n' \
+        "'$p_schema'" "'$p_table'" "'$name'" "\$ddl\$$ddl\$ddl\$" "'o1: storage policy $name not created: %'"
     done
     section "$INV" publication_tables | while IFS=$'\t' read -r pub schema tbl; do
       [ "$schema" = public ] || continue
@@ -101,8 +117,14 @@ SQL
   {
     echo '\set ON_ERROR_STOP on'
     echo "\\i $WORK/20-drop.sql"
-    echo "\\i $DUMP"
-    echo "\\i $WORK/21-grants.sql"
+    if [ $dump_creates = 0 ]; then
+      # The copy relies on the default privileges while it is applied: set them first.
+      echo "\\i $WORK/21-grants.sql"
+      echo "\\i $DUMP"
+    else
+      echo "\\i $DUMP"
+      echo "\\i $WORK/21-grants.sql"
+    fi
     echo "\\i $WORK/30-auth-storage.sql"
   } > "$WORK/run.sql"
   if ! psqlq --single-transaction -f "$WORK/run.sql" > "$WORK/apply.log" 2>&1; then
