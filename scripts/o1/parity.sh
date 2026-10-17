@@ -6,8 +6,8 @@
 # Builds base and head back to back, each in a clean detached worktree (node_modules linked from O1), under the
 # build lock, with KPQ/secrets/kpop-parity.env (sourced, never printed) and the production flags; serves both with
 # `next start`; compares the URL list with apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only, A and B fetched
-# in the same second), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations, nothing
-# else); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
+# in the same second), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations and the
+# two of CR-008, nothing else, then the stylesheet contents of CR-009); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
 # (base, head, URL list) in KPQ/cache/parity/. Exit 0 = identical after the allowed normalisations, 1 = a difference.
 #
 # Version 1 by ORCH (Phase 0); completed by lane Q0a:
@@ -29,9 +29,19 @@
 #   --recheck replays the stored state.
 # - Determinism: result.txt holds no time, no byte count and no live number outside a diff. --recheck runs the pair
 #   again (the cache is ignored, the stored data state replayed) and fails unless result.txt is byte-identical.
-# - Known gap: flag-off-diff replaces hashed asset names and nothing compares what the files hold, so a change that
-#   lives only in CSS (globals.css, a CSS module, a class that exists only in CSS) passes. Q0a's request 20 proposes
-#   a stricter check (stylesheet contents of A and B, local servers only); until it is approved this stays a gap.
+# - Stylesheets (CR-009, 2026-10-17): flag-off-diff replaces hashed asset names, so compare.mjs reads every page it
+#   judges identical once more from A and B and compares the content of every stylesheet the page links (local
+#   servers only): a change that lives only in CSS (globals.css, a CSS module, a class that exists only in CSS) is
+#   DIFFERENT as css-content. JS chunks stay out (behaviour is the lanes' e2e and R's UX runs, not parity).
+# - One build path (Q0a D46): the parity worktrees live under ROOT, so Next takes ROOT's pnpm-workspace.yaml as the
+#   workspace root and every module path, server chunk name and client module id carries the worktree's folder name.
+#   Built in two folders, base and head then differ on every page (client module ids in the page data, and error
+#   digests, which hash a stack of chunk names), with no source change. Both sides are therefore built at one path,
+#   o1-parity-build, one after the other, and each build is moved (git worktree move) to o1-parity-base or
+#   o1-parity-head before it is served. The servers resolve chunks from their own .next and read files from their
+#   own cwd; only __dirname and import.meta.url would point at the build path, and neither appears in
+#   apps/quiz/src or packages/*/src (checked 2026-10-18). N3 and N4 stay for what one path does not fix (a module
+#   whose id moves with the module graph; rows streamed in another order).
 # - --keep keeps both worktrees, their builds and the frozen state (KPQ/cache/parity/<key>/freeze) for the gate's
 #   per-site checks, and names them in KPQ/cache/parity/kept.json; the next parity run removes all three. A cached
 #   result is used with --keep only while the kept build is the one of that pair (else the pair is run again).
@@ -151,13 +161,13 @@ until mkdir "$PLOCK" 2>/dev/null; do
   sleep 15
 done
 echo $$ > "$PLOCK/pid"
-# The kept build of an earlier run goes now: its worktrees (prep below) and its frozen state (never this run's own,
-# which a recheck has copied aside).
+# The kept build of an earlier run goes now: its worktrees (below, before the builds) and its frozen state (never
+# this run's own, which a recheck has copied aside).
 if [ -f "$KEPT" ]; then
   kf="$(kept_get freeze)"; case "$kf" in "$CACHE"/*/freeze) rm -rf "$kf" ;; esac; rm -f "$KEPT"
 fi
 pids=()
-drop_wt() { # role
+drop_wt() { # role: base, head or build
   local w="$ROOT/.claude/worktrees/o1-parity-$1"
   [ -d "$w" ] || return 0
   rm -f "$w/node_modules" "$w/apps/quiz/node_modules" "$w/packages/shared/node_modules"
@@ -166,6 +176,7 @@ drop_wt() { # role
 }
 cleanup() {
   for p in ${pids[@]+"${pids[@]}"}; do pkill -P "$p" 2>/dev/null; kill "$p" 2>/dev/null; done
+  drop_wt build
   if [ $keep = 0 ]; then drop_wt base; drop_wt head; fi
   rm -rf "$PLOCK"
 }
@@ -186,14 +197,20 @@ prep() { # role sha
   git -C "$w" config --worktree core.excludesFile "$O1/scripts/o1/lane.exclude" 2>/dev/null || true
   echo "$w"
 }
+# One build path for both sides (header): <sha> is checked out and built at o1-parity-build, then that worktree is
+# moved to o1-parity-<role>, where it is served.
+BUILDW="$ROOT/.claude/worktrees/o1-parity-build"
 build() { # role sha
-  local w; w="$ROOT/.claude/worktrees/o1-parity-$1"
+  local w="$ROOT/.claude/worktrees/o1-parity-$1"
+  prep build "$2" >/dev/null
   O1_PARITY_FREEZE="$FREEZE" O1_FREEZE_PHASE="build-$1" "$HERE/build-lock.sh" run "parity-$1-${2:0:8}" -- \
-    bash -c 'cd "$1" && shift && exec "$@"' _ "$w/apps/quiz" "$HERE/parity.sh" --run-env-internal npm run build \
-    > "$OUT.tmp/build-$1.log" 2>&1
+    bash -c 'cd "$1" && shift && exec "$@"' _ "$BUILDW/apps/quiz" "$HERE/parity.sh" --run-env-internal npm run build \
+    > "$OUT.tmp/build-$1.log" 2>&1 || return 1
+  "$G" -C "$O1" worktree move "$BUILDW" "$w" >> "$OUT.tmp/build-$1.log" 2>&1 || { echo "parity: could not move $BUILDW to $w" >> "$OUT.tmp/build-$1.log"; return 1; }
 }
-wb="$(prep base "$base")" || exit 3
-wh="$(prep head "$head")" || exit 3
+# The worktrees of an earlier run (a kept build, or one a crash left) go before this run builds.
+for r in base head; do drop_wt "$r" || die "stale $ROOT/.claude/worktrees/o1-parity-$r with changes: remove it by hand"; done
+wb="$ROOT/.claude/worktrees/o1-parity-base"; wh="$ROOT/.claude/worktrees/o1-parity-head"
 t0=$(date +%s)
 build base "$base" || { tail -20 "$OUT.tmp/build-base.log" >&2; die "base build failed (log $OUT.tmp/build-base.log)" 7; }
 build head "$head" || { tail -20 "$OUT.tmp/build-head.log" >&2; die "head build failed (log $OUT.tmp/build-head.log)" 7; }
