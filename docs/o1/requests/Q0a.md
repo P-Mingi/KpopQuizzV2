@@ -159,3 +159,16 @@
     run: `lsof -tiTCP:4011 -sTCP:LISTEN` and 4012 empty, or stop the orphans (parent 1, cwd under a deleted
     o1-parity-* folder). Also after Q0a merges: parity serves both sides from `o1-parity-build` (D50), and with
     `--keep` the kept head build is there (kept.json names it).
+23. To ORCH (a CR: a normalisation is G0's, ruled by ORCH under rule 15 as for CR-008). Slice 7's run 4 (the CSS
+    plant, offline) found one page DIFFERENT by streaming timing, not by the plant: /bts-name-all-members (a 500
+    offline) had a Suspense boundary resolved before the shell flushed on the base read (`<!--$-->...<!--/$-->`)
+    and after it on the head read (`<!--$?--><template id="B:0"></template>`, then the hidden `S:0` segment and
+    React's `$RC("B:0","S:0")` script). Runs 1 to 3 read the same page resolved on both sides. This is the HTML twin
+    of the Flight order N4 covers, and it can fail any pair, quiet or not, on any page with a boundary that settles
+    near the flush. Options: (a) N5 suspense-resolved: before comparing, a streamed boundary is put back where its
+    template stands (the `S:n` segment's content replaces `<template id="B:n">`, `<!--$?-->` reads `<!--$-->`, the
+    segment and its `$RC` call leave), so both sides compare in their resolved form; every node still compared, only
+    when it arrived does not count. Q0a's recommendation (deterministic, small, testable on the stored pages).
+    (b) No rule: read the page again on a difference. Weaker: the base side is a record (D50) and cannot be read
+    again, and a verdict that depends on how many reads were tried is not deterministic. Until a ruling, a quiet
+    pair can fail on this page about one read in four offline (one of the four reads of slice 7).

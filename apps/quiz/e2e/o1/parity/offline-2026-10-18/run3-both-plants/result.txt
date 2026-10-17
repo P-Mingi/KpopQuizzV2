@@ -1,0 +1,161 @@
+# parity verdict, rules q0a-g0-v2, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
+DIFFERENT / status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /groups status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /trending status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+IDENTICAL /bts-quiz status 500/500
+IDENTICAL /blackpink-quiz status 500/500
+IDENTICAL /stray-kids-quiz status 500/500
+IDENTICAL /seventeen-quiz status 500/500
+IDENTICAL /cortis-quiz status 500/500
+IDENTICAL /twice-quiz status 500/500
+IDENTICAL /newjeans-quiz status 500/500
+DIFFERENT /trivia status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+IDENTICAL /bts-trivia status 500/500
+IDENTICAL /blackpink-trivia status 500/500
+IDENTICAL /q/ultimate-bts-era-quiz-only-real-armys-survive status 500/500
+IDENTICAL /q/skz-true-or-false-only-real-stays-pass status 500/500
+IDENTICAL /q/blackpink-ultimate-fan-challenge status 500/500
+IDENTICAL /q/are-you-a-real-coer status 500/500
+IDENTICAL /q/illit-fans-here status 500/500
+IDENTICAL /q/babymonster-quiz status 500/500
+IDENTICAL /q/le-sserafim-members-and-music-quiz status 500/500
+IDENTICAL /q/one-for-sones status 500/500
+IDENTICAL /q/twice-true-or-false status 500/500
+IDENTICAL /q/how-well-do-you-know-txt status 500/500
+IDENTICAL /q/enhypen-debut-and-beyond-quiz status 500/500
+IDENTICAL /q/k-pop-company-quiz-match-the-group-to-the-label status 500/500
+DIFFERENT /blindtest status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /blindtest/classic status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /blindtest/intro-challenge status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /blindtest/group-bts status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /guess-the-kpop-song status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /pt status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /pt/blindtest status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /pt/quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /pt/faq status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /pt/leaderboard status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /fr/blind-test-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /es/adivina-la-cancion-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /id/tebak-lagu-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /guess-the-kpop-idol status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /kpop-true-or-false status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /easy-kpop-quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /hard-kpop-quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /kpop-quiz-2026 status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /kpop-demon-hunters-quiz status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+IDENTICAL /which-bts-member-are-you status 404/404
+IDENTICAL /bts-name-all-members status 500/500
+DIFFERENT /about status 200/200
+  node 189
+    A: Made by fans, for fans</span>
+    B: Made by fans, for every fan</span>
+  flight row
+    A: 1a:...-bg)] text-[var(--accent)] text-xs font-semibold","children":"Made by fans, for fans"}],["$","h1",null,{"className":"mt-4 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]","children":["About ",["$","span",null,{"className":"text-[var(--accent)]","children":"KpopQuiz"}]]}],["$","p",n
+    B: 1a:...-bg)] text-[var(--accent)] text-xs font-semibold","children":"Made by fans, for every fan"}],["$","h1",null,{"className":"mt-4 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]","children":["About ",["$","span",null,{"className":"text-[var(--accent)]","children":"KpopQuiz"}]]}],["$",
+DIFFERENT /editorial-policy status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /privacy status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /terms status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /faq status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /contact status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /leaderboard status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+DIFFERENT /articles status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+    B: sheet 0 static/chunks/<asset>.css rule 720: :root{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;--brand:#e8457a;--brand-light:#fce8ef;--brand-dark:#b5345f;--brand-btn:#d13a6e;--brand-btn-hover:#b5345f;--photocard-plum:#a83a8f;--photocard-violet:#7b3fa8;--verse
+IDENTICAL /daily status 307/307
+IDENTICAL /an-unknown-o1-parity-path status 301/301
+IDENTICAL /sitemap.xml status 200/200
+IDENTICAL /robots.txt status 200/200
+IDENTICAL /llms.txt status 200/200
+identical: false (32 of 60 pages differ)

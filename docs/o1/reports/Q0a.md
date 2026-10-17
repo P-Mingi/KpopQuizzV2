@@ -4,9 +4,8 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 5 of about 6 done (2026-10-16); slice 6 (tick 3, 2026-10-17) done in part, then blocked on request 21 (an
-owner decision on the parity normalisations, below). Slice 5 (tick 2, slice 2) started with the checkpoint merge of
-o1/integration (d6e51ff); o1/integration has not moved since (910c84a).
+Slices: 6 done; slice 7 (tick 4, 2026-10-17, from 22:12 UTC) done in part. Slice 7 started with the checkpoint
+merge of o1/integration (CR-008, CR-009, D-024, D-025, `docs/o1/PARITY-OFFLINE`).
 
 | # | Slice | State |
 |---|---|---|
@@ -15,7 +14,55 @@ o1/integration (d6e51ff); o1/integration has not moved since (910c84a).
 | 3 | `gate-checks.sh` (per-site check:* gates, leak suite, lane specs), parity.sh kept-build entries | done |
 | 4 | `twins.mts` (rule 18, deliverable 5) with its self-test and base baseline; dev-multi feasibility probe | done |
 | 5 | twins.mts on F0's real contract; `dev-multi.sh` (mirrors) and the cookie isolation test, with its plant proof | done |
-| 6 | Proof runs: parity determinism and planted change (budget below), gate-checks on real builds, report | in part: offline rehearsal done, it found that two builds never compare equal (request 21); real runs wait for the owner's decision |
+| 6 | Offline parity rehearsal: two builds never compared equal (request 21) | done |
+| 7 | N3, N4 (CR-008), css-content (CR-009), one build and serving path, offline proof runs | in part: see "Left" |
+
+Done in slice 7 (tick 4; section "Parity proof offline (slice 7)" below):
+- `scripts/o1/parity/compare.mjs` (rules `q0a-g0-v2`): N3 flight-ids and N4 flight-rows exactly as CR-008 (D47), and
+  the stylesheet content check of CR-009 on every page judged identical (D48). 13 new tests in `compare.test.mjs`.
+- The cause of request 21, found in the rehearsal's build log: Next takes ROOT's `pnpm-workspace.yaml` as the
+  workspace root, so module ids, chunk names and error digests carry the worktree's folder name. parity.sh now
+  builds both sides at one path, `o1-parity-build` (D46), and serves them there too, the base first and recorded by
+  the new `scripts/o1/parity/replay.mjs`, then the head live while the record answers as side A (D50; test
+  `replay.test.mjs`). No normalisation added for this.
+- parity.sh's cleanup kills the whole server tree (D49): `next start` forks `next-server`, which outlived runs on
+  4011 and 4012 (mine of slice 6, and the gate's F0 parity run today: request 22).
+- result.txt holds verdicts only; the normalisations a page needed go to result.json (D51): /blindtest/group-bts
+  streams its rows in another order on some requests and not on others.
+- Offline proof runs with a stand-in KPQ (`NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:9`, the values gate.sh's
+  `parity_kpq` writes), no production read; evidence in `apps/quiz/e2e/o1/parity/offline-2026-10-18/`:
+  run 0 (one build path, two serving folders): 59 of 60, the 60th by error digests only (this led to D50);
+  run 1 (quiet pair, `--keep`): identical, 60 of 60; run 2 (`--recheck` of that pair: both rebuilt, data state
+  replayed): identical, 60 of 60, same verdict on every page, but parity.sh's byte check of result.txt failed on one
+  label (D51); re-rendered with the verdict-only render, the two runs' rows give byte-identical result.txt
+  (sha256 632bc946...). Run 3 (both plants): 32 DIFFERENT, /about by its string (the HTML node and its Flight
+  row) and the 31 other pages that link stylesheets by css-content only (rule 720 of the first chunk sheet,
+  `--txt1:#1a1714` against `#1a1715`); 28 identical. Run 4 (the CSS plant alone): 33 DIFFERENT, the 32 pages that
+  link stylesheets by css-content (/about among them, now by its CSS only), and /bts-name-all-members by Suspense
+  streaming timing, not by the plant (request 23).
+- Requests 20 and 21 marked answered (CR-009, CR-008). New: 22 (orphaned parity servers until this merges) and 23
+  (a CR for Suspense boundaries streamed on one side only).
+
+Left (next slice, after 01:00 UTC: parity.sh refuses 00:00 to 01:00):
+- The script's own determinism proof with the final render: one `--keep` run and one `--recheck` of a quiet pair,
+  `determinism.txt` saying deterministic (runs 1 and 2 show it for the verdicts; D51 changed only the render).
+- A ruling on request 23 (Suspense boundaries that settle before or after the shell flush, seen once in four reads
+  on an offline 500 page); then the quiet pair's "both identical" holds on every read, not only on most.
+
+Tested how (slice 7):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 95 of 95 pass (16 new: N3, N4 and the text-row cut, every row and the
+  server HTML still compared, digests never normalised, a stream it cannot cut, css-content on identical pages only,
+  sheet pairing, a long rule shown near its difference, unreadable and external sheets, the verdict-only
+  render, record and replay).
+- compare.mjs's new rules on the 60 stored page pairs of the slice 6 rehearsal (two folders, client ids differing on
+  every 200 page): 58 IDENTICAL (31 by N3, 1 by N3 and N4), /about DIFFERENT (the plant, in the HTML node and in its
+  Flight row, shown from near the first differing character), /bts-name-all-members DIFFERENT (error digests,
+  never normalised).
+- `bash -n scripts/o1/parity.sh`. `tsc --noEmit` in apps/quiz (with the slice's files): exit 0. `vitest run` not run this
+  slice: no file it collects changed (apps/quiz `src/**`), and the machine ran the gate's builds and mine (load 30 to
+  60); slice 6: 124 files, 2269 tests pass.
+- No production read. Builds: only inside parity.sh under the build lock (offline, D-025: not counted in D-005).
 
 Done in slice 6 (tick 3, 2026-10-17; section "Parity rehearsal" below):
 - Slice 5's work, left uncommitted when tick 2 stopped on the usage limit, re-proved and committed (b5e8c55):
@@ -242,23 +289,30 @@ Requests: `docs/o1/requests/Q0a.md` items 1 to 19 (slice 3: item 2 made final, g
 dev kpop build next to parity once G1 is open, 12 the check-site-scope interface for B2, 13 the per-site sitemap
 route path, 14 the variables lane specs get; slice 4: 15 what twins.mts reads in twins.json, 16 the spike
 placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a dev output folder per site; slice 5: 16
-measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table; slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order, which
-blocks every real parity run).
+measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table;
+slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order; slice 7: 20 and 21
+answered and done, 22 the orphaned parity servers until Q0a merges, 23 a CR for Suspense boundaries streamed on one
+side only).
 
 SQL files: none (the lane writes no SQL).
 
 Owner actions: none yet. (Optional, for fidelity: the owner confirms that `KPQ/secrets/kpop-parity.env` carries the
 production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.)
 
-Builds and parity runs (budget D-005: at most 4 in total, never 00:00 to 01:00 UTC): 1 used, counting a parity run
-once (2 of 4 if each `next build` inside it counts; ORCH to say which).
+Builds and parity runs (budget D-005: at most 4 production runs, never 00:00 to 01:00 UTC; suspended by D-025, and
+offline runs do not count). Every run below was offline: `O1_KPQ=<scratchpad stand-in>`, Supabase 127.0.0.1:9.
 | # | When (UTC) | What | Result |
 |---|---|---|---|
-| 1 | 2026-10-17 21:03:41 to 21:07:09 | `O1_KPQ=<scratchpad stand-in> scripts/o1/parity.sh b5e8c55 648e77c` (offline rehearsal; build-lock labels `parity-base-b5e8c552`, `parity-head-648e77cb`) | exit 1: 34 of 60 DIFFERENT, 2 refused writes; no production read (section "Parity rehearsal") |
+| 1 | 2026-10-17 21:03:41 to 21:07:09 | slice 6 rehearsal, `parity.sh b5e8c55 648e77c` (two folders) | exit 1: 34 of 60 DIFFERENT, 2 refused writes (section "Parity rehearsal") |
+| 2 | 2026-10-17 22:29:45 to 22:33:58 | run 0: `parity.sh 53f48f9 0056679 --keep` (one build path, two serving folders) | exit 1: 59 of 60, /bts-name-all-members by error digests only |
+| 3 | 2026-10-17 22:38:55 to 22:57:14 | run 1: `parity.sh 53f48f9 0056679 --keep` (one build and serving path) | exit 0: identical, 60 of 60 |
+| 4 | 2026-10-17 22:57:31 to 23:29:32 | run 2: `parity.sh 53f48f9 0056679 --recheck` (waited 13 min for the gate's F0 parity run) | identical, 60 of 60; exit 1 on the byte check of result.txt, one label (D51) |
+| 5 | 2026-10-17 23:36:41 to 23:44:46 | run 3: `parity.sh 53f48f9 803c535` (both plants; after the gate's spike parity) | exit 1: 32 of 60 DIFFERENT, all by a plant |
+| 6 | 2026-10-17 23:44:46 to 23:52:40 | run 4: `parity.sh 53f48f9 90550f1` (CSS plant alone) | exit 1: 33 of 60 DIFFERENT, 32 css-content, 1 Suspense timing |
 (Slice 4's two dev probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
-Production reads made by this lane: none (the rehearsal's Supabase was 127.0.0.1:9; flag-off-diff and compare.mjs
-fetch only the two local servers).
+Production reads made by this lane: none (every run's Supabase was 127.0.0.1:9; flag-off-diff, compare.mjs and
+replay.mjs fetch only the local servers).
 
 ## Gate checks
 
@@ -414,6 +468,14 @@ only the pages it found DIFFERENT, with exactly two more rules:
 - N2 analytics-ref: the Flight client reference `I[<id>,[<chunks>],"Analytics"]` (or `"NetAnalytics"`) in the
   inline page data reads `I[<analytics>]` on both sides.
 A status difference or a redirect target difference (3xx re-read with one GET per side) is never normalised.
+Since slice 7 (CR-008 and CR-009, rules `q0a-g0-v2`):
+- N3 flight-ids: a client reference row `<row>:I[<module id>,` reads `<row>:I[<id>,`; row id, chunk list and export
+  name stay compared.
+- N4 flight-rows: the push tags leave the document; the stream they carry is cut into rows and compared as a sorted
+  multiset; the rest of the document byte for byte (D47).
+- css-content: every page judged identical is read again from both sides for its stylesheet links, and every
+  stylesheet's content is compared in link order after the asset-name rule (and N1 for the UX sheet) (D48).
+- Both sides are built at one path (D46), so most of what N3 and N2 cover no longer arises.
 
 Data drift (the cause of every false DIFFERENT in the v11 and v12 runs: play counts moving between two builds made
 minutes apart, a build that timed out on Supabase): the base build records every read, the head build and both
@@ -453,6 +515,26 @@ reference) is that symptom on one reference. Request 21 asks the owner for N3 (c
 rows compared as a sorted set, whatever the cut); a throwaway script applying both to the 60 stored pairs leaves
 exactly /about and the offline 500 page. Not yet known: whether the ids move with the build folder or on every
 build (request 21 option c).
+
+## Parity proof offline (slice 7)
+
+Stand-in KPQ in the scratchpad with gate.sh's offline `kpop-parity.env` (Supabase 127.0.0.1:9); parity.sh of this
+worktree; base 53f48f9 (slice 7's first commit). Heads are commit objects on no branch (`git commit-tree`, the
+worktree untouched): 0056679 quiet (a comment in `components/layout/theme-init.tsx`, a line of
+`docs/o1/PARITY-OFFLINE`), 803c535 both plants (/about "Made by fans, for fans" to "for every fan", and
+`--txt1: #1A1714` to `#1A1715` in `styles/globals.css`), 90550f1 the CSS plant alone, 4c0992c the string alone.
+
+| Run | Pair | Build / serve | Verdict |
+|---|---|---|---|
+| 0 | quiet, `--keep` | one path / two folders | 59 of 60; /bts-name-all-members (500 offline) by its two `E{"digest"}` rows only, stacks identical in both logs |
+| 1 | quiet, `--keep` | one path / one path (recorded base) | identical, 60 of 60; flag-off-diff byte-identical on 59 pages, /blindtest/group-bts by N4 |
+| 2 | quiet, `--recheck` | the same, data state replayed | identical, 60 of 60, every verdict as run 1; byte check failed on run 1's label of /blindtest/group-bts (D51) |
+| 3 | both plants | one path / one path | 32 DIFFERENT: /about (HTML node and Flight row with the string), 31 by css-content only; 28 identical |
+| 4 | CSS plant alone | one path / one path | 33 DIFFERENT: 32 css-content (every page that links stylesheets, /about by its CSS only), /bts-name-all-members by a Suspense boundary streamed on one side only (request 23) |
+
+Every run: 2 refused writes, `rpc ensure_daily_debate` from each build's prerender, listed (base and head alike);
+none while the list was read. 32 pages had their stylesheets compared (3 each: two chunk sheets and the UX sheet);
+the 500, redirect and text pages link none.
 
 ## Leak suite
 
@@ -663,6 +745,64 @@ shapes; the failing set must equal the expected set exactly):
   the owner's message that opened the tick says "pas d'accès à la prod" (written for ORCH's G3 work; read here too,
   the stricter way). The done test's parity items wait for the owner's decision on request 21 and ORCH's go; Q0a
   returns blocked on that decision (rule 15: the G0 normalisations are the owner's).
+- D46 One build path for both sides. The rehearsal's build log says why two builds never matched: the parity
+  worktrees live under ROOT, so Next 16 takes ROOT's `pnpm-workspace.yaml` as the workspace root (its own warning,
+  "multiple lockfiles") and every module path is `[project]/.claude/worktrees/o1-parity-<role>/...`. Client module
+  ids (hashed from those paths), server chunk names and error digests (a hash of message and stack, whose frames
+  name the chunks) then differ with no source change; the digests made /bts-name-all-members, a 500 offline,
+  DIFFERENT in every offline run, so every kpop lane would have failed the offline gate of D-025 there, and no
+  approved normalisation covers a digest. Fixing the cause instead: each side is checked out and built at
+  `o1-parity-build`, then moved (`git worktree move`, through git.sh) to `o1-parity-base` or `o1-parity-head` (and
+  served from the build path again, D50). Next's config (`turbopack.root`) is on the HOT list and git.sh keeps worktrees under
+  `.claude/worktrees/o1-*`, so the path, not the root, is what can be made equal. A served build resolves its chunks
+  from its own `.next` and reads files from its own cwd; `__dirname` and `import.meta.url` would point at the build
+  path, and neither occurs in `apps/quiz/src` or `packages/*/src`. Stricter, not looser: nothing new is normalised,
+  and noise that N3 hid now does not arise. N3 and N4 stay as approved.
+- D47 N4 reads CR-008's "however it is cut into push tags" as: the tags leave the document entirely (where they sit
+  between HTML chunks is part of the cut), the stream they carry is cut into rows (text rows on their UTF-8 byte
+  length) and compared as a sorted multiset, and the rest of the document byte for byte. A stream that cannot be cut
+  for certain (a push of another kind; a text row holding one of flag-off-diff's replaced names, whose length then
+  no longer holds) is not re-cut: N3 then applies in place and the order still counts. The labels `flight-ids` and
+  `flight-rows` name only what changed the verdict (ids: the row multisets differ without N3; rows: the document with
+  N3 alone still differs). Error digests are never normalised (tested).
+- D48 The CSS check of CR-009 runs on every page judged identical, not only those flag-off-diff found identical
+  (stricter). flag-off-diff keeps no raw body, so compare.mjs reads each such page once more from A and B (local
+  servers, GET) for its stylesheet links, and each stylesheet once per run and side (N1 shares the reads). Sheets
+  are paired in link order; same-origin ones are fetched, an external one is compared by its href (no read outside
+  the two servers). The asset-name rule in CSS form also covers the relative `../media/<name>.woff2` references
+  Turbopack writes, plus CSS-module hashes; N1 for the UX sheet only. The first differing rule (split after each `}`)
+  is reported. A page whose status changes between the two reads is DIFFERENT (the check could not run).
+- D49 Two `next-server` processes of my slice 6 rehearsal were still listening on 4011 and 4012 (started 21:06:42
+  UTC, the rehearsal's serve phase; cwd the deleted o1-parity-base and o1-parity-head): `next start` forks
+  `next-server`, and parity.sh's cleanup killed only the subshell and its direct child. Every later parity run would
+  have stopped on "port busy". I stopped those two (mine, by their start time and folders) and parity.sh's cleanup
+  now walks the whole process tree (kill_tree, as gate-checks.sh and dev-multi.sh already do). At 23:19 UTC the
+  gate's F0 parity run (O1's copy of parity.sh, which has the bug until this merges) had left the same pair
+  (pids 95934 to 95937, cwd the deleted o1-parity-base and o1-parity-head, parent 1); my run 2, holding the parity
+  lock, and the gate's spike parity, queued behind it, would both have stopped on "port busy", so I stopped them
+  too (request 22). My next runs waited for the gate's spike parity before taking the lock; it left a third pair
+  (12759, 12760, the same signs), stopped by my queue at 23:36 UTC before run 3.
+- D50 One serving path too. The first run with one build path (run 0 below) left exactly one page DIFFERENT:
+  /bts-name-all-members, a 500 offline, by its two error digests, with byte-identical stacks in both server logs.
+  Next computes a digest as a hash of `err.message + err.stack` (`create-error-handler.js`), and Node writes the
+  absolute path of each served chunk in the stack, so two servers in two folders give one error two digests. The
+  approved rules have no digest normalisation, and asking for one (or cutting the stack in the servers, which is
+  the same thing done at the source) would hide a real difference: the same message thrown from changed code. So the
+  servers take one path as production does (every Vercel deploy is built and served at one path): the base build
+  moves back to `o1-parity-build`, is served on port A and recorded (`scripts/o1/parity/replay.mjs`: every URL of
+  the list and every same-origin stylesheet they link, status, Location, Content-Type and body, the only fields
+  flag-off-diff and compare.mjs read), stops and leaves; the head takes the path and is served live on port B while
+  the record answers as side A. What this costs: A is no longer fetched in the same second as B. Data cannot drift
+  (the base server's reads go into the frozen state and the head replays them), and a server clock moves by the
+  minute the swap takes, where prerendered pages already differ by the minutes of the head build. A request the
+  record does not hold answers 404, so it can only make a page DIFFERENT. With `--keep`, the kept head build is the
+  one at `o1-parity-build` (kept.json names it; gate-checks.sh reads kept.json).
+- D51 result.txt holds the verdicts only (verdict, status pair, stylesheets compared, and what differs on a DIFFERENT
+  page); the normalisations a page needed go to result.json. Runs 1 and 2 of the same pair gave the same verdict on
+  all 60 pages, but /blindtest/group-bts streamed its Flight rows in another order on run 1's request and in the
+  same order on run 2's, so run 1 listed `analytics-ref,flight-rows` for it and run 2 nothing, and the byte check of
+  `--recheck` failed. What a page needed on one request is not a property of the sha pair; its verdict is. The
+  `--recheck` byte check stays as it was (my own v2 check, never weakened): it now compares what must not move.
 
 ## Open points
 
@@ -672,11 +812,19 @@ shapes; the failing set must equal the expected set exactly):
 - `kpop-parity.env` is never read by an agent: whether it carries production's VERSE_PUBLIC,
   COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED is unknown. Parity compares base and head under the same values, so
   a missing value lowers fidelity to production, not the validity of the comparison.
-- flag-off-diff normalises hashed CSS file names but does not compare their content: a change in `globals.css` or a
-  CSS module would pass parity. Proposed as request 20 (stricter, not looser); written in parity.sh's header.
-- Error digests (`E{"digest":"..."}`) differ between two builds: a page that fails on both sides still compares
-  DIFFERENT (seen offline on /bts-name-all-members). On production data the 60 pages answer 200; if a real run hits
-  a 500 on both sides, the verdict says so and R reads it (no normalisation asked).
+- (Closed in slice 7) The CSS content gap: compare.mjs now compares every linked stylesheet (CR-009, D48).
+- (Closed in slice 7) Error digests: with one build and one serving path (D46, D50) the same error has the same
+  digest on both sides (/bts-name-all-members, a 500 offline, IDENTICAL in runs 1 and 2). A different error still
+  has a different digest, and that stays a difference.
+- The recorded base side (D50) means side A is read a minute or so before side B. Data is frozen; a server-rendered
+  clock (a relative time, a countdown) could still move between the two reads. None seen offline; the first
+  production run, once the owner allows it (D-025), will show whether any of the 60 pages does.
+- Streaming timing in the server HTML (request 23): a Suspense boundary can settle before the shell flushes on one
+  read and after it on the other, so one page reads `<!--$-->` resolved on side A and `<!--$?-->` with a template on
+  side B. Seen once in four offline reads, on /bts-name-all-members (a 500 offline). Until ORCH rules, any pair can
+  fail on such a page; R reads the node diff in result.txt (`<!--$-->` against `<!--$?-->`).
+- The JS chunks are still compared by name only (flag-off-diff's normalisation): a change that lives only in client
+  code passes parity by design (behaviour is the lanes' e2e and R's UX runs).
 - Relative times rendered on the server ("3 min ago") baked at two build times could still differ; none seen in the
   release snapshots. Slice 5 runs will tell.
 - The content leak cases use the fixture names of BACKLOG 5.1 (Death Note, One Piece, Spy x Family; BTS, BLACKPINK,
