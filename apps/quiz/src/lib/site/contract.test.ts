@@ -2131,7 +2131,12 @@ describe('naming traps, dashes and emoji in every file F0 owns (naming.md, rule 
     for (const f of ['docs/o1/contracts/LANES.md', 'apps/quiz/src/lib/site/registry.ts', 'apps/quiz/src/lib/db/contract.types.ts', 'apps/quiz/scripts/o1/contract/lib.ts']) {
       expect(rel).toContain(f);
     }
-    expect(rel.some((f) => f.startsWith('apps/quiz/src/app/sites/')), 'o1/F0 carries no page under app/sites').toBe(false);
+    // o1/F0 has no screen under app/sites; the spike o1/F0s has its routing placeholders: on both, every screen file
+    // there is the file of a TWINS row (twins.mts check a does the same on every lane tree).
+    const twinFiles = new Set((JSON.parse(read(`${CONTRACTS}twins.json`)) as TwinsDoc).pages.map((p) => p.file));
+    for (const f of rel.filter((x) => x.startsWith('apps/quiz/src/app/sites/') && /\/(page|layout|not-found|template|error|loading)\.tsx$/.test(x))) {
+      expect(twinFiles.has(f), f).toBe(true);
+    }
   });
 
   it('no file carries a trap, a dash or an emoji (naming.md\'s own trap table excepted)', () => {
