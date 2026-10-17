@@ -35,6 +35,15 @@ neutral='^(docs/|design/|scripts/o1/|scripts/o1-hooks/|scripts/o1-owner-guard\.m
 touches_kpop=false
 grep -vE "$neutral" "$EV/changed.txt" | grep -q . && touches_kpop=true
 
+# D-025: while docs/o1/PARITY-OFFLINE exists, parity builds both sides against the offline Supabase (no production
+# read): KPQ for parity.sh points at a stand-in whose kpop-parity.env holds only offline values.
+parity_kpq() {
+  if [ -f "$RUN/PARITY-OFFLINE" ]; then
+    local d="$KPQ/parity-offline"; mkdir -p "$d/secrets"; chmod 700 "$d" "$d/secrets"
+    printf 'NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:9\nNEXT_PUBLIC_SUPABASE_ANON_KEY=o1-offline-anon\nSUPABASE_SERVICE_ROLE_KEY=o1-offline-service\nNEXT_PUBLIC_SITE_URL=https://kpopquiz.org\nNEXT_PUBLIC_SITE_NAME=KpopQuiz\n' > "$d/secrets/kpop-parity.env"
+    chmod 600 "$d/secrets/kpop-parity.env"; echo "$d"
+  else echo "$KPQ"; fi
+}
 WTS=()
 prep() { # name sha -> worktree path
   local w="$ROOT/.claude/worktrees/o1-gate-$1"
@@ -101,7 +110,7 @@ secrets_check() {
 }
 step secrets secrets_check
 # 4b. Static checks of the tree (scripts/o1/check.sh): rule 18 twins, then what Q0a adds there.
-step twins "$O1/scripts/o1/check.sh" "$WT"
+step twins "$O1/scripts/o1/check.sh" "$WT" "$EV"
 # 5. Types and unit tests (RATCHET LAW: the existing tests run untouched).
 step tsc bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false' _ "$WT"
 step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run' _ "$WT"
@@ -116,7 +125,8 @@ for s in $sites; do
 done
 # 7. kpopquiz.org parity (production read, the only one): base = where the lane forked from o1/integration.
 if [ "$touches_kpop" = true ]; then
-  step parity "$O1/scripts/o1/parity.sh" "$base" "$sha" --evidence "$EV"
+  step parity env O1_KPQ="$(parity_kpq)" "$O1/scripts/o1/parity.sh" "$base" "$sha" --evidence "$EV"
+  [ -f "$RUN/PARITY-OFFLINE" ] && echo "offline (D-025): no production read" > "$EV/parity-mode.txt"
 else
   pending parity "no path outside the anime, hub and run-only folders: parity not needed" skipped
 fi
@@ -153,7 +163,7 @@ if [ -n "$spike" ]; then
       step spike-routes bash -c 'echo "spike branch has no docs/o1/contracts/spike-checks.tsv"; exit 1'
     fi
     spike_base="$("$G" -C "$O1" merge-base o1/integration "$spike_sha")"
-    step spike-parity "$O1/scripts/o1/parity.sh" "$spike_base" "$spike_sha" --evidence "$EV/spike-parity"
+    step spike-parity env O1_KPQ="$(parity_kpq)" "$O1/scripts/o1/parity.sh" "$spike_base" "$spike_sha" --evidence "$EV/spike-parity"
   else
     step spike-routes bash -c 'echo "spike branch '"$spike"' does not exist"; exit 1'
   fi

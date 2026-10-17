@@ -38,13 +38,22 @@ fi
 abort() { "$G" merge --abort >/dev/null 2>&1; out false red "$sha" "$1"; }
 ( cd apps/quiz && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false ) > "$LOG/merge-tsc.log" 2>&1 || abort "tsc on the merged tree: $(grep -m3 'error TS' "$LOG/merge-tsc.log" | tr '\n' ' ')"
 ( cd apps/quiz && ./node_modules/.bin/vitest run ) > "$LOG/merge-unit.log" 2>&1 || abort "unit tests on the merged tree: $(tail -5 "$LOG/merge-unit.log" | tr '\n' ' ')"
+# D-025: while docs/o1/PARITY-OFFLINE exists, parity builds both sides against the offline Supabase (no production
+# read): KPQ for parity.sh points at a stand-in whose kpop-parity.env holds only offline values.
+parity_kpq() {
+  if [ -f "$RUN/PARITY-OFFLINE" ]; then
+    local d="$KPQ/parity-offline"; mkdir -p "$d/secrets"; chmod 700 "$d" "$d/secrets"
+    printf 'NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:9\nNEXT_PUBLIC_SUPABASE_ANON_KEY=o1-offline-anon\nSUPABASE_SERVICE_ROLE_KEY=o1-offline-service\nNEXT_PUBLIC_SITE_URL=https://kpopquiz.org\nNEXT_PUBLIC_SITE_NAME=KpopQuiz\n' > "$d/secrets/kpop-parity.env"
+    chmod 600 "$d/secrets/kpop-parity.env"; echo "$d"
+  else echo "$KPQ"; fi
+}
 neutral='^(docs/|design/|scripts/o1/|scripts/o1-hooks/|scripts/o1-owner-guard\.mjs$|scripts/anime/|apps/quiz/e2e/|apps/quiz/scripts/o1/|apps/quiz/playwright\.o1\.config\.ts$|apps/quiz/src/app/sites/|apps/quiz/src/lib/site/anime/|apps/quiz/src/lib/site/hub/|apps/quiz/src/styles/sites/anime/|apps/quiz/src/styles/sites/hub/)|\.test\.(ts|tsx|mts)$'
 parity="not needed"
 if grep -vE "$neutral" "$LOG/merge-changed.txt" | grep -q .; then
   tmp_tree="$(git write-tree)"
   tmp_commit="$(git commit-tree "$tmp_tree" -p "$before" -p "$sha" -m "o1: parity candidate for $lane")"
-  if "$O1/scripts/o1/parity.sh" "$before" "$tmp_commit" --evidence "$LOG/merge-parity" > "$LOG/merge-parity.log" 2>&1; then
-    parity="identical (base $before, merged tree $tmp_tree)"
+  if O1_KPQ="$(parity_kpq)" "$O1/scripts/o1/parity.sh" "$before" "$tmp_commit" --evidence "$LOG/merge-parity" > "$LOG/merge-parity.log" 2>&1; then
+    parity="identical (base $before, merged tree $tmp_tree)"; [ -f "$RUN/PARITY-OFFLINE" ] && parity="$parity, offline (D-025)"
   else
     abort "parity on the merged tree: $(tail -5 "$LOG/merge-parity.log" | tr '\n' ' ')"
   fi

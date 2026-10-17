@@ -1,0 +1,2 @@
+Parity runs offline (D-025): no production read until the owner confirms that parity.sh may read production
+under rule 5 despite "pas d acces a la prod" (2026-10-17). Remove this file to return to production parity.

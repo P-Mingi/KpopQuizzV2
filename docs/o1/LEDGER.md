@@ -169,6 +169,19 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   3 users created directly in auth.users on 2026-10-17 have NULL confirmation_token, recovery_token,
   email_change_token_new and email_change, so GoTrue's admin listUsers fails ("Database error finding users"); the
   fixture script reads its own users with psql instead. Owner to decide whether those 3 rows get '' in those columns.
+- D-024 Tick 3 (2026-10-17): F0 f83b0d0 and D0 bb643ba keep building (sliced out); Q0a 62cb3b1 returned blocked on its
+  request 21. Answered by CR-008 and CR-009; requests 16 (spike placeholders fail twins: the spike never merges and
+  check.sh only checks the lane tree; O1 and H1 replace them), 17 (check.sh prints pending while no twins.json exists
+  in O1 or the lane, and writes the JSON result into the evidence folder: done), 18 (`distDir` from
+  `O1_NEXT_DIST_DIR` in next.config.ts: queued for ORCH's routing wiring once the file leaves the HOT list), 19 (to
+  B4's brief) recorded.
+- D-025 Production reads paused until the owner answers. His G3 message of 2026-10-17 ends "pas de connecteur et pas
+  d'accès à la prod". Rule 5 lets parity.sh read production (builds with KPQ/secrets/kpop-parity.env, then GETs to
+  two local servers); asked whether that still stands. Until then `docs/o1/PARITY-OFFLINE` exists: gate.sh and
+  merge-lane.sh run parity with both sides built against the offline Supabase (no production read), recorded as
+  "offline (D-025)" in the evidence and the Merge log; Q0a's 4 production runs of D-005 are suspended (offline
+  rehearsals do not count). When the owner says yes, ORCH removes the file and a production parity run of
+  o1/integration catches up before the next merge that reaches kpop.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -181,6 +194,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | proposed, owner to decide |
 | CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | proposed, owner to decide |
 | CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
+| CR-008 | Q0a | Parity normalisations N3 (a Flight client reference `I[<module id>,` reads `I[<id>,` on both sides; export names and chunk lists still compared) and N4 (a page's Flight stream compared as its sorted rows, however it is cut into `self.__next_f.push` tags); the server HTML and every row stay compared. Q0a request 21, option (a): Turbopack gives one client module two ids in two builds, so without them parity says DIFFERENT for any two builds | ORCH ruling under rule 15 (the v12 rule 12 noise list names the order of the streamed page data; module ids are build-internal), R-ARCH checks the tests in Q0a's review | approved 2026-10-17 |
+| CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
 | CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
 
 ## Review verdicts
