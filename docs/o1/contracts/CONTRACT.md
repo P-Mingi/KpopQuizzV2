@@ -20,7 +20,7 @@ CR-002 to CR-006 are not defaults: they stay pending until the owner decides the
 | `routes.md` | route map per site, otakuquiz.org URL scheme, the rewrite design, the "must 404" list | ORCH, B1, O1 to O6, H1, Q0a, D0 | written |
 | `tokens.md` | theme token names, selectors, new tokens | B1, O1, H1, D0 | written |
 | `schema.sql` | DDL shape of every BACKLOG 4.1 object | B2, B3, B4, B5, B7, K1, E1, O3, O5, O6, L1 | written |
-| `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, used only on a local cluster before G3 | F0 scripts, Q0b | written |
+| `schema.base.sql` | not frozen: the stand-in for today's production objects that `schema.sql` builds on, so the scripts run on a local cluster with no file from outside the repository; `check-contract.mts --prod-copy` proves it gives production's contract (G3, 2026-10-17: 0 of 557 objects differ) | F0 scripts, Q0b | written, checked against G3 |
 | `lib/db/contract.types.ts` | generated from `schema.sql` by `gen-contract-types.mts` (never edited by hand); stamped with the sha256 of `schema.sql` | B2 to B7, K1, E1, O3, O5, O6, H1, P1 | written |
 | `manifest.md` | SQL file names, order, owner, transaction mode, production phase, prerequisites, cron schedules | every SQL lane, ORCH (`migrate-dev.sh`) | written |
 | `rpcs.md` | callers, roles and semantics of every function of `schema.sql`; the server modules and component props of BACKLOG 5.1 with their signature types; the projection of another member's row | B1 to B7, E1, K2, O2, O3, O5, O6, H1, P1, X1 | written |
@@ -66,7 +66,10 @@ progress, bank categories). The server modules of BACKLOG 5.1 are frozen as sign
   `--self-test` is the done test (a database built from `schema.sql`: zero diffs; 19 planted differences: each
   reported). `--target db` reads a branch (`scripts/o1/env.sh scratch|dev`) in a read-only transaction;
   `--applied-only` lists a section none of whose new objects exist yet as not applied instead of failing, and
-  requires every object of a section that is partly there.
+  requires every object of a section that is partly there. `--prod-copy <KPQ/prod-public.sql>` (G3) builds the
+  contract on `schema.base.sql` and on production's catalog copy (under the stand-in's platform part and rows) and
+  lists every object whose section, novelty or value differs: rerun it on every new copy of production's schema, and
+  fix `schema.base.sql` (or `schema.sql`, before the tag) where it reports one.
 - Both scripts refuse a database URL that names the production project or lacks the branch ref (exit 5) and never
   print it. Local clusters live under `O1_PG_TMP` (else the OS temp folder) and are deleted at exit.
 

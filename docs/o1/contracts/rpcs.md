@@ -26,7 +26,10 @@ of BACKLOG 5.1.
    `anon` and `authenticated`, then grant exactly the roles of section 2. A function granted to `authenticated` acts on
    `auth.uid()` only and raises when it is null.
 5. **Replaced functions** (008, 010) keep today's signature, return type and ACL (CREATE OR REPLACE keeps the ACL;
-   G3 confirms it); each kpop branch is today's body verbatim. Their callers do not change.
+   confirmed against G3's catalog copy of production on 2026-10-17); each kpop branch is today's body verbatim.
+   Their callers do not change. Where today's ACL leaves EXECUTE to PUBLIC on a SECURITY DEFINER function, the
+   contract records it as it is and request F0-14 puts it to the owner: a production ACL fix is the owner's file,
+   and the contract then follows it without a CR (it records today's state).
 
 ## 2. Database functions
 
@@ -59,13 +62,13 @@ of BACKLOG 5.1.
 
 | function | file | security | EXECUTE | callers |
 |---|---|---|---|---|
-| `award_xp(p_user_id, p_amount, p_reason)` | 008 | definer | as today | today's routes; B3 `awardXpForSite` on kpop |
+| `award_xp(p_user_id, p_amount, p_reason)` | 008 | definer | as today (G3: PUBLIC and service_role; migration 082 revoked anon and authenticated only, request F0-14) | today's routes; B3 `awardXpForSite` on kpop |
 | `record_play(p_quiz_id, p_player_id, p_score, p_total_questions, p_time_taken_seconds)` | 008 | definer | as today | today's play route (shared by anime through its twin) |
 | `increment_like_count(quiz_uuid)` | 008 | definer | as today | today's like route |
 | `decrement_like_count(quiz_uuid)` | 008 | definer | as today | today's like route |
 | `cast_duel_vote(p_question_id, p_option_a_id, p_option_b_id, p_winner_id, p_voter_hash)` | 008 | definer | as today | today's duel route (kpop only in the run) |
-| `record_bt_play(p_player_id, p_mode_id, p_score, p_correct, p_total, p_total_time, p_best_combo, p_songs, p_xp_earned, p_group_mastery_updates)` | 008 | definer | as today | today's blind test route; O6 on anime |
-| `merge_anon_passport(p_user_id, p_quizzes_played, p_blindtests_played, p_duels_voted, p_battles_played, p_group_stats, p_site)` | 008 | definer | as today (anon and authenticated revoked, migration 087; G3 confirms) | today's `/api/passport/merge-anon` (no `p_site`: kpop); on anime the same route passes `SITE.id` (request F0-12: the route has no owner yet) |
+| `record_bt_play(p_player_id, p_mode_id, p_score, p_correct, p_total, p_total_time, p_best_combo, p_songs, p_xp_earned, p_group_mastery_updates)` | 008 | definer | as today (G3: PUBLIC and service_role, request F0-14) | today's blind test route; O6 on anime |
+| `merge_anon_passport(p_user_id, p_quizzes_played, p_blindtests_played, p_duels_voted, p_battles_played, p_group_stats, p_site)` | 008 | definer | as today (G3: PUBLIC and service_role; migration 087 revoked anon and authenticated only, request F0-14) | today's `/api/passport/merge-anon` (no `p_site`: kpop); on anime the same route passes `SITE.id` (request F0-12: the route has no owner yet) |
 | `ensure_daily_quiz(p_date)` | 010 | definer | as today | today's callers; becomes the kpop wrapper of v2 |
 
 ### 2.3 Trigger functions (no EXECUTE grant; the trigger names are frozen)

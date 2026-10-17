@@ -1,17 +1,23 @@
 -- Run O1, o1-contract-v1: STAND-IN for the production objects that schema.sql builds on.
 --
--- NOT part of the contract. It exists only so schema.sql can be loaded on a local throwaway Postgres 18
--- cluster before gate G3 (no production schema dump yet). gen-contract-types.mts and check-contract.mts load
--- this file, then schema.sql, in one transaction. After G3, KPQ/prod-public.sql (the real public schema)
--- replaces this file, and on o1-scratch the branch itself provides these objects.
+-- NOT part of the contract. It lets schema.sql load on a local throwaway Postgres 18 cluster with no file from
+-- outside the repository (the gate's self-test). gen-contract-types.mts and check-contract.mts load this file,
+-- then schema.sql, in one transaction; on o1-scratch the branch itself provides these objects.
+--
+-- G3 (2026-10-17): `check-contract.mts --prod-copy KPQ/prod-public.sql` builds the contract twice, on this file
+-- and on its platform part + production's catalog copy + its rows, and lists every contract object that differs.
+-- First run: 557 objects, two base facts this file had wrong, both fixed here (quiz_bank has no category check;
+-- migration 082 revoked anon and authenticated EXECUTE on award_xp); since then 0 differences. Rerun it on every
+-- new copy of production's schema.
 --
 -- What it holds: the Supabase roles, schemas and default privileges; auth.users with auth.uid() and auth.role();
 -- every public table that schema.sql alters or references, with only the columns schema.sql reads (views, FKs,
--- checks it widens or drops); the existing functions that 008 and 010 replace, with today's signature and ACL as
--- the repository records them (migrations 009, 042, 068 to 092, 081, 087, 105, r1-rls-tighten); two rows that
--- 009 and the fixtures need (the kpop system profile and the general-kpop group). Column lists, constraint names
--- and ACLs here are the repository's view of production: G3's dump is the authority, and a difference found
--- then is fixed here (and in schema.sql if it touches a frozen object) without a CR.
+-- checks it widens or drops); the existing functions that 008 and 010 replace, with today's signature and ACL
+-- (migrations 009, 042, 068 to 092, 081, 082, 087, 105, r1-rls-tighten, checked by G3); two rows that
+-- 009 and the fixtures need (the kpop system profile and the general-kpop group, with the columns production
+-- requires). Column lists, constraint names and ACLs here follow production's catalog copy (G3): a difference
+-- `--prod-copy` reports is fixed here (and in schema.sql if it touches a frozen object) without a CR. `--prod-copy`
+-- splits this file on its two section markers ("-- Public tables" and "-- Rows"): keep both lines as they are.
 --
 -- Never load this file on a Supabase branch or on production.
 
@@ -75,6 +81,8 @@ create table public.groups (
   id serial primary key,
   name text unique not null,
   slug text unique not null,
+  display_color text not null,
+  text_color text not null,
   needs_review boolean not null default false,
   created_at timestamptz not null default now()
 );
@@ -106,8 +114,7 @@ create table public.trivia (
 create table public.quiz_bank (
   id uuid primary key default gen_random_uuid(),
   group_id integer references public.groups(id),
-  category text not null constraint quiz_bank_category_check
-    check (category in ('group_specific','knowledge','true_false','fun','era')),
+  category text not null,
   scheduled_date date constraint quiz_bank_scheduled_date_key unique,
   status text not null default 'draft'
 );
@@ -163,6 +170,7 @@ create table public.entity_sources (
 -- Existing functions that 008 and 010 replace (today's signatures; stub bodies; ACL as the repo records it) --
 create function public.award_xp(p_user_id uuid, p_amount integer, p_reason text) returns integer
   language plpgsql security definer as $$ begin return null; end $$;
+revoke execute on function public.award_xp(uuid, integer, text) from anon, authenticated;
 create function public.record_play(p_quiz_id uuid, p_player_id uuid, p_score integer, p_total_questions integer, p_time_taken_seconds integer)
   returns table (play_id uuid, percentile integer) language plpgsql security definer as $$ begin return; end $$;
 create function public.handle_new_quiz() returns trigger language plpgsql security definer as $$ begin return new; end $$;
@@ -193,4 +201,4 @@ insert into auth.users (id, email, email_confirmed_at) values
   ('00000000-0000-0000-0000-000000000001', 'team@kpopquiz.invalid', now());
 insert into public.profiles (id, username, display_name) values
   ('00000000-0000-0000-0000-000000000001', 'kpopquizz', 'KpopQuizz Team');
-insert into public.groups (name, slug) values ('General K-pop', 'general-kpop');
+insert into public.groups (name, slug, display_color, text_color) values ('General K-pop', 'general-kpop', '#F1EFE8', '#444441');

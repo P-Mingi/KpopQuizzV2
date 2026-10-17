@@ -12,7 +12,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import {
-  checkUnion, compareContract, contractFrom, functionsNamed, renderTypes, splitSections, stampOf, tsType,
+  BASE_PUBLIC_MARKER, BASE_ROWS_MARKER, PROD_COPY_RESET, baseParts, checkUnion, compareContract, compareContracts,
+  contractFrom, formatDelta, functionsNamed, renderTypes, splitSections, stampOf, tsType,
 } from '../../../scripts/o1/contract/lib';
 import {
   ANIME_BANK_CATEGORIES, ANIME_SPOILER_STORE_KEY, SPOILER_SCOPES, SPOILER_SHOW_ALL,
@@ -955,6 +956,33 @@ describe('contract database tools (scripts/o1/contract/lib.ts)', () => {
     expect(text).toContain("  'public.t': {\n    site_id: string;\n  };");
     expect(text).toContain('  f: {\n    Args: Record<string, never>;\n    Returns: number | null;');
     expect(text).toContain("export type TableRow<K extends keyof ContractTables> = ContractTables[K]['Row'];");
+  });
+
+  it('splits schema.base.sql into the platform part, the public stand-ins and the rows (--prod-copy, G3)', () => {
+    const sql = read(`${CONTRACTS}schema.base.sql`);
+    const parts = baseParts(sql);
+    expect(parts.platform + parts.publicStandIn + parts.rows).toBe(sql);
+    expect(parts.publicStandIn.startsWith(BASE_PUBLIC_MARKER)).toBe(true);
+    expect(parts.rows.startsWith(BASE_ROWS_MARKER)).toBe(true);
+    expect(parts.platform).toContain('create table if not exists auth.users');
+    expect(parts.platform).not.toMatch(/create (table|function) public\./);
+    expect(parts.rows).not.toMatch(/create (table|function)/);
+    expect(() => baseParts(sql.replace(BASE_ROWS_MARKER, '-- rows'))).toThrow(/markers/);
+    expect(() => baseParts(`${BASE_ROWS_MARKER}\n${BASE_PUBLIC_MARKER}\n`)).toThrow(/markers/);
+    expect(PROD_COPY_RESET).toMatch(/reset check_function_bodies;\nreset search_path;/);
+  });
+
+  it('compares two contracts object by object: only in one, another section, novelty or value', () => {
+    const other = contractFrom([base, s1, s2], sections);
+    expect(compareContracts(contract, other)).toEqual([]);
+    const items = contract.items.map((i) => (i.key === 'fn:public.f()' ? { ...i, v: { ...i.v!, acl: ['PUBLIC:EXECUTE', 'service_role:EXECUTE'] } } : i));
+    const moved = items.map((i) => (i.key === 'rel:public.n' ? { ...i, isNew: false } : i)).filter((i) => i.key !== 'col:public.n.kind');
+    const deltas = compareContracts(contract, { items: moved, files: contract.files });
+    expect(deltas.map((d) => `${d.kind} ${d.key}`)).toEqual(['onlyA col:public.n.kind', 'differs fn:public.f()', 'differs rel:public.n']);
+    const text = deltas.map((d) => formatDelta(d, ['stand-in', 'prod-copy']));
+    expect(text[1]).toBe('differs  fn:public.f()  acl: stand-in ["service_role:EXECUTE"], prod-copy ["PUBLIC:EXECUTE","service_role:EXECUTE"]');
+    expect(text[2]).toBe('differs  rel:public.n  isNew: stand-in true, prod-copy false');
+    expect(compareContracts({ items: [], files: [] }, contract).every((d) => d.kind === 'onlyB')).toBe(true);
   });
 });
 

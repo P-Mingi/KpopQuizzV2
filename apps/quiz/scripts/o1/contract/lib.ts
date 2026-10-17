@@ -262,6 +262,62 @@ export function formatDiff(d: Diff): string {
 }
 
 // ---------------------------------------------------------------------------------------------
+// The stand-in base against production's catalog copy (gate G3)
+
+/** Markers of schema.base.sql: the platform stand-in (roles, schemas, auth, storage) ends where the public stand-ins begin. */
+export const BASE_PUBLIC_MARKER = '-- Public tables (only what schema.sql reads)';
+export const BASE_ROWS_MARKER = '-- Rows schema.sql and the fixtures need';
+
+/**
+ * Splits schema.base.sql into its platform part (what a copy of production's public schema needs
+ * under it: the Supabase roles, schemas, default privileges, auth and storage), its public stand-ins
+ * and its rows. Throws when a marker is missing or out of order.
+ */
+export function baseParts(baseSql: string): { platform: string; publicStandIn: string; rows: string } {
+  const p = baseSql.indexOf(`\n${BASE_PUBLIC_MARKER}`);
+  const r = baseSql.indexOf(`\n${BASE_ROWS_MARKER}`);
+  if (p < 0 || r < 0 || r < p) throw new Error('schema.base.sql: the public and rows markers are missing or out of order');
+  return { platform: baseSql.slice(0, p + 1), publicStandIn: baseSql.slice(p + 1, r + 1), rows: baseSql.slice(r + 1) };
+}
+
+/** Loaded right after production's catalog copy: undoes the session settings the copy sets before schema.sql loads. */
+export const PROD_COPY_RESET = 'reset check_function_bodies;\nreset search_path;\nreset client_min_messages;\n';
+
+export interface ContractDelta {
+  readonly key: string;
+  /** Only in the first contract, only in the second, or in both with a different section, novelty or value. */
+  readonly kind: 'onlyA' | 'onlyB' | 'differs';
+  readonly a?: ContractItem;
+  readonly b?: ContractItem;
+}
+
+/** Item-by-item difference of two contracts built from the same schema.sql on two bases. */
+export function compareContracts(a: Contract, b: Contract): ContractDelta[] {
+  const am = new Map(a.items.map((i) => [i.key, i]));
+  const bm = new Map(b.items.map((i) => [i.key, i]));
+  const out: ContractDelta[] = [];
+  for (const key of [...new Set([...am.keys(), ...bm.keys()])].sort()) {
+    const x = am.get(key);
+    const y = bm.get(key);
+    if (x && !y) out.push({ key, kind: 'onlyA', a: x });
+    else if (y && !x) out.push({ key, kind: 'onlyB', b: y });
+    else if (x && y && stable(x) !== stable(y)) out.push({ key, kind: 'differs', a: x, b: y });
+  }
+  return out;
+}
+
+export function formatDelta(d: ContractDelta, labels: readonly [string, string]): string {
+  if (d.kind === 'onlyA') return `${labels[0]} only  ${d.key}  (${d.a!.file})`;
+  if (d.kind === 'onlyB') return `${labels[1]} only  ${d.key}  (${d.b!.file})`;
+  const fields = ['file', 'isNew'].filter((f) => stable((d.a as unknown as Record<string, unknown>)[f]) !== stable((d.b as unknown as Record<string, unknown>)[f]));
+  const v = Object.keys({ ...(d.a!.v ?? {}), ...(d.b!.v ?? {}) }).sort()
+    .filter((f) => stable(d.a!.v?.[f]) !== stable(d.b!.v?.[f]))
+    .map((f) => `${f}: ${labels[0]} ${stable(d.a!.v?.[f])}, ${labels[1]} ${stable(d.b!.v?.[f])}`);
+  const head = fields.map((f) => `${f}: ${labels[0]} ${stable((d.a as unknown as Record<string, unknown>)[f])}, ${labels[1]} ${stable((d.b as unknown as Record<string, unknown>)[f])}`);
+  return `differs  ${d.key}  ${[...head, ...v].join('; ')}`;
+}
+
+// ---------------------------------------------------------------------------------------------
 // TypeScript types of the contract objects
 
 /** Literal union of a single-column `col IN (...)` text check, as Postgres prints it; null otherwise. */

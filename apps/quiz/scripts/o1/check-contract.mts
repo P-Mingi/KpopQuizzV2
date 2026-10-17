@@ -19,10 +19,15 @@
  *       diffs the branch database (read-only transaction) against the contract built locally. With
  *       --applied-only, a section none of whose new objects exist yet is listed as not applied instead of
  *       failing (a lane's file not applied yet); a section that is partly there must be complete.
- *   Common: --base-file <sql> (repeatable; default schema.base.sql; after G3 the stand-in roles plus the
- *   production dump), --json (machine output on stdout).
+ *   ... check-contract.mts --prod-copy <KPQ/prod-public.sql>
+ *       local only (gate G3): builds the contract twice, on the base files and on the platform part of
+ *       schema.base.sql + production's catalog copy + the rows of schema.base.sql, and lists every
+ *       contract object whose section, novelty or value differs. Exit 0 when none does: the stand-in
+ *       gives production's contract. The copy is read in place, never written into the repository.
+ *   Common: --base-file <sql> (repeatable; default schema.base.sql), --json (machine output on stdout).
  *
- * Exit codes: 0 zero diffs (or self-test passed), 1 diffs (or self-test failed), 2 usage, 3 load error,
+ * Exit codes: 0 zero diffs (or self-test passed, or no object differs with --prod-copy), 1 diffs (or self-test
+ * failed, or an object differs), 2 usage, 3 load error,
  * 5 refused (a URL that names the production project or lacks the branch ref). The URL is never printed.
  */
 
@@ -30,7 +35,9 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { CONTRACT_SCHEMAS, compareContract, contractFrom, formatDiff } from './contract/lib.ts';
+import {
+  CONTRACT_SCHEMAS, PROD_COPY_RESET, baseParts, compareContract, compareContracts, contractFrom, formatDelta, formatDiff,
+} from './contract/lib.ts';
 import {
   GuardError, branchConn, buildDatabase, loadRolledBack, snapshotOf, snapshotWith, startCluster, workDir,
 } from './contract/pg.ts';
@@ -72,7 +79,7 @@ export const PLANTED: readonly { readonly name: string; readonly sql: string; re
 ];
 
 function usage(msg: string): never {
-  console.error(`check-contract: ${msg}\nusage: check-contract.mts --self-test | --target local [--plant <sql>] | --target db [--applied-only]  [--base-file <sql>]... [--json]`);
+  console.error(`check-contract: ${msg}\nusage: check-contract.mts --self-test | --target local [--plant <sql>] | --target db [--applied-only] | --prod-copy <sql>  [--base-file <sql>]... [--json]`);
   process.exit(2);
 }
 
@@ -82,6 +89,7 @@ let target: 'local' | 'db' | null = null;
 let appliedOnly = false;
 let json = false;
 let plant: string | null = null;
+let prodCopy: string | null = null;
 const baseFiles: string[] = [];
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
@@ -90,10 +98,11 @@ for (let i = 0; i < args.length; i++) {
   else if (a === '--applied-only') appliedOnly = true;
   else if (a === '--json') json = true;
   else if (a === '--plant') { const v = args[++i]; if (!v || !existsSync(v)) usage(`no such file ${v ?? ''}`); plant = v; }
+  else if (a === '--prod-copy') { const v = args[++i]; if (!v || !existsSync(v)) usage(`no such copy ${v ?? ''}`); prodCopy = v; }
   else if (a === '--base-file') { const v = args[++i]; if (!v || !existsSync(v)) usage(`no such base file ${v ?? ''}`); baseFiles.push(v); }
   else usage(`unknown argument ${a}`);
 }
-if (selfTest === (target !== null)) usage('give --self-test or --target');
+if ([selfTest, target !== null, prodCopy !== null].filter(Boolean).length !== 1) usage('give one of --self-test, --target, --prod-copy');
 if (plant && target !== 'local') usage('--plant goes with --target local');
 if (appliedOnly && target !== 'db') usage('--applied-only goes with --target db');
 if (baseFiles.length === 0) baseFiles.push(BASE);
@@ -110,6 +119,30 @@ async function main(): Promise<number> {
   const work = workDir();
   const cluster = await startCluster();
   try {
+    if (prodCopy) {
+      // The same schema.sql on the stand-in and on production's copy (under the stand-in's platform part and rows).
+      const parts = baseParts(readFileSync(BASE, 'utf8'));
+      const platform = join(work, 'base-platform.sql');
+      const reset = join(work, 'base-reset.sql');
+      const rows = join(work, 'base-rows.sql');
+      writeFileSync(platform, parts.platform);
+      writeFileSync(reset, PROD_COPY_RESET);
+      writeFileSync(rows, parts.rows);
+      cluster.createDb('standin');
+      cluster.createDb('prodcopy');
+      const s = loadRolledBack(cluster.conn('standin'), baseFiles, schemaSql, CONTRACT_SCHEMAS, work);
+      const p = loadRolledBack(cluster.conn('prodcopy'), [platform, prodCopy, reset, rows], schemaSql, CONTRACT_SCHEMAS, work);
+      const a = contractFrom(s.snaps, s.sections);
+      const b = contractFrom(p.snaps, p.sections);
+      const deltas = compareContracts(a, b);
+      if (json) console.log(JSON.stringify({ ok: deltas.length === 0, standIn: a.items.length, prodCopy: b.items.length, deltas }, null, 2));
+      else {
+        console.log(`local Postgres ${cluster.version}; contract on the stand-in: ${a.items.length} objects, on production's copy: ${b.items.length} objects`);
+        console.log(`${deltas.length} contract object(s) differ`);
+        for (const d of deltas) console.log(`  ${formatDelta(d, ['stand-in', 'prod-copy'])}`);
+      }
+      return deltas.length === 0 ? 0 : 1;
+    }
     cluster.createDb('reference');
     const loaded = loadRolledBack(cluster.conn('reference'), baseFiles, schemaSql, CONTRACT_SCHEMAS, work);
     const contract: Contract = contractFrom(loaded.snaps, loaded.sections);

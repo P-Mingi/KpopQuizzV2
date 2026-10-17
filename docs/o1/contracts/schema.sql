@@ -480,7 +480,8 @@ grant execute on function public.set_passport_prefs(jsonb) to authenticated;
 -- @file 008-write-locks
 -- owner B5; BACKLOG 4.1 rows 16, 17, 18 (all DANGEROUS: two R-SQL reviewers; rollback per function from
 -- pg_get_functiondef); tx single; production phase pre-T14.
--- Signatures, return types and SECURITY modes are today's (BACKLOG 5.3; read from the repository, G3 confirms).
+-- Signatures, return types, SECURITY modes and ACLs are today's (BACKLOG 5.3; confirmed by G3's catalog copy of
+-- production, 2026-10-17).
 -- CREATE OR REPLACE keeps each ACL as it is in production; merge_anon_passport is dropped and created in the same
 -- transaction with its ACL restored. Each kpop branch is today's body verbatim; the non-kpop branch writes world
 -- counters through 007. Existing triggers keep their names: on_quiz_insert (handle_new_quiz),
@@ -518,22 +519,25 @@ create function public.merge_anon_passport(p_user_id uuid, p_quizzes_played inte
   p_duels_voted integer, p_battles_played integer, p_group_stats jsonb, p_site text default 'kpop')
   returns boolean
   language plpgsql security definer as $$ begin raise exception 'o1-contract stub'; end $$;
--- ACL restored as production has it (repo: migration 087 revoked anon and authenticated; G3 confirms).
+-- ACL restored as production has it (G3: migration 087 revoked anon and authenticated; PUBLIC and service_role keep
+-- EXECUTE, which request F0-13 puts to the owner).
 revoke execute on function public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) from anon, authenticated;
 
 -- =============================================================================================================
 -- @file 009-daily-prep
 -- owner B5; BACKLOG 4.1 rows 20, 21, 22; tx none (the two unique indexes CONCURRENTLY; the check NOT VALID then
 -- VALIDATE); production phase pre-T14, in one owner session with the app deploy and 010 (BACKLOG 4.3 item 4).
--- The live name of today's category check comes from G3; the real file drops it and creates
--- quiz_bank_category_check with the kpop values plus the anime categories of S 4.4.
+-- G3 (production catalog, 2026-10-17): quiz_bank has no category check today (migration 018 lists the five kpop
+-- values in a comment only). The real file creates quiz_bank_category_check with the kpop values plus the anime
+-- categories of S 4.4, NOT VALID then VALIDATE (its verify query lists any production category outside the list
+-- first); the guarded drop keeps it re-runnable.
 -- =============================================================================================================
 alter table public.sites add column system_user_id uuid constraint sites_system_user_id_fkey references public.profiles(id);
 alter table public.sites add column fallback_group_slug text;
 update public.sites set system_user_id = '00000000-0000-0000-0000-000000000001', fallback_group_slug = 'general-kpop' where id = 'kpop';
 create unique index quiz_bank_site_date on public.quiz_bank (site_id, scheduled_date);
 create unique index qotd_log_site_date on public.qotd_log (site_id, featured_date);
-alter table public.quiz_bank drop constraint quiz_bank_category_check;
+alter table public.quiz_bank drop constraint if exists quiz_bank_category_check;
 alter table public.quiz_bank add constraint quiz_bank_category_check check (category in (
   'group_specific', 'knowledge', 'true_false', 'fun', 'era',
   'series_specific', 'who_am_i', 'name_the_series', 'music', 'creators_studios', 'odd_one_out', 'crossover'));
@@ -776,7 +780,9 @@ create index editorial_drafts_review_batch_idx on public.editorial_drafts (revie
 -- =============================================================================================================
 -- @file 013-formats
 -- owner O5; BACKLOG 4.1 row 27; tx single; production phase pre-after-V0. personality_profiles.site_id is in
--- 002a (M2's inventory). The live name of a games type check comes from G3; the real file widens it.
+-- 002a (M2's inventory). G3 (production catalog, 2026-10-17): games has no game_type check today; the real file
+-- creates games_game_type_check NOT VALID then VALIDATE (its verify query lists any production type outside the
+-- list first); the guarded drop keeps it re-runnable.
 -- =============================================================================================================
 alter table public.personality_profiles add column character_id integer
   constraint personality_profiles_character_id_fkey references public.characters(id) on delete set null;
