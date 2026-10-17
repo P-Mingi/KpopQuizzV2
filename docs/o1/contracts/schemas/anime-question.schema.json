@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "anime-question.schema.json",
+  "title": "Run O1: one anime question as stored in quizzes.questions (BACKLOG 5.1, S 3.3 to 3.5, formats.md 2)",
+  "description": "The engine's shape of today (multiple choice, true or false, guess from clues, intruder with text labels; no image type on anime) plus the tags kind, spoiler, fact_ids and source_url. lib/anime/types.ts AnimeQuestion is the same shape.",
+  "oneOf": [
+    { "$ref": "#/$defs/multipleChoice" },
+    { "$ref": "#/$defs/trueFalse" },
+    { "$ref": "#/$defs/guessFromClues" },
+    { "$ref": "#/$defs/intruder" }
+  ],
+  "$defs": {
+    "kind": { "enum": ["character", "quote", "arc", "episode", "music", "ability", "production", "manga", "odd_one_out", "lore"] },
+    "question": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 },
+    "option": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 },
+    "funFact": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 },
+    "factIds": { "type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/factId" } },
+    "index4": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "options4": { "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/option" } },
+    "multipleChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "options", "correct", "kind", "spoiler"],
+      "properties": {
+        "question": { "$ref": "#/$defs/question" },
+        "options": { "$ref": "#/$defs/options4" },
+        "correct": { "$ref": "#/$defs/index4" },
+        "fun_fact": { "$ref": "#/$defs/funFact" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" },
+        "fact_ids": { "$ref": "#/$defs/factIds" },
+        "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" }
+      }
+    },
+    "trueFalse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "correct", "kind", "spoiler"],
+      "properties": {
+        "question": { "$ref": "#/$defs/question" },
+        "correct": { "type": "boolean" },
+        "fun_fact": { "$ref": "#/$defs/funFact" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" },
+        "fact_ids": { "$ref": "#/$defs/factIds" },
+        "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" }
+      }
+    },
+    "guessFromClues": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "clues", "options", "correct", "kind", "spoiler"],
+      "properties": {
+        "question": { "$ref": "#/$defs/question" },
+        "clues": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 160 } },
+        "options": { "$ref": "#/$defs/options4" },
+        "correct": { "$ref": "#/$defs/index4" },
+        "fun_fact": { "$ref": "#/$defs/funFact" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" },
+        "fact_ids": { "$ref": "#/$defs/factIds" },
+        "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" }
+      }
+    },
+    "intruder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "options", "correct", "kind", "spoiler"],
+      "properties": {
+        "question": { "$ref": "#/$defs/question" },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$comment": "A text label only: no image_url on anime (S 3.4 rule 1, check C14).",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label"],
+            "properties": { "label": { "$ref": "#/$defs/option" } }
+          }
+        },
+        "correct": { "$ref": "#/$defs/index4" },
+        "fun_fact": { "$ref": "#/$defs/funFact" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" },
+        "fact_ids": { "$ref": "#/$defs/factIds" },
+        "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" }
+      }
+    },
+    "teamQuestion": {
+      "$comment": "A question of a Team account: fact_ids and source_url are required (S 3.4 rule 8).",
+      "allOf": [{ "$ref": "#" }, { "required": ["fact_ids", "source_url"] }]
+    },
+    "quizType": { "$comment": "quizzes.quiz_type without image (S 3.4 rule 1).", "enum": ["multiple_choice", "true_false", "guess_from_clues", "intruder"] },
+    "quizTypeAgreement": {
+      "$comment": "Every question of a quiz has the shape of the quiz's quiz_type.",
+      "allOf": [
+        { "if": { "required": ["quiz_type"], "properties": { "quiz_type": { "const": "multiple_choice" } } }, "then": { "properties": { "questions": { "items": { "$ref": "#/$defs/multipleChoice" } } } } },
+        { "if": { "required": ["quiz_type"], "properties": { "quiz_type": { "const": "true_false" } } }, "then": { "properties": { "questions": { "items": { "$ref": "#/$defs/trueFalse" } } } } },
+        { "if": { "required": ["quiz_type"], "properties": { "quiz_type": { "const": "guess_from_clues" } } }, "then": { "properties": { "questions": { "items": { "$ref": "#/$defs/guessFromClues" } } } } },
+        { "if": { "required": ["quiz_type"], "properties": { "quiz_type": { "const": "intruder" } } }, "then": { "properties": { "questions": { "items": { "$ref": "#/$defs/intruder" } } } } }
+      ]
+    }
+  }
+}

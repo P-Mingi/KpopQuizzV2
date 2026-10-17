@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review-packet.schema.json",
+  "title": "Run O1: a review packet for the owner (E1's generator, S 4.3 step 6 and the review protocol, formats.md 12)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "lane", "label", "format", "created_at", "items", "facts", "sample", "flagged"],
+  "properties": {
+    "site": { "$ref": "common.schema.json#/$defs/contentSite" },
+    "lane": { "type": "string", "pattern": "^[A-Z][0-9][a-z]?$" },
+    "label": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 80 },
+    "format": {
+      "$comment": "The format of every item of the batch; series-data is K1's sheet rows (arcs, characters, themes, header values).",
+      "enum": ["fact", "quiz-draft", "daily-bank-row", "creator-profile", "playlist", "which-character-questions", "which-character-set", "name-all-set", "this-or-that-bracket", "crossover-entry", "series-data"]
+    },
+    "created_at": { "$ref": "common.schema.json#/$defs/isoDateTime" },
+    "items": {
+      "$comment": "A batch: review_batches.size is 1 to 50 (batches of 10 by default, S 4.3).",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "title", "file", "fact_ids", "checks"],
+        "properties": {
+          "ref": { "type": "string", "pattern": "^[A-Za-z0-9._:/-]{1,120}$" },
+          "title": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 160 },
+          "file": { "$ref": "common.schema.json#/$defs/repoJsonPath" },
+          "fact_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/factId" } },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["code", "pass"],
+              "properties": {
+                "code": { "$ref": "common.schema.json#/$defs/checkCode" },
+                "pass": { "type": "boolean" },
+                "note": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "facts": { "$comment": "Every fact the items cite, side by side with them.", "type": "array", "items": { "$ref": "fact.schema.json" } },
+    "sample": {
+      "$comment": "The random sample the reviewer reads in full (25% of the questions of a batch, S 4.3).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fraction", "seed", "refs"],
+      "properties": {
+        "fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+        "seed": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "refs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Za-z0-9._:/-]{1,120}(?:#[0-9]{1,2})?$" } }
+      }
+    },
+    "flagged": {
+      "$comment": "What the reviewer reads in any case: titles, spoiler labels and every flagged item (S 4.3).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "codes", "reason"],
+        "properties": {
+          "ref": { "type": "string", "pattern": "^[A-Za-z0-9._:/-]{1,120}(?:#[0-9]{1,2})?$" },
+          "codes": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/checkCode" } },
+          "reason": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 }
+        }
+      }
+    },
+    "review": {
+      "$comment": "Written when the owner or the named reviewer has read the packet (review_batches status, reviewed_by, reviewed_at, errors).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewed_at", "errors"],
+      "properties": {
+        "status": { "enum": ["approved", "rejected", "partial"] },
+        "reviewer": { "$ref": "common.schema.json#/$defs/username" },
+        "reviewed_at": { "$ref": "common.schema.json#/$defs/isoDateTime" },
+        "errors": { "type": "integer", "minimum": 0 },
+        "notes": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 1000 }
+      },
+      "allOf": [
+        { "$comment": "Two errors in the sample send the whole batch back (S 4.3).", "if": { "properties": { "errors": { "minimum": 2 } } }, "then": { "properties": { "status": { "const": "rejected" } } } }
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "name-all-set.schema.json",
+  "title": "Run O1: a Name them all character set (games row of type name_all_characters, /name-all/{series}/{set}, formats.md 9)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "group_slug", "set", "title", "members", "timer_seconds", "difficulty", "spoiler"],
+  "properties": {
+    "site": { "const": "anime" },
+    "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "set": { "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "$comment": "S 2.10: Name All the {Set}.", "$ref": "common.schema.json#/$defs/plainText", "minLength": 5, "maxLength": 100 },
+    "members": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["character_slug", "name", "spellings"],
+        "properties": {
+          "character_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
+          "spellings": { "$comment": "Other accepted answers (the kpop NameAllMember.spellings).", "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 } }
+        }
+      }
+    },
+    "timer_seconds": { "type": "integer", "minimum": 30, "maximum": 900 },
+    "difficulty": { "$ref": "common.schema.json#/$defs/difficulty" },
+    "spoiler": { "$comment": "S 1 table: spoiler-tagged where the set itself spoils.", "$ref": "common.schema.json#/$defs/spoiler" }
+  }
+}

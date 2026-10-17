@@ -62,9 +62,13 @@ export const MIN_OSHI_PICKS = 30;
 // 2. Questions (S 3.3 to 3.5, BACKLOG 5.1)
 // ---------------------------------------------------------------------------------------------------------------
 
-/** The per-question kind tag (S 3.3); no new engine type. A new kind is a CR (an optional format field, 5.2). */
+/**
+ * The per-question kind tag (S 3.3); no new engine type. `lore` (the rules and terms of the story's world) is the
+ * kind S 4.7's sample quiz uses for three questions, which E1's done test must pass (F0 decision 75). A new kind is a
+ * CR (an optional format field, 5.2). formats.md 2 and `anime-question.schema.json` list the same values.
+ */
 export const ANIME_QUESTION_KINDS = [
-  'character', 'quote', 'arc', 'episode', 'music', 'ability', 'production', 'manga', 'odd_one_out',
+  'character', 'quote', 'arc', 'episode', 'music', 'ability', 'production', 'manga', 'odd_one_out', 'lore',
 ] as const;
 export type AnimeQuestionKind = (typeof ANIME_QUESTION_KINDS)[number];
 

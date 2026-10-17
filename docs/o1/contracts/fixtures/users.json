@@ -1,0 +1,530 @@
+{
+  "$comment": "Run O1 contract, fixtures.md 2: the fixture accounts of the dev branches. Created by the owner with sh O1/scripts/o1/fixtures.sh (gate G2), which runs apps/quiz/scripts/o1/fixtures/run.mts (ORCH, LEDGER D-023) and writes the ids to docs/o1/fixtures-<branch>.json; this file is the contract that script and the tests share (contract.test.ts compares them). sites: the memberships the account has once the SQL lanes ran on the branch.",
+  "email": "o1-fixture-{key with each underscore replaced by a hyphen}@example.com",
+  "users": [
+    {
+      "key": "kpop_only",
+      "username": "o1_kpop_only",
+      "display_name": "Fixture Kpop Only",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {},
+      "sites": [
+        "kpop"
+      ],
+      "purpose": "A kpopquiz.org member who never joined another site: every kpop DOM and parity check signed in, and the B6 menu stays hidden."
+    },
+    {
+      "key": "kpop_heavy",
+      "username": "o1_kpop_heavy",
+      "display_name": "Fixture Kpop Heavy",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {
+        "bio": "Fixture account of run O1.",
+        "bias": "Fixture bias",
+        "xp": 12000,
+        "stan_since": 2019
+      },
+      "sites": [
+        "kpop"
+      ],
+      "purpose": "A heavy kpop member (bias, bio, high XP; ult_groups and header once the branch has group rows): the string leak test (P2) signs in with it on anime and must see no K-pop text."
+    },
+    {
+      "key": "dual",
+      "username": "o1_dual",
+      "display_name": "Fixture Dual Member",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {},
+      "sites": [
+        "kpop",
+        "anime"
+      ],
+      "purpose": "A member of both sites: the Your sites menu, the hub passport with two worlds, the jump between sites."
+    },
+    {
+      "key": "anime_new",
+      "username": "o1_anime_new",
+      "display_name": "Fixture Anime New",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {},
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A new otakuquiz.org member with no kpop membership: the welcome card cases, the anime /me and /u, and no K-pop text anywhere."
+    },
+    {
+      "key": "banned",
+      "username": "o1_banned",
+      "display_name": "Fixture Banned",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {
+        "banned_at": "2026-10-01T00:00:00.000Z"
+      },
+      "sites": [
+        "kpop"
+      ],
+      "purpose": "profiles.banned_at set: the handoff answers banned, /auth/confirm signs out, nothing is written for it."
+    },
+    {
+      "key": "unconfirmed",
+      "username": "o1_unconfirmed",
+      "display_name": "Fixture Unconfirmed",
+      "kind": "user",
+      "confirmed": false,
+      "profile": null,
+      "sites": [],
+      "purpose": "An auth user whose email is not confirmed and who has no profile, like a real unconfirmed sign-up: the unconfirmed handoff outcome."
+    },
+    {
+      "key": "admin_reviewer",
+      "username": "o1_admin_reviewer",
+      "display_name": "Fixture Admin Reviewer",
+      "kind": "user",
+      "confirmed": true,
+      "profile": {},
+      "sites": [
+        "kpop"
+      ],
+      "purpose": "The admin of the dev servers (ADMIN_USER_IDS, added by scripts/o1/env.sh): /admin/review, /admin/network."
+    },
+    {
+      "key": "creator_01",
+      "username": "oq_creator_01",
+      "display_name": "OtakuQuiz Creator 01",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_02",
+      "username": "oq_creator_02",
+      "display_name": "OtakuQuiz Creator 02",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_03",
+      "username": "oq_creator_03",
+      "display_name": "OtakuQuiz Creator 03",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_04",
+      "username": "oq_creator_04",
+      "display_name": "OtakuQuiz Creator 04",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_05",
+      "username": "oq_creator_05",
+      "display_name": "OtakuQuiz Creator 05",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_06",
+      "username": "oq_creator_06",
+      "display_name": "OtakuQuiz Creator 06",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_07",
+      "username": "oq_creator_07",
+      "display_name": "OtakuQuiz Creator 07",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_08",
+      "username": "oq_creator_08",
+      "display_name": "OtakuQuiz Creator 08",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_09",
+      "username": "oq_creator_09",
+      "display_name": "OtakuQuiz Creator 09",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_10",
+      "username": "oq_creator_10",
+      "display_name": "OtakuQuiz Creator 10",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_11",
+      "username": "oq_creator_11",
+      "display_name": "OtakuQuiz Creator 11",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_12",
+      "username": "oq_creator_12",
+      "display_name": "OtakuQuiz Creator 12",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_13",
+      "username": "oq_creator_13",
+      "display_name": "OtakuQuiz Creator 13",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_14",
+      "username": "oq_creator_14",
+      "display_name": "OtakuQuiz Creator 14",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_15",
+      "username": "oq_creator_15",
+      "display_name": "OtakuQuiz Creator 15",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_16",
+      "username": "oq_creator_16",
+      "display_name": "OtakuQuiz Creator 16",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_17",
+      "username": "oq_creator_17",
+      "display_name": "OtakuQuiz Creator 17",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_18",
+      "username": "oq_creator_18",
+      "display_name": "OtakuQuiz Creator 18",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_19",
+      "username": "oq_creator_19",
+      "display_name": "OtakuQuiz Creator 19",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_20",
+      "username": "oq_creator_20",
+      "display_name": "OtakuQuiz Creator 20",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_21",
+      "username": "oq_creator_21",
+      "display_name": "OtakuQuiz Creator 21",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_22",
+      "username": "oq_creator_22",
+      "display_name": "OtakuQuiz Creator 22",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_23",
+      "username": "oq_creator_23",
+      "display_name": "OtakuQuiz Creator 23",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_24",
+      "username": "oq_creator_24",
+      "display_name": "OtakuQuiz Creator 24",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_25",
+      "username": "oq_creator_25",
+      "display_name": "OtakuQuiz Creator 25",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_26",
+      "username": "oq_creator_26",
+      "display_name": "OtakuQuiz Creator 26",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_27",
+      "username": "oq_creator_27",
+      "display_name": "OtakuQuiz Creator 27",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_28",
+      "username": "oq_creator_28",
+      "display_name": "OtakuQuiz Creator 28",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_29",
+      "username": "oq_creator_29",
+      "display_name": "OtakuQuiz Creator 29",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "creator_30",
+      "username": "oq_creator_30",
+      "display_name": "OtakuQuiz Creator 30",
+      "kind": "editorial",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz (placeholder until K2 personas)."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "A Team creator of OtakuQuiz (placeholder until K2 writes the persona): the Team badge, the byline, off every board, never likes or follows."
+    },
+    {
+      "key": "otakuquiz_team",
+      "username": "otakuquiz_team",
+      "display_name": "OtakuQuiz Team",
+      "kind": "system",
+      "confirmed": true,
+      "profile": {
+        "bio": "Editorial account of OtakuQuiz."
+      },
+      "sites": [
+        "anime"
+      ],
+      "purpose": "The system account of OtakuQuiz: creator of the daily quiz and Anime Mix (sites.system_user_id of anime)."
+    }
+  ]
+}

@@ -27,10 +27,10 @@ CR-002 to CR-006 are not defaults: they stay pending until the owner decides the
 | `apis.md` | every HTTP route of BACKLOG 5.1 (method, sites, flag, inputs, answers, logged outcomes), the new crons, the existing shared routes the run extends | B4, B5, B6, B7, E1b, O6, H1, P1, L1, Q0b | written |
 | `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | B4, B7, H1, P1 | written |
 | `flags-env.md` | flags, env names, secret names, dev hosts | all code lanes, L1 | written |
-| `fixtures.md` + `fixtures/` | fixture users, series fixtures | Q0b, B3, B4, B7, O2 to O5, P1, H1 | pending |
-| `formats.md` + `schemas/` | JSON Schemas of the content formats | E1a, K1 to K4, X1 | pending |
+| `fixtures.md` + `fixtures/` | the 38 fixture accounts (`users.json`, the list ORCH's `fixtures/run.mts` creates) and the three fixture series (`series/*.json`, `series-fixture.schema.json`): who loads what and when | Q0b, B3, B4, B7, O2 to O5, P1, H1, D0, ORCH | written |
+| `formats.md` + `schemas/` | the content formats (fact, quiz draft, daily bank row, creator profile, playlist, Which character question set and set, name-all set, this-or-that bracket, crossover entry, review packet) as JSON Schemas, with where each lands | E1a, E1b, K1 to K4, O5, O6, X1 | written |
 | `copy-keys.md` | copy keys per site and lane (keys only) | D0, O1 to O6, P1, H1, B6, X1 | written |
-| `link-allowlist.md` | cross-site links allowed in crawlable HTML | Q0a, B6, X1, H1, O1 | pending |
+| `link-allowlist.md` + `link-allowlist.json` | cross-site links allowed in crawlable HTML (the JSON is read by Q0a's `check-network-links.mts`) | Q0a, B6, X1, H1, O1 | written |
 | `LANES.md` | every lane of BACKLOG section 1 and the sections it cites | all, R | pending |
 | `defaults.md` | the G0 defaults, each "confirmed by the owner (G0, 2026-10-16)" | all, ORCH | written |
 | `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | D0, O1 to O6, P1, H1, E1b, X1, Q0a, R | written |
@@ -47,6 +47,9 @@ formats, the HTTP bodies of apis.md) and `lib/anime/types.ts` (series rows, ques
 progress, bank categories). The server modules of BACKLOG 5.1 are frozen as signature types (`SiteServerFns`,
 `PassportServerFns`, `NetLinkFns`, `NetEligibilityFns`, `AnimeSpoilerFns`): an owner lane implements one as
 `export const forSite: SiteServerFns['forSite'] = ...`, so a drifting signature fails tsc (rpcs.md 3).
+The content formats (slice 8) are checked by `apps/quiz/scripts/o1/contract/json-schema.ts`, a validator of the JSON
+Schema subset `schemas/` uses (no dependency): E1's check C1 and the lanes' tests import `validate` and
+`validateEntries`, and `contract.test.ts` validates every lane data file named `<name>.<format>.json` (formats.md 1).
 
 ### The schema contract in a database (slice 5)
 
