@@ -5,8 +5,8 @@
 #   scripts/o1/parity.sh --check-kept <head-sha> [--offline] -- <cmd...> (gate-checks.sh: a check in the parity env)
 # Builds base and head back to back, each in a clean detached worktree (node_modules linked from O1), under the
 # build lock, with KPQ/secrets/kpop-parity.env (sourced, never printed) and the production flags; serves both with
-# `next start`; compares the URL list with apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only, A and B fetched
-# in the same second), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations and the
+# `next start` at one path, the base first (recorded) and then the head (live), D50 below; compares the URL list with
+# apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations and the
 # two of CR-008, nothing else, then the stylesheet contents of CR-009); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
 # (base, head, URL list) in KPQ/cache/parity/. Exit 0 = identical after the allowed normalisations, 1 = a difference.
 #
@@ -38,12 +38,21 @@
 #   Built in two folders, base and head then differ on every page (client module ids in the page data, and error
 #   digests, which hash a stack of chunk names), with no source change. Both sides are therefore built at one path,
 #   o1-parity-build, one after the other, and each build is moved (git worktree move) to o1-parity-base or
-#   o1-parity-head before it is served. The servers resolve chunks from their own .next and read files from their
-#   own cwd; only __dirname and import.meta.url would point at the build path, and neither appears in
-#   apps/quiz/src or packages/*/src (checked 2026-10-18). N3 and N4 stay for what one path does not fix (a module
-#   whose id moves with the module graph; rows streamed in another order).
-# - --keep keeps both worktrees, their builds and the frozen state (KPQ/cache/parity/<key>/freeze) for the gate's
-#   per-site checks, and names them in KPQ/cache/parity/kept.json; the next parity run removes all three. A cached
+#   o1-parity-head. N3 and N4 stay for what one path does not fix (a module whose id moves with the module graph;
+#   rows streamed in another order).
+# - One serving path (Q0a D50): an error digest hashes the message and the stack, whose frames are the absolute paths
+#   of the served chunks, so two servers in two folders still give one error two digests (offline, every page that
+#   fails with a stack). Production builds and serves every deploy at one path; so does parity now: the base build
+#   takes o1-parity-build again, is served on port A and recorded by scripts/o1/parity/replay.mjs (every URL of the
+#   list and every stylesheet those pages link: status, Location, Content-Type, body), stops and leaves; the head
+#   takes the path and is served live on port B while the record answers as side A. Both servers read the same frozen
+#   data state (the base server's own reads are recorded into it and replayed by the head), so recording first lets no
+#   data drift in; a server clock moves by the minute or so the swap takes (it moved by the head build's minutes for
+#   every prerendered page already). A request the record does not hold answers 404 (DIFFERENT, never hidden).
+#   __dirname and import.meta.url, which would point at the build path, appear nowhere in apps/quiz/src or
+#   packages/*/src (checked 2026-10-18); every server reads files from its own cwd.
+# - --keep keeps both worktrees (the head at o1-parity-build, the base at o1-parity-base), their builds and the frozen
+#   state (KPQ/cache/parity/<key>/freeze) for the gate's per-site checks, and names them in KPQ/cache/parity/kept.json; the next parity run removes all three. A cached
 #   result is used with --keep only while the kept build is the one of that pair (else the pair is run again).
 # - --serve-kept serves the kept head build (production flags, frozen state, writes refused, and in strict mode any
 #   non-read to any other origin refused too) for gate-checks.sh, holding the parity lock so no run removes it
@@ -62,6 +71,7 @@ FOD="$HARNESS/apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs"
 COMPARE="$HERE/parity/compare.mjs"
 HOOK="$HERE/parity/freeze-hook.mjs"
 REFUSALS="$HERE/parity/refusals.mjs"
+REPLAY="$HERE/parity/replay.mjs"
 die() { echo "parity: $1" >&2; exit "${2:-3}"; }
 # Production flags (header). The env file is sourced in a subshell, never printed; the hook targets its Supabase.
 PROD_FLAGS='NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 NEXT_PUBLIC_BT_TRACKING=1'
@@ -123,7 +133,7 @@ while [ $# -gt 0 ]; do case "$1" in
 hour=$(date -u +%H)
 [ "$hour" != "00" ] || die "refused: 00:00 to 01:00 UTC is the cron window" 6
 [ -f "$ENVF" ] || die "$ENVF missing (setup-o1.sh step 5)" 4
-for f in "$FOD" "$COMPARE" "$HOOK" "$REFUSALS"; do [ -f "$f" ] || die "harness file missing: $f" 4; done
+for f in "$FOD" "$COMPARE" "$HOOK" "$REFUSALS" "$REPLAY"; do [ -f "$f" ] || die "harness file missing: $f" 4; done
 base="$("$G" -C "$O1" rev-parse --verify "$base_ref^{commit}")" || die "unknown base $base_ref" 2
 head="$("$G" -C "$O1" rev-parse --verify "$head_ref^{commit}")" || die "unknown head $head_ref" 2
 # URL list: the harness's 60 URLs, else the Phase 0 seed list.
@@ -178,8 +188,8 @@ cleanup() {
   # The whole tree: `next start` forks a next-server process, which a kill of the subshell alone leaves running on
   # the parity port (found after the slice 6 rehearsal: two servers kept 4011 and 4012 for 80 minutes).
   for p in ${pids[@]+"${pids[@]}"}; do kill_tree "$p"; done
-  drop_wt build
-  if [ $keep = 0 ]; then drop_wt base; drop_wt head; fi
+  # with --keep the head stays at the build path and the base in o1-parity-base (kept.json names both)
+  if [ $keep = 0 ]; then drop_wt build; drop_wt base; drop_wt head; fi
   rm -rf "$PLOCK"
 }
 trap cleanup EXIT INT TERM
@@ -211,21 +221,41 @@ build() { # role sha
   "$G" -C "$O1" worktree move "$BUILDW" "$w" >> "$OUT.tmp/build-$1.log" 2>&1 || { echo "parity: could not move $BUILDW to $w" >> "$OUT.tmp/build-$1.log"; return 1; }
 }
 # The worktrees of an earlier run (a kept build, or one a crash left) go before this run builds.
-for r in base head; do drop_wt "$r" || die "stale $ROOT/.claude/worktrees/o1-parity-$r with changes: remove it by hand"; done
+for r in build base head; do drop_wt "$r" || die "stale $ROOT/.claude/worktrees/o1-parity-$r with changes: remove it by hand"; done
 wb="$ROOT/.claude/worktrees/o1-parity-base"; wh="$ROOT/.claude/worktrees/o1-parity-head"
 t0=$(date +%s)
 build base "$base" || { tail -20 "$OUT.tmp/build-base.log" >&2; die "base build failed (log $OUT.tmp/build-base.log)" 7; }
 build head "$head" || { tail -20 "$OUT.tmp/build-head.log" >&2; die "head build failed (log $OUT.tmp/build-head.log)" 7; }
+# Served at the build path too (D50), one side after the other: the base takes the path, is served on PA and recorded
+# (scripts/o1/parity/replay.mjs: the URL list and every stylesheet it links), stops and leaves; then the head takes
+# the path and is served live on PB while the record answers as side A on PA.
+at_path() { # role: o1-parity-<role> takes the build path
+  "$G" -C "$O1" worktree move "$ROOT/.claude/worktrees/o1-parity-$1" "$BUILDW" >/dev/null 2>&1 || die "could not move o1-parity-$1 to $BUILDW" 8
+}
+leave_path() { # role
+  "$G" -C "$O1" worktree move "$BUILDW" "$ROOT/.claude/worktrees/o1-parity-$1" >/dev/null 2>&1 || die "could not move $BUILDW to o1-parity-$1" 8
+}
 serve() { # role port
-  ( cd "$ROOT/.claude/worktrees/o1-parity-$1/apps/quiz" && O1_FREEZE_PHASE="serve-$1" run_env ./node_modules/.bin/next start -p "$2" -H 127.0.0.1 ) > "$OUT.tmp/serve-$1.log" 2>&1 &
+  ( cd "$BUILDW/apps/quiz" && O1_FREEZE_PHASE="serve-$1" run_env ./node_modules/.bin/next start -p "$2" -H 127.0.0.1 ) > "$OUT.tmp/serve-$1.log" 2>&1 &
   pids+=($!)
+}
+up() { # port: wait for an answer on /robots.txt (in the list, so recorded too)
+  local i; for i in $(seq 1 90); do curl -s -o /dev/null "http://127.0.0.1:$1/robots.txt" && return 0; sleep 1; done; return 1
 }
 PA=${O1_PARITY_PORT_A:-4011}; PB=${O1_PARITY_PORT_B:-4012}
 for p in $PA $PB; do lsof -iTCP:$p -sTCP:LISTEN >/dev/null 2>&1 && die "port $p busy" 8; done
-serve base $PA; serve head $PB
-for p in $PA $PB; do
-  for i in $(seq 1 90); do curl -s -o /dev/null "http://127.0.0.1:$p/robots.txt" && break; sleep 1; done
-done
+at_path base
+serve base $PA; up $PA || die "the base server did not answer (log $OUT.tmp/serve-base.log)" 8
+node "$REPLAY" record --from "http://127.0.0.1:$PA" --urls "$urls" --out "$OUT.tmp/base-record.json" > "$OUT.tmp/record.log" 2>&1 \
+  || { tail -5 "$OUT.tmp/record.log" >&2; die "recording the base side failed" 7; }
+kill_tree "${pids[0]}"; pids=()
+for i in $(seq 1 30); do lsof -iTCP:$PA -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 1; done
+leave_path base; at_path head
+serve head $PB; up $PB || die "the head server did not answer (log $OUT.tmp/serve-head.log)" 8
+node "$REPLAY" serve --record "$OUT.tmp/base-record.json" --port "$PA" > "$OUT.tmp/replay.log" 2>&1 &
+pids+=($!)
+up $PA || die "the recorded base side did not answer" 8
+wh="$BUILDW"
 list=()
 while IFS= read -r u; do u="${u#"${u%%[![:space:]]*}"}"; case "$u" in ''|'#'*) ;; *) list+=("$u") ;; esac; done < "$urls"
 ( cd "$HARNESS/apps/quiz" && node "$FOD" --a "http://127.0.0.1:$PA" --b "http://127.0.0.1:$PB" --out "$OUT.tmp/diff" "${list[@]}" ) > "$OUT.tmp/diff.log" 2>&1

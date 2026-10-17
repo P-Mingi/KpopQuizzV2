@@ -144,3 +144,7 @@
     Until a decision: Q0a runs no real parity run (each would fail and spend a production read). Once approved, Q0a
     writes N3 and N4 in `scripts/o1/parity/compare.mjs` with tests (owned paths) and reruns the rehearsal, then the
     real runs of the done test within D-005.
+    Answered 2026-10-17 (CR-008, option (a)); done in slice 7 (`compare.mjs` N3 and N4 with tests). Slice 7 also
+    found the cause (report D46): Next takes ROOT's pnpm-workspace.yaml as the workspace root, so every module path
+    carries the worktree folder name; parity.sh now builds both sides at one path. Request 20 answered by CR-009,
+    done in slice 7 (the css-content check).
