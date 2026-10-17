@@ -175,7 +175,9 @@ drop_wt() { # role: base, head or build
   "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 || { echo "parity: could not remove $w" >&2; return 1; }
 }
 cleanup() {
-  for p in ${pids[@]+"${pids[@]}"}; do pkill -P "$p" 2>/dev/null; kill "$p" 2>/dev/null; done
+  # The whole tree: `next start` forks a next-server process, which a kill of the subshell alone leaves running on
+  # the parity port (found after the slice 6 rehearsal: two servers kept 4011 and 4012 for 80 minutes).
+  for p in ${pids[@]+"${pids[@]}"}; do kill_tree "$p"; done
   drop_wt build
   if [ $keep = 0 ]; then drop_wt base; drop_wt head; fi
   rm -rf "$PLOCK"
