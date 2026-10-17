@@ -83,7 +83,8 @@
     "apps/quiz/scripts/check-route-allowlist.mts",
     "docs/pending-migrations/multisite/README.md",
     ".claude/settings.json",
-    ".claude/hooks/**"
+    ".claude/hooks/**",
+    "apps/quiz/scripts/o1/fixtures/**"
   ],
   "F0": [
     "docs/o1/contracts/**",
@@ -143,7 +144,6 @@
     "scripts/o1/local-pg.sh",
     "scripts/o1/q0b/**",
     "apps/quiz/scripts/o1/q0b/**",
-    "apps/quiz/scripts/o1/fixtures/**",
     "apps/quiz/e2e/o1/auth/**",
     "apps/quiz/e2e/o1/equivalence/**"
   ],
