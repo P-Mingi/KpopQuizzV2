@@ -261,8 +261,13 @@ export async function compareSheets(ha, hb, getA, getB) {
       const la = na.split(/(?<=\})/); const lb = nb.split(/(?<=\})/);
       let k = 0;
       while (k < Math.max(la.length, lb.length) && la[k] === lb[k]) k++;
+      const ra = (la[k] ?? '(none)').trim(); const rb = (lb[k] ?? '(none)').trim();
+      let c = 0;
+      while (c < ra.length && c < rb.length && ra[c] === rb[c]) c++;
+      const from = c > 160 ? c - 60 : 0; // a long rule is shown from a little before its first difference
+      const cut = (r) => (from ? '...' : '') + r.slice(from, from + 240);
       const where = `sheet ${i} ${sheetName(x)} rule ${k}: `;
-      return { count, diff: { a: where + (la[k] ?? '(none)').trim().slice(0, 240), b: where + (lb[k] ?? '(none)').trim().slice(0, 240) } };
+      return { count, diff: { a: where + cut(ra), b: where + cut(rb) } };
     }
   }
   return { count, diff: null };

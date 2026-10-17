@@ -154,7 +154,8 @@
     2026-10-17: after Q0a's slice 6 rehearsal (stopped by Q0a in slice 7) and after the gate's F0 parity run
     (d77a26f against 62dbff3; its servers, pids 95936 and 95937 with their subshells 95934 and 95935, cwd the deleted
     o1-parity-base and o1-parity-head, were stopped by Q0a at 23:19 UTC so that Q0a's run and the gate's spike parity
-    waiting behind it could serve). Fixed in Q0a 69f3019 (kill_tree). Until it merges, before a gate or merge parity
+    waiting behind it could serve); the gate's spike parity run then left another pair (pids 12759 and 12760), which
+    Q0a's queued run stopped at 23:36 UTC before taking the lock. Fixed in Q0a 69f3019 (kill_tree). Until it merges, before a gate or merge parity
     run: `lsof -tiTCP:4011 -sTCP:LISTEN` and 4012 empty, or stop the orphans (parent 1, cwd under a deleted
     o1-parity-* folder). Also after Q0a merges: parity serves both sides from `o1-parity-build` (D50), and with
     `--keep` the kept head build is there (kept.json names it).

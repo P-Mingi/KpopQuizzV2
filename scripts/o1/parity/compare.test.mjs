@@ -266,6 +266,13 @@ test('compareSheets: same CSS under other names passes, a CSS-only change fails 
   assert.match(ux.diff.b, /^sheet 1 \/api\/ux-v1\/a0\/styles rule 0: .*#B45300/);
 });
 
+test('compareSheets: a long rule is shown from near its first difference', async () => {
+  const rule = `:root{${Array.from({ length: 30 }, (_, n) => `--t${n}:#${String(n).padStart(6, '0')};`).join('')}--txt1:#1a1714}`;
+  const r = await compareSheets(['/a.css'], ['/b.css'], served({ '/a.css': rule }), served({ '/b.css': rule.replace('#1a1714', '#1a1715') }));
+  assert.match(r.diff.a, /^sheet 0 \/a\.css rule 0: \.\.\..*--txt1:#1a1714\}$/);
+  assert.match(r.diff.b, /--txt1:#1a1715\}$/);
+});
+
 test('compareSheets: counts, unreadable sheets and external links', async () => {
   const one = ['/_next/static/chunks/a.css'];
   assert.match((await compareSheets(one, [], served({}), served({}))).diff.b, /0 stylesheets/);
