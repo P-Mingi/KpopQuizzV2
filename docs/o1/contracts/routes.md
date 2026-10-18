@@ -20,9 +20,14 @@ and serves the three sites and checks every line).
    fallback: [] }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty list) from `redirects()`. The kpop build
    keeps both functions exactly as today.
 4. The middleware asks `middlewareStep(SITE_ID, pathname)` first: `'kpop'` runs today's middleware unchanged;
-   `'pass'` returns `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop unknown-route
-   answer); `'session'` (`/login`, `/onboarding`, `/settings`, `/admin` and below) falls through to today's protected
-   branch (each is also a kpop `needsAuth()` path). The matcher regex is unchanged.
+   `'pass'` returns `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop retired-feature
+   410, no kpop unknown-route answer); `'session'` (`/login`, `/onboarding`, `/settings`, `/admin` and below) falls
+   through to today's protected branch (each is also a kpop `needsAuth()` path). The matcher regex is unchanged.
+   Since PR #102 (`seo/redirects-exact`, LEDGER D-030) the kpop branch answers a retired URL 410 (`legacyAnswer`) and
+   rewrites an unknown page path to `NOT_FOUND_REWRITE` (`/page-not-found`, the kpop 404 with its chrome); the step
+   runs before both, so an anime or hub path never gets the kpop 410 page ("no longer on KpopQuiz") or the kpop 404
+   (popular K-pop groups): it gets its site's own 404 through `[...rest]` (spike-checks.tsv: `/games`,
+   `/tier-list/new`, `/page-not-found` and an unknown path are 404 on anime and hub, 410 and 404 on kpop).
 5. `'/sites/'` joins `KNOWN_ROUTES` so `check:routes` passes. `isKnownRoute` itself stays the kpop predicate: the
    build guard walks every page file of the repo on every build, so a site-aware `isKnownRoute` would fail the anime
    and hub builds on the kpop pages they compile. The site-aware question is `isKnownRouteFor(site, path, flags)`:
@@ -30,13 +35,18 @@ and serves the three sites and checks every line).
    set); for anime and hub it answers from the route map below.
 6. A direct `/sites/...` request is a 404 on all three builds: kpop has no `/sites` params and the guard refuses;
    anime and hub prefix it again (`/sites/anime/sites/...`), which only the catch-all page `[...rest]` matches, and it
-   calls `notFound()`.
+   calls `notFound()`. On kpop the `/sites/` entry of `KNOWN_ROUTES` lets the path past the middleware, so its 404 is
+   Next's own not-found inside the root layout (no site chrome), where an unknown kpop URL gets the kpop 404 page
+   since PR #102; both answer 404 and no kpop page links to `/sites` (F0 decision, kept: making them equal would put
+   a site test in the kpop branch).
 7. API routes and `/auth/*` routes are shared files (no rewrite) and read `SITE`. A kpop-only API or cron answers
    404 (or a no-op for crons, `cronForSite`) on other builds: B1 for crons, each owning lane for its API.
 
-ORCH applies 3, 4 and 5 once after GH (`seo/redirects-exact`) merges: 25 added lines, comments included, in `next.config.ts`,
-`middleware.ts` and `route-allowlist.ts`, the same as commit `o1 F0s: routing spike` on `o1/F0s`. Lanes never edit
-those files; a new anime or hub route is a pattern in the registry (CR) and a page under `app/sites/[site]/`.
+ORCH applies 3, 4 and 5 once the routing files leave the HOT list (GH merged as PR #102, D-030; the GH2 branches
+still hold them): 25 added lines and 1 removed line, comments included, in `next.config.ts`, `middleware.ts` and
+`route-allowlist.ts`, exactly `git diff o1/F0 o1/F0s` on those three files (rebased on PR #102's files at tick 6).
+Lanes never edit those files; a new anime or hub route is a pattern in the registry (CR) and a page under
+`app/sites/[site]/`.
 
 ### How Next applies the rewrites (measured, next 16.2.1)
 
