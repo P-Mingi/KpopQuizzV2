@@ -200,3 +200,7 @@
     and any later page with a text at a segment end can too (every kpop gate runs parity offline under D-025). Until a
     ruling, parity's verdict on a pair holds on the other 58 pages; on these two, R reads the node diff (`<!-- -->`
     alone).
+    Answered 2026-10-18 (CR-010: N5, the narrow form of option (a): only a separator immediately followed by a
+    closing tag). Done in slice 9 (03c0794): `compare.mjs` N5 with tests, rules `q0a-g0-v3` (report D54); run 6's
+    records judged by it give 60 of 60 identical, and the offline determinism runs 9 and 10 of the quiet pair are
+    identical and deterministic.

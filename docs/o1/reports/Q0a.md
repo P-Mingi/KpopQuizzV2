@@ -4,10 +4,10 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 8 (tick 4: slice 7 from 22:12 UTC on 2026-10-17, slice 8 from 23:55 UTC). Slice 7 started with the
-checkpoint merge of o1/integration (CR-008, CR-009, D-024, D-025, `docs/o1/PARITY-OFFLINE`); slice 8's checkpoint
-merge found nothing new (o1/integration d77a26f already merged). Status: blocked on request 24 (a normalisation, G0,
-ORCH's ruling): every other item of the done test is green offline.
+Slices: 9 (tick 5: slice 9 from 01:50 UTC on 2026-10-18). Slice 9 started with the checkpoint merge of
+o1/integration (a62d673: CR-010, D-026, tick 5; docs only). Status: ready. Request 24 is answered by CR-010 (N5, the
+narrow form), written in compare.mjs with tests, and the determinism item is green offline (D-025: no production
+read), so every item of the done test is green offline (table "Done test" below).
 
 | # | Slice | State |
 |---|---|---|
@@ -18,7 +18,63 @@ ORCH's ruling): every other item of the done test is green offline.
 | 5 | twins.mts on F0's real contract; `dev-multi.sh` (mirrors) and the cookie isolation test, with its plant proof | done |
 | 6 | Offline parity rehearsal: two builds never compared equal (request 21) | done |
 | 7 | N3, N4 (CR-008), css-content (CR-009), one build and serving path, offline proof runs | done |
-| 8 | Request 23 fixed at its source (D52), harness version in the cache key (D53), offline proof runs 5 to 8 | done; determinism waits for request 24 |
+| 8 | Request 23 fixed at its source (D52), harness version in the cache key (D53), offline proof runs 5 to 8 | done |
+| 9 | N5 text separators (CR-010) with tests, rules `q0a-g0-v3`; offline determinism runs 9 and 10; runs 6 to 8 re-judged | done |
+
+Done test (brief Q0a), state at slice 9:
+
+| Item | State | Proof |
+|---|---|---|
+| Two parity runs on the same sha pair: identical outputs, both say identical | green offline (D-025) | runs 9 (`--keep`) and 10 (`--recheck`) of the quiet pair 53f48f9 and 0056679, harness cb12ed53: identical, 60 of 60, both; determinism.txt "deterministic"; result.txt sha256 9d8ee00c... both |
+| A planted visible string change in a kpop page makes parity fail | green offline | run 7 (4c0992c): /about only, by its string (HTML node and Flight row); re-judged with `q0a-g0-v3`: the same rows |
+| Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slice 9 |
+| gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins | `scripts/o1/leak/gate-selftest.sh` (seven scenarios, one log per check, run again in slice 9); on real site builds it is the gate's own run (request 1; builders never build) |
+| dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
+| tsc and unit tests green; every production read listed | green | slice 9: `tsc --noEmit` exit 0, harness tests 100 of 100, vitest 124 files and 2269 tests (`--maxWorkers=6` under load, below); production reads: none |
+
+Done in slice 9 (tick 5; section "Parity proof offline (slice 9)" below):
+- N5 text-separators, as CR-010 rules it (D54): in the HTML, the exact React text separator `<!-- -->` immediately
+  followed by a closing tag (`</` and a letter) reads as nothing on both sides. Never inside script (so never in the
+  page data), style, textarea, title and the other raw text elements, where those characters are text; one pass, so
+  of two separators in a row only the one before the tag goes. Applied last, only to a page N1 to N4 leave
+  DIFFERENT; named `text-separators` in result.json only when it is what makes the page identical; a page still
+  DIFFERENT is reported with N5 applied. Rules version `q0a-g0-v3`; parity.sh's header says it.
+- 4 new tests in `compare.test.mjs` (the rule and every case it must keep: a planted separator between two texts,
+  before an opening tag, before `</` without a letter, other comments, an escaped attribute; the raw text elements;
+  request 24's two pages identical by N5 alone and with N3 and N4; a planted separator between two texts, a removed
+  one, a text change next to one and one inside the page data stay DIFFERENT, reported with N5 applied). Each of four
+  wrong rules (no N5, any separator, no raw text skip, any comment) fails at least one of them.
+- Offline determinism proof (D-025, stand-in KPQ, Supabase 127.0.0.1:9, no production read): run 9
+  `parity.sh 53f48f9 0056679 --keep` identical, 60 of 60; run 10 `--recheck` (both rebuilt, data state replayed)
+  identical, 60 of 60, result.txt byte-identical (sha256 9d8ee00c...), parity.json `"deterministic": true`.
+- Run 6's stored records (the pair that swapped the separators) served again with `replay.mjs` and judged with the
+  new harness: identical, 60 of 60; /fr/blind-test-kpop and /es/adivina-la-cancion-kpop by N5, every row equal to
+  runs 9 and 10. Runs 7 and 8 (the plants) re-judged the same way: the same rows as before (/about only; the 32 pages
+  that link stylesheets, by css-content).
+- Request 24 marked answered (CR-010) and done.
+
+Left: nothing in the brief. Real parity runs (production reads, D-005) wait for the owner's answer (D-025); request 1
+(gate-checks.sh on the gate's own site builds) is ORCH's.
+
+Tested how (slice 9):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 100 of 100 pass (4 new). Mutations of N5, run on a copy in the scratchpad
+  (rule removed: 4 tests fail; any `<!-- -->`: 2; no raw text skip: 1; any comment before a closing tag: 1).
+- The two parity runs above (table "Builds and parity runs", rows 11 and 12) and the three re-judged record pairs
+  (served on 3106 and 3107, flag-off-diff then compare.mjs; no build). Evidence:
+  `apps/quiz/e2e/o1/parity/offline-2026-10-18/run9-quiet-keep/`, `run10-quiet-recheck/`, `rejudged-n5/`.
+- Separator census of runs 9 and 10 (both sides): 145 separators over 32 pages, of which exactly 1 stands before a
+  closing tag (`Toutes les playlists<!-- --></a>` on /fr/blind-test-kpop, on both sides in all four builds); N5
+  touches that one and leaves the other 144 compared.
+- `bash -n scripts/o1/parity.sh`. `tsc --noEmit` in apps/quiz: exit 0 (100 s). `vitest run` in apps/quiz:
+  with the default workers, under load average 20 to 25, the source-scan tests of slice 8 timed out at 5 s (4 tests
+  of 3 files, then 3 of 2 on a second run); those 3 files alone pass (57 tests, 4 s), and the full suite with
+  `--maxWorkers=6` passes: 124 files, 2269 tests. No test edited.
+- Self-tests at this head, on the stand-ins (no build, no database): `scripts/o1/leak/selftest.sh` 20 suite and 5
+  command-line scenarios, every one as expected (373 s); `scripts/o1/leak/gate-selftest.sh` 7 scenarios, each
+  failing exactly on its plant with one log per check (297 s); `scripts/o1/leak/dev-multi-selftest.sh` none passes,
+  cookie-domain fails (11 s).
+- No production read. Builds: only inside parity.sh under the build lock (offline, D-025: not counted in D-005).
 
 Done in slice 8 (tick 4; section "Parity proof offline (slice 8)" below):
 - Request 23 fixed at its source, no new rule (D52): the boundary that raced was Next's own metadata boundary of a
@@ -330,7 +386,8 @@ placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a de
 measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table;
 slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order; slice 7: 20 and 21
 answered and done, 22 the orphaned parity servers until Q0a merges, 23 a CR for Suspense boundaries streamed on one
-side only; slice 8: 23 fixed at its source and withdrawn, 24 a CR for React's text separators, N6).
+side only; slice 8: 23 fixed at its source and withdrawn, 24 a CR for React's text separators; slice 9: 24
+answered by CR-010 and done).
 
 SQL files: none (the lane writes no SQL).
 
@@ -351,6 +408,8 @@ offline runs do not count). Every run below was offline: `O1_KPQ=<scratchpad sta
 | 8 | 2026-10-18 01:20:09 to 01:28:42 | run 6: `parity.sh 53f48f9 0056679 --recheck` | exit 1: 58 of 60, not deterministic: 2 pages by a text separator (request 24) |
 | 9 | 2026-10-18 01:28:42 to 01:35:02 | run 7: `parity.sh 53f48f9 4c0992c` (string plant alone) | exit 1: /about only, by its string |
 | 10 | 2026-10-18 01:35:02 to 01:43:33 | run 8: `parity.sh 53f48f9 90550f1` (CSS plant alone) | exit 1: the 32 pages that link stylesheets, css-content only |
+| 11 | 2026-10-18 01:51:49 to 02:02:09 | run 9: `parity.sh 53f48f9 0056679 --keep` (harness cb12ed53, rules `q0a-g0-v3`) | exit 0: identical, 60 of 60 |
+| 12 | 2026-10-18 02:02:20 to 02:13:24 | run 10: `parity.sh 53f48f9 0056679 --recheck` | exit 0: identical, 60 of 60, deterministic (result.txt byte-identical) |
 (Slice 4's two dev probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
 Production reads made by this lane: none (every run's Supabase was 127.0.0.1:9; flag-off-diff, compare.mjs and
@@ -518,6 +577,10 @@ Since slice 7 (CR-008 and CR-009, rules `q0a-g0-v2`):
 - css-content: every page judged identical is read again from both sides for its stylesheet links, and every
   stylesheet's content is compared in link order after the asset-name rule (and N1 for the UX sheet) (D48).
 - Both sides are built at one path (D46), so most of what N3 and N2 cover no longer arises.
+Since slice 9 (CR-010, rules `q0a-g0-v3`):
+- N5 text-separators: in the HTML, outside the raw text elements (script, so the page data, style, textarea, title,
+  xmp, iframe, noembed, noframes), the exact comment `<!-- -->` immediately followed by `</` and a letter reads as
+  nothing on both sides; applied last, only where N1 to N4 leave a page DIFFERENT (D54).
 
 Data drift (the cause of every false DIFFERENT in the v11 and v12 runs: play counts moving between two builds made
 minutes apart, a build that timed out on Supabase): the base build records every read, the head build and both
@@ -603,6 +666,27 @@ build time: 2026-10-17 in run 2, 2026-10-18 in run 5) and /pt on one side (Fligh
 The text separators of request 24, over the 14 builds of slices 7 and 8: every page has the same count in every build
 except /fr/blind-test-kpop (5 in 13 builds, 4 in run 6's base build) and /es/adivina-la-cancion-kpop (4 in 13, 5 in
 that build); none occurs in the page data.
+
+## Parity proof offline (slice 9)
+
+The stand-in KPQ again (a scratchpad folder whose `secrets/kpop-parity.env` holds the values gate.sh's `parity_kpq`
+writes, Supabase 127.0.0.1:9); parity.sh of this worktree at 03c0794 (harness cb12ed53, rules `q0a-g0-v3`); base
+53f48f9 and the quiet head 0056679 of slices 7 and 8.
+
+| Run | Pair | Verdict |
+|---|---|---|
+| 9 | quiet, `--keep` | identical, 60 of 60; no page needed a normalisation in compare.mjs (flag-off-diff found every page identical) |
+| 10 | quiet, `--recheck` (both rebuilt, data state replayed) | identical, 60 of 60; determinism.txt "deterministic: result.txt identical to the previous run"; sha256 9d8ee00c... both |
+| 6 re-judged | run 6's two records (harness 36ff658c builds), served by `replay.mjs`, judged by the new harness | identical, 60 of 60: /fr/blind-test-kpop and /es/adivina-la-cancion-kpop by `text-separators`, /blindtest/group-bts by `flight-rows` (as in run 6); every row equal to runs 9 and 10 |
+| 7 re-judged | the string plant's records | /about only, the same rows as run 7 |
+| 8 re-judged | the CSS plant's records | the 32 pages that link stylesheets, css-content, the same rows as run 8 |
+
+Every run: 2 refused writes, `rpc ensure_daily_debate` from each build's prerender (base and head alike), none while
+the list was read; 0 live and 0 frozen reads. The four builds of runs 9 and 10 all put the separator on the French
+link and not on the Spanish one (13 of 14 builds before did so); run 6's records are the case where the two swap,
+and N5 now reads both pages as identical. The re-judged result.json of run 6 also names `analytics-ref` on the three
+pages flag-off-diff found DIFFERENT: N2 is recorded whenever the pages hold an Analytics reference, needed or not
+(Open points); verdicts and result.txt do not depend on it.
 
 ## Leak suite
 
@@ -896,6 +980,17 @@ shapes; the failing set must equal the expected set exactly):
 - D53 parity.sh's cache key carries the harness version (sha256 of parity.sh, flag-off-diff.mjs and every module of
   `scripts/o1/parity/` that is not a test; `harness` in parity.json): a pair run under an older harness used to return
   that harness's cached verdict, and `--recheck` now needs a run of the same harness. Stricter only.
+- D54 N5 as CR-010 rules it, read narrowly where the ruling leaves a choice. (1) Only the exact comment `<!-- -->`
+  (React's text separator), and only when `</` and a letter follow (an end tag; `</` before anything else is not
+  one). (2) Never inside the raw text and RCDATA elements (script, style, textarea, title, xmp, iframe, noembed,
+  noframes): there the browser reads those characters as text, so removing them would hide a text change; this keeps
+  N5 out of the page data entirely (the push tags are scripts). (3) One pass: of two separators in a row before a
+  closing tag only the last goes (React writes one; two would be a change worth seeing). (4) Applied last, only to a
+  page that N1 to N4 leave DIFFERENT, and named in result.json only when it makes the page identical, so a page that
+  needed nothing says so; a page still DIFFERENT is reported after N5, so R sees its real difference rather than the
+  separator (node numbers then count the document without those separators). (5) The name: CR-010 calls it N5; my
+  request 24 called it N6 and request 23's withdrawn proposal used N5 for Suspense boundaries; the ledger's name
+  wins, and a future rule for those boundaries would get the next free number.
 
 ## Open points
 
@@ -912,8 +1007,13 @@ shapes; the failing set must equal the expected set exactly):
 - The recorded sides (D50, D52) mean side A is read a minute or so before side B. Data is frozen; a server-rendered
   clock (a relative time, a countdown) could still move between the two reads. None seen offline; the first
   production run, once the owner allows it (D-025), will show whether any of the 60 pages does.
-- React's text separators (request 24): a `<!-- -->` after a text that ends a render segment depends on the build
-  (two pages swapped it in 1 of 14 builds). Until ORCH rules, a pair can fail on those pages; R reads the node diff.
+- (Closed in slice 9) React's text separators (request 24): N5 of CR-010 (D54). A separator that moves elsewhere
+  than before a closing tag (between two texts, before an opening tag) still makes a page DIFFERENT; none did in the
+  16 builds of slices 7 to 9.
+- result.json names `analytics-ref` (N2) on every page flag-off-diff found DIFFERENT that holds an Analytics
+  reference, whether or not the reference differed (seen on run 6's re-judged pages). It never changes a verdict and
+  stays out of result.txt; naming it only when the two sides' references differ is a two-line change for a later
+  harness version (not done in slice 9, so runs 9 and 10 prove the harness that merges).
 - A parity run that crosses 00:00 UTC between its two builds compares the home page's build date (`"date"` in its
   page data, baked at build time): DIFFERENT for a reason that is not the head's. The cron window refuses a start
   from 00:00 to 01:00 only; a run started late on the previous day can still cross. Not changed in slice 8 (the
@@ -923,7 +1023,8 @@ shapes; the failing set must equal the expected set exactly):
   boundary of a request-time page; both sides are now read with a header that gets blocking metadata (D52). An app
   Suspense boundary on a page rendered at request time could still settle on either side of the flush (none of the
   60 pages shows one offline: every other boundary is on a prerendered page); if one appears, the node diff in
-  result.txt shows it (`<!--$-->` against `<!--$?-->`), and request 23's N5 is the rule to ask for.
+  result.txt shows it (`<!--$-->` against `<!--$?-->`), and request 23's proposal (now under the next free number,
+  N5 being CR-010's) is the rule to ask for.
 - The JS chunks are still compared by name only (flag-off-diff's normalisation): a change that lives only in client
   code passes parity by design (behaviour is the lanes' e2e and R's UX runs).
 - Relative times rendered on the server ("3 min ago") baked at two build times could still differ; none seen in the
