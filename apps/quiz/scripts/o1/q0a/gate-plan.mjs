@@ -36,6 +36,13 @@ export const SEO_ENV = {
   'sitemap-hygiene': 'SITEMAP_BASE_URL',
 };
 const DEFAULT_PORTS = { kpop: 4021, anime: 4022, hub: 4023 };
+// The tests of the leak suite that read each site's server (apps/quiz/e2e/o1/leak/*.o1.ts; the content leak and the
+// spoiler JSON-LD cases have their own conditions).
+const LEAK_TESTS = {
+  kpop: 'string leak mirror, canonical and OG, link leak, no /api/n/me',
+  anime: 'route leak, site identity, string leak, canonical and OG, link leak, no /api/n/me',
+  hub: 'route leak, site identity, canonical and OG, link leak, no /api/n/me',
+};
 
 const WHY = {
   kpopGate:
@@ -57,6 +64,11 @@ const WHY = {
     'the kpop server of this gate is the kept parity build (production data, which holds no anime row) and gate.sh ' +
     'built no kpop on the dev branch (request Q0a 11): the content leak runs only on a dev kpop build',
   noScopeScript: "B2's apps/quiz/scripts/o1/check-site-scope.mts is not in this head yet",
+  noLinkSite: (live) =>
+    `no served site to judge: the ${live.join(' and ')} build${live.length > 1 ? 's' : ''} ha${live.length > 1 ? 've' : 's'} no ` +
+    '/sites/<site> rewrite (F0 wiring not in this head), so they serve kpop pages; a missing kpop server has its own line',
+  absentHalf: (site, check, why) =>
+    `the ${site} half of ${check === 'leak' ? `the leak suite (${LEAK_TESTS[site]})` : 'check-network-links'} did not run: ${why}`,
 };
 
 /**
@@ -126,13 +138,23 @@ export function plan(f) {
   const live = sites.filter((s) => A[s]);
   if (live.length) {
     // network-links judges a site by its domain rules: an unwired anime or hub build (kpop pages) is left out; the
-    // leak suite's site identity test fails it when the wiring is required.
+    // leak suite's site identity test fails it when the wiring is required. `sites` is what each check reads:
+    // gate-checks.sh fails the check when one of them did not start, so it never stands for a site it did not read.
     const linkSites = live.filter((s) => s === 'kpop' || f.wired?.[s] !== false);
-    add({ name: 'network-links', kind: 'network-links', action: 'run', sites: linkSites });
-    add({ name: 'leak', kind: 'leak', action: 'run', excludeContent: A.kpop?.source === 'parity',
+    if (linkSites.length) add({ name: 'network-links', kind: 'network-links', action: 'run', sites: linkSites });
+    else add({ name: 'network-links', kind: 'network-links', action: 'skip', sites: [], reason: WHY.noLinkSite(live) });
+    add({ name: 'leak', kind: 'leak', action: 'run', sites: live, excludeContent: A.kpop?.source === 'parity',
       require: sites.filter((s) => s !== 'kpop' && f.requireWired?.[s]) });
-  } else if (sites.length) {
-    add({ name: 'leak', kind: 'leak', action: 'fail', reason: 'no server for any site of the lane' });
+  }
+  // A site of the lane with no server: its half of the leak suite and of network-links cannot run, and the suite
+  // skips the tests of a site it is not given. Each such half gets its own line, pending or failed like the site's SEO
+  // lines (kpop when parity ran without --keep: pending, request Q0a 2; any other missing server: a failure), so the
+  // `leak` and `network-links` lines never stand for a site they did not read (review Q0a r1 M1).
+  for (const s of sites) {
+    if (A[s]) continue;
+    const action = s === 'kpop' && f.parity === 'ran' ? 'pending' : 'fail';
+    add({ name: `${s}-leak`, site: s, kind: 'absent', action, reason: WHY.absentHalf(s, 'leak', missing[s]) });
+    add({ name: `${s}-network-links`, site: s, kind: 'absent', action, reason: WHY.absentHalf(s, 'network-links', missing[s]) });
   }
   if (A.kpop?.source === 'parity' && !A.kpop.given) add({ name: 'kpop-refused-writes', site: 'kpop', kind: 'refused-writes', action: 'run' });
   if (A.kpop?.source === 'parity') {

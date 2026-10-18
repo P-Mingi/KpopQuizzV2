@@ -31,6 +31,10 @@
 #     lane's own leak-cases.json from the head. On the kept parity build the content leak is left out: production
 #     holds no anime row (Verrou 0), so it would prove nothing. kpop-refused-writes: no write was refused while the
 #     gate read the kept build (the guard held, and no crawled page tried one).
+#   A check never stands for a site it did not read. The leak suite skips the tests of a site it is not given, so:
+#   <site>-leak and <site>-network-links: a site of the lane with no server has its half of both on its own line,
+#     pending for kpop when parity ran without --keep (request Q0a 2), else failed, with the reason; and network-links
+#     or leak fails when a server it was planned to read did not start (each log says which sites it read).
 #   leak-content and lane-specs: on gate builds only, never on the kept parity build (a browser on it would reach the
 #     production Supabase directly). With the kept build in phase A, phase B swaps the kpop server for the gate's
 #     kpop build when there is one (gate.sh builds it on the dev branch: request 11), else they skip with the reason.
@@ -151,19 +155,40 @@ do_seo() { # check envVar site env
   if [ "$how" = parity ]; then "$HERE/parity.sh" --check-kept "$head" $koff -- env "$var=$(sv LOCAL "$s")" "$TSX" "scripts/check-$c.mts"
   else "$ENVSH" offline -- env "$var=$(sv LOCAL "$s")" "$TSX" "scripts/check-$c.mts"; fi
 }
+sites_line() { # planned sites... ; prints what the check reads, before it runs (each log says it)
+  local s r=() d=(); for s in "$@"; do if siteup "$s"; then r+=("$s"); else d+=("$s"); fi; done
+  echo "sites read: ${r[*]-none}${d[*]+; planned but not started: ${d[*]}}"
+}
+down_note() { # sites that did not start... ; a check never stands for a server it did not read (review Q0a r1 M1)
+  [ $# -eq 0 ] && return 0
+  echo "FAILED: not read, the server did not start: $* (checks/serve-<site>-*.log); the tests of those sites skipped above"
+  return 1
+}
 do_links() { # sites...
-  local args=() s; for s in "$@"; do siteup "$s" && args+=(--site "$s=$(sv URL "$s")"); done
-  [ ${#args[@]} -gt 0 ] || { echo "no server up"; return 1; }
-  cd "$HARNESS/apps/quiz" && "$ENVSH" offline -- "$TSX" scripts/o1/check-network-links.mts "${args[@]}" --sitemap 200 --out "$OUTD/network-links"
+  local args=() down=() s rc=0
+  [ $# -gt 0 ] || { echo "no site to read (the plan gives network-links no site: a harness defect)"; return 1; }
+  for s in "$@"; do if siteup "$s"; then args+=(--site "$s=$(sv URL "$s")"); else down+=("$s"); fi; done
+  sites_line "$@"
+  if [ ${#args[@]} -gt 0 ]; then
+    ( cd "$HARNESS/apps/quiz" && "$ENVSH" offline -- "$TSX" scripts/o1/check-network-links.mts "${args[@]}" --sitemap 200 --out "$OUTD/network-links" ) || rc=1
+  fi
+  down_note ${down[@]+"${down[@]}"} || rc=1
+  return $rc
 }
 do_leak() { # name, then playwright filters
   local name="$1"; shift
   local cases=(); [ -f "$wt/apps/quiz/e2e/o1/$lane/leak-cases.json" ] && [ "$wt" != "$HARNESS" ] && cases=(O1_LEAK_CASES="$wt/apps/quiz/e2e/o1/$lane")
   local req; req="$(pj '[.checks[] | select(.name == "leak") | .require // []] | add // [] | join(",")')"
   local envs=(); while IFS= read -r l; do [ -n "$l" ] && envs+=("$l"); done < <(pw_env)
-  cd "$HARNESS/apps/quiz" && "$ENVSH" offline -- env ${envs[@]+"${envs[@]}"} ${cases[@]+"${cases[@]}"} O1_LEAK_REQUIRE="$req" O1_LEAK_KPOP_SITEMAP_N=20 \
+  local planned=() down=() s rc=0
+  while IFS= read -r s; do [ -n "$s" ] && planned+=("$s"); done < <(pj '[.checks[] | select(.name == "leak") | .sites // []] | add // [] | .[]')
+  for s in ${planned[@]+"${planned[@]}"}; do siteup "$s" || down+=("$s"); done
+  sites_line ${planned[@]+"${planned[@]}"}
+  ( cd "$HARNESS/apps/quiz" && "$ENVSH" offline -- env ${envs[@]+"${envs[@]}"} ${cases[@]+"${cases[@]}"} O1_LEAK_REQUIRE="$req" O1_LEAK_KPOP_SITEMAP_N=20 \
     O1_ENV="$dbenv" O1_SITE_SCOPE="$([ "$(pj .siteScope)" = true ] && echo 1 || echo 0)" O1_PW_OUT="$TMPROOT/pw-$name" O1_PW_REPORT="$OUTD/$name.json" \
-    ./node_modules/.bin/playwright test -c playwright.o1.config.ts --project leak "$@"
+    ./node_modules/.bin/playwright test -c playwright.o1.config.ts --project leak "$@" ) || rc=1
+  down_note ${down[@]+"${down[@]}"} || rc=1
+  return $rc
 }
 do_refused() {
   local f; f="$(jq -r '.freeze // empty' "$KPQ/cache/parity/kept.json" 2>/dev/null)"

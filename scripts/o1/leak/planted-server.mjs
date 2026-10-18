@@ -4,7 +4,7 @@
 // data-site, anime and hub with data-site on <html>, own-domain canonical and OG, the allowlisted footer and /about
 // links, page data in self.__next_f.push rows), and, with --plant <id>, exactly one leak. It proves each leak test
 // fails on its planted leak and passes on the clean pages. It is never a site under test in a gate.
-//   node scripts/o1/leak/planted-server.mjs --ports 3106,3107,3108 [--plant <id>]
+//   node scripts/o1/leak/planted-server.mjs --ports 3106,3107,3108 [--plant <id>]   (a port of 0: that site is not served)
 // Plants: route-anime route-hub unwired string-anime string-anime-data string-kpop link-kpop link-via link-nofollow
 // link-hydrated canonical og-site-name sitemap netme spoiler content content-mirror cookie-domain (the last one for
 // the dev-multi cookie test: anime's robots.txt sets a session cookie with Domain=localhost, shared by every
@@ -161,12 +161,14 @@ function serve(site, port) {
   return server;
 }
 
-const servers = [serve('kpop', kp), serve('anime', an), serve('hub', hb)];
+// A port of 0 leaves that site unserved (gate-selftest.sh: a planned server of the gate that never starts).
+const served = [['kpop', kp], ['anime', an], ['hub', hb]].filter(([, p]) => p > 0);
+const servers = served.map(([site, p]) => serve(site, p));
 let up = 0;
 for (const s of servers)
   s.on('listening', () => {
     up += 1;
-    if (up === 3) console.log(`planted-server: kpop ${kp}, anime ${an}, hub ${hb}, plant ${plant}`);
+    if (up === servers.length) console.log(`planted-server: ${served.map(([site, p]) => `${site} ${p}`).join(', ')}, plant ${plant}`);
   });
 const stop = () => {
   for (const s of servers) s.close();

@@ -79,11 +79,61 @@ test('parity ran without --keep: kpop gates pending with the request, never a si
   assert.match(c['kpop-orphans'].reason, /request Q0a 2/);
   assert.equal(c.leak.action, 'run');
   assert.equal(c['kpop-refused-writes'], undefined);
+  assert.equal(c['kpop-leak'].action, 'pending');
+  assert.equal(c['kpop-network-links'].action, 'pending');
+  // anime and hub unwired, kpop absent: network-links has no site to judge and says so, never a run on nothing.
+  assert.equal(c['network-links'].action, 'skip');
+  assert.match(c['network-links'].reason, /the anime and hub builds have no \/sites\/<site> rewrite/);
 });
 
 test('no kpop server at all when kpop is a site of the lane and no parity ran: a failure', () => {
   const p = plan(base({ build: { kpop: false, anime: true, hub: true } }));
   assert.equal(by(p)['kpop-indexability'].action, 'fail');
+});
+
+test('a site with no server: its half of the leak suite and of network-links is its own line, never folded into a green check (r1 M1)', () => {
+  // Today's gate on a lane whose diff reaches kpop: parity ran without --keep, no kpop gate build, anime and hub wired.
+  const facts = { parity: 'ran', kept: false, build: { kpop: false, anime: true, hub: true },
+    wired: { anime: true, hub: true }, requireWired: { anime: true, hub: true } };
+  const p = plan(base(facts));
+  const c = by(p);
+  assert.equal(p.servers.A.kpop, null);
+  assert.deepEqual(c.leak.sites, ['anime', 'hub'], 'the leak line names the sites it reads, and kpop is not one');
+  assert.deepEqual(c['network-links'].sites, ['anime', 'hub']);
+  assert.ok(!c.leak.require.includes('kpop'));
+  for (const n of ['kpop-leak', 'kpop-network-links']) {
+    assert.equal(`${c[n].phase}:${c[n].action}`, 'A:pending', n);
+    assert.equal(c[n].site, 'kpop');
+    assert.match(c[n].reason, /^the kpop half of .* did not run: .*request Q0a 2/, n);
+  }
+  assert.match(c['kpop-leak'].reason, /\(string leak mirror, canonical and OG, link leak, no \/api\/n\/me\)/);
+  assert.match(c['kpop-network-links'].reason, /check-network-links/);
+  // The same without parity: the kpop build is missing, so a failure like its SEO lines.
+  const q = by(plan(base({ ...facts, parity: 'none' })));
+  assert.equal(q['kpop-leak'].action, 'fail');
+  assert.equal(q['kpop-network-links'].action, 'fail');
+  assert.match(q['kpop-leak'].reason, /no \.next-kpop build/);
+  // anime and hub: a missing server fails both halves (with the reason), parity or not.
+  const h = by(plan(base({ ...facts, build: { kpop: false, anime: true, hub: false } })));
+  assert.equal(h['hub-leak'].action, 'fail');
+  assert.equal(h['hub-network-links'].action, 'fail');
+  assert.match(h['hub-leak'].reason, /\(route leak, site identity, canonical and OG, link leak, no \/api\/n\/me\) did not run: no hub server/);
+  assert.deepEqual(h.leak.sites, ['anime']);
+  // Every site served: no extra line.
+  const all = by(plan(base({ ...facts, kept: true })));
+  for (const s of ['kpop', 'anime', 'hub']) assert.equal(all[`${s}-leak`], undefined, s);
+  assert.deepEqual(all.leak.sites, ['kpop', 'anime', 'hub']);
+});
+
+test('no server for any site: one line per site, kpop pending only when parity ran (request Q0a 2), any other a failure', () => {
+  const kpopOnly = by(plan(base({ sites: ['kpop'], parity: 'ran', build: { kpop: false, anime: false, hub: false } })));
+  assert.equal(kpopOnly.leak, undefined);
+  assert.equal(kpopOnly['network-links'], undefined);
+  assert.equal(kpopOnly['kpop-leak'].action, 'pending');
+  assert.equal(kpopOnly['kpop-network-links'].action, 'pending');
+  const none = by(plan(base({ parity: 'ran', build: { kpop: false, anime: false, hub: false } })));
+  assert.deepEqual(['kpop', 'anime', 'hub'].map((s) => none[`${s}-leak`].action), ['pending', 'fail', 'fail']);
+  assert.deepEqual(['kpop', 'anime', 'hub'].map((s) => none[`${s}-network-links`].action), ['pending', 'fail', 'fail']);
 });
 
 test('wiring required but missing in a build: fail; wired with a sitemap route: run; route lost: fail', () => {

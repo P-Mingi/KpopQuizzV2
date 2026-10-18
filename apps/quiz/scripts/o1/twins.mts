@@ -51,7 +51,13 @@
 //       (under 8 meaningful lines) pass. Measured on the base, 16 October 2026 (report Q0a, "Twins check"): at 6 and
 //       7 the base already matched generic patterns an honest page can write (a schema.org FAQPage JSON-LD literal,
 //       a quiz props interface, a choice button); at 8 every match on the base is a real kpop copy lineage.
-//       Limit: an edit inside every 8 meaningful lines of a copy evades the check; R's review covers that case.
+//       Limits (the check compares source lines, so these copies evade it; UX and ARCH reviewers keep reading the
+//       imports and the markup of every page themselves):
+//       - an edit inside every 8 meaningful lines of a copy;
+//       - a copy whose line breaks are moved: joining or splitting lines, with no token added or removed, makes new
+//         lines that match no protected line (review Q0a r1: 14 meaningful lines of components/ux-v1/panel.tsx with
+//         every two lines joined passed). A later version can shingle the normalized token stream across line
+//         breaks instead; it needs a new threshold and a new baseline measured on the base.
 //       Baseline (q0a/twins-baseline.json, next to this script, Q0a's): every copy pair between two code files of the
 //       base outside app/sites (kpop's own copy lineages: pt pages, admin routes, v0 ancestors of ux-v1), measured
 //       all against all so it holds for any mustImport list, keyed by the unordered pair. A recorded pair passes while
