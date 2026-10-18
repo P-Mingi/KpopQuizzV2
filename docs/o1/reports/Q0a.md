@@ -4,9 +4,13 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 12 (tick 5: slice 12 from 04:05 UTC on 2026-10-18, fix round 1 of review `Q0a-r1-ARCH.md`, verdict FIX at
-c5131aa: 1 major, 3 minor). Slice 12 started with the checkpoint merge of o1/integration (already up to date at
-a62d673). Status: ready. M1 is fixed (the gate plan never folds a site it did not read into a green `leak` or
+Slices: 13 (tick 5: slice 13 from 10:27 UTC on 2026-10-18, after the gate's third red on `unit` alone, at ee4f7c2:
+2 base tests timed out at 5 s, every other step green, tsc 126 s). Slice 13 started with the checkpoint merge of
+o1/integration (eb36e4c, docs only: no file outside `docs/` changed since ee4f7c2). Status: ready. The red is the
+machine's paging again (D56, D61): the same command on the same tree, four runs here between 10:28 and 10:31 UTC,
+passed once (124 files, 2269 tests) and timed out 1 to 3 base tests in the three others; request 25 updated. CR-010
+(N5) and the offline recheck of the quiet pair, named again in this tick's task, were done in slice 9 (runs 9 and
+10, harness cb12ed53, unchanged since). Slice 12's state follows. M1 is fixed (the gate plan never folds a site it did not read into a green `leak` or
 `network-links` line), m1 and m2 are fixed, m3 is deferred with its reason (D60); each answer is in "Review r1:
 findings and answers" below. The parity harness is unchanged (harness hash still cb12ed53), so the offline
 determinism proof of runs 9 and 10 is still a proof of the harness that merges. Every item of the done test is
@@ -28,6 +32,7 @@ D56).
 | 10 | Gate red at 3888ec5: copy fixed (emoji written as an escape), unit timeouts measured under load (request 25) | done |
 | 11 | Gate red at 3440d48, unit only: the base timeouts traced to paging (D56), request 25 updated | done |
 | 12 | Fix round 1 (review r1 ARCH): M1 (absent and down servers never folded into a green check), m1, m2; m3 deferred (D60) | done |
+| 13 | Gate red at ee4f7c2, unit only (2 base timeouts): paging again, measured (D61), request 25 updated | done |
 
 Done test (brief Q0a), state at slice 12:
 
@@ -38,7 +43,7 @@ Done test (brief Q0a), state at slice 12:
 | Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slices 9 and 12 |
 | gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins; real builds at the first gate after the merge | `scripts/o1/leak/gate-selftest.sh` (nine scenarios since slice 12, failing and pending sets exact, one log per check); no run has yet served a real `.next-<site>` build from the folder of links or a kept parity build (review r1 m2; D37 found the same link method serves 404 under `next dev`): the first real run is the gate's own (request 1, or F0's next gate after Q0a merges) |
 | dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
-| tsc and unit tests green; every production read listed | green when the machine does not page (D56) | slice 12: tsc exit 0 (the gate's command), harness tests 102 of 102; vitest 124 files and 2269 tests with `--maxWorkers=2`, while the gate's default command lost one base test to the 5 s timeout in each of three runs under 15 GB of swap (D56; no file vitest collects changed); the gate at c5131aa: tsc and unit (124 files, 2269 tests) green; production reads: none |
+| tsc and unit tests green; every production read listed | green when the machine does not page (D56, D61) | slice 13: the gate at ee4f7c2 ran tsc green (126 s) and lost 2 base tests of `unit` to the 5 s timeout; here, the gate's `vitest run` passed 124 files and 2269 tests at 10:29 UTC (run b) and lost 1 to 3 base tests in runs a, c and d; harness tests 102 of 102; no file outside `docs/` changed since ee4f7c2. Slice 12: tsc exit 0 (the gate's command), harness tests 102 of 102; vitest 124 files and 2269 tests with `--maxWorkers=2`, while the gate's default command lost one base test to the 5 s timeout in each of three runs under 15 GB of swap (D56; no file vitest collects changed); the gate at c5131aa: tsc and unit (124 files, 2269 tests) green; production reads: none |
 
 Review r1: findings and answers (review `O1/docs/o1/reviews/Q0a-r1-ARCH.md`, FIX at c5131aa):
 
@@ -52,6 +57,41 @@ Review r1: findings and answers (review `O1/docs/o1/reviews/Q0a-r1-ARCH.md`, FIX
 Notes for ORCH in the review (not findings): request 1 still decides whether Q0a's own re-gate serves real builds;
 otherwise a gate-checks failure in F0's first gate after the merge is a harness defect for Q0a (agreed here: Q0a
 takes it as its own). The `O1_KPQ` note for request 2 is added to request 2 in `docs/o1/requests/Q0a.md`.
+
+Done in slice 13 (tick 5, after the gate's red at ee4f7c2, evidence `O1/docs/o1/evidence/Q0a/ee4f7c2.../`):
+- The red: step `unit` only, rc 1 in 63 s, 2 of 2269 tests, both "Test timed out in 5000ms", both base source scans
+  of `apps/quiz/src`: `lib/seo/og.test.ts` ("src/app and src/components", 6995 ms) and `lib/seo/json-ld.test.ts`
+  ("never pairs dangerouslySetInnerHTML with a bare JSON.stringify", 7857 ms). guard, hot, copy, secrets, twins,
+  tsc (126 s), build-kpop, build-anime and build-hub green; parity skipped (the diff cannot reach kpop); site-checks
+  pending (gate-checks.sh merges with this lane). summary.json's `failures` holds only the tail of unit.log (the
+  Duration and Isolate lines); the names above come from unit.log itself.
+- Not the lane's: `git diff --name-only` from a62d673 (the gate's base) and from eb36e4c (o1/integration now) to the
+  head, over `apps/quiz/src`, `vitest.config.ts`, `package.json`, `tsconfig.json` and `packages`: empty both times.
+  The gate ran the base's tests on the base's files.
+- Measured with the gate's command (`./node_modules/.bin/vitest run` in apps/quiz), swap 15.0 to 15.1 GB used of
+  16 GB at every start:
+
+  | Run | Start (UTC) | Load (1 min) | Result | Duration | Swap-ins during the run |
+  |---|---|---|---|---|---|
+  | a | 10:28:32 | 12.4 | 3 timeouts (og, scoring, json-ld) | 26.6 s | not measured |
+  | b | 10:29:01 | 16.5 | 124 files, 2269 tests pass | 31.7 s | not measured |
+  | c | 10:29:45 | 17.6 | 1 timeout (json-ld) | 40.5 s | 9,487 |
+  | d | 10:30:27 | 22.9 | 2 timeouts (json-ld helper scan, team-render) | 61.1 s | 15,987 |
+
+  The same picture as slices 10 and 11: the failing tests change from run to run, every failure is a 5 s timeout of
+  a base test, and a run passes whole when paging lets it. D61.
+- Request 25 updated with this third red and these runs. No test, vitest config or gate script edited (RATCHET LAW;
+  gate.sh is ORCH's).
+- The tick's task named CR-010 (N5 in compare.mjs with tests, then the offline recheck of the quiet pair): done in
+  slice 9 (`compare.mjs` lines 24 to 31, 228 to 241 and 336 to 340; 4 tests in `compare.test.mjs`; runs 9 and 10
+  identical 60 of 60, deterministic). The harness hash is still cb12ed53, so nothing to redo.
+
+Tested how (slice 13):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 102 of 102 pass.
+- The four vitest runs above. tsc not run again: the merge brought `docs/` only
+  (`git diff --name-only ee4f7c2 HEAD -- ':!docs'` is empty) and the gate's tsc at ee4f7c2 exited 0.
+- No build, no parity run, no gate run, no server, no production read.
 
 Done in slice 12 (fix round 1):
 - `gate-plan.mjs`: for each site of the lane with no server, two lines, `<site>-leak` and `<site>-network-links`
@@ -1181,6 +1221,12 @@ shapes; the failing set must equal the expected set exactly):
   without a parity run to re-prove it (this slice may not run parity.sh), would merge a harness no run has proven.
   Keeping cb12ed53 keeps the proof exact. When it goes in: the strict refusals are judged like the others by
   refusals.mjs (same request refused in the base build: listed; added by the head build or by a server: fails).
+- D61 The third unit red (ee4f7c2) is read as D56 reads the second, and Q0a returns ready once more. Three gates of
+  this lane, three reds on `unit` alone, each by base timeouts that move between files, with tsc at 139, 231 and
+  126 s; F0's and DUMMY's gates passed `unit` with tsc at 30 and 36 s. The lane cannot make it green by itself
+  without editing tests or their config, and returning blocked would stop F0, which waits for this merge (D-026),
+  on a cause rule 15 does not name. Request 25 keeps the options for ORCH; the gate's own tsc time remains the
+  cheapest sign of whether a re-gate is worth starting.
 
 ## Open points
 

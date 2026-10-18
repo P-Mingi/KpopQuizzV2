@@ -237,3 +237,12 @@
     `build-lock.sh`, so it never overlaps a gate build, with `vm.swapusage` and the load average written in unit.log;
     (c) an owner action: free memory before gates (the swap is held by processes outside the run). A larger
     `testTimeout` or a retry of timed-out files would change the gate: ORCH's or the owner's call, not proposed here.
+    Update, slice 13 (2026-10-18, 10:28 to 10:31 UTC). The gate at ee4f7c2 was red on `unit` a third time, every
+    other step green (tsc 126 s): 2 timeouts (5 s) of base scans, `og.test.ts` and `json-ld.test.ts`. Q0a's diff from
+    a62d673 and from eb36e4c still has nothing vitest collects. Four runs of the gate's command here, swap 15.0 to
+    15.1 GB used of 16 GB at each start: run b passed (124 files, 2269 tests, 31.7 s, load 16.5); runs a, c and d
+    timed out 3, 1 and 2 base tests (load 12.4 to 22.9; c and d swapped in 9,487 and 15,987 pages). So the gate's
+    `unit` is a draw on this machine as it stands, and a re-gate of Q0a at ee4f7c2's tree (or its docs-only
+    successor) is likely to pass on a second or third try; (b) or (c) above would make it reliable. Note for
+    gate.sh: summary.json's `failures` keeps the tail of unit.log, which for vitest is the Duration and Isolate
+    lines; the `FAIL` lines (or `Test Files` and `Tests`) would name what failed.
