@@ -423,6 +423,15 @@
     "docs/o1/dummy/**"
   ],
   "Q0c": [
-    "scripts/o1/prod-proxy/**"
+    "scripts/o1/prod-proxy/**",
+    "scripts/o1/parity.sh",
+    "scripts/o1/parity/**"
+  ],
+  "_sequenced": [
+    [
+      "Q0a",
+      "Q0c",
+      "scripts/o1/parity.sh and scripts/o1/parity/** pass from Q0a to Q0c: Q0c needs Q0a merged (D-033)"
+    ]
   ]
 }

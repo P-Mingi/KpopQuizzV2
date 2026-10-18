@@ -27,6 +27,8 @@ if [ ! -d "$WT" ]; then
   fi
 fi
 cd "$WT"
+# Never configure a folder that is not this worktree (git would climb to the main checkout and write its config).
+[ "$(git rev-parse --show-toplevel 2>/dev/null)" = "$WT" ] || { echo "new-lane: $WT is not a git worktree: inspect it" >&2; exit 3; }
 for d in node_modules apps/quiz/node_modules packages/shared/node_modules; do
   [ -L "$d" ] && continue
   [ -e "$d" ] && { echo "new-lane: $WT/$d exists and is not a symlink, left alone" >&2; continue; }
