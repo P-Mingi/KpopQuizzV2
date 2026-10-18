@@ -1,0 +1,347 @@
+{
+  "branch": "o1-scratch",
+  "users": [
+    {
+      "key": "kpop_only",
+      "kind": "user",
+      "username": "o1_kpop_only",
+      "email": "o1-fixture-kpop-only@example.com",
+      "id": "398461ff-fa3e-411f-8e5b-09b8b45a8963",
+      "confirmed": true,
+      "note": "kpopquiz.org only; memberships from B3 SQL"
+    },
+    {
+      "key": "kpop_heavy",
+      "kind": "user",
+      "username": "o1_kpop_heavy",
+      "email": "o1-fixture-kpop-heavy@example.com",
+      "id": "7fe01986-ed35-47c5-ad18-3ed5ca3a11c5",
+      "confirmed": true,
+      "note": "bias, bio, header slot, high XP; groups once the branch has group rows"
+    },
+    {
+      "key": "dual",
+      "kind": "user",
+      "username": "o1_dual",
+      "email": "o1-fixture-dual@example.com",
+      "id": "c7cb817b-cf01-4f9d-86d9-4d8c0e2e23d9",
+      "confirmed": true,
+      "note": "kpop and anime member (anime membership from B3 SQL)"
+    },
+    {
+      "key": "anime_new",
+      "kind": "user",
+      "username": "o1_anime_new",
+      "email": "o1-fixture-anime-new@example.com",
+      "id": "68616a79-32fd-4c51-bd3f-0ce53ab13358",
+      "confirmed": true,
+      "note": "anime only, new (anime membership from B3 SQL)"
+    },
+    {
+      "key": "banned",
+      "kind": "user",
+      "username": "o1_banned",
+      "email": "o1-fixture-banned@example.com",
+      "id": "33c0db30-0b64-4e88-a1a3-7c5befb2bc58",
+      "confirmed": true,
+      "note": "banned_at set"
+    },
+    {
+      "key": "unconfirmed",
+      "kind": "user",
+      "username": "o1_unconfirmed",
+      "email": "o1-fixture-unconfirmed@example.com",
+      "id": "4695cf49-3cf5-4e00-adb3-1ca5ae1449be",
+      "confirmed": false,
+      "note": "email not confirmed, no profile (as a real unconfirmed sign-up)"
+    },
+    {
+      "key": "admin_reviewer",
+      "kind": "user",
+      "username": "o1_admin_reviewer",
+      "email": "o1-fixture-admin-reviewer@example.com",
+      "id": "feac5733-14f4-4399-9984-6cb2f9671271",
+      "confirmed": true,
+      "note": "admin through ADMIN_USER_IDS of the dev servers (env.sh adds it)"
+    },
+    {
+      "key": "creator_01",
+      "kind": "editorial",
+      "username": "oq_creator_01",
+      "email": "o1-fixture-creator-01@example.com",
+      "id": "a451df55-e132-437d-91d7-4590005d4394",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_02",
+      "kind": "editorial",
+      "username": "oq_creator_02",
+      "email": "o1-fixture-creator-02@example.com",
+      "id": "90c42a31-ab6a-4453-88a0-f5a8c23e4370",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_03",
+      "kind": "editorial",
+      "username": "oq_creator_03",
+      "email": "o1-fixture-creator-03@example.com",
+      "id": "3d29e7e5-109b-4994-bb30-c9a6eee9d832",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_04",
+      "kind": "editorial",
+      "username": "oq_creator_04",
+      "email": "o1-fixture-creator-04@example.com",
+      "id": "027b3d57-040b-4b72-98af-a4e303c7a9e2",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_05",
+      "kind": "editorial",
+      "username": "oq_creator_05",
+      "email": "o1-fixture-creator-05@example.com",
+      "id": "bf08e539-fa6d-49e1-800c-d21dd4f25716",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_06",
+      "kind": "editorial",
+      "username": "oq_creator_06",
+      "email": "o1-fixture-creator-06@example.com",
+      "id": "23703b6d-7a82-4364-9ac2-4aeca37cdeae",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_07",
+      "kind": "editorial",
+      "username": "oq_creator_07",
+      "email": "o1-fixture-creator-07@example.com",
+      "id": "ba12cd5c-be87-4506-984e-26e246593ab6",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_08",
+      "kind": "editorial",
+      "username": "oq_creator_08",
+      "email": "o1-fixture-creator-08@example.com",
+      "id": "fd2aae54-e685-49df-ac6d-be5e7fd0b450",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_09",
+      "kind": "editorial",
+      "username": "oq_creator_09",
+      "email": "o1-fixture-creator-09@example.com",
+      "id": "b0bf6dde-9cfd-4c77-8352-868d1d313a8a",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_10",
+      "kind": "editorial",
+      "username": "oq_creator_10",
+      "email": "o1-fixture-creator-10@example.com",
+      "id": "3cb9a509-7b5b-460b-995f-efc3ea3740ba",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_11",
+      "kind": "editorial",
+      "username": "oq_creator_11",
+      "email": "o1-fixture-creator-11@example.com",
+      "id": "abc18aea-3536-4e20-b139-114cdd974338",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_12",
+      "kind": "editorial",
+      "username": "oq_creator_12",
+      "email": "o1-fixture-creator-12@example.com",
+      "id": "41e302df-fecb-4bbc-afc2-a79092817959",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_13",
+      "kind": "editorial",
+      "username": "oq_creator_13",
+      "email": "o1-fixture-creator-13@example.com",
+      "id": "ec6ee367-5758-4986-a4c1-b2d58a5544d8",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_14",
+      "kind": "editorial",
+      "username": "oq_creator_14",
+      "email": "o1-fixture-creator-14@example.com",
+      "id": "ba795835-6ffb-4032-8144-b384c32d2538",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_15",
+      "kind": "editorial",
+      "username": "oq_creator_15",
+      "email": "o1-fixture-creator-15@example.com",
+      "id": "fd2db899-4956-4869-9bd4-8d0d89961b32",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_16",
+      "kind": "editorial",
+      "username": "oq_creator_16",
+      "email": "o1-fixture-creator-16@example.com",
+      "id": "317d819d-8690-422c-a3c8-6678ffff2d4b",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_17",
+      "kind": "editorial",
+      "username": "oq_creator_17",
+      "email": "o1-fixture-creator-17@example.com",
+      "id": "085f502d-0303-4e4b-83a9-86d3f2cdca5c",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_18",
+      "kind": "editorial",
+      "username": "oq_creator_18",
+      "email": "o1-fixture-creator-18@example.com",
+      "id": "b6a59c2e-599e-4c08-8fb5-d8c68988a034",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_19",
+      "kind": "editorial",
+      "username": "oq_creator_19",
+      "email": "o1-fixture-creator-19@example.com",
+      "id": "5dec6e59-9f30-4eef-9eb0-3eb1555549bf",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_20",
+      "kind": "editorial",
+      "username": "oq_creator_20",
+      "email": "o1-fixture-creator-20@example.com",
+      "id": "2865d225-133f-45df-804a-24a9a4a6dcec",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_21",
+      "kind": "editorial",
+      "username": "oq_creator_21",
+      "email": "o1-fixture-creator-21@example.com",
+      "id": "f105d6b9-fbff-4722-bd3f-db37143b8272",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_22",
+      "kind": "editorial",
+      "username": "oq_creator_22",
+      "email": "o1-fixture-creator-22@example.com",
+      "id": "8563c951-d61d-4283-9cfd-dc1b1c7559a2",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_23",
+      "kind": "editorial",
+      "username": "oq_creator_23",
+      "email": "o1-fixture-creator-23@example.com",
+      "id": "34f2f991-2dd9-4a1a-81f4-9d7f7d895a97",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_24",
+      "kind": "editorial",
+      "username": "oq_creator_24",
+      "email": "o1-fixture-creator-24@example.com",
+      "id": "cf6d0cd9-8fc2-49fe-b03f-e9ef0dab105e",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_25",
+      "kind": "editorial",
+      "username": "oq_creator_25",
+      "email": "o1-fixture-creator-25@example.com",
+      "id": "3db2a61a-6c96-4556-bc63-2fc25f39db15",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_26",
+      "kind": "editorial",
+      "username": "oq_creator_26",
+      "email": "o1-fixture-creator-26@example.com",
+      "id": "5f2a8d41-77ac-47b5-b7d2-4e4e31146e02",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_27",
+      "kind": "editorial",
+      "username": "oq_creator_27",
+      "email": "o1-fixture-creator-27@example.com",
+      "id": "5d2fbdd5-ffd1-4b57-8043-b08e27063564",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_28",
+      "kind": "editorial",
+      "username": "oq_creator_28",
+      "email": "o1-fixture-creator-28@example.com",
+      "id": "9b45bba8-4922-4744-b1ad-048d697007da",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_29",
+      "kind": "editorial",
+      "username": "oq_creator_29",
+      "email": "o1-fixture-creator-29@example.com",
+      "id": "b12a9767-06cc-4fc9-ab2e-a415409ec948",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "creator_30",
+      "kind": "editorial",
+      "username": "oq_creator_30",
+      "email": "o1-fixture-creator-30@example.com",
+      "id": "00be49d8-70b3-40aa-8269-fae73efbc8ba",
+      "confirmed": true,
+      "note": "Team creator placeholder; K2 writes the persona, B2 and B3 SQL add editorial_accounts and the membership"
+    },
+    {
+      "key": "otakuquiz_team",
+      "kind": "system",
+      "username": "otakuquiz_team",
+      "email": "o1-fixture-otakuquiz-team@example.com",
+      "id": "e13b8bd3-2c79-4200-b492-791337527bb0",
+      "confirmed": true,
+      "note": "system account: daily quiz and Anime Mix (sites.system_user_id via B5 SQL)"
+    }
+  ]
+}

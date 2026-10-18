@@ -1,11 +1,9 @@
-# HOT list of run O1, refreshed 2026-10-16T10:58:56Z from origin/main 30e7091.
-# Open branches: mission-u/account-deletion mission-u/bank-lot1 mission-u/bank-tools mission-u/deezer mission-u/ost-covers seo/m2-bts-quiz seo/m2-generations seo/m2-kpop-games seo/m2-sourced-trivia seo/m2-which-member seo/m3-citability seo/m3-indexnow seo/m3-monitoring seo/m3-nightly-checks seo/m3-refresh-calendar seo/m3-weekly-data seo/p0-audit seo/redirects-exact
+# HOT list of run O1, refreshed 2026-10-18T10:47:28Z from origin/main 8059cd3.
+# Open branches: mission-u/account-deletion mission-u/bank-lot1 mission-u/bank-tools mission-u/deezer mission-u/ost-covers seo/m2-bts-quiz seo/m2-generations seo/m2-kpop-games seo/m2-sourced-trivia seo/m2-which-member seo/m3-citability seo/m3-indexnow seo/m3-monitoring seo/m3-nightly-checks seo/m3-refresh-calendar seo/m3-weekly-data seo/p0-audit
 # A lane never edits these files before their branch is merged into main (rule 12).
 .github/workflows/indexnow.yml	seo/m3-indexnow
 .github/workflows/seo-gates.yml	seo/m3-nightly-checks
-apps/quiz/e2e/refonte-301.spec.ts	seo/redirects-exact
-apps/quiz/e2e/ux-v12/g6.spec.ts	seo/redirects-exact
-apps/quiz/next.config.ts	seo/m3-weekly-data,seo/redirects-exact
+apps/quiz/next.config.ts	seo/m3-weekly-data
 apps/quiz/package.json	seo/m2-sourced-trivia,seo/m3-nightly-checks
 apps/quiz/scripts/build-team-quiz-sql.mjs	seo/m2-bts-quiz
 apps/quiz/scripts/daily-bank/README.md	mission-u/bank-tools
@@ -55,7 +53,6 @@ apps/quiz/src/app/(site)/q/[slug]/page.tsx	seo/m2-bts-quiz,seo/m3-citability,seo
 apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx	seo/m2-bts-quiz,seo/m3-citability
 apps/quiz/src/app/(site)/settings/page.tsx	mission-u/account-deletion
 apps/quiz/src/app/(site)/stats/page.tsx	seo/m3-citability
-apps/quiz/src/app/(site)/tier-list/l/[slug]/route.ts	seo/redirects-exact
 apps/quiz/src/app/(site)/trivia/page.tsx	seo/m2-sourced-trivia
 apps/quiz/src/app/(site)/verse/[slug]/songs/[id]/ost-cover.test.ts	mission-u/ost-covers
 apps/quiz/src/app/(site)/verse/[slug]/songs/[id]/page.tsx	mission-u/ost-covers
@@ -168,8 +165,7 @@ apps/quiz/src/lib/report/charts.ts	seo/m3-citability
 apps/quiz/src/lib/report/knowledge-report-2026.test.ts	seo/m3-citability
 apps/quiz/src/lib/report/knowledge-report-2026.ts	seo/m3-citability
 apps/quiz/src/lib/route-allowlist-kpop-games.test.ts	seo/m2-kpop-games
-apps/quiz/src/lib/route-allowlist.test.ts	seo/redirects-exact
-apps/quiz/src/lib/route-allowlist.ts	seo/m2-kpop-games,seo/m3-citability,seo/redirects-exact
+apps/quiz/src/lib/route-allowlist.ts	seo/m2-kpop-games,seo/m3-citability
 apps/quiz/src/lib/seo/answer-first.ts	seo/m2-generations
 apps/quiz/src/lib/seo/calendar.test.ts	seo/m3-refresh-calendar
 apps/quiz/src/lib/seo/calendar.ts	seo/m3-refresh-calendar
@@ -184,8 +180,6 @@ apps/quiz/src/lib/seo/indexnow-plan.ts	seo/m3-indexnow
 apps/quiz/src/lib/seo/indexnow-reconcile.test.ts	seo/m3-indexnow
 apps/quiz/src/lib/seo/indexnow-reconcile.ts	seo/m3-indexnow
 apps/quiz/src/lib/seo/indexnow-test-fixtures.ts	seo/m3-indexnow
-apps/quiz/src/lib/seo/legacy-urls.test.ts	seo/redirects-exact
-apps/quiz/src/lib/seo/legacy-urls.ts	seo/redirects-exact
 apps/quiz/src/lib/seo/llms.test.ts	seo/m3-citability
 apps/quiz/src/lib/seo/llms.ts	seo/m3-citability
 apps/quiz/src/lib/seo/org.ts	seo/m3-citability
@@ -265,7 +259,7 @@ apps/quiz/src/lib/trivia/sourced/page-model.ts	seo/m2-sourced-trivia
 apps/quiz/src/lib/trivia/sourced/store.ts	seo/m2-sourced-trivia
 apps/quiz/src/lib/trivia/sourced/types.ts	seo/m2-sourced-trivia
 apps/quiz/src/lib/ux-v1/p3/faq.ts	seo/m2-generations
-apps/quiz/src/middleware.ts	seo/m3-monitoring,seo/redirects-exact
+apps/quiz/src/middleware.ts	seo/m3-monitoring
 apps/quiz/src/styles/globals.css	mission-u/deezer,seo/m2-sourced-trivia
 apps/quiz/src/styles/ux-v1/p3.css	seo/m2-bts-quiz
 apps/quiz/src/styles/ux-v1/p4.css	seo/m2-bts-quiz,seo/m3-citability
@@ -306,8 +300,6 @@ docs/pending-migrations/seo-m2-wma-former-members-rollback.sql	seo/m2-which-memb
 docs/pending-migrations/seo-m2-wma-former-members.sql	seo/m2-which-member
 docs/pending-migrations/seo-refresh-queue-rollback.sql	seo/m3-refresh-calendar
 docs/pending-migrations/seo-refresh-queue.sql	seo/m3-refresh-calendar
-docs/pending-migrations/seo-report-autoflag-v2-rollback.sql	seo/redirects-exact
-docs/pending-migrations/seo-report-autoflag-v2.sql	seo/redirects-exact
 docs/pending-migrations/seo-watch-rollback.sql	seo/m3-monitoring
 docs/pending-migrations/seo-watch.sql	seo/m3-monitoring
 docs/pending-migrations/seo-weekly-data-rollback.sql	seo/m3-weekly-data
