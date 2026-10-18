@@ -204,6 +204,13 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   passes Q0c, parity stays offline (D-025) and merges are recorded "offline (D-025)"; the first production
   comparison, o1/integration against origin/main, runs before the next merge that touches kpop after that. Then one
   full comparison per kpop merge, no more.
+- D-029 Pace (owner's question 6, 2026-10-18). Measured: about 30 h since the start, about 12 h of tick time, about
+  11 M subagent tokens, one weekly usage limit hit, Wave 0 (about 40 of the plan's 650 agent-hours) not merged yet.
+  Cuts applied at once, rule 18 and data safety kept: one R pass per lane carrying every profile (the second key stays
+  for B2, B3, B5 and B7), D0 limited to the screens of the lanes kept, one final checker pass instead of C1, C2, C3.
+  Moved after the run, before the launch (the owner may object): O5 (formats), X1 (day-1 bridges), E1b (/admin/review
+  and the anime publisher), L1's full rehearsal (L1 keeps the runbook, the launch SQL bundle and a scripted dry run).
+  Content stays at override 7. The cap of 2 code builders lifts when Mission U parts A to D are on main.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
