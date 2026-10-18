@@ -1,0 +1,47 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-Q0a/apps/quiz
+
+ ❯ src/lib/seo/og.test.ts (1 test | 1 failed) 6999ms
+   ❯ every openGraph object has an image (1)
+     × src/app and src/components 6995ms
+ ❯ src/lib/seo/json-ld.test.ts (5 tests | 1 failed) 11519ms
+   ❯ ld+json sinks (2)
+     × never pairs dangerouslySetInnerHTML with a bare JSON.stringify 7857ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/seo/json-ld.test.ts > ld+json sinks > never pairs dangerouslySetInnerHTML with a bare JSON.stringify
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/seo/json-ld.test.ts:43:3
+     41|     );
+     42|
+     43|   it('never pairs dangerouslySetInnerHTML with a bare JSON.stringify',…
+       |   ^
+     44|     const offenders = walk(src).filter((f) => /__html:\s*JSON\.stringi…
+     45|     expect(offenders.map((f) => f.slice(src.length))).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/lib/seo/og.test.ts > every openGraph object has an image > src/app and src/components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/seo/og.test.ts:34:3
+     32|
+     33| describe('every openGraph object has an image', () => {
+     34|   it('src/app and src/components', () => {
+       |   ^
+     35|     const root = join(__dirname, '../..');
+     36|     const missing: string[] = [];
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 122 passed (124)
+      Tests  2 failed | 2267 passed (2269)
+   Start at  12:16:05
+   Duration  58.85s (tests 41%, import 39%, transform 18%, worker 2%)
+
+    Isolate  124 workers spawned · ~1.50s startup each (spawn + environment, per file)
+             at least ~25.15s faster with isolate: false — reuses workers across files instead of one per file
+
