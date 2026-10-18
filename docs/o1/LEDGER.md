@@ -28,12 +28,12 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | O2 | 2 | code | 1 | O1 | O3 | SEO, UX | | | | |
 | O3 | 2 | code | 1 | O1, B3, B5, K1 | | SEO, UX, SQL | | | | |
 | O4 | 2 | code | 1 | O1, O3, K1 | | UX, SEC | | | | |
-| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | | | | |
+| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | after the run (D-029) | | | |
 | O6 | 2 | code | 1 | O1, B1, K4 | GU-B | UX, SEC, SQL | | | | |
 | P1 | 2 | code | 1 | O1, B3, B4, B6, B7 | G5 | UX, SEC | | | | |
 | H1 | 2 | code | 0 | B1, B3, B4, B6, B7 | G5 | UX, SEO, SEC | | | | |
-| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | | | | |
-| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | | | | |
+| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | after the run (D-029) | | | |
+| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | after the run (D-029) | | | |
 | L1 | 3 | code | 0 | O1 to O6, P1, H1, E1b, X1 | | ARCH | | | | |
 | C1, C2, C3 | 4 | checkers | 0 | L1 | | n/a | | | | |
 | RPT | 4 | docs | 0 | C1, C2, C3 | | n/a | | | | |
