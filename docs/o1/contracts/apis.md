@@ -131,16 +131,18 @@ otherwise; `next` is the cookie's `next`, or `'/'` without a valid cookie. The t
 
 Called by the sign-in UI of anime and hub after a native sign-in in the browser (Google ID token, P S3). Body
 `AfterSigninRequest {next, via}`; 401 `unauthenticated` without a session. `next` through `safeReturnTo`; `via` kept
-when it matches `VIA_RE`. Without a profile: 200 `{next, needsUsername: true}` (the client goes to
+when it matches `VIA_RE`. Without a profile: 200 `{next, needsUsername: true}` (on anime the client goes to
 `/onboarding?returnTo=<next>`, where `create_profile_for_site` creates the profile and the membership with the
-`via`). With one: `ensure_membership(SITE.id, 'signup', via)` (a `join` counter when created with a `via`), then
+`via`; the hub has no username screen, so its client goes to `/`, the network page, which links the sites where a
+passport starts: routes.md 1 item 4). With one: `ensure_membership(SITE.id, 'signup', via)` (a `join` counter when created with a `via`), then
 200 `{next, needsUsername: false}`. A banned profile: the session is signed out and 403 `banned`.
 
 ### 3.2 `GET /auth/confirm?token_hash&type&next` (anime, hub; 404 on kpop, which keeps `/auth/callback`)
 
 The landing of every email link of anime and hub (P S4; registry `auth.emailLanding`). `type` in `email`,
 `magiclink`, `signup`, `email_change`; `next` through `safeReturnTo(next, '/')`. `verifyOtp({token_hash, type})`; on
-success the same branches as today's `/auth/callback`: no profile, 302 `/onboarding?returnTo=<next>`; banned, sign
+success the same branches as today's `/auth/callback`: no profile, 302 `/onboarding?returnTo=<next>` on anime and 302 `/`
+on the hub (no username screen there, routes.md 1 item 4); banned, sign
 out and 302 `/login`; else `ensure_membership(SITE.id, 'signup', null)` and 302 to `next`. Any failure (missing
 parameter, unknown type, expired or used link): 302 `/login`. The URL holds no session after the redirect.
 

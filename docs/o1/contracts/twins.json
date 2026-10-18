@@ -978,7 +978,7 @@
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "The same files, configured by the anime registry entry. The layout also keeps the guard, the static params and the metadata reset of the spike (routing). F: Verse footer, Discord and Reddit links, Ranked, the data, article and news links, the locale switcher (CR-007). The file is shared with row H-0."
+      "notes": "The same files, configured by the anime registry entry. The layout also keeps the guard, the static params and the metadata reset of the spike (routing). F: Verse footer, Discord and Reddit links, Ranked, the data, article and news links, the locale switcher (CR-007). The file is shared with row H-0. Link targets (R F0 r1 m3): the twin shell links the groups item to /groups (lib/ux-v1/a0/nav.ts NAV_ITEMS), the You tab to /profile (TAB_ITEMS) and the account menu's Passport and See your passport to /profile (ux-nav-actions.tsx); on anime /groups and /profile are 404s (routing.ts KPOP_ONLY_SAMPLES), so the series item goes to /series and the You tab and both menu links to /me. The shell's owners give the shell those targets as a prop (B1 for nav.ts and ux-tab-bar.tsx, B4 for ux-nav-actions.tsx; request F0-20), the anime layout passes them, and O1 imports the shell unchanged; until the prop exists this row cannot be built without a copy, and the targets are no difference of its own (the labels are V, the items N)."
     },
     {
       "id": "29",
@@ -1339,7 +1339,7 @@
       ],
       "owner": "H1",
       "body": "shared",
-      "notes": "CR-001. The file is shared with row 28."
+      "notes": "CR-001. The file is shared with row 28. Link targets as in row 28 (request F0-20): the You tab and the account menu's passport links go to /passport, the home item to /; the hub has no /profile, /me or /groups."
     },
     {
       "id": "H-1",

@@ -287,6 +287,15 @@ describe('after the filesystem: no unmatched path reaches a kpop page (Next matc
     expect(answer(site, path, files, dynamic)).toBe(want);
   });
 
+  it('no static route of the repo has a dotted path that Next\'s filesystem check would serve on anime or hub', () => {
+    // The filesystem check runs before afterFiles: a dotted kpop route (a feed.xml, an icon) would
+    // answer on anime and hub. Today the only one is kpop's /llms.txt, which rule 3 rewrites first.
+    const dotted = repoRoutes().filter((r) => /\.[A-Za-z0-9]{1,12}$/.test(r));
+    for (const r of dotted) {
+      expect(PER_SITE_ROOT_FILES.includes(r) || r.startsWith('/sites/') || r.startsWith('/api/') || r.startsWith('/auth/'), r).toBe(true);
+    }
+  });
+
   it('the afterFiles and fallback rules are the site\'s only, and kpop has none', () => {
     for (const site of ['anime', 'hub'] as const) {
       expect(afterFilesFor(site)).toHaveLength(1);

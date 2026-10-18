@@ -16,13 +16,26 @@ and serves the three sites and checks every line).
 2b. Rule 18: every page under `app/sites/[site]/` is built from its kpop twin (`TWINS.md`), imports the shared
    components of its row and serves only the sites of its rows (on any other site it calls `notFound()`: the hub
    build compiles the anime pages too). No page there exists without a TWINS row.
-3. On a non-kpop build only, `next.config.ts` returns `{ beforeFiles: rewritesFor(SITE_ID), afterFiles: [],
-   fallback: [] }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty list) from `redirects()`. The kpop build
-   keeps both functions exactly as today.
-4. The middleware asks `middlewareStep(SITE_ID, pathname)` first: `'kpop'` runs today's middleware unchanged;
-   `'pass'` returns `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop retired-feature
-   410, no kpop unknown-route answer); `'session'` (`/login`, `/onboarding`, `/settings`, `/admin` and below) falls
-   through to today's protected branch (each is also a kpop `needsAuth()` path). The matcher regex is unchanged.
+3. On a non-kpop build only, `next.config.ts` returns `{ beforeFiles: rewritesFor(SITE_ID), afterFiles:
+   afterFilesFor(SITE_ID), fallback: fallbackFor(SITE_ID) }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty
+   list) from `redirects()`. The kpop build keeps both functions exactly as today.
+4. The middleware asks `middlewareStep(SITE_ID, pathname)` first. `'kpop'` runs today's middleware unchanged.
+   `'not-found'` (kpop only, item 6) answers before the kpop branch with that branch's own unknown-route answer: a
+   page path is rewritten to `NOT_FOUND_REWRITE`, a file path goes on (`isFilePath`). `'pass'` returns
+   `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop retired-feature 410, no kpop
+   unknown-route answer). `'session'` falls through to today's protected branch: a path of `SESSION_PATTERNS`
+   (`/login`, and `/onboarding`, `/settings`, `/admin` with what is below: today's `needsAuth()` without the Verse
+   studio; routing.test.ts reads the list from middleware.ts) that the site's own route map also knows
+   (`isSessionPathFor`). Anime refreshes the session on all four; the hub on `/login` and `/settings/**` only, so the
+   hub's `/admin` and `/onboarding` are its 404s, never a 307 to `/login` (R F0 r1 M1). The matcher regex is
+   unchanged.
+   Redirects of the session branch (`lib/supabase/middleware.ts`, B4's) stay inside the site's route map: an
+   anonymous request on a protected path goes to `/login?returnTo=<path>` (a route of anime and hub); a signed-in
+   request on `/login` goes to `/` with a profile, and without one to `/onboarding` on kpop and anime and to `/` on
+   the hub, which has no username screen (no route, no TWINS row: a profile starts on a site, P W5 case C, where
+   `create_profile_for_site` runs; the network page links the sites). Today's branch sends that last case to
+   `/onboarding` on every build: B4 makes the target site-aware (request F0-21), and apis.md 3.1 and 3.2 give the hub
+   the same target. The protected branch is never reached on a path the site's map does not know.
    Since PR #102 (`seo/redirects-exact`, LEDGER D-030) the kpop branch answers a retired URL 410 (`legacyAnswer`) and
    rewrites an unknown page path to `NOT_FOUND_REWRITE` (`/page-not-found`, the kpop 404 with its chrome); the step
    runs before both, so an anime or hub path never gets the kpop 410 page ("no longer on KpopQuiz") or the kpop 404
@@ -33,18 +46,29 @@ and serves the three sites and checks every line).
    and hub builds on the kpop pages they compile. The site-aware question is `isKnownRouteFor(site, path, flags)`:
    for kpop it returns exactly `isKnownRouteWith(path, flags)` (tested for every route of the repo and every flag
    set); for anime and hub it answers from the route map below.
-6. A direct `/sites/...` request is a 404 on all three builds: kpop has no `/sites` params and the guard refuses;
-   anime and hub prefix it again (`/sites/anime/sites/...`), which only the catch-all page `[...rest]` matches, and it
-   calls `notFound()`. On kpop the `/sites/` entry of `KNOWN_ROUTES` lets the path past the middleware, so its 404 is
-   Next's own not-found inside the root layout (no site chrome), where an unknown kpop URL gets the kpop 404 page
-   since PR #102; both answer 404 and no kpop page links to `/sites` (F0 decision, kept: making them equal would put
-   a site test in the kpop branch).
+6. A direct `/sites/...` request is a 404 on all three builds. Anime and hub prefix it again
+   (`/sites/anime/sites/...`), which only the catch-all page `[...rest]` matches, and it calls `notFound()`. On kpop
+   the `/sites/` entry of `KNOWN_ROUTES` exists for the build guard only (item 5), so the middleware step
+   `'not-found'` (item 4) gives every `/sites` path that today's allowlist refuses (`isKnownWithoutSitesEntry`: the
+   real predicate on the same path under an unlisted first segment) the kpop branch's own unknown-route answer: a
+   page path renders the kpop 404 page through `NOT_FOUND_REWRITE`, exactly as it does on o1/integration today, and
+   a file path goes on to Next as today. A `/sites` path today's allowlist knows by its suffix
+   (`/sites/anime/bts-quiz`) stays `'kpop'`, as today. kpop has no `/sites` params (`siteStaticParams()` is `[]`,
+   `dynamicParams = false`, the guard refuses), so every such path stays a 404.
+   Open (request F0-19, ORCH): on kpop, a `/sites` path that goes on to Next (a dotted last segment, or a `-quiz` or
+   `-trivia` suffix) meets the `app/sites/[site]` tree, which exists in every build. Its status is 404 as today, but
+   its body is the tree's 404 (the three root-file handlers answer an empty-body or plain 404: a route handler's
+   `notFound()` is an empty 404 in next 16.2.1), not the 404 of a path no route matches. No kpop page links to
+   `/sites`. The ruling asked: accept it, or freeze a per-site page extension (the pages under `app/sites` named
+   `page.site.tsx`, `pageExtensions` extended on anime and hub builds only), which leaves no anime or hub route in the
+   kpop build at all and drops both the `/sites/` entry and the `'not-found'` step.
 7. API routes and `/auth/*` routes are shared files (no rewrite) and read `SITE`. A kpop-only API or cron answers
    404 (or a no-op for crons, `cronForSite`) on other builds: B1 for crons, each owning lane for its API.
 
 ORCH applies 3, 4 and 5 once the routing files leave the HOT list (GH merged as PR #102, D-030; the GH2 branches
-still hold them): 25 added lines and 1 removed line, comments included, in `next.config.ts`, `middleware.ts` and
-`route-allowlist.ts`, exactly `git diff o1/F0 o1/F0s` on those three files (rebased on PR #102's files at tick 6).
+still hold them): 31 added lines and 1 removed line, comments included, in `next.config.ts`, `middleware.ts` and
+`route-allowlist.ts`, exactly `git diff o1/F0 o1/F0s` on those three files (rebased on PR #102's files at tick 6, the
+step and the afterFiles and fallback rules added after R F0 r1).
 Lanes never edit those files; a new anime or hub route is a pattern in the registry (CR) and a page under
 `app/sites/[site]/`.
 
@@ -60,11 +84,24 @@ frozen order of `rewritesFor(site)`:
 | 1 | `/:path(<CATCH_ALL_PATTERN>)` | `/sites/<site>/:path` | every public path, prefixed once |
 | 2 | `/` | `/sites/<site>` | the home (rule 1 needs one character) |
 | 3 | `/robots.txt`, `/sitemap.xml`, `/llms.txt` | `/sites/<site>/robots.txt` etc. | per-site root files (dotted, skipped by rule 1) |
+| 3b | each of `PER_SITE_BRAND_FILES` (`/favicon.ico`, `/apple-touch-icon.png`, `/site.webmanifest`, `/og-default.png`, the logos and every other root file of `public/` but the IndexNow keys) | `/brand/<site>/<same name>` (`brandPath`) | the site's own brand file, never kpop's (R F0 r1 M2) |
 | 4 | `/sites/<site>/<pretty source>` | `/sites/<site>/<internal>` | pretty URLs, matched on the prefixed path |
+| after files | `/:path(<AFTER_FILES_PATTERN>)` | `/sites/<site>/:path` | a path the rules above left and no public file or static route serves |
+| fallback | `/:path((?:api\|auth)/.+)` | `/sites/<site>/:path` | an `/api/` or `/auth/` path that no handler serves |
+
+After the beforeFiles rules Next checks the filesystem for an exact match (public files and static routes), then the
+afterFiles rules, then the dynamic routes, then the fallback rules (`resolve-routes.js` of next 16.2.1). Without the
+afterFiles rule, a dotted path that no public file serves went on to the kpop dynamic routes: measured on the spike in
+dev before the fix, anime `/x.png`, `/wp-login.php` and `/api` rendered `app/(site)/not-found.tsx` (its popular K-pop
+groups, in the kpop chrome) through `app/(site)/[slug]`, and `/q/x.png` ran the kpop quiz page (a database read, 500
+offline). `AFTER_FILES_PATTERN` takes every path but `/_next`, `/_vercel`, the dev overlay, `/sites` (rewritten
+already) and the `/api/` and `/auth/` handlers (dynamic routes come after afterFiles; a bare `/api` or `/auth` is
+taken). No kpop route may have a dotted path that the filesystem check would serve on anime or hub; today the only
+one, `/llms.txt`, is rewritten by rule 3 first (routing.test.ts walks the routes of the repo).
 
 `CATCH_ALL_PATTERN` skips a first segment `_next`, `_vercel`, `api` or `auth`, the dev overlay (`__nextjs*`), and a
-path whose last segment is a file name (dot plus 1 to 12 letters or digits), so public files are served as they are;
-a path under `/sites` is always caught, file name or not. A trailing slash is removed by Next's own redirect before
+path whose last segment is a file name (dot plus 1 to 12 letters or digits), so shared public files are served as
+they are; a path under `/sites` is always caught, file name or not. A trailing slash is removed by Next's own redirect before
 the rewrites run.
 
 ### Per-site root files (F0 decision)
@@ -75,10 +112,17 @@ the rewrites run.
 return dispatch inside the kpop files (no kpop file edit at all). Staging: robots disallows everything (spike); O1
 and H1 write the production rules, L1 flips them.
 
-Public files (`public/`) are shared by the three builds. Per-site brand assets go to `public/brand/<site>/`. Each
-site's IndexNow key file is `public/<key>.txt` (all builds serve all key files: harmless, a key only proves control of
-the host that lists it). The web manifest of anime and hub is `public/brand/<site>/site.webmanifest`, linked by the
-site's metadata.
+Public files (`public/`) in folders (fonts, avatars, badges) are shared by the three builds. The root files of
+`public/` are not: every one of them but the IndexNow key files is a KpopQuiz brand file or K-pop art
+(`PER_SITE_BRAND_FILES`; routing.test.ts proves the list is the root of `public/` minus the key files, so a root file
+added later joins it). On anime and hub each of those root paths answers the site's own file of the same name in
+`public/brand/<site>/` (rule 3b), or the site's 404 while that file does not exist (the afterFiles rule): never
+kpop's bytes, and browsers and crawlers that fetch `/favicon.ico` or `/apple-touch-icon.png` with no link get the
+site's own. The registry's `brand.logo`, `brand.favicon`, `brand.ogTemplate` and `seo.organization.logo` of anime and
+hub are such paths (tested). O1 provides `public/brand/anime/` and H1 `public/brand/hub/` (no owner in
+OWNERSHIP.json yet: request F0-19). Each site's IndexNow key file is `public/<key>.txt` (all builds serve all key
+files: harmless, a key only proves control of the host that lists it). The web manifest of anime and hub is
+`public/brand/<site>/site.webmanifest`, answered at `/site.webmanifest` and linked by the site's metadata.
 
 ### Metadata of anime and hub pages (spike finding)
 
@@ -86,8 +130,14 @@ The root `app/layout.tsx` carries kpop metadata (description naming K-pop groups
 Twitter, icons, manifest, the Pinterest tag that verifies kpopquiz.org) and the template `%s | KpopQuiz`. Until B1
 makes the root layout read the registry, the `sites/[site]` layout resets every one of them (`null`, the Pinterest
 tag to an empty list) and uses `title: { absolute, template }`, else the site's own 404 is titled
-"OtakuQuiz | KpopQuiz". The `(site)/not-found.tsx` of kpop lists popular K-pop groups: anime and hub never reach it
-because every unmatched path ends in `app/sites/[site]/[...rest]` and the site's own `not-found.tsx`.
+"OtakuQuiz | KpopQuiz". The `(site)/not-found.tsx` of kpop lists popular K-pop groups: anime and hub never reach it.
+Every path of an anime or hub build that no page, public file or handler serves ends in `app/sites/[site]/[...rest]`
+and the site's own `not-found.tsx` (through rule 1, the afterFiles rule or the fallback rule), with the site's
+metadata, except the framework's own paths (`/_next/...`, `/_vercel/...`), whose 404 is the root one: the root
+layout's metadata there is kpop's until B1 makes the root layout read the registry (B1's done test: no KpopQuiz
+literal outside the registry). Measured on the spike in dev after R F0 r1: anime and hub `/x.png`, `/wp-login.php`,
+`/q/x.png`, `/api`, `/api/does-not-exist`, `/auth/nope`, `/favicon.ico` and every other line of spike-checks.tsv
+answer with the site's title and no K-pop string.
 
 ## 2. Pattern syntax (`routes.allow`)
 
@@ -190,8 +240,14 @@ mode, code F), and they are unknown on the hub.
 
 Q0a's route-leak suite requests both lists on the anime and hub builds and expects 404 for each.
 
-## 6. Spike results (branch `o1/F0s`, next dev 16.2.1, offline database)
+## 6. Spike results (branch `o1/F0s`)
 
-All lines of `spike-checks.tsv` answer as expected on anime (17) and hub (9) and on kpop (6 of 7): kpop
-`/bts-quiz` is a 500 offline, because `getGroupBySlug` throws when the database is unreachable (the ISR fail-closed
-rule, unchanged kpop behaviour); it needs the dev database (gate G1). Details in `docs/o1/reports/F0.md`.
+The gate builds the spike tip for the three sites, serves each build with `next start` and checks every line of
+`spike-checks.tsv` (the evidence is the gate's `spike-routes.log`). On 2c3d39a (the gate of bf37460) its 39 lines
+passed (kpop 8, anime 20, hub 11); the kpop unknown URL line waits as a comment (the gate's serving, request F0-18).
+After R F0 r1 the file has 66 lines (kpop 10, anime 35, hub 21): the kpop `/sites` page paths, the anime and hub root
+brand files (404 until their brand files exist, never kpop's 200), the hub's `/admin` and `/onboarding` (404, never
+a 307), the dotted paths no public file serves and the unknown `/api/` and `/auth/` paths (the site's 404), and two
+shared public files (200). Measured in dev offline before the gate (`next dev`, one build at a time): every line
+answers as written, and no anime or hub body carries a K-pop string. No line depends on catalog data (D-026).
+Details in `docs/o1/reports/F0.md`.

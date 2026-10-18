@@ -38,7 +38,7 @@ of BACKLOG 5.1.
 | function | file | security | EXECUTE | callers |
 |---|---|---|---|---|
 | `ensure_membership(p_site, p_via, p_via_code)` | 003 | definer | authenticated | B4 `/api/passport/redeem` (`jump`, the ticket's `via`), B4 `/api/passport/after-signin` (`signup`), B7 `/auth/confirm` (`signup`), B3's first write on a non-kpop site (`play`) |
-| `create_profile_for_site(p_username, p_site, p_avatar_bg, p_avatar_text, p_via, p_via_code, p_user_id)` | 003 | definer | authenticated, service_role | P1 and H1 onboarding "Pick a username" on anime and hub (with the viewer's session); K2's editorial accounts (service role, `p_user_id`) |
+| `create_profile_for_site(p_username, p_site, p_avatar_bg, p_avatar_text, p_via, p_via_code, p_user_id)` | 003 | definer | authenticated, service_role | P1's onboarding "Pick a username" on anime (with the viewer's session; the hub has no username screen and never calls it, routes.md 1 item 4); K2's editorial accounts (service role, `p_user_id`) |
 | `net_bridge_bump(p_src, p_dst, p_bridge, p_step, p_signed_in, p_n)` | 005 | definer | service_role | B6 `/api/n/b` (shown, click, land, dismiss, optin); B3 and B4 server code for `join` (a membership created with a `via_code`) and `first_play` (`first_play_at` set) |
 | `passport_issue_code(p_user, p_from_site, p_to_site, p_code_hash, p_code_challenge, p_via_code, p_ip_hash, p_ua_family)` | 006 | definer | service_role | B4 `/auth/authorize` |
 | `passport_redeem_code(p_code_hash, p_to_site, p_code_challenge, p_via_code, p_ip_hash, p_ua_family)` | 006 | definer | service_role | B4 `/api/passport/redeem` |
