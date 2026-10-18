@@ -20,8 +20,8 @@ export type ViaCode = `${SiteLetter}.${string}`;
 
 /**
  * Every NetBridgeId value (Q 2.3), in Q's order, with its catalogue entry. A new value is a CR (BACKLOG 5.2) and
- * must match `^[a-z]{2,8}$` (the `bridge_daily.bridge` check). Day-1 links use foot, net, menu, welcome, xfact,
- * xhub, xpl, xres, team, about, wl and ch; the others are reserved for later links and render nowhere in the run.
+ * must match `^[a-z]{2,8}$` (the `bridge_daily.bridge` check). Day-1 links use foot, net, menu, xfact, xhub, xpl,
+ * xres, team, about, wl and ch; the others are Q's catalogue values for later links and render nowhere in the run.
  */
 export const NET_LINK_IDS = [
   'foot', // B01 network footer line
@@ -32,7 +32,7 @@ export const NET_LINK_IDS = [
   'menu', // B06 "Your sites" in the account menu
   'pp', // B07 passport page stamps
   'stamp', // B08 friend stamps on profiles
-  'welcome', // B09 welcome card (pending CR-002 and CR-006)
+  'welcome', // B09 welcome card: no link of the run sends it (CR-002 and CR-006 refused for O1, LEDGER D-027)
   'xfact', // B13 crossover fact line or tag
   'xhub', // B13 crossover fact line on a kpop group hub
   'xpl', // B12 crossover playlist
@@ -111,7 +111,10 @@ export interface NetMe {
   readonly suggestions: boolean;
   /** `passport_prefs.dismissed`: ISO "until" per link id ("Not interested", 90 days). */
   readonly dismissed: Readonly<Partial<Record<NetBridgeId, string>>>;
-  /** `passport_prefs.welcomed_sites`: the sites whose welcome was shown or skipped. */
+  /**
+   * `passport_prefs.welcomed_sites`: the sites whose welcome was shown or skipped. Kept as BACKLOG 4.1 and 5.1 freeze
+   * it; no surface of the run writes it (the welcome cards, CR-002 and CR-006, were refused for O1, LEDGER D-027).
+   */
   readonly welcomed: readonly SiteId[];
   /** `passport_prefs.your_sites_menu`. */
   readonly yourSitesMenu: NetSitesMenuMode;

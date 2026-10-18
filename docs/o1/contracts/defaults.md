@@ -6,9 +6,9 @@ défaut"). Every row below is therefore **confirmed by the owner (G0, 2026-10-16
 already accepted before G0. A later change by the owner is a CR (`CONTRACT.md`); ORCH records it in `LEDGER.md` and
 the row then carries the owner's new value and the CR number.
 
-What G0 did not decide: CR-002 to CR-006 were proposals, not defaults, and stay pending (LEDGER D-021); their copy
-keys, flags and storage names are marked pending in `copy-keys.md`, `flags-env.md` and `cookies.md`, never S. The
-values that also wait for another gate say so in their last column (G5 for colour values, G6 for the personas, G15
+What G0 did not decide: CR-002 to CR-006 were proposals, not defaults (LEDGER D-021); the owner refused them for O1 on
+18 October 2026 (LEDGER D-027), backlog after launch, so `copy-keys.md`, `flags-env.md` and `cookies.md` hold no copy
+key, flag or storage name for them. The values that also wait for another gate say so in their last column (G5 for colour values, G6 for the personas, G15
 for the rate limits, G16 for the texts: sign-out wording, privacy and deletion policies).
 
 `contract.test.ts` checks that the two lists are complete (21 and 9 rows), that every row carries one of the two

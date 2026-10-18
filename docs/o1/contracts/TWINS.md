@@ -83,7 +83,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | 5 | /{series}-trivia | `app/sites/[site]/[slug]/page.tsx` | `app/(site)/[slug]/group-trivia-page.tsx` | `@/components/group/answer-first`, `@/components/trivia/trivia-share-button`, `@/components/ui/breadcrumbs` | components/group/answer-first.tsx, components/trivia/trivia-share-button.tsx, components/ui/breadcrumbs.tsx | T B V C N A5 A7 | O2 | local | The body of the twin is the page-local GroupTriviaPage with K-pop text: its owner moves it into a shared component with props (request F0-9) and that module joins mustImport. The group logo of the twin becomes the A7 title card. |
 | 6 | /q/{slug} | `app/sites/[site]/q/[slug]/page.tsx` | `app/(site)/q/[slug]/ux-page.tsx` | `@/components/quiz/ux-v1/quiz-page` | components/quiz/ux-v1/quiz-page.tsx, intro-islands.tsx, comments.tsx, report.tsx, run-context.tsx, components/ux-v1/text-card.tsx, panel.tsx, person-name.tsx | T B V C F N A5 | O3 | shared | The twin page.tsx renders ux-page.tsx when UX v1 is on. |
 | 7 | play (inside /q/{slug}) | `app/sites/[site]/q/[slug]/page.tsx` | `app/(site)/q/[slug]/ux-page.tsx` | `@/components/quiz/ux-v1/quiz-page` | components/quiz/ux-v1/game.tsx, quiz-run.tsx, components/ux-v1/answer-tiles.tsx | T B V C F | O3 | shared | F: no image question. Rendered by the quiz page of row 6. |
-| 8 | results (inside /q/{slug}) | `app/sites/[site]/q/[slug]/page.tsx` | `app/(site)/q/[slug]/ux-page.tsx` | `@/components/quiz/ux-v1/quiz-page` | components/quiz/ux-v1/results.tsx, story.ts, components/ux-v1/result-card.tsx, story-image.ts, share-sheet.tsx, components/this-or-that/bonus.tsx (text pairs) | T B V C F N | O3 (O5: the This or that bonus) | shared | The post-result oshi row has no kpop twin: CR-005, proposed, not built before the owner approves it. |
+| 8 | results (inside /q/{slug}) | `app/sites/[site]/q/[slug]/page.tsx` | `app/(site)/q/[slug]/ux-page.tsx` | `@/components/quiz/ux-v1/quiz-page` | components/quiz/ux-v1/results.tsx, story.ts, components/ux-v1/result-card.tsx, story-image.ts, share-sheet.tsx, components/this-or-that/bonus.tsx (text pairs) | T B V C F N | O3 (O5: the This or that bonus) | shared | No post-result oshi row: it has no kpop twin, and CR-005 was refused for O1 (owner, 2026-10-18). |
 | 9 | /create | `app/sites/[site]/create/page.tsx` | `app/(site)/create/page.tsx` | `@/components/ux-v1/page`, `@/components/create/ux-v1/loader` | components/create/ux-v1/loader.tsx, create.tsx, details.tsx, questions.tsx, publish.tsx, done.tsx, group-field.tsx (series picker through V, aliases as data) | T B V C F N A5 | O4 | shared | A5: a spoiler tag and a source per question, the anime rule codes. The details fields stay the twin ones (title, about, type, series, difficulty, language; cover is F). |
 | 10 | /daily | `app/sites/[site]/daily/route.ts` | `app/(site)/daily/route.ts` | (none) | the same redirect to /q/{slug}?daily=quiz | none | O1 | none | A route handler, no screen. The daily is the anime one through getQuizOfTheDay(site). |
 | 11 | /blindtest | `app/sites/[site]/blindtest/page.tsx` | `app/(site)/blindtest/page.tsx` | `@/components/blindtest/ux-v1/hub` | components/blindtest/ux-v1/hub.tsx, hub-v12.tsx, the Deezer kit of Mission U | T B V C F N A4 | O6 | shared | F: no cover. A4: series playlists. |
@@ -144,15 +144,15 @@ Footer network line (B6, `NET_FOOTER`), Your sites menu block (B6, `NET_MENU`), 
 users (B6), song-row crossover tag and hub fact line (X1, `NET_FACTS`): each is a change of the kpop page itself,
 shown in D0 as before and after, off by default.
 
-## 6. Surfaces without a kpop twin (CR-002 to CR-006, the owner decides)
+## 6. Surfaces without a kpop twin (CR-002 to CR-006 refused for O1)
 
 CR-002 welcome card on the first signed-in arrival; CR-003 "How I appear here"; CR-004 "Keep anime in your passport?
 Yes, Not now" after the third play; CR-005 the post-result oshi row on quiz results (row 8); CR-006 the kpopquiz.org
-welcome card for arrivals from OtakuQuiz (`NET_WELCOME`). Each is proposed as built only from shared components
-(Panel, Sheet, Button, Chip) in an existing slot of its twin. None has a row, a frame (D-020) or a build before the
-owner approves it; their copy keys and flags are marked pending (copy-keys.md, flags-env.md, cookies.md). Also pending
-a row or a CR: the B4 land page copy (row 37 says the land page renders no visible content) and the kpop
-`/admin/network` dashboard (request F0-8).
+welcome card for arrivals from OtakuQuiz (`NET_WELCOME`). The owner refused all five for O1 on 18 October 2026 (LEDGER
+D-027): backlog after launch. None has a row, a frame (D-020) or a build in the run, and the contract reserves no copy
+key, flag or storage key for them (copy-keys.md 3, flags-env.md 3, cookies.md 7). Building one needs a new CR approved
+in LEDGER.md. Still pending a row or a CR: the B4 land page copy (row 37 says the land page renders no visible
+content) and the kpop `/admin/network` dashboard (request F0-8).
 
 ## 7. Corrections to the draft (paths and components checked against the tree, 16 October 2026)
 

@@ -1,6 +1,6 @@
 # Lanes (o1-contract-v1): which contract files each lane cites
 
-Every lane of BACKLOG section 1, with the run's splits (Q0 is Q0a and Q0b, E1 is E1a and E1b, F0's routing spike is
+Every lane of BACKLOG section 1, with the run's splits (Q0 is Q0a, Q0b and Q0c (LEDGER D-028), E1 is E1a and E1b, F0's routing spike is
 F0s; `OWNERSHIP.json` and its waves), the contract files it must cite, what those files give it, and the sections to
 read first. A lane's brief, report and change requests cite these files; R checks a lane's diff against them, and a CR
 to a file is checked against every lane that cites it (CONTRACT.md, CR step 2).
@@ -28,6 +28,7 @@ Every lane cites `CONTRACT.md`, `naming.md`, `LANES.md` and `defaults.md`. `cont
 | Q0a | 0 | code | R-ARCH | `CONTRACT.md`, `naming.md`, `routes.md`, `tokens.md`, `cookies.md`, `flags-env.md`, `fixtures.md`, `copy-keys.md`, `link-allowlist.md`, `LANES.md`, `defaults.md`, `TWINS.md`, `twins.json`, `spike-checks.tsv` |
 | D0 | 0 | static | R-UX | `CONTRACT.md`, `naming.md`, `routes.md`, `tokens.md`, `fixtures.md`, `copy-keys.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | Q0b | 1 | code + SQL | R-ARCH | `CONTRACT.md`, `naming.md`, `schema.sql`, `schema.base.sql`, `manifest.md`, `apis.md`, `cookies.md`, `flags-env.md`, `fixtures.md`, `LANES.md`, `defaults.md` |
+| Q0c | 1 | code | R-SEC, R-ARCH | `CONTRACT.md`, `naming.md`, `flags-env.md`, `LANES.md`, `defaults.md` |
 | B1 | 1 | code | R-ARCH, R-SEO | `CONTRACT.md`, `naming.md`, `registry.md`, `routes.md`, `tokens.md`, `manifest.md`, `rpcs.md`, `apis.md`, `flags-env.md`, `LANES.md`, `defaults.md` |
 | B2 | 1 | code + SQL | R-SQL | `CONTRACT.md`, `naming.md`, `registry.md`, `routes.md`, `schema.sql`, `contract.types.ts`, `manifest.md`, `rpcs.md`, `flags-env.md`, `fixtures.md`, `LANES.md`, `defaults.md` |
 | B3 | 1 | code + SQL | R-SQL | `CONTRACT.md`, `naming.md`, `registry.md`, `schema.sql`, `contract.types.ts`, `manifest.md`, `rpcs.md`, `flags-env.md`, `fixtures.md`, `LANES.md`, `defaults.md` |
@@ -71,6 +72,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | Q0a | none | none | none | none | none | none | none |
 | D0 | none | none | none | none | none | none | none |
 | Q0b | none | none | none | none | none | none | none |
+| Q0c | none | none | none | none | none | none | none |
 | B1 | none | none | none | none | cronForSite, getQuizOfTheDay, levelTitlesFor | none | none |
 | B2 | 001, L01, 002a, 002b, 002c, 002d | none | none | none | forSite, withSite | SITE_SCOPE | none |
 | B3 | 003, 004, 005, 007, L06 | none | none | none | levelTitlesFor, profileForSite, awardXpForSite, PersonName | none | none |
@@ -89,7 +91,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | O4 | none | 9 | anime.o4 | none | none | none | none |
 | O5 | 013 | 14, 15 | anime.o5 | none | none | none | none |
 | O6 | 014 | 11, 12, 13 | anime.o6 | /api/cron/ensure-daily-opening | none | none | none |
-| P1 | none | 16, 17, 18, 19, 20 | kpop.p1, anime.p1 | none | none | NEXT_PUBLIC_NET_WELCOME | none |
+| P1 | none | 16, 17, 18, 19, 20 | anime.p1 | none | none | none | none |
 | H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8 | hub.h1 | none | none | none | none |
 | E1b | 012 | 29 | anime.e1b | none | none | none | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
@@ -128,6 +130,8 @@ section numbers, and `schema.sql` is cited by its `@file` sections.
   `copy-keys.md` 3 (the copy deck), `TWINS.md` (every row: the anime frame next to its kpop twin).
 - **Q0b**: `schema.sql` 008 (equivalence fixtures of B5), `schema.base.sql` and `manifest.md` 3 (local scratch
   cluster), `apis.md` 2 and 3 (auth smoke suite), `cookies.md` 1 to 5, `flags-env.md` 5 and 6, `fixtures.md` 1 and 2.
+- **Q0c**: `flags-env.md` 1 (the kpop build parity compares), 5 (secret names: the proxy holds the real keys, never
+  prints them) and 6 (`env.sh`, the run variables).
 - **B1**: `registry.md` (every section; kpop values equal today's literals), `routes.md` 1 to 3, `tokens.md` 2 and 3
   (`--ux-on-accent`, the per-site sheet hook), `manifest.md` 4 (`cronForSite` on every cron), `rpcs.md` 3
   (`cronForSite`, `getQuizOfTheDay`, `levelTitlesFor`), `apis.md` 5, `flags-env.md` 1 and 2.
@@ -179,8 +183,8 @@ section numbers, and `schema.sql` is cited by its `@file` sections.
   and 4, `rpcs.md` 3, `apis.md` 5 (`ensure-daily-opening`), `flags-env.md` 1, `formats.md` 7 and 11, `copy-keys.md`
   3, `TWINS.md` rows 11 to 13.
 - **P1**: `registry.md` (ladders, sign-in providers), `routes.md` 3, `tokens.md` 3, `contract.types.ts`, `rpcs.md` 3
-  and 4 (`profileForSite`, the member projection), `apis.md` 3 and 6, `cookies.md` 7, `flags-env.md` 3
-  (`NEXT_PUBLIC_NET_WELCOME`, pending), `fixtures.md` 2, `formats.md` 6, `copy-keys.md` 3, `TWINS.md` 2 and 6 and its
+  and 4 (`profileForSite`, the member projection), `apis.md` 3 and 6, `cookies.md` 7, `flags-env.md` 1 and 3
+  (no welcome flag: CR-002 to CR-006 refused, D-027), `fixtures.md` 2, `formats.md` 6, `copy-keys.md` 3, `TWINS.md` 2 and 6 and its
   rows.
 - **H1**: `registry.md` (hub entry), `routes.md` 3 and 5, `tokens.md` 3 and 4.3, `contract.types.ts`, `rpcs.md` 2.1
   (`public_passport`, `my_passport`, `set_passport_prefs`), 3 and 4, `apis.md` 3 and 6, `cookies.md` 7,

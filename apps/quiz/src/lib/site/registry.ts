@@ -344,13 +344,15 @@ export interface O1Flag {
   readonly reserved: boolean;
 }
 
-/** The run's flags (BACKLOG 5.1). Every one is off by default on every site. */
+/**
+ * The run's flags (BACKLOG 5.1). Every one is off by default on every site. BACKLOG's NEXT_PUBLIC_NET_WELCOME is
+ * not one of them: CR-002 and CR-006 were refused for O1 (owner, 2026-10-18, LEDGER D-027), nothing is reserved.
+ */
 export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'SITE_SCOPE', scope: 'server', lane: 'B2', reserved: false },
   { name: 'NEXT_PUBLIC_NET_BEACON', scope: 'public', lane: 'B6', reserved: false },
   { name: 'NEXT_PUBLIC_NET_FOOTER', scope: 'public', lane: 'B6', reserved: false },
   { name: 'NEXT_PUBLIC_NET_MENU', scope: 'public', lane: 'B6', reserved: false },
-  { name: 'NEXT_PUBLIC_NET_WELCOME', scope: 'public', lane: 'P1', reserved: false },
   { name: 'NEXT_PUBLIC_NET_FACTS', scope: 'public', lane: 'X1', reserved: false },
   { name: 'PASSPORT_JUMP', scope: 'server', lane: 'B4', reserved: false },
   { name: 'PASSPORT_CONTINUE', scope: 'server', lane: 'B4', reserved: true },

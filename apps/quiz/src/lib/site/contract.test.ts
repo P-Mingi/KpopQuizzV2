@@ -1856,8 +1856,8 @@ const BACKLOG_LANES = [
   'ORCH', 'F0', 'D0', 'Q0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'E1', 'K1', 'K2', 'K3', 'K4', 'O1', 'O2', 'O3',
   'O4', 'O5', 'O6', 'P1', 'H1', 'X1', 'L1', 'C1', 'C2', 'C3', 'RPT',
 ] as const;
-/** The run's splits of a BACKLOG lane (OWNERSHIP.json): Q0 and E1 in two phases, F0 with its never-merged spike. */
-const LANE_SPLITS: Readonly<Record<string, readonly string[]>> = { Q0: ['Q0a', 'Q0b'], E1: ['E1a', 'E1b'], F0: ['F0', 'F0s'] };
+/** The run's splits of a BACKLOG lane (OWNERSHIP.json): Q0 in three (Q0c: LEDGER D-028), E1 in two, F0 with its never-merged spike. */
+const LANE_SPLITS: Readonly<Record<string, readonly string[]>> = { Q0: ['Q0a', 'Q0b', 'Q0c'], E1: ['E1a', 'E1b'], F0: ['F0', 'F0s'] };
 /** The files every lane cites (LANES.md 1). */
 const CITED_BY_ALL = ['CONTRACT.md', 'naming.md', 'LANES.md', 'defaults.md'];
 /** Readers named in CONTRACT.md's column that are not lanes. */

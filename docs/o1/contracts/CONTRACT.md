@@ -8,7 +8,8 @@ list; section 4: database objects; section 8: resolved contradictions), then `CO
 contract decides something no document fixed, the decision is listed in `docs/o1/reports/F0.md` ("Decisions") and
 marked "F0 decision" in the file that freezes it. The G0 defaults are listed in `defaults.md`; the owner confirmed
 every one of them on 16 October 2026 (LEDGER D-021), so each is marked "confirmed by the owner (G0, 2026-10-16)".
-CR-002 to CR-006 are not defaults: they stay pending until the owner decides them.
+CR-002 to CR-006 were not defaults; the owner refused them for O1 on 18 October 2026 (LEDGER D-027), backlog after
+launch: the contract reserves no copy key, flag or storage key for them.
 
 ## Files
 
@@ -29,7 +30,7 @@ every lane of `LANES.md`; R and the gate are named where they read the file.
 | `rpcs.md` | callers, roles and semantics of every function of `schema.sql`; the server modules and component props of BACKLOG 5.1 with their signature types; the projection of another member's row | F0, B1, B2, B3, B4, B5, B6, B7, K2, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, C2 | written |
 | `apis.md` | every HTTP route of BACKLOG 5.1 (method, sites, flag, inputs, answers, logged outcomes), the new crons, the existing shared routes the run extends | F0, Q0b, B1, B4, B5, B6, B7, O6, P1, H1, E1b, L1, C2 | written |
 | `cookies.md` | ticket, `__Host-pp_tx`, code format, outcome enum | F0, Q0a, Q0b, B4, B6, B7, O3, P1, H1, C2 | written |
-| `flags-env.md` | flags, env names, secret names, dev hosts | ORCH, F0, F0s, Q0a, Q0b, B1, B2, B3, B4, B5, B6, B7, E1a, K1, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1, C2, C3 | written |
+| `flags-env.md` | flags, env names, secret names, dev hosts | ORCH, F0, F0s, Q0a, Q0b, Q0c, B1, B2, B3, B4, B5, B6, B7, E1a, K1, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1, C2, C3 | written |
 | `fixtures.md` + `fixtures/` | the 38 fixture accounts (`users.json`, the list ORCH's `fixtures/run.mts` creates) and the three fixture series (`series/*.json`, `series-fixture.schema.json`): who loads what and when | ORCH, F0, Q0a, D0, Q0b, B2, B3, B4, B5, B6, B7, E1a, K1, K2, O1, O2, O3, O4, O5, P1, H1 | written |
 | `formats.md` + `schemas/` | the content formats (fact, quiz draft, daily bank row, creator profile, playlist, Which character question set and set, name-all set, this-or-that bracket, crossover entry, review packet) as JSON Schemas, with where each lands | F0, E1a, K1, K2, K3, K4, O1, O2, O4, O5, O6, P1, E1b, X1 | written |
 | `copy-keys.md` | copy keys per site and lane (keys only) | ORCH, F0, Q0a, D0, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1 | written |

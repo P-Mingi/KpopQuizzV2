@@ -113,7 +113,9 @@ No new cookie is added on kpopquiz.org outside `/auth/*` responses: the network 
 | `fq.net.caps.v1` | localStorage | B6 | cross-site link impression counters and dismissals (Q 2.4), JSON, try/catch on every access |
 | `fq.net.via` | sessionStorage | B6 (`via-catcher`) | the validated `via` of this tab, read by the sign-in `redirectTo`; removed after sign-in |
 | `anime.spoiler.v1` | localStorage | O3 (`SpoilerShield`) | guest progress per series `{[seriesSlug]: {arc: number, scope: 'anime' \| 'manga'}}` (`AnimeSpoilerStore`: `scope` is the medium followed, `arc` 0 the spoiler-free view, 32767 "Show everything"), claimed into `series_progress` (medium, arc_ord) at sign-in |
-| `anime.oshi.pending.v1` | localStorage | P1 | a guest's oshi choice per series, claimed at sign-in; pending CR-005 (the post-result oshi row of TWINS row 8, the owner decides): unused before it is approved |
+
+CR-002 to CR-006 were refused for O1 (owner, 2026-10-18, LEDGER D-027): no cookie or storage key is reserved for
+them (the guest oshi key of the post-result oshi row, CR-005, is removed).
 
 Keys of localStorage and sessionStorage are per origin, so the same key on two sites never collides. Every access is
 wrapped in try/catch (private modes throw). No storage holds a token, a code, an email or a user id.

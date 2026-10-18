@@ -48,8 +48,8 @@ of BACKLOG 5.1.
 | `bump_world_counter(p_user, p_site, p_counter, p_delta)` | 007 | definer | service_role | 008's non-kpop branches (inside SQL); server writers of a non-kpop site that count outside those functions (B5) |
 | `public_passport(p_username)` | 007 | definer, stable | anon, authenticated, service_role | H1 `/u/{username}` on the hub (W1b) |
 | `my_passport()` | 007 | definer, stable | authenticated | H1 `/passport` (W1); B6 `/api/n/me` |
-| `update_my_membership(p_site, p_patch)` | 007 | definer | authenticated | P1 anime `/settings` (profile fields, visibility); H1 hub `/settings` W4 (`show_elsewhere` per site, `auto_continue`); P1 and B6 welcome surfaces (`notice_seen_at`) |
-| `set_passport_prefs(p_patch)` | 007 | definer | authenticated | H1 hub `/settings` W4; B6 (`dismissed`, `welcomed_sites`, `your_sites_menu`); X1's opt-in popover (`worlds`) |
+| `update_my_membership(p_site, p_patch)` | 007 | definer | authenticated | P1 anime `/settings` (profile fields, visibility); H1 hub `/settings` W4 (`show_elsewhere` per site, `auto_continue`); `notice_seen_at`: no surface of the run writes it (the welcome cards of CR-002 and CR-006 were refused for O1, LEDGER D-027) |
+| `set_passport_prefs(p_patch)` | 007 | definer | authenticated | H1 hub `/settings` W4; B6 (`dismissed`, `your_sites_menu`; no surface of the run writes `welcomed_sites`: CR-002 and CR-006 refused, D-027); X1's opt-in popover (`worlds`) |
 | `ensure_daily_quiz_v2(p_date, p_site)` | 010 | definer | service_role | B5 `/api/cron/ensure-daily-quiz` with `SITE.id` (kpop through the wrapper below) |
 | `ensure_daily_opening(p_date, p_site)` | 014 | definer | service_role | O6 `/api/cron/ensure-daily-opening` (anime) |
 | `report_spoiler(p_quiz_id)` | 015 | definer | authenticated | O3: the anime quiz page's report control with the reason "spoiler", server side with the viewer's session |

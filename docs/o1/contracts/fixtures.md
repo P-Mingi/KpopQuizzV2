@@ -33,7 +33,7 @@ service role on the branch (Q0b's auth suite decides how, never a real inbox).
 | kpop_only | o1_kpop_only | kpop | every kpop DOM and parity check signed in; the B6 menu stays hidden |
 | kpop_heavy | o1_kpop_heavy | kpop | bias, bio, stan since 2019, 12000 XP, `ult_groups` and header once the branch has group rows: P2's string leak test on anime |
 | dual | o1_dual | kpop, anime | the Your sites menu, the hub passport with two worlds, the jump |
-| anime_new | o1_anime_new | anime | a new anime member with no kpop membership: welcome card, anime /me and /u, no K-pop text anywhere |
+| anime_new | o1_anime_new | anime | a new anime member with no kpop membership: anime /me and /u, no K-pop text anywhere |
 | banned | o1_banned | kpop | `banned_at` set: handoff `banned`, `/auth/confirm` signs out |
 | unconfirmed | o1_unconfirmed | none | email not confirmed, no profile: handoff `unconfirmed` |
 | admin_reviewer | o1_admin_reviewer | kpop | the dev servers' admin (`ADMIN_USER_IDS`, added by `scripts/o1/env.sh`): `/admin/review`, `/admin/network` |

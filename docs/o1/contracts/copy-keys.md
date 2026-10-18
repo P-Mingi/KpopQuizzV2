@@ -44,12 +44,17 @@ characters and words, for every copy file that exists).
 ## 3. Initial keys per site and lane
 
 Written as `area: name, name, ...` inside each `<site>.<lane>` namespace. These are the keys D0's copy deck starts
-from (P 5.4 wireframes W1 to W5, Q B01, B06, B09, B13, BACKLOG lane cards).
+from (P 5.4 wireframes W1 to W5, Q B01, B06, B13, BACKLOG lane cards).
 
 Rule 18 (TWINS.md): the keys of an anime or hub screen are the slots of its twin (TWINS.md), in the twin's order; a key
 with no twin slot needs one of the row's codes or an approved CR. A slot the row's F code removes has no key. Keys
-marked **pending** belong to a surface without a TWINS row (CR-002 to CR-006, or request F0-8): nothing renders them,
-they are not S, and they become lane keys (or S) only when the owner approves the CR; a refused CR removes them.
+marked **pending** belong to a surface without a TWINS row (request F0-8): nothing renders them, they are not S, and
+they become lane keys (or S) only when the owner approves a row or a CR; a refused CR removes them.
+
+CR-002 to CR-006 were refused for O1 by the owner on 18 October 2026 (LEDGER D-027), backlog after launch: their keys
+are removed and nothing is reserved for them (the anime and kpop welcome cards with `kpop.p1` and `anime.p1.welcome`,
+"How I appear here" `anime.p1.appear`, "Keep anime in your passport?" `anime.p1.keep`, the post-result oshi row
+`anime.p1.oshi.rowTitle`). A lane that adds one of these keys before a new CR is approved is a review finding.
 
 ### kpop (kpopquiz.org: everything below is behind a flag and invisible until L1 flips it)
 
@@ -59,7 +64,6 @@ they are not S, and they become lane keys (or S) only when the owner approves th
 | `kpop.b6` | menu: heading, passport, level | S (Q0a: the kpop-only account menu DOM stays today's) |
 | `kpop.b6` | settings: passportRow, passportOpen | |
 | `kpop.b6` | llms: networkLine | |
-| `kpop.p1` | welcome: title, body, start, howIAppear, privacy (arrivals from anime, NET_WELCOME) | pending CR-006 |
 | `kpop.b4` | land: opening, continue | pending (TWINS row 37: the land page renders no visible content; a visible one needs a row or a CR, request F0-8) |
 | `kpop.x1` | fact: tag, line, optInTitle, optInBody, optInYes, optInNo | S (D0 frames, X1 snapshot list) |
 | `kpop.l1` | network: title, under5 (the /admin/network dashboard, admin only) | pending (no TWINS delta row yet, request F0-8) |
@@ -107,12 +111,8 @@ they are not S, and they become lane keys (or S) only when the owner approves th
 | `anime.p1` | settings: profile, displayName, photo, bio, header, anime, yourSeries, oshi, watchingSince, look, notifications, appearance, account | |
 | `anime.p1` | account: passportRow, signOutEverywhere, signOutHere | S (B7 sign-out tests click them) |
 | `anime.p1` | oshi: pick, custom, refusedSpoiler | |
-| `anime.p1` | oshi: rowTitle (the post-result oshi row, TWINS row 8) | pending CR-005 |
-| `anime.p1` | welcome: title, body, start, howIAppear, privacy, newTitle, newBody | pending CR-002 |
-| `anime.p1` | appear: title, body, change | pending CR-003 |
 | `anime.p1` | signin: saveScore, body, google, emailDivider, emailPlaceholder, emailCta, sent, network, privacy | S (B4 and B7 e2e) |
 | `anime.p1` | onboarding: usernameTitle, usernameHint, usernameTaken | |
-| `anime.p1` | keep: question, yes, notNow | pending CR-004 |
 | `anime.b4` | land: opening, continue | pending (as `kpop.b4`) |
 | `anime.b6` | footer: line, linkLabel | S |
 | `anime.b6` | menu: heading, passport, level | |
