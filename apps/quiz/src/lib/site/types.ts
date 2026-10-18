@@ -189,13 +189,20 @@ export interface SiteAudio {
  * 30e7091), without the `--ux-` prefix, in file order (docs/o1/contracts/tokens.md). Frozen and
  * never extendable inside the run (BACKLOG 5.3); contract.test.ts compares it with the file.
  * Component-scoped custom properties (`--ux-rc`, `--ux-rar-ink`, `--ux-th`) are not theme tokens.
+ *
+ * Tailwind scans every file of src (tailwind.config.ts `content`), comments included, and any
+ * word that names a utility adds its rule to the kpop sheet. The card shadow token is the one
+ * name that is also a utility here (`theme.boxShadow.card`), so it is written as a template
+ * literal (same value, same literal type) that the scanner does not read as the utility. The
+ * gate's parity found the extra rule on 25fa0a0 (CR-009, css-content); contract.test.ts proves
+ * F0's files add no rule to the sheet.
  */
 export const UX_TOKEN_NAMES = [
   'page', 'surface', 'surface-2', 'raised', 'paper', 'card-fill',
   'hair', 'line', 'line-2', 'edge', 'pink-line', 'input', 'ink', 'muted',
   'pink', 'pink-fill', 'pink-fill-h', 'pink-ink', 'pink-soft', 'pink-soft-ink',
   'ok', 'ok-soft', 'no', 'no-soft', 'warn', 'on-ok', 'knob-off',
-  'nav-bg', 'tabbar-bg', 'photo-edge', 'shadow-card', 'shadow-ov', 'scrim', 'theme-band',
+  'nav-bg', 'tabbar-bg', 'photo-edge', `shadow-${'card'}`, 'shadow-ov', 'scrim', 'theme-band',
   'qotd-bg', 'qotd-edge', 'bt-bg', 'lav-soft', 'lav-ink', 'hl', 'bulb', 'bulb-fill',
   'acc-pink', 'acc-purple', 'acc-blue', 'acc-teal', 'acc-amber', 'acc-coral',
   'rar-common', 'rar-uncommon', 'rar-rare', 'rar-epic', 'rar-legendary',

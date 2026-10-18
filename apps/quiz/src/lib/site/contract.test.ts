@@ -6,13 +6,17 @@
 // slice 6 adds rpcs.md, apis.md and the agreement of lib/{network,passport,anime}/types.ts with schema.sql;
 // slice 8 adds the content formats (schemas/ and their validator), the fixtures and the link allowlist;
 // slice 9 adds LANES.md (every lane, its citations both ways, what the files assign it) and the naming trap sweep of
-// every file F0 owns.
+// every file F0 owns; slice 12 adds the proof that F0's files add no rule to the kpop sheet Tailwind builds.
 
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, globSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+import postcss from 'postcss';
+import tailwindcss from 'tailwindcss';
 import { describe, expect, it } from 'vitest';
+
+import tailwindConfig from '../../../tailwind.config';
 
 import {
   formatOfFile, unknownKeywords, unresolvedRefs, validate, validateEntries,
@@ -35,6 +39,8 @@ import { AXIS_KEYS } from '../personality/engine';
 import { O1_FLAGS, O1_SECRET_NAMES, REGISTRY, UNTOUCHED_FLAGS } from './registry';
 import { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 
+import type { AtRule } from 'postcss';
+
 import type { JsonSchema, SchemaRegistry } from '../../../scripts/o1/contract/json-schema';
 import type { SpoilerScope } from '../anime/types';
 import type { ContractAddedColumns, ContractTables, FnReturns } from '../db/contract.types';
@@ -43,9 +49,10 @@ import type { NetCrossover, NetSitesMenuMode, NetStep } from '../network/types';
 import type {
   HandoffOutcome, JoinedVia, MyPassportRow, PassportPrefsPatch, PublicPassportRow,
 } from '../passport/types';
-import type { SiteId } from './types';
+import type { SiteId, UxTokenName } from './types';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
+const APP = fileURLToPath(new URL('../../../', import.meta.url));
 const REPO = fileURLToPath(new URL('../../../../../', import.meta.url));
 const CONTRACTS = `${REPO}docs/o1/contracts/`;
 const read = (p: string): string => readFileSync(p, 'utf8');
@@ -2165,4 +2172,77 @@ describe('naming traps, dashes and emoji in every file F0 owns (naming.md, rule 
       expect(namingTrapsIn(clean), clean).toEqual([]);
     }
   });
+});
+
+/**
+ * The rules one Tailwind run emits for the app's sheet (src/styles/globals.css with the app's own
+ * tailwind.config.ts) over `content`, each keyed by its at-rule context, selector and declarations.
+ */
+async function tailwindRules(content: readonly { readonly raw: string; readonly extension: string }[]): Promise<string[]> {
+  const from = `${APP}src/styles/globals.css`;
+  const result = await postcss([tailwindcss({ ...tailwindConfig, content: [...content] })]).process(read(from), { from });
+  const rules: string[] = [];
+  result.root.walkRules((r) => {
+    const ctx: string[] = [];
+    for (let p = r.parent; p && p.type === 'atrule'; p = p.parent) ctx.unshift(`@${(p as AtRule).name} ${(p as AtRule).params}`);
+    rules.push(`${ctx.join(' ')} ${r.selector} { ${(r.nodes ?? []).map(String).join('; ')} }`);
+  });
+  return rules;
+}
+
+/** The rules of `after` that `before` lacks (a multiset difference, so a duplicated rule counts). */
+export function addedRules(before: readonly string[], after: readonly string[]): string[] {
+  const left = new Map<string, number>();
+  for (const r of before) left.set(r, (left.get(r) ?? 0) + 1);
+  const out: string[] = [];
+  for (const r of after) {
+    const n = left.get(r) ?? 0;
+    if (n > 0) left.set(r, n - 1); else out.push(r);
+  }
+  return out;
+}
+
+describe('F0 adds no rule to the kpop sheet (Tailwind scans src, parity compares the sheets: CR-009)', () => {
+  const own = JSON.parse(read(`${REPO}docs/o1/OWNERSHIP.json`)) as Record<string, readonly string[]>;
+  // lib/db/types.ts is today's kpop file (F0 may add types to it and has added none: decision 84), so it stays in
+  // both runs; every other F0 file under src is new.
+  const f0 = new Set(ownedFiles(own.F0!).files.filter((f) => f.startsWith(SRC) && f !== `${SRC}lib/db/types.ts`));
+  const patterns = tailwindConfig.content as readonly string[];
+  const scanned = [...new Set(patterns.flatMap((p) => globSync(p.replace(/^\.\//, ''), { cwd: APP })))]
+    .map((f) => `${APP}${f}`).sort();
+  const entry = (f: string, raw = read(f)): { raw: string; extension: string } => ({ raw, extension: f.slice(f.lastIndexOf('.') + 1) });
+  // The card shadow token, built so that this file does not hold the utility's name either.
+  const CARD = `shadow-${'card'}`;
+  const TYPES = `${SRC}lib/site/types.ts`;
+
+  it('scans the files tailwind.config.ts names, F0\'s among them', () => {
+    expect(patterns.length).toBeGreaterThan(0);
+    for (const p of patterns) expect(typeof p, String(p)).toBe('string');
+    expect(scanned.length).toBeGreaterThan(500);
+    expect([...f0].length).toBeGreaterThan(5);
+    for (const f of f0) if (/\.(ts|tsx)$/.test(f)) expect(scanned, f.slice(REPO.length)).toContain(f);
+    expect(scanned).toContain(TYPES);
+  });
+
+  it('the sheet built from every scanned file equals the sheet built without F0\'s files', async () => {
+    const without = await tailwindRules(scanned.filter((f) => !f0.has(f)).map((f) => entry(f)));
+    const all = await tailwindRules(scanned.map((f) => entry(f)));
+    expect(addedRules(without, all)).toEqual([]);
+    expect(all.length).toBe(without.length);
+  }, 180_000);
+
+  it('reports the utility a planted token name adds', async () => {
+    const real = read(TYPES);
+    const literal = '`shadow-${\'card\'}`';
+    expect(real).toContain(literal);
+    const planted = real.replace(literal, `'${CARD}'`);
+    const added = addedRules(await tailwindRules([entry(TYPES, real)]), await tailwindRules([entry(TYPES, planted)]));
+    expect(added).toHaveLength(1);
+    expect(added[0]).toContain(` .${CARD} { `);
+    expect(addedRules(['a', 'a', 'b'], ['a', 'b', 'b', 'c'])).toEqual(['b', 'c']);
+    // The template literal keeps the value and the literal type: UxTokenName is still a union of names (tsc).
+    const narrow: string extends UxTokenName ? 'widened' : 'narrow' = 'narrow';
+    expect(narrow).toBe('narrow');
+    expect(UX_TOKEN_NAMES[30]).toBe(CARD);
+  }, 60_000);
 });
