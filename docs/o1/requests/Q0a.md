@@ -216,3 +216,18 @@
     104 s. Proposal, no test touched and the same timeout: run the step with `--maxWorkers=2` (or under
     `build-lock.sh`, so it never overlaps a gate build), and write the load average next to the step in `unit.log`.
     A re-run of Q0a's gate at a quieter time is the alternative; nothing in Q0a's lane can make these tests faster.
+    Update, slice 11 (2026-10-18, 03:24 to 03:34 UTC). The gate at 3440d48 was red on `unit` again, every other step
+    green (tsc 231 s): 5 timeouts (5 s) of 4 base files, `og.test.ts`, `json-ld.test.ts` (both scans),
+    `scoring.test.ts` and `editorial/team-render.test.ts` (a dynamic import). Q0a's diff still has no file vitest
+    collects (`src/**/*.test.ts`; the diff from a62d673 has nothing under `apps/quiz/src`, nor in vitest.config.ts,
+    package.json or tsconfig.json). Measured in Q0a's worktree with the gate's command, the timeouts follow paging,
+    not CPU or disk: swap 15.4 to 16.1 GB used on a 16 GB machine; the one full run that passed (17.5 s) swapped in
+    620 pages, the three that failed 17,491 to 78,758 (vm_stat before and after); the scans' walk in plain node reads
+    the 1328 files in 0.25 s, and 0.5 s with seven copies at once. `--maxWorkers=2` failed too at 03:28 (4 tests at
+    load average 21), so it is not enough on its own at that level, and at 03:34 one scan timed out with the four
+    files run alone. Options, none touching a test or a timeout:
+    (a) re-run Q0a's gate when the machine pages less (unit passed in the gates whose tsc took 30 and 36 s and failed
+    in those at 139 and 231 s, so the tsc time of the same gate is a usable sign); (b) the unit step under
+    `build-lock.sh`, so it never overlaps a gate build, with `vm.swapusage` and the load average written in unit.log;
+    (c) an owner action: free memory before gates (the swap is held by processes outside the run). A larger
+    `testTimeout` or a retry of timed-out files would change the gate: ORCH's or the owner's call, not proposed here.

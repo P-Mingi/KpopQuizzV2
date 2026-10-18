@@ -4,13 +4,15 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 10 (tick 5: slice 10 from 02:52 UTC on 2026-10-18, after the gate's red at 3888ec5). Slice 10 started with
-the checkpoint merge of o1/integration (already up to date at a62d673). Status: ready. The gate's two reds are
-answered: copy (an emoji in `replay.test.mjs`, mine) is fixed at e9c5ba9; unit (3 base source-scan tests timed out
-at 5 s while the machine ran at load average 20 to 30 from outside the run) touches no file of Q0a and passes with
-`--maxWorkers=2` under that load (request 25 to ORCH). Request 24 is answered by CR-010 (N5, the narrow form),
-written in compare.mjs with tests, and the determinism item is green offline (D-025: no production read), so every
-item of the done test is green offline (table "Done test" below).
+Slices: 11 (tick 5: slice 11 from 03:24 UTC on 2026-10-18, after the gate's second red, at 3440d48). Slice 11
+started with the checkpoint merge of o1/integration (already up to date at a62d673). Status: ready. The gate at
+3440d48 passed every step but unit (guard, hot, copy, secrets, twins, tsc, the three site builds; parity skipped,
+site-checks pending), and unit failed only by 5 s timeouts of base tests (5 tests of 4 files) that Q0a does not
+touch: Q0a's diff has no file under `apps/quiz/src`, the only folder vitest collects. Measured in slice 11, the
+timeouts follow the machine's paging, not Q0a's code: swap 15.4 to 16.1 GB used on a 16 GB machine, and the full
+runs that fail swap in 28 to 127 times more pages than the one that passes (D56; request 25 updated). Request 24 is
+answered by CR-010 (N5) and done; every item of the done test is green offline (D-025: no production read; table
+"Done test" below). The unit step needs a machine that pages less, or ORCH's answer to request 25.
 
 | # | Slice | State |
 |---|---|---|
@@ -24,8 +26,9 @@ item of the done test is green offline (table "Done test" below).
 | 8 | Request 23 fixed at its source (D52), harness version in the cache key (D53), offline proof runs 5 to 8 | done |
 | 9 | N5 text separators (CR-010) with tests, rules `q0a-g0-v3`; offline determinism runs 9 and 10; runs 6 to 8 re-judged | done |
 | 10 | Gate red at 3888ec5: copy fixed (emoji written as an escape), unit timeouts measured under load (request 25) | done |
+| 11 | Gate red at 3440d48, unit only: the base timeouts traced to paging (D56), request 25 updated | done |
 
-Done test (brief Q0a), state at slice 10:
+Done test (brief Q0a), state at slice 11:
 
 | Item | State | Proof |
 |---|---|---|
@@ -34,7 +37,49 @@ Done test (brief Q0a), state at slice 10:
 | Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slice 9 |
 | gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins | `scripts/o1/leak/gate-selftest.sh` (seven scenarios, one log per check, run again in slice 9); on real site builds it is the gate's own run (request 1; builders never build) |
 | dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
-| tsc and unit tests green; every production read listed | green | slice 10 at e9c5ba9: `tsc --noEmit -p tsconfig.json --incremental false` exit 0, harness tests 100 of 100, vitest 124 files and 2269 tests (`--maxWorkers=2` at load average 21 to 25, below; the default workers time out on base source scans, request 25); production reads: none |
+| tsc and unit tests green; every production read listed | green when the machine does not page (D56) | the gate at 3440d48 (the code of this head: slice 11 changes only this report and the requests file): tsc exit 0; slice 11: harness tests 100 of 100, vitest with the gate's command 124 files and 2269 tests at 03:26 UTC (17.5 s); the other runs of slice 11 failed by base timeouts only, under paging (table below); slice 10 at e9c5ba9: tsc exit 0, vitest green with `--maxWorkers=2`; production reads: none |
+
+Done in slice 11 (tick 5, after the gate's red at 3440d48, evidence `O1/docs/o1/evidence/Q0a/3440d48.../`):
+- The red: step unit only, 5 tests of 4 files, each "Test timed out in 5000ms": `lib/seo/og.test.ts` (the scan of
+  src/app and src/components, 6.9 s), `lib/seo/json-ld.test.ts` (its two ld+json sink scans, 8.9 and 11.2 s),
+  `lib/quiz/scoring.test.ts` (no inline average, 5.8 s), `lib/editorial/team-render.test.ts` (toPerson of an
+  editorial account, a dynamic import, 5.0 s). The first three read every file of `apps/quiz/src`. Every other step
+  green; tsc took 231 s (30 s in F0's gate at 62dbff3).
+- Not Q0a's: vitest collects `src/**/*.test.ts` only (`apps/quiz/vitest.config.ts`), and
+  `git diff --name-only a62d673 3440d48 -- apps/quiz/src apps/quiz/vitest.config.ts apps/quiz/package.json
+  apps/quiz/tsconfig.json` is empty: the gate ran the base's tests on the base's files. Gate history from the evidence
+  folders: unit green where that gate's tsc took 30 and 36 s (F0 62dbff3, DUMMY 674c086), red where it took 139 and
+  231 s (Q0a 3888ec5 and 3440d48).
+- What makes them slow, measured (03:24 to 03:34 UTC; no build, no server, no production read): the scans' walk in
+  plain node reads the 1328 files in 0.25 s, and seven copies at once take 0.5 s each, so neither CPU share nor disk
+  explains 7 to 11 s; the four files alone in vitest pass at 03:25 (load average 11), the scans at 0.2 to 0.3 s,
+  while at 03:34 (load average 24) one scan of `json-ld.test.ts` timed out even with the four files alone (66 of 67).
+  Five full runs, vm_stat before and after each:
+
+  | Run | Start (UTC) | Load (1 min) | Workers | Result | Duration | Pages decompressed | Swap-ins |
+  |---|---|---|---|---|---|---|---|
+  | a | 03:24:47 | 9.8 | default | 2 timeouts (scoring, json-ld) | 21.2 s | not measured | not measured |
+  | b | 03:26 | 10.6 | default | 124 files, 2269 tests pass | 17.5 s | 230,050 | 620 |
+  | c | 03:27:27 | 12.9 | default | 1 timeout (json-ld) | 40.0 s | 732,230 | 20,463 |
+  | d | 03:28:08 | 19.2 | default | 1 timeout (json-ld) | 34.0 s | 572,638 | 17,491 |
+  | e | 03:28:52 | 21.6 | `--maxWorkers=2` | 4 timeouts (team-render, scoring, json-ld twice) | 101.2 s | 4,587,862 | 78,758 |
+
+  Swap: 15.4 GB used of 16 GB at 03:26, 16.1 GB of 17.4 GB at 03:30, on a machine with 16 GB of memory; the largest
+  processes belong to other projects and to a virtual machine up 22 days. The failing runs decompress 2.5 to 20
+  times more pages and swap in 28 to 127 times more than the passing one: paging is what pushes a synchronous scan
+  past 5 s. `--maxWorkers=2` is not enough at that level (run e), so request 25's first proposal is not sufficient
+  on its own.
+- Request 25 updated: the second red, these measurements, and options that touch no test and no timeout (a re-gate
+  when the machine pages less, the unit step under the build lock with the swap written in unit.log, an owner
+  action to free memory).
+- No test, no vitest config and no gate script edited (RATCHET LAW; gate.sh is ORCH's).
+
+Tested how (slice 11):
+- `node --test` of the harness tests: 100 of 100 pass (29.6 s).
+- `vitest run` in apps/quiz with the gate's command: runs a to d above; with `--maxWorkers=2`: run e. The four slow
+  files alone: pass at 03:25, 1 timeout of 67 tests at 03:34.
+- tsc not run again: slice 11 changes only Markdown, and the gate's tsc at 3440d48 (this code) exited 0.
+- No build, no parity run, no production read; no server of this lane left running.
 
 Done in slice 10 (tick 5, after the gate's red at 3888ec5, evidence `O1/docs/o1/evidence/Q0a/3888ec5.../`):
 - copy: the record test of `scripts/o1/parity/replay.test.mjs` held an emoji (U+1F3B5) in a page body, there to prove
@@ -414,12 +459,16 @@ measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallbac
 slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order; slice 7: 20 and 21
 answered and done, 22 the orphaned parity servers until Q0a merges, 23 a CR for Suspense boundaries streamed on one
 side only; slice 8: 23 fixed at its source and withdrawn, 24 a CR for React's text separators; slice 9: 24
-answered by CR-010 and done).
+answered by CR-010 and done; slice 10: 25 the gate's unit step; slice 11: 25 updated with the second red and the
+paging measurements).
 
 SQL files: none (the lane writes no SQL).
 
 Owner actions: none yet. (Optional, for fidelity: the owner confirms that `KPQ/secrets/kpop-parity.env` carries the
-production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.)
+production values of VERSE_PUBLIC, COMMUNITY_FEATURES_ENABLED and SONGS_IS_CURATED; see Open points.) (Optional,
+through ORCH, slice 11: the machine pages hard, swap 16.1 GB used of 17.4 GB on 16 GB of memory, held by processes
+outside the run; the gate's unit step times out on base tests while it does (D56, request 25). Freeing memory
+before a gate, or a gate window when those processes are idle, clears it.)
 
 Builds and parity runs (budget D-005: at most 4 production runs, never 00:00 to 01:00 UTC; suspended by D-025, and
 offline runs do not count). Every run below was offline: `O1_KPQ=<scratchpad stand-in>`, Supabase 127.0.0.1:9.
@@ -1023,6 +1072,14 @@ shapes; the failing set must equal the expected set exactly):
   keeps proving that a four byte UTF-8 character survives record and replay while no added line holds an emoji.
   Dropping the character would have weakened the test; a non-emoji astral character would have hidden why it is
   there.
+- D56 The gate's second unit red (3440d48) is the machine, not the lane, and Q0a returns ready again rather than
+  blocked. Q0a's diff has no file vitest collects; every failure is a 5 s timeout of a base test; the same command
+  passes on the same tree when the machine pages little (slice 11's run b, F0's and DUMMY's gates), and fails, even
+  with two workers, when it pages hard (runs c to e: 28 to 127 times the swap-ins of run b). Nothing in Q0a's owned
+  paths changes that: a larger timeout or a faster scan means editing tests or their config (RATCHET LAW, and not
+  Q0a's files), and the unit step is ORCH's (gate.sh). Rule 15 names no blocker for it, so the lane stays ready and
+  request 25 carries the evidence and the options; a re-gate when the machine pages less is the cheapest way to
+  green.
 
 ## Open points
 
@@ -1084,4 +1141,4 @@ shapes; the failing set must equal the expected set exactly):
 - Under the current load (load average 90 to 108) the default 5 s vitest timeout fails 12 tests of 5 files that pass
   with a longer timeout. The gate's `unit` step runs `vitest run` as is (RATCHET LAW: no test edited); if gates go red
   on these timeouts, ORCH can serialize gates against heavy builds or ask the owner. (Slice 10: it happened at 3888ec5, 3 tests
-  of 3 files; request 25.)
+  of 3 files; request 25. Slice 11: again at 3440d48, 5 tests of 4 files; the cause measured as paging, D56.)
