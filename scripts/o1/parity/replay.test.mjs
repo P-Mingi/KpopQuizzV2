@@ -19,7 +19,7 @@ const get = async (base, p) => {
 
 test('record then replay: pages, redirects and the stylesheets they link answer as the origin did', async () => {
   const pages = {
-    '/': [200, { 'content-type': 'text/html; charset=utf-8' }, '<link rel="stylesheet" href="/_next/static/chunks/a.css"/><link rel="stylesheet" href="https://fonts.example/x.css"/><p>Café 🎵</p>'],
+    '/': [200, { 'content-type': 'text/html; charset=utf-8' }, '<link rel="stylesheet" href="/_next/static/chunks/a.css"/><link rel="stylesheet" href="https://fonts.example/x.css"/><p>Café \u{1F3B5}</p>'],
     '/q/x': [500, { 'content-type': 'text/html' }, '<link rel="stylesheet" href="/_next/static/chunks/a.css"/><link rel="stylesheet" href="/api/ux-v1/a0/styles?v=1"/>'],
     '/daily': [307, { location: '/daily/2026-10-18' }, ''],
     '/_next/static/chunks/a.css': [200, { 'content-type': 'text/css' }, '.a{color:red}'],
