@@ -162,6 +162,84 @@ test('lane specs: missing files fail, never against the kept parity build', () =
   assert.match(c.reason, /never run against it/);
 });
 
+test('lane specs read only the servers they are given; a site of the lane they are not given has its own line (r2 M1)', () => {
+  const spec = ['apps/quiz/e2e/o1/X/a.o1.ts'];
+  // Gate builds for the three sites: all three given, no extra line.
+  const all = by(plan(base({ laneSpecs: spec })));
+  assert.deepEqual(all['lane-specs'].sites, ['kpop', 'anime', 'hub']);
+  assert.equal(all['lane-specs'].reason, '');
+  for (const s of ['kpop', 'anime', 'hub']) assert.equal(all[`${s}-lane-specs`], undefined, s);
+  // The kept parity build and no dev kpop build: kpop is not given, pending on its own line (request 11).
+  const kept = by(plan(base({ parity: 'ran', kept: true, build: { kpop: false, anime: true, hub: true }, laneSpecs: spec })));
+  assert.deepEqual(kept['lane-specs'].sites, ['anime', 'hub']);
+  assert.equal(`${kept['kpop-lane-specs'].phase}:${kept['kpop-lane-specs'].action}`, 'A:pending');
+  assert.match(kept['kpop-lane-specs'].reason, /^the kpop half of the lane specs did not run: .*production data.*request Q0a 11/);
+  assert.match(kept['lane-specs'].reason, /\(kpop-lane-specs, pending\)$/);
+  // Phase B: the dev kpop build is given to them.
+  const b = by(plan(base({ parity: 'ran', kept: true, laneSpecs: spec })));
+  assert.deepEqual(b['lane-specs'].sites, ['kpop', 'anime', 'hub']);
+  assert.equal(b['kpop-lane-specs'], undefined);
+  // No kpop server, parity ran without --keep: pending with request 2; without parity: a failure.
+  const nokeep = by(plan(base({ parity: 'ran', build: { kpop: false, anime: true, hub: true }, laneSpecs: spec })));
+  assert.equal(nokeep['kpop-lane-specs'].action, 'pending');
+  assert.match(nokeep['kpop-lane-specs'].reason, /request Q0a 2/);
+  assert.deepEqual(nokeep['lane-specs'].sites, ['anime', 'hub']);
+  assert.equal(by(plan(base({ build: { kpop: false, anime: true, hub: true }, laneSpecs: spec })))['kpop-lane-specs'].action, 'fail');
+  // A missing anime or hub server: a failure on its own line, the others still read.
+  const nohub = by(plan(base({ build: { kpop: true, anime: true, hub: false }, laneSpecs: spec })));
+  assert.equal(nohub['hub-lane-specs'].action, 'fail');
+  assert.match(nohub['hub-lane-specs'].reason, /no hub server/);
+  assert.deepEqual(nohub['lane-specs'].sites, ['kpop', 'anime']);
+  // A given kpop server with production data and no parity run: not given to the specs, skipped with the reason.
+  const given = by(plan(base({ given: { kpop: 'http://127.0.0.1:3106' }, kpopGivenSource: 'parity', laneSpecs: spec })));
+  assert.equal(given['kpop-lane-specs'].action, 'skip');
+  assert.deepEqual(given['lane-specs'].sites, ['anime', 'hub']);
+  // No server for any site of the lane: lane-specs never runs on nothing, each site has its line.
+  const none = by(plan(base({ sites: ['kpop'], parity: 'ran', build: { kpop: false, anime: false, hub: false }, laneSpecs: spec })));
+  assert.equal(none['lane-specs'].action, 'skip');
+  assert.match(none['lane-specs'].reason, /no served site/);
+  assert.equal(none['kpop-lane-specs'].action, 'pending');
+  // A lane with no site: its specs run as before, with nothing to stand for.
+  const nosite = by(plan(base({ sites: [], laneSpecs: spec })));
+  assert.equal(nosite['lane-specs'].action, 'run');
+  assert.deepEqual(nosite['lane-specs'].sites, []);
+});
+
+test('Playwright vectors: file filters first, then the config and --project=<name> as one token (r2 M1)', () => {
+  const tail = (project) => ['-c', 'playwright.o1.config.ts', `--project=${project}`];
+  const gate = by(plan(base({ laneSpecs: ['apps/quiz/e2e/o1/X/a.o1.ts', 'apps/quiz/e2e/o1/X/b.o1.ts'] })));
+  assert.deepEqual(gate.leak.pw, tail('leak'));
+  assert.deepEqual(gate['lane-specs'].pw, ['e2e/o1/X/a.o1.ts', 'e2e/o1/X/b.o1.ts', ...tail('lanes')]);
+  const b = by(plan(base({ parity: 'ran', kept: true, requireWired: { anime: true, hub: false } })));
+  assert.deepEqual(b.leak.pw, ['--grep-invert', 'content-leak\\.o1\\.ts', ...tail('leak')]);
+  assert.deepEqual(b['leak-content'].pw, ['leak/content-leak.o1.ts', ...tail('leak')]);
+  // leak-content reads the same sites as leak (kpop being the dev gate build in phase B), with the same require list.
+  assert.deepEqual(b['leak-content'].sites, b.leak.sites);
+  assert.deepEqual(b['leak-content'].require, ['anime']);
+  assert.deepEqual(b.leak.require, ['anime']);
+  for (const c of Object.values(b).concat(Object.values(gate))) {
+    if (!c.pw) continue;
+    const i = c.pw.findIndex((x) => x.startsWith('--project'));
+    assert.equal(i, c.pw.length - 1, `${c.name}: --project is the last token`);
+    assert.match(c.pw[i], /^--project=[a-z-]+$/, c.name);
+  }
+});
+
+test('parity ran and the kpop server is a gate build (request 11 without request 2): the kpop SEO lines are pending (r2 N1)', () => {
+  const c = by(plan(base({ parity: 'ran', kept: false, keptReason: '' })));
+  for (const k of ['indexability', 'metadata-dupes', 'orphans', 'sitemap-hygiene']) {
+    assert.equal(c[`kpop-${k}`].action, 'pending', k);
+    assert.match(c[`kpop-${k}`].reason, /request Q0a 2/, k);
+  }
+  assert.deepEqual(c.leak.sites, ['kpop', 'anime', 'hub'], 'the leak suite still reads the kpop gate build');
+  // A given kpop gate server over a kept build: pending too, and the reason says which.
+  const g = by(plan(base({ parity: 'ran', kept: true, given: { kpop: 'http://127.0.0.1:3106' } })));
+  assert.equal(g['kpop-orphans'].action, 'pending');
+  assert.match(g['kpop-orphans'].reason, /given kpop server/);
+  // No parity: unchanged, skipped (the diff cannot reach kpop).
+  assert.equal(by(plan(base()))['kpop-orphans'].action, 'skip');
+});
+
 test('a lane with no site: only the checks that need no server', () => {
   const p = plan(base({ sites: [] }));
   assert.deepEqual(Object.keys(by(p)), ['harness-unit', 'site-scope', 'lane-specs']);

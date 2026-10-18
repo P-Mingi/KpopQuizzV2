@@ -37,9 +37,15 @@
 #     or leak fails when a server it was planned to read did not start (each log says which sites it read).
 #   leak-content and lane-specs: on gate builds only, never on the kept parity build (a browser on it would reach the
 #     production Supabase directly). With the kept build in phase A, phase B swaps the kpop server for the gate's
-#     kpop build when there is one (gate.sh builds it on the dev branch: request 11), else they skip with the reason.
-#     Lane specs: docs/o1/lanes.json "specs", files *.o1.ts, run from the head with its playwright.o1.config.ts
-#     (project lanes); variables O1_KPOP_URL, O1_ANIME_URL, O1_HUB_URL (and O1_LEAK_<SITE>_URL), O1_ENV.
+#     kpop build when there is one (gate.sh builds it on the dev branch: request 11), else leak-content skips with the
+#     reason. Lane specs: docs/o1/lanes.json "specs", files *.o1.ts, run from the head with its playwright.o1.config.ts
+#     (project lanes) on the sites the plan gives them; variables O1_KPOP_URL, O1_ANIME_URL, O1_HUB_URL (and
+#     O1_LEAK_<SITE>_URL), O1_ENV. A site of the lane they are not given has its own <site>-lane-specs line (pending
+#     for kpop when parity ran, skipped for a given kpop server with production data, else failed), and lane-specs
+#     fails when a server it was given did not start (a spec skips a site it has no URL for).
+#   Playwright arguments: the plan carries each check's vector (`pw`), file filters before `--project=<name>`
+#     (`--project <name>` takes several names and read a file after it as one: review Q0a r2 M1); gate-argv.test.mjs
+#     lists every vector with the installed Playwright.
 #   harness-unit: node --test of the harness unit tests in the head (scripts/o1/parity, apps/quiz/scripts/o1).
 # Database: the gate's own (O1_GATE_DBENV, else dev when KPQ/secrets/dev.env exists, else offline), as gate.sh.
 # Overrides for tests and people: O1_GATE_URL_<SITE> (a given server instead of a build; O1_GATE_KPOP_SOURCE=parity
@@ -72,6 +78,7 @@ node "$HARNESS/apps/quiz/scripts/o1/q0a/gate-plan.mjs" --lane "$lane" --wt "$wt"
   --head "$head" --base "$base" --kept-file "$KPQ/cache/parity/kept.json" --lanes-json "$LANES" --ports "$PORTS" > "$PLAN" \
   || die "the plan failed (apps/quiz/scripts/o1/q0a/gate-plan.mjs)" 3
 pj() { jq -r "$@" "$PLAN"; }
+pjc() { jq -r --arg n "$1" "first(.checks[] | select(.name == \$n)) | $2" "$PLAN"; }   # check name, jq filter on it
 echo "gate-checks $lane: head ${head:0:12}, base ${base:0:12}, sites [$sites], db $dbenv, harness $HARNESS"
 
 TSV="$OUTD/checks.tsv"; : > "$TSV"
@@ -139,8 +146,8 @@ start_server() { # phase site
 siteup() { [ -z "${1:-}" ] || [ "$(sv UP "$1")" = 1 ]; }
 
 # --- the checks ---
-pw_env() { # site list -> env assignments for the leak suite and lane specs
-  local s S g; for s in kpop anime hub; do
+pw_env() { # sites... (the check's planned sites) -> env assignments for the leak suite and lane specs, up servers only
+  local s S g; for s in "$@"; do
     siteup "$s" && [ -n "$(sv URL "$s")" ] || continue
     S="$(upper "$s")"; g="O1_GATE_URL_$S"
     printf 'O1_LEAK_%s_URL=%s\n' "$S" "$(sv URL "$s")"
@@ -175,18 +182,22 @@ do_links() { # sites...
   down_note ${down[@]+"${down[@]}"} || rc=1
   return $rc
 }
-do_leak() { # name, then playwright filters
-  local name="$1"; shift
+planned_of() { pjc "$1" '.sites // [] | .[]'; }   # check name -> the sites it reads, one per line
+pw_of() { pjc "$1" '.pw // [] | .[]'; }            # check name -> its arguments after `playwright test`, one per line
+do_leak() { # check name (leak or leak-content): the plan gives its sites, require list and Playwright arguments
+  local name="$1"
   local cases=(); [ -f "$wt/apps/quiz/e2e/o1/$lane/leak-cases.json" ] && [ "$wt" != "$HARNESS" ] && cases=(O1_LEAK_CASES="$wt/apps/quiz/e2e/o1/$lane")
-  local req; req="$(pj '[.checks[] | select(.name == "leak") | .require // []] | add // [] | join(",")')"
-  local envs=(); while IFS= read -r l; do [ -n "$l" ] && envs+=("$l"); done < <(pw_env)
-  local planned=() down=() s rc=0
-  while IFS= read -r s; do [ -n "$s" ] && planned+=("$s"); done < <(pj '[.checks[] | select(.name == "leak") | .sites // []] | add // [] | .[]')
+  local req; req="$(pjc "$name" '.require // [] | join(",")')"
+  local planned=() down=() pw=() envs=() s l rc=0
+  while IFS= read -r s; do [ -n "$s" ] && planned+=("$s"); done < <(planned_of "$name")
+  while IFS= read -r l; do [ -n "$l" ] && pw+=("$l"); done < <(pw_of "$name")
+  [ ${#pw[@]} -gt 0 ] || { echo "the plan gives $name no Playwright arguments (a harness defect)"; return 1; }
   for s in ${planned[@]+"${planned[@]}"}; do siteup "$s" || down+=("$s"); done
   sites_line ${planned[@]+"${planned[@]}"}
+  while IFS= read -r l; do [ -n "$l" ] && envs+=("$l"); done < <(pw_env ${planned[@]+"${planned[@]}"})
   ( cd "$HARNESS/apps/quiz" && "$ENVSH" offline -- env ${envs[@]+"${envs[@]}"} ${cases[@]+"${cases[@]}"} O1_LEAK_REQUIRE="$req" O1_LEAK_KPOP_SITEMAP_N=20 \
     O1_ENV="$dbenv" O1_SITE_SCOPE="$([ "$(pj .siteScope)" = true ] && echo 1 || echo 0)" O1_PW_OUT="$TMPROOT/pw-$name" O1_PW_REPORT="$OUTD/$name.json" \
-    ./node_modules/.bin/playwright test -c playwright.o1.config.ts --project leak "$@" ) || rc=1
+    ./node_modules/.bin/playwright test "${pw[@]}" ) || rc=1
   down_note ${down[@]+"${down[@]}"} || rc=1
   return $rc
 }
@@ -200,17 +211,20 @@ do_refused() {
   fi
   echo "no write refused"
 }
-do_specs() { # kpopUrl files...
-  local kp="$1"; shift
+do_specs() { # check name (lane-specs): the head's specs on the sites the plan gives them (never kpop with production data)
+  local name="$1" reason planned=() down=() pw=() envs=() s l rc=0
+  reason="$(pjc "$name" '.reason // ""')"; [ -n "$reason" ] && echo "$reason"
   [ -f "$wt/apps/quiz/playwright.o1.config.ts" ] || { echo "no apps/quiz/playwright.o1.config.ts in the head: merge o1/integration first"; return 1; }
-  local envs=() files=() f; while IFS= read -r l; do
-    [ -n "$l" ] || continue
-    case "$l" in O1_KPOP_URL=*|O1_LEAK_KPOP_URL=*) [ "$kp" = true ] || continue ;; esac
-    envs+=("$l")
-  done < <(pw_env)
-  for f in "$@"; do files+=("${f#apps/quiz/}"); done
-  cd "$wt/apps/quiz" && "$ENVSH" "$dbenv" -- env ${envs[@]+"${envs[@]}"} O1_SITE_SCOPE="$([ "$(pj .siteScope)" = true ] && echo 1 || echo 0)" \
-    O1_PW_OUT="$TMPROOT/pw-lanes" O1_PW_REPORT="$OUTD/lane-specs.json" ./node_modules/.bin/playwright test -c playwright.o1.config.ts --project lanes ${files[@]+"${files[@]}"}
+  while IFS= read -r s; do [ -n "$s" ] && planned+=("$s"); done < <(planned_of "$name")
+  while IFS= read -r l; do [ -n "$l" ] && pw+=("$l"); done < <(pw_of "$name")
+  [ ${#pw[@]} -gt 0 ] || { echo "the plan gives $name no Playwright arguments (a harness defect)"; return 1; }
+  for s in ${planned[@]+"${planned[@]}"}; do siteup "$s" || down+=("$s"); done
+  sites_line ${planned[@]+"${planned[@]}"}
+  while IFS= read -r l; do [ -n "$l" ] && envs+=("$l"); done < <(pw_env ${planned[@]+"${planned[@]}"})
+  ( cd "$wt/apps/quiz" && "$ENVSH" "$dbenv" -- env ${envs[@]+"${envs[@]}"} O1_SITE_SCOPE="$([ "$(pj .siteScope)" = true ] && echo 1 || echo 0)" \
+    O1_PW_OUT="$TMPROOT/pw-lanes" O1_PW_REPORT="$OUTD/lane-specs.json" ./node_modules/.bin/playwright test "${pw[@]}" ) || rc=1
+  down_note ${down[@]+"${down[@]}"} || rc=1
+  return $rc
 }
 exec_check() { # check json
   local j="$1" name kind action reason site
@@ -225,13 +239,9 @@ exec_check() { # check json
     seo)          run_check "$name" do_seo "$(jq -r .check <<< "$j")" "$(jq -r .envVar <<< "$j")" "$site" "$(jq -r .env <<< "$j")" ;;
     network-links) local ls=(); while IFS= read -r s; do ls+=("$s"); done < <(jq -r '.sites[]' <<< "$j")
                   run_check "$name" do_links ${ls[@]+"${ls[@]}"} ;;
-    leak)         if [ "$(jq -r .excludeContent <<< "$j")" = true ]; then run_check "$name" do_leak leak --grep-invert 'content-leak\.o1\.ts'
-                  else run_check "$name" do_leak leak; fi ;;
-    leak-content) run_check "$name" do_leak leak-content leak/content-leak.o1.ts ;;
+    leak|leak-content) run_check "$name" do_leak "$name" ;;
     refused-writes) run_check "$name" do_refused ;;
-    lane-specs)   local fs=(); while IFS= read -r f; do fs+=("$f"); done < <(jq -r '.files[]' <<< "$j")
-                  [ -n "$reason" ] && echo "lane-specs: $reason"
-                  run_check "$name" do_specs "$(jq -r .kpopUrl <<< "$j")" ${fs[@]+"${fs[@]}"} ;;
+    lane-specs)   run_check "$name" do_specs "$name" ;;
     *)            note "$name" fail "unknown check kind $kind" ;;
   esac
 }

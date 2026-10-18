@@ -20,6 +20,10 @@
 //     internet): skipped with that reason until a per-site version exists.
 //   Lane specs and the content leak never meet the kept parity build: a browser on it would reach the production
 //     Supabase directly, and production holds no anime row (Verrou 0), so the content leak would prove nothing.
+//   Every Playwright check carries its argument vector (`pw`, after `playwright test`), built here once so a test can
+//     list it with the installed Playwright (gate-argv.test.mjs): file filters first, then `--project=<name>` as one
+//     token. `--project <name>` takes several names, so a file after it was read as a project name and the run
+//     stopped with `Project(s) "<file>" not found` (review Q0a r2 M1).
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -43,6 +47,18 @@ const LEAK_TESTS = {
   anime: 'route leak, site identity, string leak, canonical and OG, link leak, no /api/n/me',
   hub: 'route leak, site identity, canonical and OG, link leak, no /api/n/me',
 };
+// The Playwright config of the O1 suites (apps/quiz, harness checkout for the leak suite, head for the lane specs).
+export const PW_CONFIG = 'playwright.o1.config.ts';
+export const CONTENT_LEAK_FILE = 'leak/content-leak.o1.ts';
+export const CONTENT_LEAK_GREP = 'content-leak\\.o1\\.ts';
+
+/**
+ * The arguments after `playwright test` for one project: file filters (paths relative to apps/quiz, read by
+ * Playwright as patterns on the file path) first, then the grep, the config and `--project=<name>` as one token.
+ */
+export function pwArgs(project, { files = [], grepInvert = '' } = {}) {
+  return [...files, ...(grepInvert ? ['--grep-invert', grepInvert] : []), '-c', PW_CONFIG, `--project=${project}`];
+}
 
 const WHY = {
   kpopGate:
@@ -52,6 +68,14 @@ const WHY = {
   kpopNoKeep:
     'parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh ' +
     'passes --keep to parity.sh)',
+  kpopGivenOverKept:
+    'parity ran and kept its head build, but a given kpop server (O1_GATE_URL_KPOP) replaces it and holds no ' +
+    'production data',
+  specsProduction:
+    'the kpop server of this gate holds production data (the kept parity build, or a given server with ' +
+    'O1_GATE_KPOP_SOURCE=parity): lane specs never run against it, and gate.sh built no kpop on the dev branch ' +
+    '(request Q0a 11)',
+  noSpecSite: 'no served site to give the lane specs: each site of the lane has its own <site>-lane-specs line',
   siteOnly: (site, check) =>
     `check:${check} hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a ` +
     `${site} loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on ${site}`,
@@ -69,6 +93,7 @@ const WHY = {
     '/sites/<site> rewrite (F0 wiring not in this head), so they serve kpop pages; a missing kpop server has its own line',
   absentHalf: (site, check, why) =>
     `the ${site} half of ${check === 'leak' ? `the leak suite (${LEAK_TESTS[site]})` : 'check-network-links'} did not run: ${why}`,
+  absentSpecs: (site, why) => `the ${site} half of the lane specs did not run: ${why}`,
 };
 
 /**
@@ -118,6 +143,9 @@ export function plan(f) {
       if (s === 'kpop') {
         // check:indexability reads the catalogue itself: through the kept frozen state when parity.sh serves it.
         if (srv?.source === 'parity') add({ ...base, action: 'run', env: c === 'indexability' && !srv.given ? 'parity' : 'offline' });
+        // A kpop gate build when parity ran (request 11 without request 2): the diff reaches kpop, so pending, never
+        // a skip that says it cannot (review Q0a r2 N1).
+        else if (srv && f.parity === 'ran') add({ ...base, action: 'pending', reason: f.kept ? WHY.kpopGivenOverKept : f.keptReason || WHY.kpopNoKeep });
         else if (srv) add({ ...base, action: 'skip', reason: WHY.kpopGate });
         else add({ ...base, action: f.parity === 'ran' ? 'pending' : 'fail', reason: missing.kpop });
         continue;
@@ -136,6 +164,7 @@ export function plan(f) {
   }
 
   const live = sites.filter((s) => A[s]);
+  const require = sites.filter((s) => s !== 'kpop' && f.requireWired?.[s]);
   if (live.length) {
     // network-links judges a site by its domain rules: an unwired anime or hub build (kpop pages) is left out; the
     // leak suite's site identity test fails it when the wiring is required. `sites` is what each check reads:
@@ -143,8 +172,9 @@ export function plan(f) {
     const linkSites = live.filter((s) => s === 'kpop' || f.wired?.[s] !== false);
     if (linkSites.length) add({ name: 'network-links', kind: 'network-links', action: 'run', sites: linkSites });
     else add({ name: 'network-links', kind: 'network-links', action: 'skip', sites: [], reason: WHY.noLinkSite(live) });
-    add({ name: 'leak', kind: 'leak', action: 'run', sites: live, excludeContent: A.kpop?.source === 'parity',
-      require: sites.filter((s) => s !== 'kpop' && f.requireWired?.[s]) });
+    const excludeContent = A.kpop?.source === 'parity';
+    add({ name: 'leak', kind: 'leak', action: 'run', sites: live, excludeContent, require,
+      pw: pwArgs('leak', excludeContent ? { grepInvert: CONTENT_LEAK_GREP } : {}) });
   }
   // A site of the lane with no server: its half of the leak suite and of network-links cannot run, and the suite
   // skips the tests of a site it is not given. Each such half gets its own line, pending or failed like the site's SEO
@@ -158,10 +188,14 @@ export function plan(f) {
   }
   if (A.kpop?.source === 'parity' && !A.kpop.given) add({ name: 'kpop-refused-writes', site: 'kpop', kind: 'refused-writes', action: 'run' });
   if (A.kpop?.source === 'parity') {
-    if (B) add({ name: 'leak-content', kind: 'leak-content', phase: 'B', action: 'run' });
+    // Phase B: the same sites as `leak`, with the kpop gate build in place of the kept parity build.
+    if (B) add({ name: 'leak-content', kind: 'leak-content', phase: 'B', action: 'run', sites: live, require, pw: pwArgs('leak', { files: [CONTENT_LEAK_FILE] }) });
     else add({ name: 'leak-content', kind: 'leak-content', action: 'skip', reason: WHY.contentNoDevKpop });
   }
 
+  // Lane specs read the gate builds of their phase only (never a kpop server with production data). `sites` is what
+  // they are given: gate-checks.sh fails the line when one of them did not start, and a site of the lane they are
+  // not given has its own `<site>-lane-specs` line, like the leak halves above (a spec skips a site it has no URL for).
   const specPhase = B ? 'B' : 'A';
   if (f.laneSpecsMissing?.length) {
     add({ name: 'lane-specs', kind: 'lane-specs', phase: specPhase, action: 'fail',
@@ -169,10 +203,23 @@ export function plan(f) {
   } else if (!f.laneSpecs?.length) {
     add({ name: 'lane-specs', kind: 'lane-specs', phase: specPhase, action: 'skip', reason: `lanes.json lists no specs for ${f.lane}` });
   } else {
-    const kpopForSpecs = (B ? B.kpop : A.kpop)?.source === 'gate';
-    add({ name: 'lane-specs', kind: 'lane-specs', phase: specPhase, action: 'run', files: f.laneSpecs,
-      reason: sites.includes('kpop') && !kpopForSpecs ? 'no kpop URL given: the kpop server is the kept parity build (production), lane specs never run against it' : '',
-      kpopUrl: kpopForSpecs });
+    const specSrv = B ? { ...A, ...B } : A;
+    const specSites = sites.filter((s) => specSrv[s]?.source === 'gate');
+    const absent = sites.filter((s) => !specSites.includes(s)).map((s) => {
+      const srv = specSrv[s];
+      const action = s === 'kpop' && f.parity === 'ran' ? 'pending' : srv ? 'skip' : 'fail';
+      return { name: `${s}-lane-specs`, site: s, kind: 'absent', phase: specPhase, action,
+        reason: WHY.absentSpecs(s, srv ? WHY.specsProduction : missing[s]) };
+    });
+    const files = f.laneSpecs.map((x) => x.replace(/^apps\/quiz\//, ''));
+    if (specSites.length || !sites.length) {
+      add({ name: 'lane-specs', kind: 'lane-specs', phase: specPhase, action: 'run', files: f.laneSpecs, sites: specSites,
+        kpopUrl: specSites.includes('kpop'), pw: pwArgs('lanes', { files }),
+        reason: absent.map((c) => `${c.reason} (${c.name}, ${c.action})`).join('; ') });
+    } else {
+      add({ name: 'lane-specs', kind: 'lane-specs', phase: specPhase, action: 'skip', files: f.laneSpecs, sites: [], reason: WHY.noSpecSite });
+    }
+    for (const c of absent) add(c);
   }
   return { sites, dbenv: f.dbenv, siteScope: scope, servers: { A, B }, checks };
 }
