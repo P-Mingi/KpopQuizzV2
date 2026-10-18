@@ -1,0 +1,867 @@
+{
+  "note": "Copy pairs of the base, all code files outside app/sites against each other (before any anime page), measured by twins.mts --write-baseline at shingle 8 on o1/Q0a 1aaf144 (merge of o1/integration 8430d98), 16 October 2026. A pair passes while its matched meaningful lines stay at or under lines. Q0a changes this file only from a new base measurement, never for a lane.",
+  "shingle": 8,
+  "pairs": [
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+        "apps/quiz/src/app/(site)/[slug]/group-trivia-page.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+        "apps/quiz/src/app/(site)/quizzes/page.tsx"
+      ],
+      "lines": 15
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+        "apps/quiz/src/components/group/ux-v1/hub.tsx"
+      ],
+      "lines": 29
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/about/page.tsx",
+        "apps/quiz/src/app/(site)/pt/about/page.tsx"
+      ],
+      "lines": 17
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/admin/admin-dashboard.tsx",
+        "apps/quiz/src/app/api/og/group/[slug]/route.tsx"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/admin/admin-dashboard.tsx",
+        "apps/quiz/src/lib/db/types.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/admin/admin-dashboard.tsx",
+        "packages/shared/src/types.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/admin/page.tsx",
+        "apps/quiz/src/app/api/admin/quizzes/route.ts"
+      ],
+      "lines": 12
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/admin/page.tsx",
+        "apps/quiz/src/app/api/admin/stats/route.ts"
+      ],
+      "lines": 42
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/articles/[slug]/page.tsx",
+        "apps/quiz/src/app/(site)/stats/page.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/articles/page.tsx",
+        "apps/quiz/src/app/(site)/pt/articles/page.tsx"
+      ],
+      "lines": 31
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/blindtest/leaderboard/page.tsx",
+        "apps/quiz/src/app/api/daily/blindtest/leaderboard/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/blindtest/page.tsx",
+        "apps/quiz/src/app/(site)/pt/blindtest/page.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/faq/page.tsx",
+        "apps/quiz/src/app/(site)/pt/faq/page.tsx"
+      ],
+      "lines": 22
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/guess-the-kpop-idol/page.tsx",
+        "apps/quiz/src/app/(site)/kpop-true-or-false/page.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/leaderboard/leaderboard-tabs.tsx",
+        "apps/quiz/src/lib/db/queries/profiles.ts"
+      ],
+      "lines": 16
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/leaderboard/leaderboard-tabs.tsx",
+        "apps/quiz/src/lib/db/types.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/me/page.tsx",
+        "apps/quiz/src/app/(site)/u/[username]/page.tsx"
+      ],
+      "lines": 31
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/me/page.tsx",
+        "apps/quiz/src/components/profile/profile-owner-controls.tsx"
+      ],
+      "lines": 12
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/pt/guess-the-kpop-idol/page.tsx",
+        "apps/quiz/src/app/(site)/pt/kpop-true-or-false/page.tsx"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/pt/quizzes/page.tsx",
+        "apps/quiz/src/app/(site)/quizzes/page.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/pt/stats/page.tsx",
+        "apps/quiz/src/app/(site)/stats/page.tsx"
+      ],
+      "lines": 26
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/(site)/q/[slug]/page.tsx",
+        "apps/quiz/src/app/embed/q/[slug]/page.tsx"
+      ],
+      "lines": 22
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/comebacks/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/mv-tracking/[id]/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/comebacks/route.ts",
+        "apps/quiz/src/app/api/admin/mv-tracking/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/group/[id]/approve/route.ts",
+        "apps/quiz/src/app/api/admin/group/[id]/merge/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/group/[id]/approve/route.ts",
+        "apps/quiz/src/app/api/admin/group/[id]/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/group/[id]/merge/route.ts",
+        "apps/quiz/src/app/api/admin/group/[id]/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/difficulty/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz-bank/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/remove/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts",
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts",
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/restore/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/[id]/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/quiz/upload-image/route.ts",
+        "apps/quiz/src/app/api/quiz/upload-image/route.ts"
+      ],
+      "lines": 16
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/report/[id]/dismiss/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/user/[id]/ban/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/admin/user/[id]/edit/route.ts",
+        "apps/quiz/src/app/api/admin/user/[id]/unban/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/auth/create-profile/route.ts",
+        "apps/quiz/src/app/api/auth/update-profile/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/auth/create-profile/route.ts",
+        "apps/quiz/src/app/api/quiz/create/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/auth/update-profile/route.ts",
+        "apps/quiz/src/app/api/quiz/create/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/blind-test/generate/kpdh-cover.test.ts",
+        "apps/quiz/src/app/api/blind-test/generate/question-types-count.test.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/blind-test/generate/route.ts",
+        "apps/quiz/src/app/api/daily/blindtest/route.ts"
+      ],
+      "lines": 39
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/blind-test/generate/route.ts",
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/blind-test/generate/route.ts",
+        "apps/quiz/src/components/blindtest/ux-v1/types.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/cron/mv-snapshot/route.ts",
+        "apps/quiz/src/app/api/cron/spotify-snapshot/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/daily/blindtest/route.ts",
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/daily/blindtest/route.ts",
+        "apps/quiz/src/components/blindtest/ux-v1/types.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+        "apps/quiz/src/app/api/og/verse/[slug]/route.tsx"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+        "apps/quiz/src/lib/db/types.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+        "packages/shared/src/types.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/quiz/[id]/comment/route.ts",
+        "apps/quiz/src/app/api/quiz/[id]/react/route.ts"
+      ],
+      "lines": 20
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/quiz/[id]/comment/route.ts",
+        "apps/quiz/src/app/api/ux-v1/p4/comments/reply/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/quiz/[id]/react/route.ts",
+        "apps/quiz/src/app/api/ux-v1/p4/comments/reply/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/quiz/[id]/route.ts",
+        "apps/quiz/src/app/api/quiz/create/route.ts"
+      ],
+      "lines": 15
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/collectibles/route.ts",
+        "apps/quiz/src/app/api/verse/photocards/route.ts"
+      ],
+      "lines": 33
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/comeback-mode/route.ts",
+        "apps/quiz/src/app/api/verse/live-now/route.ts"
+      ],
+      "lines": 15
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/history/route.ts",
+        "apps/quiz/src/app/api/verse/lock/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/history/route.ts",
+        "apps/quiz/src/app/api/verse/override/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/history/route.ts",
+        "apps/quiz/src/app/api/verse/section/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/lock/route.ts",
+        "apps/quiz/src/app/api/verse/override/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/lock/route.ts",
+        "apps/quiz/src/app/api/verse/section/route.ts"
+      ],
+      "lines": 11
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/nav/route.ts",
+        "apps/quiz/src/app/api/verse/tags/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/override/route.ts",
+        "apps/quiz/src/app/api/verse/section/route.ts"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/pages/create/route.ts",
+        "apps/quiz/src/app/api/verse/presentation/publish/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/pages/create/route.ts",
+        "apps/quiz/src/app/api/verse/presentation/rollback/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/pages/create/route.ts",
+        "apps/quiz/src/app/api/verse/space-config/route.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/pages/save/route.ts",
+        "apps/quiz/src/app/api/verse/pages/submit/route.ts"
+      ],
+      "lines": 13
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/presentation/publish/route.ts",
+        "apps/quiz/src/app/api/verse/presentation/rollback/route.ts"
+      ],
+      "lines": 11
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/presentation/publish/route.ts",
+        "apps/quiz/src/app/api/verse/space-config/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/app/api/verse/presentation/rollback/route.ts",
+        "apps/quiz/src/app/api/verse/space-config/route.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blind-test-player.tsx",
+        "apps/quiz/src/components/game/blind-test-player.tsx"
+      ],
+      "lines": 17
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+        "apps/quiz/src/components/blindtest/ux-v1/types.ts"
+      ],
+      "lines": 12
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+        "apps/quiz/src/components/blindtest/ux-v1/use-run.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+        "apps/quiz/src/components/home/home-btotd.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+        "apps/quiz/src/components/home/home-qotd.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+        "apps/quiz/src/components/quiz/quiz-of-the-day.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/blindtest/ux-v1/use-run.ts",
+        "apps/quiz/src/components/ranked/ux-v1/use-ranked-run.ts"
+      ],
+      "lines": 32
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/community/daily-debate.tsx",
+        "apps/quiz/src/components/community/daily-ritual.tsx"
+      ],
+      "lines": 11
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/create/create-funnel.tsx",
+        "apps/quiz/src/lib/ux-v1/p5/funnel.ts"
+      ],
+      "lines": 38
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/home/home-btotd.tsx",
+        "apps/quiz/src/components/home/home-qotd.tsx"
+      ],
+      "lines": 13
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/home/home-btotd.tsx",
+        "apps/quiz/src/components/quiz/quiz-of-the-day.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/home/home-qotd.tsx",
+        "apps/quiz/src/components/quiz/quiz-of-the-day.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/home/quiz-of-the-day.tsx",
+        "apps/quiz/src/components/quiz/quiz-card.tsx"
+      ],
+      "lines": 10
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/layout/notification-bell.tsx",
+        "apps/quiz/src/components/layout/ux-v1/ux-nav-actions.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/layout/ux-v1/ux-appearance-setting.tsx",
+        "apps/quiz/src/components/profile/ux-v1/settings.tsx"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/quiz/quiz-player.tsx",
+        "apps/quiz/src/lib/ux-v1/p4/engine.ts"
+      ],
+      "lines": 132
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/quiz/ux-v1/story.ts",
+        "apps/quiz/src/components/ux-v1/story-image.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/ui/like-button.tsx",
+        "apps/quiz/src/components/ui/like-quiz-button.tsx"
+      ],
+      "lines": 33
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/verse/builder/hero-editor.tsx",
+        "apps/quiz/src/components/verse/builder/library-drawer.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/verse/builder/hero-editor.tsx",
+        "apps/quiz/src/components/verse/builder/style-panel.tsx"
+      ],
+      "lines": 14
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/verse/builder/library-drawer.tsx",
+        "apps/quiz/src/components/verse/builder/style-panel.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/components/verse/collectible-catalog-manager.tsx",
+        "apps/quiz/src/components/verse/photocard-catalog-manager.tsx"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/db/queries/community.ts",
+        "apps/quiz/src/lib/db/queries/debate.ts"
+      ],
+      "lines": 12
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/db/queries/community.ts",
+        "apps/quiz/src/lib/ux-v1/p9/data.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/db/queries/profiles.ts",
+        "apps/quiz/src/lib/db/types.ts"
+      ],
+      "lines": 16
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/db/types.ts",
+        "packages/shared/src/types.ts"
+      ],
+      "lines": 27
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/duel/team-exclusion.test.ts",
+        "apps/quiz/src/lib/editorial/recap-splits.test.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/duel/team-exclusion.test.ts",
+        "apps/quiz/src/lib/ux-v1/p6/board-team.test.ts"
+      ],
+      "lines": 9
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/supabase/middleware.ts",
+        "packages/shared/src/supabase/middleware.ts"
+      ],
+      "lines": 15
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/supabase/server.ts",
+        "packages/shared/src/supabase/server.ts"
+      ],
+      "lines": 13
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/tracking/home-band-team.test.ts",
+        "apps/quiz/src/lib/ux-v1/p6/board-team.test.ts"
+      ],
+      "lines": 8
+    },
+    {
+      "files": [
+        "apps/quiz/src/lib/ux-v1/a0/a0.test.ts",
+        "apps/quiz/src/lib/ux-v1/a0/nav-v12.test.ts"
+      ],
+      "lines": 19
+    }
+  ]
+}

@@ -1,0 +1,681 @@
+{
+ "rules": "q0a-g0-v2",
+ "identical": false,
+ "rows": [
+  {
+   "page": "/",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/quizzes",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/groups",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/trending",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/blackpink-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/stray-kids-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/seventeen-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/cortis-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/twice-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/newjeans-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/trivia",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-trivia",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/blackpink-trivia",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/skz-true-or-false-only-real-stays-pass",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/blackpink-ultimate-fan-challenge",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/are-you-a-real-coer",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/illit-fans-here",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/babymonster-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/le-sserafim-members-and-music-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/one-for-sones",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/twice-true-or-false",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/how-well-do-you-know-txt",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/enhypen-debut-and-beyond-quiz",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/q/k-pop-company-quiz-match-the-group-to-the-label",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/blindtest",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/classic",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/intro-challenge",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/group-bts",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-song",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/pt",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/blindtest",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/quizzes",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/faq",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/leaderboard",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/fr/blind-test-kpop",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/es/adivina-la-cancion-kpop",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/id/tebak-lagu-kpop",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-idol",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-true-or-false",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/easy-kpop-quizzes",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/hard-kpop-quizzes",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-quiz-2026",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-demon-hunters-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/which-bts-member-are-you",
+   "status": "404/404",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/bts-name-all-members",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/about",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/editorial-policy",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/privacy",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/terms",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/faq",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/contact",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/leaderboard",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/articles",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [],
+   "found": [
+    {
+     "at": "css-content",
+     "a": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1714;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-",
+     "b": "sheet 0 static/chunks/<asset>.css rule 720: ...g:#faf8f5;--surface:#fff;--surface-alt:#f3f1ed;--txt1:#1a1715;--txt2:#6b6560;--txt3:#9e998f;--border:#1a17141a;--border-h:#1a171433;--font-body:\"DM Sans\", var(--font-pretendard), system-ui, sans-serif;--font-display:var(--font-body);--font-"
+    }
+   ],
+   "sheets": 3
+  },
+  {
+   "page": "/daily",
+   "status": "307/307",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/an-unknown-o1-parity-path",
+   "status": "301/301",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/sitemap.xml",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/robots.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/llms.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  }
+ ]
+}

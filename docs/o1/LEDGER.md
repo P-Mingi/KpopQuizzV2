@@ -274,3 +274,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | when (UTC) | lane | sha | parity | SQL |
 |---|---|---|---|---|
 | 2026-10-16T11:18:10Z | DUMMY | 674c0861f649 | not needed | 0 SQL file(s) |
+| 2026-10-18T18:01:02Z | Q0a | 5e535a8fa284 | not needed | 0 SQL file(s) |

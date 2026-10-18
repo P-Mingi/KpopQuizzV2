@@ -1,0 +1,3 @@
+DIFFERENT (bytes)  /blindtest/group-bts  status 200/200  raw bytes 34637/34637  normalised 33486/33486  js chunks 13/13
+DIFFERENT (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 50072/50080  normalised 48869/48877  js chunks 13/13
+DIFFERENT (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 49870/49862  normalised 48667/48659  js chunks 13/13

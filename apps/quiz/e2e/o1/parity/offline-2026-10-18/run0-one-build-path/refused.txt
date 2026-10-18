@@ -1,0 +1,3 @@
+   1 build-base POST /rest/v1/rpc/ensure_daily_debate rpc ensure_daily_debate (writes: update public.debate_questions set in supabase/migrations/108_daily_debate_cheers.sql)  [listed: refused in the base build (today's behaviour)]
+   1 build-head POST /rest/v1/rpc/ensure_daily_debate rpc ensure_daily_debate (writes: update public.debate_questions set in supabase/migrations/108_daily_debate_cheers.sql)  [listed: the base build refused it too]
+refused writes: none failing
