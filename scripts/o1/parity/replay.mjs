@@ -1,14 +1,19 @@
 #!/usr/bin/env node
-// Run O1, lane Q0a: the recorded base side of a parity run (scripts/o1/parity.sh, report D50).
+// Run O1, lane Q0a: the recorded sides of a parity run (scripts/o1/parity.sh, report D50 and D52).
 // Both sides are built and served at one path (o1-parity-build), so the base server and the head server cannot run at
 // the same time. The base server runs first and this script records, with GET and no redirect follow, everything the
-// comparison will ask of side A: every URL of the list, and every same-origin stylesheet those pages link. Then the
-// base server stops, the head build takes the path, and this script serves the record as side A while the head runs
-// live as side B. The data both servers render is the same frozen state (freeze-hook.mjs), so recording first does
-// not let data drift in; what is recorded is the status, the Location header, the Content-Type and the body, which is
-// all flag-off-diff.mjs and compare.mjs read. A request for anything not recorded answers 404 with a body naming it,
-// so it can only make a page DIFFERENT, never hide one.
-//   node scripts/o1/parity/replay.mjs record --from <base url> --urls <list> --out <file.json>
+// comparison will ask of a side: every URL of the list, and every same-origin stylesheet those pages link. Then the
+// base server stops, the head build takes the path and is recorded the same way, and two record servers answer as
+// side A and side B. The data both servers render is the same frozen state (freeze-hook.mjs), so recording one side
+// after the other does not let data drift in; what is recorded is the status, the Location header, the Content-Type
+// and the body, which is all flag-off-diff.mjs and compare.mjs read. A request for anything not recorded answers 404
+// with a body naming it, so it can only make a page DIFFERENT, never hide one.
+// Both sides are read with one request header, RECORD_UA, which Next 16 treats as an HTML-limited crawler (D52): a page
+// rendered at request time then gets its metadata blocking in the head, as Bingbot, Applebot or a link preview get
+// it, instead of in a Suspense boundary streamed after the head ("Next.Metadata"), which lands before or after the
+// shell flush depending on timing alone (request 23). Prerendered pages are served from the build's cache whatever
+// the header. Nothing in the response is rewritten.
+//   node scripts/o1/parity/replay.mjs record --from <server url> --urls <list> --out <file.json>
 //   node scripts/o1/parity/replay.mjs serve --record <file.json> --port <port>
 // Exit 0, 1 on a failed read while recording, 2 on a usage error.
 import fs from 'node:fs';
@@ -19,9 +24,12 @@ import { fileURLToPath } from 'node:url';
 import { isLocalHref, readList, stylesheetHrefs } from './compare.mjs';
 
 export const NOT_RECORDED = 'o1 parity replay: not recorded';
+// Matched by Next's HTML_LIMITED_BOT_UA_RE ("Slurp") and not by its DOM-bot pattern (Googlebot); replay.test.mjs
+// checks both against the installed Next, and that next.config.ts sets no htmlLimitedBots of its own.
+export const RECORD_UA = 'o1-parity-record (html-limited crawler view, as Slurp)';
 
 async function read(base, p) {
-  const r = await fetch(base + p, { redirect: 'manual', headers: { 'user-agent': 'o1-parity-record' } });
+  const r = await fetch(base + p, { redirect: 'manual', headers: { 'user-agent': RECORD_UA } });
   return { status: r.status, location: r.headers.get('location'), contentType: r.headers.get('content-type'), body: await r.text() };
 }
 

@@ -5,10 +5,11 @@
 #   scripts/o1/parity.sh --check-kept <head-sha> [--offline] -- <cmd...> (gate-checks.sh: a check in the parity env)
 # Builds base and head back to back, each in a clean detached worktree (node_modules linked from O1), under the
 # build lock, with KPQ/secrets/kpop-parity.env (sourced, never printed) and the production flags; serves both with
-# `next start` at one path, the base first (recorded) and then the head (live), D50 below; compares the URL list with
+# `next start` at one path, the base and then the head, each recorded (D50, D52 below); compares the URL list with
 # apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations and the
 # two of CR-008, nothing else, then the stylesheet contents of CR-009); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
-# (base, head, URL list) in KPQ/cache/parity/. Exit 0 = identical after the allowed normalisations, 1 = a difference.
+# (base, head, URL list, harness version) in KPQ/cache/parity/. Exit 0 = identical after the allowed normalisations,
+# 1 = a difference.
 #
 # Version 1 by ORCH (Phase 0); completed by lane Q0a:
 # - URL list: apps/quiz/e2e/o1/parity/urls.txt (60 URLs; the GET write proof is
@@ -45,10 +46,18 @@
 #   fails with a stack). Production builds and serves every deploy at one path; so does parity now: the base build
 #   takes o1-parity-build again, is served on port A and recorded by scripts/o1/parity/replay.mjs (every URL of the
 #   list and every stylesheet those pages link: status, Location, Content-Type, body), stops and leaves; the head
-#   takes the path and is served live on port B while the record answers as side A. Both servers read the same frozen
-#   data state (the base server's own reads are recorded into it and replayed by the head), so recording first lets no
-#   data drift in; a server clock moves by the minute or so the swap takes (it moved by the head build's minutes for
-#   every prerendered page already). A request the record does not hold answers 404 (DIFFERENT, never hidden).
+#   takes the path, is served on port B and recorded the same way (D52), and the two records answer as side A and
+#   side B. Both servers read the same frozen data state (the base server's own reads are recorded into it and
+#   replayed by the head), so recording one after the other lets no data drift in; a server clock moves by the minute
+#   or so the swap takes (it moved by the head build's minutes for every prerendered page already). A request a
+#   record does not hold answers 404 (DIFFERENT, never hidden).
+# - Read as an HTML-limited crawler (Q0a D52, request 23): both sides are recorded with one header, replay.mjs's
+#   RECORD_UA, which Next 16 matches as an HTML-limited bot (Slurp, Bingbot, Applebot, link previews). A page rendered
+#   at request time then gets its metadata blocking in the head; with any other header Next streams it in a Suspense
+#   boundary that resolves before or after the shell flush by timing alone, so one page read twice could differ
+#   (seen offline on the 500 pages). Prerendered pages come from the build's cache whatever the header, so their
+#   bytes do not change. Nothing is rewritten: the head, every metadata tag, every node and every Flight row stay
+#   compared; what is no longer compared is where Next puts the metadata of a request-time page for a browser.
 #   __dirname and import.meta.url, which would point at the build path, appear nowhere in apps/quiz/src or
 #   packages/*/src (checked 2026-10-18); every server reads files from its own cwd.
 # - --keep keeps both worktrees (the head at o1-parity-build, the base at o1-parity-base), their builds and the frozen
@@ -142,7 +151,11 @@ if [ -z "$urls" ]; then
 fi
 [ -f "$urls" ] || die "no URL list" 4
 mkdir -p "$CACHE"
-key="${base:0:12}-${head:0:12}-$(shasum -a 256 "$urls" | cut -c1-8)"
+# The harness version is part of the key: a result of an older harness is never reused, and --recheck needs a run of
+# the same harness.
+hfiles=("$HERE/parity.sh" "$FOD"); for f in "$HERE"/parity/*.mjs; do case "$f" in *.test.mjs) ;; *) hfiles+=("$f") ;; esac; done
+hv="$(cat "${hfiles[@]}" | shasum -a 256 | cut -c1-8)"
+key="${base:0:12}-${head:0:12}-$(shasum -a 256 "$urls" | cut -c1-8)-$hv"
 OUT="$CACHE/$key"
 publish() { # copy the verdict into the evidence folder
   [ -n "$evidence" ] || return 0
@@ -227,8 +240,9 @@ t0=$(date +%s)
 build base "$base" || { tail -20 "$OUT.tmp/build-base.log" >&2; die "base build failed (log $OUT.tmp/build-base.log)" 7; }
 build head "$head" || { tail -20 "$OUT.tmp/build-head.log" >&2; die "head build failed (log $OUT.tmp/build-head.log)" 7; }
 # Served at the build path too (D50), one side after the other: the base takes the path, is served on PA and recorded
-# (scripts/o1/parity/replay.mjs: the URL list and every stylesheet it links), stops and leaves; then the head takes
-# the path and is served live on PB while the record answers as side A on PA.
+# (scripts/o1/parity/replay.mjs: the URL list and every stylesheet it links, read as an HTML-limited crawler, D52),
+# stops and leaves; then the head takes the path, is served on PB and recorded the same way, and stops; the two
+# records answer as side A on PA and side B on PB.
 at_path() { # role: o1-parity-<role> takes the build path
   "$G" -C "$O1" worktree move "$ROOT/.claude/worktrees/o1-parity-$1" "$BUILDW" >/dev/null 2>&1 || die "could not move o1-parity-$1 to $BUILDW" 8
 }
@@ -246,15 +260,23 @@ PA=${O1_PARITY_PORT_A:-4011}; PB=${O1_PARITY_PORT_B:-4012}
 for p in $PA $PB; do lsof -iTCP:$p -sTCP:LISTEN >/dev/null 2>&1 && die "port $p busy" 8; done
 at_path base
 serve base $PA; up $PA || die "the base server did not answer (log $OUT.tmp/serve-base.log)" 8
-node "$REPLAY" record --from "http://127.0.0.1:$PA" --urls "$urls" --out "$OUT.tmp/base-record.json" > "$OUT.tmp/record.log" 2>&1 \
-  || { tail -5 "$OUT.tmp/record.log" >&2; die "recording the base side failed" 7; }
-kill_tree "${pids[0]}"; pids=()
-for i in $(seq 1 30); do lsof -iTCP:$PA -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 1; done
+record_side() { # role port: record the server on <port>, then stop it and wait until the port is free
+  node "$REPLAY" record --from "http://127.0.0.1:$2" --urls "$urls" --out "$OUT.tmp/$1-record.json" > "$OUT.tmp/record-$1.log" 2>&1 \
+    || { tail -5 "$OUT.tmp/record-$1.log" >&2; die "recording the $1 side failed" 7; }
+  kill_tree "${pids[0]}"; pids=()
+  for i in $(seq 1 30); do lsof -iTCP:$2 -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 1; done
+  lsof -iTCP:$2 -sTCP:LISTEN >/dev/null 2>&1 && die "the $1 server still holds port $2" 8
+  return 0
+}
+record_side base $PA
 leave_path base; at_path head
 serve head $PB; up $PB || die "the head server did not answer (log $OUT.tmp/serve-head.log)" 8
-node "$REPLAY" serve --record "$OUT.tmp/base-record.json" --port "$PA" > "$OUT.tmp/replay.log" 2>&1 &
-pids+=($!)
-up $PA || die "the recorded base side did not answer" 8
+record_side head $PB
+for s in base:$PA head:$PB; do
+  node "$REPLAY" serve --record "$OUT.tmp/${s%%:*}-record.json" --port "${s##*:}" > "$OUT.tmp/replay-${s%%:*}.log" 2>&1 &
+  pids+=($!)
+  up "${s##*:}" || die "the recorded ${s%%:*} side did not answer" 8
+done
 wh="$BUILDW"
 list=()
 while IFS= read -r u; do u="${u#"${u%%[![:space:]]*}"}"; case "$u" in ''|'#'*) ;; *) list+=("$u") ;; esac; done < "$urls"
@@ -286,8 +308,8 @@ if [ $keep = 1 ]; then
   printf '{ "base": "%s", "head": "%s", "key": "%s", "worktree": "%s", "baseWorktree": "%s", "freeze": "%s", "when": "%s" }\n' \
     "$base" "$head" "$key" "$wh" "$wb" "$OUT/freeze" "$(date -u +%FT%TZ)" > "$KEPT"
 fi
-printf '{ "base": "%s", "head": "%s", "identical": %s, "urls": %s, "urlList": "%s", "resultSha256": "%s", "recheck": %s, "deterministic": %s, "liveReads": %s, "frozenReads": %s, "refusedWrites": %s, "seconds": %s, "when": "%s" }\n' \
-  "$base" "$head" "$identical" "${#list[@]}" "${urls#$HARNESS/}" "$rsha" "$([ $recheck = 1 ] && echo true || echo false)" "${det:-null}" \
+printf '{ "base": "%s", "head": "%s", "identical": %s, "urls": %s, "urlList": "%s", "harness": "%s", "resultSha256": "%s", "recheck": %s, "deterministic": %s, "liveReads": %s, "frozenReads": %s, "refusedWrites": %s, "seconds": %s, "when": "%s" }\n' \
+  "$base" "$head" "$identical" "${#list[@]}" "${urls#$HARNESS/}" "$hv" "$rsha" "$([ $recheck = 1 ] && echo true || echo false)" "${det:-null}" \
   "${misses:-0}" "${hits:-0}" "${refused:-0}" $((t1 - t0)) "$(date -u +%FT%TZ)" > "$CACHE/$key.json"
 tail -3 "$OUT/result.txt"
 publish
