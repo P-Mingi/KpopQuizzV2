@@ -1,10 +1,10 @@
 // The middleware's public route allowlist, extracted so it can be imported by
 // both the middleware and the build-time guard.
 //
-// Why this file exists: anything NOT matched here is 301'd to / by the
-// middleware. That has silently swallowed five real pages so far (/contact,
-// /about, /me, /notifications, /daily). The page existed, was linked, and was
-// simply unreachable in production. scripts/check-route-allowlist.mts now walks
+// Why this file exists: anything NOT matched here answers 404 from the middleware
+// (owner, 2026-10-15; until then it was 301'd to /). That silently swallowed five
+// real pages (/contact, /about, /me, /notifications, /daily). The page existed,
+// was linked, and was simply unreachable in production. scripts/check-route-allowlist.mts now walks
 // app/ and fails the build when a page route is not reachable through
 // isKnownRoute(), so the next omission cannot ship.
 //
@@ -21,8 +21,9 @@ export const KNOWN_ROUTES = [
   // partner's iframe silently shows our homepage.
   '/embed/',
   // REFONTE P1: /games, /tier-list, /rankings, /which-, /personality, /battle were
-  // removed with their features (see next.config.ts for the 301 redirects). '/g/'
-  // stays: /g/[slug] is the kept blind-test game.
+  // removed with their features. The middleware answers them 410 before this list is
+  // read (lib/seo/legacy-urls.ts), except the per-group personality URLs, which
+  // next.config.ts redirects. '/g/' stays: /g/[slug] is the kept blind-test game.
   '/', '/q/', '/g/', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
   '/terms', '/privacy', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
@@ -51,11 +52,6 @@ export const KNOWN_ROUTES = [
   // PROTECTED_PATH_PREFIXES (no Supabase round trip in the middleware).
   '/build',
   '/articles',
-  // REFONTE P1: /tier-list is gone EXCEPT this one resolver route, which 301s a
-  // published tier list to its subject group's kept hub (the rest of /tier-list is
-  // 301'd in next.config, which runs before the middleware). The narrow '/tier-list/l/'
-  // prefix keeps the resolver reachable while every other /tier-list/* stays unknown.
-  '/tier-list/l/',
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
   // One '/data' prefix covers both via startsWith.
   '/data',
@@ -64,7 +60,7 @@ export const KNOWN_ROUTES = [
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new
 // design. They are known ONLY when the flag is on, so with the flag off the middleware
-// keeps 301ing them to / exactly as today (flag off = today's site, byte for byte).
+// answers them 404, like any unknown URL (they 301'd to / before 2026-10-15).
 // '/ux-v1/' is the noindex component kit, '/community' the community feed (P8).
 // Same flag test as lib/ux-v1.ts, inlined so this module stays import-free.
 const UX_V11_ROUTES = ['/ux-v1/', '/community'];
@@ -73,7 +69,7 @@ const UX_V1_ON =
 
 // V12 growth (NEXT_PUBLIC_UX_V12, default off, and only ever on together with
 // NEXT_PUBLIC_UX_V1: same rule as isUxV12() in lib/ux-v12.ts, inlined here). Known only
-// with both flags on; otherwise they 301 to / as they do today.
+// with both flags on; otherwise they answer 404 like any unknown URL.
 // '/live' host screen, '/join' phone, '/creators' board, the four blindtest landings
 // ('/guess-the-kpop-song', '/fr/', '/es/', '/id/' with the slash: startsWith), and the
 // internal routes behind the pretty per-group URLs ('/personality/', '/name-all/').
@@ -123,13 +119,31 @@ export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: bo
 }
 
 /**
- * True when the middleware will let this path through instead of 301ing it to /.
+ * True when the middleware will let this path through instead of answering 404.
  *
  * This is the predicate the guard asserts against. Note it is NOT the same
  * question as needsAuth(): needsAuth only decides whether to spend a Supabase
- * round trip. A path can be perfectly public to needsAuth and still be 301'd
- * into oblivion here, which is exactly how every one of the five bugs happened.
+ * round trip. A path can be perfectly public to needsAuth and still be refused
+ * here, which is exactly how every one of the five bugs happened.
  */
 export function isKnownRoute(pathname: string): boolean {
   return isKnownRouteWith(pathname, { v1: UX_V1_ON, v12: UX_V12_ON });
+}
+
+/**
+ * Owner (2026-10-15): an unknown URL answers a real 404, never a redirect to the home
+ * page. The middleware rewrites a page path that isKnownRoute() refuses to this one: a
+ * single segment that the group catch-all app/(site)/[slug] owns and refuses (no -quiz
+ * or -trivia suffix, so it makes no database read). It renders app/(site)/not-found.tsx,
+ * site chrome included, with status 404, and the address bar keeps the requested URL.
+ */
+export const NOT_FOUND_REWRITE = '/page-not-found';
+
+/**
+ * True when the last segment names a file (/site.webmanifest, /fonts/x.woff2). The
+ * middleware hands such a path to Next untouched: Next serves the file from public/, or
+ * answers its own 404 when there is none.
+ */
+export function isFilePath(pathname: string): boolean {
+  return /\.[a-z0-9]+$/i.test(pathname.slice(pathname.lastIndexOf('/') + 1));
 }
