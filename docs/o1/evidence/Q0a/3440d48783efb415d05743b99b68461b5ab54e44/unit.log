@@ -1,0 +1,93 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-Q0a/apps/quiz
+
+ ❯ src/lib/seo/og.test.ts (1 test | 1 failed) 6923ms
+   ❯ every openGraph object has an image (1)
+     × src/app and src/components 6911ms
+ ❯ src/lib/editorial/team-render.test.ts (10 tests | 1 failed) 8143ms
+   ❯ toPerson: an editorial account (2)
+     × takes the name the owner gave it and nothing of a fan 5032ms
+ ❯ src/lib/quiz/scoring.test.ts (51 tests | 1 failed) 6043ms
+   ❯ no surface shows an average above 100% (8)
+     × no inline average is left in the app outside the files requested from their owners 5769ms
+ ❯ src/lib/seo/json-ld.test.ts (5 tests | 2 failed) 20209ms
+   ❯ ld+json sinks (2)
+     × never pairs dangerouslySetInnerHTML with a bare JSON.stringify 8949ms
+     × every file that writes an ld+json script uses the escaping helper 11248ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/editorial/team-render.test.ts > toPerson: an editorial account > takes the name the owner gave it and nothing of a fan
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/editorial/team-render.test.ts:60:3
+     58|
+     59| describe('toPerson: an editorial account', () => {
+     60|   it('takes the name the owner gave it and nothing of a fan', async ()…
+       |   ^
+     61|     const { toPerson } = await load(true);
+     62|     expect(toPerson(MINA, PROFILE, { displayName: 'Mina', beat: 'Girl …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/lib/quiz/scoring.test.ts > no surface shows an average above 100% > no inline average is left in the app outside the files requested from their owners
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/quiz/scoring.test.ts:201:3
+    199|   });
+    200|
+    201|   it('no inline average is left in the app outside the files requested…
+       |   ^
+    202|     const src = fileURLToPath(new URL('../../', import.meta.url));
+    203|     const walk = (dir: string): string[] =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/lib/seo/json-ld.test.ts > ld+json sinks > never pairs dangerouslySetInnerHTML with a bare JSON.stringify
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/seo/json-ld.test.ts:43:3
+     41|     );
+     42|
+     43|   it('never pairs dangerouslySetInnerHTML with a bare JSON.stringify',…
+       |   ^
+     44|     const offenders = walk(src).filter((f) => /__html:\s*JSON\.stringi…
+     45|     expect(offenders.map((f) => f.slice(src.length))).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  src/lib/seo/json-ld.test.ts > ld+json sinks > every file that writes an ld+json script uses the escaping helper
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/seo/json-ld.test.ts:48:3
+     46|   });
+     47|
+     48|   it('every file that writes an ld+json script uses the escaping helpe…
+       |   ^
+     49|     const offenders = walk(src).filter((f) => {
+     50|       const s = readFileSync(f, 'utf8');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  src/lib/seo/og.test.ts > every openGraph object has an image > src/app and src/components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/seo/og.test.ts:34:3
+     32|
+     33| describe('every openGraph object has an image', () => {
+     34|   it('src/app and src/components', () => {
+       |   ^
+     35|     const root = join(__dirname, '../..');
+     36|     const missing: string[] = [];
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  4 failed | 120 passed (124)
+      Tests  5 failed | 2264 passed (2269)
+   Start at  05:12:57
+   Duration  78.94s (tests 46%, import 32%, transform 20%, worker 2%)
+
+    Isolate  124 workers spawned · ~1.93s startup each (spawn + environment, per file)
+             at least ~32.21s faster with isolate: false — reuses workers across files instead of one per file
+

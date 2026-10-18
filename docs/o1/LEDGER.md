@@ -10,7 +10,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | F0 | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | e5b51a5 (spike a74c82f) | o1-F0 (+ spike o1-F0s) |
 | Q0a | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | 3f51f62 | o1-Q0a |
 | D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
-| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | waits G1, G3 | | | |
+| Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | brief written (owner's proxy conditions, D-028) | | | |
+| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G3 answered) | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
 | B3 | 1 | code | 0 | F0, B2 | | SQL + SQL-K2 | | | | |
@@ -27,12 +28,12 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | O2 | 2 | code | 1 | O1 | O3 | SEO, UX | | | | |
 | O3 | 2 | code | 1 | O1, B3, B5, K1 | | SEO, UX, SQL | | | | |
 | O4 | 2 | code | 1 | O1, O3, K1 | | UX, SEC | | | | |
-| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | | | | |
+| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | after the run (D-029) | | | |
 | O6 | 2 | code | 1 | O1, B1, K4 | GU-B | UX, SEC, SQL | | | | |
 | P1 | 2 | code | 1 | O1, B3, B4, B6, B7 | G5 | UX, SEC | | | | |
 | H1 | 2 | code | 0 | B1, B3, B4, B6, B7 | G5 | UX, SEO, SEC | | | | |
-| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | | | | |
-| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | | | | |
+| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | after the run (D-029) | | | |
+| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | after the run (D-029) | | | |
 | L1 | 3 | code | 0 | O1 to O6, P1, H1, E1b, X1 | | ARCH | | | | |
 | C1, C2, C3 | 4 | checkers | 0 | L1 | | n/a | | | | |
 | RPT | 4 | docs | 0 | C1, C2, C3 | | n/a | | | | |
@@ -188,6 +189,28 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   be a production read); the line is dropped from spike-checks.tsv, the kpop hub being proven by parity (base and head
   built on the same database, /bts-quiz in the URL list); it comes back when Q0b seeds synthetic catalog rows on the
   branches. F0's brief says so.
+- D-027 Owner answers of 2026-10-18 (pasted message "Réponses du owner"): (1) yes for parity.sh reading production,
+  read-only guaranteed by a local proxy (conditions in D-028); (2) G2 announced done, but no docs/o1/fixtures-*.json
+  exists: fixtures.sh has not run yet; (3) NULL tokens: set to '' on o1-scratch and o1-dev only, done 10:16 UTC (3
+  accounts each, then 0; GoTrue listUsers works again on both; migration-log.md); production is the owner's; (4)
+  CR-002 to CR-006 refused for O1, backlog after launch: D0 draws nothing for them, F0 reserves no key and no flag
+  (NET_WELCOME included); (5) GH announced done, but on 2026-10-18 10:15 UTC origin/main is still 30e7091 and PR #102
+  (refs/pull/102/head 23a3ea6 = seo/redirects-exact) is not merged: main is integrated as soon as it is; (6) pace:
+  estimate and cuts given to the owner (D-029).
+- D-028 Production parity (owner, 2026-10-18): allowed only through a local read-only proxy, conditions in
+  `briefs/Q0c.md`. Q0a's harness already freezes reads and refuses writes inside the Node process, but the real URL
+  and keys still reach the build environment, so a small lane Q0c builds the proxy and its parity.sh wiring after Q0a
+  merges (ownership of parity.sh and scripts/o1/parity/** moves from Q0a to Q0c then), reviewed SEC and ARCH. Until R
+  passes Q0c, parity stays offline (D-025) and merges are recorded "offline (D-025)"; the first production
+  comparison, o1/integration against origin/main, runs before the next merge that touches kpop after that. Then one
+  full comparison per kpop merge, no more.
+- D-029 Pace (owner's question 6, 2026-10-18). Measured: about 30 h since the start, about 12 h of tick time, about
+  11 M subagent tokens, one weekly usage limit hit, Wave 0 (about 40 of the plan's 650 agent-hours) not merged yet.
+  Cuts applied at once, rule 18 and data safety kept: one R pass per lane carrying every profile (the second key stays
+  for B2, B3, B5 and B7), D0 limited to the screens of the lanes kept, one final checker pass instead of C1, C2, C3.
+  Moved after the run, before the launch (the owner may object): O5 (formats), X1 (day-1 bridges), E1b (/admin/review
+  and the anime publisher), L1's full rehearsal (L1 keeps the runbook, the launch SQL bundle and a scripted dry run).
+  Content stays at override 7. The cap of 2 code builders lifts when Mission U parts A to D are on main.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -195,11 +218,11 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR | lane | change | review | status |
 |---|---|---|---|---|
 | CR-001 | F0 (O1, O2) | Rule 18 ruling on R's F0 audit M1: the anime twins of `/quizzes` and its three lists, `/new`, `/most-liked`, `/trending`, `/trivia`, `/faq`, `/leaderboard` (Team accounts excluded) and `/dmca` exist (TWINS rows 31 to 36); news, articles, data pages (`/stats`, `/data/*`) and ranked join F (off at launch, slot absent); technical auth routes without a screen are row 37; the hub shell is row H-0. F0 updates routes.md, `routes.allow`, `KPOP_ONLY_SAMPLES` and copy keys accordingly | ORCH ruling (rule 15), R-ARCH checks it in F0's next review | approved 2026-10-16 |
-| CR-002 | P1 | Welcome card on the first signed-in arrival (P W5 A and C, D4), shared components only | owner | proposed, owner to decide |
-| CR-003 | P1 | "How I appear here" (P 8.2), shared components only | owner | proposed, owner to decide |
-| CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | proposed, owner to decide |
-| CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | proposed, owner to decide |
-| CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
+| CR-002 | P1 | Welcome card on the first signed-in arrival (P W5 A and C, D4), shared components only | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-003 | P1 | "How I appear here" (P 8.2), shared components only | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
 | CR-008 | Q0a | Parity normalisations N3 (a Flight client reference `I[<module id>,` reads `I[<id>,` on both sides; export names and chunk lists still compared) and N4 (a page's Flight stream compared as its sorted rows, however it is cut into `self.__next_f.push` tags); the server HTML and every row stay compared. Q0a request 21, option (a): Turbopack gives one client module two ids in two builds, so without them parity says DIFFERENT for any two builds | ORCH ruling under rule 15 (the v12 rule 12 noise list names the order of the streamed page data; module ids are build-internal), R-ARCH checks the tests in Q0a's review | approved 2026-10-17 |
 | CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
 | CR-010 | Q0a (F0) | Parity normalisation N5, the narrow form of F0-17(b) and Q0a request 24: a React text separator `<!-- -->` immediately followed by a closing tag `</` reads as nothing on both sides (it only marks where a prerender segment ended, which depends on stream timing, not on code); every other separator, element, attribute and text stays compared. Q0a writes it in `scripts/o1/parity/compare.mjs` with tests | ORCH ruling under rule 15 (as CR-008); the narrower of the two proposals | approved 2026-10-18 |

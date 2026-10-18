@@ -1,0 +1,491 @@
+
+> quiz@1.0.0 build
+> npm run check:routes && npm run check:verse-tokens && npm run check:env && next build
+
+
+> quiz@1.0.0 check:routes
+> tsx scripts/check-route-allowlist.mts
+
+Route allowlist guard passed: 384 page routes reachable.
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+> quiz@1.0.0 check:verse-tokens
+> tsx scripts/check-verse-tokens.mts
+
+Verse token gate passed: no raw hex colors in Verse surfaces.
+
+> quiz@1.0.0 check:env
+> tsx scripts/check-env.mts
+
+[check:env] OK - NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY present (environment: local).
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/louis/IT/Dev/projects/KpopQuizzV2/pnpm-workspace.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-Q0a/pnpm-workspace.yaml
+
+▲ Next.js 16.2.1 (Turbopack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ Compiled successfully in 28.8s
+  Running TypeScript ...
+  Finished TypeScript in 42s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/163) ...
+  Generating static pages using 7 workers (40/163) 
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 popularity] empty read
+  Generating static pages using 7 workers (81/163) 
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[creators] page failed: Error: creators: empty quizzes read
+    at x (.next/server/chunks/ssr/[root-of-the-server]__10v_7j4._.js:1:41421)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async B (.next/server/chunks/ssr/[root-of-the-server]__10v_7j4._.js:1:42849)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-Q0a_apps_quiz_src_0-9e-k4._.js:1:669)
+    at async M (.next/server/chunks/ssr/[root-of-the-server]__10v_7j4._.js:1:47365)
+  Generating static pages using 7 workers (122/163) 
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[groups v11] getGroupsDirectoryIndex failed: Error: groups index: empty read
+    at j (.next/server/chunks/ssr/_claude_worktrees_o1-gate-Q0a_apps_quiz_src_09k--gh._.js:1:5925)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-Q0a_apps_quiz_src_0-9e-k4._.js:1:669)
+    at async u (.next/server/chunks/ssr/[root-of-the-server]__0lbthd5._.js:1:22476)
+[p3] /groups: read(s) failed at build (getGroupsDirectoryIndex); prerendered with a 60s revalidate
+✓ Generating static pages using 7 workers (163/163) in 3.7s
+  Finalizing page optimization ...
+
+Route (app)                                 Revalidate  Expire
+┌ ○ /                                              10m      1y
+├ ○ /_not-found
+├ ● /[slug]
+├ ○ /about                                          6h      1y
+├ ƒ /admin
+├ ƒ /admin/ai-visibility
+├ ƒ /admin/blind-tests/create
+├ ƒ /admin/blind-tests/runs
+├ ƒ /admin/community-reports
+├ ƒ /admin/dm
+├ ƒ /admin/editorial
+├ ƒ /admin/embed
+├ ƒ /admin/industry
+├ ƒ /admin/member-review
+├ ƒ /admin/pulse
+├ ƒ /admin/quiz-bank
+├ ƒ /admin/quiz/[id]/edit
+├ ƒ /admin/quiz/search
+├ ƒ /admin/songs
+├ ƒ /admin/songs/[id]
+├ ƒ /admin/songs/add
+├ ƒ /admin/space-images
+├ ƒ /admin/verse
+├ ƒ /admin/verse/entities
+├ ƒ /admin/verse/quality
+├ ƒ /admin/verse/suggestions
+├ ƒ /api/activity/recent
+├ ƒ /api/admin/ai-visibility
+├ ƒ /api/admin/auto-select-qotd
+├ ƒ /api/admin/comebacks
+├ ƒ /api/admin/comebacks/[id]
+├ ƒ /api/admin/community-reports
+├ ƒ /api/admin/editorial
+├ ƒ /api/admin/editorial/[id]
+├ ƒ /api/admin/group/[id]
+├ ƒ /api/admin/group/[id]/approve
+├ ƒ /api/admin/group/[id]/merge
+├ ƒ /api/admin/mv-tracking
+├ ƒ /api/admin/mv-tracking/[id]
+├ ƒ /api/admin/notifications/send
+├ ƒ /api/admin/pending-groups
+├ ƒ /api/admin/pulse-citations
+├ ƒ /api/admin/pulse-citations/[id]
+├ ƒ /api/admin/quiz-bank/[id]
+├ ƒ /api/admin/quiz-bank/auto-schedule
+├ ƒ /api/admin/quiz/[id]
+├ ƒ /api/admin/quiz/[id]/difficulty
+├ ƒ /api/admin/quiz/[id]/remove
+├ ƒ /api/admin/quiz/[id]/restore
+├ ƒ /api/admin/quiz/upload-image
+├ ƒ /api/admin/quizzes
+├ ƒ /api/admin/report/[id]/dismiss
+├ ƒ /api/admin/search-quizzes
+├ ƒ /api/admin/set-qotd
+├ ƒ /api/admin/songs
+├ ƒ /api/admin/songs/[id]
+├ ƒ /api/admin/stats
+├ ƒ /api/admin/user/[id]/ban
+├ ƒ /api/admin/user/[id]/edit
+├ ƒ /api/admin/user/[id]/unban
+├ ƒ /api/admin/users
+├ ƒ /api/admin/verse/action
+├ ƒ /api/admin/youtube-info
+├ ƒ /api/auth/check-username
+├ ƒ /api/auth/create-profile
+├ ƒ /api/auth/me
+├ ƒ /api/auth/update-profile
+├ ƒ /api/blind-test/generate
+├ ƒ /api/blind-test/modes
+├ ƒ /api/blind-test/play
+├ ƒ /api/cheer
+├ ƒ /api/claim-runs
+├ ƒ /api/community/fans
+├ ƒ /api/creators/kit
+├ ƒ /api/creators/standing
+├ ƒ /api/cron/editorial-publish
+├ ƒ /api/cron/ensure-daily-debate
+├ ƒ /api/cron/ensure-daily-quiz
+├ ƒ /api/cron/fans-picked
+├ ƒ /api/cron/live-expire
+├ ƒ /api/cron/mv-snapshot
+├ ƒ /api/cron/notification-prune
+├ ƒ /api/cron/plays-counter-reconcile
+├ ƒ /api/cron/prune-activity
+├ ƒ /api/cron/pulse-generate
+├ ƒ /api/cron/seo-indexability
+├ ƒ /api/cron/spotify-snapshot
+├ ƒ /api/cron/verse-refresh
+├ ƒ /api/cron/verse-role-decay
+├ ƒ /api/daily/blindtest
+├ ƒ /api/daily/blindtest/leaderboard
+├ ƒ /api/daily/blindtest/submit
+├ ƒ /api/daily/complete
+├ ƒ /api/daily/streak
+├ ƒ /api/debate/me
+├ ƒ /api/debate/report
+├ ƒ /api/debate/vote
+├ ƒ /api/dev/login
+├ ƒ /api/discord
+├ ƒ /api/discord/flex
+├ ƒ /api/discord/flex/status
+├ ƒ /api/discord/widget
+├ ƒ /api/duel/fans-picked
+├ ƒ /api/duel/pairs
+├ ƒ /api/duel/vote
+├ ƒ /api/fancard/[username]
+├ ƒ /api/follow
+├ ƒ /api/game/[id]/play
+├ ƒ /api/game/create
+├ ƒ /api/indexnow
+├ ƒ /api/legacy/battle
+├ ƒ /api/live
+├ ƒ /api/live/rooms
+├ ƒ /api/live/rooms/[code]
+├ ƒ /api/live/rooms/[code]/answer
+├ ƒ /api/live/rooms/[code]/host
+├ ƒ /api/live/rooms/[code]/join
+├ ƒ /api/live/rooms/[code]/state
+├ ƒ /api/name-all/result
+├ ƒ /api/notifications
+├ ƒ /api/notifications/mark-read
+├ ƒ /api/notifications/prefs
+├ ƒ /api/og/[slug]
+├ ƒ /api/og/group/[slug]
+├ ƒ /api/og/level-up
+├ ƒ /api/og/page
+├ ƒ /api/og/passport/[username]
+├ ƒ /api/og/verse
+├ ƒ /api/og/verse/[slug]
+├ ƒ /api/passport/merge-anon
+├ ƒ /api/personality/result
+├ ƒ /api/profile/header/link
+├ ƒ /api/profile/header/upload
+├ ƒ /api/qotd/publish
+├ ƒ /api/quiz/[id]
+├ ƒ /api/quiz/[id]/comment
+├ ƒ /api/quiz/[id]/edit
+├ ƒ /api/quiz/[id]/like
+├ ƒ /api/quiz/[id]/my-rank
+├ ƒ /api/quiz/[id]/play
+├ ƒ /api/quiz/[id]/questions
+├ ƒ /api/quiz/[id]/react
+├ ƒ /api/quiz/[id]/related
+├ ƒ /api/quiz/[id]/report
+├ ƒ /api/quiz/[id]/share-card
+├ ƒ /api/quiz/[id]/stats
+├ ƒ /api/quiz/[id]/time-stats
+├ ƒ /api/quiz/create
+├ ƒ /api/quiz/title-check
+├ ƒ /api/quiz/upload-image
+├ ƒ /api/quizzes
+├ ○ /api/quizzes/count                              1h      1y
+├ ƒ /api/quizzes/group
+├ ƒ /api/quizzes/liked
+├ ƒ /api/quizzes/search
+├ ƒ /api/quizzes/user
+├ ƒ /api/ranked/cron/nightly
+├ ƒ /api/ranked/ladder
+├ ƒ /api/ranked/me
+├ ƒ /api/ranked/run
+├ ƒ /api/ranked/run/answer
+├ ƒ /api/ranked/run/start
+├ ƒ /api/ranked/run/submit
+├ ƒ /api/search
+├ ƒ /api/share/click/[code]
+├ ƒ /api/share/generate
+├ ƒ /api/share/reddit-image
+├ ƒ /api/stats/live
+├ ƒ /api/track/bt-run
+├ ○ /api/ux-v1/a0/styles
+├ ƒ /api/ux-v1/p1/daily-band
+├ ƒ /api/ux-v1/p10/export
+├ ƒ /api/ux-v1/p11/search
+├ ƒ /api/ux-v1/p11/team
+├ ƒ /api/ux-v1/p2/quizzes
+├ ƒ /api/ux-v1/p3/notify
+├ ƒ /api/ux-v1/p4/challenge
+├ ƒ /api/ux-v1/p4/challenge/[id]
+├ ƒ /api/ux-v1/p4/challenge/[id]/attempt
+├ ƒ /api/ux-v1/p4/comments
+├ ƒ /api/ux-v1/p4/comments/like
+├ ƒ /api/ux-v1/p4/comments/reply
+├ ƒ /api/ux-v1/p4/relaxed
+├ ƒ /api/ux-v1/p4/standing
+├ ƒ /api/ux-v1/p6/board
+├ ƒ /api/ux-v1/p6/challenge
+├ ƒ /api/ux-v1/p6/challenge/[code]
+├ ƒ /api/ux-v1/p6/challenge/[code]/attempt
+├ ƒ /api/ux-v1/p8/challenges
+├ ƒ /api/ux-v1/p8/debate-vote
+├ ƒ /api/ux-v1/p8/debates
+├ ƒ /api/ux-v1/p8/like
+├ ƒ /api/ux-v1/p8/my-results
+├ ƒ /api/ux-v1/p8/photo
+├ ƒ /api/ux-v1/p8/replies
+├ ƒ /api/ux-v1/p8/viewer
+├ ƒ /api/ux-v1/p9/standing
+├ ƒ /api/verse/banned-terms
+├ ƒ /api/verse/binder
+├ ƒ /api/verse/can-edit
+├ ƒ /api/verse/collectible-collection
+├ ƒ /api/verse/collectibles
+├ ƒ /api/verse/collection
+├ ƒ /api/verse/comeback-mode
+├ ƒ /api/verse/discussions
+├ ƒ /api/verse/draft
+├ ƒ /api/verse/entities/search
+├ ƒ /api/verse/entity
+├ ƒ /api/verse/eras/color
+├ ƒ /api/verse/essays
+├ ƒ /api/verse/essays/reactions
+├ ƒ /api/verse/essays/series
+├ ƒ /api/verse/flags
+├ ƒ /api/verse/history
+├ ƒ /api/verse/live-now
+├ ƒ /api/verse/lock
+├ ƒ /api/verse/members
+├ ƒ /api/verse/membership
+├ ƒ /api/verse/my-spaces
+├ ƒ /api/verse/nav
+├ ƒ /api/verse/override
+├ ƒ /api/verse/pages/create
+├ ƒ /api/verse/pages/publish
+├ ƒ /api/verse/pages/rename
+├ ƒ /api/verse/pages/save
+├ ƒ /api/verse/pages/submit
+├ ƒ /api/verse/photocards
+├ ƒ /api/verse/poll
+├ ƒ /api/verse/poll/vote
+├ ƒ /api/verse/presentation
+├ ƒ /api/verse/presentation/fold
+├ ƒ /api/verse/presentation/publish
+├ ƒ /api/verse/presentation/rollback
+├ ƒ /api/verse/preview
+├ ƒ /api/verse/profile/resume
+├ ƒ /api/verse/section
+├ ƒ /api/verse/shelf
+├ ƒ /api/verse/space-config
+├ ƒ /api/verse/space-feed
+├ ƒ /api/verse/space-image
+├ ƒ /api/verse/space-members
+├ ƒ /api/verse/space-xp
+├ ƒ /api/verse/sticker
+├ ƒ /api/verse/suggest
+├ ƒ /api/verse/suggestions
+├ ƒ /api/verse/tags
+├ ƒ /api/verse/threads
+├ ƒ /api/verse/tree
+├ ƒ /api/verse/watch
+├ ○ /articles
+├ ● /articles/[slug]                                1h      1y
+│ ├ /articles/who-is-cortis                         1h      1y
+│ ├ /articles/kpop-blind-test-2026                  1h      1y
+│ ├ /articles/best-kpop-quiz-sites-2026             1h      1y
+│ └ [+18 more paths]
+├ ƒ /auth/callback
+├ ○ /banned
+├ ○ /blind-test
+├ ƒ /blind-test/[mode]
+├ ○ /blindtest                                      1h      1y
+├ ● /blindtest/[mode]                              10m      1y
+│ ├ /blindtest/classic                             10m      1y
+│ ├ /blindtest/intro-challenge                     10m      1y
+│ ├ /blindtest/verse-only                          10m      1y
+│ └ [+15 more paths]
+├ ƒ /blindtest/leaderboard
+├ ○ /blindtest/ranked
+├ ƒ /build/[slug]
+├ ○ /community                                      1m      1y
+├ ƒ /community/[kind]/[id]
+├ ○ /contact
+├ ƒ /create
+├ ○ /creators                                       5m      1y
+├ ƒ /daily
+├ ○ /data/knowledge-report-2026                     1h      1y
+├ ○ /data/knowledge-report-2026/dataset
+├ ○ /data/pulse                                     1h      1y
+├ ● /data/pulse/[month]
+├ ○ /dmca
+├ ○ /easy-kpop-quizzes
+├ ○ /editorial-policy
+├ ● /embed/q/[slug]
+├ ○ /es/adivina-la-cancion-kpop                     1h      1y
+├ ○ /faq
+├ ○ /fr/blind-test-kpop                             1h      1y
+├ ƒ /g/[slug]
+├ ○ /groups                                         1m      1y
+├ ○ /guess-the-kpop-idol                            1m      1y
+├ ○ /guess-the-kpop-song                            1h      1y
+├ ○ /hard-kpop-quizzes
+├ ○ /id/tebak-lagu-kpop                             1h      1y
+├ ○ /join
+├ ƒ /join/[code]
+├ ○ /kpop-demon-hunters-quiz                        1h      1y
+├ ○ /kpop-quiz-2026                                 1m      1y
+├ ○ /kpop-true-or-false                             1m      1y
+├ ○ /leaderboard                                    5m      1y
+├ ○ /live
+├ ○ /llms.txt
+├ ○ /login
+├ ƒ /me
+├ ○ /most-liked                                    10m      1y
+├ ƒ /name-all/[group]
+├ ○ /new                                            5m      1y
+├ ○ /news                                          10m      1y
+├ ƒ /notifications
+├ ○ /onboarding
+├ ● /personality/[group]
+├ ○ /privacy
+├ ○ /profile
+├ ○ /pt                                            10m      1y
+├ ○ /pt/about                                       6h      1y
+├ ○ /pt/articles
+├ ○ /pt/blindtest                                   1h      1y
+├ ○ /pt/easy-kpop-quizzes
+├ ○ /pt/faq
+├ ○ /pt/guess-the-kpop-idol                         1m      1y
+├ ○ /pt/hard-kpop-quizzes
+├ ○ /pt/kpop-quiz-2026                              1m      1y
+├ ○ /pt/kpop-true-or-false                          1m      1y
+├ ○ /pt/leaderboard                                 5m      1y
+├ ○ /pt/quizzes                                    10m      1y
+├ ○ /pt/stats                                       6h      1y
+├ ● /q/[slug]
+├ ƒ /quiz/[id]/edit
+├ ƒ /quizzes
+├ ○ /quizzes/popular-this-month                     1h      1y
+├ ○ /quizzes/popular-this-week                      1h      1y
+├ ○ /quizzes/popular-today                         30m      1y
+├ ○ /robots.txt
+├ ƒ /s/[code]
+├ ƒ /search
+├ ○ /settings
+├ ○ /sitemap.xml                                    1h      1y
+├ ○ /stats                                          1h      1y
+├ ○ /terms
+├ ƒ /tier-list/l/[slug]
+├ ○ /trending                                      10m      1y
+├ ○ /trivia                                        10m      1y
+├ ● /u/[username]
+├ ○ /ux-v1/kit                                      1h      1y
+├ ○ /ux-v1/kit/focus
+├ ƒ /verse
+├ ƒ /verse/[slug]
+├ ƒ /verse/[slug]/[pageSlug]
+├ ƒ /verse/[slug]/[pageSlug]/edit
+├ ƒ /verse/[slug]/about
+├ ƒ /verse/[slug]/albums/[album]
+├ ƒ /verse/[slug]/awards
+├ ƒ /verse/[slug]/build
+├ ƒ /verse/[slug]/changes
+├ ƒ /verse/[slug]/collectibles
+├ ƒ /verse/[slug]/community
+├ ƒ /verse/[slug]/community/[thread]
+├ ƒ /verse/[slug]/content
+├ ƒ /verse/[slug]/create
+├ ƒ /verse/[slug]/curate
+├ ƒ /verse/[slug]/discography
+├ ƒ /verse/[slug]/essays
+├ ƒ /verse/[slug]/essays/[id]
+├ ƒ /verse/[slug]/essays/write
+├ ƒ /verse/[slug]/insights
+├ ƒ /verse/[slug]/members
+├ ƒ /verse/[slug]/members/[idol]
+├ ƒ /verse/[slug]/menu
+├ ƒ /verse/[slug]/new
+├ ƒ /verse/[slug]/ost
+├ ƒ /verse/[slug]/ost/[id]
+├ ƒ /verse/[slug]/patrol
+├ ƒ /verse/[slug]/photocards
+├ ƒ /verse/[slug]/photocards/[card]
+├ ƒ /verse/[slug]/quests
+├ ƒ /verse/[slug]/random
+├ ƒ /verse/[slug]/shows
+├ ƒ /verse/[slug]/shows/[id]
+├ ƒ /verse/[slug]/songs
+├ ƒ /verse/[slug]/songs/[id]
+├ ƒ /verse/[slug]/studio
+├ ƒ /verse/[slug]/tag/[key]
+├ ƒ /verse/[slug]/timeline
+├ ƒ /verse/[slug]/tours
+├ ƒ /verse/[slug]/tours/[id]
+├ ƒ /verse/[slug]/wiki
+├ ƒ /verse/[slug]/wiki/[pageSlug]
+├ ƒ /verse/[slug]/wiki/[pageSlug]/edit
+├ ƒ /verse/[slug]/wiki/new
+├ ○ /verse/community                                5m      1y
+├ ƒ /verse/me
+├ ƒ /verse/name/[term]
+├ ƒ /verse/notifications
+├ ○ /verse/promises
+├ ƒ /verse/random
+├ ƒ /verse/tag/[tag]
+├ ○ /verse/tags                                     1h      1y
+└ ƒ /verse/u/[username]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

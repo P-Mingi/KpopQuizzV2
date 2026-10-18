@@ -94,7 +94,7 @@ Footer network line (B6, NET_FOOTER), Your sites menu block (B6, NET_MENU), sett
 (B6), song-row crossover tag and hub fact line (X1, NET_FACTS): each is a change of the kpop page itself, shown in D0
 as before and after, and off by default.
 
-## Surfaces without a kpop twin: CRs proposed, the owner decides (LEDGER CR-002 to CR-006)
+## Surfaces without a kpop twin: REFUSED for O1 by the owner on 2026-10-18 (LEDGER CR-002 to CR-006), backlog after launch
 
 CR-002 welcome card on the first signed-in arrival (P W5 cases A and C, D4); CR-003 "How I appear here" (P 8.2);
 CR-004 "Keep anime in your passport? Yes, Not now" after the third play (P 3.2); CR-005 the post-result oshi row on
