@@ -6,8 +6,8 @@
 # Builds base and head back to back, each in a clean detached worktree (node_modules linked from O1), under the
 # build lock, with KPQ/secrets/kpop-parity.env (sourced, never printed) and the production flags; serves both with
 # `next start` at one path, the base and then the head, each recorded (D50, D52 below); compares the URL list with
-# apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations and the
-# two of CR-008, nothing else, then the stylesheet contents of CR-009); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
+# apps/quiz/e2e/ux-v1/helpers/flag-off-diff.mjs (GET only), then judges its result with scripts/o1/parity/compare.mjs (the two G0 normalisations, the
+# two of CR-008 and N5 of CR-010, nothing else, then the stylesheet contents of CR-009); stops the servers. One run at a time, never between 00:00 and 01:00 UTC (cron window), cached per
 # (base, head, URL list, harness version) in KPQ/cache/parity/. Exit 0 = identical after the allowed normalisations,
 # 1 = a difference.
 #
@@ -41,6 +41,10 @@
 #   o1-parity-build, one after the other, and each build is moved (git worktree move) to o1-parity-base or
 #   o1-parity-head. N3 and N4 stay for what one path does not fix (a module whose id moves with the module graph;
 #   rows streamed in another order).
+# - Text separators (CR-010, 2026-10-18): React ends a prerender segment that stops on a text node with `<!-- -->`,
+#   and where segments end moves with stream timing from one build of a tree to the next (Q0a request 24: two landing
+#   pages swapped one separator in 1 build of 14). compare.mjs's N5 reads that exact comment as nothing when a closing
+#   tag follows it, outside script, style and the other raw text elements; every other separator stays compared.
 # - One serving path (Q0a D50): an error digest hashes the message and the stack, whose frames are the absolute paths
 #   of the served chunks, so two servers in two folders still give one error two digests (offline, every page that
 #   fails with a stack). Production builds and serves every deploy at one path; so does parity now: the base build

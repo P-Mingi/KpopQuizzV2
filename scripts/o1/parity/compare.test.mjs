@@ -4,8 +4,8 @@ import test from 'node:test';
 
 import {
   analyticsRefs, compareSheets, cssEquivalent, cssVersions, flightRows, judge, judgeFlight, normaliseAnalyticsRef,
-  normaliseCssVersion, normaliseFlightId, pageFile, parseFodLog, readList, render, sheetForCompare, splitFlight,
-  stylesheetHrefs,
+  normaliseCssVersion, normaliseFlightId, normaliseTextSeparators, pageFile, parseFodLog, readList, render,
+  sheetForCompare, splitFlight, stylesheetHrefs, textSeparators,
 } from './compare.mjs';
 
 const BASE_CSS = 'html.ux-v1{--ux-pink:#E8467C;--ux-warn:#B45309;}.ux-btn-primary{background:var(--ux-pink-fill);color: #fff;}.ux-thm-cv.is-dark{color: #fff;}.ux-card{background:#FFFFFF;}';
@@ -233,6 +233,85 @@ test('judge: N3 and N4 come after N1 and N2, a plant stays DIFFERENT', async () 
   const p = await judge({ page: '/', a, b: page(renumber(ROWS.map((x) => x.replace('K-pop Quiz', 'K-pop Quizz'))), [], '<html><body><h1>K-pop Quizz</h1></body></html>'), fod: fodDiff, css: noCss, loc: noLoc });
   assert.equal(p.identical, false);
   assert.match(p.found[0].b, /Quizz/);
+});
+
+// CR-010: N5 text separators. The two pages of request 24 (run 6), as flag-off-diff wrote them, cut short.
+const LANDING = (sep) => `<html><body><div class="ux-sec"><a class="ux-more" href="/blindtest">Toutes les playlists${sep}</a></div>`
+  + '<div id="g3-th" class="ux-thrail"><a class="ux-thm" href="/blindtest/4th-gen"><span class="ux-thm-cv ux-th-gen4">4th gen<!-- --> <!-- -->12</span></a></div></body></html>';
+
+test('N5: a separator right before a closing tag reads as nothing, nothing else does', () => {
+  assert.equal(normaliseTextSeparators('<a>Toutes les playlists<!-- --></a>'), '<a>Toutes les playlists</a>');
+  assert.equal(textSeparators(LANDING('<!-- -->')), 1);
+  assert.equal(normaliseTextSeparators(LANDING('<!-- -->')), normaliseTextSeparators(LANDING('')));
+  const kept = [
+    'foo<!-- -->bar', // a planted separator between two texts
+    '<b>12<!-- --> plays</b>', // before more text
+    '<p>x<!-- --><span>y</span></p>', // before an opening tag
+    '<p>x<!-- --></ p>', // `</` not followed by a letter is no end tag
+    '<p>x<!--  --></p>', '<p>x<!---->', '<p>x<!--$--></p>', '<p>x<!-- a --></p>', // other comments
+    '<p data-x="&lt;!-- --&gt;&lt;/p&gt;">y</p>', // as React escapes it in an attribute
+  ];
+  for (const k of kept) assert.equal(normaliseTextSeparators(k), k, k);
+  // of two separators in a row, only the one before the tag goes (one pass)
+  assert.equal(normaliseTextSeparators('<a>x<!-- --><!-- --></a>'), '<a>x<!-- --></a>');
+  // case and attributes of the end tag do not matter, the next tag's name does not either
+  assert.equal(normaliseTextSeparators('<DIV>x<!-- --></DIV><p>y<!-- --></p>'), '<DIV>x</DIV><p>y</p>');
+});
+
+test('N5: never inside script (the page data), style, textarea, title and the other raw text elements', () => {
+  const raw = [
+    '<script>self.__next_f.push([1,"a<!-- --></b>"])</script>',
+    '<script type="application/ld+json">{"name":"x<!-- --></y>"}</script>',
+    '<style>.a::after{content:"<!-- --></x>"}</style>',
+    '<textarea>x<!-- --></b></textarea>',
+    '<title>KpopQuiz<!-- --></title>',
+    '<TITLE lang="en">KpopQuiz<!-- --></TITLE >',
+    '<xmp>x<!-- --></b></xmp>', '<iframe>x<!-- --></b></iframe>', '<noembed>x<!-- --></b></noembed>', '<noframes>x<!-- --></b></noframes>',
+  ];
+  for (const r of raw) {
+    assert.equal(normaliseTextSeparators(r), r, r);
+    assert.equal(textSeparators(r), 0, r);
+  }
+  // an element whose name only starts like one is ordinary HTML
+  assert.equal(normaliseTextSeparators('<title-card>x<!-- --></title-card>'), '<title-card>x</title-card>');
+  // outside the raw element, around it, the rule still applies
+  assert.equal(normaliseTextSeparators('<p>a<!-- --></p><script>"<!-- --></b>"</script><p>b<!-- --></p>'), '<p>a</p><script>"<!-- --></b>"</script><p>b</p>');
+});
+
+test('judge: N5 makes the pages of request 24 identical and is recorded, last', async () => {
+  for (const [a, b] of [[LANDING(''), LANDING('<!-- -->')], [LANDING('<!-- -->'), LANDING('')]]) {
+    const r = await judge({ page: '/fr/blind-test-kpop', a, b, fod: fodDiff, css: noCss, loc: noLoc });
+    assert.equal(r.identical, true);
+    assert.deepEqual(r.normalised, ['text-separators']);
+  }
+  // with the Flight ids of another build too: N3 and N4 first, N5 after
+  const r = await judge({ page: '/es/adivina-la-cancion-kpop', a: page(ROWS, [], LANDING('')), b: page(renumber(ROWS), [20], LANDING('<!-- -->')), fod: fodDiff, css: noCss, loc: noLoc });
+  assert.equal(r.identical, true);
+  assert.deepEqual(r.normalised, ['flight-ids', 'flight-rows', 'text-separators']);
+  // a page N3 alone makes identical does not name N5, even when both sides hold separators
+  const same = await judge({ page: '/', a: page(ROWS, [], LANDING('<!-- -->')), b: page(renumber(ROWS), [], LANDING('<!-- -->')), fod: fodDiff, css: noCss, loc: noLoc });
+  assert.deepEqual(same.normalised, ['flight-ids']);
+});
+
+test('judge: a planted separator between two texts, or any other change next to a separator, stays DIFFERENT', async () => {
+  const cases = {
+    'a separator between two texts': [LANDING(''), LANDING('').replace('Toutes les playlists', 'Toutes les<!-- -->playlists')],
+    'a separator before an opening tag': [LANDING('<i>x</i>'), LANDING('<!-- --><i>x</i>')],
+    'a removed separator between two texts': [LANDING(''), LANDING('').replace('4th gen<!-- --> ', '4th gen ')],
+    'a text change next to the separator': [LANDING(''), LANDING('<!-- -->').replace('Toutes les playlists', 'Toutes les playlist')],
+    'a separator inside the page data': [page(ROWS, [], LANDING('')), page(ROWS.map((x) => x.replace('K-pop Quiz', 'K-pop Quiz<!-- --></b>')), [], LANDING(''))],
+  };
+  for (const [name, [a, b]] of Object.entries(cases)) {
+    const r = await judge({ page: '/', a, b, fod: fodDiff, css: noCss, loc: noLoc });
+    assert.equal(r.identical, false, name);
+    assert.ok(r.found.length > 0, name);
+    assert.ok(!r.normalised.includes('text-separators'), name);
+  }
+  // a DIFFERENT page is reported with N5 applied: its real difference, not the separator
+  const r = await judge({ page: '/', a: LANDING(''), b: LANDING('<!-- -->').replace('4th gen', '5th gen'), fod: fodDiff, css: noCss, loc: noLoc });
+  assert.equal(r.found.length, 1);
+  assert.match(r.found[0].a, /^4th gen/);
+  assert.match(r.found[0].b, /^5th gen/);
 });
 
 // CR-009: stylesheet contents.

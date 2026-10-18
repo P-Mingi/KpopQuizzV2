@@ -3,7 +3,8 @@
 // edited). flag-off-diff fetches every URL from A (base) and B (head) in the same second, normalises build ids,
 // hashed asset names and CSS-module hashes, writes <out>/<page>.a.html and .b.html and prints one line per page.
 // This script re-judges the pages flag-off-diff found DIFFERENT with the two normalisations of owner gate G0
-// (RUN-O1-PROMPT section 8) and the two of CR-008 (LEDGER, 2026-10-17), and nothing else:
+// (RUN-O1-PROMPT section 8), the two of CR-008 (LEDGER, 2026-10-17) and the one of CR-010 (2026-10-18), and nothing
+// else:
 //   N1 css-version: the `?v=` of /api/ux-v1/a0/styles, only when the CSS served by A and by B is equal once every
 //      white literal (#fff, #ffffff, any case) reads var(--ux-on-accent) and a declaration of --ux-on-accent whose
 //      value is that white is dropped (the token B1 introduces for kpop's literal white; any other CSS change
@@ -20,6 +21,15 @@
 //      multiset), and the rest of the document (the server HTML without those tags) byte for byte. A stream that
 //      cannot be parsed for certain (a push of another kind, a text row whose length no longer holds after
 //      flag-off-diff's asset names) is not re-cut: the page is judged without N4.
+//   N5 text-separators (CR-010): in the HTML, a React text separator `<!-- -->` immediately followed by a closing tag
+//      (`</` and a letter) reads as nothing on both sides. React writes it after a text node that ends a render
+//      segment, and where a prerender's segments end depends on stream timing, not on code. Only that exact comment
+//      and only before a closing tag: a separator between two texts, before an opening tag or anywhere else, every
+//      other comment, element, attribute and character of text stay compared. Never inside the raw text and RCDATA
+//      elements (script, so the page data, style, textarea, title, xmp, iframe, noembed, noframes): there the same
+//      characters are text, not a comment. Applied last, only to a page N1 to N4 leave DIFFERENT, and recorded in
+//      result.json only when it is what makes the page identical; a page still DIFFERENT is reported with N5 applied
+//      (node numbers count the document without those separators).
 // Then, stricter (CR-009): every page judged identical so far is fetched once more from A and B (GET) for its raw
 // stylesheet links, and the content of every stylesheet it links (same-origin, fetched once per run and side) is
 // compared in link order after the asset-name normalisation (hashed chunk and media names, CSS-module hashes) and,
@@ -41,7 +51,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const RULES_VERSION = 'q0a-g0-v2';
+export const RULES_VERSION = 'q0a-g0-v3';
 export const ANALYTICS_EXPORTS = ['Analytics', 'NetAnalytics'];
 const CSS_HREF_RE = /\/api\/ux-v1\/a0\/styles\?v=([0-9a-f]{6,64})/g;
 
@@ -215,6 +225,21 @@ export function judgeFlight(a, b) {
   return { identical: false, normalised: [], found };
 }
 
+// N5 (CR-010): a raw text or RCDATA element is matched whole and kept as written; outside them, the exact separator
+// `<!-- -->` right before an end tag goes. One pass, so of two separators in a row only the one before the tag goes.
+const RAW_TEXT = 'script|style|textarea|title|xmp|iframe|noembed|noframes';
+const SEPARATOR_RE = new RegExp(`(<(${RAW_TEXT})(?=[\\s/>])[^>]*>[\\s\\S]*?<\\/\\2\\s*>)|<!-- -->(?=<\\/[A-Za-z])`, 'gi');
+/** N5: the document with every text separator that ends right before a closing tag removed. */
+export function normaliseTextSeparators(html) {
+  return html.replace(SEPARATOR_RE, (m, raw) => (raw ? m : ''));
+}
+/** How many separators N5 removes from a document. */
+export function textSeparators(html) {
+  let n = 0;
+  for (const m of html.matchAll(SEPARATOR_RE)) if (!m[1]) n++;
+  return n;
+}
+
 // CR-009: stylesheet contents. Same-origin links only (an external href is compared as written: it is in the HTML).
 const LINK_RE = /<link\b[^>]*>/gi;
 const attr = (tag, name) => { const m = tag.match(new RegExp(`\\s${name}="([^"]*)"`, 'i')); return m ? m[1].replace(/&amp;/g, '&') : null; };
@@ -306,7 +331,15 @@ export async function judge({ page, a, b, fod, css, loc, sheets }) {
     }
     row.identical = na === nb;
     if (!row.identical) {
-      const f = judgeFlight(na, nb);
+      let f = judgeFlight(na, nb);
+      if (!f.identical) {
+        // N5, last: only where N1 to N4 leave the page DIFFERENT
+        const sa = normaliseTextSeparators(na); const sb = normaliseTextSeparators(nb);
+        if (sa !== na || sb !== nb) {
+          const g = sa === sb ? { identical: true, normalised: [], found: [] } : judgeFlight(sa, sb);
+          f = g.identical ? { ...g, normalised: [...g.normalised, 'text-separators'] } : g;
+        }
+      }
       row.identical = f.identical; row.found = f.found; row.normalised.push(...f.normalised);
     }
     if (!row.identical) return row;
