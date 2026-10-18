@@ -34,7 +34,9 @@ const samples = lanes.flatMap((id) => own[id].filter((x) => !x.startsWith('!')).
 let bad = 0;
 for (const p of [...new Set([...tracked, ...samples])]) {
   const owners = lanes.filter((id) => rules[id](p));
-  if (owners.length > 1) { bad++; if (bad <= 60) console.log(`${p}: ${owners.join(', ')}`); }
+  // Sequenced pairs (OWNERSHIP._sequenced): the second lane starts only after the first is merged.
+  const seq = (own._sequenced || []).some(([a, b]) => owners.length === 2 && owners.includes(a) && owners.includes(b));
+  if (owners.length > 1 && !seq) { bad++; if (bad <= 60) console.log(`${p}: ${owners.join(', ')}`); }
 }
 const ownedTracked = tracked.filter((p) => lanes.some((id) => rules[id](p))).length;
 console.log(`ownership-check: ${lanes.length} lanes, ${tracked.length} tracked files (${ownedTracked} owned), ${samples.length} sample paths: ${bad} with two or more owners`);

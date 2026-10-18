@@ -8,7 +8,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | lane | wave | kind | prio | needs | mergeAfter | reviewers | stage | round | sha | worktree |
 |---|---|---|---|---|---|---|---|---|---|---|
 | F0 | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | e5b51a5 (spike a74c82f) | o1-F0 (+ spike o1-F0s) |
-| Q0a | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | 3f51f62 | o1-Q0a |
+| Q0a | 0 | code | 0 | | | ARCH | round 2 gate and review | 2 | 7e0451b | o1-Q0a |
 | D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
 | Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | brief written (owner's proxy conditions, D-028) | | | |
 | Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
@@ -220,6 +220,21 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   `docs/o1/fixtures-*.json` (38 accounts each). The routing files are still HOT through four other SEO branches (GH2):
   ORCH's routing wiring after F0 waits for them, per rule 12. Lane branches sync at their next slice; F0's spike
   rebases its routing edits on the new middleware and allowlist (unknown URLs are now a 404) and updates its checks.
+- D-031 Tick 5 (2026-10-18): Q0a passed its gate once (c5131aa), R r1 ARCH FIX (1 major, 3 minor), fix round done;
+  its next gates went red on unit timeouts under machine load, then gate.sh stopped on a stale o1-gate-Q0a. Cause: a
+  gate's `git worktree remove` that git could not finish (servers a check had left running kept writing), leaving a
+  folder with no .git, still registered; o1-gate-F0 and o1-gate-F0-spike were left too. Checked first that nothing
+  touched the main checkout's git config (no config.worktree, no o1.agent, no hooksPath there). The three folders
+  removed (only paths under .claude/worktrees/o1-gate-*), `git worktree remove` cleared their registrations. Hardened:
+  gate.sh stops processes whose cwd is inside a gate worktree before removing it, removes the remains of an unfinished
+  removal without ever running git inside them (git would climb to the main checkout), and refuses tracked changes;
+  new-lane.sh and nightly.sh refuse a folder that is not their worktree; lane.exclude ignores .next-*, test-results
+  and playwright-report. Tested with a planted stray folder on D0's head.
+- D-032 Unit tests in gate.sh, merge-lane.sh and nightly.sh run with `--testTimeout=30000` (no test edited): the reds of
+  tick 5 were 5 s default timeouts of untouched base tests while the other session loaded the machine (11 tests of
+  the base on D0's design-only head, passing on o1/integration). Rule 15: noise normalised, recorded.
+- D-033 Q0c starts after Q0a merges (needs); `scripts/o1/parity.sh` and `scripts/o1/parity/**` are listed for both,
+  sequenced (`OWNERSHIP._sequenced`), so Q0a's merge guard and Q0c's commits are both covered.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests

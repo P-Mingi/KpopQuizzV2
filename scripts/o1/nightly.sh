@@ -11,7 +11,7 @@ sha="$("$G" -C "$O1" rev-parse HEAD)"; main="$("$G" -C "$O1" merge-base HEAD ori
 EV="$RUN/evidence/nightly/$sha"; mkdir -p "$EV"; : > "$EV/steps.tsv"
 step() { local n="$1"; shift; local t0; t0=$(date +%s); "$@" > "$EV/$n.log" 2>&1; local rc=$?; printf '%s\t%s\t%s\n' "$n" "$rc" $(( $(date +%s) - t0 )) >> "$EV/steps.tsv"; echo "nightly: $n rc=$rc"; }
 W="$ROOT/.claude/worktrees/o1-gate-nightly"
-if [ -d "$W" ]; then rm -f "$W/node_modules" "$W/apps/quiz/node_modules" "$W/packages/shared/node_modules"; rm -rf "$W/apps/quiz/.next"; "$G" -C "$O1" worktree remove "$W" >/dev/null 2>&1; fi
+if [ -e "$W" ]; then rm -f "$W/node_modules" "$W/apps/quiz/node_modules" "$W/packages/shared/node_modules"; rm -rf "$W/apps/quiz/.next"; [ "$(git -C "$W" rev-parse --show-toplevel 2>/dev/null)" = "$W" ] || rm -rf "$W"; "$G" -C "$O1" worktree remove "$W" >/dev/null 2>&1; fi
 "$G" -C "$O1" worktree add --detach --quiet "$W" "$sha" || exit 3
 ln -s "$O1/node_modules" "$W/node_modules"; ln -s "$O1/apps/quiz/node_modules" "$W/apps/quiz/node_modules"
 rm -rf "$W/packages/shared/node_modules"; ln -s "$O1/packages/shared/node_modules" "$W/packages/shared/node_modules"
@@ -19,7 +19,7 @@ cleanup() { rm -f "$W/node_modules" "$W/apps/quiz/node_modules" "$W/packages/sha
 trap cleanup EXIT
 dbenv=offline; [ -f "$KPQ/secrets/dev.env" ] && dbenv=dev
 step tsc bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false' _ "$W"
-step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run' _ "$W"
+step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run --testTimeout=30000' _ "$W"
 for s in kpop anime hub; do
   step "build-$s" "$O1/scripts/o1/build-lock.sh" run "nightly-$s" -- "$O1/scripts/o1/env.sh" "$dbenv" -- bash -c \
     'cd "$1/apps/quiz" && rm -rf .next && NEXT_PUBLIC_SITE_ID="$2" NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 npm run build' _ "$W" "$s"
