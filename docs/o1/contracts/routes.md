@@ -250,4 +250,9 @@ brand files (404 until their brand files exist, never kpop's 200), the hub's `/a
 a 307), the dotted paths no public file serves and the unknown `/api/` and `/auth/` paths (the site's 404), and two
 shared public files (200). Measured in dev offline before the gate (`next dev`, one build at a time): every line
 answers as written, and no anime or hub body carries a K-pop string. No line depends on catalog data (D-026).
-Details in `docs/o1/reports/F0.md`.
+On 8b4be8f (the gate of 0570292) 63 of the 66 lines passed; kpop `/sites/anime`, `/sites/kpop` and `/sites/hub`
+read 500. They take the kpop branch's not-found rewrite (section 1, M3), and under the gate's `next start -H
+127.0.0.1` next 16.2.1 proxies every middleware rewrite as external (its URL normalisation turns `127.0.0.1` into
+`localhost` on the middleware side only); `o1/integration` answers the same paths 500 there too, and both answer 404
+with the kpop 404 page when served at `localhost` (measured in dev). The lines stay as the brief fixes them; the
+gate's serving is request F0-22. Details in `docs/o1/reports/F0.md`.
