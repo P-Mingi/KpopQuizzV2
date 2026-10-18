@@ -11,7 +11,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | Q0a | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | 3f51f62 | o1-Q0a |
 | D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
 | Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | brief written (owner's proxy conditions, D-028) | | | |
-| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G3 answered) | | | |
+| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
 | B3 | 1 | code | 0 | F0, B2 | | SQL + SQL-K2 | | | | |
@@ -45,8 +45,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | G0 | confirm the defaults (21 decisions of the v2 plan, the 9 of the run plan, the Working System exceptions) | F0 freeze | 2026-10-17 | ANSWERED 2026-10-16 17:07 UTC: "ok pour tous les choix par défaut" |
 | G1 | create o1-dev and o1-scratch, run KPQ/fill-dev-env.sh | Q0b, B2 first SQL | 2026-10-18 | ANSWERED 2026-10-17: dev.env and scratch.env in KPQ/secrets; keys checked ok (D-022) |
 | G3 | pg_dump schema-only of public + prod-inventory.sql into KPQ | Q0b, branch-parity, B5 | 2026-10-18 | ANSWERED 2026-10-17: schema copy from the catalogs and inventory, md5 checked (D-022) |
-| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | asked again 2026-10-17 with the command `sh O1/scripts/o1/fixtures.sh` (D-023) |
-| GH | merge seo/redirects-exact into main | ORCH routing wiring, B1 middleware and allowlist, every Wave 2 page lane | 2026-10-18 | open (5 commits ahead of main, not merged) |
+| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | ANSWERED 2026-10-18: 38 accounts on o1-scratch and o1-dev, every id present |
+| GH | merge seo/redirects-exact into main | ORCH routing wiring, B1 middleware and allowlist, every Wave 2 page lane | 2026-10-18 | ANSWERED 2026-10-18: PR #102 squash-merged as 8059cd3, merged into o1/integration (b5271e3), integration check green |
+| GH2 | the routing files are still HOT from other open SEO branches: next.config.ts (seo/m3-weekly-data), route-allowlist.ts (seo/m2-kpop-games, seo/m3-citability), middleware.ts (seo/m3-monitoring) | ORCH routing wiring after F0 merges, then B1 and every Wave 2 page lane | as soon as F0 merges | open: asked 2026-10-18 |
 | GU-D | Mission U part D (account-deletion) merged | B7 | 2026-10-21 | open |
 | G10 | Auth redirect URLs and email hook secret on both branches | B4, B7 integration | 2026-10-21 | day 1 packet |
 | G5 | validate the D0 prototype | Wave 2 visual merges (O1, P1, H1) | 2026-10-22 | when D0 passes R |
@@ -60,7 +61,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 |---|---|---|---|
 | G0 | answered: all defaults confirmed | 2026-10-16 | 2026-10-16 |
 | G1 | answered | 2026-10-16 | 2026-10-17 |
-| G2 | asked, command ready (D-023) | 2026-10-16 | |
+| G2 | answered: 38 accounts on each branch (docs/o1/fixtures-scratch.json, fixtures-dev.json) | 2026-10-16 | 2026-10-18 |
 | G3 | answered | 2026-10-16 | 2026-10-17 |
 | G4 | only if a content agent hits a network block (override 6) | | |
 | G5 | when D0 passes R | | |
@@ -79,7 +80,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | G18 | any time (Fuki, trademark checks) | | |
 | G19 | launch week | | |
 | G20 | outside the run | | |
-| GH | asked (merge seo/redirects-exact) | 2026-10-16 | |
+| GH | answered (PR #102) | 2026-10-16 | 2026-10-18 |
+| GH2 | asked (other SEO branches holding the routing files) | 2026-10-18 | |
 | GU | asked (merge Mission U parts, D first) | 2026-10-16 | |
 
 ## Decisions
@@ -211,6 +213,13 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   Moved after the run, before the launch (the owner may object): O5 (formats), X1 (day-1 bridges), E1b (/admin/review
   and the anime publisher), L1's full rehearsal (L1 keeps the runbook, the launch SQL bundle and a scripted dry run).
   Content stays at override 7. The cap of 2 code builders lifts when Mission U parts A to D are on main.
+- D-030 Main integrated (2026-10-18 10:47 UTC): fetch; origin/main 8059cd3 (PR #102) merged into o1/integration as
+  b5271e3 (no conflict: o1/integration held no edit of a HOT file); seo/redirects-exact added to hot-merged.txt; HOT
+  refreshed (320 files, 17 open branches); no lockfile change; `scripts/o1/nightly.sh` green on 00f2426 (tsc, unit,
+  kpop, anime and hub builds on o1-dev; parity skipped: run files only; leak suite pending Q0a). G2 confirmed by
+  `docs/o1/fixtures-*.json` (38 accounts each). The routing files are still HOT through four other SEO branches (GH2):
+  ORCH's routing wiring after F0 waits for them, per rule 12. Lane branches sync at their next slice; F0's spike
+  rebases its routing edits on the new middleware and allowlist (unknown URLs are now a 404) and updates its checks.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
