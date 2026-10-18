@@ -4,10 +4,13 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 9 (tick 5: slice 9 from 01:50 UTC on 2026-10-18). Slice 9 started with the checkpoint merge of
-o1/integration (a62d673: CR-010, D-026, tick 5; docs only). Status: ready. Request 24 is answered by CR-010 (N5, the
-narrow form), written in compare.mjs with tests, and the determinism item is green offline (D-025: no production
-read), so every item of the done test is green offline (table "Done test" below).
+Slices: 10 (tick 5: slice 10 from 02:52 UTC on 2026-10-18, after the gate's red at 3888ec5). Slice 10 started with
+the checkpoint merge of o1/integration (already up to date at a62d673). Status: ready. The gate's two reds are
+answered: copy (an emoji in `replay.test.mjs`, mine) is fixed at e9c5ba9; unit (3 base source-scan tests timed out
+at 5 s while the machine ran at load average 20 to 30 from outside the run) touches no file of Q0a and passes with
+`--maxWorkers=2` under that load (request 25 to ORCH). Request 24 is answered by CR-010 (N5, the narrow form),
+written in compare.mjs with tests, and the determinism item is green offline (D-025: no production read), so every
+item of the done test is green offline (table "Done test" below).
 
 | # | Slice | State |
 |---|---|---|
@@ -20,8 +23,9 @@ read), so every item of the done test is green offline (table "Done test" below)
 | 7 | N3, N4 (CR-008), css-content (CR-009), one build and serving path, offline proof runs | done |
 | 8 | Request 23 fixed at its source (D52), harness version in the cache key (D53), offline proof runs 5 to 8 | done |
 | 9 | N5 text separators (CR-010) with tests, rules `q0a-g0-v3`; offline determinism runs 9 and 10; runs 6 to 8 re-judged | done |
+| 10 | Gate red at 3888ec5: copy fixed (emoji written as an escape), unit timeouts measured under load (request 25) | done |
 
-Done test (brief Q0a), state at slice 9:
+Done test (brief Q0a), state at slice 10:
 
 | Item | State | Proof |
 |---|---|---|
@@ -30,7 +34,30 @@ Done test (brief Q0a), state at slice 9:
 | Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slice 9 |
 | gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins | `scripts/o1/leak/gate-selftest.sh` (seven scenarios, one log per check, run again in slice 9); on real site builds it is the gate's own run (request 1; builders never build) |
 | dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
-| tsc and unit tests green; every production read listed | green | slice 9: `tsc --noEmit` exit 0, harness tests 100 of 100, vitest 124 files and 2269 tests (`--maxWorkers=6` under load, below); production reads: none |
+| tsc and unit tests green; every production read listed | green | slice 10 at e9c5ba9: `tsc --noEmit -p tsconfig.json --incremental false` exit 0, harness tests 100 of 100, vitest 124 files and 2269 tests (`--maxWorkers=2` at load average 21 to 25, below; the default workers time out on base source scans, request 25); production reads: none |
+
+Done in slice 10 (tick 5, after the gate's red at 3888ec5, evidence `O1/docs/o1/evidence/Q0a/3888ec5.../`):
+- copy: the record test of `scripts/o1/parity/replay.test.mjs` held an emoji (U+1F3B5) in a page body, there to prove
+  that a four byte UTF-8 character survives record and replay. The line now writes it as the escape `\u{1F3B5}`: the
+  string at run time is the same, the source has no emoji (D55). The gate's copy check, run on `a62d673..e9c5ba9`
+  with its own perl line: 0 hits.
+- unit: the gate's `vitest run` failed 3 tests of 3 files by the 5 s timeout (`lib/seo/og.test.ts`,
+  `lib/seo/json-ld.test.ts`, `lib/quiz/scoring.test.ts`, base tests that read every file of `apps/quiz/src`); Q0a
+  changes no file under `apps/quiz/src`. That gate ran on a machine loaded from outside the run (its tsc took 139 s
+  and its builds 244 to 446 s, against 30 s and 99 to 140 s in F0's gate at 62dbff3, whose unit passed in 15 s). No
+  test edited (RATCHET LAW). Measured here, under load average 20 to 30 on 8 cores, every failure being "Test timed
+  out in 5000ms": default workers, 4 files and 5 tests, then 2 and 2 (`team-render.test.ts`, `json-ld.test.ts`);
+  `--maxWorkers=6` and `--maxWorkers=4` 1 file and 2 tests (`json-ld.test.ts`); the 3 files alone
+  pass (57 tests, 4.9 s); `--maxWorkers=2` passes (124 files, 2269 tests, 104 s). Request 25 asks ORCH to run the
+  step with fewer workers or under the build lock; a re-run of the gate at a quieter time also clears it.
+- No leftover server of this lane runs (no process on 3106 to 3108, 4011, 4012, 4021 to 4023).
+
+Tested how (slice 10):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 100 of 100 pass, `replay.test.mjs` among them.
+- `tsc --noEmit -p tsconfig.json --incremental false` in apps/quiz (the gate's command): exit 0 (178 s under load).
+- `vitest run` in apps/quiz: the four worker counts above; green with `--maxWorkers=2`.
+- No production read, no build, no parity run.
 
 Done in slice 9 (tick 5; section "Parity proof offline (slice 9)" below):
 - N5 text-separators, as CR-010 rules it (D54): in the HTML, the exact React text separator `<!-- -->` immediately
@@ -991,6 +1018,11 @@ shapes; the failing set must equal the expected set exactly):
   separator (node numbers then count the document without those separators). (5) The name: CR-010 calls it N5; my
   request 24 called it N6 and request 23's withdrawn proposal used N5 for Suspense boundaries; the ledger's name
   wins, and a future rule for those boundaries would get the next free number.
+- D55 The copy rule (COMMON rule 10) covers test sources: a test that needs a character outside the Basic
+  Multilingual Plane writes it as a JavaScript escape (`\u{1F3B5}`), never as the character, so the record test
+  keeps proving that a four byte UTF-8 character survives record and replay while no added line holds an emoji.
+  Dropping the character would have weakened the test; a non-emoji astral character would have hidden why it is
+  there.
 
 ## Open points
 
@@ -1051,4 +1083,5 @@ shapes; the failing set must equal the expected set exactly):
   check cannot.
 - Under the current load (load average 90 to 108) the default 5 s vitest timeout fails 12 tests of 5 files that pass
   with a longer timeout. The gate's `unit` step runs `vitest run` as is (RATCHET LAW: no test edited); if gates go red
-  on these timeouts, ORCH can serialize gates against heavy builds or ask the owner.
+  on these timeouts, ORCH can serialize gates against heavy builds or ask the owner. (Slice 10: it happened at 3888ec5, 3 tests
+  of 3 files; request 25.)

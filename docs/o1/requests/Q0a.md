@@ -204,3 +204,15 @@
     closing tag). Done in slice 9 (03c0794): `compare.mjs` N5 with tests, rules `q0a-g0-v3` (report D54); run 6's
     records judged by it give 60 of 60 identical, and the offline determinism runs 9 and 10 of the quiet pair are
     identical and deterministic.
+25. To ORCH, `scripts/o1/gate.sh` step 5 (`unit`, ORCH's). Q0a's gate at 3888ec5 was red on `unit` by 3 timeouts
+    (5 s) of base source-scan tests that read every file of `apps/quiz/src` (`lib/seo/og.test.ts`,
+    `lib/seo/json-ld.test.ts`, `lib/quiz/scoring.test.ts`); Q0a changes no file under `apps/quiz/src`. The machine was
+    loaded from outside the run (8 cores, load average 20 to 30, the top processes belong to other projects): that
+    gate's tsc took 139 s and its builds 244 to 446 s, against 30 s and 99 to 140 s in F0's gate at 62dbff3, whose
+    `unit` passed in 15 s. Measured in Q0a's worktree at e9c5ba9 (its one change since 3888ec5 is outside vitest),
+    under the same load (2026-10-18, 04:53 to 05:05 local), every failure a 5 s timeout: default workers 4 files and 5
+    tests, then 2 and 2; `--maxWorkers=6` and `--maxWorkers=4` 1 file and 2 tests
+    (`json-ld.test.ts`); the 3 files alone pass (57 tests, 4.9 s); `--maxWorkers=2` passes, 124 files, 2269 tests,
+    104 s. Proposal, no test touched and the same timeout: run the step with `--maxWorkers=2` (or under
+    `build-lock.sh`, so it never overlaps a gate build), and write the load average next to the step in `unit.log`.
+    A re-run of Q0a's gate at a quieter time is the alternative; nothing in Q0a's lane can make these tests faster.
