@@ -246,3 +246,70 @@
     successor) is likely to pass on a second or third try; (b) or (c) above would make it reliable. Note for
     gate.sh: summary.json's `failures` keeps the tail of unit.log, which for vitest is the Duration and Isolate
     lines; the `FAIL` lines (or `Test Files` and `Tests`) would name what failed.
+    Update, slice 14 (2026-10-18, 12:11 UTC). One run of the gate's command, load 13.1, swap 14.4 GB used of
+    15.4: 1 base test timed out (`json-ld.test.ts`, the ld+json sink scan), 2268 of 2269 pass. Unchanged picture.
+26. To ORCH: the leftover folder `ROOT/.claude/worktrees/o1-gate-Q0a` (a gate worktree: shared state, ORCH's under
+    rule 12) and `scripts/o1/gate.sh` (ORCH's). Blocks every gate of Q0a, so F0's next gate too (D-026). The gate at
+    bb190c2 (2026-10-18, 10:32 UTC) stopped in `prep` with exit 3, "stale ... has changes: inspect it", before any
+    step. Inspected read only in slice 14 (10:34 to 12:11 UTC; nothing written there, its mtime unchanged):
+    - It is no longer a worktree: no `.git` file. `git worktree list --porcelain` still registers it at ee4f7c2 (the
+      previous gate's sha), "prunable gitdir file points to non-existent location". `git worktree remove`, with or
+      without `--force`, refuses such a folder ("validation failed, cannot remove working tree: '.../.git' does not
+      exist"; reproduced on a scratch repository, git 2.50.1), so `prep` dies on it at every run.
+    - What is left holds nothing of a lane: 2227 files. 2226 are byte-identical to the tree of ee4f7c2 (each one
+      hashed with `git hash-object --no-filters` and compared with `git ls-tree -r ee4f7c2`: 0 differ); the last is
+      `apps/quiz/next-env.d.ts`, written by `next build` and ignored (`.gitignore` line 42). 3965 of the tree's 6191
+      files are gone, `.git` among them.
+    - How: the ee4f7c2 gate wrote summary.json at 10:26:16 UTC; its EXIT trap removed the three `.next-<site>`
+      folders (apps/quiz mtime 10:26:29), then `git worktree remove` started deleting and stopped at 10:26:31 in the
+      middle of a folder (`apps/blindtest/src/app/api/party/[code]/join` is empty: its route.ts deleted, the folder
+      not). No process holds the folder now. The likely cut is a signal from the gate's caller: with
+      `trap cleanup EXIT INT TERM`, a TERM to the process group during the EXIT cleanup kills the running
+      `git worktree remove` and runs cleanup again, whose `worktree remove` then fails because `.git` is already
+      gone ("gate: could not remove"). Reproduced with a stand-in script: the child's start logged twice, its end
+      once. A SIGKILL leaves the same state.
+    Asks:
+    (a) Now, before Q0a's re-gate: remove the folder, then its registration (no prune; git.sh allows `worktree remove`
+    on `*/.claude/worktrees/o1-*`, and git accepts it for a registered worktree whose folder is missing):
+    ```
+    W=/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-Q0a
+    rm -rf "$W" && "$O1/scripts/o1/git.sh" -C "$O1" worktree remove "$W"
+    ```
+    Proven on a scratch repository with the same leftover shape: rc 0, the entry gone, a new `worktree add` to the
+    same path rc 0. Optional check first, read only: `cut_short "$W"` below returns 0 on it (17 s).
+    (b) In gate.sh, so a cut cleanup never stops a later gate:
+    1. first line of `cleanup()`: `trap '' INT TERM`. Children inherit the ignore: with it the stand-in's removal ran
+       to its end under the same TERM. (A SIGKILL still cuts it: 2. covers that.)
+    2. in `prep`, clear a leftover that is only a cut removal, and keep the exit 3 for anything else:
+       ```
+       "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 || {
+         cut_short "$w" && rm -rf "$w" && "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 &&
+           echo "gate: cleared $w (a removal cut short)" >&2
+       } || die "stale $w has changes: inspect it"
+       ```
+       with, above `prep`:
+       ```
+       # 0 when the leftover at $1 is only a removal cut short: no .git file, still registered with a HEAD, every file
+       # byte-identical to that HEAD's tree or ignored by git. Read only (a temp index).
+       cut_short() {
+         local w="$1" head t changed extra
+         [ -d "$w" ] && [ ! -e "$w/.git" ] || return 1
+         head="$("$G" -C "$O1" worktree list --porcelain | awk -v p="worktree $w" '$0==p{f=1;next} f&&/^HEAD /{print $2;exit} /^$/{f=0}')"
+         [ -n "$head" ] || return 1
+         t="$(mktemp -d)"
+         gi() { GIT_INDEX_FILE="$t/index" "$G" -C "$O1" --work-tree="$w" "$@"; }
+         gi read-tree "$head" || { rm -rf "$t"; return 1; }
+         gi update-index -q --refresh >/dev/null 2>&1
+         changed="$(gi diff-files --name-only --diff-filter=MT)"
+         gi ls-files -z --others | tr '\0' '\n' | LC_ALL=C sort > "$t/others"
+         tr '\n' '\0' < "$t/others" | "$G" -C "$O1" check-ignore --no-index -z --stdin | tr '\0' '\n' | LC_ALL=C sort > "$t/ignored"
+         extra="$(LC_ALL=C comm -23 "$t/others" "$t/ignored")"
+         rm -rf "$t"
+         [ -z "$changed" ] && [ -z "$extra" ]
+       }
+       ```
+    Tested through O1's git.sh: on the real leftover, 0; on scratch leftovers, 0 for a cut removal holding build
+    output and a `node_modules` link, 1 for a changed tracked file, an untracked file that is not ignored, a file
+    turned into a symlink, a live worktree (its `.git` present) and an unregistered folder. The `prep` wiring, on
+    the scratch repository with plain git (git.sh refuses paths outside the run): the cut leftover cleared and added
+    again, the changed one exit 3 with today's message, a clean live worktree removed and added as today.

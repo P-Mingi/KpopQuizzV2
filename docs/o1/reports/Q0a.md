@@ -4,7 +4,16 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 13 (tick 5: slice 13 from 10:27 UTC on 2026-10-18, after the gate's third red on `unit` alone, at ee4f7c2:
+Slices: 14 (tick 5: slice 14 from 10:33 UTC on 2026-10-18, after the gate at bb190c2 stopped with exit 3 before
+any step: "stale `o1-gate-Q0a` has changes"). Status: ready; the gate cannot start until ORCH clears that folder
+(request 26 (a), two commands). Slice 14 started with the checkpoint merge of o1/integration (already up to date at
+eb36e4c). The folder is the previous gate's (ee4f7c2) worktree whose removal was cut short at 10:26:31 UTC: no
+`.git` file left, so `git worktree remove` refuses it at every run; its 2226 tracked files are byte-identical to
+ee4f7c2's tree, the one other file (`next-env.d.ts`) is ignored build output: nothing of the lane is in it (D62).
+Request 26 also proposes two gate.sh lines so a cut cleanup never stops a gate again, tested on scratch leftovers
+and, read only, on this one. No code of the lane changed in slice 14 (docs only), so slice 13's state below stands.
+
+Slice 13 (from 10:27 UTC on 2026-10-18, after the gate's third red on `unit` alone, at ee4f7c2:
 2 base tests timed out at 5 s, every other step green, tsc 126 s). Slice 13 started with the checkpoint merge of
 o1/integration (eb36e4c, docs only: no file outside `docs/` changed since ee4f7c2). Status: ready. The red is the
 machine's paging again (D56, D61): the same command on the same tree, four runs here between 10:28 and 10:31 UTC,
@@ -33,6 +42,7 @@ D56).
 | 11 | Gate red at 3440d48, unit only: the base timeouts traced to paging (D56), request 25 updated | done |
 | 12 | Fix round 1 (review r1 ARCH): M1 (absent and down servers never folded into a green check), m1, m2; m3 deferred (D60) | done |
 | 13 | Gate red at ee4f7c2, unit only (2 base timeouts): paging again, measured (D61), request 25 updated | done |
+| 14 | Gate at bb190c2 stopped in `prep` (exit 3): the previous gate worktree's removal cut short; inspected read only, request 26 (D62) | done |
 
 Done test (brief Q0a), state at slice 12:
 
@@ -57,6 +67,42 @@ Review r1: findings and answers (review `O1/docs/o1/reviews/Q0a-r1-ARCH.md`, FIX
 Notes for ORCH in the review (not findings): request 1 still decides whether Q0a's own re-gate serves real builds;
 otherwise a gate-checks failure in F0's first gate after the merge is a harness defect for Q0a (agreed here: Q0a
 takes it as its own). The `O1_KPQ` note for request 2 is added to request 2 in `docs/o1/requests/Q0a.md`.
+
+Done in slice 14 (tick 5, after the gate at bb190c2 stopped in `prep`, evidence `O1/docs/o1/evidence/Q0a/bb190c2.../`:
+`changed.txt` and an empty `steps.tsv` only):
+- Read only, in `ROOT/.claude/worktrees/o1-gate-Q0a` (nothing written there; its mtime is 10:26:31 UTC before and
+  after): no `.git` file; registered in `git worktree list --porcelain` at ee4f7c2, "prunable gitdir file points to
+  non-existent location"; 2227 files, of which 2226 hash (`git hash-object --no-filters`) to the blob of the same
+  path in ee4f7c2's tree (0 differ) and one, `apps/quiz/next-env.d.ts`, is ignored build output; 3965 of the tree's
+  6191 files are gone. No process holds the folder (`ps`).
+- When and how: ee4f7c2's summary.json at 10:26:16 UTC, apps/quiz (where cleanup removes the `.next-<site>`
+  folders) at 10:26:29, the last deletion at 10:26:31, stopped between a file and its folder
+  (`apps/blindtest/src/app/api/party/[code]/join` is empty). gate.sh's `trap cleanup EXIT INT TERM`: a TERM to the
+  process group during the EXIT cleanup kills `git worktree remove` and reruns cleanup, whose `worktree remove` then
+  refuses the folder without `.git`. Reproduced with a stand-in script in the scratchpad; with `trap '' INT TERM` at
+  the start of cleanup the same TERM leaves the removal to finish.
+- Request 26 to ORCH: (a) the two commands that clear the folder and its registration without prune, proven on a
+  scratch repository with the same leftover shape; (b) for gate.sh, `trap '' INT TERM` in cleanup and a read-only
+  `cut_short` check in `prep` that clears only a leftover whose files are all its registered HEAD's or ignored,
+  with today's exit 3 for anything else (tested: six scratch cases and, read only, this folder).
+- Request 24 and CR-010, named again in this tick's task: done in slice 9, harness cb12ed53 unchanged (as in
+  slice 13).
+
+Tested how (slice 14):
+- The check of the folder twice: a per-file hash loop against `git ls-tree -r ee4f7c2` (2226 checked, 0 differ),
+  then the proposed `cut_short` through O1's git.sh with a temp index in the scratchpad (exit 0, 17 s).
+- The proposals on a scratch git repository (git 2.50.1): `git worktree remove` with and without `--force` refuses
+  the cut leftover (rc 128); `rm -rf` then `worktree remove` rc 0, a new `worktree add` to the path rc 0;
+  `cut_short` 0 for the cut leftover with build output and a `node_modules` link, 1 for a changed tracked file, an
+  untracked file that is not ignored, a file turned into a symlink, a live worktree and an unregistered folder; the
+  `prep` wiring: cut leftover cleared and added again, changed one exit 3 with today's message, clean live worktree
+  as today. The TERM stand-in: today's trap, the child's start logged twice and its end once; with the ignore, once
+  each.
+- `node --test` of the harness tests: 102 of 102 (4.5 s, 12:10 UTC).
+- The gate's `vitest run` once at 12:11 UTC (load 13.1, swap 14.4 GB used of 15.4): 1 base test timed out at 5 s
+  (`json-ld.test.ts`, the ld+json sink scan), 2268 of 2269 pass: request 25 as before. tsc not run: slice 14 changes
+  `docs/` only (`git diff --name-only ee4f7c2 HEAD -- ':!docs'` is empty) and the gate's tsc at ee4f7c2 exited 0.
+- No build, no parity run, no gate run, no server, no production read.
 
 Done in slice 13 (tick 5, after the gate's red at ee4f7c2, evidence `O1/docs/o1/evidence/Q0a/ee4f7c2.../`):
 - The red: step `unit` only, rc 1 in 63 s, 2 of 2269 tests, both "Test timed out in 5000ms", both base source scans
@@ -1227,6 +1273,12 @@ shapes; the failing set must equal the expected set exactly):
   without editing tests or their config, and returning blocked would stop F0, which waits for this merge (D-026),
   on a cause rule 15 does not name. Request 25 keeps the options for ORCH; the gate's own tsc time remains the
   cheapest sign of whether a re-gate is worth starting.
+- D62 The stale gate folder is ORCH's to clear, and Q0a returns ready, not blocked. Removing a registered worktree
+  is shared state (rule 12: only ORCH adds or removes O1's worktrees) and gate.sh is ORCH's file, so slice 14 only
+  read the folder, proved it holds nothing of a lane, and wrote request 26 with the exact commands. Rule 15 does
+  not name this cause, the lane's own work is unchanged and green as in slice 13, and the next step is the gate
+  step's, after request 26 (a). Without (a) a re-gate stops in `prep` again in seconds (no build starts), so the
+  cost of a premature re-gate is small.
 
 ## Open points
 
