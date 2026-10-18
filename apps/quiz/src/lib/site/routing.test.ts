@@ -3,7 +3,7 @@
 // prepareDestination, the calls of next/dist/server/lib/router-utils), so what passes here
 // is what `next start` does with the same list.
 
-import { readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,12 +12,14 @@ import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match';
 import { prepareDestination } from 'next/dist/shared/lib/router/utils/prepare-destination';
 import { describe, expect, it } from 'vitest';
 
-import { KNOWN_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/lib/route-allowlist';
+import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/lib/route-allowlist';
 
 import { REGISTRY } from './registry';
 import {
-  KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_ROOT_FILES, TWIN_SAMPLES, compileRoutePattern, internalPath,
-  isKnownRouteFor, isServedSite, middlewareStep, redirectsFor, rewritesFor, siteStaticParams,
+  INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES,
+  SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, internalPath,
+  isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, middlewareStep, redirectsFor, rewritesFor,
+  siteStaticParams,
 } from './routing';
 import { SITE_IDS } from './types';
 
@@ -25,6 +27,8 @@ import type { SiteRewrite } from './routing';
 import type { SiteId } from './types';
 
 const APP_DIR = fileURLToPath(new URL('../../app', import.meta.url));
+const PUBLIC_DIR = fileURLToPath(new URL('../../../public', import.meta.url));
+const MIDDLEWARE_FILE = fileURLToPath(new URL('../../middleware.ts', import.meta.url));
 const FLAG_SETS = [
   { v1: false, v12: false }, { v1: true, v12: false }, { v1: false, v12: true }, { v1: true, v12: true },
 ] as const;
@@ -92,10 +96,46 @@ describe('kpop: today\'s answers, nothing added', () => {
     }
   });
 
-  it('the kpop build adds no rewrite, keeps its redirects and runs today\'s middleware', () => {
+  it('the kpop build adds no rewrite, keeps its redirects and runs today\'s middleware but on /sites', () => {
     expect(rewritesFor('kpop')).toEqual([]);
+    expect(afterFilesFor('kpop')).toEqual([]);
+    expect(fallbackFor('kpop')).toEqual([]);
     expect(redirectsFor('kpop')).toBeNull();
-    for (const p of samples) expect(middlewareStep('kpop', p)).toBe('kpop');
+    const outside = samples.filter((p) => !isSitesPath(p));
+    expect(outside.length).toBeGreaterThan(150);
+    for (const p of outside) expect(middlewareStep('kpop', p), p).toBe('kpop');
+    for (const p of ['/sitesx', '/site', '/sites-quiz', '/q/sites']) expect(middlewareStep('kpop', p), p).toBe('kpop');
+  });
+
+  it('kpop /sites paths get today\'s allowlist answer, the build guard\'s /sites/ entry aside', () => {
+    // On o1/integration a /sites path is unknown to isKnownRoute unless a suffix rule knows it, so
+    // the kpop branch rewrites a page path to NOT_FOUND_REWRITE and lets a file path go on. The
+    // spike's '/sites/' entry of KNOWN_ROUTES (for the build guard) would let them past that
+    // answer: the not-found step keeps it.
+    const refused = ['/sites', '/sites/', '/sites/anime', '/sites/kpop', '/sites/hub', '/sites/anime/x/y',
+      '/sites/anime/robots.txt', '/sites/x.php', '/sites/which-bts-member-are-you', '/sites/me', '/sites/q/x'];
+    for (const p of refused) {
+      expect(isSitesPath(p), p).toBe(true);
+      expect(middlewareStep('kpop', p), p).toBe('not-found');
+    }
+    for (const p of ['/sites/anime/bts-quiz', '/sites/twice-trivia', '/sites/a/b/c-quiz']) {
+      expect(middlewareStep('kpop', p), p).toBe('kpop');
+    }
+    // The unlisted first segment and /sites itself are read by no entry but the guard's one.
+    for (const r of [...KNOWN_ROUTES, ...UX_V1_ROUTES]) {
+      if (r === '/sites/') continue;
+      for (const seg of ['/sites', '/o1-unlisted']) {
+        expect(r.startsWith(seg) || (seg.startsWith(r) && r.length > 1), `${r} reads ${seg}`).toBe(false);
+      }
+    }
+    // Where the allowlist has no /sites/ entry (o1/F0, o1/integration), the step is exactly its answer.
+    if (!(KNOWN_ROUTES as readonly string[]).includes('/sites/')) {
+      for (const flags of FLAG_SETS) {
+        for (const p of [...refused, '/sites/anime/bts-quiz', '/sites/twice-trivia', ...samples.filter(isSitesPath)]) {
+          expect(middlewareStep('kpop', p) === 'not-found', `${p} ${JSON.stringify(flags)}`).toBe(!isKnownRouteWith(p, flags));
+        }
+      }
+    }
   });
 
   it('no /sites page is generated or served on kpop', () => {
@@ -136,11 +176,15 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['anime', '/_next/image', null],
     ['anime', '/_vercel/insights/script.js', null],
     ['anime', '/__nextjs_original-stack-frame', null],
-    ['anime', '/favicon.ico', null],
-    ['anime', '/og-default.png', null],
+    ['anime', '/favicon.ico', '/brand/anime/favicon.ico'],
+    ['anime', '/og-default.png', '/brand/anime/og-default.png'],
+    ['anime', '/apple-touch-icon.png', '/brand/anime/apple-touch-icon.png'],
+    ['anime', '/site.webmanifest', '/brand/anime/site.webmanifest'],
+    ['anime', '/brand/anime/favicon.ico', null],
     ['anime', '/fonts/Pretendard-Regular-latin.woff2', null],
     ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', null],
-    ['anime', '/site.webmanifest', null],
+    ['anime', '/x.png', null],
+    ['anime', '/q/x.png', null],
     ['hub', '/', '/sites/hub'],
     ['hub', '/passport', '/sites/hub/passport'],
     ['hub', '/q/anything', '/sites/hub/q/anything'],
@@ -149,22 +193,27 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['hub', '/robots.txt', '/sites/hub/robots.txt'],
     ['hub', '/api/passport/redeem', null],
     ['hub', '/auth/start', null],
+    ['hub', '/favicon.ico', '/brand/hub/favicon.ico'],
+    ['hub', '/site.webmanifest', '/brand/hub/site.webmanifest'],
   ];
 
   it.each(cases)('%s %s', (site, path, want) => {
     expect(resolve(rewritesFor(site), path)).toBe(want);
   });
 
-  it('every rewrite source is accepted by Next and every destination is internal', () => {
+  it('every rewrite source is accepted by Next and every destination is the site\'s own', () => {
     for (const site of ['anime', 'hub'] as const) {
-      for (const r of rewritesFor(site)) {
+      for (const r of [...rewritesFor(site), ...afterFilesFor(site), ...fallbackFor(site)]) {
         expect(() => getPathMatch(r.source, { strict: true })).not.toThrow();
-        expect(r.destination.startsWith(`/sites/${site}`)).toBe(true);
+        expect(r.destination.startsWith(`/sites/${site}`) || r.destination.startsWith(`/brand/${site}/`), r.destination).toBe(true);
       }
-      // Only the catch-all and the home rule read a public path; the root-file rules read a
-      // dotted path the catch-all skips; the pretty rules read the prefixed path.
+      // Only the catch-all and the home rule read a public path; the root-file and brand rules
+      // read a dotted path the catch-all skips; the pretty rules read the prefixed path.
       for (const r of rewritesFor(site).slice(2)) {
-        expect(r.source === '/robots.txt' || r.source === '/sitemap.xml' || r.source === '/llms.txt' || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
+        expect(PER_SITE_ROOT_FILES.includes(r.source) || PER_SITE_BRAND_FILES.includes(r.source) || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
+      }
+      for (const f of PER_SITE_BRAND_FILES) {
+        expect(rewritesFor(site).filter((r) => r.source === f), f).toEqual([{ source: f, destination: brandPath(site, f) }]);
       }
     }
   });
@@ -177,6 +226,72 @@ describe('anime and hub rewrites (Next matcher)', () => {
   it('internalPath', () => {
     expect(internalPath('anime', '/')).toBe('/sites/anime');
     expect(internalPath('hub', '/privacy')).toBe('/sites/hub/privacy');
+  });
+});
+
+/**
+ * Where a request of an anime or hub build ends, in Next's order (resolve-routes.js of next
+ * 16.2.1): the beforeFiles rules, the exact filesystem match (`files`: public files and static
+ * handlers), the afterFiles rules, the dynamic routes (`dynamic`, and every /sites/<site> path:
+ * the site's pages and [...rest]), then the fallback rules.
+ */
+function answer(site: SiteId, pathname: string, files: ReadonlySet<string>, dynamic: (p: string) => boolean): string {
+  const p1 = resolve(rewritesFor(site), pathname) ?? pathname;
+  if (files.has(p1)) return `file ${p1}`;
+  const p2 = resolve(afterFilesFor(site), p1);
+  if (p2) return `site ${p2}`;
+  if (p1.startsWith(`/sites/${site}`)) return `site ${p1}`;
+  if (dynamic(p1)) return `route ${p1}`;
+  const p3 = resolve(fallbackFor(site), p1);
+  return p3 ? `site ${p3}` : `none ${p1}`;
+}
+
+describe('after the filesystem: no unmatched path reaches a kpop page (Next matcher)', () => {
+  const files = new Set(['/fonts/x.woff2', '/brand/anime/favicon.svg', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', '/auth/confirm']);
+  // The dynamic routes a path could meet once no rule took it: the shared API and auth handlers,
+  // and the kpop pages the afterFiles rule must keep out of reach ((site)/[slug], (site)/q/[slug]).
+  // Framework paths (/_next, /_vercel, the dev overlay) are served before any page route.
+  const dynamic = (p: string): boolean => !p.startsWith('/_') && (
+    /^\/api\/(?:og|quiz|game|fancard)\/[^/]+$/.test(p) || /^\/api\/n\/me$/.test(p) || /^\/[^/]+$/.test(p) || /^\/q\/[^/]+$/.test(p));
+  const cases: [SiteId, string, string][] = [
+    ['anime', '/', 'site /sites/anime'],
+    ['anime', '/q/who-is-l', 'site /sites/anime/q/who-is-l'],
+    ['anime', '/robots.txt', 'site /sites/anime/robots.txt'],
+    ['anime', '/x.png', 'site /sites/anime/x.png'],
+    ['anime', '/wp-login.php', 'site /sites/anime/wp-login.php'],
+    ['anime', '/q/x.png', 'site /sites/anime/q/x.png'],
+    ['anime', '/u/a.b', 'site /sites/anime/u/a.b'],
+    ['anime', '/api', 'site /sites/anime/api'],
+    ['anime', '/auth', 'site /sites/anime/auth'],
+    ['anime', '/favicon.ico', 'site /sites/anime/brand/anime/favicon.ico'],
+    ['anime', '/apple-touch-icon.png', 'site /sites/anime/brand/anime/apple-touch-icon.png'],
+    ['anime', '/favicon.svg', 'file /brand/anime/favicon.svg'],
+    ['anime', '/fonts/x.woff2', 'file /fonts/x.woff2'],
+    ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', 'file /4b2f9a7ce8d1465fb0a3e6c95d47128a.txt'],
+    ['anime', '/auth/confirm', 'file /auth/confirm'],
+    ['anime', '/api/n/me', 'route /api/n/me'],
+    ['anime', '/api/og/one-piece-quiz', 'route /api/og/one-piece-quiz'],
+    ['anime', '/api/does-not-exist', 'site /sites/anime/api/does-not-exist'],
+    ['anime', '/auth/nope', 'site /sites/anime/auth/nope'],
+    ['anime', '/sites/anime/x.png', 'site /sites/anime/sites/anime/x.png'],
+    ['anime', '/_next/static/chunks/x.js', 'none /_next/static/chunks/x.js'],
+    ['anime', '/_vercel/insights/script.js', 'none /_vercel/insights/script.js'],
+    ['anime', '/__nextjs_original-stack-frame', 'none /__nextjs_original-stack-frame'],
+    ['hub', '/favicon.ico', 'site /sites/hub/brand/hub/favicon.ico'],
+    ['hub', '/x.png', 'site /sites/hub/x.png'],
+    ['hub', '/admin', 'site /sites/hub/admin'],
+    ['hub', '/api/does-not-exist', 'site /sites/hub/api/does-not-exist'],
+  ];
+
+  it.each(cases)('%s %s', (site, path, want) => {
+    expect(answer(site, path, files, dynamic)).toBe(want);
+  });
+
+  it('the afterFiles and fallback rules are the site\'s only, and kpop has none', () => {
+    for (const site of ['anime', 'hub'] as const) {
+      expect(afterFilesFor(site)).toHaveLength(1);
+      expect(fallbackFor(site)).toHaveLength(1);
+    }
   });
 });
 
@@ -249,19 +364,65 @@ describe('the route map of anime and hub', () => {
   it('per-site root files are the three files the rewrites serve', () => {
     expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt']);
   });
+
+  it('the brand files are every root file of public/ but the IndexNow key files', () => {
+    const root = readdirSync(PUBLIC_DIR).filter((f) => statSync(join(PUBLIC_DIR, f)).isFile()).map((f) => `/${f}`);
+    const keys = root.filter((f) => INDEXNOW_KEY_FILE_RE.test(f));
+    expect(keys).toEqual([`/${REGISTRY.kpop.seo.indexNowKey}.txt`]);
+    expect([...PER_SITE_BRAND_FILES].sort()).toEqual(root.filter((f) => !keys.includes(f)).sort());
+    expect(new Set(PER_SITE_BRAND_FILES).size).toBe(PER_SITE_BRAND_FILES.length);
+    for (const f of PER_SITE_BRAND_FILES) expect(PER_SITE_ROOT_FILES.includes(f), f).toBe(false);
+  });
+
+  it('the registry brand paths of anime and hub are brand files of their own folder', () => {
+    for (const site of ['anime', 'hub'] as const) {
+      const b = REGISTRY[site].brand;
+      for (const path of [b.logo, b.favicon, b.ogTemplate, REGISTRY[site].seo.organization.logo]) {
+        expect(path.startsWith(`/brand/${site}/`), path).toBe(true);
+        expect(PER_SITE_BRAND_FILES.includes(path.slice(`/brand/${site}`.length)), path).toBe(true);
+      }
+    }
+  });
 });
 
 describe('middleware step and the sites/[site] guard', () => {
-  it('non-kpop builds pass every public path to the rewrites and refresh the session on the protected ones', () => {
+  it('non-kpop builds pass every public path to the rewrites and refresh the session on their own protected ones', () => {
     for (const site of ['anime', 'hub'] as const) {
-      for (const p of ['/', '/verse', '/verse/x/studio', '/blind-test/x', '/create-preview', '/unknown', '/q/x']) {
+      for (const p of ['/', '/verse', '/verse/x/studio', '/blind-test/x', '/create-preview', '/unknown', '/q/x',
+        '/loginx', '/login/x', '/settingsx', '/adminx', '/sites/anime', '/page-not-found']) {
         expect(middlewareStep(site, p), `${site} ${p}`).toBe('pass');
       }
-      for (const p of ['/login', '/onboarding', '/settings', '/settings/profile', '/admin', '/admin/review']) {
+      for (const p of ['/login', '/settings', '/settings/profile']) {
         expect(middlewareStep(site, p), `${site} ${p}`).toBe('session');
       }
-      expect(middlewareStep(site, '/loginx')).toBe('pass');
     }
+    for (const p of ['/onboarding', '/onboarding/x', '/admin', '/admin/review']) {
+      expect(middlewareStep('anime', p), `anime ${p}`).toBe('session');
+    }
+    // R F0 r1 M1: the hub has no /onboarding and no /admin, so they are its 404s, never a 307 to /login.
+    for (const p of ['/onboarding', '/onboarding/x', '/admin', '/admin/network', '/admin/review']) {
+      expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+    }
+  });
+
+  it('a session path is a protected path of today\'s middleware and a route of the site', () => {
+    // SESSION_PATTERNS is middleware.ts's needsAuth() without the Verse studio: /login itself and
+    // every PROTECTED_PATH_PREFIXES entry with what is below it.
+    const src = readFileSync(MIDDLEWARE_FILE, 'utf8');
+    const listed = /const PROTECTED_PATH_PREFIXES = \[([^\]]*)\]/.exec(src)?.[1] ?? '';
+    const prefixes = [...listed.matchAll(/'([^']+)'/g)].map((m) => m[1]);
+    expect(prefixes.length).toBeGreaterThan(0);
+    expect(src).toContain("if (pathname === '/login') return true;");
+    expect([...SESSION_PATTERNS].sort()).toEqual(['/login', ...prefixes.map((p) => `${p}/**`)].sort());
+    const flags = { v1: true, v12: true };
+    for (const site of ['anime', 'hub'] as const) {
+      for (const p of ['/login', '/onboarding', '/onboarding/x', '/settings', '/settings/x', '/admin', '/admin/x', '/me', '/u/x']) {
+        expect(isSessionPathFor(site, p), `${site} ${p}`).toBe(
+          SESSION_PATTERNS.some((pat) => compileRoutePattern(pat).test(p)) && isKnownRouteFor(site, p, flags),
+        );
+      }
+    }
+    expect(isSessionPathFor('kpop', '/login')).toBe(false);
   });
 
   it('only the build\'s own site is generated and served', () => {

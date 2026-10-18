@@ -2,10 +2,13 @@
 //
 // The design (RUN-O1-PROMPT section 9, override 1): no kpop page file is edited to serve
 // another site. Every anime and hub page lives under app/sites/[site]/..., outside the
-// (site) group. On a non-kpop build only, next.config.ts adds the beforeFiles rewrites of
-// rewritesFor(site), which send every public path to /sites/<site>/... (never /_next, /api,
-// /auth or a static file), so a kpop page can never answer there. The kpop build adds no
-// rewrite, no redirect change and no middleware step: kpopQuiz.org is byte-identical.
+// (site) group. On a non-kpop build only, next.config.ts adds the rewrites of rewritesFor,
+// afterFilesFor and fallbackFor(site), which send every public path to /sites/<site>/...
+// (never /_next or a shared public file; /api and /auth only when no handler matched), so a
+// kpop page can never answer there. The kpop build adds no rewrite and no redirect change; its
+// middleware gets one step, 'not-found' for /sites and below, which gives those paths today's
+// unknown-route answer before the kpop branch runs, so kpopquiz.org answers every path as it
+// does today (routes.md 1, items 4 and 6).
 //
 // ORCH wires this module into next.config.ts, middleware.ts and route-allowlist.ts once,
 // after GH (seo/redirects-exact) merges, with the few lines the spike (branch o1/F0s) shows.
@@ -35,6 +38,30 @@ export const SHARED_PREFIXES: readonly string[] = ['/api/', '/auth/'];
  * untouched.
  */
 export const PER_SITE_ROOT_FILES: readonly string[] = ['/robots.txt', '/sitemap.xml', '/llms.txt'];
+
+/** Where a site's own brand files live: public/brand/<site>/ (registry.md, routes.md). */
+export function brandPath(site: SiteId, file: string): string {
+  return `/brand/${site}${file}`;
+}
+
+/**
+ * Every root file of public/ but the IndexNow key files: the KpopQuiz favicons, touch and app
+ * icons, web manifest, default OG image, logos and the K-pop art at the root. Browsers and
+ * crawlers fetch some of them with no link (/favicon.ico, /apple-touch-icon.png), so on anime
+ * and hub each of these root paths answers the site's own file of the same name in
+ * public/brand/<site>/ (a beforeFiles rewrite), or the site's 404 while that file does not
+ * exist: never kpop's bytes. contract.test.ts proves the list is the root of public/ minus the
+ * key files, so a root file added later must join it.
+ */
+export const PER_SITE_BRAND_FILES: readonly string[] = [
+  '/favicon.ico', '/favicon.svg', '/favicon-16x16.png', '/favicon-32x32.png', '/apple-touch-icon.png',
+  '/android-chrome-192x192.png', '/android-chrome-512x512.png', '/site.webmanifest', '/og-default.png',
+  '/logo-96.png', '/logo-192.png', '/logo-512.png', '/logo-primary.svg', '/verse-favicon.svg',
+  '/blindtest-header.jpg', '/rabbit-source.webp',
+];
+
+/** An IndexNow key file at the root of public/ (shared by the three builds, routes.md). */
+export const INDEXNOW_KEY_FILE_RE = /^\/[0-9a-f]{32}\.txt$/;
 
 /**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
@@ -84,7 +111,10 @@ export function internalPath(site: SiteId, pathname: string): string {
  *      /sites/... request becomes /sites/<site>/sites/..., which only [...rest] matches: 404);
  *   2. '/' (not caught by 1) becomes /sites/<site>;
  *   3. the per-site root files (dotted, so not caught by 1) go to their /sites/<site> routes;
+ *   3b. the root brand files (dotted too) go to the site's public/brand/<site>/ file;
  *   4. the pretty URLs match the already prefixed path.
+ * A dotted path these rules leave (a shared public file, or none) then meets Next's filesystem
+ * check, and what that check does not serve meets afterFilesFor before any dynamic route.
  */
 export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
   if (site === 'kpop') return [];
@@ -93,8 +123,36 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
     { source: `/:path(${CATCH_ALL_PATTERN})`, destination: `${base}/:path` },
     { source: '/', destination: base },
     ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
+    ...PER_SITE_BRAND_FILES.map((f) => ({ source: f, destination: brandPath(site, f) })),
     ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
   ];
+}
+
+/**
+ * The afterFiles pattern of a non-kpop build: any path but the framework's, /sites (rewritten
+ * already) and the /api/ and /auth/ handlers. Next checks afterFiles rewrites after the exact
+ * filesystem match (public files, static routes) and before every dynamic route
+ * (resolve-routes.js of next 16.2.1: check_fs, then afterFiles, then the dynamic routes), so a
+ * path the beforeFiles rules leave and no public file serves (/x.png, /wp-login.php, /q/x.png,
+ * a missing brand file, a bare /api) reaches the site's [...rest] page and its own 404, never a
+ * kpop dynamic page such as (site)/[slug] or (site)/q/[slug].
+ */
+export const AFTER_FILES_PATTERN = '(?!(?:_next|_vercel|sites)(?:/|$))(?!(?:api|auth)/)(?!__nextjs).+';
+
+/** The afterFiles rewrites of a build. kpop: none. */
+export function afterFilesFor(site: SiteId): readonly SiteRewrite[] {
+  if (site === 'kpop') return [];
+  return [{ source: `/:path(${AFTER_FILES_PATTERN})`, destination: `${SITES_PREFIX}/${site}/:path` }];
+}
+
+/**
+ * The fallback rewrites of a build. kpop: none. Next checks them after every dynamic route, so
+ * the /api/ and /auth/ handlers (static or dynamic) answer first, and a path under /api/ or
+ * /auth/ that none of them serves gets the site's 404 instead of the root one.
+ */
+export function fallbackFor(site: SiteId): readonly SiteRewrite[] {
+  if (site === 'kpop') return [];
+  return [{ source: '/:path((?:api|auth)/.+)', destination: `${SITES_PREFIX}/${site}/:path` }];
 }
 
 export interface SiteRedirect {
@@ -164,22 +222,58 @@ export function isKnownRouteFor(site: SiteId, pathname: string, flags: RouteFlag
 }
 
 /**
- * Paths that open a Supabase session in the middleware on a non-kpop build. Each one is also
- * a kpop needsAuth() path, so the middleware's existing protected branch handles it.
+ * The paths of today's needsAuth() in middleware.ts that a non-kpop site may send to the
+ * session branch, as route patterns: /login itself, and /onboarding, /settings and /admin with
+ * everything below (the Verse studio is kpop only). A site sends only the paths its own route
+ * map also knows (isSessionPathFor): the hub has no /onboarding and no /admin, so those are its
+ * 404s and never a redirect to its /login.
  */
-export const SESSION_PREFIXES_NON_KPOP: readonly string[] = ['/login', '/onboarding', '/settings', '/admin'];
+export const SESSION_PATTERNS: readonly RoutePattern[] = ['/login', '/onboarding/**', '/settings/**', '/admin/**'];
+
+const SESSION_RES: readonly RegExp[] = SESSION_PATTERNS.map(compileRoutePattern);
+
+/** True when a non-kpop site refreshes the session on this path (both lists know it). */
+export function isSessionPathFor(site: SiteId, pathname: string): boolean {
+  if (site === 'kpop') return false;
+  return SESSION_RES.some((re) => re.test(pathname)) && patternsOf(site).some((re) => re.test(pathname));
+}
+
+/** /sites and every path below it: the folder of the anime and hub pages. */
+export function isSitesPath(pathname: string): boolean {
+  return pathname === SITES_PREFIX || pathname.startsWith(`${SITES_PREFIX}/`);
+}
+
+/** A first segment that no entry and no rule of the allowlist knows (routing.test.ts). */
+const UNLISTED_FIRST_SEGMENT = '/o1-unlisted';
 
 /**
- * The middleware step of a build: 'kpop' = run today's middleware unchanged; 'session' = a
- * non-kpop path that needs the session refresh (the existing protected branch); 'pass' = any
- * other non-kpop path, passed straight to the rewrites (never a kpop legacy redirect, the
- * Verse gate or the kpop unknown-route answer).
+ * Today's allowlist answer for a /sites path, as if the build guard's '/sites/' entry did not
+ * exist: the real predicate on the same path under an unlisted first segment. No other entry or
+ * rule of the allowlist reads the first segment of a /sites path (no other entry starts with
+ * /sites, the V12 pretty URLs have one segment, the UX routes are root prefixes); the suffix
+ * rules (-quiz, -trivia) still apply, so /sites/anime/bts-quiz stays known as it is today.
  */
-export function middlewareStep(site: SiteId, pathname: string): 'kpop' | 'session' | 'pass' {
-  if (site === 'kpop') return 'kpop';
-  return SESSION_PREFIXES_NON_KPOP.some((p) => pathname === p || pathname.startsWith(`${p}/`))
-    ? 'session'
-    : 'pass';
+export function isKnownWithoutSitesEntry(pathname: string): boolean {
+  return isKnownRouteWith(`${UNLISTED_FIRST_SEGMENT}${pathname.slice(SITES_PREFIX.length)}`, { v1: true, v12: true });
+}
+
+/**
+ * The middleware step of a build:
+ * - 'kpop': run today's middleware unchanged;
+ * - 'not-found': a kpop /sites path that today's allowlist refuses. '/sites/' joins
+ *   KNOWN_ROUTES for the build guard only, so the middleware answers these paths before the kpop
+ *   branch with that branch's own unknown-route answer (a page path is rewritten to
+ *   NOT_FOUND_REWRITE, a file path goes on to Next): the answer they get today. A /sites path the
+ *   allowlist knows anyway (a -quiz or -trivia suffix) stays 'kpop', as today;
+ * - 'session': a non-kpop path that needs the session refresh (the existing protected branch);
+ * - 'pass': any other non-kpop path, passed straight to the rewrites (never a kpop legacy
+ *   redirect, the Verse gate or the kpop unknown-route answer).
+ */
+export type MiddlewareStep = 'kpop' | 'not-found' | 'session' | 'pass';
+
+export function middlewareStep(site: SiteId, pathname: string): MiddlewareStep {
+  if (site === 'kpop') return isSitesPath(pathname) && !isKnownWithoutSitesEntry(pathname) ? 'not-found' : 'kpop';
+  return isSessionPathFor(site, pathname) ? 'session' : 'pass';
 }
 
 /** generateStaticParams of app/sites/[site]: only the current site, nothing on kpop. */
