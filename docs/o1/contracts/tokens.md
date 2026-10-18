@@ -3,8 +3,8 @@
 Code: `UX_TOKEN_NAMES`, `UX_NEW_TOKEN_NAMES`, `UxTokenName`, `ThemeTokenName` and `SiteTheme` in
 `apps/quiz/src/lib/site/types.ts`; the kpop values in `registry.ts`. Tests: `registry.test.ts` (kpop values equal
 `styles/ux-v1/a0.css`), `contract.test.ts` (the name list equals the file; kpop sheets never read a site-only token;
-the rules of every per-site sheet). Token names are never extendable inside the run (BACKLOG 5.3); token values of
-anime and hub are (5.2).
+the rules of every per-site sheet; F0's files add no rule to the kpop sheet Tailwind builds, section 2). Token names
+are never extendable inside the run (BACKLOG 5.3); token values of anime and hub are (5.2).
 
 Sources: BACKLOG 5.1 ("Theme token names"), lane cards B1, O1, H1; S 5.1 and 5.2 (Option A), 5.5 (fonts);
 COLLISION-MAP 1.7 and row 18.
@@ -70,6 +70,15 @@ kpop CSS byte is a parity failure. So:
   `--ux-font-display` (contract.test.ts);
 - the registry's kpop theme lists only names a0.css declares, plus `on-accent` (registry.test.ts);
 - `<html>` of a kpop page carries no `data-site` attribute (B1 renders it only when `SITE_ID !== 'kpop'`).
+- One Tailwind build serves the three sites, and it scans every file under `apps/quiz/src` (`tailwind.config.ts`
+  `content: ./src/**/*.{ts,tsx}`), tests and comments included: a word there that names a Tailwind utility puts that
+  utility's rule in the kpop sheet, even when nothing renders it. So no file a lane of the run adds under `src`
+  (anime and hub pages, blocks, type modules, tests) may name a utility the kpop tree does not already use; anime and
+  hub styling lives in the site sheets (section 3). A frozen name that is also a utility is written so the scanner
+  does not read it: the token `shadow-card` (`theme.boxShadow.card`) is a template literal in `types.ts`, found by
+  the gate's parity on 25fa0a0 (CR-009, css-content). `contract.test.ts` proves F0's files add no rule (the sheet of
+  every scanned file equals the sheet without them, with a planted proof); parity's css-content step proves it for
+  every lane.
 
 ## 3. Anime and hub: the site sheet
 
