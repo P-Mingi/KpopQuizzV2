@@ -4,15 +4,15 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 11 (tick 5: slice 11 from 03:24 UTC on 2026-10-18, after the gate's second red, at 3440d48). Slice 11
-started with the checkpoint merge of o1/integration (already up to date at a62d673). Status: ready. The gate at
-3440d48 passed every step but unit (guard, hot, copy, secrets, twins, tsc, the three site builds; parity skipped,
-site-checks pending), and unit failed only by 5 s timeouts of base tests (5 tests of 4 files) that Q0a does not
-touch: Q0a's diff has no file under `apps/quiz/src`, the only folder vitest collects. Measured in slice 11, the
-timeouts follow the machine's paging, not Q0a's code: swap 15.4 to 16.1 GB used on a 16 GB machine, and the full
-runs that fail swap in 28 to 127 times more pages than the one that passes (D56; request 25 updated). Request 24 is
-answered by CR-010 (N5) and done; every item of the done test is green offline (D-025: no production read; table
-"Done test" below). The unit step needs a machine that pages less, or ORCH's answer to request 25.
+Slices: 12 (tick 5: slice 12 from 04:05 UTC on 2026-10-18, fix round 1 of review `Q0a-r1-ARCH.md`, verdict FIX at
+c5131aa: 1 major, 3 minor). Slice 12 started with the checkpoint merge of o1/integration (already up to date at
+a62d673). Status: ready. M1 is fixed (the gate plan never folds a site it did not read into a green `leak` or
+`network-links` line), m1 and m2 are fixed, m3 is deferred with its reason (D60); each answer is in "Review r1:
+findings and answers" below. The parity harness is unchanged (harness hash still cb12ed53), so the offline
+determinism proof of runs 9 and 10 is still a proof of the harness that merges. Every item of the done test is
+green offline (D-025: no production read), gate-checks.sh on stand-ins only: real site builds at the first gate
+after the merge (table "Done test" below). The gate's unit step still depends on the machine's paging (request 25,
+D56).
 
 | # | Slice | State |
 |---|---|---|
@@ -27,17 +27,85 @@ answered by CR-010 (N5) and done; every item of the done test is green offline (
 | 9 | N5 text separators (CR-010) with tests, rules `q0a-g0-v3`; offline determinism runs 9 and 10; runs 6 to 8 re-judged | done |
 | 10 | Gate red at 3888ec5: copy fixed (emoji written as an escape), unit timeouts measured under load (request 25) | done |
 | 11 | Gate red at 3440d48, unit only: the base timeouts traced to paging (D56), request 25 updated | done |
+| 12 | Fix round 1 (review r1 ARCH): M1 (absent and down servers never folded into a green check), m1, m2; m3 deferred (D60) | done |
 
-Done test (brief Q0a), state at slice 11:
+Done test (brief Q0a), state at slice 12:
 
 | Item | State | Proof |
 |---|---|---|
 | Two parity runs on the same sha pair: identical outputs, both say identical | green offline (D-025) | runs 9 (`--keep`) and 10 (`--recheck`) of the quiet pair 53f48f9 and 0056679, harness cb12ed53: identical, 60 of 60, both; determinism.txt "deterministic"; result.txt sha256 9d8ee00c... both |
 | A planted visible string change in a kpop page makes parity fail | green offline | run 7 (4c0992c): /about only, by its string (HTML node and Flight row); re-judged with `q0a-g0-v3`: the same rows |
-| Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slice 9 |
-| gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins | `scripts/o1/leak/gate-selftest.sh` (seven scenarios, one log per check, run again in slice 9); on real site builds it is the gate's own run (request 1; builders never build) |
+| Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slices 9 and 12 |
+| gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins; real builds at the first gate after the merge | `scripts/o1/leak/gate-selftest.sh` (nine scenarios since slice 12, failing and pending sets exact, one log per check); no run has yet served a real `.next-<site>` build from the folder of links or a kept parity build (review r1 m2; D37 found the same link method serves 404 under `next dev`): the first real run is the gate's own (request 1, or F0's next gate after Q0a merges) |
 | dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
-| tsc and unit tests green; every production read listed | green when the machine does not page (D56) | the gate at 3440d48 (the code of this head: slice 11 changes only this report and the requests file): tsc exit 0; slice 11: harness tests 100 of 100, vitest with the gate's command 124 files and 2269 tests at 03:26 UTC (17.5 s); the other runs of slice 11 failed by base timeouts only, under paging (table below); slice 10 at e9c5ba9: tsc exit 0, vitest green with `--maxWorkers=2`; production reads: none |
+| tsc and unit tests green; every production read listed | green when the machine does not page (D56) | slice 12: tsc exit 0 (the gate's command), harness tests 102 of 102; vitest 124 files and 2269 tests with `--maxWorkers=2`, while the gate's default command lost one base test to the 5 s timeout in each of three runs under 15 GB of swap (D56; no file vitest collects changed); the gate at c5131aa: tsc and unit (124 files, 2269 tests) green; production reads: none |
+
+Review r1: findings and answers (review `O1/docs/o1/reviews/Q0a-r1-ARCH.md`, FIX at c5131aa):
+
+| Finding | Answer | Where |
+|---|---|---|
+| M1 (major): with no kpop server (parity ran without --keep, no kpop gate build), the kpop half of the leak suite and of check-network-links skipped inside lines recorded `0` | Fixed. Every site of the lane with no server gets its own `<site>-leak` and `<site>-network-links` lines: pending for kpop when parity ran (request 2), failed for any other missing server, each with the reason and the tests it stands for. `leak` and `network-links` carry `sites`, the servers they read, and each log opens with them. A planned server that did not start now fails `leak` and `network-links` too (the same hole one step later: the suite skipped that site's tests, D59). Unit tests (two new, two extended) and two new gate-selftest scenarios; the self-test also compares the pending set exactly now. Plant proof: the new self-test on c5131aa's harness mismatches on exactly the three scenarios that cover M1 | `gate-plan.mjs` (plan, `LEAK_TESTS`, `WHY.absentHalf`, `WHY.noLinkSite`), `gate-checks.sh` (`sites_line`, `down_note`, `do_links`, `do_leak`, header), `gate-plan.test.mjs`, `leak/gate-selftest.sh`, `leak/planted-server.mjs`; D57 to D59 |
+| m1 (minor): twins.mts's header claimed reformatted copies fail and named one limit only | Fixed. The header names both limits: an edit inside every 8 meaningful lines, and a copy whose line breaks are moved (the reviewer's 14 lines of panel.tsx with every two lines joined), says UX and ARCH reviewers keep reading imports and markup, and names the later fix (shingles of the normalized token stream across line breaks, with a new threshold and baseline). The detection itself is unchanged in this round: a new threshold needs a new base measurement, and F0's next gate runs this script | `apps/quiz/scripts/o1/twins.mts` header |
+| m2 (minor): the Progress line said every done-test item is green offline while gate-checks.sh is green on stand-ins only | Fixed. The Progress block and the done-test row say "green on stand-ins; real builds at the first gate after the merge", and why (no run has served a real `.next-<site>` from the folder of links; D37) | this block, row 4 of "Done test" |
+| m3 (minor): strict mode (any non-GET to any non-local origin refused) only for --serve-kept and --check-kept, not for the parity builds and servers | Deferred, not refused (D60). It is one line in `run_env` of parity.sh, and parity.sh is part of the harness hash (cb12ed53): changing it now would leave the offline determinism proof (runs 9 and 10) proving a harness that is not the one merging, and this slice may not run parity.sh to re-prove it. The reviewer found no server-side non-GET to another origin reachable at build or on the list, so nothing is exposed meanwhile. It goes in with the next parity harness change, re-proved by an offline determinism pair (Open points) | Open points |
+
+Notes for ORCH in the review (not findings): request 1 still decides whether Q0a's own re-gate serves real builds;
+otherwise a gate-checks failure in F0's first gate after the merge is a harness defect for Q0a (agreed here: Q0a
+takes it as its own). The `O1_KPQ` note for request 2 is added to request 2 in `docs/o1/requests/Q0a.md`.
+
+Done in slice 12 (fix round 1):
+- `gate-plan.mjs`: for each site of the lane with no server, two lines, `<site>-leak` and `<site>-network-links`
+  (kind `absent`, never run): pending for kpop when parity ran (the reason of the kpop SEO lines: request 2, and
+  why no kept build was found), failed otherwise (no `.next-<site>` build in the gate worktree). They replace the old
+  single `leak fail` "no server for any site of the lane" (D57). The `leak` line carries `sites` (every served
+  site) and `network-links` its `sites` as before; when no served site is a link site (kpop absent, anime and hub
+  unwired) `network-links` is skipped with that reason instead of running on nothing (D58).
+- `gate-checks.sh`: `leak` and `network-links` write "sites read: ...; planned but not started: ..." first, run
+  on the servers that answer, and fail when a site they were planned to read did not start (D59). The header says
+  both rules.
+- `gate-selftest.sh`: the failing set and the pending set of checks.tsv are both compared exactly; KPQ is an empty
+  folder of the output (no kept build or env file of the machine can leak in), the ports are the lane's, the
+  readiness wait reads the planted server's own line; the self-test refuses to run on a checkout that holds a
+  `.next-<site>` build. Scenarios: `no-hub-server` now expects `hub-metadata-dupes hub-leak hub-network-links`;
+  new `no-kpop-server-parity-ran` (a parity.json in the evidence folder, no kpop server: failing none, pending the
+  four kpop SEO lines plus `kpop-leak` and `kpop-network-links`); new `hub-server-down` (a stand-in worktree whose
+  only build, `.next-hub`, cannot start: `leak` and `network-links` fail, each log naming hub).
+- `planted-server.mjs`: a port of 0 leaves that site unserved (for `hub-server-down`); three ports behave as before.
+- `twins.mts`: header only (m1).
+- The parity harness is untouched (parity.sh, flag-off-diff.mjs and `scripts/o1/parity/*.mjs`): hash cb12ed53,
+  recomputed on the working tree.
+- Commits: 66234d7 (the code of the fix), then this report and request 2's note. Round 2 reviews `c5131aa..` head.
+
+Tested how (slice 12; between 04:20 and 09:55 UTC the session made no call, the machine ran other work):
+- `node --test` of `gate-plan.test.mjs`: 13 of 13 (two new tests, two extended); the whole harness set
+  (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`, `apps/quiz/scripts/o1/*.test.mjs`): 102 of
+  102.
+- `scripts/o1/leak/gate-selftest.sh --ports 3106,3107,3108` (04:09 to 04:12 UTC, 191 s): 9 of 9 scenarios as
+  expected, failing and pending sets exact, one log per check, `VERDICT: gate-checks.sh fails exactly on the planted
+  failures and writes one log per check`. The `hub-server-down` logs: `sites read: kpop anime; planned but not
+  started: hub`, then the FAILED line; `serve-hub-A.log`: `./node_modules/.bin/next: No such file or directory`.
+- Plant proof of M1 (04:13 to 04:16 UTC): the same new self-test run against c5131aa's harness (`git archive` of
+  `scripts` and `apps/quiz` in the scratchpad, O1's node_modules linked, an empty commit so gate-checks.sh finds a
+  head): `no-hub-server` failing [hub-metadata-dupes] where the fix wants hub-leak and hub-network-links too;
+  `no-kpop-server-parity-ran` pending the four SEO lines only, no kpop-leak and no kpop-network-links;
+  `hub-server-down` exit 0 with nothing failing. The six other scenarios differ only by `harness-unit`, which fails
+  in that copy for want of the repository's SQL folders (rpcVerdict reads them), not by the old code.
+- `scripts/o1/leak/selftest.sh --ports 3106,3107,3108` (09:59 to 10:04 UTC): `VERDICT: every leak test fails on its
+  planted leak and passes on the clean pages` (planted-server.mjs changed: three ports behave as before).
+  `scripts/o1/leak/dev-multi-selftest.sh 3106,3107,3108`: none pass, cookie-domain fail, `dev-multi-selftest: ok`.
+- tsc with the gate's command (`tsc --noEmit -p tsconfig.json --incremental false` in apps/quiz), 10:06 to 10:08
+  UTC: exit 0, no output.
+- vitest with the gate's command, under load average 15 to 40 and 15.0 GB of 16 GB swap used: three full runs at
+  10:05, 10:06 and 10:08 UTC each failed one base test by the 5 s timeout (`team-render.test.ts` once,
+  `scoring.test.ts` twice; 2268 of 2269 pass), the two files alone pass (61 tests, 3 s), and `--maxWorkers=2` at
+  10:09 passes 124 files and 2269 tests (78 s). Slice 12 changes no file vitest collects
+  (`git diff --name-only c5131aa -- apps/quiz/src apps/quiz/vitest.config.ts apps/quiz/package.json
+  apps/quiz/tsconfig.json packages`: empty), and the gate at c5131aa ran the same tests green: D56 as before
+  (request 25).
+- Copy: the added lines of `git diff c5131aa` (282) hold no U+2013, U+2014 or emoji.
+- Parity harness hash recomputed on the working tree (parity.sh, flag-off-diff.mjs, `scripts/o1/parity/*.mjs` minus
+  tests): cb12ed53, as at runs 9 and 10.
+- No build, no parity run, no gate run, no production read; no server of this lane left running (3106 to 3108 free).
 
 Done in slice 11 (tick 5, after the gate's red at 3440d48, evidence `O1/docs/o1/evidence/Q0a/3440d48.../`):
 - The red: step unit only, 5 tests of 4 files, each "Test timed out in 5000ms": `lib/seo/og.test.ts` (the scan of
@@ -508,8 +576,10 @@ rc, seconds; rc `skipped` and `pending` are not failures, each log says why), ex
 | the four kpop ones, parity without --keep | pending (request 2) | |
 | anime-metadata-dupes, hub-metadata-dupes | the gate build of a wired site with a sitemap.xml route; skipped unwired or without the route; failed when the wiring is required (base or head next.config.ts has rewritesFor) or the base had the route | harness |
 | anime and hub indexability, orphans, sitemap-hygiene | skipped: kpopquiz.org and the kpop catalogue are hardcoded | |
-| network-links | every served site (an unwired anime or hub left out), parity list plus 200 sitemap paths | harness |
-| leak | every served site, build folders for the wiring, O1_LEAK_REQUIRE, the lane's leak cases from the head; content leak left out on the kept parity build | harness |
+| network-links | every served site (an unwired anime or hub left out), parity list plus 200 sitemap paths; skipped when no served site is left (D58); fails when a planned server did not start (D59) | harness |
+| leak | every served site, build folders for the wiring, O1_LEAK_REQUIRE, the lane's leak cases from the head; content leak left out on the kept parity build; fails when a planned server did not start (D59) | harness |
+| kpop-leak, kpop-network-links | only when the lane has kpop and no kpop server: pending when parity ran without --keep (request 2), else failed (D57) | |
+| anime-leak, anime-network-links, hub-leak, hub-network-links | only when the lane has that site and no server for it: failed (D57) | |
 | kpop-refused-writes | the kept build's freeze logs, phase `gate-*`: reads frozen and live, any refused write fails | |
 | leak-content | phase B, the dev kpop gate build (request 11); skipped without it | harness |
 | lane-specs | lanes.json `specs` (`*.o1.ts`), project `lanes` of the head's config; gate builds only, never the kept parity build | head |
@@ -523,17 +593,20 @@ minutes of waiting for the lock). Suites reach the servers on `<site>.localhost:
 127.0.0.1.
 
 Self-test (`scripts/o1/leak/gate-selftest.sh`, stand-ins given as `O1_GATE_URL_<SITE>`, this checkout as the
-worktree):
+worktree unless the setup says otherwise; since slice 12 the failing set and the pending set are both compared
+exactly, KPQ is an empty folder of the output and the ports are the lane's):
 
-| Scenario | Plant or setting | Failing checks (exactly) | Exit |
-|---|---|---|---|
-| clean | none | none (17 checks: harness-unit, network-links and leak ok, 14 skipped with their reasons) | 0 |
-| link-kpop | a link to otakuquiz.org on kpop /quizzes | network-links, leak | 1 |
-| string-anime | "Top K-pop groups" on anime /series | leak | 1 |
-| netme-hub | `/api/n/me` in the hub page data | leak | 1 |
-| kpop-production-source | `O1_GATE_KPOP_SOURCE=parity` on the stand-in | the four kpop check:* scripts | 1 |
-| lane-spec-missing | lanes.json lists a spec the head lacks | lane-specs | 1 |
-| no-hub-server | no hub server and no hub build | hub-metadata-dupes | 1 |
+| Scenario | Plant or setting | Failing checks (exactly) | Pending checks (exactly) | Exit |
+|---|---|---|---|---|
+| clean | none | none (17 checks: harness-unit, network-links and leak ok, 14 skipped with their reasons) | none | 0 |
+| link-kpop | a link to otakuquiz.org on kpop /quizzes | network-links, leak | none | 1 |
+| string-anime | "Top K-pop groups" on anime /series | leak | none | 1 |
+| netme-hub | `/api/n/me` in the hub page data | leak | none | 1 |
+| kpop-production-source | `O1_GATE_KPOP_SOURCE=parity` on the stand-in | the four kpop check:* scripts | none | 1 |
+| lane-spec-missing | lanes.json lists a spec the head lacks | lane-specs | none | 1 |
+| no-hub-server | no hub server and no hub build | hub-metadata-dupes, hub-leak, hub-network-links (slice 12; before: hub-metadata-dupes only) | none | 1 |
+| no-kpop-server-parity-ran (slice 12) | a parity.json in the evidence folder, no kpop server, no kept build | none | the four kpop SEO lines, kpop-leak, kpop-network-links | 0 |
+| hub-server-down (slice 12) | a stand-in worktree whose only build, `.next-hub`, cannot start (no node_modules) | network-links, leak (each log: "planned but not started: hub") | none | 1 |
 
 ## Twins check
 
@@ -1080,6 +1153,34 @@ shapes; the failing set must equal the expected set exactly):
   Q0a's files), and the unit step is ORCH's (gate.sh). Rule 15 names no blocker for it, so the lane stays ready and
   request 25 carries the evidence and the options; a re-gate when the machine pages less is the cheapest way to
   green.
+- D57 A site with no server is named, never absorbed (review r1 M1). The leak suite skips the tests of a site it is
+  not given, by design (a person runs it on one site), so the plan, not the suite, must say what did not run: one
+  `<site>-leak` and one `<site>-network-links` line per site of the lane without a server, next to its SEO lines and
+  with the same action. kpop when parity ran without `--keep`: pending (request 2), like the four kpop SEO lines,
+  since the cause is the same and parity's 60 URLs still judge the kpop surface; every other missing server: a
+  failure. Two lines, not one, because the two checks are different evidence (Playwright on the suite, the link
+  crawler on the sitemap). They replace the old single `leak fail` "no server for any site": a kpop-only lane on
+  today's gate (parity without `--keep`) is now pending on both halves with request 2 named instead of red on a
+  line that blamed the servers, and any lane with another missing site still fails, on that site's own lines. The
+  suite's `require` list is unchanged (kpop never needs it: a kpop URL is live by definition).
+- D58 `network-links` with no site to judge is skipped with the reason, never run on nothing. When kpop has no server
+  and anime and hub are unwired (their builds serve kpop pages), the link crawler has no site whose domain rules
+  apply. Before slice 12 that case ran the crawler with no site and failed it ("no server up", a message that was
+  not true); after D57 it would have passed on nothing. The missing kpop is its own line (D57); unwired anime and
+  hub fail elsewhere when the wiring is required (metadata-dupes, the site identity test). `do_links` keeps a guard
+  for a plan that gives it no site (a harness defect, a failure).
+- D59 A planned server that did not start fails the checks that were to read it. The same fold as M1 one step later:
+  `do_links` dropped such a site silently and `do_leak` gave the suite no URL for it, so its tests skipped inside a
+  green line. Now both write the sites they read and the ones that did not start, run on the rest, and fail. The
+  SEO and refused-writes checks already failed on a server that did not start (`exec_check`). Proved by the new
+  `hub-server-down` scenario (the old harness passes it: exit 0, nothing failing).
+- D60 m3 (strict mode for the parity builds and servers) waits for the next parity harness change. The change is
+  one line in `run_env`, plus a test of `--run-env-internal`; the reviewer classed it defence in depth and found no
+  server-side non-GET to another origin reachable at build or on the list. But parity.sh is part of the harness
+  hash, and the done test's determinism item is proven by runs 9 and 10 at cb12ed53 only; changing parity.sh now,
+  without a parity run to re-prove it (this slice may not run parity.sh), would merge a harness no run has proven.
+  Keeping cb12ed53 keeps the proof exact. When it goes in: the strict refusals are judged like the others by
+  refusals.mjs (same request refused in the base build: listed; added by the head build or by a server: fails).
 
 ## Open points
 
@@ -1125,7 +1226,11 @@ shapes; the failing set must equal the expected set exactly):
   brief; it fits B2 (site scope) or check-site-scope. To confirm with ORCH.
 - gate-checks.sh serving real builds (the link folders) and the kept parity build is proven only by a real gate run:
   Q0a's own gate (request 1: three offline site builds, parity skipped since the diff is neutral) and slice 5 (the
-  kept build of a parity run, first with `O1_GATE_KEPT_OFFLINE=1`, then once for real within the budget).
+  kept build of a parity run, first with `O1_GATE_KEPT_OFFLINE=1`, then once for real within the budget). No run
+  has done it yet (review r1 m2). Without request 1, the first real run is F0's next gate after Q0a merges (D-026);
+  a gate-checks failure there that comes from the serving (a server that does not start, a link folder that serves
+  404) is Q0a's harness defect, not an F0 finding, and since slice 12 it shows as a failed check naming the site
+  (D59), never as a pass.
 - A per-site SEO gate for anime and hub (sitemap against noindex, title and self canonical; orphans; hygiene, keyed
   on the registry domain) does not exist: the existing scripts are kpop's and may not be edited. Q0a can write one
   in `apps/quiz/scripts/o1/` if ORCH wants it before launch (an O1 or H1 task otherwise).
@@ -1137,7 +1242,14 @@ shapes; the failing set must equal the expected set exactly):
   `--clean` removes them. The B4 conformance table and a signed-in three-site run wait for B4 and G2.
 - twins.mts finds copies by consecutive normalized lines: a reformat that rewraps lines (prettier at another
   nesting depth) or an edit inside every 8 meaningful lines evades it. R's review (REVIEWER point 9) covers what the
-  check cannot.
+  check cannot. Since slice 12 the script's header says both limits (review r1 m1). Closing the first one means
+  shingles of the normalized token stream across line breaks: a new threshold and a new baseline measured on the
+  base, a later version.
+- (Review r1 m3, deferred, D60) Strict mode for the parity builds and servers: `export O1_FREEZE_STRICT=1` in
+  `run_env` of parity.sh (today only `--serve-kept` and `--check-kept` set it), with a `--run-env-internal` test in
+  `parity-sh.test.mjs` (a POST to a non-local origin answered 403 and logged `strict: not a read` in the build
+  phase). It changes the harness hash, so it goes in with the next parity harness change and an offline
+  determinism pair of that harness.
 - Under the current load (load average 90 to 108) the default 5 s vitest timeout fails 12 tests of 5 files that pass
   with a longer timeout. The gate's `unit` step runs `vitest run` as is (RATCHET LAW: no test edited); if gates go red
   on these timeouts, ORCH can serialize gates against heavy builds or ask the owner. (Slice 10: it happened at 3888ec5, 3 tests

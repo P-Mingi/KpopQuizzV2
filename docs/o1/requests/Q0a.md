@@ -12,7 +12,13 @@
    parity run removes the kept worktrees, their frozen state and kept.json. Why: the kpop check:indexability,
    metadata-dupes, orphans and sitemap-hygiene grade production data (a 600 URL floor, the priority hubs, the live
    catalogue), which only the kept parity build has; without `--keep` they are recorded `pending` with this
-   request named, never as a pass. (Interface final as of slice 3.)
+   request named, never as a pass. (Interface final as of slice 3.) Since slice 12 the kpop half of the leak suite
+   and of check-network-links is recorded the same way (`kpop-leak`, `kpop-network-links`: pending with this
+   request named) when no kpop server exists. With this change, call gate-checks.sh with the same `O1_KPQ` that
+   step 7 passes to parity.sh (`env O1_KPQ="$(parity_kpq)"`, the stand-in KPQ while `docs/o1/PARITY-OFFLINE`
+   exists): gate-checks.sh reads `$KPQ/cache/parity/kept.json`, and `parity.sh --serve-kept` and `--check-kept`
+   source `$KPQ/secrets/kpop-parity.env`, so a different KPQ would find no kept build, or serve one with the other
+   env file (review Q0a r1, note for ORCH).
 3. To ORCH, `scripts/o1/gate.sh`, optional. Build kpop with `NEXT_PUBLIC_BT_TRACKING=1` too: production runs with it
    (`docs/design/growth-v12/run/LAUNCH-REPORT.md` step 2). parity.sh now sets it.
 4. To F0 and B6, through ORCH (contract note). The client wrapper that gives `<Analytics />` its `beforeSend` must
