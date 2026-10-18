@@ -15,10 +15,18 @@
    request named, never as a pass. (Interface final as of slice 3.) Since slice 12 the kpop half of the leak suite
    and of check-network-links is recorded the same way (`kpop-leak`, `kpop-network-links`: pending with this
    request named) when no kpop server exists. With this change, call gate-checks.sh with the same `O1_KPQ` that
-   step 7 passes to parity.sh (`env O1_KPQ="$(parity_kpq)"`, the stand-in KPQ while `docs/o1/PARITY-OFFLINE`
-   exists): gate-checks.sh reads `$KPQ/cache/parity/kept.json`, and `parity.sh --serve-kept` and `--check-kept`
-   source `$KPQ/secrets/kpop-parity.env`, so a different KPQ would find no kept build, or serve one with the other
-   env file (review Q0a r1, note for ORCH).
+   step 7 passes to parity.sh (`env O1_KPQ="$(parity_kpq)"`): gate-checks.sh reads `$KPQ/cache/parity/kept.json`,
+   and `parity.sh --serve-kept` and `--check-kept` source `$KPQ/secrets/kpop-parity.env`, so a different KPQ would
+   find no kept build, or serve one with the other env file (review Q0a r1, note for ORCH).
+   When: only after D-025 ends, that is once ORCH removes `docs/o1/PARITY-OFFLINE` (R has passed Q0c and the first
+   production comparison has run, D-028). Not before (review Q0a r2 m1): while the file exists both parity sides are
+   built against the offline Supabase, kept.json records no mode, and gate-plan.mjs grades any kept build as
+   production data, so on an offline kept build the four kpop SEO lines would fail by construction (a red gate for
+   a harness reason) and leak-content's skip reason would say "production data". Until then those lines,
+   `kpop-leak` and `kpop-network-links` stay pending with this request named, which is the honest record. Do not
+   apply request 11 together with this one before Q0a's r2 M1 fix (slice 15) is in O1. The other way to give the
+   gates an offline kept build (parity.sh writes the mode in kept.json, the plan keeps the kpop SEO lines pending on
+   it and runs the kpop half of the leak suite) is in request 27 (b), ORCH's call.
 3. To ORCH, `scripts/o1/gate.sh`, optional. Build kpop with `NEXT_PUBLIC_BT_TRACKING=1` too: production runs with it
    (`docs/design/growth-v12/run/LAUNCH-REPORT.md` step 2). parity.sh now sets it.
 4. To F0 and B6, through ORCH (contract note). The client wrapper that gives `<Analytics />` its `beforeSend` must
@@ -313,3 +321,22 @@
     turned into a symlink, a live worktree (its `.git` present) and an unregistered folder. The `prep` wiring, on
     the scratch repository with plain git (git.sh refuses paths outside the run): the cut leftover cleared and added
     again, the changed one exit 3 with today's message, a clean live worktree removed and added as today.
+27. To ORCH, for Q0c's brief (`docs/o1/briefs/Q0c.md`; parity.sh and `scripts/o1/parity/**` move to Q0c, D-028 and
+    D-033). Review Q0a r2 m2: Q0a deferred r1 m3 "to the next parity harness change" (D60), and that change is now
+    Q0c's, whose brief does not carry it: Q0c's proxy refuses non-reads to the Supabase origin only, while m3 is about
+    a non-GET to any other origin during the parity builds and servers. Asks:
+    (a) Add to Q0c's deliverables (parity.sh changes): strict mode for the parity builds and servers, one line in
+    `run_env` of `scripts/o1/parity.sh`, `export O1_FREEZE_STRICT=1` (today only `--serve-kept` and `--check-kept`
+    set it), with a `--run-env-internal` test in `scripts/o1/parity/parity-sh.test.mjs`: in the build phase a POST to
+    a non-local origin is answered 403 and logged `strict: not a read`. The strict refusals are then judged like the
+    others by `refusals.mjs` (refused in the base build too: listed; added by the head build or by a server: a
+    failure). It changes the harness hash (cb12ed53 today), so it goes in with Q0c's own offline determinism pair.
+    Why not in Q0a: changing parity.sh now would leave the offline determinism proof (runs 9 and 10 at cb12ed53)
+    proving a harness that is not the one merging, and Q0a may not run parity.sh to re-prove it (D60). The reviewer
+    found no server-side non-GET to another origin reachable at build or on the URL list, so nothing is exposed
+    meanwhile.
+    (b) Optional, ORCH's call (review Q0a r2 m1, second option, and its note on F0's gates): parity.sh writes
+    `"mode": "offline"` or `"production"` in kept.json on `--keep`; then `apps/quiz/scripts/o1/q0a/gate-plan.mjs`
+    (Q0a's) keeps the four kpop SEO lines pending on an offline kept build and runs the kpop half of the leak suite on
+    it, so F0's gates read kpop with the leak suite before D-025 ends. The plan side is a few lines and a test; Q0a
+    does it on request once the field exists. Without (b), request 2 waits for the end of D-025 (its "When" line).

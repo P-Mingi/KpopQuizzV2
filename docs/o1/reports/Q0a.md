@@ -4,8 +4,24 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 14 (tick 5: slice 14 from 10:33 UTC on 2026-10-18, after the gate at bb190c2 stopped with exit 3 before
-any step: "stale `o1-gate-Q0a` has changes"). Status: ready; the gate cannot start until ORCH clears that folder
+Slices: 15 (tick 6: slice 15 from 13:08 UTC on 2026-10-18, fix round 2 of review r2 ARCH, FIX at 7e0451b with 1
+major and 3 minor). Status: ready. Slice 15 started with the checkpoint merge of o1/integration (284b52a: main's PR
+#102, the hardened gate.sh of D-031, ORCH's docs; merge f93238f, no conflict). M1 is fixed: `leak-content` and
+`lane-specs` passed their file filters after `--project <name>`, which Playwright 1.63 reads as more project names,
+so both stopped on every run. Every Playwright vector is now data in the plan, file filters first and
+`--project=<name>` as the last token (D63), and a new unit test lists each vector with the installed Playwright,
+with the r2 vector as a control that must fail. Lane specs now read only the servers they are given, fail when one
+did not start, and a site of the lane they are not given has its own `<site>-lane-specs` line (D64); leak-content
+reads its own plan line (D65). m1: request 2 now says it waits for the end of D-025 (D67). m2: request 27 asks ORCH
+to put strict mode in Q0c's brief (D60 updated, Open points). m3: the count corrected. Review note N1 fixed in the
+same file (D66). Each answer is in "Review r2: findings and answers" below. Green here: tsc 0, the gate's vitest
+command (125 files, 2321 tests), harness tests 110 of 110, gate-selftest 12 of 12 (three new lane spec scenarios,
+which mismatch on the r2 head), the leak self-test 25 of 25 on the merged tree. The parity harness is unchanged
+since 7e0451b (harness hash cb12ed53), so runs 9 and 10 still prove the harness that merges. No build, no parity
+run, no gate run, no production read.
+
+Slice 14 (tick 5, from 10:33 UTC on 2026-10-18, after the gate at bb190c2 stopped with exit 3 before
+any step: "stale `o1-gate-Q0a` has changes"; ORCH cleared it, D-031). Status then: ready; the gate could not start until ORCH cleared that folder
 (request 26 (a), two commands). Slice 14 started with the checkpoint merge of o1/integration (already up to date at
 eb36e4c). The folder is the previous gate's (ee4f7c2) worktree whose removal was cut short at 10:26:31 UTC: no
 `.git` file left, so `git worktree remove` refuses it at every run; its 2226 tracked files are byte-identical to
@@ -43,30 +59,85 @@ D56).
 | 12 | Fix round 1 (review r1 ARCH): M1 (absent and down servers never folded into a green check), m1, m2; m3 deferred (D60) | done |
 | 13 | Gate red at ee4f7c2, unit only (2 base timeouts): paging again, measured (D61), request 25 updated | done |
 | 14 | Gate at bb190c2 stopped in `prep` (exit 3): the previous gate worktree's removal cut short; inspected read only, request 26 (D62) | done |
+| 15 | Fix round 2 (review r2 ARCH): M1 (Playwright vectors in the plan, file filters first; lane specs read only the servers given), m1 (request 2 when), m2 (request 27), m3, N1 | done |
 
-Done test (brief Q0a), state at slice 12:
+Done test (brief Q0a), state at slice 15:
 
 | Item | State | Proof |
 |---|---|---|
 | Two parity runs on the same sha pair: identical outputs, both say identical | green offline (D-025) | runs 9 (`--keep`) and 10 (`--recheck`) of the quiet pair 53f48f9 and 0056679, harness cb12ed53: identical, 60 of 60, both; determinism.txt "deterministic"; result.txt sha256 9d8ee00c... both |
 | A planted visible string change in a kpop page makes parity fail | green offline | run 7 (4c0992c): /about only, by its string (HTML node and Flight row); re-judged with `q0a-g0-v3`: the same rows |
 | Each leak test fails on its planted leak and passes on the base | green | `scripts/o1/leak/selftest.sh` (slice 2, 20 suite and 5 command-line scenarios), `dev-multi-selftest.sh` (slice 5); both run again in slices 9 and 12 |
-| gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins; real builds at the first gate after the merge | `scripts/o1/leak/gate-selftest.sh` (nine scenarios since slice 12, failing and pending sets exact, one log per check); no run has yet served a real `.next-<site>` build from the folder of links or a kept parity build (review r1 m2; D37 found the same link method serves 404 under `next dev`): the first real run is the gate's own (request 1, or F0's next gate after Q0a merges) |
+| gate-checks.sh runs on a gate worktree with the three site builds and writes one log per check | green on stand-ins; real builds at the first gate after the merge | `scripts/o1/leak/gate-selftest.sh` (twelve scenarios since slice 15, three with a lane spec on a stand-in head; failing and pending sets exact, named log lines, one log per check); `gate-argv.test.mjs` lists every Playwright vector of the plan (slice 15); no run has yet served a real `.next-<site>` build from the folder of links or a kept parity build (review r1 m2; D37 found the same link method serves 404 under `next dev`): the first real run is the gate's own (request 1, or F0's next gate after Q0a merges) |
 | dev:multi: three hosts, three separate sessions | green | slice 5: the cookie isolation test on three `next dev` servers, offline |
-| tsc and unit tests green; every production read listed | green when the machine does not page (D56, D61) | slice 13: the gate at ee4f7c2 ran tsc green (126 s) and lost 2 base tests of `unit` to the 5 s timeout; here, the gate's `vitest run` passed 124 files and 2269 tests at 10:29 UTC (run b) and lost 1 to 3 base tests in runs a, c and d; harness tests 102 of 102; no file outside `docs/` changed since ee4f7c2. Slice 12: tsc exit 0 (the gate's command), harness tests 102 of 102; vitest 124 files and 2269 tests with `--maxWorkers=2`, while the gate's default command lost one base test to the 5 s timeout in each of three runs under 15 GB of swap (D56; no file vitest collects changed); the gate at c5131aa: tsc and unit (124 files, 2269 tests) green; production reads: none |
+| tsc and unit tests green; every production read listed | green | slice 15, on the merged tree: tsc exit 0 (the gate's command, 75 s, after removing the worktree's stale `.next/dev/types`, ignored next dev output that named the route PR #102 deleted); the gate's vitest command (`--testTimeout=30000`, D-032) 125 files and 2321 tests pass; harness tests 110 of 110. Slice 13: the gate at ee4f7c2 ran tsc green (126 s) and lost 2 base tests of `unit` to the 5 s timeout; here, the gate's `vitest run` passed 124 files and 2269 tests at 10:29 UTC (run b) and lost 1 to 3 base tests in runs a, c and d; harness tests 102 of 102; no file outside `docs/` changed since ee4f7c2. Slice 12: tsc exit 0 (the gate's command), harness tests 102 of 102; vitest 124 files and 2269 tests with `--maxWorkers=2`, while the gate's default command lost one base test to the 5 s timeout in each of three runs under 15 GB of swap (D56; no file vitest collects changed); the gate at c5131aa: tsc and unit (124 files, 2269 tests) green; production reads: none |
 
 Review r1: findings and answers (review `O1/docs/o1/reviews/Q0a-r1-ARCH.md`, FIX at c5131aa):
 
 | Finding | Answer | Where |
 |---|---|---|
-| M1 (major): with no kpop server (parity ran without --keep, no kpop gate build), the kpop half of the leak suite and of check-network-links skipped inside lines recorded `0` | Fixed. Every site of the lane with no server gets its own `<site>-leak` and `<site>-network-links` lines: pending for kpop when parity ran (request 2), failed for any other missing server, each with the reason and the tests it stands for. `leak` and `network-links` carry `sites`, the servers they read, and each log opens with them. A planned server that did not start now fails `leak` and `network-links` too (the same hole one step later: the suite skipped that site's tests, D59). Unit tests (two new, two extended) and two new gate-selftest scenarios; the self-test also compares the pending set exactly now. Plant proof: the new self-test on c5131aa's harness mismatches on exactly the three scenarios that cover M1 | `gate-plan.mjs` (plan, `LEAK_TESTS`, `WHY.absentHalf`, `WHY.noLinkSite`), `gate-checks.sh` (`sites_line`, `down_note`, `do_links`, `do_leak`, header), `gate-plan.test.mjs`, `leak/gate-selftest.sh`, `leak/planted-server.mjs`; D57 to D59 |
+| M1 (major): with no kpop server (parity ran without --keep, no kpop gate build), the kpop half of the leak suite and of check-network-links skipped inside lines recorded `0` | Fixed. Every site of the lane with no server gets its own `<site>-leak` and `<site>-network-links` lines: pending for kpop when parity ran (request 2), failed for any other missing server, each with the reason and the tests it stands for. `leak` and `network-links` carry `sites`, the servers they read, and each log opens with them. A planned server that did not start now fails `leak` and `network-links` too (the same hole one step later: the suite skipped that site's tests, D59). Unit tests (two new, one extended; "two extended" until slice 15, review r2 m3) and two new gate-selftest scenarios; the self-test also compares the pending set exactly now. Plant proof: the new self-test on c5131aa's harness mismatches on exactly the three scenarios that cover M1 | `gate-plan.mjs` (plan, `LEAK_TESTS`, `WHY.absentHalf`, `WHY.noLinkSite`), `gate-checks.sh` (`sites_line`, `down_note`, `do_links`, `do_leak`, header), `gate-plan.test.mjs`, `leak/gate-selftest.sh`, `leak/planted-server.mjs`; D57 to D59 |
 | m1 (minor): twins.mts's header claimed reformatted copies fail and named one limit only | Fixed. The header names both limits: an edit inside every 8 meaningful lines, and a copy whose line breaks are moved (the reviewer's 14 lines of panel.tsx with every two lines joined), says UX and ARCH reviewers keep reading imports and markup, and names the later fix (shingles of the normalized token stream across line breaks, with a new threshold and baseline). The detection itself is unchanged in this round: a new threshold needs a new base measurement, and F0's next gate runs this script | `apps/quiz/scripts/o1/twins.mts` header |
 | m2 (minor): the Progress line said every done-test item is green offline while gate-checks.sh is green on stand-ins only | Fixed. The Progress block and the done-test row say "green on stand-ins; real builds at the first gate after the merge", and why (no run has served a real `.next-<site>` from the folder of links; D37) | this block, row 4 of "Done test" |
 | m3 (minor): strict mode (any non-GET to any non-local origin refused) only for --serve-kept and --check-kept, not for the parity builds and servers | Deferred, not refused (D60). It is one line in `run_env` of parity.sh, and parity.sh is part of the harness hash (cb12ed53): changing it now would leave the offline determinism proof (runs 9 and 10) proving a harness that is not the one merging, and this slice may not run parity.sh to re-prove it. The reviewer found no server-side non-GET to another origin reachable at build or on the list, so nothing is exposed meanwhile. It goes in with the next parity harness change, re-proved by an offline determinism pair (Open points) | Open points |
 
-Notes for ORCH in the review (not findings): request 1 still decides whether Q0a's own re-gate serves real builds;
+Review r2: findings and answers (review `O1/docs/o1/reviews/Q0a-r2-ARCH.md`, FIX at 7e0451b):
+
+| Finding | Answer | Where |
+|---|---|---|
+| M1 (major): `do_leak` and `do_specs` wrote `--project <name> <files>`; Playwright 1.63's `--project` takes several names, so `leak-content` and `lane-specs` stopped with `Project(s) "<file>" not found` on every run; a lane spec that skips on a missing URL would then pass for a dead server | Fixed. The plan builds every Playwright vector (`pwArgs`: files first, then `-c playwright.o1.config.ts --project=<name>` as the last token) and gate-checks.sh runs `playwright test` with that vector only (D63). `gate-argv.test.mjs` lists each vector with the installed Playwright (`--list --reporter=json`): leak (7 files), leak on the kept build (6, no content leak), leak-content (the content leak alone), lane-specs on a stand-in head with the same config (exactly the listed specs, project lanes); the r2 vector is a control that must fail; with the old order planted, 2 of its 5 tests fail (leak-content and lane-specs). `do_specs` gets D59: `sites` from the plan, `sites read` first, a FAILED line and rc 1 for a given server that did not start; a site of the lane not given to the specs has its own `<site>-lane-specs` line (D64). Three gate-selftest scenarios with a present lane spec (green on three servers; failing with a dead hub; pending kpop half when parity ran), named log lines checked; on a copy of the r2 head the three mismatch and the nine older ones pass | `gate-plan.mjs` (`pwArgs`, `pw`, lane-specs `sites`, `<site>-lane-specs`, leak-content `sites` and `require`), `gate-checks.sh` (`pjc`, `pw_of`, `planned_of`, `do_leak`, `do_specs`, header), `gate-argv.test.mjs` (new), `gate-plan.test.mjs` (two new tests), `leak/gate-selftest.sh`; D63 to D65 |
+| m1 (minor): request 2's note, applied during D-025, keeps an offline build that the plan grades as production: four kpop SEO lines red by construction | Fixed in request 2: a "When" line, only after D-025 ends (ORCH removes `docs/o1/PARITY-OFFLINE` after R passes Q0c and the first production comparison), with the reason, and not together with request 11 before this slice is in O1. The second option (parity.sh writes the mode in kept.json, the plan grades an offline kept build and runs the kpop half of the leak suite) is request 27 (b), ORCH's call (D67) | `docs/o1/requests/Q0a.md` items 2 and 27 (b); Open points |
+| m2 (minor): "it goes in with the next parity harness change": that change is Q0c's, and Q0c's brief does not carry it | Fixed. Request 27 (a) to ORCH: add strict mode for the parity builds and servers (`export O1_FREEZE_STRICT=1` in `run_env`, with its `--run-env-internal` test in `parity-sh.test.mjs`) to Q0c's deliverables, with Q0c's own determinism pair; the Open point and D60 name Q0c | `docs/o1/requests/Q0a.md` item 27 (a); D60; Open points |
+| m3 (minor): "Unit tests (two new, two extended)": one test was extended | Fixed: "two new, one extended" in the r1 answers above, marked as corrected in slice 15 | r1 table, row M1 |
+| N1 (note): parity ran, no kept build, a kpop gate build: the kpop SEO lines skipped with a false reason | Fixed in this slice (the file was open): pending with request 2's reason; a given kpop server over a kept build says so (D66). A unit test covers both | `gate-plan.mjs`, `gate-plan.test.mjs` |
+
+Other notes of r2: "do not add `specs` to a lane, and do not apply requests 2 and 11 together, before M1 is fixed":
+both are fixed by this slice once it merges; request 2 now also waits for D-025's end. Copying the pending names into
+summary.json is gate.sh's (ORCH's); site-checks.log's last line and `checks/checks.tsv` list them.
+
+Notes for ORCH in the review r1 (not findings): request 1 still decides whether Q0a's own re-gate serves real builds;
 otherwise a gate-checks failure in F0's first gate after the merge is a harness defect for Q0a (agreed here: Q0a
 takes it as its own). The `O1_KPQ` note for request 2 is added to request 2 in `docs/o1/requests/Q0a.md`.
+
+Done in slice 15 (tick 6, fix round 2 of review r2):
+- Checkpoint merge of o1/integration 284b52a (f93238f). Outside `docs/` it brought main's PR #102
+  (`lib/route-allowlist.ts`, the middleware, `lib/seo/legacy-urls.ts`, `next.config.ts`, the deleted
+  `tier-list/l/[slug]` route) and ORCH's scripts (gate.sh, merge-lane.sh, new-lane.sh, nightly.sh, lane.exclude);
+  nothing of the lane's paths. The route leak fallback reads `lib/route-allowlist.ts`, so both self-tests ran again on
+  the merged tree.
+- M1, m1, m2, m3 and N1 as in the table above. The code (commit 0ed07a9): `apps/quiz/scripts/o1/q0a/gate-plan.mjs`,
+  `scripts/o1/gate-checks.sh`, `scripts/o1/leak/gate-selftest.sh`, `apps/quiz/scripts/o1/q0a/gate-plan.test.mjs`
+  (two tests added, none changed), `apps/quiz/scripts/o1/q0a/gate-argv.test.mjs` (new, five tests). Requests 2 and
+  27 in `docs/o1/requests/Q0a.md`.
+- No file of the parity harness, the leak suite, its helpers or `playwright.o1.config.ts` changed (`git diff 7e0451b`
+  over them: empty), so the leak self-test proves the same suite as in slices 2, 9 and 12.
+
+Tested how (slice 15):
+- `node --test --test-timeout=60000` of the harness tests: 110 of 110 (102 before, plus 3 in gate-plan.test.mjs and 5
+  in gate-argv.test.mjs), 13:40 UTC.
+- The plant of the old vector order in `pwArgs` (the r2 order, in place for one run, then the file restored and
+  compared byte for byte): gate-argv.test.mjs 3 of 5, the two failing being exactly the leak-content and lane-specs
+  vectors; the control test passes in both runs.
+- `scripts/o1/leak/gate-selftest.sh --ports 3106,3107,3108`, 13:22:50 to 13:28:27 UTC: 12 of 12 as expected, VERDICT
+  "gate-checks.sh fails exactly on the planted failures and writes one log per check". Two earlier runs were mine to
+  fix: one with TMPDIR in the scratchpad (tsx's IPC socket path is too long there, as COMMON warns; stopped), one
+  where the self-test's own log-line separator (`;`) also appeared in a regex (the harness was right: the logs held
+  the lines; separator now `@@`).
+- Plant proof of the self-test: the same gate-selftest.sh on a git copy of 7e0451b (git archive, node_modules
+  linked, nothing else changed), 13:30:43 to 13:34:22 UTC: the nine older scenarios ok, the three new ones mismatch
+  (lane-specs failing on `Project(s) "e2e/o1/Q0a/home.o1.ts" not found`, no `sites read` line, no
+  `kpop-lane-specs`).
+- `scripts/o1/leak/selftest.sh --ports 3106,3107,3108` on the merged tree, 13:34:33 to 13:39:35 UTC: 20 suite and 5
+  command line scenarios as expected, VERDICT "every leak test fails on its planted leak and passes on the clean
+  pages".
+- tsc with the gate's command: exit 0 (75 s, 13:24 UTC). The first run failed on
+  `.next/dev/types/validator.ts` of this worktree (next dev output of an earlier slice, ignored by git) naming the
+  `tier-list/l/[slug]` route that PR #102 deleted; removing `apps/quiz/.next/dev/types` (regenerated by next dev) made
+  it green. A gate worktree has no such folder.
+- The gate's vitest command (`vitest run --testTimeout=30000`, D-032), 13:39 UTC, load 22: 125 files, 2321 tests pass.
+- Under macOS `/bin/bash` 3.2 (the shebang, and the PATH bash of the self-tests): the new array constructs with
+  `set -u`, empty and non-empty.
+- No build, no parity run, no gate run, no production read.
 
 Done in slice 14 (tick 5, after the gate at bb190c2 stopped in `prep`, evidence `O1/docs/o1/evidence/Q0a/bb190c2.../`:
 `changed.txt` and an empty `steps.tsv` only):
@@ -660,6 +731,7 @@ rc, seconds; rc `skipped` and `pending` are not failures, each log says why), ex
 | kpop-metadata-dupes, kpop-orphans, kpop-sitemap-hygiene | kept parity head build; script offline | harness |
 | the four kpop ones, no parity | skipped: kpop unchanged, and an offline or dev build fails them by construction | |
 | the four kpop ones, parity without --keep | pending (request 2) | |
+| the four kpop ones, parity ran and the kpop server is a gate build (request 11 without request 2; slice 15, review r2 N1) | pending (request 2), never the "gate.sh ran no parity" skip | |
 | anime-metadata-dupes, hub-metadata-dupes | the gate build of a wired site with a sitemap.xml route; skipped unwired or without the route; failed when the wiring is required (base or head next.config.ts has rewritesFor) or the base had the route | harness |
 | anime and hub indexability, orphans, sitemap-hygiene | skipped: kpopquiz.org and the kpop catalogue are hardcoded | |
 | network-links | every served site (an unwired anime or hub left out), parity list plus 200 sitemap paths; skipped when no served site is left (D58); fails when a planned server did not start (D59) | harness |
@@ -667,8 +739,19 @@ rc, seconds; rc `skipped` and `pending` are not failures, each log says why), ex
 | kpop-leak, kpop-network-links | only when the lane has kpop and no kpop server: pending when parity ran without --keep (request 2), else failed (D57) | |
 | anime-leak, anime-network-links, hub-leak, hub-network-links | only when the lane has that site and no server for it: failed (D57) | |
 | kpop-refused-writes | the kept build's freeze logs, phase `gate-*`: reads frozen and live, any refused write fails | |
-| leak-content | phase B, the dev kpop gate build (request 11); skipped without it | harness |
-| lane-specs | lanes.json `specs` (`*.o1.ts`), project `lanes` of the head's config; gate builds only, never the kept parity build | head |
+| leak-content | phase B, the dev kpop gate build (request 11); skipped without it; its own `sites` and `require` (those of `leak`, kpop being the dev build), fails when one did not start | harness |
+| lane-specs | lanes.json `specs` (`*.o1.ts`), project `lanes` of the head's config, on the sites the plan gives them (`sites`: the gate builds of its phase, never a kpop server with production data); fails when one of them did not start (slice 15, review r2 M1); skipped when the lane has sites and none is given | head |
+| kpop-lane-specs, anime-lane-specs, hub-lane-specs | only when the lane lists specs and a site of the lane is not given to them: kpop pending when parity ran (the kept parity build without a dev kpop build: request 11; no kpop server: request 2), skipped for a given kpop server with production data and no parity, else failed (slice 15) | |
+
+Playwright arguments (slice 15, review r2 M1): every Playwright check of the plan carries its vector `pw`, the
+arguments after `playwright test`, and gate-checks.sh runs exactly that: file filters first, then
+`-c playwright.o1.config.ts --project=<name>` (one token, last). `leak`: `--project=leak` (with
+`--grep-invert 'content-leak\.o1\.ts'` on the kept parity build); `leak-content`: `leak/content-leak.o1.ts
+--project=leak`; `lane-specs`: the lane's files relative to apps/quiz, `--project=lanes`. Before slice 15 the shell
+wrote `--project <name> <files>`, and Playwright 1.63's `--project` takes several names, so `leak-content` and
+`lane-specs` stopped with `Project(s) "<file>" not found` on every run. `gate-argv.test.mjs` lists each vector of the
+plan with the installed Playwright (`--list --reporter=json`, no browser) and checks the files and the project, with
+the r2 vector as a control that must fail.
 
 Serving: gate builds from per-site folders in a temporary directory, each a link to every entry of the worktree's
 `apps/quiz` except `.next*`, plus `.next` linked to `.next-<site>`; `next start` on 127.0.0.1, ports 4021 4022 4023
@@ -693,6 +776,15 @@ exactly, KPQ is an empty folder of the output and the ports are the lane's):
 | no-hub-server | no hub server and no hub build | hub-metadata-dupes, hub-leak, hub-network-links (slice 12; before: hub-metadata-dupes only) | none | 1 |
 | no-kpop-server-parity-ran (slice 12) | a parity.json in the evidence folder, no kpop server, no kept build | none | the four kpop SEO lines, kpop-leak, kpop-network-links | 0 |
 | hub-server-down (slice 12) | a stand-in worktree whose only build, `.next-hub`, cannot start (no node_modules) | network-links, leak (each log: "planned but not started: hub") | none | 1 |
+| lane-spec-present (slice 15) | a stand-in worktree with the head's `playwright.o1.config.ts`, the installed node_modules and one lane spec (`e2e/o1/Q0a/home.o1.ts`: each site given answers `/`, a site with no URL skips), listed in lanes.json; three given servers | none (log: `sites read: kpop anime hub`, `3 passed`) | none | 0 |
+| lane-spec-server-down (slice 15) | the same, plus a `.next-hub` that cannot start, no hub stand-in | network-links, leak, lane-specs (log: `planned but not started: hub`, `2 passed`, then the FAILED line) | none | 1 |
+| lane-spec-no-kpop-parity-ran (slice 15) | the same with a parity.json and no kpop server | none (log: `sites read: anime hub`, `2 passed`) | the four kpop SEO lines, kpop-leak, kpop-network-links, kpop-lane-specs | 0 |
+
+Since slice 15 a scenario may also name lines its check logs must hold (`check~regex`), so a line that passes for
+the wrong reason (a spec that skipped) is told from one that read its servers. Plant proof of slice 15: the same
+self-test on a copy of the r2 head 7e0451b (git archive, the slice 15 gate-selftest.sh copied in, nothing else):
+the nine older scenarios as expected, the three new ones mismatch, lane-specs failing on `Project(s)
+"e2e/o1/Q0a/home.o1.ts" not found` with no `sites read` line and no `kpop-lane-specs`.
 
 ## Twins check
 
@@ -1267,6 +1359,9 @@ shapes; the failing set must equal the expected set exactly):
   without a parity run to re-prove it (this slice may not run parity.sh), would merge a harness no run has proven.
   Keeping cb12ed53 keeps the proof exact. When it goes in: the strict refusals are judged like the others by
   refusals.mjs (same request refused in the base build: listed; added by the head build or by a server: fails).
+  Slice 15 (review r2 m2): "the next parity harness change" is Q0c's now (parity.sh and `scripts/o1/parity/**` move
+  to Q0c, D-028 and D-033), and Q0c's brief does not carry it (its proxy refuses non-reads to the Supabase origin
+  only). Request 27 (a) asks ORCH to add it to Q0c's deliverables, with its test and Q0c's own determinism pair.
 - D61 The third unit red (ee4f7c2) is read as D56 reads the second, and Q0a returns ready once more. Three gates of
   this lane, three reds on `unit` alone, each by base timeouts that move between files, with tsc at 139, 231 and
   126 s; F0's and DUMMY's gates passed `unit` with tsc at 30 and 36 s. The lane cannot make it green by itself
@@ -1279,6 +1374,38 @@ shapes; the failing set must equal the expected set exactly):
   not name this cause, the lane's own work is unchanged and green as in slice 13, and the next step is the gate
   step's, after request 26 (a). Without (a) a re-gate stops in `prep` again in seconds (no build starts), so the
   cost of a premature re-gate is small.
+- D63 The Playwright vector of each check is data in the plan (`pw`), not text in the shell (review r2 M1). The
+  defect sat in an argument vector no test could see: two shell lines put file filters after `--project <name>`,
+  and Playwright 1.63 reads every word after it as a project name. Fixing the two lines alone would leave the next
+  such slip as invisible, so the plan builds every vector once (`pwArgs`: file filters first, then
+  `-c playwright.o1.config.ts --project=<name>` as one last token), gate-checks.sh runs `playwright test` with that
+  vector and nothing else, and `gate-argv.test.mjs` lists each vector with the installed Playwright (`--list
+  --reporter=json`: the files and the project, no browser, a second each) on the repo's config, and the lane vector
+  on a stand-in head that holds the same config. The r2 vector is a control in the same file and must fail, and the
+  file fails on the old order (planted in slice 15: 2 of its 5 tests red, exactly the leak-content and lane-specs
+  vectors). It runs in `harness-unit` on every gate.
+- D64 Lane specs read only the servers they are given, and a site of the lane they are not given has its own line
+  (r2 M1's second half, D57 and D59 applied to lane specs). A spec skips a site it has no URL for, so a green
+  `lane-specs` could stand for a dead server or a site never served. Now the plan gives `lane-specs` its `sites` (the
+  gate builds of its phase; never a kpop server with production data), gate-checks.sh writes `sites read` first and
+  fails the line when one of them did not start, and each site of the lane outside `sites` gets
+  `<site>-lane-specs`: pending for kpop when parity ran (the kept parity build without a dev kpop build is request
+  11, no kpop server at all is request 2), skipped for a given kpop server with production data when no parity ran
+  (a person's or a test's override), failed for any other missing server. When the lane has sites and none is given,
+  `lane-specs` is skipped with that reason (D58: never a run on nothing); a lane with no site runs its specs as
+  before. The reason, which went to site-checks.log only, now opens the check's own log. The `kpopUrl` field stays
+  (it equals `sites` holding kpop), so the plan's readers and tests keep their meaning.
+- D65 leak-content reads its own plan line: `sites` and `require` are those of `leak` (kpop being the dev gate build
+  in phase B), and the vector names `leak/content-leak.o1.ts`. Before, do_leak read the `leak` line's lists for both;
+  the values are the same today, the coupling is gone.
+- D66 Review r2 N1 fixed in this slice, since the file was open: when parity ran and the kpop server is a gate build
+  (request 11 applied without request 2, or a given kpop gate server), the four kpop SEO lines are pending with
+  request 2's reason, not skipped with "gate.sh ran no parity", which was false there. A given kpop server over a
+  kept build says so in its reason. Pending stays limited to kpop with parity ran.
+- D67 Review r2 m1 answered by the wording of request 2, not by code. The second option (parity.sh writes the mode
+  in kept.json, the plan grades an offline kept build) needs a parity.sh change, which would move the harness hash
+  away from the one runs 9 and 10 prove, and parity.sh moves to Q0c (D-028, D-033); request 27 (b) offers it to
+  ORCH with the plan side as a small Q0a follow-up. Request 2 now says when: after D-025 ends.
 
 ## Open points
 
@@ -1347,7 +1474,13 @@ shapes; the failing set must equal the expected set exactly):
   `run_env` of parity.sh (today only `--serve-kept` and `--check-kept` set it), with a `--run-env-internal` test in
   `parity-sh.test.mjs` (a POST to a non-local origin answered 403 and logged `strict: not a read` in the build
   phase). It changes the harness hash, so it goes in with the next parity harness change and an offline
-  determinism pair of that harness.
+  determinism pair of that harness. That change is Q0c's (D-028, D-033): request 27 (a) asks ORCH to put it in
+  Q0c's brief (review r2 m2); Q0c carries it from there, not Q0a.
+- (Review r2 m1) Request 2 (`--keep`) waits for the end of D-025: an offline kept build would be graded as
+  production data (kept.json records no mode). Until then the kpop SEO lines and the kpop halves of the leak suite,
+  of check-network-links and of the lane specs are pending on every gate whose diff reaches kpop, F0's included;
+  parity's 60 URLs still judge kpop. Request 27 (b), ORCH's call, is the way to read kpop with the leak suite before
+  then.
 - Under the current load (load average 90 to 108) the default 5 s vitest timeout fails 12 tests of 5 files that pass
   with a longer timeout. The gate's `unit` step runs `vitest run` as is (RATCHET LAW: no test edited); if gates go red
   on these timeouts, ORCH can serialize gates against heavy builds or ask the owner. (Slice 10: it happened at 3888ec5, 3 tests
