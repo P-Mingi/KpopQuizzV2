@@ -1,0 +1,41 @@
+NOT deterministic: result.txt differs from the previous run
+38,39c38,75
+< IDENTICAL /fr/blind-test-kpop status 200/200 css 3
+< IDENTICAL /es/adivina-la-cancion-kpop status 200/200 css 3
+---
+> DIFFERENT /fr/blind-test-kpop status 200/200
+>   node 269
+>     A: Toutes les playlists</a>
+>     B: Toutes les playlists<!-- -->
+>   node 270
+>     A: </div>
+>     B: </a>
+>   node 271
+>     A: <div id="g3-th" class="ux-thrail">
+>     B: </div>
+>   node 272
+>     A: <a class="ux-thm" href="/blindtest/4th-gen">
+>     B: <div id="g3-th" class="ux-thrail">
+>   node 273
+>     A: <span class="ux-thm-cv ux-th-gen4">
+>     B: <a class="ux-thm" href="/blindtest/4th-gen">
+>   node 274
+>     A: <span class="ux-eq" aria-hidden="true">
+>     B: <span class="ux-thm-cv ux-th-gen4">
+> DIFFERENT /es/adivina-la-cancion-kpop status 200/200
+>   node 269
+>     A: Todas las listas<!-- -->
+>     B: Todas las listas</a>
+>   node 270
+>     A: </a>
+>     B: </div>
+>   node 271
+>     A: </div>
+>     B: <div id="g3-th" class="ux-thrail">
+>   node 272
+>     A: <div id="g3-th" class="ux-thrail">
+>     B: <a class="ux-thm" href="/blindtest/4th-gen">
+>   node 273
+>     A: <a class="ux-thm" href="/blindtest/4th-gen">
+>     B: <span class="ux-thm-cv ux-th-gen4">
+>   node 274

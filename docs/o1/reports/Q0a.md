@@ -4,8 +4,10 @@ Brief: `O1/docs/o1/briefs/Q0a.md`. Worktree `ROOT/.claude/worktrees/o1-Q0a`, bra
 
 ## Progress
 
-Slices: 6 done; slice 7 (tick 4, 2026-10-17, from 22:12 UTC) done in part. Slice 7 started with the checkpoint
-merge of o1/integration (CR-008, CR-009, D-024, D-025, `docs/o1/PARITY-OFFLINE`).
+Slices: 8 (tick 4: slice 7 from 22:12 UTC on 2026-10-17, slice 8 from 23:55 UTC). Slice 7 started with the
+checkpoint merge of o1/integration (CR-008, CR-009, D-024, D-025, `docs/o1/PARITY-OFFLINE`); slice 8's checkpoint
+merge found nothing new (o1/integration d77a26f already merged). Status: blocked on request 24 (a normalisation, G0,
+ORCH's ruling): every other item of the done test is green offline.
 
 | # | Slice | State |
 |---|---|---|
@@ -15,7 +17,47 @@ merge of o1/integration (CR-008, CR-009, D-024, D-025, `docs/o1/PARITY-OFFLINE`)
 | 4 | `twins.mts` (rule 18, deliverable 5) with its self-test and base baseline; dev-multi feasibility probe | done |
 | 5 | twins.mts on F0's real contract; `dev-multi.sh` (mirrors) and the cookie isolation test, with its plant proof | done |
 | 6 | Offline parity rehearsal: two builds never compared equal (request 21) | done |
-| 7 | N3, N4 (CR-008), css-content (CR-009), one build and serving path, offline proof runs | in part: see "Left" |
+| 7 | N3, N4 (CR-008), css-content (CR-009), one build and serving path, offline proof runs | done |
+| 8 | Request 23 fixed at its source (D52), harness version in the cache key (D53), offline proof runs 5 to 8 | done; determinism waits for request 24 |
+
+Done in slice 8 (tick 4; section "Parity proof offline (slice 8)" below):
+- Request 23 fixed at its source, no new rule (D52): the boundary that raced was Next's own metadata boundary of a
+  page rendered at request time. parity.sh now records both sides (base, then head) with `replay.mjs` and one header,
+  `RECORD_UA`, which Next 16 matches as an HTML-limited crawler, so that metadata renders blocking in the head; the
+  two records answer as side A and side B. The four request-time pages of the list (/quizzes, /blindtest/group-bts,
+  and the offline 404 and 500 pages) now carry no Suspense boundary at all; the 30 prerendered pages read the same
+  bytes as before (109 of the 120 page files of run 5 equal run 2's, read with the old header; the others are the 4
+  request-time pages on both sides, the home page's build date, and /pt's row order).
+- parity.sh's cache key carries the harness version (D53; `harness` in parity.json).
+- Offline proof runs 5 to 8 with the final harness (36ff658c), stand-in KPQ, no production read, evidence in
+  `apps/quiz/e2e/o1/parity/offline-2026-10-18/run5-*` to `run8-*`:
+  run 5 (quiet pair, `--keep`): identical, 60 of 60, result.txt byte-identical to slice 7's runs 1 and 2 (sha256
+  632bc946...); run 6 (`--recheck` of that pair): 58 of 60, determinism.txt NOT deterministic: /fr/blind-test-kpop
+  and /es/adivina-la-cancion-kpop by one React text separator `<!-- -->` each, swapped between the two pages by
+  run 6's base build (request 24); run 7 (the string plant alone, 4c0992c): exactly /about DIFFERENT, by its string
+  in the HTML node and in its Flight row, 59 identical; run 8 (the CSS plant alone, 90550f1): exactly the 32 pages
+  that link stylesheets DIFFERENT, every one by css-content only (rule 720 of the first chunk sheet, `--txt1:#1a1714`
+  against `#1a1715`), 28 identical. The request-time pages were identical in all four runs.
+- Request 23 updated (fixed at its source, withdrawn unless a new case appears); request 24 new (N6 text-separators).
+
+Left: request 24. Once ORCH rules (a), N6 goes into compare.mjs with tests, and one `--keep` run plus one `--recheck`
+of the quiet pair close the determinism item (about 40 minutes, offline). If ORCH rules (b), the item stays as it is
+and the report says which builds swap.
+
+Tested how (slice 8):
+- `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
+  `apps/quiz/scripts/o1/*.test.mjs`): 96 of 96 pass (new: the record header is the one header of every read; the
+  installed Next gives it blocking metadata and the html bot type, and streams for the three earlier headers;
+  next.config.ts sets neither htmlLimitedBots nor PPR).
+- `next dev` offline on 3106, the same pages read with flag-off-diff's header and with `RECORD_UA`:
+  /bts-name-all-members 1 Suspense boundary and 0, /about 2 and 0, the title in the head both ways.
+- The four parity runs above (table "Builds and parity runs", rows 7 to 10), and the cross-run checks: the request-time
+  and prerendered pages of run 5's records, run 5's page files against run 2's, and the separator count of every
+  page in the 14 builds of slices 7 and 8 (only the two pages of request 24 vary).
+- `bash -n scripts/o1/parity.sh`. `tsc --noEmit` in apps/quiz: exit 0. `vitest run` in apps/quiz: first run 4 files
+  with 5 tests timed out at 5 s (source scans, under load average 20 to 30 while other lanes built); those four files
+  alone passed (67 tests), and the full suite run again passed: 124 files, 2269 tests. No test edited.
+- No production read. Builds: only inside parity.sh under the build lock (offline, D-025: not counted in D-005).
 
 Done in slice 7 (tick 4; section "Parity proof offline (slice 7)" below):
 - `scripts/o1/parity/compare.mjs` (rules `q0a-g0-v2`): N3 flight-ids and N4 flight-rows exactly as CR-008 (D47), and
@@ -43,11 +85,7 @@ Done in slice 7 (tick 4; section "Parity proof offline (slice 7)" below):
 - Requests 20 and 21 marked answered (CR-009, CR-008). New: 22 (orphaned parity servers until this merges) and 23
   (a CR for Suspense boundaries streamed on one side only).
 
-Left (next slice, after 01:00 UTC: parity.sh refuses 00:00 to 01:00):
-- The script's own determinism proof with the final render: one `--keep` run and one `--recheck` of a quiet pair,
-  `determinism.txt` saying deterministic (runs 1 and 2 show it for the verdicts; D51 changed only the render).
-- A ruling on request 23 (Suspense boundaries that settle before or after the shell flush, seen once in four reads
-  on an offline 500 page); then the quiet pair's "both identical" holds on every read, not only on most.
+Left after slice 7 (done in slice 8): the determinism proof with the final render, and request 23.
 
 Tested how (slice 7):
 - `node --test` of the harness tests (`scripts/o1/parity/*.test.mjs`, `apps/quiz/scripts/o1/q0a/*.test.mjs`,
@@ -292,7 +330,7 @@ placeholders fail the twins check, 17 check.sh merge order and evidence, 18 a de
 measured against F0's contract, 18 no longer blocking, 19 B4's `__Host-` fallback helper for the conformance table;
 slice 6: 20 a CR to compare stylesheet contents, 21 the CR on the Flight client ids and row order; slice 7: 20 and 21
 answered and done, 22 the orphaned parity servers until Q0a merges, 23 a CR for Suspense boundaries streamed on one
-side only).
+side only; slice 8: 23 fixed at its source and withdrawn, 24 a CR for React's text separators, N6).
 
 SQL files: none (the lane writes no SQL).
 
@@ -309,6 +347,10 @@ offline runs do not count). Every run below was offline: `O1_KPQ=<scratchpad sta
 | 4 | 2026-10-17 22:57:31 to 23:29:32 | run 2: `parity.sh 53f48f9 0056679 --recheck` (waited 13 min for the gate's F0 parity run) | identical, 60 of 60; exit 1 on the byte check of result.txt, one label (D51) |
 | 5 | 2026-10-17 23:36:41 to 23:44:46 | run 3: `parity.sh 53f48f9 803c535` (both plants; after the gate's spike parity) | exit 1: 32 of 60 DIFFERENT, all by a plant |
 | 6 | 2026-10-17 23:44:46 to 23:52:40 | run 4: `parity.sh 53f48f9 90550f1` (CSS plant alone) | exit 1: 33 of 60 DIFFERENT, 32 css-content, 1 Suspense timing |
+| 7 | 2026-10-18 01:00:39 to 01:20:09 | run 5: `parity.sh 53f48f9 0056679 --keep` (harness 36ff658c, both sides recorded) | exit 0: identical, 60 of 60 |
+| 8 | 2026-10-18 01:20:09 to 01:28:42 | run 6: `parity.sh 53f48f9 0056679 --recheck` | exit 1: 58 of 60, not deterministic: 2 pages by a text separator (request 24) |
+| 9 | 2026-10-18 01:28:42 to 01:35:02 | run 7: `parity.sh 53f48f9 4c0992c` (string plant alone) | exit 1: /about only, by its string |
+| 10 | 2026-10-18 01:35:02 to 01:43:33 | run 8: `parity.sh 53f48f9 90550f1` (CSS plant alone) | exit 1: the 32 pages that link stylesheets, css-content only |
 (Slice 4's two dev probes and slice 5's dev-multi runs were `next dev` with `scripts/o1/env.sh offline`, not builds.)
 
 Production reads made by this lane: none (every run's Supabase was 127.0.0.1:9; flag-off-diff, compare.mjs and
@@ -535,6 +577,32 @@ worktree untouched): 0056679 quiet (a comment in `components/layout/theme-init.t
 Every run: 2 refused writes, `rpc ensure_daily_debate` from each build's prerender, listed (base and head alike);
 none while the list was read. 32 pages had their stylesheets compared (3 each: two chunk sheets and the UX sheet);
 the 500, redirect and text pages link none.
+
+## Parity proof offline (slice 8)
+
+The same stand-in KPQ (Supabase 127.0.0.1:9), base and heads as slice 7; the harness of 039a8de (version 36ff658c):
+both sides served at `o1-parity-build` one after the other and each recorded by `replay.mjs` with `RECORD_UA` (D52),
+flag-off-diff and compare.mjs reading the two records.
+
+| Run | Pair | Verdict |
+|---|---|---|
+| 5 | quiet, `--keep` | identical, 60 of 60; result.txt byte-identical to slice 7's runs 1 and 2 (sha256 632bc946...) |
+| 6 | quiet, `--recheck` (data state replayed, both rebuilt) | 58 of 60: /fr/blind-test-kpop and /es/adivina-la-cancion-kpop by one `<!-- -->` each (request 24); determinism.txt NOT deterministic |
+| 7 | string plant alone (4c0992c) | /about only: `Made by fans, for fans` against `for every fan`, in the HTML node and in its Flight row |
+| 8 | CSS plant alone (90550f1) | the 32 pages that link stylesheets, each by css-content only (rule 720 of the first chunk sheet); 28 identical |
+
+Every run: 2 refused writes, `rpc ensure_daily_debate` from each build's prerender (base and head alike), none while
+the list was read; parity.json counts 0 live and 0 frozen reads (offline).
+What the records show (run 5): 30 HTML pages are prerendered (they keep the streamed-metadata wrapper from the build
+cache, with 2, 3 or 5 boundaries, all resolved: Next generates them with `allReady`), and 4 are rendered at request
+time (/quizzes and /blindtest/group-bts, 200; /which-bts-member-are-you, 404 offline; /bts-name-all-members, 500
+offline), each now with no boundary at all; 21 pages answer a plain-text 500 offline. Run 5's page files against
+run 2's (same base, old header): 109 of 120 byte-identical after flag-off-diff's normalisation; the 11 others are the
+4 request-time pages on both sides (the metadata now in the head), the home page on both sides (its date is baked at
+build time: 2026-10-17 in run 2, 2026-10-18 in run 5) and /pt on one side (Flight row order, N4).
+The text separators of request 24, over the 14 builds of slices 7 and 8: every page has the same count in every build
+except /fr/blind-test-kpop (5 in 13 builds, 4 in run 6's base build) and /es/adivina-la-cancion-kpop (4 in 13, 5 in
+that build); none occurs in the page data.
 
 ## Leak suite
 
@@ -803,6 +871,31 @@ shapes; the failing set must equal the expected set exactly):
   same order on run 2's, so run 1 listed `analytics-ref,flight-rows` for it and run 2 nothing, and the byte check of
   `--recheck` failed. What a page needed on one request is not a property of the sha pair; its verdict is. The
   `--recheck` byte check stays as it was (my own v2 check, never weakened): it now compares what must not move.
+- D52 Request 23 fixed at its source, with no new rule. The boundary that raced is Next's own: "Next.Metadata", a
+  Suspense boundary in a `<div hidden>` at the top of the body (`next/dist/lib/metadata/metadata.js`). Next 16 streams
+  the metadata of a page rendered at request time to every user agent except an HTML-limited crawler; on the offline
+  500 pages (rendered at request time) it resolved before the shell flush on one read and after it on the other.
+  Prerendered pages never race: Next generates them with `allReady` (`generateStaticHTML`), whatever the timing.
+  parity.sh now records both sides, the base and then the head, with replay.mjs and one header, `RECORD_UA`, which
+  Next matches as an HTML-limited bot ("Slurp"): a request-time page then gets its metadata blocking in the head, as
+  Bingbot, Applebot, DuckDuckBot and link previews get it; flag-off-diff and compare.mjs read the two records. Nothing
+  in a response is rewritten (the head, every metadata tag, every node and every Flight row stay compared); what
+  parity no longer compares is where Next puts a request-time page's metadata for a browser, a matter of timing.
+  Prerendered pages are served from the build's cache whatever the header (Next's `app-page` template: with PPR off,
+  the header changes only `serveStreamingMetadata` of a request-time render). Checked: `next dev` offline, the
+  same page with flag-off-diff's header and with `RECORD_UA`: /bts-name-all-members 1 boundary and 0, /about 2 and 0,
+  the title in the head both ways; and `replay.test.mjs` checks the header against the installed Next (`getBotType`
+  says html, `shouldServeStreamingMetadata` says false, the three earlier headers say true) and that next.config.ts
+  sets neither `htmlLimitedBots` nor PPR (either would change what the header selects). Why not N5 (request 23's
+  option a): it is a normalisation (G0, a ruling), and on a 200 page it would not be enough: a boundary resolved
+  before the flush has its title hoisted into the head, one resolved after carries it in the `S:n` segment.
+  Recording the head as well also makes both sides read the same way (one tool, one header, one request at a time,
+  the same order), and flag-off-diff compares two fixed records. Measured in slice 8 (section "Parity proof offline
+  (slice 8)"): the 4 request-time pages of the list carry no boundary, were identical in runs 5 to 8, and the 30
+  prerendered pages read the same bytes as with the old header.
+- D53 parity.sh's cache key carries the harness version (sha256 of parity.sh, flag-off-diff.mjs and every module of
+  `scripts/o1/parity/` that is not a test; `harness` in parity.json): a pair run under an older harness used to return
+  that harness's cached verdict, and `--recheck` now needs a run of the same harness. Stricter only.
 
 ## Open points
 
@@ -816,13 +909,21 @@ shapes; the failing set must equal the expected set exactly):
 - (Closed in slice 7) Error digests: with one build and one serving path (D46, D50) the same error has the same
   digest on both sides (/bts-name-all-members, a 500 offline, IDENTICAL in runs 1 and 2). A different error still
   has a different digest, and that stays a difference.
-- The recorded base side (D50) means side A is read a minute or so before side B. Data is frozen; a server-rendered
+- The recorded sides (D50, D52) mean side A is read a minute or so before side B. Data is frozen; a server-rendered
   clock (a relative time, a countdown) could still move between the two reads. None seen offline; the first
   production run, once the owner allows it (D-025), will show whether any of the 60 pages does.
-- Streaming timing in the server HTML (request 23): a Suspense boundary can settle before the shell flushes on one
-  read and after it on the other, so one page reads `<!--$-->` resolved on side A and `<!--$?-->` with a template on
-  side B. Seen once in four offline reads, on /bts-name-all-members (a 500 offline). Until ORCH rules, any pair can
-  fail on such a page; R reads the node diff in result.txt (`<!--$-->` against `<!--$?-->`).
+- React's text separators (request 24): a `<!-- -->` after a text that ends a render segment depends on the build
+  (two pages swapped it in 1 of 14 builds). Until ORCH rules, a pair can fail on those pages; R reads the node diff.
+- A parity run that crosses 00:00 UTC between its two builds compares the home page's build date (`"date"` in its
+  page data, baked at build time): DIFFERENT for a reason that is not the head's. The cron window refuses a start
+  from 00:00 to 01:00 only; a run started late on the previous day can still cross. Not changed in slice 8 (the
+  proof runs used the committed harness); a guard (refuse to judge when the UTC date of the two builds differs) is
+  a few lines if ORCH wants it.
+- (Closed in slice 8) Streaming timing in the server HTML (request 23): the boundary that raced was Next's metadata
+  boundary of a request-time page; both sides are now read with a header that gets blocking metadata (D52). An app
+  Suspense boundary on a page rendered at request time could still settle on either side of the flush (none of the
+  60 pages shows one offline: every other boundary is on a prerendered page); if one appears, the node diff in
+  result.txt shows it (`<!--$-->` against `<!--$?-->`), and request 23's N5 is the rule to ask for.
 - The JS chunks are still compared by name only (flag-off-diff's normalisation): a change that lives only in client
   code passes parity by design (behaviour is the lanes' e2e and R's UX runs).
 - Relative times rendered on the server ("3 min ago") baked at two build times could still differ; none seen in the

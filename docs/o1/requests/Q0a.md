@@ -172,3 +172,31 @@
     (b) No rule: read the page again on a difference. Weaker: the base side is a record (D50) and cannot be read
     again, and a verdict that depends on how many reads were tried is not deterministic. Until a ruling, a quiet
     pair can fail on this page about one read in four offline (one of the four reads of slice 7).
+    Update, slice 8: no ruling needed for the case seen; Q0a fixed it at its source (report D52) and withdraws the
+    request unless a new case appears. The boundary was Next's own metadata boundary ("Next.Metadata", in a
+    `<div hidden>` at the top of the body), which Next 16 streams on a page rendered at request time to every user
+    agent except an HTML-limited crawler. parity.sh now records both sides with one header that Next matches as an
+    HTML-limited crawler, so that metadata is rendered blocking in the head; nothing in a response is rewritten, and
+    prerendered pages (generated with `allReady`, never racing) are served from the build cache whatever the
+    header. If an app Suspense boundary on a request-time page ever races, the node diff shows it and N5 is the rule
+    to ask for then.
+24. To ORCH (a CR: a normalisation is G0's, ruled by ORCH under rule 15 as for CR-008; blocks the determinism item
+    of Q0a's done test). Slice 8's run 6 (`--recheck` of the quiet pair 53f48f9 and 0056679, offline, evidence
+    `apps/quiz/e2e/o1/parity/offline-2026-10-18/run6-quiet-recheck/`) found 2 of 60 pages DIFFERENT by React text
+    separators only: `/fr/blind-test-kpop` and `/es/adivina-la-cancion-kpop` (one component, `ux-v1/landing.tsx`,
+    two copies) read `Toutes les playlists<!-- --></a>` on one side and `Toutes les playlists</a>` on the other, and
+    the reverse for the Spanish link; every following node is the same, shifted by one. `<!-- -->` is the comment
+    React's server renderer writes after a text node that ends a render segment; where segments end depends on what
+    had already arrived when the page was prerendered, so it is a property of one build, not of the source. In 14
+    builds of the same tree (slice 7 runs 2 to 4, slice 8 runs 5 to 8) the French page had it and the Spanish page
+    did not in 13; in run 6's base build the two swapped. No other page of the 60 varied in any of them. It holds no
+    text and makes no element; a browser and a crawler read the same text either way.
+    Options: (a) N6 text-separators: the exact comment `<!-- -->` is removed from both sides' HTML before comparing
+    (it does not occur in the page data); every element, attribute and character of text stays compared, and two
+    adjacent texts compare as their concatenation. Q0a's recommendation: the HTML twin of N4 (both come from where
+    React cuts its streams), deterministic, a few lines and tests in `compare.mjs`, recorded in result.json like N3
+    and N4.
+    (b) No rule: a pair, quiet or not, fails on those two pages when one of its two builds swaps them (1 in 14 here),
+    and any later page with a text at a segment end can too (every kpop gate runs parity offline under D-025). Until a
+    ruling, parity's verdict on a pair holds on the other 58 pages; on these two, R reads the node diff (`<!-- -->`
+    alone).
