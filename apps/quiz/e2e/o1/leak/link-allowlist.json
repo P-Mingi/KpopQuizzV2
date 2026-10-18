@@ -1,0 +1,13 @@
+{
+  "_note": "Run O1 cross-site link allowlist (BACKLOG 5.1 'Snapshot and leak lists', Q-bridges D0, B01, B02, B03, B17, section 7.2). Read by apps/quiz/scripts/o1/check-network-links.mts and the leak suite. An anonymous page may link to another FanQuiz site only through an entry below. Fields: from (source sites), page (path patterns: '*' any page, '/x/**' a subtree, exact path, null = no page yet), to (target sites), href (target path patterns), rel ('followed' = must not carry nofollow, 'nofollow' = must carry it), query (false = no query string at all), maxPerPage (links per page to each target site). domainText: on a page of the key site, the domains of the listed sites must not appear anywhere in the HTML outside the allowlisted links. F0's docs/o1/contracts/link-allowlist.md names the same entries; when F0 ships docs/o1/contracts/link-allowlist.json the checker reads that file first.",
+  "version": 1,
+  "links": [
+    { "id": "footer", "source": "Q B01, D1 (flag NEXT_PUBLIC_NET_FOOTER)", "from": ["kpop", "anime"], "page": "*", "to": ["hub"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "about-kpop", "source": "Q B17 (kpopquiz.org/about: Also by our team: OtakuQuiz)", "from": ["kpop"], "page": "/about", "to": ["anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "about-anime", "source": "Q B17 (otakuquiz.org/about: made by the team behind KpopQuiz)", "from": ["anime"], "page": "/about", "to": ["kpop", "hub"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "team-article", "source": "Q B17 (one Team article on kpopquiz.org; its path is set by a CR at launch)", "from": ["kpop"], "page": null, "to": ["anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "network-page", "source": "Q B02, D2 (fanquiz.org home: one followed brand link per site)", "from": ["hub"], "page": "/", "to": ["kpop", "anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "directory", "source": "Q B03, D2 (fanquiz.org/directory: noindex, follow; every link nofollow)", "from": ["hub"], "page": "/directory", "to": ["kpop", "anime"], "href": "/**", "rel": "nofollow", "query": false }
+  ],
+  "domainText": { "anime": ["kpop"], "kpop": ["anime"] }
+}

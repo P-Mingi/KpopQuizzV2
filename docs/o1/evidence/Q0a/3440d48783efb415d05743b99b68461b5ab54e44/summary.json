@@ -1,0 +1,82 @@
+{
+  "lane": "Q0a",
+  "sha": "3440d48783efb415d05743b99b68461b5ab54e44",
+  "tree": "d5bc241e8985d7117f36cc67391adff2c846f40d",
+  "base": "a62d67387e8be74eeadb80a80006fbeda53c76b4",
+  "green": false,
+  "touchesKpop": false,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/Q0a/3440d48783efb415d05743b99b68461b5ab54e44",
+  "failures": "unit:    Duration  78.94s (tests 46%, import 32%, transform 20%, worker 2%)     Isolate  124 workers spawned · ~1.93s startup each (spawn + environment, per file)              at least ~32.21s faster with isolate: false — reuses workers across files instead of one per file ; ",
+  "sites": [
+    "kpop",
+    "anime",
+    "hub"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-18T03:06:51Z",
+  "ended": "2026-10-18T03:23:12Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 3
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 2
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 2
+    },
+    {
+      "name": "twins",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 231
+    },
+    {
+      "name": "unit",
+      "rc": "1",
+      "seconds": 84
+    },
+    {
+      "name": "build-kpop",
+      "rc": "0",
+      "seconds": 355
+    },
+    {
+      "name": "build-anime",
+      "rc": "0",
+      "seconds": 82
+    },
+    {
+      "name": "build-hub",
+      "rc": "0",
+      "seconds": 98
+    },
+    {
+      "name": "parity",
+      "rc": "skipped",
+      "seconds": 0
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}

@@ -8,9 +8,10 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | lane | wave | kind | prio | needs | mergeAfter | reviewers | stage | round | sha | worktree |
 |---|---|---|---|---|---|---|---|---|---|---|
 | F0 | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | e5b51a5 (spike a74c82f) | o1-F0 (+ spike o1-F0s) |
-| Q0a | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | 3f51f62 | o1-Q0a |
+| Q0a | 0 | code | 0 | | | ARCH | round 2 gate and review | 2 | 7e0451b | o1-Q0a |
 | D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
-| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | waits G1, G3 | | | |
+| Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | brief written (owner's proxy conditions, D-028) | | | |
+| Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
 | B3 | 1 | code | 0 | F0, B2 | | SQL + SQL-K2 | | | | |
@@ -27,12 +28,12 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | O2 | 2 | code | 1 | O1 | O3 | SEO, UX | | | | |
 | O3 | 2 | code | 1 | O1, B3, B5, K1 | | SEO, UX, SQL | | | | |
 | O4 | 2 | code | 1 | O1, O3, K1 | | UX, SEC | | | | |
-| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | | | | |
+| O5 | 2 | code | 1 | O1, B2 | K3 | UX, SQL | after the run (D-029) | | | |
 | O6 | 2 | code | 1 | O1, B1, K4 | GU-B | UX, SEC, SQL | | | | |
 | P1 | 2 | code | 1 | O1, B3, B4, B6, B7 | G5 | UX, SEC | | | | |
 | H1 | 2 | code | 0 | B1, B3, B4, B6, B7 | G5 | UX, SEO, SEC | | | | |
-| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | | | | |
-| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | | | | |
+| E1b | 2 | code | 1 | O1, B2, B3, E1a | | SEC, SQL | after the run (D-029) | | | |
+| X1 | 3 | code | 1 | O2, O6, B6, K4, E1b | GU-C | SEO, CONTENT | after the run (D-029) | | | |
 | L1 | 3 | code | 0 | O1 to O6, P1, H1, E1b, X1 | | ARCH | | | | |
 | C1, C2, C3 | 4 | checkers | 0 | L1 | | n/a | | | | |
 | RPT | 4 | docs | 0 | C1, C2, C3 | | n/a | | | | |
@@ -44,8 +45,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | G0 | confirm the defaults (21 decisions of the v2 plan, the 9 of the run plan, the Working System exceptions) | F0 freeze | 2026-10-17 | ANSWERED 2026-10-16 17:07 UTC: "ok pour tous les choix par défaut" |
 | G1 | create o1-dev and o1-scratch, run KPQ/fill-dev-env.sh | Q0b, B2 first SQL | 2026-10-18 | ANSWERED 2026-10-17: dev.env and scratch.env in KPQ/secrets; keys checked ok (D-022) |
 | G3 | pg_dump schema-only of public + prod-inventory.sql into KPQ | Q0b, branch-parity, B5 | 2026-10-18 | ANSWERED 2026-10-17: schema copy from the catalogs and inventory, md5 checked (D-022) |
-| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | asked again 2026-10-17 with the command `sh O1/scripts/o1/fixtures.sh` (D-023) |
-| GH | merge seo/redirects-exact into main | ORCH routing wiring, B1 middleware and allowlist, every Wave 2 page lane | 2026-10-18 | open (5 commits ahead of main, not merged) |
+| G2 | o1:fixtures on both branches (after G1 and branch-parity) | Q0b auth suite, B3, B4 | 2026-10-19 | ANSWERED 2026-10-18: 38 accounts on o1-scratch and o1-dev, every id present |
+| GH | merge seo/redirects-exact into main | ORCH routing wiring, B1 middleware and allowlist, every Wave 2 page lane | 2026-10-18 | ANSWERED 2026-10-18: PR #102 squash-merged as 8059cd3, merged into o1/integration (b5271e3), integration check green |
+| GH2 | the routing files are still HOT from other open SEO branches: next.config.ts (seo/m3-weekly-data), route-allowlist.ts (seo/m2-kpop-games, seo/m3-citability), middleware.ts (seo/m3-monitoring) | ORCH routing wiring after F0 merges, then B1 and every Wave 2 page lane | as soon as F0 merges | open: asked 2026-10-18 |
 | GU-D | Mission U part D (account-deletion) merged | B7 | 2026-10-21 | open |
 | G10 | Auth redirect URLs and email hook secret on both branches | B4, B7 integration | 2026-10-21 | day 1 packet |
 | G5 | validate the D0 prototype | Wave 2 visual merges (O1, P1, H1) | 2026-10-22 | when D0 passes R |
@@ -59,7 +61,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 |---|---|---|---|
 | G0 | answered: all defaults confirmed | 2026-10-16 | 2026-10-16 |
 | G1 | answered | 2026-10-16 | 2026-10-17 |
-| G2 | asked, command ready (D-023) | 2026-10-16 | |
+| G2 | answered: 38 accounts on each branch (docs/o1/fixtures-scratch.json, fixtures-dev.json) | 2026-10-16 | 2026-10-18 |
 | G3 | answered | 2026-10-16 | 2026-10-17 |
 | G4 | only if a content agent hits a network block (override 6) | | |
 | G5 | when D0 passes R | | |
@@ -78,7 +80,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | G18 | any time (Fuki, trademark checks) | | |
 | G19 | launch week | | |
 | G20 | outside the run | | |
-| GH | asked (merge seo/redirects-exact) | 2026-10-16 | |
+| GH | answered (PR #102) | 2026-10-16 | 2026-10-18 |
+| GH2 | asked (other SEO branches holding the routing files) | 2026-10-18 | |
 | GU | asked (merge Mission U parts, D first) | 2026-10-16 | |
 
 ## Decisions
@@ -182,6 +185,56 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   "offline (D-025)" in the evidence and the Merge log; Q0a's 4 production runs of D-005 are suspended (offline
   rehearsals do not count). When the owner says yes, ORCH removes the file and a production parity run of
   o1/integration catches up before the next merge that reaches kpop.
+- D-026 Tick 4 (2026-10-18): F0 8ab0d07 blocked on F0-17, Q0a 5d7390c blocked on request 24, D0 26f2823 in progress.
+  Rulings: CR-010 (N5). F0-17(a): Q0a merges before F0's next gate (tick 5 gives F0 `needs: Q0a`). F0-17(c): the
+  spike line `kpop /bts-quiz 200` depends on catalog rows the dev branches do not hold (no production copy: that would
+  be a production read); the line is dropped from spike-checks.tsv, the kpop hub being proven by parity (base and head
+  built on the same database, /bts-quiz in the URL list); it comes back when Q0b seeds synthetic catalog rows on the
+  branches. F0's brief says so.
+- D-027 Owner answers of 2026-10-18 (pasted message "Réponses du owner"): (1) yes for parity.sh reading production,
+  read-only guaranteed by a local proxy (conditions in D-028); (2) G2 announced done, but no docs/o1/fixtures-*.json
+  exists: fixtures.sh has not run yet; (3) NULL tokens: set to '' on o1-scratch and o1-dev only, done 10:16 UTC (3
+  accounts each, then 0; GoTrue listUsers works again on both; migration-log.md); production is the owner's; (4)
+  CR-002 to CR-006 refused for O1, backlog after launch: D0 draws nothing for them, F0 reserves no key and no flag
+  (NET_WELCOME included); (5) GH announced done, but on 2026-10-18 10:15 UTC origin/main is still 30e7091 and PR #102
+  (refs/pull/102/head 23a3ea6 = seo/redirects-exact) is not merged: main is integrated as soon as it is; (6) pace:
+  estimate and cuts given to the owner (D-029).
+- D-028 Production parity (owner, 2026-10-18): allowed only through a local read-only proxy, conditions in
+  `briefs/Q0c.md`. Q0a's harness already freezes reads and refuses writes inside the Node process, but the real URL
+  and keys still reach the build environment, so a small lane Q0c builds the proxy and its parity.sh wiring after Q0a
+  merges (ownership of parity.sh and scripts/o1/parity/** moves from Q0a to Q0c then), reviewed SEC and ARCH. Until R
+  passes Q0c, parity stays offline (D-025) and merges are recorded "offline (D-025)"; the first production
+  comparison, o1/integration against origin/main, runs before the next merge that touches kpop after that. Then one
+  full comparison per kpop merge, no more.
+- D-029 Pace (owner's question 6, 2026-10-18). Measured: about 30 h since the start, about 12 h of tick time, about
+  11 M subagent tokens, one weekly usage limit hit, Wave 0 (about 40 of the plan's 650 agent-hours) not merged yet.
+  Cuts applied at once, rule 18 and data safety kept: one R pass per lane carrying every profile (the second key stays
+  for B2, B3, B5 and B7), D0 limited to the screens of the lanes kept, one final checker pass instead of C1, C2, C3.
+  Moved after the run, before the launch (the owner may object): O5 (formats), X1 (day-1 bridges), E1b (/admin/review
+  and the anime publisher), L1's full rehearsal (L1 keeps the runbook, the launch SQL bundle and a scripted dry run).
+  Content stays at override 7. The cap of 2 code builders lifts when Mission U parts A to D are on main.
+- D-030 Main integrated (2026-10-18 10:47 UTC): fetch; origin/main 8059cd3 (PR #102) merged into o1/integration as
+  b5271e3 (no conflict: o1/integration held no edit of a HOT file); seo/redirects-exact added to hot-merged.txt; HOT
+  refreshed (320 files, 17 open branches); no lockfile change; `scripts/o1/nightly.sh` green on 00f2426 (tsc, unit,
+  kpop, anime and hub builds on o1-dev; parity skipped: run files only; leak suite pending Q0a). G2 confirmed by
+  `docs/o1/fixtures-*.json` (38 accounts each). The routing files are still HOT through four other SEO branches (GH2):
+  ORCH's routing wiring after F0 waits for them, per rule 12. Lane branches sync at their next slice; F0's spike
+  rebases its routing edits on the new middleware and allowlist (unknown URLs are now a 404) and updates its checks.
+- D-031 Tick 5 (2026-10-18): Q0a passed its gate once (c5131aa), R r1 ARCH FIX (1 major, 3 minor), fix round done;
+  its next gates went red on unit timeouts under machine load, then gate.sh stopped on a stale o1-gate-Q0a. Cause: a
+  gate's `git worktree remove` that git could not finish (servers a check had left running kept writing), leaving a
+  folder with no .git, still registered; o1-gate-F0 and o1-gate-F0-spike were left too. Checked first that nothing
+  touched the main checkout's git config (no config.worktree, no o1.agent, no hooksPath there). The three folders
+  removed (only paths under .claude/worktrees/o1-gate-*), `git worktree remove` cleared their registrations. Hardened:
+  gate.sh stops processes whose cwd is inside a gate worktree before removing it, removes the remains of an unfinished
+  removal without ever running git inside them (git would climb to the main checkout), and refuses tracked changes;
+  new-lane.sh and nightly.sh refuse a folder that is not their worktree; lane.exclude ignores .next-*, test-results
+  and playwright-report. Tested with a planted stray folder on D0's head.
+- D-032 Unit tests in gate.sh, merge-lane.sh and nightly.sh run with `--testTimeout=30000` (no test edited): the reds of
+  tick 5 were 5 s default timeouts of untouched base tests while the other session loaded the machine (11 tests of
+  the base on D0's design-only head, passing on o1/integration). Rule 15: noise normalised, recorded.
+- D-033 Q0c starts after Q0a merges (needs); `scripts/o1/parity.sh` and `scripts/o1/parity/**` are listed for both,
+  sequenced (`OWNERSHIP._sequenced`), so Q0a's merge guard and Q0c's commits are both covered.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -189,13 +242,14 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR | lane | change | review | status |
 |---|---|---|---|---|
 | CR-001 | F0 (O1, O2) | Rule 18 ruling on R's F0 audit M1: the anime twins of `/quizzes` and its three lists, `/new`, `/most-liked`, `/trending`, `/trivia`, `/faq`, `/leaderboard` (Team accounts excluded) and `/dmca` exist (TWINS rows 31 to 36); news, articles, data pages (`/stats`, `/data/*`) and ranked join F (off at launch, slot absent); technical auth routes without a screen are row 37; the hub shell is row H-0. F0 updates routes.md, `routes.allow`, `KPOP_ONLY_SAMPLES` and copy keys accordingly | ORCH ruling (rule 15), R-ARCH checks it in F0's next review | approved 2026-10-16 |
-| CR-002 | P1 | Welcome card on the first signed-in arrival (P W5 A and C, D4), shared components only | owner | proposed, owner to decide |
-| CR-003 | P1 | "How I appear here" (P 8.2), shared components only | owner | proposed, owner to decide |
-| CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | proposed, owner to decide |
-| CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | proposed, owner to decide |
-| CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
+| CR-002 | P1 | Welcome card on the first signed-in arrival (P W5 A and C, D4), shared components only | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-003 | P1 | "How I appear here" (P 8.2), shared components only | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-004 | P1 | "Keep anime in your passport? Yes, Not now" after the third play (P 3.2) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-005 | P1 | Post-result oshi row on quiz results (S 2.5, TWINS row 8) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
+| CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | REFUSED for O1 (owner, 2026-10-18), backlog after launch |
 | CR-008 | Q0a | Parity normalisations N3 (a Flight client reference `I[<module id>,` reads `I[<id>,` on both sides; export names and chunk lists still compared) and N4 (a page's Flight stream compared as its sorted rows, however it is cut into `self.__next_f.push` tags); the server HTML and every row stay compared. Q0a request 21, option (a): Turbopack gives one client module two ids in two builds, so without them parity says DIFFERENT for any two builds | ORCH ruling under rule 15 (the v12 rule 12 noise list names the order of the streamed page data; module ids are build-internal), R-ARCH checks the tests in Q0a's review | approved 2026-10-17 |
 | CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
+| CR-010 | Q0a (F0) | Parity normalisation N5, the narrow form of F0-17(b) and Q0a request 24: a React text separator `<!-- -->` immediately followed by a closing tag `</` reads as nothing on both sides (it only marks where a prerender segment ended, which depends on stream timing, not on code); every other separator, element, attribute and text stays compared. Q0a writes it in `scripts/o1/parity/compare.mjs` with tests | ORCH ruling under rule 15 (as CR-008); the narrower of the two proposals | approved 2026-10-18 |
 | CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
 
 ## Review verdicts
@@ -220,3 +274,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | when (UTC) | lane | sha | parity | SQL |
 |---|---|---|---|---|
 | 2026-10-16T11:18:10Z | DUMMY | 674c0861f649 | not needed | 0 SQL file(s) |
+| 2026-10-18T18:01:02Z | Q0a | 5e535a8fa284 | not needed | 0 SQL file(s) |

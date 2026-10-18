@@ -4,3 +4,4 @@ seo/m1-bing-fixes	#100 30e7091
 seo/m1-trust	#99 08af6e8
 seo/m1-stats-facts	#98 b4c5999
 seo/indexation-max	#96 0d0744b
+seo/redirects-exact	#102 8059cd3

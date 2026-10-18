@@ -1,0 +1,290 @@
+DIFFERENT (bytes)  /  status 200/200  raw bytes 39437/39436  normalised 38104/38103  js chunks 13/13
+  node 489
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 491
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 495
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 502
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 505
+    A: .js\"],\"UxShellLoader\"]\n13:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n13:I[416912,[\"static/chunks/<asset>
+  node 556
+    A: self.__next_f.push([1,"21:I[703246,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"21:I[326145,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /quizzes  status 200/200  raw bytes 48700/48743  normalised 47619/47662  js chunks 13/13
+  node 564
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 566
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 570
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 577
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 580
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+  node 597
+    A: .js\"],\"MetadataBoundary\"]\n23:I[662633,[\"static/chunks/<asset>
+    B: .js\"],\"MetadataBoundary\"]\n:HL[\"static/chunks/<asset>
+DIFFERENT (bytes)  /groups  status 200/200  raw bytes 32677/32677  normalised 31656/31656  js chunks 13/13
+  node 386
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 388
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 392
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 399
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 402
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+IDENTICAL (bytes)  /bts-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /blackpink-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+DIFFERENT (bytes)  /blindtest  status 200/200  raw bytes 68221/68221  normalised 66654/66654  js chunks 14/14
+  node 777
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 779
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 783
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 790
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 793
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+  node 845
+    A: self.__next_f.push([1,"24:I[353905,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"24:I[752222,[\"static/chunks/<asset>
+IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
+DIFFERENT (bytes)  /trivia  status 200/200  raw bytes 35139/35139  normalised 34118/34118  js chunks 13/13
+  node 404
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 406
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 410
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 417
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 420
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /about  status 200/200  raw bytes 50337/50337  normalised 49264/49264  js chunks 13/13
+  node 570
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 572
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 576
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 583
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 586
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+  node 638
+    A: self.__next_f.push([1,"2a:I[714817,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"2a:I[216661,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /editorial-policy  status 200/200  raw bytes 52600/52600  normalised 51618/51618  js chunks 12/12
+  node 507
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 509
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 513
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 520
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 523
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /privacy  status 200/200  raw bytes 46727/46727  normalised 45745/45745  js chunks 12/12
+  node 528
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 530
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 534
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 541
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 544
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /terms  status 200/200  raw bytes 43434/43434  normalised 42452/42452  js chunks 12/12
+  node 461
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 463
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 467
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 474
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 477
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /faq  status 200/200  raw bytes 58950/58950  normalised 57968/57968  js chunks 12/12
+  node 519
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 521
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 525
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 532
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 535
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /pt  status 200/200  raw bytes 44306/44306  normalised 43168/43168  js chunks 14/14
+  node 527
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 529
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 533
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 540
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 543
+    A: .js\"],\"UxShellLoader\"]\n14:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n14:I[416912,[\"static/chunks/<asset>
+  node 573
+    A: .js\"],\"\"]\n19:I[407600,[\"static/chunks/<asset>
+    B: .js\"],\"\"]\n19:I[680850,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 50080/50072  normalised 48877/48869  js chunks 13/13
+  node 269
+    A: Toutes les playlists<!-- -->
+    B: Toutes les playlists</a>
+  node 270
+    A: </a>
+    B: </div>
+  node 271
+    A: </div>
+    B: <div id="g3-th" class="ux-thrail">
+  node 272
+    A: <div id="g3-th" class="ux-thrail">
+    B: <a class="ux-thm" href="/blindtest/4th-gen">
+  node 273
+    A: <a class="ux-thm" href="/blindtest/4th-gen">
+    B: <span class="ux-thm-cv ux-th-gen4">
+  node 274
+    A: <span class="ux-thm-cv ux-th-gen4">
+    B: <span class="ux-eq" aria-hidden="true">
+DIFFERENT (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 49862/49870  normalised 48659/48667  js chunks 13/13
+  node 269
+    A: Todas las listas</a>
+    B: Todas las listas<!-- -->
+  node 270
+    A: </div>
+    B: </a>
+  node 271
+    A: <div id="g3-th" class="ux-thrail">
+    B: </div>
+  node 272
+    A: <a class="ux-thm" href="/blindtest/4th-gen">
+    B: <div id="g3-th" class="ux-thrail">
+  node 273
+    A: <span class="ux-thm-cv ux-th-gen4">
+    B: <a class="ux-thm" href="/blindtest/4th-gen">
+  node 274
+    A: <span class="ux-eq" aria-hidden="true">
+    B: <span class="ux-thm-cv ux-th-gen4">
+DIFFERENT (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 49755/49755  normalised 48552/48552  js chunks 13/13
+  node 561
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 563
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 567
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 574
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 577
+    A: .js\"],\"UxShellLoader\"]\n16:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n16:I[416912,[\"static/chunks/<asset>
+  node 627
+    A: self.__next_f.push([1,"25:I[534825,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"25:I[993610,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 33920/33920  normalised 32886/32886  js chunks 13/13
+  node 398
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 400
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 404
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 411
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 414
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+DIFFERENT (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 42655/42655  normalised 41569/41569  js chunks 13/13
+  node 423
+    A: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[418146,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[755668,[\"static/chunks/<asset>
+  node 425
+    A: .js\"],\"ThemeInit\"]\n3:I[656268,[\"static/chunks/<asset>
+    B: .js\"],\"ThemeInit\"]\n3:I[882660,[\"static/chunks/<asset>
+  node 429
+    A: .js\"],\"default\"]\n5:I[564647,[\"static/chunks/<asset>
+    B: .js\"],\"default\"]\n5:I[980428,[\"static/chunks/<asset>
+  node 436
+    A: .js\"],\"Analytics\"]\n8:I[157690,[\"static/chunks/<asset>
+    B: .js\"],\"Analytics\"]\n8:I[344157,[\"static/chunks/<asset>
+  node 439
+    A: .js\"],\"UxShellLoader\"]\n15:I[678861,[\"static/chunks/<asset>
+    B: .js\"],\"UxShellLoader\"]\n15:I[416912,[\"static/chunks/<asset>
+  node 490
+    A: self.__next_f.push([1,"24:I[414605,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"24:I[231191,[\"static/chunks/<asset>
+IDENTICAL (bytes)  /sitemap.xml  status 200/200  raw bytes 15995/15995  normalised 15995/15995  js chunks 0/0
+IDENTICAL (bytes)  /robots.txt  status 200/200  raw bytes 1623/1623  normalised 1623/1623  js chunks 0/0
+IDENTICAL (bytes)  /llms.txt  status 200/200  raw bytes 1246/1246  normalised 1246/1246  js chunks 0/0
+16 page(s) differ

@@ -10,6 +10,7 @@
       "DUMMY"
     ],
     "1": [
+      "Q0c",
       "Q0b",
       "B1",
       "B2",
@@ -67,6 +68,7 @@
     "!scripts/o1/local-pg.sh",
     "!scripts/o1/q0b/**",
     "!scripts/o1/launch/**",
+    "!scripts/o1/prod-proxy/**",
     "scripts/o1-owner-guard.mjs",
     "scripts/o1-hooks/**",
     ".gitignore",
@@ -419,5 +421,17 @@
   ],
   "DUMMY": [
     "docs/o1/dummy/**"
+  ],
+  "Q0c": [
+    "scripts/o1/prod-proxy/**",
+    "scripts/o1/parity.sh",
+    "scripts/o1/parity/**"
+  ],
+  "_sequenced": [
+    [
+      "Q0a",
+      "Q0c",
+      "scripts/o1/parity.sh and scripts/o1/parity/** pass from Q0a to Q0c: Q0c needs Q0a merged (D-033)"
+    ]
   ]
 }

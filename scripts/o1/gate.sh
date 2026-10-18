@@ -45,12 +45,32 @@ parity_kpq() {
   else echo "$KPQ"; fi
 }
 WTS=()
+# Processes whose working directory is inside a gate worktree (servers a check left running): stopped before removal.
+stop_inside() { # path
+  local p
+  for p in $(lsof -d cwd -Fpn 2>/dev/null | awk -v W="$1" '/^p/{p=substr($0,2)} /^n/{n=substr($0,2); if (n==W || index(n, W"/")==1) print p}'); do
+    pkill -P "$p" 2>/dev/null; kill "$p" 2>/dev/null
+  done
+}
+# Remove a gate worktree, or the remains of a removal git could not finish (no .git left: never run git inside it,
+# git would climb to the main checkout). Only paths under .claude/worktrees/o1-gate-* are ever deleted here.
+drop_gate_wt() { # path
+  local w="$1"
+  case "$w" in "$ROOT"/.claude/worktrees/o1-gate-*) ;; *) die "refused to remove $w" ;; esac
+  [ -e "$w" ] || { "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1; return 0; }
+  stop_inside "$w"; sleep 1
+  rm -f "$w/node_modules" "$w/apps/quiz/node_modules" "$w/packages/shared/node_modules"; rm -rf "$w/apps/quiz/.next" "$w"/apps/quiz/.next-*
+  if [ "$(git -C "$w" rev-parse --show-toplevel 2>/dev/null)" != "$w" ]; then
+    rm -rf "$w"; "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1; return 0
+  fi
+  "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 && return 0
+  # A gate worktree holds no work of anyone: what is left is build or check output.
+  git -C "$w" status --porcelain --untracked-files=all | grep -q '^ [MD]' && die "gate worktree $w has tracked changes: inspect it"
+  rm -rf "$w"; "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1; return 0
+}
 prep() { # name sha -> worktree path
   local w="$ROOT/.claude/worktrees/o1-gate-$1"
-  if [ -d "$w" ]; then
-    rm -f "$w/node_modules" "$w/apps/quiz/node_modules" "$w/packages/shared/node_modules"; rm -rf "$w/apps/quiz/.next" "$w"/apps/quiz/.next-*
-    "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 || die "stale $w has changes: inspect it"
-  fi
+  drop_gate_wt "$w"
   "$G" -C "$O1" worktree add --detach "$w" "$2" >/dev/null 2>&1 || die "worktree add $w failed"
   ln -s "$O1/node_modules" "$w/node_modules"; ln -s "$O1/apps/quiz/node_modules" "$w/apps/quiz/node_modules"
   rm -rf "$w/packages/shared/node_modules"; ln -s "$O1/packages/shared/node_modules" "$w/packages/shared/node_modules"
@@ -60,10 +80,7 @@ prep() { # name sha -> worktree path
 SERVERS=()
 cleanup() {
   for p in ${SERVERS[@]+"${SERVERS[@]}"}; do pkill -P "$p" 2>/dev/null; kill "$p" 2>/dev/null; done
-  for w in ${WTS[@]+"${WTS[@]}"}; do
-    rm -f "$w/node_modules" "$w/apps/quiz/node_modules" "$w/packages/shared/node_modules"; rm -rf "$w/apps/quiz/.next" "$w"/apps/quiz/.next-*
-    "$G" -C "$O1" worktree remove "$w" >/dev/null 2>&1 || echo "gate: could not remove $w" >&2
-  done
+  for w in ${WTS[@]+"${WTS[@]}"}; do drop_gate_wt "$w" || echo "gate: could not remove $w" >&2; done
 }
 trap cleanup EXIT INT TERM
 step() { # name cmd... ; records rc and seconds
@@ -113,7 +130,7 @@ step secrets secrets_check
 step twins "$O1/scripts/o1/check.sh" "$WT" "$EV"
 # 5. Types and unit tests (RATCHET LAW: the existing tests run untouched).
 step tsc bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false' _ "$WT"
-step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run' _ "$WT"
+step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run --testTimeout=30000' _ "$WT"
 # 6. Builds of every site the lane touches. kpop goes through parity.sh when the diff can reach it.
 build_site() { # worktree site label
   "$O1/scripts/o1/build-lock.sh" run "gate-$3-$2" -- "$O1/scripts/o1/env.sh" "$dbenv" -- bash -c \

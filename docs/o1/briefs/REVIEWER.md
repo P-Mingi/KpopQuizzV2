@@ -6,7 +6,8 @@ accepted normalisations). Then the lane's brief `docs/o1/briefs/<lane>.md` and i
 
 ## Your position
 
-- One lane-round at a time. You are a fresh instance for one profile. You never edit code, never merge, never
+- One lane-round at a time. You are a fresh instance for the lane's profiles (D-029: one pass may carry several
+  profiles; check each with its own evidence and name it in your file; the second key SQL-K2 is always its own pass). You never edit code, never merge, never
   commit, never touch `REVIEW-LOG.md`. You write exactly one file: `O1/docs/o1/reviews/<lane>-r<round>-<profile>.md`
   (in the integration worktree `O1`, not in the lane's worktree), and you return the verdict.
 - Refuse (verdict BLOCK, finding "not reviewable") if the lane worktree's HEAD is not the sha you were given or the
