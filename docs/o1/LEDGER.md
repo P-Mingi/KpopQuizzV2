@@ -182,6 +182,12 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   "offline (D-025)" in the evidence and the Merge log; Q0a's 4 production runs of D-005 are suspended (offline
   rehearsals do not count). When the owner says yes, ORCH removes the file and a production parity run of
   o1/integration catches up before the next merge that reaches kpop.
+- D-026 Tick 4 (2026-10-18): F0 8ab0d07 blocked on F0-17, Q0a 5d7390c blocked on request 24, D0 26f2823 in progress.
+  Rulings: CR-010 (N5). F0-17(a): Q0a merges before F0's next gate (tick 5 gives F0 `needs: Q0a`). F0-17(c): the
+  spike line `kpop /bts-quiz 200` depends on catalog rows the dev branches do not hold (no production copy: that would
+  be a production read); the line is dropped from spike-checks.tsv, the kpop hub being proven by parity (base and head
+  built on the same database, /bts-quiz in the URL list); it comes back when Q0b seeds synthetic catalog rows on the
+  branches. F0's brief says so.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
@@ -196,6 +202,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR-006 | B6, P1 | kpopquiz.org welcome card for arrivals from OtakuQuiz (Q B09, NET_WELCOME) | owner | proposed, owner to decide |
 | CR-008 | Q0a | Parity normalisations N3 (a Flight client reference `I[<module id>,` reads `I[<id>,` on both sides; export names and chunk lists still compared) and N4 (a page's Flight stream compared as its sorted rows, however it is cut into `self.__next_f.push` tags); the server HTML and every row stay compared. Q0a request 21, option (a): Turbopack gives one client module two ids in two builds, so without them parity says DIFFERENT for any two builds | ORCH ruling under rule 15 (the v12 rule 12 noise list names the order of the streamed page data; module ids are build-internal), R-ARCH checks the tests in Q0a's review | approved 2026-10-17 |
 | CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
+| CR-010 | Q0a (F0) | Parity normalisation N5, the narrow form of F0-17(b) and Q0a request 24: a React text separator `<!-- -->` immediately followed by a closing tag `</` reads as nothing on both sides (it only marks where a prerender segment ended, which depends on stream timing, not on code); every other separator, element, attribute and text stays compared. Q0a writes it in `scripts/o1/parity/compare.mjs` with tests | ORCH ruling under rule 15 (as CR-008); the narrower of the two proposals | approved 2026-10-18 |
 | CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
 
 ## Review verdicts
