@@ -605,11 +605,9 @@ DECLARE
   i INTEGER; gm JSONB; g_id INTEGER; g_xp INTEGER; s JSONB; s_id UUID; s_correct BOOLEAN;
   v_sp INTEGER; v_sc INTEGER; v_mastered BOOLEAN; v_slug TEXT;
 BEGIN
-  -- the world of the play: the group of its first mastery update, else app.site_id, else kpop
-  SELECT g.site_id INTO v_site FROM public.groups g
-   WHERE g.id = CASE WHEN (p_group_mastery_updates->0->>'group_id') ~ '^[0-9]{1,9}$'
-                     THEN (p_group_mastery_updates->0->>'group_id')::INTEGER END;
-  v_site := COALESCE(v_site, NULLIF(current_setting('app.site_id', true), ''), 'kpop');
+  -- the world of the play: app.site_id, else kpop. Never taken from the request's groups (a kpop call naming a world
+  -- group would otherwise write a world counter).
+  v_site := COALESCE(NULLIF(current_setting('app.site_id', true), ''), 'kpop');
   IF v_site = 'kpop' THEN
   INSERT INTO public.bt_plays (player_id, mode_id, score, correct, total, total_time, best_combo, songs)
   VALUES (p_player_id, p_mode_id, p_score, p_correct, p_total, p_total_time, p_best_combo, p_songs);

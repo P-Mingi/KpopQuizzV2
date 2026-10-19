@@ -24,7 +24,7 @@ catalog-dump.sh).
 | profile created with app.site_id = anime gets one anime membership, not activated, no kpop one | ok |
 | forced failure inside the trigger (unknown site) leaves the profile inserted, membership missing | ok |
 | award_world_xp('kpop', ...) and bump_world_counter('kpop', ...) raise | ok |
-| whole checks.sql | 157 checks, pass 157, fail 0 |
+| whole checks.sql | 158 checks, pass 158, fail 0 (157 before the fix of section 7) |
 
 checks.sql covers: the ACL matrix (15 new functions x anon, authenticated, service_role, PUBLIC), RLS reads and refused writes,
 ensure_membership, create_profile_for_site, my_passport, public_passport (fail closed), update_my_membership,
@@ -80,3 +80,13 @@ holds the 11 production definitions byte for byte.
 | command | result |
 |---|---|
 | pnpm -C apps/quiz exec tsc --noEmit | 0 errors |
+
+## 7. Fix of review R blocker 3 (record_bt_play, 008 re-applied on o1-scratch)
+| item | result |
+|---|---|
+| record_bt_play world | `COALESCE(NULLIF(current_setting('app.site_id', true), ''), 'kpop')`; the lookup of `p_group_mastery_updates->0->>'group_id'` is gone (pg_get_functiondef on scratch: old lookup absent, new line present) |
+| 008-write-locks.sql re-applied with migrate-dev.sh --branch scratch | ok (the script re-runs a changed file) |
+| equivalence.sh | same md5 as before: bc1327561ca19bfa466208dbdcc1079e (20 section md5 equal) |
+| checks.sh 12000 | 158 checks, pass 158, fail 0 |
+| checks.sql change | the anime-group blind test call now runs with app.site_id = anime (same assertions); one new check: a kpop call (app.site_id unset) naming an anime group takes the kpop path and writes no world counter, no world activity event and no world membership row |
+| the 008 verbatim check of section 4 | unchanged for the kpop branch; only the world selector line of record_bt_play differs from the first 008 |

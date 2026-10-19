@@ -403,12 +403,14 @@ select pg_temp.chk('008 passport_on_battle_result: an anime battle is a world ga
   and (select games_played from public.world_memberships where user_id = pg_temp.uid('C') and site_id = 'anime') = 1
   and (select string_agg(site_id, ',' order by site_id) from public.activity_events where event_type = 'battle_won' and display_name = 'chk_c') = 'anime,kpop');
 
--- blind tests
+-- blind tests (the world of a play is app.site_id, else kpop: never the groups named in the request)
 insert into public.blind_test_songs (id, title, artist, youtube_id, year) values (md5('chk-b3-song')::uuid, 'Chk song', 'Chk artist', 'chkyt1', 2020);
+select set_config('app.site_id', 'anime', true) as _ \gset
 select public.record_bt_play(pg_temp.uid('C'), 'classic', 100, 5, 10, 30.5, 3,
   jsonb_build_array(jsonb_build_object('song_id', md5('chk-b3-song')::uuid, 'correct', true)), 10,
   (select jsonb_build_array(jsonb_build_object('group_id', g.id, 'mastery_xp', 5)) from g where g.slug = 'chk-anime-group')) as _ \gset
-select pg_temp.chk('008 record_bt_play (anime group): only the world counter and activity are written',
+select set_config('app.site_id', '', true) as _ \gset
+select pg_temp.chk('008 record_bt_play (app.site_id anime, anime group): only the world counter and activity are written',
   (select blindtests_played from public.profiles where id = pg_temp.uid('C')) = 0
   and (select blindtests_played from public.world_memberships where user_id = pg_temp.uid('C') and site_id = 'anime') = 1
   and (select count(*) from public.bt_plays where mode_id = 'classic' and player_id = pg_temp.uid('C')) = 0
@@ -432,6 +434,23 @@ select pg_temp.chk('008 record_bt_play: with no group, app.site_id picks the wor
 select public.record_bt_play(pg_temp.uid('C'), 'classic', 100, 5, 10, 30.5, 3, '[]'::jsonb, 10, '[]'::jsonb) as _ \gset
 select pg_temp.chk('008 record_bt_play: an odd mastery payload still takes the kpop path',
   (select blindtests_played from public.profiles where id = pg_temp.uid('C')) = 2);
+-- blocker 3 of review R: a kpop call (app.site_id unset) that names a world group stays on the kpop path and writes no
+-- world counter, no world activity event and no world membership change
+select (select blindtests_played from public.world_memberships where user_id = pg_temp.uid('C') and site_id = 'anime') as wm_before,
+       (select count(*) from public.world_memberships where user_id = pg_temp.uid('C')) as wms_before,
+       (select count(*) from public.activity_events where event_type = 'blindtest_played' and display_name = 'chk_c' and site_id <> 'kpop') as ev_world_before,
+       (select count(*) from public.activity_events where event_type = 'blindtest_played' and display_name = 'chk_c' and site_id = 'kpop') as ev_kpop_before,
+       (select count(*) from public.bt_plays where mode_id = 'classic' and player_id = pg_temp.uid('C')) as bt_before \gset
+select public.record_bt_play(pg_temp.uid('C'), 'classic', 100, 5, 10, 30.5, 3,
+  jsonb_build_array(jsonb_build_object('song_id', md5('chk-b3-song')::uuid, 'correct', true)), 10,
+  (select jsonb_build_array(jsonb_build_object('group_id', g.id, 'mastery_xp', 5)) from g where g.slug = 'chk-anime-group')) as _ \gset
+select pg_temp.chk('008 record_bt_play (kpop call naming an anime group): the kpop path, no world counter, event or membership',
+  (select blindtests_played from public.profiles where id = pg_temp.uid('C')) = 3
+  and (select blindtests_played from public.world_memberships where user_id = pg_temp.uid('C') and site_id = 'anime') = :wm_before
+  and (select count(*) from public.world_memberships where user_id = pg_temp.uid('C')) = :wms_before
+  and (select count(*) from public.activity_events where event_type = 'blindtest_played' and display_name = 'chk_c' and site_id <> 'kpop') = :ev_world_before
+  and (select count(*) from public.activity_events where event_type = 'blindtest_played' and display_name = 'chk_c' and site_id = 'kpop') = :ev_kpop_before + 1
+  and (select count(*) from public.bt_plays where mode_id = 'classic' and player_id = pg_temp.uid('C')) = :bt_before + 1);
 
 -- anon merge
 select pg_temp.chk('008 merge_anon_passport: the 6-argument form is gone, the 7-argument form exists',

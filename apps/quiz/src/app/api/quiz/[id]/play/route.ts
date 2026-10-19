@@ -12,6 +12,7 @@ import { isUxV12 } from '@/lib/ux-v12';
 import { ensureMembershipForWrite } from '@/lib/passport/membership';
 import { awardXpForSite } from '@/lib/passport/xp';
 import { SITE_ID } from '@/lib/site/registry';
+import { forSite, siteScoped } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -56,6 +57,14 @@ export async function POST(
   // Get player ID if authenticated (optional)
   const { data: { user } } = await supabase.auth.getUser();
   const playerId = user?.id ?? null;
+
+  // Run O1: the quiz must belong to this build's site, else 404 before anything is recorded or awarded (record_play
+  // routes by quizzes.site_id and the XP world is the build's, so a quiz of another site would mix the two worlds).
+  // On the kpop build with SITE_SCOPE off no query is added and the response is today's.
+  if (siteScoped()) {
+    const { data: owned } = await forSite(supabase.from('quizzes').select('id').eq('id', id)).single();
+    if (!owned) return NextResponse.json({ error: 'Quiz not found' }, { status: 404 });
+  }
 
   // L1 anti-farm: play XP is earned only on a user's FIRST completion of a given
   // quiz. Check for any prior plays row for this user+quiz BEFORE record_play
@@ -141,8 +150,10 @@ export async function POST(
         }
       }
 
-      // Check for perfect_score badge
-      if (score === effectiveMaxScore) {
+      // Check for perfect_score badge. Run O1: perfect_score, hard_mode and viral_hit are kpop badge rows (and the
+      // kpop branch of trg_notify_badge_earned files a kpop notification), so only the kpop build grants them; a
+      // world grants its own badges through award_world_xp and checkTierBadges.
+      if (SITE_ID === 'kpop' && score === effectiveMaxScore) {
         await supabase.from('user_badges').upsert(
           { user_id: playerId, badge_id: 'perfect_score' },
           { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
@@ -150,7 +161,7 @@ export async function POST(
       }
 
       if (quizData) {
-        if (quizData.difficulty === 'hard' && score / effectiveMaxScore >= 0.7) {
+        if (SITE_ID === 'kpop' && quizData.difficulty === 'hard' && score / effectiveMaxScore >= 0.7) {
           await supabase.from('user_badges').upsert(
             { user_id: playerId, badge_id: 'hard_mode' },
             { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
@@ -163,7 +174,7 @@ export async function POST(
         }
 
         // Check viral_hit badge for creator
-        if (quizData.creator_id && quizData.play_count + 1 >= 1000) {
+        if (SITE_ID === 'kpop' && quizData.creator_id && quizData.play_count + 1 >= 1000) {
           await supabase.from('user_badges').upsert(
             { user_id: quizData.creator_id, badge_id: 'viral_hit' },
             { onConflict: 'user_id,badge_id', ignoreDuplicates: true },

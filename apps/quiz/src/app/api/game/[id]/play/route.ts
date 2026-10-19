@@ -6,6 +6,7 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 import { ensureMembershipForWrite } from '@/lib/passport/membership';
 import { awardXpForSite } from '@/lib/passport/xp';
 import { SITE_ID } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -30,13 +31,15 @@ export async function POST(
   // Never derived from IP or any fingerprint. A play with no id still succeeds.
   const anonId = isUuid(body.anon_id) ? body.anon_id : null;
 
-  // Fetch game
-  const { data: game, error: gameError } = await supabase
-    .from('games')
-    .select('id, game_type, content, play_count, creator_id, group_id')
-    .eq('id', id)
-    .eq('status', 'published')
-    .single();
+  // Fetch game. Run O1: the game must belong to this build's site (else the same 404 as an unknown game), so a game
+  // of another site never earns this build's XP. On the kpop build with SITE_SCOPE off forSite leaves the query as is.
+  const { data: game, error: gameError } = await forSite(
+    supabase
+      .from('games')
+      .select('id, game_type, content, play_count, creator_id, group_id')
+      .eq('id', id)
+      .eq('status', 'published'),
+  ).single();
 
   if (gameError || !game) {
     return NextResponse.json({ error: 'Game not found' }, { status: 404 });
