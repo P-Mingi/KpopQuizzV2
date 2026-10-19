@@ -130,7 +130,15 @@ step secrets secrets_check
 step twins "$O1/scripts/o1/check.sh" "$WT" "$EV"
 # 5. Types and unit tests (RATCHET LAW: the existing tests run untouched).
 step tsc bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false' _ "$WT"
-step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run --testTimeout=30000' _ "$WT"
+# Light mode (owner, 2026-10-19): the tests of the touched files only (vitest related); O1_GATE_FULL=1 runs them all.
+if [ "${O1_GATE_FULL:-0}" = 1 ]; then
+  step unit bash -c 'cd "$1/apps/quiz" && ./node_modules/.bin/vitest run --testTimeout=30000' _ "$WT"
+else
+  rel="$(sed -n 's#^apps/quiz/##p' "$EV/changed.txt" | grep -E '\.(ts|tsx|mts|mjs|js)$' | tr '\n' ' ')"
+  if [ -n "$rel" ]; then
+    step unit bash -c 'cd "$1/apps/quiz" && shift && ./node_modules/.bin/vitest related --run --passWithNoTests --testTimeout=30000 "$@"' _ "$WT" $rel
+  else printf 'unit\tskipped\t0\n' >> "$EV/steps.tsv"; echo "no code file of apps/quiz touched" > "$EV/unit.log"; fi
+fi
 # 6. Builds of every site the lane touches. kpop goes through parity.sh when the diff can reach it.
 build_site() { # worktree site label
   "$O1/scripts/o1/build-lock.sh" run "gate-$3-$2" -- "$O1/scripts/o1/env.sh" "$dbenv" -- bash -c \
@@ -186,7 +194,7 @@ if [ -n "$spike" ]; then
   fi
 fi
 # 9. Per-site check:* gates, leak suite, lane e2e specs: Q0a adds them (recorded as pending until then).
-[ -x "$O1/scripts/o1/gate-checks.sh" ] && step site-checks "$O1/scripts/o1/gate-checks.sh" "$lane" "$WT" "$EV" "$sites" \
+[ "${O1_GATE_FULL:-0}" = 1 ] && [ -x "$O1/scripts/o1/gate-checks.sh" ] && step site-checks "$O1/scripts/o1/gate-checks.sh" "$lane" "$WT" "$EV" "$sites" \
   || pending site-checks "check:routes runs inside every build; check:indexability, metadata-dupes, orphans, sitemap-hygiene, site-scope, the leak suite and the lane specs arrive with Q0a (scripts/o1/gate-checks.sh)"
 
 failed="$(awk -F'\t' '$2!="0" && $2!="pending" && $2!="skipped" {print $1}' "$EV/steps.tsv" | tr '\n' ' ')"

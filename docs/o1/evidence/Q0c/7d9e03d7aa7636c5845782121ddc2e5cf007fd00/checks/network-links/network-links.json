@@ -1,0 +1,755 @@
+{
+  "head": [
+    "contract: fallback (BACKLOG 5.1, lib/route-allowlist.ts)",
+    "allowlist: apps/quiz/e2e/o1/leak/link-allowlist.json",
+    "site kpop: 124 pages (55 listed, 69 more from sitemap.xml, cap 200)"
+  ],
+  "pages": [
+    {
+      "site": "kpop",
+      "path": "/",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/groups",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/trending",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/bts-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/blackpink-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/stray-kids-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/seventeen-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/cortis-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/twice-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/newjeans-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/trivia",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/bts-trivia",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/blackpink-trivia",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/skz-true-or-false-only-real-stays-pass",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/blackpink-ultimate-fan-challenge",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/are-you-a-real-coer",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/illit-fans-here",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/babymonster-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/le-sserafim-members-and-music-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/one-for-sones",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/twice-true-or-false",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/how-well-do-you-know-txt",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/enhypen-debut-and-beyond-quiz",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/q/k-pop-company-quiz-match-the-group-to-the-label",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/classic",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/intro-challenge",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/group-bts",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/guess-the-kpop-song",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/blindtest",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/faq",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/leaderboard",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/fr/blind-test-kpop",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/es/adivina-la-cancion-kpop",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/id/tebak-lagu-kpop",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/guess-the-kpop-idol",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/kpop-true-or-false",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/easy-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/hard-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/kpop-quiz-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/kpop-demon-hunters-quiz",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/which-bts-member-are-you",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/bts-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/about",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/editorial-policy",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/privacy",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/terms",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/faq",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/contact",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/leaderboard",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/data/knowledge-report-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/quizzes/popular-today",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/quizzes/popular-this-week",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/quizzes/popular-this-month",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/new",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/most-liked",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/stats",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/dmca",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/news",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/data/pulse",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/about",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/stats",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/articles",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/easy-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/hard-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/kpop-quiz-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/guess-the-kpop-idol",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/pt/kpop-true-or-false",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/who-is-cortis",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-blind-test-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/best-kpop-quiz-sites-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-generations-explained",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/bts-vs-blackpink-quiz",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-blind-test-guide",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/hardest-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-quiz-statistics",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/most-played-kpop-quizzes",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/girl-groups-vs-boy-groups-kpop-quiz",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/hardest-kpop-groups-to-memorize",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/stray-kids-vs-ateez",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/aespa-vs-newjeans-quiz",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-blind-test-by-group-ranked",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/guess-the-kpop-idol-guide",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/best-kpop-quizzes-for-beginners",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-eras-timeline",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/newjeans-fan-guide",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/bts-discography-guide",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/rookie-kpop-groups-2026",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/articles/kpop-facts-every-fan-should-know",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/2nd-gen",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/3rd-gen",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/4th-gen",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/girl-groups",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/boy-groups",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/solo-artists",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/title-tracks",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/b-sides",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/recent-hits",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/kpop-legends",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/4th-gen-gg",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blindtest/4th-gen-bg",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/blackpink-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/stray-kids-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/twice-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/aespa-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/newjeans-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/seventeen-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/exo-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/g-i-dle-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/ive-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/le-sserafim-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/red-velvet-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/ateez-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/enhypen-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/txt-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/itzy-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/shinee-name-all-members",
+      "verdict": "skip",
+      "detail": "status 404"
+    },
+    {
+      "site": "kpop",
+      "path": "/verse",
+      "verdict": "ok",
+      "detail": ""
+    },
+    {
+      "site": "kpop",
+      "path": "/verse/promises",
+      "verdict": "ok",
+      "detail": ""
+    }
+  ],
+  "violations": 0,
+  "pagesRead": 85
+}

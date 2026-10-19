@@ -1,6 +1,6 @@
 # Run O1: state
 
-NEXT ACTION: tick 6 running (Q0a round 2, then F0 and Q0c). Previously: tick 5 running (Q0a to merge first, then F0). Previously: tick 4 running (parity offline, D-025). Previously: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
+NEXT ACTION: light mode (D-034): Wave 1 agents B1, B2, E1a running via the Agent tool; ORCH gates and merges each when it returns ready. Previously: tick 6 running (Q0a round 2, then F0 and Q0c). Previously: tick 5 running (Q0a to merge first, then F0). Previously: tick 4 running (parity offline, D-025). Previously: tick 2 running (F0: TWINS.md and twins.json first, then its rule 18 fixes; Q0a: twins.mts first; D0: rule 18
 rework). Owner: G0, G1, G3 answered; G2 command given (D-023); GH, GU, G14, G15, G17 pending; CR-002 to CR-006 to decide. Owner answers to the Phase 0 packet pending (G0, G1, G3, G2, G6,
 G14, G15, G17, GH, GU). On resume: read LEDGER.md "Lanes", check each lane worktree and sha, start a new tick from it.
 
@@ -55,4 +55,4 @@ Phase: 0 done (2026-10-16), Wave 0 started 2026-10-16.
 | 3 | 2026-10-17T20:57Z | F0, Q0a, D0; Workflow run wf_cd81ad8c-6dd | F0 f83b0d0 and D0 bb643ba in progress; Q0a 62cb3b1 blocked on request 21 (answered: CR-008, CR-009, D-025) |
 | 4 | 2026-10-17T22:20Z | F0, Q0a, D0; Workflow run wf_ba346f86-ce2 | F0 8ab0d07 blocked (F0-17), Q0a 5d7390c blocked (request 24), both answered by CR-010 and D-026; D0 26f2823 in progress |
 | 5 | 2026-10-18T01:55Z | Q0a (merge first), F0 (needs Q0a), D0; Workflow run wf_aa3e4430-812 | Q0a r1 FIX then fixed, stopped on a stale gate folder (D-031); F0 not started; D0 in progress |
-| 6 | 2026-10-18T12:30Z | Q0a (round 2), F0 and Q0c (need Q0a), D0 | running |
+| 6 | 2026-10-18T12:30Z | Q0a (round 2), F0 and Q0c (need Q0a), D0; wf_88e50fad-7d2 | last Workflow tick: Q0a merged; stopped 2026-10-19 by the owner's light mode (D-034, D-035) |

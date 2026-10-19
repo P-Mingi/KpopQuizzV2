@@ -34,5 +34,23 @@
       "kpop"
     ],
     "kind": "code"
+  },
+  "B1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code"
+  },
+  "B2": {
+    "sites": [
+      "kpop"
+    ],
+    "kind": "code"
+  },
+  "E1a": {
+    "sites": [],
+    "kind": "script"
   }
 }

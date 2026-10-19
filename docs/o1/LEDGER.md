@@ -7,10 +7,10 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 
 | lane | wave | kind | prio | needs | mergeAfter | reviewers | stage | round | sha | worktree |
 |---|---|---|---|---|---|---|---|---|---|---|
-| F0 | 0 | code | 0 | | | ARCH | building (3 slices) | 1 | e5b51a5 (spike a74c82f) | o1-F0 (+ spike o1-F0s) |
-| Q0a | 0 | code | 0 | | | ARCH | round 2 gate and review | 2 | 7e0451b | o1-Q0a |
-| D0 | 0 | static | 1 | | F0 | UX | rule 18 audit, then rework | 1 | dd39d7d + uncommitted | o1-D0 |
-| Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | brief written (owner's proxy conditions, D-028) | | | |
+| F0 | 0 | code | 0 | | | ARCH | MERGED 667902f, tag o1-contract-v1 | 2 | 4d771d9 | |
+| Q0a | 0 | code | 0 | | | ARCH | MERGED d28e316 | 3 | 5e535a8 | |
+| D0 | 0 | static | 1 | | F0 | UX | STOPPED (D-035), not merged | | abb1cf7 | |
+| Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | DROPPED (D-035), proxy by ORCH (D-037) | | 7d9e03d | |
 | Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
@@ -235,6 +235,13 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
   the base on D0's design-only head, passing on o1/integration). Rule 15: noise normalised, recorded.
 - D-033 Q0c starts after Q0a merges (needs); `scripts/o1/parity.sh` and `scripts/o1/parity/**` are listed for both,
   sequenced (`OWNERSHIP._sequenced`), so Q0a's merge guard and Q0c's commits are both covered.
+- D-034 (2026-10-19) Light mode by the owner: Workflow engine ends with tick 6; at most 3 code agents via the Agent tool, sonnet except SQL and auth/passport; briefs of 60 lines at most; per-PR gate = tsc, builds, tests of touched files (`vitest related`), parity offline when kpop is reached; once a day and before any merge to main: full e2e and offline parity on o1/integration; R once, blockers only, on the SQL of B2, B3, B5, B7 and on auth/passport; 1.5 M tokens per lane; one line per decision.
+- D-035 Stopped: tick 6 (TaskStop), D0 at abb1cf7 (not merged, branch kept: the kpop twin is the design, G5 void), Q0c (1,447 lines, not merged, branch kept).
+- D-036 Q0a merged d28e316 (R r3 PASS before light mode); F0 merged 667902f (gate green, no second review), tag o1-contract-v1.
+- D-037 Proxy written by ORCH: scripts/o1/prod-proxy.mjs (68 lines) and its test (10 cases ok: POST ensure_daily_quiz 403 without leaving the machine, GET passes with the real key swapped in).
+- D-038 Routing wired on o1/integration (f92cc1a) on main as it is: HOT rule suspended for the routing files by the owner; offline parity identical on 60 pages; integration check green on 87eb3df (tsc, unit, 3 builds, parity vs main identical). Later SEO PRs: merge main, keep both changes.
+- D-039 Wave 1 started 2026-10-19: B1 (sonnet), B2 (SQL, default model), E1a (sonnet); briefs briefs/B1.md, B2.md, E1a.md; F0, F0s, Q0a worktrees removed (disk 19 GB).
+- D-040 Tokens since the start (harness measure, sum of each agent's final context): about 19.9 M (ticks 1 to 6 and the standalone reviews), ORCH's own conversation not counted.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests

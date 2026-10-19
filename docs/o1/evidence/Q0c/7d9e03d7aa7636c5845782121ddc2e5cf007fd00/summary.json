@@ -1,0 +1,70 @@
+{
+  "lane": "Q0c",
+  "sha": "7d9e03d7aa7636c5845782121ddc2e5cf007fd00",
+  "tree": "8bfb360050f04e66d59eece56a91aa62c73ffa6e",
+  "base": "d28e3165f5fc84715c3ced8f9894a6b380c33467",
+  "green": true,
+  "touchesKpop": false,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/Q0c/7d9e03d7aa7636c5845782121ddc2e5cf007fd00",
+  "failures": "",
+  "sites": [
+    "kpop"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-18T19:46:38Z",
+  "ended": "2026-10-18T19:57:33Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "twins",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 85
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 91
+    },
+    {
+      "name": "build-kpop",
+      "rc": "0",
+      "seconds": 382
+    },
+    {
+      "name": "parity",
+      "rc": "skipped",
+      "seconds": 0
+    },
+    {
+      "name": "site-checks",
+      "rc": "0",
+      "seconds": 65
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}
