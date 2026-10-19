@@ -1318,6 +1318,21 @@
       "notes": "Technical routes, shared handlers under app/(site)/auth (no rewrite reaches app/sites for /auth). Exempt from the twins check; a page file for them under app/sites is unlisted and fails it."
     },
     {
+      "id": "38",
+      "site": "anime",
+      "route": "site guard of the (anime) route group (D-048)",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "Technical: a 404 on any other build, renders nothing of its own",
+      "renders": [
+        "nothing visible: a site guard that renders its children, or a 404 on any other build"
+      ],
+      "owner": "O1",
+      "body": "none"
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",
@@ -1515,16 +1530,6 @@
       "notes": "The file is shared with row 27 (which imports the mascot for anime). Page-local body (request F0-9)."
     },
     {
-      "id": "38",
-      "site": "anime",
-      "route": "site guard of the (anime) route group (D-048)",
-      "file": "apps/quiz/src/app/sites/[site]/(anime)/layout.tsx",
-      "twin": null,
-      "mustImport": [],
-      "allowed": [],
-      "notes": "technical: a 404 on any other build, renders nothing of its own"
-    },
-    {
       "id": "H-9",
       "site": "hub",
       "route": "site guard of the (hub) route group (D-048)",
@@ -1532,7 +1537,12 @@
       "twin": null,
       "mustImport": [],
       "allowed": [],
-      "notes": "technical: a 404 on any other build, renders nothing of its own"
+      "notes": "Technical: a 404 on any other build, renders nothing of its own",
+      "renders": [
+        "nothing visible: a site guard that renders its children, or a 404 on any other build"
+      ],
+      "owner": "O1",
+      "body": "none"
     }
   ]
 }

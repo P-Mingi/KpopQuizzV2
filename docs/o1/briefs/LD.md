@@ -1,5 +1,5 @@
-# Lot (d), lane LD: fanquiz.org, the network page (one page)
-Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-LD, branch o1/LD. Q = apps/quiz/src. Read this brief, the code you
+# Lot (d), lane H1: fanquiz.org, the network page (one page)
+Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-H1, branch o1/H1. Q = apps/quiz/src. Read this brief, the code you
 change, Q/lib/site/registry.ts (NETWORK, SITE, vocabulary) and Q/lib/passport/types.ts; nothing else.
 ## Rules
 - Never push, never touch production, never use a connector or the supabase, vercel or gh commands. Never open ~/kpq-o1/secrets.
@@ -26,5 +26,5 @@ change, Q/lib/site/registry.ts (NETWORK, SITE, vocabulary) and Q/lib/passport/ty
    `/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/scripts/o1/check.sh $PWD` ok.
 3. Hub build: `/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/scripts/o1/env.sh offline -- env NEXT_PUBLIC_SITE_ID=hub
    pnpm -C apps/quiz build` green (the page must render with an unreachable database: signed out view).
-Commit on o1/LD ("o1: LD ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`).
+Commit on o1/H1 ("o1: H1 ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`).
 Hand back at most 10 lines: last sha, files changed (count), the checks with results, open issues.

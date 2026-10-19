@@ -53,14 +53,14 @@
     "sites": [],
     "kind": "script"
   },
-  "LB": {
+  "O2": {
     "sites": [
       "kpop",
       "anime"
     ],
     "kind": "code"
   },
-  "LC": {
+  "B3": {
     "sites": [
       "kpop",
       "anime",
@@ -68,14 +68,14 @@
     ],
     "kind": "code+sql"
   },
-  "LD": {
+  "H1": {
     "sites": [
       "kpop",
       "hub"
     ],
     "kind": "code"
   },
-  "LE": {
+  "K1": {
     "sites": [
       "kpop",
       "anime",

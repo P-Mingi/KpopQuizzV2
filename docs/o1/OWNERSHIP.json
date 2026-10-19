@@ -226,7 +226,19 @@
     "!apps/quiz/src/lib/passport/email/**",
     "apps/quiz/src/components/ux-v1/person-name.tsx",
     "apps/quiz/src/lib/passport-flair.ts",
-    "apps/quiz/e2e/o1/B3/**"
+    "apps/quiz/e2e/o1/B3/**",
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LC/**",
+    "docs/o1/reports/LC/**",
+    "docs/pending-migrations/multisite/003*",
+    "docs/pending-migrations/multisite/004*",
+    "docs/pending-migrations/multisite/005*",
+    "docs/pending-migrations/multisite/006*",
+    "docs/pending-migrations/multisite/007*",
+    "docs/pending-migrations/multisite/008*",
+    "docs/pending-migrations/multisite/009*",
+    "docs/pending-migrations/multisite/010*",
+    "docs/pending-migrations/multisite/launch/**"
   ],
   "B4": [
     "docs/pending-migrations/multisite/006-*",
@@ -325,7 +337,15 @@
     "docs/anime/EDITORIAL-POLICY.md",
     "docs/anime/TARGETS-anime.md",
     "docs/anime/series/**",
-    "docs/anime/data/series/**"
+    "docs/anime/data/series/**",
+    "apps/quiz/src/**",
+    "apps/quiz/scripts/**",
+    "scripts/anime/**",
+    "docs/anime/**",
+    "apps/quiz/e2e/o1/LE/**",
+    "docs/o1/reports/LE/**",
+    "docs/pending-migrations/multisite/01*",
+    "docs/pending-migrations/multisite/launch/**"
   ],
   "K2": [
     "docs/pending-migrations/multisite/launch/L*-k2-*",
@@ -353,7 +373,10 @@
   ],
   "O2": [
     "apps/quiz/src/components/series/**",
-    "apps/quiz/e2e/o1/O2/**"
+    "apps/quiz/e2e/o1/O2/**",
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LB/**",
+    "docs/o1/reports/LB/**"
   ],
   "O3": [
     "docs/pending-migrations/multisite/015-*",
@@ -389,7 +412,10 @@
     "apps/quiz/src/lib/site/hub/**",
     "apps/quiz/src/styles/sites/hub/**",
     "apps/quiz/src/components/hub/**",
-    "apps/quiz/e2e/o1/H1/**"
+    "apps/quiz/e2e/o1/H1/**",
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LD/**",
+    "docs/o1/reports/LD/**"
   ],
   "X1": [
     "docs/pending-migrations/multisite/launch/L*-x1-*",
@@ -433,39 +459,5 @@
       "Q0c",
       "scripts/o1/parity.sh and scripts/o1/parity/** pass from Q0a to Q0c: Q0c needs Q0a merged (D-033)"
     ]
-  ],
-  "LB": [
-    "apps/quiz/src/**",
-    "apps/quiz/e2e/o1/LB/**",
-    "docs/o1/reports/LB/**"
-  ],
-  "LC": [
-    "apps/quiz/src/**",
-    "apps/quiz/e2e/o1/LC/**",
-    "docs/o1/reports/LC/**",
-    "docs/pending-migrations/multisite/003*",
-    "docs/pending-migrations/multisite/004*",
-    "docs/pending-migrations/multisite/005*",
-    "docs/pending-migrations/multisite/006*",
-    "docs/pending-migrations/multisite/007*",
-    "docs/pending-migrations/multisite/008*",
-    "docs/pending-migrations/multisite/009*",
-    "docs/pending-migrations/multisite/010*",
-    "docs/pending-migrations/multisite/launch/**"
-  ],
-  "LD": [
-    "apps/quiz/src/**",
-    "apps/quiz/e2e/o1/LD/**",
-    "docs/o1/reports/LD/**"
-  ],
-  "LE": [
-    "apps/quiz/src/**",
-    "apps/quiz/scripts/**",
-    "scripts/anime/**",
-    "docs/anime/**",
-    "apps/quiz/e2e/o1/LE/**",
-    "docs/o1/reports/LE/**",
-    "docs/pending-migrations/multisite/01*",
-    "docs/pending-migrations/multisite/launch/**"
   ]
 }

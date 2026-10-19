@@ -1,5 +1,5 @@
-# Lot (c), part 2, lane LC: the passport in the app (one account across the three sites)
-Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-LC, branch o1/LC (part 1 already put SQL 003 to 008 there and on
+# Lot (c), part 2, lane B3: the passport in the app (one account across the three sites)
+Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-B3, branch o1/B3 (part 1 already put SQL 003 to 008 there and on
 o1-scratch). Q = apps/quiz/src, S = /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/scripts/o1. Read this brief, the code
 you change, Q/lib/passport/types.ts, Q/lib/site/registry.ts, and the SQL 003 to 008 signatures (grep them); nothing else.
 ## Rules
@@ -43,7 +43,7 @@ no email sent), then rpc ensure_membership(<site>, 'jump', via), and answers the
 2. One end-to-end proof on o1-scratch, two local servers (read S/dev-multi.sh header for usage, flag on, local secrets you generate for
    the run only): a fixture account signed in on the kpop server follows /auth/passport/out?to=anime&next=/&via=k.menu and lands signed in
    on the anime server; then world_memberships has its anime row with joined_via 'jump' and via_code 'k.menu'. Spec in
-   apps/quiz/e2e/o1/LC/jump.o1.ts; evidence (outcome, rows, no secret) in docs/o1/reports/LC/jump.md.
+   apps/quiz/e2e/o1/B3/jump.o1.ts; evidence (outcome, rows, no secret) in docs/o1/reports/LC/jump.md.
 3. `pnpm -C apps/quiz exec tsc --noEmit` 0 errors; `S/check.sh $PWD` ok.
-Commit on o1/LC ("o1: LC ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`).
+Commit on o1/B3 ("o1: B3 ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`).
 Hand back at most 10 lines: last sha, files changed (count), the checks with results, what is left unspecified and what you decided.

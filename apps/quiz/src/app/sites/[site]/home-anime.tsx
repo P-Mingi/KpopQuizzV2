@@ -18,7 +18,6 @@ import { HomeGroupPills } from '@/components/home/home-group-pills';
 import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
-import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
@@ -290,7 +289,6 @@ export default function HomePage(): React.ReactElement {
       <UxHome
         head={(
           <>
-            <WorldHomeRedirect />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(WEBSITE_JSON_LD) }} />
             <Suspense fallback={null}>
               <HomeFeaturedJsonLd />
@@ -302,10 +300,7 @@ export default function HomePage(): React.ReactElement {
   }
   return (
     <div className="pt-1 pb-8">
-      {/* W-NAV: returning Verse-preferrers may be opened at /verse (client-side,
-          cookie-gated, crawler-safe - see WorldHomeRedirect). No-op for everyone
-          else, so the games home stays the games home for crawlers + new visitors. */}
-      <WorldHomeRedirect />
+      {/* Run O1: no Verse redirect on otakuquiz.org (kpop only). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

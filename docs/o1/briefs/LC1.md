@@ -1,5 +1,5 @@
-# Lot (c), part 1, lane LC: the passport SQL 003 to 008, tried on o1-scratch
-Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-LC, branch o1/LC. Read this brief, the files it names and the
+# Lot (c), part 1, lane B3: the passport SQL 003 to 008, tried on o1-scratch
+Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-B3, branch o1/B3. Read this brief, the files it names and the
 code you change; nothing else. M = docs/pending-migrations/multisite, C = docs/o1/contracts, S = /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/scripts/o1.
 ## Rules
 - Never push, never touch production, never use a connector or the supabase, vercel or gh commands. Never open ~/kpq-o1/secrets and
@@ -36,14 +36,14 @@ transaction, grants as the contract says. Order: 003, 004, 005, 006, 007, 008.
    'kpop' equals count of profiles; sum(xp) of profiles unchanged; no badge_definitions row with site_id <> 'kpop'.
 2. A new profile insert gets its kpop membership; with `set app.site_id = 'anime'` it gets an anime one; a forced failure inside the
    trigger function does not block the insert; award_world_xp('kpop', ...) raises.
-3. Equivalence of 008: write apps/quiz/e2e/o1/LC/equivalence.sql, a deterministic batch with at least 50 calls of each kpop write path
+3. Equivalence of 008: write apps/quiz/e2e/o1/B3/equivalence.sql, a deterministic batch with at least 50 calls of each kpop write path
    (plays, likes and unlikes, quiz creates, follows, duel votes, battles, blind test plays, anon merge, badges) inside BEGIN ... ROLLBACK,
    ending with one md5 over the touched profiles columns (xp, counters, badges, streaks) and notifications. Run it before 008 and after
-   008: the two hashes must be equal. Write the runner as apps/quiz/e2e/o1/LC/equivalence.sh (uses S/env.sh scratch).
+   008: the two hashes must be equal. Write the runner as apps/quiz/e2e/o1/B3/equivalence.sh (uses S/env.sh scratch).
 4. Catalog diff: `/opt/homebrew/opt/postgresql@18/bin/pg_dump --schema-only` of public and passport (via env.sh scratch, to a file under your worktree, not committed)
    before 003 and after the rollback of 008 to 003: identical except ordering. Then re-apply 003 to 008 and leave scratch applied.
 5. `S/env.sh scratch -- /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/node_modules/.bin/tsx
    apps/quiz/scripts/o1/check-contract.mts --target db --applied-only` and `pnpm -C apps/quiz exec vitest run src/lib/site/contract.test.ts`.
 6. `pnpm -C apps/quiz exec tsc --noEmit`: 0 errors.
-Commit on o1/LC ("o1: LC ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`). Do not write app code: part 2 does.
+Commit on o1/B3 ("o1: B3 ..."; last line `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`). Do not write app code: part 2 does.
 Hand back at most 10 lines: last sha, files, the 6 checks with results (hash values may be shown), anything unspecified you decided.
