@@ -13,7 +13,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | DROPPED (D-035), proxy by ORCH (D-037) | | 7d9e03d | |
 | Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
 | B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | MERGED aad34b5 | 1 | 3c2dfb7 | |
-| B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
+| B2 | 1 | code | 0 | F0, Q0a | B1 | SQL | MERGED e39b310, SQL on o1-dev | 1 | 170bbae | |
 | B3 | 1 | code | 0 | F0, B2 | | SQL + SQL-K2 | | | | |
 | B4 | 1 | code | 0 | F0, B1, B3, Q0b | | SEC | | | | |
 | B5 | 1 | code | 0 | F0, B2, B3, Q0b | G3 | SQL + SQL-K2 | | | | |
@@ -247,6 +247,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 - D-043 Merges into o1/integration compare in production mode through the read-only proxy (`scripts/o1/parity-prod.sh`, `docs/o1/PARITY-PROXY`): the offline mode cannot judge pages that answer 500 without data (their error digests change per build, and Q0a's reviewed test forbids normalising them: ratchet kept). Gates and the nightly stay offline.
 - D-044 B1 merged aad34b5 (0.40 M tokens): production parity through the proxy identical on 60 pages; the proxy refused 12 calls (10 POST rpc/get_personality_counts, 2 POST rpc/get_rising_creators: not in the owner's 22 read-only functions), the same on both sides.
 - D-045 B2 ready at 170bbae (0.34 M tokens); R reviews its SQL once (blockers only) before its merge.
+- D-046 B2 merged e39b310 (0.34 M; R PASS on its SQL, 0.22 M): production parity through the proxy identical on 60 pages; L01 moved from its report folder into launch/; 001, L01, 002a to 002d applied on o1-dev in manifest order, all ok. Lot (B1 and B2) cost 0.96 M of its 2.5 M forecast.
+- D-047 Lot (a) started: scripts/o1/twins-codemod.mjs copies the 40 single-twin pages of twins.json under app/sites/[site]/ (kpop modules imported, vocabulary on visible text of anime-only pages); the shared home is a hand-written dispatcher.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
