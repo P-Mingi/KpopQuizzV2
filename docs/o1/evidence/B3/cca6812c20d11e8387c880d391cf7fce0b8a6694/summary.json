@@ -1,0 +1,77 @@
+{
+  "lane": "B3",
+  "sha": "cca6812c20d11e8387c880d391cf7fce0b8a6694",
+  "tree": "afac3ddb13969dcbb5badc1cadeef51f54d9c5b3",
+  "base": "5705cb6d660494422a339c14e5f41d6d7fc4d708",
+  "green": true,
+  "touchesKpop": true,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/B3/cca6812c20d11e8387c880d391cf7fce0b8a6694",
+  "failures": "",
+  "sites": [
+    "kpop",
+    "anime",
+    "hub"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-19T21:36:42Z",
+  "ended": "2026-10-19T21:45:25Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "twins",
+      "rc": "0",
+      "seconds": 10
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 32
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 7
+    },
+    {
+      "name": "build-anime",
+      "rc": "0",
+      "seconds": 84
+    },
+    {
+      "name": "build-hub",
+      "rc": "0",
+      "seconds": 80
+    },
+    {
+      "name": "parity",
+      "rc": "0",
+      "seconds": 294
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}
