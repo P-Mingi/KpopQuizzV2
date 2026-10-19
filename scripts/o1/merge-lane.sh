@@ -66,7 +66,11 @@ git add "$RUN/LEDGER.md"
 git commit -q -m "o1: merge $lane (${sha:0:12}), gate green" -m "Parity: $parity." > "$LOG/merge-commit.log" 2>&1 || abort "commit failed: $(tail -3 "$LOG/merge-commit.log" | tr '\n' ' ')"
 merged="$(git rev-parse HEAD)"
 # Reviewed SQL of the lane to o1-dev, in manifest order (migrate-dev.sh enforces it).
-sql="$(grep -E '^docs/pending-migrations/multisite/[0-9][^/]*\.sql$' "$LOG/merge-changed.txt" | grep -v '\.rollback\.sql$' | sort || true)"
+# The lane's SQL (numbered and launch files) in the order of the manifest, which migrate-dev.sh enforces.
+sql=""
+for f in $(grep -oE 'docs/pending-migrations/multisite/[A-Za-z0-9_./-]+\.sql' "$RUN/contracts/manifest.md" | grep -v '\.rollback\.sql$'); do
+  grep -qxF "$f" "$LOG/merge-changed.txt" && sql="$sql $f"
+done
 if [ -n "$sql" ]; then
   if [ -f "$KPQ/secrets/dev.env" ]; then
     # shellcheck disable=SC2086
