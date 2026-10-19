@@ -38,6 +38,10 @@ interface Args {
   creatorNote: string | null;
   breadcrumbItems: BreadcrumbItem[];
   quizJsonLd: Record<string, unknown>;
+  /** The site origin of the JSON-LD URLs; default: the kpop site's. */
+  origin?: string;
+  /** A site's own block above the start buttons (the anime spoiler interstitial and shield). Default: none. */
+  gate?: React.ReactNode;
 }
 
 export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
@@ -94,7 +98,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `https://kpopquiz.org${item.href}` } : {}),
+      ...(item.href ? { item: `${a.origin ?? 'https://kpopquiz.org'}${item.href}` } : {}),
     })),
   };
 
@@ -138,6 +142,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       groupQuizCount={groupQuizCount}
       articleLinks={getGroupArticleLinks(quiz.group_slug).map((l) => ({ slug: l.slug, label: l.label }))}
       creator={creator}
+      {...(a.gate ? { gate: a.gate } : {})}
     />
   );
 }

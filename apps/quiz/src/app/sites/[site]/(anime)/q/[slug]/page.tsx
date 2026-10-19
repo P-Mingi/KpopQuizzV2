@@ -1,5 +1,5 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/q/[slug]/page.tsx, rows 6, 7, 8: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
+import { SITE, SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import { notFound } from 'next/navigation';
 
 import { jsonLdScript } from '@/lib/verse/jsonld';
@@ -8,9 +8,6 @@ import Link from 'next/link';
 import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { getQuizExtraStats } from '@/lib/db/queries/plays';
 import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
-import { hasTriviaPage } from '@/lib/db/queries/trivia';
-import { getOverriddenFacts } from '@/lib/trivia/facts';
-import { getStoredGroupTrivia } from '@/lib/trivia/stored-facts';
 import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
@@ -28,11 +25,17 @@ import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from '@/app/(site)/q/[slug]/ux-page';
+import { SpoilerGate } from '@/components/spoilers/spoiler-gate';
+import { getSeriesHub } from '@/lib/anime/series';
+import { arcName, hasTriviaPage as seriesHasTrivia, quizSpoilerLevel, shieldArcs, uniqueFacts } from '@/lib/anime/series-model';
+import { maskTaggedQuestions, withoutTaggedQuestions } from '@/lib/anime/spoilers';
 
 import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
+import type { QuestionSpoiler } from '@/lib/anime/types';
+import type { TriviaFact } from '@/lib/trivia/types';
 
 // ISR: cached HTML revalidates hourly. The TOP_PRERENDER most-played slugs
 // pre-render at build time so Googlebot hits cold-cache static HTML with
@@ -157,6 +160,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   const questionCount = (quiz.questions as unknown[]).length;
 
+  // A5: the series of the quiz (arcs, stored level, sourced facts). Read-through cache shared with the series hub; a
+  // failed read leaves the page without the shield rather than failing it.
+  const hub = await safeFetch(getSeriesHub(quiz.group_slug), null, '[q/[slug]] getSeriesHub');
+  const taggedQuestions = (quiz.questions as Array<{ spoiler?: QuestionSpoiler }>) ?? [];
+  const spoilerLevel = quizSpoilerLevel(hub, quiz.slug, taggedQuestions);
+
   // SEO-3 U1: extra stats not on the quiz row (fastest time, perfect scores,
   // passing count, total plays-table rows). Only fetched when there is at
   // least one play - saves a DB round trip on brand-new quizzes.
@@ -182,13 +191,15 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // unique quiz content (questions, options, fun facts) is crawlable. The
   // `correct` index is deliberately NOT read or rendered here - options are
   // listed plainly so the answer is never given away in the markup.
-  const seoQuestions = (quiz.questions as Array<{
+  // A5: a question tagged with an arc above 0 never reaches the HTML or the JSON-LD, so it is dropped here.
+  const seoQuestions = withoutTaggedQuestions((quiz.questions as Array<{
     question?: string;
     options?: string[];
     fun_fact?: string;
     clues?: string[];
     correct?: number | boolean;
-  }>) ?? [];
+    spoiler?: QuestionSpoiler;
+  }>) ?? []);
 
   // SEO-3 U2: dynamic intro with variation branches. Sentence STRUCTURE
   // changes with data availability so pages do not read identical.
@@ -285,21 +296,19 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 
   // Conditional trivia entry point: only shown when this group actually has a
   // trivia page (>= TRIVIA_MIN_FACTS facts post-override), so ineligible groups link nowhere.
-  const triviaAvailable = await safeFetch(
-    hasTriviaPage(quiz.group_id, quiz.group_slug),
-    false,
-    '[q/[slug]] hasTriviaPage',
-  );
+  const triviaAvailable = hub ? seriesHasTrivia(hub.trivia) : false;
 
   // SEO-4 (O3) + SEO-5 (B): ONE real fact, distinct + stable per quiz, for the inline
   // "Did you know?" card. The pool merges the DERIVED group fun-facts (getOverriddenFacts,
   // React-cache()'d so it dedupes with hasTriviaPage above) with the entity-level STORED
   // trivia (migration 149, sourced + covenant-checked), deduped by the shared fact key
   // (derived wins on a tie). One fact is then picked stably; 0 in both -> nothing.
-  const [derivedFacts, storedFacts] = await Promise.all([
-    safeFetch(getOverriddenFacts(quiz.group_id, quiz.group_slug), [], '[q/[slug]] dykFacts'),
-    safeFetch(getStoredGroupTrivia(quiz.group_id), [], '[q/[slug]] storedTrivia'),
-  ]);
+  // A5: the facts of the group's quizzes are not used here (a tagged question's fun fact is a spoiler); the pool is the
+  // series' stored, sourced facts.
+  const derivedFacts: TriviaFact[] = [];
+  const storedFacts: TriviaFact[] = hub
+    ? uniqueFacts(hub.trivia).map((f) => ({ fact: f.fact, category: f.category, sourceQuizTitle: '', sourceQuizSlug: '' }))
+    : [];
   const dykPool: typeof derivedFacts = [];
   const seenFactKeys = new Set<string>();
   for (const f of [...derivedFacts, ...storedFacts]) {
@@ -351,7 +360,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     likeCount: quiz.like_count ?? 0,
   };
 
-  const inThisQuiz = buildInThisQuiz(quiz);
+  const inThisQuiz = buildInThisQuiz({ ...quiz, questions: maskTaggedQuestions(taggedQuestions) as typeof quiz.questions });
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
 
   // Shared by both renders so the flag-on page emits the same breadcrumb trail and
@@ -387,7 +396,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     author: {
       '@type': 'Person',
       name: quiz.creator_username,
-      url: `https://kpopquiz.org/u/${quiz.creator_username}`,
+      url: `${SITE.url}/u/${quiz.creator_username}`,
     },
     dateCreated: quiz.created_at,
     // Not updated_at: record_play bumps it on every play (a play is not an edit).
@@ -418,9 +427,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
         : []),
     ],
     about: {
-      '@type': 'MusicGroup',
+      '@type': 'TVSeries',
       name: quiz.group_name,
-      url: `https://kpopquiz.org/${quiz.group_slug}-quiz`,
+      url: `${SITE.url}/${quiz.group_slug}-quiz`,
     },
     hasPart: seoQuestions
       .map((q) => q.question)
@@ -428,8 +437,20 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       .map((text) => ({ '@type': 'Question', name: text })),
     numberOfQuestions: questionCount,
     inLanguage: quiz.language && /^[a-z]{2}$/.test(quiz.language) ? quiz.language : 'en',
-    url: `https://kpopquiz.org/q/${quiz.slug}`,
+    url: `${SITE.url}/q/${quiz.slug}`,
   };
+
+  // A5: the interstitial and the shield, for a quiz whose level is above 0.
+  const gate = hub && spoilerLevel.arcOrd > 0 ? (
+    <SpoilerGate
+      seriesSlug={hub.group.slug}
+      groupId={hub.group.id}
+      name={hub.group.name}
+      level={{ arc: spoilerLevel.arcOrd, scope: spoilerLevel.scope }}
+      arcName={arcName(hub.arcs, spoilerLevel.arcOrd)}
+      arcs={shieldArcs(hub.arcs)}
+    />
+  ) : undefined;
 
   // UX v11 (P4): the redesigned quiz page, game and results, behind the flag. Same
   // H1, intro paragraph, question list, links and JSON-LD; server rendered like today.
@@ -451,6 +472,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       creatorNote: creatorNote ?? null,
       breadcrumbItems,
       quizJsonLd,
+      origin: SITE.url,
+      ...(gate ? { gate } : {}),
     });
   }
 

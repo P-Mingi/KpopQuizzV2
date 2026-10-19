@@ -3,12 +3,16 @@ import { SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import { notFound } from 'next/navigation';
 
 import { getGroupBySlug } from '@/lib/db/queries/groups';
-import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
-import { GroupQuizPage, generateGroupQuizMetadata } from '@/app/(site)/[slug]/group-quiz-page';
-import { GroupTriviaPage, generateGroupTriviaMetadata } from '@/app/(site)/[slug]/group-trivia-page';
+import { GroupQuizPage } from '@/app/(site)/[slug]/group-quiz-page';
+import { GroupTriviaPage } from '@/app/(site)/[slug]/group-trivia-page';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
+import { buildMixSlots, buildSeriesSlots, buildTriviaVariant } from '@/components/anime/series-hub-slots';
+import { getRelatedSeries, getSeriesHub } from '@/lib/anime/series';
+import { mixHubMetadata, seriesHubMetadata, seriesTriviaMetadata, uniqueFacts } from '@/lib/anime/series-model';
+import { ANIME_MIX_SLUG } from '@/lib/anime/types';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
@@ -53,40 +57,54 @@ function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string }
   return null;
 }
 
+// The anime hub is the series hub: /{series}-quiz and /{series}-trivia read the series (lib/anime/series.ts) and fill the
+// slots of the shared hub and trivia components; /anime-mix-quiz is the hub of the whole catalog. A missing, unpublished
+// or unreadable series is a true 404. ?arc, ?q, ?role and ?progress never change the canonical (the clean URL).
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
   const { slug } = await params;
   const parsed = parseSlug(slug);
   if (!parsed) return {};
 
-  const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group) return {};
+  if (parsed.type === 'quiz' && parsed.groupSlug === ANIME_MIX_SLUG) {
+    const mix = await getGroupBySlug(parsed.groupSlug);
+    return mix ? mixHubMetadata(mix, SITE.url, SITE.brand.name) : {};
+  }
 
-  if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
+  // generateMetadata resolves BEFORE the page body streams (the root loading.tsx shell would otherwise commit a 200), so
+  // notFound() here, for a missing series or a series under the trivia floor, yields a TRUE 404 instead of a soft-404.
+  const hub = await getSeriesHub(parsed.groupSlug);
+  if (!hub) notFound();
 
-  // Trivia eligibility gate at the route level. generateMetadata resolves
-  // BEFORE the page body streams (the root loading.tsx shell would otherwise
-  // commit a 200), so calling notFound() here for an ineligible / suppressed
-  // group yields a TRUE 404 instead of a soft-404. getOverriddenFacts is
-  // cache()'d, so the page render below reuses this result with no extra query.
-  const facts = await getOverriddenFacts(group.id, group.slug);
+  if (parsed.type === 'quiz') return seriesHubMetadata(hub, SITE.url, SITE.brand.name);
+
+  const facts = uniqueFacts(hub.trivia);
   if (facts.length < TRIVIA_MIN_FACTS) notFound();
-
-  return generateGroupTriviaMetadata(group, facts.length);
+  return seriesTriviaMetadata(hub, facts.length, SITE.url, SITE.brand.name);
 }
 
 export default async function SlugPage({ params }: SlugPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
   const parsed = parseSlug(slug);
   if (!parsed) notFound();
+  const site = { origin: SITE.url, brand: SITE.brand.name };
 
-  const group = await getGroupBySlug(parsed.groupSlug);
-  if (!group) notFound();
+  if (parsed.type === 'quiz' && parsed.groupSlug === ANIME_MIX_SLUG) {
+    const mix = await getGroupBySlug(parsed.groupSlug);
+    if (!mix) notFound();
+    return UX_V1 ? GroupHubV11({ group: mix, slots: buildMixSlots(mix, site) }) : GroupQuizPage({ group: mix });
+  }
 
-  // UX v11 (NEXT_PUBLIC_UX_V1, default off): the v11 hub, same metadata, H1, intro,
-  // FAQ, JSON-LD and links. Flag off renders exactly today's page. The -trivia
-  // pages keep today's content inside the v11 shell.
-  if (parsed.type === 'quiz') return UX_V1 ? GroupHubV11({ group }) : GroupQuizPage({ group });
-  return GroupTriviaPage({ group });
+  const hub = await getSeriesHub(parsed.groupSlug);
+  if (!hub) notFound();
+
+  // UX v11 (NEXT_PUBLIC_UX_V1, always on for this site): the shared hub with the anime blocks in its slots. The -trivia
+  // page is the shared trivia page fed with the series' stored, sourced facts; under TRIVIA_MIN_FACTS it is a 404.
+  if (parsed.type === 'quiz') {
+    if (!UX_V1) return GroupQuizPage({ group: hub.group });
+    const related = await getRelatedSeries(hub.group.id);
+    return GroupHubV11({ group: hub.group, slots: buildSeriesSlots(hub, related, site) });
+  }
+  return GroupTriviaPage({ group: hub.group, variant: buildTriviaVariant(hub, site) });
 }
 
 // Run O1: a child of app/sites/[site] returns its params with the parent's site, and nothing on the kpop build

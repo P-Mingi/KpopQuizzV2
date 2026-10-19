@@ -17,6 +17,8 @@ interface TextCardProps {
   averagePct?: number | null;
   titleAs?: 'h2' | 'h3' | 'p';
   className?: string;
+  /** A line after the numbers (a site's own label on the card). Default: none. */
+  note?: React.ReactNode;
 }
 
 /**
@@ -24,7 +26,7 @@ interface TextCardProps {
  * glyph (pink) + "Classic · Medium", title, then "842 plays · average 66%".
  * Bordered (--line), pink-line on hover; plain rows on phones. Server component.
  */
-export function TextCard({ href, title, quizType, difficulty, plays, averagePct, titleAs: T = 'h3', className }: TextCardProps): React.ReactElement {
+export function TextCard({ href, title, quizType, difficulty, plays, averagePct, titleAs: T = 'h3', className, note }: TextCardProps): React.ReactElement {
   const lv = levelOf(difficulty);
   return (
     <Link href={href} className={['ux-tcard', className ?? ''].filter(Boolean).join(' ')}>
@@ -37,6 +39,7 @@ export function TextCard({ href, title, quizType, difficulty, plays, averagePct,
         <i className="ux-num">{formatCount(plays)} plays</i>
         {typeof averagePct === 'number' ? <i className="ux-num">average {averagePct}%</i> : null}
       </span>
+      {note}
     </Link>
   );
 }
