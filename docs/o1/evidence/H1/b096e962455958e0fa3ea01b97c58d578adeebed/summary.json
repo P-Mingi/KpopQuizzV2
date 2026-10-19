@@ -1,0 +1,71 @@
+{
+  "lane": "H1",
+  "sha": "b096e962455958e0fa3ea01b97c58d578adeebed",
+  "tree": "c93884bca8021acce09396376a8b7999bc26ac04",
+  "base": "0db0b58614e06ec32507ae8d70e5d6b29ef301c5",
+  "green": false,
+  "touchesKpop": true,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/H1/b096e962455958e0fa3ea01b97c58d578adeebed",
+  "failures": "parity:     at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:295:8)     at <unknown> (https://nextjs.org/docs/messages/module-not-found) parity: base build failed (log /Users/louis/kpq-o1/parity-offline/cache/parity/0db0b58614e0-b096e9624559-db2f8560-cb12ed53.tmp/build-base.log) ; ",
+  "sites": [
+    "kpop",
+    "hub"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-19T22:37:01Z",
+  "ended": "2026-10-19T22:40:22Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "twins",
+      "rc": "0",
+      "seconds": 10
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 39
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 4
+    },
+    {
+      "name": "build-hub",
+      "rc": "0",
+      "seconds": 81
+    },
+    {
+      "name": "parity",
+      "rc": "7",
+      "seconds": 55
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}
