@@ -224,6 +224,47 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   const hasSide = hasQuizzes || fans.length > 0 || Boolean(warRank) || newestDistinct.length > 0 || articles.length > 0 || hasFk || Boolean(mvPulse);
   const hasLow = hasAbout || faqItems.length > 0 || hasSide || Boolean(slots?.main);
 
+  // The two blocks of the main column of the lower band. They are built here, unchanged, so that a site's own block
+  // (slots.main) can come first without a slot that is undefined on the kpop page (the tree keeps today's two children).
+  const aboutSection = hasAbout ? (
+    <section aria-labelledby="p3-about-h">
+      <h2 id="p3-about-h" className="ux-h2">About {g.name}</h2>
+      {answerLead ? (
+        <div className="p3-prose">
+          <p>{answerLead}</p>
+          {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
+        </div>
+      ) : null}
+      {nameAllGame && nameAllGame.members.length > 0 ? (
+        <MemberTiles label={`${g.name} members`} groupName={g.name} tiles={nameAllGame.members} />
+      ) : null}
+      {updated && contentDate ? (
+        <p className="p3-updated">Updated <time dateTime={contentDate.slice(0, 10)}>{updated}</time></p>
+      ) : null}
+      {aboutLinks ? (
+        <div className="p3-links">
+          {triviaAvailable ? <UxLink href={`/${g.slug}-trivia`}><Icon name="book" />Learn before you play: {g.name} trivia</UxLink> : null}
+          {verseLink ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
+          {hasQuizzes ? <UxLink href={`/create?group=${g.slug}`}><Icon name="plus" />Make your own {g.name} quiz</UxLink> : null}
+        </div>
+      ) : null}
+    </section>
+  ) : null;
+
+  const faqSection = faqItems.length > 0 ? (
+    <section className="p3-faq" aria-labelledby="group-faq">
+      <h2 id="group-faq" className="ux-h2">{slots?.labels.faq ?? 'Questions fans ask'}</h2>
+      <div className="p3-accs">
+        {faqItems.map((f, i) => (
+          <details key={f.q} className="p3-acc" open={i === 0}>
+            <summary><h3 className="p3-acc-q">{f.q}</h3><Icon name="chev" /></summary>
+            <div className="p3-acc-a">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+  ) : null;
+
   return (
     <UxPage width="wide" className="p3 p3-hub">
       {/* Today's BreadcrumbList (Home > Quizzes > <Group> Quiz), unchanged. */}
@@ -258,9 +299,9 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
               ("... Know K-pop" for the General K-pop category). The first half is the
               display title, the rest its second line. */}
           <h1 id="p3-h1" className="p3-h1">
-            <span className="p3-h1-main">{slots?.h1 ? slots.h1.main : <>{g.name} Quiz</>}</span>
+            {slots?.h1 ? <span className="p3-h1-main">{slots.h1.main}</span> : <span className="p3-h1-main">{g.name} Quiz</span>}
             <span className="ux-sr"> - </span>
-            <span className="p3-h1-tail">{slots?.h1 ? slots.h1.tail : <>Test How Well You Know {knowSubject(g.slug, g.name)}</>}</span>
+            {slots?.h1 ? <span className="p3-h1-tail">{slots.h1.tail}</span> : <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>}
           </h1>
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
@@ -299,47 +340,18 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
-          <div className="p3-low-main">
-            {slots?.main}
-            {hasAbout ? (
-              <section aria-labelledby="p3-about-h">
-                <h2 id="p3-about-h" className="ux-h2">About {g.name}</h2>
-                {answerLead ? (
-                  <div className="p3-prose">
-                    <p>{answerLead}</p>
-                    {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
-                  </div>
-                ) : null}
-                {nameAllGame && nameAllGame.members.length > 0 ? (
-                  <MemberTiles label={`${g.name} members`} groupName={g.name} tiles={nameAllGame.members} />
-                ) : null}
-                {updated && contentDate ? (
-                  <p className="p3-updated">Updated <time dateTime={contentDate.slice(0, 10)}>{updated}</time></p>
-                ) : null}
-                {aboutLinks ? (
-                  <div className="p3-links">
-                    {triviaAvailable ? <UxLink href={`/${g.slug}-trivia`}><Icon name="book" />Learn before you play: {g.name} trivia</UxLink> : null}
-                    {verseLink ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
-                    {hasQuizzes ? <UxLink href={`/create?group=${g.slug}`}><Icon name="plus" />Make your own {g.name} quiz</UxLink> : null}
-                  </div>
-                ) : null}
-              </section>
-            ) : null}
-
-            {faqItems.length > 0 ? (
-              <section className="p3-faq" aria-labelledby="group-faq">
-                <h2 id="group-faq" className="ux-h2">{slots?.labels.faq ?? 'Questions fans ask'}</h2>
-                <div className="p3-accs">
-                  {faqItems.map((f, i) => (
-                    <details key={f.q} className="p3-acc" open={i === 0}>
-                      <summary><h3 className="p3-acc-q">{f.q}</h3><Icon name="chev" /></summary>
-                      <div className="p3-acc-a">{f.a}</div>
-                    </details>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-          </div>
+          {slots?.main ? (
+            <div className="p3-low-main">
+              {slots.main}
+              {aboutSection}
+              {faqSection}
+            </div>
+          ) : (
+            <div className="p3-low-main">
+              {aboutSection}
+              {faqSection}
+            </div>
+          )}
 
           {hasSide ? <div className="p3-low-side">
             {hasQuizzes ? (

@@ -33,20 +33,32 @@ interface MemberTilesProps {
 export function MemberTiles({ label, groupName, tiles }: MemberTilesProps): React.ReactElement {
   return (
     <ul className="p3-members" aria-label={label} tabIndex={0}>
-      {tiles.map((m) => (
-        <li key={m.key ?? m.name} className={m.className}>
-          {m.lead}
-          {m.photoUrl && m.photoUrl.startsWith('/') ? (
-            <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${groupName}`} width={80} height={80} sizes="80px" />
-          ) : m.photoUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element -- a non-local roster photo keeps today's plain img
-            <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${groupName}`} width={80} height={80} loading="lazy" />
-          ) : (
-            <span className={m.faceClass ? `p3-member-face is-ini ${m.faceClass}` : 'p3-member-face is-ini'} aria-hidden="true">{m.monogram ?? m.name.slice(0, 2).toUpperCase()}</span>
-          )}
-          <span>{m.name}{m.note}</span>
-        </li>
-      ))}
+      {tiles.map((m) => {
+        const face = m.photoUrl && m.photoUrl.startsWith('/') ? (
+          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${groupName}`} width={80} height={80} sizes="80px" />
+        ) : m.photoUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element -- a non-local roster photo keeps today's plain img
+          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${groupName}`} width={80} height={80} loading="lazy" />
+        ) : (
+          <span className={m.faceClass ? `p3-member-face is-ini ${m.faceClass}` : 'p3-member-face is-ini'} aria-hidden="true">{m.monogram ?? m.name.slice(0, 2).toUpperCase()}</span>
+        );
+        // A plain tile (the kpop hub's) is the <li> it always was: no className prop, no lead slot, one text child.
+        if (m.className === undefined && m.lead === undefined && m.note === undefined) {
+          return (
+            <li key={m.key ?? m.name}>
+              {face}
+              <span>{m.name}</span>
+            </li>
+          );
+        }
+        return (
+          <li key={m.key ?? m.name} className={m.className}>
+            {m.lead}
+            {face}
+            <span>{m.name}{m.note}</span>
+          </li>
+        );
+      })}
     </ul>
   );
 }

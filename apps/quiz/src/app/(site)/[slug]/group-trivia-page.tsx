@@ -242,14 +242,14 @@ export async function GroupTriviaPage({ group, variant }: { group: Group; varian
           </div>
         )}
         <h1 className="trivia-title">{heroTitle}</h1>
-        <p className="trivia-subline">
-          {variant ? variant.subline : (
-            <>
-              {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
-              might not know - pulled from fan-made quizzes.
-            </>
-          )}
-        </p>
+        {variant ? (
+          <p className="trivia-subline">{variant.subline}</p>
+        ) : (
+          <p className="trivia-subline">
+            {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
+            might not know - pulled from fan-made quizzes.
+          </p>
+        )}
         {formatContentMonth(contentDate) && (
           <p className="group-updated">
             Updated <time dateTime={(contentDate as string).slice(0, 10)}>{formatContentMonth(contentDate)}</time>
@@ -286,8 +286,8 @@ export async function GroupTriviaPage({ group, variant }: { group: Group; varian
         </div>
       </div>
 
-      {/* Fact sections */}
-      {categorySections.map(section => (
+      {/* Fact sections. A site with sources (variant) ends the same list with its sources section, so the page keeps its children. */}
+      {[...categorySections.map(section => (
         <section key={section.key} className="trivia-section">
           {!singleCategory && (
             <div className="trivia-section-head">
@@ -306,10 +306,8 @@ export async function GroupTriviaPage({ group, variant }: { group: Group; varian
             ))}
           </ul>
         </section>
-      ))}
-
-      {variant ? (
-        <section className="trivia-section" aria-labelledby="trivia-sources-h">
+      )), ...(variant ? [(
+        <section key="sources" className="trivia-section" aria-labelledby="trivia-sources-h">
           <h2 id="trivia-sources-h" className="trivia-section-title">{variant.sourcesTitle}</h2>
           <ul className="trivia-sources">
             {sourceList(uniqueFacts as TriviaVariantFact[]).map((s) => (
@@ -317,17 +315,25 @@ export async function GroupTriviaPage({ group, variant }: { group: Group; varian
             ))}
           </ul>
         </section>
-      ) : null}
+      )] : [])]}
 
       {/* CTA */}
       <div className="trivia-cta">
         <p className="trivia-cta-title">Think you knew all of these?</p>
-        <p className="trivia-cta-sub">
-          {variant ? variant.ctaText : <>Put your {group.name} knowledge to the test with fan-made quizzes.</>}
-        </p>
-        <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">
-          {variant ? variant.ctaLink : <>Play {group.name} quizzes</>}
-        </Link>
+        {variant ? (
+          <p className="trivia-cta-sub">{variant.ctaText}</p>
+        ) : (
+          <p className="trivia-cta-sub">
+            Put your {group.name} knowledge to the test with fan-made quizzes.
+          </p>
+        )}
+        {variant ? (
+          <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">{variant.ctaLink}</Link>
+        ) : (
+          <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">
+            Play {group.name} quizzes
+          </Link>
+        )}
       </div>
 
       {/* W-NAV step 5: crawlable cross-link into the group's Verse space (mirrors
