@@ -1,4 +1,5 @@
 import { UX_STYLESHEET_PATH } from '@/lib/ux-v1/a0/stylesheet-href';
+import { SITE } from '@/lib/site/registry';
 
 import type { MetadataRoute } from 'next';
 
@@ -70,6 +71,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
       },
     ],
-    sitemap: 'https://kpopquiz.org/sitemap.xml',
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }

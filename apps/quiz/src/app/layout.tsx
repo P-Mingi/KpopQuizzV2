@@ -5,6 +5,8 @@ import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
+import { SITE_ID } from '@/lib/site/registry';
+import { siteRootMetadata, siteViewport } from '@/lib/site/metadata';
 import { UX_V1 } from '@/lib/ux-v1';
 import { uxStylesheetHref } from '@/lib/ux-v1/a0/stylesheet-href';
 
@@ -20,14 +22,9 @@ const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme'),d=docu
 
 // Reflects the active background for mobile browser chrome (system mode follows
 // the OS; the toggle updates the live tag on explicit switch). color-scheme lets
-// native controls/scrollbars match the theme.
-export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#FAF8F5' },
-    { media: '(prefers-color-scheme: dark)', color: '#141210' },
-  ],
-};
+// native controls/scrollbars match the theme. kpop keeps its two colours (lib/site/kpop.ts);
+// anime and hub read the page token of their theme (O1, tokens.md 7).
+export const viewport: Viewport = siteViewport();
 
 
 const pretendard = localFont({
@@ -63,6 +60,10 @@ const HTML_CLASS = UX_V1
   ? `${pretendard.variable} ${inter.variable} ux-v1`
   : pretendard.variable;
 
+// O1 (tokens.md 2): the per-site sheets of anime and hub scope their rules by this attribute. A kpop
+// page carries none, and the prop is absent (not undefined) so the kpop tree stays today's.
+const HTML_SITE_ATTR: { 'data-site'?: string } = SITE_ID === 'kpop' ? {} : { 'data-site': SITE_ID };
+
 // UX v11 stylesheet (tokens + shared components + page styles of styles/ux-v1/),
 // linked ONLY when the flag is on, so flag-off pages carry no extra tag or byte
 // (see app/api/ux-v1/a0/styles/route.ts). Versioned by a hash of its content, computed
@@ -79,7 +80,10 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.startsWith('https://')
   ? process.env.NEXT_PUBLIC_SITE_URL
   : 'https://kpopquiz.org';
 
-export const metadata: Metadata = {
+// The kpop root metadata, as it is today. registry.test.ts reads these literals from this file, so they
+// stay here (B1 report: the block moves to lib/site/kpop.ts when that test reads it there). anime and hub
+// builds get a root of their own brand from lib/site/metadata.ts.
+const KPOP_METADATA: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: 'KpopQuiz - Play K-pop Quizzes Made by Fans for Fans',
@@ -125,6 +129,8 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 };
 
+export const metadata: Metadata = siteRootMetadata(KPOP_METADATA);
+
 interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -141,7 +147,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
   // tree, and the RSC payload that describes it, stay exactly today's.
   if (UX_V1) {
     return (
-      <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
+      <html lang="en" className={HTML_CLASS} suppressHydrationWarning {...HTML_SITE_ATTR}>
         <body className="bg-primary text-primary font-sans antialiased">
           <link rel="stylesheet" href={UX_CSS_HREF} precedence="ux-v1" />
           <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
@@ -153,7 +159,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
     );
   }
   return (
-    <html lang="en" className={HTML_CLASS} suppressHydrationWarning>
+    <html lang="en" className={HTML_CLASS} suppressHydrationWarning {...HTML_SITE_ATTR}>
       <body className="bg-primary text-primary font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeInit />

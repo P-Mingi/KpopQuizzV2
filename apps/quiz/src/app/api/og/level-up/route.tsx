@@ -1,9 +1,11 @@
 import { ImageResponse } from 'next/og';
 
+import { SITE } from '@/lib/site/registry';
+
 import type { NextRequest } from 'next/server';
 
 // L2 - shareable level-up card. Reuses the H5 @vercel/og infra. Renders
-// "I reached {Title} on kpopquiz.org" + the celebrate rabbit + brand. Params:
+// "I reached {Title} on <domain>" + the celebrate rabbit + brand. Params:
 // ?title=<fan title> &level=<n>. 1200x630.
 export const dynamic = 'force-dynamic';
 
@@ -49,7 +51,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         </div>
         <div style={{ display: 'flex', fontSize: 34, marginTop: 18, opacity: 0.92 }}>
           {level ? `Level ${level} on ` : 'on '}
-          <span style={{ fontWeight: 800, marginLeft: 8 }}>kpopquiz.org</span>
+          <span style={{ fontWeight: 800, marginLeft: 8 }}>{SITE.domain}</span>
         </div>
       </div>
     ),

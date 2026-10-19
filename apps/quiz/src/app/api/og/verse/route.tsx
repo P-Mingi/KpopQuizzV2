@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { VERSE_LOGO_DATA_URI } from './logo-data';
+import { SITE } from '@/lib/site/registry';
 
 // V-IDENTITY step 3 - the generic KpopVerse OG card (for /verse and verse-level
 // routes). Violet system, orbit + wordmark, the front-door line. No data fetch.
@@ -32,7 +33,7 @@ export function GET(): Response {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', fontSize: 24, color: SUB }}>Every K-pop fandom, fan-built on open data</div>
-          <div style={{ display: 'flex', fontSize: 20, color: 'rgba(255,255,255,0.34)' }}>kpopquiz.org/verse</div>
+          <div style={{ display: 'flex', fontSize: 20, color: 'rgba(255,255,255,0.34)' }}>{`${SITE.domain}/verse`}</div>
         </div>
       </div>
     ),

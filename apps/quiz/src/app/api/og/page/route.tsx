@@ -1,12 +1,14 @@
 import { ImageResponse } from 'next/og';
 
+import { SITE } from '@/lib/site/registry';
+
 import type { NextRequest } from 'next/server';
 
 const BRAND = '#E8457A';
 
 export async function GET(request: NextRequest): Promise<ImageResponse> {
   const sp = request.nextUrl.searchParams;
-  const title = sp.get('title') || 'KpopQuiz';
+  const title = sp.get('title') || SITE.brand.name;
   const subtitle = sp.get('subtitle') || 'Play K-pop Quizzes Made by Fans';
   const accent = sp.get('accent') || BRAND;
 
@@ -57,7 +59,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
               letterSpacing: '1px',
             }}
           >
-            KPOPQUIZ.ORG
+            {SITE.domain.toUpperCase()}
           </span>
         </div>
 
