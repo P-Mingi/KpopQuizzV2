@@ -1,14 +1,47 @@
 // Run O1, lane B2: forSite and withSite (rpcs.md 3, flags-env.md 3). The kpop build with SITE_SCOPE off keeps
 // today's queries and insert payloads; SITE_SCOPE on filters kpop reads; anime and hub builds always filter; a
-// non-kpop site always filters. The last case runs a real supabase-js builder through forSite (no network).
+// non-kpop site always filters. A real supabase-js client with a recording fetch (nothing leaves the process)
+// then drives the kpop readers B2 owns (passport, notifications) and pins their requests of today.
 
 import { createClient } from '@supabase/supabase-js';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { NextRequest } from 'next/server';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SITE_ID } from './registry';
 import { forSite, siteScoped, withSite } from './scope';
 
 import type { SiteFilterable, SiteId } from './types';
+
+type Sent = { method: string; url: string; body: string | null };
+const net = vi.hoisted(() => {
+  const sent: Array<{ method: string; url: string; body: string | null }> = [];
+  const record = async (input: unknown, init?: { method?: string; body?: unknown }): Promise<Response> => {
+    const href = typeof input === 'string' ? input : input instanceof URL ? input.href : (input as { url: string }).url;
+    const u = new URL(href);
+    const method = init?.method ?? 'GET';
+    sent.push({ method, url: decodeURIComponent(u.pathname + u.search), body: typeof init?.body === 'string' ? init.body : null });
+    return new Response(method === 'HEAD' ? null : '[]', {
+      status: 200, headers: { 'content-type': 'application/json', 'content-range': '0-0/0' },
+    });
+  };
+  return { sent, record };
+});
+
+vi.mock('@/lib/supabase/server', async () => {
+  const { createClient: make } = await import('@supabase/supabase-js');
+  const client = make('http://127.0.0.1:9', 'o1-b2-fake-anon-key', {
+    auth: { persistSession: false, autoRefreshToken: false },
+    global: { fetch: net.record as unknown as typeof fetch },
+  });
+  return {
+    createServerClient: async () => ({
+      auth: { getUser: async () => ({ data: { user: { id: 'u-b2' } } }) },
+      from: (table: string) => client.from(table),
+    }),
+    createServiceRoleClient: () => client,
+    client,
+  };
+});
 
 /** A query builder that records its eq calls (the shape Supabase's filter builders have). */
 class FakeQuery implements SiteFilterable<FakeQuery> {
@@ -158,5 +191,65 @@ describe('a real supabase-js builder', () => {
     expect(url.searchParams.get('site_id')).toBe('eq.kpop');
     expect(url.searchParams.get('select')).toBe('id,title');
     expect(url.searchParams.get('limit')).toBe('5');
+  });
+});
+
+describe('the kpop readers B2 owns send today\'s requests while SITE_SCOPE is off', () => {
+  beforeEach(() => {
+    net.sent.length = 0;
+  });
+
+  const run = async (flag: string): Promise<Sent[]> => {
+    vi.stubEnv('SITE_SCOPE', flag);
+    net.sent.length = 0;
+    const { client } = (await import('@/lib/supabase/server')) as unknown as { client: ReturnType<typeof createClient> };
+    const { readCollectionProgress } = await import('@/lib/passport');
+    const notifications = await import('@/lib/notifications');
+    const list = await import('@/app/api/notifications/route');
+    const markRead = await import('@/app/api/notifications/mark-read/route');
+    await readCollectionProgress(client, 'u-b2');
+    await list.GET(new NextRequest('http://127.0.0.1/api/notifications?limit=5'));
+    await list.DELETE(new NextRequest('http://127.0.0.1/api/notifications', { method: 'DELETE', body: JSON.stringify({ ids: ['n1'] }) }));
+    await markRead.POST(new NextRequest('http://127.0.0.1/api/notifications/mark-read', { method: 'POST', body: '{}' }));
+    await notifications.notifyNewFollower({ followedId: 'u-b2', followerId: 'u-2', followerUsername: 'fan2' });
+    await notifications.notifyMilestone({ creatorId: 'u-b2', quizId: 'q-1', quizTitle: 'A quiz', playCount: 10 });
+    await notifications.notifyComment({ creatorId: 'u-b2', quizId: 'q-1', quizTitle: 'A quiz', username: 'fan2', content: 'hi', recentCount: 1 });
+    return net.sent.map((r) => ({ ...r }));
+  };
+
+  it('off: the exact requests of today (no site_id anywhere)', async () => {
+    // Order-free (the readers run some requests in parallel); the time cut-offs are replaced by <t>.
+    const norm = (list: Sent[]): string[] =>
+      list.map((r) => `${r.method} ${r.url.replace(/created_at=gte\.[^&]+/, 'created_at=gte.<t>')} ${r.body ?? ''}`).sort();
+    const sent = await run('');
+    expect(norm(sent)).toEqual(norm([
+      { method: 'GET', url: '/rest/v1/groups?select=id,name,generation,display_color', body: null },
+      { method: 'GET', url: '/rest/v1/player_group_mastery?select=group_id,songs_played,songs_correct&player_id=eq.u-b2', body: null },
+      { method: 'GET', url: '/rest/v1/creator_notifications?select=id,user_id,type,title,body,quiz_id,link_url,is_read,created_at,quizzes:quiz_id(slug)&user_id=eq.u-b2&order=created_at.desc&offset=0&limit=5', body: null },
+      { method: 'HEAD', url: '/rest/v1/creator_notifications?select=*&user_id=eq.u-b2&is_read=eq.false', body: null },
+      { method: 'DELETE', url: '/rest/v1/creator_notifications?id=in.(n1)', body: null },
+      { method: 'PATCH', url: '/rest/v1/creator_notifications?user_id=eq.u-b2&is_read=eq.false&select=id', body: '{"is_read":true}' },
+      { method: 'HEAD', url: '/rest/v1/creator_notifications?select=id&user_id=eq.u-b2&type=eq.new_follower&sender_id=eq.u-2&created_at=gte.<t>', body: null },
+      { method: 'POST', url: '/rest/v1/creator_notifications', body: '{"user_id":"u-b2","type":"new_follower","title":"fan2 started following you","link_url":"/u/fan2","sender_id":"u-2"}' },
+      { method: 'POST', url: '/rest/v1/creator_notifications?on_conflict=user_id,quiz_id,type,title', body: '{"user_id":"u-b2","type":"milestone","title":"Your quiz hit 10 plays!","body":"\\"A quiz\\" is getting traction.","quiz_id":"q-1"}' },
+      { method: 'GET', url: '/rest/v1/creator_notifications?select=id&user_id=eq.u-b2&quiz_id=eq.q-1&type=eq.comment&created_at=gte.<t>&order=created_at.desc&limit=1', body: null },
+      { method: 'POST', url: '/rest/v1/creator_notifications?on_conflict=user_id,quiz_id,type,title', body: '{"user_id":"u-b2","quiz_id":"q-1","type":"comment","title":"fan2 commented on your quiz","body":"hi"}' },
+    ]));
+    for (const r of sent) {
+      expect(r.url).not.toContain('site_id');
+      expect(r.body ?? '').not.toContain('site_id');
+    }
+  });
+
+  it('on: every read of creator_notifications and groups filters site_id=eq.kpop, every insert carries site_id kpop', async () => {
+    const sent = await run('1');
+    const scoped = sent.filter((r) => r.url.startsWith('/rest/v1/groups') || r.url.startsWith('/rest/v1/creator_notifications'));
+    expect(scoped).toHaveLength(10);
+    for (const r of scoped) {
+      if (r.method === 'POST') expect(JSON.parse(r.body!).site_id, r.url).toBe('kpop');
+      else expect(r.url, `${r.method} ${r.url}`).toContain('site_id=eq.kpop');
+    }
+    const mastery = sent.find((r) => r.url.startsWith('/rest/v1/player_group_mastery'));
+    expect(mastery?.url).not.toContain('site_id');
   });
 });
