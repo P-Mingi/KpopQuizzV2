@@ -1,0 +1,199 @@
+DIFFERENT (bytes)  /  status 200/200  raw bytes 117396/117396  normalised 115946/115946  js chunks 13/13
+  node 1315
+    A: self.__next_f.push([1,"3c:[\"$\",\"div\",null,{\"className\":\"ux-qf\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-qlv\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-lvb\",\"data-l\":1,\"aria-hidden\":\"true\",\"children\":[[\"$\",\"i\",null,{}],[\"$\",\"i\",null,{}],[\"$\",\"i\
+    B: self.__next_f.push([1,"4a:T54f,{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\
+  node 1317
+    A: self.__next_f.push([1,"l\",\"children\":\"29 plays\"}]]}]]}]]}]\n42:[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"finnish the lyric\"}],[\"$\",\"span\",null,{\"className\":\"ux-rs\",\"children\":\"General K-pop · Classi
+    B: self.__next_f.push([1,"3c:[\"$\",\"div\",null,{\"className\":\"ux-qf\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-qlv\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-lvb\",\"data-l\":1,\"aria-hidden\":\"true\",\"children\":[[\"$\",\"i\",null,{}],[\"$\",\"i\",null,{}],[\"$\",\"i\
+  node 1319
+    A: self.__next_f.push([1,"ame\":\"ux-rs\",\"children\":\"Lngshot · Classic · Medium\"}]]}],[\"$\",\"span\",null,{\"className\":\"ux-row-end\",\"children\":[\"$\",\"span\",null,{\"className\":\"ux-num\",\"children\":\"yesterday\"}]}]]}]\n"])</script>
+    B: self.__next_f.push([1,"l\",\"children\":\"29 plays\"}]]}]]}]]}]\n42:[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"finnish the lyric\"}],[\"$\",\"span\",null,{\"className\":\"ux-rs\",\"children\":\"General K-pop · Classi
+  node 1321
+    A: self.__next_f.push([1,"4a:T54f,{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\
+    B: self.__next_f.push([1,"ame\":\"ux-rs\",\"children\":\"Lngshot · Classic · Medium\"}]]}],[\"$\",\"span\",null,{\"className\":\"ux-row-end\",\"children\":[\"$\",\"span\",null,{\"className\":\"ux-num\",\"children\":\"yesterday\"}]}]]}]\n"])</script>
+IDENTICAL (bytes)  /quizzes  status 200/200  raw bytes 199958/199958  normalised 198812/198812  js chunks 13/13
+IDENTICAL (bytes)  /groups  status 200/200  raw bytes 224487/224487  normalised 223401/223401  js chunks 13/13
+IDENTICAL (bytes)  /trending  status 200/200  raw bytes 58223/58223  normalised 57163/57163  js chunks 13/13
+DIFFERENT (bytes)  /bts-quiz  status 200/200  raw bytes 130586/130543  normalised 129422/129379  js chunks 13/13
+  node 2008
+    A: self.__next_f.push([1,"2f:[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"role\":\"$undefined\",\"aria-label\":\"$undefined\",\"focusable\":\"false\",\"dangerouslySetInnerHTML\":{\"__html\":\"\u003cpath d=\\\"m6 9 6 6 6-6\\\"/\u
+    B: self.__next_f.push([1,"39:I[151284,[\"static/chunks/<asset>
+  node 2009
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 2010
+    A: self.__next_f.push([1,"35:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about BTS\"]}],null,null,null]}],[\"$
+    B: .js\",\"static/chunks/<asset>
+  node 2011
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 2012
+    A: self.__next_f.push([1,"36:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: .js\"],\"HubQuizzesLoader\"]\n2f:[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"role\":\"$undefined\",\"aria-label\":\"$undefined\",\"focusable\":\"false\",\"dangerouslySetInnerHTML\":{\"__html\":\"\u003cpath d=\\\"m6 9 6 6 6-6
+  node 2014
+    A: self.__next_f.push([1,"37:[\"$\",\"p\",null,{\"className\":\"p3-note p3-mv\",\"children\":[\"MV pulse: \",[\"$\",\"b\",null,{\"className\":\"ux-num\",\"children\":[\"+\",\"3,350,122\"]}],\" views this week across \",1,\" tracked MV\",\"\",\". Tracked since \",\"Jul 2026\",\".\"]}]\n"])</script>
+    B: self.__next_f.push([1,"35:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about BTS\"]}],null,null,null]}],[\"$
+DIFFERENT (bytes)  /blackpink-quiz  status 200/200  raw bytes 123108/123065  normalised 121944/121901  js chunks 13/13
+  node 1887
+    A: self.__next_f.push([1,"2d:[\"$\",\"details\",\"Are the BLACKPINK quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the BLACKPINK quizzes free?\"}],[\"$\",\"svg\",null,{\"clas
+    B: self.__next_f.push([1,"35:I[151284,[\"static/chunks/<asset>
+  node 1888
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1889
+    A: self.__next_f.push([1,"31:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about BLACKPINK\"]}],null,null,null]}
+    B: .js\",\"static/chunks/<asset>
+  node 1890
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1891
+    A: self.__next_f.push([1,"32:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: .js\"],\"HubQuizzesLoader\"]\n2d:[\"$\",\"details\",\"Are the BLACKPINK quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the BLACKPINK quizzes free?\"}],[\"$\",\"svg\",null,
+  node 1893
+    A: self.__next_f.push([1,"33:[\"$\",\"p\",null,{\"className\":\"p3-note p3-mv\",\"children\":[\"MV pulse: \",[\"$\",\"b\",null,{\"className\":\"ux-num\",\"children\":[\"+\",\"1,209,130\"]}],\" views this week across \",1,\" tracked MV\",\"\",\". Tracked since \",\"Jul 2026\",\".\"]}]\n"])</script>
+    B: self.__next_f.push([1,"31:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about BLACKPINK\"]}],null,null,null]}
+DIFFERENT (bytes)  /stray-kids-quiz  status 200/200  raw bytes 136634/136591  normalised 135470/135427  js chunks 13/13
+  node 2068
+    A: self.__next_f.push([1,"31:[\"$\",\"details\",\"Are the Stray Kids quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the Stray Kids quizzes free?\"}],[\"$\",\"svg\",null,{\"cl
+    B: self.__next_f.push([1,"3d:I[151284,[\"static/chunks/<asset>
+  node 2069
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 2070
+    A: self.__next_f.push([1,"path d=\\\"M10 7h9M10 12h9M10 17h6\\\"/\u003e\"}}]}],[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"A Straykids Quiz\"}],null]}],[\"$\",\"span\",null,{\"className\":\"ux-row-end\",\"children\":[\"$
+    B: .js\",\"static/chunks/<asset>
+  node 2071
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 2072
+    A: self.__next_f.push([1,"39:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about Stray Kids\"]}],null,null,null]
+    B: .js\"],\"HubQuizzesLoader\"]\n31:[\"$\",\"details\",\"Are the Stray Kids quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the Stray Kids quizzes free?\"}],[\"$\",\"svg\",nul
+  node 2074
+    A: self.__next_f.push([1,"3a:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: self.__next_f.push([1,"ia-label\":\"$undefined\",\"focusable\":\"false\",\"dangerouslySetInnerHTML\":{\"__html\":\"\u003ccircle cx=\\\"6\\\" cy=\\\"7\\\" r=\\\"1.2\\\"/\u003e\u003ccircle cx=\\\"6\\\" cy=\\\"12\\\" r=\\\"1.2\\\"/\u003e\u003ccircle cx=\\\"6\\\" cy=\\\"17\\\" r=\\\"1.2\\\"/\u003e\u003c
+DIFFERENT (bytes)  /seventeen-quiz  status 200/200  raw bytes 118086/118043  normalised 116922/116879  js chunks 13/13
+  node 1525
+    A: self.__next_f.push([1,"36:[\"$\",\"details\",\"Are the SEVENTEEN quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the SEVENTEEN quizzes free?\"}],[\"$\",\"svg\",null,{\"clas
+    B: self.__next_f.push([1,"3b:I[151284,[\"static/chunks/<asset>
+  node 1526
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1527
+    A: self.__next_f.push([1,"38:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: .js\",\"static/chunks/<asset>
+  node 1528
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1529
+    A: self.__next_f.push([1,"39:[\"$\",\"p\",null,{\"className\":\"p3-note p3-mv\",\"children\":[\"MV pulse: \",[\"$\",\"b\",null,{\"className\":\"ux-num\",\"children\":[\"+\",\"524,372\"]}],\" views this week across \",1,\" tracked MV\",\"\",\". Tracked since \",\"Jul 2026\",\".\"]}]\n"])</script>
+    B: .js\"],\"HubQuizzesLoader\"]\n36:[\"$\",\"details\",\"Are the SEVENTEEN quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the SEVENTEEN quizzes free?\"}],[\"$\",\"svg\",null,
+  node 1531
+    A: self.__next_f.push([1,"3b:I[151284,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"38:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+DIFFERENT (bytes)  /cortis-quiz  status 200/200  raw bytes 92653/92610  normalised 91489/91446  js chunks 13/13
+  node 1343
+    A: self.__next_f.push([1,"24:[\"$\",\"h2\",null,{\"id\":\"group-faq\",\"className\":\"ux-h2\",\"children\":\"Questions fans ask\"}]\n"])</script>
+    B: self.__next_f.push([1,"2e:I[151284,[\"static/chunks/<asset>
+  node 1344
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1345
+    A: self.__next_f.push([1,"25:[\"$\",\"div\",null,{\"className\":\"p3-accs\",\"children\":[[\"$\",\"details\",\"How many Cortis quizzes are there?\",{\"className\":\"p3-acc\",\"open\":true,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"
+    B: .js\",\"static/chunks/<asset>
+  node 1346
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1347
+    A: self.__next_f.push([1,"26:[\"$\",\"div\",null,{\"className\":\"p3-low-side\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-com-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-com-h\",\"children\":[null,\"From the commu
+    B: .js\"],\"HubQuizzesLoader\"]\n24:[\"$\",\"h2\",null,{\"id\":\"group-faq\",\"className\":\"ux-h2\",\"children\":\"Questions fans ask\"}]\n"])</script>
+  node 1349
+    A: self.__next_f.push([1,"27:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"FAQPage\\\",\\\"mainEntity\\\":[{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"How many Cortis quizzes are the
+    B: self.__next_f.push([1,"25:[\"$\",\"div\",null,{\"className\":\"p3-accs\",\"children\":[[\"$\",\"details\",\"How many Cortis quizzes are there?\",{\"className\":\"p3-acc\",\"open\":true,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"
+DIFFERENT (bytes)  /twice-quiz  status 200/200  raw bytes 109696/109653  normalised 108597/108554  js chunks 13/13
+  node 1418
+    A: self.__next_f.push([1,"30:[[\"$\",\"span\",null,{\"className\":\"p3-rowico is-type\",\"children\":[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"role\":\"$undefined\",\"aria-label\":\"$undefined\",\"focusable\":\"false\",\"dang
+    B: self.__next_f.push([1,"36:I[151284,[\"static/chunks/<asset>
+  node 1419
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1420
+    A: self.__next_f.push([1,"33:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: .js\",\"static/chunks/<asset>
+  node 1421
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1422
+    A: self.__next_f.push([1,"34:[\"$\",\"p\",null,{\"className\":\"p3-note p3-mv\",\"children\":[\"MV pulse: \",[\"$\",\"b\",null,{\"className\":\"ux-num\",\"children\":[\"+\",\"288,610\"]}],\" views this week across \",1,\" tracked MV\",\"\",\". Tracked since \",\"Jul 2026\",\".\"]}]\n"])</script>
+    B: .js\"],\"HubQuizzesLoader\"]\n30:[[\"$\",\"span\",null,{\"className\":\"p3-rowico is-type\",\"children\":[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"role\":\"$undefined\",\"aria-label\":\"$undefined\",\"focusable\":\"false\"
+  node 1424
+    A: self.__next_f.push([1,"36:I[151284,[\"static/chunks/<asset>
+    B: self.__next_f.push([1,"33:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+DIFFERENT (bytes)  /newjeans-quiz  status 200/200  raw bytes 106953/106910  normalised 105854/105811  js chunks 13/13
+  node 1384
+    A: self.__next_f.push([1,"2e:[\"$\",\"details\",\"Are the NewJeans quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the NewJeans quizzes free?\"}],[\"$\",\"svg\",null,{\"classN
+    B: self.__next_f.push([1,"35:I[151284,[\"static/chunks/<asset>
+  node 1385
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1386
+    A: self.__next_f.push([1,"31:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about NewJeans\"]}],null,null,null]}]
+    B: .js\",\"static/chunks/<asset>
+  node 1387
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 1388
+    A: self.__next_f.push([1,"32:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-fk-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-fk-h\",\"children\":[null,\"Fan knowledge\"]}],null,null,null]}],[\"$\",\"p\",n
+    B: .js\"],\"HubQuizzesLoader\"]\n2e:[\"$\",\"details\",\"Are the NewJeans quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the NewJeans quizzes free?\"}],[\"$\",\"svg\",null,{\
+  node 1390
+    A: self.__next_f.push([1,"33:[\"$\",\"p\",null,{\"className\":\"p3-note p3-mv\",\"children\":[\"MV pulse: \",[\"$\",\"b\",null,{\"className\":\"ux-num\",\"children\":[\"+\",\"736,542\"]}],\" views this week across \",1,\" tracked MV\",\"\",\". Tracked since \",\"Jul 2026\",\".\"]}]\n"])</script>
+    B: self.__next_f.push([1,"31:[\"$\",\"section\",null,{\"className\":\"p3-side-sec\",\"aria-labelledby\":\"p3-read-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-read-h\",\"children\":[null,\"Read more about NewJeans\"]}],null,null,null]}]
+IDENTICAL (bytes)  /trivia  status 200/200  raw bytes 138064/138064  normalised 136991/136991  js chunks 13/13
+IDENTICAL (bytes)  /bts-trivia  status 200/200  raw bytes 190843/190843  normalised 189705/189705  js chunks 13/13
+IDENTICAL (bytes)  /blackpink-trivia  status 200/200  raw bytes 163878/163878  normalised 162740/162740  js chunks 13/13
+IDENTICAL (bytes)  /q/ultimate-bts-era-quiz-only-real-armys-survive  status 200/200  raw bytes 80872/80872  normalised 79136/79136  js chunks 15/15
+IDENTICAL (bytes)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 77695/77695  normalised 75959/75959  js chunks 15/15
+IDENTICAL (bytes)  /q/blackpink-ultimate-fan-challenge  status 200/200  raw bytes 80798/80798  normalised 79062/79062  js chunks 15/15
+IDENTICAL (bytes)  /q/are-you-a-real-coer  status 200/200  raw bytes 74917/74917  normalised 73181/73181  js chunks 15/15
+IDENTICAL (bytes)  /q/illit-fans-here  status 200/200  raw bytes 74183/74183  normalised 72447/72447  js chunks 15/15
+IDENTICAL (bytes)  /q/babymonster-quiz  status 200/200  raw bytes 82241/82241  normalised 80505/80505  js chunks 15/15
+IDENTICAL (bytes)  /q/le-sserafim-members-and-music-quiz  status 200/200  raw bytes 77379/77379  normalised 75643/75643  js chunks 15/15
+IDENTICAL (bytes)  /q/one-for-sones  status 200/200  raw bytes 75922/75922  normalised 74186/74186  js chunks 15/15
+IDENTICAL (bytes)  /q/twice-true-or-false  status 200/200  raw bytes 72088/72088  normalised 70352/70352  js chunks 15/15
+IDENTICAL (bytes)  /q/how-well-do-you-know-txt  status 200/200  raw bytes 74724/74724  normalised 72988/72988  js chunks 15/15
+IDENTICAL (bytes)  /q/enhypen-debut-and-beyond-quiz  status 200/200  raw bytes 76890/76890  normalised 75154/75154  js chunks 15/15
+IDENTICAL (bytes)  /q/k-pop-company-quiz-match-the-group-to-the-label  status 200/200  raw bytes 80875/80875  normalised 79139/79139  js chunks 15/15
+IDENTICAL (bytes)  /blindtest  status 200/200  raw bytes 114605/114605  normalised 112973/112973  js chunks 14/14
+IDENTICAL (bytes)  /blindtest/classic  status 200/200  raw bytes 54334/54334  normalised 53183/53183  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/intro-challenge  status 200/200  raw bytes 54530/54530  normalised 53379/53379  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/group-bts  status 200/200  raw bytes 52576/52576  normalised 51373/51373  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-song  status 200/200  raw bytes 56440/56440  normalised 55237/55237  js chunks 13/13
+IDENTICAL (bytes)  /pt  status 200/200  raw bytes 117499/117499  normalised 116166/116166  js chunks 14/14
+IDENTICAL (bytes)  /pt/blindtest  status 200/200  raw bytes 66005/66005  normalised 64776/64776  js chunks 15/15
+IDENTICAL (bytes)  /pt/quizzes  status 200/200  raw bytes 248490/248490  normalised 247313/247313  js chunks 14/14
+IDENTICAL (bytes)  /pt/faq  status 200/200  raw bytes 60482/60482  normalised 59409/59409  js chunks 13/13
+IDENTICAL (bytes)  /pt/leaderboard  status 200/200  raw bytes 77769/77769  normalised 76618/76618  js chunks 14/14
+IDENTICAL (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 57380/57380  normalised 56177/56177  js chunks 13/13
+IDENTICAL (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 57100/57100  normalised 55897/55897  js chunks 13/13
+IDENTICAL (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 56809/56809  normalised 55606/55606  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 69400/69400  normalised 68366/68366  js chunks 13/13
+IDENTICAL (bytes)  /kpop-true-or-false  status 200/200  raw bytes 100196/100196  normalised 99162/99162  js chunks 13/13
+IDENTICAL (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 57825/57825  normalised 56752/56752  js chunks 13/13
+IDENTICAL (bytes)  /hard-kpop-quizzes  status 200/200  raw bytes 55484/55484  normalised 54411/54411  js chunks 13/13
+IDENTICAL (bytes)  /kpop-quiz-2026  status 200/200  raw bytes 168053/168053  normalised 167019/167019  js chunks 13/13
+IDENTICAL (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 42874/42874  normalised 41788/41788  js chunks 13/13
+IDENTICAL (bytes)  /which-bts-member-are-you  status 200/200  raw bytes 62243/62243  normalised 61170/61170  js chunks 13/13
+IDENTICAL (bytes)  /bts-name-all-members  status 200/200  raw bytes 50015/50015  normalised 49025/49025  js chunks 13/13
+IDENTICAL (bytes)  /about  status 200/200  raw bytes 52248/52248  normalised 51175/51175  js chunks 13/13
+IDENTICAL (bytes)  /editorial-policy  status 200/200  raw bytes 52600/52600  normalised 51618/51618  js chunks 12/12
+IDENTICAL (bytes)  /privacy  status 200/200  raw bytes 46727/46727  normalised 45745/45745  js chunks 12/12
+IDENTICAL (bytes)  /terms  status 200/200  raw bytes 43434/43434  normalised 42452/42452  js chunks 12/12
+IDENTICAL (bytes)  /faq  status 200/200  raw bytes 58950/58950  normalised 57968/57968  js chunks 12/12
+IDENTICAL (bytes)  /contact  status 200/200  raw bytes 33426/33426  normalised 32444/32444  js chunks 12/12
+IDENTICAL (bytes)  /leaderboard  status 200/200  raw bytes 225208/225208  normalised 223810/223810  js chunks 13/13
+IDENTICAL (bytes)  /articles  status 200/200  raw bytes 97747/97747  normalised 96765/96765  js chunks 12/12
+IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
+IDENTICAL (bytes)  /an-unknown-o1-parity-path  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /sitemap.xml  status 200/200  raw bytes 128614/128614  normalised 128614/128614  js chunks 0/0
+IDENTICAL (bytes)  /robots.txt  status 200/200  raw bytes 1623/1623  normalised 1623/1623  js chunks 0/0
+IDENTICAL (bytes)  /llms.txt  status 200/200  raw bytes 1246/1246  normalised 1246/1246  js chunks 0/0
+8 page(s) differ

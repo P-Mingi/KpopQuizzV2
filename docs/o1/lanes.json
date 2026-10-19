@@ -52,5 +52,35 @@
   "E1a": {
     "sites": [],
     "kind": "script"
+  },
+  "LB": {
+    "sites": [
+      "kpop",
+      "anime"
+    ],
+    "kind": "code"
+  },
+  "LC": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code+sql"
+  },
+  "LD": {
+    "sites": [
+      "kpop",
+      "hub"
+    ],
+    "kind": "code"
+  },
+  "LE": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code+sql"
   }
 }

@@ -433,5 +433,39 @@
       "Q0c",
       "scripts/o1/parity.sh and scripts/o1/parity/** pass from Q0a to Q0c: Q0c needs Q0a merged (D-033)"
     ]
+  ],
+  "LB": [
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LB/**",
+    "docs/o1/reports/LB/**"
+  ],
+  "LC": [
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LC/**",
+    "docs/o1/reports/LC/**",
+    "docs/pending-migrations/multisite/003*",
+    "docs/pending-migrations/multisite/004*",
+    "docs/pending-migrations/multisite/005*",
+    "docs/pending-migrations/multisite/006*",
+    "docs/pending-migrations/multisite/007*",
+    "docs/pending-migrations/multisite/008*",
+    "docs/pending-migrations/multisite/009*",
+    "docs/pending-migrations/multisite/010*",
+    "docs/pending-migrations/multisite/launch/**"
+  ],
+  "LD": [
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/LD/**",
+    "docs/o1/reports/LD/**"
+  ],
+  "LE": [
+    "apps/quiz/src/**",
+    "apps/quiz/scripts/**",
+    "scripts/anime/**",
+    "docs/anime/**",
+    "apps/quiz/e2e/o1/LE/**",
+    "docs/o1/reports/LE/**",
+    "docs/pending-migrations/multisite/01*",
+    "docs/pending-migrations/multisite/launch/**"
   ]
 }
