@@ -1,0 +1,1 @@
+the kpop half of check-network-links did not run: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)

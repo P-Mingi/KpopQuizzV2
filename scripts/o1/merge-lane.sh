@@ -61,7 +61,7 @@ fi
 # LEDGER line (the Merge log section is the last one of LEDGER.md), staged with the merge.
 printf '| %s | %s | %s | %s | %s |\n' "$(date -u +%FT%TZ)" "$lane" "${sha:0:12}" "$parity" "$(grep -c 'docs/pending-migrations/multisite/.*[0-9].*\.sql$' "$LOG/merge-changed.txt" || true) SQL file(s)" >> "$RUN/LEDGER.md"
 git add "$RUN/LEDGER.md"
-git commit -q -m "o1: merge $lane (${sha:0:12}), R PASS" -m "Parity: $parity." > "$LOG/merge-commit.log" 2>&1 || abort "commit failed: $(tail -3 "$LOG/merge-commit.log" | tr '\n' ' ')"
+git commit -q -m "o1: merge $lane (${sha:0:12}), gate green" -m "Parity: $parity." > "$LOG/merge-commit.log" 2>&1 || abort "commit failed: $(tail -3 "$LOG/merge-commit.log" | tr '\n' ' ')"
 merged="$(git rev-parse HEAD)"
 # Reviewed SQL of the lane to o1-dev, in manifest order (migrate-dev.sh enforces it).
 sql="$(grep -E '^docs/pending-migrations/multisite/[0-9][^/]*\.sql$' "$LOG/merge-changed.txt" | grep -v '\.rollback\.sql$' | sort || true)"

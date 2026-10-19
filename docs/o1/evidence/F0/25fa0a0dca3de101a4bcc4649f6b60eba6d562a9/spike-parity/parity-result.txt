@@ -1,0 +1,158 @@
+# parity verdict, rules q0a-g0-v3, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
+DIFFERENT / status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /groups status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /trending status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+IDENTICAL /bts-quiz status 500/500
+IDENTICAL /blackpink-quiz status 500/500
+IDENTICAL /stray-kids-quiz status 500/500
+IDENTICAL /seventeen-quiz status 500/500
+IDENTICAL /cortis-quiz status 500/500
+IDENTICAL /twice-quiz status 500/500
+IDENTICAL /newjeans-quiz status 500/500
+DIFFERENT /trivia status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+IDENTICAL /bts-trivia status 500/500
+IDENTICAL /blackpink-trivia status 500/500
+IDENTICAL /q/ultimate-bts-era-quiz-only-real-armys-survive status 500/500
+IDENTICAL /q/skz-true-or-false-only-real-stays-pass status 500/500
+IDENTICAL /q/blackpink-ultimate-fan-challenge status 500/500
+IDENTICAL /q/are-you-a-real-coer status 500/500
+IDENTICAL /q/illit-fans-here status 500/500
+IDENTICAL /q/babymonster-quiz status 500/500
+IDENTICAL /q/le-sserafim-members-and-music-quiz status 500/500
+IDENTICAL /q/one-for-sones status 500/500
+IDENTICAL /q/twice-true-or-false status 500/500
+IDENTICAL /q/how-well-do-you-know-txt status 500/500
+IDENTICAL /q/enhypen-debut-and-beyond-quiz status 500/500
+IDENTICAL /q/k-pop-company-quiz-match-the-group-to-the-label status 500/500
+DIFFERENT /blindtest status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /blindtest/classic status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /blindtest/intro-challenge status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /blindtest/group-bts status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /guess-the-kpop-song status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /pt status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /pt/blindtest status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /pt/quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /pt/faq status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /pt/leaderboard status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /fr/blind-test-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /es/adivina-la-cancion-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /id/tebak-lagu-kpop status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /guess-the-kpop-idol status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /kpop-true-or-false status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /easy-kpop-quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /hard-kpop-quizzes status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /kpop-quiz-2026 status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /kpop-demon-hunters-quiz status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+IDENTICAL /which-bts-member-are-you status 404/404
+IDENTICAL /bts-name-all-members status 500/500
+DIFFERENT /about status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /editorial-policy status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /privacy status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /terms status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /faq status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /contact status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /leaderboard status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+DIFFERENT /articles status 200/200 css 3
+  css-content
+    A: sheet 0 static/chunks/<asset>.css rule 688: .shadow-lg{--tw-shadow:0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-
+    B: sheet 0 static/chunks/<asset>.css rule 688: .shadow-card{--tw-shadow:var(--shadow-card);--tw-shadow-colored:var(--shadow-card);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000), var(--tw-ring-shadow,0 0 #0000), var(--tw-shadow)}
+IDENTICAL /daily status 307/307
+IDENTICAL /an-unknown-o1-parity-path status 500/500
+IDENTICAL /sitemap.xml status 200/200
+IDENTICAL /robots.txt status 200/200
+IDENTICAL /llms.txt status 200/200
+identical: false (32 of 60 pages differ)

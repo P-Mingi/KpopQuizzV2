@@ -1,0 +1,1736 @@
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/25.3.0/bin/node",
+      "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/node_modules/@playwright/test/cli.js",
+      "test",
+      "-c",
+      "playwright.o1.config.ts",
+      "--project=leak"
+    ],
+    "configFile": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/playwright.o1.config.ts",
+    "rootDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/var/folders/k6/rcl_y2j5427bqwktr6kq4rs80000gn/T/o1-gate-checks.ZjAyTA/pw-leak",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "leak",
+        "name": "leak",
+        "testDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1",
+        "testIgnore": [],
+        "testMatch": [
+          "/leak\\/.*\\.o1\\.ts$/"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/var/folders/k6/rcl_y2j5427bqwktr6kq4rs80000gn/T/o1-gate-checks.ZjAyTA/pw-leak",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "dev-multi",
+        "name": "dev-multi",
+        "testDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1",
+        "testIgnore": [],
+        "testMatch": [
+          "/dev-multi\\/.*\\.o1\\.ts$/"
+        ],
+        "timeout": 900000
+      },
+      {
+        "outputDir": "/var/folders/k6/rcl_y2j5427bqwktr6kq4rs80000gn/T/o1-gate-checks.ZjAyTA/pw-leak",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "lanes",
+        "name": "lanes",
+        "testDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1",
+        "testIgnore": [
+          "/(leak|dev-multi|parity)\\//"
+        ],
+        "testMatch": [
+          "/\\.o1\\.ts$/"
+        ],
+        "timeout": 180000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/F0/0570292f7038a43759ddc3aada1552ab3c26bea9/checks/leak.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "leak/canonical-og.o1.ts",
+      "file": "leak/canonical-og.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "canonical and OG: every kpop page names kpop only",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                    "line": 13,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.048Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                        "line": 13,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "bfadbb1d31ad1a41080c-c42a9715084fd3b759d2",
+          "file": "leak/canonical-og.o1.ts",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "canonical and OG: every anime page names anime only",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                    "line": 13,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.088Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                        "line": 13,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "bfadbb1d31ad1a41080c-bbf7a8a89a9ab04d0d58",
+          "file": "leak/canonical-og.o1.ts",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "canonical and OG: every hub page names hub only",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                    "line": 13,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.099Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/canonical-og.o1.ts",
+                        "line": 13,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "bfadbb1d31ad1a41080c-d938ca995eca2e96c6e8",
+          "file": "leak/canonical-og.o1.ts",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "leak/content-leak.o1.ts",
+      "file": "leak/content-leak.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "content leak: no anime fixture row on kpop lists, sitemap, search and llms.txt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 60,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.119Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 60,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-e06facd6cc75965737a0",
+          "file": "leak/content-leak.o1.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "content leak mirror: no kpop row on anime lists, sitemap, search and llms.txt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 81,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.131Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 81,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-e72a0498915521c32d14",
+          "file": "leak/content-leak.o1.ts",
+          "line": 79,
+          "column": 1
+        },
+        {
+          "title": "content leak, signed in: no anime fixture row in the kpop bell (/notifications)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 102,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.142Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 102,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-564c00319a98950a884a",
+          "file": "leak/content-leak.o1.ts",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime bell (/notifications)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 107,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.152Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 107,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-3b8ac65539284371ebfa",
+          "file": "leak/content-leak.o1.ts",
+          "line": 105,
+          "column": 3
+        },
+        {
+          "title": "content leak, signed in: no anime fixture row in the kpop badge shelf (/me)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 102,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.160Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 102,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-fa5be70dd2eab13eb8fb",
+          "file": "leak/content-leak.o1.ts",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime badge shelf (/me)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 107,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.174Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 107,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-846d6c8e549b408b9207",
+          "file": "leak/content-leak.o1.ts",
+          "line": 105,
+          "column": 3
+        },
+        {
+          "title": "content leak, signed in: no anime fixture row in the kpop passport stats (/me)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 102,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.188Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 102,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-c80d7cd172600096817c",
+          "file": "leak/content-leak.o1.ts",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime passport stats (/me)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 107,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.197Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 107,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-fbefe76bc65dd1a0d54f",
+          "file": "leak/content-leak.o1.ts",
+          "line": 105,
+          "column": 3
+        },
+        {
+          "title": "content leak, signed in: no anime fixture row in the kpop activity (/u/<fixture>)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 102,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.205Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 102,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-3dbefc3552fbd5937247",
+          "file": "leak/content-leak.o1.ts",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime activity (/u/<fixture>)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                    "line": 107,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.213Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "content leak needs B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/content-leak.o1.ts",
+                        "line": 107,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "ec3f78039ece3e86faf4-24b27ab3227d6a05036d",
+          "file": "leak/content-leak.o1.ts",
+          "line": 105,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "leak/link-leak.o1.ts",
+      "file": "leak/link-leak.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "link leak: cross-site links on kpop are on the allowlist (server HTML)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 17,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.229Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 17,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-96baab777f728cb4d30b",
+          "file": "leak/link-leak.o1.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "link leak: cross-site links on kpop are on the allowlist (hydrated DOM)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 34,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 5,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:29.237Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 34,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-5a6bab6b272132f601ac",
+          "file": "leak/link-leak.o1.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "link leak: cross-site links on anime are on the allowlist (server HTML)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 17,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.290Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 17,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-0c21e63e78f31441220b",
+          "file": "leak/link-leak.o1.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "link leak: cross-site links on anime are on the allowlist (hydrated DOM)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 34,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.300Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 34,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-3056dbe065ce2e365b8d",
+          "file": "leak/link-leak.o1.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "link leak: cross-site links on hub are on the allowlist (server HTML)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 17,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.332Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 17,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-fe8c114188b3641faad9",
+          "file": "leak/link-leak.o1.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "link leak: cross-site links on hub are on the allowlist (hydrated DOM)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                    "line": 34,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.353Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/link-leak.o1.ts",
+                        "line": 34,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "07ec5afe3af3d90e120d-d67e47c47564f5a1da1d",
+          "file": "leak/link-leak.o1.ts",
+          "line": 32,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "leak/no-netme.o1.ts",
+      "file": "leak/no-netme.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "no /api/n/me in the server HTML of 20 kpop pages",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                    "line": 14,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.380Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                        "line": 14,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "cb1e2fb9b1146b8142f5-28f8da8b579288eae68c",
+          "file": "leak/no-netme.o1.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "no /api/n/me in the server HTML of 20 anime pages",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                    "line": 14,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.387Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                        "line": 14,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "cb1e2fb9b1146b8142f5-078c2912e083cc50dbfb",
+          "file": "leak/no-netme.o1.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "no /api/n/me in the server HTML of 20 hub pages",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                    "line": 14,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.393Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/no-netme.o1.ts",
+                        "line": 14,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "cb1e2fb9b1146b8142f5-0e942bebd75a5510d491",
+          "file": "leak/no-netme.o1.ts",
+          "line": 12,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "leak/route-leak.o1.ts",
+      "file": "leak/route-leak.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "route leak: every kpop route answers 404 on anime",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                    "line": 14,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.411Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                        "line": 14,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "f1669eeda641e103ec9b-23949502667a38ea86af",
+          "file": "leak/route-leak.o1.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "route leak: every kpop route answers 404 on hub",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                    "line": 14,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.418Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                        "line": 14,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "f1669eeda641e103ec9b-f66f9fb9b7b1f1c54050",
+          "file": "leak/route-leak.o1.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "site identity: the anime server serves anime",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                    "line": 32,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.426Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                        "line": 32,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "f1669eeda641e103ec9b-4a7f978e8fef94102161",
+          "file": "leak/route-leak.o1.ts",
+          "line": 30,
+          "column": 3
+        },
+        {
+          "title": "site identity: the hub server serves hub",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                    "line": 32,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.435Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the hub build has no /sites/hub rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/route-leak.o1.ts",
+                        "line": 32,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "f1669eeda641e103ec9b-99932264f69d7a962100",
+          "file": "leak/route-leak.o1.ts",
+          "line": 30,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "leak/spoiler-jsonld.o1.ts",
+      "file": "leak/spoiler-jsonld.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "spoiler JSON-LD hook: cases are registered",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no case yet: O3 adds apps/quiz/e2e/o1/O3/leak-cases.json (key spoilerJsonLd)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/spoiler-jsonld.o1.ts",
+                    "line": 15,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.450Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no case yet: O3 adds apps/quiz/e2e/o1/O3/leak-cases.json (key spoilerJsonLd)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/spoiler-jsonld.o1.ts",
+                        "line": 15,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "017d25917f6b12d2365e-f1e54eff18f716e41d53",
+          "file": "leak/spoiler-jsonld.o1.ts",
+          "line": 14,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "leak/string-leak.o1.ts",
+      "file": "leak/string-leak.o1.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "string leak: no K-pop string on anime pages (P2)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/string-leak.o1.ts",
+                    "line": 20,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.469Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "the anime build has no /sites/anime rewrite (F0 wiring not in this build yet)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/string-leak.o1.ts",
+                        "line": 20,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "b5a6677b906641ef24b6-023dee6734891cb52699",
+          "file": "leak/string-leak.o1.ts",
+          "line": 18,
+          "column": 3
+        },
+        {
+          "title": "string leak: no anime string on kpop pages (P2 mirror)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                  "location": {
+                    "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/string-leak.o1.ts",
+                    "line": 20,
+                    "column": 10
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "leak",
+              "projectName": "leak",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T21:35:33.476Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "no kpop server given (O1_LEAK_KPOP_URL)",
+                      "location": {
+                        "file": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz/e2e/o1/leak/string-leak.o1.ts",
+                        "line": 20,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "b5a6677b906641ef24b6-8384d0f4deec8090511e",
+          "file": "leak/string-leak.o1.ts",
+          "line": 18,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T21:35:28.165Z",
+    "duration": 5375.245,
+    "expected": 0,
+    "skipped": 29,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

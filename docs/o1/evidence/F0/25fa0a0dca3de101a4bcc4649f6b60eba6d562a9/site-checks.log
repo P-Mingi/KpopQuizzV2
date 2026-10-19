@@ -1,0 +1,24 @@
+gate-checks F0: head 25fa0a0dca3d, base d28e3165f5fc, sites [kpop anime hub], db dev, harness /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1
+  ok       harness-unit
+  skipped  site-scope: B2's apps/quiz/scripts/o1/check-site-scope.mts is not in this head yet 
+  server   anime: http://anime.localhost:4022 (gate, .next-anime, db dev)
+  pending  kpop-indexability: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build
+  pending  kpop-metadata-dupes: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build
+  pending  kpop-orphans: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build
+  pending  kpop-sitemap-hygiene: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build
+  skipped  anime-indexability: check:indexability hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its 
+  skipped  anime-metadata-dupes: the anime build has no /sites/anime rewrite (F0 wiring not in this head): it serves kpop pages 
+  skipped  anime-orphans: check:orphans hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its floor
+  skipped  anime-sitemap-hygiene: check:sitemap-hygiene hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; i
+  skipped  hub-indexability: check:indexability hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its fl
+  FAILED   hub-metadata-dupes (rc 1, checks/hub-metadata-dupes.log)
+  skipped  hub-orphans: check:orphans hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its floor, 
+  skipped  hub-sitemap-hygiene: check:sitemap-hygiene hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its
+  skipped  network-links: no served site to judge: the anime build has no /sites/<site> rewrite (F0 wiring not in this head), so they serve kpop pages; a missing kpop server has its own 
+  ok       leak
+  pending  kpop-leak: the kpop half of the leak suite (string leak mirror, canonical and OG, link leak, no /api/n/me) did not run: parity ran without --keep, so no kpop build with pr
+  pending  kpop-network-links: the kpop half of check-network-links did not run: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh
+  FAILED   hub-leak (rc 1, checks/hub-leak.log)
+  FAILED   hub-network-links (rc 1, checks/hub-network-links.log)
+  skipped  lane-specs: lanes.json lists no specs for F0 
+gate-checks F0: 2 ok, 10 skipped, 6 pending, 3 failed (failed: hub-metadata-dupes hub-leak hub-network-links )

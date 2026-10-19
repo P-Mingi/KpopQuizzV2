@@ -1,0 +1,305 @@
+{
+ "sites": [
+  "kpop",
+  "anime",
+  "hub"
+ ],
+ "dbenv": "dev",
+ "siteScope": false,
+ "servers": {
+  "A": {
+   "kpop": null,
+   "anime": {
+    "source": "gate",
+    "site": "anime",
+    "url": "http://anime.localhost:4022",
+    "port": 4022,
+    "given": false,
+    "build": ".next-anime",
+    "scope": false
+   },
+   "hub": null
+  },
+  "B": null
+ },
+ "checks": [
+  {
+   "site": null,
+   "phase": "pre",
+   "reason": "",
+   "name": "harness-unit",
+   "kind": "harness-unit",
+   "action": "run",
+   "files": [
+    "scripts/o1/parity/compare.test.mjs",
+    "scripts/o1/parity/freeze-hook.test.mjs",
+    "scripts/o1/parity/parity-sh.test.mjs",
+    "scripts/o1/parity/refusals.test.mjs",
+    "scripts/o1/parity/replay.test.mjs",
+    "apps/quiz/scripts/o1/leak-lib.test.mjs",
+    "apps/quiz/scripts/o1/twins.test.mjs",
+    "apps/quiz/scripts/o1/q0a/gate-argv.test.mjs",
+    "apps/quiz/scripts/o1/q0a/gate-plan.test.mjs",
+    "apps/quiz/scripts/o1/q0a/get-write-audit.test.mjs"
+   ]
+  },
+  {
+   "site": null,
+   "phase": "pre",
+   "reason": "B2's apps/quiz/scripts/o1/check-site-scope.mts is not in this head yet",
+   "name": "site-scope",
+   "kind": "site-scope",
+   "action": "skip"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-indexability",
+   "kind": "seo",
+   "check": "indexability",
+   "envVar": "INDEXCHECK_BASE_URL",
+   "action": "pending"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-metadata-dupes",
+   "kind": "seo",
+   "check": "metadata-dupes",
+   "envVar": "METADUPE_BASE_URL",
+   "action": "pending"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-orphans",
+   "kind": "seo",
+   "check": "orphans",
+   "envVar": "ORPHANCHECK_BASE_URL",
+   "action": "pending"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-sitemap-hygiene",
+   "kind": "seo",
+   "check": "sitemap-hygiene",
+   "envVar": "SITEMAP_BASE_URL",
+   "action": "pending"
+  },
+  {
+   "site": "anime",
+   "phase": "A",
+   "reason": "check:indexability hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on anime",
+   "name": "anime-indexability",
+   "kind": "seo",
+   "check": "indexability",
+   "envVar": "INDEXCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "anime",
+   "phase": "A",
+   "reason": "the anime build has no /sites/anime rewrite (F0 wiring not in this head): it serves kpop pages",
+   "name": "anime-metadata-dupes",
+   "kind": "seo",
+   "check": "metadata-dupes",
+   "envVar": "METADUPE_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "anime",
+   "phase": "A",
+   "reason": "check:orphans hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on anime",
+   "name": "anime-orphans",
+   "kind": "seo",
+   "check": "orphans",
+   "envVar": "ORPHANCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "anime",
+   "phase": "A",
+   "reason": "check:sitemap-hygiene hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on anime",
+   "name": "anime-sitemap-hygiene",
+   "kind": "seo",
+   "check": "sitemap-hygiene",
+   "envVar": "SITEMAP_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "check:indexability hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on hub",
+   "name": "hub-indexability",
+   "kind": "seo",
+   "check": "indexability",
+   "envVar": "INDEXCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "no hub server: no .next-hub build in the gate worktree",
+   "name": "hub-metadata-dupes",
+   "kind": "seo",
+   "check": "metadata-dupes",
+   "envVar": "METADUPE_BASE_URL",
+   "action": "fail"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "check:orphans hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on hub",
+   "name": "hub-orphans",
+   "kind": "seo",
+   "check": "orphans",
+   "envVar": "ORPHANCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "check:sitemap-hygiene hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on hub",
+   "name": "hub-sitemap-hygiene",
+   "kind": "seo",
+   "check": "sitemap-hygiene",
+   "envVar": "SITEMAP_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "no served site to judge: the anime build has no /sites/<site> rewrite (F0 wiring not in this head), so they serve kpop pages; a missing kpop server has its own line",
+   "name": "network-links",
+   "kind": "network-links",
+   "action": "skip",
+   "sites": []
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "",
+   "name": "leak",
+   "kind": "leak",
+   "action": "run",
+   "sites": [
+    "anime"
+   ],
+   "excludeContent": false,
+   "require": [],
+   "pw": [
+    "-c",
+    "playwright.o1.config.ts",
+    "--project=leak"
+   ]
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the kpop half of the leak suite (string leak mirror, canonical and OG, link leak, no /api/n/me) did not run: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-leak",
+   "kind": "absent",
+   "action": "pending"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the kpop half of check-network-links did not run: parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+   "name": "kpop-network-links",
+   "kind": "absent",
+   "action": "pending"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "the hub half of the leak suite (route leak, site identity, canonical and OG, link leak, no /api/n/me) did not run: no hub server: no .next-hub build in the gate worktree",
+   "name": "hub-leak",
+   "kind": "absent",
+   "action": "fail"
+  },
+  {
+   "site": "hub",
+   "phase": "A",
+   "reason": "the hub half of check-network-links did not run: no hub server: no .next-hub build in the gate worktree",
+   "name": "hub-network-links",
+   "kind": "absent",
+   "action": "fail"
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "lanes.json lists no specs for F0",
+   "name": "lane-specs",
+   "kind": "lane-specs",
+   "action": "skip"
+  }
+ ],
+ "facts": {
+  "lane": "F0",
+  "sites": [
+   "kpop",
+   "anime",
+   "hub"
+  ],
+  "dbenv": "dev",
+  "ports": {
+   "kpop": 4021,
+   "anime": 4022,
+   "hub": 4023
+  },
+  "given": {
+   "kpop": null,
+   "anime": null,
+   "hub": null
+  },
+  "kpopGivenSource": "gate",
+  "build": {
+   "kpop": false,
+   "anime": true,
+   "hub": false
+  },
+  "parity": "ran",
+  "kept": false,
+  "keptReason": "parity ran without --keep, so no kpop build with production data is left for this head (request Q0a 2: gate.sh passes --keep to parity.sh); no kept parity build (parity.sh --keep wrote no kept.json)",
+  "keptInfo": null,
+  "wired": {
+   "anime": false,
+   "hub": null
+  },
+  "requireWired": {
+   "anime": false,
+   "hub": false
+  },
+  "sitemapRoute": {
+   "anime": {
+    "head": false,
+    "base": false
+   },
+   "hub": {
+    "head": false,
+    "base": false
+   }
+  },
+  "siteScopeScript": false,
+  "scopeModule": false,
+  "laneSpecs": [],
+  "laneSpecsMissing": [],
+  "harnessTests": [
+   "scripts/o1/parity/compare.test.mjs",
+   "scripts/o1/parity/freeze-hook.test.mjs",
+   "scripts/o1/parity/parity-sh.test.mjs",
+   "scripts/o1/parity/refusals.test.mjs",
+   "scripts/o1/parity/replay.test.mjs",
+   "apps/quiz/scripts/o1/leak-lib.test.mjs",
+   "apps/quiz/scripts/o1/twins.test.mjs",
+   "apps/quiz/scripts/o1/q0a/gate-argv.test.mjs",
+   "apps/quiz/scripts/o1/q0a/gate-plan.test.mjs",
+   "apps/quiz/scripts/o1/q0a/get-write-audit.test.mjs"
+  ]
+ }
+}
