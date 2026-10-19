@@ -56,6 +56,11 @@ export const KNOWN_ROUTES = [
   // One '/data' prefix covers both via startsWith.
   '/data',
   '/pt',
+  // Run O1 (contract routes.md): the anime and hub pages live under app/sites/[site]/. Known
+  // so the build guard passes; a direct /sites/... request is still a 404 on every build
+  // (the sites/[site] layout calls notFound() unless the param is the build's own site, and
+  // anime and hub builds rewrite every public path under /sites/<site>).
+  '/sites/',
 ];
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
 import { NOT_FOUND_REWRITE, isFilePath, isKnownRoute } from '@/lib/route-allowlist';
+import { SITE_ID } from '@/lib/site/registry';
+import { middlewareStep } from '@/lib/site/routing';
 import {
   GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyAnswer,
 } from '@/lib/seo/legacy-urls';
@@ -41,6 +43,13 @@ export async function middleware(request: NextRequest) {
   // page dynamic. /embed now lives outside the (site) route group, so the chrome
   // is chosen by folder, not by a runtime header, and nothing reads x-pathname.
   const passthrough = (): NextResponse => NextResponse.next();
+  // Run O1 (contract routes.md): on an anime or hub build every public path goes straight to
+  // the rewrites of next.config.ts; the site's own protected ones fall through to the session
+  // branch below. On the kpop build a /sites path that the allowlist knows only for the build
+  // guard gets the unknown-route answer of the kpop branch below; every other step is 'kpop'.
+  const step = middlewareStep(SITE_ID, pathname);
+  if (step === 'pass') return passthrough();
+  if (step === 'not-found') return isFilePath(pathname) ? passthrough() : NextResponse.rewrite(new URL(NOT_FOUND_REWRITE, request.url));
 
   // PUSH-GATE-1 (VERSE_PUBLIC): while the Verse is hidden, an ANONYMOUS request (no auth
   // cookie) to any gated Verse route -> 302 to the /verse teaser. Pure cookie-presence check,
