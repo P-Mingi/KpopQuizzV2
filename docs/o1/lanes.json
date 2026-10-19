@@ -58,7 +58,8 @@
       "kpop",
       "anime"
     ],
-    "kind": "code"
+    "kind": "code",
+    "hotExempt": true
   },
   "B3": {
     "sites": [
@@ -66,14 +67,16 @@
       "anime",
       "hub"
     ],
-    "kind": "code+sql"
+    "kind": "code+sql",
+    "hotExempt": true
   },
   "H1": {
     "sites": [
       "kpop",
       "hub"
     ],
-    "kind": "code"
+    "kind": "code",
+    "hotExempt": true
   },
   "K1": {
     "sites": [
@@ -81,6 +84,7 @@
       "anime",
       "hub"
     ],
-    "kind": "code+sql"
+    "kind": "code+sql",
+    "hotExempt": true
   }
 }
