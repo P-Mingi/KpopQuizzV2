@@ -89,6 +89,15 @@ function transform(src, file, twinFile, applyVocab) {
   return { out, edits: edits.length };
 }
 
+// --one <kpop file> <target file> <vocab 0|1>: one copy (the hand-written dispatchers import such copies).
+const oneIdx = process.argv.indexOf('--one');
+if (oneIdx > 0) {
+  const [twin, target, v] = process.argv.slice(oneIdx + 1, oneIdx + 4);
+  const src = fs.readFileSync(path.join(O1, twin), 'utf8');
+  const { out, edits } = transform(src, path.join(O1, target), path.join(O1, twin), v === '1');
+  fs.writeFileSync(path.join(O1, target), `// Run O1 twin (rule 18) of ${twin}: copied by scripts/o1/twins-codemod.mjs --one.\n` + out);
+  console.log(`wrote ${target} <- ${twin} (${edits} edits)`); process.exit(0);
+}
 const PAGE_NAMES = new Set(['page.tsx', 'page.ts', 'route.ts', 'route.tsx', 'layout.tsx', 'not-found.tsx']);
 const byTarget = new Map();
 for (const r of twins.pages) {

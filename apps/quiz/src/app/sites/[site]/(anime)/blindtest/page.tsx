@@ -1,0 +1,303 @@
+// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/blindtest/page.tsx, rows 11: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+import { jsonLdString } from '@/lib/seo/json-ld';
+import Link from 'next/link';
+
+import { BlindtestGame } from '@/components/blind-test/blindtest-game';
+import { BlindtestHubV11 } from '@/components/blindtest/ux-v1/hub';
+import { getBlindtestGroups } from '@/lib/db/queries/blindtest';
+import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+
+import type { PublicStats } from '@/lib/stats/site-stats';
+import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
+import { safeFetch } from '@/lib/error-handling';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { UX_V1 } from '@/lib/ux-v1';
+
+import type { Metadata } from 'next';
+
+// Owner, 2026-10-14: every count on this page is live (lib/stats/site-stats.ts), the same
+// numbers as the rest of the site; it said "300+ songs across 60+ groups" for about 4,200
+// songs across 84 groups. Without the counts, the sentences say no number at all.
+function catalogLine(stats: PublicStats | null): string {
+  return stats ? `${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series` : 'Songs from every anime generation';
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const stats = await getPublicStatsOrNull();
+  const line = catalogLine(stats);
+  return {
+  title: 'anime Blind Test - Guess the Song from a Clip',
+  description:
+    `Play the free anime blind test: hear a 10-second clip and guess the song. ${line}, from every generation. No sign-up.`,
+  alternates: {
+    canonical: '/blindtest',
+    languages: {
+      en: '/blindtest',
+      'pt-BR': '/pt/blindtest',
+      'x-default': '/blindtest',
+    },
+  },
+  openGraph: {
+    title: 'anime Blind Test - Guess the Song from a Clip',
+    description: `Listen to a 10-second clip and guess the anime song. ${line}, every generation.`,
+    url: '/blindtest',
+    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(`Guess the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'anime Blind Test on OtakuQuiz' }],
+  },
+  };
+}
+
+export const revalidate = 3600;
+
+// PERF NAV: the "300+ songs / 60+ groups" label counts. The old `await
+// createServerClient()` (cookie client) opted the WHOLE /blindtest route into
+// DYNAMIC rendering, so it re-rendered per request on nano (the ~3s nav). The shared
+// getBlindtestStats is cookie-free + unstable_cache'd, so the route goes back to
+// Static/ISR. The try/catch stays OUTSIDE the cache so a DB blip at build/render
+// falls back to the label defaults WITHOUT caching that fallback.
+async function getStats(): Promise<{ songs: number; groups: number } | null> {
+  const stats = await getPublicStatsOrNull();
+  return stats ? { songs: stats.songs, groups: stats.songGroups } : null;
+}
+
+function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
+  return (
+    <details className="group bt-faq-item">
+      <summary className="bt-faq-q">
+        {q}
+        <svg className="bt-faq-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </summary>
+      <p className="bt-faq-a">{a}</p>
+    </details>
+  );
+}
+
+function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
+  return [
+  {
+    q: 'What is a anime blind test?',
+    a: 'A blind test plays a short audio clip from a anime song and you have to guess which song or artist it is. You only hear the music, no visuals or lyrics on screen. It is the best way to test how well you really know anime.',
+  },
+  {
+    q: 'How many songs are available?',
+    a: stats
+      ? `The catalog has ${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series spanning every generation of anime, from 1st gen legends to the newest debuts. New songs are added regularly.`
+      : 'The catalog spans every generation of anime, from 1st gen legends to the newest debuts. New songs are added regularly.',
+  },
+  {
+    q: 'Can I play for just one series?',
+    a: 'Yes. Any series with enough songs in the catalog gets its own playlist. Select "By series" on the setup screen and pick your favorite. BTS, BLACKPINK, Stray Kids, TWICE, aespa, NewJeans, and many more are available.',
+  },
+  {
+    q: 'How does a round work?',
+    a: 'Each game has 10 songs. For each song you hear a 10-second clip and see four answer choices. Pick the right song or artist before time runs out. Your score is how many you get right out of 10.',
+  },
+  {
+    q: 'Is the blind test free?',
+    a: 'Yes, completely free. No account required, no play limits. Just pick your playlist and start guessing.',
+  },
+  {
+    q: 'What generations are covered?',
+    a: 'All of them. Filter by 1st gen (H.O.T., S.E.S.), 2nd gen (SNSD, SHINee, BIGBANG), 3rd gen (BTS, EXO, BLACKPINK, TWICE), 4th gen (Stray Kids, aespa, IVE, NewJeans), or 5th gen (the newest debuts).',
+  },
+  {
+    q: 'Can I play on mobile?',
+    a: 'Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit otakuquiz.org/blindtest and hit Start.',
+  },
+  ];
+}
+
+const faqJsonLdOf = (items: Array<{ q: string; a: string }>): Record<string, unknown> => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+});
+
+const webAppJsonLdOf = (stats: PublicStats | null): Record<string, unknown> => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'anime Blind Test',
+  url: 'https://kpopquiz.org/blindtest',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  description: `Free anime blind test${stats ? ` with ${catalogLine(stats)}` : ''}. Listen to a 10-second clip and guess the song or artist. Pick All anime, a generation, or a specific series.`,
+});
+
+export default async function BlindtestPage(): Promise<React.ReactElement> {
+  // UX v11 (NEXT_PUBLIC_UX_V1, default off): the day-mode hub. Same metadata, H1,
+  // intro, FAQ and JSON-LD; flag off renders exactly the page below.
+  const live = await getPublicStatsOrNull();
+  const FAQ_ITEMS = faqItems(live);
+  const faqJsonLd = faqJsonLdOf(FAQ_ITEMS);
+  const webAppJsonLd = webAppJsonLdOf(live);
+  if (UX_V1) return <BlindtestHubV11 faq={FAQ_ITEMS} faqJsonLd={faqJsonLd} webAppJsonLd={webAppJsonLd} />;
+
+  const [groups, stats, playlists] = await Promise.all([
+    safeFetch(getBlindtestGroups(), [], '[blindtest] getBlindtestGroups'),
+    getStats(),
+    // W7c: the picker inside the game is a client-side selector, and a selector is not
+    // a link. These are the same playlists, server-rendered as real crawlable <a>.
+    safeFetch(getAdvertisablePlaylists(), { staticModes: [], groups: [] }, '[blindtest] getAdvertisablePlaylists'),
+  ]);
+
+  return (
+    <div className="bt-hub">
+      {/* Breadcrumbs for SEO (visually subtle) */}
+      <div className="bt-hub-crumbs">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Blind Test' },
+          ]}
+        />
+      </div>
+
+      {/* The game IS the page */}
+      <BlindtestGame groups={groups} />
+
+      {/* SEO content below the fold */}
+      <div className="bt-hub-seo">
+        {/* Stats strip */}
+        <div className="bt-hub-stats">
+          {stats ? (
+            <>
+              <div className="bt-hub-stat">
+                <span className="bt-hub-stat-n">{atLeast(stats.songs)}</span>
+                <span className="bt-hub-stat-l">songs</span>
+              </div>
+              <div className="bt-hub-stat">
+                <span className="bt-hub-stat-n">{atLeast(stats.groups)}</span>
+                <span className="bt-hub-stat-l">series</span>
+              </div>
+            </>
+          ) : null}
+          <div className="bt-hub-stat">
+            <span className="bt-hub-stat-n">5</span>
+            <span className="bt-hub-stat-l">generations</span>
+          </div>
+          <div className="bt-hub-stat">
+            <span className="bt-hub-stat-n">10s</span>
+            <span className="bt-hub-stat-l">per clip</span>
+          </div>
+        </div>
+
+        {/* How it works */}
+        <section className="bt-hub-section">
+          <h2 className="bt-hub-h2">How it works</h2>
+          <div className="bt-hub-steps">
+            <div className="bt-hub-step">
+              <div className="bt-hub-step-n">1</div>
+              <p className="bt-hub-step-t">Pick a playlist</p>
+              <p className="bt-hub-step-d">All anime, a generation, or a specific series</p>
+            </div>
+            <div className="bt-hub-step">
+              <div className="bt-hub-step-n">2</div>
+              <p className="bt-hub-step-t">Listen to the clip</p>
+              <p className="bt-hub-step-d">10 seconds of the song plays automatically</p>
+            </div>
+            <div className="bt-hub-step">
+              <div className="bt-hub-step-n">3</div>
+              <p className="bt-hub-step-t">Guess from 4 choices</p>
+              <p className="bt-hub-step-d">Song title or artist name before time runs out</p>
+            </div>
+          </div>
+        </section>
+
+        {/* W7c - every playlist as a real link. The index used to serve 45 links and
+            ZERO of them pointed at a /blindtest/ playlist: an index that did not link
+            what it indexes. Each playlist appears exactly once. */}
+        {(playlists.staticModes.length > 0 || playlists.groups.length > 0) && (
+          <section className="bt-hub-section">
+            <h2 className="bt-hub-h2">Every blind test playlist</h2>
+
+            {playlists.staticModes.length > 0 && (
+              <>
+                <h3 className="bt-pl-h3">By theme</h3>
+                <ul className="bt-pl-grid">
+                  {playlists.staticModes.map(m => (
+                    <li key={m.id}>
+                      <Link href={`/blindtest/${m.id}`} className="bt-pl-card">
+                        <span className="bt-pl-name">{m.title}</span>
+                        <span className="bt-pl-desc">{m.description}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {playlists.groups.length > 0 && (
+              <>
+                <h3 className="bt-pl-h3">By series</h3>
+                <ul className="bt-pl-grid">
+                  {playlists.groups.map(g => (
+                    <li key={g.slug}>
+                      <Link href={`/blindtest/series-${g.slug}`} className="bt-pl-card">
+                        <span className="bt-pl-name">{g.name} blind test</span>
+                        <span className="bt-pl-desc">{g.songs} songs in the pool</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </section>
+        )}
+
+        {/* Internal links */}
+        <section className="bt-hub-section">
+          <h2 className="bt-hub-h2">More ways to play</h2>
+          <div className="bt-hub-links">
+            <Link href="/trivia" className="bt-hub-link">
+              <span className="bt-hub-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+              </span>
+              <span>
+                <span className="bt-hub-link-t">anime Trivia</span>
+                <span className="bt-hub-link-d">Learn the facts real fans know</span>
+              </span>
+            </Link>
+            <Link href="/quizzes" className="bt-hub-link">
+              <span className="bt-hub-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+              </span>
+              <span>
+                <span className="bt-hub-link-t">anime Quizzes</span>
+                <span className="bt-hub-link-d">Fan-made quizzes for every series</span>
+              </span>
+            </Link>
+            <Link href="/series" className="bt-hub-link">
+              <span className="bt-hub-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </span>
+              <span>
+                <span className="bt-hub-link-t">Browse by Series</span>
+                <span className="bt-hub-link-d">Quizzes and blind tests for every series</span>
+              </span>
+            </Link>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="bt-hub-section">
+          <h2 className="bt-hub-h2">Frequently asked questions</h2>
+          <div className="bt-hub-faq">
+            {FAQ_ITEMS.map(({ q, a }) => (
+              <FaqItem key={q} q={q} a={a} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(webAppJsonLd) }} />
+    </div>
+  );
+}

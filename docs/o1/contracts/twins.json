@@ -160,7 +160,7 @@
       "id": "2",
       "site": "anime",
       "route": "/series",
-      "file": "apps/quiz/src/app/sites/[site]/series/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/series/page.tsx",
       "twin": "apps/quiz/src/app/(site)/groups/page.tsx",
       "mustImport": [
         "@/components/group/ux-v1/groups-index"
@@ -186,7 +186,7 @@
       "id": "3",
       "site": "anime",
       "route": "/{series}-quiz",
-      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
       "mustImport": [
         "@/components/group/ux-v1/hub"
@@ -224,7 +224,7 @@
       "id": "4",
       "site": "anime",
       "route": "/anime-mix-quiz",
-      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
       "mustImport": [
         "@/components/group/ux-v1/hub"
@@ -249,7 +249,7 @@
       "id": "5",
       "site": "anime",
       "route": "/{series}-trivia",
-      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/[slug]/group-trivia-page.tsx",
       "mustImport": [
         "@/components/group/answer-first",
@@ -278,7 +278,7 @@
       "id": "6",
       "site": "anime",
       "route": "/q/{slug}",
-      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/q/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
       "mustImport": [
         "@/components/quiz/ux-v1/quiz-page"
@@ -310,7 +310,7 @@
       "id": "7",
       "site": "anime",
       "route": "play (inside /q/{slug})",
-      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/q/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
       "mustImport": [
         "@/components/quiz/ux-v1/quiz-page"
@@ -335,7 +335,7 @@
       "id": "8",
       "site": "anime",
       "route": "results (inside /q/{slug})",
-      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/q/[slug]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
       "mustImport": [
         "@/components/quiz/ux-v1/quiz-page"
@@ -364,7 +364,7 @@
       "id": "9",
       "site": "anime",
       "route": "/create",
-      "file": "apps/quiz/src/app/sites/[site]/create/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/create/page.tsx",
       "twin": "apps/quiz/src/app/(site)/create/page.tsx",
       "mustImport": [
         "@/components/ux-v1/page",
@@ -396,7 +396,7 @@
       "id": "10",
       "site": "anime",
       "route": "/daily",
-      "file": "apps/quiz/src/app/sites/[site]/daily/route.ts",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/daily/route.ts",
       "twin": "apps/quiz/src/app/(site)/daily/route.ts",
       "mustImport": [],
       "renders": [
@@ -411,7 +411,7 @@
       "id": "11",
       "site": "anime",
       "route": "/blindtest",
-      "file": "apps/quiz/src/app/sites/[site]/blindtest/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/blindtest/page.tsx",
       "twin": "apps/quiz/src/app/(site)/blindtest/page.tsx",
       "mustImport": [
         "@/components/blindtest/ux-v1/hub"
@@ -438,7 +438,7 @@
       "id": "12",
       "site": "anime",
       "route": "/{series}-openings-quiz (rewrite to /blindtest/series-{series})",
-      "file": "apps/quiz/src/app/sites/[site]/blindtest/[mode]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/blindtest/[mode]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/blindtest/[mode]/page.tsx",
       "mustImport": [
         "@/components/blindtest/ux-v1/group-page"
@@ -468,11 +468,9 @@
       "id": "13",
       "site": "anime",
       "route": "/opening-of-the-day",
-      "file": "apps/quiz/src/app/sites/[site]/opening-of-the-day/page.tsx",
-      "twin": "apps/quiz/src/app/(site)/blindtest/[mode]/page.tsx",
-      "mustImport": [
-        "@/components/blindtest/ux-v1/mode-page"
-      ],
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/opening-of-the-day/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/daily/route.ts",
+      "mustImport": [],
       "renders": [
         "components/blindtest/ux-v1/mode-page.tsx",
         "game.tsx",
@@ -490,13 +488,13 @@
       ],
       "owner": "O6",
       "body": "shared",
-      "notes": "The daily mode branch of the twin. F: no cover."
+      "notes": "D-048: redirect to /blindtest, where the daily band starts the daily run (kpop has no daily mode page)"
     },
     {
       "id": "14",
       "site": "anime",
       "route": "/which-{series}-character-are-you",
-      "file": "apps/quiz/src/app/sites/[site]/which-character/[series]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/which-character/[group]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/personality/[group]/page.tsx",
       "mustImport": [
         "@/components/personality/quiz",
@@ -528,7 +526,7 @@
       "id": "15",
       "site": "anime",
       "route": "/name-all/{series}/{set}",
-      "file": "apps/quiz/src/app/sites/[site]/name-all/[series]/[set]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/name-all/[group]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/name-all/[group]/page.tsx",
       "mustImport": [
         "@/components/name-all/game",
@@ -557,7 +555,7 @@
       "id": "16",
       "site": "anime",
       "route": "/me",
-      "file": "apps/quiz/src/app/sites/[site]/me/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/me/page.tsx",
       "twin": "apps/quiz/src/app/(site)/me/page.tsx",
       "mustImport": [
         "@/components/profile/ux-v1/passport",
@@ -665,7 +663,7 @@
       "id": "20",
       "site": "anime",
       "route": "/onboarding",
-      "file": "apps/quiz/src/app/sites/[site]/onboarding/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/onboarding/page.tsx",
       "twin": "apps/quiz/src/app/(site)/onboarding/page.tsx",
       "mustImport": [
         "@/app/(site)/onboarding/onboarding-form"
@@ -687,7 +685,7 @@
       "id": "21",
       "site": "anime",
       "route": "/notifications",
-      "file": "apps/quiz/src/app/sites/[site]/notifications/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/notifications/page.tsx",
       "twin": "apps/quiz/src/app/(site)/notifications/page.tsx",
       "mustImport": [
         "@/components/ux-v1/page",
@@ -711,7 +709,7 @@
       "id": "22",
       "site": "anime",
       "route": "/search",
-      "file": "apps/quiz/src/app/sites/[site]/search/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/search/page.tsx",
       "twin": "apps/quiz/src/app/(site)/search/page.tsx",
       "mustImport": [
         "@/components/ui/user-avatar",
@@ -745,7 +743,7 @@
       "id": "23",
       "site": "anime",
       "route": "/community",
-      "file": "apps/quiz/src/app/sites/[site]/community/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/community/page.tsx",
       "twin": "apps/quiz/src/app/(site)/community/page.tsx",
       "mustImport": [
         "@/components/ux-v1/page",
@@ -780,7 +778,7 @@
       "id": "23b",
       "site": "anime",
       "route": "/community/{kind}/{id}",
-      "file": "apps/quiz/src/app/sites/[site]/community/[kind]/[id]/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/community/[kind]/[id]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/community/[kind]/[id]/page.tsx",
       "mustImport": [
         "@/components/ux-v1/page",
@@ -809,7 +807,7 @@
       "id": "24",
       "site": "anime",
       "route": "/about",
-      "file": "apps/quiz/src/app/sites/[site]/about/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/about/page.tsx",
       "twin": "apps/quiz/src/app/(site)/about/page.tsx",
       "mustImport": [],
       "renders": [
@@ -831,7 +829,7 @@
       "id": "25",
       "site": "anime",
       "route": "/editorial-policy",
-      "file": "apps/quiz/src/app/sites/[site]/editorial-policy/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/editorial-policy/page.tsx",
       "twin": "apps/quiz/src/app/(site)/editorial-policy/page.tsx",
       "mustImport": [],
       "renders": [
@@ -873,7 +871,7 @@
       "id": "26b",
       "site": "anime",
       "route": "/terms",
-      "file": "apps/quiz/src/app/sites/[site]/terms/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/terms/page.tsx",
       "twin": "apps/quiz/src/app/(site)/terms/page.tsx",
       "mustImport": [],
       "renders": [
@@ -892,7 +890,7 @@
       "id": "26c",
       "site": "anime",
       "route": "/contact",
-      "file": "apps/quiz/src/app/sites/[site]/contact/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/contact/page.tsx",
       "twin": "apps/quiz/src/app/(site)/contact/page.tsx",
       "mustImport": [],
       "renders": [
@@ -984,7 +982,7 @@
       "id": "29",
       "site": "anime",
       "route": "/admin/review",
-      "file": "apps/quiz/src/app/sites/[site]/admin/review/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/review/page.tsx",
       "twin": "apps/quiz/src/app/(site)/admin/editorial/page.tsx",
       "mustImport": [
         "@/app/(site)/admin/editorial/editorial-admin"
@@ -1040,7 +1038,7 @@
       "id": "31",
       "site": "anime",
       "route": "/quizzes (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/quizzes/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/quizzes/page.tsx",
       "twin": "apps/quiz/src/app/(site)/quizzes/ux-page.tsx",
       "mustImport": [
         "@/components/quizzes/ux-v1/quizzes-page"
@@ -1068,7 +1066,7 @@
       "id": "31b",
       "site": "anime",
       "route": "/quizzes/popular-today (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-today/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/quizzes/popular-today/page.tsx",
       "twin": "apps/quiz/src/app/(site)/quizzes/popular-today/page.tsx",
       "mustImport": [
         "@/components/quiz/popular-page"
@@ -1093,7 +1091,7 @@
       "id": "31c",
       "site": "anime",
       "route": "/quizzes/popular-this-week (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-this-week/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/quizzes/popular-this-week/page.tsx",
       "twin": "apps/quiz/src/app/(site)/quizzes/popular-this-week/page.tsx",
       "mustImport": [
         "@/components/quiz/popular-page"
@@ -1118,7 +1116,7 @@
       "id": "31d",
       "site": "anime",
       "route": "/quizzes/popular-this-month (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-this-month/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/quizzes/popular-this-month/page.tsx",
       "twin": "apps/quiz/src/app/(site)/quizzes/popular-this-month/page.tsx",
       "mustImport": [
         "@/components/quiz/popular-page"
@@ -1143,7 +1141,7 @@
       "id": "32",
       "site": "anime",
       "route": "/new (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/new/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/new/page.tsx",
       "twin": "apps/quiz/src/app/(site)/new/page.tsx",
       "mustImport": [
         "@/components/home/infinite-quiz-list"
@@ -1167,7 +1165,7 @@
       "id": "32b",
       "site": "anime",
       "route": "/most-liked (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/most-liked/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/most-liked/page.tsx",
       "twin": "apps/quiz/src/app/(site)/most-liked/page.tsx",
       "mustImport": [
         "@/components/home/infinite-quiz-list"
@@ -1191,7 +1189,7 @@
       "id": "32c",
       "site": "anime",
       "route": "/trending (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/trending/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/trending/page.tsx",
       "twin": "apps/quiz/src/app/(site)/trending/page.tsx",
       "mustImport": [
         "@/components/home/infinite-quiz-list"
@@ -1215,7 +1213,7 @@
       "id": "33",
       "site": "anime",
       "route": "/trivia (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/trivia/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/trivia/page.tsx",
       "twin": "apps/quiz/src/app/(site)/trivia/page.tsx",
       "mustImport": [
         "@/components/ui/breadcrumbs"
@@ -1240,7 +1238,7 @@
       "id": "34",
       "site": "anime",
       "route": "/faq (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/faq/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/faq/page.tsx",
       "twin": "apps/quiz/src/app/(site)/faq/page.tsx",
       "mustImport": [],
       "renders": [
@@ -1261,7 +1259,7 @@
       "id": "35",
       "site": "anime",
       "route": "/leaderboard (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/leaderboard/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/leaderboard/page.tsx",
       "twin": "apps/quiz/src/app/(site)/leaderboard/page.tsx",
       "mustImport": [
         "@/components/leaderboard/ux-v1/leaderboard"
@@ -1289,7 +1287,7 @@
       "id": "36",
       "site": "anime",
       "route": "/dmca (CR-001)",
-      "file": "apps/quiz/src/app/sites/[site]/dmca/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/dmca/page.tsx",
       "twin": "apps/quiz/src/app/(site)/dmca/page.tsx",
       "mustImport": [],
       "renders": [
@@ -1386,7 +1384,7 @@
       "id": "H-3",
       "site": "hub",
       "route": "/passport",
-      "file": "apps/quiz/src/app/sites/[site]/passport/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/passport/page.tsx",
       "twin": "apps/quiz/src/app/(site)/me/page.tsx",
       "mustImport": [
         "@/components/profile/ux-v1/passport",
@@ -1479,7 +1477,7 @@
       "id": "H-7",
       "site": "hub",
       "route": "/directory (optional)",
-      "file": "apps/quiz/src/app/sites/[site]/directory/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/directory/page.tsx",
       "twin": "apps/quiz/src/app/(site)/groups/page.tsx",
       "mustImport": [
         "@/components/group/ux-v1/groups-index"
@@ -1515,6 +1513,26 @@
       "owner": "H1",
       "body": "local",
       "notes": "The file is shared with row 27 (which imports the mascot for anime). Page-local body (request F0-9)."
+    },
+    {
+      "id": "38",
+      "site": "anime",
+      "route": "site guard of the (anime) route group (D-048)",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "technical: a 404 on any other build, renders nothing of its own"
+    },
+    {
+      "id": "H-9",
+      "site": "hub",
+      "route": "site guard of the (hub) route group (D-048)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "technical: a 404 on any other build, renders nothing of its own"
     }
   ]
 }

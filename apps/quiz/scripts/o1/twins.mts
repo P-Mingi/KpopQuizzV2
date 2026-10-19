@@ -470,7 +470,10 @@ export function check(root: string, rows: Row[], opts: { shingle?: number; basel
         continue;
       }
       const own = `${posix.dirname(f)}/`;
-      const direct = tree.reach(f, (x) => x.startsWith(own) && isCode(x));
+      // D-048 (owner, 2026-10-19): a page may also reach its row's components through a kpop route module it reuses
+      // (app/ outside app/sites, such as group-trivia-page.tsx or q/[slug]/ux-page.tsx): reuse, not a copy.
+      const kpopRoute = (x: string): boolean => x.startsWith(`${SRC}/app/`) && !x.startsWith(`${SITES_DIR}/`);
+      const direct = tree.reach(f, (x) => (x.startsWith(own) || kpopRoute(x)) && isCode(x));
       direct.add(f);
       const via = new Set<string>();
       for (const t of targets) {
@@ -500,9 +503,19 @@ export function check(root: string, rows: Row[], opts: { shingle?: number; basel
   const rank = (f: string): number => (named.has(f) ? 0 : wider.has(f) ? 1 : 2);
   const base = new Map((opts.baseline?.shingle === k ? opts.baseline.pairs : []).map((p) => [pairKey(p.files[0], p.files[1]), p.lines]));
   const known: CopyPair[] = [];
+  // D-048 (owner, 2026-10-19): the twin pages are copied from their kpop page by scripts/o1/twins-codemod.mjs (its
+  // header names the source). Such a copy may hold its source page (and the kpop route modules) and the blocks its
+  // source already shares with a component (inherited); a block of a component it does not inherit stays a violation.
+  const codemodSource = (f: string): string | null => {
+    if (!f.startsWith(`${SITES_DIR}/`)) return null;
+    const m = /^\/\/ Run O1 twin \(rule 18\) of (\S+?)[,:]/.exec(tree.read(f));
+    return m ? m[1] : null;
+  };
   for (const c of findCopies(tree, prot, all, k, rank)) {
     const allowed = base.get(pairKey(c.candidate, c.protected));
     if (allowed !== undefined && c.lines <= allowed) { known.push(c); continue; }
+    const src = codemodSource(c.candidate);
+    if (src && (c.protected.startsWith(`${SRC}/app/`) || (isFile(path.join(root, src)) && findCopies(tree, [c.protected], [src], k).length))) { known.push(c); continue; }
     const where = c.blocks.map(([a, b, x, y]) => `${a}-${b} (from ${x}-${y})`).join(', ');
     // Two components of the same rank: which one is the original is not known from the tree alone.
     const verb = rank(c.candidate) === rank(c.protected) ? 'shares a block with' : 'copies';
