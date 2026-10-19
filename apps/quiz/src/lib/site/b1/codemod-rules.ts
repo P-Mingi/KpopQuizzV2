@@ -163,6 +163,8 @@ export const RULES: readonly FileRule[] = [
  * accepts exactly these; anything else left in an owned, non-HOT file fails it.
  */
 export const ALLOWLIST: readonly { readonly file: string; readonly reason: string }[] = [
+  { file: `${SRC}lib/site/b1/codemod-rules.ts`, reason: 'The rules hold the literals they replace, by definition.' },
+  { file: `${SRC}lib/site/b1/codemod-core.ts`, reason: 'BRAND_LITERAL_RE is the pattern that finds them.' },
   {
     file: `${SRC}app/layout.tsx`,
     reason: 'KPOP_METADATA: registry.test.ts (F0, not editable by B1) reads these literals from this file. The block moves to lib/site/kpop.ts once that test reads it there (request B1-1).',

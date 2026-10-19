@@ -9,6 +9,8 @@
 //                                                                            file, a rule is stale, or an owned,
 //                                                                            non-HOT file still holds a literal
 //                                                                            that is not on the allowlist
+//   ... --others    list the files no B1 glob covers that still hold a literal, by the lane that owns them
+//                   (or NOBODY): input for the requests to ORCH. Reads only; changes nothing.
 // Run from anywhere inside the repo (a worktree included). Nothing here touches the network or git state.
 
 import { execFileSync } from 'node:child_process';
@@ -20,6 +22,7 @@ import { applyRule, countBrandLiterals, ownedBy, parseHot } from '../../../src/l
 
 const write = process.argv.includes('--write');
 const check = process.argv.includes('--check');
+const others = process.argv.includes('--others');
 
 const root = execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf8' }).trim();
 const read = (rel: string): string => fs.readFileSync(path.join(root, rel), 'utf8');
@@ -72,5 +75,20 @@ console.log(`  owned by B1, on HOT.txt (waiting)     : ${rows.hotWaiting}`);
 console.log(`  tests, articles, i18n, return-to...   : ${rows.neverChange}`);
 console.log(`  files no B1 glob covers (other lanes) : ${rows.notOwned}`);
 if (check && rows.owned > 0) fail('an owned, non-HOT file still holds a brand literal');
+
+// 3. The rest of src, by owner (--others).
+if (others) {
+  const lanes = Object.entries(ownership).filter(([k, v]) => !k.startsWith('_') && Array.isArray(v) && k !== 'B1');
+  const byOwner = new Map<string, string[]>();
+  for (const f of tracked) {
+    if (owned.includes(f) || NEVER_CHANGE.some((re) => re.test(f))) continue;
+    const n = countBrandLiterals(read(f));
+    if (n === 0) continue;
+    const who = lanes.filter(([, g]) => ownedBy(g, f)).map(([k]) => k).join('+') || 'NOBODY';
+    byOwner.set(who, [...(byOwner.get(who) ?? []), `${f.replace('apps/quiz/src/', '')} (${n})`]);
+  }
+  console.log('');
+  for (const [who, list] of [...byOwner].sort()) console.log(`${who} (${list.length} files)\n  ${list.join('\n  ')}`);
+}
 
 process.exit(failed ? 1 : 0);
