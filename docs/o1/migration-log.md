@@ -61,3 +61,10 @@
 | 2026-10-19T11:51:46Z | o1-dev | docs/pending-migrations/multisite/002b-site-validate.sql | 172d42f467139ac4 | ok |
 | 2026-10-19T11:51:47Z | o1-dev | docs/pending-migrations/multisite/002c-site-indexes.sql | 14a41759fcc2ec38 | ok |
 | 2026-10-19T11:51:48Z | o1-dev | docs/pending-migrations/multisite/002d-quiz-site-guard.sql | e905082ca3abaae3 | ok |
+| 2026-10-19T21:50:02Z | o1-scratch | /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-B3/docs/pending-migrations/multisite/008-write-locks.sql | bddb68d4732f4bc6 | ok |
+| 2026-10-19T22:20:16Z | o1-dev | docs/pending-migrations/multisite/003-memberships.sql | 1fce7559a94e8e88 | ok |
+| 2026-10-19T22:20:17Z | o1-dev | docs/pending-migrations/multisite/004-passport-prefs.sql | 6980fe333c377f51 | ok |
+| 2026-10-19T22:20:18Z | o1-dev | docs/pending-migrations/multisite/005-net-counters.sql | b9aded3d8ac8ebb7 | ok |
+| 2026-10-19T22:20:19Z | o1-dev | docs/pending-migrations/multisite/006-passport-handoff.sql | 6d6b108d7af35bad | ok |
+| 2026-10-19T22:20:20Z | o1-dev | docs/pending-migrations/multisite/007-world-xp.sql | 5d41f72c213a1370 | ok |
+| 2026-10-19T22:20:21Z | o1-dev | docs/pending-migrations/multisite/008-write-locks.sql | bddb68d4732f4bc6 | ok |

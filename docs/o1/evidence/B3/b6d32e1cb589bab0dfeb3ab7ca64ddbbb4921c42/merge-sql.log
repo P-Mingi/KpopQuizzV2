@@ -1,0 +1,12 @@
+
+ok: docs/pending-migrations/multisite/003-memberships.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/004-passport-prefs.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/005-net-counters.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/006-passport-handoff.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/007-world-xp.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/008-write-locks.sql on o1-dev
