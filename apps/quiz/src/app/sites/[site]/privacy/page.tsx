@@ -1,4 +1,7 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/privacy/page.tsx, rows 26, H-2: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+import { HubShares } from '@/components/hub/hub-shares';
+import { SITE } from '@/lib/site/registry';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -19,6 +22,9 @@ export default function PrivacyPage(): React.ReactElement {
         KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
         use it, and your rights.
       </p>
+
+      {/* Run O1, lot (d): on the hub only, the same block as the network page (components/hub/hub-shares.tsx). */}
+      {SITE.id === 'hub' ? <HubShares /> : null}
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
       <p className="text-sm text-secondary leading-relaxed">

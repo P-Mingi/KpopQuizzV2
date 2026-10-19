@@ -1,0 +1,36 @@
+// Run O1, lot (d), lane H1: the copy of the network page (fanquiz.org, /) and of the "What your passport shares" block
+// (copy-keys.md 3, namespace hub.h1). Placeholders are filled by lib/site/hub/copy.ts: {network} is the network name
+// (NETWORK.name), {brand} the hub brand, {name} the site of a card, {topicPlural} and {memberPlural} the vocabulary of
+// that site (siteConfig(id).vocabulary). No site name or domain is written in this file.
+export const COPY = {
+  'home.h1': 'One account for the fan quiz sites',
+  'home.lede': '{network} is the home of one account shared by the fan quiz sites. Make it once, use it on every site.',
+  'home.metaTitle': '{network}: one account for the fan quiz sites',
+  'home.metaDescription': '{network} is the home of one account shared by the fan quiz sites. See the sites you can join and what your passport shares with them.',
+  'home.sitesTitle': 'The sites',
+  'home.cardPitch': 'Fan-made quizzes about {topicPlural} and their {memberPlural}.',
+  'home.cardOpen': 'Open',
+  'home.cardOpenAria': 'Open {name}',
+  'home.sharesTitle': 'What your passport shares',
+  'home.accountTitle': 'Your account',
+  'home.accountSignedOut': 'Sign in once and use the same account on every fan quiz site.',
+  'home.signIn': 'Sign in',
+  'home.signInSheetTitle': 'Sign in to {network}',
+  'home.signInSheetSub': 'One account for the fan quiz sites. No password needed.',
+  'home.passportTitle': 'Your passport',
+  'home.passportUsername': 'Username',
+  'home.passportLevel': 'Level',
+  'home.passportLevelValue': 'Level {level}',
+  'home.passportSites': 'Sites joined',
+  'home.passportNoSites': 'None yet',
+  'home.passportOpen': 'Open your passport',
+  'shares.seesTitle': 'Other sites can see',
+  'shares.seesUsername': 'Your username',
+  'shares.seesAvatar': 'Your avatar',
+  'shares.seesLevel': 'Your level, only if you make it public',
+  'shares.seesSites': 'The sites you joined',
+  'shares.hidesTitle': 'Other sites never see',
+  'shares.hidesEmail': 'Your email address',
+  'shares.hidesSignIn': 'How you sign in',
+  'shares.hidesHistory': 'Your private history',
+} as const;

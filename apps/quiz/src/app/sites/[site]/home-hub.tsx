@@ -1,208 +1,116 @@
-// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/about/page.tsx: copied by scripts/o1/twins-codemod.mjs --one.
-import Link from 'next/link';
+// Run O1, lot (d), lane H1: the network page, served at / of the hub build (fanquiz.org). Row H-1 of the twins contract:
+// the hero, the sites, "What your passport shares" and the account block are built from components/ux-v1/page.tsx,
+// section-header.tsx and panel.tsx. Copy: copy/hub/h1.ts. Styles: styles/sites/hub/h1.css (classes hub-h1-*).
+import { HubShares } from '@/components/hub/hub-shares';
+import { HubSignIn } from '@/components/hub/hub-sign-in';
+import { UxLink } from '@/components/ux-v1/button';
+import { UxPage } from '@/components/ux-v1/page';
+import { Panel } from '@/components/ux-v1/panel';
+import { SectionHeader } from '@/components/ux-v1/section-header';
+import { ht } from '@/lib/site/hub/copy';
+import { networkCards } from '@/lib/site/hub/network-page';
+import { readHubPassport } from '@/lib/site/hub/passport-summary';
+import { NETWORK, SITE } from '@/lib/site/registry';
 
-import { DiscordCommunity } from '@/components/discord/discord-community';
-import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
-import { CONTACT_EMAIL, FOUNDER } from '@/lib/seo/org';
-import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
-import type { PublicStats } from '@/lib/stats/site-stats';
-
+import type { NetworkCard } from '@/lib/site/hub/network-page';
+import type { HubPassportSummary } from '@/lib/site/hub/passport-summary';
 import type { Metadata } from 'next';
 
+const HOME_URL = `${NETWORK.url}/`;
+
+// The home is the one indexable page of the hub (the layout closes the others); canonical from the registry.
 export const metadata: Metadata = {
-  title: 'About KpopQuiz',
-  description:
-    'KpopQuiz is a free fan-made site to play and create K-pop quizzes about BTS, BLACKPINK, Stray Kids, aespa and more, with blind tests and leaderboards.',
-  alternates: {
-    canonical: '/about',
-    languages: {
-      en: '/about',
-      'pt-BR': '/pt/about',
-      'x-default': '/about',
-    },
-  },
+  title: { absolute: ht('home.metaTitle') },
+  description: ht('home.metaDescription'),
+  robots: { index: true, follow: true },
+  alternates: { canonical: HOME_URL },
   openGraph: {
-    title: 'About KpopQuiz',
-    description: 'A free, fan-made home for K-pop quizzes, mini-games, and leaderboards.',
-    url: '/about',
-    images: [DEFAULT_OG_IMAGE],
+    type: 'website',
+    siteName: SITE.brand.name,
+    title: ht('home.metaTitle'),
+    description: ht('home.metaDescription'),
+    url: HOME_URL,
+    images: [{ url: SITE.brand.ogTemplate, width: 1200, height: 630, alt: SITE.brand.name }],
   },
+  twitter: { card: 'summary_large_image', title: ht('home.metaTitle'), description: ht('home.metaDescription') },
 };
 
-// Owner, 2026-10-14: live counts (lib/stats/site-stats.ts), the same as every other page.
-// This said "42k+" plays for 73,425, "500+" quizzes for 456, and "3k+ fans every week",
-// which nothing measures (removed).
-function statsOf(s: PublicStats | null): Array<{ num: string; label: string }> {
-  if (!s) return [];
-  return [
-    { num: atLeast(s.plays), label: 'Quizzes played' },
-    { num: atLeast(s.quizzes), label: 'Quizzes published' },
-    { num: atLeast(s.groupsWithQuizzes), label: 'Groups with quizzes' },
-  ];
+/** The accent of a card, from the theme of its site (the CSS picks the light or the dark value). */
+function accentVars(card: NetworkCard): React.CSSProperties | undefined {
+  if (!card.accentLight || !card.accentDark) return undefined;
+  return { '--hub-accent-light': card.accentLight, '--hub-accent-dark': card.accentDark } as React.CSSProperties;
 }
 
-const FEATURES = [
-  {
-    title: 'Five quiz types',
-    desc: 'Classic multiple choice, Image, Odd-one-out, True or False, and Guess from Clues.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <path d="m9 10 2 2 4-4" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Mini-games',
-    desc: 'This or That head-to-head matchups, and Name all members against the clock.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <line x1="6" y1="11" x2="10" y2="11" /><line x1="8" y1="9" x2="8" y2="13" />
-        <line x1="15" y1="12" x2="15.01" y2="12" /><line x1="18" y1="10" x2="18.01" y2="10" />
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Leaderboards',
-    desc: 'Score well to climb the weekly and all-time rankings against other fans.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-        <path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Made by fans',
-    desc: 'Every quiz is created by the community. Make your own in a couple of minutes.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-  },
-];
-
-export default async function AboutPage(): Promise<React.ReactElement> {
-  const STATS = statsOf(await getPublicStatsOrNull());
+function SiteCard({ card }: { card: NetworkCard }): React.ReactElement {
   return (
-    <div className="py-8 max-w-2xl mx-auto">
-      {/* Hero */}
-      <div className="text-center">
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] text-xs font-semibold">
-          Made by fans, for fans
-        </span>
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
-          About <span className="text-[var(--accent)]">KpopQuiz</span>
-        </h1>
-        <p className="mt-3 text-[15px] leading-relaxed text-[var(--text-secondary)]">
-          KpopQuiz is a free community platform where K-pop fans play and create quizzes about
-          their favorite groups, settle debates with mini-games, and compete on the leaderboards.
-        </p>
+    <li className="hub-h1-card" style={accentVars(card)}>
+      <Panel title={card.name} titleAs="h3" className="hub-h1-panel">
+        <span className="hub-h1-accent" aria-hidden="true" />
+        <p className="hub-h1-pitch">{card.pitch}</p>
+        <UxLink href={card.origin} icon="arrow" aria-label={ht('home.cardOpenAria', { name: card.name })}>
+          {ht('home.cardOpen')}
+        </UxLink>
+      </Panel>
+    </li>
+  );
+}
+
+function SignedOut(): React.ReactElement {
+  return (
+    <Panel title={ht('home.accountTitle')} titleAs="h2" icon="user">
+      <p className="hub-h1-account-line">{ht('home.accountSignedOut')}</p>
+      <HubSignIn label={ht('home.signIn')} sheetTitle={ht('home.signInSheetTitle')} sheetSub={ht('home.signInSheetSub')} />
+    </Panel>
+  );
+}
+
+function SignedIn({ passport }: { passport: HubPassportSummary }): React.ReactElement {
+  return (
+    <Panel title={ht('home.passportTitle')} titleAs="h2" icon="user">
+      <dl className="hub-h1-facts">
+        <div>
+          <dt>{ht('home.passportUsername')}</dt>
+          <dd>@{passport.username}</dd>
+        </div>
+        <div>
+          <dt>{ht('home.passportLevel')}</dt>
+          <dd>{ht('home.passportLevelValue', { level: passport.level })}</dd>
+        </div>
+        <div>
+          <dt>{ht('home.passportSites')}</dt>
+          <dd>{passport.sites.length > 0 ? passport.sites.map((s) => s.name).join(', ') : ht('home.passportNoSites')}</dd>
+        </div>
+      </dl>
+      <UxLink href="/passport" icon="arrow">{ht('home.passportOpen')}</UxLink>
+    </Panel>
+  );
+}
+
+export default async function HubHome(): Promise<React.ReactElement> {
+  const cards = networkCards({ NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV });
+  // Any error reads as signed out: the page never fails because the database is down.
+  const passport = await readHubPassport();
+  return (
+    <UxPage width="wide" className="hub-h1-home">
+      <div className="ux-ph">
+        <h1>{ht('home.h1')}</h1>
+        <p>{ht('home.lede')}</p>
       </div>
 
-      {/* Stats */}
-      <div className="mt-7 grid grid-cols-3 gap-2.5">
-        {STATS.map((s) => (
-          <div
-            key={s.label}
-            className="rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] px-3 py-4 text-center"
-          >
-            <p className="text-xl font-extrabold text-[var(--accent)]">{s.num}</p>
-            <p className="mt-1 text-[11px] text-[var(--text-tertiary)]">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Owner, 2026-10-14 (SEO Mission 1, trust): who runs the site, how the quizzes are
-          made, where facts come from, and how to reach us. The owner chose to appear by his
-          first name and role only. */}
-      <section className="mt-9 space-y-6 text-[15px] leading-relaxed text-[var(--text-secondary)]" aria-label="About the site">
-        <div>
-          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Who runs KpopQuiz?</h2>
-          <p>
-            KpopQuiz (kpopquiz.org) is run by {FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
-            with any artist, label or agency.
-          </p>
-        </div>
-        <div>
-          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">How are the quizzes made?</h2>
-          <p>
-            Fans write the quizzes. Anyone with an account can create one, and their name is shown on it. A few accounts
-            are labelled <b>Team</b>: they publish quizzes and articles for the site, through an editorial review. Play
-            counts, scores and averages come from real recorded plays, never from estimates.
-          </p>
-          <p className="mt-2">
-            Players can report a quiz. A quiz is hidden from the site when 5 different signed-in accounts report it, until
-            it is reviewed.
-          </p>
-        </div>
-        <div>
-          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Where do the facts come from?</h2>
-          <p>
-            Facts on our pages come from official sources, Wikidata, MusicBrainz and Wikipedia, and every correction is
-            logged with its date. Read the{' '}
-            <Link href="/editorial-policy" className="font-medium text-[var(--accent)] hover:underline">editorial policy</Link>
-            {' '}for the details.
-          </p>
-        </div>
-        <div>
-          <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">How can I contact you?</h2>
-          <p>
-            Write to{' '}
-            <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-[var(--accent)] hover:underline">{CONTACT_EMAIL}</a>
-            {' '}for questions, corrections or press requests.
-          </p>
-        </div>
+      <section className="ux-sec" aria-labelledby="hub-h1-sites-h">
+        <SectionHeader id="hub-h1-sites-h" icon="grid" title={ht('home.sitesTitle')} />
+        <ul className="hub-h1-cards">
+          {cards.map((card) => <SiteCard key={card.id} card={card} />)}
+        </ul>
       </section>
 
-      {/* Features */}
-      <h2 className="mt-9 mb-3 text-sm font-bold uppercase tracking-wide text-[var(--text-tertiary)]">
-        What you can do
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {FEATURES.map((f) => (
-          <div
-            key={f.title}
-            className="flex gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] p-4"
-          >
-            <span className="shrink-0 grid place-items-center w-9 h-9 rounded-lg bg-[var(--accent-bg)] text-[var(--accent)]">
-              {f.icon}
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">{f.title}</p>
-              <p className="mt-0.5 text-[12px] leading-relaxed text-[var(--text-secondary)]">{f.desc}</p>
-            </div>
-          </div>
-        ))}
+      <div className="ux-sec">
+        <HubShares />
       </div>
 
-      {/* K4 - community block (the one rich element). */}
-      <div className="mt-8 max-w-md mx-auto">
-        <DiscordCommunity />
+      <div className="ux-sec">
+        {passport ? <SignedIn passport={passport} /> : <SignedOut />}
       </div>
-
-      {/* CTA */}
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Link href="/quizzes" className="btn-primary">Browse quizzes</Link>
-        <Link href="/create" className="btn-outline">Create a quiz</Link>
-      </div>
-
-      {/* Cross-link to FAQ + Stats */}
-      <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)]">
-        Got a question?{' '}
-        <Link href="/faq" className="font-medium text-[var(--accent)] hover:underline">
-          Read the FAQ
-        </Link>
-        {' '}or explore our{' '}
-        <Link href="/stats" className="font-medium text-[var(--accent)] hover:underline">
-          K-pop fan data
-        </Link>
-        .
-      </p>
-    </div>
+    </UxPage>
   );
 }
