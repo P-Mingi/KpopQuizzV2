@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crossover-entry.schema.json",
+  "title": "Run O1: one crossover entry (Q D5; exactly the shape of NetCrossover in lib/network/types.ts, formats.md 11)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "kpop", "anime", "canonical", "fact", "source", "checkedOn", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]{3,60}$" },
+    "kind": { "enum": ["song_in_series", "webtoon_origin", "animated_crossover"] },
+    "kpop": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "groupSlug": { "$ref": "common.schema.json#/$defs/slug" },
+        "deezerId": { "type": "integer", "minimum": 1 },
+        "mbid": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" }
+      }
+    },
+    "anime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seriesSlug", "year"],
+      "properties": {
+        "seriesSlug": { "$ref": "common.schema.json#/$defs/slug" },
+        "role": { "$ref": "common.schema.json#/$defs/themeKind" },
+        "season": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 20 },
+        "cour": { "type": "integer", "minimum": 1, "maximum": 8 },
+        "year": { "type": "integer", "minimum": 1960, "maximum": 2100 }
+      }
+    },
+    "canonical": { "enum": ["kpop", "anime"] },
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kpop", "anime"],
+      "properties": {
+        "kpop": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 },
+        "anime": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 }
+      }
+    },
+    "source": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+    "checkedOn": { "$ref": "common.schema.json#/$defs/isoDate" },
+    "status": { "enum": ["verified", "hold"] }
+  },
+  "allOf": [
+    {
+      "$comment": "Q D5: a song is keyed by its Deezer id (never a name match) and names its role.",
+      "if": { "properties": { "kind": { "const": "song_in_series" } } },
+      "then": { "properties": { "kpop": { "required": ["deezerId"] }, "anime": { "required": ["role"] } } }
+    }
+  ]
+}

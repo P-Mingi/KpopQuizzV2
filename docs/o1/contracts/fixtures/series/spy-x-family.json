@@ -1,0 +1,549 @@
+{
+  "$comment": "Run O1 contract fixture (fixtures.md 3): Spy x Family on the dev branches only. Contract artifact for tests and D0, never loaded in production; K1's reviewed rows replace it. Counts that change while the series runs are left empty (never invented). Colours are placeholders, not the S 2.9 colour pair. No Wikidata or MusicBrainz id is typed by hand (SEO rule 7).",
+  "group": {
+    "slug": "spy-x-family",
+    "name": "Spy x Family",
+    "display_color": "#2F5D50",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Spy x Family",
+    "title_native": "スパイファミリー",
+    "aliases": [
+      "SxF"
+    ],
+    "studios": [
+      {
+        "name": "Wit Studio"
+      },
+      {
+        "name": "CloverWorks"
+      }
+    ],
+    "director": "Kazuhiro Furuhashi",
+    "authors": [
+      {
+        "name": "Tatsuya Endo",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Shonen Jump+",
+    "publisher": "Shueisha",
+    "anime_start_year": 2022,
+    "manga_start_year": 2019,
+    "status": "ongoing",
+    "tier": "A",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Season 1",
+      "kind": "season",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Season 2",
+      "kind": "season",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "loid-forger",
+      "name": "Loid Forger",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A spy known as Twilight who builds a fake family to get close to his target.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "yor-forger",
+      "name": "Yor Forger",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A city hall clerk who leads a secret life as an assassin.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "anya-forger",
+      "name": "Anya Forger",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young girl who can read minds, adopted by Loid for his mission.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "bond-forger",
+      "name": "Bond Forger",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A large dog who can see glimpses of the future.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "franky-franklin",
+      "name": "Franky Franklin",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An informant who supplies Loid with information and gadgets.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "yuri-briar",
+      "name": "Yuri Briar",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Yor's younger brother, devoted to his sister.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "damian-desmond",
+      "name": "Damian Desmond",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Anya's classmate at Eden Academy and a son of Loid's target.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "becky-blackbell",
+      "name": "Becky Blackbell",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Anya's classmate and friend at Eden Academy.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "sylvia-sherwood",
+      "name": "Sylvia Sherwood",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Loid's handler at the intelligence agency he works for.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Mixed Nuts",
+      "artist": "Official Hige Dandism",
+      "season": 1,
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Comedy",
+      "artist": "Gen Hoshino",
+      "season": 1,
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Souvenir",
+      "artist": "Bump of Chicken",
+      "season": 1,
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Shikisai",
+      "artist": "yama",
+      "season": 1,
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "Kura Kura",
+      "artist": "Ado",
+      "season": 2,
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "status": "published"
+    }
+  ],
+  "quizzes": [
+    {
+      "slug": "fx-spy-x-family-basics-the-forgers",
+      "title": "Spy x Family Basics: The Forgers",
+      "account": "oq_creator_04",
+      "quiz_type": "multiple_choice",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "What is Loid Forger's codename as a spy?",
+          "options": [
+            "Twilight",
+            "Thorn Princess",
+            "Handler",
+            "Garden"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+        },
+        {
+          "question": "What can Anya do that her parents do not know about?",
+          "options": [
+            "Read minds",
+            "See the future",
+            "Talk to animals",
+            "Stop time"
+          ],
+          "correct": 0,
+          "kind": "ability",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+        },
+        {
+          "question": "Which studios made the Spy x Family anime?",
+          "options": [
+            "Wit Studio and CloverWorks",
+            "Madhouse and MAPPA",
+            "Toei Animation",
+            "Bones"
+          ],
+          "correct": 0,
+          "kind": "production",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        }
+      ]
+    },
+    {
+      "slug": "fx-spy-x-family-true-or-false",
+      "title": "Spy x Family: True or False",
+      "account": "o1_dual",
+      "quiz_type": "true_false",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Yor Forger works at city hall.",
+          "correct": true,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Anya can read minds.",
+          "correct": true,
+          "kind": "ability",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Loid Forger is a professional chef.",
+          "correct": false,
+          "fun_fact": "He is a spy, and his cover job is psychiatrist.",
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fx-guess-the-spy-x-family-character",
+      "title": "Guess the Spy x Family Character",
+      "account": "oq_creator_04",
+      "quiz_type": "guess_from_clues",
+      "difficulty": "medium",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "A spy",
+            "Codename Twilight",
+            "Poses as a psychiatrist"
+          ],
+          "options": [
+            "Loid Forger",
+            "Franky Franklin",
+            "Yuri Briar",
+            "Damian Desmond"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+        },
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "Works at city hall",
+            "Secretly an assassin",
+            "Known as the Thorn Princess"
+          ],
+          "options": [
+            "Yor Forger",
+            "Sylvia Sherwood",
+            "Becky Blackbell",
+            "Anya Forger"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+        },
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "An informant",
+            "Supplies gadgets",
+            "A friend of Loid"
+          ],
+          "options": [
+            "Franky Franklin",
+            "Yuri Briar",
+            "Damian Desmond",
+            "Bond Forger"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+        }
+      ]
+    },
+    {
+      "slug": "fx-spy-x-family-season-2",
+      "title": "Spy x Family: Season 2 and the Songs",
+      "account": "oq_creator_05",
+      "quiz_type": "multiple_choice",
+      "difficulty": "medium",
+      "expected_level": {
+        "arc_ord": 2,
+        "scope": "anime"
+      },
+      "questions": [
+        {
+          "question": "In Season 2, where does Yor take on a mission during a family trip?",
+          "options": [
+            "On a cruise ship",
+            "In a casino",
+            "At Eden Academy",
+            "At city hall"
+          ],
+          "correct": 0,
+          "kind": "arc",
+          "spoiler": {
+            "arc": 2,
+            "scope": "anime"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        },
+        {
+          "question": "Which artist performed \"Kura Kura\", the Season 2 opening?",
+          "options": [
+            "Ado",
+            "Official Hige Dandism",
+            "Bump of Chicken",
+            "Gen Hoshino"
+          ],
+          "correct": 0,
+          "kind": "music",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        },
+        {
+          "question": "Which band performed \"Mixed Nuts\", the first opening?",
+          "options": [
+            "Official Hige Dandism",
+            "Bump of Chicken",
+            "Ado",
+            "yama"
+          ],
+          "correct": 0,
+          "kind": "music",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        }
+      ]
+    },
+    {
+      "slug": "fx-spy-x-family-odd-one-out",
+      "title": "Spy x Family: Odd One Out",
+      "account": "o1_anime_new",
+      "quiz_type": "intruder",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Which of these is not a member of the Forger family?",
+          "options": [
+            {
+              "label": "Loid Forger"
+            },
+            {
+              "label": "Yor Forger"
+            },
+            {
+              "label": "Anya Forger"
+            },
+            {
+              "label": "Becky Blackbell"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Which of these is not a Spy x Family opening or ending?",
+          "options": [
+            {
+              "label": "Mixed Nuts"
+            },
+            {
+              "label": "Comedy"
+            },
+            {
+              "label": "Souvenir"
+            },
+            {
+              "label": "We Are!"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Which of these is not a classmate of Anya?",
+          "options": [
+            {
+              "label": "Damian Desmond"
+            },
+            {
+              "label": "Becky Blackbell"
+            },
+            {
+              "label": "Emile Elman"
+            },
+            {
+              "label": "Sylvia Sherwood"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "title": "Run O1 content formats: shared definitions (formats.md 2)",
+  "$defs": {
+    "siteId": { "enum": ["kpop", "anime", "hub"] },
+    "contentSite": { "$comment": "Sites that carry content. The hub never does (routes.md, TWINS rows H-0 to H-8).", "enum": ["anime", "kpop"] },
+    "slug": { "$comment": "groups.slug (slug_format), characters.slug, set and playlist slugs.", "type": "string", "pattern": "^[a-z0-9-]{1,60}$" },
+    "quizSlug": { "$comment": "quizzes.slug (slug_format) and games.slug.", "type": "string", "pattern": "^[a-z0-9-]{1,80}$" },
+    "username": { "$comment": "profiles.username (username_format).", "type": "string", "pattern": "^[a-z0-9_]{3,20}$" },
+    "factId": { "$comment": "formats.md 3: lowercase words joined by hyphens, ending with a counter of 3 or more digits.", "type": "string", "maxLength": 80, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]{3,}$" },
+    "plainText": {
+      "$comment": "One line, trimmed, no U+2013 or U+2014 (rule 10, check C11), no emoji.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^\\s\\u2013\\u2014\\p{Extended_Pictographic}](?:[^\\n\\r\\u2013\\u2014\\p{Extended_Pictographic}]*[^\\s\\u2013\\u2014\\p{Extended_Pictographic}])?$"
+    },
+    "sourceUrl": {
+      "$comment": "https, lowercase host; the hosts COMMON rule 8 and S C10 ban are refused here (check C10 at the schema level).",
+      "type": "string",
+      "maxLength": 500,
+      "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:myanimelist\\.net|jikan\\.moe|fandom\\.com|animethemes\\.moe|kprofiles\\.com|anilist\\.co|sporcle\\.com)(?:[:/?#]|$))[a-z0-9.-]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$"
+    },
+    "isoDate": { "type": "string", "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$" },
+    "isoDateTime": { "type": "string", "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,6})?(?:Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$" },
+    "difficulty": { "$comment": "quizzes difficulty_valid.", "enum": ["easy", "medium", "hard"] },
+    "spoiler": {
+      "$comment": "A spoiler tag (S 3.5): arc is an arcs.ord of the series, 0 for spoiler-free; scope is the medium it spoils.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["arc", "scope"],
+      "properties": {
+        "arc": { "type": "integer", "minimum": 0, "maximum": 32766 },
+        "scope": { "enum": ["anime", "manga", "both"] }
+      }
+    },
+    "themeKind": { "$comment": "series_themes.kind.", "enum": ["op", "ed", "insert"] },
+    "axis": { "enum": ["energy", "chaos", "care", "craft", "heart", "spotlight"] },
+    "creatorAsset": { "$comment": "An original SVG of a Team account, served from public/brand/anime/ (F0 decision 5).", "type": "string", "pattern": "^public/brand/anime/creators/[a-z0-9_]{3,20}-(?:avatar|header)\\.svg$" },
+    "repoJsonPath": { "type": "string", "maxLength": 200, "pattern": "^[A-Za-z0-9._/-]+\\.json$" },
+    "checkCode": { "$comment": "S 4.3 check codes C1 to C14; a later code is a CR (BACKLOG 5.2).", "type": "string", "pattern": "^C[1-9][0-9]?$" }
+  }
+}

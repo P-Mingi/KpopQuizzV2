@@ -275,3 +275,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 |---|---|---|---|---|
 | 2026-10-16T11:18:10Z | DUMMY | 674c0861f649 | not needed | 0 SQL file(s) |
 | 2026-10-18T18:01:02Z | Q0a | 5e535a8fa284 | not needed | 0 SQL file(s) |
+| 2026-10-19T10:40:28Z | F0 | 4d771d91aff0 | identical (base d28e3165f5fc84715c3ced8f9894a6b380c33467, merged tree 0e2e6e05e17b1cd8ceb4d9682a4d46fbaf2d9856), offline (D-025) | 0 SQL file(s) |

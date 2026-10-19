@@ -1,0 +1,1520 @@
+{
+  "version": "o1-contract-v1",
+  "rule": "COMMON rule 18 (owner, 16 October 2026)",
+  "pathsRelativeTo": "repository root",
+  "differenceCodes": {
+    "T": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Theme tokens: Persimmon values of the frozen --ux-* names; display text in M PLUS Rounded 1c (tokens.md)."
+    },
+    "B": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Brand: the OtakuQuiz wordmark, the Fuki mascot where kpop shows its mascot, the OG template."
+    },
+    "V": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Vocabulary from SITE.vocabulary: series for group, character for member, oshi with a star for bias with a heart."
+    },
+    "C": {
+      "sites": [
+        "anime",
+        "hub"
+      ],
+      "text": "Copy text from per-site, per-lane files: the same slots, in the same order and structure, as the twin."
+    },
+    "F": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Feature off on otakuquiz.org, the slot absent and nothing in its place: image quizzes, fandom war, MV pulse, live rooms, Verse, Discord, cover art; news, articles, data pages (/stats, /data/*), ranked (CR-001); the footer locale switcher (CR-007)."
+    },
+    "N": {
+      "sites": [
+        "anime",
+        "hub"
+      ],
+      "text": "No K-pop text or link (artist credits excepted); on the hub, no quiz, playlist or series content."
+    },
+    "A1": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Series header facts with \"Sources (i)\"; \"Now airing\" only with a verified record."
+    },
+    "A2": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Arcs: the story map, quizzes grouped by arc."
+    },
+    "A3": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Characters list: monogram and role-shape tiles, never an image; the oshi star; counts shown from 30."
+    },
+    "A4": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Openings and endings table: the crossover credit slot; the blind test link at 15 or more playable previews."
+    },
+    "A5": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Spoiler protection: progress setting, \"Safe for you\" and \"Covers {arc}\" labels, interstitial, spoiler-tagged questions absent from HTML and JSON-LD, spoiler tag and source per question in create, thread spoiler flair."
+    },
+    "A6": {
+      "sites": [
+        "anime"
+      ],
+      "text": "The fan-made notice in the footer."
+    },
+    "A7": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Typographic title card SVG where kpop shows a group logo or photo."
+    },
+    "Tn": {
+      "sites": [
+        "hub"
+      ],
+      "text": "The neutral FanQuiz theme (same token names)."
+    },
+    "Bf": {
+      "sites": [
+        "hub"
+      ],
+      "text": "The FanQuiz wordmark, no mascot."
+    },
+    "H1": {
+      "sites": [
+        "hub"
+      ],
+      "text": "One card per site with real counts above 30."
+    },
+    "H2": {
+      "sites": [
+        "hub"
+      ],
+      "text": "\"What your passport shares\", word for word the policy text."
+    },
+    "H3": {
+      "sites": [
+        "hub"
+      ],
+      "text": "The world stamps, the private passport level, world filters on the activity feed, the \"Other worlds\" card."
+    },
+    "H4": {
+      "sites": [
+        "hub"
+      ],
+      "text": "The four settings tabs of W4 (worlds and visibility, profile, sign-in and security, your data) with Leave a world and Delete my passport (S6 steps)."
+    }
+  },
+  "pages": [
+    {
+      "id": "1",
+      "site": "anime",
+      "route": "/",
+      "file": "apps/quiz/src/app/sites/[site]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/page.tsx",
+      "mustImport": [
+        "@/components/home/ux-v1/ux-home"
+      ],
+      "renders": [
+        "components/home/ux-v1/ux-home.tsx",
+        "home-header.tsx",
+        "qotd-row.tsx",
+        "continue-playing.tsx",
+        "groups-rail.tsx",
+        "quiz-rows.tsx",
+        "blindtest-band.tsx",
+        "community-rows.tsx",
+        "components/ux-v1/page.tsx",
+        "section-header.tsx",
+        "quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A7"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site."
+    },
+    {
+      "id": "2",
+      "site": "anime",
+      "route": "/series",
+      "file": "apps/quiz/src/app/sites/[site]/series/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/groups/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/groups-index"
+      ],
+      "renders": [
+        "components/group/ux-v1/groups-index.tsx",
+        "groups-browser.tsx",
+        "group-avatar.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A7"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "One filter field, as the twin (no tier or type filter without a CR)."
+    },
+    {
+      "id": "3",
+      "site": "anime",
+      "route": "/{series}-quiz",
+      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/hub"
+      ],
+      "renders": [
+        "components/group/ux-v1/hub.tsx",
+        "hub-quizzes.tsx",
+        "hub-growth.tsx",
+        "hub-notify.tsx",
+        "components/ux-v1/page.tsx",
+        "section-header.tsx",
+        "panel.tsx",
+        "button.tsx",
+        "person-name.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A7"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "F: no Fans picked. The anime blocks go into slots of the shared hub (props added by its owner on request); no separate series hub component. The file is shared with rows 4 and 5 and dispatches on the suffix, as the twin."
+    },
+    {
+      "id": "4",
+      "site": "anime",
+      "route": "/anime-mix-quiz",
+      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/hub"
+      ],
+      "renders": [
+        "as row 3 (the general K-pop hub branch of the twin)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A7"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "No A1 to A4: not a series."
+    },
+    {
+      "id": "5",
+      "site": "anime",
+      "route": "/{series}-trivia",
+      "file": "apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/group-trivia-page.tsx",
+      "mustImport": [
+        "@/components/group/answer-first",
+        "@/components/trivia/trivia-share-button",
+        "@/components/ui/breadcrumbs"
+      ],
+      "renders": [
+        "components/group/answer-first.tsx",
+        "components/trivia/trivia-share-button.tsx",
+        "components/ui/breadcrumbs.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A5",
+        "A7"
+      ],
+      "owner": "O2",
+      "body": "local",
+      "notes": "The body of the twin is the page-local GroupTriviaPage with K-pop text: its owner moves it into a shared component with props (request F0-9) and that module joins mustImport. The group logo of the twin becomes the A7 title card."
+    },
+    {
+      "id": "6",
+      "site": "anime",
+      "route": "/q/{slug}",
+      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
+      "mustImport": [
+        "@/components/quiz/ux-v1/quiz-page"
+      ],
+      "renders": [
+        "components/quiz/ux-v1/quiz-page.tsx",
+        "intro-islands.tsx",
+        "comments.tsx",
+        "report.tsx",
+        "run-context.tsx",
+        "components/ux-v1/text-card.tsx",
+        "panel.tsx",
+        "person-name.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "owner": "O3",
+      "body": "shared",
+      "notes": "The twin page.tsx renders ux-page.tsx when UX v1 is on."
+    },
+    {
+      "id": "7",
+      "site": "anime",
+      "route": "play (inside /q/{slug})",
+      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
+      "mustImport": [
+        "@/components/quiz/ux-v1/quiz-page"
+      ],
+      "renders": [
+        "components/quiz/ux-v1/game.tsx",
+        "quiz-run.tsx",
+        "components/ux-v1/answer-tiles.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F"
+      ],
+      "owner": "O3",
+      "body": "shared",
+      "notes": "F: no image question. Rendered by the quiz page of row 6."
+    },
+    {
+      "id": "8",
+      "site": "anime",
+      "route": "results (inside /q/{slug})",
+      "file": "apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx",
+      "mustImport": [
+        "@/components/quiz/ux-v1/quiz-page"
+      ],
+      "renders": [
+        "components/quiz/ux-v1/results.tsx",
+        "story.ts",
+        "components/ux-v1/result-card.tsx",
+        "story-image.ts",
+        "share-sheet.tsx",
+        "components/this-or-that/bonus.tsx (text pairs)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O3 (O5: the This or that bonus)",
+      "body": "shared",
+      "notes": "No post-result oshi row: it has no kpop twin, and CR-005 was refused for O1 (owner, 2026-10-18)."
+    },
+    {
+      "id": "9",
+      "site": "anime",
+      "route": "/create",
+      "file": "apps/quiz/src/app/sites/[site]/create/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/create/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/create/ux-v1/loader"
+      ],
+      "renders": [
+        "components/create/ux-v1/loader.tsx",
+        "create.tsx",
+        "details.tsx",
+        "questions.tsx",
+        "publish.tsx",
+        "done.tsx",
+        "group-field.tsx (series picker through V, aliases as data)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "owner": "O4",
+      "body": "shared",
+      "notes": "A5: a spoiler tag and a source per question, the anime rule codes. The details fields stay the twin ones (title, about, type, series, difficulty, language; cover is F)."
+    },
+    {
+      "id": "10",
+      "site": "anime",
+      "route": "/daily",
+      "file": "apps/quiz/src/app/sites/[site]/daily/route.ts",
+      "twin": "apps/quiz/src/app/(site)/daily/route.ts",
+      "mustImport": [],
+      "renders": [
+        "the same redirect to /q/{slug}?daily=quiz"
+      ],
+      "allowed": [],
+      "owner": "O1",
+      "body": "none",
+      "notes": "A route handler, no screen. The daily is the anime one through getQuizOfTheDay(site)."
+    },
+    {
+      "id": "11",
+      "site": "anime",
+      "route": "/blindtest",
+      "file": "apps/quiz/src/app/sites/[site]/blindtest/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/blindtest/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/hub"
+      ],
+      "renders": [
+        "components/blindtest/ux-v1/hub.tsx",
+        "hub-v12.tsx",
+        "the Deezer kit of Mission U"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "owner": "O6",
+      "body": "shared",
+      "notes": "F: no cover. A4: series playlists."
+    },
+    {
+      "id": "12",
+      "site": "anime",
+      "route": "/{series}-openings-quiz (rewrite to /blindtest/series-{series})",
+      "file": "apps/quiz/src/app/sites/[site]/blindtest/[mode]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/blindtest/[mode]/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/group-page"
+      ],
+      "renders": [
+        "components/blindtest/ux-v1/group-page.tsx",
+        "game.tsx",
+        "setup.tsx",
+        "results.tsx",
+        "use-run.ts",
+        "the Deezer kit"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "owner": "O6",
+      "body": "shared",
+      "notes": "The group playlist branch of the twin. F: no cover. The internal folder keeps the twin name [mode]."
+    },
+    {
+      "id": "13",
+      "site": "anime",
+      "route": "/opening-of-the-day",
+      "file": "apps/quiz/src/app/sites/[site]/opening-of-the-day/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/blindtest/[mode]/page.tsx",
+      "mustImport": [
+        "@/components/blindtest/ux-v1/mode-page"
+      ],
+      "renders": [
+        "components/blindtest/ux-v1/mode-page.tsx",
+        "game.tsx",
+        "results.tsx",
+        "the Deezer kit"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A4"
+      ],
+      "owner": "O6",
+      "body": "shared",
+      "notes": "The daily mode branch of the twin. F: no cover."
+    },
+    {
+      "id": "14",
+      "site": "anime",
+      "route": "/which-{series}-character-are-you",
+      "file": "apps/quiz/src/app/sites/[site]/which-character/[series]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/personality/[group]/page.tsx",
+      "mustImport": [
+        "@/components/personality/quiz",
+        "@/components/personality/about",
+        "@/components/ux-v1/page",
+        "@/components/ux-v1/section-header",
+        "@/components/ux-v1/ways-tile"
+      ],
+      "renders": [
+        "components/personality/quiz.tsx",
+        "about.tsx",
+        "components/ux-v1/page.tsx",
+        "section-header.tsx",
+        "ways-tile.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O5",
+      "body": "shared",
+      "notes": "F: no image. The \"set as bias\" offer becomes \"set as oshi\" through V. No A5 (not in the row)."
+    },
+    {
+      "id": "15",
+      "site": "anime",
+      "route": "/name-all/{series}/{set}",
+      "file": "apps/quiz/src/app/sites/[site]/name-all/[series]/[set]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/name-all/[group]/page.tsx",
+      "mustImport": [
+        "@/components/name-all/game",
+        "@/components/name-all/about",
+        "@/components/ux-v1/page"
+      ],
+      "renders": [
+        "components/name-all/game.tsx",
+        "about.tsx",
+        "components/ux-v1/page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "owner": "O5",
+      "body": "shared",
+      "notes": "A5: sets of spoiler level 0. The {set} level selects a set by URL only: the twin has no set picker and none is added without a CR."
+    },
+    {
+      "id": "16",
+      "site": "anime",
+      "route": "/me",
+      "file": "apps/quiz/src/app/sites/[site]/me/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/me/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport",
+        "@/components/profile/ux-v1/passport-guest"
+      ],
+      "renders": [
+        "components/profile/ux-v1/passport.tsx",
+        "passport-band.tsx",
+        "passport-tabs.tsx",
+        "passport-actions.tsx",
+        "rows.tsx",
+        "own-quiz-row.tsx",
+        "passport-guest.tsx",
+        "components/ux-v1/badge-medal.tsx",
+        "team.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "P1",
+      "body": "shared",
+      "notes": "F: no Verse cards, no fandom war. One \"See your whole FanQuiz passport\" link for multi-site users (link allowlist). The twin imports both modules dynamically."
+    },
+    {
+      "id": "17",
+      "site": "anime",
+      "route": "/u/{username} (incl. Team creator profiles)",
+      "file": "apps/quiz/src/app/sites/[site]/u/[username]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/u/[username]/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport"
+      ],
+      "renders": [
+        "components/profile/ux-v1/passport.tsx",
+        "components/ux-v1/team.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "P1",
+      "body": "shared",
+      "notes": "The file is shared with row H-4. The stamp chip (u.alsoOn) is not in this row: pending a CR (copy-keys.md)."
+    },
+    {
+      "id": "18",
+      "site": "anime",
+      "route": "/settings",
+      "file": "apps/quiz/src/app/sites/[site]/settings/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/settings/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/settings"
+      ],
+      "renders": [
+        "components/profile/ux-v1/settings.tsx",
+        "header-picker.tsx",
+        "header-actions.tsx",
+        "components/ux-v1/sheet.tsx",
+        "confirm-sheet.tsx",
+        "form.tsx",
+        "segmented.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "P1",
+      "body": "shared",
+      "notes": "The bias and groups section becomes Your series, Oshi, Watching since through V; Account gets \"FanQuiz passport\", \"Sign out everywhere\", \"Sign out of OtakuQuiz only\" in the existing sign-out row. With UX v1 on the twin renders UxSettings only (UxAppearanceSetting is in its legacy branch). The file is shared with row H-5."
+    },
+    {
+      "id": "19",
+      "site": "anime",
+      "route": "/login and the sign-in sheet",
+      "file": "apps/quiz/src/app/sites/[site]/login/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/login/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the page-local sign-in page of the twin; the sign-in sheet (components/ux-v1/sign-in-sheet.tsx, sheet.tsx, button.tsx) comes with the shell of row 28"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C",
+        "F"
+      ],
+      "owner": "P1",
+      "body": "local",
+      "notes": "F: no Discord, no passport button before P2. The body of the twin is page-local: its owner moves it into a shared component with props (request F0-9) and that module joins mustImport. The file is shared with row H-6."
+    },
+    {
+      "id": "20",
+      "site": "anime",
+      "route": "/onboarding",
+      "file": "apps/quiz/src/app/sites/[site]/onboarding/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/onboarding/page.tsx",
+      "mustImport": [
+        "@/app/(site)/onboarding/onboarding-form"
+      ],
+      "renders": [
+        "app/(site)/onboarding/onboarding-form.tsx (imported, not copied)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C"
+      ],
+      "owner": "P1",
+      "body": "shared",
+      "notes": ""
+    },
+    {
+      "id": "21",
+      "site": "anime",
+      "route": "/notifications",
+      "file": "apps/quiz/src/app/sites/[site]/notifications/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/notifications/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/notifications/ux-v1/notifications-page"
+      ],
+      "renders": [
+        "components/notifications/ux-v1/notifications-page.tsx",
+        "components/ux-v1/page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "With UX v1 on the twin renders UxNotifications inside UxPage (notifications-center.tsx is its legacy branch)."
+    },
+    {
+      "id": "22",
+      "site": "anime",
+      "route": "/search",
+      "file": "apps/quiz/src/app/sites/[site]/search/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/search/page.tsx",
+      "mustImport": [
+        "@/components/ui/user-avatar",
+        "@/components/ui/quiz-card",
+        "@/components/ui/mascot",
+        "@/components/profile/follow-button",
+        "@/components/ux-v1/team",
+        "@/app/(site)/search/search-form"
+      ],
+      "renders": [
+        "the twin page body",
+        "search-form.tsx",
+        "components/ui/quiz-card.tsx",
+        "user-avatar.tsx",
+        "mascot.tsx",
+        "components/profile/follow-button.tsx",
+        "components/ux-v1/team.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "The body of the twin is page-local with K-pop text: its owner moves it into a shared component with props (request F0-9). The search overlay of the shell (ux-search.tsx) belongs to row 28."
+    },
+    {
+      "id": "23",
+      "site": "anime",
+      "route": "/community",
+      "file": "apps/quiz/src/app/sites/[site]/community/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/community/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/community/ux-v1/feed",
+        "@/components/community/ux-v1/rail",
+        "@/components/community/ux-v1/debate-panel",
+        "@/components/community/ux-v1/editor",
+        "@/components/community/ux-v1/viewer"
+      ],
+      "renders": [
+        "components/community/ux-v1/feed.tsx",
+        "feed-card.tsx",
+        "rail.tsx",
+        "debate-panel.tsx",
+        "editor.tsx",
+        "viewer.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "owner": "O1 (O3: the spoiler flair)",
+      "body": "shared",
+      "notes": "F: no war strip (war-strip.tsx is not imported). A5: the thread spoiler flair."
+    },
+    {
+      "id": "23b",
+      "site": "anime",
+      "route": "/community/{kind}/{id}",
+      "file": "apps/quiz/src/app/sites/[site]/community/[kind]/[id]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/community/[kind]/[id]/page.tsx",
+      "mustImport": [
+        "@/components/ux-v1/page",
+        "@/components/community/ux-v1/post-view",
+        "@/components/community/ux-v1/viewer"
+      ],
+      "renders": [
+        "components/community/ux-v1/post-view.tsx",
+        "replies.tsx",
+        "viewer.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A5"
+      ],
+      "owner": "O1 (O3: the spoiler flair)",
+      "body": "shared",
+      "notes": "Row 23 of the draft (\"and its routes\")."
+    },
+    {
+      "id": "24",
+      "site": "anime",
+      "route": "/about",
+      "file": "apps/quiz/src/app/sites/[site]/about/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/about/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "F: no Discord block. The twin imports no shared component (its Discord block is F) and its body is page-local with K-pop text: its owner moves it into a shared component with props (request F0-9)."
+    },
+    {
+      "id": "25",
+      "site": "anime",
+      "route": "/editorial-policy",
+      "file": "apps/quiz/src/app/sites/[site]/editorial-policy/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/editorial-policy/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page",
+        "corrections.ts (the corrections log, data)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A5"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "A5: the spoiler policy section. The body is page-local with K-pop text (request F0-9); the anime corrections log is its own data, in the twin shape."
+    },
+    {
+      "id": "26",
+      "site": "anime",
+      "route": "/privacy",
+      "file": "apps/quiz/src/app/sites/[site]/privacy/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/privacy/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "Legal text per site (G16). Page-local body (request F0-9). The file is shared with row H-2."
+    },
+    {
+      "id": "26b",
+      "site": "anime",
+      "route": "/terms",
+      "file": "apps/quiz/src/app/sites/[site]/terms/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/terms/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "Legal text per site (G16). Page-local body (request F0-9)."
+    },
+    {
+      "id": "26c",
+      "site": "anime",
+      "route": "/contact",
+      "file": "apps/quiz/src/app/sites/[site]/contact/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/contact/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "Page-local body (request F0-9)."
+    },
+    {
+      "id": "27",
+      "site": "anime",
+      "route": "404",
+      "file": "apps/quiz/src/app/sites/[site]/not-found.tsx",
+      "twin": "apps/quiz/src/app/(site)/not-found.tsx",
+      "mustImport": [
+        "@/components/ui/mascot"
+      ],
+      "renders": [
+        "components/ui/mascot.tsx (think pose)",
+        "the 404 numeral, title, body, search form, popular quizzes heading and list, the Home, Browse all quizzes and Create a quiz links of the twin"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C",
+        "F"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "F: no Discord line. The twin lists hard-coded K-pop groups: its owner moves the body into a shared component with props (request F0-9). The spike not-found.tsx is a routing placeholder, never a source. The file is shared with row H-8."
+    },
+    {
+      "id": "27b",
+      "site": "anime",
+      "route": "any other path",
+      "file": "apps/quiz/src/app/sites/[site]/[...rest]/page.tsx",
+      "twin": null,
+      "mustImport": [],
+      "renders": [
+        "nothing: calls notFound(), which renders row 27"
+      ],
+      "allowed": [],
+      "owner": "O1",
+      "body": "none",
+      "notes": "Routing only (routes.md 1 item 6). The kpop twin of an unmatched path is the 404 of row 27. Shared with the hub."
+    },
+    {
+      "id": "28",
+      "site": "anime",
+      "route": "shell: nav, tab bar, footer",
+      "file": "apps/quiz/src/app/sites/[site]/layout.tsx",
+      "twin": "apps/quiz/src/app/(site)/layout.tsx",
+      "mustImport": [
+        "@/components/layout/ux-v1/ux-shell"
+      ],
+      "renders": [
+        "components/layout/ux-v1/ux-shell.tsx",
+        "ux-client-shell.tsx",
+        "ux-footer.tsx",
+        "ux-nav-links.tsx",
+        "ux-tab-bar.tsx",
+        "ux-nav-actions.tsx",
+        "ux-search.tsx",
+        "ux-providers.tsx (the sign-in sheet)",
+        "components/ux-v1/brand.tsx",
+        "lib/ux-v1/a0/nav.ts",
+        "the Organization and SiteNavigationElement JSON-LD"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N",
+        "A6"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "The same files, configured by the anime registry entry. The layout also keeps the guard, the static params and the metadata reset of the spike (routing). F: Verse footer, Discord and Reddit links, Ranked, the data, article and news links, the locale switcher (CR-007). The file is shared with row H-0. Link targets (R F0 r1 m3): the twin shell links the groups item to /groups (lib/ux-v1/a0/nav.ts NAV_ITEMS), the You tab to /profile (TAB_ITEMS) and the account menu's Passport and See your passport to /profile (ux-nav-actions.tsx); on anime /groups and /profile are 404s (routing.ts KPOP_ONLY_SAMPLES), so the series item goes to /series and the You tab and both menu links to /me. The shell's owners give the shell those targets as a prop (B1 for nav.ts and ux-tab-bar.tsx, B4 for ux-nav-actions.tsx; request F0-20), the anime layout passes them, and O1 imports the shell unchanged; until the prop exists this row cannot be built without a copy, and the targets are no difference of its own (the labels are V, the items N)."
+    },
+    {
+      "id": "29",
+      "site": "anime",
+      "route": "/admin/review",
+      "file": "apps/quiz/src/app/sites/[site]/admin/review/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/editorial/page.tsx",
+      "mustImport": [
+        "@/app/(site)/admin/editorial/editorial-admin"
+      ],
+      "renders": [
+        "app/(site)/admin/editorial/editorial-admin.tsx (kind quiz added by its owner)"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "owner": "E1b",
+      "body": "shared",
+      "notes": "Sampling and the 2-error batch rule as data, not a new screen."
+    },
+    {
+      "id": "30",
+      "site": "anime",
+      "route": "OG image of a quiz",
+      "file": null,
+      "twin": "apps/quiz/src/app/api/og/[slug]/route.tsx",
+      "mustImport": [],
+      "renders": [
+        "the same route code, registry brand"
+      ],
+      "allowed": [
+        "T",
+        "B"
+      ],
+      "owner": "O1",
+      "body": "none",
+      "notes": "Shared route, no file under app/sites: it reads SITE.brand (typographic, no character art). No new OG route."
+    },
+    {
+      "id": "30b",
+      "site": "anime",
+      "route": "OG image of a series hub",
+      "file": null,
+      "twin": "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+      "mustImport": [],
+      "renders": [
+        "the same route code, registry brand"
+      ],
+      "allowed": [
+        "T",
+        "B"
+      ],
+      "owner": "O1",
+      "body": "none",
+      "notes": "Shared route, as row 30."
+    },
+    {
+      "id": "31",
+      "site": "anime",
+      "route": "/quizzes (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/quizzes/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/quizzes/ux-page.tsx",
+      "mustImport": [
+        "@/components/quizzes/ux-v1/quizzes-page"
+      ],
+      "renders": [
+        "components/quizzes/ux-v1/quizzes-page.tsx",
+        "controls.tsx",
+        "islands.tsx",
+        "components/ux-v1/quiz-card.tsx",
+        "the FAQ of the twin (faq.tsx)"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "The twin page.tsx renders ux-page.tsx when UX v1 is on."
+    },
+    {
+      "id": "31b",
+      "site": "anime",
+      "route": "/quizzes/popular-today (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-today/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/quizzes/popular-today/page.tsx",
+      "mustImport": [
+        "@/components/quiz/popular-page"
+      ],
+      "renders": [
+        "components/quiz/popular-page.tsx",
+        "components/ui/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "The draft named quizzes-page.tsx for the three lists; the twin renders popular-page.tsx."
+    },
+    {
+      "id": "31c",
+      "site": "anime",
+      "route": "/quizzes/popular-this-week (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-this-week/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/quizzes/popular-this-week/page.tsx",
+      "mustImport": [
+        "@/components/quiz/popular-page"
+      ],
+      "renders": [
+        "components/quiz/popular-page.tsx",
+        "components/ui/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "The draft named quizzes-page.tsx for the three lists; the twin renders popular-page.tsx."
+    },
+    {
+      "id": "31d",
+      "site": "anime",
+      "route": "/quizzes/popular-this-month (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/quizzes/popular-this-month/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/quizzes/popular-this-month/page.tsx",
+      "mustImport": [
+        "@/components/quiz/popular-page"
+      ],
+      "renders": [
+        "components/quiz/popular-page.tsx",
+        "components/ui/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": "The draft named quizzes-page.tsx for the three lists; the twin renders popular-page.tsx."
+    },
+    {
+      "id": "32",
+      "site": "anime",
+      "route": "/new (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/new/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/new/page.tsx",
+      "mustImport": [
+        "@/components/home/infinite-quiz-list"
+      ],
+      "renders": [
+        "components/home/infinite-quiz-list.tsx",
+        "components/quiz/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": ""
+    },
+    {
+      "id": "32b",
+      "site": "anime",
+      "route": "/most-liked (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/most-liked/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/most-liked/page.tsx",
+      "mustImport": [
+        "@/components/home/infinite-quiz-list"
+      ],
+      "renders": [
+        "components/home/infinite-quiz-list.tsx",
+        "components/quiz/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": ""
+    },
+    {
+      "id": "32c",
+      "site": "anime",
+      "route": "/trending (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/trending/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/trending/page.tsx",
+      "mustImport": [
+        "@/components/home/infinite-quiz-list"
+      ],
+      "renders": [
+        "components/home/infinite-quiz-list.tsx",
+        "components/quiz/quiz-card.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "owner": "O2",
+      "body": "shared",
+      "notes": ""
+    },
+    {
+      "id": "33",
+      "site": "anime",
+      "route": "/trivia (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/trivia/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/trivia/page.tsx",
+      "mustImport": [
+        "@/components/ui/breadcrumbs"
+      ],
+      "renders": [
+        "the sections of the twin page",
+        "components/ui/breadcrumbs.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N",
+        "A7"
+      ],
+      "owner": "O2",
+      "body": "local",
+      "notes": "The group logos of the twin become A7 title cards. Page-local body with K-pop text (request F0-9)."
+    },
+    {
+      "id": "34",
+      "site": "anime",
+      "route": "/faq (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/faq/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/faq/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "N"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "Page-local body with K-pop text (request F0-9)."
+    },
+    {
+      "id": "35",
+      "site": "anime",
+      "route": "/leaderboard (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/leaderboard/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/leaderboard/page.tsx",
+      "mustImport": [
+        "@/components/leaderboard/ux-v1/leaderboard"
+      ],
+      "renders": [
+        "components/leaderboard/ux-v1/leaderboard.tsx",
+        "panes.tsx",
+        "points.tsx",
+        "around.tsx",
+        "islands.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "V",
+        "C",
+        "F",
+        "N"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "F: no fandom war board. Team accounts excluded (rule 7). With UX v1 on the twin renders LeaderboardV11 (leaderboard-tabs.tsx is its legacy branch)."
+    },
+    {
+      "id": "36",
+      "site": "anime",
+      "route": "/dmca (CR-001)",
+      "file": "apps/quiz/src/app/sites/[site]/dmca/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/dmca/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "Page-local body with K-pop text (request F0-9)."
+    },
+    {
+      "id": "37",
+      "site": "anime",
+      "route": "/auth/arrive, /auth/authorize, /auth/land, /auth/passport/out, /auth/confirm",
+      "file": null,
+      "twin": null,
+      "mustImport": [],
+      "renders": [
+        "nothing visible: redirects, or a page that renders no visible content"
+      ],
+      "allowed": [],
+      "owner": "B4, B7",
+      "body": "none",
+      "notes": "Technical routes, shared handlers under app/(site)/auth (no rewrite reaches app/sites for /auth). Exempt from the twins check; a page file for them under app/sites is unlisted and fails it."
+    },
+    {
+      "id": "H-0",
+      "site": "hub",
+      "route": "shell: nav, tab bar, footer",
+      "file": "apps/quiz/src/app/sites/[site]/layout.tsx",
+      "twin": "apps/quiz/src/app/(site)/layout.tsx",
+      "mustImport": [
+        "@/components/layout/ux-v1/ux-shell"
+      ],
+      "renders": [
+        "the files of row 28, configured by the hub registry entry"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "CR-001. The file is shared with row 28. Link targets as in row 28 (request F0-20): the You tab and the account menu's passport links go to /passport, the home item to /; the hub has no /profile, /me or /groups."
+    },
+    {
+      "id": "H-1",
+      "site": "hub",
+      "route": "/ (network page)",
+      "file": "apps/quiz/src/app/sites/[site]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/about/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page; H1 and H2 are built from components/ux-v1/page.tsx, section-header.tsx, panel.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H1",
+        "H2"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The twin imports no shared component and its body is page-local (request F0-9). The file is shared with row 1."
+    },
+    {
+      "id": "H-2",
+      "site": "hub",
+      "route": "/privacy",
+      "file": "apps/quiz/src/app/sites/[site]/privacy/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/privacy/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The network policy (G16). The file is shared with row 26."
+    },
+    {
+      "id": "H-3",
+      "site": "hub",
+      "route": "/passport",
+      "file": "apps/quiz/src/app/sites/[site]/passport/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/me/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport",
+        "@/components/profile/ux-v1/passport-guest"
+      ],
+      "renders": [
+        "components/profile/ux-v1/passport.tsx",
+        "passport-band.tsx",
+        "passport-tabs.tsx",
+        "components/ux-v1/badge-medal.tsx",
+        "passport-guest.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H3"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "The passport tabs are the twin ones (overview, quizzes, history, badges)."
+    },
+    {
+      "id": "H-4",
+      "site": "hub",
+      "route": "/u/{username}",
+      "file": "apps/quiz/src/app/sites/[site]/u/[username]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/u/[username]/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/passport"
+      ],
+      "renders": [
+        "components/profile/ux-v1/passport.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H3"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "Visible worlds only; always noindex. The file is shared with row 17."
+    },
+    {
+      "id": "H-5",
+      "site": "hub",
+      "route": "/settings",
+      "file": "apps/quiz/src/app/sites/[site]/settings/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/settings/page.tsx",
+      "mustImport": [
+        "@/components/profile/ux-v1/settings"
+      ],
+      "renders": [
+        "components/profile/ux-v1/settings.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N",
+        "H4"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "The file is shared with row 18."
+    },
+    {
+      "id": "H-6",
+      "site": "hub",
+      "route": "/login",
+      "file": "apps/quiz/src/app/sites/[site]/login/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/login/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "the page-local sign-in page of the twin; the sign-in sheet comes with the shell"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Google with the FanQuiz client, email link. Page-local body (request F0-9). The file is shared with row 19."
+    },
+    {
+      "id": "H-7",
+      "site": "hub",
+      "route": "/directory (optional)",
+      "file": "apps/quiz/src/app/sites/[site]/directory/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/groups/page.tsx",
+      "mustImport": [
+        "@/components/group/ux-v1/groups-index"
+      ],
+      "renders": [
+        "components/group/ux-v1/groups-index.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C",
+        "N"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "Sites instead of groups."
+    },
+    {
+      "id": "H-8",
+      "site": "hub",
+      "route": "404",
+      "file": "apps/quiz/src/app/sites/[site]/not-found.tsx",
+      "twin": "apps/quiz/src/app/(site)/not-found.tsx",
+      "mustImport": [],
+      "renders": [
+        "the structure of the twin 404; the mascot slot renders nothing (Bf)"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The file is shared with row 27 (which imports the mascot for anime). Page-local body (request F0-9)."
+    }
+  ]
+}

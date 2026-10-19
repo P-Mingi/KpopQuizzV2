@@ -1,0 +1,121 @@
+{
+  "$comment": "Run O1 contract fixture (fixtures.md 3): Death Note on the dev branches only. Contract artifact for tests and D0, never loaded in production; K1's reviewed rows replace it. Quiz 1 is the S 4.7 sample in its stored form. Colours are placeholders, not the S 2.9 colour pair. No Wikidata or MusicBrainz id is typed by hand (SEO rule 7).",
+  "group": { "slug": "death-note", "name": "Death Note", "display_color": "#1A1A1A", "text_color": "#FFFFFF" },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Death Note",
+    "title_native": "デスノート",
+    "title_romaji": "Desu Noto",
+    "aliases": ["DN"],
+    "studios": [{ "name": "Madhouse" }],
+    "director": "Tetsuro Araki",
+    "authors": [{ "name": "Tsugumi Ohba", "role": "story" }, { "name": "Takeshi Obata", "role": "art" }],
+    "magazine": "Weekly Shonen Jump",
+    "publisher": "Shueisha",
+    "anime_start_year": 2006,
+    "anime_end_year": 2007,
+    "manga_start_year": 2003,
+    "manga_end_year": 2006,
+    "status": "finished",
+    "episodes": 37,
+    "seasons": 1,
+    "volumes": 12,
+    "chapters": 108,
+    "tier": "A",
+    "published": true
+  },
+  "arcs": [
+    { "ord": 1, "name": "Part 1", "kind": "part", "source_url": "https://en.wikipedia.org/wiki/Death_Note", "status": "published" },
+    { "ord": 2, "name": "Part 2", "kind": "part", "source_url": "https://en.wikipedia.org/wiki/Death_Note", "status": "published" }
+  ],
+  "characters": [
+    { "slug": "light-yagami", "name": "Light Yagami", "aliases": ["Kira"], "role": "main", "debut_arc_ord": 1, "debut_medium": "both", "description": "A top high school student who finds a notebook that kills anyone whose name is written in it.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 0, "identity_spoiler": false, "ord": 1, "status": "published" },
+    { "slug": "l", "name": "L", "role": "main", "debut_arc_ord": 1, "debut_medium": "both", "description": "A reclusive detective known by a single letter, who takes on the case of the mysterious deaths.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 0, "identity_spoiler": false, "ord": 2, "status": "published" },
+    { "slug": "ryuk", "name": "Ryuk", "role": "supporting", "debut_arc_ord": 1, "debut_medium": "both", "description": "The Shinigami who drops his notebook into the human world because he is bored.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 0, "identity_spoiler": false, "ord": 3, "status": "published" },
+    { "slug": "misa-amane", "name": "Misa Amane", "role": "supporting", "debut_arc_ord": 1, "debut_medium": "both", "description": "A popular model who enters the story with a notebook of her own.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 1, "identity_spoiler": false, "ord": 4, "status": "published" },
+    { "slug": "soichiro-yagami", "name": "Soichiro Yagami", "role": "supporting", "debut_arc_ord": 1, "debut_medium": "both", "description": "Light's father, the police chief who leads the investigation into the killings.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 0, "identity_spoiler": false, "ord": 5, "status": "published" },
+    { "slug": "touta-matsuda", "name": "Touta Matsuda", "role": "supporting", "debut_arc_ord": 1, "debut_medium": "both", "description": "A young officer of the task force, eager and often out of his depth.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 0, "identity_spoiler": false, "ord": 6, "status": "published" },
+    { "slug": "near", "name": "Near", "role": "main", "debut_arc_ord": 2, "debut_medium": "both", "description": "A young detective who takes on the case in the second part of the story.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 2, "identity_spoiler": false, "ord": 7, "status": "published" },
+    { "slug": "mello", "name": "Mello", "role": "supporting", "debut_arc_ord": 2, "debut_medium": "both", "description": "A rival of Near who chases the case by his own methods.", "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters", "spoiler_level": 2, "identity_spoiler": false, "ord": 8, "status": "published" }
+  ],
+  "themes": [
+    { "kind": "op", "number": 1, "title": "the WORLD", "artist": "Nightmare", "idol_sung": false, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes", "status": "published" },
+    { "kind": "op", "number": 2, "title": "What's up, people?!", "artist": "Maximum the Hormone", "idol_sung": false, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes", "status": "published" },
+    { "kind": "ed", "number": 1, "title": "Alumina", "artist": "Nightmare", "idol_sung": false, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes", "status": "published" },
+    { "kind": "ed", "number": 2, "title": "Zetsubou Billy", "artist": "Maximum the Hormone", "idol_sung": false, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes", "status": "published" }
+  ],
+  "quizzes": [
+    {
+      "slug": "fx-death-note-basics-rules-and-creators",
+      "title": "Death Note Basics: Rules and Creators",
+      "account": "oq_creator_01",
+      "quiz_type": "multiple_choice",
+      "difficulty": "medium",
+      "expected_level": { "arc_ord": 1, "scope": "both" },
+      "questions": [
+        { "question": "Death Note was made by a writer and an artist. Who drew it?", "options": ["Takeshi Obata", "Tsugumi Ohba", "Hirohiko Araki", "Yoshihiro Togashi"], "correct": 0, "fun_fact": "Tsugumi Ohba wrote the story and Takeshi Obata drew it. The pair teamed up again for Bakuman, a manga about two teens making manga.", "kind": "production", "spoiler": { "arc": 0, "scope": "both" }, "fact_ids": ["dn-creators-001", "dn-bakuman-002"], "source_url": "https://en.wikipedia.org/wiki/Death_Note" },
+        { "question": "Which magazine first published the Death Note manga?", "options": ["Weekly Shonen Jump", "Weekly Shonen Magazine", "Monthly Shonen Gangan", "Weekly Young Jump"], "correct": 0, "fun_fact": "Shueisha's Weekly Shonen Jump ran it from December 2003 to May 2006, the same magazine that ran Naruto.", "kind": "production", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/Death_Note" },
+        { "question": "Which studio made the Death Note TV anime?", "options": ["Madhouse", "Bones", "Production I.G", "Studio Pierrot"], "correct": 0, "fun_fact": "Its director, Tetsuro Araki, went on to direct the first season of Attack on Titan.", "kind": "production", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/Death_Note" },
+        { "question": "How many episodes does the Death Note anime have?", "options": ["37", "25", "51", "64"], "correct": 0, "fun_fact": "The series aired on Nippon TV from October 2006 to June 2007.", "kind": "episode", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes" },
+        { "question": "Which fruit does the Shinigami Ryuk crave in the human world?", "options": ["Apples", "Peaches", "Persimmons", "Grapes"], "correct": 0, "fun_fact": "Ryuk finds human apples irresistible and gets restless when Light stops handing them over.", "kind": "character", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "A name is written in the notebook with no cause of death. What happens?", "options": ["The person dies of a heart attack", "The person falls", "The person catches a fever", "Nothing happens"], "correct": 0, "fun_fact": "Without a written cause, death comes by heart attack 40 seconds after the name is written.", "kind": "lore", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/Death_Note" },
+        { "question": "The public calls the mysterious killer \"Kira\". Which English word does that name come from?", "options": ["Killer", "Keeper", "King", "Clear"], "correct": 0, "fun_fact": "\"Kira\" is how the English word killer sounds when it is said in Japanese.", "kind": "lore", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/Death_Note" },
+        { "question": "Who leads the police task force hunting Kira at the start of the story?", "options": ["Soichiro Yagami", "Touta Matsuda", "Shuichi Aizawa", "Watari"], "correct": 0, "fun_fact": "Soichiro Yagami, chief of the investigation, is also Light Yagami's father.", "kind": "character", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "What does a human give up to get the Shinigami Eyes?", "options": ["Half of their remaining life", "One year of life", "All of their memories", "Their voice"], "correct": 0, "fun_fact": "The eyes show a person's name and lifespan, but the trade costs half of the remaining lifespan.", "kind": "lore", "spoiler": { "arc": 1, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "Which band performed \"the WORLD\", the first Death Note opening?", "options": ["Nightmare", "Maximum the Hormone", "L'Arc-en-Ciel", "FLOW"], "correct": 0, "fun_fact": "Nightmare also sang the first ending. Maximum the Hormone took over both themes later in the series.", "kind": "music", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes" }
+      ]
+    },
+    {
+      "slug": "fx-death-note-true-or-false",
+      "title": "Death Note: True or False",
+      "account": "o1_dual",
+      "quiz_type": "true_false",
+      "difficulty": "easy",
+      "expected_level": { "arc_ord": 0, "scope": null },
+      "questions": [
+        { "question": "Ryuk is a Shinigami.", "correct": true, "kind": "character", "spoiler": { "arc": 0, "scope": "both" } },
+        { "question": "The Death Note anime was made by Studio Ghibli.", "correct": false, "fun_fact": "It was made by Madhouse.", "kind": "production", "spoiler": { "arc": 0, "scope": "both" } },
+        { "question": "Light Yagami is a high school student when the story begins.", "correct": true, "kind": "character", "spoiler": { "arc": 0, "scope": "both" } }
+      ]
+    },
+    {
+      "slug": "fx-guess-the-death-note-character",
+      "title": "Guess the Death Note Character",
+      "account": "oq_creator_02",
+      "quiz_type": "guess_from_clues",
+      "difficulty": "medium",
+      "expected_level": { "arc_ord": 0, "scope": null },
+      "questions": [
+        { "question": "Who is this character?", "clues": ["A Shinigami", "Loves apples", "Dropped his notebook out of boredom"], "options": ["Ryuk", "Light Yagami", "L", "Soichiro Yagami"], "correct": 0, "kind": "character", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "Who is this character?", "clues": ["A detective", "Known by a single letter", "Sits in an unusual crouch"], "options": ["L", "Watari", "Touta Matsuda", "Soichiro Yagami"], "correct": 0, "kind": "character", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "Who is this character?", "clues": ["A police chief", "Leads the task force", "Father of the main character"], "options": ["Soichiro Yagami", "Touta Matsuda", "Shuichi Aizawa", "Watari"], "correct": 0, "kind": "character", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" }
+      ]
+    },
+    {
+      "slug": "fx-death-note-part-2-new-detectives",
+      "title": "Death Note Part 2: The New Detectives",
+      "account": "oq_creator_02",
+      "quiz_type": "multiple_choice",
+      "difficulty": "hard",
+      "expected_level": { "arc_ord": 2, "scope": "both" },
+      "questions": [
+        { "question": "Which part of Death Note introduces Near and Mello?", "options": ["Part 2", "Part 1", "The pilot chapter", "The live-action film"], "correct": 0, "kind": "arc", "spoiler": { "arc": 2, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "Near and Mello grew up in the same institution. What is it called?", "options": ["Wammy's House", "To-Oh University", "The Shinigami Realm", "The NPA headquarters"], "correct": 0, "kind": "lore", "spoiler": { "arc": 2, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters" },
+        { "question": "Which band performed the second Death Note opening?", "options": ["Maximum the Hormone", "Nightmare", "L'Arc-en-Ciel", "FLOW"], "correct": 0, "kind": "music", "spoiler": { "arc": 0, "scope": "both" }, "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes" }
+      ]
+    },
+    {
+      "slug": "fx-death-note-odd-one-out",
+      "title": "Death Note: Odd One Out",
+      "account": "o1_anime_new",
+      "quiz_type": "intruder",
+      "difficulty": "easy",
+      "expected_level": { "arc_ord": 1, "scope": "both" },
+      "questions": [
+        { "question": "Which of these is not a Death Note opening or ending?", "options": [{ "label": "the WORLD" }, { "label": "Alumina" }, { "label": "What's up, people?!" }, { "label": "We Are!" }], "correct": 3, "kind": "odd_one_out", "spoiler": { "arc": 0, "scope": "both" } },
+        { "question": "Which of these is not a Death Note character?", "options": [{ "label": "Light Yagami" }, { "label": "L" }, { "label": "Misa Amane" }, { "label": "Roronoa Zoro" }], "correct": 3, "kind": "odd_one_out", "spoiler": { "arc": 1, "scope": "both" } },
+        { "question": "Which of these people did not make Death Note?", "options": [{ "label": "Tsugumi Ohba" }, { "label": "Takeshi Obata" }, { "label": "Tetsuro Araki" }, { "label": "Eiichiro Oda" }], "correct": 3, "kind": "odd_one_out", "spoiler": { "arc": 0, "scope": "both" } }
+      ]
+    }
+  ]
+}

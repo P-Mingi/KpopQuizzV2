@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "series-fixture.schema.json",
+  "title": "Run O1 contract, fixtures.md 3: one fixture series of the dev branches (groups, series, arcs, characters, series_themes and quizzes rows)",
+  "description": "Keys are the column names of schema.sql (contract.test.ts checks it). Not a content format: fixtures are contract artifacts for tests and D0, replaced by K1's and K2's reviewed rows (COMMON rule 17).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$comment", "group", "series", "arcs", "characters", "themes", "quizzes"],
+  "properties": {
+    "$comment": { "type": "string" },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "name", "display_color", "text_color"],
+      "properties": {
+        "slug": { "$ref": "common.schema.json#/$defs/slug" },
+        "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
+        "display_color": { "type": "string", "pattern": "^#[0-9A-F]{6}$" },
+        "text_color": { "type": "string", "pattern": "^#[0-9A-F]{6}$" }
+      }
+    },
+    "series": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title_en", "status", "published"],
+      "properties": {
+        "type": { "enum": ["anime_manga", "manga", "webtoon", "anime_original", "franchise"] },
+        "title_en": { "$ref": "common.schema.json#/$defs/plainText" },
+        "title_native": { "$ref": "common.schema.json#/$defs/plainText" },
+        "title_romaji": { "$ref": "common.schema.json#/$defs/plainText" },
+        "aliases": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/plainText" } },
+        "studios": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["name"], "properties": { "name": { "$ref": "common.schema.json#/$defs/plainText" }, "seasons": { "type": "array", "items": { "type": "integer", "minimum": 1 } } } } },
+        "director": { "$ref": "common.schema.json#/$defs/plainText" },
+        "authors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["name", "role"], "properties": { "name": { "$ref": "common.schema.json#/$defs/plainText" }, "role": { "enum": ["story", "art", "story_art"] } } } },
+        "magazine": { "$ref": "common.schema.json#/$defs/plainText" },
+        "publisher": { "$ref": "common.schema.json#/$defs/plainText" },
+        "anime_start_year": { "type": "integer", "minimum": 1960, "maximum": 2100 },
+        "anime_end_year": { "type": "integer", "minimum": 1960, "maximum": 2100 },
+        "manga_start_year": { "type": "integer", "minimum": 1940, "maximum": 2100 },
+        "manga_end_year": { "type": "integer", "minimum": 1940, "maximum": 2100 },
+        "status": { "enum": ["airing", "between_seasons", "finished", "ongoing", "hiatus"] },
+        "episodes": { "type": "integer", "minimum": 1 },
+        "seasons": { "type": "integer", "minimum": 1 },
+        "volumes": { "type": "integer", "minimum": 1 },
+        "chapters": { "type": "integer", "minimum": 1 },
+        "tier": { "enum": ["A", "B", "C"] },
+        "published": { "type": "boolean" }
+      }
+    },
+    "arcs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ord", "name", "kind", "status"],
+        "properties": {
+          "ord": { "type": "integer", "minimum": 1 },
+          "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 80 },
+          "kind": { "enum": ["saga", "arc", "season", "part", "cour"] },
+          "manga_only": { "type": "boolean" },
+          "anime_only": { "type": "boolean" },
+          "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+          "status": { "const": "published" }
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "name", "role", "debut_arc_ord", "description", "spoiler_level", "ord", "status"],
+        "properties": {
+          "slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
+          "name_native": { "$ref": "common.schema.json#/$defs/plainText" },
+          "aliases": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/plainText" } },
+          "role": { "enum": ["main", "supporting", "antagonist", "other"] },
+          "debut_arc_ord": { "type": "integer", "minimum": 1 },
+          "debut_medium": { "enum": ["anime", "manga", "both"] },
+          "description": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 },
+          "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+          "spoiler_level": { "type": "integer", "minimum": 0 },
+          "identity_spoiler": { "type": "boolean" },
+          "ord": { "type": "integer", "minimum": 0 },
+          "status": { "const": "published" }
+        }
+      }
+    },
+    "themes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "number", "title", "artist", "idol_sung", "status"],
+        "properties": {
+          "kind": { "$ref": "common.schema.json#/$defs/themeKind" },
+          "number": { "type": "integer", "minimum": 1 },
+          "title": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 },
+          "artist": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 },
+          "season": { "type": "integer", "minimum": 1 },
+          "idol_sung": { "type": "boolean" },
+          "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+          "status": { "const": "published" }
+        }
+      }
+    },
+    "quizzes": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "title", "account", "quiz_type", "difficulty", "questions", "expected_level"],
+        "properties": {
+          "slug": { "type": "string", "pattern": "^fx-[a-z0-9-]{1,77}$" },
+          "title": { "$ref": "common.schema.json#/$defs/plainText", "minLength": 5, "maxLength": 100 },
+          "account": { "$comment": "A username of fixtures/users.json with an anime membership.", "$ref": "common.schema.json#/$defs/username" },
+          "quiz_type": { "$ref": "anime-question.schema.json#/$defs/quizType" },
+          "difficulty": { "$ref": "common.schema.json#/$defs/difficulty" },
+          "questions": { "type": "array", "minItems": 3, "maxItems": 20, "items": { "$ref": "anime-question.schema.json" } },
+          "expected_level": {
+            "$comment": "What computeSpoilerLevel must return for this quiz (rpcs.md 3, AnimeSpoilerFns): the loader writes it to quizzes.spoiler_arc_ord and spoiler_scope.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["arc_ord", "scope"],
+            "properties": { "arc_ord": { "type": "integer", "minimum": 0 }, "scope": { "enum": ["anime", "manga", "both", null] } }
+          }
+        },
+        "allOf": [{ "$ref": "anime-question.schema.json#/$defs/quizTypeAgreement" }]
+      }
+    }
+  }
+}

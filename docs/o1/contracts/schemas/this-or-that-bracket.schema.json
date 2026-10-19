@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "this-or-that-bracket.schema.json",
+  "title": "Run O1: a text This or that bracket (games row of type this_or_that, formats.md 10)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "slug", "title", "entries", "spoiler"],
+  "properties": {
+    "site": { "const": "anime" },
+    "group_slug": { "$comment": "Absent for a bracket across series (S 1: Best opening of the 2010s).", "$ref": "common.schema.json#/$defs/slug" },
+    "slug": { "$ref": "common.schema.json#/$defs/quizSlug" },
+    "title": { "$ref": "common.schema.json#/$defs/plainText", "minLength": 5, "maxLength": 100 },
+    "entries": {
+      "$comment": "4, 8 or 16 text entries; round one pairs entries 1 and 2, 3 and 4, and so on. Text only (no image, no cover).",
+      "type": "array",
+      "uniqueItems": true,
+      "anyOf": [{ "minItems": 4, "maxItems": 4 }, { "minItems": 8, "maxItems": 8 }, { "minItems": 16, "maxItems": 16 }],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {
+          "label": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 80 },
+          "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "character_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "theme": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "number"],
+            "properties": { "kind": { "$ref": "common.schema.json#/$defs/themeKind" }, "number": { "type": "integer", "minimum": 1, "maximum": 999 } }
+          }
+        },
+        "allOf": [
+          { "if": { "required": ["character_slug"] }, "then": { "required": ["group_slug"], "not": { "required": ["theme"] } } },
+          { "if": { "required": ["theme"] }, "then": { "required": ["group_slug"] } }
+        ]
+      }
+    },
+    "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" }
+  }
+}

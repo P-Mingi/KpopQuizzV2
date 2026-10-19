@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "playlist.schema.json",
+  "title": "Run O1: an openings playlist of the anime blind test (K4, O6, formats.md 7)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "id", "kind", "title", "description", "title_only", "themes", "checked_on"],
+  "properties": {
+    "site": { "const": "anime" },
+    "id": { "$comment": "The [mode] of /blindtest/[mode]: series-{series} for a series playlist (routes.md), else a themed id.", "type": "string", "pattern": "^[a-z0-9-]{3,60}$" },
+    "kind": { "enum": ["series", "themed"] },
+    "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
+    "description": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 160 },
+    "title_only": { "$comment": "Only Name the song questions (the kpop PlaylistSpec.titleOnly).", "type": "boolean" },
+    "themes": {
+      "$comment": "Playable themes only: MIN_PLAYABLE_THEMES (15) or more, keyed by series, kind and number, with the Deezer track id checked on checked_on.",
+      "type": "array",
+      "minItems": 15,
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_slug", "kind", "number", "deezer_track_id"],
+        "properties": {
+          "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "kind": { "$ref": "common.schema.json#/$defs/themeKind" },
+          "number": { "type": "integer", "minimum": 1, "maximum": 999 },
+          "deezer_track_id": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "checked_on": { "$ref": "common.schema.json#/$defs/isoDate" }
+  },
+  "allOf": [
+    { "if": { "properties": { "kind": { "const": "series" } } }, "then": { "required": ["group_slug"], "properties": { "id": { "pattern": "^series-" } } } },
+    { "if": { "properties": { "kind": { "const": "themed" } } }, "then": { "not": { "required": ["group_slug"] }, "properties": { "id": { "not": { "pattern": "^series-" } } } } }
+  ]
+}
