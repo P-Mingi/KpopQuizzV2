@@ -1,0 +1,99 @@
+server: 18.2 (Homebrew) local, prod-public.sql loaded, seed: 1 profile, 1 group, 1 quiz
+== 1. apply
+ok: 001-sites.sql (single) on local:t2
+ok: L01-B2-sites.sql (single) on local:t2
+ok: 002a-site-columns.sql (single) on local:t2
+ok: 002b-site-validate.sql (none) on local:t2
+ok: 002c-site-indexes.sql (none) on local:t2
+ok: 002d-quiz-site-guard.sql (single) on local:t2
+== 2. apply again (idempotent)
+ok: 001-sites.sql (single) on local:t2
+ok: L01-B2-sites.sql (single) on local:t2
+ok: 002a-site-columns.sql (single) on local:t2
+ok: 002b-site-validate.sql (none) on local:t2
+ok: 002c-site-indexes.sql (none) on local:t2
+ok: 002d-quiz-site-guard.sql (single) on local:t2
+== 3. verify
+sites | kpop/kpopquiz.org/KpopQuiz/world/live/1, anime/otakuquiz.org/OtakuQuiz/world/building/2, hub/fanquiz.org/FanQuiz/hub/building/3
+sites rls | t
+sites policy | sites_read | r | true
+site_id cols | 24
+fks not valid | 0
+fks valid | 24
+valid site idx | 9
+guard trigger | 1
+guard fn | t | {search_path=public}
+guard exec anon/auth/service | f | f | t
+quizzes not kpop | 0
+badge_definitions not kpop | 0
+== 4. guard test (one transaction, rolled back)
+NOTICE:  case 1 kpop quiz in kpop group: inserted, site kpop
+NOTICE:  case 2 kpop quiz in anime group: refused, SQLSTATE 23514, quiz site kpop differs from the site anime of its group 3
+NOTICE:  case 3 anime quiz in anime group: inserted
+NOTICE:  case 4 update kpop quiz to anime group: refused, quiz site kpop differs from the site anime of its group 3
+NOTICE:  case 5 update kpop quiz site to anime: refused, quiz site anime differs from the site kpop of its group 2
+NOTICE:  case 6 play_count update: passed
+            ?column?             | count 
+---------------------------------+-------
+ after rollback, guard rows left |     0
+(1 row)
+== 5. rollback refusals
+ERROR:  L01-B2-sites rollback refused: rows still reference anime or hub in groups.site_id; roll back the later files first
+CONTEXT: PL/pgSQL function inline_code_block line 23 at RAISE
+failed rc=3: L01-B2-sites.rollback.sql (single) on local:t2
+ERROR:  001-sites rollback refused: constraints still reference public.sites (24 site_id keys); roll back 002a and later files first
+CONTEXT: PL/pgSQL function inline_code_block line 13 at RAISE
+failed rc=3: 001-sites.rollback.sql (single) on local:t2
+ERROR:  002a rollback refused: trg_quizzes_site_guard exists; run 002d-quiz-site-guard.rollback.sql first
+CONTEXT: PL/pgSQL function inline_code_block line 13 at RAISE
+failed rc=3: 002a-site-columns.rollback.sql (single) on local:t2
+ERROR:  002a rollback refused: rows of another site than kpop exist in groups
+CONTEXT: PL/pgSQL function inline_code_block line 25 at RAISE
+failed rc=3: 002a-site-columns.rollback.sql (single) on local:t2
+== 6. rollback (reverse order)
+ok: 002d-quiz-site-guard.rollback.sql (single) on local:t2
+ok: 002c-site-indexes.rollback.sql (none) on local:t2
+ok: 002b-site-validate.rollback.sql (single) on local:t2
+ok: 002a-site-columns.rollback.sql (single) on local:t2
+ok: L01-B2-sites.rollback.sql (single) on local:t2
+ok: 001-sites.rollback.sql (single) on local:t2
+== 7. rollback again (idempotent)
+ok: 002d-quiz-site-guard.rollback.sql (single) on local:t2
+ok: 002c-site-indexes.rollback.sql (none) on local:t2
+ok: 002b-site-validate.rollback.sql (single) on local:t2
+ok: 002a-site-columns.rollback.sql (single) on local:t2
+ok: L01-B2-sites.rollback.sql (single) on local:t2
+ok: 001-sites.rollback.sql (single) on local:t2
+schema after rollback: identical to the production copy (pg_dump --schema-only)
+kpop seed quiz still there: 1
+== 8. apply again
+ok: 001-sites.sql (single) on local:t2
+ok: L01-B2-sites.sql (single) on local:t2
+ok: 002a-site-columns.sql (single) on local:t2
+ok: 002b-site-validate.sql (none) on local:t2
+ok: 002c-site-indexes.sql (none) on local:t2
+ok: 002d-quiz-site-guard.sql (single) on local:t2
+== 9. verify
+sites | kpop/kpopquiz.org/KpopQuiz/world/live/1, anime/otakuquiz.org/OtakuQuiz/world/building/2, hub/fanquiz.org/FanQuiz/hub/building/3
+sites rls | t
+sites policy | sites_read | r | true
+site_id cols | 24
+fks not valid | 0
+fks valid | 24
+valid site idx | 9
+guard trigger | 1
+guard fn | t | {search_path=public}
+guard exec anon/auth/service | f | f | t
+quizzes not kpop | 0
+badge_definitions not kpop | 0
+== 10. guard test again
+NOTICE:  case 1 kpop quiz in kpop group: inserted, site kpop
+NOTICE:  case 2 kpop quiz in anime group: refused, SQLSTATE 23514, quiz site kpop differs from the site anime of its group 6
+NOTICE:  case 3 anime quiz in anime group: inserted
+NOTICE:  case 4 update kpop quiz to anime group: refused, quiz site kpop differs from the site anime of its group 6
+NOTICE:  case 5 update kpop quiz site to anime: refused, quiz site anime differs from the site kpop of its group 5
+NOTICE:  case 6 play_count update: passed
+            ?column?             | count 
+---------------------------------+-------
+ after rollback, guard rows left |     0
+(1 row)
