@@ -242,6 +242,8 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 - D-038 Routing wired on o1/integration (f92cc1a) on main as it is: HOT rule suspended for the routing files by the owner; offline parity identical on 60 pages; integration check green on 87eb3df (tsc, unit, 3 builds, parity vs main identical). Later SEO PRs: merge main, keep both changes.
 - D-039 Wave 1 started 2026-10-19: B1 (sonnet), B2 (SQL, default model), E1a (sonnet); briefs briefs/B1.md, B2.md, E1a.md; F0, F0s, Q0a worktrees removed (disk 19 GB).
 - D-040 Tokens since the start (harness measure, sum of each agent's final context): about 19.9 M (ticks 1 to 6 and the standalone reviews), ORCH's own conversation not counted.
+- D-041 (2026-10-19) New process by the owner: after B1 and B2, ORCH is the only builder on o1/integration in coherent lots (a) twin pages by codemod, (b) anime blocks, (c) shared passport, (d) one fanquiz.org page, (e) content wiring; at most one sonnet helper; no briefs, lane worktrees, OWNERSHIP or per-lot review; care and one R review only for the site-scope SQL and the shared passport (o1-scratch first); gate per lot = tsc, build, offline parity; full e2e once a day; 10 M tokens for everything left, B1 and B2 included; a lot 50% over its forecast stops.
+- D-042 E1a stopped (new editorial tools contradict D-041: the existing kpop tools get a site parameter instead, in lot (e)); its branch is kept, not merged.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
