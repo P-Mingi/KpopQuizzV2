@@ -249,6 +249,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 - D-045 B2 ready at 170bbae (0.34 M tokens); R reviews its SQL once (blockers only) before its merge.
 - D-046 B2 merged e39b310 (0.34 M; R PASS on its SQL, 0.22 M): production parity through the proxy identical on 60 pages; L01 moved from its report folder into launch/; 001, L01, 002a to 002d applied on o1-dev in manifest order, all ok. Lot (B1 and B2) cost 0.96 M of its 2.5 M forecast.
 - D-047 Lot (a) started: scripts/o1/twins-codemod.mjs copies the 40 single-twin pages of twins.json under app/sites/[site]/ (kpop modules imported, vocabulary on visible text of anime-only pages); the shared home is a hand-written dispatcher.
+- D-048 Lot (a) done, 4def09e: 40 twin pages copied by scripts/o1/twins-codemod.mjs, home dispatcher, guarded [site] layout, (anime) and (hub) route groups (a build serves only its own pages), child static params carry the site, which-character and name-all keep the kpop [group] segment, Opening of the day redirects to /blindtest; twins.mts accepts the owner's codemod copies of pages and reuse of kpop route modules (component copies still fail; its 18 tests pass); tsc 0, twins ok, kpop, anime and hub builds green on o1-dev.
+- D-049 Offline parity of lot (a): 59 of 60 identical; /bts-name-all-members differs only by the error digests of a page that answers 500 on both sides offline (Q0a's ratchet test keeps digests compared, so ORCH judges this one page by hand each time; production parity through the proxy before any PR to main).
+- D-050 Cost, measured from this session's transcript: lot (a) took about 0.15 M new tokens (input and output) and 44 M cached reads, because ORCH's own context is about 0.88 M tokens and every action rereads it; B1, B2 and R took 0.96 M. Reported to the owner before lot (b).
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests
