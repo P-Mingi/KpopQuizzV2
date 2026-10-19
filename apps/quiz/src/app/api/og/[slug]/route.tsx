@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -113,7 +114,7 @@ export async function GET(
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`${origin}/mascot/mascot-default.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
-              <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, letterSpacing: -0.5, textShadow: SHADOW }}>kpopquiz</div>
+              <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, letterSpacing: -0.5, textShadow: SHADOW }}>{SITE.brand.name.toLowerCase()}</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ display: 'flex', padding: '8px 18px', borderRadius: 9999, fontSize: 22, fontWeight: 700, backgroundColor: row.groups.display_color, color: row.groups.text_color }}>{row.groups.name}</div>

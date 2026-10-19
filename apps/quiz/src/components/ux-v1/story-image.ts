@@ -7,6 +7,8 @@
 // instead of tainting the canvas: the card is then the plain ground. Pages with a
 // richer story (P4's result photocard) keep passing their own onStoryImage.
 
+import { SITE } from '@/lib/site/registry';
+
 export interface StoryCard {
   image: string | null;
   line1: string;
@@ -19,7 +21,7 @@ export interface StoryCard {
   kicker?: string | undefined;
   /** Small uppercase label at the top right: "New quiz". */
   tag?: string | undefined;
-  /** White pill at the bottom instead of the plain "kpopquiz.org": "Play at kpopquiz.org". */
+  /** White pill at the bottom instead of the plain domain: "Play at <domain>". */
   cta?: string | undefined;
   /** Two-colour ground (160deg) used when there is no picture: ['#C93868', '#6B4FD8']. */
   gradient?: readonly [string, string] | undefined;
@@ -203,7 +205,7 @@ export async function renderStoryCard(card: StoryCard): Promise<Blob | null> {
   } else {
     ctx.fillStyle = 'rgba(255,255,255,.82)';
     ctx.font = `600 36px ${font}`;
-    ctx.fillText('kpopquiz.org', PAD, L.footerY);
+    ctx.fillText(SITE.domain, PAD, L.footerY);
   }
   if (L.qr) {
     const code = card.qr ? await loadImage(card.qr) : null;

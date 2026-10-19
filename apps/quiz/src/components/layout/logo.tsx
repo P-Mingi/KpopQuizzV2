@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
+import { SITE } from '@/lib/site/registry';
 
 interface Props {
   size?: 'sm' | 'md' | 'lg';
@@ -9,7 +10,7 @@ interface Props {
 
 export function Logo({ size = 'md', bare }: Props) {
   // F2: the brand mark is now the rabbit mascot (default variant), with the
-  // "KpopQuiz" wordmark next to it. 30px nav default per the prototype.
+  // brand wordmark next to it. 30px nav default per the prototype.
   const iconSize = size === 'sm' ? 24 : size === 'lg' ? 36 : 30;
   const fontSize = size === 'sm' ? 14 : size === 'lg' ? 22 : 18;
 
@@ -20,7 +21,7 @@ export function Logo({ size = 'md', bare }: Props) {
       whiteSpace: 'nowrap',
     }}>
       <Mascot variant="default" size={iconSize} priority />
-      <span>KpopQuiz</span>
+      <span>{SITE.brand.name}</span>
     </span>
   );
 

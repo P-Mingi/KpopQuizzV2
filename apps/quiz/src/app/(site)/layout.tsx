@@ -8,6 +8,7 @@ import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { organizationJsonLd } from '@/lib/seo/org';
+import { siteNavigationJsonLd } from '@/lib/site/jsonld';
 import { UX_V1 } from '@/lib/ux-v1';
 // The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
 // flag-off pages never download it; only a tiny loader sits in this layout's bundle.
@@ -39,17 +40,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }):
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: jsonLdString({
-            '@context': 'https://schema.org',
-            '@type': 'SiteNavigationElement',
-            name: 'Main Navigation',
-            hasPart: [
-              { '@type': 'WebPage', name: 'Quizzes', url: 'https://kpopquiz.org/quizzes' },
-              { '@type': 'WebPage', name: 'Blind Test', url: 'https://kpopquiz.org/blindtest' },
-              { '@type': 'WebPage', name: 'Leaderboard', url: 'https://kpopquiz.org/leaderboard' },
-              { '@type': 'WebPage', name: 'Trivia', url: 'https://kpopquiz.org/trivia' },
-            ],
-          }),
+          // Main Navigation: the links of the features this site has (lib/site/jsonld.ts).
+          __html: jsonLdString(siteNavigationJsonLd()),
         }}
       />
       {/* UX v1 shell behind NEXT_PUBLIC_UX_V1. Flag-off renders the EXISTING chrome

@@ -2,6 +2,11 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
+// Relative, not '@/': next.config.ts imports this module without the alias (same as lib/site/registry).
+import { SITE_ID } from '../../site/registry';
+
+import type { SiteId } from '../../site/types';
+
 // The flag-on stylesheet, built for app/api/ux-v1/a0/styles (server only).
 //
 // v11 (unchanged): every file of src/styles/ux-v1/, a0.css first, then the page
@@ -14,6 +19,10 @@ import path from 'node:path';
 // before the block existed. With the flag on the block stays and every
 // src/styles/ux-v12/<id>.css (the G agents' page sheets) follows in name order.
 // Like the v11 sheets, none of these files is ever imported.
+//
+// O1 (docs/o1/contracts/tokens.md 3.1): on a build whose site is `anime` or `hub`, the files of
+// src/styles/sites/<site>/ follow every sheet above, `tokens.css` first, the others by file name. The
+// kpop build reads nothing from src/styles/sites/: its bytes and its ?v= hash are today's.
 
 export const V12_BEGIN = '/* @ux-v12:begin */';
 export const V12_END = '/* @ux-v12:end */';
@@ -48,6 +57,8 @@ export interface UxStylesheetOptions {
   v12: boolean;
   /** src/styles (holds ux-v1/ and ux-v12/). Default: the app's own folder. */
   stylesDir?: string;
+  /** The site of the build. Default: SITE_ID of lib/site. kpop adds no site sheet. */
+  site?: SiteId;
 }
 
 /** The ?v= of the stylesheet link: 12 hex characters of the sha256 of the served bytes, so the
@@ -59,7 +70,12 @@ export function uxStylesheetVersion(css: string): string {
   return createHash('sha256').update(css).digest('hex').slice(0, 12);
 }
 
-export function buildUxStylesheet({ v12, stylesDir = path.join(process.cwd(), 'src/styles') }: UxStylesheetOptions): string {
+/** The sheets of one site under `styles/sites/<site>/`: tokens.css first, then the others by file name. */
+export function siteSheetFiles(files: readonly string[]): string[] {
+  return [...files].sort((a, b) => (a === 'tokens.css' ? -1 : b === 'tokens.css' ? 1 : a.localeCompare(b)));
+}
+
+export function buildUxStylesheet({ v12, stylesDir = path.join(process.cwd(), 'src/styles'), site = SITE_ID }: UxStylesheetOptions): string {
   const v11Dir = path.join(stylesDir, 'ux-v1');
   const v12Dir = path.join(stylesDir, 'ux-v12');
   const parts: string[] = [];
@@ -71,6 +87,12 @@ export function buildUxStylesheet({ v12, stylesDir = path.join(process.cwd(), 's
   if (v12) {
     for (const f of cssFiles(v12Dir).sort((a, b) => a.localeCompare(b))) {
       parts.push(`/* ux-v12/${f} */\n${minifyCss(fs.readFileSync(path.join(v12Dir, f), 'utf8'))}`);
+    }
+  }
+  if (site !== 'kpop') {
+    const siteDir = path.join(stylesDir, 'sites', site);
+    for (const f of siteSheetFiles(cssFiles(siteDir))) {
+      parts.push(`/* sites/${site}/${f} */\n${minifyCss(fs.readFileSync(path.join(siteDir, f), 'utf8'))}`);
     }
   }
   return parts.join('\n');

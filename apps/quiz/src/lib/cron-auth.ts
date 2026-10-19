@@ -7,3 +7,8 @@ export function isCronAuthorized(req: { headers: { get(name: string): string | n
   if (!secret) return false;
   return req.headers.get('authorization') === `Bearer ${secret}`;
 }
+
+// O1 (manifest.md cron table): the three Vercel projects share vercel.json, so every cron fires on
+// every site. A route calls `cronForSite(['kpop'])` right after its auth check and returns the
+// answer when it is not null (a 200 `{ skipped: true }` on a site outside the list).
+export { cronForSite } from '@/lib/site/cron';

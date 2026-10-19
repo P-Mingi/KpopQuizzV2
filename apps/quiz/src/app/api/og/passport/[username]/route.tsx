@@ -7,6 +7,7 @@ import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readCollectionProgress, readPassportGroupStats } from '@/lib/passport';
+import { brandWordmark, domainWordmark } from '@/lib/site/brand';
 
 import type { NextRequest } from 'next/server';
 
@@ -66,7 +67,7 @@ export async function GET(
     return new ImageResponse(
       (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: CREAM, fontFamily: FAMILY }}>
-          <div style={{ display: 'flex', fontSize: 72, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz</span></div>
+          <div style={{ display: 'flex', fontSize: 72, fontWeight: 800, color: DARK }}>{brandWordmark().head.toLowerCase()}<span style={{ display: 'flex', color: BRAND }}>{brandWordmark().tail.toLowerCase()}</span></div>
           <div style={{ display: 'flex', fontSize: 30, color: MUTED, marginTop: 14 }}>Make your own K-pop passport</div>
         </div>
       ),
@@ -143,7 +144,7 @@ export async function GET(
           )}
 
           <div style={{ display: 'flex', alignItems: 'center', marginTop: 36 }}>
-            <div style={{ display: 'flex', fontSize: 38, fontWeight: 800, color: DARK }}>kpop<span style={{ display: 'flex', color: BRAND }}>quiz.org</span></div>
+            <div style={{ display: 'flex', fontSize: 38, fontWeight: 800, color: DARK }}>{domainWordmark().head}<span style={{ display: 'flex', color: BRAND }}>{domainWordmark().tail}</span></div>
             <div style={{ display: 'flex', fontSize: 24, fontWeight: 700, color: MUTED, marginLeft: 18 }}>Can you beat it?</div>
           </div>
         </div>
