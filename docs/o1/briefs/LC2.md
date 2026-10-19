@@ -8,6 +8,7 @@ you change, Q/lib/passport/types.ts, Q/lib/site/registry.ts, and the SQL 003 to 
 - Never edit tests, gates, docs/o1/contracts, scripts/o1, Q/middleware.ts, apps/quiz/next.config.ts, vercel.json,
   Q/app/api/quiz/create/route.ts, Q/app/api/cron/ensure-daily-quiz/route.ts. No en or em dash, no emoji.
 - kpopquiz.org stays byte for byte: every kpop call keeps today's arguments; with the flag off nothing new is reachable.
+- Kpop render tree: a kpop component you change keeps, on the kpop path, the exact props and children shape of the base (no slot that is undefined on kpop, no new prop even undefined, no new client component rendered); prove it with Q/lib/o1-flight-tree.ts and a snapshot made from the base files (see Q/components/o1-kpop-tree.test.ts). The offline comparison cannot see data pages.
 ## The jump (flag PASSPORT_JUMP, server env, default off)
 Chain: source site GET /auth/passport/out?to&next&via mints a ticket and 302s to the target's /auth/arrive?from&next&t[&via]; the target
 sets the transaction cookie and 302s to the identity site's GET /auth/authorize?client&state&code_challenge&method=S256&prompt=none,

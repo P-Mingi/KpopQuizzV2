@@ -7,6 +7,7 @@ change, Q/lib/site/registry.ts (NETWORK, SITE, vocabulary) and Q/lib/passport/ty
 - Rule 18: the page reuses Q/components/ux-v1/page.tsx, section-header.tsx and panel.tsx (and any kpop component through an optional
   prop whose default keeps kpopquiz.org byte for byte). No copy of a kpop component. No Tailwind utility word in a new file; new CSS only
   in Q/styles/sites/hub/h1.css, every selector starting `html.ux-v1[data-site="hub"]`, classes hub-h1-*, locals --hub-*.
+- Kpop render tree: a kpop component you change keeps, on the kpop path, the exact props and children shape of the base (no slot that is undefined on kpop, no new prop even undefined, no new client component rendered); prove it with Q/lib/o1-flight-tree.ts and a snapshot made from the base files (see Q/components/o1-kpop-tree.test.ts). The offline comparison cannot see data pages.
 ## The page: Q/app/sites/[site]/home-hub.tsx (served at / on the hub build; today a codemod copy of the kpop /about page)
 1. Hero: h1 and lede (keys hub.h1 home.h1, home.lede). One line on what FanQuiz is: the home of one account shared by the fan quiz sites.
 2. Sites (home.sitesTitle): one card per NETWORK entry other than the hub (kpopquiz.org, otakuquiz.org): name, one-line pitch from the
