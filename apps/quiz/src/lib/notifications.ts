@@ -1,5 +1,6 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
+import { forSite, withSite } from '@/lib/site/scope';
 
 /**
  * Server-side helpers for creator notifications, and the SINGLE source of truth
@@ -45,7 +46,7 @@ async function insertNotification(payload: InsertPayload): Promise<void> {
   if (!COMMUNITY_FEATURES_ENABLED) return;
   try {
     const admin = createServiceRoleClient();
-    await admin.from('creator_notifications').upsert(payload, { onConflict: 'user_id,quiz_id,type,title', ignoreDuplicates: true });
+    await admin.from('creator_notifications').upsert(withSite(payload), { onConflict: 'user_id,quiz_id,type,title', ignoreDuplicates: true });
   } catch (err) {
     console.error('Failed to insert notification:', err);
   }
@@ -69,9 +70,9 @@ async function coalesceNotification(params: {
   try {
     const admin = createServiceRoleClient();
     const cutoff = new Date(Date.now() - COALESCE_WINDOW_MS).toISOString();
-    const { data: existing } = await admin
+    const { data: existing } = await forSite(admin
       .from('creator_notifications')
-      .select('id')
+      .select('id'))
       .eq('user_id', params.recipientId)
       .eq('quiz_id', params.quizId)
       .eq('type', params.type)
@@ -89,7 +90,7 @@ async function coalesceNotification(params: {
         .eq('id', existing.id);
     } else {
       await admin.from('creator_notifications')
-        .upsert({ user_id: params.recipientId, quiz_id: params.quizId, type: params.type, title, body }, { onConflict: 'user_id,quiz_id,type,title', ignoreDuplicates: true });
+        .upsert(withSite({ user_id: params.recipientId, quiz_id: params.quizId, type: params.type, title, body }), { onConflict: 'user_id,quiz_id,type,title', ignoreDuplicates: true });
     }
   } catch (err) {
     console.error('Failed to coalesce notification:', err);
@@ -104,21 +105,21 @@ export async function notifyNewFollower(params: { followedId: string; followerId
   try {
     const admin = createServiceRoleClient();
     const cutoff = new Date(Date.now() - FOLLOW_GUARD_MS).toISOString();
-    const { count } = await admin
+    const { count } = await forSite(admin
       .from('creator_notifications')
-      .select('id', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true }))
       .eq('user_id', params.followedId)
       .eq('type', 'new_follower')
       .eq('sender_id', params.followerId)
       .gte('created_at', cutoff);
     if ((count ?? 0) > 0) return;
-    await admin.from('creator_notifications').insert({
+    await admin.from('creator_notifications').insert(withSite({
       user_id: params.followedId,
       type: 'new_follower',
       title: `${params.followerUsername} started following you`,
       link_url: `/u/${params.followerUsername}`,
       sender_id: params.followerId,
-    });
+    }));
   } catch (err) {
     console.error('Failed to insert follower notification:', err);
   }

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -65,17 +66,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   const [listRes, unreadRes] = await Promise.all([
-    supabase
+    forSite(supabase
       .from('creator_notifications')
       .select(
         'id, user_id, type, title, body, quiz_id, link_url, is_read, created_at, quizzes:quiz_id (slug)',
-      )
+      ))
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1),
-    supabase
+    forSite(supabase
       .from('creator_notifications')
-      .select('*', { count: 'exact', head: true })
+      .select('*', { count: 'exact', head: true }))
       .eq('user_id', user.id)
       .eq('is_read', false),
   ]);
@@ -124,7 +125,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse> {
     : typeof body.id === 'string' ? [body.id] : [];
   if (ids.length === 0) return NextResponse.json({ error: 'id or ids required' }, { status: 400 });
 
-  const { error } = await supabase.from('creator_notifications').delete().in('id', ids);
+  const { error } = await forSite(supabase.from('creator_notifications').delete()).in('id', ids);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true, deleted: ids.length });
 }

@@ -1,0 +1,10 @@
+// Planted case for check-site-scope (B2): "kpopquiz" literals in a shared file. Each line marked "expect:" must be
+// flagged; nothing else may be (this comment names kpopquiz.org and is ignored). Not compiled (.txt).
+export const SHARE_URL = 'https://kpopquiz.org/q/'; // expect: kpopquiz-literal
+export const SUPPORT = "hello@kpopquiz.org"; // expect: kpopquiz-literal
+export function canonical(path: string): string {
+  return `https://kpopquiz.org${path}`; // expect: kpopquiz-literal
+}
+/* a block comment about kpopquiz.org is ignored */
+export const HANDLE = ['@', 'kpopquiz'].join(''); // expect: kpopquiz-literal
+export const BRAND = 'KpopQuiz'; // mixed case brand words are not this rule (copy and SITE.brand own them)

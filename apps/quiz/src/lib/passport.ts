@@ -1,5 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { forSite } from '@/lib/site/scope';
+
 // K-pop Passport - typed accessor for the spine (Workstream M, step M0.1).
 //
 // Pure data layer: read + update helpers over the existing profiles spine and
@@ -325,7 +327,8 @@ export async function readCollectionProgress(
   // Same two queries as before; groups now also selects name + colour so the
   // drill-down needs no extra round trip (U-4: "one new cheap query max" - zero).
   const [groupsRes, masteryRes] = await Promise.all([
-    supabase.from('groups').select('id, name, generation, display_color'),
+    // Run O1 (B2): groups is a scoped table; forSite is a no-op on kpop while SITE_SCOPE is off.
+    forSite(supabase.from('groups').select('id, name, generation, display_color')),
     supabase.from('player_group_mastery').select('group_id, songs_played, songs_correct').eq('player_id', userId),
   ]);
 
