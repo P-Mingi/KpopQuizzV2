@@ -12,7 +12,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | D0 | 0 | static | 1 | | F0 | UX | STOPPED (D-035), not merged | | abb1cf7 | |
 | Q0c | 1 | code | 0 | Q0a | | SEC, ARCH | DROPPED (D-035), proxy by ORCH (D-037) | | 7d9e03d | |
 | Q0b | 1 | code | 1 | F0, Q0a | | ARCH | ready to start (G1, G2, G3 answered) | | | |
-| B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | waits Wave 1 | | | |
+| B1 | 1 | code | 1 | F0, Q0a | GH | ARCH, SEO | MERGED aad34b5 | 1 | 3c2dfb7 | |
 | B2 | 1 | code | 0 | F0, Q0a | B1 | SQL + SQL-K2 | waits Wave 1, G1 | | | |
 | B3 | 1 | code | 0 | F0, B2 | | SQL + SQL-K2 | | | | |
 | B4 | 1 | code | 0 | F0, B1, B3, Q0b | | SEC | | | | |
@@ -244,6 +244,9 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 - D-040 Tokens since the start (harness measure, sum of each agent's final context): about 19.9 M (ticks 1 to 6 and the standalone reviews), ORCH's own conversation not counted.
 - D-041 (2026-10-19) New process by the owner: after B1 and B2, ORCH is the only builder on o1/integration in coherent lots (a) twin pages by codemod, (b) anime blocks, (c) shared passport, (d) one fanquiz.org page, (e) content wiring; at most one sonnet helper; no briefs, lane worktrees, OWNERSHIP or per-lot review; care and one R review only for the site-scope SQL and the shared passport (o1-scratch first); gate per lot = tsc, build, offline parity; full e2e once a day; 10 M tokens for everything left, B1 and B2 included; a lot 50% over its forecast stops.
 - D-042 E1a stopped (new editorial tools contradict D-041: the existing kpop tools get a site parameter instead, in lot (e)); its branch is kept, not merged.
+- D-043 Merges into o1/integration compare in production mode through the read-only proxy (`scripts/o1/parity-prod.sh`, `docs/o1/PARITY-PROXY`): the offline mode cannot judge pages that answer 500 without data (their error digests change per build, and Q0a's reviewed test forbids normalising them: ratchet kept). Gates and the nightly stay offline.
+- D-044 B1 merged aad34b5 (0.40 M tokens): production parity through the proxy identical on 60 pages; the proxy refused 12 calls (10 POST rpc/get_personality_counts, 2 POST rpc/get_rising_creators: not in the owner's 22 read-only functions), the same on both sides.
+- D-045 B2 ready at 170bbae (0.34 M tokens); R reviews its SQL once (blockers only) before its merge.
 - D-016 Engine: the Workflow tool, one tick at a time (Appendix A adapted), maxCode 2, maxOther 2 (D0 is static).
 
 ## Change requests

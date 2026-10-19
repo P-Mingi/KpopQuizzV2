@@ -52,8 +52,10 @@ parity="not needed"
 if grep -vE "$neutral" "$LOG/merge-changed.txt" | grep -q .; then
   tmp_tree="$(git write-tree)"
   tmp_commit="$(git commit-tree "$tmp_tree" -p "$before" -p "$sha" -m "o1: parity candidate for $lane")"
-  if O1_KPQ="$(parity_kpq)" "$O1/scripts/o1/parity.sh" "$before" "$tmp_commit" --evidence "$LOG/merge-parity" > "$LOG/merge-parity.log" 2>&1; then
-    parity="identical (base $before, merged tree $tmp_tree)"; [ -f "$RUN/PARITY-OFFLINE" ] && parity="$parity, offline (D-025)"
+  # D-043: with docs/o1/PARITY-PROXY, the merge compares in production mode through the read-only proxy.
+  if [ -f "$RUN/PARITY-PROXY" ]; then pcmd=("$O1/scripts/o1/parity-prod.sh"); else pcmd=(env O1_KPQ="$(parity_kpq)" "$O1/scripts/o1/parity.sh"); fi
+  if "${pcmd[@]}" "$before" "$tmp_commit" --evidence "$LOG/merge-parity" > "$LOG/merge-parity.log" 2>&1; then
+    parity="identical (base $before, merged tree $tmp_tree)"; if [ -f "$RUN/PARITY-PROXY" ]; then parity="$parity, production through the read-only proxy"; elif [ -f "$RUN/PARITY-OFFLINE" ]; then parity="$parity, offline (D-025)"; fi
   else
     abort "parity on the merged tree: $(tail -5 "$LOG/merge-parity.log" | tr '\n' ' ')"
   fi

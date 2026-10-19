@@ -1,0 +1,1 @@
+Merges compare in production mode through scripts/o1/prod-proxy.mjs (D-043). Gates and the nightly stay offline.
