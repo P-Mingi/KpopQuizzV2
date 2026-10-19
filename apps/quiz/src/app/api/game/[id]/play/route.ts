@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { isUuid, setAnonCookie } from '@/lib/anon-claim';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { ensureMembershipForWrite } from '@/lib/passport/membership';
+import { awardXpForSite } from '@/lib/passport/xp';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 import type { BlindTestContent } from '@/lib/db/types';
@@ -125,6 +128,9 @@ async function recordBlindTestPlay(
     return NextResponse.json({ error: 'Failed to record play' }, { status: 500 });
   }
 
+  // Run O1: the first write of a signed-in user on a non-kpop site makes its stamp there (no call on kpop).
+  if (playerId) await ensureMembershipForWrite(supabase, SITE_ID);
+
   // Record the play
   await supabase.from('game_plays').insert({
     game_id: game.id,
@@ -142,21 +148,13 @@ async function recordBlindTestPlay(
   if (playerId) {
     const xpAmount = Math.min(score * 5, 50);
     if (xpAmount > 0) {
-      await admin.rpc('award_xp', {
-        p_user_id: playerId,
-        p_amount: xpAmount,
-        p_reason: 'game_play',
-      });
+      await awardXpForSite(SITE_ID, playerId, xpAmount, 'game_play', admin);
     }
   }
 
   // Award creator XP
   if (game.creator_id && game.creator_id !== playerId && game.play_count < 500) {
-    await admin.rpc('award_xp', {
-      p_user_id: game.creator_id,
-      p_amount: 1,
-      p_reason: 'play_received',
-    });
+    await awardXpForSite(SITE_ID, game.creator_id, 1, 'play_received', admin);
   }
 
   const res = NextResponse.json({

@@ -1,6 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { notifyPassportMilestone } from '@/lib/notifications';
+import { awardXpForSite } from '@/lib/passport/xp';
+import { SITE_ID } from '@/lib/site/registry';
+
+import type { SiteId } from '@/lib/site/types';
 
 // L4 - per-account daily streak. Signed-in users who complete the daily quiz/
 // game (?daily=quiz|game, the F6 entry path) increment a server-side streak and
@@ -29,24 +33,45 @@ export interface StreakAwardResult {
   alreadyToday: boolean;  // true if no-op
 }
 
+interface StreakRow {
+  daily_streak: number | null;
+  daily_streak_longest: number | null;
+  last_daily_date: string | null;
+}
+
 /**
  * Award the daily-streak XP for a user. Caller passes a service-role-capable
  * client (the rpc award_xp + the profiles update need it).
+ *
+ * Run O1 (B3): `site` defaults to the build's site. On kpop the streak lives on
+ * profiles and the XP goes through award_xp, exactly as before. On another site
+ * (anime) the streak is read and written on the user's world_memberships row of
+ * that site and the XP goes through award_world_xp; the kpop-only side effects
+ * (streak badges, the activity event, the notification) are not fired there.
  */
 export async function awardDailyStreak(
   supabase: SupabaseClient,
   userId: string,
+  site: SiteId = SITE_ID,
 ): Promise<StreakAwardResult> {
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('daily_streak, daily_streak_longest, last_daily_date')
-    .eq('id', userId)
-    .maybeSingle();
+  const onWorld = site !== 'kpop';
+  const { data: profile } = onWorld
+    ? await supabase
+        .from('world_memberships')
+        .select('daily_streak, daily_streak_longest, last_daily_date')
+        .eq('user_id', userId)
+        .eq('site_id', site)
+        .maybeSingle()
+    : await supabase
+        .from('profiles')
+        .select('daily_streak, daily_streak_longest, last_daily_date')
+        .eq('id', userId)
+        .maybeSingle();
 
   const today = todayUtc();
-  const prevDate = (profile?.last_daily_date as string | null) ?? null;
-  const prevStreak = (profile?.daily_streak as number | null) ?? 0;
-  const prevLongest = (profile?.daily_streak_longest as number | null) ?? 0;
+  const prevDate = ((profile as StreakRow | null)?.last_daily_date) ?? null;
+  const prevStreak = ((profile as StreakRow | null)?.daily_streak) ?? 0;
+  const prevLongest = ((profile as StreakRow | null)?.daily_streak_longest) ?? 0;
 
   if (prevDate === today) {
     return { awarded: 0, base: 0, milestone: 0, streak: prevStreak, longest: Math.max(prevLongest, prevStreak), alreadyToday: true };
@@ -67,8 +92,22 @@ export async function awardDailyStreak(
   const total = DAILY_BASE_XP + milestone;
   const longest = Math.max(prevLongest, streak);
 
+  if (onWorld) {
+    const patch = { daily_streak: streak, daily_streak_longest: longest, last_daily_date: today };
+    if (profile) {
+      await supabase.from('world_memberships').update(patch).eq('user_id', userId).eq('site_id', site);
+    } else {
+      // The first write of this user on this site: the stamp is made here (joined by playing).
+      await supabase.from('world_memberships').insert({
+        user_id: userId, site_id: site, joined_via: 'play', activated_at: new Date().toISOString(), ...patch,
+      });
+    }
+    await awardXpForSite(site, userId, total, 'daily_streak', supabase);
+    return { awarded: total, base: DAILY_BASE_XP, milestone, streak, longest, alreadyToday: false };
+  }
+
   await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today }).eq('id', userId);
-  await supabase.rpc('award_xp', { p_user_id: userId, p_amount: total, p_reason: 'daily_streak' });
+  await awardXpForSite('kpop', userId, total, 'daily_streak', supabase);
 
   // M1.15: streak badges (streak_7/30/100), folded into this existing write so
   // there is no extra hot-path query on ordinary days.

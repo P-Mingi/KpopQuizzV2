@@ -9,6 +9,9 @@ import { checkTierBadges } from '@/lib/badges/award';
 import { recordTimeSample, timeSample } from '@/lib/quiz/time-stats';
 import { LINK_COOKIE, recordLinkPlay } from '@/lib/creators/link-plays';
 import { isUxV12 } from '@/lib/ux-v12';
+import { ensureMembershipForWrite } from '@/lib/passport/membership';
+import { awardXpForSite } from '@/lib/passport/xp';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -69,6 +72,9 @@ export async function POST(
     isFirstCompletion = !prior || prior.length === 0;
   }
 
+  // Run O1: the first write of a signed-in user on a non-kpop site makes its stamp there (no call on kpop).
+  if (playerId) await ensureMembershipForWrite(supabase, SITE_ID);
+
   try {
     const { data, error } = await supabase.rpc('record_play', {
       p_quiz_id: id,
@@ -119,17 +125,14 @@ export async function POST(
         if (scorePct === 1.0) xpAmount += 15; // perfect bonus
         xpEarned = xpAmount;
 
-        const { data: newXpValue } = await admin.rpc('award_xp', {
-          p_user_id: playerId,
-          p_amount: xpAmount,
-          p_reason: 'play',
-        });
+        // Run O1: kpop calls award_xp with today's arguments, another site award_world_xp.
+        const newXpValue = await awardXpForSite(SITE_ID, playerId, xpAmount, 'play', admin);
 
         if (typeof newXpValue === 'number') {
           newXp = newXpValue;
           const oldXp = Math.max(0, newXpValue - xpAmount);
-          const oldLevel = getLevelInfo(oldXp).level;
-          const newLevelInfo = getLevelInfo(newXpValue);
+          const oldLevel = getLevelInfo(oldXp, SITE_ID).level;
+          const newLevelInfo = getLevelInfo(newXpValue, SITE_ID);
           if (newLevelInfo.level > oldLevel) {
             leveledUp = true;
             newLevel = newLevelInfo.level;
@@ -156,11 +159,7 @@ export async function POST(
 
         // Award XP to quiz creator (+1 per play, cap at 500)
         if (quizData.creator_id && quizData.creator_id !== playerId && quizData.play_count < 500) {
-          await admin.rpc('award_xp', {
-            p_user_id: quizData.creator_id,
-            p_amount: 1,
-            p_reason: 'play_received',
-          });
+          await awardXpForSite(SITE_ID, quizData.creator_id as string, 1, 'play_received', admin);
         }
 
         // Check viral_hit badge for creator

@@ -10,21 +10,30 @@
 // scheme (`https:`, `javascript:`), and anything that does not resolve to the
 // same origin. Pure and isomorphic: the callback route, the onboarding form and
 // the login page all use it.
+//
+// Run O1 (B3): an optional third parameter names the site that will serve the path; the
+// origin of the check is then that site's registry url. Without it the origin is today's
+// literal, so every call of today answers exactly what it answered before.
+import { REGISTRY } from '@/lib/site/registry';
+
+import type { SiteId } from '@/lib/site/types';
+
 const ORIGIN = 'https://kpopquiz.org';
 
-export function safeReturnTo(raw: string | null | undefined, fallback = '/'): string {
+export function safeReturnTo(raw: string | null | undefined, fallback = '/', site?: SiteId): string {
   if (typeof raw !== 'string' || raw.length === 0 || raw.length > 2048) return fallback;
   if (raw[0] !== '/' || raw[1] === '/' || raw.includes('\\')) return fallback;
   for (let i = 0; i < raw.length; i++) {
     const c = raw.charCodeAt(i);
     if (c < 0x20 || c === 0x7f) return fallback;
   }
+  const origin = site === undefined ? ORIGIN : new URL(REGISTRY[site].url).origin;
   let url: URL;
   try {
-    url = new URL(raw, ORIGIN);
+    url = new URL(raw, origin);
   } catch {
     return fallback;
   }
-  if (url.origin !== ORIGIN) return fallback;
+  if (url.origin !== origin) return fallback;
   return `${url.pathname}${url.search}${url.hash}`;
 }
