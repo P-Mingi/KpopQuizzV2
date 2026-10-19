@@ -27,7 +27,21 @@ function overrideOf(value: unknown): MembershipAvatarOverride {
   return value !== null && typeof value === 'object' && !Array.isArray(value) ? (value as MembershipAvatarOverride) : {};
 }
 
-export function profileForSite<P extends ProfileForSiteInput>(site: SiteId, profile: P, membership: MemberPublic | null): P {
+/**
+ * The contract order is (site, profile, membership) (rpcs.md 3, PassportServerFns). The order the lot (c) brief
+ * writes, (profile, membership, site), is accepted too: the first argument tells them apart (a site id is a string,
+ * a profile is an object).
+ */
+export function profileForSite<P extends ProfileForSiteInput>(site: SiteId, profile: P, membership: MemberPublic | null): P;
+export function profileForSite<P extends ProfileForSiteInput>(profile: P, membership: MemberPublic | null, site: SiteId): P;
+export function profileForSite<P extends ProfileForSiteInput>(
+  a: SiteId | P,
+  b: P | MemberPublic | null,
+  c: MemberPublic | SiteId | null,
+): P {
+  const [site, profile, membership] = typeof a === 'string'
+    ? [a, b as P, c as MemberPublic | null]
+    : [c as SiteId, a, b as MemberPublic | null];
   if (site === 'kpop') return profile;
 
   const out = { ...profile } as unknown as Record<string, unknown>;

@@ -201,11 +201,18 @@ export interface TxCookieAttributes {
   readonly sameSite: 'lax';
   readonly path: '/';
   readonly maxAge: number;
+  /** Only on the clearing cookie: the epoch, so a client that drops a falsy Max-Age=0 still deletes the cookie. */
+  readonly expires?: Date;
 }
 
-/** HttpOnly, SameSite=Lax, Path=/, Max-Age=300, no Domain; Secure whenever the name is the `__Host-` one. */
+/**
+ * HttpOnly, SameSite=Lax, Path=/, Max-Age=300, no Domain; Secure whenever the name is the `__Host-` one. With
+ * maxAge 0 (clearing) the same attributes plus an Expires in the past: Next re-serialises the cookies of a response
+ * that also set session cookies and then writes no Max-Age=0, so the Expires is what deletes the cookie there.
+ */
 export function txCookieAttributes(name: string, maxAge: number = PASSPORT_SECONDS.txCookie): TxCookieAttributes {
-  return { httpOnly: true, secure: name === TX_COOKIE_NAMES.https, sameSite: 'lax', path: '/', maxAge };
+  const base = { httpOnly: true, secure: name === TX_COOKIE_NAMES.https, sameSite: 'lax', path: '/', maxAge } as const;
+  return maxAge === 0 ? { ...base, expires: new Date(0) } : base;
 }
 
 // ---------------------------------------------------------------------------------------------------------------

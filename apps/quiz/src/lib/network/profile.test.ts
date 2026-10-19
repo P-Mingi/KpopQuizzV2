@@ -5,7 +5,7 @@ import { PROFILE_FROM_MEMBERSHIP } from '@/lib/passport/types';
 
 import { profileForSite } from './profile';
 
-import type { MemberPublic, ProfileForSiteInput } from '@/lib/passport/types';
+import type { MemberPublic, PassportServerFns, ProfileForSiteInput } from '@/lib/passport/types';
 
 const PROFILE: ProfileForSiteInput = {
   id: 'u1', username: 'fan', display_name: 'Fan Name', avatar_url: 'https://img.test/kpop.png', avatar_bg: '#111111',
@@ -25,6 +25,11 @@ const MEMBER: MemberPublic = {
 };
 
 describe('profileForSite', () => {
+  it('satisfies the contract signature (a drift fails tsc)', () => {
+    const contract: PassportServerFns['profileForSite'] = profileForSite;
+    expect(contract).toBe(profileForSite);
+  });
+
   it('on kpop it returns the very same object, whatever the membership is', () => {
     expect(profileForSite('kpop', PROFILE, null)).toBe(PROFILE);
     expect(profileForSite('kpop', PROFILE, MEMBER)).toBe(PROFILE);
@@ -86,6 +91,13 @@ describe('profileForSite', () => {
       xp: 0, total_quizzes_created: 0, total_plays_received: 0, total_likes_received: 0, follower_count: 0, following_count: 0,
       ult_groups: [],
     });
+  });
+
+  it('accepts the order of the lot (c) brief, (profile, membership, site), with the same answers', () => {
+    expect(profileForSite(PROFILE, MEMBER, 'kpop')).toBe(PROFILE);
+    expect(profileForSite(PROFILE, null, 'kpop')).toBe(PROFILE);
+    expect(profileForSite(PROFILE, MEMBER, 'anime')).toEqual(profileForSite('anime', PROFILE, MEMBER));
+    expect(profileForSite(PROFILE, null, 'hub')).toEqual(profileForSite('hub', PROFILE, null));
   });
 
   it('is pure: the input is not changed, and the fields outside the mapping are kept', () => {

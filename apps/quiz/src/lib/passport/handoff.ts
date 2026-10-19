@@ -85,9 +85,13 @@ function jsonError(status: number, error: string, extra: Record<string, unknown>
   return harden(NextResponse.json({ error, ...extra }, { status }));
 }
 
-/** 302 to a path of this very site (the request's own origin), for the cases that end on `next`. */
-function toSelf(request: NextRequest, path: string): NextResponse {
-  return redirect(new URL(path, request.url).toString());
+/**
+ * 302 to a path of this very site, for the cases that end on `next`. The Location is the path alone (RFC 9110
+ * allows a relative reference): the browser resolves it against the address it asked, whatever origin a proxy or a
+ * dev server believes it serves. `path` always comes out of safeReturnTo: a leading slash, never `//`.
+ */
+function toSelf(path: string): NextResponse {
+  return harden(new NextResponse(null, { status: 302, headers: { Location: path } }));
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -174,7 +178,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const q = request.nextUrl.searchParams;
   const rawNext = q.get('next');
   const next = safeReturnTo(rawNext, '/', site);
-  if (!passportJumpOn(env)) return toSelf(request, next);
+  if (!passportJumpOn(env)) return toSelf(next);
 
   const fromParam = q.get('from');
   const from = isSiteId(fromParam) ? fromParam : null;
@@ -183,14 +187,14 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
 
   if (q.has('mode')) {
     await bad();
-    return toSelf(request, next);
+    return toSelf(next);
   }
   const t = q.get('t');
-  if (!t) return toSelf(request, next); // crawlers and plain links write nothing
+  if (!t) return toSelf(next); // crawlers and plain links write nothing
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (user) return toSelf(request, next); // never switches account
+  if (user) return toSelf(next); // never switches account
 
   // An open redirect attempt: safeReturnTo changed the path. Same answer as a bad ticket, to the sanitised path.
   const check = rawNext !== null && rawNext === next
@@ -199,7 +203,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const name = txCookieName(request.url, request.headers.get('x-forwarded-proto'), env);
   if (!check.ok || from === null || name === null) {
     if (!check.ok) await bad();
-    return toSelf(request, next);
+    return toSelf(next);
   }
 
   const state = newState();

@@ -119,7 +119,7 @@ describe('flag off (or no secret): nothing new is reachable', () => {
   it('/auth/arrive 302s to next, writes nothing, sets nothing', async () => {
     const res = await handleArrive(get(`${ANIME}/auth/arrive?from=kpop&next=/quizzes&t=anything`), ctx('anime', OFF));
     expect(res.status).toBe(302);
-    expect(loc(res)).toBe(`${ANIME}/quizzes`);
+    expect(loc(res)).toBe('/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(state.calls).toEqual([]);
   });
@@ -240,7 +240,7 @@ describe('GET /auth/arrive (flag on)', () => {
 
   it('no t: 302 to next, nothing written (crawlers), no log', async () => {
     const res = await arrive({ from: 'kpop', next: '/quizzes' });
-    expect(loc(res)).toBe(`${ANIME}/quizzes`);
+    expect(loc(res)).toBe('/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(state.calls).toEqual([]);
   });
@@ -248,14 +248,14 @@ describe('GET /auth/arrive (flag on)', () => {
   it('already signed in here (any user): 302 to next, never switches account', async () => {
     state.user = { id: 'someone-else' };
     const res = await arrive({ from: 'kpop', next: '/quizzes', t: ticket() });
-    expect(loc(res)).toBe(`${ANIME}/quizzes`);
+    expect(loc(res)).toBe('/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(events()).toEqual([]);
   });
 
   it('a mode parameter: 302 to next, logged bad_ticket', async () => {
     const res = await arrive({ from: 'kpop', next: '/quizzes', t: ticket(), mode: 'seed' });
-    expect(loc(res)).toBe(`${ANIME}/quizzes`);
+    expect(loc(res)).toBe('/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(events()).toEqual(['bad_ticket']);
   });
@@ -275,7 +275,7 @@ describe('GET /auth/arrive (flag on)', () => {
       state.calls = [];
       const res = await arrive(q);
       expect(res.status).toBe(302);
-      expect(new URL(loc(res)).origin).toBe(ANIME);
+      expect(loc(res)).toMatch(/^\/(?!\/)/); // a path of this site, never another origin
       expect(cookies(res)).toEqual([]);
       expect(events()).toEqual(['bad_ticket']);
     }
@@ -285,7 +285,7 @@ describe('GET /auth/arrive (flag on)', () => {
     for (const next of ['//evil.tld', 'https://evil.tld', '/\\evil.tld']) {
       state.calls = [];
       const res = await arrive({ from: 'kpop', next, t: ticket({ next }) });
-      expect(loc(res)).toBe(`${ANIME}/`);
+      expect(loc(res)).toBe('/');
       expect(cookies(res)).toEqual([]);
       expect(events()).toEqual(['bad_ticket']);
     }

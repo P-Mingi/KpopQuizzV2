@@ -5,6 +5,8 @@ import { describe, expect, it } from 'vitest';
 import { REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
+import type { PassportServerFns } from '@/lib/passport/types';
+
 import { safeReturnTo } from './return-to';
 
 const HOSTILE = [
@@ -13,6 +15,11 @@ const HOSTILE = [
 ];
 
 describe('safeReturnTo(raw, fallback, site)', () => {
+  it('satisfies the contract signature (a drift fails tsc)', () => {
+    const contract: PassportServerFns['safeReturnTo'] = safeReturnTo;
+    expect(contract).toBe(safeReturnTo);
+  });
+
   it('keeps a same-site path, with its query and hash, for every site', () => {
     for (const site of SITE_IDS) {
       expect(safeReturnTo('/', '/', site)).toBe('/');

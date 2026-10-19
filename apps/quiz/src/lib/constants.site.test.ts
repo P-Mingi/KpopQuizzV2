@@ -5,9 +5,16 @@ import { describe, expect, it } from 'vitest';
 import { getLevelInfo, levelForXp } from './constants';
 import { levelTitlesFor } from './level-titles';
 
+import type { SiteServerFns } from './site/types';
+
 const XPS = [-5, 0, 1, 99, 400, 3040, 19670, 56620, 56621, 151820, 389820, 1_000_000];
 
 describe('getLevelInfo(xp, site)', () => {
+  it('satisfies the contract signature (a drift fails tsc)', () => {
+    const contract: SiteServerFns['getLevelInfo'] = getLevelInfo;
+    expect(contract).toBe(getLevelInfo);
+  });
+
   it('without a site, or on kpop, the result is the same object content for every xp', () => {
     for (const xp of XPS) {
       expect(getLevelInfo(xp, 'kpop')).toEqual(getLevelInfo(xp));

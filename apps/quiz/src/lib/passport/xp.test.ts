@@ -11,6 +11,7 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { awardXpForSite, xpRpcFor } from './xp';
 
+import type { PassportServerFns } from './types';
 import type { RpcClient } from './xp';
 
 function client(data: unknown): RpcClient & { calls: Array<{ fn: string; args: unknown }> } {
@@ -19,6 +20,11 @@ function client(data: unknown): RpcClient & { calls: Array<{ fn: string; args: u
 }
 
 describe('awardXpForSite', () => {
+  it('satisfies the contract signature (a drift fails tsc)', () => {
+    const contract: PassportServerFns['awardXpForSite'] = awardXpForSite;
+    expect(contract).toBe(awardXpForSite);
+  });
+
   it('kpop calls award_xp with the three arguments of today, in the same key order', async () => {
     const c = client(1234);
     expect(await awardXpForSite('kpop', 'user-1', 15, 'play', c)).toBe(1234);
