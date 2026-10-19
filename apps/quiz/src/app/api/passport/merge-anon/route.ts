@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { SITE_ID } from '@/lib/site/registry';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -47,14 +48,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     : [];
 
   const admin = createServiceRoleClient();
-  const { data, error } = await admin.rpc('merge_anon_passport', {
+  const args = {
     p_user_id: user.id,
     p_quizzes_played: toInt(body.quizzes_played),
     p_blindtests_played: toInt(body.blindtests_played),
     p_duels_voted: toInt(body.duels_voted),
     p_battles_played: toInt(body.battles_played),
     p_group_stats: groupStats,
-  });
+  };
+  // Run O1 (B3): kpop sends today's arguments; another site names itself (the merge then folds into that
+  // world's membership, once per world).
+  const { data, error } = await admin.rpc('merge_anon_passport', SITE_ID === 'kpop' ? args : { ...args, p_site: SITE_ID });
 
   if (error) {
     console.error('merge_anon_passport failed:', error.message);

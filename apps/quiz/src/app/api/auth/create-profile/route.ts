@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getAvatarColors } from '@/lib/utils';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { VIA_RE } from '@/lib/network/types';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -71,12 +73,27 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // 5. Create profile
   const colors = getAvatarColors(trimmed);
 
-  const { error } = await supabase.from('profiles').insert({
-    id: user.id,
-    username: trimmed,
-    avatar_bg: colors.bg,
-    avatar_text: colors.text,
-  });
+  // Run O1 (B3): kpop keeps today's insert (the profile trigger makes the kpop membership). Another site goes
+  // through create_profile_for_site, which sets the site so the trigger makes that site's membership.
+  let error: unknown;
+  if (SITE_ID === 'kpop') {
+    ({ error } = await supabase.from('profiles').insert({
+      id: user.id,
+      username: trimmed,
+      avatar_bg: colors.bg,
+      avatar_text: colors.text,
+    }));
+  } else {
+    const via = (body as Record<string, unknown>).via;
+    ({ error } = await supabase.rpc('create_profile_for_site', {
+      p_username: trimmed,
+      p_site: SITE_ID,
+      p_avatar_bg: colors.bg,
+      p_avatar_text: colors.text,
+      p_via: 'signup',
+      p_via_code: typeof via === 'string' && VIA_RE.test(via) ? via : null,
+    }));
+  }
 
   if (error) {
     console.error('Failed to create profile:', error);
