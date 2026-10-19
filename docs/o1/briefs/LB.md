@@ -1,7 +1,6 @@
 # Lot (b), lane LB: the anime blocks of the series hub (otakuquiz.org)
 Worktree /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-LB, branch o1/LB. Read this brief, the code you change and the
 files named here; nothing else (no BACKLOG, no other brief). Q = apps/quiz/src, P = Q/app/sites/[site]/(anime), C = docs/o1/contracts.
-
 ## Rules
 - Never push, never touch production, never use a connector or the supabase, vercel or gh commands. Never open ~/kpq-o1/secrets.
 - Never write outside this worktree. Never edit tests, gates or anything under scripts/o1, docs/o1/contracts, next.config, Q/middleware.ts.
@@ -12,7 +11,6 @@ files named here; nothing else (no BACKLOG, no other brief). Q = apps/quiz/src, 
 - No Tailwind utility word in a new file. New CSS only in Q/styles/sites/anime/o2.css and o3.css, every selector starts
   `html.ux-v1[data-site="anime"]`, classes anime-o2-* and anime-o3-*, locals --anime-*, no @import or @font-face, no rule on a shared class.
 - No SQL in this lot (011 to 015 come in lot (e), after the passport SQL). The loader must not crash when the tables are missing.
-
 ## Data
 - Loader Q/lib/anime/series.ts: `getSeriesHub(slug)` reads public.series (by group), arcs, characters, series_themes, trivia
   (entity_kind 'series'), entity_sources, and the series' published quizzes, through the existing server Supabase client and forSite.
