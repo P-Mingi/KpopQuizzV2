@@ -17,6 +17,8 @@ interface TextCardProps {
   averagePct?: number | null;
   titleAs?: 'h2' | 'h3' | 'p';
   className?: string;
+  /** A line after the numbers (a site's own label on the card). Default: none. */
+  note?: React.ReactNode;
 }
 
 /**
@@ -24,8 +26,24 @@ interface TextCardProps {
  * glyph (pink) + "Classic · Medium", title, then "842 plays · average 66%".
  * Bordered (--line), pink-line on hover; plain rows on phones. Server component.
  */
-export function TextCard({ href, title, quizType, difficulty, plays, averagePct, titleAs: T = 'h3', className }: TextCardProps): React.ReactElement {
+export function TextCard({ href, title, quizType, difficulty, plays, averagePct, titleAs: T = 'h3', className, note }: TextCardProps): React.ReactElement {
   const lv = levelOf(difficulty);
+  // Without a note the card is the one it always was: no `{note}` slot, so the tree carries no undefined child.
+  if (note === undefined) {
+    return (
+      <Link href={href} className={['ux-tcard', className ?? ''].filter(Boolean).join(' ')}>
+        <span className="ux-tcard-ty">
+          <Icon name={QUIZ_TYPE_ICON[quizType] ?? 't-classic'} size="sm" />
+          {QUIZ_TYPE_LABEL[quizType] ?? 'Classic'} · {lv.label}
+        </span>
+        <T className="ux-tcard-t">{title}</T>
+        <span className="ux-meta">
+          <i className="ux-num">{formatCount(plays)} plays</i>
+          {typeof averagePct === 'number' ? <i className="ux-num">average {averagePct}%</i> : null}
+        </span>
+      </Link>
+    );
+  }
   return (
     <Link href={href} className={['ux-tcard', className ?? ''].filter(Boolean).join(' ')}>
       <span className="ux-tcard-ty">
@@ -37,6 +55,7 @@ export function TextCard({ href, title, quizType, difficulty, plays, averagePct,
         <i className="ux-num">{formatCount(plays)} plays</i>
         {typeof averagePct === 'number' ? <i className="ux-num">average {averagePct}%</i> : null}
       </span>
+      {note}
     </Link>
   );
 }

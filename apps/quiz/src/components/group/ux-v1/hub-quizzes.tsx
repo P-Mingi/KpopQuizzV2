@@ -2,6 +2,7 @@
 
 import { useId, useMemo, useRef, useState } from 'react';
 
+import { ArcNote } from '@/components/spoilers/arc-note';
 import { UxButton } from '@/components/ux-v1/button';
 import { UxDropdown } from '@/components/ux-v1/dropdown';
 import { SectionHeader } from '@/components/ux-v1/section-header';
@@ -21,15 +22,19 @@ import {
 
 import type { HubQuiz, HubSort } from '@/lib/ux-v1/p3/model';
 
+import type { HubQuizGrouping } from './hub-slots';
+
 interface HubQuizzesProps {
   groupName: string;
   /** Every published quiz of the group (its length is the real count). */
   quizzes: HubQuiz[];
+  /** The list grouped in sections (a series: by arc), each card labelled by the reader's progress. Default: none. */
+  grouping?: HubQuizGrouping;
 }
 
 const ALL = 'all';
 
-function Card({ q }: { q: HubQuiz }): React.ReactElement {
+function Card({ q, note }: { q: HubQuiz; note?: React.ReactNode }): React.ReactElement {
   return (
     <TextCard
       href={`/q/${q.slug}`}
@@ -38,7 +43,42 @@ function Card({ q }: { q: HubQuiz }): React.ReactElement {
       difficulty={q.difficulty}
       plays={q.play_count}
       averagePct={averagePct(q)}
+      note={note}
     />
+  );
+}
+
+/** The quizzes in the sections of `grouping` (the order inside a section is the chosen sort), every card a real link. */
+function GroupedCards({ grouping, list, uid }: { grouping: HubQuizGrouping; list: HubQuiz[]; uid: string }): React.ReactElement {
+  const bySection = new Map<number, HubQuiz[]>();
+  for (const q of list) {
+    const ord = grouping.levels[q.slug]?.arc ?? 0;
+    bySection.set(ord, [...(bySection.get(ord) ?? []), q]);
+  }
+  return (
+    <>
+      {grouping.sections.map((sec) => {
+        const items = bySection.get(sec.ord) ?? [];
+        if (items.length === 0) return null;
+        return (
+          <section key={sec.ord} className="anime-o2-arc" aria-labelledby={`${uid}-arc-${sec.ord}`}>
+            <h3 id={`${uid}-arc-${sec.ord}`} className="anime-o2-arc-h">{sec.title}</h3>
+            <TextCardGrid>
+              {items.map((q) => {
+                const lv = grouping.levels[q.slug];
+                return (
+                  <Card
+                    key={q.slug}
+                    q={q}
+                    note={lv ? <ArcNote seriesSlug={grouping.seriesSlug} groupId={grouping.groupId} level={lv} labels={grouping.labels} /> : undefined}
+                  />
+                );
+              })}
+            </TextCardGrid>
+          </section>
+        );
+      })}
+    </>
   );
 }
 
@@ -52,7 +92,7 @@ function Card({ q }: { q: HubQuiz }): React.ReactElement {
  * opens without JavaScript, like P6's "Show all 79 groups"). Nothing lives only
  * in <noscript>.
  */
-export function HubQuizzes({ groupName, quizzes }: HubQuizzesProps): React.ReactElement {
+export function HubQuizzes({ groupName, quizzes, grouping }: HubQuizzesProps): React.ReactElement {
   const uid = useId().replace(/:/g, '');
   const announce = useAnnounce();
   const live = useIsClient();
@@ -109,7 +149,7 @@ export function HubQuizzes({ groupName, quizzes }: HubQuizzesProps): React.React
 
   return (
     <section className="ux-sec p3-qs" aria-labelledby={`${uid}-h`} data-live={live || undefined}>
-      <SectionHeader id={`${uid}-h`} title={`${groupName} quizzes`} sub={quizzesLabel(quizzes.length)} />
+      <SectionHeader id={`${uid}-h`} title={grouping ? grouping.labels.heading : `${groupName} quizzes`} sub={quizzesLabel(quizzes.length)} />
       <div className="p3-qctl">
         <Segmented options={HUB_SORTS} value={sort} onChange={pickSort} label="Sort quizzes" />
         {options.types.length > 1 || options.levels.length > 1 ? (
@@ -151,10 +191,12 @@ export function HubQuizzes({ groupName, quizzes }: HubQuizzesProps): React.React
         </div>
       ) : (
         <div id={`${uid}-grid`}>
-          <TextCardGrid>
-            {first.map((q) => <Card key={q.slug} q={q} />)}
-          </TextCardGrid>
-          {rest.length > 0 ? (
+          {grouping ? <GroupedCards grouping={grouping} list={list} uid={uid} /> : (
+            <TextCardGrid>
+              {first.map((q) => <Card key={q.slug} q={q} />)}
+            </TextCardGrid>
+          )}
+          {!grouping && rest.length > 0 ? (
             <details className="p3-more" open={expanded} onToggle={onToggle}>
               <summary className="ux-btn ux-btn-ghost">Show all {list.length.toLocaleString('en-US')}</summary>
               <div ref={restRef}>

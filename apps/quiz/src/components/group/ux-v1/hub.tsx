@@ -51,10 +51,16 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { GroupAvatar } from './group-avatar';
 import { HubGrowth } from './hub-growth';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
+import { MemberTiles } from './member-tiles';
 
 import type { Group } from '@/lib/db/types';
 
+import type { HubSlots } from './hub-slots';
+
 type GroupRow = Group & { inception_date?: string | null; record_label?: string | null };
+
+/** The origin of the kpop site: what the JSON-LD of today's hub prints. A site that passes slots passes its own. */
+const KPOP_ORIGIN = 'https://kpopquiz.org';
 
 const PHOTO_SIZES = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px';
 
@@ -70,10 +76,18 @@ const PHOTO_SIZES = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 
  * too (quizzes, trivia, blindtest, related groups and their top quizzes, articles,
  * top fans, the Verse space, create, the war link). Counts shown in the new UI
  * come from published quizzes (getHubQuizzes), never groups.quiz_count.
+ *
+ * `slots` (rule 18): the optional slots another site fills from its own page (the
+ * anime series hub: its header facts, title card, spoiler shield, quizzes grouped by
+ * arc, characters, openings, FAQ). Without it every line below is today's kpop hub:
+ * the kpop-only reads are skipped only when slots are given, and each slot replaces
+ * or adds exactly one node at a place that keeps the kpop tree (and its useId values)
+ * as it was.
  */
-export async function GroupHubV11({ group }: { group: Group }): Promise<React.ReactElement> {
+export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubSlots }): Promise<React.ReactElement> {
   const g = group as GroupRow;
   const relatedSlugs = RELATED_GROUPS[g.slug] ?? [];
+  const origin = slots?.origin ?? KPOP_ORIGIN;
 
   // Every read fails closed (reads.ts): a read that failed or timed out never
   // reaches the ISR cache as an empty block, a hub without its quizzes, an FAQ
@@ -83,18 +97,18 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
     initialQuizzes: read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
     newestQuizzes: read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
     relatedQuizzes: read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
-    triviaAvailable: read(hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
-    nameAllGame: read(getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
-    blindtest: read(getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
-    warRank: read(getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
+    triviaAvailable: read(slots ? Promise.resolve(slots.triviaAvailable) : hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
+    nameAllGame: read(slots ? Promise.resolve(null) : getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
+    blindtest: read(slots ? Promise.resolve({ qualifies: false, songs: 0 }) : getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
+    warRank: read(slots ? Promise.resolve(null) : getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
     fanKnowledge: read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
-    comeback: read(getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
-    mvPulse: read(getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
+    comeback: read(slots ? Promise.resolve(null) : getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
+    mvPulse: read(slots ? Promise.resolve(null) : getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
     contentDate: read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
     // v11 reads (lib/ux-v1/p3/data.ts).
     quizzes: read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
-    index: read(getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
-    playable: read(getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
+    index: read(slots ? Promise.resolve([]) : getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
+    playable: read(slots ? Promise.resolve({} as Record<string, number>) : getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
     comments: read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
   };
   const got = Object.fromEntries(await Promise.all(Object.entries(r).map(async ([k, p]) => [k, await p] as const))) as { [K in keyof typeof r]: Awaited<(typeof r)[K]> };
@@ -125,7 +139,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   const cat = category ? categoryTexts(g.name, published) : null;
-  const intro = cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
+  const intro = slots ? slots.intro : cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
   const hasQuizzes = published > 0;
   const isEmptyGroup = !hasQuizzes;
   const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
@@ -134,29 +148,31 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const fandom = realFandomName(g.fandom_name);
 
   // No label until it is sourced (see lib/seo/answer-first.ts; owner, 2026-10-14).
-  const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: null, quizzes: published });
+  const eyebrow = slots ? slots.eyebrow : hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: null, quizzes: published });
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.
   // The category hub has its own lead and FAQ (the same array feeds the FAQPage JSON-LD).
-  const groupFaqs = cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
+  const groupFaqs = slots ? slots.faqs : cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
   const answerFacts = { memberCount, songCount: blindtest.songs };
-  const chunks = cat ? [] : buildAnswerChunks(g, answerFacts);
+  const chunks = cat || slots ? [] : buildAnswerChunks(g, answerFacts);
   const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
   const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], chunks);
   const updated = formatContentMonth(contentDate);
-  const articles = getGroupArticleLinks(g.slug);
+  // Articles are a kpop feature: a site that passes slots has none (the links are kpop articles).
+  const articles = slots ? [] : getGroupArticleLinks(g.slug);
 
   // G2 play surfaces (ItemList JSON-LD), unchanged.
   const playSurfaces: Array<{ name: string; url: string }> = [
-    { name: `${g.name} quizzes`, url: `https://kpopquiz.org/${g.slug}-quiz` },
+    { name: `${g.name} quizzes`, url: `${origin}/${g.slug}-quiz` },
   ];
-  if (blindtest.qualifies) playSurfaces.push({ name: `${g.name} blind test`, url: `https://kpopquiz.org/blindtest/group-${g.slug}` });
+  if (slots?.blindtest) playSurfaces.push({ name: `${g.name} blind test`, url: `${origin}${slots.blindtest.href}` });
+  else if (blindtest.qualifies) playSurfaces.push({ name: `${g.name} blind test`, url: `${origin}/blindtest/group-${g.slug}` });
 
   // Fans also play: the related groups of today's hub, with their real counts and
   // today's top quiz of each (both links kept).
   const bySlug = new Map(index.map((x) => [x.slug, x]));
-  const fans = relatedSlugs
+  const fans: Array<{ slug: string; name: string; photo: string | null; quizzes: number; top: (typeof relatedQuizzes)[number] | null; art?: React.ReactNode }> = relatedSlugs
     .map((slug) => {
       const x = bySlug.get(slug);
       if (!x) return null;
@@ -164,6 +180,8 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       return { ...x, top };
     })
     .filter((x): x is NonNullable<typeof x> => x !== null);
+  // A site with its own related list (slots.related) shows it in the same rows, its title card in place of the avatar.
+  for (const rel of slots?.related ?? []) fans.push({ slug: rel.slug, name: rel.name, photo: null, quizzes: rel.quizzes, top: null, art: rel.art });
 
   // SEO-3 U7 (today's hub): the 5 newest quizzes with their dates, a crawlable
   // freshness signal, shown only when they differ from the popular top 10.
@@ -175,7 +193,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const showAccuracy = fk.avgAccuracy != null;
   const showFans = fk.topFans.length >= 3;
   const masteredNoun = fandom ? `${fandom}s` : 'fans';
-  const showBlindtest = songs > 0 || blindtest.qualifies;
+  const showBlindtest = slots ? Boolean(slots.blindtest) : songs > 0 || blindtest.qualifies;
 
   // C2-006 / C2-007: the group's Verse space is a working door only when it is
   // open (lib/ux-v1/p3/verse.ts). A parked space answers 404, so the hub neither
@@ -188,12 +206,64 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const aboutLinks = Boolean(triviaAvailable || verseLink || hasQuizzes);
   const hasMembers = Boolean(nameAllGame && nameAllGame.members.length > 0);
   const hasAbout = Boolean(answerLead || hasMembers || updated || aboutLinks);
+  const art = slots?.heroArt ?? null;
+  // Only a given grouping becomes a prop: without it the client island receives (and the RSC payload carries) today's props.
+  const groupingProp = slots?.grouping ? { grouping: slots.grouping } : {};
+  // The quizzes list with, above it, whatever the slots put there. Built here and mounted at the same place as before.
+  const quizzesBlock = isUxV12() ? (
+    // V12 (G8): the additions take the slot of the quizzes list, which passes
+    // through untouched; the v11-only branch below is the tree as it was.
+    <HubGrowth group={g} published={published} songs={songs}>
+      {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} {...groupingProp} /> : null}
+    </HubGrowth>
+  ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} {...groupingProp} /> : null;
   const hasFk = showMastered || showAccuracy || showFans;
   // "From the community" is a group-with-quizzes block (the prototype's empty hub
   // hides the lower band; what stays there on an empty hub is today's SEO text and
   // links only).
   const hasSide = hasQuizzes || fans.length > 0 || Boolean(warRank) || newestDistinct.length > 0 || articles.length > 0 || hasFk || Boolean(mvPulse);
-  const hasLow = hasAbout || faqItems.length > 0 || hasSide;
+  const hasLow = hasAbout || faqItems.length > 0 || hasSide || Boolean(slots?.main);
+
+  // The two blocks of the main column of the lower band. They are built here, unchanged, so that a site's own block
+  // (slots.main) can come first without a slot that is undefined on the kpop page (the tree keeps today's two children).
+  const aboutSection = hasAbout ? (
+    <section aria-labelledby="p3-about-h">
+      <h2 id="p3-about-h" className="ux-h2">About {g.name}</h2>
+      {answerLead ? (
+        <div className="p3-prose">
+          <p>{answerLead}</p>
+          {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
+        </div>
+      ) : null}
+      {nameAllGame && nameAllGame.members.length > 0 ? (
+        <MemberTiles label={`${g.name} members`} groupName={g.name} tiles={nameAllGame.members} />
+      ) : null}
+      {updated && contentDate ? (
+        <p className="p3-updated">Updated <time dateTime={contentDate.slice(0, 10)}>{updated}</time></p>
+      ) : null}
+      {aboutLinks ? (
+        <div className="p3-links">
+          {triviaAvailable ? <UxLink href={`/${g.slug}-trivia`}><Icon name="book" />Learn before you play: {g.name} trivia</UxLink> : null}
+          {verseLink ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
+          {hasQuizzes ? <UxLink href={`/create?group=${g.slug}`}><Icon name="plus" />Make your own {g.name} quiz</UxLink> : null}
+        </div>
+      ) : null}
+    </section>
+  ) : null;
+
+  const faqSection = faqItems.length > 0 ? (
+    <section className="p3-faq" aria-labelledby="group-faq">
+      <h2 id="group-faq" className="ux-h2">{slots?.labels.faq ?? 'Questions fans ask'}</h2>
+      <div className="p3-accs">
+        {faqItems.map((f, i) => (
+          <details key={f.q} className="p3-acc" open={i === 0}>
+            <summary><h3 className="p3-acc-q">{f.q}</h3><Icon name="chev" /></summary>
+            <div className="p3-acc-a">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+  ) : null;
 
   return (
     <UxPage width="wide" className="p3 p3-hub">
@@ -202,14 +272,14 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
-          { '@type': 'ListItem', position: 2, name: 'Quizzes', item: 'https://kpopquiz.org/quizzes' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+          { '@type': 'ListItem', position: 2, name: 'Quizzes', item: `${origin}/quizzes` },
           { '@type': 'ListItem', position: 3, name: `${g.name} Quiz` },
         ],
       })}
 
       <nav className="ux-crumb p3-crumb" aria-label="Breadcrumb">
-        {category ? <Link href="/quizzes">Quizzes</Link> : <Link href="/groups">Groups</Link>}
+        {slots ? <Link href={slots.crumb.href}>{slots.crumb.label}</Link> : category ? <Link href="/quizzes">Quizzes</Link> : <Link href="/groups">Groups</Link>}
         <span className="p3-sep" aria-hidden="true">/</span>
         <span aria-current="page">{g.name}</span>
       </nav>
@@ -222,16 +292,16 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         </Link>
       ) : null}
 
-      <section className={photo ? 'p3-hero' : 'p3-hero is-solo'} aria-labelledby="p3-h1">
+      <section className={photo || art ? 'p3-hero' : 'p3-hero is-solo'} aria-labelledby="p3-h1">
         <div className="p3-hero-main">
           <p className="p3-eyebrow">{eyebrow}</p>
           {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>"
               ("... Know K-pop" for the General K-pop category). The first half is the
               display title, the rest its second line. */}
           <h1 id="p3-h1" className="p3-h1">
-            <span className="p3-h1-main">{g.name} Quiz</span>
+            {slots?.h1 ? <span className="p3-h1-main">{slots.h1.main}</span> : <span className="p3-h1-main">{g.name} Quiz</span>}
             <span className="ux-sr"> - </span>
-            <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>
+            {slots?.h1 ? <span className="p3-h1-tail">{slots.h1.tail}</span> : <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>}
           </h1>
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
@@ -242,12 +312,12 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
               </>
             ) : (
               <>
-                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">Play the top quiz</UxButton> : null}
-                {showBlindtest ? <UxButton href={`/blindtest/group-${g.slug}`} variant={topSlug ? 'ghost' : 'primary'} size="lg" icon="music">Blindtest</UxButton> : null}
+                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">{slots?.startLabel ?? 'Play the top quiz'}</UxButton> : null}
+                {showBlindtest ? <UxButton href={slots?.blindtest?.href ?? `/blindtest/group-${g.slug}`} variant={topSlug ? 'ghost' : 'primary'} size="lg" icon="music">Blindtest</UxButton> : null}
               </>
             )}
           </div>
-          {facts.length > 0 ? (
+          {slots?.heroFacts ? slots.heroFacts : facts.length > 0 ? (
             <p className="p3-facts">
               {facts.map((f) => (
                 <span key={`${f.pre ?? ''}${f.post ?? ''}`}>
@@ -261,82 +331,32 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
           <div className="p3-photo">
             <Image src={photo} alt={g.name} fill sizes={PHOTO_SIZES} priority className="p3-photo-img" />
           </div>
-        ) : null}
+        ) : art ? <div className="p3-photo">{art}</div> : null}
       </section>
 
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
-      {isUxV12() ? (
-        // V12 (G8): the additions take the slot of the quizzes list, which passes
-        // through untouched; the v11-only branch below is the tree as it was.
-        <HubGrowth group={g} published={published} songs={songs}>
-          {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
-        </HubGrowth>
-      ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+      {slots?.beforeQuizzes ? <>{slots.beforeQuizzes}{quizzesBlock}</> : quizzesBlock}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
-          <div className="p3-low-main">
-            {hasAbout ? (
-              <section aria-labelledby="p3-about-h">
-                <h2 id="p3-about-h" className="ux-h2">About {g.name}</h2>
-                {answerLead ? (
-                  <div className="p3-prose">
-                    <p>{answerLead}</p>
-                    {g.seo_intro && !category ? <p>{g.seo_intro}</p> : null}
-                  </div>
-                ) : null}
-                {nameAllGame && nameAllGame.members.length > 0 ? (
-                  // X2-004: one scroll row of prototype tiles (p3.css). A scroll container must be
-                  // keyboard reachable, so the list is focusable (arrow keys scroll it).
-                  <ul className="p3-members" aria-label={`${g.name} members`} tabIndex={0}>
-                    {nameAllGame.members.map((m) => (
-                      <li key={m.name}>
-                        {m.photoUrl && m.photoUrl.startsWith('/') ? (
-                          <Image className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} sizes="80px" />
-                        ) : m.photoUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element -- a non-local roster photo keeps today's plain img
-                          <img className="p3-member-face" src={m.photoUrl} alt={`${m.name} of ${g.name}`} width={80} height={80} loading="lazy" />
-                        ) : (
-                          <span className="p3-member-face is-ini" aria-hidden="true">{m.name.slice(0, 2).toUpperCase()}</span>
-                        )}
-                        <span>{m.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                {updated && contentDate ? (
-                  <p className="p3-updated">Updated <time dateTime={contentDate.slice(0, 10)}>{updated}</time></p>
-                ) : null}
-                {aboutLinks ? (
-                  <div className="p3-links">
-                    {triviaAvailable ? <UxLink href={`/${g.slug}-trivia`}><Icon name="book" />Learn before you play: {g.name} trivia</UxLink> : null}
-                    {verseLink ? <UxLink href={`/verse/${g.slug}`}><Icon name="globe" />Explore the {g.fandom_name} space on Verse</UxLink> : null}
-                    {hasQuizzes ? <UxLink href={`/create?group=${g.slug}`}><Icon name="plus" />Make your own {g.name} quiz</UxLink> : null}
-                  </div>
-                ) : null}
-              </section>
-            ) : null}
-
-            {faqItems.length > 0 ? (
-              <section className="p3-faq" aria-labelledby="group-faq">
-                <h2 id="group-faq" className="ux-h2">Questions fans ask</h2>
-                <div className="p3-accs">
-                  {faqItems.map((f, i) => (
-                    <details key={f.q} className="p3-acc" open={i === 0}>
-                      <summary><h3 className="p3-acc-q">{f.q}</h3><Icon name="chev" /></summary>
-                      <div className="p3-acc-a">{f.a}</div>
-                    </details>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-          </div>
+          {slots?.main ? (
+            <div className="p3-low-main">
+              {slots.main}
+              {aboutSection}
+              {faqSection}
+            </div>
+          ) : (
+            <div className="p3-low-main">
+              {aboutSection}
+              {faqSection}
+            </div>
+          )}
 
           {hasSide ? <div className="p3-low-side">
             {hasQuizzes ? (
               <section aria-labelledby="p3-com-h">
-                <SectionHeader id="p3-com-h" title="From the community" action={{ href: '/community', label: 'All posts' }} />
+                <SectionHeader id="p3-com-h" title={slots?.labels.community ?? 'From the community'} action={{ href: '/community', label: slots?.labels.communityAll ?? 'All posts' }} />
                 {comments.length > 0 ? (
                   <div className="ux-rows">
                     {comments.map((c) => (
@@ -368,11 +388,11 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
 
             {fans.length > 0 ? (
               <section className="p3-side-sec" aria-labelledby="p3-fans-h">
-                <SectionHeader id="p3-fans-h" title="Fans also play" />
+                <SectionHeader id="p3-fans-h" title={slots?.labels.related ?? 'Fans also play'} />
                 <div className="ux-rows">
                   {fans.map((f) => (
                     <div key={f.slug} className="ux-row p3-fan">
-                      <GroupAvatar name={f.name} photo={f.photo} size={40} />
+                      <GroupAvatar name={f.name} photo={f.photo} size={40} {...(f.art ? { art: f.art } : {})} />
                       <span className="ux-row-grow">
                         <Link href={`/${f.slug}-quiz`} className="ux-rt p3-fan-name">{f.name}</Link>
                         <span className="ux-rs">
@@ -480,7 +500,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         '@type': 'CollectionPage',
         name: `${g.name} Quizzes`,
         description: intro,
-        url: `https://kpopquiz.org/${g.slug}-quiz`,
+        url: `${origin}/${g.slug}-quiz`,
         ...(contentDate ? { dateModified: contentDate.slice(0, 10) } : {}),
         mainEntity: {
           '@type': 'ItemList',
@@ -488,7 +508,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
           itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
             '@type': 'ListItem',
             position: i + 1,
-            url: `https://kpopquiz.org/q/${q.slug}`,
+            url: `${origin}/q/${q.slug}`,
             name: q.title,
           })),
         },
@@ -496,7 +516,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       {jsonLdScript({
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: `Ways to play ${g.name} on KpopQuiz`,
+        name: `Ways to play ${g.name} on ${slots?.brand ?? 'KpopQuiz'}`,
         itemListElement: playSurfaces.map((s, i) => ({
           '@type': 'ListItem',
           position: i + 1,
