@@ -1,0 +1,22 @@
+// Planted case for check-site-scope (B2): unscoped reads of scoped tables. Each line marked "expect:" must be
+// flagged; nothing else in this file may be. Not compiled (.txt): judged as apps/quiz/src/o1-planted/unscoped-reads.ts.
+import { createServiceRoleClient } from '@/lib/supabase/server';
+
+export async function plantedReads(userId: string, slug: string) {
+  const supabase = createServiceRoleClient();
+  const { data: quizzes } = await supabase.from('quizzes').select('id, title').eq('status', 'published'); // expect: unscoped-read
+  const { data: group } = await supabase
+    .from('groups') // expect: unscoped-read
+    .select('id, name')
+    .eq('slug', slug)
+    .maybeSingle();
+  const [a, b] = await Promise.all([
+    supabase.from('creator_notifications').select('id').eq('user_id', userId), // expect: unscoped-read
+    supabase.from("badge_definitions").select("*"), // expect: unscoped-read
+  ]);
+  let q = supabase.from('trivia').select('id'); // expect: unscoped-read
+  q = q.limit(5);
+  const { data: rows } = await q;
+  const wrongFilter = await supabase.from('songs').select('id').eq('site', 'kpop'); // expect: unscoped-read
+  return { quizzes, group, a, b, rows, wrongFilter };
+}

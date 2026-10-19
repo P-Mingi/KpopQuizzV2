@@ -1,0 +1,30 @@
+// Clean case for check-site-scope (B2): nothing here may be flagged (no "expect:" line). Not compiled (.txt).
+// Scoped reads through forSite or a site_id filter, writes, tables without site_id, the escape comment, and
+// kpopquiz.org named in comments only.
+import { forSite, withSite } from '@/lib/site/scope';
+import { SITE, SITE_ID } from '@/lib/site';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+
+export async function cleanReads(userId: string, slug: string) {
+  const supabase = createServiceRoleClient();
+  const { data: quizzes } = await forSite(supabase.from('quizzes').select('id, title')).eq('status', 'published');
+  const { data: group } = await forSite(supabase
+    .from('groups')
+    .select('id, name'))
+    .eq('slug', slug)
+    .maybeSingle();
+  const [a, b] = await Promise.all([
+    forSite(supabase.from('creator_notifications').select('id')).eq('user_id', userId),
+    forSite(supabase.from('badge_definitions').select('*'), 'kpop'),
+  ]);
+  const filtered = await supabase.from('songs').select('id').eq('site_id', SITE_ID);
+  let q = supabase.from('trivia').select('id');
+  q = forSite(q).limit(5);
+  const profile = await supabase.from('profiles').select('username').eq('id', userId).maybeSingle();
+  await supabase.from('quizzes').insert(withSite({ title: 'A quiz' })).select('id');
+  await supabase.from('quizzes').update({ title: 'B quiz' }).eq('id', 'q1').select('id');
+  // site-scope: the hub lists every site's quizzes on purpose (cross-site read)
+  const all = await supabase.from('quizzes').select('id, site_id');
+  const share = `${SITE.url}/q/${slug}`; // the canonical origin of kpopquiz.org comes from SITE
+  return { quizzes, group, a, b, filtered, q, profile, all, share };
+}
