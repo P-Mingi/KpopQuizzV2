@@ -1,0 +1,203 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "Four Arcs and Seven Million Copies: Vinland Saga Odds and Ends",
+ "slug": "four-arcs-and-seven-million-copies-vinland-saga-odds-and-ends",
+ "description": "Nine mixed questions on the story blocks, the move between magazines, the sales, the second prize and what a general did after the wars.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Vinland Saga chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Vinland Saga characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 facts (003, 010, 012) plus the pacifist farmer fact (015, arc 1, both scopes). Level 1.",
+ "questions": [
+  {
+   "question": "Which arc fills chapters 1 to 54, the chapters of the first season?",
+   "options": [
+    "Slave Arc",
+    "Eastern Expedition Arc",
+    "War Arc",
+    "Vinland Arc"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "Which arc fills chapters 55 to 100, the chapters of the second season?",
+   "options": [
+    "Slave Arc",
+    "War Arc",
+    "Eastern Expedition Arc",
+    "Vinland Arc"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "Which arc covers chapters 161 to 220?",
+   "options": [
+    "War Arc",
+    "Slave Arc",
+    "Eastern Expedition Arc",
+    "Vinland Arc"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "Which pair of arcs is not animated yet?",
+   "options": [
+    "War Arc and Slave Arc",
+    "Eastern Expedition Arc and Vinland Arc",
+    "Slave Arc and Eastern Expedition Arc",
+    "War Arc and Vinland Arc"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "Circulation topped which figure by August 2022?",
+   "options": [
+    "12 million",
+    "7 million",
+    "20 million",
+    "40 million"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-awards-sales-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "In which year did Kodansha's general-manga prize follow the Japan Media Arts Festival honor?",
+   "options": [
+    "2010",
+    "2014",
+    "2016",
+    "2012"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-awards-sales-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "On which date did the manga move to Monthly Afternoon?",
+   "options": [
+    "December 24, 2005",
+    "April 13, 2005",
+    "July 25, 2025",
+    "October 14, 2013"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "On which date did the manga finish in Monthly Afternoon?",
+   "options": [
+    "September 22, 2025",
+    "December 24, 2005",
+    "July 25, 2025",
+    "October 14, 2013"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "After leaving war behind, Thors lived as what?",
+   "options": [
+    "A court poet",
+    "A sea trader",
+    "A royal guard",
+    "A pacifist farmer"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-troll-of-jom-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  }
+ ]
+}

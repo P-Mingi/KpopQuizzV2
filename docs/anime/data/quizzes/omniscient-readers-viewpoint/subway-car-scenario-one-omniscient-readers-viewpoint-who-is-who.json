@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_27",
+ "group_slug": "omniscient-readers-viewpoint",
+ "title": "Subway Car, Scenario One: Who Is Who in Omniscient Reader's Viewpoint",
+ "slug": "subway-car-scenario-one-omniscient-readers-viewpoint-who-is-who",
+ "description": "Ten questions on the readers, soldiers, survivors and villains of the story, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia (zh): 全知讀者視角",
+   "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (013, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "questions": [
+  {
+   "question": "Which character is the 28-year-old office worker who is the only person to finish the web novel?",
+   "options": [
+    "Yoo Joonghyuk",
+    "Lee Hyunsung",
+    "Kim Dokja",
+    "Bihyung"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the hero of the novel Dokja reads, a fighter who restarts time after each death?",
+   "options": [
+    "Yoo Joonghyuk",
+    "Kim Dokja",
+    "Lee Hyunsung",
+    "Gong Pildu"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the web novelist who knows the novel's future almost as well as Dokja does?",
+   "options": [
+    "Yoo Sangah",
+    "Jung Heewon",
+    "Shin Yoosung",
+    "Han Sooyoung"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is Dokja's former colleague, pulled into the first scenario on the subway?",
+   "options": [
+    "Jung Heewon",
+    "Yoo Sangah",
+    "Lee Jihye",
+    "Bihyung"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the fearless woman who is not in the novel and wins a powerful sponsor?",
+   "options": [
+    "Yoo Sangah",
+    "Jung Heewon",
+    "Lee Jihye",
+    "Shin Yoosung"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the tall, honest former soldier?",
+   "options": [
+    "Gong Pildu",
+    "Han Myungoh",
+    "Lee Gilyoung",
+    "Lee Hyunsung"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the boy from the first subway car who later gains power over insects?",
+   "options": [
+    "Lee Gilyoung",
+    "Lee Hyunsung",
+    "Lee Jihye",
+    "Shin Yoosung"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the villain who leads the Building Owners' League?",
+   "options": [
+    "Han Myungoh",
+    "Bihyung",
+    "Gong Pildu",
+    "Lee Hyunsung"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the dokkaebi who runs a streaming channel and broadcasts the first scenario?",
+   "options": [
+    "Gong Pildu",
+    "Han Myungoh",
+    "Shin Yoosung",
+    "Bihyung"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "Which character is the girl with rare taming abilities?",
+   "options": [
+    "Shin Yoosung",
+    "Lee Jihye",
+    "Lee Gilyoung",
+    "Jung Heewon"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-cast-list-013"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  }
+ ]
+}

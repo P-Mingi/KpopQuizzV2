@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "Longships and Crossbows: Vinland Saga Who Is Who",
+ "slug": "longships-and-crossbows-vinland-saga-who-is-who",
+ "description": "Ten questions on the warriors, farmers, sailors and royals of the story, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Vinland Saga characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (011, arc 3). The cast list is tagged arc 3, so every question is tagged 3 and the quiz level is 3. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "questions": [
+  {
+   "question": "Which character is the young Viking in Askeladd's company who seeks revenge for his father's death?",
+   "options": [
+    "Bjorn",
+    "Einar",
+    "Thorfinn",
+    "Canute"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the sharp-minded commander of a small but powerful band of Vikings?",
+   "options": [
+    "Askeladd",
+    "Thorkell",
+    "Floki",
+    "Ketil"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is Thorfinn's father, a Jomsviking general?",
+   "options": [
+    "Askeladd",
+    "Leif",
+    "Ketil",
+    "Thors"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the young prince of the Danes drawn into the war over England?",
+   "options": [
+    "Floki",
+    "Canute",
+    "Einar",
+    "Bjorn"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the giant Jomsviking general who loves battle and is Thorfinn's great-uncle?",
+   "options": [
+    "Thors",
+    "Thorkell",
+    "Floki",
+    "Bjorn"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the cheerful old sailor from Greenland who claims to have been to Vinland?",
+   "options": [
+    "Ketil",
+    "Hild",
+    "Floki",
+    "Leif"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the self-serving Jomsviking commander in the Danish army?",
+   "options": [
+    "Floki",
+    "Bjorn",
+    "Askeladd",
+    "Ketil"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is Askeladd's burly second in command, a berserker who fights for the love of combat?",
+   "options": [
+    "Thorfinn",
+    "Einar",
+    "Bjorn",
+    "Hild"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the Anglo-Norse farmer sold into slavery who becomes Thorfinn's close friend?",
+   "options": [
+    "Ketil",
+    "Canute",
+    "Leif",
+    "Einar"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  },
+  {
+   "question": "Which character is the female hunter from Norway armed with a custom crossbow?",
+   "options": [
+    "Hild",
+    "Gudrid",
+    "Ketil",
+    "Floki"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-cast-list-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+  }
+ ]
+}

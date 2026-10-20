@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Forgers, Friends and Classmates: Spy x Family Who Is Who",
+ "slug": "forgers-friends-and-classmates-spy-x-family-who-is-who",
+ "description": "Ten questions on the Forger household, the people who feed Loid his information and the school crowd around Anya, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ],
+ "notes": "Characters quiz on the first cast group fact (009, arc 1). Tagged arc 1 and level 1. Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file.",
+ "questions": [
+  {
+   "question": "Which character is the master spy code-named Twilight who poses as a psychiatrist to build a fake family?",
+   "options": [
+    "Franky Franklin",
+    "Henry Henderson",
+    "Loid Forger",
+    "Yuri Briar"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is the young telepath adopted from an orphanage as Loid's daughter?",
+   "options": [
+    "Anya Forger",
+    "Becky Blackbell",
+    "Damian Desmond",
+    "Yor Forger"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Loid's wife, a City Hall clerk by day and a skilled assassin nicknamed the Thorn Princess?",
+   "options": [
+    "Sylvia Sherwood",
+    "Becky Blackbell",
+    "Anya Forger",
+    "Yor Forger"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is the Forgers' large pet dog, a Great Pyrenees?",
+   "options": [
+    "Henry Henderson",
+    "Bond Forger",
+    "Franky Franklin",
+    "Damian Desmond"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Anya's classmate and the second son of a politician?",
+   "options": [
+    "Yuri Briar",
+    "Damian Desmond",
+    "Henry Henderson",
+    "Franky Franklin"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Anya's best friend at school, a first grader who tries to act more grown-up than she is?",
+   "options": [
+    "Damian Desmond",
+    "Yor Forger",
+    "Sylvia Sherwood",
+    "Becky Blackbell"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Yor's younger brother, an official at the Ministry of Foreign Affairs?",
+   "options": [
+    "Yuri Briar",
+    "Franky Franklin",
+    "Henry Henderson",
+    "Loid Forger"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Twilight's handler and main contact at WISE?",
+   "options": [
+    "Franky Franklin",
+    "Yor Forger",
+    "Sylvia Sherwood",
+    "Becky Blackbell"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is the informant who supplies Twilight with information and is a longtime friend of the spy?",
+   "options": [
+    "Sylvia Sherwood",
+    "Yuri Briar",
+    "Henry Henderson",
+    "Franky Franklin"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is the veteran history teacher and housemaster of Cecil Hall?",
+   "options": [
+    "Henry Henderson",
+    "Franky Franklin",
+    "Yuri Briar",
+    "Damian Desmond"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-main-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ]
+}

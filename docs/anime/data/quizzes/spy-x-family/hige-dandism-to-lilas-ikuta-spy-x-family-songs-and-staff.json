@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Hige Dandism to Lilas Ikuta: Spy x Family Songs and Staff",
+ "slug": "hige-dandism-to-lilas-ikuta-spy-x-family-songs-and-staff",
+ "description": "Ten questions on the artists behind the openings and endings, the director of the third season, the Japanese voices of the Forgers and the channel.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ],
+ "notes": "Production and music quiz on arc 0 facts (006, 007, 011, 019). Artists only, no lyrics, no song titles as distractors; every artist option comes from the theme list of fact 011.",
+ "questions": [
+  {
+   "question": "Which artist performed the first opening of the anime, Mixed Nuts?",
+   "options": [
+    "Bump of Chicken",
+    "Ado",
+    "Official Hige Dandism",
+    "Spitz"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which artist performed the third opening, Kura Kura?",
+   "options": [
+    "Ado",
+    "Official Hige Dandism",
+    "Bump of Chicken",
+    "Spitz"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which band performed the fourth opening, Hi o Mamoru?",
+   "options": [
+    "Official Hige Dandism",
+    "Bump of Chicken",
+    "Ado",
+    "Spitz"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which artist performed the first ending, Comedy?",
+   "options": [
+    "yama",
+    "Gen Hoshino",
+    "Vaundy",
+    "Lilas Ikuta"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which artist performed the fourth ending, Actor?",
+   "options": [
+    "Gen Hoshino",
+    "Lilas Ikuta",
+    "yama",
+    "Vaundy"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Who is credited as director of season 3 of the anime?",
+   "options": [
+    "Kazuhiro Furuhashi",
+    "Takahiro Harada",
+    "Tatsuya Endo",
+    "Yukiko Imai"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-directors-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Who voices Anya in the Japanese cast?",
+   "options": [
+    "Atsumi Tanezaki",
+    "Saori Hayami",
+    "Takuya Eguchi",
+    "Tatsuya Endo"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-voice-cast-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Who voices Yor in the Japanese cast?",
+   "options": [
+    "Atsumi Tanezaki",
+    "Takuya Eguchi",
+    "Saori Hayami",
+    "Tatsuya Endo"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-voice-cast-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Who voices Loid in the Japanese cast?",
+   "options": [
+    "Atsumi Tanezaki",
+    "Saori Hayami",
+    "Tatsuya Endo",
+    "Takuya Eguchi"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-voice-cast-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "In which month and year did the first season of the anime begin airing?",
+   "options": [
+    "April 2022",
+    "March 2019",
+    "December 2023",
+    "December 2025"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ]
+}

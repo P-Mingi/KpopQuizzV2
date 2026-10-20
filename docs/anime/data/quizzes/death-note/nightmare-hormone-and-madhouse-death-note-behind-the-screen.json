@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_01",
+ "group_slug": "death-note",
+ "title": "Nightmare, Hormone and Madhouse: Death Note Behind the Screen",
+ "slug": "nightmare-hormone-and-madhouse-death-note-behind-the-screen",
+ "description": "Ten questions on the studio, the director, the channel, the two bands and the composer, plus the prose spin-off and the American licence.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Death Note (2006 TV series)",
+   "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  }
+ ],
+ "notes": "Production and music quiz on arc 0 facts (005, 006, 010, 018, 020). Artists only, no lyrics, no song titles as distractors. Aimer and milet in one question come from the facts of another series in the same data set.",
+ "questions": [
+  {
+   "question": "Which band performed the first opening of the Death Note anime?",
+   "options": [
+    "Maximum the Hormone",
+    "Yoshihisa Hirano",
+    "Nightmare",
+    "Aimer"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-theme-songs-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Which band took over both the opening and the ending slots in the second half?",
+   "options": [
+    "Maximum the Hormone",
+    "Nightmare",
+    "Yoshihisa Hirano",
+    "milet"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-theme-songs-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Who composed the short piece that ends the last episode?",
+   "options": [
+    "Nightmare",
+    "Maximum the Hormone",
+    "Aimer",
+    "Yoshihisa Hirano"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-theme-songs-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "How many different opening songs does the Death Note anime use?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "5"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-theme-songs-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "How many different ending songs does the Death Note anime use?",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-theme-songs-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Which studio made the Death Note TV adaptation?",
+   "options": [
+    "Shueisha",
+    "Viz Media",
+    "Nippon Television",
+    "Madhouse"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-staff-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "On which broadcaster did the Death Note anime run?",
+   "options": [
+    "Nippon Television",
+    "Madhouse",
+    "Shueisha",
+    "Viz Media"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "In which month and year did the Death Note anime begin?",
+   "options": [
+    "April 2006",
+    "June 2007",
+    "October 2006",
+    "October 2007"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Who wrote the prose spin-off Another Note, published in 2006?",
+   "options": [
+    "Tsugumi Ohba",
+    "Takeshi Obata",
+    "Tetsurō Araki",
+    "Nisio Isin"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-another-note-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Which company holds the North American licence for the Death Note books and anime?",
+   "options": [
+    "Viz Media",
+    "Shueisha",
+    "Madhouse",
+    "Nippon Television"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-north-america-license-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  }
+ ]
+}
