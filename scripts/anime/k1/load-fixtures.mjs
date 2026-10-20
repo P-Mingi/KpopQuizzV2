@@ -37,7 +37,7 @@ const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const dataAt = args.indexOf('--data');
 const dataDir = dataAt >= 0 ? args[dataAt + 1] : null;
-const target = args.find((a, i) => !a.startsWith('--') && i !== dataAt + 1);
+const target = args.find((a, i) => !a.startsWith('--') && (dataAt < 0 || i !== dataAt + 1));
 const USAGE = 'usage: load-fixtures.mjs <scratch|dev> [--data <dir>] [--dry-run]';
 if (args.some((a) => a.startsWith('--') && a !== '--dry-run' && a !== '--data')) fail(USAGE, 2);
 if (dataAt >= 0 && (!dataDir || dataDir.startsWith('--'))) fail(USAGE, 2);
