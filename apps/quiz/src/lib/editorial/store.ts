@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { forSite, withSite } from '@/lib/site/scope';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 import { insertCommunityDebate } from '@/lib/ux-v1/p8/write';
 
@@ -11,6 +12,10 @@ import type { EditorialAccount, EditorialDraft } from './types';
 // v12-g9-editorial.sql, plus community_debates through the fan-debate insert.
 // Server only. Callers check editorialLive() first: nothing here runs against a
 // missing table.
+//
+// Run O1 (lot e, E1a): every read goes through forSite and every insert through withSite, so the queue of an
+// anime build holds only anime drafts, accounts and posts. On the kpop build with SITE_SCOPE off both are no-ops:
+// the queries and the insert payloads are today's.
 
 type Svc = ReturnType<typeof createServiceRoleClient>;
 
@@ -35,23 +40,23 @@ export async function editorialLive(svc: Svc = createServiceRoleClient()): Promi
 export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialStore {
   return {
     async accounts() {
-      const { data } = must(await svc.from('editorial_accounts').select('user_id, display_name, beat, active').order('created_at', { ascending: true }).limit(50), 'accounts');
+      const { data } = must(await forSite(svc.from('editorial_accounts').select('user_id, display_name, beat, active')).order('created_at', { ascending: true }).limit(50), 'accounts');
       return (data ?? []) as EditorialAccount[];
     },
     async listDrafts(limit) {
-      const { data } = must(await svc.from('editorial_drafts').select(DRAFT_COLS).order('created_at', { ascending: false }).limit(limit), 'drafts');
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).order('created_at', { ascending: false }).limit(limit), 'drafts');
       return (data ?? []) as unknown as EditorialDraft[];
     },
     async getDraft(id) {
-      const { data } = must(await svc.from('editorial_drafts').select(DRAFT_COLS).eq('id', id).maybeSingle(), 'draft');
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).eq('id', id).maybeSingle(), 'draft');
       return (data as unknown as EditorialDraft | null) ?? null;
     },
     async insertDraft(row) {
-      const { data, error } = await svc.from('editorial_drafts').insert({
+      const { data, error } = await svc.from('editorial_drafts').insert(withSite({
         account_id: row.account_id, kind: row.kind, group_id: row.group_id, title: row.title, body: row.body,
         options: row.options, sources: row.sources, debate_days: row.debate_days, created_by: row.created_by,
         template_key: row.template_key, status: 'draft',
-      }).select(DRAFT_COLS).single();
+      })).select(DRAFT_COLS).single();
       if (error) {
         if (error.code === '23505') return null; // the template_key already has its draft
         throw new Error(`editorial insert draft: ${error.message}`);
@@ -59,24 +64,24 @@ export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialSt
       return data as unknown as EditorialDraft;
     },
     async updateDraft(id, patch: DraftPatch, when) {
-      let q = svc.from('editorial_drafts').update({ ...patch, updated_at: new Date().toISOString() }).eq('id', id).in('status', when.status);
+      let q = forSite(svc.from('editorial_drafts').update({ ...patch, updated_at: new Date().toISOString() })).eq('id', id).in('status', when.status);
       if (when.unclaimed) q = q.is('published_ref', null);
       const { data } = must(await q.select(DRAFT_COLS).maybeSingle(), 'update draft');
       return (data as unknown as EditorialDraft | null) ?? null;
     },
     async approvedDue(nowIso) {
-      const { data } = must(await svc.from('editorial_drafts').select(DRAFT_COLS).eq('status', 'approved').lte('scheduled_at', nowIso)
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).eq('status', 'approved').lte('scheduled_at', nowIso)
         .order('scheduled_at', { ascending: true }).order('id', { ascending: true }).limit(200), 'due drafts');
       return (data ?? []) as unknown as EditorialDraft[];
     },
     async publishedCount(startIso, endIso) {
       // GET + exact count (never HEAD), limit 1: the count is exact past 1000 rows.
-      const { count } = must(await svc.from('editorial_drafts').select('id', { count: 'exact' }).eq('status', 'published')
+      const { count } = must(await forSite(svc.from('editorial_drafts').select('id', { count: 'exact' })).eq('status', 'published')
         .gte('published_at', startIso).lt('published_at', endIso).limit(1), 'published count');
       return count ?? 0;
     },
     async lastPublishedAccount() {
-      const { data } = must(await svc.from('editorial_drafts').select('account_id').eq('status', 'published')
+      const { data } = must(await forSite(svc.from('editorial_drafts').select('account_id')).eq('status', 'published')
         .order('published_at', { ascending: false }).order('id', { ascending: false }).limit(1).maybeSingle(), 'last published');
       return (data as { account_id: string } | null)?.account_id ?? null;
     },
@@ -86,10 +91,10 @@ export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialSt
       return r.id;
     },
     async insertPost(row) {
-      const { data, error } = await svc.from('editorial_posts').insert({
+      const { data, error } = await svc.from('editorial_posts').insert(withSite({
         draft_id: row.draft_id, kind: row.kind, group_id: row.group_id, author: row.author, title: row.title,
         body: row.body, sources: row.sources, status: 'visible',
-      }).select('id').single();
+      })).select('id').single();
       if (error) throw new Error(`editorial insert post: ${error.message}`);
       return (data as { id: number }).id;
     },

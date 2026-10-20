@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useToast } from '@/components/ui/toast-provider';
 import { getLevelInfo } from '@/lib/constants';
 import { formatCount, getAvatarColors } from '@/lib/utils';
+import { SITE } from '@/lib/site/registry';
 
 // Types
 interface KPIs {
@@ -804,7 +805,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-lg font-medium text-primary">Admin dashboard</h1>
-          <p className="text-sm text-secondary">kpopquiz.org</p>
+          <p className="text-sm text-secondary">{SITE.domain}</p>
         </div>
         <div className="flex items-center gap-3">
           {loading && <span className="text-xs text-tertiary">Loading...</span>}

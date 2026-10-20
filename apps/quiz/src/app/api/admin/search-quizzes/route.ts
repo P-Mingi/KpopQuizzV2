@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -20,9 +21,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json([]);
   }
 
-  const { data, error } = await supabase
+  // Run O1: the build's site only (a no-op on kpop with SITE_SCOPE off).
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select('id, title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)')
+    .select('id, title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)'))
     .eq('status', 'published')
     .ilike('title', `%${query}%`)
     .order('play_count', { ascending: false })

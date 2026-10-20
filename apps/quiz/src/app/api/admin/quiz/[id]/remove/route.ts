@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -19,18 +20,19 @@ export async function POST(
 
   const adminDb = createServiceRoleClient();
 
-  const { error: quizError } = await adminDb
+  // Run O1: only a quiz of the build's site (a no-op on kpop with SITE_SCOPE off).
+  const { error: quizError } = await forSite(adminDb
     .from('quizzes')
-    .update({ status: 'removed', updated_at: new Date().toISOString() })
+    .update({ status: 'removed', updated_at: new Date().toISOString() }))
     .eq('id', id);
 
   if (quizError) {
     return NextResponse.json({ error: 'Failed to remove quiz' }, { status: 500 });
   }
 
-  await adminDb
+  await forSite(adminDb
     .from('reports')
-    .update({ status: 'resolved' })
+    .update({ status: 'resolved' }))
     .eq('quiz_id', id)
     .eq('status', 'pending');
 

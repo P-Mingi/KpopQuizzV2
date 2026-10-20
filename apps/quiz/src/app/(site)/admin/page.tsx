@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 import { avgScorePct } from '@/lib/quiz/scoring';
 import { AdminDashboard } from './admin-dashboard';
 
@@ -41,29 +42,29 @@ export default async function AdminPage(): Promise<React.ReactElement> {
   ] = await Promise.all([
     supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', periodStart),
     supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', new Date(now.getTime() - 14 * 86400000).toISOString()).lt('created_at', periodStart),
-    supabase.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published').gte('created_at', periodStart),
+    forSite(supabase.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published').gte('created_at', periodStart),
     supabase.from('profiles').select('id', { count: 'exact', head: true }).gte('created_at', periodStart),
     supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', todayStart),
     supabase.from('profiles').select('id', { count: 'exact', head: true }).gte('created_at', todayStart),
-    supabase.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published').gte('created_at', todayStart),
-    supabase.from('reports').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-    supabase.from('quizzes').select('play_count, total_completions').eq('status', 'published').gt('play_count', 0),
+    forSite(supabase.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published').gte('created_at', todayStart),
+    forSite(supabase.from('reports').select('id', { count: 'exact', head: true })).eq('status', 'pending'),
+    forSite(supabase.from('quizzes').select('play_count, total_completions')).eq('status', 'published').gt('play_count', 0),
     supabase.from('plays').select('created_at').gte('created_at', periodStart).order('created_at', { ascending: true }),
     supabase.from('profiles').select('created_at').gte('created_at', periodStart).order('created_at', { ascending: true }),
-    supabase.from('quizzes').select('created_at').eq('status', 'published').gte('created_at', periodStart).order('created_at', { ascending: true }),
-    supabase.from('groups').select('name, display_color, total_plays').order('total_plays', { ascending: false }).limit(10),
-    supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)').eq('status', 'published').gte('created_at', periodStart).order('play_count', { ascending: false }).limit(10),
-    supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)').eq('status', 'published').gte('created_at', periodStart).order('play_count', { ascending: false }),
+    forSite(supabase.from('quizzes').select('created_at')).eq('status', 'published').gte('created_at', periodStart).order('created_at', { ascending: true }),
+    forSite(supabase.from('groups').select('name, display_color, total_plays')).order('total_plays', { ascending: false }).limit(10),
+    forSite(supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)')).eq('status', 'published').gte('created_at', periodStart).order('play_count', { ascending: false }).limit(10),
+    forSite(supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)')).eq('status', 'published').gte('created_at', periodStart).order('play_count', { ascending: false }),
     // Moderation queue
-    supabase.from('reports').select('id, reason, details, created_at, status, quiz_id, quizzes!inner(id, title, slug, status, report_count), profiles!reports_reporter_id_fkey(username)').eq('status', 'pending').order('created_at', { ascending: false }).limit(50),
+    forSite(supabase.from('reports').select('id, reason, details, created_at, status, quiz_id, quizzes!inner(id, title, slug, status, report_count), profiles!reports_reporter_id_fkey(username)')).eq('status', 'pending').order('created_at', { ascending: false }).limit(50),
     // Current QOTD
-    supabase.from('quizzes').select('id, title, slug, quiz_of_the_day_date, profiles!quizzes_creator_id_fkey(username)').eq('is_quiz_of_the_day', true).eq('quiz_of_the_day_date', now.toISOString().split('T')[0]!).maybeSingle(),
+    forSite(supabase.from('quizzes').select('id, title, slug, quiz_of_the_day_date, profiles!quizzes_creator_id_fkey(username)')).eq('is_quiz_of_the_day', true).eq('quiz_of_the_day_date', now.toISOString().split('T')[0]!).maybeSingle(),
     // Upcoming QOTD
-    supabase.from('quizzes').select('id, title, slug, quiz_of_the_day_date, profiles!quizzes_creator_id_fkey(username)').eq('is_quiz_of_the_day', true).gt('quiz_of_the_day_date', now.toISOString().split('T')[0]!).order('quiz_of_the_day_date', { ascending: true }).limit(7),
+    forSite(supabase.from('quizzes').select('id, title, slug, quiz_of_the_day_date, profiles!quizzes_creator_id_fkey(username)')).eq('is_quiz_of_the_day', true).gt('quiz_of_the_day_date', now.toISOString().split('T')[0]!).order('quiz_of_the_day_date', { ascending: true }).limit(7),
     // Recent users
     supabase.from('profiles').select('id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, total_quizzes_created, total_plays_received, created_at, banned_at').order('created_at', { ascending: false }).limit(20),
     // All quizzes (first page)
-    supabase.from('quizzes').select('id, title, slug, status, quiz_type, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)').order('created_at', { ascending: false }).limit(20),
+    forSite(supabase.from('quizzes').select('id, title, slug, status, quiz_type, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)')).order('created_at', { ascending: false }).limit(20),
   ]);
 
   // Process KPIs
