@@ -50,7 +50,7 @@ function PlaylistMenu({ close }: { close: () => void }): React.ReactElement | nu
   );
   return (
     <>
-      {item(ALL_PICK, <>All K-pop{hub.songs > 0 ? <small className="ux-num">{hub.songs.toLocaleString('en-US')} songs</small> : null}</>)}
+      {item(ALL_PICK, <>{ALL_PICK.label}{hub.songs > 0 ? <small className="ux-num">{hub.songs.toLocaleString('en-US')} songs</small> : null}</>)}
       {hub.groups.length > 0 ? (
         <>
           <div className="p6-pl-h">Groups<small>{list.length} {list.length === 1 ? 'playlist' : 'playlists'}</small></div>
