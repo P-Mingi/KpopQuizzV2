@@ -57,6 +57,8 @@ Object.assign(dataSchema.properties.characters.items.properties, { affiliation: 
 dataSchema.properties.characters.items.required.push('affiliation', 'debut_medium');
 Object.assign(dataSchema.properties.themes.items.properties, { deezer_playable: { type: 'boolean' } });
 dataSchema.properties.themes.items.required.push('deezer_playable');
+// A series with no aired anime (webtoon or manga only) has no opening or ending: the data files may hold an empty themes list.
+dataSchema.properties.themes.minItems = 0;
 registry['series-data.schema.json'] = dataSchema;
 registry['series-fixture.schema.json'] = fixture;
 

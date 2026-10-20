@@ -1,0 +1,368 @@
+{
+  "$comment": "Run O1 lane K1 batch b9: series data for Vinland Saga (tier C), built from pinned Wikipedia revisions (manga article 1378041110, TV series 1379073139, episode list 1376081382, chapter list 1378686023, character list 1379043007), Wikidata Q930990 (the manga: 29 volumes, 220 chapters, 2005-04-13 to 2025-07-25), Q111677557 (season 1) and Q115730093 (season 2), Q1269354 (Yukimura, ja label 幸村誠). The official site vinlandsaga.jp was read directly but is a thin promotional page without staff data, so it is only the official_url. Arcs: the four arcs are the ones the manga article names (War, Slave, Eastern Expedition, Vinland). Chapter numbers come from the numbered list on the chapter-list article (220 numbered chapters, volume borders: 'End of the Prologue' is chapter 54 and closes the War Arc; 'Slave' is 55; 'Departure' and 'Homecoming' 99 and 100 close the Slave Arc; 'The Fettered Tern (1)' is 101; 'Sigurd's Decision' is 161, the first chapter after the return to Iceland, which is where the Vinland Arc plot summary starts). The 160/161 border is our reading of that plot summary and is the least certain one. Anime: season 1 (Wit Studio, 24 episodes, 2019) covers the War Arc and season 2 (MAPPA, 24 episodes, 2023) the Slave Arc, per the TV article's season overviews; episode numbers run 1 to 24 then 25 to 48 overall. Arcs 3 and 4 are manga only. Status finished: the manga ended on July 25, 2025 and no third season is announced in the cited pages. Themes: the TV article and episode list number the four openings and four endings across the series (season 1 holds OP1, OP2, ED1, ED2; season 2 holds OP3, OP4, ED3, ED4); the title is stored as Mukanjyo and the singer as milet, as the articles write them. No theme-entity facts: the theme entity ref pattern (op-N) would collide across series in entity_sources, so the songs are backed by series-level list facts. Characters: names and katakana from the Nihongo templates of the character list; debut arcs follow its sections 'Introduced in the first/second/third story arc'.",
+  "group": {
+    "slug": "vinland-saga",
+    "name": "Vinland Saga",
+    "site": "anime",
+    "display_color": "#2F4F4F",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Vinland Saga",
+    "title_native": "ヴィンランド・サガ",
+    "title_romaji": "Vinrando Saga",
+    "studios": [
+      {
+        "name": "Wit Studio",
+        "seasons": [
+          1
+        ]
+      },
+      {
+        "name": "MAPPA",
+        "seasons": [
+          2
+        ]
+      }
+    ],
+    "director": "Shūhei Yabuta",
+    "authors": [
+      {
+        "name": "Makoto Yukimura",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Monthly Afternoon",
+    "publisher": "Kodansha",
+    "anime_start_year": 2019,
+    "anime_end_year": 2023,
+    "manga_start_year": 2005,
+    "manga_end_year": 2025,
+    "status": "finished",
+    "episodes": 48,
+    "seasons": 2,
+    "volumes": 29,
+    "chapters": 220,
+    "official_url": "https://vinlandsaga.jp/",
+    "wikidata_qid": "Q930990",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "War Arc",
+      "kind": "arc",
+      "chapter_from": 1,
+      "chapter_to": 54,
+      "episode_from": 1,
+      "episode_to": 24,
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Slave Arc",
+      "kind": "arc",
+      "chapter_from": 55,
+      "chapter_to": 100,
+      "episode_from": 25,
+      "episode_to": 48,
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Eastern Expedition Arc",
+      "kind": "arc",
+      "chapter_from": 101,
+      "chapter_to": 160,
+      "manga_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Vinland Arc",
+      "kind": "arc",
+      "chapter_from": 161,
+      "chapter_to": 220,
+      "manga_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "thorfinn",
+      "name": "Thorfinn",
+      "name_native": "トルフィン",
+      "role": "main",
+      "affiliation": "Askeladd's company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young Viking in Askeladd's company who seeks revenge for his father's death.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "askeladd",
+      "name": "Askeladd",
+      "name_native": "アシェラッド",
+      "role": "main",
+      "affiliation": "Askeladd's company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The sharp-minded commander of a small but powerful band of Vikings.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "thors",
+      "name": "Thors",
+      "name_native": "トールズ",
+      "role": "supporting",
+      "affiliation": "Jomsvikings",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Thorfinn's father, a Jomsviking general known as the Troll of Jom.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "canute",
+      "name": "Canute",
+      "name_native": "クヌート",
+      "role": "main",
+      "affiliation": "Danish royal family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young prince of the Danes who is drawn into the war over England.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "thorkell",
+      "name": "Thorkell",
+      "name_native": "トルケル",
+      "role": "supporting",
+      "affiliation": "Jomsvikings",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A giant Jomsviking general who loves battle and is Thorfinn's great-uncle.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "leif",
+      "name": "Leif",
+      "name_native": "レイフ",
+      "role": "supporting",
+      "affiliation": "Greenland sailors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A cheerful old sailor from Greenland who claims to have been to Vinland.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "floki",
+      "name": "Floki",
+      "name_native": "フローキ",
+      "role": "antagonist",
+      "affiliation": "Jomsvikings",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A self-serving Jomsviking commander in the Danish army.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "bjorn",
+      "name": "Bjorn",
+      "name_native": "ビョルン",
+      "role": "supporting",
+      "affiliation": "Askeladd's company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Askeladd's burly second in command, a berserker who fights for the love of combat.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "einar",
+      "name": "Einar",
+      "name_native": "エイナル",
+      "role": "main",
+      "affiliation": "Ketil's farm",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "An Anglo-Norse farmer sold into slavery who becomes Thorfinn's close friend.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "ketil",
+      "name": "Ketil",
+      "name_native": "ケティル",
+      "role": "supporting",
+      "affiliation": "Ketil's farm",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A Danish landowner who buys slaves to work his farm.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "gudrid",
+      "name": "Gudrid",
+      "name_native": "グズリーズ",
+      "role": "supporting",
+      "affiliation": "Greenland",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A young woman from Greenland who escapes an arranged marriage and joins Thorfinn's party.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "hild",
+      "name": "Hild",
+      "name_native": "ヒルド",
+      "role": "supporting",
+      "affiliation": "Norway",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A female hunter from Norway armed with a custom crossbow.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Mukanjyo",
+      "artist": "Survive Said the Prophet",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Torches",
+      "artist": "Aimer",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Dark Crow",
+      "artist": "Man with a Mission",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Drown",
+      "artist": "milet",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "River",
+      "artist": "Anonymouz",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "Without Love",
+      "artist": "LMYK",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 4,
+      "title": "Paradox",
+      "artist": "Survive Said the Prophet",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "Ember",
+      "artist": "haju:harmonics",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+      "status": "published"
+    }
+  ]
+}
