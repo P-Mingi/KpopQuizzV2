@@ -1,4 +1,5 @@
 import { avgScorePct } from '@/lib/quiz/scoring';
+import { SITE } from '@/lib/site/registry';
 
 export interface QuizBankEntry {
   id: string;
@@ -35,7 +36,11 @@ function getWeekKey(dateStr: string): string {
   return monday.toISOString().split('T')[0]!;
 }
 
-export function validateSchedule(quizzes: QuizBankEntry[]): ScheduleViolation[] {
+/**
+ * Checks a bank schedule. `weeklyLimit` is the most quizzes of one group in a calendar week: SITE.editorial.weeklyGroupLimit
+ * (kpop 3, anime 2) unless the caller names another.
+ */
+export function validateSchedule(quizzes: QuizBankEntry[], weeklyLimit: number = SITE.editorial.weeklyGroupLimit): ScheduleViolation[] {
   const violations: ScheduleViolation[] = [];
 
   const scheduled = quizzes
@@ -67,20 +72,20 @@ export function validateSchedule(quizzes: QuizBankEntry[]): ScheduleViolation[] 
     }
   }
 
-  // No more than 3 of the same group in a calendar week
+  // No more than `weeklyLimit` (3 on kpop) of the same group in a calendar week
   const weekGroups: Record<string, Record<number, number>> = {};
   for (const q of scheduled) {
     if (!q.group_id || !q.scheduled_date) continue;
     const week = getWeekKey(q.scheduled_date);
     if (!weekGroups[week]) weekGroups[week] = {};
     weekGroups[week][q.group_id] = (weekGroups[week][q.group_id] ?? 0) + 1;
-    if (weekGroups[week][q.group_id]! > 3) {
+    if (weekGroups[week][q.group_id]! > weeklyLimit) {
       violations.push({
         date: q.scheduled_date,
         quiz_id: q.id,
         quiz_title: q.title,
         rule: 'group_weekly_limit',
-        message: `More than 3 quizzes for this group in the same week`,
+        message: `More than ${weeklyLimit} quizzes for this group in the same week`,
       });
     }
   }
