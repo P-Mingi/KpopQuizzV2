@@ -1,0 +1,303 @@
+{
+  "$comment": "Run O1 lane K1 batch b8: series data for Kaiju No. 8 (tier C), built from pinned Wikipedia revisions (main article 1380846548, episode list 1376808063, chapter list 1377041414, character list 1379106176), Wikidata Q103888159 (the manga), the official Shonen Jump+ page (read directly: complete, 16 volumes, author 松本直也) and the official anime site kaiju-no8.net (staff page: director, Production I.G, Studio Khara designs; read directly). Note: the domain kaiju-no8.com is an unrelated spam site and is not used. No allowed source names story arcs, so the three arcs are the two anime seasons (season 1 episodes 1 to 12, season 2 overall episodes 13 to 23, the 11 episodes of season 2 numbered 1 to 11 on the Wikipedia list) and the manga after season 2 (manga_only; no chapter range is stored because no allowed source maps the season 2 end to a chapter; the anime conclusion arc is announced but not yet aired). The manga ended on July 18, 2025 with chapter 129 and 16 volumes, final volume September 4, 2025. Character debut arcs follow the first named mention in the Wikipedia episode summaries (Kafka, Reno, Mina ep 1; Kikoru ep 2; Hoshina ep 3; Isao ep 4; Furuhashi and Izumo ep 5; Kaiju No. 9 ep 7; Kaiju No. 10 and Itami ep 11; Narumi ep 13, so arc 2); the two humanoid kaiju are tagged level 1 because they are the story's antagonists. Native names are the spaced forms of the English Wikipedia character list. Themes: Abyss and Nobody (season 1), You Can't Run From Yourself and Beautiful Colors (season 2); the OneRepublic song Invincible belongs to the special episode and is not stored. Status between_seasons: the manga is complete, the anime conclusion arc is announced.",
+  "group": {
+    "slug": "kaiju-no-8",
+    "name": "Kaiju No. 8",
+    "site": "anime",
+    "display_color": "#0F766E",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Kaiju No. 8",
+    "title_native": "怪獣8号",
+    "title_romaji": "Kaijū Hachigō",
+    "studios": [
+      {
+        "name": "Production I.G",
+        "seasons": [
+          1,
+          2
+        ]
+      }
+    ],
+    "director": "Shigeyuki Miya",
+    "authors": [
+      {
+        "name": "Naoya Matsumoto",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Shōnen Jump+",
+    "publisher": "Shueisha",
+    "anime_start_year": 2024,
+    "anime_end_year": 2025,
+    "manga_start_year": 2020,
+    "manga_end_year": 2025,
+    "status": "between_seasons",
+    "episodes": 23,
+    "seasons": 2,
+    "volumes": 16,
+    "chapters": 129,
+    "official_url": "https://shonenjumpplus.com/episode/13933686331762212128",
+    "wikidata_qid": "Q103888159",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Season 1",
+      "kind": "season",
+      "episode_from": 1,
+      "episode_to": 12,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Season 2",
+      "kind": "season",
+      "episode_from": 13,
+      "episode_to": 23,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Manga after season 2",
+      "kind": "arc",
+      "manga_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "kafka-hibino",
+      "name": "Kafka Hibino",
+      "name_native": "日比野 カフカ",
+      "role": "main",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A cleaner at a kaiju disposal company who gains the power to turn into a kaiju.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "reno-ichikawa",
+      "name": "Reno Ichikawa",
+      "name_native": "市川 レノ",
+      "role": "main",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young recruit who starts at Kafka's company and aims to join the Defense Force.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "kikoru-shinomiya",
+      "name": "Kikoru Shinomiya",
+      "name_native": "四ノ宮 キコル",
+      "role": "main",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A gifted young fighter and the daughter of the Defense Force's Director General.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "mina-ashiro",
+      "name": "Mina Ashiro",
+      "name_native": "亜白 ミナ",
+      "role": "supporting",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Captain of the Third Division and Kafka's childhood friend.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "soshiro-hoshina",
+      "name": "Soshiro Hoshina",
+      "name_native": "保科 宗四郎",
+      "role": "supporting",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Third Division's vice-captain and a skilled swordsman.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "gen-narumi",
+      "name": "Gen Narumi",
+      "name_native": "鳴海 弦",
+      "role": "supporting",
+      "affiliation": "First Division",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "Captain of the First Division and its strongest active combatant.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "isao-shinomiya",
+      "name": "Isao Shinomiya",
+      "name_native": "四ノ宮 功",
+      "role": "supporting",
+      "affiliation": "Defense Force (executive)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Director General of the Defense Force and father of Kikoru.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "iharu-furuhashi",
+      "name": "Iharu Furuhashi",
+      "name_native": "古橋 伊春",
+      "role": "supporting",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A new Third Division recruit who becomes a rival of Reno.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "haruichi-izumo",
+      "name": "Haruichi Izumo",
+      "name_native": "出雲 ハルイチ",
+      "role": "supporting",
+      "affiliation": "Third Division",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A new Third Division recruit from the family behind the firm Izumo Tech.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "keiji-itami",
+      "name": "Keiji Itami",
+      "name_native": "伊丹 啓司",
+      "role": "supporting",
+      "affiliation": "Defense Force (executive)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The dutiful Deputy Director of the Defense Force.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "kaiju-no-9",
+      "name": "Kaiju No. 9",
+      "name_native": "怪獣9号",
+      "role": "antagonist",
+      "affiliation": "Kaiju",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A humanoid kaiju able to create other kaiju and stage attacks on the Defense Force.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "kaiju-no-10",
+      "name": "Kaiju No. 10",
+      "name_native": "怪獣10号",
+      "role": "antagonist",
+      "affiliation": "Kaiju",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A humanoid kaiju that leads a raid on the Third Division base.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Abyss",
+      "artist": "Yungblud",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Nobody",
+      "artist": "OneRepublic",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "You Can't Run From Yourself",
+      "artist": "Aurora",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Beautiful Colors",
+      "artist": "OneRepublic",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+      "status": "published"
+    }
+  ]
+}

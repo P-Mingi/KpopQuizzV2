@@ -1,0 +1,476 @@
+[
+  {
+    "id": "apothecary-diaries-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "title_native",
+    "value": "薬屋のひとりごと (Kusuriya no Hitorigoto)",
+    "text": "The Apothecary Diaries is Kusuriya no Hitorigoto in Japanese, a title that can be read as Apothecary's Soliloquy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q48751907",
+        "ref": "Q48751907",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Apothecary Diaries (薬屋のひとりごと, Kusuriya no Hitorigoto, lit. Apothecary's Soliloquy) is a Japanese light novel series"
+  },
+  {
+    "id": "apothecary-diaries-author-story-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "author",
+    "value": "Hyūganatsu (story); light novel illustrated by Touko Shino",
+    "text": "Hyūganatsu is the author of the story, and Touko Shino draws the illustrations of the published light novels.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n9636x/",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese light novel series written by Hyūganatsu and illustrated by Touko Shino"
+  },
+  {
+    "id": "apothecary-diaries-novel-history-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "novel_history",
+    "value": "Web novel on Shōsetsuka ni Narō since 2011; Shufunotomo light novels from August 29, 2014, 16 volumes by May 2025",
+    "text": "The tale began as a web novel on Shōsetsuka ni Narō in 2011, then Shufunotomo issued a single book in 2012 and a Hero Bunko light novel line from August 29, 2014, which had 16 volumes by May 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q48751907",
+        "ref": "Q48751907",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://herobunko.com/books/hero14/",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In 2014, Shufunotomo began to publish the series again, illustrated by Touko Shino. This time, it was published as a light novel in their Hero Bunko imprint"
+  },
+  {
+    "id": "apothecary-diaries-manga-big-gangan-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "manga",
+    "value": "Monthly Big Gangan (Square Enix), art by Nekokurage, from May 25, 2017, 17 volumes",
+    "text": "Square Enix publishes the first manga adaptation, drawn by Nekokurage, in Monthly Big Gangan; it started on May 25, 2017 and has reached 17 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://squareenixmangaandbooks.square-enix-games.com/en-us/series/the-apothecary-diaries",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first is published by Square Enix in Monthly Big Gangan with art by Nekokurage"
+  },
+  {
+    "id": "apothecary-diaries-manga-gene-x-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "manga_2",
+    "value": "Maomao's Notes on the Inner Palace: Minoji Kurata, Shogakukan, Monthly Sunday Gene-X, from August 19, 2017",
+    "text": "A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017 under the title Maomao's Notes on the Inner Palace.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the second is published by Shogakukan in Monthly Sunday Gene-X with art by Minoji Kurata"
+  },
+  {
+    "id": "apothecary-diaries-anime-season-one-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s1",
+    "value": "Toho Animation Studio and OLM, directors Norihiro Naganuma and Akinori Fudesaka, 24 episodes, October 22, 2023 to March 24, 2024",
+    "text": "Toho Animation Studio and OLM made the first season together, and its 24 episodes ran on Nippon TV from October 22, 2023 until March 24, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q116787865",
+        "ref": "Q116787865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Produced by Toho Animation Studio and OLM, the series was written by Norihiro Naganuma and directed by Naganuma and Akinori Fudesaka."
+  },
+  {
+    "id": "apothecary-diaries-anime-season-two-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s2",
+    "value": "Episodes 25 to 48, January 10 to July 4, 2025",
+    "text": "Season two returned on January 10, 2025 and ended on July 4, 2025, adding episodes 25 to 48 to the total of 48.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q116787865",
+        "ref": "Q116787865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a second season was announced. It aired from January 10 to July 4, 2025, on Nippon TV's Friday Anime Night and its affiliates."
+  },
+  {
+    "id": "apothecary-diaries-anime-season-three-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s3",
+    "value": "Premiered October 2, 2026, produced by OLM alone, in two parts",
+    "text": "Season three started on October 2, 2026 as an OLM-only production, carries on from episode 49, and plans its second part for April 2027.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a third season was announced that premiered on October 2, 2026. The season, now produced solely by OLM, will run in two parts"
+  },
+  {
+    "id": "apothecary-diaries-setting-tang-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "setting",
+    "value": "A Tang-inspired fictional empire",
+    "text": "The story takes place in an invented empire modeled on Tang-era China, although the author points out that it is technically not set in China.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Set in a fictional country inspired by Tang Dynasty-era China, the series follows Maomao, a girl trained in medicine by her apothecary father."
+  },
+  {
+    "id": "apothecary-diaries-copies-circulation-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "copies",
+    "value": "Over 57 million copies, August 2026",
+    "text": "Counting the light novels and both manga series, the franchise had more than 57 million copies in circulation by August 2026.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By August 2026, the franchise had over 57 million copies in circulation."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-one-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Hana ni Natte - Ryokuoushoku Shakai (season 1)",
+      "ED 1: Aikotoba - Aina the End (season 1)",
+      "OP 2: Ambivalent - Uru (season 1)",
+      "ED 2: Ai wa Kusuri - Wacci (season 1)"
+    ],
+    "text": "Season one started with Hana ni Natte and Aikotoba, then switched to Ambivalent by Uru and Ai wa Kusuri by Wacci.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The initial opening theme song was \"Hana ni Natte\", performed by Ryokuoushoku Shakai; the ending theme song was \"Aikotoba\", performed by Aina the End."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-two-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 3: Hyakka Ryōran - Lilas Ikuta (season 2)",
+      "ED 3: Shiawase no Recipe - Dai Hirai (season 2)",
+      "OP 4: Kusushiki - Mrs. Green Apple (season 2)",
+      "ED 4: Hitorigoto - Omoinotake (season 2)"
+    ],
+    "text": "Season two opened with Hyakka Ryōran by Lilas Ikuta and later Kusushiki by Mrs. Green Apple, with Dai Hirai and Omoinotake singing the endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first opening theme song is \"Hyakka Ryōran\" (performed by Lilas Ikuta) and the first ending theme song is \"Shiawase no Recipe\", performed by Dai Hirai."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-three-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP 5: Kumo o Nukekazashimo e Watashidake - Yorushika (season 3)",
+      "ED 5: AIYOU - Eve (season 3)"
+    ],
+    "text": "The third season pairs an opening by Yorushika with the ending song AIYOU by Eve.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first opening theme song is \"Kumo o Nukekazashimo e Watashidake\" (performed by Yorushika) and the first ending theme song is \"AIYOU\", performed by Eve."
+  },
+  {
+    "id": "apothecary-diaries-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1 (episodes 1 to 24)",
+      "2: Season 2 (episodes 25 to 48)",
+      "3: Season 3 (from episode 49, airing)"
+    ],
+    "text": "No source names story arcs, so this quiz follows the three anime seasons, with the third still on air in October 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first season ran from October 22, 2023, to March 24, 2024, on Nippon TV and its affiliates."
+  },
+  {
+    "id": "apothecary-diaries-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "characters",
+    "value": [
+      "Maomao (猫猫): the apothecary sold into the palace as a servant",
+      "Jinshi (壬氏): the influential official of the rear palace",
+      "Gaoshun (高順): Jinshi's loyal attendant",
+      "Gyokuyō (玉葉): the Precious Consort, the emperor's favorite",
+      "Lihua (梨花): the Wise Consort",
+      "Lishu (里樹): the Virtuous Consort",
+      "Ah-Duo (阿多): the Pure Consort",
+      "Lakan (羅漢): the monocle-wearing military tactician",
+      "Lihaku (李白): the soldier who gives Maomao a hairpin",
+      "Xiaolan (小蘭): Maomao's friend among the palace servants",
+      "Basen (馬閃): Gaoshun's second son and an attendant of Jinshi",
+      "Luomen (羅門): Maomao's adoptive father"
+    ],
+    "text": "The twelve characters of this quiz run from Maomao and Jinshi to the four high-ranking consorts and the people around them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city."
+  }
+]

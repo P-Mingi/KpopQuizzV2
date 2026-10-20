@@ -1,0 +1,458 @@
+[
+  {
+    "id": "evangelion-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "title_native",
+    "value": "新世紀エヴァンゲリオン (Shin Seiki Evangerion)",
+    "text": "Neon Genesis Evangelion is Shin Seiki Evangerion in Japanese, New Century Evangelion in plain terms, while the Greek wording of the title is read as New Beginning Gospel.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "(新世紀エヴァンゲリオン, Shin Seiki Evangerion, lit. New Century Evangelion in Japanese and New Beginning Gospel in Greek)"
+  },
+  {
+    "id": "evangelion-studio-director-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "staff",
+    "value": "Gainax and Tatsunoko Production (studios), Hideaki Anno (director)",
+    "text": "The 1995 series was animated by Gainax together with Tatsunoko Production, with Hideaki Anno in the director's chair.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese anime television series produced by Gainax and Tatsunoko Production, and directed by Hideaki Anno"
+  },
+  {
+    "id": "evangelion-broadcast-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "broadcast",
+    "value": "One season, 26 episodes on TV Tokyo, October 4, 1995 to March 27, 1996",
+    "text": "Evangelion aired as a single season of 26 episodes on TV Tokyo, starting on October 4, 1995 and finishing on March 27, 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1376272212",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It began broadcasting in Japan on TV Tokyo on October 4, 1995, and ended on March 27, 1996."
+  },
+  {
+    "id": "evangelion-setting-tokyo-3-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "setting",
+    "value": "Tokyo-3 in 2015",
+    "text": "The year is 2015 and the stage is Tokyo-3, a heavily defended city of the future, built in the wake of a catastrophe that hit the planet 15 years earlier.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "set in 2015, fifteen years after a worldwide cataclysm in the futuristic fortified city of Tokyo-3"
+  },
+  {
+    "id": "evangelion-opening-cruel-angel-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "opening_theme",
+    "value": "A Cruel Angel's Thesis - Yoko Takahashi",
+    "text": "The opening theme, A Cruel Angel's Thesis, is sung by Yoko Takahashi, and it took an Animage award for best song in 1996.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series's opening theme is \"A Cruel Angel's Thesis\", performed by Yoko Takahashi."
+  },
+  {
+    "id": "evangelion-ending-fly-me-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "ending_theme",
+    "value": "Fly Me to the Moon",
+    "text": "The credits roll to Fly Me to the Moon, a cover with British singer Claire Littley in the lead and several of the leading voice actors.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The ending theme of the series is \"Fly Me to the Moon\", sung by Claire Littley and various other singers from the main vocal cast."
+  },
+  {
+    "id": "evangelion-arc-structure-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Episodes 1 to 15 (TV series)",
+      "2: Episodes 16 to 24 (TV series)",
+      "3: Episodes 25 and 26 (TV series)",
+      "4: The End of Evangelion (1997 film)",
+      "5: Rebuild of Evangelion (films, 2007 to 2021)"
+    ],
+    "text": "No source names story arcs, so this quiz splits the franchise at the TV series tone shift in episode 16, then the two TV finale episodes, the 1997 film and the Rebuild films.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1376272212",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 16th episode marked a distinct shift to a more introspective, less action-focused tone that would come to characterize the second half of Evangelion."
+  },
+  {
+    "id": "evangelion-end-of-evangelion-film-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "film_1997",
+    "value": "The End of Evangelion, July 19, 1997, directed by Hideaki Anno and Kazuya Tsurumaki",
+    "text": "The End of Evangelion reached Japanese cinemas on July 19, 1997; Gainax and Production I.G made it as a new take on the last two TV episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion",
+        "ref": "1381107041",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1151814",
+        "ref": "Q1151814",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a 1997 Japanese animated apocalyptic science fiction film directed by Hideaki Anno and Kazuya Tsurumaki, animated by Gainax and Production I.G"
+  },
+  {
+    "id": "evangelion-rebuild-films-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "rebuild",
+    "value": "Rebuild of Evangelion: four films by Studio Khara, 1 September 2007 to 8 March 2021",
+    "text": "Studio Khara reboots the story in four Rebuild of Evangelion films, the first shown on 1 September 2007 and the last on 8 March 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion",
+        "ref": "1379273276",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q6434144",
+        "ref": "Q6434144",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "| first = 1 September 2007 | last = 8 March 2021 | episodes = 4 (Rebuild of Evangelion infobox)"
+  },
+  {
+    "id": "evangelion-production-start-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "production_start",
+    "value": "Development began in 1993 under Hideaki Anno",
+    "text": "Hideaki Anno began shaping the project in 1993, after a depression that followed his earlier work, with the idea of a hero who stops running away.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Anno began the development of the new series in 1993 around the notion of not running away"
+  },
+  {
+    "id": "evangelion-animage-grand-prix-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "awards",
+    "value": "Anime Grand Prix, Best Loved Series: first place in 1996 and 1997",
+    "text": "Animage readers voted Evangelion their top Best Loved Series at the Anime Grand Prix in 1996, and again in 1997.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In 1996, the series won first place in the \"Best Loved Series\" category of the Anime Grand Prix, a reader-polled award series published in Animage magazine."
+  },
+  {
+    "id": "evangelion-netflix-premiere-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "streaming",
+    "value": "Netflix worldwide premiere on June 21, 2019",
+    "text": "Netflix brought the series to a global audience from June 21, 2019, but outside Japan the closing song Fly Me to the Moon is left out for licensing reasons.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "On March 22, 2019, Netflix announced a June 21, 2019, premiere date for the titles."
+  },
+  {
+    "id": "evangelion-cast-list-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "characters",
+    "value": [
+      "Shinji Ikari (碇 シンジ): the withdrawn teenager who pilots Unit 01",
+      "Rei Ayanami (綾波 レイ): the quiet pilot of Unit 00",
+      "Asuka Langley Soryu (惣流・アスカ・ラングレー): the fiery pilot of Unit 02",
+      "Misato Katsuragi (葛城 ミサト): the Nerv captain who becomes Shinji's guardian",
+      "Gendo Ikari (碇 ゲンドウ): Shinji's father and Nerv's supreme commander",
+      "Ritsuko Akagi (赤木 リツコ): a leading Nerv scientist behind the Evas",
+      "Ryoji Kaji (加持 リョウジ): the Nerv agent who guards Asuka",
+      "Kaworu Nagisa (渚 カヲル): the replacement pilot for Unit 02",
+      "Toji Suzuhara (鈴原 トウジ): Shinji's outspoken classmate",
+      "Kozo Fuyutsuki (冬月 コウゾウ): Nerv's deputy commander",
+      "Yui Ikari (碇 ユイ): Shinji's mother, Gendo's wife",
+      "Mari Illustrious Makinami (真希波・マリ・イラストリアス): the Rebuild pilot"
+    ],
+    "text": "The twelve characters of this quiz run from the three core pilots to Nerv's staff, with Mari known from the Rebuild films only.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The show's protagonist is Shinji Ikari, a teenage boy whose father Gendo recruits to the shadowy organization Nerv to pilot a giant, bio-machine mecha"
+  },
+  {
+    "id": "evangelion-mari-debut-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "mari-illustrious-makinami",
+      "group_slug": "evangelion"
+    },
+    "field": "debut",
+    "value": "Second Rebuild film, 2009",
+    "text": "Mari is absent from the 1995 series and first shows up in the Rebuild film released in 2009, the second of four.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is introduced in the film Evangelion: 2.0 You Can (Not) Advance (2009), the second installment of the Rebuild of Evangelion tetralogy"
+  },
+  {
+    "id": "evangelion-rei-premium-girl-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "rei-ayanami",
+      "group_slug": "evangelion"
+    },
+    "field": "popularity",
+    "value": "Nicknamed the Premium Girl",
+    "text": "Books with Rei on the cover sold so well that the press started calling her the Premium Girl.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the media referred to the character as \"Premium Girl\" due to the high sales of books with Rei on the cover"
+  }
+]

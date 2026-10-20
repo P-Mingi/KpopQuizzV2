@@ -539,8 +539,8 @@
       "group_slug": "oshi-no-ko"
     },
     "field": "origin",
-    "value": "Aqua was originally Gorou Amamiya; Ruby was originally Sarina Tendōji",
-    "text": "The premise: the twins Aqua and Ruby are reborn, Aqua being the doctor Gorou Amamiya and Ruby being his patient Sarina Tendōji.",
+    "value": "Aqua was originally Gorou Amamiya (雨宮 吾郎); Ruby was originally Sarina Tendōji (天童寺 さりな)",
+    "text": "The premise: the twins Aqua and Ruby are reborn, Aqua being the doctor Gorou Amamiya (雨宮 吾郎) and Ruby being his patient Sarina Tendōji (天童寺 さりな).",
     "category": "history",
     "load_bearing": true,
     "spoiler": {
@@ -562,7 +562,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "originally Sarina Tendōji, was a terminally ill patient who idolized Gorou"
+    "excerpt": "{{Nihongo|Sarina Tendōji|天童寺 さりな|Tendōji Sarina}}, was a terminally ill patient who idolized Gorou"
   },
   {
     "id": "oshi-no-ko-kana-child-prodigy-019",
