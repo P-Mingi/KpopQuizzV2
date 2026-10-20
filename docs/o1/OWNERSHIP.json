@@ -303,7 +303,9 @@
     "apps/quiz/src/components/layout/ux-v1/ux-footer.tsx",
     "apps/quiz/src/lib/ux-v1/p4/challenge.ts",
     "apps/quiz/src/lib/analytics.ts",
-    "apps/quiz/e2e/o1/B6/**"
+    "apps/quiz/e2e/o1/B6/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/B6/**"
   ],
   "B7": [
     "docs/pending-migrations/multisite/016-*",
@@ -317,7 +319,12 @@
     "apps/quiz/src/app/api/passport/leave/**",
     "apps/quiz/src/app/api/cron/passport-deletions/**",
     "docs/o1/b7/**",
-    "apps/quiz/e2e/o1/B7/**"
+    "apps/quiz/e2e/o1/B7/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/B7/**",
+    "docs/pending-migrations/multisite/016*",
+    "supabase/functions/**",
+    "docs/o1/b7/**"
   ],
   "E1a": [
     "scripts/anime/editorial/**",
@@ -360,13 +367,23 @@
     "docs/pending-migrations/multisite/launch/L*-k2-*",
     "scripts/anime/k2/**",
     "docs/anime/creators/**",
-    "docs/anime/data/catalogue/**"
+    "docs/anime/data/catalogue/**",
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/K2/**",
+    "docs/o1/reports/K2/**",
+    "docs/anime/**",
+    "scripts/anime/**"
   ],
   "K3": [
     "docs/pending-migrations/multisite/launch/L*-k3-*",
     "scripts/anime/k3/**",
     "docs/anime/data/daily/**",
-    "docs/anime/data/formats/**"
+    "docs/anime/data/formats/**",
+    "apps/quiz/src/**",
+    "apps/quiz/e2e/o1/K3/**",
+    "docs/o1/reports/K3/**",
+    "docs/anime/**",
+    "scripts/anime/**"
   ],
   "K4": [
     "docs/pending-migrations/multisite/launch/L*-k4-*",
@@ -417,7 +434,9 @@
   "P1": [
     "apps/quiz/src/components/passport-ui/**",
     "apps/quiz/src/lib/passport-ui/**",
-    "apps/quiz/e2e/o1/P1/**"
+    "apps/quiz/e2e/o1/P1/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/P1/**"
   ],
   "H1": [
     "apps/quiz/src/lib/site/hub.ts",
@@ -427,7 +446,8 @@
     "apps/quiz/e2e/o1/H1/**",
     "apps/quiz/src/**",
     "apps/quiz/e2e/o1/LD/**",
-    "docs/o1/reports/LD/**"
+    "docs/o1/reports/LD/**",
+    "docs/o1/reports/H1/**"
   ],
   "X1": [
     "docs/pending-migrations/multisite/launch/L*-x1-*",
@@ -443,17 +463,25 @@
     "docs/pending-migrations/multisite/launch/README.md",
     "scripts/o1/launch/**",
     "docs/network/**",
-    "apps/quiz/e2e/o1/L1/**"
+    "apps/quiz/e2e/o1/L1/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/L1/**",
+    "docs/launch/**"
   ],
   "C1": [
-    "apps/quiz/e2e/o1/C1/**"
+    "apps/quiz/e2e/o1/C1/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/C1/**"
   ],
   "C2": [
-    "apps/quiz/e2e/o1/C2/**"
+    "apps/quiz/e2e/o1/C2/**",
+    "apps/quiz/src/**",
+    "docs/o1/reports/C2/**"
   ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
-    "docs/o1/reports/C3/**"
+    "docs/o1/reports/C3/**",
+    "apps/quiz/src/**"
   ],
   "RPT": [
     "docs/o1/REPORT.md"

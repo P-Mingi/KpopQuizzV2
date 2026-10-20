@@ -1,0 +1,11 @@
+docs/anime/data/facts/demon-slayer.json
+docs/anime/data/facts/jujutsu-kaisen.json
+docs/anime/data/facts/naruto.json
+docs/anime/data/series/demon-slayer.json
+docs/anime/data/series/jujutsu-kaisen.json
+docs/anime/data/series/naruto.json
+docs/anime/editorial/packets/k1-b1.html
+scripts/anime/k1/data-load.mjs
+scripts/anime/k1/data-load.test.mjs
+scripts/anime/k1/load-fixtures.mjs
+scripts/anime/k1/validate-data.mjs
