@@ -16,7 +16,7 @@
    "url": "https://en.wikipedia.org/wiki/Kagurabachi"
   }
  ],
- "notes": "Characters quiz on the cast list fact (009, arc 4). The cast list is tagged arc 4, so every question is tagged 4 and the quiz level is 4. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 4 manga, now arc 4 manga.",
  "questions": [
   {
    "question": "Which character is the young swordsmith's son who wields the Enchanted Blade Enten to avenge his father?",
@@ -29,11 +29,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 3,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-chihiro-rokuhira-name-016",
+    "kagurabachi-togo-shiba-name-017",
+    "kagurabachi-hakuri-sazanami-name-022",
+    "kagurabachi-iori-samura-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -48,11 +51,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 2,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-togo-shiba-name-017",
+    "kagurabachi-char-kyonagi-name-018",
+    "kagurabachi-soshiro-azami-name-019",
+    "kagurabachi-hiyuki-kagari-name-023"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -67,11 +73,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 3,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-char-kyonagi-name-018",
+    "kagurabachi-hakuri-sazanami-name-022",
+    "kagurabachi-hiyuki-kagari-name-023",
+    "kagurabachi-iori-samura-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -90,7 +99,10 @@
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-soshiro-azami-name-019",
+    "kagurabachi-genichi-sojo-name-020",
+    "kagurabachi-seiichi-samura-name-026",
+    "kagurabachi-akemura-soga-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -109,7 +121,10 @@
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-soshiro-azami-name-019",
+    "kagurabachi-genichi-sojo-name-020",
+    "kagurabachi-yura-name-024",
+    "kagurabachi-akemura-soga-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -124,11 +139,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 3,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-chihiro-rokuhira-name-016",
+    "kagurabachi-genichi-sojo-name-020",
+    "kagurabachi-kunishige-rokuhira-name-021",
+    "kagurabachi-seiichi-samura-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -143,11 +161,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 3,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-char-kyonagi-name-018",
+    "kagurabachi-hakuri-sazanami-name-022",
+    "kagurabachi-hiyuki-kagari-name-023",
+    "kagurabachi-iori-samura-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -162,11 +183,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 4,
+    "arc": 3,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-char-kyonagi-name-018",
+    "kagurabachi-hiyuki-kagari-name-023",
+    "kagurabachi-yura-name-024",
+    "kagurabachi-iori-samura-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -185,7 +209,10 @@
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-soshiro-azami-name-019",
+    "kagurabachi-genichi-sojo-name-020",
+    "kagurabachi-yura-name-024",
+    "kagurabachi-akemura-soga-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -204,7 +231,10 @@
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-cast-list-009"
+    "kagurabachi-hakuri-sazanami-name-022",
+    "kagurabachi-iori-samura-name-025",
+    "kagurabachi-seiichi-samura-name-026",
+    "kagurabachi-akemura-soga-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   }

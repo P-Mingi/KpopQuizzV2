@@ -26,11 +26,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 10,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005",
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-vegeta-name-043",
         "dragon-ball-goku-sun-wukong-024"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
@@ -51,11 +54,15 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-goku-name-031",
+        "dragon-ball-bulma-name-032",
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-chi-chi-name-036"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -75,11 +82,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -99,11 +109,15 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 2,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037",
+        "dragon-ball-krillin-name-038"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -123,11 +137,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -147,11 +164,15 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 9,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-goku-name-031",
+        "dragon-ball-bulma-name-032",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-chi-chi-name-036",
+        "dragon-ball-piccolo-name-041"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -171,11 +192,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -195,11 +219,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 10,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-vegeta-name-043"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -219,11 +246,15 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 11,
+        "arc": 10,
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005"
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-piccolo-name-041",
+        "dragon-ball-gohan-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     },
@@ -247,7 +278,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-cast-first-half-005",
+        "dragon-ball-piccolo-name-041",
+        "dragon-ball-raditz-name-042",
+        "dragon-ball-vegeta-name-043",
+        "dragon-ball-frieza-name-045",
         "dragon-ball-frieza-name-pun-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
@@ -260,5 +294,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
     }
   ],
-  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the cast fact; answers cite dragon-ball-cast-first-half-005 (arc 11), so the quiz is tagged arc 11."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 11 both, now arc 11 both."
 }

@@ -268,7 +268,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Light Yagami (夜神 月, Yagami Raito) is the protagonist of Death Note"
   },
   {
@@ -301,7 +301,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Near (ニア, Nia), whose real name is Nate River, is the young detective who succeeds L after his death"
   },
   {
@@ -616,5 +616,565 @@
     ],
     "status": "draft",
     "excerpt": "is licensed and released in North America by Viz Media"
+  },
+  {
+    "id": "death-note-light-yagami-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "light-yagami"
+    },
+    "field": "name",
+    "value": "Light Yagami (夜神 月)",
+    "text": "Light Yagami is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the protagonist of Death Note, a brilliant yet bored genius who adopts the alias \"Kira\" to cleanse the world of criminals."
+  },
+  {
+    "id": "death-note-l-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "l"
+    },
+    "field": "name",
+    "value": "L (エル・ローライト)",
+    "text": "L is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Eru Rōraito), known mononymously as L, is a world-renowned detective who takes on the challenge of catching the serial killer known as"
+  },
+  {
+    "id": "death-note-ryuk-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "ryuk"
+    },
+    "field": "name",
+    "value": "Ryuk (リューク)",
+    "text": "Ryuk is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a bored Shinigami that drops a Death Note, the notebook that allows the one in its possession to kill anyone simply by knowing their name"
+  },
+  {
+    "id": "death-note-misa-amane-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "misa-amane"
+    },
+    "field": "name",
+    "value": "Misa Amane (弥 海砂)",
+    "text": "Misa Amane is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as \"Misa-Misa\", is a popular Japanese idol, who is known for her Gothic-style of dress, hyperactive personality and"
+  },
+  {
+    "id": "death-note-soichiro-yagami-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "soichiro-yagami"
+    },
+    "field": "name",
+    "value": "Soichiro Yagami (夜神 総一郎)",
+    "text": "Soichiro Yagami is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Light's father and detective superintendent of Japan's National Police Agency. He initially leads the Kira"
+  },
+  {
+    "id": "death-note-touta-matsuda-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "touta-matsuda"
+    },
+    "field": "name",
+    "value": "Touta Matsuda (松田 桃太)",
+    "text": "Touta Matsuda is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the youngest member of the Kira investigation team. His alias is Taro"
+  },
+  {
+    "id": "death-note-sayu-yagami-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "sayu-yagami"
+    },
+    "field": "name",
+    "value": "Sayu Yagami (夜神 粧裕)",
+    "text": "Sayu Yagami is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Light's kindhearted younger sister. Like her mother she never learns of Light's possession of the Death Note or his"
+  },
+  {
+    "id": "death-note-shuichi-aizawa-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "shuichi-aizawa"
+    },
+    "field": "name",
+    "value": "Shuichi Aizawa (相沢 周市)",
+    "text": "Shuichi Aizawa is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a member of the Kira investigation team that leaves the team under the guise of needing to support his family because"
+  },
+  {
+    "id": "death-note-kanzo-mogi-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "kanzo-mogi"
+    },
+    "field": "name",
+    "value": "Kanzo Mogi (模木 完造)",
+    "text": "Kanzo Mogi is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the most dedicated members of the Kira investigation team, but also one of the most reserved. Mogi rarely speaks, even"
+  },
+  {
+    "id": "death-note-hideki-ide-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "hideki-ide"
+    },
+    "field": "name",
+    "value": "Hideki Ide (伊出 英基)",
+    "text": "Hideki Ide is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the few police officers who remain with Soichiro during the Kira Investigation. He initially leaves when he disagrees"
+  },
+  {
+    "id": "death-note-hirokazu-ukita-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "hirokazu-ukita"
+    },
+    "field": "name",
+    "value": "Hirokazu Ukita (宇生田 広数)",
+    "text": "Hirokazu Ukita is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a member of the Kira investigation team that is led by L. He is characterized as a brave young man who is also a"
+  },
+  {
+    "id": "death-note-watari-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "watari"
+    },
+    "field": "name",
+    "value": "Watari (ワタリ)",
+    "text": "Watari is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is L's assistant, providing logistics to the investigation team. Before the team is formed, he is the only person who has seen L, and the only one"
+  },
+  {
+    "id": "death-note-rem-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "rem"
+    },
+    "field": "name",
+    "value": "Rem (レム)",
+    "text": "Rem is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Shinigami who gives Misa her Death Note. Like Ryuk, Rem possesses two Death Notes; however, Rem did not get hers through trickery. The"
+  },
+  {
+    "id": "death-note-raye-penber-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "raye-penber"
+    },
+    "field": "name",
+    "value": "Raye Penber (レイ・ペンバー)",
+    "text": "Raye Penber is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an American investigator from the FBI, sent to Japan with eleven other agents to aid in tracking down Kira early in the"
+  },
+  {
+    "id": "death-note-naomi-misora-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "naomi-misora"
+    },
+    "field": "name",
+    "value": "Naomi Misora (南空 ナオミ)",
+    "text": "Naomi Misora is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Raye Penber's fiancée. A former first rate FBI agent, Naomi left the Bureau in October 2003 (2006 in the anime) for the"
+  },
+  {
+    "id": "death-note-kiyomi-takada-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "kiyomi-takada"
+    },
+    "field": "name",
+    "value": "Kiyomi Takada (高田 清美)",
+    "text": "Kiyomi Takada is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first appears for a short period as Light Yagami's classmate and girlfriend; Light appears with Takada in public to"
+  },
+  {
+    "id": "death-note-sidoh-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "sidoh"
+    },
+    "field": "name",
+    "value": "Sidoh (シドウ)",
+    "text": "Sidoh is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Shinigami whose Death Note was stolen by Ryuk. By the time he realizes this, however, the note has already changed hands several"
+  },
+  {
+    "id": "death-note-teru-mikami-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "teru-mikami"
+    },
+    "field": "name",
+    "value": "Teru Mikami (魅上 照)",
+    "text": "Teru Mikami is an antagonist of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a criminal prosecutor and fanatical worshipper of Kira. When Light needs a new proxy to hide his identity, Light uses his"
+  },
+  {
+    "id": "death-note-near-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "near"
+    },
+    "field": "name",
+    "value": "Near (ニア)",
+    "text": "Near is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "whose real name is Nate River, is the young detective who succeeds L after his death, He is the head of an organization created to catch Kira"
+  },
+  {
+    "id": "death-note-mello-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "mello"
+    },
+    "field": "name",
+    "value": "Mello (メロ)",
+    "text": "Mello is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "real name is Mihael Keehl, grows up in competition with Near to succeed L. After L's death, however, he concedes the position to Near and"
   }
 ]

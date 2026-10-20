@@ -16,7 +16,7 @@
    "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   }
  ],
- "notes": "Characters quiz on the first cast group fact (009, arc 1). Tagged arc 1 and level 1. Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file.",
+ "notes": "Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0.",
  "questions": [
   {
    "question": "Which character is the master spy code-named Twilight who poses as a psychiatrist to build a fake family?",
@@ -29,11 +29,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-loid-forger-name-021",
+    "spy-x-family-yuri-briar-name-028",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -48,11 +51,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-anya-forger-name-022",
+    "spy-x-family-yor-forger-name-023",
+    "spy-x-family-damian-desmond-name-029",
+    "spy-x-family-becky-blackbell-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -67,11 +73,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-anya-forger-name-022",
+    "spy-x-family-yor-forger-name-023",
+    "spy-x-family-becky-blackbell-name-030",
+    "spy-x-family-sylvia-sherwood-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -86,11 +95,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-bond-forger-name-024",
+    "spy-x-family-damian-desmond-name-029",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -105,11 +117,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-damian-desmond-name-029",
+    "spy-x-family-yuri-briar-name-028",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -124,11 +139,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-yor-forger-name-023",
+    "spy-x-family-damian-desmond-name-029",
+    "spy-x-family-becky-blackbell-name-030",
+    "spy-x-family-sylvia-sherwood-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -143,11 +161,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-loid-forger-name-021",
+    "spy-x-family-yuri-briar-name-028",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -162,11 +183,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-yor-forger-name-023",
+    "spy-x-family-becky-blackbell-name-030",
+    "spy-x-family-sylvia-sherwood-name-026",
+    "spy-x-family-franky-franklin-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -181,11 +205,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-yuri-briar-name-028",
+    "spy-x-family-sylvia-sherwood-name-026",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -200,11 +227,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-main-009"
+    "spy-x-family-damian-desmond-name-029",
+    "spy-x-family-yuri-briar-name-028",
+    "spy-x-family-franky-franklin-name-025",
+    "spy-x-family-henry-henderson-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   }

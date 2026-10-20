@@ -16,7 +16,7 @@
    "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   }
  ],
- "notes": "Characters quiz on the cast list fact (013, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 2 both.",
  "questions": [
   {
    "question": "Which character is the 28-year-old office worker who is the only person to finish the web novel?",
@@ -29,11 +29,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-kim-dokja-name-016",
+    "omniscient-readers-viewpoint-yoo-joonghyuk-name-017",
+    "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "omniscient-readers-viewpoint-bihyung-name-026"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -48,11 +51,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-kim-dokja-name-016",
+    "omniscient-readers-viewpoint-yoo-joonghyuk-name-017",
+    "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "omniscient-readers-viewpoint-gong-pildu-name-024"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -71,7 +77,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-han-sooyoung-name-018",
+    "omniscient-readers-viewpoint-yoo-sangah-name-019",
+    "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "omniscient-readers-viewpoint-shin-yoosung-name-027"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -86,11 +95,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-yoo-sangah-name-019",
+    "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "omniscient-readers-viewpoint-bihyung-name-026"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -109,7 +121,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-yoo-sangah-name-019",
+    "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "omniscient-readers-viewpoint-shin-yoosung-name-027"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -124,11 +139,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "omniscient-readers-viewpoint-lee-gilyoung-name-022",
+    "omniscient-readers-viewpoint-gong-pildu-name-024",
+    "omniscient-readers-viewpoint-han-myungoh-name-025"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -147,7 +165,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "omniscient-readers-viewpoint-lee-gilyoung-name-022",
+    "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "omniscient-readers-viewpoint-shin-yoosung-name-027"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -162,11 +183,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "omniscient-readers-viewpoint-gong-pildu-name-024",
+    "omniscient-readers-viewpoint-han-myungoh-name-025",
+    "omniscient-readers-viewpoint-bihyung-name-026"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -185,7 +209,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-gong-pildu-name-024",
+    "omniscient-readers-viewpoint-han-myungoh-name-025",
+    "omniscient-readers-viewpoint-bihyung-name-026",
+    "omniscient-readers-viewpoint-shin-yoosung-name-027"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
@@ -204,7 +231,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-cast-list-013"
+    "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "omniscient-readers-viewpoint-lee-gilyoung-name-022",
+    "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "omniscient-readers-viewpoint-shin-yoosung-name-027"
    ],
    "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   }

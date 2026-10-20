@@ -296,7 +296,7 @@
         "fetched_at": "2026-10-20T20:20:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Chihiro Rokuhira (六平 千鉱, Rokuhira Chihiro), Togo Shiba (柴 登吾, Shiba Tōgo), Hakuri Sazanami (漣 伯理, Sazanami Hakuri)"
   },
   {
@@ -463,5 +463,341 @@
     ],
     "status": "draft",
     "excerpt": "Itsuo Shirakai (白廻逸夫) A master swordsman and creator of the Iai White Purity Style"
+  },
+  {
+    "id": "kagurabachi-chihiro-rokuhira-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "chihiro-rokuhira"
+    },
+    "field": "name",
+    "value": "Chihiro Rokuhira (六平 千鉱)",
+    "text": "Chihiro Rokuhira is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the son of Kunishige Rokuhira, a master swordsmith who created six Enchanted Blades crucial to ending the Seitei War. When the criminal"
+  },
+  {
+    "id": "kagurabachi-togo-shiba-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "togo-shiba"
+    },
+    "field": "name",
+    "value": "Togo Shiba (柴 登吾)",
+    "text": "Togo Shiba is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A highly skilled, very powerful sorcerer who specializes in teleportation. Shiba is a family friend of Chihiro and Kunishige, having grown up alongside the"
+  },
+  {
+    "id": "kagurabachi-char-kyonagi-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "char-kyonagi"
+    },
+    "field": "name",
+    "value": "Char Kyonagi (鏡凪 シャル)",
+    "text": "Char Kyonagi is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Char is a young orphan who was a captive of the crime boss and weapons dealer Sojo. Char is the last of the Kyonagi clan, known for their regenerative"
+  },
+  {
+    "id": "kagurabachi-soshiro-azami-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "soshiro-azami"
+    },
+    "field": "name",
+    "value": "Soshiro Azami (薊 奏士郎)",
+    "text": "Soshiro Azami is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The strongest of the Kamunabi heads and an old friend of Kunishige and Shiba. He helped Kunishige find a hidden place to reside following the Seitei War and"
+  },
+  {
+    "id": "kagurabachi-genichi-sojo-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "genichi-sojo"
+    },
+    "field": "name",
+    "value": "Genichi Sojo (双城 厳一)",
+    "text": "Genichi Sojo is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s Bathhouse Quest\" (双城厳一のお風呂探訪♨, Sōjō Gen'ichi no Ofuro Tanbō)"
+  },
+  {
+    "id": "kagurabachi-kunishige-rokuhira-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "kunishige-rokuhira"
+    },
+    "field": "name",
+    "value": "Kunishige Rokuhira (六平 国重)",
+    "text": "Kunishige Rokuhira is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Rokuhira Kunishige)"
+  },
+  {
+    "id": "kagurabachi-hakuri-sazanami-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "hakuri-sazanami"
+    },
+    "field": "name",
+    "value": "Hakuri Sazanami (漣 伯理)",
+    "text": "Hakuri Sazanami is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A disowned former member of the Sazanami clan, cast out for his perceived lack of ability. He allies with Chihiro to dismantle the Rakuzaichi black market"
+  },
+  {
+    "id": "kagurabachi-hiyuki-kagari-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "hiyuki-kagari"
+    },
+    "field": "name",
+    "value": "Hiyuki Kagari (香刈 緋雪)",
+    "text": "Hiyuki Kagari is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An elite fighter of the Kamunabi, stated to be its strongest. She is stated to be one of the few individuals capable of opposing an Enchanted Blade by wielding"
+  },
+  {
+    "id": "kagurabachi-yura-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "yura"
+    },
+    "field": "name",
+    "value": "Yura (幽)",
+    "text": "Yura is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The leader of the Hishaku and the man who orchestrated the group's murder of Kunishige and theft of his Enchanted Blades as part of an attempt to wield the"
+  },
+  {
+    "id": "kagurabachi-iori-samura-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "iori-samura"
+    },
+    "field": "name",
+    "value": "Iori Samura (座村 イヲリ)",
+    "text": "Iori Samura is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the daughter of Enchanted Blade Bearer, Seiichi Samura. As a child, following her mother's death, she started living with her father and began"
+  },
+  {
+    "id": "kagurabachi-seiichi-samura-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "seiichi-samura"
+    },
+    "field": "name",
+    "value": "Seiichi Samura (座村 清市)",
+    "text": "Seiichi Samura is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Iori Samura is the daughter of Enchanted Blade Bearer, Seiichi Samura. As a child, following her mother's death, she started living with her father and began"
+  },
+  {
+    "id": "kagurabachi-akemura-soga-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "akemura-soga"
+    },
+    "field": "name",
+    "value": "Akemura Soga (曽我 明無良)",
+    "text": "Akemura Soga is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Known as the Sword Master (剣聖, Kensei), Akemura is the strongest Enchanted Blade wielder and is eternally bound to Magatsumi (勾罪)-also called the Shinuchi"
   }
 ]

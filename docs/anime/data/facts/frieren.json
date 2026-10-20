@@ -472,7 +472,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Frieren (フリーレン, Furīren)"
   },
   {
@@ -510,7 +510,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Serie is an ancient elf mage who has existed since time immemorial"
   },
   {
@@ -623,5 +623,565 @@
     ],
     "status": "draft",
     "excerpt": "Qual is the creator of \"Zoltraak\""
+  },
+  {
+    "id": "frieren-frieren-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "name",
+    "value": "Frieren (フリーレン)",
+    "text": "Frieren is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Beyond Journey's End by Kanehito Yamada and Tsukasa Abe"
+  },
+  {
+    "id": "frieren-fern-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "name",
+    "value": "Fern (フェルン)",
+    "text": "Fern is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s teammate, a cautious and calculating mage who maintains emotional distance from others. His self-preservation instincts shape his magic"
+  },
+  {
+    "id": "frieren-stark-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "stark"
+    },
+    "field": "name",
+    "value": "Stark (シュタルク)",
+    "text": "Stark is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s older brother. Unlike the other villagers, who view Stark as a failure, Stoltz treats him kindly and helps him train. He is killed when a demon legion"
+  },
+  {
+    "id": "frieren-sein-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "sein"
+    },
+    "field": "name",
+    "value": "Sein (ザイン)",
+    "text": "Sein is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s youth) is a Warrior and Sein's childhood best friend, who dreamed of going on an adventure and becoming a legendary"
+  },
+  {
+    "id": "frieren-himmel-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "himmel"
+    },
+    "field": "name",
+    "value": "Himmel (ヒンメル)",
+    "text": "Himmel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Lecker is a highly talented cook based in Äußerst, who hired Himmel's party in the past to retrieve a family heirloom knife from a demon, and in return"
+  },
+  {
+    "id": "frieren-heiter-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "heiter"
+    },
+    "field": "name",
+    "value": "Heiter (ハイター)",
+    "text": "Heiter is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A human member of the Hero Party, who was an alcohol-loving priest. He found, adopted, and raised Fern after the party dissolved, entrusting her to Frieren"
+  },
+  {
+    "id": "frieren-eisen-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "eisen"
+    },
+    "field": "name",
+    "value": "Eisen (アイゼン)",
+    "text": "Eisen is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "raised, who serves as a replacement for him on Frieren's adventure. Since Eisen declines the invitation due to his old age, Stark"
+  },
+  {
+    "id": "frieren-qual-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "qual"
+    },
+    "field": "name",
+    "value": "Qual (クヴァール)",
+    "text": "Qual is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Also Known as the \"Elder Sage of Corruption\", the Hero Party sealed him away as he was too strong to defeat. Several decades later, Frieren unseals and"
+  },
+  {
+    "id": "frieren-aura-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "aura"
+    },
+    "field": "name",
+    "value": "Aura (アウラ)",
+    "text": "Aura is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "who is tasked with having a town's anti-demon barrier put down under the guise of being a \"peace envoy\". Fern later kills him when"
+  },
+  {
+    "id": "frieren-serie-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "serie"
+    },
+    "field": "name",
+    "value": "Serie (ゼーリエ)",
+    "text": "Serie is a character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an ancient elf mage who has existed since time immemorial, revered as a living repository of magical knowledge. As Flamme's mentor and Frieren's"
+  },
+  {
+    "id": "frieren-denken-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "denken"
+    },
+    "field": "name",
+    "value": "Denken (デンケン)",
+    "text": "Denken is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elderly second-class mage and a seasoned military veteran who becomes a shrewd court magician. After losing his wife, Lektüre, in his"
+  },
+  {
+    "id": "frieren-ubel-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "ubel"
+    },
+    "field": "name",
+    "value": "Übel (ユーベル)",
+    "text": "Übel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "wields cleaving magic, an invisible spell capable of slicing through nearly anything she visualizes as cuttable. Her arsenal includes another formidable"
+  },
+  {
+    "id": "frieren-land-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "land"
+    },
+    "field": "name",
+    "value": "Land (ラント)",
+    "text": "Land is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Fern's teammate, a cautious and calculating mage who maintains emotional distance from others. His self-preservation instincts shape his magic"
+  },
+  {
+    "id": "frieren-methode-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "methode"
+    },
+    "field": "name",
+    "value": "Methode (メトーデ)",
+    "text": "Methode is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "herself is battle-hardened, talented, and smart, but has a particular fondness for \"cute kids\", which explains her easy admiration for both Frieren and"
+  },
+  {
+    "id": "frieren-kanne-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "kanne"
+    },
+    "field": "name",
+    "value": "Kanne (カンネ)",
+    "text": "Kanne is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A timid third-class mage who can control water and is one of Frieren's teammates during the First-Class Mage Examination. She has a confrontational"
+  },
+  {
+    "id": "frieren-lawine-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "lawine"
+    },
+    "field": "name",
+    "value": "Lawine (ラヴィーネ)",
+    "text": "Lawine is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Frieren's other teammate during the First-Class Mage Examination. She is a third-class mage who can turn water into ice and works well alongside Kanne, as they"
+  },
+  {
+    "id": "frieren-wirbel-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "wirbel"
+    },
+    "field": "name",
+    "value": "Wirbel (ヴィアベル)",
+    "text": "Wirbel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s teammates, whose specialized magic allows him to transform flower petals into steel blades."
+  },
+  {
+    "id": "frieren-revolte-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "revolte"
+    },
+    "field": "name",
+    "value": "Revolte (レヴォルテ)",
+    "text": "Revolte is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "he is a four-handed demon general and tactician with the lower body of a snake who wields four swords made of magic. He faces off"
+  },
+  {
+    "id": "frieren-hero-of-the-south-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "hero-of-the-south"
+    },
+    "field": "name",
+    "value": "Hero of the South (南の勇者)",
+    "text": "Hero of the South is a character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was humanity's mightiest warrior during the war against demons, predating Himmel's legendary party. With unmatched combat prowess, he"
+  },
+  {
+    "id": "frieren-macht-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "macht"
+    },
+    "field": "name",
+    "value": "Macht (マハト)",
+    "text": "Macht is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as Macht of Golden Land, is the last surviving member of the Seven Sages of Destruction. For ages, he was trapped in his self-created Golden"
   }
 ]

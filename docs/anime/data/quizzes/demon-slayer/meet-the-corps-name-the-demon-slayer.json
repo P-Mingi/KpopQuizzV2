@@ -30,7 +30,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-tanjiro-kamado-name-031",
+        "demon-slayer-zenitsu-agatsuma-name-033",
+        "demon-slayer-inosuke-hashibira-name-034",
+        "demon-slayer-giyu-tomioka-name-036"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -54,7 +57,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-nezuko-kamado-name-032",
+        "demon-slayer-shinobu-kocho-name-038",
+        "demon-slayer-kanao-tsuyuri-name-039",
+        "demon-slayer-tamayo-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -78,7 +84,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-tanjiro-kamado-name-031",
+        "demon-slayer-zenitsu-agatsuma-name-033",
+        "demon-slayer-inosuke-hashibira-name-034",
+        "demon-slayer-sanemi-shinazugawa-name-040"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -102,7 +111,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-tanjiro-kamado-name-031",
+        "demon-slayer-zenitsu-agatsuma-name-033",
+        "demon-slayer-inosuke-hashibira-name-034",
+        "demon-slayer-giyu-tomioka-name-036"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -126,7 +138,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-muzan-kibutsuji-name-035",
+        "demon-slayer-giyu-tomioka-name-036",
+        "demon-slayer-sakonji-urokodaki-name-037",
+        "demon-slayer-rui-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -150,7 +165,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-zenitsu-agatsuma-name-033",
+        "demon-slayer-giyu-tomioka-name-036",
+        "demon-slayer-sanemi-shinazugawa-name-040",
+        "demon-slayer-sakonji-urokodaki-name-037"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -174,7 +192,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-core-023"
+        "demon-slayer-muzan-kibutsuji-name-035",
+        "demon-slayer-giyu-tomioka-name-036",
+        "demon-slayer-kagaya-ubuyashiki-name-041",
+        "demon-slayer-sakonji-urokodaki-name-037"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -198,7 +219,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-first-arc-024"
+        "demon-slayer-nezuko-kamado-name-032",
+        "demon-slayer-shinobu-kocho-name-038",
+        "demon-slayer-kanao-tsuyuri-name-039",
+        "demon-slayer-tamayo-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -222,7 +246,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-first-arc-024"
+        "demon-slayer-nezuko-kamado-name-032",
+        "demon-slayer-shinobu-kocho-name-038",
+        "demon-slayer-kanao-tsuyuri-name-039",
+        "demon-slayer-tamayo-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
@@ -246,7 +273,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-characters-first-arc-024"
+        "demon-slayer-sanemi-shinazugawa-name-040",
+        "demon-slayer-kagaya-ubuyashiki-name-041",
+        "demon-slayer-sakonji-urokodaki-name-037",
+        "demon-slayer-hotaru-haganezuka-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     }
@@ -258,5 +288,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     }
   ],
-  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the character list facts; answers cite demon-slayer-characters-core-023 (arc 0) and characters-first-arc-024 (arc 1)."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
 }

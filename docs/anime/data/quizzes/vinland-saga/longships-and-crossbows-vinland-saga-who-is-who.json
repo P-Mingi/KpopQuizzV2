@@ -16,7 +16,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (011, arc 3). The cast list is tagged arc 3, so every question is tagged 3 and the quiz level is 3. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 manga, now arc 3 manga.",
  "questions": [
   {
    "question": "Which character is the young Viking in Askeladd's company who seeks revenge for his father's death?",
@@ -29,11 +29,15 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-thorfinn-name-016",
+    "vinland-saga-askeladd-name-017",
+    "vinland-saga-canute-name-019",
+    "vinland-saga-bjorn-name-023",
+    "vinland-saga-einar-name-024"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -48,11 +52,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-askeladd-name-017",
+    "vinland-saga-thorkell-name-020",
+    "vinland-saga-floki-name-022",
+    "vinland-saga-ketil-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -67,11 +74,15 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-thorfinn-name-016",
+    "vinland-saga-askeladd-name-017",
+    "vinland-saga-thors-name-018",
+    "vinland-saga-leif-name-021",
+    "vinland-saga-ketil-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -86,11 +97,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-canute-name-019",
+    "vinland-saga-floki-name-022",
+    "vinland-saga-bjorn-name-023",
+    "vinland-saga-einar-name-024"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -105,11 +119,15 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-thorfinn-name-016",
+    "vinland-saga-thors-name-018",
+    "vinland-saga-thorkell-name-020",
+    "vinland-saga-floki-name-022",
+    "vinland-saga-bjorn-name-023"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -128,7 +146,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-leif-name-021",
+    "vinland-saga-floki-name-022",
+    "vinland-saga-ketil-name-025",
+    "vinland-saga-hild-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -143,11 +164,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-askeladd-name-017",
+    "vinland-saga-floki-name-022",
+    "vinland-saga-bjorn-name-023",
+    "vinland-saga-ketil-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -166,7 +190,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-thorfinn-name-016",
+    "vinland-saga-askeladd-name-017",
+    "vinland-saga-bjorn-name-023",
+    "vinland-saga-einar-name-024",
+    "vinland-saga-hild-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -181,11 +209,15 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-thorfinn-name-016",
+    "vinland-saga-canute-name-019",
+    "vinland-saga-leif-name-021",
+    "vinland-saga-einar-name-024",
+    "vinland-saga-ketil-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   },
@@ -204,7 +236,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "vinland-saga-cast-list-011"
+    "vinland-saga-floki-name-022",
+    "vinland-saga-ketil-name-025",
+    "vinland-saga-gudrid-name-026",
+    "vinland-saga-hild-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
   }

@@ -30,7 +30,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-jonathan-joestar-name-021",
+        "jojo-joseph-joestar-name-023",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-jotaro-kujo-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -50,11 +53,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 2,
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-jonathan-joestar-name-021",
+        "jojo-dio-brando-name-022",
+        "jojo-joseph-joestar-name-023",
+        "jojo-kars-name-026"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -78,7 +84,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-jonathan-joestar-name-021",
+        "jojo-joseph-joestar-name-023",
+        "jojo-jotaro-kujo-name-027",
+        "jojo-polnareff-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -102,7 +111,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-joseph-joestar-name-023",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-avdol-name-028",
+        "jojo-polnareff-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -126,7 +138,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-dio-brando-name-022",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-kars-name-026",
+        "jojo-kakyoin-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -150,7 +165,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-joseph-joestar-name-023",
+        "jojo-jotaro-kujo-name-027",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -174,7 +192,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-jotaro-kujo-name-027",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029",
+        "jojo-polnareff-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
@@ -198,7 +219,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-cast-early-parts-016"
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029",
+        "jojo-polnareff-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     }
@@ -210,5 +234,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     }
   ],
-  "notes": "Clues paraphrase the values of the early parts cast fact (016), tagged arc 3 by the facts file, so the whole quiz carries arc 3. Native names come from the same values. No Stand details are given."
+  "notes": "Native names come from the same values. No Stand details are given. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
 }

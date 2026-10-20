@@ -10,7 +10,7 @@
 //    removed first and must be a non-empty one-liner of 160 characters or fewer).
 // 3. Lints the schemas cannot state: arc ords run 1..n, arc ranges ordered, a character debut arc exists, slugs and theme
 //    slots are unique, fact ids are unique, every fact refers to a character of its series, every spoiler arc exists,
-//    no U+2013 or U+2014 anywhere, tier counts (A 30 characters/facts, B 20, C 12/15) when --tier-counts is given.
+//    no U+2013 or U+2014 anywhere, tier counts (A 30 characters/facts, B 20, C 12/15; the fact count is a floor on the non-rejected facts) when --tier-counts is given.
 // 4. Backing: every number, date, name and title of the series file occurs in the value or text of at least one fact.
 // Exit 0 only when nothing fails. Prints the failures, at most 12 per file.
 
@@ -152,8 +152,11 @@ for (const slug of slugs) {
         }
       });
       if (tierCounts) {
+        // The tier is a floor for the live facts: retired (rejected) cast-list facts no longer count, and the one fact per character
+        // that replaced them comes on top of the tier count.
         const want = TIER_FACTS[s.series?.tier];
-        if (want && facts.length !== want) msgs.push(`tier ${s.series.tier}: ${facts.length} facts, expected ${want}`);
+        const live = facts.filter((f) => f.status !== 'rejected').length;
+        if (want && live < want) msgs.push(`tier ${s.series.tier}: ${live} live facts, at least ${want} expected`);
       }
       // backing
       const corpus = norm(facts.map((f) => flatten([f.value, f.text]).join(' | ')).join(' || '));

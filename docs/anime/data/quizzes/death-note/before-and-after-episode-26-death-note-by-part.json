@@ -21,7 +21,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }
  ],
- "notes": "Arc quiz on the two parts of the anime. Tagged by the cited facts: Part I cast (008, arc 1) and Part II facts (007, 009, 016, 017, arc 2). Level 2. The title names no character of Part II.",
+ "notes": "The title names no character of Part II. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 2 both.",
  "questions": [
   {
    "question": "Which episode closes Part I of the anime?",
@@ -76,7 +76,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-ryuk-name-023",
+    "death-note-misa-amane-name-024",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-naomi-misora-name-035"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -152,7 +156,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-second-part-009"
+    "death-note-near-name-039",
+    "death-note-mello-name-040",
+    "death-note-teru-mikami-name-038",
+    "death-note-kiyomi-takada-name-036",
+    "death-note-sidoh-name-037"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -171,7 +179,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-second-part-009"
+    "death-note-ryuk-name-023",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-sidoh-name-037"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -190,7 +201,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-second-part-009"
+    "death-note-near-name-039",
+    "death-note-teru-mikami-name-038",
+    "death-note-kiyomi-takada-name-036",
+    "death-note-sidoh-name-037"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -209,7 +223,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-second-part-009"
+    "death-note-misa-amane-name-024",
+    "death-note-kiyomi-takada-name-036",
+    "death-note-sayu-yagami-name-027",
+    "death-note-naomi-misora-name-035"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }

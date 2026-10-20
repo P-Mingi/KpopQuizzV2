@@ -539,7 +539,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Shoyo Hinata (日向 翔陽, Hinata Shōyō) is a first-year student at Karasuno High School"
   },
   {
@@ -577,7 +577,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Tōru Oikawa (及川 徹, Oikawa Tōru) is a third-year student at Aoba Johsai High."
   },
   {
@@ -662,5 +662,615 @@
     ],
     "status": "draft",
     "excerpt": "The first, \"The Arrival of Haiba Lev\", premiered at the Jump Festa on November 9, 2014"
+  },
+  {
+    "id": "haikyu-shoyo-hinata-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "shoyo-hinata"
+    },
+    "field": "name",
+    "value": "Shoyo Hinata (日向 翔陽)",
+    "text": "Shoyo Hinata is a main character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School and the main protagonist of the series. Despite his short stature, he is"
+  },
+  {
+    "id": "haikyu-tobio-kageyama-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tobio-kageyama"
+    },
+    "field": "name",
+    "value": "Tobio Kageyama (影山 飛雄)",
+    "text": "Tobio Kageyama is a main character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School. Though an exceptionally diligent and strategic setter, his ruthless"
+  },
+  {
+    "id": "haikyu-kei-tsukishima-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kei-tsukishima"
+    },
+    "field": "name",
+    "value": "Kei Tsukishima (月島 蛍)",
+    "text": "Kei Tsukishima is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School and the volleyball team's tallest player. A middle blocker, he is known"
+  },
+  {
+    "id": "haikyu-tadashi-yamaguchi-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tadashi-yamaguchi"
+    },
+    "field": "name",
+    "value": "Tadashi Yamaguchi (山口 忠)",
+    "text": "Tadashi Yamaguchi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School. The only first-year on the team not to make the starting lineup"
+  },
+  {
+    "id": "haikyu-daichi-sawamura-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "daichi-sawamura"
+    },
+    "field": "name",
+    "value": "Daichi Sawamura (澤村 大地)",
+    "text": "Daichi Sawamura is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the captain of the volleyball team and a third-year student at Karasuno High School. A wing spiker and dependable"
+  },
+  {
+    "id": "haikyu-koshi-sugawara-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "koshi-sugawara"
+    },
+    "field": "name",
+    "value": "Kōshi Sugawara (菅原 孝支)",
+    "text": "Kōshi Sugawara is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the vice captain of the volleyball team and a third-year student at Karasuno High School. Sugawara acts like the"
+  },
+  {
+    "id": "haikyu-asahi-azumane-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "asahi-azumane"
+    },
+    "field": "name",
+    "value": "Asahi Azumane (東峰 旭)",
+    "text": "Asahi Azumane is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Karasuno and a wing spiker. Known as Samurai Man. Physically the strongest member of the team"
+  },
+  {
+    "id": "haikyu-yu-nishinoya-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "yu-nishinoya"
+    },
+    "field": "name",
+    "value": "Yū Nishinoya (西谷 夕)",
+    "text": "Yū Nishinoya is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Karasuno High School and the team's libero and defensive specialist. Along with Tobio Kageyama"
+  },
+  {
+    "id": "haikyu-ryunosuke-tanaka-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "ryunosuke-tanaka"
+    },
+    "field": "name",
+    "value": "Ryūnosuke Tanaka (田中 龍之介)",
+    "text": "Ryūnosuke Tanaka is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Karasuno High School and a wing spiker. He is loud, fierce, and aggressive, but deeply"
+  },
+  {
+    "id": "haikyu-hitoka-yachi-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "hitoka-yachi"
+    },
+    "field": "name",
+    "value": "Hitoka Yachi (谷地 仁花)",
+    "text": "Hitoka Yachi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student and the assistant manager of Karasuno's volleyball club. Kiyoko recruits her to take over managing"
+  },
+  {
+    "id": "haikyu-toru-oikawa-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "toru-oikawa"
+    },
+    "field": "name",
+    "value": "Tōru Oikawa (及川 徹)",
+    "text": "Tōru Oikawa is an antagonist of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Aoba Johsai High. He is the volleyball team's captain and starting setter. He is introduced as one"
+  },
+  {
+    "id": "haikyu-kenma-kozume-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kenma-kozume"
+    },
+    "field": "name",
+    "value": "Kenma Kozume (孤爪 研磨)",
+    "text": "Kenma Kozume is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Nekoma High and the team's setter. He is introverted and prefers to keep to himself, choosing to"
+  },
+  {
+    "id": "haikyu-tetsuro-kuroo-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tetsuro-kuroo"
+    },
+    "field": "name",
+    "value": "Tetsurō Kuroo (黒尾 鉄朗)",
+    "text": "Tetsurō Kuroo is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Nekoma. He is the captain of the volleyball club and a talented middle blocker known for his"
+  },
+  {
+    "id": "haikyu-kotaro-bokuto-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kotaro-bokuto"
+    },
+    "field": "name",
+    "value": "Kōtarō Bokuto (木兎 光太郎)",
+    "text": "Kōtarō Bokuto is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Fukurodani Academy and captain and ace of the volleyball team. He is one of Japan's top 5"
+  },
+  {
+    "id": "haikyu-keiji-akaashi-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "keiji-akaashi"
+    },
+    "field": "name",
+    "value": "Keiji Akaashi (赤葦 京治)",
+    "text": "Keiji Akaashi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Fukurodani Academy. He is the vice-captain and a setter of the volleyball team. He is an"
+  },
+  {
+    "id": "haikyu-wakatoshi-ushijima-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "wakatoshi-ushijima"
+    },
+    "field": "name",
+    "value": "Wakatoshi Ushijima (牛島 若利)",
+    "text": "Wakatoshi Ushijima is an antagonist of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also nicknamed \"Ushiwaka\", is a third-year student at Shiratorizawa Academy. He is a wing spiker and the"
+  },
+  {
+    "id": "haikyu-satori-tendo-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "satori-tendo"
+    },
+    "field": "name",
+    "value": "Satori Tendō (天童 覚)",
+    "text": "Satori Tendō is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Shiratorizawa Academy, and is a middle blocker for the volleyball team. Nicknamed \"The Guess"
+  },
+  {
+    "id": "haikyu-atsumu-miya-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "atsumu-miya"
+    },
+    "field": "name",
+    "value": "Atsumu Miya (宮 侑)",
+    "text": "Atsumu Miya is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student and the team's setter. He is the older twin brother of Osamu Miya, who nicknames him \"Tsumu\". He is"
+  },
+  {
+    "id": "haikyu-kiyoomi-sakusa-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kiyoomi-sakusa"
+    },
+    "field": "name",
+    "value": "Kiyoomi Sakusa (佐久早 聖臣)",
+    "text": "Kiyoomi Sakusa is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Itachiyama Institute. He is a wing spiker and the ace of his volleyball team, being the top"
+  },
+  {
+    "id": "haikyu-korai-hoshiumi-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "korai-hoshiumi"
+    },
+    "field": "name",
+    "value": "Kōrai Hoshiumi (星海 光来)",
+    "text": "Kōrai Hoshiumi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Kamomedai High. He is a wing spiker and ace for his volleyball team. He is first introduced"
   }
 ]

@@ -469,7 +469,343 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Spike Spiegel is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
+  },
+  {
+    "id": "cowboy-bebop-spike-spiegel-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "name",
+    "value": "Spike Spiegel (スパイク・スピーゲル)",
+    "text": "Spike Spiegel is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars. Spike has a history of violent"
+  },
+  {
+    "id": "cowboy-bebop-jet-black-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "jet-black"
+    },
+    "field": "name",
+    "value": "Jet Black (ジェット・ブラック)",
+    "text": "Jet Black is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Known on his home satellite as the \"Black Dog\" for his tenacity, Jet Black (ジェット・ブラック, Jetto Burakku) is a 36-year-old former cop from Ganymede (a Jovian"
+  },
+  {
+    "id": "cowboy-bebop-faye-valentine-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "name",
+    "value": "Faye Valentine (フェイ・ヴァレンタイン)",
+    "text": "Faye Valentine is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the members of the bounty hunting crew. She is often seen with a cigarette and in a revealing outfit"
+  },
+  {
+    "id": "cowboy-bebop-ed-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ed"
+    },
+    "field": "name",
+    "value": "Edward Wong Hau Pepelu Tivrusky IV (エドワード・ウォン・ハウ・ペペル・チブルスキー4世)",
+    "text": "Edward Wong Hau Pepelu Tivrusky IV is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elite hacker prodigy from Earth. \"Radical"
+  },
+  {
+    "id": "cowboy-bebop-ein-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ein"
+    },
+    "field": "name",
+    "value": "Ein (アイン)",
+    "text": "Ein is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Pembroke Welsh Corgi brought aboard the Bebop by Spike after a failed attempt to capture a bounty. He often shows heightened awareness of"
+  },
+  {
+    "id": "cowboy-bebop-vicious-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "vicious"
+    },
+    "field": "name",
+    "value": "Vicious (ビシャス)",
+    "text": "Vicious is an antagonist of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" (ビシャス, Bishasu) is the main antagonist of the series, and Spike Spiegel's archenemy. He is a ruthless, cunning, power-hungry, and cold-hearted member"
+  },
+  {
+    "id": "cowboy-bebop-julia-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "julia"
+    },
+    "field": "name",
+    "value": "Julia (ジュリア)",
+    "text": "Julia is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a beautiful and mysterious woman from Spike's past. Initially Vicious' girlfriend and a Syndicate member herself, she and Spike started"
+  },
+  {
+    "id": "cowboy-bebop-andy-von-de-oniyate-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "andy-von-de-oniyate"
+    },
+    "field": "name",
+    "value": "Andy von de Oniyate",
+    "text": "Andy von de Oniyate is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a rich, egotistical bounty hunter who completely embraces the cowboy aspect of his job; he dresses like a cowboy, rides a horse named"
+  },
+  {
+    "id": "cowboy-bebop-laughing-bull-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "laughing-bull"
+    },
+    "field": "name",
+    "value": "Laughing Bull (ラフィング・ブル)",
+    "text": "Laughing Bull is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A kind old shaman, apparently of Native American descent, Laughing Bull (ラフィング・ブル, Rafingu Buru) lives on Mars. Spike goes to Laughing Bull for advice in"
+  },
+  {
+    "id": "cowboy-bebop-gren-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "gren"
+    },
+    "field": "name",
+    "value": "Gren Eckener",
+    "text": "Gren Eckener is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Grencia Mars Elijah Guo Eckener (グレンシア・マルス・エリヤ・郭・エッケナー, Gurenshia Marusu Eriya Guo Ekkenā), also simply referred to as Gren (グ レ ン, Guren), was a soldier for"
+  },
+  {
+    "id": "cowboy-bebop-vincent-volaju-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "vincent-volaju"
+    },
+    "field": "name",
+    "value": "Vincent Volaju (ヴィンセント・ボラージュ)",
+    "text": "Vincent Volaju is an antagonist of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the main antagonist of Cowboy Bebop: The Movie, Vincent Volaju (ヴィンセント・ボラージュ, Vinsento Borāju) is the only survivor of a series of"
+  },
+  {
+    "id": "cowboy-bebop-electra-ovilo-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "electra-ovilo"
+    },
+    "field": "name",
+    "value": "Electra Ovilo (エレクトラ・オヴィロゥ)",
+    "text": "Electra Ovilo is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Erekutora Ovirō; \"Electra Ovilo\" on Sony's official website and in Japanese materials) is a veteran of the Titan War who first"
   }
 ]

@@ -21,11 +21,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-kafka-hibino-name-016",
+    "kaiju-no-8-reno-ichikawa-name-017",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-keiji-itami-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-reno-ichikawa-name-017",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-keiji-itami-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
@@ -59,11 +65,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-kikoru-shinomiya-name-018",
+    "kaiju-no-8-mina-ashiro-name-019",
+    "kaiju-no-8-soshiro-hoshina-name-020",
+    "kaiju-no-8-gen-narumi-name-021"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
@@ -78,16 +87,19 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-mina-ashiro-name-019",
+    "kaiju-no-8-soshiro-hoshina-name-020",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
   {
-   "question": "Who is the vice-captain of the Third Division?",
+   "question": "Which fighter is second-in-command of the Third Division?",
    "options": [
     "Gen Narumi",
     "Keiji Itami",
@@ -97,16 +109,19 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-soshiro-hoshina-name-020",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-keiji-itami-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
   {
-   "question": "Who is the captain of the First Division?",
+   "question": "Which fighter leads the First Division?",
    "options": [
     "Gen Narumi",
     "Mina Ashiro",
@@ -116,16 +131,19 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-mina-ashiro-name-019",
+    "kaiju-no-8-soshiro-hoshina-name-020",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
   {
-   "question": "Who is the Director General of the Defense Force?",
+   "question": "Which man heads the whole Defense Force as its Director General?",
    "options": [
     "Keiji Itami",
     "Gen Narumi",
@@ -135,16 +153,19 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-soshiro-hoshina-name-020",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-keiji-itami-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
   {
-   "question": "Who is the Deputy Director of the Defense Force?",
+   "question": "Which officer sits one rank below the Director General as Deputy Director?",
    "options": [
     "Isao Shinomiya",
     "Gen Narumi",
@@ -154,11 +175,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-mina-ashiro-name-019",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-keiji-itami-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
@@ -173,11 +197,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 1,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-kafka-hibino-name-016",
+    "kaiju-no-8-isao-shinomiya-name-022",
+    "kaiju-no-8-kaiju-no-9-name-026",
+    "kaiju-no-8-kaiju-no-10-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
@@ -192,11 +219,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 1,
     "scope": "both"
    },
    "fact_ids": [
-    "kaiju-no-8-cast-list-013"
+    "kaiju-no-8-kafka-hibino-name-016",
+    "kaiju-no-8-gen-narumi-name-021",
+    "kaiju-no-8-kaiju-no-9-name-026",
+    "kaiju-no-8-kaiju-no-10-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   }
@@ -208,5 +238,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (013, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 1 both."
 }

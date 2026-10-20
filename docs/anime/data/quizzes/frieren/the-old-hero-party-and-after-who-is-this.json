@@ -26,11 +26,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015",
+        "frieren-frieren-name-021",
+        "frieren-fern-name-022",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
         "frieren-frieren-age-018"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
@@ -51,11 +54,15 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015",
+        "frieren-frieren-name-021",
+        "frieren-fern-name-022",
+        "frieren-heiter-name-026",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
         "frieren-fern-apprentice-019"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
@@ -76,11 +83,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015"
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     },
@@ -100,11 +110,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015"
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     },
@@ -124,11 +137,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015"
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     },
@@ -136,7 +152,7 @@
       "question": "Who is this priest of the old party?",
       "clues": [
         "A priest of the old Hero Party",
-        "Raised Fern after the party broke up",
+        "Took Fern in once the group disbanded",
         "His name is written ハイター in Japanese"
       ],
       "options": [
@@ -148,11 +164,15 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015"
+        "frieren-fern-name-022",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-heiter-name-026",
+        "frieren-eisen-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     },
@@ -172,11 +192,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015"
+        "frieren-stark-name-023",
+        "frieren-himmel-name-025",
+        "frieren-heiter-name-026",
+        "frieren-eisen-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     },
@@ -200,7 +223,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "frieren-cast-main-015",
+        "frieren-himmel-name-025",
+        "frieren-qual-name-028",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
         "frieren-qual-zoltraak-020"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
@@ -213,5 +239,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     }
   ],
-  "notes": "Clues paraphrase the main cast fact (015), whose values give each role and Japanese name; the Frieren, Fern and Qual answers also cite their character facts (018, 019, 020). Everyone is level 0."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
 }

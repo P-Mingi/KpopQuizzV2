@@ -30,7 +30,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-naruto-uzumaki-name-031",
+        "naruto-sasuke-uchiha-name-032",
+        "naruto-rock-lee-name-041",
+        "naruto-shikamaru-nara-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -54,7 +57,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-sasuke-uchiha-name-032",
+        "naruto-gaara-name-040",
+        "naruto-neji-hyuga-name-042",
+        "naruto-haku-name-047"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -78,7 +84,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-hiruzen-sarutobi-name-036",
+        "naruto-might-guy-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -102,7 +111,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-jiraiya-name-038",
+        "naruto-might-guy-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -126,7 +138,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-hiruzen-sarutobi-name-036",
+        "naruto-jiraiya-name-038"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -150,7 +165,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-konohamaru-sarutobi-name-037",
+        "naruto-rock-lee-name-041",
+        "naruto-neji-hyuga-name-042",
+        "naruto-shikamaru-nara-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -174,7 +192,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-konohamaru-sarutobi-name-037",
+        "naruto-rock-lee-name-041",
+        "naruto-neji-hyuga-name-042",
+        "naruto-shikamaru-nara-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -198,7 +219,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-orochimaru-name-039",
+        "naruto-gaara-name-040",
+        "naruto-zabuza-momochi-name-046",
+        "naruto-haku-name-047"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -222,7 +246,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-gaara-name-040",
+        "naruto-neji-hyuga-name-042",
+        "naruto-zabuza-momochi-name-046",
+        "naruto-kabuto-yakushi-name-048"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     },
@@ -246,7 +273,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-characters-early-015"
+        "naruto-jiraiya-name-038",
+        "naruto-orochimaru-name-039",
+        "naruto-haku-name-047",
+        "naruto-kurama-name-049"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     }
@@ -258,5 +288,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
     }
   ],
-  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the character list fact; answers cite naruto-characters-early-015."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
 }

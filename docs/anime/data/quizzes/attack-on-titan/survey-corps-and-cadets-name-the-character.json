@@ -26,11 +26,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-eren-yeager-name-031",
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-marco-bott-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -50,11 +53,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-mikasa-ackerman-name-032",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -74,11 +80,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-marco-bott-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -98,11 +107,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006",
+        "attack-on-titan-levi-ackerman-name-034",
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-reiner-braun-name-042",
         "attack-on-titan-levi-inspiration-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
@@ -123,11 +135,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-levi-ackerman-name-034",
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-reiner-braun-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -147,11 +162,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -171,11 +189,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-reiner-braun-name-042",
+        "attack-on-titan-marco-bott-name-045",
         "attack-on-titan-creator-favourite-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
@@ -196,11 +217,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-bertolt-hoover-name-043",
+        "attack-on-titan-marco-bott-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -220,11 +244,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-mikasa-ackerman-name-032",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
@@ -244,11 +271,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-cast-first-half-006"
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-marco-bott-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     }
@@ -260,5 +290,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     }
   ],
-  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the cast fact; answers cite attack-on-titan-cast-first-half-006 (arc 1) and, where used, the Levi and Jean arc 0 facts."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
 }

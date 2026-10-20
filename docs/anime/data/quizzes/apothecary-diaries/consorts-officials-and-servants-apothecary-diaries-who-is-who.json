@@ -25,7 +25,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-maomao-name-016",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-xiaolan-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -44,7 +47,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-jinshi-name-017",
+    "apothecary-diaries-lakan-name-023",
+    "apothecary-diaries-lihaku-name-024",
+    "apothecary-diaries-luomen-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -63,7 +69,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-gyokuyo-name-019",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-ah-duo-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -82,7 +91,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-gyokuyo-name-019",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-ah-duo-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -101,7 +113,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-gyokuyo-name-019",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-ah-duo-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -120,7 +135,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-gyokuyo-name-019",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-ah-duo-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -139,7 +157,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-jinshi-name-017",
+    "apothecary-diaries-lakan-name-023",
+    "apothecary-diaries-lihaku-name-024",
+    "apothecary-diaries-luomen-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -158,7 +179,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-maomao-name-016",
+    "apothecary-diaries-jinshi-name-017",
+    "apothecary-diaries-lakan-name-023",
+    "apothecary-diaries-lihaku-name-024",
+    "apothecary-diaries-luomen-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -177,7 +202,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-maomao-name-016",
+    "apothecary-diaries-gyokuyo-name-019",
+    "apothecary-diaries-lihua-name-020",
+    "apothecary-diaries-lishu-name-021",
+    "apothecary-diaries-xiaolan-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   },
@@ -196,7 +225,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-cast-list-015"
+    "apothecary-diaries-maomao-name-016",
+    "apothecary-diaries-jinshi-name-017",
+    "apothecary-diaries-lakan-name-023",
+    "apothecary-diaries-lihaku-name-024",
+    "apothecary-diaries-luomen-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   }
@@ -208,5 +241,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (015, arc 0). All twelve characters are level 0 in the series file and the cast list descriptions hold back later reveals, so the quiz stays at arc 0."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 0, now arc 0."
 }

@@ -497,7 +497,7 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "Sasuke Uchiha ( うちは サスケ , Uchiha Sasuke )"
  },
  {
@@ -530,7 +530,7 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "Killer Bee ( キラービー , Kirābī )"
  },
  {
@@ -562,7 +562,7 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "Boruto Uzumaki ( うずまき ボルト , Uzumaki Boruto )"
  },
  {
@@ -999,5 +999,845 @@
   ],
   "status": "draft",
   "excerpt": "aired for 293 episodes on TV Tokyo from April 2017 to March 2023"
+ },
+ {
+  "id": "naruto-naruto-uzumaki-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "naruto-uzumaki"
+  },
+  "field": "name",
+  "value": "Naruto Uzumaki (うずまき ナルト)",
+  "text": "Naruto Uzumaki is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the titular character and main protagonist of the Naruto franchise. He was the first character created by"
+ },
+ {
+  "id": "naruto-sasuke-uchiha-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sasuke-uchiha"
+  },
+  "field": "name",
+  "value": "Sasuke Uchiha (うちは サスケ)",
+  "text": "Sasuke Uchiha is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is Naruto Uzumaki's main rival and best friend. He was designed by Kishimoto as a \"cool genius\" since he felt this was"
+ },
+ {
+  "id": "naruto-sakura-haruno-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sakura-haruno"
+  },
+  "field": "name",
+  "value": "Sakura Haruno (春野 サクラ)",
+  "text": "Sakura Haruno is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a member of Team 7, Naruto's classmate and Sasuke's love interest. While creating the character, Kishimoto has"
+ },
+ {
+  "id": "naruto-kakashi-hatake-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kakashi-hatake"
+  },
+  "field": "name",
+  "value": "Kakashi Hatake (はたけ カカシ)",
+  "text": "Kakashi Hatake is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the easygoing, tardy, smart leader of Team 7, consisting of Naruto Uzumaki, Sasuke Uchiha and Sakura Haruno."
+ },
+ {
+  "id": "naruto-iruka-umino-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "iruka-umino"
+  },
+  "field": "name",
+  "value": "Iruka Umino (うみの イルカ)",
+  "text": "Iruka Umino is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Konohagakure chunin and instructor at the Ninja Academy, a school for prospective ninja. Masashi Kishimoto's initial"
+ },
+ {
+  "id": "naruto-hiruzen-sarutobi-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hiruzen-sarutobi"
+  },
+  "field": "name",
+  "value": "Hiruzen Sarutobi (猿飛 ヒルゼン)",
+  "text": "Hiruzen Sarutobi is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "the Third Hokage (三代目火影, Sandaime Hokage), has been the longest-ruling Hokage, being forced to return to duty"
+ },
+ {
+  "id": "naruto-konohamaru-sarutobi-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "konohamaru-sarutobi"
+  },
+  "field": "name",
+  "value": "Konohamaru Sarutobi (猿飛 木ノ葉丸)",
+  "text": "Konohamaru Sarutobi is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "named after Konohagakure, is the grandson of the Third Hokage Hiruzen Sarutobi. He strives to replace his"
+ },
+ {
+  "id": "naruto-jiraiya-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "jiraiya"
+  },
+  "field": "name",
+  "value": "Jiraiya (自来也)",
+  "text": "Jiraiya is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "was a Konohagakure ninja, being not only Naruto Uzumaki's teacher but also Minato Namikaze's teacher. Kishimoto has commented that out of all"
+ },
+ {
+  "id": "naruto-orochimaru-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "orochimaru"
+  },
+  "field": "name",
+  "value": "Orochimaru (大蛇丸)",
+  "text": "Orochimaru is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is an S-ranked criminal who served as the primary antagonist of Part I of the Naruto series, having previously affiliated with the Akatsuki."
+ },
+ {
+  "id": "naruto-gaara-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "gaara"
+  },
+  "field": "name",
+  "value": "Gaara (我愛羅)",
+  "text": "Gaara is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the youngest of the three siblings, created as a foil to Naruto Uzumaki, with a similar background yet a highly divergent personality. Before"
+ },
+ {
+  "id": "naruto-rock-lee-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "rock-lee"
+  },
+  "field": "name",
+  "value": "Rock Lee (ロック・リー)",
+  "text": "Rock Lee is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a member of Team Guy and the favorite student of team leader Might Guy. In the ninja academy, Rock Lee was unable to use"
+ },
+ {
+  "id": "naruto-neji-hyuga-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "neji-hyuga"
+  },
+  "field": "name",
+  "value": "Neji Hyuga (日向 ネジ)",
+  "text": "Neji Hyuga is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "was a member of Team Guy and a child prodigy of the Hyuga clan, as well as Hinata's cousin. As he was the only ninja of his"
+ },
+ {
+  "id": "naruto-hinata-hyuga-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hinata-hyuga"
+  },
+  "field": "name",
+  "value": "Hinata Hyuga (日向 ヒナタ)",
+  "text": "Hinata Hyuga is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a member of Team 8, Sakura and Ino's best friend and Naruto's love interest. She suffers from a serious lack of"
+ },
+ {
+  "id": "naruto-shikamaru-nara-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "shikamaru-nara"
+  },
+  "field": "name",
+  "value": "Shikamaru Nara (奈良 シカマル)",
+  "text": "Shikamaru Nara is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a member of Team 10, Naruto's friend and Temari's love interest. Creator Kishimoto has noted that he \"likes\""
+ },
+ {
+  "id": "naruto-might-guy-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "might-guy"
+  },
+  "field": "name",
+  "value": "Might Guy (マイト・ガイ)",
+  "text": "Might Guy is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "\" redirects here. For the Japanese actor nicknamed \"Maito gai\", see Akira Kobayashi."
+ },
+ {
+  "id": "naruto-zabuza-momochi-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "zabuza-momochi"
+  },
+  "field": "name",
+  "value": "Zabuza Momochi (桃地 再不斬)",
+  "text": "Zabuza Momochi is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a former member of Kirigakure's Seven Swordsmen of the Mist, a group of ninja that use particularly large swords in"
+ },
+ {
+  "id": "naruto-haku-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "haku"
+  },
+  "field": "name",
+  "value": "Haku (白)",
+  "text": "Haku is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is Zabuza Momochi's most faithful follower. Before he started working for Zabuza, Haku lived as an orphan. His father killed his mother when it was"
+ },
+ {
+  "id": "naruto-kabuto-yakushi-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kabuto-yakushi"
+  },
+  "field": "name",
+  "value": "Kabuto Yakushi (薬師 カブト)",
+  "text": "Kabuto Yakushi is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a spy who works as Orochimaru's right hand, though he acts on his own whims. As a child with no memory of his past"
+ },
+ {
+  "id": "naruto-kurama-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kurama"
+  },
+  "field": "name",
+  "value": "Kurama (九喇嘛)",
+  "text": "Kurama is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the most powerful of the Tailed Beasts. Used by Madara in his"
+ },
+ {
+  "id": "naruto-tsunade-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "tsunade"
+  },
+  "field": "name",
+  "value": "Tsunade Senju (千手 綱手)",
+  "text": "Tsunade Senju is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "as well as her former teammates Jiraiya and Orochimaru, is a former student of Hiruzen Sarutobi. Despite looking like a"
+ },
+ {
+  "id": "naruto-itachi-uchiha-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "itachi-uchiha"
+  },
+  "field": "name",
+  "value": "Itachi Uchiha (うちは イタチ)",
+  "text": "Itachi Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a former ninja of Konohagakure, the older brother of Sasuke Uchiha, and the partner of Kisame Hoshigaki. Though"
+ },
+ {
+  "id": "naruto-kisame-hoshigaki-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kisame-hoshigaki"
+  },
+  "field": "name",
+  "value": "Kisame Hoshigaki (干柿 鬼鮫)",
+  "text": "Kisame Hoshigaki is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a former ninja of Kirigakure and partnered to Itachi Uchiha, having a unique appearance with pale blue skin, a"
+ },
+ {
+  "id": "naruto-killer-bee-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "killer-bee"
+  },
+  "field": "name",
+  "value": "Killer Bee (キラービー)",
+  "text": "Killer Bee is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 13,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a ninja from the village of Kumogakure and the Jinchuriki of Gyūki-the Eight-Tails. He is also the adopted brother of Ay, the"
+ },
+ {
+  "id": "naruto-nagato-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "nagato"
+  },
+  "field": "name",
+  "value": "Nagato (長門)",
+  "text": "Nagato is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "primarily known under the alias of Pain (ペイン, Pein), is the founder and recognized leader of the Akatsuki, he is the partner of Konan, with"
+ },
+ {
+  "id": "naruto-minato-namikaze-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "minato-namikaze"
+  },
+  "field": "name",
+  "value": "Minato Namikaze (波風 ミナト)",
+  "text": "Minato Namikaze is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "the Fourth Hokage (四代目火影, Yondaime Hokage), is Naruto Uzumaki's father and Kushina's husband. Although Naruto and"
+ },
+ {
+  "id": "naruto-madara-uchiha-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "madara-uchiha"
+  },
+  "field": "name",
+  "value": "Madara Uchiha (うちは マダラ)",
+  "text": "Madara Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 23,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is one of the co-founders of the Hidden Leaf Village along with Hashirama Senju, the two later revealed to be"
+ },
+ {
+  "id": "naruto-obito-uchiha-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "obito-uchiha"
+  },
+  "field": "name",
+  "value": "Obito Uchiha (うちは オビト)",
+  "text": "Obito Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 26,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "also known under his alias Tobi (トビ) is the true leader of the Akatsuki and the primary antagonist for most of Part II of"
+ },
+ {
+  "id": "naruto-kaguya-otsutsuki-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kaguya-otsutsuki"
+  },
+  "field": "name",
+  "value": "Kaguya Otsutsuki (大筒木 カグヤ)",
+  "text": "Kaguya Otsutsuki is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 31,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Ōtsutsuki Kaguya) is the central underlying antagonist of the Naruto series and a member of the main family of the Ōtsutsuki clan."
+ },
+ {
+  "id": "naruto-boruto-uzumaki-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "boruto-uzumaki"
+  },
+  "field": "name",
+  "value": "Boruto Uzumaki (うずまき ボルト)",
+  "text": "Boruto Uzumaki is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the titular character and main protagonist of the Boruto franchise, he is son of Naruto Uzumaki and Hinata Hyuga"
+ },
+ {
+  "id": "naruto-sarada-uchiha-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sarada-uchiha"
+  },
+  "field": "name",
+  "value": "Sarada Uchiha (うちは サラダ)",
+  "text": "Sarada Uchiha is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the daughter of Sasuke Uchiha and Sakura Haruno. She seems to have inherited traits from both her parents, like her"
  }
 ]

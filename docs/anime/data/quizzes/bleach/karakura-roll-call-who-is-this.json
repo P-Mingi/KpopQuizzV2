@@ -26,11 +26,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-ichigo-kurosaki-name-021",
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kon-name-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -50,11 +53,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016",
+        "bleach-rukia-kuchiki-name-022",
+        "bleach-orihime-inoue-name-023",
+        "bleach-karin-kurosaki-name-029",
+        "bleach-tatsuki-arisawa-name-030",
         "bleach-ichigo-substitute-020"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
@@ -75,11 +81,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-rukia-kuchiki-name-022",
+        "bleach-orihime-inoue-name-023",
+        "bleach-karin-kurosaki-name-029",
+        "bleach-tatsuki-arisawa-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -99,11 +108,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-ichigo-kurosaki-name-021",
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kisuke-urahara-name-026"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -123,11 +135,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kisuke-urahara-name-026",
+        "bleach-isshin-kurosaki-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -147,11 +162,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kisuke-urahara-name-026",
+        "bleach-isshin-kurosaki-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -171,11 +189,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kisuke-urahara-name-026",
+        "bleach-isshin-kurosaki-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     },
@@ -183,7 +204,7 @@
       "question": "Which Mod-Soul is this?",
       "clues": [
         "A Mod-Soul",
-        "The first Mod-Soul to appear",
+        "The Mod-Soul who shows up before any other",
         "His name is written コン in Japanese"
       ],
       "options": [
@@ -195,11 +216,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-cast-first-016"
+        "bleach-uryu-ishida-name-024",
+        "bleach-yasutora-sado-name-025",
+        "bleach-kisuke-urahara-name-026",
+        "bleach-kon-name-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     }
@@ -211,5 +235,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
     }
   ],
-  "notes": "Clues paraphrase the opening-arc cast fact (016), whose values give each role and Japanese name; the Rukia answer also cites the Soul Reaper powers fact (020). Everyone is level 0."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
 }

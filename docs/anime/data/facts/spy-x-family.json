@@ -299,7 +299,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Loid Forger (ロイド・フォージャー, Roido Fōjā)"
   },
   {
@@ -337,7 +337,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Camilla (カミラ, Kamira)"
   },
   {
@@ -626,5 +626,565 @@
     ],
     "status": "draft",
     "excerpt": "oversees Operation Strix"
+  },
+  {
+    "id": "spy-x-family-loid-forger-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "name",
+    "value": "Loid Forger (ロイド・フォージャー)",
+    "text": "Loid Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Anya Forger, Yor Forger, Yuri Briar and Fiona Frost"
+  },
+  {
+    "id": "spy-x-family-anya-forger-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "name",
+    "value": "Anya Forger (アーニャ・フォージャー)",
+    "text": "Anya Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Damian Desmond and Becky Blackbell"
+  },
+  {
+    "id": "spy-x-family-yor-forger-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "name",
+    "value": "Yor Forger (ヨル・フォージャー)",
+    "text": "Yor Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "née Briar (ブライア, Buraia) /"
+  },
+  {
+    "id": "spy-x-family-bond-forger-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "name",
+    "value": "Bond Forger (ボンド・フォージャー)",
+    "text": "Bond Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yor Forger, Loid Forger, Anya Forger and Bond Forger"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "name",
+    "value": "Franky Franklin (フランキー・フランクリン)",
+    "text": "Franky Franklin is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Furankī Furankurin)"
+  },
+  {
+    "id": "spy-x-family-sylvia-sherwood-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "sylvia-sherwood"
+    },
+    "field": "name",
+    "value": "Sylvia Sherwood (シルヴィア・シャーウッド)",
+    "text": "Sylvia Sherwood is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shiruvia Shāuddo) /"
+  },
+  {
+    "id": "spy-x-family-henry-henderson-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "henry-henderson"
+    },
+    "field": "name",
+    "value": "Henry Henderson (ヘンリー・ヘンダーソン)",
+    "text": "Henry Henderson is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Henrī Hendāson)"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "name",
+    "value": "Yuri Briar (ユーリ・ブライア)",
+    "text": "Yuri Briar is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "and Fiona Frost"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "name",
+    "value": "Damian Desmond (ダミアン・デズモンド)",
+    "text": "Damian Desmond is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Damian Dezumondo)"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "name",
+    "value": "Becky Blackbell (ベッキー・ブラックベル)",
+    "text": "Becky Blackbell is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bekkī Burakkuberu)"
+  },
+  {
+    "id": "spy-x-family-fiona-frost-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "fiona-frost"
+    },
+    "field": "name",
+    "value": "Fiona Frost (フィオナ・フロスト)",
+    "text": "Fiona Frost is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Fiona Furosuto) /"
+  },
+  {
+    "id": "spy-x-family-camilla-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "camilla"
+    },
+    "field": "name",
+    "value": "Camilla (カミラ)",
+    "text": "Camilla is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Millie (ミリー, Mirī)"
+  },
+  {
+    "id": "spy-x-family-millie-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "millie"
+    },
+    "field": "name",
+    "value": "Millie (ミリー)",
+    "text": "Millie is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sharon (シャロン, Sharon)"
+  },
+  {
+    "id": "spy-x-family-sharon-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "sharon"
+    },
+    "field": "name",
+    "value": "Sharon (シャロン)",
+    "text": "Sharon is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dominic (ドミニック, Dominikku)"
+  },
+  {
+    "id": "spy-x-family-emile-elman-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "emile-elman"
+    },
+    "field": "name",
+    "value": "Emile Elman (エミール・エルマン)",
+    "text": "Emile Elman is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Ewen Egeburg (ユーイン・エッジバーグ, Yūin Ejjibāgu)"
+  },
+  {
+    "id": "spy-x-family-ewen-egeburg-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "ewen-egeburg"
+    },
+    "field": "name",
+    "value": "Ewen Egeburg (ユーイン・エッジバーグ)",
+    "text": "Ewen Egeburg is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shopkeeper (店長, Tenchō)"
+  },
+  {
+    "id": "spy-x-family-donovan-desmond-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "donovan-desmond"
+    },
+    "field": "name",
+    "value": "Donovan Desmond (ドノバン・デズモンド)",
+    "text": "Donovan Desmond is an antagonist of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Donoban Dezumondo)"
+  },
+  {
+    "id": "spy-x-family-dominic-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "dominic"
+    },
+    "field": "name",
+    "value": "Dominic (ドミニック)",
+    "text": "Dominic is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Emile Elman (エミール・エルマン, Emīru Eruman)"
+  },
+  {
+    "id": "spy-x-family-melinda-desmond-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "melinda-desmond"
+    },
+    "field": "name",
+    "value": "Melinda Desmond (メリンダ・デズモンド)",
+    "text": "Melinda Desmond is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Damian Desmond (ダミアン・デズモンド, Damian Dezumondo)"
+  },
+  {
+    "id": "spy-x-family-martha-marriott-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "martha-marriott"
+    },
+    "field": "name",
+    "value": "Martha Marriott (マーサ・マリオット)",
+    "text": "Martha Marriott is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The butler of the Blackbell family and the primary caretaker of Becky Blackbell. She cares for and loves Becky genuinely, correcting her haughtiness and bad"
   }
 ]

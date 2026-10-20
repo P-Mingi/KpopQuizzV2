@@ -491,7 +491,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Twenty-Fifth Bam (Korean: 스물다섯번째 밤; RR: Seumul-daseot-beonjjae Bam; literal translation: Twenty-fifth Night) is the protagonist of Tower of God."
   },
   {
@@ -529,7 +529,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Evan (Korean: 에반 에드록; RR: Ehbahn Edeurok) is a high ranker and the Chief Guide for the Jahad family"
   },
   {
@@ -640,5 +640,565 @@
     ],
     "status": "draft",
     "excerpt": "S.I.U. already has major events and characters planned out, sometimes more than 8 years in advance"
+  },
+  {
+    "id": "tower-of-god-twenty-fifth-bam-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "twenty-fifth-bam"
+    },
+    "field": "name",
+    "value": "Twenty-Fifth Bam (스물다섯번째 밤)",
+    "text": "Twenty-Fifth Bam is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the protagonist of Tower of God. Bam is the"
+  },
+  {
+    "id": "tower-of-god-rachel-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rachel"
+    },
+    "field": "name",
+    "value": "Rachel (라헬)",
+    "text": "Rachel is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was Bam's best friend until she entered the Tower and became a regular (but that was only what Bam thought which is proved in"
+  },
+  {
+    "id": "tower-of-god-khun-aguero-agnes-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "khun-aguero-agnes"
+    },
+    "field": "name",
+    "value": "Khun Aguero Agnes (쿤 아게로 아그니스)",
+    "text": "Khun Aguero Agnes is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "RR: Khun Ahgehro Ageunis) is from one of the 10 Great families that first climbed the tower, and the direct son of High Ranker"
+  },
+  {
+    "id": "tower-of-god-rak-wraithraiser-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rak-wraithraiser"
+    },
+    "field": "name",
+    "value": "Rak Wraithraiser (라크 레크레이셔)",
+    "text": "Rak Wraithraiser is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a large, powerful, and very confident spear bearer. He unwillingly teamed up with Twenty-Fifth"
+  },
+  {
+    "id": "tower-of-god-headon-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "headon"
+    },
+    "field": "name",
+    "value": "Headon (헤돈)",
+    "text": "Headon is a character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the guardian of Headon's Floor (The First Floor), and the caretaker of the tower. Headon is the only Guardian known to visit"
+  },
+  {
+    "id": "tower-of-god-shibisu-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "shibisu"
+    },
+    "field": "name",
+    "value": "Shibisu (십 이수)",
+    "text": "Shibisu is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a scout and the leader of team Isu."
+  },
+  {
+    "id": "tower-of-god-hatz-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "hatz"
+    },
+    "field": "name",
+    "value": "Hatz (하츠)",
+    "text": "Hatz is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a devout swordsman introduced on the 2nd test flooe and teamed up with Anaak and Isu became a scout in team Isu."
+  },
+  {
+    "id": "tower-of-god-phonsekal-lauroe-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "phonsekal-lauroe"
+    },
+    "field": "name",
+    "value": "Phonsekal Lauroe (폰세칼 라우뢰)",
+    "text": "Phonsekal Lauroe is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "RR: Ponsehkahl Raurweh) is a wave controller in team Isu who comes from the Eurasia family, one of the Ten Great Families."
+  },
+  {
+    "id": "tower-of-god-anaak-jahad-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "anaak-jahad"
+    },
+    "field": "name",
+    "value": "Anaak Jahad",
+    "text": "Anaak Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Was a princess of Jahad who \"walked out of the display case\" and had a daughter. She is later killed by a royal assassination, but her daughter escaped. Her"
+  },
+  {
+    "id": "tower-of-god-jahad-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "jahad"
+    },
+    "field": "name",
+    "value": "Jahad",
+    "text": "Jahad is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "had seemingly fallen asleep for millennia, causing the Three Lords and his Princesses to handle the matters of the Empire, until the resurrected Bam"
+  },
+  {
+    "id": "tower-of-god-endorsi-jahad-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "endorsi-jahad"
+    },
+    "field": "name",
+    "value": "Endorsi Jahad",
+    "text": "Endorsi Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "When Endorsi was little, she had no family and wandered around. One day, an elderly couple took her in and took care of her, until a snake came up to Endorsi"
+  },
+  {
+    "id": "tower-of-god-ha-yuri-jahad-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ha-yuri-jahad"
+    },
+    "field": "name",
+    "value": "Ha-Yuri Jahad",
+    "text": "Ha-Yuri Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yuri is a High Ranker and Princess from the Ha Family. She is also the owner of Black March and Green April, two of the 13 Month Series Ignition Weapons. She"
+  },
+  {
+    "id": "tower-of-god-evan-edrok-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "evan-edrok"
+    },
+    "field": "name",
+    "value": "Evan Edrok (에반 에드록)",
+    "text": "Evan Edrok is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hwa Ryun (Korean: 화련; RR: Hwaryeon) is Viole's Guide and also the Guide for FUG's Rankers notably Ha Jinsung. She is a member of the Red Witch species known"
+  },
+  {
+    "id": "tower-of-god-ja-wangnan-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ja-wangnan"
+    },
+    "field": "name",
+    "value": "Ja Wangnan (자 왕난)",
+    "text": "Ja Wangnan is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is another primary protagonist introduced at the beginning of part II, which initially focuses on him before"
+  },
+  {
+    "id": "tower-of-god-hwa-ryun-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "hwa-ryun"
+    },
+    "field": "name",
+    "value": "Hwa Ryun (화련)",
+    "text": "Hwa Ryun is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Viole's Guide and also the Guide for FUG's Rankers notably Ha Jinsung. She is a member of the Red Witch species known"
+  },
+  {
+    "id": "tower-of-god-urek-mazino-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "urek-mazino"
+    },
+    "field": "name",
+    "value": "Urek Mazino",
+    "text": "Urek Mazino is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A ruthless irregular currently the fourth in rank. As the strongest currently active Ranker, as an irregular, and as one of the founders of the Wolhaiksong"
+  },
+  {
+    "id": "tower-of-god-ha-jinsung-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ha-jinsung"
+    },
+    "field": "name",
+    "value": "Ha Jinsung",
+    "text": "Ha Jinsung is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the mentor of Bam. He trains Bam when he is trained by the FUG to become Jue Viole Grace (which is Bam itself but a slayer candidate) he is one"
+  },
+  {
+    "id": "tower-of-god-enryu-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "enryu"
+    },
+    "field": "name",
+    "value": "Enryu",
+    "text": "Enryu is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious Irregular and currently the second in rank. He is the first Irregular to enter the Tower during the reign of Jahad. His nickname is Red"
+  },
+  {
+    "id": "tower-of-god-white-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "white"
+    },
+    "field": "name",
+    "value": "White",
+    "text": "White is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was the 10th of eleven slayers in FUG. He belongs in the Arie family, one of the '10 great families'. His body has been lost, and only his name and souls"
+  },
+  {
+    "id": "tower-of-god-phantaminum-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "phantaminum"
+    },
+    "field": "name",
+    "value": "Phantaminum",
+    "text": "Phantaminum is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The strongest and most dangerous being of the entire Tower. He is a highly enigmatic person, ranked first in the Tower. One day, Phantaminum breached Jahad's"
   }
 ]
