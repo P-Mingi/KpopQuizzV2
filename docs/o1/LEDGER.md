@@ -330,3 +330,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | 2026-10-20T17:41:54Z | K1 | ecb3c4284d0d | not needed | 0 SQL file(s) |
 | 2026-10-20T18:44:09Z | K1 | 9e6f769e3e91 | not needed | 0 SQL file(s) |
 | 2026-10-20T18:57:33Z | K1 | ad2f281592f2 | not needed | 0 SQL file(s) |
+- D-073 Owner (phase 2, small leftovers): a spoiler report must not count toward report_count. Lot a (O1 78e36b4 plus 043b2a5, 0.45 M) moves report_spoiler to its own table public.spoiler_reports (015 changed in place, idempotent, tried on o1-scratch: 5 spoiler reports leave report_count at 0, a normal report still counts). ORCH updates the contract to match (schema.sql 015 section, contract.types.ts regenerated, contract.test 88 of 88) and K1's checks.sql spoiler cases to the new table with the same strength (38 of 38 on scratch). O1 owns 015*. K1 batches 3 (e986f89) and 4 (7379e01) merged and on o1-dev (12 series).

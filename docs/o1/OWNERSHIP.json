@@ -398,7 +398,8 @@
     "apps/quiz/e2e/o1/O1/**",
     "apps/quiz/src/**",
     ".gitignore",
-    "docs/o1/reports/O1/**"
+    "docs/o1/reports/O1/**",
+    "docs/pending-migrations/multisite/015*"
   ],
   "O2": [
     "apps/quiz/src/components/series/**",

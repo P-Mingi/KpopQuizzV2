@@ -819,9 +819,18 @@ grant execute on function public.ensure_daily_opening(date, text) to service_rol
 -- =============================================================================================================
 alter table public.quizzes add column spoiler_cover_until timestamptz;
 alter table public.verse_threads add column spoiler_flair smallint constraint verse_threads_spoiler_flair_check check (spoiler_flair >= 0);
-alter table public.reports drop constraint reason_valid;
-alter table public.reports add constraint reason_valid check (reason in ('wrong_answers', 'spam', 'inappropriate', 'duplicate', 'other', 'spoiler'));
-create unique index reports_spoiler_once on public.reports (quiz_id, reporter_id) where reason = 'spoiler';
+-- Spoiler reports live in their own table (D-073, owner phase 2): public.reports, its reason list and the handle_new_report
+-- trigger path stay as today, so a spoiler report never counts toward report_count.
+create table public.spoiler_reports (
+  quiz_id uuid not null constraint spoiler_reports_quiz_id_fkey references public.quizzes(id) on delete cascade,
+  reporter_id uuid not null constraint spoiler_reports_reporter_id_fkey references public.profiles(id) on delete cascade,
+  site_id text not null constraint spoiler_reports_site_id_fkey references public.sites(id),
+  status text not null default 'pending' constraint spoiler_reports_status_check check (status in ('pending', 'reviewed', 'resolved', 'dismissed')),
+  created_at timestamptz not null default now(),
+  constraint spoiler_reports_pkey primary key (quiz_id, reporter_id)
+);
+create index spoiler_reports_quiz_status_idx on public.spoiler_reports (quiz_id, status);
+alter table public.spoiler_reports enable row level security;
 
 -- report_spoiler: auth.uid() reports p_quiz_id once (reason 'spoiler'); at 3 distinct signed-in reporters it sets
 -- quizzes.spoiler_cover_until (a temporary cover until a moderator decides; never unpublishes). Returns the count.

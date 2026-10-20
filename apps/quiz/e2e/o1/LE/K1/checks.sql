@@ -300,26 +300,29 @@ select pg_temp.chk('015 the cover is set at the third distinct reporter only (7 
   (select v from rs_out where step = 'cover before third') = 'none'
   and (select v from rs_out where step = 'cover after third') = 'true'
   and (select status from public.quizzes where id = md5('chk-k1-spoiler-quiz')::uuid) = 'published');
-select pg_temp.chk('015 one reports row per reader (reason spoiler, the quiz''s site), the quiz report_count moves through the existing trigger',
-  (select count(*) from public.reports where quiz_id = md5('chk-k1-spoiler-quiz')::uuid and reason = 'spoiler' and site_id = 'anime' and status = 'pending') = 4
-  and (select report_count from public.quizzes where id = md5('chk-k1-spoiler-quiz')::uuid) = 4);
+select pg_temp.chk('015 one spoiler_reports row per reader (the quiz''s site), no reports row, report_count untouched (D-073)',
+  (select count(*) from public.spoiler_reports where quiz_id = md5('chk-k1-spoiler-quiz')::uuid and site_id = 'anime' and status = 'pending') = 4
+  and (select count(*) from public.reports where quiz_id = md5('chk-k1-spoiler-quiz')::uuid) = 0
+  and (select report_count from public.quizzes where id = md5('chk-k1-spoiler-quiz')::uuid) = 0);
 select pg_temp.chk('015 no session raises (28000), an unknown or unpublished quiz raises (P0002)',
   pg_temp.as_role('service_role', null, $q$select public.report_spoiler(md5('chk-k1-spoiler-quiz')::uuid)::text$q$) like 'ERR:28000:%'
   and pg_temp.as_role('authenticated', pg_temp.uid(5), $q$select public.report_spoiler(md5('chk-k1-no-such-quiz')::uuid)::text$q$) like 'ERR:P0002:%'
   and pg_temp.as_role('authenticated', pg_temp.uid(5), $q$select public.report_spoiler(md5('chk-k1-spoiler-draft')::uuid)::text$q$) like 'ERR:P0002:%');
-select pg_temp.chk('015 report_spoiler is for authenticated (anon refused); reason_valid has the six reasons; reports_spoiler_once is a partial unique index',
+select pg_temp.chk('015 report_spoiler is for authenticated (anon refused); reason_valid keeps its five reasons; spoiler_reports has RLS and one row per quiz and reader (D-073)',
   pg_temp.as_role('anon', null, $q$select public.report_spoiler(md5('chk-k1-spoiler-quiz')::uuid)::text$q$) like 'ERR:42501:%'
   and has_function_privilege('authenticated', 'public.report_spoiler(uuid)', 'execute')
   and not has_function_privilege('anon', 'public.report_spoiler(uuid)', 'execute')
   and not has_function_privilege('public', 'public.report_spoiler(uuid)', 'execute')
-  and (select pg_get_constraintdef(oid) like '%spoiler%' from pg_constraint where conname = 'reason_valid' and conrelid = 'public.reports'::regclass)
-  and (select indisunique and indpred is not null from pg_index where indexrelid = 'public.reports_spoiler_once'::regclass));
+  and (select pg_get_constraintdef(oid) not like '%spoiler%' from pg_constraint where conname = 'reason_valid' and conrelid = 'public.reports'::regclass)
+  and to_regclass('public.reports_spoiler_once') is null
+  and (select relrowsecurity from pg_class where oid = 'public.spoiler_reports'::regclass)
+  and (select pg_get_constraintdef(oid) = 'PRIMARY KEY (quiz_id, reporter_id)' from pg_constraint where conname = 'spoiler_reports_pkey'));
 insert into public.quizzes (id, creator_id, group_id, title, slug, questions, status)
 select md5('chk-k1-kpop-quiz')::uuid, pg_temp.uid(1), g.id, 'Chk K1 kpop quiz', 'chk-k1-kpop-quiz', '[1, 2, 3]'::jsonb, 'published' from g where slug = 'chk-k1-kpop';
 insert into rs_out values ('kpop u6', pg_temp.as_role('authenticated', pg_temp.uid(6), $q$select public.report_spoiler(md5('chk-k1-kpop-quiz')::uuid)::text$q$));
 select pg_temp.chk('015 a kpop quiz can be reported too: the report carries the quiz''s own site, and no cover below three reporters',
   (select v from rs_out where step = 'kpop u6') = '1'
-  and (select site_id from public.reports where quiz_id = md5('chk-k1-kpop-quiz')::uuid and reason = 'spoiler') = 'kpop'
+  and (select site_id from public.spoiler_reports where quiz_id = md5('chk-k1-kpop-quiz')::uuid) = 'kpop'
   and (select spoiler_cover_until is null from public.quizzes where id = md5('chk-k1-kpop-quiz')::uuid));
 select pg_temp.chk('015 verse_threads.spoiler_flair takes 0 and up',
   (select count(*) from pg_constraint where conname = 'verse_threads_spoiler_flair_check') = 1);
