@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
+import { createContext, lazy, Suspense, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
 
 import { setPendingAction } from '@/lib/ux-v1/a0/pending-action';
 
@@ -28,6 +28,12 @@ export interface SignInRequest {
 const DEFAULT_TITLE = 'Sign in to KpopQuiz';
 const DEFAULT_SUB = 'Keep your scores, streak and badges. No password needed.';
 
+// Run O1, lot (b), P1 (rule 18): on a world build (anime, hub) the sheet that opens is the world one, with the site's words. It is
+// loaded on the first open and only a world build can reach it, so a kpop page loads no module the base did not (the check is
+// the build-time constant NEXT_PUBLIC_SITE_ID, not the registry, which would join the kpop client bundle).
+const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
+const WorldSignInSheet = lazy(() => import('@/components/passport-ui/world-sign-in-sheet').then((m) => ({ default: m.WorldSignInSheet })));
+
 const Ctx = createContext<(req?: SignInRequest) => void>(() => {});
 
 /** Opens the shared sign-in sheet. Guests only; the page decides when to ask. */
@@ -42,7 +48,9 @@ export function SignInProvider({ children }: { children: React.ReactNode }): Rea
   return (
     <Ctx value={value}>
       {children}
-      <SignInSheet open={req !== null} request={req ?? {}} onClose={close} />
+      {IS_WORLD_BUILD
+        ? (req === null ? null : <Suspense fallback={null}><WorldSignInSheet open request={req} onClose={close} /></Suspense>)
+        : <SignInSheet open={req !== null} request={req ?? {}} onClose={close} />}
     </Ctx>
   );
 }

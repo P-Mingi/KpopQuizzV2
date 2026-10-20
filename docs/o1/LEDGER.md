@@ -337,3 +337,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 - D-075 K1 complete: 27 series in docs/anime/data (b7 ef67c04, b8 7261ab0, b9 c20140f; 0.32, 0.28, 0.31 M). Omniscient Reader's Viewpoint and Kagurabachi have no aired anime, so no themes: C1's two-theme minimum (from the fixture schema) now applies only to series with anime_start_year, otherwise a warning. check.mjs on the folder: 54 of 54 pass.
 | 2026-10-20T20:28:44Z | K1 | d123e6a49fe8 | not needed | 0 SQL file(s) |
 - D-076 Disk at 97 percent (14 GB free): new-lane.sh takes O1_MIN_FREE_GB (default 15); ORCH opens content lanes, which never build, at 12. K1 worktree removed (branch kept). K2 starts (brief K2.md): 30 Team creators and 5 quizzes per series, in batches of 6 series.
+| 2026-10-20T20:51:20Z | P1 | 05c2cfbd0c85 | identical (base f4416b4110234d5ca55bdcbe31b95d4c71b2edff, merged tree d37507dc92667374e3cbe709671f511312420334), production through the read-only proxy | 0 SQL file(s) |
