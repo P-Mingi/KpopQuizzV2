@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite, withSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -28,16 +29,16 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const adminDb = createServiceRoleClient();
 
-  // Clear any existing QOTD for that date
-  await adminDb
+  // Clear any existing QOTD for that date (this site's: one quiz of the day per site and date)
+  await forSite(adminDb
     .from('quizzes')
-    .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null })
+    .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null }))
     .eq('quiz_of_the_day_date', date);
 
   // Set the new one
-  const { error } = await adminDb
+  const { error } = await forSite(adminDb
     .from('quizzes')
-    .update({ is_quiz_of_the_day: true, quiz_of_the_day_date: date })
+    .update({ is_quiz_of_the_day: true, quiz_of_the_day_date: date }))
     .eq('id', quiz_id);
 
   if (error) {
@@ -46,13 +47,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   // Log to qotd_log
   await adminDb.from('qotd_log').upsert(
-    {
+    withSite({
       quiz_id,
       featured_date: date,
       selection_method: 'manual',
       score: null,
-    },
-    { onConflict: 'featured_date' },
+    }),
+    { onConflict: 'site_id,featured_date' },
   );
 
   return NextResponse.json({ success: true });

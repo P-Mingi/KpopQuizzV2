@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -42,9 +43,9 @@ export async function PATCH(
     update.verified_at = new Date().toISOString();
   }
 
-  const { data, error } = await adminDb
+  const { data, error } = await forSite(adminDb
     .from('quiz_bank')
-    .update(update)
+    .update(update))
     .eq('id', id)
     .select()
     .single();
@@ -70,7 +71,7 @@ export async function DELETE(
   const { id } = await params;
   const adminDb = createServiceRoleClient();
 
-  const { error } = await adminDb.from('quiz_bank').delete().eq('id', id);
+  const { error } = await forSite(adminDb.from('quiz_bank').delete()).eq('id', id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

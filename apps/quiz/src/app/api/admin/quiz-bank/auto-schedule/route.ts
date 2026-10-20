@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { autoSchedule } from '@/lib/quiz-bank-scheduling';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 import type { QuizBankEntry } from '@/lib/quiz-bank-scheduling';
@@ -31,9 +32,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const adminDb = createServiceRoleClient();
 
-  const { data: all, error } = await adminDb
+  const { data: all, error } = await forSite(adminDb
     .from('quiz_bank')
-    .select('*')
+    .select('*'))
     .neq('status', 'published');
 
   if (error) {
@@ -61,9 +62,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   // Apply assignments in bulk
   const updates = [...assignments.entries()].map(([id, date]) =>
-    adminDb
+    forSite(adminDb
       .from('quiz_bank')
-      .update({ scheduled_date: date, status: 'scheduled', updated_at: new Date().toISOString() })
+      .update({ scheduled_date: date, status: 'scheduled', updated_at: new Date().toISOString() }))
       .eq('id', id),
   );
 

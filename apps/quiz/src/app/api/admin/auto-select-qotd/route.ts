@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { avgScorePct } from '@/lib/quiz/scoring';
+import { forSite, withSite } from '@/lib/site/scope';
 
 export async function POST(req: Request): Promise<NextResponse> {
 
@@ -19,9 +20,9 @@ export async function POST(req: Request): Promise<NextResponse> {
   const tomorrowStr = tomorrow.toISOString().split('T')[0]!;
 
   // 1. Check if tomorrow already has a QOTD
-  const { data: existing } = await supabase
+  const { data: existing } = await forSite(supabase
     .from('qotd_log')
-    .select('id')
+    .select('id'))
     .eq('featured_date', tomorrowStr)
     .maybeSingle();
 
@@ -30,9 +31,9 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   // Also check quizzes table (backward compat)
-  const { data: existingQuiz } = await supabase
+  const { data: existingQuiz } = await forSite(supabase
     .from('quizzes')
-    .select('id')
+    .select('id'))
     .eq('is_quiz_of_the_day', true)
     .eq('quiz_of_the_day_date', tomorrowStr)
     .maybeSingle();
@@ -43,9 +44,9 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   // Check if a bank quiz is scheduled for tomorrow; if so, skip auto-select.
   // The bank publish cron at 15:00 UTC will handle it.
-  const { data: bankQuiz } = await supabase
+  const { data: bankQuiz } = await forSite(supabase
     .from('quiz_bank')
-    .select('id')
+    .select('id'))
     .eq('scheduled_date', tomorrowStr)
     .in('status', ['verified', 'scheduled'])
     .maybeSingle();
@@ -55,9 +56,9 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   // 2. Get recent QOTD group IDs for diversity
-  const { data: recentQotd } = await supabase
+  const { data: recentQotd } = await forSite(supabase
     .from('qotd_log')
-    .select('quiz_id, featured_date')
+    .select('quiz_id, featured_date'))
     .order('featured_date', { ascending: false })
     .limit(5);
 
@@ -83,9 +84,9 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   // 3. Fetch eligible quizzes (strict thresholds)
-  let { data: eligible } = await supabase
+  let { data: eligible } = await forSite(supabase
     .from('quizzes')
-    .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+    .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date'))
     .eq('status', 'published')
     .gte('play_count', 15)
     .gte('like_count', 2)
@@ -104,9 +105,9 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   // 4. Fallback: lower thresholds
   if ((eligible ?? []).length < 5) {
-    const { data: fallback } = await supabase
+    const { data: fallback } = await forSite(supabase
       .from('quizzes')
-      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date'))
       .eq('status', 'published')
       .gte('play_count', 5)
       .gte('like_count', 1)
@@ -131,9 +132,9 @@ export async function POST(req: Request): Promise<NextResponse> {
   // 5. Last resort: any quiz not featured in 7 days
   if ((eligible ?? []).length < 3) {
     const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0]!;
-    const { data: lastResort } = await supabase
+    const { data: lastResort } = await forSite(supabase
       .from('quizzes')
-      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date')
+      .select('id, group_id, quiz_type, play_count, like_count, total_completions, total_score_sum, question_count, created_at, quiz_of_the_day_date'))
       .eq('status', 'published')
       .gte('play_count', 1)
       .order('play_count', { ascending: false })
@@ -196,22 +197,22 @@ export async function POST(req: Request): Promise<NextResponse> {
   const winner = scored[0]!;
 
   // 7. Clear any existing QOTD for tomorrow and set new one
-  await supabase
+  await forSite(supabase
     .from('quizzes')
-    .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null })
+    .update({ is_quiz_of_the_day: false, quiz_of_the_day_date: null }))
     .eq('quiz_of_the_day_date', tomorrowStr);
 
-  await supabase
+  await forSite(supabase
     .from('quizzes')
-    .update({ is_quiz_of_the_day: true, quiz_of_the_day_date: tomorrowStr })
+    .update({ is_quiz_of_the_day: true, quiz_of_the_day_date: tomorrowStr }))
     .eq('id', winner.id);
 
-  await supabase.from('qotd_log').insert({
+  await supabase.from('qotd_log').insert(withSite({
     quiz_id: winner.id,
     featured_date: tomorrowStr,
     selection_method: 'auto',
     score: Math.round(winner.score * 100) / 100,
-  });
+  }));
 
   return NextResponse.json({
     message: 'QOTD set for tomorrow',

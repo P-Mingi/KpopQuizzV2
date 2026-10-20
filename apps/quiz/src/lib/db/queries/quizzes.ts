@@ -3,8 +3,11 @@ import { unstable_cache } from 'next/cache';
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { avgScorePct } from '@/lib/quiz/scoring';
+import { SITE } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
+import type { SiteId } from '@/lib/site/types';
 
 // M1.14: first_question is a JSON projection of the first question's PROMPT
 // text (questions->0->>question) for the desktop hover preview. Same query, no
@@ -537,18 +540,21 @@ export async function getQuizzesByType(
 // and is cached for the stats TTL within the day. If the cron has not published
 // today's bank quiz yet (brief post-midnight window), the deterministic rotation
 // fallback covers it - a valid QOTD, no write, no blank slot.
-export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
+//
+// Run O1 (K1): one quiz of the day per site. `site` defaults to this build's site; the reads go through forSite (a no-op on
+// the kpop build while SITE_SCOPE is off, so kpop sends today's queries; the anime build always filters on site_id).
+export async function getQuizOfTheDay(site: SiteId = SITE.id): Promise<QuizCardData | null> {
   const today = new Date().toISOString().split('T')[0]!;
-  return getQuizOfTheDayForDate(today);
+  return getQuizOfTheDayForDate(today, site);
 }
 
 const getQuizOfTheDayForDate = unstable_cache(
-  async (today: string): Promise<QuizCardData | null> => {
+  async (today: string, site: SiteId): Promise<QuizCardData | null> => {
     const admin = createServiceRoleClient();
 
-    const { data, error } = await admin
+    const { data, error } = await forSite(admin
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT), site)
       .eq('status', 'published')
       .eq('is_quiz_of_the_day', true)
       .eq('quiz_of_the_day_date', today)
@@ -570,9 +576,9 @@ const getQuizOfTheDayForDate = unstable_cache(
     // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
     // restart date so the rotation stays stable across redeploys.
     try {
-      const { data: pool, error: poolErr } = await admin
+      const { data: pool, error: poolErr } = await forSite(admin
         .from('quizzes')
-        .select(QUIZ_CARD_SELECT)
+        .select(QUIZ_CARD_SELECT), site)
         .eq('status', 'published')
         .not('quiz_of_the_day_date', 'is', null)
         .order('quiz_of_the_day_date', { ascending: true });

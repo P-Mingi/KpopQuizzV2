@@ -1,5 +1,7 @@
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
+import { SITE } from '@/lib/site/registry';
 import { NextResponse } from 'next/server';
 
 import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -20,6 +22,9 @@ import type { NextRequest } from 'next/server';
  * Auth guard: same scheme as the other crons (Bearer CRON_SECRET, which Vercel
  * sends on cron invocations). ensure_daily_quiz is idempotent ("publish today's bank quiz if
  * not yet done"), so a retry or a manual hit is safe.
+ *
+ * Run O1 (K1): one quiz of the day per site. The kpop build still calls ensure_daily_quiz(p_date), exactly as before (010
+ * makes it the kpop wrapper); any other build calls ensure_daily_quiz_v2(p_date, SITE.id) (lib/daily-quiz.ts).
  *
  * UX v11 P1, rotation fix: ensure_daily_quiz only publishes a bank row dated
  * exactly today, and no row has matched since 2026-06-30 (root cause in
@@ -42,7 +47,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (qotdRotationFixEnabled()) {
     try {
-      const result = await rotateQotd(supabaseQotdStore(supabase), today);
+      const result = await rotateQotd(supabaseQotdStore(supabase, SITE.id), today);
       console.log(`[ensure-daily-quiz] ${today}: ${result.method}${result.quizId ? ` ${result.quizId}` : ''}`);
       if (result.method === 'none') {
         return NextResponse.json({ ok: false, date: today, method: result.method, reason: result.reason }, { status: 500 });
@@ -55,7 +60,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  const { error } = await supabase.rpc('ensure_daily_quiz', { p_date: today });
+  const { error } = await ensureDailyQuizRpc(supabase, today, SITE.id);
   if (error) {
     console.error('[ensure-daily-quiz]', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });

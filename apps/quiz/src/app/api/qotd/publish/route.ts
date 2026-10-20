@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
+import { SITE } from '@/lib/site/registry';
 import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
 import { rotateQotd, supabaseQotdStore } from '@/lib/ux-v1/p1/qotd-rotation';
 
@@ -37,7 +39,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'date must be YYYY-MM-DD' }, { status: 400 });
     }
     try {
-      const result = await rotateQotd(supabaseQotdStore(supabase), today);
+      const result = await rotateQotd(supabaseQotdStore(supabase, SITE.id), today);
       if (!result.quizId) {
         return NextResponse.json({ error: result.reason ?? 'No quiz available for this date' }, { status: 404 });
       }
@@ -48,7 +50,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  const { data: quizId, error } = await supabase.rpc('ensure_daily_quiz', { p_date: today });
+  const { data: quizId, error } = await ensureDailyQuizRpc(supabase, today, SITE.id);
 
   if (error) {
     console.error('[qotd/publish]', error);
