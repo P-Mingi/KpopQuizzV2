@@ -1,0 +1,919 @@
+[
+  {
+    "id": "dragon-ball-db-saga-seasons-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "arcs_db",
+    "value": [
+      "1: Dragon Ball: Emperor Pilaf Saga, episodes 1-13",
+      "2: Dragon Ball: Tournament Saga, episodes 14-28",
+      "3: Dragon Ball: Red Ribbon Army Saga, episodes 29-45",
+      "4: Dragon Ball: General Blue Saga, episodes 46-57",
+      "5: Dragon Ball: Commander Red Saga, episodes 58-68",
+      "6: Dragon Ball: Fortuneteller Baba Saga, episodes 69-83",
+      "7: Dragon Ball: Tien Shinhan Saga, episodes 84-101",
+      "8: Dragon Ball: King Piccolo Saga, episodes 102-122",
+      "9: Dragon Ball: Piccolo Jr. Saga, episodes 123-153"
+    ],
+    "text": "The 1986 series is split into nine saga seasons in the episode list, from the Emperor Pilaf Saga to the Piccolo Jr. Saga, adding up to 153 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 9,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes",
+        "ref": "1375120717",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1: Emperor Pilaf Saga (1986)"
+  },
+  {
+    "id": "dragon-ball-z-saga-seasons-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "arcs_z",
+    "value": [
+      "10: Dragon Ball Z: Saiyan Saga, episodes 1-39",
+      "11: Dragon Ball Z: Namek and Captain Ginyu Sagas, episodes 40-74",
+      "12: Dragon Ball Z: Frieza Saga, episodes 75-107",
+      "13: Dragon Ball Z: Garlic Jr., Trunks and Androids Sagas, episodes 108-139",
+      "14: Dragon Ball Z: Imperfect Cell and Perfect Cell Sagas, episodes 140-165",
+      "15: Dragon Ball Z: Cell Games Saga, episodes 166-194",
+      "16: Dragon Ball Z: Other World, Great Saiyaman and World Tournament Sagas, episodes 195-219",
+      "17: Dragon Ball Z: Babidi and Majin Buu Sagas, episodes 220-253",
+      "18: Dragon Ball Z: Fusion, Kid Buu and Peaceful World Sagas, episodes 254-291"
+    ],
+    "text": "Dragon Ball Z is grouped into nine season blocks in the episode list, each matching one or more sagas, for 291 episodes in all.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 18,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_Z_episodes",
+        "ref": "1372940831",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1: Saiyan Saga (1989-1990)"
+  },
+  {
+    "id": "dragon-ball-super-saga-seasons-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "arcs_super",
+    "value": [
+      "19: Dragon Ball Super: God of Destruction Beerus Saga, episodes 1-18",
+      "20: Dragon Ball Super: Golden Frieza Saga, episodes 19-27",
+      "21: Dragon Ball Super: Universe 6 and Duplicate Vegeta Saga, episodes 28-46",
+      "22: Dragon Ball Super: Zamasu Saga, episodes 47-76",
+      "23: Dragon Ball Super: Universe Survival Saga, episodes 77-131"
+    ],
+    "text": "Dragon Ball Super has five saga seasons, ending with the long Universe Survival Saga, across 131 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 23,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_Super_episodes",
+        "ref": "1376133833",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1: God of Destruction Beerus Saga (2015)"
+  },
+  {
+    "id": "dragon-ball-daima-single-arc-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "arcs_daima",
+    "value": [
+      "24: Dragon Ball Daima, episodes 1-20"
+    ],
+    "text": "Daima is a single self-contained story told over 20 episodes, and it has no manga source.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 24,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
+        "ref": "1378491353",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "No. of episodes | 20"
+  },
+  {
+    "id": "dragon-ball-cast-first-half-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "characters_a",
+    "value": [
+      "Goku (孫悟空)",
+      "Bulma (ブルマ)",
+      "Master Roshi (亀仙人)",
+      "Yamcha (ヤムチャ)",
+      "Oolong (ウーロン)",
+      "Chi-Chi (チチ)",
+      "Emperor Pilaf (ピラフ)",
+      "Krillin (クリリン)",
+      "Tien Shinhan (天津飯)",
+      "King Piccolo (ピッコロ大魔王)",
+      "Piccolo (ピッコロ)",
+      "Raditz (ラディッツ)",
+      "Vegeta (ベジータ)",
+      "Gohan (孫悟飯)",
+      "Frieza (フリーザ)"
+    ],
+    "text": "The first half of the cast list, from the Pilaf Saga heroes to the Saiyan arrivals and the first Z Fighters.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Krillin (クリリン, Kuririn)"
+  },
+  {
+    "id": "dragon-ball-cast-second-half-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "characters_b",
+    "value": [
+      "Dende (デンデ)",
+      "Trunks (トランクス)",
+      "Android 18 (人造人間18号)",
+      "Cell (セル)",
+      "Mr. Satan (ミスター・サタン)",
+      "Goten (孫悟天)",
+      "Videl (ビーデル)",
+      "Majin Buu (魔人ブウ)",
+      "Beerus (ビルス)",
+      "Whis (ウイス)",
+      "Hit (ヒット)",
+      "Zamasu (ザマス)",
+      "Jiren (ジレン)",
+      "Gomah (ゴマー)",
+      "Glorio (グロリオ)"
+    ],
+    "text": "The second half of the cast list: Frieza's era, the Cell and Buu villains, and the gods and rivals of Super and Daima.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 24,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Glorio (グロリオ Gurorio)"
+  },
+  {
+    "id": "dragon-ball-db-theme-songs-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "themes_db",
+    "value": [
+      "OP 1: Makafushigi Adventure! - Hiroki Takahashi",
+      "ED 1: Romantic Ageru yo - Ushio Hashimoto"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)",
+        "ref": "1379753661",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Makafushigi Adventure!\" by Hiroki Takahashi"
+  },
+  {
+    "id": "dragon-ball-z-theme-songs-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "themes_z",
+    "value": [
+      "OP 2: Cha-La Head-Cha-La - Hironobu Kageyama",
+      "OP 3: We Gotta Power - Hironobu Kageyama",
+      "ED 2: Detekoi Tobikiri Zenkai Power! - Manna",
+      "ED 3: Bokutachi wa Tenshi Datta - Hironobu Kageyama"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
+        "ref": "1379753684",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Cha-La Head-Cha-La\" by Hironobu Kageyama"
+  },
+  {
+    "id": "dragon-ball-super-theme-songs-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "themes_super",
+    "value": [
+      "OP 4: Chōzetsu Dynamic! - Kazuya Yoshii",
+      "OP 5: Genkai Toppa x Survivor - Kiyoshi Hikawa",
+      "ED 4: Hello Hello Hello - Good Morning America",
+      "ED 5: Starring Star - Keytalk",
+      "ED 6: Usubeni - Lacco Tower",
+      "ED 7: Forever Dreaming - Czecho No Republic",
+      "ED 8: Yoka Yoka Dance - Batten Girls",
+      "ED 9: Chaohan Music - Arukara",
+      "ED 10: Aku no Tenshi to Seigi no Akuma - the Collectors",
+      "ED 11: Boogie Back - Miyu Inoue",
+      "ED 12: Haruka - Lacco Tower",
+      "ED 13: 70cm Shihō no Madobe - Rottengraffty",
+      "ED 14: Lagrima - OnePixcel"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)",
+        "ref": "1380689066",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Hello Hello Hello\" by Good Morning America (#1-12)"
+  },
+  {
+    "id": "dragon-ball-daima-theme-songs-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "themes_daima",
+    "value": [
+      "OP 6: Jaka Jaan - Zedd and C&K",
+      "ED 15: Nakama - Zedd and Ai"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
+        "ref": "1378491353",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song is \"Jaka Jaan\" by German record producer Zedd"
+  },
+  {
+    "id": "dragon-ball-japanese-title-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "title_native",
+    "value": "ドラゴンボール",
+    "text": "The franchise is called ドラゴンボール in Japan, read Doragon Bōru, and Dragon Ball is how it is written in English.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)",
+        "ref": "1379753661",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2020",
+        "ref": "Q2020",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "ドラゴンボール Doragon Bōru"
+  },
+  {
+    "id": "dragon-ball-series-creator-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "author",
+    "value": "Akira Toriyama",
+    "text": "Akira Toriyama created the franchise and wrote and drew the original manga on his own.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Written and illustrated by Akira Toriyama"
+  },
+  {
+    "id": "dragon-ball-manga-run-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "manga_run",
+    "value": "December 1984 to June 1995",
+    "text": "The original manga ran for a little over ten years in Weekly Shonen Jump, starting in December 1984.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in the manga anthology Weekly Shōnen Jump from December 3, 1984, to June 5, 1995"
+  },
+  {
+    "id": "dragon-ball-magazine-publisher-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha)",
+    "text": "Shueisha published the original manga in its Weekly Shonen Jump magazine and collected it in book form.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 519 individual chapters were collected in 42 tankōbon volumes by Shueisha"
+  },
+  {
+    "id": "dragon-ball-manga-volumes-chapters-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "manga_size",
+    "value": [
+      "519 chapters",
+      "42 volumes"
+    ],
+    "text": "The original manga reached 519 chapters, bound in 42 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 519 individual chapters were collected in 42 tankōbon volumes"
+  },
+  {
+    "id": "dragon-ball-dragon-ball-tv-run-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "db_tv_run",
+    "value": [
+      "153 episodes",
+      "February 26, 1986 to April 19, 1989"
+    ],
+    "text": "The first anime ran for 153 episodes, from February 1986 to April 1989, on Fuji Television.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)",
+        "ref": "1379753661",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "February 26, 1986 (1986-02-26) - April 19, 1989 (1989-04-19)"
+  },
+  {
+    "id": "dragon-ball-z-tv-run-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "z_tv_run",
+    "value": [
+      "291 episodes",
+      "April 26, 1989 to January 31, 1996"
+    ],
+    "text": "Dragon Ball Z started in April 1989 and aired 291 episodes before ending in January 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
+        "ref": "1379753684",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "No. of episodes | 291"
+  },
+  {
+    "id": "dragon-ball-super-tv-run-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "super_tv_run",
+    "value": [
+      "131 episodes",
+      "July 5, 2015 to March 25, 2018"
+    ],
+    "text": "After a long gap, Dragon Ball Super returned to television in July 2015 and ran for 131 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)",
+        "ref": "1380689066",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "July 5, 2015 (2015-07-05) - March 25, 2018 (2018-03-25)"
+  },
+  {
+    "id": "dragon-ball-daima-tv-run-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "daima_tv_run",
+    "value": [
+      "20 episodes",
+      "October 11, 2024 to February 28, 2025"
+    ],
+    "text": "Daima aired its 20 episodes between October 2024 and February 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
+        "ref": "1378491353",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "October 11, 2024 (2024-10-11) - February 28, 2025 (2025-02-28)"
+  },
+  {
+    "id": "dragon-ball-animation-studio-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "studio",
+    "value": "Toei Animation",
+    "text": "Toei Animation produced the anime television series of the franchise.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
+        "ref": "1379753684",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dragon Ball Z (DBZ) is a Japanese anime television series produced by Toei Animation"
+  },
+  {
+    "id": "dragon-ball-super-manga-artist-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "super_manga",
+    "value": [
+      "Toyotarou (art)",
+      "V Jump"
+    ],
+    "text": "The Dragon Ball Super manga is drawn by Toyotarou and runs in V Jump rather than in Weekly Shonen Jump.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super",
+        "ref": "1380244801",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written by Akira Toriyama and illustrated by Toyotarou"
+  },
+  {
+    "id": "dragon-ball-copies-sold-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "copies",
+    "value": "260 million copies worldwide",
+    "text": "The original manga volumes have sold around 260 million copies worldwide, a bit over 160 million of them in Japan.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "have over 160 million copies sold in Japan and 260 million sold worldwide"
+  },
+  {
+    "id": "dragon-ball-journey-to-the-west-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "inspiration",
+    "value": "Journey to the West",
+    "text": "The story was inspired by the Chinese novel Journey to the West, with Hong Kong kung fu films mixed in.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dragon Ball was originally inspired by the classical 16th-century Chinese novel Journey to the West"
+  },
+  {
+    "id": "dragon-ball-goku-sun-wukong-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku"
+    },
+    "field": "namesake",
+    "value": "Sun Wukong",
+    "text": "Goku's Japanese name, Son Goku, is how the Monkey King Sun Wukong of Journey to the West is read in Japanese.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Goku being Sun Wukong (\"Son Goku\" in Japanese)"
+  },
+  {
+    "id": "dragon-ball-daima-toriyama-story-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "daima_story",
+    "value": "second and last story conceived by Toriyama",
+    "text": "Daima is the last new anime story that Akira Toriyama conceived, and he died shortly before it aired.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 24,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
+        "ref": "1378491353",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the second and last to have a story directly conceived for it by franchise creator Akira Toriyama"
+  },
+  {
+    "id": "dragon-ball-super-manga-hiatus-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "super_manga_status",
+    "value": "on hold since March 2024",
+    "text": "The Dragon Ball Super manga went on hiatus after Akira Toriyama died in March 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super",
+        "ref": "1380244801",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "currently on hiatus following Toriyama's death in March 2024"
+  },
+  {
+    "id": "dragon-ball-frieza-name-pun-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "frieza"
+    },
+    "field": "name_pun",
+    "value": "freezer",
+    "text": "The name Frieza is a pun on freezer, and his Ginyu Force henchmen are named after fridge items.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Frieza is a pun on freezer"
+  },
+  {
+    "id": "dragon-ball-broly-film-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "broly_film",
+    "value": "December 14, 2018",
+    "text": "The film Dragon Ball Super: Broly, set mostly after the Universe Survival Saga, arrived in Japan on 14 December 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super",
+        "ref": "1380244801",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was released on December 14, 2018"
+  },
+  {
+    "id": "dragon-ball-super-hero-film-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "super_hero_film",
+    "value": "June 11, 2022",
+    "text": "Super Hero is the second Dragon Ball Super film, and its Japanese release came on 11 June 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super",
+        "ref": "1380244801",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was released on June 11, 2022"
+  },
+  {
+    "id": "dragon-ball-z-kai-remaster-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "z_kai",
+    "value": "Z Kai aired 2009 to 2015",
+    "text": "Dragon Ball Z Kai is a re-edited version of Dragon Ball Z that aired from 2009 to 2015.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 18,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
+        "ref": "1379753684",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dragon Ball Z Kai (2009-2015)"
+  }
+]

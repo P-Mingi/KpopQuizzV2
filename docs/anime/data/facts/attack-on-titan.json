@@ -1,0 +1,888 @@
+[
+  {
+    "id": "attack-on-titan-season-one-span-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s1",
+    "value": [
+      "1: Season 1, episodes 1-25, chapters 1-34"
+    ],
+    "text": "The first season ran for 25 episodes in 2013 and adapted the first 34 chapters of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+        "ref": "1373116640",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the first story arcs (chapters 1-34) from the original manga"
+  },
+  {
+    "id": "attack-on-titan-season-two-span-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s2",
+    "value": [
+      "2: Season 2: Clash of the Titans, episodes 26-37, chapters 35-51"
+    ],
+    "text": "Season 2 followed the Clash of the Titans arc of the manga across 12 episodes, numbered 26 to 37 overall.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+        "ref": "1372511996",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Clash of the Titans\" arc (chapters 35-51)"
+  },
+  {
+    "id": "attack-on-titan-season-three-span-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s3",
+    "value": [
+      "3: Season 3 Part 1: Royal Government, episodes 38-49, chapters 51-72",
+      "4: Season 3 Part 2: Return to Shiganshina, episodes 50-59, chapters 73-90"
+    ],
+    "text": "Season 3 ran as two blocks, with the Royal Government arc first and the Return to Shiganshina arc second.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+        "ref": "1373469838",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Royal Government\" (chapters 51-72) and \"Return to Shiganshina\" (chapters 73-90) arcs"
+  },
+  {
+    "id": "attack-on-titan-final-season-span-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s4",
+    "value": [
+      "The Final Season: episodes 60-94 in four parts, chapters 91-139",
+      "The Final Season Part 1: episodes 60-75",
+      "The Final Season Part 2: episodes 76-87",
+      "The Final Chapters (Parts 3 and 4): episodes 88-94"
+    ],
+    "text": "The last season ended the story by adapting the remaining chapters 91 to 139 of the manga, from the Marley arc to the War for Paradis arc.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4",
+        "ref": "1378728549",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season covers the \"Marley\" (chapters 91-106) and \"War for Paradis\" (chapters 107-139) arcs"
+  },
+  {
+    "id": "attack-on-titan-final-season-chapter-split-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_split",
+    "value": [
+      "The Final Season Part 1: chapters 91-116",
+      "The Final Season Part 2: chapters 117-130",
+      "The Final Chapters: chapters 131-139"
+    ],
+    "text": "Episode titles of the last season echo manga chapter titles, which shows where each part stops: Part 1 ends at chapter 116 and Part 2 at chapter 130.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_chapters",
+        "ref": "1379121958",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Above and Below\" (天地, Tenchi) \"Judgment\" (断罪, Danzai)"
+  },
+  {
+    "id": "attack-on-titan-cast-first-half-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "characters_a",
+    "value": [
+      "Eren Yeager (エレン・イェーガー)",
+      "Mikasa Ackerman (ミカサ・アッカーマン)",
+      "Armin Arlert (アルミン・アルレルト)",
+      "Levi Ackerman (リヴァイ・アッカーマン)",
+      "Erwin Smith (エルヴィン・スミス)",
+      "Hange Zoë (ハンジ・ゾエ)",
+      "Jean Kirstein (ジャン・キルシュタイン)",
+      "Connie Springer (コニー・スプリンガー)",
+      "Sasha Blouse (サシャ・ブラウス)",
+      "Krista Lenz (クリスタ・レンズ)",
+      "Ymir (ユミル)",
+      "Reiner Braun (ライナー・ブラウン)",
+      "Bertolt Hoover (ベルトルト・フーバー)",
+      "Annie Leonhart (アニ・レオンハート)",
+      "Marco Bott (マルコ・ボット)"
+    ],
+    "text": "The first half of the cast list: the main trio, the 104th Training Corps and a few early mentors.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mikasa Ackerman (ミカサ・アッカーマン"
+  },
+  {
+    "id": "attack-on-titan-cast-second-half-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "characters_b",
+    "value": [
+      "Keith Shadis (キース・シャーディス)",
+      "Hannes (ハンネス)",
+      "Dot Pixis (ドット・ピクシス)",
+      "Mike Zacharius (ミケ・ザカリアス)",
+      "Petra Ral (ペトラ・ラル)",
+      "Zeke Yeager (ジーク・イェーガー)",
+      "Kenny Ackerman (ケニー・アッカーマン)",
+      "Rod Reiss (ロッド・レイス)",
+      "Grisha Yeager (グリシャ・イェーガー)",
+      "Carla Yeager (カルラ・イェーガー)",
+      "Gabi Braun (ガビ・ブラウン)",
+      "Falco Grice (ファルコ・グライス)",
+      "Pieck Finger (ピーク・フィンガー)",
+      "Porco Galliard (ポルコ・ガリアード)",
+      "Willy Tybur (ヴィリー・タイバー)"
+    ],
+    "text": "The second half of the cast list: veteran soldiers, the royal government and the Marleyan Warriors.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Willy Tybur (ヴィリー・タイバー"
+  },
+  {
+    "id": "attack-on-titan-opening-themes-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Guren no Yumiya - Linked Horizon (season 1)",
+      "OP 2: Jiyū no Tsubasa - Linked Horizon (season 1)",
+      "OP 3: Shinzō wo Sasageyo! - Linked Horizon (season 2)",
+      "OP 4: Red Swan - Yoshiki feat. Hyde (season 3)",
+      "OP 5: Shoukei to Shikabane no Michi - Linked Horizon (season 3)",
+      "OP 6: My War - Shinsei Kamattechan (season 4)",
+      "OP 7: The Rumbling - SiM (season 4)",
+      "OP 8: Saigo no Kyojin - Linked Horizon (season 4)"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Guren no Yumiya\" by Linked Horizon"
+  },
+  {
+    "id": "attack-on-titan-ending-themes-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Utsukushiki Zankoku na Sekai - Yōko Hikasa (season 1)",
+      "ED 2: Great Escape - Cinema Staff (season 1)",
+      "ED 3: Yuugure no Tori - Shinsei Kamattechan (season 2)",
+      "ED 4: Akatsuki no Requiem - Linked Horizon (season 3)",
+      "ED 5: Name of Love - Cinema Staff (season 3)",
+      "ED 6: Shock - Yūko Andō (season 4)",
+      "ED 7: Akuma no Ko - Ai Higuchi (season 4)",
+      "ED 8: Under the Tree - SiM (season 4)",
+      "ED 9: To You 2,000... or... 20,000 Years From Now... - Linked Horizon (season 4)",
+      "ED 10: Itterasshai - Ai Higuchi (season 4)"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Utsukushiki Zankoku na Sekai\" by Yōko Hikasa"
+  },
+  {
+    "id": "attack-on-titan-japanese-title-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "title_native",
+    "value": "進撃の巨人",
+    "text": "Attack on Titan carries the Japanese title 進撃の巨人, read Shingeki no Kyojin, which translates roughly as The Advancing Giant.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "lit. 'The Advancing Giant'"
+  },
+  {
+    "id": "attack-on-titan-manga-creator-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "author",
+    "value": "Hajime Isayama",
+    "text": "Hajime Isayama wrote and drew the whole manga himself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Japanese manga series written and illustrated by Hajime Isayama"
+  },
+  {
+    "id": "attack-on-titan-manga-run-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "manga_run",
+    "value": "September 2009 to April 2021",
+    "text": "The manga appeared in monthly installments from September 2009 until its finale in April 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "from September 2009 to April 2021"
+  },
+  {
+    "id": "attack-on-titan-magazine-publisher-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "magazine",
+    "value": "Bessatsu Shōnen Magazine (Kodansha)",
+    "text": "It ran in Kodansha's monthly Bessatsu Shōnen Magazine, which launched with the first chapter.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Kodansha's monthly magazine Bessatsu Shōnen Magazine"
+  },
+  {
+    "id": "attack-on-titan-volume-count-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "volumes",
+    "value": 34,
+    "text": "The chapters were collected in 34 volumes, and the story closed after 139 chapters.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with its chapters collected in 34 tankōbon volumes"
+  },
+  {
+    "id": "attack-on-titan-chapter-count-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "chapters",
+    "value": 139,
+    "text": "The finale was chapter number 139.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA",
+        "ref": "111292624",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "全139話"
+  },
+  {
+    "id": "attack-on-titan-anime-premiere-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "anime_start",
+    "value": "April 7, 2013",
+    "text": "The anime opened on 7 April 2013 with a 25-episode first season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series premiered on April 7, 2013"
+  },
+  {
+    "id": "attack-on-titan-episode-count-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "episodes",
+    "value": 94,
+    "text": "Across four seasons the television series reached 94 episodes, counting the episodic cut of the last two specials.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "94 + 3 OADs"
+  },
+  {
+    "id": "attack-on-titan-animation-studios-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "studio",
+    "value": "Wit Studio (seasons 1-3), MAPPA (season 4)",
+    "text": "Wit Studio animated the first three seasons, and MAPPA took over for the final season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Animated by Wit Studio (first three seasons) and MAPPA (final season)"
+  },
+  {
+    "id": "attack-on-titan-series-directors-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "director",
+    "value": "Tetsurō Araki (seasons 1-3), Yuichiro Hayashi (season 4)",
+    "text": "Tetsurō Araki directed the first three seasons, and Yuichiro Hayashi directed the fourth.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tetsurō Araki (S1-3)"
+  },
+  {
+    "id": "attack-on-titan-anime-finale-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "anime_end",
+    "value": "November 5, 2023",
+    "text": "The anime reached its last broadcast on 5 November 2023, with the second Final Chapters special.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "concluded on November 5, 2023"
+  },
+  {
+    "id": "attack-on-titan-copies-in-circulation-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "copies",
+    "value": "over 140 million copies by November 2023",
+    "text": "By November 2023 the manga had passed 140 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By November 2023, it had over 140 million copies in circulation."
+  },
+  {
+    "id": "attack-on-titan-volume-twelve-print-run-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "print_run",
+    "value": "2.2 million copies for volume 12",
+    "text": "Only two other manga have matched the first print of volume 12, which topped two million copies.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "given a first printing of 2.2 million copies"
+  },
+  {
+    "id": "attack-on-titan-kodansha-award-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "manga_award",
+    "value": "Best shonen prize at the 2011 Kodansha Manga Award",
+    "text": "The manga won the Kodansha Manga Award for best shonen title in 2011.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "35th Kodansha Manga Award"
+  },
+  {
+    "id": "attack-on-titan-guinness-record-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "guinness",
+    "value": "Guinness record for anime demand",
+    "text": "The show once held a Guinness record for demand among anime series, and later lost the broader animated-TV title to another series in 2024.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "broke the Guinness World Record for the \"most in-demand anime TV show\""
+  },
+  {
+    "id": "attack-on-titan-last-attack-film-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "compilation_film",
+    "value": "The Last Attack, November 8, 2024",
+    "text": "A compilation film of the finale, titled The Last Attack, arrived in Japan on 8 November 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was released on November 8, 2024"
+  },
+  {
+    "id": "attack-on-titan-season-three-split-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "season_three_break",
+    "value": "12 episodes in 2018, then 10 episodes in 2019",
+    "text": "Season 3 aired its first 12 episodes in the summer of 2018 and then paused until April 2019 for the remaining 10.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+        "ref": "1373469838",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season's first 12 episodes were broadcast on NHK General TV from July 23 to October 15, 2018"
+  },
+  {
+    "id": "attack-on-titan-eren-titan-model-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "titan_model",
+    "value": "Yushin Okami",
+    "text": "Eren's Titan form was drawn after a real middleweight mixed martial artist, Yushin Okami.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was modeled after middleweight mixed martial artist Yushin Okami"
+  },
+  {
+    "id": "attack-on-titan-creator-favourite-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "creator_favourite",
+    "value": "Hajime Isayama's favourite character",
+    "text": "When asked to name his favourite character, the author picked Jean for saying what he really thinks.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "That would be Jean."
+  },
+  {
+    "id": "attack-on-titan-levi-inspiration-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "inspiration",
+    "value": "Rorschach from Watchmen",
+    "text": "Levi's look and manner were modeled on Rorschach, a character from the comic Watchmen.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Levi was modeled after the Watchmen character Rorschach"
+  },
+  {
+    "id": "attack-on-titan-attack-titan-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "titan_name",
+    "value": "Attack Titan",
+    "text": "Eren's Titan form is called the Attack Titan, whose Japanese name is the same as the title of the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Attack Titan (進撃の巨人, Shingeki no Kyojin)"
+  }
+]
