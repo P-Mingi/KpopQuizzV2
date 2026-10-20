@@ -1,0 +1,14 @@
+
+ok: docs/pending-migrations/multisite/009-daily-prep.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/010-daily-v2.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/011-anime-series.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/012-editorial-quiz.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/013-formats.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/014-daily-openings.sql on o1-dev
+
+ok: docs/pending-migrations/multisite/015-spoilers.sql on o1-dev

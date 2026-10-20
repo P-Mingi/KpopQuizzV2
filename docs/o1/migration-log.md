@@ -68,3 +68,11 @@
 | 2026-10-19T22:20:19Z | o1-dev | docs/pending-migrations/multisite/006-passport-handoff.sql | 6d6b108d7af35bad | ok |
 | 2026-10-19T22:20:20Z | o1-dev | docs/pending-migrations/multisite/007-world-xp.sql | 5d41f72c213a1370 | ok |
 | 2026-10-19T22:20:21Z | o1-dev | docs/pending-migrations/multisite/008-write-locks.sql | bddb68d4732f4bc6 | ok |
+| 2026-10-20T11:33:45Z | o1-dev | docs/pending-migrations/multisite/009-daily-prep.sql | 1ed4612a73f65b6f | failed rc=3 |
+| 2026-10-20T11:34:32Z | o1-dev | docs/pending-migrations/multisite/009-daily-prep.sql | 1ed4612a73f65b6f | ok |
+| 2026-10-20T11:34:33Z | o1-dev | docs/pending-migrations/multisite/010-daily-v2.sql | 1ab06ce112a9d522 | ok |
+| 2026-10-20T11:34:35Z | o1-dev | docs/pending-migrations/multisite/011-anime-series.sql | 0f89fd381997d4e6 | ok |
+| 2026-10-20T11:34:36Z | o1-dev | docs/pending-migrations/multisite/012-editorial-quiz.sql | 976bb43030e4f048 | ok |
+| 2026-10-20T11:34:37Z | o1-dev | docs/pending-migrations/multisite/013-formats.sql | 232e87d3e757a6ec | ok |
+| 2026-10-20T11:34:37Z | o1-dev | docs/pending-migrations/multisite/014-daily-openings.sql | 13352477bc8962e7 | ok |
+| 2026-10-20T11:34:38Z | o1-dev | docs/pending-migrations/multisite/015-spoilers.sql | fe121c6504dd1f90 | ok |

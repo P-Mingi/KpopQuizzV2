@@ -1,0 +1,3 @@
+psql:docs/pending-migrations/multisite/009-daily-prep.sql:49: ERROR:  009-daily-prep: the system author 00000000-0000-0000-0000-000000000001 is not in public.profiles (production has it; on a branch apply apps/quiz/e2e/o1/LE/K1/seed-branch.sql first)
+CONTEXTE : PL/pgSQL function inline_code_block line 11 at RAISE
+failed rc=3: docs/pending-migrations/multisite/009-daily-prep.sql on o1-dev

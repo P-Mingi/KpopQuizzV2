@@ -1,41 +1,12 @@
 
  RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz
 
- ❯ src/lib/site/contract.test.ts (88 tests | 1 failed) 9329ms
-   ❯ twins (TWINS.md, twins.json, rule 18) (6)
-     × every path exists, every code is closed and fits its site, every mustImport is imported by the twin 440ms
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  167 passed (167)
+      Tests  2970 passed (2970)
+   Start at  13:11:48
+   Duration  18.39s (tests 47%, import 37%, transform 15%, worker 2%)
 
- FAIL  src/lib/site/contract.test.ts > twins (TWINS.md, twins.json, rule 18) > every path exists, every code is closed and fits its site, every mustImport is imported by the twin
-AssertionError: expected [ …(3) ] to deeply equal []
-
-- Expected
-+ Received
-
-- []
-+ [
-+   "row 39: the twin does not import @/app/(site)/admin/page",
-+   "row 40: the twin does not import @/app/(site)/admin/quiz/search/page",
-+   "row 41: the twin does not import @/app/(site)/admin/quiz/[id]/edit/page",
-+ ]
-
- ❯ src/lib/site/contract.test.ts:822:52
-    820|
-    821|   it('every path exists, every code is closed and fits its site, every…
-    822|     expect(checkTwins(doc, fileText, folderFiles)).toEqual([]);
-       |                                                    ^
-    823|   });
-    824|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
-
- Test Files  1 failed | 166 passed (167)
-      Tests  1 failed | 2969 passed (2970)
-   Start at  13:09:38
-   Duration  18.56s (tests 49%, import 37%, transform 13%, worker 1%)
-
-    Isolate  167 workers spawned · ~303ms startup each (spawn + environment, per file)
-             at least ~6.92s faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  167 workers spawned · ~310ms startup each (spawn + environment, per file)
+             at least ~7.09s faster with isolate: false — reuses workers across files instead of one per file
 
