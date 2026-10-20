@@ -1,0 +1,7 @@
+docs/anime/data/facts/death-note.json
+docs/anime/data/facts/one-piece.json
+docs/anime/data/facts/spy-x-family.json
+docs/anime/data/series/death-note.json
+docs/anime/data/series/one-piece.json
+docs/anime/data/series/spy-x-family.json
+docs/anime/editorial/packets/k1-b10.html
