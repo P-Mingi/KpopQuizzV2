@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_27",
+ "group_slug": "omniscient-readers-viewpoint",
+ "title": "A Reader and His Novel: Omniscient Reader's Viewpoint Basics",
+ "slug": "a-reader-and-his-novel-omniscient-readers-viewpoint-basics",
+ "description": "Ten easy questions on the web novel, its author, the first webtoon platforms, the live-action film and the one reader of the story within the story.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Omniscient Reader's Viewpoint",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia (ko): 전지적 독자 시점",
+   "url": "https://ko.wikipedia.org/wiki/%EC%A0%84%EC%A7%80%EC%A0%81_%EB%8F%85%EC%9E%90_%EC%8B%9C%EC%A0%90"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Omniscient Reader: The Prophecy",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (003, 004, 005, 006, 007, 011, 014). Novel platform, start year, chapter counts, author, first webtoon platform, English month, film year and director.",
+ "questions": [
+  {
+   "question": "Which platform first published the original web novel?",
+   "options": [
+    "Naver Webtoon",
+    "Line Webtoon",
+    "Munpia",
+    "IZE Press"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-run-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "In which year did the original web novel begin?",
+   "options": [
+    "2018",
+    "2016",
+    "2020",
+    "2022"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-run-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Who wrote the web novel that the webtoon adapts?",
+   "options": [
+    "Sleepy-C",
+    "Kim Byung-woo",
+    "UMI",
+    "singNsong"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-credited-authors-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Where did the webtoon adaptation go live first?",
+   "options": [
+    "Munpia",
+    "Naver Webtoon",
+    "Line Webtoon",
+    "IZE Press"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-webtoon-launch-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "In which month of 2020 did English readers get the webtoon?",
+   "options": [
+    "May",
+    "August",
+    "December",
+    "March"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-webtoon-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "How many chapters does the main story of the web novel have?",
+   "options": [
+    "311",
+    "3,149",
+    "18",
+    "551"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-length-005"
+   ],
+   "source_url": "https://ko.wikipedia.org/wiki/%EC%A0%84%EC%A7%80%EC%A0%81_%EB%8F%85%EC%9E%90_%EC%8B%9C%EC%A0%90"
+  },
+  {
+   "question": "In which year did the live-action film open in South Korean cinemas?",
+   "options": [
+    "2025",
+    "2020",
+    "2023",
+    "2026"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  },
+  {
+   "question": "Who directed the live-action film?",
+   "options": [
+    "singNsong",
+    "Sleepy-C",
+    "Kim Byung-woo",
+    "UMI"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  },
+  {
+   "question": "For how many years has Kim Dokja been the only reader of his favourite web novel?",
+   "options": [
+    "3",
+    "8",
+    "18",
+    "13"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-within-novel-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "How many chapters does the web novel that Kim Dokja reads have?",
+   "options": [
+    "3,149",
+    "551",
+    "311",
+    "18"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-within-novel-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  }
+ ]
+}

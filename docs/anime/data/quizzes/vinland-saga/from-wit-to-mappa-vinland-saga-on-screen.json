@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "From Wit to MAPPA: Vinland Saga on Screen",
+ "slug": "from-wit-to-mappa-vinland-saga-on-screen",
+ "description": "Ten questions on the two studios, the director, the broadcast years and the artists behind the openings and endings. Names, dates and numbers only.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Vinland Saga (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Vinland Saga episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes"
+  }
+ ],
+ "notes": "Production and music quiz on facts 005 (arc 1), 006 (arc 2), 007 (arc 0) and 008 (arc 2); tagged by the cited facts, so level 2. Artists only, no lyrics, no song titles as distractors.",
+ "questions": [
+  {
+   "question": "Which studio animated the first season?",
+   "options": [
+    "MAPPA",
+    "NHK",
+    "Wit Studio",
+    "Kodansha"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-one-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "Which studio took over for the second season?",
+   "options": [
+    "MAPPA",
+    "Wit Studio",
+    "NHK",
+    "Kodansha"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-two-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes"
+  },
+  {
+   "question": "Who directed the Wit Studio season of the Vinland Saga anime?",
+   "options": [
+    "Makoto Yukimura",
+    "Thorfinn Karlsefni",
+    "Askeladd",
+    "Shūhei Yabuta"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-one-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "How many episodes did the first season of the Vinland Saga anime air?",
+   "options": [
+    "12",
+    "24",
+    "26",
+    "48"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-one-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "In which year was the first season shown on NHK General TV?",
+   "options": [
+    "2017",
+    "2019",
+    "2021",
+    "2023"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-one-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "In which month did the second season start airing?",
+   "options": [
+    "July",
+    "March",
+    "October",
+    "January"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-two-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes"
+  },
+  {
+   "question": "Counting from the first season, what is the number of the last episode of the second season?",
+   "options": [
+    "48",
+    "36",
+    "24",
+    "52"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-season-two-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes"
+  },
+  {
+   "question": "Which band performed the first opening of the anime, Mukanjyo?",
+   "options": [
+    "Man with a Mission",
+    "Anonymouz",
+    "Survive Said the Prophet",
+    "LMYK"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-themes-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "Which band performed the second opening of the anime, Dark Crow?",
+   "options": [
+    "Survive Said the Prophet",
+    "Anonymouz",
+    "milet",
+    "Man with a Mission"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-themes-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "Which artist performed the first ending of the second season, Without Love?",
+   "options": [
+    "LMYK",
+    "Aimer",
+    "milet",
+    "Anonymouz"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-themes-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  }
+ ]
+}

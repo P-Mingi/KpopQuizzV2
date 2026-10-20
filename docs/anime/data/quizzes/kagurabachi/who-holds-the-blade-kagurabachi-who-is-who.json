@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Who Holds the Blade: Kagurabachi Who Is Who",
+ "slug": "who-holds-the-blade-kagurabachi-who-is-who",
+ "description": "Ten questions on the swordsmiths, sorcerers, clans and crime bosses, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (009, arc 4). The cast list is tagged arc 4, so every question is tagged 4 and the quiz level is 4. Descriptions come from the series characters file; distractors are other names of the same cast list and none of them fits the description.",
+ "questions": [
+  {
+   "question": "Which character is the young swordsmith's son who wields the Enchanted Blade Enten to avenge his father?",
+   "options": [
+    "Togo Shiba",
+    "Hakuri Sazanami",
+    "Chihiro Rokuhira",
+    "Iori Samura"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the teleporting sorcerer and family friend who helps Chihiro on his quest?",
+   "options": [
+    "Togo Shiba",
+    "Soshiro Azami",
+    "Hiyuki Kagari",
+    "Char Kyonagi"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the orphan from the Kyonagi clan known for strong regenerative healing?",
+   "options": [
+    "Iori Samura",
+    "Hakuri Sazanami",
+    "Hiyuki Kagari",
+    "Char Kyonagi"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the government sorcerer of the Kamunabi and an old ally of Chihiro's father?",
+   "options": [
+    "Genichi Sojo",
+    "Soshiro Azami",
+    "Seiichi Samura",
+    "Akemura Soga"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the crime boss and weapons dealer who holds a stolen Enchanted Blade?",
+   "options": [
+    "Yura",
+    "Genichi Sojo",
+    "Akemura Soga",
+    "Soshiro Azami"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the legendary swordsmith who forged the Enchanted Blades?",
+   "options": [
+    "Seiichi Samura",
+    "Chihiro Rokuhira",
+    "Genichi Sojo",
+    "Kunishige Rokuhira"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the disowned member of the Sazanami clan who allies with Chihiro?",
+   "options": [
+    "Hakuri Sazanami",
+    "Char Kyonagi",
+    "Hiyuki Kagari",
+    "Iori Samura"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the Kamunabi operative whose sorcery rivals the Enchanted Blades?",
+   "options": [
+    "Char Kyonagi",
+    "Iori Samura",
+    "Hiyuki Kagari",
+    "Yura"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character leads the Hishaku, the sorcerer group that murdered Kunishige?",
+   "options": [
+    "Genichi Sojo",
+    "Akemura Soga",
+    "Soshiro Azami",
+    "Yura"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which character is the blind master of the Tobimune blade and the Iai White Purity Style?",
+   "options": [
+    "Seiichi Samura",
+    "Iori Samura",
+    "Akemura Soga",
+    "Hakuri Sazanami"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-cast-list-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

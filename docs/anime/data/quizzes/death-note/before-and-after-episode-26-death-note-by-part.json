@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_01",
+ "group_slug": "death-note",
+ "title": "Before and After Episode 26: Death Note by Part",
+ "slug": "before-and-after-episode-26-death-note-by-part",
+ "description": "Ten questions on where the anime splits in two, the Shinigami of each half and the people who only matter in the later story.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Death Note (2006 TV series)",
+   "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ],
+ "notes": "Arc quiz on the two parts of the anime. Tagged by the cited facts: Part I cast (008, arc 1) and Part II facts (007, 009, 016, 017, arc 2). Level 2. The title names no character of Part II.",
+ "questions": [
+  {
+   "question": "Which episode closes Part I of the anime?",
+   "options": [
+    "24",
+    "25",
+    "26",
+    "37"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-parts-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Which episodes does Part II of the anime hold?",
+   "options": [
+    "27 to 37",
+    "26 to 37",
+    "25 to 37",
+    "27 to 36"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-parts-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Which Shinigami delivers a Death Note to Misa Amane in the first half?",
+   "options": [
+    "Ryuk",
+    "Naomi Misora",
+    "Watari",
+    "Rem"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-cast-first-part-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Who is Watari on the surface, an inventor who founded Wammy's House?",
+   "options": [
+    "Soichiro Yagami",
+    "Quillsh Wammy",
+    "Teru Mikami",
+    "Raye Penber"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-watari-wammy-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "What kind of place is Wammy's House?",
+   "options": [
+    "A police training academy",
+    "A home for gifted orphans",
+    "A hospital for detectives",
+    "A prison for criminals"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-watari-wammy-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "What does Mello almost always carry?",
+   "options": [
+    "An apple",
+    "A notebook",
+    "A cup of tea",
+    "A chocolate bar"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-mello-chocolate-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which two characters are the successors named in the second group of the cast?",
+   "options": [
+    "Near and Mello",
+    "Kiyomi Takada and Teru Mikami",
+    "Sidoh and Kiyomi Takada",
+    "Teru Mikami and Sidoh"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-cast-second-part-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the Shinigami who sets out to get a stolen Death Note back?",
+   "options": [
+    "Rem",
+    "Ryuk",
+    "Sidoh",
+    "Watari"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-cast-second-part-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the criminal prosecutor and fanatical worshipper of Kira whom Light picks as a new proxy?",
+   "options": [
+    "Kiyomi Takada",
+    "Near",
+    "Sidoh",
+    "Teru Mikami"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-cast-second-part-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is Light's classmate and girlfriend who returns years later as a TV announcer?",
+   "options": [
+    "Kiyomi Takada",
+    "Misa Amane",
+    "Sayu Yagami",
+    "Naomi Misora"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-cast-second-part-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ]
+}

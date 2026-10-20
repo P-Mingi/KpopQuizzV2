@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "Beyond the Sea to Vinland: Vinland Saga Basics",
+ "slug": "beyond-the-sea-to-vinland-vinland-saga-basics",
+ "description": "Ten easy questions on the creator, the dates of the manga, the volumes, the real explorer behind the lead, the first ending and the English hardcovers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Vinland Saga chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Vinland Saga (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 007, 009, 012, 013, 014). Creator, start and end years, volumes and chapters, the explorer, four arcs, the first ending, the festival prize and the English start.",
+ "questions": [
+  {
+   "question": "Who writes and draws the Vinland Saga manga?",
+   "options": [
+    "Shūhei Yabuta",
+    "Thorfinn Karlsefni",
+    "Makoto Yukimura",
+    "Askeladd"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "In which year did the Vinland Saga manga begin?",
+   "options": [
+    "2005",
+    "2003",
+    "2009",
+    "2019"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "In which year did the manga finish?",
+   "options": [
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "How many volumes collect the whole story?",
+   "options": [
+    "22",
+    "29",
+    "26",
+    "33"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "How many chapters does the story have?",
+   "options": [
+    "160",
+    "220",
+    "200",
+    "240"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "What nationality was the real explorer who inspired the lead?",
+   "options": [
+    "Danish",
+    "Norwegian",
+    "English",
+    "Icelandic"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-historical-basis-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "How many arcs does the manga article divide the plot into?",
+   "options": [
+    "Four",
+    "Two",
+    "Three",
+    "Five"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-story-arcs-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which artist performed the first ending of the anime, Torches?",
+   "options": [
+    "milet",
+    "LMYK",
+    "Aimer",
+    "haju:harmonics"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "vinland-saga-themes-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
+  },
+  {
+   "question": "In which year did the Japan Media Arts Festival give the manga its top honor?",
+   "options": [
+    "2007",
+    "2011",
+    "2012",
+    "2009"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-awards-sales-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "In which year did Kodansha USA start its English two-in-one hardcovers?",
+   "options": [
+    "2013",
+    "2009",
+    "2016",
+    "2019"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-english-release-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  }
+ ]
+}

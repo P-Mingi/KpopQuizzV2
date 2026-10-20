@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Sharpening the Blade: Kagurabachi Basics",
+ "slug": "sharpening-the-blade-kagurabachi-basics",
+ "description": "Ten easy questions on the creator, the magazine, the start of the serial, the volumes, the setting and the English print edition.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (001, 002, 003, 004, 007, 010, 011, 012). Creator, serial start, volume count, katakana title, setting, the agency, English print edition and the page views.",
+ "questions": [
+  {
+   "question": "Who both writes and draws Kagurabachi?",
+   "options": [
+    "Chihiro Rokuhira",
+    "Togo Shiba",
+    "Takeru Hokazono",
+    "Kunishige Rokuhira"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which year did the manga start in Weekly Shonen Jump?",
+   "options": [
+    "2023",
+    "2021",
+    "2024",
+    "2025"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which month did the serial begin?",
+   "options": [
+    "January",
+    "March",
+    "June",
+    "September"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "How many collected volumes had been released by September 2026?",
+   "options": [
+    "8",
+    "12",
+    "16",
+    "20"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which year was the first collected volume released in Japan?",
+   "options": [
+    "2022",
+    "2024",
+    "2023",
+    "2025"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "How many years after the Seitei War is the story set?",
+   "options": [
+    "8",
+    "28",
+    "38",
+    "18"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-setting-war-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "What is Kamunabi?",
+   "options": [
+    "A government-backed sorcerer agency",
+    "A guild of swordsmiths",
+    "A school for young swordsmen",
+    "A shipping company"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-kamunabi-agency-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which script is the Japanese title written?",
+   "options": [
+    "Hiragana",
+    "Kanji",
+    "Katakana",
+    "Latin letters"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-title-native-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which company published the first English print volume on November 5, 2024?",
+   "options": [
+    "Manga Plus",
+    "Kamunabi",
+    "Weekly Shonen Jump",
+    "Viz Media"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "More than how many views did the series log on Manga Plus by April 2024?",
+   "options": [
+    "99 million",
+    "9 million",
+    "19 million",
+    "199 million"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-page-views-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

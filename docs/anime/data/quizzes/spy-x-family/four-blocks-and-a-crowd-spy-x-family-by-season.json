@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Four Blocks and a Crowd: Spy x Family by Season",
+ "slug": "four-blocks-and-a-crowd-spy-x-family-by-season",
+ "description": "Ten questions on how the anime is cut into four blocks, the family dog's sixth sense and the second half of the cast.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  }
+ ],
+ "notes": "Arc quiz on the four blocks of the anime (008, arc 3, anime). Bond (015, arc 1) and the second cast group (010, arc 2) are tagged by their own facts. Level 3.",
+ "questions": [
+  {
+   "question": "Which block holds episodes 1 to 12?",
+   "options": [
+    "Season 1 Part 2",
+    "Season 2",
+    "Season 1 Part 1",
+    "Season 3"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-seasons-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which block holds episodes 13 to 25?",
+   "options": [
+    "Season 1 Part 2",
+    "Season 1 Part 1",
+    "Season 2",
+    "Season 3"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-seasons-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which block holds episodes 26 to 37?",
+   "options": [
+    "Season 1 Part 1",
+    "Season 1 Part 2",
+    "Season 3",
+    "Season 2"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-seasons-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which block holds episodes 38 to 50?",
+   "options": [
+    "Season 1 Part 1",
+    "Season 3",
+    "Season 1 Part 2",
+    "Season 2"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-seasons-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "How many episodes does the third season have?",
+   "options": [
+    "12",
+    "13",
+    "25",
+    "26"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-seasons-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "What can Bond the family dog see, which only Anya knows about?",
+   "options": [
+    "Through walls",
+    "In total darkness",
+    "Hidden microphones",
+    "Short glimpses of the future"
+   ],
+   "correct": 3,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-bond-premonition-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Which character is the WISE agent who is a fellow agent of Twilight?",
+   "options": [
+    "Fiona Frost",
+    "Sylvia Sherwood",
+    "Camilla",
+    "Sharon"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-supporting-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which of these is the youngest of Yor's three City Hall co-workers?",
+   "options": [
+    "Camilla",
+    "Sharon",
+    "Millie",
+    "Emile Elman"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-supporting-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Becky's butler?",
+   "options": [
+    "Melinda Desmond",
+    "Camilla",
+    "Sharon",
+    "Martha Marriott"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-supporting-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Donovan's wife and Damian's mother?",
+   "options": [
+    "Melinda Desmond",
+    "Camilla",
+    "Sharon",
+    "Martha Marriott"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-cast-supporting-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ]
+}
