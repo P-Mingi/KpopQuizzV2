@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "Class, Rank and Rivalry: Who Is Who?",
+ "slug": "class-rank-and-rivalry-one-punch-man-who-is-who",
+ "description": "Ten questions on the heroes, the rival ninja and the villains of the main cast, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which hero is described as bored and unbeatable?",
+   "options": [
+    "Saitama",
+    "Genos",
+    "Bang",
+    "King"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which cyborg becomes the disciple of the unbeatable hero?",
+   "options": [
+    "Mumen Rider",
+    "Atomic Samurai",
+    "Bang",
+    "Genos"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which C-Class hero rides a bicycle?",
+   "options": [
+    "Genos",
+    "Mumen Rider",
+    "Saitama",
+    "King"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which ninja calls Saitama his rival?",
+   "options": [
+    "Atomic Samurai",
+    "Speed-o'-Sound Sonic",
+    "Bang",
+    "Boros"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which S-Class hero is thought to be the strongest?",
+   "options": [
+    "Bang",
+    "Genos",
+    "Atomic Samurai",
+    "King"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which martial arts master is known as Silverfang?",
+   "options": [
+    "Bang",
+    "King",
+    "Atomic Samurai",
+    "Mumen Rider"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which esper is known as Terrible Tornado?",
+   "options": [
+    "Fubuki",
+    "Genos",
+    "Tatsumaki",
+    "Bang"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which character is the self-styled Hero Hunter?",
+   "options": [
+    "Boros",
+    "Speed-o'-Sound Sonic",
+    "Atomic Samurai",
+    "Garou"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Who is the alien leader of the Dark Matter Thieves?",
+   "options": [
+    "Boros",
+    "Garou",
+    "Speed-o'-Sound Sonic",
+    "King"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which B-Class esper leads the Blizzard Bunch?",
+   "options": [
+    "Tatsumaki",
+    "Fubuki",
+    "Mumen Rider",
+    "Boros"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (015, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2."
+}

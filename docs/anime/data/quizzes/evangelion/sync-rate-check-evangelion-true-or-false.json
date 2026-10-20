@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "Sync Rate Check: Evangelion True or False",
+ "slug": "sync-rate-check-evangelion-true-or-false",
+ "description": "Ten statements on the 1995 series: studios, broadcast, setting, songs and awards. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "The 1995 series was animated by Gainax together with Tatsunoko Production, with Hideaki Anno in the director's chair.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Evangelion aired as a single season of 26 episodes on TV Asahi, starting on October 4, 1995 and finishing on March 27, 1996.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "Evangelion aired as a single season of 26 episodes on TV Tokyo, starting on October 4, 1995 and finishing on March 27, 1996.",
+   "correct": true,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "The 1995 series was animated by Gainax together with Madhouse, with Hideaki Anno in the director's chair.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "The year is 2035 and the stage is Tokyo-3, a heavily defended city built in the wake of a catastrophe that hit the planet 15 years earlier.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-setting-tokyo-3-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "The year is 2015 and the stage is Tokyo-3, a heavily defended city built in the wake of a catastrophe that hit the planet 15 years earlier.",
+   "correct": true,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-setting-tokyo-3-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "The opening theme, A Cruel Angel's Thesis, is sung by Claire Littley, and it took an Animage award for best song in 1996.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "The opening theme, A Cruel Angel's Thesis, is sung by Yoko Takahashi, and it took an Animage award for best song in 1996.",
+   "correct": true,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Animage readers voted Evangelion their top Best Loved Series at the Anime Grand Prix in 1996, and again in 1997.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-animage-grand-prix-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Netflix brought the 1995 series to a global audience from June 21, 2019, and the closing song Fly Me to the Moon is kept in every country.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Neon Genesis Evangelion episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 011, 012); each false one changes a single detail (a studio, a channel, a year, a singer or the song claim)."
+}

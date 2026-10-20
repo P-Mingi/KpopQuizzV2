@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_23",
+ "group_slug": "cowboy-bebop",
+ "title": "Bounties and Bad Blood: Who Is Who?",
+ "slug": "bounties-and-bad-blood-cowboy-bebop-who-is-who",
+ "description": "Ten questions on the crew, the rivals and the people they meet, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which character is a bounty hunter and ace pilot?",
+   "options": [
+    "Spike Spiegel",
+    "Vicious",
+    "Julia",
+    "Laughing Bull"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is the retired cop who owns the Bebop?",
+   "options": [
+    "Vicious",
+    "Gren Eckener",
+    "Laughing Bull",
+    "Jet Black"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Which character is the amnesiac gambler in debt?",
+   "options": [
+    "Julia",
+    "Faye Valentine",
+    "Electra Ovilo",
+    "Ein"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is the hacker prodigy known as Ed?",
+   "options": [
+    "Faye Valentine",
+    "Edward Wong Hau Pepelu Tivrusky IV",
+    "Spike Spiegel",
+    "Jet Black"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Which character is the corgi data dog?",
+   "options": [
+    "Laughing Bull",
+    "Julia",
+    "Vicious",
+    "Ein"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is a Red Dragon Syndicate rival of Spike?",
+   "options": [
+    "Vicious",
+    "Andy von de Oniyate",
+    "Gren Eckener",
+    "Vincent Volaju"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Which character is a woman from Spike's past?",
+   "options": [
+    "Faye Valentine",
+    "Electra Ovilo",
+    "Julia",
+    "Vicious"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is the shaman on Mars?",
+   "options": [
+    "Jet Black",
+    "Gren Eckener",
+    "Vicious",
+    "Laughing Bull"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is the former soldier in Jupiter Jazz?",
+   "options": [
+    "Gren Eckener",
+    "Jet Black",
+    "Andy von de Oniyate",
+    "Laughing Bull"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Who is the terrorist of the film?",
+   "options": [
+    "Vicious",
+    "Vincent Volaju",
+    "Gren Eckener",
+    "Electra Ovilo"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Cowboy Bebop characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (015, arc 3). The cast list is tagged arc 3, so every question is tagged 3 and the quiz level is 3. Distractors avoid characters who also fit the description."
+}

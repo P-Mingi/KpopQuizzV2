@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "Before the First Punch: One-Punch Man Basics",
+ "slug": "before-the-first-punch-one-punch-man-basics",
+ "description": "Ten easy questions on who wrote and drew it, where it started, the studio behind season one and a pair of name jokes. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who came up with the story?",
+   "options": [
+    "Yusuke Murata",
+    "Eiichiro Oda",
+    "One",
+    "Kohei Horikoshi"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Who redrew the story for the published manga?",
+   "options": [
+    "Yusuke Murata",
+    "One",
+    "Tite Kubo",
+    "Shingo Natsume"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "In which year did the story begin as a webcomic?",
+   "options": [
+    "2012",
+    "2015",
+    "2019",
+    "2009"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-webcomic-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which publisher owns the Tonari no Young Jump site that hosts the redrawn version?",
+   "options": [
+    "Kodansha",
+    "Shueisha",
+    "Shogakukan",
+    "Square Enix"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-remake-magazine-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "How many collected volumes had the remake reached by early July 2026?",
+   "options": [
+    "27",
+    "37",
+    "47",
+    "55"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-volume-count-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "By July 2026 the redrawn manga had passed how many copies in circulation?",
+   "options": [
+    "3.8 million",
+    "13 million",
+    "380 million",
+    "38 million"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-copies-circulation-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which studio animated season 1?",
+   "options": [
+    "Madhouse",
+    "J.C.Staff",
+    "Bones",
+    "MAPPA"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Season 1 aired from October to December 2015. How many episodes did it contain?",
+   "options": [
+    "6",
+    "24",
+    "12",
+    "26"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Which children's hero does the Japanese title riff on?",
+   "options": [
+    "Doraemon",
+    "Astro Boy",
+    "Ultraman",
+    "Anpanman"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-title-wordplay-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which franchise is Mumen Rider a send-up of?",
+   "options": [
+    "Kamen Rider",
+    "Super Sentai",
+    "Ultraman",
+    "Astro Boy"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-mumen-rider-name-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One-Punch Man season 1",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (001, 002, 003, 004, 005, 006, 007, 010, 014). Creators, webcomic start, publisher, volumes, circulation, studio, episode count, the Anpanman wordplay and the Kamen Rider joke."
+}

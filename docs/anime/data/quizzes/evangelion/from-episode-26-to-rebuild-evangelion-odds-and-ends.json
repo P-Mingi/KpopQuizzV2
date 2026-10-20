@@ -1,0 +1,194 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "From Episode 26 to Rebuild: Evangelion Odds and Ends",
+ "slug": "from-episode-26-to-rebuild-evangelion-odds-and-ends",
+ "description": "Eight mixed questions on the Anime Grand Prix, the start of development, the finale of the 1995 series, the film that revisits it and the Rebuild pilot.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Readers of which magazine voted the 1995 series top Best Loved Series at the Anime Grand Prix?",
+   "options": [
+    "Newtype",
+    "Nakayoshi",
+    "Weekly Shōnen Jump",
+    "Animage"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-animage-grand-prix-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "In which two years did the 1995 series place first as Best Loved Series?",
+   "options": [
+    "1995 and 1996",
+    "1996 and 1997",
+    "1997 and 1998",
+    "1996 and 1998"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-animage-grand-prix-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "In which year did Hideaki Anno begin shaping the project?",
+   "options": [
+    "1989",
+    "1993",
+    "1995",
+    "1997"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-production-start-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "On which date did the final episode of the 1995 series air?",
+   "options": [
+    "October 4, 1995",
+    "July 19, 1997",
+    "June 21, 2019",
+    "March 27, 1996"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "The End of Evangelion is a new take on which part of the 1995 series?",
+   "options": [
+    "The last two episodes",
+    "The first two episodes",
+    "The middle episodes",
+    "Every episode"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "In which Rebuild film does Mari first appear?",
+   "options": [
+    "The first",
+    "The third",
+    "The second",
+    "The fourth"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-mari-debut-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "In which year did that Rebuild film come out?",
+   "options": [
+    "2007",
+    "2012",
+    "2021",
+    "2009"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-mari-debut-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "In which year was the last Rebuild film shown?",
+   "options": [
+    "2021",
+    "2007",
+    "2009",
+    "2012"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Neon Genesis Evangelion episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: The End of Evangelion",
+   "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Neon Genesis Evangelion characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Rebuild of Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 facts (003, 010, 011), The End of Evangelion (008, arc 4) and Rebuild (009 and 014, arc 5). Level 5."
+}

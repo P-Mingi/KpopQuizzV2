@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_26",
+ "group_slug": "kaiju-no-8",
+ "title": "Defense Force Roll Call: Who Is Who?",
+ "slug": "defense-force-roll-call-kaiju-no-8-who-is-who",
+ "description": "Ten questions on the recruits, the division captains, the leaders and the two humanoid kaiju, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which character is the cleaner who becomes Kaiju No. 8?",
+   "options": [
+    "Kafka Hibino",
+    "Reno Ichikawa",
+    "Isao Shinomiya",
+    "Keiji Itami"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the young recruit and Kafka's friend?",
+   "options": [
+    "Gen Narumi",
+    "Isao Shinomiya",
+    "Keiji Itami",
+    "Reno Ichikawa"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Which recruit is the prodigy?",
+   "options": [
+    "Mina Ashiro",
+    "Kikoru Shinomiya",
+    "Gen Narumi",
+    "Soshiro Hoshina"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the captain of the Third Division?",
+   "options": [
+    "Soshiro Hoshina",
+    "Mina Ashiro",
+    "Gen Narumi",
+    "Isao Shinomiya"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the vice-captain of the Third Division?",
+   "options": [
+    "Gen Narumi",
+    "Keiji Itami",
+    "Isao Shinomiya",
+    "Soshiro Hoshina"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the captain of the First Division?",
+   "options": [
+    "Gen Narumi",
+    "Mina Ashiro",
+    "Soshiro Hoshina",
+    "Isao Shinomiya"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the Director General of the Defense Force?",
+   "options": [
+    "Keiji Itami",
+    "Gen Narumi",
+    "Isao Shinomiya",
+    "Soshiro Hoshina"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Who is the Deputy Director of the Defense Force?",
+   "options": [
+    "Isao Shinomiya",
+    "Gen Narumi",
+    "Mina Ashiro",
+    "Keiji Itami"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Which humanoid kaiju creates other kaiju?",
+   "options": [
+    "Kaiju No. 9",
+    "Kaiju No. 10",
+    "Kafka Hibino",
+    "Isao Shinomiya"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Which humanoid kaiju raids the Third Division?",
+   "options": [
+    "Kaiju No. 9",
+    "Kaiju No. 10",
+    "Kafka Hibino",
+    "Gen Narumi"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Kaiju No. 8 characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (013, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2."
+}

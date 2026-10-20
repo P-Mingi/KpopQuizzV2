@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_21",
+ "group_slug": "apothecary-diaries",
+ "title": "Consorts, Officials and Servants: Who Is Who?",
+ "slug": "consorts-officials-and-servants-apothecary-diaries-who-is-who",
+ "description": "Ten questions on the apothecary, the officials, the four consorts and the people around them, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which character is the apothecary sold into the palace as a servant?",
+   "options": [
+    "Maomao",
+    "Xiaolan",
+    "Lihua",
+    "Lishu"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Who is the influential official of the rear palace?",
+   "options": [
+    "Lakan",
+    "Luomen",
+    "Lihaku",
+    "Jinshi"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which consort is called the Precious Consort, the emperor's favorite?",
+   "options": [
+    "Lihua",
+    "Gyokuyō",
+    "Lishu",
+    "Ah-Duo"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which consort is called the Wise Consort?",
+   "options": [
+    "Gyokuyō",
+    "Lihua",
+    "Lishu",
+    "Ah-Duo"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which consort is called the Virtuous Consort?",
+   "options": [
+    "Gyokuyō",
+    "Lihua",
+    "Ah-Duo",
+    "Lishu"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which consort is called the Pure Consort?",
+   "options": [
+    "Ah-Duo",
+    "Gyokuyō",
+    "Lihua",
+    "Lishu"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which character is the monocle-wearing military tactician?",
+   "options": [
+    "Jinshi",
+    "Luomen",
+    "Lakan",
+    "Lihaku"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which soldier gives Maomao a hairpin?",
+   "options": [
+    "Lakan",
+    "Jinshi",
+    "Luomen",
+    "Lihaku"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Who is Maomao's friend among the palace servants?",
+   "options": [
+    "Xiaolan",
+    "Lihua",
+    "Lishu",
+    "Gyokuyō"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Who is Maomao's adoptive father?",
+   "options": [
+    "Lakan",
+    "Luomen",
+    "Lihaku",
+    "Jinshi"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of The Apothecary Diaries characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (015, arc 0). All twelve characters are level 0 in the series file and the cast list descriptions hold back later reveals, so the quiz stays at arc 0."
+}
