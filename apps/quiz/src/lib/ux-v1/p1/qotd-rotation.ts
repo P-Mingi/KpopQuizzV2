@@ -102,7 +102,7 @@ export function supabaseQotdStore(db: SupabaseClient, site: SiteId = SITE_ID): Q
         .eq('is_quiz_of_the_day', true).eq('quiz_of_the_day_date', date).limit(1).maybeSingle();
       const q = data as { id: string; group_id: number | null } | null;
       if (!q) return null;
-      const { data: bank } = await db.from('quiz_bank').select('category').eq('published_quiz_id', q.id).limit(1).maybeSingle();
+      const { data: bank } = await forSite(db.from('quiz_bank').select('category')).eq('published_quiz_id', q.id).limit(1).maybeSingle();
       return { group_id: q.group_id, category: (bank as { category: string } | null)?.category ?? null };
     },
     async moveBankEntry(id, date) {

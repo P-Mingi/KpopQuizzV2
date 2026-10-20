@@ -1,9 +1,9 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/about/page.tsx, rows 24: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
 import Link from 'next/link';
 
-import { DiscordCommunity } from '@/components/discord/discord-community';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
-import { CONTACT_EMAIL, FOUNDER } from '@/lib/seo/org';
+import { FOUNDER } from '@/lib/seo/org';
+import { SITE } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import type { PublicStats } from '@/lib/stats/site-stats';
 
@@ -12,12 +12,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About OtakuQuiz',
   description:
-    'OtakuQuiz is a free fan-made site to play and create anime quizzes about BTS, BLACKPINK, Stray Kids, aespa and more, with blind tests and leaderboards.',
+    'OtakuQuiz is a free fan-made site to play and create anime quizzes about every series, with blind tests and leaderboards.',
   alternates: {
     canonical: '/about',
     languages: {
       en: '/about',
-      'pt-BR': '/pt/about',
       'x-default': '/about',
     },
   },
@@ -28,6 +27,9 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
 };
+
+// The mailbox of the site (contact@ its own host), as the contact, terms and privacy pages print it.
+const CONTACT_EMAIL = `contact@${SITE.domain}`;
 
 // Owner, 2026-10-14: live counts (lib/stats/site-stats.ts), the same as every other page.
 // This said "42k+" plays for 73,425, "500+" quizzes for 456, and "3k+ fans every week",
@@ -180,11 +182,6 @@ export default async function AboutPage(): Promise<React.ReactElement> {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* K4 - community block (the one rich element). */}
-      <div className="mt-8 max-w-md mx-auto">
-        <DiscordCommunity />
       </div>
 
       {/* CTA */}

@@ -24,6 +24,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { groupInitials, pickedOnLabel } from '@/lib/ux-v1/p1/format';
+import { forSite } from '@/lib/site/scope';
 
 import {
   CREATORS_BOARD, MIN_BOARD, PLAYERS_BOARD, WAR_BOARD, avatarOf, fandomLabel, levelLine, quizzesLabel, realFandomName,
@@ -77,7 +78,7 @@ export interface GroupFacts {
 
 async function readGroupFacts(): Promise<GroupFacts[]> {
   const db = createPublicReadClient();
-  const res = must(await db.from('groups').select('slug, name, fandom_name, generation'), 'groups');
+  const res = must(await forSite(db.from('groups').select('slug, name, fandom_name, generation')), 'groups');
   return (res.data ?? []) as GroupFacts[];
 }
 
@@ -416,7 +417,7 @@ async function readFeedsUncached(): Promise<Pick<AroundData, 'happening' | 'comm
  *  the feeds read never throws, the score lines are then left out. */
 async function readQuizTypes(slugs: string[]): Promise<Map<string, QuizType> | null> {
   try {
-    const { data, error } = await createPublicReadClient().from('quizzes').select('slug, quiz_type').in('slug', [...new Set(slugs)]);
+    const { data, error } = await forSite(createPublicReadClient().from('quizzes').select('slug, quiz_type')).in('slug', [...new Set(slugs)]);
     if (error) return null;
     return new Map(((data ?? []) as Array<{ slug: string; quiz_type: QuizType }>).map((q) => [q.slug, q.quiz_type]));
   } catch {

@@ -11,6 +11,8 @@ import {
 } from '@/lib/ux-v1/p2/filters';
 import { P2QuizzesPage } from '@/components/quizzes/ux-v1/quizzes-page';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+import { GENRE, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
 
 import type { P2ChipData, P2Empty } from '@/components/quizzes/ux-v1/quizzes-page';
@@ -26,9 +28,11 @@ import type { P2Facets, P2SearchParams } from '@/lib/ux-v1/p2/filters';
 // the live browse query (views the live page can show), the published-quiz facet
 // rows (counts, Level views); all public and cached at the stats TTL; fail soft.
 
-const SITE = 'https://kpopquiz.org';
-const H1 = 'K-pop quizzes';
-const INTRO = 'Browse every K-pop quiz on the site, filter by group or type, and sort by trending, newest, or most played.';
+// Run O1: the origin, the genre word and the topic word come from the registry of the site of this build (kpop: the words
+// of the base commit).
+const SITE_ORIGIN = SITE.url;
+const H1 = `${titleCase(GENRE)} quizzes`;
+const INTRO = `Browse every ${GENRE} quiz on the site, filter by ${SITE.vocabulary.topic} or type, and sort by trending, newest, or most played.`;
 const CRUMBS: { label: string; href?: string }[] = [
   { label: 'Home', href: '/' },
   { label: 'Browse All Quizzes' },
@@ -124,17 +128,17 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `${SITE}${item.href}` } : {}),
+      ...(item.href ? { item: `${SITE_ORIGIN}${item.href}` } : {}),
     })),
   };
   const itemListLd = pageN.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'K-pop quizzes',
+    name: `${GENRE} quizzes`,
     itemListElement: pageN.map((q, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `${SITE}/q/${q.slug}`,
+      url: `${SITE_ORIGIN}/q/${q.slug}`,
       name: q.title,
     })),
   } : null;

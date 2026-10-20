@@ -19,6 +19,7 @@ import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getGroupsIndex, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { CATCH_ALL_SLUG, initials } from '@/lib/ux-v1/p3/model';
+import { forSite } from '@/lib/site/scope';
 
 import {
   MAX_QUIZZES, MAX_SONGS, POPULAR_GROUPS, POPULAR_QUIZZES,
@@ -92,7 +93,7 @@ const cachedPopular = unstable_cache(
     const db = createPublicReadClient();
     const [groups, top] = await Promise.all([
       getGroupsIndex(),
-      Promise.resolve(db.from('quizzes').select(QUIZ_COLS).eq('status', 'published').order('play_count', { ascending: false }).limit(POPULAR_QUIZZES))
+      Promise.resolve(forSite(db.from('quizzes').select(QUIZ_COLS)).eq('status', 'published').order('play_count', { ascending: false }).limit(POPULAR_QUIZZES))
         .then(pgRows('popular quizzes', toQuizRows)),
     ]);
     if (groups.length === 0 || top.length === 0) throw new Error('p11 popular search: empty read');
@@ -129,17 +130,17 @@ export async function searchCatalog(q: string): Promise<P11SearchPayload> {
 
   const none = <T,>(): Promise<Attempt<T[]>> => Promise.resolve({ value: [] as T[], ok: true });
   const quizByTitle = pattern
-    ? attempt(() => db.from('quizzes').select(QUIZ_COLS).eq('status', 'published').ilike('title', pattern)
+    ? attempt(() => forSite(db.from('quizzes').select(QUIZ_COLS)).eq('status', 'published').ilike('title', pattern)
       .order('play_count', { ascending: false }).order('title', { ascending: true }).limit(MAX_QUIZZES).then(pgRows('quizzes by title', toQuizRows)), [] as QuizRow[], 'quizzes by title')
     : none<QuizRow>();
   const quizByGroup = slugs.length
-    ? attempt(() => db.from('quizzes').select(QUIZ_COLS).eq('status', 'published').in('groups.slug', slugs)
+    ? attempt(() => forSite(db.from('quizzes').select(QUIZ_COLS)).eq('status', 'published').in('groups.slug', slugs)
       .order('play_count', { ascending: false }).order('title', { ascending: true }).limit(MAX_QUIZZES).then(pgRows('quizzes by group', toQuizRows)), [] as QuizRow[], 'quizzes by group')
     : none<QuizRow>();
   // The blindtest pool rules (lib/blind-test-playlists.ts cleanSongs): active,
   // no remix / instrumental / karaoke rows.
   const songsBy = (col: 'title' | 'artist_name'): Promise<Attempt<SongRow[]>> => (pattern
-    ? attempt(() => db.from('songs').select(SONG_COLS)
+    ? attempt(() => forSite(db.from('songs').select(SONG_COLS))
       .eq('status', 'active')
       .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%')
       .ilike(col, pattern)

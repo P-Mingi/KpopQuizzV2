@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/privacy' },
 };
 
+// What the site signs in with, from its registry (anime and hub: Google and an email link, no Discord).
+const HAS_DISCORD = SITE.auth.providers.includes('discord');
+const SIGN_IN = HAS_DISCORD ? 'Google or Discord' : 'Google';
+const SIGN_IN_SERVICES = HAS_DISCORD ? 'Google OAuth and Discord OAuth' : 'Google OAuth';
+
 // The mailbox of the site (contact@ its own host), as the contact and terms pages print it.
 const CONTACT = `contact@${SITE.domain}`;
 
@@ -31,7 +36,7 @@ export default function PrivacyPage(): React.ReactElement {
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        When you sign in with Google or Discord, we receive:
+        When you sign in with {SIGN_IN}, we receive:
       </p>
       <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
         <li>Your email address</li>
@@ -39,7 +44,7 @@ export default function PrivacyPage(): React.ReactElement {
         <li>Your profile picture URL (if available)</li>
       </ul>
       <p className="text-sm text-secondary leading-relaxed mt-3">
-        We do not receive or store your Google or Discord password.
+        We do not receive or store your {SIGN_IN} password.
       </p>
       <p className="text-sm text-secondary leading-relaxed mt-3">
         When you use {SITE.brand.name}, we also collect:
@@ -81,7 +86,7 @@ export default function PrivacyPage(): React.ReactElement {
       <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
         <li>Supabase (database and authentication) - stores your account and quiz data</li>
         <li>Vercel (hosting) - serves the website</li>
-        <li>Google OAuth and Discord OAuth - for sign-in only</li>
+        <li>{SIGN_IN_SERVICES} - for sign-in only</li>
       </ul>
       <p className="text-sm text-secondary leading-relaxed mt-3">
         Each of these services has their own privacy policy. We encourage you to review them.

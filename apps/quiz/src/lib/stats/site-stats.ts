@@ -17,6 +17,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 export interface PublicStats {
   quizzes: number;
@@ -32,11 +33,11 @@ export interface PublicStats {
 export async function readPublicStats(): Promise<PublicStats> {
   const db = createPublicReadClient();
   const [quizzes, groupsListed, songs, plays, groupsWithQuizzes, songGroups] = await Promise.all([
-    db.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published'),
-    db.from('groups').select('id', { count: 'exact', head: true }),
+    forSite(db.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published'),
+    forSite(db.from('groups').select('id', { count: 'exact', head: true })),
     curatedOnly()
-      ? db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active').eq('is_curated', true)
-      : db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+      ? forSite(db.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active').eq('is_curated', true)
+      : forSite(db.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active'),
     db.from('plays').select('id', { count: 'exact', head: true }),
     // Distinct group ids from the rows themselves, paginated past the 1000-row cap (a few
     // thousand short rows, read at most once per cache window).

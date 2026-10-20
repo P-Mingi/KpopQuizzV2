@@ -8,6 +8,8 @@ import { Panel } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { TeamTag } from '@/components/ux-v1/team';
+import { GENRE } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { comma, playsLabel } from '@/lib/ux-v1/p9/format';
 
 import { GroupAvatar } from './board';
@@ -56,7 +58,7 @@ function TodayPanel({ today, qotd }: Pick<AroundData, 'today' | 'qotd'>): React.
         <div className="p9-hn">
           <Tile icon="music" />
           <span className="p9-hn-b">
-            <Link href="/blindtest?daily=true" className="p9-hn-t">Name that K-pop song</Link>
+            <Link href="/blindtest?daily=true" className="p9-hn-t">{`Name that ${GENRE} ${SITE.vocabulary.song}`}</Link>
             <span className="p9-tm">Blindtest of the day</span>
           </span>
         </div>
@@ -70,7 +72,7 @@ function TodayPanel({ today, qotd }: Pick<AroundData, 'today' | 'qotd'>): React.
           </div>
         ) : null}
       </div>
-      {today ? <p className="p9-panel-f"><UxLink href="/stats" icon="arrow">See the full K-pop fan data</UxLink></p> : null}
+      {today && SITE.features.dataPages ? <p className="p9-panel-f"><UxLink href="/stats" icon="arrow">{`See the full ${GENRE} fan data`}</UxLink></p> : null}
     </Panel>
   );
 }

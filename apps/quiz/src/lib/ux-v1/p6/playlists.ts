@@ -13,6 +13,7 @@
 // songs, generate answers 400) and songs.is_title_track is unmaintained.
 
 import { themedModesOn } from '@/lib/blind-test-modes';
+import { GENRE, IS_KPOP } from '@/lib/site/genre';
 
 export interface BtPick {
   /** generate's `playlist`: 'all', a mix id, or a group slug. */
@@ -23,18 +24,19 @@ export interface BtPick {
   group?: string;
 }
 
-export const ALL_PICK: BtPick = { playlist: 'all', label: 'All K-pop' };
+export const ALL_PICK: BtPick = { playlist: 'all', label: `All ${GENRE}` };
 
 export interface MixItem { playlist: string; label: string }
 
 /** Mixes the generate route serves (GENERAL_PLAYLISTS), in the prototype's order. */
-export const MIXES: readonly MixItem[] = [
+// Run O1: girl groups, boy groups, generations and the themed mixes are kpop's; another site's menu is its series.
+export const MIXES: readonly MixItem[] = !IS_KPOP ? [] : [
   { playlist: 'gg', label: 'Girl groups' },
   { playlist: 'bg', label: 'Boy groups' },
 ];
 
 /** "By generation" opens these (songs.generation 1st to 5th all have songs). */
-export const GENERATIONS: readonly MixItem[] = [
+export const GENERATIONS: readonly MixItem[] = !IS_KPOP ? [] : [
   { playlist: '1st-gen', label: '1st gen' },
   { playlist: '2nd-gen', label: '2nd gen' },
   { playlist: '3rd-gen', label: '3rd gen' },
@@ -66,7 +68,7 @@ export const V12_MIXES_ALL: readonly MixItem[] = [
   { playlist: '4th-gen-gg', label: '4th gen girl groups' },
   { playlist: '4th-gen-bg', label: '4th gen boy groups' },
 ];
-export const V12_MIXES: readonly MixItem[] = themedModesOn() ? V12_MIXES_ALL : [];
+export const V12_MIXES: readonly MixItem[] = IS_KPOP && themedModesOn() ? V12_MIXES_ALL : [];
 
 export const ROUND_OPTIONS = [5, 10, 15] as const;
 export type RoundCount = (typeof ROUND_OPTIONS)[number];

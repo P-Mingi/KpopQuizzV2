@@ -21,6 +21,8 @@ async function footer(site: 'kpop' | 'anime' | 'hub', showFandoms = true): Promi
 /** The href of every <a> of the markup (not the preload <link> of the brand image). */
 const anchorHrefs = (html: string): string[] => [...html.matchAll(/<a\b[^>]*?\bhref="([^"]+)"/g)].map((m) => m[1]!);
 
+const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
+
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
 describe('UxFooter', () => {
@@ -37,7 +39,7 @@ describe('UxFooter', () => {
       expect(html).toContain('<footer');
       expect(html).not.toMatch(/Top groups|-quiz"|\/stats|discord|reddit|Kpop_Verse|\/pt|Portugu/i);
       expect(html).not.toMatch(/KpopQuiz|kpopquiz|K-?pop/i);
-      expect(html).not.toMatch(/[–—]/);
+      expect(html).not.toMatch(DASHES);
     });
   }
 

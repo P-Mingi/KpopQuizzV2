@@ -9,6 +9,7 @@ import { dayAgo, timeAgo } from './format';
 import { getP8Groups, readDailyDebates } from './feed';
 import { readPeople } from './people';
 import { badgeShown, communityPostsOn } from './verse-gate';
+import { forSite } from '@/lib/site/scope';
 
 import type { BadgeWatchRow, HappeningRow, P8Features, Pulse, TodayDebate, WarEntry } from './types';
 
@@ -106,7 +107,7 @@ export function collapseSpree<T extends { user_id: string | null; display_name: 
 async function readHappening(limit: number): Promise<{ rows: Omit<HappeningRow, 'ago'>[]; at: string[] }> {
   const db = createPublicReadClient();
   const [{ data: evs }, groups] = await Promise.all([
-    db.from('activity_events').select('id, event_type, user_id, display_name, group_slug, payload, created_at')
+    forSite(db.from('activity_events').select('id, event_type, user_id, display_name, group_slug, payload, created_at'))
       .order('created_at', { ascending: false }).limit(400).then((r) => must(r, 'activity_events')),
     getP8Groups(),
   ]);
@@ -155,13 +156,13 @@ async function readPulse(today: string, f: P8Features, verseGroupIds: number[]):
   // v12: community threads and blogs count for every group (verse-gate.ts communityPostsOn).
   const scope = [communityPostsOn() ? 'origin.eq.community' : '', verseGroupIds.length ? `group_id.in.(${verseGroupIds.join(',')})` : ''].filter(Boolean).join(',');
   const [threads, blogs, debates, votes, quizzes, fanDebates, challenges] = await Promise.all([
-    scope ? count(db.from('verse_threads').select('id', { count: 'exact' }).eq('status', 'visible').or(scope).limit(1), 'threads') : Promise.resolve(0),
-    scope ? count(db.from('verse_essays').select('id', { count: 'exact' }).eq('status', 'featured').or(scope).limit(1), 'essays') : Promise.resolve(0),
+    scope ? count(forSite(db.from('verse_threads').select('id', { count: 'exact' })).eq('status', 'visible').or(scope).limit(1), 'threads') : Promise.resolve(0),
+    scope ? count(forSite(db.from('verse_essays').select('id', { count: 'exact' })).eq('status', 'featured').or(scope).limit(1), 'essays') : Promise.resolve(0),
     count(db.from('daily_debates').select('date', { count: 'exact' }).lte('date', today).limit(1), 'debates'),
     count(db.from('debate_votes').select('id', { count: 'exact' }).eq('date', today).limit(1), 'votes today'),
-    count(db.from('quizzes').select('id', { count: 'exact' }).eq('status', 'published').gte('created_at', weekAgo).limit(1), 'new quizzes'),
-    f.fanDebates ? count(db.from('community_debates').select('id', { count: 'exact' }).eq('status', 'visible').limit(1), 'fan debates') : Promise.resolve(0),
-    f.challenges ? count(db.from('community_challenges').select('id', { count: 'exact' }).eq('status', 'visible').limit(1), 'challenges') : Promise.resolve(0),
+    count(forSite(db.from('quizzes').select('id', { count: 'exact' })).eq('status', 'published').gte('created_at', weekAgo).limit(1), 'new quizzes'),
+    f.fanDebates ? count(forSite(db.from('community_debates').select('id', { count: 'exact' })).eq('status', 'visible').limit(1), 'fan debates') : Promise.resolve(0),
+    f.challenges ? count(forSite(db.from('community_challenges').select('id', { count: 'exact' })).eq('status', 'visible').limit(1), 'challenges') : Promise.resolve(0),
   ]);
   return { posts: threads + blogs + debates + fanDebates + challenges, votesToday: votes, newQuizzesWeek: quizzes };
 }
@@ -191,7 +192,7 @@ async function readBadgeWatch(limit: number, today: string, verseOpen: boolean):
   // Latest earned first (the rows are ordered by earned_at desc).
   const order = [...byBadge.keys()].slice(0, limit);
   const [defRes, people] = await Promise.all([
-    db.from('badge_definitions').select('id, name, description').in('id', order),
+    forSite(db.from('badge_definitions').select('id, name, description')).in('id', order),
     readPeople(db, order.map((id) => byBadge.get(id)!.latest.user_id)),
   ]);
   const defById = new Map(((must(defRes, 'badge_definitions').data ?? []) as { id: string; name: string; description: string }[]).map((d) => [d.id, d] as const));

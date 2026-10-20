@@ -6,6 +6,7 @@ import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 
 import { UxRow } from '@/components/ux-v1/panel';
 import { TeamTag } from '@/components/ux-v1/team';
+import { IS_KPOP } from '@/lib/site/genre';
 
 import type { CommunityRow, HomeVerse } from '@/lib/ux-v1/p1/home-data';
 
@@ -48,13 +49,16 @@ export function CommunityRows({ rows, verse = null }: { rows: CommunityRow[]; ve
         </p>
       ) : null}
       {/* The live home's two Discord links (the community strip and the daily
-          quiz line), same invite and utm campaigns, in one compact line. */}
-      <p className="p1-spaces">
-        <span>On Discord:</span>{' '}
-        <a href={discordInviteWithUtm('home-strip')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Kpop Quiz on Discord</a>
-        <i aria-hidden="true">·</i>
-        <a href={discordInviteWithUtm('daily')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Today&apos;s quiz is in the Discord too</a>
-      </p>
+          quiz line), same invite and utm campaigns, in one compact line. The Discord server is the
+          kpop one: no other site shows it (twins row 1: no Discord off kpop). */}
+      {IS_KPOP ? (
+        <p className="p1-spaces">
+          <span>On Discord:</span>{' '}
+          <a href={discordInviteWithUtm('home-strip')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Kpop Quiz on Discord</a>
+          <i aria-hidden="true">·</i>
+          <a href={discordInviteWithUtm('daily')} className="ux-lnk" target="_blank" rel="noopener noreferrer">Today&apos;s quiz is in the Discord too</a>
+        </p>
+      ) : null}
     </>
   );
 }

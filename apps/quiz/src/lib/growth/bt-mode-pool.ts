@@ -17,6 +17,7 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { hasDbEnv, settle } from '@/lib/ux-v1/p6/hub-data';
+import { forSite } from '@/lib/site/scope';
 
 import type { PlaylistSpec } from '@/lib/blind-test-curated';
 
@@ -102,7 +103,7 @@ async function readPool(playlist: string, v12: boolean): Promise<ModePool | null
   const db = createPublicReadClient();
   const curated = process.env.SONGS_IS_CURATED === 'true' && (spec ? specFollowsCuratedSwitch(spec) : playlist !== 'deep');
   const rows = await fetchAllRows<Row>(() => {
-    let q = db.from('songs').select('title, artist_name, group_id, deezer_rank')
+    let q = forSite(db.from('songs').select('title, artist_name, group_id, deezer_rank'))
       .in('status', spec ? [...specStatuses(spec)] : ['active'])
       .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
     if (curated) q = q.eq('is_curated', true);

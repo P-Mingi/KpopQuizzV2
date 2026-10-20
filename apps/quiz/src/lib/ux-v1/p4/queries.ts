@@ -10,6 +10,7 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
+import { forSite } from '@/lib/site/scope';
 
 /** Profile columns a hall of fame row may show (what /u/[username] already shows). */
 const PERSON_COLS = 'username, avatar_url, name_accent, name_font, bias';
@@ -187,9 +188,9 @@ export async function getP4Creator(creatorId: string): Promise<P4Creator | null>
 export const getP4GroupQuizCount = unstable_cache(
   async (groupId: number): Promise<number> => {
     const db = createPublicReadClient();
-    const { count, error } = await db
+    const { count, error } = await forSite(db
       .from('quizzes')
-      .select('id', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true }))
       .eq('group_id', groupId)
       .eq('status', 'published');
     if (error) throw new Error(`p4 group count: ${error.message}`);

@@ -11,6 +11,7 @@ import { excerpt, readingMinutes, timeAgo, utcDate } from './format';
 import { dailyKey } from './nesting';
 import { readPeople } from './people';
 import { communityPostsOn, gateVersePosts, retiredVerseRow } from './verse-gate';
+import { forSite } from '@/lib/site/scope';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group } from './types';
@@ -51,7 +52,7 @@ function must<T extends { error: { message: string } | null }>(r: T, what: strin
 
 async function readGroups(): Promise<P8Group[]> {
   const db = createPublicReadClient();
-  const { data } = must(await db.from('groups').select('id, name, slug, fandom_name').order('name'), 'groups');
+  const { data } = must(await forSite(db.from('groups').select('id, name, slug, fandom_name')).order('name'), 'groups');
   return ((data ?? []) as { id: number; name: string; slug: string; fandom_name: string | null }[])
     .map((g) => ({ id: g.id, name: g.name, slug: g.slug, fandom: g.fandom_name }));
 }
@@ -99,7 +100,7 @@ async function readThreads(live: boolean, liveGroupIds: number[], community: boo
   // Three rounds at most (groups + threads, then comments + people + hearts, then the
   // opening bodies): the page must render fast even when the database is slow.
   // The live spaces only (the query as before v12), or with the community posts of every group.
-  const tq = db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at, origin, cover').eq('status', 'visible');
+  const tq = forSite(db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at, origin, cover')).eq('status', 'visible');
   const [groupList, threadRes] = await Promise.all([
     getP8Groups(),
     (community ? tq.or(scope) : tq.in('group_id', liveGroupIds)).order('created_at', { ascending: false }).limit(SRC_CAP),
@@ -166,7 +167,7 @@ async function readBlogs(liveGroupIds: number[], community: boolean): Promise<Fe
   const scope = scopeFilter(liveGroupIds, community);
   if (!scope) return []; // hidden Verse, no live space and no community posts: nothing is read
   const db = createPublicReadClient();
-  const eq = db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at, origin').eq('status', 'featured');
+  const eq = forSite(db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at, origin')).eq('status', 'featured');
   const [groupList, essayRes] = await Promise.all([
     getP8Groups(),
     (community ? eq.or(scope) : eq.in('group_id', liveGroupIds)).order('featured_at', { ascending: false, nullsFirst: false }).limit(SRC_CAP),
@@ -220,7 +221,7 @@ export async function readDailyDebates(db: Db, today: string, days = DEBATE_DAYS
     fetchAllRows<{ date: string; side: string; comment: string | null; comment_hidden_at?: string | null }>(() => db.from('debate_votes')
       .select(isUxV12() ? 'date, side, comment, comment_hidden_at' : 'date, side, comment').in('date', rows.map((r) => r.date))),
     isUxV12() && keys.length
-      ? fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'daily_debate').in('target_id', keys).eq('status', 'visible'))
+      ? fetchAllRows<{ target_id: number }>(() => forSite(db.from('community_replies').select('target_id')).eq('target_type', 'daily_debate').in('target_id', keys).eq('status', 'visible'))
       : Promise.resolve([] as { target_id: number }[]),
   ]);
   const qById = new Map(((must(qRes, 'debate_questions').data ?? []) as { id: string; question: string; side_a: string; side_b: string }[]).map((q) => [q.id, q] as const));
@@ -280,14 +281,14 @@ async function readFanDebates(live: P8Features): Promise<FeedPost[]> {
   const db = createPublicReadClient();
   const svc = createServiceRoleClient();
   const groups = groupMap(await getP8Groups());
-  const { data } = must(await db.from('community_debates').select('id, group_id, author, question, body, options, closes_at, created_at')
+  const { data } = must(await forSite(db.from('community_debates').select('id, group_id, author, question, body, options, closes_at, created_at'))
     .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP), 'community_debates');
   const rows = (data ?? []) as { id: number; group_id: number | null; author: string | null; question: string; body: string | null; options: unknown; closes_at: string; created_at: string }[];
   if (!rows.length) return [];
   const ids = rows.map((r) => r.id);
   const [votes, replies, people, likes] = await Promise.all([
     fetchAllRows<{ debate_id: number; option_index: number }>(() => svc.from('community_debate_votes').select('debate_id, option_index').in('debate_id', ids)),
-    fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'debate').in('target_id', ids).eq('status', 'visible')),
+    fetchAllRows<{ target_id: number }>(() => forSite(db.from('community_replies').select('target_id')).eq('target_type', 'debate').in('target_id', ids).eq('status', 'visible')),
     readPeople(db, rows.map((r) => r.author)),
     likeCounts('debate', ids.map(String), live.likes),
   ]);
@@ -316,14 +317,14 @@ async function readChallengePosts(live: P8Features): Promise<FeedPost[]> {
   if (!live.challenges) return [];
   const db = createPublicReadClient();
   const groups = groupMap(await getP8Groups());
-  const { data } = must(await db.from('community_challenges').select('id, author, quiz_id, group_id, score, total, message, created_at')
+  const { data } = must(await forSite(db.from('community_challenges').select('id, author, quiz_id, group_id, score, total, message, created_at'))
     .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP), 'community_challenges');
   const rows = (data ?? []) as { id: number; author: string | null; quiz_id: string; group_id: number | null; score: number; total: number; message: string | null; created_at: string }[];
   if (!rows.length) return [];
   const ids = rows.map((r) => r.id);
   const [quizzesRes, replies, people, likes] = await Promise.all([
-    db.from('quizzes').select('id, slug, title, quiz_type, difficulty, play_count, cover_image_url').in('id', [...new Set(rows.map((r) => r.quiz_id))]).eq('status', 'published'),
-    fetchAllRows<{ target_id: number; author: string | null }>(() => db.from('community_replies').select('target_id, author').eq('target_type', 'challenge').in('target_id', ids).eq('status', 'visible').order('created_at', { ascending: true })),
+    forSite(db.from('quizzes').select('id, slug, title, quiz_type, difficulty, play_count, cover_image_url')).in('id', [...new Set(rows.map((r) => r.quiz_id))]).eq('status', 'published'),
+    fetchAllRows<{ target_id: number; author: string | null }>(() => forSite(db.from('community_replies').select('target_id, author')).eq('target_type', 'challenge').in('target_id', ids).eq('status', 'visible').order('created_at', { ascending: true })),
     readPeople(db, rows.map((r) => r.author)),
     likeCounts('challenge', ids.map(String), live.likes),
   ]);
@@ -385,7 +386,7 @@ async function replyScores(db: Db, rows: { id: number; quiz_id: string }[], repl
 async function readEditorialPosts(live: P8Features): Promise<FeedPost[]> {
   const db = createPublicReadClient();
   const groups = groupMap(await getP8Groups());
-  const { data } = must(await db.from('editorial_posts').select('id, kind, group_id, author, title, body, created_at')
+  const { data } = must(await forSite(db.from('editorial_posts').select('id, kind, group_id, author, title, body, created_at'))
     .eq('status', 'visible').order('created_at', { ascending: false }).limit(SRC_CAP), 'editorial_posts');
   const rows = (data ?? []) as { id: number; kind: 'thread' | 'blog'; group_id: number | null; author: string | null; title: string; body: string; created_at: string }[];
   if (!rows.length) return [];
@@ -393,7 +394,7 @@ async function readEditorialPosts(live: P8Features): Promise<FeedPost[]> {
   const [replies, people, likes] = await Promise.all([
     // community_replies comes with the fan debates (v11-p8-community.sql).
     live.fanDebates
-      ? fetchAllRows<{ target_id: number }>(() => db.from('community_replies').select('target_id').eq('target_type', 'editorial').in('target_id', ids).eq('status', 'visible'))
+      ? fetchAllRows<{ target_id: number }>(() => forSite(db.from('community_replies').select('target_id')).eq('target_type', 'editorial').in('target_id', ids).eq('status', 'visible'))
       : Promise.resolve([] as { target_id: number }[]),
     readPeople(db, rows.map((r) => r.author), { retiredTeam: true }),
     likeCounts('editorial', ids.map(String), live.likes),

@@ -7,11 +7,15 @@ import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
 import { buildTeaser } from '@/lib/quiz/teaser';
 import { getPopularQuizzes } from '@/lib/db/queries/popular';
 import { safeFetch } from '@/lib/error-handling';
+import { GENRE, IS_KPOP, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 
 import type { PopularWindow, PopularResult } from '@/lib/db/queries/popular';
 import type { Metadata } from 'next';
 
-const SITE_URL = 'https://kpopquiz.org';
+const SITE_URL = SITE.url;
+// The genre word of the copy: "K-pop" on kpop (the words below read as they always did), the site's own word elsewhere.
+const CAP = titleCase(GENRE);
 
 interface WindowCfg {
   slug: string;
@@ -25,22 +29,22 @@ interface WindowCfg {
 
 const CONFIG: Record<PopularWindow, WindowCfg> = {
   today: {
-    slug: 'popular-today', h1: 'The most played K-pop quizzes today', suffix: 'today', interval: '30 minutes',
-    title: 'Most Played K-pop Quizzes Today',
-    description: 'The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated every 30 minutes from real plays. Free to play.',
+    slug: 'popular-today', h1: `The most played ${GENRE} quizzes today`, suffix: 'today', interval: '30 minutes',
+    title: `Most Played ${CAP} Quizzes Today`,
+    description: `The ${GENRE} quizzes fans are playing the most right now, from the last 24 hours. Updated every 30 minutes from real plays. Free to play.`,
     ogSub: 'The quizzes fans are playing most in the last 24 hours',
   },
   week: {
-    slug: 'popular-this-week', h1: 'The most played K-pop quizzes this week', suffix: 'this week', interval: 'hour',
-    title: 'Most Played K-pop Quizzes This Week',
-    description: 'The most played K-pop quizzes of the last 7 days, ranked by real plays and refreshed hourly. Free to play.',
-    ogSub: 'The most played K-pop quizzes of the last 7 days',
+    slug: 'popular-this-week', h1: `The most played ${GENRE} quizzes this week`, suffix: 'this week', interval: 'hour',
+    title: `Most Played ${CAP} Quizzes This Week`,
+    description: `The most played ${GENRE} quizzes of the last 7 days, ranked by real plays and refreshed hourly. Free to play.`,
+    ogSub: `The most played ${GENRE} quizzes of the last 7 days`,
   },
   month: {
-    slug: 'popular-this-month', h1: 'The most played K-pop quizzes this month', suffix: 'this month', interval: '6 hours',
-    title: 'Most Played K-pop Quizzes This Month',
-    description: 'The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderboard of what fans are into. Free to play.',
-    ogSub: 'The most played K-pop quizzes of the last 30 days',
+    slug: 'popular-this-month', h1: `The most played ${GENRE} quizzes this month`, suffix: 'this month', interval: '6 hours',
+    title: `Most Played ${CAP} Quizzes This Month`,
+    description: `The most played ${GENRE} quizzes of the last 30 days, ranked by real plays. A fresh leaderboard of what fans are into. Free to play.`,
+    ogSub: `The most played ${GENRE} quizzes of the last 30 days`,
   },
 };
 
@@ -115,7 +119,7 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
           </Link>
         ))}
         <Link href="/quizzes">All quizzes</Link>
-        <Link href="/stats">Stats</Link>
+        {SITE.features.dataPages ? <Link href="/stats">Stats</Link> : null}
       </nav>
 
       {state === 'fallback' && (
@@ -148,12 +152,19 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
         </ol>
       )}
 
-      <p className="pop-foot">
-        Ranked from real, first-party play data on kpopquiz.org. See also the{' '}
-        <Link href="/stats" className="pop-foot-link">platform stats</Link>, the{' '}
-        <Link href="/data/pulse" className="pop-foot-link">monthly Pulse</Link>, and free{' '}
-        <Link href="/blindtest" className="pop-foot-link">the K-pop blind test</Link>.
-      </p>
+      {IS_KPOP ? (
+        <p className="pop-foot">
+          Ranked from real, first-party play data on kpopquiz.org. See also the{' '}
+          <Link href="/stats" className="pop-foot-link">platform stats</Link>, the{' '}
+          <Link href="/data/pulse" className="pop-foot-link">monthly Pulse</Link>, and free{' '}
+          <Link href="/blindtest" className="pop-foot-link">the K-pop blind test</Link>.
+        </p>
+      ) : (
+        <p className="pop-foot">
+          {`Ranked from real, first-party play data on ${SITE.domain}.`}
+          {SITE.features.blindTest ? <> See also the <Link href="/blindtest" className="pop-foot-link">blind test</Link>.</> : null}
+        </p>
+      )}
     </div>
   );
 }

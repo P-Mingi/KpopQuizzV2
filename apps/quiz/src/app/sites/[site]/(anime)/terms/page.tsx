@@ -30,7 +30,7 @@ export default function TermsPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">2. Your account</h2>
       <p className="text-sm text-secondary leading-relaxed">
         
-        You can sign in using Google or Discord. You are responsible for your account activity. You must
+        You can sign in using Google or an email link. You are responsible for your account activity. You must
         be at least 13 years old to use OtakuQuiz. If you are under 18, you confirm you have parental or
         guardian consent.
       </p>
