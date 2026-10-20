@@ -376,7 +376,10 @@
     "apps/quiz/src/lib/site/anime.ts",
     "apps/quiz/src/lib/site/anime/**",
     "apps/quiz/src/styles/sites/anime/**",
-    "apps/quiz/e2e/o1/O1/**"
+    "apps/quiz/e2e/o1/O1/**",
+    "apps/quiz/src/**",
+    ".gitignore",
+    "docs/o1/reports/O1/**"
   ],
   "O2": [
     "apps/quiz/src/components/series/**",

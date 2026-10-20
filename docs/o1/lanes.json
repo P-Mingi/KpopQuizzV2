@@ -99,5 +99,14 @@
       "hub"
     ],
     "kind": "e2e"
+  },
+  "O1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
   }
 }
