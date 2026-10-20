@@ -328,3 +328,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | 2026-10-20T17:12:37Z | K1 | d4c465c813b3 | not needed | 0 SQL file(s) |
 - D-072 K1 batch 1 merged (4b74d6f plus loader fix d4c465c: without --data the target was skipped; 0.43 M) and loaded on o1-dev (3 series, 55 arcs, 90 characters, 106 themes, 58 trivia); packet k1-b1.html sent to the owner. K1 batch 2 started (Attack on Titan, Dragon Ball, My Hero Academia). Lot b (P1) takes /api/passport/after-signin and /auth/confirm (the anime sign-in needs them; B7 keeps emails, deletion and leave). Ownership widened for P1, B6, B7, H1, C1 to C3, L1, K2, K3.
 | 2026-10-20T17:41:54Z | K1 | ecb3c4284d0d | not needed | 0 SQL file(s) |
+| 2026-10-20T18:44:09Z | K1 | 9e6f769e3e91 | not needed | 0 SQL file(s) |

@@ -1,0 +1,606 @@
+[
+  {
+    "id": "hunter-x-hunter-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "title_native",
+    "value": "ハンター×ハンター",
+    "text": "The Japanese title is written ハンター×ハンター and read Hantā Hantā, with a multiplication sign between the two words.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696071",
+        "ref": "Q696071",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "ハンター×ハンター"
+  },
+  {
+    "id": "hunter-x-hunter-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "author",
+    "value": "Yoshihiro Togashi",
+    "text": "Yoshihiro Togashi is the creator of the Hunter × Hunter manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696071",
+        "ref": "Q696071",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Hunter × Hunter manga series, created by Yoshihiro Togashi"
+  },
+  {
+    "id": "hunter-x-hunter-magazine-publisher-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha), since March 3, 1998",
+    "text": "The manga has appeared in Shueisha's Weekly Shōnen Jump since the spring of 1998, starting on 3 March.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696071",
+        "ref": "Q696071",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump since March 1998"
+  },
+  {
+    "id": "hunter-x-hunter-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "volumes",
+    "value": 39,
+    "text": "The collected edition stood at 39 volumes as of July 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of July 3, 2026, 39 volumes have been released"
+  },
+  {
+    "id": "hunter-x-hunter-copies-in-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "copies",
+    "value": "over 100 million copies by June 2026",
+    "text": "By June 2026 the manga had passed 100 million copies in circulation around the world.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 100 million copies in circulation by June 2026"
+  },
+  {
+    "id": "hunter-x-hunter-longest-hiatus-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "hiatus",
+    "value": "Resumed October 24, 2022 after three years and eleven months",
+    "text": "The longest break in the manga ended on 24 October 2022, after nearly four years without new chapters.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "resumed on October 24, 2022, after a hiatus of three years and eleven months"
+  },
+  {
+    "id": "hunter-x-hunter-first-anime-1999-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "anime_1999",
+    "value": "62 episodes on Fuji TV, October 16, 1999 to March 31, 2001",
+    "text": "An earlier anime aired on Fuji TV from October 1999 to March 2001 and had 62 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "62-episode anime television series adaptation"
+  },
+  {
+    "id": "hunter-x-hunter-second-anime-2011-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "anime_2011",
+    "value": "Madhouse, Nippon TV, October 2011 to September 2014, 148 episodes",
+    "text": "The second anime, made by Madhouse for Nippon TV, ran from October 2011 to September 2014 and counts 148 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "second anime television series by Madhouse aired on Nippon Television from October 2011 to September 2014"
+  },
+  {
+    "id": "hunter-x-hunter-anime-director-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "director",
+    "value": "Hiroshi Kōjina",
+    "text": "Hiroshi Kōjina directed the 2011 anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hiroshi Kōjina"
+  },
+  {
+    "id": "hunter-x-hunter-anime-reboot-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "anime_reboot",
+    "value": "Starts again from the first chapter, separate from the 1999 series",
+    "text": "The 2011 anime restarts the story from the first chapter and has no link to the 1999 series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a complete reboot starting from the beginning of the original manga, with no connection to the first anime television series from 1999"
+  },
+  {
+    "id": "hunter-x-hunter-arcs-first-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "arc_early",
+    "value": [
+      "1: Hunter Exam, episodes 1-26",
+      "2: Heavens Arena, episodes 27-38",
+      "3: Yorknew City, episodes 39-58"
+    ],
+    "text": "The anime opens with the Hunter Exam arc (26 episodes), then Heavens Arena (12) and Yorknew City (20), the last one listed as Phantom Troupe in the episode table.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Phantom Troupe"
+  },
+  {
+    "id": "hunter-x-hunter-arcs-second-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "arc_late",
+    "value": [
+      "4: Greed Island, episodes 59-75",
+      "5: Chimera Ant, episodes 76-136",
+      "6: Election, episodes 137-148"
+    ],
+    "text": "The remaining arcs are Greed Island (17 episodes), the long Chimera Ant arc (61) and Election (12), which ends the anime at episode 148.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Chimera Ant (61 episodes)"
+  },
+  {
+    "id": "hunter-x-hunter-dark-continent-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "arc_manga_only",
+    "value": [
+      "7: Dark Continent, manga only"
+    ],
+    "text": "The Dark Continent storyline exists only in the manga so far, since the 2011 anime stops before it.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "to travel to the forbidden Dark Continent"
+  },
+  {
+    "id": "hunter-x-hunter-opening-themes-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Departure! - Masatoshi Ono",
+      "OP 2: Departure! -Second Version- - Masatoshi Ono"
+    ],
+    "text": "The 2011 anime alternates between two versions of one opening, Departure! and Departure! -Second Version-, both sung by Masatoshi Ono.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Departure!\" and \"Departure! -Second Version-\""
+  },
+  {
+    "id": "hunter-x-hunter-ending-themes-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Just Awake - Fear, and Loathing in Las Vegas (episodes 1-26)",
+      "ED 2: Hunting for Your Dream - Galneryus (27-58)",
+      "ED 3: Reason - Yuzu (59-75)",
+      "ED 4: Nagareboshi Kirari - Yuzu (76-98)",
+      "ED 5: Hyōri Ittai - Yuzu featuring Hyadain (99-146)"
+    ],
+    "text": "Five endings were used: Just Awake, Hunting for Your Dream, Reason, Nagareboshi Kirari and Hyōri Ittai, the last one by Yuzu featuring Hyadain.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
+        "ref": "1380133331",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Hyōri Ittai\" by Yuzu featuring Hyadain"
+  },
+  {
+    "id": "hunter-x-hunter-two-films-2013-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "films",
+    "value": [
+      "Hunter × Hunter: Phantom Rouge (2013)",
+      "Hunter × Hunter: The Last Mission (2013)"
+    ],
+    "text": "Two animated theatrical films reached cinemas in 2013, Phantom Rouge and The Last Mission.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "two animated theatrical films released in 2013"
+  },
+  {
+    "id": "hunter-x-hunter-cast-first-half-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "characters_a",
+    "value": [
+      "Gon Freecss (ゴン=フリークス): the lead",
+      "Killua Zoldyck (キルア=ゾルディック): Gon's best friend",
+      "Kurapika (クラピカ): last of the Kurta Clan",
+      "Leorio Paradinight (レオリオ=パラディナイト): aspiring doctor",
+      "Hisoka Morrow (ヒソカ=モロウ): magician",
+      "Illumi Zoldyck (イルミ=ゾルディック): Killua's eldest brother",
+      "Isaac Netero (アイザック=ネテロ): exam committee chairman",
+      "Ging Freecss (ジン=フリークス): Gon's father",
+      "Silva Zoldyck: Killua's father"
+    ],
+    "text": "The first half of the cast list covers the heroes and the people met around the Hunter Exam, from Gon Freecss to Silva Zoldyck.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Gon Freecss (Japanese: ゴン=フリークス, Hepburn: Gon Furīkusu) is an athletic, naive, and friendly boy."
+  },
+  {
+    "id": "hunter-x-hunter-cast-second-half-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "characters_b",
+    "value": [
+      "Kite: Ging's student",
+      "Chrollo Lucilfer (クロロ ルシルフル): Phantom Troupe leader",
+      "Feitan Portor: Phantom Troupe member",
+      "Machi Komacine: Phantom Troupe member",
+      "Uvogin: Phantom Troupe member",
+      "Biscuit Krueger: Greed Island trainer",
+      "Meruem (メルエム): Chimera Ant King",
+      "Neferpitou (ネフェルピトー): Royal Guard",
+      "Komugi: gungi champion",
+      "Pariston Hill (パリストン=ヒル): Vice Chairman",
+      "Alluka Zoldyck: Killua's sibling"
+    ],
+    "text": "The second half of the cast list gathers Kite, the Phantom Troupe, the Chimera Ants and the Hunter Association politicians, from Kite to Alluka Zoldyck.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Meruem (メルエム, Meruemu; alternately \"Meryem\") is the Chimera Ant King"
+  },
+  {
+    "id": "hunter-x-hunter-kurapika-eyes-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "kurapika"
+    },
+    "field": "scarlet_eyes",
+    "value": "Scarlet eyes when angry",
+    "text": "Kurapika belongs to the Kurta Clan, whose members have prized irises that glow scarlet when they are furious.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "sole survivor of the Kurta Clan (クルタ族, Kuruta-zoku), a race with treasured irises that turn scarlet in times of anger"
+  },
+  {
+    "id": "hunter-x-hunter-meruem-ant-king-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "meruem"
+    },
+    "field": "title",
+    "value": "Chimera Ant King",
+    "text": "Meruem is the Chimera Ant King, the strongest of the Queen's children.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Chimera Ant King (キメラアントの王, Kimerānto no Ō) and the most powerful of the Queen's offspring"
+  }
+]

@@ -1,0 +1,873 @@
+[
+  {
+    "id": "solo-leveling-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "title_native",
+    "value": "나 혼자만 레벨업",
+    "text": "In Korea the story is titled 나 혼자만 레벨업, a phrase that English fans also translate as Only I Level Up.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65551313",
+        "ref": "Q65551313",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also alternatively translated as Only I Level Up (Korean: 나 혼자만 레벨업; RR: Na Honjaman Rebereop)"
+  },
+  {
+    "id": "solo-leveling-title-romanized-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "title_romaji",
+    "value": "Na Honjaman Rebereop",
+    "text": "Written in Revised Romanization, the Korean name of Solo Leveling reads Na Honjaman Rebereop.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also alternatively translated as Only I Level Up (Korean: 나 혼자만 레벨업; RR: Na Honjaman Rebereop)"
+  },
+  {
+    "id": "solo-leveling-novel-author-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "author",
+    "value": "Chugong",
+    "text": "The story began as a web novel by Chugong, first posted on the KakaoPage platform on 25 July 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65551313",
+        "ref": "Q65551313",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Kakao's digital comic and fiction platform KakaoPage beginning on July 25, 2016"
+  },
+  {
+    "id": "solo-leveling-webtoon-artist-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "artist",
+    "value": "Dubu (Jang Sung-rak), Redice Studio",
+    "text": "The comic version was drawn by Dubu, the pen name of Jang Sung-rak, who runs Redice Studio.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "illustrated by Jang Sung-rak (aka Dubu), the CEO of Redice Studio"
+  },
+  {
+    "id": "solo-leveling-novel-publisher-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "publisher",
+    "value": "D&C Media",
+    "text": "In print, the novel comes from the publisher D&C Media, under its Papyrus label, starting 4 November 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "later published by D&C Media under their Papyrus label since November 4, 2016"
+  },
+  {
+    "id": "solo-leveling-webtoon-run-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "manga_run",
+    "value": "March 4, 2018 to December 29, 2021",
+    "text": "The webtoon opened on KakaoPage in March 2018 and ended with its last chapter in December 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Original run: March 4, 2018 - December 29, 2021"
+  },
+  {
+    "id": "solo-leveling-webtoon-chapters-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "chapters",
+    "value": 179,
+    "text": "Counting both of its seasons, the webtoon ends at chapter number 179.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "179th chapter"
+  },
+  {
+    "id": "solo-leveling-webtoon-seasons-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "webtoon_seasons",
+    "value": "Season 1 ended March 19, 2020; season 2 ran August 2020 to December 2021",
+    "text": "The comic was split in two: the first season wrapped up on 19 March 2020, and a second one followed from August 2020 until December 2021.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the webtoon's first season concluded on March 19, 2020, followed by its second season, which was released from August 2020 to December 2021"
+  },
+  {
+    "id": "solo-leveling-anime-studio-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "studio",
+    "value": "A-1 Pictures",
+    "text": "The anime was animated by A-1 Pictures.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It is produced by A-1 Pictures and directed by Shunsuke Nakashige"
+  },
+  {
+    "id": "solo-leveling-anime-director-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "director",
+    "value": "Shunsuke Nakashige",
+    "text": "Shunsuke Nakashige directed the anime, with Noboru Kimura on the scripts and Hiroyuki Sawano composing the music.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
+        "ref": "1373093955",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "directed by Shunsuke Nakashige, with Noboru Kimura writing the scripts"
+  },
+  {
+    "id": "solo-leveling-season-one-span-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "arc_s1",
+    "value": [
+      "1: Season 1, episodes 1-12"
+    ],
+    "text": "Season 1 aired from 7 January to 31 March 2024 and ran for 12 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
+        "ref": "1373093955",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "aired from January 7 to March 31, 2024, on Tokyo MX and other networks"
+  },
+  {
+    "id": "solo-leveling-season-two-span-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "arc_s2",
+    "value": [
+      "2: Season 2: Arise from the Shadow, episodes 13-25"
+    ],
+    "text": "Season 2, titled Arise from the Shadow, aired from 5 January to 30 March 2025 and brought 13 more episodes, numbered 13 to 25 overall.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2",
+        "ref": "1361222047",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "aired from January 5 to March 30, 2025"
+  },
+  {
+    "id": "solo-leveling-after-season-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "arc_s3",
+    "value": [
+      "3: After Season 2, webtoon only for now"
+    ],
+    "text": "The film Beyond the System is announced, so the story after Season 2 is still read on the page rather than seen in the series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A sequel anime film, subtitled Beyond the System, has been announced."
+  },
+  {
+    "id": "solo-leveling-episode-total-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "episodes",
+    "value": 25,
+    "text": "Over its two seasons the anime counts 25 episodes in total.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Episodes: 25"
+  },
+  {
+    "id": "solo-leveling-themes-season-one-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Level - SawanoHiroyuki[nZk]: Tomorrow X Together (season 1)",
+      "ED 1: Request - Krage (season 1)"
+    ],
+    "text": "Season 1 opens with Level by SawanoHiroyuki[nZk]: Tomorrow X Together and closes with Request by Krage.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
+        "ref": "1373093955",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the ending theme song is \"Request\" performed by Krage"
+  },
+  {
+    "id": "solo-leveling-themes-season-two-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Reawaker - LiSA (feat. Felix of Stray Kids) (season 2)",
+      "ED 2: Un-Apex - TK from Ling Tosite Sigure (season 2)"
+    ],
+    "text": "Season 2 opens with Reawaker by LiSA (feat. Felix of Stray Kids) and closes with Un-Apex by TK from Ling Tosite Sigure.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2",
+        "ref": "1361222047",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Reawaker\" performed by LiSA (feat. Felix of Stray Kids)"
+  },
+  {
+    "id": "solo-leveling-recap-special-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "recap_special",
+    "value": "How to Get Stronger, February 25, 2024",
+    "text": "A recap special named How to Get Stronger went out on 25 February 2024 and covered the first seven episodes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
+        "ref": "1373093955",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "recap special covering the first seven episodes of the season"
+  },
+  {
+    "id": "solo-leveling-compilation-film-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "compilation_film",
+    "value": "Solo Leveling: ReAwakening, shown in Japan in late 2024",
+    "text": "A compilation film of Season 1, Solo Leveling: ReAwakening, was shown in Japan with the first two episodes of Season 2 in late 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was screened along with the first two episodes of the second season in Japan from November 29 to December 12, 2024"
+  },
+  {
+    "id": "solo-leveling-crunchyroll-award-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "award",
+    "value": "Anime of the Year, 9th Crunchyroll Anime Awards (2025)",
+    "text": "The anime took the top prize, Anime of the Year, at the 9th Crunchyroll Anime Awards in 2025.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Anime of the Year"
+  },
+  {
+    "id": "solo-leveling-ragnarok-sequel-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "sequel_webtoon",
+    "value": "Solo Leveling: Ragnarok, announced April 2023",
+    "text": "Kakao revealed a follow-up webtoon, Solo Leveling: Ragnarok, in April 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In April 2023, Kakao announced a sequel titled Solo Leveling: Ragnarok."
+  },
+  {
+    "id": "solo-leveling-anime-announcement-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "anime_announced",
+    "value": "Anime Expo 2022",
+    "text": "The anime adaptation was first announced at the Anime Expo convention in 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An anime television series adaptation was announced at Anime Expo 2022."
+  },
+  {
+    "id": "solo-leveling-official-site-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "official_site",
+    "value": "Theatrical film Beyond the System, production announced on the official site",
+    "text": "The anime's official site shows a banner announcing that a theatrical film, Beyond the System, is in production.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://sololeveling-anime.net/",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "『劇場版 俺だけレベルアップな件 -Beyond the System-』制作決定！"
+  },
+  {
+    "id": "solo-leveling-cast-first-half-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "characters_a",
+    "value": [
+      "Sung Jin-woo: E-Rank Hunter, the lead",
+      "Sung Jin-ah: his younger sister",
+      "Park Kyung-hye: his mother",
+      "Yoo Jin-ho: D-Rank Hunter, close friend",
+      "Lee Joo-hee: B-Rank healer",
+      "Song Chi-yul: C-Rank kumdo teacher",
+      "Igris: the Blood-Red Commander",
+      "Cha Hae-in: S-Rank swordswoman",
+      "Go Gun-hee: Hunters Association chairman",
+      "Baek Yoon-ho: White Tiger Guild leader",
+      "Choi Jong-in: Hunters Guild leader",
+      "Kang Tae-shik: B-Rank inspector"
+    ],
+    "text": "The first half of the cast list covers the Sung family and the Hunters met early on, from Sung Jin-woo and Sung Jin-ah to Kang Tae-shik.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sung Jin-woo: Protagonist; weak E-Rank Hunter who becomes exceptionally powerful through The System"
+  },
+  {
+    "id": "solo-leveling-cast-second-half-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "characters_b",
+    "value": [
+      "Min Byung-gyu: S-Rank healer",
+      "Beru: ant shadow, General",
+      "Bellion: Grand Marshal",
+      "Ashborn: Monarch of Shadows",
+      "Sung Il-hwan: the father",
+      "Sung Suho: Jin-woo's son",
+      "Thomas Andre: Goliath of America",
+      "Liu Zhigang: China's strongest",
+      "Christopher Reed: American Hunter",
+      "Siddharth Bachchan: India's strongest",
+      "Lennart Niermann: Germany's strongest",
+      "Goto Ryuji: Japan's strongest",
+      "Lim Tae-gyu: Fiend Guild leader",
+      "Ma Dong-wook: Fame Guild leader",
+      "Antares: King of Dragons",
+      "Rakan: King of Beasts",
+      "Sillad: King of Snow Folk",
+      "Querehsha: Queen of Insects"
+    ],
+    "text": "The second half of the cast list gathers shadows, foreign national-level Hunters, guild leaders and Monarchs, from Min Byung-gyu to Querehsha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Thomas Andre: Strongest in America; Rulers' vessel; nicknamed \"Goliath\""
+  },
+  {
+    "id": "solo-leveling-jin-woo-intro-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sung-jin-woo"
+    },
+    "field": "role",
+    "value": "Weak E-Rank Hunter chosen by The System",
+    "text": "Sung Jin-woo starts out as a notoriously weak E-Rank Hunter, picked by a game-like power called The System.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a notoriously weak E ranked hunter named Sung Jin-woo finds himself in a seemingly endless struggle for survival"
+  },
+  {
+    "id": "solo-leveling-igris-title-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "igris"
+    },
+    "field": "title",
+    "value": "Blood-Red Commander",
+    "text": "Igris is given the title Blood-Red Commander and is a knight with outstanding sword skill.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Blood-Red Commander\"; high-ranking knight with exceptional swordsmanship"
+  },
+  {
+    "id": "solo-leveling-cha-hae-in-class-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "cha-hae-in"
+    },
+    "field": "specialty",
+    "value": "S-Rank swordsmanship",
+    "text": "Cha Hae-in is an S-Rank Hunter whose strength lies in fighting with a sword.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "S-Rank Hunter specializing in swordsmanship"
+  },
+  {
+    "id": "solo-leveling-thomas-andre-nickname-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "thomas-andre"
+    },
+    "field": "nickname",
+    "value": "Goliath",
+    "text": "The American Hunter Thomas Andre is nicknamed Goliath and counts as the strongest in his country.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Strongest in America; Rulers' vessel; nicknamed \"Goliath\""
+  },
+  {
+    "id": "solo-leveling-ashborn-title-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "ashborn"
+    },
+    "field": "title",
+    "value": "Monarch of Shadows",
+    "text": "Ashborn rules the dead as a king and holds the Monarch of Shadows title.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"King of the Dead and the Monarch of Shadows\""
+  },
+  {
+    "id": "solo-leveling-antares-title-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "antares"
+    },
+    "field": "title",
+    "value": "King of Dragons",
+    "text": "Antares is the King of Dragons and is counted as the most powerful of all the Monarchs.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"King of Dragons\"; Monarch of Destruction; strongest Monarch; final antagonist"
+  }
+]
