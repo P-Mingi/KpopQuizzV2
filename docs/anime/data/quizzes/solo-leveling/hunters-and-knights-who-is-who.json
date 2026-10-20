@@ -1,0 +1,174 @@
+{
+  "site": "anime",
+  "account": "oq_creator_10",
+  "group_slug": "solo-leveling",
+  "title": "Hunters and Knights: Who Is Who",
+  "slug": "hunters-and-knights-who-is-who",
+  "description": "Eight questions on the Hunters, ranks and swords of the first two seasons: titles, classes and who is related to whom.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which title is given to the knight Igris?",
+      "options": [
+        "Shadow Marshal",
+        "Iron Vanguard",
+        "Blood-Red Commander",
+        "Crimson Duke"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-igris-title-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Igris is best known for which skill?",
+      "options": [
+        "Outstanding sword skill",
+        "Healing magic",
+        "Fire magic",
+        "Transformation magic"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-igris-title-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which rank does the Hunter Cha Hae-in hold?",
+      "options": [
+        "A-Rank",
+        "S-Rank",
+        "B-Rank",
+        "C-Rank"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-cha-hae-in-class-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Cha Hae-in has her strength in fighting with what?",
+      "options": [
+        "A sword",
+        "A bow",
+        "A staff",
+        "Her fists"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-cha-hae-in-class-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which Hunter is Sung Jin-woo's younger sister?",
+      "options": [
+        "Park Kyung-hye",
+        "Sung Jin-ah",
+        "Lee Joo-hee",
+        "Yoo Jin-ho"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-cast-first-half-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which of these Hunters works as an inspector for the Hunters Association?",
+      "options": [
+        "Kang Tae-shik",
+        "Yoo Jin-ho",
+        "Song Chi-yul",
+        "Lee Joo-hee"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-cast-first-half-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "At the start of the story, which Hunter rank does Sung Jin-woo hold?",
+      "options": [
+        "E-Rank",
+        "S-Rank",
+        "C-Rank",
+        "A-Rank"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-jin-woo-intro-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "How is Sung Jin-woo described when the story opens?",
+      "options": [
+        "Famously strong",
+        "Notoriously weak",
+        "Quietly wealthy",
+        "Unusually lucky"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-jin-woo-intro-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Solo Leveling",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "notes": "Character questions cite the character facts (025, 026, 027) and the cast list fact 023; relations and ranks of Jin-ah and Kang Tae-shik follow the cast list of the same Wikipedia page as the series file. Highest tag is arc 2."
+}

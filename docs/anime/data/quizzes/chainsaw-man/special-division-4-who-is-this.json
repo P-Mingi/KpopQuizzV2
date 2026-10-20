@@ -1,0 +1,215 @@
+{
+  "site": "anime",
+  "account": "oq_creator_12",
+  "group_slug": "chainsaw-man",
+  "title": "Special Division 4: Who Is This?",
+  "slug": "special-division-4-who-is-this",
+  "description": "Three clues, four names. Spot the Devil Hunter, devil or fiend from the first half of the cast list.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The hero of the story",
+        "A young man weighed down by a debt his father left behind",
+        "Takes devil-hunting jobs to get by"
+      ],
+      "options": [
+        "Aki Hayakawa",
+        "Denji",
+        "Kishibe",
+        "Katana Man"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017",
+        "chainsaw-man-denji-debt-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who is this companion?",
+      "clues": [
+        "A small companion devil",
+        "Known as the Chainsaw Devil",
+        "Shares a close bond with Denji"
+      ],
+      "options": [
+        "Power",
+        "Angel Devil",
+        "Pochita",
+        "Himeno"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who is this fiend?",
+      "clues": [
+        "A Blood Fiend",
+        "A Devil Hunter in the squad of her division head",
+        "Teams up with Denji in Special Division 4"
+      ],
+      "options": [
+        "Kobeni Higashiyama",
+        "Himeno",
+        "Makima",
+        "Power"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who is this Devil Hunter?",
+      "clues": [
+        "A Devil Hunter of Special Division 4",
+        "Driven by a wish for revenge on the Gun Devil",
+        "Himeno was his first partner"
+      ],
+      "options": [
+        "Aki Hayakawa",
+        "Kishibe",
+        "Denji",
+        "Katana Man"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who leads the division?",
+      "clues": [
+        "Head of Special Division 4",
+        "Calm in every situation",
+        "Recruits Denji"
+      ],
+      "options": [
+        "Himeno",
+        "Kobeni Higashiyama",
+        "Makima",
+        "Power"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who is this Devil Hunter?",
+      "clues": [
+        "Aki's first partner",
+        "A member of Special Division 4",
+        "Listed among the people around Denji in the first half of the cast"
+      ],
+      "options": [
+        "Makima",
+        "Power",
+        "Himeno",
+        "Kobeni Higashiyama"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Who is this veteran?",
+      "clues": [
+        "Cynical and experienced",
+        "A veteran Devil Hunter",
+        "Formerly of Tokyo Special Division 1"
+      ],
+      "options": [
+        "Aki Hayakawa",
+        "Denji",
+        "Katana Man",
+        "Kishibe"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    },
+    {
+      "question": "Which devil is this?",
+      "clues": [
+        "A youthful-looking devil",
+        "Can drain a person's lifespan by touch",
+        "Listed with the devils of the first half of the cast"
+      ],
+      "options": [
+        "Pochita",
+        "Power",
+        "Katana Man",
+        "Angel Devil"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Chainsaw Man characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the values of the first-half cast list fact (017). That fact is tagged arc 3 by the facts file, so the whole quiz carries arc 3; the Denji answer also cites the debt fact (019). No graphic detail."
+}
