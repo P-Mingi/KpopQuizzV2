@@ -592,7 +592,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined }): Re
         <div className="ux-rows p10-srows">
           {NOTIF_ROWS.map((r) => (
             <div className="p10-srow" key={r.key}>
-              <span className="p10-srow-g"><b id={`p10-n-${r.key}`}>{world && r.key === 'announcements' ? world.words.announcements : r.label}</b><small>{r.sub}</small></span>
+              <span className="p10-srow-g"><b id={`p10-n-${r.key}`}>{world && r.key === 'announcements' ? world.words.announcements : r.label}</b><small>{world && r.key === 'achievements' ? world.words.achievementsSub : r.sub}</small></span>
               <UxSwitch checked={prefs[r.key] !== false} disabled={!prefsLoaded} label={world && r.key === 'announcements' ? world.words.announcements : r.label} onChange={(v) => { setSaveError(null); setPrefs((p) => ({ ...p, [r.key]: v })); }} />
             </div>
           ))}

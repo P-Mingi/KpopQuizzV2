@@ -9,17 +9,12 @@ import { SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
-// A member can be banned or hidden at any time: a short ISR window, never a day.
-export const revalidate = 300;
+// A member can be banned or hidden at any time, and the parent layout allows no param that was not generated at build
+// (dynamicParams off: an ISR page of an unknown username answers NoFallbackError): the page is rendered per request.
+export const dynamic = 'force-dynamic';
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
-}
-
-// Run O1: a child of app/sites/[site] returns its params with the parent's site, and nothing on the kpop build
-// (the [site] layout generates no site there and refuses params without one). No profile is prerendered.
-export async function generateStaticParams(): Promise<Array<Record<string, string>>> {
-  return [];
 }
 
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {

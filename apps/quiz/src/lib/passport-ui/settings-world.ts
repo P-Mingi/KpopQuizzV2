@@ -49,6 +49,7 @@ export interface SettingsWords {
   readonly account: string;
   readonly username: string;
   readonly announcements: string;
+  readonly achievementsSub: string;
   readonly emailSoon: string;
   readonly passportRow: string;
   readonly passportSub: string;
@@ -88,7 +89,7 @@ export function settingsWorld(site: SiteId): SettingsWorld | undefined {
       oshiNeedSeries: t('settings.oshiNeedSeries'), oshiLocked: t('settings.oshiLocked'), oshiPick: t('oshi.pick'),
       oshiCustom: t('oshi.custom'), oshiRefused: t('oshi.refusedSpoiler'), watchingSince: t('settings.watchingSince'),
       look: t('settings.look'), notifications: t('settings.notifications'), appearance: t('settings.appearance'),
-      account: t('settings.account'), username: t('settings.username'), announcements: t('settings.announcements'),
+      account: t('settings.account'), username: t('settings.username'), announcements: t('settings.announcements'), achievementsSub: t('settings.achievementsSub'),
       emailSoon: t('settings.emailSoon'), passportRow: t('account.passportRow'), passportSub: t('account.passportSub'),
       signOutEverywhere: t('account.signOutEverywhere'), signOutEverywhereSub: t('account.signOutEverywhereSub'),
       signOutHere: t('account.signOutHere'), signOutHereSub: t('account.signOutHereSub'),

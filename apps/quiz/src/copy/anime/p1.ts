@@ -52,6 +52,7 @@ export const COPY = {
   'settings.appearance': 'Appearance',
   'settings.account': 'Account',
   'settings.username': 'Your username is shared by every site of {network}: {domain}/u/{username}',
+  'settings.achievementsSub': 'Badges, streak milestones, {topicPlural} mastered',
   'settings.announcements': 'From the {brand} team',
   'settings.emailSoon': 'Not available yet: {brand} does not send emails yet.',
   'account.passportRow': '{network} passport',
