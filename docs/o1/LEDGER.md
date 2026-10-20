@@ -325,3 +325,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | 2026-10-20T17:05:32Z | Q0b | a3e72284d213 | judged by ORCH (D-071): production through the proxy, 59 of 60, /leaderboard same size with live data moving between reads; the lane changes only scripts/o1-tools and its report, no page can change | 0 SQL file(s) |
 - D-071 Owner test tools merged (Q0b a3e7228, 0.22 M): scripts/o1-tools/dev-up.sh (3 sites on o1-dev at kpop.localhost:3190, anime.localhost:3191, hub.localhost:3192) and signin-link.sh (Supabase magic link through a local helper, once, 10 minutes, fixtures only, refuses anything but o1-dev). .gitignore gains !docs/anime/ (docs/* hid the content data and packets). Lot f ready (E1a 1d8df5e, 0.39 M): check.mjs C1 to C14, packet.mjs HTML.
 | 2026-10-20T17:06:52Z | E1a | 1d8df5eab9a4 | not needed | 0 SQL file(s) |
+| 2026-10-20T17:12:37Z | K1 | d4c465c813b3 | not needed | 0 SQL file(s) |
