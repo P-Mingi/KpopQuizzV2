@@ -1,6 +1,6 @@
 // Run O1, lane O1 (lot a, finishing): the words of the Name them all blocks that name the kind of topic and its things, and the
-// site they print. The default is today's kpop wording, so a component called without them renders what it rendered before; the
-// anime page passes its own from the registry (the vocabulary, the brand name, the host).
+// site they print. Type only: the kpop wording stays written in the components (game.tsx, about.tsx), which
+// take these from their server parent as plain props and import nothing new at run time; the anime page passes its own from the registry.
 
 export interface NameAllWords {
   /** One thing a topic holds, singular and plural ("member", "members"). */
@@ -16,14 +16,3 @@ export interface NameAllWords {
   acceptedAbout: string;
   acceptedIntro: string;
 }
-
-export const KPOP_NAME_ALL_WORDS: NameAllWords = {
-  member: 'member',
-  members: 'members',
-  topic: 'group',
-  brand: 'KpopQuiz',
-  host: 'kpopquiz.org',
-  origin: 'https://kpopquiz.org',
-  acceptedAbout: 'Stage names, birth names and Hangul are all accepted',
-  acceptedIntro: 'Stage names, real names and Hangul all count',
-};

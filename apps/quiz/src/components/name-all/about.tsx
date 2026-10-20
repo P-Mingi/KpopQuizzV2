@@ -4,12 +4,24 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { Icon } from '@/components/ux-v1/icon';
 import { ROUND_SECONDS, prettyPath } from '@/lib/name-all/round';
 import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
-import { KPOP_NAME_ALL_WORDS } from '@/lib/name-all/words';
 import { whichMemberPath } from '@/lib/personality/view';
 
 import type { NameAllStats } from '@/lib/name-all/round';
 import type { NameAllSet } from '@/lib/name-all/server';
 import type { NameAllWords } from '@/lib/name-all/words';
+
+// Run O1: today's kpop words, written here so that the kpop page imports exactly what it imported before (lib/name-all/words.ts only
+// holds the type, and is not imported at run time: a new module in the graph of the page moved its client references and head tags).
+const KPOP_WORDS: NameAllWords = {
+  member: 'member',
+  members: 'members',
+  topic: 'group',
+  brand: 'KpopQuiz',
+  host: 'kpopquiz.org',
+  origin: 'https://kpopquiz.org',
+  acceptedAbout: 'Stage names, birth names and Hangul are all accepted',
+  acceptedIntro: 'Stage names, real names and Hangul all count',
+};
 
 // The server-rendered part of a Name them all page, below the game (owner, 2026-10-13:
 // SEO). The game is a client island whose HTML holds a title, a sentence and eight "?"
@@ -48,7 +60,7 @@ export function shownSpellings(name: string, spellings: readonly string[], max =
   return out;
 }
 
-export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names, words = KPOP_NAME_ALL_WORDS }: NameAllAboutProps): React.ReactElement {
+export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names, words = KPOP_WORDS }: NameAllAboutProps): React.ReactElement {
   const { group, members } = set;
   const n = members.length;
   const links: Array<{ href: string; label: string }> = [{ href: `/${group.slug}-quiz`, label: `${group.name} quizzes` }];

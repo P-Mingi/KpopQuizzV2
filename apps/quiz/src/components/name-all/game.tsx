@@ -10,7 +10,6 @@ import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { getAnonId } from '@/lib/anon-id';
 import { matchName } from '@/lib/name-all/match';
 import { ROUND_SECONDS, formatSeconds, resultHeadline } from '@/lib/name-all/round';
-import { KPOP_NAME_ALL_WORDS } from '@/lib/name-all/words';
 
 import type { NameAllWords } from '@/lib/name-all/words';
 import type { NameAllMember } from '@/lib/name-all/match';
@@ -38,6 +37,19 @@ interface Props {
   words?: NameAllWords;
 }
 
+// Run O1: today's kpop words, written here so that the kpop page imports exactly what it imported before (lib/name-all/words.ts only
+// holds the type, and is not imported at run time: a new module in the graph of the page moved its client references and head tags).
+const KPOP_WORDS: NameAllWords = {
+  member: 'member',
+  members: 'members',
+  topic: 'group',
+  brand: 'KpopQuiz',
+  host: 'kpopquiz.org',
+  origin: 'https://kpopquiz.org',
+  acceptedAbout: 'Stage names, birth names and Hangul are all accepted',
+  acceptedIntro: 'Stage names, real names and Hangul all count',
+};
+
 const RING_R = 36;
 const RING_C = 2 * Math.PI * RING_R;
 
@@ -54,7 +66,7 @@ function Ring({ left }: { left: number }): React.ReactElement {
   );
 }
 
-export function NameAllGame({ group, members, stats, path, words = KPOP_NAME_ALL_WORDS }: Props): React.ReactElement {
+export function NameAllGame({ group, members, stats, path, words = KPOP_WORDS }: Props): React.ReactElement {
   const total = members.length;
   const what = `${total} ${group.name} ${words.members}`;
   const [phase, setPhase] = useState<Phase>('intro');
