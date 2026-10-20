@@ -123,7 +123,7 @@ describe('leaderboard, community and counts', () => {
 
 describe('public endpoints', () => {
   it('GET /api/activity/recent', async () => {
-    await judge(() => import('@/app/api/activity/recent/route'), (m) => m.GET(new NextRequest('http://localhost/api/activity/recent')), ['activity_events']);
+    await judge(() => import('@/app/api/activity/recent/route'), (m) => m.GET(), ['activity_events']);
   });
   it('GET /api/quizzes/search', async () => {
     await judge(() => import('@/app/api/quizzes/search/route'), (m) => m.GET(new NextRequest('http://localhost/api/quizzes/search?q=death')), ['quizzes']);
