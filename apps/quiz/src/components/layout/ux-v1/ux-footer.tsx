@@ -128,7 +128,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
           </div>
         ) : null}
         <div className="ux-fbot">
-          <span>© {year}{COPYRIGHT_TAIL}</span>
+          <span>{'\u00A9 '}{year}{COPYRIGHT_TAIL}</span>
           <span className="ux-fbot-r">{F.localizedLandings ? <UxFooterLocale /> : null}<UxFooterTheme /></span>
         </div>
       </div>
