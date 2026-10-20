@@ -1338,9 +1338,7 @@
       "route": "/admin",
       "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/page.tsx",
       "twin": "apps/quiz/src/app/(site)/admin/page.tsx",
-      "mustImport": [
-        "@/app/(site)/admin/page"
-      ],
+      "mustImport": [],
       "renders": [
         "app/(site)/admin/page.tsx",
         "admin-dashboard.tsx"
@@ -1359,9 +1357,7 @@
       "route": "/admin/quiz/search",
       "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/quiz/search/page.tsx",
       "twin": "apps/quiz/src/app/(site)/admin/quiz/search/page.tsx",
-      "mustImport": [
-        "@/app/(site)/admin/quiz/search/page"
-      ],
+      "mustImport": [],
       "renders": [
         "app/(site)/admin/quiz/search/page.tsx",
         "quiz-search-list.tsx"
@@ -1380,9 +1376,7 @@
       "route": "/admin/quiz/{id}/edit",
       "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/quiz/[id]/edit/page.tsx",
       "twin": "apps/quiz/src/app/(site)/admin/quiz/[id]/edit/page.tsx",
-      "mustImport": [
-        "@/app/(site)/admin/quiz/[id]/edit/page"
-      ],
+      "mustImport": [],
       "renders": [
         "app/(site)/admin/quiz/[id]/edit/page.tsx",
         "components/quiz/quiz-editor.tsx"

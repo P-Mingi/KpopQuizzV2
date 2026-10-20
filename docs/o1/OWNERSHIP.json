@@ -349,7 +349,10 @@
     "apps/quiz/e2e/o1/LE/**",
     "docs/o1/reports/LE/**",
     "docs/pending-migrations/multisite/01*",
-    "docs/pending-migrations/multisite/launch/**"
+    "docs/pending-migrations/multisite/launch/**",
+    "docs/pending-migrations/multisite/009*",
+    "apps/quiz/e2e/o1/K1/**",
+    "docs/o1/reports/K1/**"
   ],
   "K2": [
     "docs/pending-migrations/multisite/launch/L*-k2-*",
