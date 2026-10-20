@@ -1,0 +1,482 @@
+[
+  {
+    "id": "one-punch-man-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "title_native",
+    "value": "ワンパンマン (Wanpanman)",
+    "text": "The title is written ワンパンマン in Japanese and read Wanpanman; English editions call it One-Punch Man.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5102879",
+        "ref": "Q5102879",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "One-Punch Man (ワンパンマン, Wanpanman) is a Japanese manga series created by One"
+  },
+  {
+    "id": "one-punch-man-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "author",
+    "value": "One (story), Yusuke Murata (art)",
+    "text": "One came up with the story, and Yusuke Murata redrew it for the published manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/shonenjump/chapters/one-punch-man",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5102879",
+        "ref": "Q5102879",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A digital manga remake, illustrated by Yusuke Murata"
+  },
+  {
+    "id": "one-punch-man-webcomic-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "manga_start",
+    "value": "2009 (self-published webcomic by One)",
+    "text": "The story began in 2009 as a webcomic that One put online himself, before any publisher was involved.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "originally released as a webcomic in early 2009"
+  },
+  {
+    "id": "one-punch-man-remake-magazine-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "magazine",
+    "value": "Tonari no Young Jump (from June 14, 2012)",
+    "text": "Murata's redrawn version has appeared on Shueisha's Tonari no Young Jump site since 14 June 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "published on Shueisha's Tonari no Young Jump website since June 14, 2012"
+  },
+  {
+    "id": "one-punch-man-volume-count-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "volumes",
+    "value": "37 volumes by July 2026",
+    "text": "The remake had reached 37 collected volumes by early July 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of July 3, 2026, 37 volumes have been published."
+  },
+  {
+    "id": "one-punch-man-copies-circulation-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "copies",
+    "value": "Over 38 million copies circulating by July 2026",
+    "text": "By July 2026 the redrawn manga had passed 38 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By July 2026, the manga remake had over 38 million copies in circulation."
+  },
+  {
+    "id": "one-punch-man-anime-season-one-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "anime_s1",
+    "value": "Madhouse, director Shingo Natsume, 12 episodes, October 5 to December 21, 2015",
+    "text": "Season 1 was animated by Madhouse under director Shingo Natsume and ran for 12 episodes from 5 October to 21 December 2015.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+        "ref": "1376949985",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first season was directed by Shingo Natsume at Madhouse"
+  },
+  {
+    "id": "one-punch-man-anime-season-two-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "anime_s2",
+    "value": "J.C.Staff, director Chikara Sakurai, 12 episodes (overall 13 to 24), April 10 to July 3, 2019",
+    "text": "Season 2 moved to J.C.Staff with Chikara Sakurai directing; its 12 episodes, numbered 13 to 24 overall, aired from 10 April to 3 July 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2",
+        "ref": "1373082914",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season is animated by J.C. Staff, with Chikara Sakurai replacing Shingo Natsume as series director"
+  },
+  {
+    "id": "one-punch-man-anime-season-three-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "anime_s3",
+    "value": "J.C.Staff, director Shinpei Nagai, episodes 25 to 36, from October 12, 2025",
+    "text": "Season 3 stayed at J.C.Staff under director Shinpei Nagai: its first cours is episodes 25 to 36 (36 in total so far), with a second cours due in January 2027 and the manga beyond season 3 still ahead.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3",
+        "ref": "1379606558",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season's first cours aired from October 12 to December 29, 2025"
+  },
+  {
+    "id": "one-punch-man-title-wordplay-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "title_origin",
+    "value": "Wanpanman plays on Anpanman; wanpan is short for wanpanchi (one punch)",
+    "text": "The Japanese name riffs on the children's hero Anpanman, with wanpan serving as shorthand for a single punch.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Wanpanman is a play on the long-running children's character Anpanman"
+  },
+  {
+    "id": "one-punch-man-award-2017-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "awards",
+    "value": "Sugoi Japan Award and Manga Barcelona seinen prize, 2017",
+    "text": "In 2017 the manga took home both the Sugoi Japan Award and the seinen category prize at Manga Barcelona.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga won the Sugoi Japan Award and the Spanish Manga Barcelona award for the seinen category in 2017"
+  },
+  {
+    "id": "one-punch-man-themes-season-one-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: The Hero!! Ikareru Ken ni Honō o Tsukero - JAM Project (season 1)",
+      "ED 1: Hoshi Yori Saki ni Mitsukete Ageru - Hiroko Moriguchi (season 1)",
+      "ED 2: Kanashimi-tachi o Dakishimete - Hiroko Moriguchi (season 1, episode 12 only)"
+    ],
+    "text": "Season 1 opens with a JAM Project song and ends on Hiroko Moriguchi tracks, with a separate closing song for episode 12.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+        "ref": "1376949985",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song is performed by JAM Project, while the ending theme song is performed by Hiroko Moriguchi"
+  },
+  {
+    "id": "one-punch-man-themes-later-seasons-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Uncrowned Greatest Hero - JAM Project (season 2)",
+      "ED 3: Chizu ga Nakutemo Modoru kara - Makoto Furukawa (season 2)",
+      "OP 3: Get No Satisfied! - JAM Project featuring Babymetal (season 3)",
+      "ED 4: Soko ni Aru Akari - Makoto Furukawa (season 3)"
+    ],
+    "text": "Season 2 pairs a JAM Project opening with a Makoto Furukawa ending; season 3 does the same, with Babymetal joining JAM Project.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+        "ref": "1379606340",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first opening theme song is \"Get No Satisfied!\", performed by JAM Project featuring Babymetal"
+  },
+  {
+    "id": "one-punch-man-mumen-rider-name-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "mumen-rider",
+      "group_slug": "one-punch-man"
+    },
+    "field": "name_origin",
+    "value": "Mumen means no driver's license; a parody of Kamen Rider",
+    "text": "His hero name jokes that he rides without a licence, and the character is a send-up of Kamen Rider.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Mumen in Mumen Rider's name translates to \"no driver's license\""
+  },
+  {
+    "id": "one-punch-man-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "characters",
+    "value": [
+      "Saitama (サイタマ): the bored, unbeatable hero",
+      "Genos (ジェノス): the cyborg who becomes his disciple",
+      "Mumen Rider (無免ライダー): the bicycle-riding C-Class hero",
+      "Speed-o'-Sound Sonic (音速のソニック): the ninja who calls Saitama his rival",
+      "King (キング): the S-Class hero thought to be the strongest",
+      "Bang (バング): the martial arts master known as Silverfang",
+      "Atomic Samurai (アトミック侍): the S-Class swordsman",
+      "Tatsumaki (タツマキ): the esper known as Terrible Tornado",
+      "Garou (ガロウ): the self-styled Hero Hunter",
+      "Boros (ボロス): the alien leader of the Dark Matter Thieves",
+      "Fubuki (フブキ): the B-Class esper who leads the Blizzard Bunch",
+      "Blast (ブラスト): the top-ranked hero whose whereabouts are unknown"
+    ],
+    "text": "A dozen of the heroes and villains a viewer meets in the series, with their Japanese names.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Genos is a 19-year-old cyborg who becomes Saitama's disciple"
+  }
+]

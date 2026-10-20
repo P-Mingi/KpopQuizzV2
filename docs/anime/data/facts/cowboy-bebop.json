@@ -1,0 +1,475 @@
+[
+  {
+    "id": "cowboy-bebop-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "title_native",
+    "value": "カウボーイビバップ (Kaubōi Bibappu)",
+    "text": "In Japanese the title is カウボーイビバップ, read Kaubōi Bibappu, a katakana version of Cowboy Bebop.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Cowboy Bebop (カウボーイビバップ, Kaubōi Bibappu)"
+  },
+  {
+    "id": "cowboy-bebop-studio-director-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "staff",
+    "value": "Sunrise (studio), Shinichirō Watanabe (director)",
+    "text": "Sunrise made the series, with Shinichirō Watanabe leading the team as director.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Created and animated by Sunrise, it was led by a production team of director Shinichirō Watanabe"
+  },
+  {
+    "id": "cowboy-bebop-creator-credit-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "creator",
+    "value": "Hajime Yatate (collective pen name)",
+    "text": "The credited creator Hajime Yatate is not one person but a shared pen name for the Sunrise staff.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hajime Yatate, the well-known pseudonym for the collective contributions of Sunrise's animation staff"
+  },
+  {
+    "id": "cowboy-bebop-episode-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "episodes",
+    "value": "26 episodes (called sessions), 1 season",
+    "text": "The series is a single season of 26 episodes, which the show calls sessions.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series, which ran for twenty-six episodes (dubbed \"sessions\")"
+  },
+  {
+    "id": "cowboy-bebop-tv-tokyo-run-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "anime_start",
+    "value": "April 3 to June 26, 1998 (TV Tokyo)",
+    "text": "TV Tokyo aired the show first, from 3 April to 26 June 1998, before the full run reached Wowow.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The show's first run, from April 3 until June 26, 1998, on TV Tokyo"
+  },
+  {
+    "id": "cowboy-bebop-wowow-run-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "anime_end",
+    "value": "Wowow, 23 October 1998 to 24 April 1999 (complete run)",
+    "text": "Satellite channel Wowow showed all of it from 23 October 1998 to 24 April 1999.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the series was shown in its entirety from October 23, 1998, to April 24, 1999, on the satellite network Wowow"
+  },
+  {
+    "id": "cowboy-bebop-setting-premise-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "premise",
+    "value": "Year 2071; bounty hunters aboard the spaceship Bebop",
+    "text": "In 2071 a crew of bounty hunters, nicknamed cowboys, chase criminals around the Solar System from a ship called the Bebop.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is set in the year 2071 and follows the lives of a traveling bounty-hunting crew aboard a spaceship, the Bebop"
+  },
+  {
+    "id": "cowboy-bebop-composer-seatbelts-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "composer",
+    "value": "Yoko Kanno, with the band Seatbelts",
+    "text": "Yoko Kanno scored the show in a jazz-heavy style and formed the band Seatbelts to play it.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kanno formed the blues and jazz band Seatbelts to perform the music"
+  },
+  {
+    "id": "cowboy-bebop-opening-tank-009",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "op-1",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "theme_op",
+    "value": "Tank! - Seatbelts",
+    "text": "The opening, Tank!, is a mostly instrumental big band number with a long alto saxophone solo by Masato Honda.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+        "ref": "1332452396",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Tank!\" is the series' opening song. The song, written by Yoko Kanno and performed by Seatbelts"
+  },
+  {
+    "id": "cowboy-bebop-ending-real-folk-blues-010",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "ed-1",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "theme_ed",
+    "value": "The Real Folk Blues - Seatbelts featuring Mai Yamane",
+    "text": "The first ending theme has vocals by Mai Yamane, and it is one of the few songs in the series sung in Japanese.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+        "ref": "1332452396",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"The Real Folk Blues\" is the first ending theme for Cowboy Bebop"
+  },
+  {
+    "id": "cowboy-bebop-film-release-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "film",
+    "value": "Cowboy Bebop: The Movie, Japan September 1, 2001, set between episodes 22 and 23, studio Bones with Sunrise",
+    "text": "The film, called Knockin' on Heaven's Door in Japan, opened on 1 September 2001, takes place between episodes 22 and 23, and was animated by Bones for Sunrise.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
+        "ref": "1377778119",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=42",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1334287",
+        "ref": "Q1334287",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Set between episodes 22 and 23 of the original series"
+  },
+  {
+    "id": "cowboy-bebop-grand-prix-1999-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "awards",
+    "value": "1999 Anime Grand Prix: best male character (Spike Spiegel), best voice actor (Megumi Hayashibara)",
+    "text": "At the 1999 Anime Grand Prix, which looked back on 1998, Spike Spiegel was voted best male character and Megumi Hayashibara, Faye's voice, best voice actor.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Spike Spiegel was awarded the best male character; and Megumi Hayashibara was awarded the best voice actor"
+  },
+  {
+    "id": "cowboy-bebop-adult-swim-debut-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "us_debut",
+    "value": "First anime shown on Adult Swim's launch night, September 2, 2001",
+    "text": "When Adult Swim launched on 2 September 2001, Cowboy Bebop was the first anime on its schedule, at midnight Eastern.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "being the first anime shown on the block that night at midnight ET"
+  },
+  {
+    "id": "cowboy-bebop-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "arcs",
+    "value": [
+      "Sessions 1 to 22",
+      "Cowboy Bebop: The Movie",
+      "Sessions 23 to 26"
+    ],
+    "text": "Because the film sits between episodes 22 and 23, the story here runs sessions 1 to 22, then the film, then sessions 23 to 26.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The film takes place between episodes 22 and 23."
+  },
+  {
+    "id": "cowboy-bebop-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "characters",
+    "value": [
+      "Spike Spiegel (スパイク・スピーゲル): a bounty hunter and ace pilot",
+      "Jet Black (ジェット・ブラック): the retired cop who owns the Bebop",
+      "Faye Valentine (フェイ・ヴァレンタイン): the amnesiac gambler in debt",
+      "Edward Wong Hau Pepelu Tivrusky IV (エドワード・ウォン・ハウ・ペペル・チブルスキー4世): the hacker prodigy known as Ed",
+      "Ein (アイン): the corgi data dog",
+      "Vicious (ビシャス): a Red Dragon Syndicate rival of Spike",
+      "Julia (ジュリア): a woman from Spike's past",
+      "Andy von de Oniyate: the cowboy-styled bounty hunter",
+      "Laughing Bull (ラフィング・ブル): the shaman on Mars",
+      "Gren Eckener: the former soldier in Jupiter Jazz",
+      "Vincent Volaju (ヴィンセント・ボラージュ): the film's terrorist",
+      "Electra Ovilo (エレクトラ・オヴィロゥ): the film's Titan War veteran"
+    ],
+    "text": "Twelve people and one dog from the series and the film, with their Japanese names where the sources give them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Spike Spiegel is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
+  }
+]

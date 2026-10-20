@@ -1,0 +1,352 @@
+{
+  "$comment": "Run O1 lane K1 batch b7: series data for One-Punch Man (tier C), built from pinned Wikipedia revisions (main article, character list, season 1 to 3 pages), Wikidata Q5102879, the official anime site onepunchman-anime.net (staff page, read directly) and the VIZ Media series page; facts are drafts for review. The arcs are the three TV seasons (12 episodes each, overall numbering 1 to 36; season 3 is the first cours of a split season, the second cours is announced for January 2027) plus a fourth arc standing for the manga beyond season 3, because no allowed source names story arcs. Character debut arcs follow the first named mention in the Wikipedia episode summaries (Fubuki is first named in the season 2 summaries, so she is placed in season 2 although she may appear earlier unnamed; when unsure the later arc was chosen). spoiler_level equals the debut arc for every character that debuts after season 1; Garou is tagged 1 because his story is mainly told from season 2. Native names come from the English Wikipedia character list and the official cast page. Themes are the openings and endings of seasons 1 to 3; the second opening of season 3 (Never Done) is on the official page without an ending and is left out because Wikipedia does not say in which cours it plays. The webcomic start year 2009 is stored as manga_start_year; the remake started in 2012. No chapter count is stored. Status is between_seasons: season 3 cours 2 is announced, the manga is ongoing.",
+  "group": {
+    "slug": "one-punch-man",
+    "name": "One-Punch Man",
+    "site": "anime",
+    "display_color": "#FACC15",
+    "text_color": "#111827"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "One-Punch Man",
+    "title_native": "ワンパンマン",
+    "title_romaji": "Wanpanman",
+    "studios": [
+      {
+        "name": "Madhouse",
+        "seasons": [
+          1
+        ]
+      },
+      {
+        "name": "J.C.Staff",
+        "seasons": [
+          2,
+          3
+        ]
+      }
+    ],
+    "director": "Shingo Natsume",
+    "authors": [
+      {
+        "name": "One",
+        "role": "story"
+      },
+      {
+        "name": "Yusuke Murata",
+        "role": "art"
+      }
+    ],
+    "magazine": "Tonari no Young Jump",
+    "publisher": "Shueisha",
+    "anime_start_year": 2015,
+    "manga_start_year": 2009,
+    "status": "between_seasons",
+    "episodes": 36,
+    "seasons": 3,
+    "volumes": 37,
+    "official_url": "https://onepunchman-anime.net/",
+    "wikidata_qid": "Q5102879",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Season 1",
+      "kind": "season",
+      "episode_from": 1,
+      "episode_to": 12,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Season 2",
+      "kind": "season",
+      "episode_from": 13,
+      "episode_to": 24,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Season 3",
+      "kind": "season",
+      "episode_from": 25,
+      "episode_to": 36,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Manga beyond season 3",
+      "kind": "saga",
+      "manga_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "saitama",
+      "name": "Saitama",
+      "name_native": "サイタマ",
+      "role": "main",
+      "affiliation": "Hero Association (C-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A bored hero whose training made him strong enough to end any fight with one punch.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "genos",
+      "name": "Genos",
+      "name_native": "ジェノス",
+      "role": "main",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A cyborg hero who seeks revenge on the machine that destroyed his hometown and becomes Saitama's disciple.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "mumen-rider",
+      "name": "Mumen Rider",
+      "name_native": "無免ライダー",
+      "role": "supporting",
+      "affiliation": "Hero Association (C-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A bicycle-riding C-Class hero who throws himself into danger to save others.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "speed-o-sound-sonic",
+      "name": "Speed-o'-Sound Sonic",
+      "name_native": "音速のソニック",
+      "role": "antagonist",
+      "affiliation": "Ninja (independent)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An extremely fast ninja who declares himself Saitama's official rival.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "king",
+      "name": "King",
+      "name_native": "キング",
+      "role": "supporting",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An S-Class hero with claw scars on his face whom the association thinks is the strongest man alive.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "bang",
+      "name": "Bang",
+      "name_native": "バング",
+      "role": "supporting",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A veteran martial artist known as Silverfang who runs a dojo in City Z.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "atomic-samurai",
+      "name": "Atomic Samurai",
+      "name_native": "アトミック侍",
+      "role": "supporting",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A samurai hero in a kimono marked with an atom symbol, also known as Kamikaze.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "tatsumaki",
+      "name": "Tatsumaki",
+      "name_native": "タツマキ",
+      "role": "supporting",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A powerful esper with telekinesis, the top-ranked woman in the S-Class.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "garou",
+      "name": "Garou",
+      "name_native": "ガロウ",
+      "role": "antagonist",
+      "affiliation": "Self-styled Hero Hunter",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A self-styled Hero Hunter who takes on the professional heroes.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "boros",
+      "name": "Boros",
+      "name_native": "ボロス",
+      "role": "antagonist",
+      "affiliation": "Dark Matter Thieves",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An alien warlord who leads the Dark Matter Thieves and searches for an opponent worth fighting.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "fubuki",
+      "name": "Fubuki",
+      "name_native": "フブキ",
+      "role": "supporting",
+      "affiliation": "Hero Association (B-Class)",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A B-Class esper who leads the large Blizzard Bunch and is Tatsumaki's younger sister.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "blast",
+      "name": "Blast",
+      "name_native": "ブラスト",
+      "role": "other",
+      "affiliation": "Hero Association (S-Class)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The top-ranked hero of the association, who is said to appear only when humanity is under threat.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "The Hero!! Ikareru Ken ni Honō o Tsukero",
+      "artist": "JAM Project",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Hoshi Yori Saki ni Mitsukete Ageru",
+      "artist": "Hiroko Moriguchi",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Kanashimi-tachi o Dakishimete",
+      "artist": "Hiroko Moriguchi",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Uncrowned Greatest Hero",
+      "artist": "JAM Project",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "Chizu ga Nakutemo Modoru kara",
+      "artist": "Makoto Furukawa",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "Get No Satisfied!",
+      "artist": "JAM Project featuring Babymetal",
+      "season": 3,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "Soko ni Aru Akari",
+      "artist": "Makoto Furukawa",
+      "season": 3,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3",
+      "status": "published"
+    }
+  ]
+}
