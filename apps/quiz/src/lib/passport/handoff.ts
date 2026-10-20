@@ -21,14 +21,17 @@
 import { NextResponse } from 'next/server';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
+import { createRateLimiter } from '@/lib/duel/rate-limit';
+import type { RateLimiter } from '@/lib/duel/rate-limit';
 import { VIA_RE } from '@/lib/network/types';
 import { REGISTRY, SITE_ID, isSiteId, netOrigin } from '@/lib/site/registry';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import {
   clientIp, codeHash, ipHash, newCode, newState, newVerifier, passportJumpOn, pkceChallenge, safeEqual,
-  signTicket, signTx, ticketSecret, txCookieAttributes, txCookieName, uaFamily, verifyTicket, verifyTx,
+  signTicket, signTx, ticketSecret, uaFamily, verifyTicket, verifyTx,
 } from './ticket';
+import { clearTxCookie, setTxCookie, txCookieNameFor } from './tx-cookie';
 import { B64U_16_RE, B64U_32_RE } from './types';
 
 import type { NextRequest } from 'next/server';
@@ -44,6 +47,8 @@ export interface HandoffCtx {
   readonly env?: PassportEnv;
   /** Unix milliseconds; Date.now by default. */
   readonly now?: () => number;
+  /** The per-IP-hash limiter of POST /api/passport/redeem; the module's own by default (tests pass theirs). */
+  readonly redeemLimiter?: RateLimiter;
 }
 
 interface Run {
@@ -200,7 +205,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const check = rawNext !== null && rawNext === next
     ? verifyTicket(ticketSecret(env)!, t, { to: site, from: fromParam, next: rawNext }, nowSec)
     : ({ ok: false, reason: 'next' } as const);
-  const name = txCookieName(request.url, request.headers.get('x-forwarded-proto'), env);
+  const name = txCookieNameFor(request.url, request.headers.get('x-forwarded-proto'), env);
   if (!check.ok || from === null || name === null) {
     if (!check.ok) await bad();
     return toSelf(next);
@@ -213,8 +218,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
     client: site, state, code_challenge: pkceChallenge(verifier), method: 'S256', prompt: 'none',
   });
   const res = redirect(`${netOrigin(from, env)}/auth/authorize?${authorize.toString()}`);
-  res.cookies.set(name, cookie, txCookieAttributes(name));
-  return res;
+  return setTxCookie(res, name, cookie);
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -325,6 +329,12 @@ export async function handleLand(_request: NextRequest, ctx: HandoffCtx = {}): P
 
 const BODY_MAX_BYTES = 2048;
 
+// apis.md 2.5: the IP hash is under its limit, else 429 rate_limited. cookies.md gives no number for redeem (its 30 per user and
+// 60 per IP hash an hour are for issuing a code), so a visitor who redeems 10 times a minute is stopped. Per server instance, like
+// every in-memory limiter of the app (lib/duel/rate-limit.ts): it stops a burst, the code itself is single use.
+export const REDEEM_PER_MINUTE = 10;
+const redeemLimiter = createRateLimiter({ limit: REDEEM_PER_MINUTE, windowMs: 60_000 });
+
 function parseRedeemBody(text: string): RedeemRequest | null {
   if (Buffer.byteLength(text, 'utf8') > BODY_MAX_BYTES) return null;
   let body: unknown;
@@ -348,14 +358,13 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
   const origin = request.headers.get('origin');
   if (origin !== null && origin !== netOrigin(site, env)) return jsonError(403, 'origin');
 
-  const name = txCookieName(request.url, request.headers.get('x-forwarded-proto'), env);
+  const name = txCookieNameFor(request.url, request.headers.get('x-forwarded-proto'), env);
   const secret = ticketSecret(env)!;
 
   // Every answer from here on clears the transaction cookie (Max-Age=0, same name and attributes).
   const answer = (status: number, body: RedeemResponse | RedeemFailure): NextResponse => {
     const res = harden(NextResponse.json(body, { status }));
-    if (name) res.cookies.set(name, '', txCookieAttributes(name, 0));
-    return res;
+    return name ? clearTxCookie(res, name) : res;
   };
   const fail = (status: number, error: string, next: string): NextResponse => answer(status, { error, next });
 
@@ -383,6 +392,13 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
     return fail(400, 'state_mismatch', next);
   }
   if ('error' in parsed) return fail(400, 'login_required', next); // the identity site logged the real outcome
+
+  // No address (or no salt) means no key: nothing is limited then, rather than every unknown visitor together.
+  const caller = ipHash(clientIp(request.headers), env);
+  if (caller !== null && !(ctx.redeemLimiter ?? redeemLimiter).hit(caller)) {
+    await log('rate_limited');
+    return fail(429, 'rate_limited', next);
+  }
 
   if (!B64U_32_RE.test(parsed.code)) {
     await log('expired');

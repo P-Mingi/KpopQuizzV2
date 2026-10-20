@@ -1,5 +1,5 @@
 import { SpoilerShieldIsland } from '@/components/spoilers/spoiler-shield';
-import { t } from '@/lib/anime/copy';
+import { t, VOCAB_VARS } from '@/lib/anime/copy';
 import { SERIES_TRIVIA_MIN, blindTestHref, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
 import { CharacterTiles } from './character-tiles';
@@ -10,12 +10,19 @@ import { StoryMap } from './story-map';
 import { TitleCard } from './title-card';
 
 import type { HubSlots } from '@/components/group/ux-v1/hub-slots';
+import type { GrowthWords } from '@/lib/ux-v1/p3/growth';
 import type { TriviaVariant } from '@/app/(site)/[slug]/group-trivia-page';
 import type { RelatedSeries, SeriesHub } from '@/lib/anime/series';
 import type { Group } from '@/lib/db/types';
 
 /** The site the slots are for: its origin and brand name (the page passes SITE.url and SITE.brand.name). */
 export interface SlotSite { readonly origin: string; readonly brand: string }
+
+/** The words of the growth blocks of the hub (ways to play, "be the first"), from the vocabulary of the anime site. */
+const growthWords = (): GrowthWords => {
+  const song = String(VOCAB_VARS.song);
+  return { member: String(VOCAB_VARS.member), members: String(VOCAB_VARS.memberPlural), song, songs: `${song}s` };
+};
 
 const labels = (): HubSlots['labels'] => ({
   faq: t('hub.faq'),
@@ -69,6 +76,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     ),
     faqs: seriesFaqs(hub, site.brand),
     related: related.map((r) => ({ ...r, art: <TitleCard title={r.name} variant="mono" /> })),
+    growthWords: growthWords(),
     labels: labels(),
   };
 }
@@ -88,6 +96,7 @@ export function buildMixSlots(group: Group, site: SlotSite): HubSlots {
     triviaAvailable: false,
     faqs: [],
     related: [],
+    growthWords: growthWords(),
     labels: labels(),
   };
 }

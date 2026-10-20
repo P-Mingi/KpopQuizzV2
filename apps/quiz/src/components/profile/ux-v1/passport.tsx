@@ -16,6 +16,7 @@ import { OwnQuizRows } from './own-quiz-row';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
 import type { BadgeTile, BandMode, HistoryRow, MasteryRow, MetaSegment, StatCell } from '@/lib/ux-v1/p10/passport-model';
+import type { PassportWords } from '@/lib/ux-v1/p10/words';
 import type { QuizCardData } from '@/lib/db/types';
 
 export interface UxPassportProps {
@@ -51,6 +52,8 @@ export interface UxPassportProps {
   /** v12 (SYSTEM.md 5.6): an editorial (team) account. Ignored unless isUxV12().
    *  Typed `true` to match PassportProps (build-passport) under exactOptionalPropertyTypes. */
   isTeam?: true;
+  /** Run O1: the words of another site (lib/ux-v1/p10/words.ts). Absent: today's kpop words. */
+  words?: PassportWords;
 }
 
 /** A team passport keeps only the neutral meta (join date, followers): no fandom,
@@ -131,7 +134,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
         <section className={['p10-two', p.pinned.length > 0 ? '' : 'p10-sec-first'].filter(Boolean).join(' ')}>
           {p.mastery.length > 0 ? (
             <div>
-              <SectionHeader title="Groups mastered" />
+              <SectionHeader title={p.words?.masteredTitle ?? 'Groups mastered'} />
               <div className="ux-rows">
                 {p.mastery.map((m) => (
                   <Link key={m.slug} href={`/${m.slug}-quiz`} className="ux-row">
@@ -221,7 +224,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       <PassportBand username={p.username} owner={personal ? 'server' : 'check'} mode={p.band.mode} image={p.band.image} groupPhoto={p.band.groupPhoto} tint={p.theme.band} />
       <div className="p10-head">
         {team ? <UxAvatar name={p.displayName} size={96} team className="p10-pav" /> : <PassportAvatar name={p.displayName} avatar={p.avatar} />}
-        <PassportActions username={p.username} displayName={p.displayName} owner={personal ? 'server' : 'check'} level={p.level} />
+        <PassportActions username={p.username} displayName={p.displayName} owner={personal ? 'server' : 'check'} level={p.level} {...(p.words ? { passport: p.words.passport, brand: p.words.brand } : {})} />
       </div>
       <div className="p10-id">
         <div className="p10-idrow">

@@ -73,12 +73,27 @@ export interface WaysInput {
 const n = (v: number): string => v.toLocaleString('en-US');
 
 /**
+ * The words of the blocks that name the kind of thing a topic holds (Run O1, rule 18): the default is today's kpop wording,
+ * so a call without it returns exactly what it returned before; another site passes its vocabulary (lib/site/words.ts).
+ */
+export interface GrowthWords {
+  member: string;
+  members: string;
+  song: string;
+  songs: string;
+}
+
+export const KPOP_GROWTH_WORDS: GrowthWords = { member: 'member', members: 'members', song: 'song', songs: 'songs' };
+
+const cap = (s: string): string => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
+/**
  * The ways to play this group, in the prototype's order, only those that exist
  * for it. Play live is offered while the row has room (prototype: under four
  * tiles) and only for a group with a blindtest. Empty when fewer than two ways
  * exist or the group has no quiz (the prototype hides the section there).
  */
-export function waysToPlay(i: WaysInput): WayTile[] {
+export function waysToPlay(i: WaysInput, w: GrowthWords = KPOP_GROWTH_WORDS): WayTile[] {
   if (i.quizzes <= 0) return [];
   const out: WayTile[] = [{
     key: 'quizzes',
@@ -96,7 +111,7 @@ export function waysToPlay(i: WaysInput): WayTile[] {
       icon: 'music',
       title: 'Blindtest',
       isNew: false,
-      body: `${n(i.songs)} ${i.name} songs, ten-second clips.`,
+      body: `${n(i.songs)} ${i.name} ${w.songs}, ten-second clips.`,
       foot: i.live ? 'Solo or live with friends' : null,
     });
   }
@@ -107,7 +122,7 @@ export function waysToPlay(i: WaysInput): WayTile[] {
       icon: 'clock',
       title: 'Name them all',
       isNew: true,
-      body: `All ${i.nameAll.members} members in 60 seconds.`,
+      body: `All ${i.nameAll.members} ${w.members} in 60 seconds.`,
       foot: i.nameAll.perfectPct !== null ? `${i.nameAll.perfectPct}% get them all` : null,
     });
   }
@@ -116,7 +131,7 @@ export function waysToPlay(i: WaysInput): WayTile[] {
       key: 'which-member',
       href: i.whichMember.href,
       icon: 'users',
-      title: 'Which member are you?',
+      title: `Which ${w.member} are you?`,
       isNew: true,
       body: 'Eight questions about you.',
       foot: i.whichMember.results !== null ? `${n(i.whichMember.results)} results` : null,
@@ -129,7 +144,7 @@ export function waysToPlay(i: WaysInput): WayTile[] {
       icon: 'heart',
       title: 'This or that',
       isNew: true,
-      body: `Two ${i.name} songs, pick one.`,
+      body: `Two ${i.name} ${w.songs}, pick one.`,
       foot: i.thisOrThat.votes !== null ? `${n(i.thisOrThat.votes)} votes` : null,
     });
   }
@@ -169,9 +184,9 @@ export interface FirstSignal {
  * growth-data.ts), the Quiz maker badge is granted at the first published quiz
  * and lib/notifications.ts alerts the creator at 10, 100 and 1,000 plays.
  */
-export function firstSignals(i: { name: string; songs: number; btPlays: number | null }): FirstSignal[] {
+export function firstSignals(i: { name: string; songs: number; btPlays: number | null }, w: GrowthWords = KPOP_GROWTH_WORDS): FirstSignal[] {
   const out: FirstSignal[] = [];
-  if (i.songs > 0) out.push({ icon: 'music', text: `${n(i.songs)} ${i.name} songs are already in the blindtest, so fans are here.` });
+  if (i.songs > 0) out.push({ icon: 'music', text: `${n(i.songs)} ${i.name} ${w.songs} are already in the blindtest, so fans are here.` });
   if (i.btPlays !== null && i.btPlays >= MIN_BT_PLAYS) out.push({ icon: 'play', text: `Fans played the ${i.name} blindtest ${n(i.btPlays)} times.` });
   out.push({ icon: 'star', text: 'Your name stays on this page as its first creator.' });
   out.push({ icon: 'bell', text: 'You get the Quiz maker badge and an alert at 10, 100 and 1,000 plays.' });
@@ -189,12 +204,12 @@ export interface HubTemplate {
 
 /** Three starting points (SYSTEM.md 5.4), each a real quiz type of the Create
  *  flow. The link carries the group and the type; Create prefills what it reads. */
-export function hubTemplates(slug: string): HubTemplate[] {
+export function hubTemplates(slug: string, w: GrowthWords = KPOP_GROWTH_WORDS): HubTemplate[] {
   const base = `/create?group=${encodeURIComponent(slug)}`;
   return [
-    { type: 'multiple_choice', icon: 't-classic', title: 'Members basics', sub: 'Four choices each, the classic start', href: `${base}&type=multiple_choice` },
+    { type: 'multiple_choice', icon: 't-classic', title: `${cap(w.members)} basics`, sub: 'Four choices each, the classic start', href: `${base}&type=multiple_choice` },
     { type: 'true_false', icon: 't-tf', title: 'True or false', sub: 'Quick, great for sharing', href: `${base}&type=true_false` },
-    { type: 'guess_from_clues', icon: 't-clue', title: 'Guess the member from clues', sub: 'Three clues each', href: `${base}&type=guess_from_clues` },
+    { type: 'guess_from_clues', icon: 't-clue', title: `Guess the ${w.member} from clues`, sub: 'Three clues each', href: `${base}&type=guess_from_clues` },
   ];
 }
 

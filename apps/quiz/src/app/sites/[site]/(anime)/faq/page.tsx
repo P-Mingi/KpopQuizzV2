@@ -50,7 +50,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Which anime series are covered?',
-    a: 'BTS, BLACKPINK, Stray Kids, aespa, NewJeans, TWICE, SEVENTEEN, ENHYPEN, IVE, LE SSERAFIM and 30+ more, with new series added by the community.',
+    a: 'The series page lists every series with a quiz, and new series are added by the community.',
   },
   {
     q: 'What are the mini-games?',

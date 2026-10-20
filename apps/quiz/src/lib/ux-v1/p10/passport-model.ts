@@ -88,6 +88,8 @@ export function metaSegments(args: {
   stanSince?: number | null;
   createdAt: string;
   followers: number;
+  /** Run O1: "Stan since" of another site ("Fan since"). Absent: today's wording. */
+  fanSince?: string;
 }): MetaSegment[] {
   const out: MetaSegment[] = [];
   const [main, ...others] = args.groups ?? [];
@@ -96,7 +98,7 @@ export function metaSegments(args: {
     if (args.stanSince) seg.push({ text: ` since ${args.stanSince}` });
     out.push(seg);
   } else if (args.stanSince) {
-    out.push([{ text: `Stan since ${args.stanSince}` }]);
+    out.push([{ text: `${args.fanSince ?? 'Stan since'} ${args.stanSince}` }]);
   }
   if (others.length) {
     const seg: MetaSegment = [{ text: 'also ' }];
@@ -152,11 +154,11 @@ export function personalStats(s: { quizzesPlayed: number; averagePct: number | n
 /** Public stats: exactly what the public passport exposed before (streak,
  *  mastered, quizzes made, plays received). Privacy fail-closed: no play counts,
  *  no average. */
-export function publicStats(s: { streak: number; groupsMastered: number; quizzesMade: number; playsReceived: number }): StatCell[] {
+export function publicStats(s: { streak: number; groupsMastered: number; quizzesMade: number; playsReceived: number; masteredLabel?: string }): StatCell[] {
   return [
     { value: streakLabel(s.streak), label: 'streak' },
     // the count alone: groups.total counts a hidden quarantine row (91 rows, 90 visible groups)
-    { value: countLabel(s.groupsMastered), label: 'groups mastered' },
+    { value: countLabel(s.groupsMastered), label: s.masteredLabel ?? 'groups mastered' },
     { value: countLabel(s.quizzesMade), label: 'quizzes made' },
     { value: countLabel(s.playsReceived), label: 'plays received' },
   ];

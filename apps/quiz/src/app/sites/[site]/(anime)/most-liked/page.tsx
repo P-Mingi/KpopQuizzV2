@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'Most Liked anime Quizzes',
-  description: 'The most loved anime quizzes as voted by fans. Play fan-favorite quizzes about BTS, BLACKPINK, Stray Kids, and more.',
+  description: 'The most loved anime quizzes as voted by fans. Play fan-favorite quizzes about your favourite series, and more.',
   openGraph: {
     title: 'Most Liked anime Quizzes | OtakuQuiz',
     description: 'The most loved anime quizzes as voted by fans.',

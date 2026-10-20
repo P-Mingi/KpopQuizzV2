@@ -1,5 +1,5 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/u/[username]/page.tsx, rows 17, H-4: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
+import { SITE, SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { notFound } from 'next/navigation';
 
@@ -23,6 +23,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition, UserBadge } from '@/lib/db/types';
+import type { PassportWords } from '@/lib/ux-v1/p10/words';
 
 // ISR: this page is now fully cookie-free (no auth.getUser on the server), so it
 // renders as STATIC/ISR (revalidate hourly) and is indexable. Owner-only bits
@@ -40,6 +41,16 @@ async function kpopStaticParams(): Promise<Array<{ username: string }>> {
   return [];
 }
 
+// Run O1: the words of this page come from the site of the build (registry: brand, host, vocabulary), never from kpop.
+const CAP = (w: string): string => w.charAt(0).toUpperCase() + w.slice(1);
+const PASSPORT_WORDS: PassportWords = {
+  masteredStat: `${SITE.vocabulary.topicPlural} mastered`,
+  masteredTitle: `${CAP(SITE.vocabulary.topicPlural)} mastered`,
+  fanSince: 'Fan since',
+  passport: 'passport',
+  brand: SITE.brand.name,
+};
+
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
 }
@@ -55,14 +66,14 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   if (!profile) notFound();
 
   const displayName = profile.display_name ?? profile.username;
-  const description = `${displayName}'s K-pop quizzes on KpopQuiz. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;
+  const description = `${displayName}'s quizzes on ${SITE.brand.name}. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;
 
   return {
-    title: `${displayName}'s K-pop Quizzes`,
+    title: `${displayName}'s Quizzes`,
     description,
     robots: profile.total_quizzes_created < 3 ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: `${displayName}'s K-pop Quizzes | KpopQuiz`,
+      title: `${displayName}'s Quizzes | ${SITE.brand.name}`,
       description,
       url: `/u/${username}`,
       type: 'profile',
@@ -70,7 +81,7 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${displayName}'s K-pop passport | KpopQuiz`,
+      title: `${displayName}'s passport | ${SITE.brand.name}`,
       description,
       images: [`/api/og/passport/${username}`],
     },
@@ -137,7 +148,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const badgeEarnedAt = Object.fromEntries(
     ((userBadgesResult.data ?? []) as UserBadge[]).map((b) => [b.badge_id, b.earned_at]),
   );
-  const levelInfo = getLevelInfo(profile.xp);
+  const levelInfo = getLevelInfo(profile.xp, SITE.id);
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
   const displayName = profile.display_name ?? profile.username;
@@ -153,8 +164,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
-              { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+              { '@type': 'ListItem', position: 2, name: displayName, item: `${SITE.url}/u/${profile.username}` },
             ],
           }),
         }}
@@ -170,7 +181,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
               mainEntity: {
                 '@type': 'Person',
                 name: displayName,
-                url: `https://kpopquiz.org/u/${profile.username}`,
+                url: `${SITE.url}/u/${profile.username}`,
                 interactionStatistic: [{
                   '@type': 'InteractionCounter',
                   interactionType: 'https://schema.org/CreateAction',
@@ -212,6 +223,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       // editorial accounts exist.
       team: await readTeamIdentity(profile.id),
       now: Date.now(),
+      words: PASSPORT_WORDS,
+      site: SITE.id,
     });
     return <UxPassport {...props} footer={<><ModNotifyButton recipientUsername={profile.username} />{jsonLd()}</>} />;
   }
@@ -290,8 +303,8 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
-              { '@type': 'ListItem', position: 2, name: displayName, item: `https://kpopquiz.org/u/${profile.username}` },
+              { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+              { '@type': 'ListItem', position: 2, name: displayName, item: `${SITE.url}/u/${profile.username}` },
             ],
           }),
         }}
@@ -307,7 +320,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
               mainEntity: {
                 '@type': 'Person',
                 name: displayName,
-                url: `https://kpopquiz.org/u/${profile.username}`,
+                url: `${SITE.url}/u/${profile.username}`,
                 interactionStatistic: [{
                   '@type': 'InteractionCounter',
                   interactionType: 'https://schema.org/CreateAction',

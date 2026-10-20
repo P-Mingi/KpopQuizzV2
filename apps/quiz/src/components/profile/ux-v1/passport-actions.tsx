@@ -16,6 +16,9 @@ interface PassportActionsProps {
   displayName: string;
   owner: 'server' | 'check';
   level: string;
+  /** Run O1: the words of the share text on another site ("K-pop passport", "KpopQuiz"). Absent: today's wording. */
+  passport?: string;
+  brand?: string;
 }
 
 type FollowState = { signedIn: boolean; isSelf: boolean; following: boolean } | null;
@@ -27,7 +30,7 @@ const FOLLOW_ACTION = 'p10-follow';
  * same GET + POST as the live button; a guest gets the sign-in sheet and the
  * follow resumes after sign-in). Share opens A0's share sheet with the public URL.
  */
-export function PassportActions({ username, displayName, owner, level }: PassportActionsProps): React.ReactElement {
+export function PassportActions({ username, displayName, owner, level, passport = 'K-pop passport', brand = 'KpopQuiz' }: PassportActionsProps): React.ReactElement {
   const isOwner = useIsOwner(username, owner);
   const signIn = useSignIn();
   const toast = useUxToast();
@@ -103,7 +106,7 @@ export function PassportActions({ username, displayName, owner, level }: Passpor
         title={isOwner ? 'Share your passport' : `Share ${displayName}'s passport`}
         preview={{ image: `/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
         url={url}
-        text={isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
+        text={isOwner ? `My ${passport} on ${brand}` : `${displayName}'s ${passport} on ${brand}`}
         {...(isOwner ? {
           onStoryImage: () => { window.open(`/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
           storyFile: async () => {
