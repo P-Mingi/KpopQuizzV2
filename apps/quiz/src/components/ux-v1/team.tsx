@@ -14,6 +14,6 @@ export function TeamTag({ className }: { className?: string | undefined }): Reac
  * "Editorial account of the KpopQuiz team. Topics and blogs are written by the
  * team and checked before they go live." (a post adds "Replies come from fans.").
  */
-export function TeamNote({ surface = 'post', className }: { surface?: 'post' | 'profile' | undefined; className?: string | undefined }): React.ReactElement {
-  return <p className={['ux-teamnote', className ?? ''].filter(Boolean).join(' ')}>{teamNote(surface)}</p>;
+export function TeamNote({ surface = 'post', className, text }: { surface?: 'post' | 'profile' | undefined; className?: string | undefined; text?: string | undefined }): React.ReactElement {
+  return <p className={['ux-teamnote', className ?? ''].filter(Boolean).join(' ')}>{text ?? teamNote(surface)}</p>;
 }

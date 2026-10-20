@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { readTabVia } from '@/lib/passport-ui/signin-client';
+
+import type { OnboardingWords } from '@/lib/passport-ui/words';
 
 type ValidationState =
   | { status: 'idle' }
@@ -13,7 +16,7 @@ type ValidationState =
   | { status: 'taken' }
   | { status: 'available' };
 
-export function OnboardingForm(): React.ReactElement {
+export function OnboardingForm({ words }: { words?: OnboardingWords | undefined }): React.ReactElement {
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnTo = safeReturnTo(searchParams.get('returnTo'));
@@ -79,7 +82,7 @@ export function OnboardingForm(): React.ReactElement {
       const res = await fetch('/api/auth/create-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username.trim() }),
+        body: JSON.stringify({ username: username.trim(), ...(words ? { via: readTabVia() } : {}) }),
       });
 
       if (!res.ok) {
@@ -99,9 +102,9 @@ export function OnboardingForm(): React.ReactElement {
   return (
     <div className="max-w-sm mx-auto mt-20 px-4">
       <div className="bg-primary rounded-lg border border-default p-6">
-        <h1 className="text-lg font-medium text-primary">Pick a username</h1>
+        <h1 className="text-lg font-medium text-primary">{words ? words.title : 'Pick a username'}</h1>
         <p className="text-sm text-secondary mt-1">
-          This can&apos;t be changed later.
+          {words ? words.hint : <>This can&apos;t be changed later.</>}
         </p>
 
         <div className="mt-4">
@@ -109,7 +112,7 @@ export function OnboardingForm(): React.ReactElement {
           <input
             id="username"
             type="text"
-            placeholder="e.g. army_mina"
+            placeholder={words ? words.placeholder : 'e.g. army_mina'}
             maxLength={20}
             value={username}
             onChange={(e) => setUsername(e.target.value.toLowerCase())}
@@ -119,7 +122,7 @@ export function OnboardingForm(): React.ReactElement {
           <div className="h-5 mt-1">
             {validation.status === 'idle' && username.length === 0 && (
               <p className="text-xs text-secondary">
-                3-20 characters, lowercase letters, numbers, and underscores only
+                {words ? words.rules : '3-20 characters, lowercase letters, numbers, and underscores only'}
               </p>
             )}
             {validation.status === 'checking' && (
@@ -129,7 +132,7 @@ export function OnboardingForm(): React.ReactElement {
               <p className="text-xs text-correct-text">&#10003; Available!</p>
             )}
             {validation.status === 'taken' && (
-              <p className="text-xs text-wrong-text">&#10007; Already taken</p>
+              <p className="text-xs text-wrong-text">&#10007; {words ? words.taken : 'Already taken'}</p>
             )}
             {validation.status === 'invalid' && (
               <p className="text-xs text-wrong-text">{validation.message}</p>
@@ -147,7 +150,7 @@ export function OnboardingForm(): React.ReactElement {
               <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             </span>
           ) : (
-            'Claim username'
+            words ? words.cta : 'Claim username'
           )}
         </button>
       </div>

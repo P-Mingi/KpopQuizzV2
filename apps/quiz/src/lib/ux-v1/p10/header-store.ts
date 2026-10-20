@@ -8,6 +8,7 @@ import { createHash } from 'node:crypto';
 import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
+import { SITE_ID } from '@/lib/site/registry';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { renderHeader } from './header-image';
@@ -52,10 +53,15 @@ export async function headerUser(): Promise<{ user: HeaderUser; supabase: Supaba
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
-  const { data } = await supabase.from('profiles').select('username, header_url').eq('id', user.id).maybeSingle();
-  const row = data as { username: string; header_url: string | null } | null;
+  const { data } = await supabase.from('profiles').select(SITE_ID === 'kpop' ? 'username, header_url' : 'username').eq('id', user.id).maybeSingle();
+  const row = data as { username: string; header_url?: string | null } | null;
   if (!row) return null;
-  return { user: { id: user.id, username: row.username, headerUrl: row.header_url }, supabase: supabase as unknown as SupabaseClient };
+  // Run O1 (lot b, P1): on a world site the header is the membership's, not the shared profile's.
+  if (SITE_ID !== 'kpop') {
+    const { data: m } = await supabase.from('world_memberships').select('header_url').eq('user_id', user.id).eq('site_id', SITE_ID).maybeSingle();
+    return { user: { id: user.id, username: row.username, headerUrl: (m as { header_url: string | null } | null)?.header_url ?? null }, supabase: supabase as unknown as SupabaseClient };
+  }
+  return { user: { id: user.id, username: row.username, headerUrl: row.header_url ?? null }, supabase: supabase as unknown as SupabaseClient };
 }
 
 /** Our own public object path from a stored header_url, when it points into the
@@ -89,10 +95,12 @@ export async function storeHeader(bytes: Buffer, who: { user: HeaderUser; supaba
   }
   const url = svc.storage.from(HEADER_BUCKET).getPublicUrl(path).data.publicUrl;
 
-  const { error } = await who.supabase
-    .from('profiles')
-    .update({ header_url: url, updated_at: new Date().toISOString() })
-    .eq('id', who.user.id);
+  const { error } = SITE_ID === 'kpop'
+    ? await who.supabase
+      .from('profiles')
+      .update({ header_url: url, updated_at: new Date().toISOString() })
+      .eq('id', who.user.id)
+    : await saveWorldHeader(who.supabase, url);
   if (error) {
     await svc.storage.from(HEADER_BUCKET).remove([path]).catch(() => undefined);
     return jsonError(500, 'We could not save that picture. Try again.');
@@ -103,6 +111,12 @@ export async function storeHeader(bytes: Buffer, who: { user: HeaderUser; supaba
   revalidatePath(`/u/${who.user.username}`);
 
   return NextResponse.json({ ok: true, url, width: rendered.width, height: rendered.height }, { headers: { 'Cache-Control': 'no-store' } });
+}
+
+/** The header of a world site: the membership's `header_url`, through update_my_membership (the stamp is made first). */
+async function saveWorldHeader(supabase: SupabaseClient, url: string | null): Promise<{ error: { message: string } | null }> {
+  await supabase.rpc('ensure_membership', { p_site: SITE_ID, p_via: 'signup', p_via_code: null });
+  return supabase.rpc('update_my_membership', { p_site: SITE_ID, p_patch: { header_url: url } });
 }
 
 /** Signed in + bucket ready + not throttled, in that order, before any work. */
