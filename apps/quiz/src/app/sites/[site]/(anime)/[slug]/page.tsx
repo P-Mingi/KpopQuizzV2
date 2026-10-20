@@ -10,6 +10,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
 import { buildMixSlots, buildSeriesSlots, buildTriviaVariant } from '@/components/anime/series-hub-slots';
 import { getRelatedSeries, getSeriesHub } from '@/lib/anime/series';
+import { getSeriesHubSlugs } from '@/lib/anime/directory';
 import { mixHubMetadata, seriesHubMetadata, seriesTriviaMetadata, uniqueFacts } from '@/lib/anime/series-model';
 import { ANIME_MIX_SLUG } from '@/lib/anime/types';
 import { SITE } from '@/lib/site/registry';
@@ -45,10 +46,6 @@ const RESERVED_SLUGS = [
 // fail-soft group-hub reads) killed the export. On-demand rendering keeps the build
 // DB-independent AND avoids baking a 404 for a real group that timed out at build.
 export const revalidate = 3600;
-
-async function kpopStaticParams(): Promise<Array<{ slug: string }>> {
-  return [];
-}
 
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;
@@ -108,8 +105,9 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
 }
 
 // Run O1: a child of app/sites/[site] returns its params with the parent's site, and nothing on the kpop build
-// (the [site] layout generates no site there and refuses params without one).
+// (the [site] layout generates no site there and refuses params without one). The parent layout has dynamicParams off,
+// so the anime hubs are the slugs of the site's published series, read at build time (lib/anime/directory.ts).
 export async function generateStaticParams({ params }: { params?: { site?: string } } = {}): Promise<Array<Record<string, string>>> {
   if (O1_SITE_ID === 'kpop' || !params?.site) return [];
-  return (await kpopStaticParams()).map((p) => ({ ...p, site: params.site as string }));
+  return (await getSeriesHubSlugs()).map((slug) => ({ slug, site: params.site as string }));
 }

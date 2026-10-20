@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
+import { SITE_ID } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
+import { spoilerColumnsFor } from '@/lib/quiz/site-insert';
 
 import type { NextRequest } from 'next/server';
 
@@ -17,9 +20,10 @@ export async function GET(
 
   const { id } = await params;
   const adminDb = createServiceRoleClient();
-  const { data, error } = await adminDb
+  // Run O1: only a quiz of the build's site (a no-op on kpop with SITE_SCOPE off).
+  const { data, error } = await forSite(adminDb
     .from('quizzes')
-    .select('*, groups(id, name, slug)')
+    .select('*, groups(id, name, slug)'))
     .eq('id', id)
     .single();
 
@@ -70,6 +74,12 @@ export async function PATCH(
     update.questions = body.questions;
     update.question_count = body.questions.length;
 
+    // Run O1: the level of an anime quiz follows its questions' tags (computed here, never taken from the body).
+    if (SITE_ID !== 'kpop') {
+      const { data: own } = await forSite(adminDb.from('quizzes').select('group_id')).eq('id', id).maybeSingle();
+      Object.assign(update, await spoilerColumnsFor(adminDb, (own as { group_id: number } | null)?.group_id ?? null, body.questions));
+    }
+
     // Auto-update cover_image_url from first question - but only if the
     // admin didn't explicitly set or clear it in this PATCH.
     if (!hasManualCover) {
@@ -87,7 +97,7 @@ export async function PATCH(
     }
   }
 
-  const { data: saved, error } = await adminDb.from('quizzes').update(update).eq('id', id).select('slug, status, groups(slug)').maybeSingle();
+  const { data: saved, error } = await forSite(adminDb.from('quizzes').update(update)).eq('id', id).select('slug, status, groups(slug)').maybeSingle();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   // SEO: the quiz page, its hub, /new and the sitemap reflect the change now (a removed

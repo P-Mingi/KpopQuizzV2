@@ -1,6 +1,7 @@
 import { redirect, notFound } from 'next/navigation';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 import { QuizEditor } from '@/components/quiz/quiz-editor';
 
 export const metadata = { title: 'Edit Quiz | Admin' };
@@ -16,9 +17,10 @@ export default async function EditQuizPage({
 
   const { id } = await params;
   const adminDb = createServiceRoleClient();
-  const { data: quiz } = await adminDb
+  // Run O1: only a quiz of the build's site (a no-op on kpop with SITE_SCOPE off).
+  const { data: quiz } = await forSite(adminDb
     .from('quizzes')
-    .select('*, groups(id, name, slug)')
+    .select('*, groups(id, name, slug)'))
     .eq('id', id)
     .single();
 

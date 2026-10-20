@@ -1,7 +1,10 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/groups/page.tsx, rows 2: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+// Lot (e) part 2 (E1a): the list is the anime site's own (lib/anime/directory.ts, every read through forSite), no longer
+// the kpop groups.
 import Link from 'next/link';
 
-import { getDirectoryGroups, alphaKey } from '@/lib/db/queries/group-directory';
+import { alphaKey } from '@/lib/db/queries/group-directory';
+import { getSeriesDirectory } from '@/lib/anime/directory';
 import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -9,40 +12,32 @@ import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
 
 export const revalidate = 3600;
 
-// The root layout already appends " | KpopQuiz", so the suffix must NOT be repeated
+// The root layout already appends the site name to the title, so the suffix must NOT be repeated
 // here (it renders doubled otherwise, and check:metadata-dupes catches it).
 export const metadata: Metadata = {
   title: 'All anime Series',
   description:
-    'Every anime series with quizzes on OtakuQuiz, listed A to Z with its generation. Browse the full list and jump straight to a series to play.',
+    'Every anime series with quizzes on OtakuQuiz, listed A to Z. Browse the full list and jump straight to a series to play.',
   alternates: { canonical: '/series' },
   openGraph: {
     title: 'All anime Series | OtakuQuiz',
     description: 'Browse every anime series with quizzes, A to Z.',
-    url: 'https://kpopquiz.org/groups',
+    url: '/series',
     siteName: 'OtakuQuiz',
     type: 'website',
     images: [DEFAULT_OG_IMAGE],
   },
 };
 
-const GENERATION_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'];
-
-/** A recorded generation, or null. Never guessed from a debut date or a neighbour. */
-function knownGeneration(g: string | null | undefined): string | null {
-  const v = (g ?? '').trim();
-  return v && GENERATION_ORDER.includes(v) ? v : null;
-}
-
-function GroupRow({ row }: { row: DirectoryGroup }): React.ReactElement {
+function SeriesRow({ row }: { row: DirectoryGroup }): React.ReactElement {
   const { group, quizzes } = row;
-  const gen = knownGeneration(group.generation);
   return (
     <li className="gdir-item">
       <Link href={`/${group.slug}-quiz`} className="gdir-card">
@@ -60,27 +55,23 @@ function GroupRow({ row }: { row: DirectoryGroup }): React.ReactElement {
             {group.total_plays > 0 && <> · {formatCount(group.total_plays)} plays</>}
           </span>
         </span>
-        {/* Shown only when the generation is actually recorded. A group with no
-            generation shows no tag rather than a guessed or filler one. */}
-        {gen && <span className="gdir-gen">{gen}</span>}
       </Link>
     </li>
   );
 }
 
-export default async function GroupsDirectoryPage(): Promise<React.ReactElement> {
-  // UX v11 (NEXT_PUBLIC_UX_V1, default off): same metadata, H1, intro and
-  // BreadcrumbList; every group of this list plus the groups without a quiz yet,
-  // read fail-closed. Flag off renders exactly the page below.
-  if (UX_V1) return GroupsIndexV11();
+export default async function SeriesDirectoryPage(): Promise<React.ReactElement> {
+  // UX v11 index: its loader reads the kpop group list, so it stays kpop's (this page is only ever served by the anime
+  // build: the (anime) layout answers 404 elsewhere). The anime list is the one below.
+  if (UX_V1 && SITE_ID === 'kpop') return GroupsIndexV11();
 
   const rows = await safeFetch(
-    getDirectoryGroups(),
+    getSeriesDirectory(),
     [] as DirectoryGroup[],
-    '[series-directory] getDirectoryGroups',
+    '[series-directory] getSeriesDirectory',
   );
 
-  // A to Z. Letters with no group simply do not appear.
+  // A to Z. Letters with no series simply do not appear.
   const letters = new Map<string, DirectoryGroup[]>();
   for (const row of rows) {
     const k = alphaKey(row.group.name);
@@ -90,14 +81,6 @@ export default async function GroupsDirectoryPage(): Promise<React.ReactElement>
     a === '#' ? 1 : b === '#' ? -1 : a.localeCompare(b),
   );
 
-  // Generation counts for the summary line. Counts only, because every group is
-  // already linked once in the A-Z list and linking all 37 a second time would
-  // double the page without adding a single new destination.
-  const genCounts = GENERATION_ORDER
-    .map(g => ({ gen: g, n: rows.filter(r => knownGeneration(r.group.generation) === g).length }))
-    .filter(x => x.n > 0);
-  const noGen = rows.filter(r => !knownGeneration(r.group.generation)).length;
-
   return (
     <div className="gdir">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'All series' }]} />
@@ -105,21 +88,14 @@ export default async function GroupsDirectoryPage(): Promise<React.ReactElement>
       <header className="gdir-head">
         <h1 className="gdir-title">All anime series</h1>
         <p className="gdir-intro">
-          
-          Every series with at least one quiz on OtakuQuiz. {rows.length}  series, A to Z, each
-          with its number of quizzes and its generation where we have one recorded.
+          Every series with at least one quiz on OtakuQuiz. {rows.length} series, A to Z, each
+          with its number of quizzes.
         </p>
-        {genCounts.length > 0 && (
-          <p className="gdir-genline">
-            {genCounts.map(x => `${x.n} ${x.gen}`).join(' · ')}
-            {noGen > 0 && ` · ${noGen} with no generation recorded`}
-          </p>
-        )}
       </header>
 
       {rows.length === 0 ? (
         // Fail-soft: say the list could not load rather than render an empty page that
-        // reads as "this site has no groups".
+        // reads as "this site has no series".
         <p className="gdir-empty">The series list could not be loaded right now.</p>
       ) : (
         <>
@@ -135,7 +111,7 @@ export default async function GroupsDirectoryPage(): Promise<React.ReactElement>
             <section key={l} className="gdir-letter-block" aria-labelledby={`letter-${l === '#' ? 'other' : l}`}>
               <h2 id={`letter-${l === '#' ? 'other' : l}`} className="gdir-letter">{l}</h2>
               <ul className="gdir-grid">
-                {letters.get(l)!.map(row => <GroupRow key={row.group.id} row={row} />)}
+                {letters.get(l)!.map(row => <SeriesRow key={row.group.id} row={row} />)}
               </ul>
             </section>
           ))}
