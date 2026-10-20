@@ -1,0 +1,15 @@
+docs/anime/data/facts/apothecary-diaries.json
+docs/anime/data/facts/cowboy-bebop.json
+docs/anime/data/facts/evangelion.json
+docs/anime/data/facts/kaiju-no-8.json
+docs/anime/data/facts/one-punch-man.json
+docs/anime/data/facts/oshi-no-ko.json
+docs/anime/data/facts/sailor-moon.json
+docs/anime/data/series/apothecary-diaries.json
+docs/anime/data/series/cowboy-bebop.json
+docs/anime/data/series/evangelion.json
+docs/anime/data/series/kaiju-no-8.json
+docs/anime/data/series/one-punch-man.json
+docs/anime/data/series/sailor-moon.json
+docs/anime/editorial/packets/k1-b7.html
+docs/anime/editorial/packets/k1-b8.html

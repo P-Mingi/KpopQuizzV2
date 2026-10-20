@@ -1,0 +1,9 @@
+docs/anime/data/facts/kagurabachi.json
+docs/anime/data/facts/omniscient-readers-viewpoint.json
+docs/anime/data/facts/vinland-saga.json
+docs/anime/data/series/kagurabachi.json
+docs/anime/data/series/omniscient-readers-viewpoint.json
+docs/anime/data/series/vinland-saga.json
+docs/anime/editorial/packets/k1-b9.html
+scripts/anime/editorial/lib/checks-a.mjs
+scripts/anime/k1/validate-data.mjs
