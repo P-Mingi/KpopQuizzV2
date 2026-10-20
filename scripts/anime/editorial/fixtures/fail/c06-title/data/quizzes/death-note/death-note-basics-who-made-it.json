@@ -1,0 +1,29 @@
+{
+  "site": "anime",
+  "account": "oq_creator_01",
+  "group_slug": "death-note",
+  "title": "Death Note Quiz",
+  "slug": "death-note-basics-who-made-it",
+  "description": "Nine questions on the people, the studio and the songs behind the Death Note anime and manga.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {"question":"Who drew the Death Note manga?","options":["Takeshi Obata","Tsugumi Ohba","Hirohiko Araki","Yoshihiro Togashi"],"correct":0,"fun_fact":"Tsugumi Ohba wrote the story and Takeshi Obata drew the manga.","kind":"production","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-creators-001"],"source_url":"https://en.wikipedia.org/wiki/Death_Note"},
+    {"question":"Which magazine first serialized the Death Note manga?","options":["Weekly Shonen Jump","Weekly Shonen Magazine","Monthly Shonen Gangan","Weekly Young Jump"],"correct":0,"fun_fact":"The magazine is published by Shueisha.","kind":"production","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-magazine-002"],"source_url":"https://www.viz.com/death-note"},
+    {"question":"Which studio animated the Death Note TV series?","options":["Madhouse","Bones","Production I.G","Studio Pierrot"],"correct":0,"fun_fact":"The anime was produced by the studio Madhouse.","kind":"production","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-anime-studio-005"],"source_url":"https://en.wikipedia.org/wiki/Death_Note"},
+    {"question":"How many episodes does the Death Note anime have?","options":["37","25","51","64"],"correct":0,"fun_fact":"The anime aired from 2006 to 2007.","kind":"episode","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-anime-run-007"],"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes"},
+    {"question":"Who directed the Death Note anime?","options":["Tetsuro Araki","Hiroyuki Imaishi","Shinichiro Watanabe","Kunihiko Ikuhara"],"correct":0,"fun_fact":"Tetsuro Araki directed the anime.","kind":"production","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-anime-director-006"],"source_url":"https://en.wikipedia.org/wiki/Death_Note"},
+    {"question":"Which band performed the first opening of the Death Note anime?","options":["Nightmare","Maximum the Hormone","Asian Kung-Fu Generation","UVERworld"],"correct":0,"fun_fact":"The first opening is the WORLD by Nightmare.","kind":"music","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-op1-011"],"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes"},
+    {"question":"Which song is the second ending of the Death Note anime?","options":["Zetsubou Billy","Alumina","the WORLD","What's up, people?!"],"correct":0,"fun_fact":"The second ending is Zetsubou Billy by Maximum the Hormone.","kind":"music","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-ed2-014"],"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes"},
+    {"question":"What kind of supernatural being is Ryuk?","options":["Shinigami","Demon","Ghost","Vampire"],"correct":0,"fun_fact":"Ryuk is a death god who drops his notebook into the human world.","kind":"character","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-ryuk-009"],"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters"},
+    {"question":"Which food does Ryuk crave in the human world?","options":["Apples","Peaches","Persimmons","Grapes"],"correct":0,"fun_fact":"Ryuk loves apples, the one human food he cannot resist.","kind":"character","spoiler":{"arc":0,"scope":"both"},"fact_ids":["dn-ryuk-apples-010"],"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters"}
+  ],
+  "sources": [
+    {"id":"S1","title":"Death Note on Wikipedia","url":"https://en.wikipedia.org/wiki/Death_Note"},
+    {"id":"S2","title":"Death Note on the Viz official page","url":"https://www.viz.com/death-note"},
+    {"id":"S3","title":"List of Death Note episodes on Wikipedia","url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes"},
+    {"id":"S4","title":"List of Death Note characters on Wikipedia","url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters"}
+  ]
+}
