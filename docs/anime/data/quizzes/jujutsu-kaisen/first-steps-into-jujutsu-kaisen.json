@@ -1,0 +1,225 @@
+{
+  "site": "anime",
+  "account": "oq_creator_05",
+  "group_slug": "jujutsu-kaisen",
+  "title": "First Steps into Jujutsu Kaisen",
+  "slug": "first-steps-into-jujutsu-kaisen",
+  "description": "Ten easy questions on who made Jujutsu Kaisen, who animated it and how long it ran. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is the sole creator of the Jujutsu Kaisen manga?",
+      "options": [
+        "Koyoharu Gotouge",
+        "Gege Akutami",
+        "Kohei Horikoshi",
+        "Tatsuki Fujimoto"
+      ],
+      "correct": 1,
+      "fun_fact": "Gege Akutami handled both the writing and the drawing.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-manga-creator-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "In which year did the Jujutsu Kaisen manga begin in Weekly Shonen Jump?",
+      "options": [
+        "2016",
+        "2018",
+        "2020",
+        "2021"
+      ],
+      "correct": 1,
+      "fun_fact": "Weekly Shonen Jump carried the manga from March 2018 until September 2024.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-manga-run-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "In which year did the Jujutsu Kaisen manga end?",
+      "options": [
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-manga-run-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "The Jujutsu Kaisen manga was collected into how many volumes?",
+      "options": [
+        "20",
+        "30",
+        "25",
+        "36"
+      ],
+      "correct": 1,
+      "fun_fact": "The collected edition runs to 30 volumes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-volume-count-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "Which studio animated all three TV seasons of Jujutsu Kaisen?",
+      "options": [
+        "Bones",
+        "MAPPA",
+        "Wit Studio",
+        "Studio Pierrot"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-animation-studio-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "In which year did the Jujutsu Kaisen TV anime premiere?",
+      "options": [
+        "2020",
+        "2018",
+        "2019",
+        "2021"
+      ],
+      "correct": 0,
+      "fun_fact": "The broadcast premiere was on 3 October 2020.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-anime-premiere-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Counting only the TV series, how many episodes does Jujutsu Kaisen have over three seasons?",
+      "options": [
+        "47",
+        "36",
+        "59",
+        "75"
+      ],
+      "correct": 2,
+      "fun_fact": "The three seasons have 24, 23 and 12 episodes.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-episode-count-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Who holds the title of strongest sorcerer of the present day?",
+      "options": [
+        "Megumi Fushiguro",
+        "Nobara Kugisaki",
+        "Panda",
+        "Satoru Gojo"
+      ],
+      "correct": 3,
+      "fun_fact": "Satoru Gojo is the teacher who takes Yuji in.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-strongest-sorcerer-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "Yuji's execution is postponed on one condition: he must swallow how many of Ryomen Sukuna's fingers?",
+      "options": [
+        "Twenty",
+        "Ten",
+        "Fifteen",
+        "Seven"
+      ],
+      "correct": 0,
+      "fun_fact": "He must first swallow every one of Ryomen Sukuna's twenty fingers.",
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-twenty-fingers-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "In which magazine was the Jujutsu Kaisen manga serialized?",
+      "options": [
+        "Weekly Shonen Magazine",
+        "Monthly Afternoon",
+        "Weekly Young Magazine",
+        "Weekly Shonen Jump"
+      ],
+      "correct": 3,
+      "fun_fact": "Shueisha serialized the manga and collected it in the Jump Comics line.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-magazine-publisher-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Jujutsu Kaisen",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only."
+}

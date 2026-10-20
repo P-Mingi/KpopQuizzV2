@@ -1,0 +1,241 @@
+{
+  "site": "anime",
+  "account": "oq_creator_06",
+  "group_slug": "demon-slayer",
+  "title": "Demon Slayer Credits Roll: Music, Studio and Awards",
+  "slug": "demon-slayer-credits-roll-music-studio-awards",
+  "description": "The director, the composers, the singers and one early cinema run. A quiz for people who stay for the credits.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is the director of the Demon Slayer TV anime from Ufotable?",
+      "options": [
+        "Tetsuro Araki",
+        "Haruo Sotozaki",
+        "Sunghoo Park",
+        "Hayato Date"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-studio-director-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "Yuki Kajiura shares the music of the TV anime with which other composer?",
+      "options": [
+        "Hiroyuki Sawano",
+        "Yutaka Yamada",
+        "Go Shiina",
+        "Kenji Kawai"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-composers-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "Which prize did LiSA's Gurenge win at the 2019 Newtype Anime Awards?",
+      "options": [
+        "Best theme song",
+        "Best opening animation",
+        "Best voice actress",
+        "Best soundtrack album"
+      ],
+      "correct": 0,
+      "fun_fact": "Gurenge is the first opening theme.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-gurenge-award-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gurenge"
+    },
+    {
+      "question": "Which singer performed both Gurenge and Akeboshi, the openings of seasons 1 and 2?",
+      "options": [
+        "LiSA",
+        "Aimer",
+        "Milet",
+        "Hyde"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-themes-season-1-019",
+        "demon-slayer-themes-season-2-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "Who performed Zankyosanka, an opening of season 2?",
+      "options": [
+        "Aimer",
+        "LiSA",
+        "Eve",
+        "King Gnu"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-themes-season-2-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    },
+    {
+      "question": "Man with a Mission teamed up with which singer for the season 3 opening and ending?",
+      "options": [
+        "LiSA",
+        "Aimer",
+        "Hyde",
+        "Milet"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-themes-season-3-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    },
+    {
+      "question": "Which singer teamed up with My First Story for the season 4 opening Mugen and ending Tokoshie?",
+      "options": [
+        "LiSA",
+        "Hyde",
+        "Aimer",
+        "Milet"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-themes-season-4-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
+    },
+    {
+      "question": "Which singer joined FictionJunction on the first ending, from the edge?",
+      "options": [
+        "Aimer",
+        "Nami Nakagawa",
+        "LiSA",
+        "Milet"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-themes-season-1-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "What were the first five episodes billed as during their two-week cinema run in March 2019?",
+      "options": [
+        "Blade of Dawn",
+        "Sibling's Bond",
+        "Moonlit Oath",
+        "Return to the Mountain"
+      ],
+      "correct": 1,
+      "fun_fact": "The cinema run started on March 29, 2019, ahead of the TV broadcast.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-sibling-bond-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "How many manga chapters does season 1 adapt, counting from chapter 1?",
+      "options": [
+        "26",
+        "97",
+        "127",
+        "54"
+      ],
+      "correct": 3,
+      "fun_fact": "Season 1 ran for 26 episodes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Gurenge",
+      "url": "https://en.wikipedia.org/wiki/Gurenge"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 1",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 2",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 3",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 4",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
+    }
+  ],
+  "notes": "All facts at arc 0, no character named."
+}

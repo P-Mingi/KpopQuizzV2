@@ -1,0 +1,173 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Naruto True or False: Ninja Edition",
+  "slug": "naruto-true-or-false-ninja-edition",
+  "description": "Ten statements about the manga, the anime and the songs. Some are one number off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Masashi Kishimoto both wrote and drew the Naruto manga.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-authors-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "The Naruto manga closed with 800 chapters gathered into 72 collected volumes.",
+      "correct": false,
+      "fun_fact": "The manga closed with 700 chapters.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-manga-size-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Counting both series, the Naruto anime adds up to 720 episodes.",
+      "correct": true,
+      "fun_fact": "That is 220 episodes of Naruto and 500 of Shippuden.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-episode-total-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Naruto: Shippuden has 220 episodes.",
+      "correct": false,
+      "fun_fact": "Shippuden has 500 episodes. The first series has 220.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-shippuden-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Of the first anime's 220 episodes, 135 follow the manga and the other 85 are original stories.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "naruto-original-episodes-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Madhouse is the studio that made the Naruto anime.",
+      "correct": false,
+      "fun_fact": "Studio Pierrot made Naruto and Naruto: Shippuden.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Tetsuya Nishio designed the characters for the Naruto anime.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-character-designer-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Naruto: Shippuden opened with Hero's Come Back!! by nobodyknows+.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-first-shippuden-opening-027"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Singer Akeboshi performed two openings of the first series.",
+      "correct": false,
+      "fun_fact": "Akeboshi sang two endings, Wind and Yellow moon.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-akeboshi-endings-028"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Volumes 1 to 27 of the manga follow Naruto as a teenager.",
+      "correct": false,
+      "fun_fact": "Volumes 1 to 27 follow Naruto as a child. The teenage years fill volumes 28 to 72.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-part-one-volumes-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Naruto",
+      "url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Naruto (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- 疾風伝",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "id": "S4",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- (アニメ)",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail."
+}

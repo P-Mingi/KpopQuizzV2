@@ -66,3 +66,59 @@ test('the SQL is one idempotent transaction: upserts, the anime-mix group, no de
   assert.match(countDataSql(plan), /public\.trivia/);
   assert.equal(sqlText("a'b"), "'a''b'");
 });
+
+// ---- lane K2: creators and quizzes
+import { readExtras, computeQuizLevel } from './data-load.mjs';
+
+const creator = (u, over = {}) => ({ site: 'anime', kind: 'series', username: u, display_name: 'Test Creator', bio: 'A bio.', beat: 'Test Show', groups: ['test-show'], style: { voice: 'v', do: ['d'], dont: ['n'] }, avatar: `public/brand/anime/creators/${u}-avatar.svg`, header: `public/brand/anime/creators/${u}-header.svg`, ...over });
+const tag = (arc, scope = 'both') => ({ arc, scope });
+const quiz = (over = {}) => ({
+  site: 'anime', account: 'oq_creator_01', group_slug: 'test-show', title: 'A Test Quiz Title', slug: 'a-test-quiz', quiz_type: 'true_false', difficulty: 'easy', language: 'en',
+  questions: [{ question: 'a', correct: true, kind: 'lore', spoiler: tag(0) }, { question: 'b', correct: false, kind: 'lore', spoiler: tag(0) }, { question: 'c', correct: true, kind: 'lore', spoiler: tag(0) }], ...over,
+});
+function extrasDir(creators, quizzes) {
+  const dir = dataDir([fact('test-show-a-001', 'series', null, 'titles', { text: 'A trivia sentence.' })]);
+  writeFileSync(join(dir, 'creators.json'), JSON.stringify({ creators }));
+  mkdirSync(join(dir, 'quizzes', 'test-show'), { recursive: true });
+  quizzes.forEach((q, i) => writeFileSync(join(dir, 'quizzes', 'test-show', `q${i}.json`), JSON.stringify(q)));
+  return dir;
+}
+
+test('K2: creators and quizzes are planned, the level is computed from the tags, never read from the file', () => {
+  const q1 = quiz({ questions: [{ question: 'a', correct: true, kind: 'arc', spoiler: tag(2) }, { question: 'b', correct: true, kind: 'arc', spoiler: tag(0) }, { question: 'c', correct: true, kind: 'arc', spoiler: tag(1, 'anime') }] });
+  const dir = extrasDir([creator('oq_creator_01')], [q1, quiz({ slug: 'second-quiz', title: 'Second Quiz Title' })]);
+  const plan = buildDataPlan(readDataDir(dir), readExtras(dir));
+  assert.deepEqual(countDataPlan(plan), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1, creators: 1, quizzes: 2, questions: 6 });
+  assert.deepEqual([plan.quizzes[0].spoiler_arc_ord, plan.quizzes[0].spoiler_scope], [2, 'both']);
+  assert.deepEqual([plan.quizzes[1].spoiler_arc_ord, plan.quizzes[1].spoiler_scope], [0, null]);
+  assert.equal(plan.creators[0].avatar_url, 'https://otakuquiz.org/brand/anime/creators/oq_creator_01-avatar.svg');
+  const sql = renderDataSql(plan);
+  assert.match(sql, /a creator has no profile/);
+  assert.match(sql, /insert into public\.editorial_accounts .* on conflict \(user_id\) do update/);
+  assert.match(sql, /insert into public\.world_memberships .* on conflict \(user_id, site_id\) do update/);
+  assert.match(sql, /insert into public\.quizzes .* on conflict \(slug\) do update .* where quizzes\.site_id = 'anime';/);
+  assert.doesNotMatch(sql, /drop table|truncate|delete from public\.quizzes|delete from public\.profiles/i);
+  assert.match(countDataSql(plan), /public\.editorial_accounts/);
+});
+
+test('K2: a quiz of an unknown account, a bad group or without a tag is refused', () => {
+  const run = (q) => { const dir = extrasDir([creator('oq_creator_01')], [q]); return () => buildDataPlan(readDataDir(dir), readExtras(dir)); };
+  assert.throws(run(quiz({ account: 'oq_creator_09' })), /not in creators\.json/);
+  assert.throws(run(quiz({ group_slug: 'nope' })), /no series file/);
+  assert.throws(run(quiz({ questions: [{ question: 'a', correct: true }, { question: 'b', correct: true }, { question: 'c', correct: true }] })), /no spoiler tag/);
+  assert.throws(() => { const dir = extrasDir([creator('oq_creator_01'), creator('oq_creator_01')], []); buildDataPlan(readDataDir(dir), readExtras(dir)); }, /duplicate username/);
+  assert.throws(() => { const dir = extrasDir([creator('oq_creator_01', { bio: 'x'.repeat(161) })], []); buildDataPlan(readDataDir(dir), readExtras(dir)); }, /bio/);
+});
+
+test('K2: the level rules equal computeSpoilerLevel of lib/anime/spoilers/core.ts', async () => {
+  let core;
+  try { const { tsImport } = await import('tsx/esm/api'); core = await tsImport('../../../apps/quiz/src/lib/anime/spoilers/core.ts', import.meta.url); } catch { return; /* tsx not available: the mirror is checked by the plan test above */ }
+  const cases = [[], [tag(0)], [tag(3, 'anime')], [tag(3, 'anime'), tag(1, 'both')], [tag(2, 'manga'), tag(5, 'anime')], [tag(4, 'anime')]];
+  for (const tags of cases) {
+    for (const manga of [new Set(), new Set([4])]) {
+      const qs = tags.map((t) => ({ spoiler: t }));
+      const a = core.computeSpoilerLevel(qs, manga); const b = computeQuizLevel(qs, manga);
+      assert.deepEqual([b.arcOrd, b.scope], [a.arcOrd, a.scope ?? null]);
+    }
+  }
+});

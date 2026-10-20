@@ -1,0 +1,223 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "Plus Ultra Starter: My Hero Academia Basics",
+  "slug": "plus-ultra-starter-my-hero-academia-basics",
+  "description": "Ten spoiler-free questions on the creator, the magazine, the studio and the world of Quirks.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who wrote and drew every chapter of the My Hero Academia manga himself?",
+      "options": [
+        "Gege Akutami",
+        "Hajime Isayama",
+        "Kohei Horikoshi",
+        "Tatsuki Fujimoto"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-creator-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Which magazine ran the My Hero Academia manga from start to finish?",
+      "options": [
+        "Weekly Shonen Magazine",
+        "Bessatsu Shonen Magazine",
+        "Weekly Shonen Jump",
+        "Monthly Shonen Sunday"
+      ],
+      "correct": 2,
+      "fun_fact": "Shueisha published it.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-magazine-publisher-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "In which year did the My Hero Academia manga begin?",
+      "options": [
+        "2011",
+        "2014",
+        "2016",
+        "2018"
+      ],
+      "correct": 1,
+      "fun_fact": "It ran for a decade, from July 2014 until its finale in August 2024.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-run-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia manga reached its finale in August of which year?",
+      "options": [
+        "2020",
+        "2022",
+        "2025",
+        "2024"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-run-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "In which year did the My Hero Academia anime begin?",
+      "options": [
+        "2014",
+        "2018",
+        "2016",
+        "2020"
+      ],
+      "correct": 2,
+      "fun_fact": "It began on 3 April 2016.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-anime-run-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "How many episodes does the My Hero Academia anime have over eight seasons, not counting a bonus special?",
+      "options": [
+        "91",
+        "130",
+        "170",
+        "213"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-episode-count-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which studio animated My Hero Academia for seven seasons?",
+      "options": [
+        "Bones",
+        "MAPPA",
+        "Wit Studio",
+        "Ufotable"
+      ],
+      "correct": 0,
+      "fun_fact": "Bones Film produced the last season.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-animation-studio-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Roughly how many people in the world of My Hero Academia have a superpower called a Quirk?",
+      "options": [
+        "About 20 percent",
+        "About 50 percent",
+        "About 99 percent",
+        "About 80 percent"
+      ],
+      "correct": 3,
+      "fun_fact": "That is roughly four in five people.",
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-quirk-world-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "What does Izuku start the story with, as a boy who still dreams of becoming a hero?",
+      "options": [
+        "No Quirk at all",
+        "A fire Quirk",
+        "A flying Quirk",
+        "A super strength Quirk"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-izuku-quirkless-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Which film is the first of the four animated My Hero Academia films?",
+      "options": [
+        "Heroes Rising",
+        "World Heroes' Mission",
+        "Two Heroes",
+        "You're Next"
+      ],
+      "correct": 2,
+      "fun_fact": "The fourth and last of them is You're Next.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-anime-films-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: My Hero Academia",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: My Hero Academia (TV series)",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only."
+}

@@ -1,0 +1,234 @@
+{
+  "site": "anime",
+  "account": "oq_creator_08",
+  "group_slug": "dragon-ball",
+  "title": "Dragon Ball Basics: Toriyama, Toei and the Monkey King",
+  "slug": "dragon-ball-basics-toriyama-toei-and-the-monkey-king",
+  "description": "Ten spoiler-free questions on the creator, the magazine, the studio and the four TV series of the Dragon Ball franchise.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who created the Dragon Ball franchise and wrote and drew the original manga on his own?",
+      "options": [
+        "Eiichiro Oda",
+        "Akira Toriyama",
+        "Masashi Kishimoto",
+        "Yoshihiro Togashi"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-series-creator-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "In which magazine did the original Dragon Ball manga run?",
+      "options": [
+        "Weekly Shonen Magazine",
+        "V Jump",
+        "Monthly Shonen Sunday",
+        "Weekly Shonen Jump"
+      ],
+      "correct": 3,
+      "fun_fact": "Shueisha published it and collected it in book form.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dragon-ball-magazine-publisher-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "The original Dragon Ball manga was bound in how many volumes?",
+      "options": [
+        "27",
+        "42",
+        "52",
+        "72"
+      ],
+      "correct": 1,
+      "fun_fact": "It reached 519 chapters.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dragon-ball-manga-volumes-chapters-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "Which studio produced the Dragon Ball anime television series?",
+      "options": [
+        "Studio Pierrot",
+        "Madhouse",
+        "Sunrise",
+        "Toei Animation"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-animation-studio-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "question": "Which Chinese novel inspired the Dragon Ball story?",
+      "options": [
+        "Romance of the Three Kingdoms",
+        "Journey to the West",
+        "Water Margin",
+        "Dream of the Red Chamber"
+      ],
+      "correct": 1,
+      "fun_fact": "Hong Kong kung fu films were mixed in.",
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-journey-to-the-west-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "Goku's Japanese name, Son Goku, is how the Monkey King of Journey to the West is read. What is that Chinese name?",
+      "options": [
+        "Zhu Bajie",
+        "Sun Wukong",
+        "Sha Wujing",
+        "Tang Sanzang"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-sun-wukong-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "How many episodes does the first Dragon Ball anime have?",
+      "options": [
+        "108",
+        "153",
+        "291",
+        "131"
+      ],
+      "correct": 1,
+      "fun_fact": "It ran from February 1986 to April 1989 on Fuji Television.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-dragon-ball-tv-run-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "question": "How many episodes did Dragon Ball Z air?",
+      "options": [
+        "291",
+        "153",
+        "131",
+        "195"
+      ],
+      "correct": 0,
+      "fun_fact": "Dragon Ball Z started in April 1989 and ended in January 1996.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-z-tv-run-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "question": "Dragon Ball Super returned to television in July of which year, after a long gap?",
+      "options": [
+        "2009",
+        "2012",
+        "2018",
+        "2015"
+      ],
+      "correct": 3,
+      "fun_fact": "It ran for 131 episodes.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-super-tv-run-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "question": "In which year did the original Dragon Ball manga begin in Weekly Shonen Jump?",
+      "options": [
+        "1979",
+        "1986",
+        "1984",
+        "1989"
+      ],
+      "correct": 2,
+      "fun_fact": "It ran for a little over ten years, until June 1995.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dragon-ball-manga-run-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dragon Ball",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Dragon Ball Z",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Dragon Ball (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Dragon Ball Super (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only."
+}

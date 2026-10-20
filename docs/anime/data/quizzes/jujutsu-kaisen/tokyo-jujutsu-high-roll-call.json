@@ -1,0 +1,262 @@
+{
+  "site": "anime",
+  "account": "oq_creator_05",
+  "group_slug": "jujutsu-kaisen",
+  "title": "Tokyo Jujutsu High Roll Call",
+  "slug": "tokyo-jujutsu-high-roll-call",
+  "description": "Three clues, four names. Match the clues to the students, teachers and curses of the school, with the last clue sometimes in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A high school student of extraordinary strength",
+        "The vessel of a legendary curse",
+        "His name is written 虎杖 悠仁 in Japanese"
+      ],
+      "options": [
+        "Megumi Fushiguro",
+        "Aoi Todo",
+        "Yuji Itadori",
+        "Kento Nanami"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this sorcerer?",
+      "clues": [
+        "A playful teacher at Tokyo Jujutsu High",
+        "Takes Yuji in and trains the first-years",
+        "His name is written 五条 悟 in Japanese"
+      ],
+      "options": [
+        "Kento Nanami",
+        "Aoi Todo",
+        "Suguru Geto",
+        "Satoru Gojo"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this first-year?",
+      "clues": [
+        "Calls up shikigami from his shadow",
+        "Meets Yuji while retrieving a cursed finger",
+        "His name is written 伏黒 恵 in Japanese"
+      ],
+      "options": [
+        "Yuji Itadori",
+        "Megumi Fushiguro",
+        "Toge Inumaki",
+        "Yuta Okkotsu"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this first-year?",
+      "clues": [
+        "A bold sorcerer from the countryside",
+        "Fights with a hammer and nails",
+        "Uses a straw-doll technique"
+      ],
+      "options": [
+        "Maki Zen'in",
+        "Panda",
+        "Nobara Kugisaki",
+        "Mahito"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A legendary sorcerer called the King of Curses",
+        "His power lives on in twenty indestructible fingers",
+        "His name is written 両面 宿儺 in Japanese"
+      ],
+      "options": [
+        "Mahito",
+        "Suguru Geto",
+        "Choso",
+        "Ryomen Sukuna"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this second-year?",
+      "clues": [
+        "Has no cursed energy of her own",
+        "Fights with cursed tools",
+        "Sharp physical skill"
+      ],
+      "options": [
+        "Nobara Kugisaki",
+        "Toge Inumaki",
+        "Panda",
+        "Maki Zen'in"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this second-year?",
+      "clues": [
+        "His Cursed Speech forces others to obey",
+        "Speaks only in rice-ball ingredients",
+        "His name is written 狗巻 棘 in Japanese"
+      ],
+      "options": [
+        "Panda",
+        "Toge Inumaki",
+        "Aoi Todo",
+        "Yuji Itadori"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this second-year?",
+      "clues": [
+        "A sentient Cursed Corpse",
+        "Made by the school's principal",
+        "His name is written パンダ in Japanese"
+      ],
+      "options": [
+        "Toge Inumaki",
+        "Panda",
+        "Mahito",
+        "Megumi Fushiguro"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this third-year?",
+      "clues": [
+        "Studies at Kyoto Jujutsu High",
+        "Has exceptional fighting skill and an unorthodox personality",
+        "Picks a fight with Megumi"
+      ],
+      "options": [
+        "Kento Nanami",
+        "Yuta Okkotsu",
+        "Choso",
+        "Aoi Todo"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    },
+    {
+      "question": "Who is this sorcerer?",
+      "clues": [
+        "A calm, disciplined Grade 1 sorcerer",
+        "Back in jujutsu after an office career",
+        "His name is written 七海 建人 in Japanese"
+      ],
+      "options": [
+        "Kento Nanami",
+        "Satoru Gojo",
+        "Aoi Todo",
+        "Toji Fushiguro"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-cast-first-half-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Jujutsu Kaisen characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the cast fact; answers cite jujutsu-kaisen-cast-first-half-002 (arc 7), so the quiz is tagged arc 7."
+}

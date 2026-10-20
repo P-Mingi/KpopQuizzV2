@@ -1,0 +1,262 @@
+{
+  "site": "anime",
+  "account": "oq_creator_06",
+  "group_slug": "demon-slayer",
+  "title": "Meet the Corps: Name the Demon Slayer",
+  "slug": "meet-the-corps-name-the-demon-slayer",
+  "description": "Three clues, four names. Spot the swordsmen, the siblings and the first demon, with a Japanese name as the last clue now and then.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A kind charcoal seller's son",
+        "Trains as a Demon Slayer to cure his sister",
+        "His name is written 竈門 炭治郎 in Japanese"
+      ],
+      "options": [
+        "Zenitsu Agatsuma",
+        "Inosuke Hashibira",
+        "Giyu Tomioka",
+        "Tanjiro Kamado"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Tanjiro's younger sister",
+        "Turned into a demon yet still protective of people",
+        "Often travels in a small wooden box"
+      ],
+      "options": [
+        "Kanao Tsuyuri",
+        "Shinobu Kocho",
+        "Nezuko Kamado",
+        "Tamayo"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A timid but gifted Demon Slayer",
+        "Has exceptionally sharp hearing",
+        "A mastery of Thunder Breathing"
+      ],
+      "options": [
+        "Tanjiro Kamado",
+        "Inosuke Hashibira",
+        "Sanemi Shinazugawa",
+        "Zenitsu Agatsuma"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A feral swordsman raised by boars",
+        "Wears a boar-head mask",
+        "Fights with two serrated blades"
+      ],
+      "options": [
+        "Inosuke Hashibira",
+        "Zenitsu Agatsuma",
+        "Tanjiro Kamado",
+        "Giyu Tomioka"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The first demon",
+        "The great enemy of the Demon Slayer Corps",
+        "Driven to overcome his own weakness to sunlight"
+      ],
+      "options": [
+        "Rui",
+        "Sakonji Urokodaki",
+        "Giyu Tomioka",
+        "Muzan Kibutsuji"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The aloof Water Hashira",
+        "Spares Nezuko",
+        "Sends Tanjiro to his former teacher"
+      ],
+      "options": [
+        "Sanemi Shinazugawa",
+        "Giyu Tomioka",
+        "Zenitsu Agatsuma",
+        "Sakonji Urokodaki"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A former Water Hashira",
+        "Trains Tanjiro and Nezuko",
+        "His name is written 鱗滝 左近次 in Japanese"
+      ],
+      "options": [
+        "Giyu Tomioka",
+        "Muzan Kibutsuji",
+        "Sakonji Urokodaki",
+        "Kagaya Ubuyashiki"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-core-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The Insect Hashira",
+        "A smiling swordswoman with a butterfly motif",
+        "Her cheerful manner hides a deep hatred of demons"
+      ],
+      "options": [
+        "Kanao Tsuyuri",
+        "Tamayo",
+        "Nezuko Kamado",
+        "Shinobu Kocho"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-first-arc-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Shinobu's adopted sister",
+        "A Demon Slayer with remarkable eyesight",
+        "Settles choices by flipping a coin"
+      ],
+      "options": [
+        "Nezuko Kamado",
+        "Tamayo",
+        "Kanao Tsuyuri",
+        "Shinobu Kocho"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-first-arc-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A hot-headed swordsmith",
+        "Forges Tanjiro's blades",
+        "Can only be calmed with dango"
+      ],
+      "options": [
+        "Sakonji Urokodaki",
+        "Sanemi Shinazugawa",
+        "Kagaya Ubuyashiki",
+        "Hotaru Haganezuka"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-characters-first-arc-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the character list facts; answers cite demon-slayer-characters-core-023 (arc 0) and characters-first-arc-024 (arc 1)."
+}
