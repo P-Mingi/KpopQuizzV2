@@ -147,7 +147,9 @@
     "scripts/o1/q0b/**",
     "apps/quiz/scripts/o1/q0b/**",
     "apps/quiz/e2e/o1/auth/**",
-    "apps/quiz/e2e/o1/equivalence/**"
+    "apps/quiz/e2e/o1/equivalence/**",
+    "scripts/o1-tools/**",
+    "docs/o1/reports/Q0b/**"
   ],
   "B1": [
     "apps/quiz/src/lib/site/kpop.ts",
