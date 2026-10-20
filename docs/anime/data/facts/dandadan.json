@@ -1,0 +1,610 @@
+[
+  {
+    "id": "dandadan-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "title_native",
+    "value": "ダンダダン (Dandadan)",
+    "text": "The title is written ダンダダン in Japanese, and English editions also render it as Dan Da Dan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108069627",
+        "ref": "Q108069627",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dandadan (ダンダダン), also written as Dan Da Dan"
+  },
+  {
+    "id": "dandadan-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "author",
+    "value": "Yukinobu Tatsu (story and art)",
+    "text": "Yukinobu Tatsu alone writes and draws the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108069627",
+        "ref": "Q108069627",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/shonenjump/chapters/dandadan",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written and illustrated by Yukinobu Tatsu"
+  },
+  {
+    "id": "dandadan-serialization-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "magazine",
+    "value": "Shōnen Jump+, since April 6, 2021",
+    "text": "The manga began on Shueisha's Shōnen Jump+ platform on April 6, 2021 and is still running.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108069627",
+        "ref": "Q108069627",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Shueisha's Shōnen Jump+ app and website since April 2021"
+  },
+  {
+    "id": "dandadan-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "volumes",
+    "value": "25 (as of 4 September 2026)",
+    "text": "The collected edition had reached twenty-five volumes by early September 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108069627",
+        "ref": "Q108069627",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of September 4, 2026, 25 volumes have been released"
+  },
+  {
+    "id": "dandadan-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "copies",
+    "value": "over 10 million by March 2025",
+    "text": "More than ten million copies were in circulation by March 2025.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 10 million copies by March 2025"
+  },
+  {
+    "id": "dandadan-shogakukan-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "awards",
+    "value": "71st Shogakukan Manga Award, 2026",
+    "text": "In 2026 the manga earned the Shogakukan Manga Award, its 71st edition.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the series won the 71st Shogakukan Manga Award in 2026"
+  },
+  {
+    "id": "dandadan-manga-barcelona-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "awards_b",
+    "value": "Manga Barcelona, Best Shōnen, 31st edition, 2025",
+    "text": "At Manga Barcelona in 2025 the series won the shōnen category, at the festival's 31st edition.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "it won in the same category at the 31st edition in 2025"
+  },
+  {
+    "id": "dandadan-anime-studio-director-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "staff",
+    "value": "Science Saru (studio), Fūga Yamashiro (season 1 director)",
+    "text": "Studio Science Saru animated the show, and Fūga Yamashiro directed the first season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by Science Saru"
+  },
+  {
+    "id": "dandadan-anime-season-one-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "anime_s1",
+    "value": "12 episodes, 4 October to 20 December 2024",
+    "text": "Season one ran twelve episodes from October 4 to December 20, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "originally released from October 4 to December 20, 2024"
+  },
+  {
+    "id": "dandadan-anime-season-two-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "anime_s2",
+    "value": "12 episodes, 4 July to 19 September 2025",
+    "text": "Season two ran twelve episodes from July 4 to September 19, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "originally released from July 4 to September 19, 2025"
+  },
+  {
+    "id": "dandadan-season-two-directors-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "staff_s2",
+    "value": "Abel Góngora (director), Fūga Yamashiro (co-director)",
+    "text": "For season two Abel Góngora took over as director, with Fūga Yamashiro co-directing.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "directed by Abel Góngora and co-directed with Yamashiro"
+  },
+  {
+    "id": "dandadan-season-three-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "anime_s3",
+    "value": "Announced after the season 2 finale; premiere set for 2027",
+    "text": "A third season was announced once season two ended, with a premiere planned for 2027.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It is set to premiere in 2027"
+  },
+  {
+    "id": "dandadan-themes-season-one-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Otonoke - Creepy Nuts (season 1)",
+      "ED 1: Taidada - Zutomayo (season 1)"
+    ],
+    "text": "Season one opens with Otonoke by Creepy Nuts and closes with Taidada by Zutomayo.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "performed by Creepy Nuts"
+  },
+  {
+    "id": "dandadan-themes-season-two-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Kakumei Dōchū - Aina the End (season 2)",
+      "ED 2: Doukashiteru - WurtS (season 2)"
+    ],
+    "text": "Season two opens with Kakumei Dōchū by Aina the End and closes with Doukashiteru by WurtS.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "performed by Aina the End"
+  },
+  {
+    "id": "dandadan-arc-structure-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-12",
+      "2: Season 2, episodes 13-24",
+      "3: Manga beyond season 2"
+    ],
+    "text": "Here the story is split by TV season, twelve episodes each, plus the manga material not yet animated.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+        "ref": "1378501554",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a third season was announced"
+  },
+  {
+    "id": "dandadan-cast-season-one-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "characters_a",
+    "value": [
+      "Momo Ayase (綾瀬 桃): the psychic high-school girl",
+      "Ken Takakura (高倉 健): the occult-obsessed boy nicknamed Okarun",
+      "Turbo Granny (ターボババア): the old-woman yōkai",
+      "Seiko Ayase (綾瀬 星子): Momo's grandmother and a spirit medium",
+      "Aira Shiratori (白鳥 愛羅): the school idol of Kami High",
+      "Acrobatic Silky (アクロバティックさらさら): the agile yōkai",
+      "Alien Serpo (セルポ星人): the abducting aliens",
+      "Jin Enjoji (円城寺 仁): Momo's childhood friend, called Jiji",
+      "Peeny-Weeny: the mantis-shrimp-like alien"
+    ],
+    "text": "The first-season cast, from the two leads to the yōkai and aliens they face.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A shy and friendless high school boy"
+  },
+  {
+    "id": "dandadan-cast-later-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "characters_b",
+    "value": [
+      "Evil Eye (邪視): a vengeful yōkai",
+      "Kinta Sakata (坂田 金太): Okarun's classmate",
+      "Rin Sawaki: a class representative with gravity powers",
+      "Chiquitita (チキチータ): Peeny-Weeny's son",
+      "Taro (太郎): a living anatomical model",
+      "Vamola (バモラ): the last Sumerian alien",
+      "Ludris (ルドリス): the alien sage",
+      "Reiko Kashima (カシマレイコ): the Slit-Mouthed Woman",
+      "Count Saint-Germain (サンジェルマン伯爵): the occult collector",
+      "Unji Zuma (頭間 雲児): the umbrella gang leader",
+      "Kouki Yukishiro: a student who commands small creatures"
+    ],
+    "text": "Later characters, from the second TV season and from manga material not yet animated.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The last survivor of the Sumerian alien race"
+  },
+  {
+    "id": "dandadan-okarun-possession-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "ken-takakura",
+      "group_slug": "dandadan"
+    },
+    "field": "origin",
+    "value": "Turbo Granny possesses him and gives him demonic powers",
+    "text": "Okarun's strange abilities come from Turbo Granny taking hold of him.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "gains demonic powers after possession by Turbo Granny"
+  },
+  {
+    "id": "dandadan-seiko-spirit-medium-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "seiko-ayase",
+      "group_slug": "dandadan"
+    },
+    "field": "occupation",
+    "value": "Momo's grandmother, who works as a spirit medium",
+    "text": "Seiko Ayase works as a spirit medium and is the grandmother of Momo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A spirit medium and Momo's grandmother"
+  },
+  {
+    "id": "dandadan-english-publisher-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dandadan"
+    },
+    "field": "publisher_na",
+    "value": "Viz Media",
+    "text": "Viz Media releases the manga in English in North America and hosts its series page.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dandadan",
+        "ref": "1380355741",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/shonenjump/chapters/dandadan",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Viz Media"
+  }
+]

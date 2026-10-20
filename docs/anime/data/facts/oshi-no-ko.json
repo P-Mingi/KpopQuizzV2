@@ -1,0 +1,622 @@
+[
+  {
+    "id": "oshi-no-ko-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "title_native",
+    "value": "【推しの子】 (Oshi no Ko)",
+    "text": "The Japanese title is written 【推しの子】 inside corner brackets and read Oshi no Ko.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97310775",
+        "ref": "Q97310775",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://youngjump.jp/oshinoko/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Oshi no Ko (【推しの子】) is a Japanese manga series"
+  },
+  {
+    "id": "oshi-no-ko-manga-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "author",
+    "value": "Aka Akasaka (story), Mengo Yokoyari (art)",
+    "text": "Aka Akasaka wrote the story and Mengo Yokoyari drew the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97310775",
+        "ref": "Q97310775",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://youngjump.jp/oshinoko/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written by Aka Akasaka and illustrated by Mengo Yokoyari"
+  },
+  {
+    "id": "oshi-no-ko-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "magazine",
+    "value": "Weekly Young Jump, April 2020 to November 2024",
+    "text": "Shueisha's Weekly Young Jump published the manga between April 2020 and November 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97310775",
+        "ref": "Q97310775",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://youngjump.jp/oshinoko/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Shueisha's Weekly Young Jump from April 2020 to November 2024"
+  },
+  {
+    "id": "oshi-no-ko-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "volumes",
+    "value": "16",
+    "text": "The collected manga fills sixteen tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97310775",
+        "ref": "Q97310775",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with its chapters collected in 16 tankōbon volumes"
+  },
+  {
+    "id": "oshi-no-ko-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "copies",
+    "value": "over 25 million",
+    "text": "By December 2025 the manga had more than 25 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 25 million copies in circulation by December 2025"
+  },
+  {
+    "id": "oshi-no-ko-next-manga-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "awards",
+    "value": "Next Manga Award, print category, August 2021",
+    "text": "In August 2021 the manga won the print category of the Next Manga Award.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In August 2021, Oshi no Ko won the Next Manga Award in the print category"
+  },
+  {
+    "id": "oshi-no-ko-anime-studio-staff-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "staff",
+    "value": "Doga Kobo (studio), Daisuke Hiramaki (director), Jin Tanaka (series composition), Takurō Iga (music)",
+    "text": "Doga Kobo animates the television series, with Daisuke Hiramaki directing, Jin Tanaka handling series composition and Takurō Iga composing.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+        "ref": "1379821089",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese anime television series produced by Doga Kobo, directed by Daisuke Hiramaki"
+  },
+  {
+    "id": "oshi-no-ko-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "anime_s1",
+    "value": "11 episodes, April 12 to June 28, 2023",
+    "text": "The first season ran eleven episodes, from April 12 to June 28, 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
+        "ref": "1379822538",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "aired its first 11-episode season from April to June 2023"
+  },
+  {
+    "id": "oshi-no-ko-anime-first-episode-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "anime_s1_premiere",
+    "value": "A 90-minute opener titled Mother and Children, shown in cinemas on March 17, 2023",
+    "text": "The season opened with a feature-length first episode titled Mother and Children that also had a cinema screening on March 17, 2023.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+        "ref": "1379821089",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 90-minute first episode, 'Mother and Children', also premiered at selected theaters in Japan on March 17"
+  },
+  {
+    "id": "oshi-no-ko-anime-season-two-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "anime_s2",
+    "value": "13 episodes, 3 July to 6 October 2024",
+    "text": "The second season ran thirteen episodes, from July 3 to October 6, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
+        "ref": "1379822538",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A second season aired from July 3 to October 6, 2024"
+  },
+  {
+    "id": "oshi-no-ko-anime-season-three-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "anime_s3",
+    "value": "11 episodes, January 14 to March 25, 2026; a fourth and final season is announced",
+    "text": "The third season ran eleven episodes from January 14 to March 25, 2026, and a fourth and final season has been announced.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
+        "ref": "1379822538",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A third season aired from January 14 to March 25, 2026"
+  },
+  {
+    "id": "oshi-no-ko-themes-season-one-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Idol - YOASOBI (season 1)",
+      "ED 1: Mephisto - Queen Bee (season 1)"
+    ],
+    "text": "Season one opens with Idol by YOASOBI and closes with Mephisto by Queen Bee.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+        "ref": "1379821089",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Opening: Idol by Yoasobi; Ending: Mephisto by Queen Bee"
+  },
+  {
+    "id": "oshi-no-ko-themes-season-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Fatal - Gemn (season 2)",
+      "ED 2: Burning - Hitsujibungaku (season 2)"
+    ],
+    "text": "Season two uses Fatal by Gemn as its opening and Burning by Hitsujibungaku as its ending.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+        "ref": "1379821089",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Opening: Fatal by Gemn; Ending: Burning by Hitsujibungaku"
+  },
+  {
+    "id": "oshi-no-ko-themes-season-three-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP 3: Test Me - Chanmina (season 3)",
+      "ED 3: Serenade - Natori (season 3)"
+    ],
+    "text": "Season three has Test Me by Chanmina as its opening and Serenade by Natori as its ending.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+        "ref": "1379821089",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Opening: Test Me by Chanmina; Ending: Serenade by Natori"
+  },
+  {
+    "id": "oshi-no-ko-arc-structure-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-11",
+      "2: Season 2, episodes 12-24",
+      "3: Season 3, episodes 25-35"
+    ],
+    "text": "The story is split here by TV season: eleven, thirteen and eleven episodes, thirty-five in all.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
+        "ref": "1379822538",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A fourth and final season was announced after the airing of the eleventh episode of the third season"
+  },
+  {
+    "id": "oshi-no-ko-cast-main-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "characters_a",
+    "value": [
+      "Aqua Hoshino (星野 愛久愛海): a guarded teenager who moves into acting",
+      "Ruby Hoshino (星野 瑠美衣): Aqua's twin sister and aspiring idol",
+      "Ai Hoshino (星野 アイ): the idol and leader of B-Komachi",
+      "Kana Arima (有馬 かな): a former child actress",
+      "Akane Kurokawa (黒川 あかね): a stage actress",
+      "MEM-cho (MEMちょ): a YouTuber who joins B-Komachi",
+      "Taishi Gotanda (五反田 泰志): a film director",
+      "Ichigo Saitō (斎藤 壱護): head of Strawberry Productions",
+      "Miyako Saitō (斎藤 ミヤコ): his wife and the agency's manager",
+      "Melt Narushima (鳴嶋 メルト): a young actor and model"
+    ],
+    "text": "The first ten main characters of the series, from the twins and their idol mother to the agency heads and the film director.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mem-cho is a YouTuber and TikToker who signs"
+  },
+  {
+    "id": "oshi-no-ko-cast-industry-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "characters_b",
+    "value": [
+      "Frill Shiranui (不知火 フリル): a talented high-school performer",
+      "Taiki Himekawa (姫川 大輝): an award-winning stage actor",
+      "Masaya Kaburagi (鏑木 勝也): a producer",
+      "Pieyon (ぴえヨン): an anonymous fitness YouTuber",
+      "Abiko Samejima (鮫島 アビ子): the manga artist behind Tokyo Blade",
+      "Yoriko Kichijouji (吉祥寺 頼子): her mentor, also a manga artist",
+      "Sakuya Kamoshida (鴨志田 朔夜): a stage actor",
+      "Minami Kotobuki (寿 みなみ): a performing-arts student"
+    ],
+    "text": "Eight supporting characters from the wider theatre, manga and school worlds of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Minami Kotobuki is a student in the Performing"
+  },
+  {
+    "id": "oshi-no-ko-twins-past-lives-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "aqua-hoshino",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "origin",
+    "value": "Aqua was originally Gorou Amamiya; Ruby was originally Sarina Tendōji",
+    "text": "The premise: the twins Aqua and Ruby are reborn, Aqua being the doctor Gorou Amamiya and Ruby being his patient Sarina Tendōji.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97310775",
+        "ref": "Q97310775",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "originally Sarina Tendōji, was a terminally ill patient who idolized Gorou"
+  },
+  {
+    "id": "oshi-no-ko-kana-child-prodigy-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "kana-arima",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "background",
+    "value": "a former child acting prodigy",
+    "text": "As a child, Kana Arima won fame as an acting prodigy who could produce tears whenever a scene needed them.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "once hailed as a child acting prodigy for her ability to cry on command"
+  },
+  {
+    "id": "oshi-no-ko-live-action-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "live_action",
+    "value": "TV series from November 28, 2024; film The Final Act on December 20, 2024",
+    "text": "A live-action series debuted on November 28, 2024, and a feature film titled The Final Act arrived on December 20, 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The film Oshi no Ko: The Final Act premiered on December 20, 2024"
+  }
+]
