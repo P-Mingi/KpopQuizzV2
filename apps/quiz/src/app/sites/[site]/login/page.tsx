@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { createBrowserClient } from '@/lib/supabase/client';
+import { SITE } from '@/lib/site/registry';
 
 type Pending = 'google' | 'discord' | 'email' | null;
 
@@ -90,7 +91,7 @@ export default function LoginPage(): React.ReactElement {
               <span className="bp-logo-mark">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={SPARKLE} /></svg>
               </span>
-              <span>kpopquiz</span>
+              <span>{SITE.brand.name.toLowerCase()}</span>
             </div>
             <h1 className="bp-head">Prove you&rsquo;re a real fan.</h1>
             <p className="bp-sub">

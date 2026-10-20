@@ -17,6 +17,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getBrowseQuizzes, getQuizCardsByIds } from '@/lib/db/queries/quizzes';
 
 import { P2_PAGE_SIZE, p2PageIds, toBrowseSort, typeDb } from './filters';
+import { forSite } from '@/lib/site/scope';
 
 import type { QuizCardData } from '@/lib/db/types';
 import type { P2FacetRow, P2Filters } from './filters';
@@ -42,9 +43,9 @@ interface RawFacetRow {
  */
 async function fetchFacetRows(): Promise<P2FacetRow[]> {
   const supabase = createPublicReadClient();
-  const rows = await fetchAllRows<RawFacetRow>(() => supabase
+  const rows = await fetchAllRows<RawFacetRow>(() => forSite(supabase
     .from('quizzes')
-    .select('id, quiz_type, difficulty, language, created_at, play_count, total_score_sum, total_completions, question_count, groups!inner (slug, name), profiles!inner (username)')
+    .select('id, quiz_type, difficulty, language, created_at, play_count, total_score_sum, total_completions, question_count, groups!inner (slug, name), profiles!inner (username)'))
     .eq('status', 'published')
     .order('id', { ascending: true }));
   return rows

@@ -9,9 +9,10 @@ import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
+import { GENRE, titleCase } from '@/lib/site/genre';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { comma, secs } from '@/lib/ux-v1/p6/points';
-import { filterGroups, initials } from '@/lib/ux-v1/p6/playlists';
+import { ALL_PICK, filterGroups, initials } from '@/lib/ux-v1/p6/playlists';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { useHub } from './hub-context';
@@ -42,7 +43,7 @@ export function BtLiveCount({ initial }: { initial: number }): React.ReactElemen
     <p className="p6-eyebrow">
       {total > 0
         ? <><span className="p6-pulse" aria-hidden="true" />{comma(total)} {total === 1 ? 'fan' : 'fans'} playing today</>
-        : 'K-pop Blind Test'}
+        : `${titleCase(GENRE)} Blind Test`}
     </p>
   );
 }
@@ -228,7 +229,7 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
           <ul className="p6-btidx" aria-label="Matching group playlists">
             {filtered.map((g) => <GroupRow key={g.slug} g={g} onStart={start} />)}
           </ul>
-          {filtered.length === 0 ? <p className="p6-btg-empty ux-muted" role="status">No group matches. Try the All K-pop playlist.</p> : null}
+          {filtered.length === 0 ? <p className="p6-btg-empty ux-muted" role="status">{`No group matches. Try the ${ALL_PICK.label} playlist.`}</p> : null}
         </>
       ) : (
         <>

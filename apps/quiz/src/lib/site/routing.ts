@@ -297,10 +297,13 @@ export function isServedSite(param: string, build: SiteId = SITE_ID): boolean {
  * (a kpop group hub on /{series}-quiz) are not listed: they 404 through the site scope.
  * CR-001 (rule 18) moved the browse, help and board pages that have an anime twin to
  * TWIN_SAMPLES; news, articles, data pages and ranked stay here (code F of TWINS.md).
+ * The locale landings are named without a slash (/fr, /es, /id): the kpop allowlist keeps '/fr/' as a prefix, but a request
+ * with a trailing slash never reaches a rewrite on any site, Next answers it first with its own 308 to the same path
+ * without it (an internal redirect that runs before the middleware and every rewrite; next.config.ts stays untouched).
  */
 export const KPOP_ONLY_SAMPLES: readonly string[] = [
   '/guess-the-kpop-idol', '/guess-the-kpop-song', '/kpop-true-or-false', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
-  '/idols-in-kdramas', '/pt', '/pt/faq', '/fr/', '/es/', '/id/', '/verse', '/verse/bts',
+  '/idols-in-kdramas', '/pt', '/pt/faq', '/fr', '/es', '/id', '/verse', '/verse/bts',
   '/live', '/join', '/embed/q/sample', '/g/sample', '/groups', '/group/bts', '/stats',
   '/data/pulse', '/data/knowledge-report-2026', '/articles', '/news', '/creators',
   '/personality/bts', '/name-all/bts',

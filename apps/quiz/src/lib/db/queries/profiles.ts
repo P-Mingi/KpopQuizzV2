@@ -2,6 +2,7 @@ import { createServerClient, createPublicReadClient } from '@/lib/supabase/serve
 
 import { getTeamIds } from '@/lib/editorial/accounts';
 import { isUxV12 } from '@/lib/ux-v12';
+import { forSite } from '@/lib/site/scope';
 
 import type { Profile, TopCreator } from '@/lib/db/types';
 
@@ -77,9 +78,9 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   const team = await teamIdsToExclude();
 
-  let q = supabase
+  let q = forSite(supabase
     .from('quizzes')
-    .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)')
+    .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)'))
     .eq('status', 'published')
     .gte('created_at', sevenDaysAgo)
     .order('play_count', { ascending: false })

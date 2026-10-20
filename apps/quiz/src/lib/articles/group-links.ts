@@ -5,6 +5,8 @@
  * Only TOP-tier (indexed) articles are listed here.
  */
 
+import { SITE } from '@/lib/site/registry';
+
 export interface GroupArticleLink {
   slug: string;
   label: string;
@@ -44,6 +46,8 @@ const GENERAL_ARTICLES: GroupArticleLink[] = [
  * Returns empty array for groups with no relevant articles.
  */
 export function getGroupArticleLinks(groupSlug: string): GroupArticleLink[] {
+  // The articles are kpop's: a site without the articles feature (the registry) has none to link.
+  if (!SITE.features.articles) return [];
   const specific = GROUP_ARTICLE_MAP[groupSlug] ?? [];
   if (specific.length >= 2) return specific;
   // Pad with a general article so every group page has at least one article link

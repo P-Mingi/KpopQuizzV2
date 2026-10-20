@@ -1,6 +1,7 @@
 import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 import { STATIC_MODES, THEMED_MODE_IDS, themedModesOn, themedVisible } from '@/lib/blind-test-modes';
 import { applyPlaylistSpec, specFollowsCuratedSwitch, specStatuses, V12_PLAYLISTS } from '@/lib/blind-test-curated';
 
@@ -40,9 +41,9 @@ export const ROUND_SIZE = 10;
 
 /** Mirrors the generate route's pool: active, real songs, no remix/instrumental junk. */
 function cleanSongs(db: ReturnType<typeof createPublicReadClient>) {
-  return db
+  return forSite(db
     .from('songs')
-    .select('group_id')
+    .select('group_id'))
     .eq('status', 'active')
     .not('group_id', 'is', null)
     .not('title', 'ilike', '%remix%')
@@ -72,7 +73,7 @@ async function fetchAdvertisablePlaylists(): Promise<{
 
   const [songRows, groupsRes] = await Promise.all([
     pageAll<{ group_id: number }>(() => cleanSongs(db)),
-    db.from('groups').select('id, name, slug'),
+    forSite(db.from('groups').select('id, name, slug')),
   ]);
 
   const playable = new Map<number, number>();
@@ -115,7 +116,7 @@ async function countThemed(): Promise<Record<string, number>> {
     const spec = themedSpec(id);
     if (!spec) { out[id] = 0; return; }
     try {
-      let q = db.from('songs').select('id', { count: 'exact', head: true })
+      let q = forSite(db.from('songs').select('id', { count: 'exact', head: true }))
         .in('status', [...specStatuses(spec)])
         .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
       if (curated && specFollowsCuratedSwitch(spec)) q = q.eq('is_curated', true);
@@ -157,7 +158,7 @@ export async function isThemedModePlayable(modeId: string): Promise<boolean> {
 /** The count query of generate's pool for a named legacy mode, or null for any other id. */
 function namedPoolCount(modeId: string, curated: boolean): PromiseLike<{ count: number | null; error: unknown }> | null {
   const db = createPublicReadClient();
-  const base = () => db.from('songs').select('id', { count: 'exact', head: true })
+  const base = () => forSite(db.from('songs').select('id', { count: 'exact', head: true }))
     .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
   if (modeId === 'kpop-legends') {
     const spec = V12_PLAYLISTS['kpop-legends']!;

@@ -1,0 +1,23 @@
+{
+ "title": "Most Played K-pop Quizzes Today",
+ "description": "The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated every 30 minutes from real plays. Free to play.",
+ "openGraph": {
+  "title": "Most Played K-pop Quizzes Today",
+  "description": "The quizzes fans are playing most in the last 24 hours",
+  "url": "/quizzes/popular-today",
+  "images": [
+   {
+    "url": "/api/og/page?title=Most%20Played%20K-pop%20Quizzes%20Today&subtitle=The%20quizzes%20fans%20are%20playing%20most%20in%20the%20last%2024%20hours&accent=%23e8457a",
+    "width": 1200,
+    "height": 630,
+    "alt": "Most Played K-pop Quizzes Today"
+   }
+  ]
+ },
+ "twitter": {
+  "card": "summary_large_image"
+ },
+ "alternates": {
+  "canonical": "/quizzes/popular-today"
+ }
+}

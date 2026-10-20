@@ -17,6 +17,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 export interface PublicStats {
   quizzes: number;
@@ -32,11 +33,11 @@ export interface PublicStats {
 export async function readPublicStats(): Promise<PublicStats> {
   const db = createPublicReadClient();
   const [quizzes, groupsListed, songs, plays, groupsWithQuizzes, songGroups] = await Promise.all([
-    db.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published'),
-    db.from('groups').select('id', { count: 'exact', head: true }),
+    forSite(db.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published'),
+    forSite(db.from('groups').select('id', { count: 'exact', head: true })),
     curatedOnly()
-      ? db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active').eq('is_curated', true)
-      : db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+      ? forSite(db.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active').eq('is_curated', true)
+      : forSite(db.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active'),
     db.from('plays').select('id', { count: 'exact', head: true }),
     // Distinct group ids from the rows themselves, paginated past the 1000-row cap (a few
     // thousand short rows, read at most once per cache window).
@@ -63,7 +64,7 @@ const curatedOnly = (): boolean => process.env.SONGS_IS_CURATED === 'true';
 async function distinctGroups(db: ReturnType<typeof createPublicReadClient>, table: 'quizzes' | 'songs', status: string): Promise<number> {
   const ids = new Set<number>();
   for (let from = 0; ; from += 1000) {
-    const base = db.from(table).select('group_id').eq('status', status).not('group_id', 'is', null);
+    const base = forSite(db.from(table).select('group_id')).eq('status', status).not('group_id', 'is', null);
     const q = table === 'songs' && curatedOnly() ? base.eq('is_curated', true) : base;
     const { data, error } = await q.order('id').range(from, from + 999);
     if (error) throw new Error(`[site-stats] ${table}: ${error.message}`);

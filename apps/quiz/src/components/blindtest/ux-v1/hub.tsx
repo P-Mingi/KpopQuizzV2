@@ -10,6 +10,8 @@ import { LANDING_COPY } from '@/lib/growth/bt-landing';
 import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
 import { isThemePage, themeCard, visibleThemes } from '@/lib/growth/bt-themes';
 import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, readBudgetMs, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
+import { GENRE, IS_KPOP } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -48,7 +50,7 @@ const BREADCRUMB_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://kpopquiz.org/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
     { '@type': 'ListItem', position: 2, name: 'Blind Test' },
   ],
 };
@@ -68,7 +70,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
     settle(db ? () => getSongCount() : () => none(0), 0, budget),
     settle(db ? () => getGroupPopularity() : () => none({ blindtest: {}, quiz: {} }), { blindtest: {}, quiz: {} }, budget),
     settle(db ? () => getTodayPlayers(utcDay()) : () => none(0), 0, budget),
-    v12 ? getThemeState() : null,
+    v12 && IS_KPOP ? getThemeState() : null,
   ]);
   const failed = [
     ...(playlists.ok ? [] : ['playlists']),
@@ -81,7 +83,8 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
   const popular = popularSix(groups, popularity.value);
   // The theme links: with V12 on a themed mode under 10 playable songs is hidden
   // (no dead door); every v11 mode keeps its link in both flag states.
-  const modes = themes ? STATIC_MODES.filter((m) => !isThemePage(m.id) || themes.playable.has(m.id)) : STATIC_MODES;
+  // The static and themed playlists are kpop's (STATIC_MODES, bt-themes): another site offers its own, none for now.
+  const modes = !IS_KPOP ? [] : themes ? STATIC_MODES.filter((m) => !isThemePage(m.id) || themes.playable.has(m.id)) : STATIC_MODES;
   const themeCards = themes
     ? visibleThemes(themes.playable).map((t) => themeCard(t, 'en', themes.counts, { num: BT_STRINGS_EN.num, songsCount: LANDING_COPY.en.songsCount }))
     : [];
@@ -127,12 +130,12 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
             {Array.from({ length: 10 }, (_, i) => <i key={i} />)}
           </div>
           <BtLiveCountLoader initial={today.value} />
-          <h1 id="p6-h1" className="p6-display">Name that<br /><span>K-pop song</span></h1>
+          <h1 id="p6-h1" className="p6-display">Name that<br /><span>{`${GENRE} ${SITE.vocabulary.song}`}</span></h1>
           <p className="p6-lead">10 songs. 10 seconds each. Guess the song or the artist from a clip.</p>
           <BtSetupLoader />
         </section>
 
-        {v12 ? <><BtHubPlaylists cards={themeCards} />{ways}<BtHubLiveBand /></> : ways}
+        {v12 ? <><BtHubPlaylists cards={themeCards} />{ways}{SITE.features.live ? <BtHubLiveBand /> : null}</> : ways}
 
         <section className="ux-sec p6-two">
           <div>
@@ -142,7 +145,7 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
           <div>
             <SectionHeader id="p6-how-h" title="How it works" icon="bulb" />
             <ol className="ux-rows p6-how">
-              <li className="p6-qrow"><span className="p6-n">1</span><div><p>Pick a playlist</p><p className="p6-qs">All K-pop, a group, or a generation.</p></div></li>
+              <li className="p6-qrow"><span className="p6-n">1</span><div><p>Pick a playlist</p><p className="p6-qs">{IS_KPOP ? 'All K-pop, a group, or a generation.' : `All ${GENRE} or one ${SITE.vocabulary.topic}.`}</p></div></li>
               <li className="p6-qrow"><span className="p6-n">2</span><div><p>Listen to a ten-second clip</p><p className="p6-qs">Usually the chorus.</p></div></li>
               <li className="p6-qrow"><span className="p6-n">3</span><div><p>Pick the song or the artist</p><p className="p6-qs">100 points for a right answer, up to 100 more for speed, and combos multiply your points.</p></div></li>
             </ol>
@@ -152,21 +155,25 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
         {groups.length > 0 ? (
           <section className="ux-sec p6-btg" aria-labelledby="p6-btg-h">
             <BtGroupIndexLoader popular={popular} />
-            <p className="p6-themes">
-              <b>Theme playlists</b>
-              {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
-            </p>
+            {modes.length > 0 ? (
+              <p className="p6-themes">
+                <b>Theme playlists</b>
+                {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+              </p>
+            ) : null}
           </section>
         ) : (
           // Min-gate: no group list (a DB blip on this render) = no empty index; the
           // theme playlists (a code constant) keep their links.
-          <p className="ux-sec p6-themes">
-            <b>Theme playlists</b>
-            {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
-          </p>
+          modes.length > 0 ? (
+            <p className="ux-sec p6-themes">
+              <b>Theme playlists</b>
+              {modes.map((m) => <Link key={m.id} href={`/blindtest/${m.id}`}>{m.title}</Link>)}
+            </p>
+          ) : null
         )}
 
-        {v12 ? <>{faqSection}<BtHubLangRow /></> : faqSection}
+        {v12 ? <>{faqSection}{SITE.features.localizedLandings ? <BtHubLangRow /> : null}</> : faqSection}
       </BtHubControllerLoader>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(webAppJsonLd) }} />

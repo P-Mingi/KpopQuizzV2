@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { teaserText } from '@/lib/db/queries/quizzes';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -27,27 +28,27 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const pattern = `%${query}%`;
 
     // First search quizzes by title
-    const { data: byTitle } = await supabase
+    const { data: byTitle } = await forSite(supabase
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT))
       .eq('status', 'published')
       .ilike('title', pattern)
       .order('play_count', { ascending: false })
       .limit(50);
 
     // Also search by group name to find quizzes in matching groups
-    const { data: matchingGroups } = await supabase
+    const { data: matchingGroups } = await forSite(supabase
       .from('groups')
-      .select('id')
+      .select('id'))
       .ilike('name', pattern)
       .limit(10);
 
     let byGroup: typeof byTitle = [];
     if (matchingGroups && matchingGroups.length > 0) {
       const groupIds = matchingGroups.map((g) => g.id);
-      const { data } = await supabase
+      const { data } = await forSite(supabase
         .from('quizzes')
-        .select(QUIZ_CARD_SELECT)
+        .select(QUIZ_CARD_SELECT))
         .eq('status', 'published')
         .in('group_id', groupIds)
         .order('play_count', { ascending: false })

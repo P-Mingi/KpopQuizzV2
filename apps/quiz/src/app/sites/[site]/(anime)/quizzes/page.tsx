@@ -10,6 +10,7 @@ import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/c
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE } from '@/lib/site/registry';
 import { quizzesFaqs } from '@/app/(site)/quizzes/faq';
 import { quizzesIndexRule, quizzesLastPage, quizzesNeedsLastPage, readQuizzesUrl } from '@/app/(site)/quizzes/index-rule';
 
@@ -291,7 +292,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
               itemListElement: pageQuizzes.map((q, i) => ({
                 '@type': 'ListItem',
                 position: i + 1,
-                url: `https://kpopquiz.org/q/${q.slug}`,
+                url: `${SITE.url}/q/${q.slug}`,
                 name: q.title,
               })),
             }),

@@ -1,0 +1,46 @@
+{
+ "ld": {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "Are the K-pop quizzes free?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or create your own."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How many K-pop quizzes are there?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "There are 120+ free K-pop quizzes across 12 groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Which K-pop groups can I take a quiz on?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Popular hubs include the BTS quiz, BLACKPINK quiz and Stray Kids quiz, plus 12 groups in all. Browse by group above or open a group hub."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I make my own K-pop quiz?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Anyone can create a K-pop quiz for free in a few minutes and share it with other fans."
+    }
+   }
+  ]
+ },
+ "html": [
+  "<div>Yes. Every K-pop quiz on KpopQuiz is free to play with no account needed. Sign in only to save scores, climb the leaderboard, or <a href=\"/create\">create your own</a>.</div>",
+  "<div>There are 120+ free K-pop quizzes across 12 groups, from BTS and BLACKPINK to Stray Kids, aespa and NewJeans, with new fan-made quizzes added regularly.</div>",
+  "<div>Popular hubs include the <a href=\"/bts-quiz\">BTS quiz</a>, <a href=\"/blackpink-quiz\">BLACKPINK quiz</a> and <a href=\"/stray-kids-quiz\">Stray Kids quiz</a>, plus 12 groups in all. Browse by group above.</div>",
+  "<div>Yes. Anyone can <a href=\"/create\">create a K-pop quiz</a> for free in a few minutes and share it with other fans.</div>"
+ ]
+}

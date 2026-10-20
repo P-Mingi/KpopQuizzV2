@@ -21,6 +21,7 @@ import { QuizCard } from '@/components/ui/quiz-card';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
@@ -39,7 +40,7 @@ function homeCopy(quizzes: string | null): { title: string; social: string; desc
   return {
     title: `anime Quiz - ${n}Free Fan-Made Quizzes for Every Series`,
     social: `anime Quiz - ${n}Free Fan-Made Quizzes | OtakuQuiz`,
-    description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of BTS, BLACKPINK, Stray Kids, aespa, NewJeans, ILLIT and every anime series. No sign-up.`,
+    description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of every anime series. No sign-up.`,
   };
 }
 
@@ -248,7 +249,7 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
           itemListElement: quizzes.map((q, i) => ({
             '@type': 'ListItem',
             position: i + 1,
-            url: `https://kpopquiz.org/q/${q.slug}`,
+            url: `${SITE.url}/q/${q.slug}`,
             name: q.title,
           })),
         }),
@@ -264,16 +265,16 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
 const WEBSITE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'OtakuQuiz',
+  name: SITE.brand.name,
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
-  alternateName: 'kpopquiz.org',
-  url: 'https://kpopquiz.org',
+  alternateName: SITE.seo.organization.alternateName,
+  url: SITE.url,
   description: 'anime quizzes made by fans, played by thousands.',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://kpopquiz.org/search?q={search_term_string}',
+      urlTemplate: `${SITE.url}/search?q={search_term_string}`,
     },
     'query-input': 'required name=search_term_string',
   },

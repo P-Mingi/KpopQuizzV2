@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 
 import { categorizeFact } from './categorize';
 import { normalizeFactKey } from './fact-key';
@@ -79,9 +80,9 @@ export const getOverriddenFacts = cache(
       // Public trivia source - cookie-free so /trivia + /[group]-trivia stay ISR-cacheable.
       const supabase = createPublicReadClient();
 
-      const { data: quizzes, error } = await supabase
+      const { data: quizzes, error } = await forSite(supabase
         .from('quizzes')
-        .select('title, slug, questions')
+        .select('title, slug, questions'))
         .eq('group_id', groupId)
         .eq('status', 'published')
         .order('play_count', { ascending: false })

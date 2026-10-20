@@ -24,6 +24,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { groupInitials, pickedOnLabel } from '@/lib/ux-v1/p1/format';
+import { forSite, siteScoped } from '@/lib/site/scope';
 
 import {
   CREATORS_BOARD, MIN_BOARD, PLAYERS_BOARD, WAR_BOARD, avatarOf, fandomLabel, levelLine, quizzesLabel, realFandomName,
@@ -77,7 +78,7 @@ export interface GroupFacts {
 
 async function readGroupFacts(): Promise<GroupFacts[]> {
   const db = createPublicReadClient();
-  const res = must(await db.from('groups').select('slug, name, fandom_name, generation'), 'groups');
+  const res = must(await forSite(db.from('groups').select('slug, name, fandom_name, generation')), 'groups');
   return (res.data ?? []) as GroupFacts[];
 }
 
@@ -128,8 +129,10 @@ export interface WarRpcRow {
 const NON_FANDOM_SLUGS = new Set(['general-kpop']);
 
 /** The live war map's mapping (lib/db/queries/community.ts fetchFandomWarMap), from RPC rows. Pure. */
-export function warMapFromRpc(rows: readonly WarRpcRow[], limit: number, facts: ReadonlyMap<string, GroupFacts>): WarMapEntry[] {
+export function warMapFromRpc(rows: readonly WarRpcRow[], limit: number, facts: ReadonlyMap<string, GroupFacts>, scoped: boolean = siteScoped()): WarMapEntry[] {
   return rows
+    // The RPC ranks the groups of every site; with the scope on, a group the site's own facts do not know is another site's.
+    .filter((r) => !scoped || facts.has(r.slug))
     .filter((r) => !NON_FANDOM_SLUGS.has(r.slug))
     .slice(0, limit)
     .map((r) => {
@@ -416,7 +419,7 @@ async function readFeedsUncached(): Promise<Pick<AroundData, 'happening' | 'comm
  *  the feeds read never throws, the score lines are then left out. */
 async function readQuizTypes(slugs: string[]): Promise<Map<string, QuizType> | null> {
   try {
-    const { data, error } = await createPublicReadClient().from('quizzes').select('slug, quiz_type').in('slug', [...new Set(slugs)]);
+    const { data, error } = await forSite(createPublicReadClient().from('quizzes').select('slug, quiz_type')).in('slug', [...new Set(slugs)]);
     if (error) return null;
     return new Map(((data ?? []) as Array<{ slug: string; quiz_type: QuizType }>).map((q) => [q.slug, q.quiz_type]));
   } catch {

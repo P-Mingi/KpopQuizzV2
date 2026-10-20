@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 
 import { UxButton } from '@/components/ux-v1/button';
+import { GENRE, titleCase } from '@/lib/site/genre';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { greetingFor } from '@/lib/ux-v1/p1/format';
@@ -36,7 +37,7 @@ export function HomeHeader(): React.ReactElement {
     return (
       <header className="p1-hhead" data-auth="in">
         <h1 tabIndex={-1}>
-          <span className="p1-eyb">K-pop Quiz</span>
+          <span className="p1-eyb">{`${titleCase(GENRE)} Quiz`}</span>
           {signedIn.name ? <>{signedIn.greeting}, <em>{signedIn.name}</em></> : signedIn.greeting}
         </h1>
         <p className="p1-hsub">{signedIn.line}</p>
@@ -47,12 +48,12 @@ export function HomeHeader(): React.ReactElement {
   return (
     <header className="p1-hhead" data-auth="out">
       <h1 tabIndex={-1}>
-        <span className="p1-eyb">K-pop Quiz</span>
+        <span className="p1-eyb">{`${titleCase(GENRE)} Quiz`}</span>
         Are you a <em>real fan?</em>
       </h1>
-      <h2 className="p1-hsub">Prove it. Play K-pop quizzes and see where you rank.</h2>
+      <h2 className="p1-hsub">{`Prove it. Play ${GENRE} quizzes and see where you rank.`}</h2>
       <div className="p1-hcta">
-        <UxButton href="/quizzes" icon="play" aria-label="Browse K-pop quizzes">Browse K-pop quizzes</UxButton>
+        <UxButton href="/quizzes" icon="play" aria-label={`Browse ${GENRE} quizzes`}>{`Browse ${GENRE} quizzes`}</UxButton>
         <UxButton href="/create" variant="ghost" icon="plus" aria-label="Create a quiz">Create a quiz</UxButton>
       </div>
     </header>

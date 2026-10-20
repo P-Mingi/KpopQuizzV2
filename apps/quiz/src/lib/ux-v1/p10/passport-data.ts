@@ -8,6 +8,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getGroupWarRank } from '@/lib/db/queries/group-hub';
 
 import { averagePct } from './passport-model';
+import { forSite } from '@/lib/site/scope';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { HistoryRow } from './passport-model';
@@ -16,7 +17,7 @@ import type { HistoryRow } from './passport-model';
 export async function readFandomName(db: SupabaseClient, slug: string | null | undefined): Promise<string | null> {
   if (!slug) return null;
   try {
-    const { data } = await db.from('groups').select('fandom_name').eq('slug', slug).maybeSingle();
+    const { data } = await forSite(db.from('groups').select('fandom_name')).eq('slug', slug).maybeSingle();
     const n = (data as { fandom_name: string | null } | null)?.fandom_name;
     return n && n.trim() ? n.trim() : null;
   } catch {
@@ -60,7 +61,7 @@ export async function readHistory(db: SupabaseClient, userId: string, limit = 20
     const ids = [...new Set(plays.map((p) => p.quiz_id))];
     const quizzes = new Map<string, { title: string; slug: string; group_id: number | null }>();
     if (ids.length) {
-      const { data } = await db.from('quizzes').select('id, title, slug, group_id, status').in('id', ids);
+      const { data } = await forSite(db.from('quizzes').select('id, title, slug, group_id, status')).in('id', ids);
       for (const q of (data ?? []) as Array<{ id: string; title: string; slug: string; group_id: number | null; status: string }>) {
         if (q.status === 'published') quizzes.set(q.id, { title: q.title, slug: q.slug, group_id: q.group_id });
       }
@@ -68,7 +69,7 @@ export async function readHistory(db: SupabaseClient, userId: string, limit = 20
     const gids = [...new Set([...quizzes.values()].map((q) => q.group_id).filter((g): g is number => g !== null))];
     const groupSlug = new Map<number, string>();
     if (gids.length) {
-      const { data } = await db.from('groups').select('id, slug').in('id', gids);
+      const { data } = await forSite(db.from('groups').select('id, slug')).in('id', gids);
       for (const g of (data ?? []) as Array<{ id: number; slug: string }>) groupSlug.set(g.id, g.slug);
     }
 

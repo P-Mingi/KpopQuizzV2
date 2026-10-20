@@ -27,6 +27,7 @@ import { LIVE_HUB_ORDER } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
 import { isUxV12 } from '@/lib/ux-v12';
+import { forSite } from '@/lib/site/scope';
 
 /** A read that failed must THROW inside unstable_cache: a thrown read is not
  *  cached (the caller's safeFetch hides the section for this render only and the
@@ -59,7 +60,7 @@ export interface HomeQotd {
 async function readQotdExtras(id: string): Promise<{ featuredDate: string | null; seconds: number | null }> {
   const db = createPublicReadClient();
   const [dateRes, statsRes] = await Promise.all([
-    db.from('quizzes').select('quiz_of_the_day_date').eq('id', id).maybeSingle(),
+    forSite(db.from('quizzes').select('quiz_of_the_day_date')).eq('id', id).maybeSingle(),
     db.from('quiz_time_stats').select('attempt_count, avg_time_seconds, total_questions').eq('quiz_id', id).limit(200),
   ]);
   const featuredDate = (must(dateRes, 'qotd date').data as { quiz_of_the_day_date: string | null } | null)?.quiz_of_the_day_date ?? null;
@@ -86,11 +87,11 @@ const REPLAY_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
  */
 async function readQotdPick(today: string): Promise<QotdSource | null> {
   const db = createPublicReadClient();
-  const todayRes = must(await db.from('quizzes').select(QOTD_COLS).eq('status', 'published')
+  const todayRes = must(await forSite(db.from('quizzes').select(QOTD_COLS)).eq('status', 'published')
     .eq('is_quiz_of_the_day', true).eq('quiz_of_the_day_date', today).limit(2), 'qotd today');
   const picked = (todayRes.data ?? []) as QotdSource[];
   if (picked.length === 1) return picked[0]!;
-  const poolRes = must(await db.from('quizzes').select(QOTD_COLS).eq('status', 'published')
+  const poolRes = must(await forSite(db.from('quizzes').select(QOTD_COLS)).eq('status', 'published')
     .not('quiz_of_the_day_date', 'is', null).order('quiz_of_the_day_date', { ascending: true }), 'qotd pool');
   const pool = (poolRes.data ?? []) as QotdSource[];
   if (pool.length === 0) return null;
@@ -152,9 +153,9 @@ async function readGroups(): Promise<HomeGroups> {
   const db = createPublicReadClient();
   const [rows, groupsRes] = await Promise.all([
     fetchAllRows<{ group_id: number | null; created_at: string }>(
-      () => db.from('quizzes').select('group_id, created_at').eq('status', 'published').order('id'),
+      () => forSite(db.from('quizzes').select('group_id, created_at')).eq('status', 'published').order('id'),
     ),
-    db.from('groups').select('id, slug, name'),
+    forSite(db.from('groups').select('id, slug, name')),
   ]);
   must(groupsRes, 'groups');
   // General K-pop is a category, not a group: out of the rail and of the count (owner, 2026-10-06).
@@ -312,7 +313,7 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
   const { data: opted } = must(await db.from('verse_spaces').select('group_id').eq('feed_opt_in', true).limit(500), 'verse_spaces');
   const optedIds = [...new Set(((opted ?? []) as { group_id: number }[]).map((r) => r.group_id))];
   const { data: optedGroups } = optedIds.length > 0
-    ? must(await db.from('groups').select('id, slug, name').in('id', optedIds), 'groups')
+    ? must(await forSite(db.from('groups').select('id, slug, name')).in('id', optedIds), 'groups')
     : { data: [] };
   const published = ((optedGroups ?? []) as { id: number; slug: string; name: string }[]).filter((g) => !spaceUnpublished(g.slug));
   const groupIds = published.map((g) => g.id);
@@ -320,9 +321,9 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
     // V12 F5b: editorial authors get the Team badge. Empty (no read) with the flag off.
     const team = await getTeamIds();
     const [threadRes, essayRes] = await Promise.all([
-      db.from('verse_threads').select('id, group_id, slug, title, created_at').in('group_id', groupIds).eq('status', 'visible')
+      forSite(db.from('verse_threads').select('id, group_id, slug, title, created_at')).in('group_id', groupIds).eq('status', 'visible')
         .order('created_at', { ascending: false }).limit(1).maybeSingle(),
-      db.from('verse_essays').select('id, group_id, featured_at').in('group_id', groupIds).eq('status', 'featured')
+      forSite(db.from('verse_essays').select('id, group_id, featured_at')).in('group_id', groupIds).eq('status', 'featured')
         .order('featured_at', { ascending: false, nullsFirst: false }).limit(1).maybeSingle(),
     ]);
     const thread = must(threadRes, 'verse_threads').data;

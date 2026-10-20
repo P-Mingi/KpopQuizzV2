@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { forSite } from '@/lib/site/scope';
 
 import type { Group } from '@/lib/db/types';
 
@@ -31,9 +32,9 @@ async function fetchDirectoryGroups(): Promise<DirectoryGroup[]> {
     // A built PostgREST query can only be awaited once, so this must be a factory
     // that returns a FRESH query per page.
     fetchAllRows<{ group_id: number }>(
-      () => db.from('quizzes').select('group_id').eq('status', 'published'),
+      () => forSite(db.from('quizzes').select('group_id')).eq('status', 'published'),
     ),
-    db.from('groups').select('*'),
+    forSite(db.from('groups').select('*')),
   ]);
 
   const counts = new Map<number, number>();

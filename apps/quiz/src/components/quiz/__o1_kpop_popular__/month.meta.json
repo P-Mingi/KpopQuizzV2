@@ -1,0 +1,23 @@
+{
+ "title": "Most Played K-pop Quizzes This Month",
+ "description": "The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderboard of what fans are into. Free to play.",
+ "openGraph": {
+  "title": "Most Played K-pop Quizzes This Month",
+  "description": "The most played K-pop quizzes of the last 30 days",
+  "url": "/quizzes/popular-this-month",
+  "images": [
+   {
+    "url": "/api/og/page?title=Most%20Played%20K-pop%20Quizzes%20This%20Month&subtitle=The%20most%20played%20K-pop%20quizzes%20of%20the%20last%2030%20days&accent=%23e8457a",
+    "width": 1200,
+    "height": 630,
+    "alt": "Most Played K-pop Quizzes This Month"
+   }
+  ]
+ },
+ "twitter": {
+  "card": "summary_large_image"
+ },
+ "alternates": {
+  "canonical": "/quizzes/popular-this-month"
+ }
+}

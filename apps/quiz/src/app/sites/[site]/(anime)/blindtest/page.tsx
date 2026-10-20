@@ -12,6 +12,7 @@ import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { safeFetch } from '@/lib/error-handling';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { UX_V1 } from '@/lib/ux-v1';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
@@ -19,7 +20,7 @@ import type { Metadata } from 'next';
 // numbers as the rest of the site; it said "300+ songs across 60+ groups" for about 4,200
 // songs across 84 groups. Without the counts, the sentences say no number at all.
 function catalogLine(stats: PublicStats | null): string {
-  return stats ? `${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series` : 'Songs from every anime generation';
+  return stats ? `${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series` : 'Songs from every series';
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,20 +29,19 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
   title: 'anime Blind Test - Guess the Song from a Clip',
   description:
-    `Play the free anime blind test: hear a 10-second clip and guess the song. ${line}, from every generation. No sign-up.`,
+    `Play the free anime blind test: hear a 10-second clip and guess the song. ${line}. No sign-up.`,
   alternates: {
     canonical: '/blindtest',
     languages: {
       en: '/blindtest',
-      'pt-BR': '/pt/blindtest',
       'x-default': '/blindtest',
     },
   },
   openGraph: {
     title: 'anime Blind Test - Guess the Song from a Clip',
-    description: `Listen to a 10-second clip and guess the anime song. ${line}, every generation.`,
+    description: `Listen to a 10-second clip and guess the anime song. ${line}.`,
     url: '/blindtest',
-    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(`Guess the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'anime Blind Test on OtakuQuiz' }],
+    images: [{ url: `/api/og/page?title=Anime+Blind+Test&subtitle=${encodeURIComponent(`Guess the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'anime Blind Test on OtakuQuiz' }],
   },
   };
 }
@@ -76,18 +76,18 @@ function FaqItem({ q, a }: { q: string; a: string }): React.ReactElement {
 function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
   return [
   {
-    q: 'What is a anime blind test?',
-    a: 'A blind test plays a short audio clip from a anime song and you have to guess which song or artist it is. You only hear the music, no visuals or lyrics on screen. It is the best way to test how well you really know anime.',
+    q: 'What is an anime blind test?',
+    a: 'A blind test plays a short audio clip from an anime song and you have to guess which song or series it is. You only hear the music, no visuals or lyrics on screen. It is the best way to test how well you really know anime.',
   },
   {
     q: 'How many songs are available?',
     a: stats
-      ? `The catalog has ${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series spanning every generation of anime, from 1st gen legends to the newest debuts. New songs are added regularly.`
-      : 'The catalog spans every generation of anime, from 1st gen legends to the newest debuts. New songs are added regularly.',
+      ? `The catalog has ${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} series. New songs are added regularly.`
+      : 'The catalog covers many series. New songs are added regularly.',
   },
   {
     q: 'Can I play for just one series?',
-    a: 'Yes. Any series with enough songs in the catalog gets its own playlist. Select "By series" on the setup screen and pick your favorite. BTS, BLACKPINK, Stray Kids, TWICE, aespa, NewJeans, and many more are available.',
+    a: 'Yes. Any series with enough songs in the catalog gets its own playlist. Select "By series" on the setup screen and pick your favorite.',
   },
   {
     q: 'How does a round work?',
@@ -96,10 +96,6 @@ function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
   {
     q: 'Is the blind test free?',
     a: 'Yes, completely free. No account required, no play limits. Just pick your playlist and start guessing.',
-  },
-  {
-    q: 'What generations are covered?',
-    a: 'All of them. Filter by 1st gen (H.O.T., S.E.S.), 2nd gen (SNSD, SHINee, BIGBANG), 3rd gen (BTS, EXO, BLACKPINK, TWICE), 4th gen (Stray Kids, aespa, IVE, NewJeans), or 5th gen (the newest debuts).',
   },
   {
     q: 'Can I play on mobile?',
@@ -122,11 +118,11 @@ const webAppJsonLdOf = (stats: PublicStats | null): Record<string, unknown> => (
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'anime Blind Test',
-  url: 'https://kpopquiz.org/blindtest',
+  url: `${SITE.url}/blindtest`,
   applicationCategory: 'GameApplication',
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  description: `Free anime blind test${stats ? ` with ${catalogLine(stats)}` : ''}. Listen to a 10-second clip and guess the song or artist. Pick All anime, a generation, or a specific series.`,
+  description: `Free anime blind test${stats ? ` with ${catalogLine(stats)}` : ''}. Listen to a 10-second clip and guess the song or artist. Pick All anime or a specific series.`,
 });
 
 export default async function BlindtestPage(): Promise<React.ReactElement> {
@@ -178,10 +174,6 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
             </>
           ) : null}
           <div className="bt-hub-stat">
-            <span className="bt-hub-stat-n">5</span>
-            <span className="bt-hub-stat-l">generations</span>
-          </div>
-          <div className="bt-hub-stat">
             <span className="bt-hub-stat-n">10s</span>
             <span className="bt-hub-stat-l">per clip</span>
           </div>
@@ -194,7 +186,7 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
             <div className="bt-hub-step">
               <div className="bt-hub-step-n">1</div>
               <p className="bt-hub-step-t">Pick a playlist</p>
-              <p className="bt-hub-step-d">All anime, a generation, or a specific series</p>
+              <p className="bt-hub-step-d">All anime or a specific series</p>
             </div>
             <div className="bt-hub-step">
               <div className="bt-hub-step-n">2</div>

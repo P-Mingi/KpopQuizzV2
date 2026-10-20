@@ -3,6 +3,8 @@ import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
+import { IS_KPOP, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
 import { CommunityRows } from './community-rows';
@@ -10,6 +12,9 @@ import { GroupsRail } from './groups-rail';
 import { BlindtestBand, ContinuePlaying, HomeHeader } from './islands';
 import { QotdRow } from './qotd-row';
 import { BestRows, NewRows } from './quiz-rows';
+
+// The index of the site's topics: the groups of kpop, the series of anime (the registry vocabulary names them).
+const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
 
 /**
  * UX v11.2 home (P1), rendered by app/(site)/page.tsx when NEXT_PUBLIC_UX_V1 is on.
@@ -54,8 +59,8 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
           <SectionHeader
             id="p1-groups-h"
             icon="users"
-            title="Groups"
-            action={groups.visibleGroups > 0 ? { href: '/groups', label: `All ${groups.visibleGroups} groups` } : { href: '/groups', label: 'All groups' }}
+            title={titleCase(SITE.vocabulary.topicPlural)}
+            action={groups.visibleGroups > 0 ? { href: TOPICS_HREF, label: `All ${groups.visibleGroups} ${SITE.vocabulary.topicPlural}` } : { href: TOPICS_HREF, label: `All ${SITE.vocabulary.topicPlural}` }}
           />
           <GroupsRail groups={groups.groups} />
         </section>

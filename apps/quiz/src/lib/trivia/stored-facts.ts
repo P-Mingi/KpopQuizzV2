@@ -5,6 +5,7 @@
 import { cache } from 'react';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 import type { TriviaCategory, TriviaFact } from './types';
 
@@ -31,9 +32,9 @@ function mapRows(rows: { fact: string | null; category: string | null }[] | null
  */
 export const getStoredGroupTrivia = cache(async (groupId: number): Promise<TriviaFact[]> => {
   const supabase = createPublicReadClient();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('trivia')
-    .select('fact, category')
+    .select('fact, category'))
     .eq('group_id', groupId)
     .eq('status', 'published');
   if (error || !data) return [];
@@ -51,9 +52,9 @@ export const getStoredEntityTrivia = cache(async (
   entityId: number,
 ): Promise<TriviaFact[]> => {
   const supabase = createPublicReadClient();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('trivia')
-    .select('fact, category')
+    .select('fact, category'))
     .eq('group_id', groupId)
     .eq('entity_kind', entityKind)
     .eq('entity_id', String(entityId))

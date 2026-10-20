@@ -3,20 +3,25 @@ import Link from 'next/link';
 
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
-import { CONTACT_EMAIL, FOUNDER, SITE_URL } from '@/lib/seo/org';
+import { FOUNDER } from '@/lib/seo/org';
+import { SITE } from '@/lib/site/registry';
 
-import { CORRECTIONS } from '@/app/(site)/editorial-policy/corrections';
+import { CORRECTIONS } from './corrections';
+
+// The mailbox of the site (contact@ its own host), as the contact, terms and privacy pages print it.
+const CONTACT_EMAIL = `contact@${SITE.domain}`;
+const SITE_URL = SITE.url;
 
 import type { Metadata } from 'next';
 
 // /editorial-policy (SEO Mission 1, owner 2026-10-14; rulebook sections 5 and 12): who makes
-// what on kpopquiz.org, how it is moderated, which sources facts come from, how generations
+// what on this site, how it is moderated, which sources facts come from, how generations
 // are labelled, how AI is used, and a dated log of corrections (#corrections). Server
 // rendered, plain text, every link real. The corrections log is data (./corrections.ts).
 
 export const metadata: Metadata = {
   title: 'Editorial Policy and Corrections',
-  description: 'How otakuquiz.org makes and moderates anime quizzes, where facts come from, how generations are labelled, how AI is used, and a dated log of corrections.',
+  description: 'How otakuquiz.org makes and moderates anime quizzes, where facts come from, how AI is used, and a dated log of corrections.',
   alternates: { canonical: '/editorial-policy' },
   openGraph: {
     title: 'Editorial Policy and Corrections | OtakuQuiz',
@@ -50,7 +55,7 @@ export default function EditorialPolicyPage(): React.ReactElement {
       <p className="mt-3">
         
         otakuquiz.org publishes anime quizzes written by fans, and a few pages written by the site itself. This page says
-        who creates what, how quizzes are moderated, which sources our facts come from, how we label anime generations,
+        who creates what, how quizzes are moderated, which sources our facts come from,
         how we use AI, and how we correct mistakes. It is maintained by {FOUNDER.name}, the{' '}
         <Link href="/about" className={A}>founder</Link>.
       </p>
@@ -75,19 +80,8 @@ export default function EditorialPolicyPage(): React.ReactElement {
         
         A fact on an indexable page needs a source, and the source link sits next to the fact. The sources we rely on
         are official series and label sites and their verified accounts, Wikidata, MusicBrainz and Wikipedia, with
-        Circle Chart and Billboard for charts. News sites such as Soompi and allkpop are leads that we confirm elsewhere.
-        Fan databases such as kprofiles and Fandom wikis are not sources: we never copy or cite them. Key facts (characters,
-        debut date, label, fandom name) need two sources that agree; when they do not, we write a less precise sentence
-        that is true.
-      </p>
-
-      <h2 className={H2}>How do we label anime generations?</h2>
-      <p>
-        
-        A generation number is shown only when it is not disputed. When a named, reliable source describes a series as a
-        given generation, we say so and credit it, for example &quot;commonly described as 5th generation&quot; with the
-        source. When the label is debated, we say that it is debated, or call the series part of the newest wave. Every
-        page reads the same data, so the site does not contradict itself.
+        Fan wikis are not sources: we never copy or cite them. Key facts (characters, first release date, publisher, studio)
+        need two sources that agree; when they do not, we write a less precise sentence that is true.
       </p>
 
       <h2 className={H2}>How do we use AI?</h2>
@@ -100,8 +94,8 @@ export default function EditorialPolicyPage(): React.ReactElement {
       <h2 className={H2}>What do we never publish?</h2>
       <p>
         
-        Nothing about the private lives of artists: no dating, health, family or rumors. For characters who are minors, only
-        their stage name and role. No song lyrics. No invented play counts, reviews or players.
+        Nothing about the private lives of the people behind a series: no dating, health, family or rumors. No song lyrics.
+        No invented play counts, reviews or players.
       </p>
 
       <h2 className={H2}>Which images do we use?</h2>
@@ -116,6 +110,7 @@ export default function EditorialPolicyPage(): React.ReactElement {
         When we find or are told about a mistake, we fix it and log it here with the date. To report one, write to{' '}
         <a href={`mailto:${CONTACT_EMAIL}`} className={A}>{CONTACT_EMAIL}</a>.
       </p>
+      {CORRECTIONS.length === 0 ? <p className="mt-3">No correction has been logged yet.</p> : null}
       <ol className="mt-3 space-y-3">
         {CORRECTIONS.map((c) => (
           <li key={`${c.date}-${c.what}`}>

@@ -14,6 +14,7 @@ import { getPlayableGroups, getSongCount, hasDbEnv, settle, utcDay } from '@/lib
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { BT_THEMES } from './bt-themes';
+import { forSite } from '@/lib/site/scope';
 
 import type { LandingNumbers } from './bt-landing';
 import type { PlaylistSpec } from '@/lib/blind-test-curated';
@@ -32,7 +33,7 @@ async function readLegacyCount(id: string): Promise<number> {
   const spec = themeSpec(id);
   if (!spec) return 0;
   const db = createPublicReadClient();
-  let q = db.from('songs').select('id', { count: 'exact', head: true })
+  let q = forSite(db.from('songs').select('id', { count: 'exact', head: true }))
     .in('status', [...specStatuses(spec)])
     .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
   if (curatedOnly(spec)) q = q.eq('is_curated', true);
@@ -75,7 +76,7 @@ async function readThemeTracks(id: string, limit: number): Promise<ThemeTrack[]>
   const spec = themeSpec(id);
   if (!spec) return [];
   const db = createPublicReadClient();
-  let q = db.from('songs').select('title, artist_name, deezer_rank')
+  let q = forSite(db.from('songs').select('title, artist_name, deezer_rank'))
     .in('status', [...specStatuses(spec)])
     .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');
   if (curatedOnly(spec)) q = q.eq('is_curated', true);
