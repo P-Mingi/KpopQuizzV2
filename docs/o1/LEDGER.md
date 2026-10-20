@@ -349,3 +349,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 | 2026-10-20T22:49:30Z | K3 | d6fa1967fd8b | not needed | 0 SQL file(s) |
 | 2026-10-20T23:09:27Z | K3 | cf2f0afb6109 | not needed | 0 SQL file(s) |
 | 2026-10-20T23:35:41Z | K1 | 8a3312f0518f | not needed | 0 SQL file(s) |
+- D-079 Content for launch complete on o1-dev: 30 series, 150 quizzes (1449 questions), 100 daily rows (800 questions), 31 Team accounts. K3 b1 d6fa196, b2 cf2f0af (its agent committed with core.hooksPath overridden; merge-lane's guard checked the range as K3: ok). Cast fix 8a3312f: 54 cast-list facts rejected, 598 per-character facts, 11 Characters quizzes lowered (9 to arc 0). The loader maps rejected to hidden but never resets an existing trivia status: on o1-dev the 54 old rows stay draft (nothing published); a fresh launch load hides them. All facts are draft until the owner's review.
