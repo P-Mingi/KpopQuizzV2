@@ -18,6 +18,10 @@ build/
 # that lives under src/app/ (covers both and any future builder route).
 !apps/quiz/src/app/**/build/
 !apps/quiz/src/app/**/build/**
+# Same for route folders named out/ under the app dir: the passport click endpoint
+# (app/(site)/auth/passport/out/route.ts) is SOURCE, the `out/` rule above is for the static-export output.
+!apps/quiz/src/app/**/out/
+!apps/quiz/src/app/**/out/**
 
 # misc
 .DS_Store
