@@ -1,4 +1,4 @@
-// Run O1, lot (b), lane P1: the shared kpop components on the anime build. The sign-in sheet, the login body, the onboarding form
+// Run O1, lot (b), lane P1: the shared kpop components on the anime build. The world sign-in sheet, the login body, the onboarding form
 // and the settings render the words of the site (Google and the email link only, the network and privacy lines, OtakuQuiz),
 // with no K-pop word, no Discord, no dash. The kpop build keeps its own (o1-p1-kpop-tree.test.ts).
 import { createElement as h } from 'react';
@@ -20,13 +20,13 @@ async function onSite<T>(site: 'anime' | 'hub', load: () => Promise<T>): Promise
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
 const BANNED = /k-?pop|discord|kpopquiz|bunny|\bstans?\b/i;
-const DASHES = /[–—]/;
+const DASHES = /[\u2013\u2014]/;
 
 describe('the sign-in sheet on a world site', () => {
   for (const [site, brand] of [['anime', 'OtakuQuiz'], ['hub', 'FanQuiz']] as const) {
     it(`${site}: Google and the email link, the network line and the privacy line`, async () => {
-      const { SignInSheet } = await onSite(site, () => import('@/components/ux-v1/sign-in-sheet'));
-      const html = renderToStaticMarkup(h(SignInSheet, { open: true, request: {}, onClose: () => undefined, inline: true }));
+      const { WorldSignInSheet } = await onSite(site, () => import('./world-sign-in-sheet'));
+      const html = renderToStaticMarkup(h(WorldSignInSheet, { open: true, request: {}, onClose: () => undefined, inline: true }));
       expect(html).toContain(`Sign in to ${brand}`);
       expect(html).toContain('Continue with Google');
       expect(html).not.toContain('Continue with Discord');
@@ -39,8 +39,8 @@ describe('the sign-in sheet on a world site', () => {
   }
 
   it('a context title and sub from the caller still win', async () => {
-    const { SignInSheet } = await onSite('anime', () => import('@/components/ux-v1/sign-in-sheet'));
-    const html = renderToStaticMarkup(h(SignInSheet, { open: true, request: { title: 'Save your 7/8', sub: 'Keep it.' }, onClose: () => undefined, inline: true }));
+    const { WorldSignInSheet } = await onSite('anime', () => import('./world-sign-in-sheet'));
+    const html = renderToStaticMarkup(h(WorldSignInSheet, { open: true, request: { title: 'Save your 7/8', sub: 'Keep it.' }, onClose: () => undefined, inline: true }));
     expect(html).toContain('Save your 7/8');
     expect(html).toContain('Keep it.');
   });
@@ -74,8 +74,8 @@ describe('the onboarding form on anime', () => {
 
 describe('the settings on anime', () => {
   it('while it loads, nothing of kpop', async () => {
-    const [{ UxSettings }, { settingsWorld }] = await onSite('anime', () => Promise.all([import('@/components/profile/ux-v1/settings'), import('@/lib/passport-ui/settings-world')]));
-    const html = renderToStaticMarkup(h(UxSettings, { world: settingsWorld('anime')! }));
+    const [{ UxWorldSettings }, { settingsWorld }] = await onSite('anime', () => Promise.all([import('./world-settings'), import('@/lib/passport-ui/settings-world')]));
+    const html = renderToStaticMarkup(h(UxWorldSettings, { world: settingsWorld('anime')! }));
     expect(html).not.toMatch(BANNED);
   });
 });

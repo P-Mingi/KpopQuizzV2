@@ -5,10 +5,14 @@
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
 import { isValidTheme, PASSPORT_THEMES } from '@/lib/passport-themes';
 import { MASTERY } from '@/lib/passport';
-import { fmt } from '@/lib/passport-ui/fmt';
 
 import type { Rarity } from '@/lib/badges';
 import type { PassportWords } from '@/lib/passport-ui/words';
+
+/** The placeholder filler of a world site's words (same rule as lib/passport-ui/fmt, kept here so a kpop page loads no module the base did not). */
+function fmt(template: string, vars: Readonly<Record<string, string | number>>): string {
+  return template.replace(/\{([a-zA-Z0-9]+)\}/g, (whole, key: string) => (vars[key] === undefined ? whole : String(vars[key])));
+}
 
 // ---- theme ----------------------------------------------------------------
 

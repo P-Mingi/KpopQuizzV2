@@ -23,6 +23,9 @@ const SRC = fileURLToPath(new URL('..', import.meta.url));
 
 const flags = globalThis as { __v12?: boolean };
 vi.mock('@/lib/ux-v12', () => ({ isUxV12: () => flags.__v12 === true }));
+// The passport islands are next/dynamic loaders (profile/ux-v1/islands): outside Next they render nothing until their import
+// has resolved, which depends on the load of the machine. The base files were written with them unresolved, so they stay null.
+vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ refresh: () => undefined, push: () => undefined }),
   usePathname: () => '/me',

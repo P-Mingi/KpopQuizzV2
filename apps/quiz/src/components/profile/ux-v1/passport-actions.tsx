@@ -9,8 +9,6 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
-import { fmt } from '@/lib/passport-ui/fmt';
-
 import { useIsOwner } from './passport-band';
 
 import type { PassportWords } from '@/lib/passport-ui/words';
@@ -109,7 +107,7 @@ export function PassportActions({ username, displayName, owner, level, words }: 
         title={isOwner ? 'Share your passport' : `Share ${displayName}'s passport`}
         preview={{ image: `/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
         url={url}
-        text={words ? (isOwner ? words.shareOwn : fmt(words.shareOther, { name: displayName })) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
+        text={words ? (isOwner ? words.shareOwn : words.shareOther.replace('{name}', () => displayName)) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
         {...(isOwner && !words ? {
           onStoryImage: () => { window.open(`/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
           storyFile: async () => {

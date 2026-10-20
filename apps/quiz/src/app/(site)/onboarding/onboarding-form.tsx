@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { RESERVED_USERNAMES } from '@/lib/constants';
-import { readTabVia } from '@/lib/passport-ui/signin-client';
 
 import type { OnboardingWords } from '@/lib/passport-ui/words';
 
@@ -82,7 +81,7 @@ export function OnboardingForm({ words }: { words?: OnboardingWords | undefined 
       const res = await fetch('/api/auth/create-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username.trim(), ...(words ? { via: readTabVia() } : {}) }),
+        body: JSON.stringify({ username: username.trim(), ...(words ? { via: (await import('@/lib/passport-ui/signin-client')).readTabVia() } : {}) }),
       });
 
       if (!res.ok) {

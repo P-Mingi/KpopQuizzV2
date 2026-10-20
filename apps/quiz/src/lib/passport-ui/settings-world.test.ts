@@ -35,7 +35,7 @@ describe('settingsWorld', () => {
   it('says no K-pop word and no dash anywhere', () => {
     const text = JSON.stringify(settingsWorld('anime'));
     expect(text).not.toMatch(/k-?pop|idol|group|stan|bias|discord/i);
-    expect(text).not.toMatch(/[–—]/);
+    expect(text).not.toMatch(/[\u2013\u2014]/);
   });
 });
 

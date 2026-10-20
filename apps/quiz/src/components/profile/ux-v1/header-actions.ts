@@ -5,7 +5,8 @@
 // and save header_url; "use the theme colour" clears header_url through the
 // EXISTING /api/auth/update-profile (same payload shape as the legacy settings).
 
-import { SITE_ID } from '@/lib/site/registry';
+// Run O1 (lot b, P1): the site of the build is read from the build constant, not from the registry (a kpop page loads no module the base did not).
+const SITE_ID: string = process.env.NEXT_PUBLIC_SITE_ID || 'kpop';
 
 export type HeaderResult = { ok: true; url: string | null } | { ok: false; error: string };
 

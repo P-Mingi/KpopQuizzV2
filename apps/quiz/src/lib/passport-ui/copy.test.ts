@@ -34,7 +34,7 @@ describe('copy/anime/p1.ts', () => {
       expect(k).toMatch(/^[a-z][a-zA-Z0-9]*(\.[a-z][a-zA-Z0-9]*)+$/);
       expect(typeof v).toBe('string');
       expect(v).not.toMatch(/k-?pop/i);
-      expect(v).not.toMatch(/[–—]/);
+      expect(v).not.toMatch(/[\u2013\u2014]/);
       expect(v).not.toMatch(/\p{Extended_Pictographic}/u);
     }
   });
