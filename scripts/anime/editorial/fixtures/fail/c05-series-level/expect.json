@@ -1,0 +1,5 @@
+{
+  "target": "data/series/death-note.json",
+  "fails": ["C5"],
+  "note": "a spoiler level beyond the last arc"
+}

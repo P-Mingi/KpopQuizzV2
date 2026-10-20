@@ -1,0 +1,5 @@
+{
+  "target": "data/quizzes/death-note/death-note-basics-who-made-it.json",
+  "fails": ["C1","C11"],
+  "note": "an en dash (also refused by the schema)"
+}

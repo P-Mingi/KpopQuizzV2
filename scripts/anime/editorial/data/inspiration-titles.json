@@ -1,0 +1,4 @@
+{
+  "$comment": "Titles of quizzes elsewhere that inspired ours (check C13 fails a title close to one of them). The contract does not say where the list lives: this file is the default of check.mjs, packet.mjs --inspiration and check.mjs --inspiration read another. Empty until the owner lists titles: C13 then warns that it compared with nothing.",
+  "titles": []
+}

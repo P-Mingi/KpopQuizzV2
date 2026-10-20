@@ -1,0 +1,5 @@
+{
+  "target": "data/quizzes/death-note/death-note-basics-who-made-it.json",
+  "fails": ["C1","C14"],
+  "note": "an image field (also refused by the schema)"
+}
