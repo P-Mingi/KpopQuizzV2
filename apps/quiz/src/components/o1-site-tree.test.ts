@@ -99,7 +99,7 @@ beforeAll(async () => {
   const found = await clientRefsOf(entries);
   expect(found.unloaded).toEqual([]);
   refs = found.refs;
-  for (const [fn, name] of Object.entries(SLOTS)) refs.set(fn, name);
+  for (const [name, fn] of Object.entries(SLOTS)) refs.set(fn, name);
 });
 
 afterAll(() => {
