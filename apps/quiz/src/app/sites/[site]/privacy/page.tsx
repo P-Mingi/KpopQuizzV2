@@ -7,10 +7,13 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
-  description: 'KpopQuiz privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.',
+  description: `${SITE.brand.name} privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.`,
   robots: { index: true, follow: true },
   alternates: { canonical: '/privacy' },
 };
+
+// The mailbox of the site (contact@ its own host), as the contact and terms pages print it.
+const CONTACT = `contact@${SITE.domain}`;
 
 export default function PrivacyPage(): React.ReactElement {
   return (
@@ -19,7 +22,7 @@ export default function PrivacyPage(): React.ReactElement {
       <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
-        KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
+        {SITE.brand.name} ({SITE.domain}) respects your privacy. This policy explains what data we collect, how we
         use it, and your rights.
       </p>
 
@@ -39,7 +42,7 @@ export default function PrivacyPage(): React.ReactElement {
         We do not receive or store your Google or Discord password.
       </p>
       <p className="text-sm text-secondary leading-relaxed mt-3">
-        When you use KpopQuiz, we also collect:
+        When you use {SITE.brand.name}, we also collect:
       </p>
       <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
         <li>Quizzes you create (questions, answers, settings)</li>
@@ -63,7 +66,7 @@ export default function PrivacyPage(): React.ReactElement {
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">3. Cookies and local storage</h2>
-      <p className="text-sm text-secondary leading-relaxed">KpopQuiz uses:</p>
+      <p className="text-sm text-secondary leading-relaxed">{SITE.brand.name} uses:</p>
       <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
         <li>Authentication cookies (managed by Supabase) to keep you signed in</li>
         <li>No tracking cookies</li>
@@ -108,15 +111,15 @@ export default function PrivacyPage(): React.ReactElement {
       <p className="text-sm text-secondary leading-relaxed">
         Your data is retained as long as your account is active. If you want to delete your account and all
         associated data, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
+          {CONTACT}
         </a>{' '}
         and we will process your request within 30 days.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">7. Children&apos;s privacy</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        KpopQuiz is not directed at children under 13. If you are under 13, please do not create an
+        {SITE.brand.name} is not directed at children under 13. If you are under 13, please do not create an
         account. If we learn that we have collected data from a child under 13, we will delete it promptly.
       </p>
 
@@ -132,8 +135,8 @@ export default function PrivacyPage(): React.ReactElement {
       </ul>
       <p className="text-sm text-secondary leading-relaxed mt-3">
         To exercise these rights, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
+          {CONTACT}
         </a>
         .
       </p>
@@ -154,8 +157,8 @@ export default function PrivacyPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">11. Contact</h2>
       <p className="text-sm text-secondary leading-relaxed">
         For privacy-related questions or data requests, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
+          {CONTACT}
         </a>
         .
       </p>

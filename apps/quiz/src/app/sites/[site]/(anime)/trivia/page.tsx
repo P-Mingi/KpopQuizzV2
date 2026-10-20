@@ -7,6 +7,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'anime Trivia and Fun Facts | OtakuQuiz',
     description: 'Surprising anime facts by series that even hardcore fans might not know.',
-    url: 'https://kpopquiz.org/trivia',
+    url: `${SITE.url}/trivia`,
     siteName: 'OtakuQuiz',
     type: 'website',
     images: [DEFAULT_OG_IMAGE],
@@ -94,14 +95,14 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
             '@type': 'CollectionPage',
             name: 'anime Trivia and Fun Facts',
             description: 'anime trivia and fun facts by series on OtakuQuiz.',
-            url: 'https://kpopquiz.org/trivia',
+            url: `${SITE.url}/trivia`,
             mainEntity: {
               '@type': 'ItemList',
               numberOfItems: eligible.length,
               itemListElement: eligible.map(({ group }, i) => ({
                 '@type': 'ListItem',
                 position: i + 1,
-                url: `https://kpopquiz.org/${group.slug}-trivia`,
+                url: `${SITE.url}/${group.slug}-trivia`,
                 name: `${group.name} Trivia`,
               })),
             },

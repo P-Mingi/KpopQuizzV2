@@ -14,8 +14,7 @@ import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
 import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
 import { SiteFooter } from '@/components/layout/site-footer';
-import { organizationJsonLd } from '@/lib/seo/org';
-import { siteNavigationJsonLd } from '@/lib/site/jsonld';
+import { organizationJsonLdFor, siteNavigationJsonLd } from '@/lib/site/jsonld';
 import { UX_V1 } from '@/lib/ux-v1';
 // The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
 // flag-off pages never download it; only a tiny loader sits in this layout's bundle.
@@ -57,9 +56,9 @@ export default async function SiteLayout({ children, params }: { children: React
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          // Owner, 2026-10-14 (SEO Mission 1): alternateName, contact, the named founder, and
-          // sameAs only to the profiles the owner confirmed are live (lib/seo/org.ts).
-          __html: jsonLdString(organizationJsonLd()),
+          // The Organization of this site: its registry name, host and logo (lib/site/jsonld.ts). The founder and the
+          // sameAs profiles of lib/seo/org.ts are kpopquiz.org's and stay on the kpop layout.
+          __html: jsonLdString(organizationJsonLdFor()),
         }}
       />
       <script

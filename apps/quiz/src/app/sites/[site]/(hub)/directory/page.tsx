@@ -9,24 +9,26 @@ import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
 
 export const revalidate = 3600;
 
-// The root layout already appends " | KpopQuiz", so the suffix must NOT be repeated
+// The layout of the site appends its own name to the title, so the suffix must NOT be repeated
 // here (it renders doubled otherwise, and check:metadata-dupes catches it).
+// Run O1: the hub's own name and origin (registry), noindex and nofollow as routes.md says of /directory.
 export const metadata: Metadata = {
-  title: 'All K-pop Groups',
-  description:
-    'Every K-pop group with quizzes on KpopQuiz, listed A to Z with its generation. Browse the full list and jump straight to a group to play.',
-  alternates: { canonical: '/groups' },
+  title: 'All groups',
+  description: `Every group with quizzes on ${SITE.brand.name}, listed A to Z with its generation. Browse the full list and jump straight to a group to play.`,
+  alternates: { canonical: '/directory' },
+  robots: { index: false, follow: false },
   openGraph: {
-    title: 'All K-pop Groups | KpopQuiz',
-    description: 'Browse every K-pop group with quizzes, A to Z.',
-    url: 'https://kpopquiz.org/groups',
-    siteName: 'KpopQuiz',
+    title: `All groups | ${SITE.brand.name}`,
+    description: 'Browse every group with quizzes, A to Z.',
+    url: `${SITE.url}/directory`,
+    siteName: SITE.brand.name,
     type: 'website',
     images: [DEFAULT_OG_IMAGE],
   },
@@ -103,9 +105,9 @@ export default async function GroupsDirectoryPage(): Promise<React.ReactElement>
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'All groups' }]} />
 
       <header className="gdir-head">
-        <h1 className="gdir-title">All K-pop groups</h1>
+        <h1 className="gdir-title">All groups</h1>
         <p className="gdir-intro">
-          Every group with at least one quiz on KpopQuiz. {rows.length} groups, A to Z, each
+          Every group with at least one quiz on {SITE.brand.name}. {rows.length} groups, A to Z, each
           with its number of quizzes and its generation where we have one recorded.
         </p>
         {genCounts.length > 0 && (

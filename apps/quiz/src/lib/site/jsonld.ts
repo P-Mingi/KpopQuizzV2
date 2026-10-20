@@ -25,3 +25,21 @@ export function siteNavigationJsonLd(site: SiteConfig = SITE): Record<string, un
     })),
   };
 }
+
+/**
+ * The Organization of the chrome layout of an anime or hub site: its own name, host, logo and, once the owner names
+ * one, contact mailbox. No founder and no profile links: those are kpopquiz.org's (lib/seo/org.ts organizationJsonLd(),
+ * which the kpop layout keeps calling).
+ */
+export function organizationJsonLdFor(site: SiteConfig = SITE): Record<string, unknown> {
+  const org = site.seo.organization;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: org.name,
+    alternateName: org.alternateName,
+    url: site.url,
+    logo: `${site.url}${org.logo}`,
+    ...(org.email ? { email: org.email } : {}),
+  };
+}
