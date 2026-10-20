@@ -1,0 +1,204 @@
+{
+ "site": "anime",
+ "account": "oq_creator_29",
+ "group_slug": "sailor-moon",
+ "title": "From Nakayoshi to Cosmos: Sailor Moon Odds and Ends",
+ "slug": "from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends",
+ "description": "Nine mixed questions on chapter counts, the English titles, the arcs and seasons, the Crystal films and the songs of the last season.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "How many chapters did the manga have in magazine form before the book editions regrouped them?",
+   "options": [
+    "18",
+    "60",
+    "46",
+    "200"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-chapters-reorganized-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "How many chapters did the book editions of the manga regroup them into?",
+   "options": [
+    "18",
+    "52",
+    "39",
+    "60"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-chapters-reorganized-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "How was the title first rendered in English?",
+   "options": [
+    "Pretty Guardian Sailor Moon",
+    "Sailor Moon Crystal",
+    "Bishōjo Senshi Sērā Mūn",
+    "Pretty Soldier Sailor Moon"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-native-title-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Which year did the Crystal film Eternal come out?",
+   "options": [
+    "2021",
+    "2014",
+    "2016",
+    "2023"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "Which arc does the Crystal film Cosmos cover?",
+   "options": [
+    "Dark Kingdom",
+    "Black Moon",
+    "Stars",
+    "Infinity"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-films-012",
+    "sailor-moon-arc-season-split-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "Which season of the 1992 anime adapts the Infinity arc?",
+   "options": [
+    "Sailor Moon",
+    "Sailor Moon R",
+    "Sailor Moon SuperS",
+    "Sailor Moon S"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-arc-season-split-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "How many episodes does the Black Moon season of the 1992 anime have?",
+   "options": [
+    "43",
+    "34",
+    "38",
+    "46"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-arc-season-split-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Who performs Sailor Star Song, the opening of the last season of the 1992 anime?",
+   "options": [
+    "DALI",
+    "Kae Hanazawa",
+    "Moon Lips",
+    "Hiroko Moriguchi"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-themes-final-season-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Whose version of Moonlight Densetsu closes the finale of the 1992 anime?",
+   "options": [
+    "DALI",
+    "Kae Hanazawa",
+    "Moon Lips",
+    "Hiroko Moriguchi"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-themes-final-season-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Sailor Moon",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Sailor Moon Crystal",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ],
+ "notes": "Mixed quiz across the three works. Facts 001 and 005 are arc 0, 012 is arc 4, 009 and 014 are arc 5 (arc and season list, last season songs), so the quiz level is 5."
+}

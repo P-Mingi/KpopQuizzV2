@@ -1,0 +1,232 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "Directors, Studios and Theme Songs: One-Punch Man on Screen",
+ "slug": "directors-studios-and-theme-songs-one-punch-man-on-screen",
+ "description": "Ten questions on the studios, the three directors and the artists and titles of the opening and ending songs across the seasons. Names and titles only.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed season 1?",
+   "options": [
+    "Chikara Sakurai",
+    "Shingo Natsume",
+    "Shinpei Nagai",
+    "Yusuke Murata"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Who directed season 2?",
+   "options": [
+    "Shingo Natsume",
+    "Chikara Sakurai",
+    "Shinpei Nagai",
+    "Yusuke Murata"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "question": "Who directed season 3?",
+   "options": [
+    "Shingo Natsume",
+    "Chikara Sakurai",
+    "Yusuke Murata",
+    "Shinpei Nagai"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-three-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "question": "Which studio took over the series from season 2?",
+   "options": [
+    "J.C.Staff",
+    "Madhouse",
+    "Bones",
+    "MAPPA"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "question": "Which group performs the opening of season 1?",
+   "options": [
+    "Hiroko Moriguchi",
+    "Makoto Furukawa",
+    "JAM Project",
+    "Babymetal"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-season-one-012",
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Who performs the two ending songs of season 1?",
+   "options": [
+    "JAM Project",
+    "Makoto Furukawa",
+    "Babymetal",
+    "Hiroko Moriguchi"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-season-one-012",
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Who performs the endings of seasons 2 and 3?",
+   "options": [
+    "Makoto Furukawa",
+    "Hiroko Moriguchi",
+    "JAM Project",
+    "Babymetal"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-season-one-012",
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Which act joins JAM Project on the opening of season 3?",
+   "options": [
+    "Hiroko Moriguchi",
+    "Babymetal",
+    "Makoto Furukawa",
+    "Shugo Nakamura"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which season 1 closing song plays in episode 12 only?",
+   "options": [
+    "Hoshi Yori Saki ni Mitsukete Ageru",
+    "Chizu ga Nakutemo Modoru kara",
+    "Kanashimi-tachi o Dakishimete",
+    "Soko ni Aru Akari"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-season-one-012",
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Which title is the opening of season 1?",
+   "options": [
+    "Uncrowned Greatest Hero",
+    "Get No Satisfied!",
+    "The Hero!! Ikareru Ken ni Honō o Tsukero",
+    "Soko ni Aru Akari"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-themes-season-one-012",
+    "one-punch-man-themes-later-seasons-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One-Punch Man season 1",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One-Punch Man season 2",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: One-Punch Man season 3",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  }
+ ],
+ "notes": "Production and music quiz on facts 007, 008, 009, 012 and 013; tagged by the highest cited fact (season 3 is arc 3). Song titles and artists only, no lyrics. Distractors are real names from the same fact files."
+}

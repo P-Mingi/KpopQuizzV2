@@ -1,0 +1,213 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "Pilots, Nerv and Family: Who Is Who?",
+ "slug": "pilots-nerv-and-family-evangelion-who-is-who",
+ "description": "Ten questions on the pilots, the Nerv staff and the family ties of the cast, matched to the one-line descriptions on the cast list. Each question is about the 1995 series, except one about the Rebuild films.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which withdrawn teenager pilots Unit 01?",
+   "options": [
+    "Shinji Ikari",
+    "Toji Suzuhara",
+    "Kozo Fuyutsuki",
+    "Ritsuko Akagi"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is the quiet pilot of Unit 00?",
+   "options": [
+    "Asuka Langley Soryu",
+    "Misato Katsuragi",
+    "Ritsuko Akagi",
+    "Rei Ayanami"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is the fiery pilot of Unit 02?",
+   "options": [
+    "Rei Ayanami",
+    "Asuka Langley Soryu",
+    "Misato Katsuragi",
+    "Ritsuko Akagi"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Which Nerv captain becomes Shinji's guardian?",
+   "options": [
+    "Ritsuko Akagi",
+    "Misato Katsuragi",
+    "Yui Ikari",
+    "Rei Ayanami"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is Shinji's father and Nerv's supreme commander?",
+   "options": [
+    "Kozo Fuyutsuki",
+    "Toji Suzuhara",
+    "Ritsuko Akagi",
+    "Gendo Ikari"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is a leading Nerv scientist behind the Evas?",
+   "options": [
+    "Ritsuko Akagi",
+    "Misato Katsuragi",
+    "Toji Suzuhara",
+    "Yui Ikari"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is Shinji's outspoken classmate?",
+   "options": [
+    "Kozo Fuyutsuki",
+    "Gendo Ikari",
+    "Toji Suzuhara",
+    "Shinji Ikari"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is Nerv's deputy commander?",
+   "options": [
+    "Gendo Ikari",
+    "Toji Suzuhara",
+    "Shinji Ikari",
+    "Kozo Fuyutsuki"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Who is Shinji's mother and Gendo's wife?",
+   "options": [
+    "Yui Ikari",
+    "Misato Katsuragi",
+    "Ritsuko Akagi",
+    "Asuka Langley Soryu"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Which pilot appears only in the Rebuild films and not in the 1995 series?",
+   "options": [
+    "Misato Katsuragi",
+    "Mari Illustrious Makinami",
+    "Asuka Langley Soryu",
+    "Rei Ayanami"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-cast-list-013",
+    "evangelion-mari-debut-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Neon Genesis Evangelion characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (013, arc 5, because it includes the Rebuild-only pilot). Every question is tagged 5 and the quiz level is 5. Kaworu is an identity spoiler and is not used."
+}
