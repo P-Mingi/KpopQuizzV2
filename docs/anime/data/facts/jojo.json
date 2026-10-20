@@ -1,0 +1,635 @@
+[
+  {
+    "id": "jojo-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "title_native",
+    "value": "ジョジョの奇妙な冒険 (JoJo no Kimyō na Bōken)",
+    "text": "JoJo's Bizarre Adventure is called ジョジョの奇妙な冒険 in Japan, read JoJo no Kimyō na Bōken.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696918",
+        "ref": "Q696918",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Japanese: ジョジョの奇妙な冒険"
+  },
+  {
+    "id": "jojo-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "author",
+    "value": "Hirohiko Araki",
+    "text": "Hirohiko Araki wrote and drew the whole manga himself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696918",
+        "ref": "Q696918",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written and illustrated by Hirohiko Araki"
+  },
+  {
+    "id": "jojo-magazine-move-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump from January 1, 1987; Ultra Jump from 2005 (Shueisha)",
+    "text": "The manga began in Shueisha's Weekly Shōnen Jump on 1 January 1987 and moved to the monthly Ultra Jump in 2005.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696918",
+        "ref": "Q696918",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "published by Shueisha on January 1, 1987"
+  },
+  {
+    "id": "jojo-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "volumes",
+    "value": "139 collected volumes (March 2026)",
+    "text": "By March 2026 the manga filled 139 collected volumes, one of the highest counts of any manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696918",
+        "ref": "Q696918",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with its chapters collected in 139 tankōbon volumes as of March 2026"
+  },
+  {
+    "id": "jojo-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "copies",
+    "value": "over 120 million copies by August 2023",
+    "text": "By August 2023 the manga had more than 120 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 120 million copies in circulation by August 2023"
+  },
+  {
+    "id": "jojo-parts-first-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "parts_a",
+    "value": [
+      "Part 1, Phantom Blood: volumes 1-5, 44 chapters",
+      "Part 2, Battle Tendency: volumes 5-12, 69 chapters",
+      "Part 3, Stardust Crusaders: volumes 13-28, 152 chapters",
+      "Part 4, Diamond Is Unbreakable: volumes 29-47, 174 chapters",
+      "Part 5, Golden Wind: volumes 47-63, 155 chapters"
+    ],
+    "text": "The story is told in nine parts; the first five run from Phantom Blood to Golden Wind and fill the first 63 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series is divided into a total of nine main story arcs"
+  },
+  {
+    "id": "jojo-parts-second-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "parts_b",
+    "value": [
+      "Part 6, Stone Ocean: volumes 64-80, 158 chapters",
+      "Part 7, Steel Ball Run: volumes 81-104, 95 chapters",
+      "Part 8, JoJolion: volumes 105-131, 110 chapters",
+      "Part 9, The JoJoLands: volume 132 onwards"
+    ],
+    "text": "The later parts run from Stone Ocean to The JoJoLands, which began in February 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 9,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Volume 132 onwards"
+  },
+  {
+    "id": "jojo-anime-production-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "anime_tv",
+    "value": "David Production, first aired October 2012; 195 episodes in six seasons as of October 2026",
+    "text": "David Production has made the TV anime since October 2012, and by October 2026 it counted 195 episodes over six seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)",
+        "ref": "1380680745",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by David Production"
+  },
+  {
+    "id": "jojo-anime-seasons-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "anime_seasons",
+    "value": [
+      "Season 1: Parts 1 and 2, episodes 1-26, 2012 to 2013",
+      "Season 2: Part 3, episodes 27-74 (48 episodes), 2014 to 2015",
+      "Season 3: Part 4, episodes 75-113 (39 episodes), 2016",
+      "Season 4: Part 5, episodes 114-152 (39 episodes), 2018 to 2019",
+      "Season 5: Part 6, episodes 153-190 (38 episodes), 2021 to 2022",
+      "Season 6: Part 7, from episode 191, premiered March 19, 2026"
+    ],
+    "text": "The TV anime covers the manga one season at a time; the first season squeezes Parts 1 and 2 together, and Stone Ocean and Steel Ball Run came out on Netflix.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes",
+        "ref": "1380366861",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1: Phantom Blood & Battle Tendency"
+  },
+  {
+    "id": "jojo-themes-season-1-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: JoJo (Sono Chi no Sadame) - Hiroaki Tominaga, Part 1",
+      "OP 2: Bloody Stream - Coda, Part 2",
+      "ED 1: Roundabout - Yes, the whole season"
+    ],
+    "text": "The first season used two openings, one for each of Parts 1 and 2, and a single ending song for all of its episodes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1",
+        "ref": "1374276232",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song for the Part 2 episodes is \"Bloody Stream\" by Coda"
+  },
+  {
+    "id": "jojo-themes-season-2-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 3: Stand Proud - Jin Hashimoto, first half",
+      "OP 4: JoJo Sono Chi no Kioku ~end of THE WORLD~ - JO☆STARS ~TOMMY, Coda, JIN~, Battle in Egypt",
+      "ED 2: Walk Like an Egyptian - The Bangles, first half",
+      "ED 3: Last Train Home - Pat Metheny Group, Battle in Egypt",
+      "Insert 1: Aku-yaku Kyōsōkyoku - Makoto Yasumura and Motoko Kumai, episode 27"
+    ],
+    "text": "Season two switched themes halfway, and also had a special song sung by the characters Oingo and Boingo.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Stardust_Crusaders",
+        "ref": "1376565909",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme for the first half of the season is \"Stand Proud\""
+  },
+  {
+    "id": "jojo-themes-season-3-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP 5: Crazy Noisy Bizarre Town - The DU, season episodes 1-14",
+      "OP 6: Chase - Batta, season episodes 15-26",
+      "OP 7: Great Days - Daisuke Hasegawa and Karen Aoki, from episode 27",
+      "ED 4: I Want You - Savage Garden",
+      "Insert 2: Great Days Units ver. - JO☆UNITED, ending of episode 39"
+    ],
+    "text": "Season three changed its opening three times and used one ending song throughout, plus a special group version of Great Days.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Diamond_Is_Unbreakable",
+        "ref": "1372763304",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the theme for episodes 15-26 is \"Chase\" performed by pop rock band Batta"
+  },
+  {
+    "id": "jojo-themes-season-4-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s4",
+    "value": [
+      "OP 8: Fighting Gold - Coda, season episodes 2-21",
+      "OP 9: Uragirimono no Requiem - Daisuke Hasegawa, season episodes 22-39",
+      "ED 5: Freek'n You - Jodeci, season episodes 2-19",
+      "ED 6: Modern Crusaders - Enigma, from season episode 22"
+    ],
+    "text": "Season four had two openings and two endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Golden_Wind",
+        "ref": "1379119132",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The second opening theme is \"Uragirimono no Requiem\""
+  },
+  {
+    "id": "jojo-themes-season-5-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s5",
+    "value": [
+      "OP 10: Stone Ocean - Ichigo from Kishida Kyoudan & The Akeboshi Rockets, episodes 1-24",
+      "OP 11: Heaven's falling down - Sana from Sajou no Hana, episodes 25-38",
+      "ED 7: Distant Dreamer - Duffy, episodes 1-37"
+    ],
+    "text": "Season five had two openings and one ending song, and its last episode brought back Roundabout.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Stone_Ocean",
+        "ref": "1379043504",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Heaven's falling down\" by Sana from Sajou no Hana"
+  },
+  {
+    "id": "jojo-themes-season-6-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "themes_s6",
+    "value": [
+      "OP 12: Spin - Kroi, second stage from September 25, 2026",
+      "ED 8: Shinu ka Ikiru ka - Yuki Chiba, second stage"
+    ],
+    "text": "The sixth season's second stage has an opening by Kroi and an ending by Yuki Chiba.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steel_Ball_Run:_JoJo%27s_Bizarre_Adventure",
+        "ref": "1381171000",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song is \"Spin\", performed by Kroi"
+  },
+  {
+    "id": "jojo-cast-early-parts-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "characters_a",
+    "value": [
+      "Jonathan Joestar (ジョナサン・ジョースター): Part 1 hero",
+      "Dio Brando (ディオ・ブランドー): his adopted brother",
+      "Joseph Joestar (ジョセフ・ジョースター): Part 2 hero",
+      "Caesar Anthonio Zeppeli (シーザー・アントニオ・ツェペリ): Hamon user",
+      "Lisa Lisa (リサリサ): Hamon master",
+      "Kars (カーズ): leader of the Pillar Men",
+      "Jotaro Kujo (空条 承太郎): Part 3 hero",
+      "Mohammed Avdol (モハメド・アヴドゥル): fortune teller",
+      "Noriaki Kakyoin (花京院 典明): high school student",
+      "Jean Pierre Polnareff (ジャン・ピエール・ポルナレフ): French traveler"
+    ],
+    "text": "Characters of Parts 1 to 3, from the Victorian-era Joestars to the road trip to Egypt.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jotaro Kujo (空条 承太郎"
+  },
+  {
+    "id": "jojo-cast-later-parts-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "characters_b",
+    "value": [
+      "Josuke Higashikata (東方 仗助): Part 4 hero",
+      "Yoshikage Kira (吉良 吉影): office worker",
+      "Rohan Kishibe (岸辺 露伴): manga artist",
+      "Giorno Giovanna (ジョルノ・ジョバァーナ): Part 5 hero",
+      "Bruno Bucciarati (ブローノ・ブチャラティ): mafia capo",
+      "Jolyne Cujoh (空条 徐倫): Part 6 hero",
+      "Enrico Pucci (エンリコ・プッチ): prison chaplain",
+      "Johnny Joestar (ジョニィ・ジョースター): Part 7 hero",
+      "Gyro Zeppeli (ジャイロ・ツェペリ): master of the Spin",
+      "Funny Valentine (ファニー・ヴァレンタイン): president"
+    ],
+    "text": "Characters of Parts 4 to 7, from the town of Morioh to the Steel Ball Run horse race.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Josuke Higashikata (東方 仗助"
+  },
+  {
+    "id": "jojo-stands-explained-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "stands",
+    "value": "Spirit-like fighting powers called Stands",
+    "text": "Stands, the spirit-like fighters that most characters use, are the best-known feature of the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Stands, psycho-spiritual manifestations of the person's fighting spirit"
+  },
+  {
+    "id": "jojo-jotaro-eastwood-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jotaro-kujo"
+    },
+    "field": "inspiration",
+    "value": "Based on Clint Eastwood",
+    "text": "Jotaro Kujo is the one character the author modeled on a real person, the actor Clint Eastwood.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "except Jotaro Kujo, who was based on Clint Eastwood"
+  },
+  {
+    "id": "jojo-first-ova-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "ova_1993",
+    "value": "13-episode OVA of Part 3 by A.P.P.P., 1993 to 2002",
+    "text": "Before the TV anime, A.P.P.P. made a 13-episode OVA of Stardust Crusaders, released between 1993 and 2002.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure",
+        "ref": "1372206874",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A 13-episode original video animation adaptation of Part 3, Stardust Crusaders, was produced by A.P.P.P."
+  }
+]

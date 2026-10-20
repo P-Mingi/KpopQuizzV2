@@ -1,0 +1,677 @@
+[
+  {
+    "id": "bleach-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "title_native",
+    "value": "BLEACH",
+    "text": "The Japanese title is the single word BLEACH in capitals, read Burīchi, as in the Japanese name of the Thousand-Year Blood War sequel.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q904",
+        "ref": "Q904",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "BLEACH 千年血戦篇, Burīchi Sennen Kessen-hen"
+  },
+  {
+    "id": "bleach-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "author",
+    "value": "Tite Kubo",
+    "text": "Tite Kubo both wrote and drew the Bleach manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q904",
+        "ref": "Q904",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written and illustrated by Tite Kubo"
+  },
+  {
+    "id": "bleach-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha), August 7, 2001 to August 22, 2016",
+    "text": "Bleach ran in Shueisha's Weekly Shōnen Jump for fifteen years, from August 2001 until August 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q904",
+        "ref": "Q904",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from August 2001 to August 2016"
+  },
+  {
+    "id": "bleach-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "volumes",
+    "value": 74,
+    "text": "The finished manga was collected in 74 tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q904",
+        "ref": "Q904",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "chapters collected in 74 tankōbon volumes"
+  },
+  {
+    "id": "bleach-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "copies",
+    "value": "over 130 million copies by 2022",
+    "text": "By 2022 the Bleach manga had more than 130 million copies in circulation worldwide.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 130 million copies in circulation worldwide by 2022"
+  },
+  {
+    "id": "bleach-shogakukan-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "award",
+    "value": "50th Shogakukan Manga Award, shōnen category, 2005",
+    "text": "The manga won the shōnen prize at the 50th Shogakukan Manga Award in 2005.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bleach received the 50th Shogakukan Manga Award for the shōnen category in 2005"
+  },
+  {
+    "id": "bleach-anime-production-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "anime_tv",
+    "value": "Pierrot, directed by Noriyuki Abe, TV Tokyo, October 5, 2004 to March 27, 2012, 366 episodes",
+    "text": "The first Bleach anime was made by Pierrot under director Noriyuki Abe and aired on TV Tokyo for 366 episodes, from October 2004 to March 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5362638",
+        "ref": "Q5362638",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It was produced by Studio Pierrot and directed by Noriyuki Abe"
+  },
+  {
+    "id": "bleach-blood-war-sequel-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "tybw",
+    "value": "Thousand-Year Blood War, directed by Tomohisa Taguchi, premiered October 11, 2022",
+    "text": "The sequel series Thousand-Year Blood War began on TV Tokyo on October 11, 2022, with Tomohisa Taguchi taking over as director from Noriyuki Abe.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tomohisa Taguchi replaced Noriyuki Abe as the series director at Pierrot"
+  },
+  {
+    "id": "bleach-blood-war-parts-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "tybw_parts",
+    "value": [
+      "The Blood Warfare: episodes 367-379, October to December 2022",
+      "The Separation: episodes 380-392, July to September 2023",
+      "The Conflict: episodes 393-406, October to December 2024",
+      "The Calamity: from episode 407, premiered July 25, 2026"
+    ],
+    "text": "Thousand-Year Blood War is split into four parts with long breaks in between, and the fourth and final part began in July 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 20,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first 13-episodes cours, subtitled The Blood Warfare"
+  },
+  {
+    "id": "bleach-seasons-first-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "arc_early",
+    "value": [
+      "1: The Substitute Soul Reaper, episodes 1-20",
+      "2: The Entry, episodes 21-41",
+      "3: The Rescue, episodes 42-63",
+      "4: The Bount, episodes 64-91",
+      "5: The Assault, episodes 92-109",
+      "6: Arrancar: The Appearance, episodes 110-131",
+      "7: The Arrancar Part 2: The Hueco Mundo Sneak Entry, episodes 132-151",
+      "8: The Arrancar Part 3: The Fierce Fight, episodes 152-167"
+    ],
+    "text": "The first eight seasons of the original anime cover Ichigo's start as a Soul Reaper, the Soul Society rescue, the Bount story and the early Arrancar fights.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 8,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes",
+        "ref": "1377482623",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1: The Substitute Soul Reaper"
+  },
+  {
+    "id": "bleach-seasons-second-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "arc_late",
+    "value": [
+      "9: The New Captain Shūsuke Amagai, episodes 168-189",
+      "10: The Arrancar Part 4: Arrancar vs. Soul Reaper, episodes 190-205",
+      "11: Turn Back the Pendulum, episodes 206-212",
+      "12: The Arrancar Part 5: Battle in Karakura, episodes 213-229",
+      "13: Zanpakutō: The Alternate Tale, episodes 230-265",
+      "14: The Arrancar Part 6: Fall of the Espada, episodes 266-316",
+      "15: Gotei 13 Invading Army, episodes 317-342",
+      "16: The Lost Agent, episodes 343-366"
+    ],
+    "text": "The remaining eight seasons run from the Amagai story through the late Arrancar fights to the final season, The Lost Agent.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 16,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes",
+        "ref": "1377482623",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 16: The Lost Agent"
+  },
+  {
+    "id": "bleach-anime-original-arcs-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "arc_anime_only",
+    "value": [
+      "The Bount (season 4)",
+      "The New Captain Shūsuke Amagai (season 9)",
+      "Zanpakutō: The Alternate Tale (season 13)",
+      "Gotei 13 Invading Army (season 15)"
+    ],
+    "text": "The anime added four story arcs of its own that are not in the manga: the Bounts, Amagai, the rebelling Zanpakutō and the Reigai copies.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 15,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Several anime exclusive story arcs are introduced during the series."
+  },
+  {
+    "id": "bleach-opening-themes-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: *~Asterisk~ - Orange Range, episodes 1-25",
+      "OP 2: D-tecnoLife - UVERworld, episodes 26-51",
+      "OP 3: Ichirin no Hana - High and Mighty Color, episodes 52-74",
+      "OP 4: Tonight, Tonight, Tonight - Beat Crusaders, episodes 75-97",
+      "OP 5: Rolling Star - Yui, episodes 98-120",
+      "OP 6: Alones - Aqua Timez, episodes 121-143",
+      "OP 7: After Dark - Asian Kung-Fu Generation, episodes 144-167",
+      "OP 8: Chu-Bura - Kelun, episodes 168-189",
+      "OP 9: Velonica - Aqua Timez, episodes 190-214",
+      "OP 10: Shōjo S - SCANDAL, episodes 215-242",
+      "OP 11: Anima Rossa - Porno Graffitti, episodes 243-265",
+      "OP 12: Change - Miwa, episodes 266-291",
+      "OP 13: Ranbu no Melody - SID, episodes 292-316",
+      "OP 14: BLUE - ViViD, episodes 317-342",
+      "OP 15: HARUKAZE - SCANDAL, episodes 343-366"
+    ],
+    "text": "The 2004 to 2012 anime used fifteen opening songs, each running for about two dozen episodes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks",
+        "ref": "1372218246",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Used as opening theme for episodes 1-25"
+  },
+  {
+    "id": "bleach-ending-themes-first-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "themes_ed_1",
+    "value": [
+      "ED 1: Life Is Like a Boat - Rie fu, episodes 1-13",
+      "ED 2: Thank You!! - Home Made Kazoku, episodes 14-25",
+      "ED 3: Hōkiboshi - Younha, episodes 26-38",
+      "ED 4: Happypeople - Skoop On Somebody, episodes 39-52",
+      "ED 5: Life - Yui, episodes 53-63",
+      "ED 6: My Pace - SunSet Swish, episodes 64-74",
+      "ED 7: Hanabi - Ikimono-gakari, episodes 75-86",
+      "ED 8: Movin!! - Takacha, episodes 87-97",
+      "ED 9: Baby It's You - June, episodes 98-109",
+      "ED 10: Sakura Biyori - Mai Hoshimura, episodes 110-121",
+      "ED 11: Tsumasaki - Oreskaband, episodes 122-131",
+      "ED 12: Daidai - Chatmonchy, episodes 132-143",
+      "ED 13: Tane o Maku Hibi - Kōsuke Atari, episodes 144-153",
+      "ED 14: Kansha. - RSP, episodes 154-167",
+      "ED 15: Orange - Lil'B, episodes 168-179"
+    ],
+    "text": "The first fifteen of the thirty ending songs of the original anime, from Rie fu to Kansha.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks",
+        "ref": "1372218246",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Used as ending theme for episodes 1-13"
+  },
+  {
+    "id": "bleach-ending-themes-second-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "themes_ed_2",
+    "value": [
+      "ED 16: Gallop - Pe'zmoku, episodes 180-189",
+      "ED 17: Hitohira no Hanabira - Stereopony, episodes 190-201",
+      "ED 18: Sky Chord ~Otona ni Naru Kimi e~ - Shion Tsuji, episodes 202-214",
+      "ED 19: Kimi o Mamotte, Kimi o Aishite - Sambomaster, episodes 215-229",
+      "ED 20: Mad Surfer - Kenichi Asai, episodes 230-242",
+      "ED 21: Sakurabito - SunSet Swish, episodes 243-255",
+      "ED 22: Tabidatsu Kimi e - RSP, episodes 256-265",
+      "ED 23: Stay Beautiful - Diggy-MO', episodes 266-278",
+      "ED 24: Echoes - Universe, episodes 279-291",
+      "ED 25: Last Moment - Spyair, episodes 292-303",
+      "ED 26: Song For... - ROOKiEZ is PUNK'D, episodes 304-316",
+      "ED 27: Aoi Tori - Fumika, episodes 317-329",
+      "ED 28: Haruka Kanata - UNLIMITS, episodes 330-342",
+      "ED 29: Re:pray - Aimer, episodes 343-354",
+      "ED 30: MASK - Aqua Timez, episodes 355-366"
+    ],
+    "text": "The last fifteen ending songs of the original anime, running to the final episode 366.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks",
+        "ref": "1372218246",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Used as ending theme for episodes 355-366"
+  },
+  {
+    "id": "bleach-cast-first-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "characters_a",
+    "value": [
+      "Ichigo Kurosaki (黒崎 一護): the lead, a Substitute Soul Reaper",
+      "Rukia Kuchiki (朽木 ルキア): a Soul Reaper from the Soul Society",
+      "Orihime Inoue (井上 織姫): Ichigo's classmate",
+      "Uryū Ishida (石田 雨竜): a Quincy",
+      "Yasutora Sado (茶渡 泰虎): known as Chad",
+      "Kisuke Urahara (浦原 喜助): owner of the Urahara Shop",
+      "Isshin Kurosaki (黒崎 一心): Ichigo's father",
+      "Kon (コン): a Mod-Soul",
+      "Karin Kurosaki (黒崎 夏梨): Ichigo's younger sister",
+      "Tatsuki Arisawa (有沢 竜貴): Ichigo's karate friend"
+    ],
+    "text": "The cast of the opening arc: Ichigo and his friends and family, plus the Urahara Shop and the Mod-Soul Kon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Ichigo Kurosaki (黒崎 一護) is the main protagonist of the Bleach franchise"
+  },
+  {
+    "id": "bleach-cast-soul-society-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "characters_b",
+    "value": [
+      "Renji Abarai (阿散井 恋次): Soul Reaper of Squad 6",
+      "Yoruichi Shihōin (四楓院 夜一): friend of Urahara who turns into a cat",
+      "Ganju Shiba (志波 岩鷲): gang leader",
+      "Kūkaku Shiba (志波 空鶴): Ganju's sister, a fireworks expert",
+      "Sousuke Aizen (藍染 惣右介): Soul Society captain"
+    ],
+    "text": "Characters who step in once the story moves toward the Soul Society.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sousuke Aizen (藍染 惣右介)"
+  },
+  {
+    "id": "bleach-cast-later-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "characters_c",
+    "value": [
+      "Jin Kariya (狩矢 神): leader of the Bounts",
+      "Shinji Hirako (平子 真子): leader of the Vizards",
+      "Nozomi Kujō (九条 望実): a Mod-Soul on the run",
+      "Kūgo Ginjō (銀城 空吾): leader of Xcution",
+      "Yhwach (ユーハバッハ): sovereign of the Wandenreich"
+    ],
+    "text": "Leaders of the later enemy groups, from the anime-only Bounts to the Quincy army of the final war.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jin Kariya (狩矢 神) is the Leader of the Bounts"
+  },
+  {
+    "id": "bleach-four-films-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "films",
+    "value": [
+      "Memories of Nobody (December 16, 2006)",
+      "The DiamondDust Rebellion (December 22, 2007)",
+      "Fade to Black (December 13, 2008)",
+      "Hell Verse (December 4, 2010)"
+    ],
+    "text": "Four animated Bleach films came out between 2006 and 2010, all directed by Noriyuki Abe with original characters designed by Kubo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+        "ref": "1377360344",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first film, Bleach: Memories of Nobody, was released in Japan on December 16, 2006"
+  },
+  {
+    "id": "bleach-ichigo-substitute-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "ichigo-kurosaki"
+    },
+    "field": "powers",
+    "value": "Substitute Soul Reaper, powers received from Rukia Kuchiki",
+    "text": "Ichigo becomes a Soul Reaper when Rukia Kuchiki hands her powers to him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+        "ref": "1372127035",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "who obtains the powers of a Soul Reaper"
+  }
+]

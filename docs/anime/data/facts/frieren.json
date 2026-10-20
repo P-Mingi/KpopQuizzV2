@@ -1,0 +1,627 @@
+[
+  {
+    "id": "frieren-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "title_native",
+    "value": "葬送のフリーレン (Sōsō no Furīren)",
+    "text": "Frieren: Beyond Journey's End is called 葬送のフリーレン, read Sōsō no Furīren, in Japan, which literally means Frieren at the Funeral.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "葬送のフリーレン, Hepburn: Sōsō no Furīren"
+  },
+  {
+    "id": "frieren-manga-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "author",
+    "value": "Kanehito Yamada (story), Tsukasa Abe (art)",
+    "text": "The manga has two creators: Kanehito Yamada writes it and Tsukasa Abe draws it.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written by Kanehito Yamada and illustrated by Tsukasa Abe"
+  },
+  {
+    "id": "frieren-magazine-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Sunday (Shogakukan), since April 28, 2020",
+    "text": "Frieren began in Shogakukan's Weekly Shōnen Sunday on 28 April 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "debuted in Shogakukan's shōnen manga magazine Weekly Shōnen Sunday on April 28, 2020"
+  },
+  {
+    "id": "frieren-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "volumes",
+    "value": "15 collected volumes by late 2025",
+    "text": "Fifteen collected volumes were out by the end of 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of December 18, 2025, 15 volumes have been released"
+  },
+  {
+    "id": "frieren-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "copies",
+    "value": "over 35 million copies by January 2026",
+    "text": "By January 2026 the manga had passed 35 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 35 million copies in circulation"
+  },
+  {
+    "id": "frieren-manga-awards-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "awards",
+    "value": [
+      "14th Manga Taishō, 2021",
+      "New Creator Prize, 25th Tezuka Osamu Cultural Prize, 2021",
+      "69th Shogakukan Manga Award, 2024",
+      "48th Kodansha Manga Award, shōnen category, 2024"
+    ],
+    "text": "The manga won two prizes in 2021 and then two more in 2024, among them the Shogakukan and Kodansha awards.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga won the 14th Manga Taishō"
+  },
+  {
+    "id": "frieren-manga-hiatus-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "hiatus",
+    "value": "Indefinite hiatus announced in October 2025",
+    "text": "The manga went on an indefinite break in October 2025 so that its two creators could look after their health.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "it was announced that the manga would enter indefinite hiatus"
+  },
+  {
+    "id": "frieren-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s1",
+    "value": "Madhouse, directed by Keiichirō Saitō, Nippon TV, September 29, 2023 to March 22, 2024, 28 episodes",
+    "text": "Madhouse made the first anime season, with Keiichirō Saitō directing, and it ran for 28 episodes from September 2023 to March 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first season is directed by Keiichirō Saitō"
+  },
+  {
+    "id": "frieren-anime-season-two-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s2",
+    "value": "Directed by Tomoya Kitagawa, January 16 to March 27, 2026, 10 episodes, 38 episodes in total",
+    "text": "Season two aired in early 2026 under a new director, Tomoya Kitagawa, bringing the total to 38 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tomoya Kitagawa replacing Keiichirō Saitō as the season's director"
+  },
+  {
+    "id": "frieren-season-three-golden-land-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s3",
+    "value": "Season 3 covers the Golden Land arc, set for October 2027",
+    "text": "A third season was announced right after season two, to cover the Golden Land arc and premiere in October 2027.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A third season, covering the \"Golden Land\" arc"
+  },
+  {
+    "id": "frieren-anime-composer-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "composer",
+    "value": "Evan Call",
+    "text": "Evan Call wrote the music for the anime.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The music is composed by Evan Call"
+  },
+  {
+    "id": "frieren-opening-themes-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Yūsha - Yoasobi (season 1)",
+      "OP 2: Sunny (Haru) - Yorushika (season 1)",
+      "OP 3: Lulu. - Mrs. Green Apple (season 2)"
+    ],
+    "text": "The anime has used three opening songs: Yoasobi and Yorushika in season one, Mrs. Green Apple in season two.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first opening theme song is \"Yūsha\""
+  },
+  {
+    "id": "frieren-ending-themes-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Anytime Anywhere - Milet (season 1)",
+      "ED 2: Anytime Anywhere, a different section - Milet (season 1)",
+      "ED 3: The Story of Us - Milet (season 2)",
+      "Special ED of the premiere: Bliss - Milet"
+    ],
+    "text": "Milet sang every ending, including the one used only for the four-episode premiere broadcast.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "For the four-episode premiere broadcast only, the special ending theme song is \"Bliss\""
+  },
+  {
+    "id": "frieren-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-28",
+      "2: Season 2, episodes 29-38",
+      "3: Golden Land, the arc planned for season 3"
+    ],
+    "text": "The anime so far splits into two seasons of 28 and 10 episodes, and the Golden Land arc is next.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes",
+        "ref": "1376565693",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1 (2023"
+  },
+  {
+    "id": "frieren-cast-main-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "characters_a",
+    "value": [
+      "Frieren (フリーレン): the elven mage",
+      "Fern (フェルン): her apprentice",
+      "Stark (シュタルク): a young warrior",
+      "Sein (ザイン): a priest",
+      "Himmel (ヒンメル): the hero",
+      "Heiter (ハイター): a priest",
+      "Eisen (アイゼン): a dwarf warrior",
+      "Qual (クヴァール): a sealed demon",
+      "Aura (アウラ): a Sage of Destruction",
+      "Serie (ゼーリエ): an elf mage"
+    ],
+    "text": "The main party and its companions, the old Hero Party, and two of the powers they meet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Frieren (フリーレン, Furīren)"
+  },
+  {
+    "id": "frieren-cast-mages-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "characters_b",
+    "value": [
+      "Denken (デンケン): veteran mage",
+      "Übel (ユーベル): cleaving magic",
+      "Land (ラント): clone user",
+      "Methode (メトーデ): binding magic",
+      "Kanne (カンネ): water mage",
+      "Lawine (ラヴィーネ): ice mage",
+      "Wirbel (ヴィアベル): Northern Magic Corps",
+      "Revolte (レヴォルテ): demon general",
+      "Hero of the South (南の勇者): a legendary warrior",
+      "Macht (マハト): Sage of Destruction"
+    ],
+    "text": "Mages from the first-class exam, and later figures from the demon war and the Golden Land arc.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Serie is an ancient elf mage who has existed since time immemorial"
+  },
+  {
+    "id": "frieren-spell-shorts-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "shorts",
+    "value": "Spell That Does OOO, eleven shorts from October 11, 2023 to March 24, 2024",
+    "text": "Alongside the series came short episodes called Spell That Does OOO, eleven in the first batch.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Eleven short episodes, titled Frieren: Beyond Journey's End - Spell That Does OOO"
+  },
+  {
+    "id": "frieren-frieren-age-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "age",
+    "value": "Over a thousand years old",
+    "text": "Frieren is an elf who is already more than a thousand years old.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An elven mage over a thousand years old"
+  },
+  {
+    "id": "frieren-fern-apprentice-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "role",
+    "value": "Frieren's apprentice, raised by Heiter",
+    "text": "Fern is a young mage who studies under Frieren after being raised by the priest Heiter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A powerful young mage and Frieren's apprentice"
+  },
+  {
+    "id": "frieren-qual-zoltraak-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "qual"
+    },
+    "field": "spell",
+    "value": "Creator of the Zoltraak spell",
+    "text": "Qual invented Zoltraak, a spell that mages later studied until it became their standard attack.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Qual is the creator of \"Zoltraak\""
+  }
+]
