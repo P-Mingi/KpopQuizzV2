@@ -1,0 +1,376 @@
+{
+  "$comment": "Run O1 lane K1 batch b8: series data for The Apothecary Diaries (tier C; the light novel, the manga adaptations and the anime), built from pinned Wikipedia revisions (main article 1380103786, anime episode list 1380822865, character list 1380869129), Wikidata Q48751907 (the work) and Q116787865 (the anime), and three official pages read directly: the Hero Bunko light novel page, the Square Enix Manga and Books series page and the Shosetsuka ni Naro web novel page. The official anime site kusuriyanohitorigoto.jp answered with a bot challenge and was not read. No allowed source names story arcs, so the three arcs are the anime seasons (season 1 episodes 1 to 24, season 2 episodes 25 to 48, season 3 from episode 49 and still airing; its second part is planned for April 2027). The series fields follow the Square Enix manga (Monthly Big Gangan, from 2017, art by Nekokurage) with the anime start 2023; the 2011 web novel and the 2014 light novel are stored in facts only because the shape has one start year per medium; no volume or episode total is stored because the manga (17 volumes), the light novel (16) and the anime (airing) differ. Native names are the kanji forms of the English Wikipedia character list. Character debut arcs follow the first named mention in the Wikipedia episode summaries (Maomao, Jinshi, Gyokuyo, Lihua ep 1; Gaoshun 3; Lishu and Ah-Duo 6; Lihaku and Xiaolan 7; Lakan 14; Basen 15; Luomen 17), all in season 1; descriptions leave out the later reveals about Jinshi, Ah-Duo, Lakan and Luomen. Themes: the ten openings and endings of seasons 1 to 3 as named in the episode list article (season 1 changed songs mid-season; Wikipedia gives no episode number). Status is airing (season 3 premiered October 2, 2026).",
+  "group": {
+    "slug": "apothecary-diaries",
+    "name": "The Apothecary Diaries",
+    "site": "anime",
+    "display_color": "#9F1239",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "The Apothecary Diaries",
+    "title_native": "薬屋のひとりごと",
+    "title_romaji": "Kusuriya no Hitorigoto",
+    "studios": [
+      {
+        "name": "Toho Animation Studio",
+        "seasons": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "OLM",
+        "seasons": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "director": "Norihiro Naganuma",
+    "authors": [
+      {
+        "name": "Hyūganatsu",
+        "role": "story"
+      },
+      {
+        "name": "Nekokurage",
+        "role": "art"
+      }
+    ],
+    "magazine": "Monthly Big Gangan",
+    "publisher": "Square Enix",
+    "anime_start_year": 2023,
+    "manga_start_year": 2017,
+    "status": "airing",
+    "seasons": 3,
+    "official_url": "https://herobunko.com/books/hero14/",
+    "wikidata_qid": "Q48751907",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Season 1",
+      "kind": "season",
+      "episode_from": 1,
+      "episode_to": 24,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Season 2",
+      "kind": "season",
+      "episode_from": 25,
+      "episode_to": 48,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Season 3",
+      "kind": "season",
+      "episode_from": 49,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "maomao",
+      "name": "Maomao",
+      "name_native": "猫猫",
+      "role": "main",
+      "affiliation": "Rear palace (servant)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young apothecary sold into the palace as a servant, who secretly solves mysteries.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "jinshi",
+      "name": "Jinshi",
+      "name_native": "壬氏",
+      "role": "main",
+      "affiliation": "Rear palace (administration)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An influential palace official who runs much of the rear palace's administration.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "gaoshun",
+      "name": "Gaoshun",
+      "name_native": "高順",
+      "role": "supporting",
+      "affiliation": "Rear palace (administration)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Jinshi's loyal attendant, who supports him and Maomao quietly.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "gyokuyo",
+      "name": "Gyokuyō",
+      "name_native": "玉葉",
+      "role": "supporting",
+      "affiliation": "Emperor's consorts",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Precious Consort, one of the emperor's four high-ranking concubines and his favorite.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "lihua",
+      "name": "Lihua",
+      "name_native": "梨花",
+      "role": "supporting",
+      "affiliation": "Emperor's consorts",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Wise Consort, one of the emperor's four high-ranking concubines.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "lishu",
+      "name": "Lishu",
+      "name_native": "里樹",
+      "role": "supporting",
+      "affiliation": "Emperor's consorts",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Virtuous Consort, the youngest of the emperor's four high-ranking concubines.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "ah-duo",
+      "name": "Ah-Duo",
+      "name_native": "阿多",
+      "role": "supporting",
+      "affiliation": "Emperor's consorts",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Pure Consort, the eldest of the emperor's four high-ranking consorts.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "lakan",
+      "name": "Lakan",
+      "name_native": "羅漢",
+      "role": "supporting",
+      "affiliation": "Imperial army",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A face-blind, monocle-wearing tactician of the emperor's army.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "lihaku",
+      "name": "Lihaku",
+      "name_native": "李白",
+      "role": "supporting",
+      "affiliation": "Imperial army",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A soldier who gives Maomao a hairpin at the garden party.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "xiaolan",
+      "name": "Xiaolan",
+      "name_native": "小蘭",
+      "role": "supporting",
+      "affiliation": "Rear palace (servant)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A rear palace servant and Maomao's close friend who shares palace gossip.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "basen",
+      "name": "Basen",
+      "name_native": "馬閃",
+      "role": "supporting",
+      "affiliation": "Rear palace (administration)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Gaoshun's straight-laced second son and a reliable attendant of Jinshi.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "luomen",
+      "name": "Luomen",
+      "name_native": "羅門",
+      "role": "supporting",
+      "affiliation": "Verdigris House district",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Maomao's adoptive father, an apothecary and doctor in the capital's red-light district.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Hana ni Natte",
+      "artist": "Ryokuoushoku Shakai",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Aikotoba",
+      "artist": "Aina the End",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Ambivalent",
+      "artist": "Uru",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Ai wa Kusuri",
+      "artist": "Wacci",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "Hyakka Ryōran",
+      "artist": "Lilas Ikuta",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "Shiawase no Recipe",
+      "artist": "Dai Hirai",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 4,
+      "title": "Kusushiki",
+      "artist": "Mrs. Green Apple",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "Hitorigoto",
+      "artist": "Omoinotake",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 5,
+      "title": "Kumo o Nukekazashimo e Watashidake",
+      "artist": "Yorushika",
+      "season": 3,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 5,
+      "title": "AIYOU",
+      "artist": "Eve",
+      "season": 3,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+      "status": "published"
+    }
+  ]
+}
