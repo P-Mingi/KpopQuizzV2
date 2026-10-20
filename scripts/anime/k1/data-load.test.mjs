@@ -122,3 +122,46 @@ test('K2: the level rules equal computeSpoilerLevel of lib/anime/spoilers/core.t
     }
   }
 });
+
+// ---- lane K3: daily bank rows
+import { readDaily } from './data-load.mjs';
+
+const dq = (over = {}) => ({ question: 'a', correct: true, kind: 'lore', spoiler: tag(0), fact_ids: ['test-show-a-001'], source_url: 'https://en.wikipedia.org/wiki/Test', ...over });
+const dailyRow = (over = {}) => ({
+  site: 'anime', title: 'A Daily Bank Row', description: 'Eight statements.', group_slug: 'test-show', quiz_type: 'true_false', difficulty: 'easy', category: 'true_false',
+  questions: Array.from({ length: 8 }, (_, i) => dq({ question: `q${i}` })), sources: [{ id: 'S1', title: 'Wikipedia: Test', url: 'https://en.wikipedia.org/wiki/Test' }], ...over,
+});
+function dailyDir(rows) {
+  const dir = dataDir([fact('test-show-a-001', 'series', null, 'titles', { text: 'A trivia sentence.' })]);
+  mkdirSync(join(dir, 'daily'));
+  writeFileSync(join(dir, 'daily', 'b1.json'), JSON.stringify(rows));
+  return dir;
+}
+const planOf = (dir) => buildDataPlan(readDataDir(dir), { creators: [], quizzes: [], daily: readDaily(dir) });
+
+test('K3: daily rows are planned, a null group files under anime-mix, counts add daily and daily_questions', () => {
+  const dir = dailyDir([dailyRow(), dailyRow({ title: 'A Mixed Daily Row', group_slug: 'anime-mix' }), dailyRow({ title: 'A Null Group Row', group_slug: null })]);
+  const plan = planOf(dir);
+  assert.deepEqual(plan.daily.map((r) => r.group_slug), ['test-show', 'anime-mix', 'anime-mix']);
+  assert.deepEqual(countDataPlan(plan), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1, daily: 3, daily_questions: 24 });
+  assert.deepEqual(countDataPlan(buildDataPlan(readDataDir(dir))), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1 });
+});
+
+test('K3: the SQL never sets a date, inserts drafts of site anime, and deletes only unscheduled unpublished drafts', () => {
+  const sql = renderDataSql(planOf(dailyDir([dailyRow({ title: "Bob's Daily Row" })])));
+  assert.match(sql, /insert into public\.quiz_bank \(title, description, group_id, quiz_type, difficulty, category, questions, status, site_id\) select .* 'draft', 'anime' from _k3_bank/);
+  assert.doesNotMatch(sql, /scheduled_date\s*=\s*[^n]/);
+  assert.match(sql, /delete from public\.quiz_bank b where b\.site_id = 'anime' and b\.scheduled_date is null and b\.published_quiz_id is null and b\.verified_at is null and b\.status = 'draft'/);
+  assert.match(sql, /'Bob''s Daily Row'/);
+  assert.doesNotMatch(sql, /drop table|truncate/i);
+  assert.match(countDataSql(planOf(dailyDir([dailyRow()]))), /public\.quiz_bank/);
+});
+
+test('K3: a bad daily row is refused: wrong count, a tag above arc 0, a bad category, an unknown group, a duplicate title', () => {
+  const run = (rows) => () => planOf(dailyDir(rows));
+  assert.throws(run([dailyRow({ questions: dailyRow().questions.slice(0, 7) })]), /exactly 8 questions/);
+  assert.throws(run([dailyRow({ questions: dailyRow().questions.map((q, i) => (i === 2 ? { ...q, spoiler: tag(1) } : q)) })]), /spoiler arc 0/);
+  assert.throws(run([dailyRow({ category: 'knowledge' })]), /bad category/);
+  assert.throws(run([dailyRow({ group_slug: 'nope' })]), /no series file/);
+  assert.throws(run([dailyRow(), dailyRow()]), /duplicate title/);
+});
