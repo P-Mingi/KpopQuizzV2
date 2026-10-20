@@ -16,6 +16,11 @@
 // fixtures command creates them); the load sets their display name and avatar, their editorial_accounts row (the Team
 // badge, off every board: rule 7) and their anime membership (bio, header), and publishes the quizzes on the anime site
 // with the spoiler level computed from the question tags, never copied from a file. Without those files nothing changes.
+//
+// Lane K3 extension (optional folder of the same directory): daily/<batch>.json (daily bank rows, daily-bank-row.schema.json). With
+// it the plan also holds `daily`: each row is loaded into `quiz_bank` for site anime as a draft with no scheduled_date (the daily
+// cron's auto-scheduler sets dates, never this loader). Idempotent on the normalised title: a row already scheduled or published is
+// never touched, a second run changes nothing, and a still-draft unscheduled anime row that is no longer in the files is removed.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -93,7 +98,47 @@ export function readExtras(dir) {
       }
     }
   }
-  return { creators, quizzes };
+  return { creators, quizzes, daily: readDaily(dir) };
+}
+
+const DAILY_CATEGORIES = ['series_specific', 'true_false', 'who_am_i', 'name_the_series', 'music', 'creators_studios', 'odd_one_out', 'crossover'];
+
+/** Reads daily/<batch>.json (an array of rows, one row, or { rows: [...] }); [] when the folder is absent. */
+export function readDaily(dir) {
+  const dd = join(dir, 'daily');
+  const rows = [];
+  if (!existsSync(dd)) return rows;
+  for (const f of readdirSync(dd).filter((x) => x.endsWith('.json')).sort()) {
+    const doc = JSON.parse(readFileSync(join(dd, f), 'utf8'));
+    const list = Array.isArray(doc) ? doc : Array.isArray(doc.rows) ? doc.rows : [doc];
+    list.forEach((r, i) => rows.push({ file: `daily/${f}#${i + 1}`, ...r }));
+  }
+  return rows;
+}
+
+function buildDaily(list, groups) {
+  const slugs = new Set([...groups.map((g) => g.slug), MIX_SLUG]);
+  const seen = new Set(); const rows = [];
+  for (const r of list) {
+    const where = `${r.file ?? 'daily row'} (${String(r.title)})`;
+    if (r.site !== 'anime') throw new Error(`${where}: site must be anime`);
+    if (typeof r.title !== 'string' || r.title.length < 5 || r.title.length > 100) throw new Error(`${where}: title must be 5 to 100 characters`);
+    const key = r.title.trim().toLowerCase();
+    if (seen.has(key)) throw new Error(`${where}: duplicate title`);
+    seen.add(key);
+    const slug = r.group_slug ?? MIX_SLUG;
+    if (!slugs.has(slug)) throw new Error(`${where}: no series file for group ${String(r.group_slug)}`);
+    if (!QUIZ_TYPES.includes(r.quiz_type)) throw new Error(`${where}: bad quiz_type ${String(r.quiz_type)}`);
+    if (!DIFFICULTIES.includes(r.difficulty)) throw new Error(`${where}: bad difficulty ${String(r.difficulty)}`);
+    if (!DAILY_CATEGORIES.includes(r.category)) throw new Error(`${where}: bad category ${String(r.category)}`);
+    if (r.description !== undefined && (typeof r.description !== 'string' || r.description.length > 300)) throw new Error(`${where}: description must be at most 300 characters`);
+    if (!Array.isArray(r.questions) || r.questions.length !== 8) throw new Error(`${where}: exactly 8 questions needed`);
+    r.questions.forEach((x, i) => {
+      if (!x?.spoiler || x.spoiler.arc !== 0 || !SCOPES.includes(x.spoiler.scope)) throw new Error(`${where}: question ${i + 1} must be tagged at spoiler arc 0`);
+    });
+    rows.push({ title: r.title.trim(), description: r.description ?? null, group_slug: slug, quiz_type: r.quiz_type, difficulty: r.difficulty, category: r.category, questions: r.questions });
+  }
+  return rows;
 }
 
 function buildCreators(list) {
@@ -147,7 +192,7 @@ function buildQuizzes(list, creators, groups, arcsBySlug) {
 }
 
 /** Plan = the rows to write, one object per table. Throws on a duplicate natural key. `extras` is readExtras(dir) (K2). */
-export function buildDataPlan(files, extras = { creators: [], quizzes: [] }) {
+export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily: [] }) {
   const groups = []; const series = []; const arcs = []; const characters = []; const themes = []; const trivia = []; const sources = [];
   const seenSrc = new Set(); const seenTrivia = new Set();
   for (const f of files) {
@@ -179,13 +224,16 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [] }) {
   const creators = buildCreators(extras.creators ?? []);
   const arcsBySlug = new Map(files.map((f) => [f.slug, f.arcs ?? []]));
   const quizzes = buildQuizzes(extras.quizzes ?? [], creators, groups, arcsBySlug);
-  return { groups, series, arcs, characters, themes, trivia, sources, creators, quizzes };
+  const daily = buildDaily(extras.daily ?? [], groups);
+  return { groups, series, arcs, characters, themes, trivia, sources, creators, quizzes, daily };
 }
 
 export function countDataPlan(plan) {
   const base = { groups: plan.groups.length, series: plan.series.length, arcs: plan.arcs.length, characters: plan.characters.length, themes: plan.themes.length, trivia: plan.trivia.length, entity_sources: plan.sources.length };
-  if (!plan.creators?.length && !plan.quizzes?.length) return base;
-  return { ...base, creators: plan.creators.length, quizzes: plan.quizzes.length, questions: plan.quizzes.reduce((n, q) => n + q.question_count, 0) };
+  const k2 = plan.creators?.length || plan.quizzes?.length
+    ? { creators: plan.creators.length, quizzes: plan.quizzes.length, questions: plan.quizzes.reduce((n, q) => n + q.question_count, 0) } : {};
+  const k3 = plan.daily?.length ? { daily: plan.daily.length, daily_questions: plan.daily.reduce((n, r) => n + r.questions.length, 0) } : {};
+  return { ...base, ...k2, ...k3 };
 }
 
 // ---------------------------------------------------------------- SQL
@@ -243,6 +291,10 @@ function preflight(plan) {
     ...(plan.quizzes?.length ? [
       "  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'quizzes' and column_name = 'spoiler_arc_ord') then",
       "    raise exception 'load-fixtures: quizzes.spoiler_arc_ord is missing (apply SQL 011 first)';", '  end if;',
+    ] : []),
+    ...(plan.daily?.length ? [
+      "  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'quiz_bank' and column_name = 'site_id') then",
+      "    raise exception 'load-fixtures: quiz_bank.site_id is missing (apply the multisite SQL first)';", '  end if;',
     ] : []),
     'end', '$k1$;',
   ].join('\n');
@@ -317,13 +369,32 @@ export function renderDataSql(plan) {
       ['slug'], ` where quizzes.site_id = ${sqlText(SITE)}`));
   }
 
+  if (plan.daily?.length) out.push(...renderDailySql(plan.daily));
+
   out.push('commit;');
   return out.join('\n') + '\n';
 }
 
+const bankKey = (a, b) => `md5(lower(btrim(${a}.title))) = md5(lower(btrim(${b}.title)))`;
+
+/** K3: the daily bank rows. A temp table of the wanted rows, then update the unscheduled drafts by title, insert the missing
+ *  (a title already in the bank on any date is left alone), delete the stale unscheduled drafts. Never sets scheduled_date. */
+function renderDailySql(daily) {
+  const out = ['create temp table _k3_bank (title text, description text, group_slug text, quiz_type text, difficulty text, category text, questions jsonb) on commit drop;'];
+  for (let i = 0; i < daily.length; i += 10) {
+    const chunk = daily.slice(i, i + 10);
+    out.push(`insert into _k3_bank values ${chunk.map((r) => `(${[r.title, r.description, r.group_slug, r.quiz_type, r.difficulty, r.category].map(lit).join(', ')}, ${lit(json(r.questions))})`).join(', ')};`);
+  }
+  const scope = `b.site_id = ${sqlText(SITE)} and b.scheduled_date is null and b.published_quiz_id is null and b.verified_at is null and b.status = 'draft'`;
+  out.push(`update public.quiz_bank b set description = v.description, group_id = g.id, quiz_type = v.quiz_type, difficulty = v.difficulty, category = v.category, questions = v.questions, updated_at = now() from _k3_bank v join public.groups g on g.slug = v.group_slug and g.site_id = ${sqlText(SITE)} where ${scope} and ${bankKey('b', 'v')} and (b.description, b.group_id, b.quiz_type, b.difficulty, b.category, b.questions) is distinct from (v.description, g.id, v.quiz_type, v.difficulty, v.category, v.questions);`);
+  out.push(`insert into public.quiz_bank (title, description, group_id, quiz_type, difficulty, category, questions, status, site_id) select v.title, v.description, g.id, v.quiz_type, v.difficulty, v.category, v.questions, 'draft', ${sqlText(SITE)} from _k3_bank v join public.groups g on g.slug = v.group_slug and g.site_id = ${sqlText(SITE)} where not exists (select 1 from public.quiz_bank b where b.site_id = ${sqlText(SITE)} and ${bankKey('b', 'v')});`);
+  out.push(`delete from public.quiz_bank b where ${scope} and not exists (select 1 from _k3_bank v where ${bankKey('b', 'v')});`);
+  return out;
+}
+
 /** The read that proves a load: one line of numbers (groups series arcs characters themes trivia entity_sources), then
  *  with K2 files: creators (Team accounts with an editorial_accounts row), team memberships (anime membership with a bio),
- *  quizzes (published, of the plan) and their questions. */
+ *  quizzes (published, of the plan) and their questions; with K3 daily rows: the bank rows (site anime, no date) and their questions. */
 export function countDataSql(plan) {
   const list = plan.groups.map((g) => sqlText(g.slug)).join(', ');
   const gid = `(select id from public.groups where site_id = ${sqlText(SITE)} and slug in (${list}))`;
@@ -345,6 +416,13 @@ export function countDataSql(plan) {
       `(select count(*) from public.world_memberships m join public.profiles p on p.id = m.user_id where m.site_id = ${sqlText(SITE)} and p.username in (${users}))`,
       `(select count(*) from public.quizzes where site_id = ${sqlText(SITE)} and status = 'published' and slug in (${slugs}))`,
       `(select coalesce(sum(question_count), 0) from public.quizzes where site_id = ${sqlText(SITE)} and slug in (${slugs}))`,
+    );
+  }
+  if (plan.daily?.length) {
+    const titles = plan.daily.map((r) => sqlText(r.title.toLowerCase())).join(', ');
+    cols.push(
+      `(select count(*) from public.quiz_bank where site_id = ${sqlText(SITE)} and scheduled_date is null and lower(btrim(title)) in (${titles}))`,
+      `(select coalesce(sum(jsonb_array_length(questions)), 0) from public.quiz_bank where site_id = ${sqlText(SITE)} and scheduled_date is null and lower(btrim(title)) in (${titles}))`,
     );
   }
   return `select ${cols.join(',\n')};\n`;
