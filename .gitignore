@@ -82,6 +82,7 @@ docs/*
 # Run O1 bus and run folder (RUN-O1-PROMPT section 2): tracked on o1/* branches.
 !docs/o1/
 !docs/design/
+!docs/anime/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
 !docs/COWORK-HANDOFF.md
