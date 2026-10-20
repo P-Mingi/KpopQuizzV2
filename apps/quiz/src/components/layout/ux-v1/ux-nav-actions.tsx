@@ -128,8 +128,11 @@ function openMyQuizzes(e: React.MouseEvent<HTMLAnchorElement>): void {
   window.dispatchEvent(new HashChangeEvent('hashchange'));
 }
 
+/** Run O1 (B6): an optional section of the account menu, after Settings ("Your sites" of the network, NEXT_PUBLIC_NET_MENU). Absent, the menu is the one it always was. */
+export type AccountExtra = (close: () => void) => React.ReactNode;
+
 /** Account menu content (also rendered statically by the /ux-v1/kit gallery). */
-export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile; close: () => void; onSignOut: () => void }): React.ReactElement {
+export function AccountBody({ profile, close, onSignOut, accountExtra }: { profile: MeProfile; close: () => void; onSignOut: () => void; accountExtra?: AccountExtra }): React.ReactElement {
   const dark = useEffectiveTheme() === 'dark';
   const name = profile.display_name || profile.username;
   const lv = getLevelInfo(profile.xp ?? 0);
@@ -151,6 +154,7 @@ export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile;
         <Icon name="layers" />My quizzes{drafts > 0 ? <small>{drafts} {drafts === 1 ? 'draft' : 'drafts'}</small> : null}
       </Link>
       <Link className="ux-mi" href="/settings" onClick={close}><Icon name="gear" />Settings</Link>
+      {accountExtra ? accountExtra(close) : null}
       <button type="button" className="ux-mi" onClick={() => applyTheme(dark ? 'light' : 'dark')}>
         <Icon name={dark ? 'sun' : 'moon'} />{dark ? 'Light mode' : 'Dark mode'}
       </button>
@@ -160,7 +164,7 @@ export function AccountBody({ profile, close, onSignOut }: { profile: MeProfile;
   );
 }
 
-function Account({ profile }: { profile: MeProfile }): React.ReactElement {
+function Account({ profile, accountExtra }: { profile: MeProfile; accountExtra?: AccountExtra }): React.ReactElement {
   const name = profile.display_name || profile.username;
   const signOut = async (): Promise<void> => {
     try {
@@ -179,7 +183,7 @@ function Account({ profile }: { profile: MeProfile }): React.ReactElement {
         </button>
       )}
     >
-      {(close) => <AccountBody profile={profile} close={close} onSignOut={() => { void signOut(); }} />}
+      {(close) => <AccountBody profile={profile} close={close} onSignOut={() => { void signOut(); }} {...(accountExtra ? { accountExtra } : {})} />}
     </UxPopover>
   );
 }
@@ -194,7 +198,7 @@ function Account({ profile }: { profile: MeProfile }): React.ReactElement {
  * to /search: link-set rule). Once hydrated a plain click opens the overlay
  * instead; modified clicks (new tab) and visitors without JS reach the page.
  */
-export function UxNavActions(): React.ReactElement {
+export function UxNavActions({ accountExtra }: { accountExtra?: AccountExtra } = {}): React.ReactElement {
   const me = useUxMe();
   const openSearch = useUxSearch();
   const openSignIn = useSignIn();
@@ -218,7 +222,7 @@ export function UxNavActions(): React.ReactElement {
         <>
           <StreakPill profile={profile} />
           <Bell />
-          <Account profile={profile} />
+          <Account profile={profile} {...(accountExtra ? { accountExtra } : {})} />
         </>
       ) : (
         <button type="button" className="ux-btn ux-btn-ghost ux-nav-signin" onClick={() => openSignIn()} aria-busy={me === null ? true : undefined}>
