@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Egos on the Pitch: Who Is Who?",
+ "slug": "egos-on-the-pitch-who-is-who",
+ "description": "Ten questions on the strikers, the program staff and the rivals of the main cast.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who is the protagonist striker?",
+   "options": [
+    "Meguru Bachira",
+    "Yoichi Isagi",
+    "Seishirō Nagi",
+    "Reo Mikage"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which character is a dribbling winger?",
+   "options": [
+    "Yoichi Isagi",
+    "Seishirō Nagi",
+    "Meguru Bachira",
+    "Rensuke Kunigami"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which character is a gifted forward?",
+   "options": [
+    "Reo Mikage",
+    "Seishirō Nagi",
+    "Rensuke Kunigami",
+    "Rin Itoshi"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Whom does the cast list name as the friend of Seishirō Nagi?",
+   "options": [
+    "Reo Mikage",
+    "Jinpachi Ego",
+    "Anri Teieri",
+    "Sae Itoshi"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which character is the self-styled football superhero?",
+   "options": [
+    "Meguru Bachira",
+    "Shōei Barō",
+    "Yoichi Isagi",
+    "Rensuke Kunigami"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which character is described as an egotistical forward?",
+   "options": [
+    "Anri Teieri",
+    "Shōei Barō",
+    "Jinpachi Ego",
+    "Rin Itoshi"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Who is the elder brother of Rin Itoshi?",
+   "options": [
+    "Ryūsei Shidou",
+    "Michael Kaiser",
+    "Jinpachi Ego",
+    "Sae Itoshi"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Who is the director of the program?",
+   "options": [
+    "Anri Teieri",
+    "Michael Kaiser",
+    "Ryūsei Shidou",
+    "Jinpachi Ego"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Who is a co-creator of the program?",
+   "options": [
+    "Anri Teieri",
+    "Rin Itoshi",
+    "Seishirō Nagi",
+    "Michael Kaiser"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which character is a German forward?",
+   "options": [
+    "Ryūsei Shidou",
+    "Rin Itoshi",
+    "Michael Kaiser",
+    "Shōei Barō"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Blue Lock characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  }
+ ],
+ "notes": "Characters quiz on the cast list fact (015, arc 3). Most characters are level 0 but the only fact for them is arc 3, so C5 forces every tag to 3; the quiz level is therefore 3."
+}

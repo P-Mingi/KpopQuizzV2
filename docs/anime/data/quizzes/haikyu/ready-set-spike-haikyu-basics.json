@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Ready, Set, Spike: Haikyu!! Basics",
+ "slug": "ready-set-spike-haikyu-basics",
+ "description": "Ten easy questions on the creator, the magazine, the studio and the first anime season. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who is the single creator behind Haikyu!!, handling both story and art?",
+   "options": [
+    "Haruichi Furudate",
+    "Eiichiro Oda",
+    "Tsugumi Ohba",
+    "Gege Akutami"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which magazine did the manga run from February 2012?",
+   "options": [
+    "Monthly Shōnen Gangan",
+    "Weekly Shōnen Magazine",
+    "Weekly Shōnen Sunday",
+    "Weekly Shōnen Jump"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which Japanese company published the Haikyu!! manga?",
+   "options": [
+    "Kodansha",
+    "Shogakukan",
+    "Shueisha",
+    "Square Enix"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many volumes does the collected edition of the manga have?",
+   "options": [
+    "27",
+    "32",
+    "45",
+    "60"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which studio made the TV anime?",
+   "options": [
+    "Bones",
+    "MAPPA",
+    "Production I.G",
+    "Madhouse"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many episodes does the first season have?",
+   "options": [
+    "12",
+    "13",
+    "50",
+    "25"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many episodes does the whole TV anime have?",
+   "options": [
+    "51",
+    "64",
+    "100",
+    "85"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "Over how many seasons does the TV anime run?",
+   "options": [
+    "Two",
+    "Four",
+    "Three",
+    "Five"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "The Japanese title comes from the kanji 排球, an old word for which sport?",
+   "options": [
+    "Tennis",
+    "Volleyball",
+    "Badminton",
+    "Handball"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-japanese-title-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "At which event was the first OVA episode shown on November 9, 2014?",
+   "options": [
+    "Comiket",
+    "Anime Japan",
+    "Jump Festa",
+    "Tokyo Comic Con"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-first-ova-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Haikyu!! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (001, 002, 003, 004, 007, 008, 020). Creator, magazine, publisher, volumes, studio, episodes, title and first OVA."
+}

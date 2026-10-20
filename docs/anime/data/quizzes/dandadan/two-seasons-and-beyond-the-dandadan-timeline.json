@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Two Seasons and Beyond: The Dandadan Timeline",
+ "slug": "two-seasons-and-beyond-the-dandadan-timeline",
+ "description": "Ten questions on season two, its directors and songs, the announced third season and the manga material still to come.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "On which date did season two end?",
+   "options": [
+    "December 20, 2024",
+    "June 27, 2025",
+    "September 19, 2025",
+    "December 26, 2025"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "On which date did season two begin?",
+   "options": [
+    "October 4, 2024",
+    "January 11, 2025",
+    "July 4, 2025",
+    "April 6, 2021"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Who took over as director for season two?",
+   "options": [
+    "Abel Góngora",
+    "Takashi Sano",
+    "Daisuke Hiramaki",
+    "Susumu Mitsunaka"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-season-two-directors-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Who co-directed season two alongside Abel Góngora?",
+   "options": [
+    "Fūga Yamashiro",
+    "Takashi Sano",
+    "Daisuke Hiramaki",
+    "Seiji Mizushima"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-season-two-directors-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "In which year is the premiere of the announced third season planned?",
+   "options": [
+    "2025",
+    "2027",
+    "2026",
+    "2028"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-season-three-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which act performs Kakumei Dōchū, the opening of season two?",
+   "options": [
+    "Creepy Nuts",
+    "Aina the End",
+    "Zutomayo",
+    "WurtS"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-two-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which act performs Doukashiteru, the ending of season two?",
+   "options": [
+    "Creepy Nuts",
+    "Zutomayo",
+    "WurtS",
+    "Aina the End"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-two-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "What does the third arc cover, after the two TV seasons?",
+   "options": [
+    "Manga not yet animated",
+    "A third TV season",
+    "A feature film",
+    "An original anime"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-arc-structure-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which alien is described as the last Sumerian alien?",
+   "options": [
+    "Vamola",
+    "Alien Serpo",
+    "Taro",
+    "Chiquitita"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-later-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the son of Peeny-Weeny?",
+   "options": [
+    "Taro",
+    "Kinta Sakata",
+    "Evil Eye",
+    "Chiquitita"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-later-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Dandadan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "notes": "Arc quiz: arc 1 is season 1, arc 2 season 2, arc 3 the manga beyond. Tags follow the cited facts: 010, 011, 012 and 014 are arc 2; 015 and 017 are arc 3 (the last two questions name arc 2 characters under a level 3 tag)."
+}

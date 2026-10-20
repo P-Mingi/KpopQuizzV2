@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "Faces at the Foot of the Tower",
+ "slug": "faces-at-the-foot-of-the-tower-early-cast",
+ "description": "Ten questions on Bam and the first climbers, the guardian of the First Floor and the king of the Tower.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "What does the Korean name of Twenty-Fifth Bam mean when translated literally?",
+   "options": [
+    "Twenty-fifth Star",
+    "Twenty-fifth Night",
+    "Fifth Dawn",
+    "Silent Night"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-bam-name-meaning-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who is the best friend of Twenty-Fifth Bam?",
+   "options": [
+    "Rachel",
+    "Hatz",
+    "Headon",
+    "Jahad"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character guards the First Floor?",
+   "options": [
+    "Headon",
+    "Hatz",
+    "Shibisu",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who is the leader of team Isu?",
+   "options": [
+    "Hatz",
+    "Rak Wraithraiser",
+    "Shibisu",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a swordsman?",
+   "options": [
+    "Hatz",
+    "Rachel",
+    "Headon",
+    "Anaak Jahad"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a spear-bearer?",
+   "options": [
+    "Hatz",
+    "Shibisu",
+    "Headon",
+    "Rak Wraithraiser"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who is the king of the Tower?",
+   "options": [
+    "Headon",
+    "Shibisu",
+    "Jahad",
+    "Khun Aguero Agnes"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a wave controller?",
+   "options": [
+    "Khun Aguero Agnes",
+    "Rak Wraithraiser",
+    "Rachel",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which Regular comes from a great family?",
+   "options": [
+    "Rak Wraithraiser",
+    "Hatz",
+    "Shibisu",
+    "Khun Aguero Agnes"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which Regular carries the name of a princess?",
+   "options": [
+    "Rachel",
+    "Headon",
+    "Anaak Jahad",
+    "Hatz"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-cast-early-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Tower of God characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "notes": "Characters quiz on the early cast fact (015, arc 1) plus the Bam name fact (019, arc 0). All characters are level 0; questions citing 015 are tagged arc 1 because C5 forces the tag of the cited cast fact."
+}

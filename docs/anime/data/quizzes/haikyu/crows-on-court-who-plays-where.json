@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Crows on Court: Who Plays Where?",
+ "slug": "crows-on-court-who-plays-where",
+ "description": "Ten questions on the Karasuno volleyball club: the positions, the captain and the small ace who started it all.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which nickname belongs to the small ace on TV who inspires Hinata to join Karasuno?",
+   "options": [
+    "The Tiny Crow",
+    "The Mini Ace",
+    "The Little Giant",
+    "The Short Wall"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-hinata-little-giant-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which award show gave Hinata Best Boy at its fifth edition?",
+   "options": [
+    "Crunchyroll Anime Awards",
+    "Tokyo Anime Award",
+    "Seiyu Awards",
+    "Japan Media Arts Festival"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-hinata-best-boy-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which Karasuno player is the setter?",
+   "options": [
+    "Kei Tsukishima",
+    "Tobio Kageyama",
+    "Tadashi Yamaguchi",
+    "Asahi Azumane"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Which Karasuno player is the middle blocker?",
+   "options": [
+    "Asahi Azumane",
+    "Kei Tsukishima",
+    "Daichi Sawamura",
+    "Ryūnosuke Tanaka"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Which Karasuno player is the serving specialist?",
+   "options": [
+    "Daichi Sawamura",
+    "Yū Nishinoya",
+    "Ryūnosuke Tanaka",
+    "Tadashi Yamaguchi"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Who is the captain of Karasuno?",
+   "options": [
+    "Kōshi Sugawara",
+    "Asahi Azumane",
+    "Ryūnosuke Tanaka",
+    "Daichi Sawamura"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Who is the vice captain of Karasuno?",
+   "options": [
+    "Daichi Sawamura",
+    "Asahi Azumane",
+    "Kōshi Sugawara",
+    "Yū Nishinoya"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Which Karasuno player is the ace?",
+   "options": [
+    "Tobio Kageyama",
+    "Yū Nishinoya",
+    "Tadashi Yamaguchi",
+    "Asahi Azumane"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Which Karasuno player is the libero?",
+   "options": [
+    "Tobio Kageyama",
+    "Kei Tsukishima",
+    "Tadashi Yamaguchi",
+    "Yū Nishinoya"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  },
+  {
+   "question": "Who is the assistant manager of the club?",
+   "options": [
+    "Ryūnosuke Tanaka",
+    "Tadashi Yamaguchi",
+    "Yū Nishinoya",
+    "Hitoka Yachi"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-cast-karasuno-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Haikyu!! characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+  }
+ ],
+ "notes": "Characters quiz on the Karasuno cast fact (016, arc 2) plus two Hinata facts (018, 019, arc 0). All characters are level 0; the 016 questions are tagged arc 2 because C5 forces the tag of the cited cast fact."
+}

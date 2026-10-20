@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Stage Names: Meet the Cast of the Idol Story",
+ "slug": "stage-names-meet-the-cast-of-the-idol-story",
+ "description": "Ten questions on the idol, her twins, the actors and the agency crew of the main cast.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which character won fame as a child acting prodigy who could cry whenever a scene needed it?",
+   "options": [
+    "Akane Kurokawa",
+    "Melt Narushima",
+    "Kana Arima",
+    "Ruby Hoshino"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-kana-child-prodigy-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Who is the idol and leader of B-Komachi?",
+   "options": [
+    "Kana Arima",
+    "Ai Hoshino",
+    "Ruby Hoshino",
+    "Akane Kurokawa"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which character is the twin sister of Aqua and an aspiring idol?",
+   "options": [
+    "Kana Arima",
+    "Ruby Hoshino",
+    "Akane Kurokawa",
+    "MEM-cho"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which character is a stage actress?",
+   "options": [
+    "Akane Kurokawa",
+    "Kana Arima",
+    "Ruby Hoshino",
+    "MEM-cho"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which YouTuber joins B-Komachi?",
+   "options": [
+    "Akane Kurokawa",
+    "Ruby Hoshino",
+    "MEM-cho",
+    "Kana Arima"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Who is the film director of the main cast?",
+   "options": [
+    "Ichigo Saitō",
+    "Taishi Gotanda",
+    "Melt Narushima",
+    "Miyako Saitō"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Who is the head of Strawberry Productions?",
+   "options": [
+    "Taishi Gotanda",
+    "Ichigo Saitō",
+    "Melt Narushima",
+    "Miyako Saitō"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Who is the wife of the agency head and the manager of the agency?",
+   "options": [
+    "Ruby Hoshino",
+    "Akane Kurokawa",
+    "Kana Arima",
+    "Miyako Saitō"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which character is a young actor and model?",
+   "options": [
+    "Melt Narushima",
+    "Taishi Gotanda",
+    "Ichigo Saitō",
+    "Miyako Saitō"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which guarded teenager moves into acting?",
+   "options": [
+    "Aqua Hoshino",
+    "Ruby Hoshino",
+    "Taishi Gotanda",
+    "Ichigo Saitō"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-cast-main-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Oshi no Ko characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  }
+ ],
+ "notes": "Characters quiz on the main cast fact (016, arc 1) and the Kana fact (019, arc 0). All ten are level 0 characters; the 016 questions are tagged arc 1 because C5 forces the tag of the cited cast fact. The past-life twist is not used here."
+}
