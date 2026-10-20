@@ -114,7 +114,7 @@ export async function storeHeader(bytes: Buffer, who: { user: HeaderUser; supaba
 }
 
 /** The header of a world site: the membership's `header_url`, through update_my_membership (the stamp is made first). */
-async function saveWorldHeader(supabase: SupabaseClient, url: string | null): Promise<{ error: { message: string } | null }> {
+export async function saveWorldHeader(supabase: SupabaseClient, url: string | null): Promise<{ error: { message: string } | null }> {
   await supabase.rpc('ensure_membership', { p_site: SITE_ID, p_via: 'signup', p_via_code: null });
   return supabase.rpc('update_my_membership', { p_site: SITE_ID, p_patch: { header_url: url } });
 }

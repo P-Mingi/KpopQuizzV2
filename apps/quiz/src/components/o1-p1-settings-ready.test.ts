@@ -39,7 +39,7 @@ function render(form: Record<string, unknown>, extra: Record<number, unknown> = 
     const { formFromRow } = await import('@/lib/ux-v1/p10/settings-model');
     const { UxSettings } = await import('@/components/profile/ux-v1/settings');
     const base = formFromRow(ROW);
-    const presets = [
+    const presets: unknown[] = [
       'ready', { row: ROW, groups: GROUPS, earned: [{ id: 'perfect_score', name: 'Perfect score' }, { id: 'first_steps', name: 'First steps' }], provider: 'google' },
       base, { ...base, ...form }, {}, {}, true, ['Bang Chan', 'Han'], '', 'same', '', false, null, false, false, false, true, false,
     ];

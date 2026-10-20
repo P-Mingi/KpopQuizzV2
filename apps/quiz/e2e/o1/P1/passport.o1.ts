@@ -46,7 +46,7 @@ async function surface(page: Page): Promise<{ text: string; hrefs: string[] }> {
 function expectNoKpop(s: { text: string; hrefs: string[] }, where: string, ownName = '', ...extraOwn: string[]): void {
   // The member's own display name and username are their data (the kpop-heavy fixture is "Fixture Kpop Heavy", o1_kpop_heavy), not a word of the site.
   const text = [ownName, ...extraOwn].filter(Boolean).reduce((t, w) => t.split(w).join(''), s.text);
-  const hits = text.match(/.{0,40}(?:k-?pop|kpopquiz|discord).{0,40}/gis) ?? [];
+  const hits = text.match(/[^]{0,40}(?:k-?pop|kpopquiz|discord)[^]{0,40}/gi) ?? [];
   expect(hits, `${where}: visible text`).toEqual([]);
   expect(s.hrefs.filter((h) => /kpopquiz/i.test(h)), `${where}: links`).toEqual([]);
 }
@@ -86,6 +86,19 @@ test.describe('the anime-only member', () => {
     await expect(page.getByRole('button', { name: 'Email me a sign-in link' })).toBeVisible();
     await expect(page.getByText('One FanQuiz passport works on every site of the network.')).toBeVisible();
     expectNoKpop(await surface(page), '/login');
+  });
+
+  test('the sign-in sheet of the shell says OtakuQuiz too', async ({ page }) => {
+    await page.goto(`${ANIME}/`);
+    await page.getByRole('button', { name: /^Sign in/ }).first().click();
+    const sheet = page.getByRole('dialog');
+    await expect(sheet.getByRole('heading', { name: 'Sign in to OtakuQuiz' })).toBeVisible();
+    await expect(sheet.getByRole('button', { name: 'Continue with Google' })).toBeVisible();
+    await expect(sheet.getByRole('button', { name: /Discord/ })).toHaveCount(0);
+    await expect(sheet.getByRole('button', { name: 'Email me a sign-in link' })).toBeVisible();
+    await expect(sheet.getByText('One FanQuiz passport works on every site of the network.')).toBeVisible();
+    await expect(sheet.getByText('We never post for you.')).toBeVisible();
+    expect(await sheet.innerText()).not.toMatch(/k-?pop|kpopquiz|discord/i);
   });
 
   test('a member that does not exist on this site is a 404', async ({ page }) => {

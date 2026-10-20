@@ -28,6 +28,7 @@ export const COPY = {
   'u.guestTitle': 'Your {brand} passport',
   'u.guestLead': 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google or an email link.',
   'team.chip': '{brand} team',
+  'team.title': 'Editorial account run by the {brand} team',
   'team.profileLine': 'Editorial account of {brand}',
   'settings.profile': 'Profile',
   'settings.displayName': 'Display name',

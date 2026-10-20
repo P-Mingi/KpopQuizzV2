@@ -34,6 +34,7 @@ export interface PassportWords {
   readonly shareOther: string;
   readonly teamChip: string;
   readonly teamLine: string;
+  readonly teamTitle: string;
   readonly guestTitle: string;
   readonly guestLead: string;
   /** The fan card (a kpop image route) is not offered. */
@@ -64,6 +65,7 @@ export function passportWords(site: SiteId): PassportWords | undefined {
     shareOther: p1Template('u.shareOther', site),
     teamChip: p1Template('team.chip', site),
     teamLine: p1Template('team.profileLine', site),
+    teamTitle: p1Template('team.title', site),
     guestTitle: p1Template('u.guestTitle', site),
     guestLead: p1Template('u.guestLead', site),
     storyCard: false,

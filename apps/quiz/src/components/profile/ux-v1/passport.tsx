@@ -231,7 +231,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       <div className="p10-id">
         <div className="p10-idrow">
           <h1 className={['p10-pname', 'ux-who', acc].filter(Boolean).join(' ')} style={ff ? { fontFamily: ff } : undefined}>{p.displayName}</h1>
-          {team ? <TeamTag /> : null}
+          {team ? <TeamTag {...(p.words ? { title: p.words.teamTitle } : {})} /> : null}
           <BiasTag bias={p.bias} accent={p.accent} {...(p.words ? { tagIcon: p.words.tagIcon } : {})} />
           {p.pinnedBadge ? (
             <span className="p10-pinb" title={p.pinnedBadge.name}>

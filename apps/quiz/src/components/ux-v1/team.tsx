@@ -5,8 +5,8 @@ import { TEAM_TAG, TEAM_TAG_TITLE, teamNote } from '@/lib/ux-v1/a0/team';
  * everywhere the name shows (feed, post, profile, notifications, search).
  * `PersonName isTeam` renders it for you. Server-safe.
  */
-export function TeamTag({ className }: { className?: string | undefined }): React.ReactElement {
-  return <span className={['ux-teamtag', className ?? ''].filter(Boolean).join(' ')} title={TEAM_TAG_TITLE}>{TEAM_TAG}</span>;
+export function TeamTag({ className, title }: { className?: string | undefined; title?: string | undefined }): React.ReactElement {
+  return <span className={['ux-teamtag', className ?? ''].filter(Boolean).join(' ')} title={title ?? TEAM_TAG_TITLE}>{TEAM_TAG}</span>;
 }
 
 /**
