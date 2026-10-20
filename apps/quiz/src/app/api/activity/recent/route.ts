@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
+import { forSite } from '@/lib/site/scope';
 
 // Recent activity for the home ticker (Workstream M, M1.7). Global (not per-user),
 // cached ~45s. display_name is already baked at write time, so there is no
@@ -49,9 +50,9 @@ export async function GET(): Promise<NextResponse> {
   const team = await teamIdsToExclude();
   const notTeam = team ? `user_id.is.null,user_id.not.in.${pgList(team)}` : null;
 
-  let countQ = db
+  let countQ = forSite(db
     .from('activity_events')
-    .select('id', { count: 'exact', head: true })
+    .select('id', { count: 'exact', head: true }))
     .gte('created_at', hourAgo);
   if (notTeam) countQ = countQ.or(notTeam);
   const { count } = await countQ;
@@ -63,11 +64,11 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ events: [] }, { headers });
   }
 
-  let rowsQ = db.from('activity_events').select('id, event_type, display_name, group_slug, payload, created_at').order('created_at', { ascending: false }).limit(RECENT_LIMIT);
+  let rowsQ = forSite(db.from('activity_events').select('id, event_type, display_name, group_slug, payload, created_at')).order('created_at', { ascending: false }).limit(RECENT_LIMIT);
   if (notTeam) rowsQ = rowsQ.or(notTeam);
   const [{ data: rows }, { data: groups }] = await Promise.all([
     rowsQ,
-    db.from('groups').select('slug, name'),
+    forSite(db.from('groups').select('slug, name')),
   ]);
 
   const nameBySlug = new Map<string, string>();

@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { maxPointsPerQuestion, maxScore } from '@/lib/quiz/scoring';
 import { readPublicStats, STATS_REVALIDATE } from '@/lib/stats/site-stats';
+import { forSite } from '@/lib/site/scope';
 
 /** True when a quiz type scores 1 point a question, so its average is a share of right answers. */
 const ranksByRightAnswers = (quizType: unknown): boolean => maxPointsPerQuestion(typeof quizType === 'string' ? quizType : null) === 1;
@@ -32,9 +33,9 @@ const fetchSiteStats = async (): Promise<SiteStats> => {
 
   const [counts, groupsRes] = await Promise.all([
     readPublicStats(),
-    supabase
+    forSite(supabase
       .from('groups')
-      .select('name, slug, quiz_count, total_plays')
+      .select('name, slug, quiz_count, total_plays'))
       .gt('quiz_count', 0)
       .order('total_plays', { ascending: false })
       .limit(10),
@@ -90,9 +91,9 @@ const MIN_COMPLETIONS = 30;
 
 const fetchQuizScoreExtremes = async (): Promise<QuizExtremes> => {
   const supabase = createPublicReadClient();
-  const { data } = await supabase
+  const { data } = await forSite(supabase
     .from('quizzes')
-    .select('slug, title, quiz_type, total_score_sum, total_completions, questions, groups(name, slug)')
+    .select('slug, title, quiz_type, total_score_sum, total_completions, questions, groups(name, slug)'))
     .eq('status', 'published')
     .gte('total_completions', MIN_COMPLETIONS)
     .limit(600);
@@ -172,8 +173,8 @@ const fetchMostPlayed30d = async (limit: number): Promise<PlayedRow[]> => {
   const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1]);
   // over-fetch candidate quizzes (some of the most-played may be unpublished/deleted -> skipped).
   const candidateIds = ranked.slice(0, limit * 3).map(([id]) => id);
-  const { data: qz } = await supabase
-    .from('quizzes').select('id, slug, title, groups(name, slug)')
+  const { data: qz } = await forSite(supabase
+    .from('quizzes').select('id, slug, title, groups(name, slug)'))
     .eq('status', 'published').in('id', candidateIds);
   const byId = new Map(((qz ?? []) as Array<{ id: number; slug: string; title: string; groups: { name?: string; slug?: string } | null }>).map((q) => [q.id, q]));
   const out: PlayedRow[] = [];
@@ -204,9 +205,9 @@ const MIN_BUCKET = 10;
 
 const fetchGroupTypeScores = async (): Promise<GroupTypeScores | null> => {
   const supabase = createPublicReadClient();
-  const { data: qData } = await supabase
+  const { data: qData } = await forSite(supabase
     .from('quizzes')
-    .select('quiz_type, total_score_sum, total_completions, questions, group_id, groups(slug, is_custom, needs_review)')
+    .select('quiz_type, total_score_sum, total_completions, questions, group_id, groups(slug, is_custom, needs_review)'))
     .eq('status', 'published')
     .gte('total_completions', MIN_COMPLETIONS)
     .limit(1000);
@@ -221,7 +222,7 @@ const fetchGroupTypeScores = async (): Promise<GroupTypeScores | null> => {
   const genderTally = new Map<number, Record<string, number>>();
   for (let page = 0; page < 20; page += 1) {
     const from = page * 1000;
-    const { data } = await supabase.from('songs').select('group_id, gender').in('group_id', groupIds).range(from, from + 999);
+    const { data } = await forSite(supabase.from('songs').select('group_id, gender')).in('group_id', groupIds).range(from, from + 999);
     const rows = (data ?? []) as { group_id: number; gender: string | null }[];
     for (const r of rows) { const t = genderTally.get(r.group_id) ?? {}; const k = r.gender ?? 'null'; t[k] = (t[k] ?? 0) + 1; genderTally.set(r.group_id, t); }
     if (rows.length < 1000) break;
@@ -272,8 +273,8 @@ const fetchGroupMemberCounts = async (limit: number): Promise<MemberCountRow[]> 
   for (const r of ((idolRows ?? []) as { group_id: number | null }[])) if (r.group_id != null) counts.set(r.group_id, (counts.get(r.group_id) ?? 0) + 1);
   const groupIds = [...counts.keys()];
   if (!groupIds.length) return [];
-  const { data: grpRows } = await supabase
-    .from('groups').select('id, name, slug, generation, is_custom, needs_review').in('id', groupIds);
+  const { data: grpRows } = await forSite(supabase
+    .from('groups').select('id, name, slug, generation, is_custom, needs_review')).in('id', groupIds);
   const rows: MemberCountRow[] = [];
   for (const g of ((grpRows ?? []) as Array<{ id: number; name: string; slug: string; generation: string | null; is_custom: boolean; needs_review: boolean }>)) {
     if (g.is_custom || g.needs_review || g.slug === 'general-kpop') continue;

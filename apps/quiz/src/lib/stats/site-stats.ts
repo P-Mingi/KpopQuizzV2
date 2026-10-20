@@ -64,7 +64,7 @@ const curatedOnly = (): boolean => process.env.SONGS_IS_CURATED === 'true';
 async function distinctGroups(db: ReturnType<typeof createPublicReadClient>, table: 'quizzes' | 'songs', status: string): Promise<number> {
   const ids = new Set<number>();
   for (let from = 0; ; from += 1000) {
-    const base = db.from(table).select('group_id').eq('status', status).not('group_id', 'is', null);
+    const base = forSite(db.from(table).select('group_id')).eq('status', status).not('group_id', 'is', null);
     const q = table === 'songs' && curatedOnly() ? base.eq('is_curated', true) : base;
     const { data, error } = await q.order('id').range(from, from + 999);
     if (error) throw new Error(`[site-stats] ${table}: ${error.message}`);

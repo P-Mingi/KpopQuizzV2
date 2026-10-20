@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 
 // W9b - group content freshness.
 //
@@ -17,9 +18,9 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 export const getGroupContentDate = unstable_cache(
   async (groupId: number): Promise<string | null> => {
     const db = createPublicReadClient();
-    const { data } = await db
+    const { data } = await forSite(db
       .from('quizzes')
-      .select('created_at')
+      .select('created_at'))
       .eq('group_id', groupId)
       .eq('status', 'published')
       .order('created_at', { ascending: false })

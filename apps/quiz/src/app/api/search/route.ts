@@ -4,6 +4,7 @@ import { createServerClient, createPublicReadClient } from '@/lib/supabase/serve
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -43,21 +44,21 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     const [quizzesResult, groupsResult, creatorsResult, peopleResult] = await Promise.all([
       // Quizzes by title
-      supabase
+      forSite(supabase
         .from('quizzes')
         .select(`
           id, title, slug, play_count,
           groups!inner (name, slug, display_color, text_color, logo_url)
-        `)
+        `))
         .eq('status', 'published')
         .ilike('title', pattern)
         .order('play_count', { ascending: false })
         .limit(5),
 
       // Groups by name
-      supabase
+      forSite(supabase
         .from('groups')
-        .select('id, name, slug, display_color, text_color, logo_url, quiz_count')
+        .select('id, name, slug, display_color, text_color, logo_url, quiz_count'))
         .ilike('name', pattern)
         .order('quiz_count', { ascending: false })
         .limit(3),

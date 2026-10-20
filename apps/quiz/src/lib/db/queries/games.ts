@@ -1,4 +1,5 @@
 import { createServerClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 import type { GameCardData, GameWithGroup } from '@/lib/db/types';
 
@@ -82,9 +83,9 @@ function toGameCardData(row: GameRow): GameCardData {
 
 export async function getGameBySlug(slug: string): Promise<GameWithGroup | null> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('games')
-    .select(GAME_SELECT)
+    .select(GAME_SELECT))
     .eq('slug', slug)
     .eq('status', 'published')
     .single();
@@ -99,9 +100,9 @@ export async function getGameBySlug(slug: string): Promise<GameWithGroup | null>
 
 export async function getBlindTests(): Promise<GameWithGroup[]> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('games')
-    .select(GAME_SELECT)
+    .select(GAME_SELECT))
     .eq('game_type', 'blind_test')
     .eq('status', 'published')
     .order('play_count', { ascending: false });
@@ -112,9 +113,9 @@ export async function getBlindTests(): Promise<GameWithGroup[]> {
 
 export async function getAdminBlindTests(): Promise<GameCardData[]> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('games')
-    .select(GAME_SELECT)
+    .select(GAME_SELECT))
     .eq('game_type', 'blind_test')
     .in('status', ['published', 'draft'])
     .order('created_at', { ascending: false });

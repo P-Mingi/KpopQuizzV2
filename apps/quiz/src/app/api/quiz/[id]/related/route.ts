@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -12,9 +13,9 @@ export async function GET(
   const supabase = await createServerClient();
 
   // Get the quiz's group_id
-  const { data: quiz } = await supabase
+  const { data: quiz } = await forSite(supabase
     .from('quizzes')
-    .select('group_id')
+    .select('group_id'))
     .eq('id', id)
     .single();
 
@@ -23,9 +24,9 @@ export async function GET(
   }
 
   // Fetch top 6 from same group, excluding current quiz
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select('id, title, slug, difficulty, play_count, quiz_type')
+    .select('id, title, slug, difficulty, play_count, quiz_type'))
     .eq('group_id', quiz.group_id)
     .eq('status', 'published')
     .neq('id', id)
