@@ -1,0 +1,606 @@
+[
+  {
+    "id": "chainsaw-man-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "title_native",
+    "value": "チェンソーマン",
+    "text": "The Japanese title is チェンソーマン, which is read Chensō Man.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65240543",
+        "ref": "Q65240543",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series' Japanese title is チェンソーマン with the romanization Chensō Man."
+  },
+  {
+    "id": "chainsaw-man-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "author",
+    "value": "Tatsuki Fujimoto",
+    "text": "Tatsuki Fujimoto both wrote and drew the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65240543",
+        "ref": "Q65240543",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Written and illustrated by Tatsuki Fujimoto"
+  },
+  {
+    "id": "chainsaw-man-magazines-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Part 1), Shōnen Jump+ (Part 2), published by Shueisha",
+    "text": "Shueisha publishes the manga: the first part ran in Weekly Shōnen Jump, and the second part moved to the Shōnen Jump+ app and website.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "its second arc was serialized in Shueisha's Shōnen Jump+ app and website from July 2022 to March 25, 2026"
+  },
+  {
+    "id": "chainsaw-man-manga-run-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "manga_run",
+    "value": "December 3, 2018 to March 25, 2026",
+    "text": "The manga began on 3 December 2018 and its serialization ended on 25 March 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65240543",
+        "ref": "Q65240543",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Original run: December 3, 2018 - March 25, 2026"
+  },
+  {
+    "id": "chainsaw-man-volume-count-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "volumes",
+    "value": 24,
+    "text": "The chapters are collected in 24 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Volumes: 24"
+  },
+  {
+    "id": "chainsaw-man-copies-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "copies",
+    "value": "over 36 million copies by June 2026",
+    "text": "By June 2026 more than 36 million copies of the manga were in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 36 million copies in circulation"
+  },
+  {
+    "id": "chainsaw-man-awards-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "manga_award",
+    "value": "66th Shogakukan Manga Award (shonen) in 2021; Harvey Award for Best Manga, 2021 to 2023",
+    "text": "Honors include the 66th Shogakukan Manga Award for shonen manga in 2021, plus Harvey Awards for the best manga every year from 2021 to 2023.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "won the Harvey Award in the Best Manga category from 2021 to 2023"
+  },
+  {
+    "id": "chainsaw-man-anime-studio-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "studio",
+    "value": "MAPPA",
+    "text": "MAPPA produced the television anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "MAPPA"
+  },
+  {
+    "id": "chainsaw-man-anime-staff-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "director",
+    "value": "Ryū Nakayama",
+    "text": "Ryū Nakayama directed the television series, with Hiroshi Seko writing the series composition and Kensuke Ushio composing the music.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series' music was composed by Kensuke Ushio."
+  },
+  {
+    "id": "chainsaw-man-anime-run-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "episodes",
+    "value": 12,
+    "text": "The television anime ran for 12 episodes, from 12 October to 28 December 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "October 12 to December 28, 2022"
+  },
+  {
+    "id": "chainsaw-man-public-safety-arc-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "arc_1",
+    "value": [
+      "1: Public Safety Arc, episodes 1-12"
+    ],
+    "text": "The first season covers the Public Safety Arc, the name given to Part 1 of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Public Safety Arc"
+  },
+  {
+    "id": "chainsaw-man-reze-arc-film-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "arc_2",
+    "value": [
+      "2: Reze Arc, film of September 19, 2025"
+    ],
+    "text": "The Reze Arc was turned into a film, Chainsaw Man - The Movie: Reze Arc, which premiered in Japan on 19 September 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "premiered September 19, 2025, distributed by Toho"
+  },
+  {
+    "id": "chainsaw-man-assassins-arc-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "arc_3",
+    "value": [
+      "3: Assassins Arc, announced anime sequel"
+    ],
+    "text": "The Assassins Arc is the announced next anime adaptation, and the official site lists it next to the series and the film.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://chainsawman.dog/",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Chainsaw Man - Assassins Arc"
+  },
+  {
+    "id": "chainsaw-man-school-arc-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "arc_4",
+    "value": [
+      "4: School Arc, Part 2, manga only"
+    ],
+    "text": "Part 2 of the manga is the School Arc, which follows Asa Mitaka and is not yet adapted into the anime.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381105424",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "School Arc"
+  },
+  {
+    "id": "chainsaw-man-opening-theme-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Kick Back - Kenshi Yonezu"
+    ],
+    "text": "The opening theme of the series is Kick Back by Kenshi Yonezu.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Kick Back\" by Kenshi Yonezu"
+  },
+  {
+    "id": "chainsaw-man-ending-themes-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Chainsaw Blood - Vaundy",
+      "ED 2: Chu, Tayōsei - Ano",
+      "ED 3: Dainōteki na Rendezvous - Kanaria",
+      "ED 4: Deep Down - Aimer",
+      "ED 5: Dogland - People 1",
+      "ED 6: Fight Song - Eve",
+      "ED 7: First Death - TK from Ling Tosite Sigure",
+      "ED 8: Hawatari Ni-Oku Centi - Maximum the Hormone",
+      "ED 9: In the Back Room - Syudou",
+      "ED 10: Jōzai - Tooboe",
+      "ED 11: Violence - Queen Bee",
+      "ED 12: Zanki - Zutomayo"
+    ],
+    "text": "Every episode has its own ending song by a different artist, from Chainsaw Blood by Vaundy in episode 1 to Zanki by Zutomayo in episode 12.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+        "ref": "1381105566",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Zanki\" by Zutomayo"
+  },
+  {
+    "id": "chainsaw-man-cast-first-half-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "characters_a",
+    "value": [
+      "Denji: the hero",
+      "Pochita: the Chainsaw Devil",
+      "Power: Blood Fiend",
+      "Aki Hayakawa: Devil Hunter",
+      "Makima: head of Special Division 4",
+      "Kobeni Higashiyama: Devil Hunter",
+      "Himeno: Aki's first partner",
+      "Kishibe: veteran Devil Hunter",
+      "Angel Devil: lifespan-draining devil",
+      "Katana Man: yakuza grandson"
+    ],
+    "text": "The first half of the cast list covers Denji, his devil partner and the members of Special Division 4 and their rivals, from Denji to Katana Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A Blood Fiend serving as a Public Safety Devil Hunter under Makima."
+  },
+  {
+    "id": "chainsaw-man-cast-second-half-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "characters_b",
+    "value": [
+      "Reze: cafe worker",
+      "Santa Claus: assassin",
+      "Quanxi: first Devil Hunter",
+      "Beam: Shark Fiend",
+      "Galgali: Violence Fiend",
+      "Asa Mitaka: high school student",
+      "Yoru: War Devil",
+      "Fami: Famine Devil",
+      "Fumiko Mifune: Special Division 7",
+      "Yoshida: private-sector hunter"
+    ],
+    "text": "The second half of the cast list gathers later arrivals, from Reze and Santa Claus to Asa Mitaka, Yoru, Fami, Fumiko Mifune and Yoshida.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Famine Devil (Fami), one of the Four Horsemen representing the fear of famine and hunger."
+  },
+  {
+    "id": "chainsaw-man-denji-debt-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "denji"
+    },
+    "field": "debt",
+    "value": "A debt to the yakuza that came from his father",
+    "text": "Denji carries a huge debt that his father left to the yakuza.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Denji inherited his father's debt to the yakuza"
+  },
+  {
+    "id": "chainsaw-man-yoru-war-devil-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "yoru"
+    },
+    "field": "title",
+    "value": "A War Devil in a weakened state",
+    "text": "Yoru is a War Devil in a weakened state and counts among the four Horsemen.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The weakened War Devil and one of the Four Horsemen"
+  }
+]
