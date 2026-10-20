@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 
 // W7d - the picker no longer has its own rule.
 //
@@ -40,8 +41,8 @@ export const getBlindtestStats = unstable_cache(
   async (): Promise<{ songs: number; groups: number }> => {
     const supabase = createPublicReadClient();
     const [{ count: songCount }, { count: groupCount }] = await Promise.all([
-      supabase.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active'),
-      supabase.from('groups').select('id', { count: 'exact', head: true }),
+      forSite(supabase.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active'),
+      forSite(supabase.from('groups').select('id', { count: 'exact', head: true })),
     ]);
     return { songs: songCount ?? 0, groups: groupCount ?? 0 };
   },
