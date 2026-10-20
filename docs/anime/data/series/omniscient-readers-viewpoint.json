@@ -1,0 +1,268 @@
+{
+  "$comment": "Run O1 lane K1 batch b9: series data for Omniscient Reader's Viewpoint (tier C, typed webtoon), built from pinned Wikipedia revisions (en article 1380159721, ko article 42564368, zh article 95012189, en film article 1376160456), Wikidata Q139567602 (the webtoon), Q124338944 (the novel) and Q126724933 (the film), and the official Naver Webtoon list (read through its public list API: 313 entries, numbered episodes 000 to 311, last one tagged as the season 1 finale on 2026-06-09) and the English Webtoon list (episodes 0 to 308 posted by 2026-06-01, numbered like Naver, ending with a note that the series will return). Anime and novel scope: comics and novel only; the announced anime is not stored and the 2025 live-action film appears only as a dated fact. Arcs: no allowed source names story arcs, so the five arcs are blocks of ten of Naver's own 'Ep.' chapter titles (Ep.01 to Ep.10, 11 to 20, 21 to 30, 31 to 40, 41 to 50); the episode ranges use the number printed in each Naver episode title (000 prologue, 001 to 311), which the English Webtoon list reuses (Episode 0 is the prologue); episode 0 is not stored because the schema starts at 1. Arc names are our English renderings of the first and last Ep. titles. Character names and Hangul come from the zh article's paired templates; debut arcs are conservative (a debut tagged later than the true one only hides more, never less), Han Sooyoung and Shin Yoosung are tagged arc 2 (Shin Yoosung joins at the fifth scenario, which is Ep.16). Status hiatus: season 1 ended on 2026-06-09 and the English page says the series will return. Volumes are not stored: en Wikipedia says 18 collected Korean volumes by March 2026 while zh says 20, and no allowed source settles it. Theme songs: none, the series has no aired anime.",
+  "group": {
+    "slug": "omniscient-readers-viewpoint",
+    "name": "Omniscient Reader's Viewpoint",
+    "site": "anime",
+    "display_color": "#1E3A8A",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "webtoon",
+    "title_en": "Omniscient Reader's Viewpoint",
+    "title_native": "전지적 독자 시점",
+    "title_romaji": "Jeonjijeok Dokja Sijeom",
+    "authors": [
+      {
+        "name": "singNsong",
+        "role": "story"
+      },
+      {
+        "name": "UMI",
+        "role": "story"
+      },
+      {
+        "name": "Sleepy-C",
+        "role": "art"
+      }
+    ],
+    "magazine": "Naver Webtoon",
+    "manga_start_year": 2020,
+    "status": "hiatus",
+    "chapters": 311,
+    "official_url": "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+    "wikidata_qid": "Q139567602",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Paid Service Begins to Future War",
+      "kind": "arc",
+      "episode_from": 1,
+      "episode_to": 48,
+      "source_url": "https://comic.naver.com/webtoon/list?titleId=747269",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Night of the Prophets to Flood Calamity",
+      "kind": "arc",
+      "episode_from": 49,
+      "episode_to": 98,
+      "source_url": "https://comic.naver.com/webtoon/list?titleId=747269",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "What Cannot Be Changed to Dark Castle",
+      "kind": "arc",
+      "episode_from": 99,
+      "episode_to": 177,
+      "source_url": "https://comic.naver.com/webtoon/list?titleId=747269",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Graveyard of Scenarios to Hatching",
+      "kind": "arc",
+      "episode_from": 178,
+      "episode_to": 244,
+      "source_url": "https://comic.naver.com/webtoon/list?titleId=747269",
+      "status": "published"
+    },
+    {
+      "ord": 5,
+      "name": "The Real Revolutionary to The Reader's Tale",
+      "kind": "arc",
+      "episode_from": 245,
+      "episode_to": 311,
+      "source_url": "https://comic.naver.com/webtoon/list?titleId=747269",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "kim-dokja",
+      "name": "Kim Dokja",
+      "name_native": "김독자",
+      "role": "main",
+      "affiliation": "Minosoft",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A 28-year-old office worker who is the only person to finish the web novel that then starts coming true.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "yoo-joonghyuk",
+      "name": "Yoo Joonghyuk",
+      "name_native": "유중혁",
+      "role": "main",
+      "affiliation": "Hero of the web novel",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The hero of the novel Dokja reads, a powerful fighter who restarts time after each death.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "han-sooyoung",
+      "name": "Han Sooyoung",
+      "name_native": "한수영",
+      "role": "main",
+      "affiliation": "Web novelist",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A web novelist who knows the novel's future almost as well as Dokja does.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "yoo-sangah",
+      "name": "Yoo Sangah",
+      "name_native": "유상아",
+      "role": "supporting",
+      "affiliation": "Minosoft",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Dokja's former colleague, pulled into the first scenario on the subway.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "jung-heewon",
+      "name": "Jung Heewon",
+      "name_native": "정희원",
+      "role": "supporting",
+      "affiliation": "First scenario survivors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A fearless woman who is not in the novel; she survives with Dokja's help and wins a powerful sponsor.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "lee-hyunsung",
+      "name": "Lee Hyunsung",
+      "name_native": "이현성",
+      "role": "supporting",
+      "affiliation": "Former soldier",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A tall, honest former soldier who is a supporting figure in the novel.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "lee-gilyoung",
+      "name": "Lee Gilyoung",
+      "name_native": "이길영",
+      "role": "supporting",
+      "affiliation": "First scenario survivors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A boy Dokja meets in the first subway car, who later gains power over insects.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "lee-jihye",
+      "name": "Lee Jihye",
+      "name_native": "이지혜",
+      "role": "supporting",
+      "affiliation": "First scenario survivors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young survivor and a major character of the novel Dokja reads.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "gong-pildu",
+      "name": "Gong Pildu",
+      "name_native": "공필두",
+      "role": "antagonist",
+      "affiliation": "Building Owners' League",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A villain of the novel who leads the Building Owners' League.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "han-myungoh",
+      "name": "Han Myungoh",
+      "name_native": "한명오",
+      "role": "supporting",
+      "affiliation": "Minosoft",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Dokja's boss at Minosoft, who follows Sangah onto the subway.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "bihyung",
+      "name": "Bihyung",
+      "name_native": "비형",
+      "role": "supporting",
+      "affiliation": "Dokkaebi",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A dokkaebi who runs a streaming channel and broadcasts the first scenario.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "shin-yoosung",
+      "name": "Shin Yoosung",
+      "name_native": "신유승",
+      "role": "supporting",
+      "affiliation": "Survivors",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A girl with rare taming abilities and one of the novel's major characters.",
+      "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": []
+}
