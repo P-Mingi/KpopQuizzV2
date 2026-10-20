@@ -1,0 +1,193 @@
+{
+  "site": "anime",
+  "account": "oq_creator_14",
+  "group_slug": "frieren",
+  "title": "Music and Makers: Frieren on Screen",
+  "slug": "music-and-makers-frieren-on-screen",
+  "description": "Nine questions on the director, the composer, the three openings, the Milet endings and the short episodes made alongside the series.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the first anime season?",
+      "options": [
+        "Keiichirō Saitō",
+        "Tomoya Kitagawa",
+        "Evan Call",
+        "Hayao Miyazaki"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Who wrote the music for the anime?",
+      "options": [
+        "Evan Call",
+        "Hiroyuki Sawano",
+        "Kensuke Ushio",
+        "Yoko Kanno"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-composer-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Who sings the first opening, Yūsha?",
+      "options": [
+        "Yorushika",
+        "Mrs. Green Apple",
+        "Milet",
+        "Yoasobi"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-opening-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Who sings the second opening, Sunny (Haru)?",
+      "options": [
+        "Yorushika",
+        "Yoasobi",
+        "Mrs. Green Apple",
+        "Milet"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-opening-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Which band sings the season two opening?",
+      "options": [
+        "Yoasobi",
+        "Yorushika",
+        "Mrs. Green Apple",
+        "Milet"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-opening-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Who sang every ending of the anime?",
+      "options": [
+        "Aimer",
+        "LiSA",
+        "Eve",
+        "Milet"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-ending-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Which song was the special ending used only for the four-episode premiere?",
+      "options": [
+        "Anytime Anywhere",
+        "Bliss",
+        "The Story of Us",
+        "Yūsha"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-ending-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "How many short episodes were in the first batch of Spell That Does OOO?",
+      "options": [
+        "Eleven",
+        "Nine",
+        "Fourteen",
+        "Twenty"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-spell-shorts-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "When did the first anime season begin airing?",
+      "options": [
+        "April 2022",
+        "September 2023",
+        "January 2024",
+        "October 2023"
+      ],
+      "correct": 1,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Frieren (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    }
+  ],
+  "notes": "All facts are arc 0 (008, 011, 012, 013, 017). Titles and artists only, no lyrics."
+}

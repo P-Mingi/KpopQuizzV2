@@ -1,0 +1,189 @@
+{
+  "site": "anime",
+  "account": "oq_creator_10",
+  "group_slug": "solo-leveling",
+  "title": "Arise from the Shadow and the Road Ahead",
+  "slug": "arise-from-the-shadow-and-the-road-ahead",
+  "description": "Season 2, the recap specials, the compilation film and the sequel: nine questions on what came after the first season and what is announced next.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "What subtitle does Season 2 carry?",
+      "options": [
+        "Beyond the System",
+        "ReAwakening",
+        "Arise from the Shadow",
+        "Rise of the Monarch"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-season-two-span-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    },
+    {
+      "question": "How many new episodes did Season 2 bring?",
+      "options": [
+        "13",
+        "12",
+        "10",
+        "24"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-season-two-span-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    },
+    {
+      "question": "In which month did Season 2 premiere?",
+      "options": [
+        "April",
+        "July",
+        "January",
+        "October"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-season-two-span-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    },
+    {
+      "question": "Which recap special covered the first seven episodes?",
+      "options": [
+        "How to Get Stronger",
+        "Level Up Again",
+        "Rise of the System",
+        "Awakening Recap"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 1,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-recap-special-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Which compilation film of Season 1 was shown in Japan with the first two Season 2 episodes?",
+      "options": [
+        "Solo Leveling: ReAwakening",
+        "Solo Leveling: Beyond the System",
+        "Solo Leveling: Arise",
+        "Solo Leveling: Shadow Rise"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-compilation-film-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which theatrical film does the official site announce as in production?",
+      "options": [
+        "ReAwakening",
+        "Arise from the Shadow",
+        "Beyond the System",
+        "How to Get Stronger"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-official-site-022"
+      ],
+      "source_url": "https://sololeveling-anime.net/"
+    },
+    {
+      "question": "Which follow-up webtoon did Kakao reveal in April 2023?",
+      "options": [
+        "Solo Leveling: Ragnarok",
+        "Solo Leveling: Shadow Rise",
+        "Solo Leveling: Monarch War",
+        "Solo Leveling: Gate Zero"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 3,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "solo-leveling-ragnarok-sequel-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which nickname belongs to the American Hunter Thomas Andre?",
+      "options": [
+        "Titan",
+        "Colossus",
+        "Atlas",
+        "Goliath"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "solo-leveling-thomas-andre-nickname-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Solo Leveling season 2",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Solo Leveling season 1",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Solo Leveling",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "id": "S4",
+      "title": "Official site: sololeveling-anime.net",
+      "url": "https://sololeveling-anime.net/"
+    }
+  ],
+  "notes": "Arc quiz: tags run from arc 0 to arc 3 (After Season 2, manga). Season 2 facts are arc 2; the sequel webtoon and Thomas Andre are arc 3 manga."
+}

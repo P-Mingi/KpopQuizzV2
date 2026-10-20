@@ -1,0 +1,215 @@
+{
+  "site": "anime",
+  "account": "oq_creator_17",
+  "group_slug": "hunter-x-hunter",
+  "title": "The Hunter Exam Roll Call: Who Is This?",
+  "slug": "the-hunter-exam-roll-call-who-is-this",
+  "description": "Three clues, four names. Spot the hero, rival or villain from the first half of the cast, and watch for the last clue written in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The lead of the story",
+        "A sporty boy with a trusting, friendly nature",
+        "His name is written ゴン=フリークス in Japanese"
+      ],
+      "options": [
+        "Gon Freecss",
+        "Killua Zoldyck",
+        "Leorio Paradinight",
+        "Kurapika"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is this boy?",
+      "clues": [
+        "Gon's best friend",
+        "His eldest brother is Illumi Zoldyck",
+        "His name is written キルア=ゾルディック in Japanese"
+      ],
+      "options": [
+        "Gon Freecss",
+        "Killua Zoldyck",
+        "Hisoka Morrow",
+        "Ging Freecss"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Which hero is this?",
+      "clues": [
+        "The last of the Kurta Clan",
+        "His irises glow scarlet when he is furious",
+        "His name is written クラピカ in Japanese"
+      ],
+      "options": [
+        "Leorio Paradinight",
+        "Kurapika",
+        "Isaac Netero",
+        "Hisoka Morrow"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017",
+        "hunter-x-hunter-kurapika-eyes-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is this young man?",
+      "clues": [
+        "An aspiring doctor",
+        "An older-looking young man who befriends Gon",
+        "His name is written レオリオ=パラディナイト in Japanese"
+      ],
+      "options": [
+        "Kurapika",
+        "Killua Zoldyck",
+        "Leorio Paradinight",
+        "Ging Freecss"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is this magician?",
+      "clues": [
+        "A magician",
+        "He delights in battling opponents he finds strong",
+        "His name is written ヒソカ=モロウ in Japanese"
+      ],
+      "options": [
+        "Illumi Zoldyck",
+        "Isaac Netero",
+        "Silva Zoldyck",
+        "Hisoka Morrow"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is this assassin?",
+      "clues": [
+        "Killua's eldest brother",
+        "An expert assassin",
+        "His name is written イルミ=ゾルディック in Japanese"
+      ],
+      "options": [
+        "Illumi Zoldyck",
+        "Silva Zoldyck",
+        "Hisoka Morrow",
+        "Ging Freecss"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is Gon's father?",
+      "clues": [
+        "Gon's father",
+        "A celebrated Hunter of the Double Star Ruins",
+        "His name is written ジン=フリークス in Japanese"
+      ],
+      "options": [
+        "Ging Freecss",
+        "Silva Zoldyck",
+        "Isaac Netero",
+        "Leorio Paradinight"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "Who is this head of a family?",
+      "clues": [
+        "Killua's father",
+        "Head of a family of assassins",
+        "Closes the first half of the cast list"
+      ],
+      "options": [
+        "Isaac Netero",
+        "Ging Freecss",
+        "Illumi Zoldyck",
+        "Silva Zoldyck"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-cast-first-half-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Hunter × Hunter characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the first-half cast list fact (017), whose values give each role and Japanese name; the Kurapika answer also cites the scarlet eyes fact (019). Everyone is level 1 or lower."
+}

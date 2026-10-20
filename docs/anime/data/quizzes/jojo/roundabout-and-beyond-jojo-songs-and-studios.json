@@ -1,0 +1,208 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Roundabout and Beyond: JoJo Songs and Studios",
+  "slug": "roundabout-and-beyond-jojo-songs-and-studios",
+  "description": "Nine questions on the openings and endings of the first three seasons, the song the characters sing and the OVA made before the TV anime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who sings JoJo (Sono Chi no Sadame), the first opening?",
+      "options": [
+        "Hiroaki Tominaga",
+        "Coda",
+        "Jin Hashimoto",
+        "Kroi"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "Who is credited on Bloody Stream, the opening for Part 2?",
+      "options": [
+        "Hiroaki Tominaga",
+        "Jin Hashimoto",
+        "Coda",
+        "Batta"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "Which band sings Roundabout, the single ending of the first season?",
+      "options": [
+        "The Bangles",
+        "Savage Garden",
+        "Jodeci",
+        "Yes"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "How many openings did the first season use?",
+      "options": [
+        "One",
+        "Three",
+        "Two",
+        "Five"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "Which band performs Walk Like an Egyptian, an ending of season two?",
+      "options": [
+        "The Bangles",
+        "Yes",
+        "Savage Garden",
+        "Enigma"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-2-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Stardust_Crusaders"
+    },
+    {
+      "question": "Which pair of characters sang the special song of season two?",
+      "options": [
+        "Jotaro and Joseph",
+        "Dio and Kars",
+        "Oingo and Boingo",
+        "Caesar and Lisa Lisa"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-2-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Stardust_Crusaders"
+    },
+    {
+      "question": "How many different opening songs did the third season use?",
+      "options": [
+        "One",
+        "Two",
+        "Five",
+        "Three"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 4,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-3-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Diamond_Is_Unbreakable"
+    },
+    {
+      "question": "Which band sings I Want You, the single ending of season three?",
+      "options": [
+        "Yes",
+        "The Bangles",
+        "Savage Garden",
+        "Jodeci"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 4,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-3-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Diamond_Is_Unbreakable"
+    },
+    {
+      "question": "Which company made a 13-episode OVA of Stardust Crusaders before the TV anime?",
+      "options": [
+        "Madhouse",
+        "A.P.P.P.",
+        "Pierrot",
+        "Sunrise"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-first-ova-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: JoJo's Bizarre Adventure season 1",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: JoJo's Bizarre Adventure: Stardust Crusaders",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Stardust_Crusaders"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: JoJo's Bizarre Adventure: Diamond Is Unbreakable",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure:_Diamond_Is_Unbreakable"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: JoJo's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    }
+  ],
+  "notes": "Season 1 theme facts are arc 0 (010); season 2 themes (011) and the OVA (020) are arc 3; season 3 themes (012) are arc 4. Titles and artists only, no lyrics."
+}

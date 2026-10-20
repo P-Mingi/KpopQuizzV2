@@ -1,0 +1,179 @@
+{
+  "site": "anime",
+  "account": "oq_creator_17",
+  "group_slug": "hunter-x-hunter",
+  "title": "Behind the Madhouse Curtain: Screens, Songs and Films",
+  "slug": "behind-the-madhouse-curtain-screens-songs-and-films",
+  "description": "Eight questions on the director, the channels, the opening and ending songs and the two films of 2013.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the 2011 anime?",
+      "options": [
+        "Shinichirō Watanabe",
+        "Hiroshi Kōjina",
+        "Mamoru Hosoda",
+        "Satoshi Kon"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-anime-director-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Who sings the opening of the 2011 anime?",
+      "options": [
+        "Masatoshi Ono",
+        "Galneryus",
+        "Yuzu",
+        "Hyadain"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-opening-themes-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "What is the title of the opening used by the 2011 anime?",
+      "options": [
+        "Departure!",
+        "Just Awake",
+        "Reason",
+        "Nagareboshi Kirari"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-opening-themes-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "How many different endings did the 2011 anime use?",
+      "options": [
+        "Three",
+        "Seven",
+        "Five",
+        "Ten"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-ending-themes-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which ending is credited to Yuzu featuring Hyadain?",
+      "options": [
+        "Just Awake",
+        "Hunting for Your Dream",
+        "Hyōri Ittai",
+        "Nagareboshi Kirari"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-ending-themes-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which of these is one of the two animated films that reached cinemas in 2013?",
+      "options": [
+        "Greed Island Rising",
+        "The Ant King Returns",
+        "Yorknew Rescue",
+        "Phantom Rouge"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-two-films-2013-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "Which channel aired the earlier anime from 1999?",
+      "options": [
+        "Nippon TV",
+        "Fuji TV",
+        "TV Tokyo",
+        "TBS"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-first-anime-1999-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "For which channel did Madhouse make the 2011 anime?",
+      "options": [
+        "Fuji TV",
+        "TV Asahi",
+        "NHK",
+        "Nippon TV"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-second-anime-2011-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Hunter × Hunter (2011 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Hunter × Hunter",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    }
+  ],
+  "notes": "All facts are arc 0 (007, 008, 009, 014, 015, 016). Song titles come from the opening and ending facts; no lyrics."
+}

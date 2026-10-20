@@ -1,0 +1,184 @@
+{
+  "site": "anime",
+  "account": "oq_creator_14",
+  "group_slug": "frieren",
+  "title": "Season by Season: Frieren Toward the Golden Land",
+  "slug": "season-by-season-frieren-toward-the-golden-land",
+  "description": "Eight questions on how the anime splits into seasons, who directs the second one and what is announced next.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which episodes make up season 2?",
+      "options": [
+        "Episodes 1 to 28",
+        "Episodes 29 to 38",
+        "Episodes 29 to 48",
+        "Episodes 28 to 38"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-arc-structure-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    },
+    {
+      "question": "How many episodes does season 2 have?",
+      "options": [
+        "12",
+        "13",
+        "28",
+        "10"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-arc-structure-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    },
+    {
+      "question": "Who directs season 2?",
+      "options": [
+        "Tomoya Kitagawa",
+        "Keiichirō Saitō",
+        "Evan Call",
+        "Hiroshi Seko"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-two-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "When did season 2 air?",
+      "options": [
+        "Autumn 2023",
+        "Summer 2024",
+        "Early 2026",
+        "Late 2025"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-two-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Which arc is the next one for the anime?",
+      "options": [
+        "Golden Land",
+        "Silver Coast",
+        "Crystal Desert",
+        "Iron Bridge"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-arc-structure-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    },
+    {
+      "question": "When is season 3 set to premiere?",
+      "options": [
+        "April 2026",
+        "January 2027",
+        "October 2027",
+        "July 2028"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-season-three-golden-land-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "In which month of 2025 did the manga go on an indefinite break?",
+      "options": [
+        "October",
+        "January",
+        "April",
+        "July"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "frieren-manga-hiatus-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "Which of these awards did the manga win in 2021?",
+      "options": [
+        "14th Manga Taishō",
+        "69th Shogakukan Manga Award",
+        "48th Kodansha Manga Award",
+        "50th Shogakukan Manga Award"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "frieren-manga-awards-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Frieren episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Frieren (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Frieren",
+      "url": "https://en.wikipedia.org/wiki/Frieren"
+    }
+  ],
+  "notes": "Arc quiz: tags run from arc 0 to arc 3 (Golden Land, planned). Season facts 009, 010 and 014; the manga break and awards are arc 0 manga facts."
+}

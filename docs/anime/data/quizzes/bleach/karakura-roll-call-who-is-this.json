@@ -1,0 +1,215 @@
+{
+  "site": "anime",
+  "account": "oq_creator_11",
+  "group_slug": "bleach",
+  "title": "Karakura Roll Call: Who Is This?",
+  "slug": "karakura-roll-call-who-is-this",
+  "description": "Three clues, four names. Spot the Soul Reaper, classmate or shopkeeper from the opening arc, and watch for the last clue written in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The lead of the story",
+        "A Substitute Soul Reaper",
+        "His name is written 黒崎 一護 in Japanese"
+      ],
+      "options": [
+        "Uryū Ishida",
+        "Yasutora Sado",
+        "Ichigo Kurosaki",
+        "Kon"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is this Soul Reaper?",
+      "clues": [
+        "A Soul Reaper from the Soul Society",
+        "She hands her powers to the hero",
+        "Her name is written 朽木 ルキア in Japanese"
+      ],
+      "options": [
+        "Orihime Inoue",
+        "Karin Kurosaki",
+        "Rukia Kuchiki",
+        "Tatsuki Arisawa"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016",
+        "bleach-ichigo-substitute-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is this classmate?",
+      "clues": [
+        "Ichigo's classmate",
+        "Commands a group of protective spirits",
+        "Her name is written 井上 織姫 in Japanese"
+      ],
+      "options": [
+        "Rukia Kuchiki",
+        "Orihime Inoue",
+        "Tatsuki Arisawa",
+        "Karin Kurosaki"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is this Quincy?",
+      "clues": [
+        "A classmate of the hero",
+        "A descendant of the Quincy",
+        "His name is written 石田 雨竜 in Japanese"
+      ],
+      "options": [
+        "Ichigo Kurosaki",
+        "Yasutora Sado",
+        "Kisuke Urahara",
+        "Uryū Ishida"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is this tall classmate?",
+      "clues": [
+        "Known by a short nickname",
+        "A very tall and quiet classmate",
+        "His name is written 茶渡 泰虎 in Japanese"
+      ],
+      "options": [
+        "Yasutora Sado",
+        "Uryū Ishida",
+        "Isshin Kurosaki",
+        "Kisuke Urahara"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is this shopkeeper?",
+      "clues": [
+        "Owner of a shop in the human world",
+        "A laid-back keen inventor",
+        "His name is written 浦原 喜助 in Japanese"
+      ],
+      "options": [
+        "Isshin Kurosaki",
+        "Yasutora Sado",
+        "Uryū Ishida",
+        "Kisuke Urahara"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Who is Ichigo's father?",
+      "clues": [
+        "Ichigo's father",
+        "Head of the Kurosaki family",
+        "His name is written 黒崎 一心 in Japanese"
+      ],
+      "options": [
+        "Kisuke Urahara",
+        "Uryū Ishida",
+        "Isshin Kurosaki",
+        "Yasutora Sado"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    },
+    {
+      "question": "Which Mod-Soul is this?",
+      "clues": [
+        "A Mod-Soul",
+        "The first Mod-Soul to appear",
+        "His name is written コン in Japanese"
+      ],
+      "options": [
+        "Uryū Ishida",
+        "Kon",
+        "Yasutora Sado",
+        "Kisuke Urahara"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-cast-first-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Bleach characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the opening-arc cast fact (016), whose values give each role and Japanese name; the Rukia answer also cites the Soul Reaper powers fact (020). Everyone is level 0."
+}

@@ -1,0 +1,157 @@
+{
+  "site": "anime",
+  "account": "oq_creator_12",
+  "group_slug": "chainsaw-man",
+  "title": "Devil Hunter Licence Check: True or False",
+  "slug": "devil-hunter-licence-check-chainsaw-man-true-or-false",
+  "description": "Ten statements about the manga, the studio and the anime. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "The manga was written and drawn by Tatsuki Fujimoto.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "The second part of the manga stayed in Weekly Shōnen Jump.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-magazines-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "The serialization of the manga ended in 2022.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-manga-run-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "The manga began on 3 December 2018.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-manga-run-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "The television anime ran for 24 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "MAPPA produced the television anime.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-studio-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "The chapters of the manga are collected in 24 volumes.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-volume-count-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "Kensuke Ushio directed the television series.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-staff-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Every episode of the anime has its own ending song by a different artist.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "By June 2026 more than 360 million copies of the manga were in circulation.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-copies-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Chainsaw Man",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Chainsaw Man (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a year, a number or a name)."
+}
