@@ -341,3 +341,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 - D-077 Lot b merged (P1 29a1f5f; fix 05c2cfb, 0.24 M: kpop routes reached new client modules through the shared sign-in sheet, header actions and passport model; world-only modules now; 162 kpop page manifests reach the same client modules). Production comparison identical, 60 of 60. K1 b9 merged (2ac66d5): 30 series on o1-dev. K2 batch 1 and lot c (B6) started.
 | 2026-10-20T20:53:59Z | K2 | 45c95687fd1b | not needed | 0 SQL file(s) |
 | 2026-10-20T21:20:32Z | K2 | eaafb8845ba7 | identical (base 15fdfbaac7f4ebecba1dfd7a819568230a9b9def, merged tree 3b01313633c798e1db0af6b155352d167f4f829c), production through the read-only proxy | 0 SQL file(s) |
+| 2026-10-20T21:47:23Z | K1 | 846d736f68c9 | not needed | 0 SQL file(s) |
