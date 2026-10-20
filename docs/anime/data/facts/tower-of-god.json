@@ -1,0 +1,644 @@
+[
+  {
+    "id": "tower-of-god-korean-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "title_native",
+    "value": "신의 탑 (Sin-ui Tap)",
+    "text": "In Korea the series is called 신의 탑, written Sin-ui Tap in Latin letters, and English readers know it as Tower of God.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a South Korean webtoon Tower of God (Korean: 신의 탑; RR: Sin-ui Tap)"
+  },
+  {
+    "id": "tower-of-god-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "author",
+    "value": "S.I.U. (Lee Jong-hui)",
+    "text": "One creator, working under the pen name S.I.U., writes and draws the series; his real name is Lee Jong-hui.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.webtoons.com/en/fantasy/tower-of-god/list?title_no=95",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a South Korean manhwa released as a webtoon written and illustrated by S.I.U."
+  },
+  {
+    "id": "tower-of-god-webtoon-launch-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "start",
+    "value": "Naver Webtoon, June 30, 2010",
+    "text": "The webtoon began on the Naver Webtoon platform on June 30, 2010, and new chapters keep coming there.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "launched Tower of God in Naver's webtoon platform Naver Webtoon on June 30, 2010"
+  },
+  {
+    "id": "tower-of-god-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "volumes",
+    "value": 20,
+    "text": "Young Com has gathered the chapters into 20 printed volumes as of January 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with the individual chapters collected and published by Young Com in 20 volumes as of January 2026"
+  },
+  {
+    "id": "tower-of-god-total-views-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "views",
+    "value": "4.5 billion views by February 2020",
+    "text": "By February 2020 readers around the world had racked up 4.5 billion views of the webtoon.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of February 2020, Tower of God has collected 4.5 billion views worldwide."
+  },
+  {
+    "id": "tower-of-god-english-release-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "english_release",
+    "value": "Line Webtoon, July 2014",
+    "text": "It was among the first webtoons to get an official English translation, released through Line Webtoon from July 2014.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tower of God was one of the first webtoons to receive official English translations by Line Webtoon in July 2014."
+  },
+  {
+    "id": "tower-of-god-anime-announcement-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_announced",
+    "value": "Seoul Comic-Con, August 2019",
+    "text": "The anime adaptation was first revealed at Seoul Comic-Con in August 2019, and the show reached screens in April 2020.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "initially announced at Seoul Comic-Con in August 2019"
+  },
+  {
+    "id": "tower-of-god-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_s1",
+    "value": "13 episodes, April to June 2020",
+    "text": "Season one, made by Telecom Animation Film and directed by Takashi Sano, ran for 13 episodes in Japan between April 2 and June 24, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "in Japan from April 2 to June 24, 2020, on Tokyo MX and other networks"
+  },
+  {
+    "id": "tower-of-god-anime-season-two-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_s2",
+    "value": "26 episodes, July 7 to December 29, 2024",
+    "text": "Season two came from The Answer Studio and aired in two back-to-back cours, adding 26 episodes between July 7 and December 29, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/staffcast/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It premiered on July 7, 2024, and aired in two consecutive story arc cours on Tokyo MX and other networks."
+  },
+  {
+    "id": "tower-of-god-anime-staff-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "staff",
+    "value": "Takashi Sano and Akira Suzuki (directors), Kevin Penkin (music)",
+    "text": "Takashi Sano directed season one; Akira Suzuki directed season two under chief director Kazuyoshi Takeuchi; Kevin Penkin wrote the music for both.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/staffcast/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It is directed by Takashi Sano, with Hirokazu Hanai as assistant director"
+  },
+  {
+    "id": "tower-of-god-themes-season-one-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Top - Stray Kids (season 1)",
+      "ED 1: Slump - Stray Kids (season 1)"
+    ],
+    "text": "Stray Kids performed both songs that frame season one.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song is \"Top\", while the ending theme song is \"Slump\""
+  },
+  {
+    "id": "tower-of-god-themes-season-two-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Rise Up - NiziU (season 2, Return of the Prince)",
+      "ED 2: Believe - NiziU (season 2, Return of the Prince)",
+      "OP 3: Night - Stray Kids (season 2, Workshop Battle)",
+      "ED 3: Falling Up - Stray Kids (season 2, Workshop Battle)"
+    ],
+    "text": "Season two changed singers between its two cours: NiziU first, then Stray Kids again.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/music/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the opening theme song is \"Rise Up\", while the ending theme song is \"Believe\""
+  },
+  {
+    "id": "tower-of-god-stray-kids-languages-013",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "op-1",
+      "group_slug": "tower-of-god"
+    },
+    "field": "artist",
+    "value": "Stray Kids",
+    "text": "Stray Kids sang the season one songs in Japanese, English and Korean, one version for each language dub.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/music/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "both are performed by the K-pop band Stray Kids in Japanese, English, and Korean for the respective language dubs"
+  },
+  {
+    "id": "tower-of-god-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-13",
+      "2: Return of the Prince, episodes 14-26",
+      "3: Workshop Battle, episodes 27-39",
+      "4: Beyond season 2, webtoon only"
+    ],
+    "text": "The anime so far covers season one plus the two cours of season two, 39 episodes in all, and the webtoon runs further.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "aired in two consecutive story arc cours on Tokyo MX and other networks"
+  },
+  {
+    "id": "tower-of-god-cast-early-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "characters_a",
+    "value": [
+      "Twenty-Fifth Bam (스물다섯번째 밤): the boy who climbs",
+      "Rachel (라헬): his best friend",
+      "Khun Aguero Agnes (쿤 아게로 아그니스): a Regular from a great family",
+      "Rak Wraithraiser (라크 레크레이셔): a spear-bearer",
+      "Headon (헤돈): guardian of the First Floor",
+      "Shibisu (십 이수): leader of team Isu",
+      "Hatz (하츠): a swordsman",
+      "Phonsekal Lauroe (폰세칼 라우뢰): a wave controller",
+      "Anaak Jahad: a Regular with a princess's name",
+      "Jahad: the king of the Tower"
+    ],
+    "text": "Bam and his first companions, the Tower's caretaker, and its king.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Twenty-Fifth Bam (Korean: 스물다섯번째 밤; RR: Seumul-daseot-beonjjae Bam; literal translation: Twenty-fifth Night) is the protagonist of Tower of God."
+  },
+  {
+    "id": "tower-of-god-cast-later-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "characters_b",
+    "value": [
+      "Endorsi Jahad: a princess of Jahad",
+      "Ha-Yuri Jahad: a high ranker and princess",
+      "Evan Edrok (에반 에드록): the Chief Guide of the Jahad family",
+      "Ja Wangnan (자 왕난): a Regular on the 20th floor",
+      "Hwa Ryun (화련): a Guide of the Red Witch species",
+      "Urek Mazino: the Ranker called Ray Barracuda",
+      "Ha Jinsung: a high-ranking mentor",
+      "Enryu: a red-haired Irregular",
+      "White: a sword-wielding slayer",
+      "Phantaminum: the top-ranked being"
+    ],
+    "text": "The princesses and guides around the king, the cast of the second part, and the Tower's strongest names.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Evan (Korean: 에반 에드록; RR: Ehbahn Edeurok) is a high ranker and the Chief Guide for the Jahad family"
+  },
+  {
+    "id": "tower-of-god-shinsu-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "shinsu",
+    "value": "Shinsu, roughly Divine Water",
+    "text": "Shinsu, which means roughly Divine Water, is the substance that fills the Tower and gets stronger and denser on the higher floors.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shinsu (신수; Sinsu), roughly translated as \"Divine Water\""
+  },
+  {
+    "id": "tower-of-god-regulars-irregulars-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "terms",
+    "value": "Regulars, Irregulars, Rankers",
+    "text": "Climbers chosen from outside are Regulars, those who reach the top are Rankers, and the rare people who open the Tower's doors themselves are Irregulars.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "On rare occasions, extraordinary people are able to open the doors and enter the Tower."
+  },
+  {
+    "id": "tower-of-god-bam-name-meaning-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "twenty-fifth-bam",
+      "group_slug": "tower-of-god"
+    },
+    "field": "name_meaning",
+    "value": "Twenty-fifth Night",
+    "text": "Bam's full Korean name translates literally as Twenty-fifth Night.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Twenty-Fifth Bam (Korean: 스물다섯번째 밤; RR: Seumul-daseot-beonjjae Bam; literal translation: Twenty-fifth Night)"
+  },
+  {
+    "id": "tower-of-god-long-term-planning-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "planning",
+    "value": "events planned 8 or more years ahead",
+    "text": "The creator lines up major events and characters long before they appear, in some cases more than eight years ahead.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "S.I.U. already has major events and characters planned out, sometimes more than 8 years in advance"
+  }
+]
