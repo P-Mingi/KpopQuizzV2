@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Striker's Handbook: Blue Lock Basics",
+ "slug": "strikers-handbook-blue-lock-basics",
+ "description": "Ten easy questions on the writer, the artist, the magazine, the studio, the first season and the idea behind the program. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who writes the story of the manga?",
+   "options": [
+    "Yusuke Nomura",
+    "Tatsuki Fujimoto",
+    "Gege Akutami",
+    "Muneyuki Kaneshiro"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Who draws the manga?",
+   "options": [
+    "Muneyuki Kaneshiro",
+    "Kohei Horikoshi",
+    "Tite Kubo",
+    "Yusuke Nomura"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Which magazine has carried the manga since August 2018?",
+   "options": [
+    "Weekly Shōnen Jump",
+    "Weekly Shōnen Magazine",
+    "Weekly Shōnen Sunday",
+    "Monthly Shōnen Gangan"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Which publisher owns the magazine that carries the manga?",
+   "options": [
+    "Shueisha",
+    "Kodansha",
+    "Shogakukan",
+    "Square Enix"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "How many volumes did the collected edition reach in August 2026?",
+   "options": [
+    "18",
+    "27",
+    "55",
+    "40"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "How many copies of the manga were in circulation worldwide?",
+   "options": [
+    "More than 6.5 million",
+    "More than 650 million",
+    "More than 1 million",
+    "More than 65 million"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-copies-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Which award did the manga win in the shōnen category in 2021?",
+   "options": [
+    "Shogakukan Manga Award",
+    "Eisner Award",
+    "Kodansha Manga Award",
+    "Tezuka Osamu Cultural Prize"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-kodansha-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Which studio animates the series?",
+   "options": [
+    "Eight Bit",
+    "Bones",
+    "MAPPA",
+    "Madhouse"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-studio-director-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "The first Blue Lock anime season ran between October 2022 and March 2023. How many episodes?",
+   "options": [
+    "12",
+    "24",
+    "25",
+    "38"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "What is the Blue Lock program meant to produce?",
+   "options": [
+    "The most reliable goalkeeper",
+    "The most egotistical striker",
+    "The fastest team captain",
+    "The strongest defensive wall"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-program-premise-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002 to 008, 014). Creators, magazine, publisher, volumes, circulation, award, studio, season one and the premise."
+}

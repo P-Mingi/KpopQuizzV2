@@ -1,0 +1,198 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Full Time Mix: Blue Lock Odds and Ends",
+ "slug": "full-time-mix-blue-lock-odds-and-ends",
+ "description": "Nine mixed questions on season two, its songs, the announced third season and one name from the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "What is the subtitle of season two?",
+   "options": [
+    "vs. All Stars",
+    "vs. Europe XI",
+    "vs. U-20 Japan",
+    "vs. Last Chance"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "How many episodes did season two add?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "14"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "How many episodes does the anime have in total after season two?",
+   "options": [
+    "24",
+    "36",
+    "38",
+    "48"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "In which month of 2024 did the vs. U-20 Japan season start?",
+   "options": [
+    "January",
+    "April",
+    "October",
+    "July"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which band performs Bōjaku no Charisma, the opening of season two?",
+   "options": [
+    "Ash Da Hero",
+    "Shugo Nakamura",
+    "Snow Man",
+    "Unison Square Garden"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who performs One, the ending of season two?",
+   "options": [
+    "Unison Square Garden",
+    "Ash Da Hero",
+    "Shugo Nakamura",
+    "Snow Man"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which arc will the announced third season adapt?",
+   "options": [
+    "Neo Egoist League",
+    "Rival League",
+    "World Cup Qualifiers",
+    "Egoist Finals"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "At which event was the third season announced on September 28, 2025?",
+   "options": [
+    "Jump Festa 2025",
+    "Blue Lock Egoist Fest 2025",
+    "Anime Expo 2025",
+    "AnimeJapan 2025"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who is the director of the program, according to the cast list?",
+   "options": [
+    "Anri Teieri",
+    "Jinpachi Ego",
+    "Michael Kaiser",
+    "Ryūsei Shidou"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-cast-list-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Blue Lock characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  }
+ ],
+ "notes": "Mixed quiz across seasons: 009 and 013 are arc 2, 010 is arc 3, and the cast list question is forced to arc 3 by fact 015."
+}

@@ -1,0 +1,227 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "Bones, Batons and Battle Themes",
+ "slug": "bones-batons-and-battle-themes-fma-production",
+ "description": "Ten questions on the two directors, the writers, the composers and the opening and ending songs of both TV anime.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed the 2003 anime?",
+   "options": [
+    "Yasuhiro Irie",
+    "Shō Aikawa",
+    "Seiji Mizushima",
+    "Hiroshi Ōnogi"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-staff-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "Who directed Brotherhood?",
+   "options": [
+    "Seiji Mizushima",
+    "Akira Senju",
+    "Yasuhiro Irie",
+    "Michiru Ōshima"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brotherhood-staff-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "question": "Who composed the score of the 2003 anime?",
+   "options": [
+    "Akira Senju",
+    "Shō Aikawa",
+    "Michiru Ōshima",
+    "Seiji Mizushima"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-staff-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "Who composed the music of Brotherhood?",
+   "options": [
+    "Michiru Ōshima",
+    "Hiroshi Ōnogi",
+    "Yasuhiro Irie",
+    "Akira Senju"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brotherhood-staff-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "question": "Who wrote the 2003 anime?",
+   "options": [
+    "Hiroshi Ōnogi",
+    "Shō Aikawa",
+    "Hiromu Arakawa",
+    "Yasuhiro Irie"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-staff-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "Which band performed the first opening of the 2003 anime, Melissa?",
+   "options": [
+    "L'Arc-en-Ciel",
+    "Sukima Switch",
+    "Porno Graffitti",
+    "Cool Joke"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-2003-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "question": "Which band performed the fourth opening of the 2003 anime, Rewrite?",
+   "options": [
+    "Nico Touches the Walls",
+    "Yellow Generation",
+    "Asian Kung-Fu Generation",
+    "Chemistry"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-2003-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "question": "Which act sang both the first ending and the last opening of Brotherhood?",
+   "options": [
+    "Sid",
+    "Yui",
+    "Scandal",
+    "Sukima Switch"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-brotherhood-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  },
+  {
+   "question": "Who sang Again, the first opening of Brotherhood?",
+   "options": [
+    "Crystal Kay",
+    "Yui",
+    "Chemistry",
+    "Shoko Nakagawa"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-brotherhood-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  },
+  {
+   "question": "In which language is Brothers, the signature song of the 2003 anime, sung?",
+   "options": [
+    "Latin",
+    "Russian",
+    "Italian",
+    "Greek"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brothers-song-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Fullmetal Alchemist (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Fullmetal Alchemist: Brotherhood",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Fullmetal Alchemist episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Fullmetal Alchemist: Brotherhood episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  }
+ ],
+ "notes": "All facts arc 0 (007, 008, 011, 012, 013, 014, 019). Names and song titles only, no lyrics."
+}

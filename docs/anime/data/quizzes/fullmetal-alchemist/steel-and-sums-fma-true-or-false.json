@@ -1,0 +1,173 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "Steel and Sums: True or False",
+ "slug": "steel-and-sums-fma-true-or-false",
+ "description": "Ten statements about the manga, the two TV anime and their songs. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Hiromu Arakawa wrote and drew the manga all by herself.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "The manga ran in Weekly Shōnen Jump.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "The manga ran in Monthly Shōnen Gangan until June 2010.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "In 2004 the manga won the Shogakukan Manga Award in the shōnen category.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-manga-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "Studio Bones produced the first TV anime, which has 51 episodes.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "Brotherhood has 51 episodes and was shown from 2009 to 2010.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brotherhood-run-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "question": "Seiji Mizushima directed Brotherhood.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-staff-008",
+    "fullmetal-alchemist-brotherhood-staff-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "The 2003 anime used five opening songs.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-2003-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "question": "Sid sang both the first ending and the last opening of Brotherhood.",
+   "correct": true,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-brotherhood-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  },
+  {
+   "question": "The song Brothers was reused in Brotherhood.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brothers-song-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Fullmetal Alchemist",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Fullmetal Alchemist (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Fullmetal Alchemist: Brotherhood",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Fullmetal Alchemist episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Fullmetal Alchemist: Brotherhood episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a number, a name or a series)."
+}

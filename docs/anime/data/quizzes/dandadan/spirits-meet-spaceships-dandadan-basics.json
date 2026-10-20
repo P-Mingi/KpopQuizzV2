@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Spirits Meet Spaceships: Dandadan Basics",
+ "slug": "spirits-meet-spaceships-dandadan-basics",
+ "description": "Ten easy questions on the creator, the platform, the studio and the first anime season. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who alone writes and draws the manga?",
+   "options": [
+    "Yukinobu Tatsu",
+    "Tatsuki Fujimoto",
+    "Gege Akutami",
+    "Hajime Isayama"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "On which Shueisha platform did the manga begin in April 2021?",
+   "options": [
+    "Shōnen Jump+",
+    "Weekly Young Jump",
+    "Monthly Shōnen Gangan",
+    "Weekly Shōnen Magazine"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Which company releases the manga in English in North America?",
+   "options": [
+    "Kodansha USA",
+    "Yen Press",
+    "Viz Media",
+    "Seven Seas"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-english-publisher-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "How many volumes had the collected edition reached by early September 2026?",
+   "options": [
+    "8",
+    "14",
+    "25",
+    "40"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "How many copies were in circulation by March 2025?",
+   "options": [
+    "More than 500,000",
+    "More than 3 million",
+    "More than 10 million",
+    "More than 100 million"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-copies-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Which award did the manga earn in 2026, at its 71st edition?",
+   "options": [
+    "Kodansha Manga Award",
+    "Shogakukan Manga Award",
+    "Tezuka Osamu Cultural Prize",
+    "Eisner Award"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-shogakukan-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Which studio animated the show?",
+   "options": [
+    "Bones",
+    "MAPPA",
+    "Science Saru",
+    "Madhouse"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-studio-director-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Season one aired in autumn 2024. How many episodes did it contain?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "26"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-one-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "In which month did season one begin in 2024?",
+   "options": [
+    "October",
+    "January",
+    "April",
+    "July"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-one-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "What does Seiko Ayase do for a living?",
+   "options": [
+    "Detective",
+    "Spirit medium",
+    "School teacher",
+    "Nurse"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-seiko-spirit-medium-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Dandadan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002 to 009, 019, 020). Creator, platform, English publisher, volumes, circulation, award, studio, season one and the job of one grandmother (a level 0 character)."
+}

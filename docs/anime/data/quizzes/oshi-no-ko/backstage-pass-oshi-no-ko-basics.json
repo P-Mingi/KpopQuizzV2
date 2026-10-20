@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Backstage Pass: Oshi no Ko Basics",
+ "slug": "backstage-pass-oshi-no-ko-basics",
+ "description": "Ten easy questions on the writer, the artist, the magazine, the studio and the first anime season. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who wrote the story of the manga?",
+   "options": [
+    "Gege Akutami",
+    "Aka Akasaka",
+    "Tatsuki Fujimoto",
+    "Mengo Yokoyari"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Who drew the manga?",
+   "options": [
+    "Aka Akasaka",
+    "Kohei Horikoshi",
+    "Tite Kubo",
+    "Mengo Yokoyari"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "In which magazine did the manga run between April 2020 and November 2024?",
+   "options": [
+    "Weekly Shōnen Jump",
+    "Monthly Shōnen Gangan",
+    "Weekly Young Jump",
+    "Weekly Shōnen Magazine"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "How many tankōbon volumes does the collected manga fill?",
+   "options": [
+    "9",
+    "24",
+    "16",
+    "32"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "How many copies of the manga were in circulation by December 2025?",
+   "options": [
+    "More than 25 million",
+    "More than 2 million",
+    "More than 10 million",
+    "More than 80 million"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-copies-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Which award did the manga win in August 2021, in its print category?",
+   "options": [
+    "Eisner Award",
+    "Kodansha Manga Award",
+    "Tezuka Osamu Cultural Prize",
+    "Next Manga Award"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-next-manga-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Which studio animates the television series?",
+   "options": [
+    "Bones",
+    "Doga Kobo",
+    "MAPPA",
+    "Madhouse"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-studio-staff-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "How many episodes did the first season have?",
+   "options": [
+    "12",
+    "13",
+    "11",
+    "24"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "What is the title of the feature-length first episode?",
+   "options": [
+    "Sisters and Stars",
+    "Stage and Screen",
+    "Brothers and Idols",
+    "Mother and Children"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-first-episode-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "In which year did a live-action series debut?",
+   "options": [
+    "2020",
+    "2022",
+    "2026",
+    "2024"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-live-action-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Oshi no Ko",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Oshi no Ko episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002 to 006, 007, 008, 009, 020). No character is named and the past-life twist is not touched."
+}

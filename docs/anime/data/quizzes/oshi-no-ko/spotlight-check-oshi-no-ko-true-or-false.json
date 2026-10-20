@@ -1,0 +1,162 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Spotlight Check: Oshi no Ko True or False",
+ "slug": "spotlight-check-oshi-no-ko-true-or-false",
+ "description": "Ten statements about the manga, the studio, the first season and the songs. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Aka Akasaka wrote the story and Mengo Yokoyari drew the manga.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Mengo Yokoyari wrote the story and Aka Akasaka drew the manga.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "The collected manga fills twenty tankōbon volumes.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "By December 2025 the manga had more than 25 million copies in circulation.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-copies-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "In August 2021 the manga won the digital category of the Next Manga Award.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-next-manga-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Doga Kobo animates the television series, with Daisuke Hiramaki directing.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-studio-staff-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "The first season ran twelve episodes, from April 12 to June 28, 2023.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "The season opened with a feature-length first episode titled Mother and Children.",
+   "correct": true,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-first-episode-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Season one opens with Idol by YOASOBI and closes with Mephisto by Chanmina.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "A live-action series debuted on November 28, 2024.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-live-action-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Oshi no Ko",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Oshi no Ko episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a role, a number, a category, a title or a band). The past-life twist is not touched."
+}

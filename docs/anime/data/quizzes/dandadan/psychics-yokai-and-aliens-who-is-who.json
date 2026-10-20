@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Psychics, Yōkai and Aliens: Who Is Who?",
+ "slug": "psychics-yokai-and-aliens-who-is-who",
+ "description": "Ten questions on the first-season cast: the two leads, the grandmother, the school idol and the creatures they face.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who is the grandmother of Momo and a spirit medium?",
+   "options": [
+    "Aira Shiratori",
+    "Seiko Ayase",
+    "Turbo Granny",
+    "Peeny-Weeny"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-seiko-spirit-medium-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the psychic high-school girl?",
+   "options": [
+    "Aira Shiratori",
+    "Momo Ayase",
+    "Seiko Ayase",
+    "Turbo Granny"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which occult-obsessed boy goes by the nickname Okarun?",
+   "options": [
+    "Ken Takakura",
+    "Jin Enjoji",
+    "Aira Shiratori",
+    "Momo Ayase"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who takes hold of Okarun and gives him his strange abilities?",
+   "options": [
+    "Acrobatic Silky",
+    "Turbo Granny",
+    "Seiko Ayase",
+    "Alien Serpo"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-okarun-possession-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the school idol of Kami High?",
+   "options": [
+    "Aira Shiratori",
+    "Momo Ayase",
+    "Seiko Ayase",
+    "Turbo Granny"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the agile yōkai?",
+   "options": [
+    "Acrobatic Silky",
+    "Turbo Granny",
+    "Alien Serpo",
+    "Peeny-Weeny"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is the childhood friend of Momo, called Jiji?",
+   "options": [
+    "Ken Takakura",
+    "Aira Shiratori",
+    "Peeny-Weeny",
+    "Jin Enjoji"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the mantis-shrimp-like alien?",
+   "options": [
+    "Jin Enjoji",
+    "Turbo Granny",
+    "Peeny-Weeny",
+    "Aira Shiratori"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which character is the old-woman yōkai?",
+   "options": [
+    "Acrobatic Silky",
+    "Seiko Ayase",
+    "Turbo Granny",
+    "Aira Shiratori"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which characters are the abducting aliens?",
+   "options": [
+    "Turbo Granny",
+    "Alien Serpo",
+    "Acrobatic Silky",
+    "Seiko Ayase"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-cast-season-one-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Dandadan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  }
+ ],
+ "notes": "Characters quiz on the season one cast fact (016, arc 1), Okarun fact (018, arc 1) and the Seiko fact (019, arc 0). All are level 0 except Acrobatic Silky (level 1); the 016 questions are tagged arc 1, which also matches C5 for the fact."
+}
