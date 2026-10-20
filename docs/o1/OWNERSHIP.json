@@ -319,7 +319,11 @@
   ],
   "E1a": [
     "scripts/anime/editorial/**",
-    "docs/anime/editorial/**"
+    "docs/anime/editorial/**",
+    "apps/quiz/src/**",
+    "scripts/anime/**",
+    "apps/quiz/e2e/o1/E1a/**",
+    "docs/o1/reports/E1a/**"
   ],
   "E1b": [
     "docs/pending-migrations/multisite/012-*",
@@ -440,7 +444,8 @@
     "apps/quiz/e2e/o1/C2/**"
   ],
   "C3": [
-    "apps/quiz/e2e/o1/C3/**"
+    "apps/quiz/e2e/o1/C3/**",
+    "docs/o1/reports/C3/**"
   ],
   "RPT": [
     "docs/o1/REPORT.md"

@@ -50,8 +50,13 @@
     "kind": "code"
   },
   "E1a": {
-    "sites": [],
-    "kind": "script"
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
   },
   "O2": {
     "sites": [
@@ -86,5 +91,13 @@
     ],
     "kind": "code+sql",
     "hotExempt": true
+  },
+  "C3": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "e2e"
   }
 }
