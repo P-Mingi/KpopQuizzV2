@@ -1,0 +1,630 @@
+[
+  {
+    "id": "spy-x-family-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "title_native",
+    "value": "スパイファミリー (Supai Famirī)",
+    "text": "In Japan the title is written スパイファミリー, a katakana spelling of the English words spy and family.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY",
+        "ref": "110690607",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "『SPY×FAMILY』（スパイファミリー）は、遠藤達哉による日本の漫画"
+  },
+  {
+    "id": "spy-x-family-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "author",
+    "value": "Tatsuya Endo (story and art)",
+    "text": "Tatsuya Endo both writes and draws the Spy × Family manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese web manga series written and illustrated by Tatsuya Endo"
+  },
+  {
+    "id": "spy-x-family-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "magazine",
+    "value": "Shōnen Jump+ (Shueisha), since March 2019",
+    "text": "Shueisha publishes the manga every other week on its Shōnen Jump+ app and website, a run that began in March 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized biweekly on Shueisha's Shōnen Jump+ app and website since March 2019"
+  },
+  {
+    "id": "spy-x-family-manga-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "manga_volumes",
+    "value": [
+      "17 volumes",
+      "counted in April 2026"
+    ],
+    "text": "By the spring of 2026 the chapters filled seventeen collected tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with its chapters collected in 17 tankōbon volumes as of April 2026"
+  },
+  {
+    "id": "spy-x-family-anime-studios-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_studios",
+    "value": "Wit Studio and CloverWorks",
+    "text": "Two studios share the animation, Wit Studio and CloverWorks.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by Wit Studio and CloverWorks"
+  },
+  {
+    "id": "spy-x-family-anime-directors-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_directors",
+    "value": "Kazuhiro Furuhashi (seasons 1 and 2), Takahiro Harada (season 2), Yukiko Imai (season 3)",
+    "text": "Kazuhiro Furuhashi directed the early seasons, with Takahiro Harada credited on season 2 and Yukiko Imai on season 3.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kazuhiro Furuhashi (S1-2) Takahiro Harada (S2) Yukiko Imai (S3)"
+  },
+  {
+    "id": "spy-x-family-anime-run-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_run",
+    "value": [
+      "50 episodes",
+      "3 seasons",
+      "April 2022 to December 2025",
+      "TV Tokyo"
+    ],
+    "text": "Three seasons of the TV anime, 50 episodes in total, aired on TV Tokyo between April 2022 and December 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "No. of seasons | 3 | No. of episodes | 50"
+  },
+  {
+    "id": "spy-x-family-anime-seasons-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1 Part 1: episodes 1-12",
+      "Season 1 Part 2: episodes 13-25",
+      "Season 2: episodes 26-37",
+      "Season 3: episodes 38-50"
+    ],
+    "text": "The anime is cut into four blocks: the first season in two cours of 12 and 13 episodes, then a 12-episode second season and a 13-episode third.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season | Episodes | Originally released | First released | Last released | 1 | 25 | 12 | 9 April 2022"
+  },
+  {
+    "id": "spy-x-family-cast-main-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "characters_a",
+    "value": [
+      "Loid Forger (ロイド・フォージャー)",
+      "Anya Forger (アーニャ・フォージャー)",
+      "Yor Forger (ヨル・フォージャー)",
+      "Bond Forger (ボンド・フォージャー)",
+      "Franky Franklin (フランキー・フランクリン)",
+      "Sylvia Sherwood (シルヴィア・シャーウッド)",
+      "Henry Henderson (ヘンリー・ヘンダーソン)",
+      "Yuri Briar (ユーリ・ブライア)",
+      "Damian Desmond (ダミアン・デズモンド)",
+      "Becky Blackbell (ベッキー・ブラックベル)"
+    ],
+    "text": "The first half of the cast is the Forger household, their go-between friends and agents, and the classmates and teacher around Anya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Loid Forger (ロイド・フォージャー, Roido Fōjā)"
+  },
+  {
+    "id": "spy-x-family-cast-supporting-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "characters_b",
+    "value": [
+      "Fiona Frost (フィオナ・フロスト)",
+      "Camilla (カミラ)",
+      "Millie (ミリー)",
+      "Sharon (シャロン)",
+      "Emile Elman (エミール・エルマン)",
+      "Ewen Egeburg (ユーイン・エッジバーグ)",
+      "Donovan Desmond (ドノバン・デズモンド)",
+      "Dominic (ドミニック)",
+      "Melinda Desmond (メリンダ・デズモンド)",
+      "Martha Marriott (マーサ・マリオット)"
+    ],
+    "text": "The second half gathers the fellow agent Fiona, Yor's City Hall co-workers, Damian's friends and the Desmond parents, plus Becky's butler Martha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Camilla (カミラ, Kamira)"
+  },
+  {
+    "id": "spy-x-family-theme-songs-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "themes",
+    "value": [
+      "OP 1: Mixed Nuts - Official Hige Dandism",
+      "OP 2: Souvenir - Bump of Chicken",
+      "OP 3: Kura Kura - Ado",
+      "OP 4: Hi o Mamoru - Spitz",
+      "ED 1: Comedy - Gen Hoshino",
+      "ED 2: Shikisai - yama",
+      "ED 3: Todome no Ichigeki - Vaundy",
+      "ED 4: Actor - Lilas Ikuta"
+    ],
+    "text": "Each cour of the anime has its own pair of songs, from Official Hige Dandism and Gen Hoshino in the first to Spitz and Lilas Ikuta in the third season.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme for the first part of the first season uses the song \"Mixed Nuts\""
+  },
+  {
+    "id": "spy-x-family-copies-in-print-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "copies",
+    "value": "more than 42 million copies in print, April 2026",
+    "text": "Circulation had climbed past forty-two million copies by April 2026, which puts the manga among the biggest sellers ever.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Spy × Family had over 42 million copies in circulation"
+  },
+  {
+    "id": "spy-x-family-anya-telepath-013",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "power",
+    "value": "telepathy",
+    "text": "Anya can read minds, a gift that lets her see through the secret jobs of both of her new parents.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "unbeknownst to him, Anya is a telepath, and Yor is in fact a professional assassin"
+  },
+  {
+    "id": "spy-x-family-yor-thorn-princess-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "nickname",
+    "value": "Thorn Princess",
+    "text": "Yor works at City Hall by day, but in her other line of work she goes by the Thorn Princess.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A 27-year-old professional assassin nicknamed \"Thorn Princess\""
+  },
+  {
+    "id": "spy-x-family-bond-premonition-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "ability",
+    "value": "glimpses the future",
+    "text": "Bond the family dog can see short glimpses of the future, which only Anya knows about.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bond, who possesses precognitive abilities"
+  },
+  {
+    "id": "spy-x-family-code-white-film-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "film",
+    "value": "Spy × Family Code: White, December 2023",
+    "text": "A theatrical film, Code: White, reached Japanese cinemas in December 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An anime film titled Spy × Family Code: White"
+  },
+  {
+    "id": "spy-x-family-anime-award-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "award",
+    "value": "Animation of the Year, Tokyo Anime Award Festival",
+    "text": "The Tokyo Anime Award Festival named the series its Animation of the Year.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "including Animation of the Year at the Tokyo Anime Award Festival"
+  },
+  {
+    "id": "spy-x-family-anya-peanuts-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "buzzword",
+    "value": "\"Anya likes peanuts\" topped the 2022 trending phrases of Japanese Generation Z",
+    "text": "In a FinT survey of Generation Z in Japan, the line about Anya liking peanuts came out as the most trending phrase of 2022.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Anya likes peanuts\" (アーニャピーナッツが好き) was the no. 1 trending phrase of the year"
+  },
+  {
+    "id": "spy-x-family-voice-cast-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Takuya Eguchi (Loid)",
+      "Atsumi Tanezaki (Anya)",
+      "Saori Hayami (Yor)"
+    ],
+    "text": "Takuya Eguchi, Atsumi Tanezaki and Saori Hayami voice the three Forgers in the Japanese cast.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Voices of | Takuya Eguchi Atsumi Tanezaki Saori Hayami"
+  },
+  {
+    "id": "spy-x-family-operation-strix-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "mission",
+    "value": "Operation Strix",
+    "text": "Loid's mission is code-named Operation Strix, and Sylvia Sherwood is the handler who oversees it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "oversees Operation Strix"
+  }
+]
