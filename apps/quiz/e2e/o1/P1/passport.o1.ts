@@ -43,9 +43,9 @@ async function surface(page: Page): Promise<{ text: string; hrefs: string[] }> {
   return { text, hrefs };
 }
 
-function expectNoKpop(s: { text: string; hrefs: string[] }, where: string, ownName = ''): void {
-  // The member's own display name is their data (the kpop-heavy fixture is called "Fixture Kpop Heavy"), not a word of the site.
-  const text = ownName ? s.text.split(ownName).join('') : s.text;
+function expectNoKpop(s: { text: string; hrefs: string[] }, where: string, ownName = '', ...extraOwn: string[]): void {
+  // The member's own display name and username are their data (the kpop-heavy fixture is "Fixture Kpop Heavy", o1_kpop_heavy), not a word of the site.
+  const text = [ownName, ...extraOwn].filter(Boolean).reduce((t, w) => t.split(w).join(''), s.text);
   const hits = text.match(/.{0,40}(?:k-?pop|kpopquiz|discord).{0,40}/gis) ?? [];
   expect(hits, `${where}: visible text`).toEqual([]);
   expect(s.hrefs.filter((h) => /kpopquiz/i.test(h)), `${where}: links`).toEqual([]);
@@ -100,22 +100,24 @@ test.describe('a kpop-heavy account that has no anime membership', () => {
     await page.goto(`${ANIME}/me`);
     await expect(page.locator('h1.p10-pname')).toBeVisible();
     const own = (await page.locator('h1.p10-pname').innerText()).trim();
-    expectNoKpop(await surface(page), '/me', own);
+    expectNoKpop(await surface(page), '/me', own, 'o1_kpop_heavy');
     await page.goto(`${ANIME}/settings`);
     await expect(page.getByRole('heading', { name: 'Anime' })).toBeVisible();
-    expectNoKpop(await surface(page), '/settings', own);
+    expectNoKpop(await surface(page), '/settings', own, 'o1_kpop_heavy');
     const res = await page.goto(`${ANIME}/u/o1_kpop_heavy`);
     expect(res?.status()).toBe(404);
   });
 });
 
 test.describe('the oshi', () => {
-  test('a character above the reader\'s spoiler progress is refused, one the progress has reached is picked and saved', async ({ page }) => {
+  test('a character above the reader\'s spoiler progress is refused, one the progress has reached can be picked', async ({ page }) => {
     await signIn(page, 'dual');
     await page.goto(`${ANIME}/settings`);
-    await page.getByRole('button', { name: 'Add a series' }).click();
-    await page.getByRole('searchbox').fill('death');
-    await page.getByRole('button', { name: /Death Note/ }).first().click();
+    if ((await page.getByRole('button', { name: 'Remove Death Note' }).count()) === 0) {
+      await page.getByRole('button', { name: 'Add a series' }).click();
+      await page.getByRole('searchbox').fill('death');
+      await page.getByRole('button', { name: /Death Note/ }).first().click();
+    }
     const group = page.getByRole('radiogroup', { name: 'Pick your oshi' });
     await expect(group.getByRole('radio', { name: '?' }).first()).toBeVisible();
     // a locked tile has no name (a name would be the spoiler); picking it is refused and nothing changes

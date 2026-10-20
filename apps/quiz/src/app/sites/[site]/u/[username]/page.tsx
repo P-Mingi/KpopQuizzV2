@@ -9,9 +9,10 @@ import { SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
-// A member can be banned or hidden at any time, and the parent layout allows no param that was not generated at build
-// (dynamicParams off: an ISR page of an unknown username answers NoFallbackError): the page is rendered per request.
+// A member can be banned or hidden at any time: the page is rendered per request. The [site] layout allows no param that was
+// not generated at build (dynamicParams off), which would answer every username with NoFallbackError: this page allows them.
 export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
