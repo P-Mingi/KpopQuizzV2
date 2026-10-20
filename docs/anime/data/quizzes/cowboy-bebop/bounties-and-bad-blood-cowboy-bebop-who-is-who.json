@@ -25,7 +25,10 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-spike-spiegel-name-016",
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-julia-name-022",
+    "cowboy-bebop-laughing-bull-name-024"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 1,
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-jet-black-name-017",
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-laughing-bull-name-024",
+    "cowboy-bebop-gren-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -63,7 +69,10 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-faye-valentine-name-018",
+    "cowboy-bebop-ein-name-020",
+    "cowboy-bebop-julia-name-022",
+    "cowboy-bebop-electra-ovilo-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -78,11 +87,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
-    "scope": "anime"
+    "arc": 0,
+    "scope": "both"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-spike-spiegel-name-016",
+    "cowboy-bebop-jet-black-name-017",
+    "cowboy-bebop-faye-valentine-name-018",
+    "cowboy-bebop-ed-name-019"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -101,7 +113,10 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-ein-name-020",
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-julia-name-022",
+    "cowboy-bebop-laughing-bull-name-024"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -116,11 +131,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-andy-von-de-oniyate-name-023",
+    "cowboy-bebop-gren-name-025",
+    "cowboy-bebop-vincent-volaju-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -139,7 +157,10 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-faye-valentine-name-018",
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-julia-name-022",
+    "cowboy-bebop-electra-ovilo-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -154,11 +175,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 1,
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-jet-black-name-017",
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-laughing-bull-name-024",
+    "cowboy-bebop-gren-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -173,11 +197,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
-    "scope": "anime"
+    "arc": 0,
+    "scope": "both"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-jet-black-name-017",
+    "cowboy-bebop-andy-von-de-oniyate-name-023",
+    "cowboy-bebop-laughing-bull-name-024",
+    "cowboy-bebop-gren-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
@@ -192,11 +219,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-cast-list-015"
+    "cowboy-bebop-vicious-name-021",
+    "cowboy-bebop-gren-name-025",
+    "cowboy-bebop-vincent-volaju-name-026",
+    "cowboy-bebop-electra-ovilo-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   }
@@ -208,5 +238,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (015, arc 3). The cast list is tagged arc 3, so every question is tagged 3 and the quiz level is 3. Distractors avoid characters who also fit the description."
+ "notes": "Distractors avoid characters who also fit the description. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 anime, now arc 3 anime."
 }

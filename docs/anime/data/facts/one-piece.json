@@ -523,7 +523,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "the thief and navigator Nami; the cowardly marksman and inventor Usopp"
   },
   {
@@ -566,7 +566,7 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Sabo (サボ) is the chief of staff of the Revolutionary Army and sworn brother to Monkey D. Luffy and Portgas D. Ace"
   },
   {
@@ -1000,5 +1000,845 @@
     ],
     "status": "draft",
     "excerpt": "Another anime series produced by Wit Studio is scheduled to premiere in 2027."
+  },
+  {
+    "id": "one-piece-monkey-d-luffy-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "name",
+    "value": "Monkey D. Luffy (モンキー・D・ルフィ)",
+    "text": "Monkey D. Luffy is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the series' main protagonist, a young pirate who wishes to succeed Gold Roger, the deceased King of the Pirates, by finding his treasure"
+  },
+  {
+    "id": "one-piece-roronoa-zoro-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "name",
+    "value": "Roronoa Zoro (ロロノア・ゾロ)",
+    "text": "Roronoa Zoro is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Monkey D. Luffy is the series' main protagonist, a young pirate who wishes to succeed Gold Roger, the deceased King of the Pirates, by finding his treasure"
+  },
+  {
+    "id": "one-piece-shanks-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "name",
+    "value": "Shanks (シャンクス)",
+    "text": "Shanks is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Lord of the Coast (近海の主, Kinkai no Nushi): A Sea King who inhabits the waters near Windmill Village. He tried to devour Luffy, but was saved by Shanks, ending"
+  },
+  {
+    "id": "one-piece-gol-d-roger-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gol-d-roger"
+    },
+    "field": "name",
+    "value": "Gol D. Roger (ゴール・D・ロジャー)",
+    "text": "Gol D. Roger is a character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "East Blue is the birthplace of Luffy, Zoro, Nami, and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+  },
+  {
+    "id": "one-piece-nami-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nami"
+    },
+    "field": "name",
+    "value": "Nami (ナミ)",
+    "text": "Nami is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+  },
+  {
+    "id": "one-piece-buggy-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "buggy"
+    },
+    "field": "name",
+    "value": "Buggy (道化のバギー)",
+    "text": "Buggy is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Orange Town is a town that was under the control of Buggy's Band of Pirates, until they were defeated by Luffy, Zoro and Nami."
+  },
+  {
+    "id": "one-piece-usopp-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "usopp"
+    },
+    "field": "name",
+    "value": "Usopp (ウソップ)",
+    "text": "Usopp is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "East Blue is the birthplace of Luffy, Zoro, Nami, and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+  },
+  {
+    "id": "one-piece-sanji-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "name",
+    "value": "Sanji (サンジ)",
+    "text": "Sanji is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Baratie is an ocean-going restaurant where Sanji worked."
+  },
+  {
+    "id": "one-piece-dracule-mihawk-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "dracule-mihawk"
+    },
+    "field": "name",
+    "value": "Dracule Mihawk (ジュラキュール・ミホーク)",
+    "text": "Dracule Mihawk is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shanks Bartholomew Kuma, Smoker, Whitebeard, Koby</"
+  },
+  {
+    "id": "one-piece-smoker-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "smoker"
+    },
+    "field": "name",
+    "value": "Smoker (スモーカー)",
+    "text": "Smoker is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mr. 11: A member of Baroque Works agent who was captured by Smoker. While Smoker and his men were ashore, Mr. 11 was killed by Mr. Mellow of the Billions. 11"
+  },
+  {
+    "id": "one-piece-monkey-d-dragon-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-dragon"
+    },
+    "field": "name",
+    "value": "Monkey D. Dragon (モンキー・D・ドラゴン)",
+    "text": "Monkey D. Dragon is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "commonly known simply as \"Dragon the Revolutionary\", is the father of Monkey D. Luffy and the son of the"
+  },
+  {
+    "id": "one-piece-nefertari-vivi-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nefertari-vivi"
+    },
+    "field": "name",
+    "value": "Nefertari Vivi (ネフェルタリ・ビビ)",
+    "text": "Nefertari Vivi is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Cobra and Titi's daughter and the princess of Alabasta."
+  },
+  {
+    "id": "one-piece-tony-tony-chopper-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "tony-tony-chopper"
+    },
+    "field": "name",
+    "value": "Tony Tony Chopper (トニートニー・チョッパー)",
+    "text": "Tony Tony Chopper is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kureha (くれは): She is a doctor in her 100s who took in Tony Tony Chopper following Hiriluk's death. She and Tony Tony Chopper were responsible for curing Nami"
+  },
+  {
+    "id": "one-piece-crocodile-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "crocodile"
+    },
+    "field": "name",
+    "value": "Crocodile (クロコダイル)",
+    "text": "Crocodile is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Wany (ワーニー, Wānī): A crocodile-boar who serves as Wanda's mode of transportation. Wany's vocal effects are provided by Takahiro Fujimoto in the original"
+  },
+  {
+    "id": "one-piece-portgas-d-ace-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "portgas-d-ace"
+    },
+    "field": "name",
+    "value": "Portgas D. Ace (ポートガス・D・エース)",
+    "text": "Portgas D. Ace is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Portgas D. Rouge (ポートガス・D・ルージュ, Pōtogasu Dī Rūju): She was the lover of Gol D. Roger and the mother of Portgas D. Ace. Portgas delayed her pregnancy for twenty"
+  },
+  {
+    "id": "one-piece-nico-robin-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nico-robin"
+    },
+    "field": "name",
+    "value": "Nico Robin (ニコ・ロビン)",
+    "text": "Nico Robin is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
+  },
+  {
+    "id": "one-piece-eneru-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "eneru"
+    },
+    "field": "name",
+    "value": "Eneru (エネル)",
+    "text": "Eneru is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was the \"God\" of Skypiea. He originates from Birka before destroying it, arriving at Skypiea, and annexing the region from Gan Fall. Though \"God\""
+  },
+  {
+    "id": "one-piece-franky-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "franky"
+    },
+    "field": "name",
+    "value": "Franky (フランキー)",
+    "text": "Franky is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Family which was led by Franky before joining the Straw Hat Crew. The group include:"
+  },
+  {
+    "id": "one-piece-rob-lucci-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "rob-lucci"
+    },
+    "field": "name",
+    "value": "Rob Lucci (ロブ・ルッチ)",
+    "text": "Rob Lucci is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with Hattori, Foxy Arlong, Eneru, Don Krieg (Bottom) <"
+  },
+  {
+    "id": "one-piece-brook-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "brook"
+    },
+    "field": "name",
+    "value": "Brook (ブルック)",
+    "text": "Brook is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 26,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
+  },
+  {
+    "id": "one-piece-trafalgar-law-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "trafalgar-law"
+    },
+    "field": "name",
+    "value": "Trafalgar Law (トラファルガー・ロー)",
+    "text": "Trafalgar Law is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Caesar Clown (シーザー・クラウン, Shīzā Kuraun) is a psychopathic former Marine scientist capable of transforming into gas due to the Logia-type Gas-Gas Fruit (ガスガスの実"
+  },
+  {
+    "id": "one-piece-eustass-kid-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "eustass-kid"
+    },
+    "field": "name",
+    "value": "Eustass Kid (ユースタス・キッド)",
+    "text": "Eustass Kid is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Allen Divers of Anime News Network comments that the male character designs of One Piece are \"often quite varied and unique\", while the female ones become \"a"
+  },
+  {
+    "id": "one-piece-boa-hancock-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "boa-hancock"
+    },
+    "field": "name",
+    "value": "Boa Hancock (ボア・ハンコック)",
+    "text": "Boa Hancock is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 29,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s attendants in her castle, where she works as a lady's maid. Genista is voiced by Ikue Ōtani in the original"
+  },
+  {
+    "id": "one-piece-edward-newgate-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "edward-newgate"
+    },
+    "field": "name",
+    "value": "Edward Newgate (白ひげ)",
+    "text": "Edward Newgate is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As children they came to Wano Country, where they became retrainers of Kozuki Oden, whom years later they accompanied on his journey at sea as crew members of"
+  },
+  {
+    "id": "one-piece-sakazuki-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sakazuki"
+    },
+    "field": "name",
+    "value": "Sakazuki (サカズキ)",
+    "text": "Sakazuki is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Roji (ロジ): Roji is a housewife who is the sister-in-law of Nico Olvia and the aunt of Nico Robin. She was abusive towards Robin and treated her like a slave."
+  },
+  {
+    "id": "one-piece-donquixote-doflamingo-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "donquixote-doflamingo"
+    },
+    "field": "name",
+    "value": "Donquixote Doflamingo (ドンキホーテ・ドフラミンゴ)",
+    "text": "Donquixote Doflamingo is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Caesar Clown (シーザー・クラウン, Shīzā Kuraun) is a psychopathic former Marine scientist capable of transforming into gas due to the Logia-type Gas-Gas Fruit (ガスガスの実"
+  },
+  {
+    "id": "one-piece-sabo-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sabo"
+    },
+    "field": "name",
+    "value": "Sabo (サボ)",
+    "text": "Sabo is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the chief of staff of the Revolutionary Army and sworn brother to Monkey D. Luffy and Portgas D. Ace. Introduced as a noble from the Goa Kingdom"
+  },
+  {
+    "id": "one-piece-charlotte-linlin-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-linlin"
+    },
+    "field": "name",
+    "value": "Charlotte Linlin (シャーロット・リンリン)",
+    "text": "Charlotte Linlin is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Two years later, the Straw Hats gain a new fleet, called the Straw Hat Grand Fleet, consisting of 5,640 pirates from seven different crews; Luffy objects to"
+  },
+  {
+    "id": "one-piece-kaido-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kaido"
+    },
+    "field": "name",
+    "value": "Kaido (カイドウ)",
+    "text": "Kaido is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yamato (ヤマト), also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
+  },
+  {
+    "id": "one-piece-yamato-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "yamato"
+    },
+    "field": "name",
+    "value": "Yamato (ヤマト)",
+    "text": "Yamato is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 44,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
   }
 ]

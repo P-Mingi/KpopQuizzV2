@@ -16,7 +16,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   }
  ],
- "notes": "Characters quiz on the first cast group fact (014, arc 12). Tagged arc 12 and level 12. Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file.",
+ "notes": "Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 12 both, now arc 12 both.",
  "questions": [
   {
    "question": "Which character is the young pirate with a rubber body who sails to find the One Piece and become King of the Pirates?",
@@ -33,7 +33,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-monkey-d-luffy-name-031",
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-shanks-name-033",
+    "one-piece-portgas-d-ace-name-045"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -48,11 +51,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 12,
+    "arc": 6,
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-smoker-name-040"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -71,7 +77,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-shanks-name-033",
+    "one-piece-buggy-name-036",
+    "one-piece-smoker-name-040",
+    "one-piece-crocodile-name-044"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -90,7 +99,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-shanks-name-033",
+    "one-piece-gol-d-roger-name-034",
+    "one-piece-monkey-d-dragon-name-041",
+    "one-piece-crocodile-name-044"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -109,7 +121,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-nami-name-035",
+    "one-piece-usopp-name-037",
+    "one-piece-nefertari-vivi-name-042",
+    "one-piece-tony-tony-chopper-name-043"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -128,7 +143,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-shanks-name-033",
+    "one-piece-buggy-name-036",
+    "one-piece-smoker-name-040",
+    "one-piece-crocodile-name-044"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -143,11 +161,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 12,
+    "arc": 11,
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-tony-tony-chopper-name-043"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -166,7 +187,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-portgas-d-ace-name-045"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -181,11 +205,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 12,
+    "arc": 6,
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-shanks-name-033",
+    "one-piece-dracule-mihawk-name-039",
+    "one-piece-smoker-name-040"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   },
@@ -204,7 +231,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-piece-cast-first-014"
+    "one-piece-nami-name-035",
+    "one-piece-nefertari-vivi-name-042",
+    "one-piece-tony-tony-chopper-name-043",
+    "one-piece-crocodile-name-044"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
   }

@@ -40,11 +40,15 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-twenty-fifth-bam-name-021",
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-jahad-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -59,16 +63,19 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-phonsekal-lauroe-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
   {
-   "question": "Who is the leader of team Isu?",
+   "question": "Who heads up team Isu?",
    "options": [
     "Hatz",
     "Rak Wraithraiser",
@@ -78,11 +85,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-phonsekal-lauroe-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -97,11 +107,15 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-anaak-jahad-name-029",
+    "tower-of-god-jahad-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -116,11 +130,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -135,11 +152,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-jahad-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -154,11 +174,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-phonsekal-lauroe-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -173,11 +196,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   },
@@ -192,11 +218,15 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-cast-early-015"
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-anaak-jahad-name-029",
+    "tower-of-god-jahad-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   }
@@ -208,5 +238,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   }
  ],
- "notes": "Characters quiz on the early cast fact (015, arc 1) plus the Bam name fact (019, arc 0). All characters are level 0; questions citing 015 are tagged arc 1 because C5 forces the tag of the cited cast fact."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
 }

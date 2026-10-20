@@ -26,11 +26,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017",
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-aki-hayakawa-name-024",
+        "chainsaw-man-kishibe-name-028",
+        "chainsaw-man-katana-man-name-030",
         "chainsaw-man-denji-debt-019"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
@@ -51,11 +54,15 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-pochita-name-022",
+        "chainsaw-man-power-name-023",
+        "chainsaw-man-himeno-name-027",
+        "chainsaw-man-angel-devil-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -75,11 +82,15 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-power-name-023",
+        "chainsaw-man-makima-name-025",
+        "chainsaw-man-kobeni-higashiyama-name-026",
+        "chainsaw-man-himeno-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -99,11 +110,15 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-aki-hayakawa-name-024",
+        "chainsaw-man-himeno-name-027",
+        "chainsaw-man-kishibe-name-028",
+        "chainsaw-man-katana-man-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -123,11 +138,15 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-power-name-023",
+        "chainsaw-man-makima-name-025",
+        "chainsaw-man-kobeni-higashiyama-name-026",
+        "chainsaw-man-himeno-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -147,11 +166,15 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-power-name-023",
+        "chainsaw-man-makima-name-025",
+        "chainsaw-man-kobeni-higashiyama-name-026",
+        "chainsaw-man-himeno-name-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -160,7 +183,7 @@
       "clues": [
         "Cynical and experienced",
         "A veteran Devil Hunter",
-        "Formerly of Tokyo Special Division 1"
+        "Used to belong to the first of Tokyo's Special Divisions"
       ],
       "options": [
         "Aki Hayakawa",
@@ -171,11 +194,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-denji-name-021",
+        "chainsaw-man-aki-hayakawa-name-024",
+        "chainsaw-man-kishibe-name-028",
+        "chainsaw-man-katana-man-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     },
@@ -195,11 +221,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-cast-first-half-017"
+        "chainsaw-man-pochita-name-022",
+        "chainsaw-man-power-name-023",
+        "chainsaw-man-angel-devil-name-029",
+        "chainsaw-man-katana-man-name-030"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     }
@@ -211,5 +240,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     }
   ],
-  "notes": "Clues paraphrase the values of the first-half cast list fact (017). That fact is tagged arc 3 by the facts file, so the whole quiz carries arc 3; the Denji answer also cites the debt fact (019). No graphic detail."
+  "notes": "No graphic detail. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 0."
 }

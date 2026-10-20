@@ -21,7 +21,7 @@
    "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
   }
  ],
- "notes": "Arc quiz on the four blocks of the anime (008, arc 3, anime). Bond (015, arc 1) and the second cast group (010, arc 2) are tagged by their own facts. Level 3.",
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both.",
  "questions": [
   {
    "question": "Which block holds episodes 1 to 12?",
@@ -148,11 +148,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-supporting-010"
+    "spy-x-family-sylvia-sherwood-name-026",
+    "spy-x-family-fiona-frost-name-031",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -167,11 +170,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-supporting-010"
+    "spy-x-family-emile-elman-name-035",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-millie-name-033",
+    "spy-x-family-sharon-name-034"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -190,7 +196,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-supporting-010"
+    "spy-x-family-melinda-desmond-name-039",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034",
+    "spy-x-family-martha-marriott-name-040"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
@@ -209,7 +218,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-cast-supporting-010"
+    "spy-x-family-melinda-desmond-name-039",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034",
+    "spy-x-family-martha-marriott-name-040"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   }

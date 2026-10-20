@@ -362,7 +362,7 @@
         "fetched_at": "2026-10-20T20:20:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Thorfinn (トルフィン, Torufin), Askeladd (アシェラッド, Asheraddo), Bjorn (ビョルン, Byorun), Canute (クヌート, Kunūto)"
   },
   {
@@ -474,5 +474,341 @@
     ],
     "status": "draft",
     "excerpt": "Thors is a Jomsviking general whose phenomenal combat prowess earns him the epithet \"The Troll of Jom\"."
+  },
+  {
+    "id": "vinland-saga-thorfinn-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thorfinn"
+    },
+    "field": "name",
+    "value": "Thorfinn (トルフィン)",
+    "text": "Thorfinn is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a teenage warrior in Askeladd's company, though he hates his commander for slaying his father Thors and has sworn to kill him in a duel. To earn"
+  },
+  {
+    "id": "vinland-saga-askeladd-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "askeladd"
+    },
+    "field": "name",
+    "value": "Askeladd (アシェラッド)",
+    "text": "Askeladd is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the commander of a small but powerful Viking band, which owed its success to Askeladd's exceptional intelligence. Ten years before the main Vinland"
+  },
+  {
+    "id": "vinland-saga-thors-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thors"
+    },
+    "field": "name",
+    "value": "Thors (トールズ)",
+    "text": "Thors is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Jomsviking general whose phenomenal combat prowess earns him the epithet \"The Troll of Jom\". Thors grows weary of battle"
+  },
+  {
+    "id": "vinland-saga-canute-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "canute"
+    },
+    "field": "name",
+    "value": "Canute (クヌート)",
+    "text": "Canute is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the 17-year-old prince of the Danes. He is initially portrayed as timid and womanly, and unable to function without his retainer Ragnar. These"
+  },
+  {
+    "id": "vinland-saga-thorkell-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thorkell"
+    },
+    "field": "name",
+    "value": "Thorkell (トルケル)",
+    "text": "Thorkell is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Jomsviking general, brother of the Jomsviking Chief, uncle-in-law of Thors and grand uncle of Thorfinn. A giant man who loves combat, he defects"
+  },
+  {
+    "id": "vinland-saga-leif-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "leif"
+    },
+    "field": "name",
+    "value": "Leif (レイフ)",
+    "text": "Leif is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a cheerful old man from Greenland. A sailor, he claims to have traveled to a distant western land called Vinland. When Thorfinn joins Askeladd's band"
+  },
+  {
+    "id": "vinland-saga-floki-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "floki"
+    },
+    "field": "name",
+    "value": "Floki (フローキ)",
+    "text": "Floki is an antagonist of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Jomsviking commander one of the principal Viking commanders under Sweyn during the invasion of England and subsequently under Canute. He is the one"
+  },
+  {
+    "id": "vinland-saga-bjorn-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "bjorn"
+    },
+    "field": "name",
+    "value": "Bjorn (ビョルン)",
+    "text": "Bjorn is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Askeladd's second in command, a burly man who fights for the love of combat. He is a berserker, able to enter powerful rages through the consumption"
+  },
+  {
+    "id": "vinland-saga-einar-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "einar"
+    },
+    "field": "name",
+    "value": "Einar (エイナル)",
+    "text": "Einar is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an Anglo-Norse farmer from Northern England who, following attacks on his village, was sold into slavery and eventually ends up on Ketil's farm. As a"
+  },
+  {
+    "id": "vinland-saga-ketil-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "ketil"
+    },
+    "field": "name",
+    "value": "Ketil (ケティル)",
+    "text": "Ketil is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Danish landowner who buys Thorfinn and then Einar as slaves."
+  },
+  {
+    "id": "vinland-saga-gudrid-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "gudrid"
+    },
+    "field": "name",
+    "value": "Gudrid (グズリーズ)",
+    "text": "Gudrid is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a young woman originally from Greenland. As a child, she heard stories of the outside world from Leif and dreamed of becoming a sailor, but, as a"
+  },
+  {
+    "id": "vinland-saga-hild-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "hild"
+    },
+    "field": "name",
+    "value": "Hild (ヒルド)",
+    "text": "Hild is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a female hunter from Norway. Originally an inventor and carpenter, her life changed when Askeladd's band attacked her village and killed her family."
   }
 ]

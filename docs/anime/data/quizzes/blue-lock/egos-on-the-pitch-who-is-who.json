@@ -21,11 +21,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-yoichi-isagi-name-016",
+    "blue-lock-meguru-bachira-name-017",
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-reo-mikage-name-019"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-yoichi-isagi-name-016",
+    "blue-lock-meguru-bachira-name-017",
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-rensuke-kunigami-name-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -59,11 +65,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-reo-mikage-name-019",
+    "blue-lock-rensuke-kunigami-name-020",
+    "blue-lock-rin-itoshi-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -78,11 +87,15 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-reo-mikage-name-019",
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-anri-teieri-name-024",
+    "blue-lock-sae-itoshi-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -97,11 +110,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-yoichi-isagi-name-016",
+    "blue-lock-meguru-bachira-name-017",
+    "blue-lock-rensuke-kunigami-name-020",
+    "blue-lock-shoei-barou-name-021"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -116,11 +132,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-shoei-barou-name-021",
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-anri-teieri-name-024"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -139,7 +158,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-ryusei-shidou-name-025",
+    "blue-lock-sae-itoshi-name-026",
+    "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -158,7 +181,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-anri-teieri-name-024",
+    "blue-lock-ryusei-shidou-name-025",
+    "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -174,10 +200,13 @@
    "kind": "character",
    "spoiler": {
     "arc": 3,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-anri-teieri-name-024",
+    "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
@@ -196,7 +225,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-shoei-barou-name-021",
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-ryusei-shidou-name-025",
+    "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   }
@@ -208,5 +240,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (015, arc 3). Most characters are level 0 but the only fact for them is arc 3, so C5 forces every tag to 3; the quiz level is therefore 3."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 manga."
 }

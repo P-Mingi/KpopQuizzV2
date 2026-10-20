@@ -21,11 +21,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-shinji-ikari-name-016",
+    "evangelion-ritsuko-akagi-name-021",
+    "evangelion-toji-suzuhara-name-024",
+    "evangelion-kozo-fuyutsuki-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-rei-ayanami-name-017",
+    "evangelion-asuka-langley-soryu-name-018",
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-ritsuko-akagi-name-021"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -59,11 +65,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-rei-ayanami-name-017",
+    "evangelion-asuka-langley-soryu-name-018",
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-ritsuko-akagi-name-021"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -78,11 +87,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-rei-ayanami-name-017",
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-ritsuko-akagi-name-021",
+    "evangelion-yui-ikari-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -97,11 +109,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-gendo-ikari-name-020",
+    "evangelion-ritsuko-akagi-name-021",
+    "evangelion-toji-suzuhara-name-024",
+    "evangelion-kozo-fuyutsuki-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -116,11 +131,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-ritsuko-akagi-name-021",
+    "evangelion-toji-suzuhara-name-024",
+    "evangelion-yui-ikari-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -135,11 +153,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-shinji-ikari-name-016",
+    "evangelion-gendo-ikari-name-020",
+    "evangelion-toji-suzuhara-name-024",
+    "evangelion-kozo-fuyutsuki-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -154,16 +175,19 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-shinji-ikari-name-016",
+    "evangelion-gendo-ikari-name-020",
+    "evangelion-toji-suzuhara-name-024",
+    "evangelion-kozo-fuyutsuki-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
   {
-   "question": "Who is Shinji's mother and Gendo's wife?",
+   "question": "Which woman is the wife of Gendo and the mother of Shinji?",
    "options": [
     "Yui Ikari",
     "Misato Katsuragi",
@@ -173,11 +197,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 5,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-cast-list-013"
+    "evangelion-asuka-langley-soryu-name-018",
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-ritsuko-akagi-name-021",
+    "evangelion-yui-ikari-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
@@ -193,10 +220,13 @@
    "kind": "character",
    "spoiler": {
     "arc": 5,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "evangelion-cast-list-013",
+    "evangelion-rei-ayanami-name-017",
+    "evangelion-asuka-langley-soryu-name-018",
+    "evangelion-misato-katsuragi-name-019",
+    "evangelion-mari-illustrious-makinami-name-027",
     "evangelion-mari-debut-014"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
@@ -209,5 +239,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (013, arc 5, because it includes the Rebuild-only pilot). Every question is tagged 5 and the quiz level is 5. Kaworu is an identity spoiler and is not used."
+ "notes": "Kaworu is an identity spoiler and is not used. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 5 both, now arc 5 both."
 }

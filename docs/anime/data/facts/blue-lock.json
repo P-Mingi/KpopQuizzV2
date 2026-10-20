@@ -451,7 +451,343 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Football strategist who co-developed the Blue Lock program alongside Noel Noa"
+  },
+  {
+    "id": "blue-lock-yoichi-isagi-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "yoichi-isagi"
+    },
+    "field": "name",
+    "value": "Yoichi Isagi (潔 世一)",
+    "text": "Yoichi Isagi is a main character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is selected for the Blue Lock program despite his team's failure to qualify for high school nationals, personally chosen by"
+  },
+  {
+    "id": "blue-lock-meguru-bachira-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "meguru-bachira"
+    },
+    "field": "name",
+    "value": "Meguru Bachira (蜂楽 廻)",
+    "text": "Meguru Bachira is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a forward known for his exceptional dribbling skills, enabling him to maneuver past opponents with ease. Initially"
+  },
+  {
+    "id": "blue-lock-seishiro-nagi-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "seishiro-nagi"
+    },
+    "field": "name",
+    "value": "Seishirō Nagi (凪 誠士郎)",
+    "text": "Seishirō Nagi is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a naturally gifted forward recruited into competitive football by Reo Mikage, with whom he formed a dominant high"
+  },
+  {
+    "id": "blue-lock-reo-mikage-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "reo-mikage"
+    },
+    "field": "name",
+    "value": "Reo Mikage (御影 玲王)",
+    "text": "Reo Mikage is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "initially had very little satisfaction in life due to everything simply being easily obtainable due to his parents'"
+  },
+  {
+    "id": "blue-lock-rensuke-kunigami-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "rensuke-kunigami"
+    },
+    "field": "name",
+    "value": "Rensuke Kunigami (國神 錬介)",
+    "text": "Rensuke Kunigami is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a self-described \"football superhero\" with strong morals regarding football, he emphasizes fair play on field"
+  },
+  {
+    "id": "blue-lock-shoei-barou-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "shoei-barou"
+    },
+    "field": "name",
+    "value": "Shōei Barō (馬狼 照英)",
+    "text": "Shōei Barō is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Known for his incredibly selfish and egotistical attitude, Shōei Barō (馬狼 照英, Barō Shōei) desires to be the center-stage and main star of the field, caring for"
+  },
+  {
+    "id": "blue-lock-rin-itoshi-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "rin-itoshi"
+    },
+    "field": "name",
+    "value": "Rin Itoshi (糸師 凛)",
+    "text": "Rin Itoshi is a main character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The number one ranked player in Blue Lock, and Sae Itoshi's brother, as well as Isagi's rival from the Second Selection onwards. His skills are very similar to"
+  },
+  {
+    "id": "blue-lock-jinpachi-ego-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "jinpachi-ego"
+    },
+    "field": "name",
+    "value": "Jinpachi Ego (絵心 甚八)",
+    "text": "Jinpachi Ego is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a football strategist who co-developed the Blue Lock program alongside Noel Noa. His philosophy centers on cultivating"
+  },
+  {
+    "id": "blue-lock-anri-teieri-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "anri-teieri"
+    },
+    "field": "name",
+    "value": "Anri Teieri (帝襟 アンリ)",
+    "text": "Anri Teieri is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the key figures who created Blue Lock program and chose Ego to become the manager despite being a previously"
+  },
+  {
+    "id": "blue-lock-ryusei-shidou-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "ryusei-shidou"
+    },
+    "field": "name",
+    "value": "Ryūsei Shidou (士道 龍聖)",
+    "text": "Ryūsei Shidou is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A chaotic but talented player who idolizes Sae Itoshi but dislikes Rin. To appease Sae's demands for playing in the U-20 match, he also joins the U-20 squad"
+  },
+  {
+    "id": "blue-lock-sae-itoshi-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "sae-itoshi"
+    },
+    "field": "name",
+    "value": "Sae Itoshi (糸師 冴)",
+    "text": "Sae Itoshi is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the highest ranked player in Japan's U-20 team, and Rin Itoshi's brother. Considered to be one of the World's 11, the best"
+  },
+  {
+    "id": "blue-lock-michael-kaiser-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "blue-lock",
+      "ref": "michael-kaiser"
+    },
+    "field": "name",
+    "value": "Michael Kaiser (ミヒャエル・カイザー)",
+    "text": "Michael Kaiser is a supporting character of Blue Lock.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a German forward for Bastard München and member of the New Generation World XI. As Bastard München's core"
   }
 ]

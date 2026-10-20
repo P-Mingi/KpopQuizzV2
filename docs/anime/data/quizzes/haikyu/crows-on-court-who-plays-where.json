@@ -59,11 +59,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-tobio-kageyama-name-022",
+    "haikyu-kei-tsukishima-name-023",
+    "haikyu-tadashi-yamaguchi-name-024",
+    "haikyu-asahi-azumane-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -78,11 +81,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-kei-tsukishima-name-023",
+    "haikyu-daichi-sawamura-name-025",
+    "haikyu-asahi-azumane-name-027",
+    "haikyu-ryunosuke-tanaka-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -97,11 +103,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-tadashi-yamaguchi-name-024",
+    "haikyu-daichi-sawamura-name-025",
+    "haikyu-yu-nishinoya-name-028",
+    "haikyu-ryunosuke-tanaka-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -116,16 +125,19 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-daichi-sawamura-name-025",
+    "haikyu-koshi-sugawara-name-026",
+    "haikyu-asahi-azumane-name-027",
+    "haikyu-ryunosuke-tanaka-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
   {
-   "question": "Who is the vice captain of Karasuno?",
+   "question": "Who is Karasuno's deputy captain?",
    "options": [
     "Daichi Sawamura",
     "Asahi Azumane",
@@ -135,11 +147,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-daichi-sawamura-name-025",
+    "haikyu-koshi-sugawara-name-026",
+    "haikyu-asahi-azumane-name-027",
+    "haikyu-yu-nishinoya-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -154,11 +169,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-tobio-kageyama-name-022",
+    "haikyu-tadashi-yamaguchi-name-024",
+    "haikyu-asahi-azumane-name-027",
+    "haikyu-yu-nishinoya-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -173,11 +191,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-tobio-kageyama-name-022",
+    "haikyu-kei-tsukishima-name-023",
+    "haikyu-tadashi-yamaguchi-name-024",
+    "haikyu-yu-nishinoya-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   },
@@ -192,11 +213,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "haikyu-cast-karasuno-016"
+    "haikyu-tadashi-yamaguchi-name-024",
+    "haikyu-yu-nishinoya-name-028",
+    "haikyu-ryunosuke-tanaka-name-029",
+    "haikyu-hitoka-yachi-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   }
@@ -213,5 +237,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
   }
  ],
- "notes": "Characters quiz on the Karasuno cast fact (016, arc 2) plus two Hinata facts (018, 019, arc 0). All characters are level 0; the 016 questions are tagged arc 2 because C5 forces the tag of the cited cast fact."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 0."
 }

@@ -97,11 +97,15 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 2,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "solo-leveling-cast-first-half-023"
+        "solo-leveling-sung-jin-woo-name-031",
+        "solo-leveling-sung-jin-ah-name-032",
+        "solo-leveling-park-kyung-hye-name-033",
+        "solo-leveling-yoo-jin-ho-name-034",
+        "solo-leveling-lee-joo-hee-name-035"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
@@ -120,7 +124,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "solo-leveling-cast-first-half-023"
+        "solo-leveling-yoo-jin-ho-name-034",
+        "solo-leveling-lee-joo-hee-name-035",
+        "solo-leveling-song-chi-yul-name-036",
+        "solo-leveling-kang-tae-shik-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
@@ -170,5 +177,5 @@
       "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     }
   ],
-  "notes": "Character questions cite the character facts (025, 026, 027) and the cast list fact 023; relations and ranks of Jin-ah and Kang Tae-shik follow the cast list of the same Wikipedia page as the series file. Highest tag is arc 2."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 2 both."
 }

@@ -16,7 +16,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }
  ],
- "notes": "Characters quiz on the first cast group fact (008, arc 1). Tagged arc 1 and level 1. Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file.",
+ "notes": "Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both.",
  "questions": [
   {
    "question": "Which character is the brilliant, bored high school student who finds a notebook that kills anyone whose name is written in it?",
@@ -29,11 +29,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-light-yagami-name-021",
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hideki-ide-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -52,7 +55,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-l-name-022",
+    "death-note-soichiro-yagami-name-025",
+    "death-note-hirokazu-ukita-name-031",
+    "death-note-raye-penber-name-034"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -71,7 +77,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-light-yagami-name-021",
+    "death-note-l-name-022",
+    "death-note-ryuk-name-023",
+    "death-note-watari-name-032"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -90,7 +99,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-misa-amane-name-024",
+    "death-note-rem-name-033",
+    "death-note-sayu-yagami-name-027",
+    "death-note-naomi-misora-name-035"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -105,16 +117,19 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-soichiro-yagami-name-025",
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hideki-ide-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
   {
-   "question": "Which character is the youngest member of the Kira investigation team?",
+   "question": "Which investigator is the most junior member of the team hunting Kira?",
    "options": [
     "Shuichi Aizawa",
     "Kanzo Mogi",
@@ -124,11 +139,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-kanzo-mogi-name-029",
+    "death-note-hideki-ide-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -147,7 +165,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-soichiro-yagami-name-025",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-raye-penber-name-034"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -166,7 +187,11 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-ryuk-name-023",
+    "death-note-misa-amane-name-024",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-naomi-misora-name-035"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -185,7 +210,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-watari-name-032",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hirokazu-ukita-name-031",
+    "death-note-raye-penber-name-034"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
@@ -200,11 +228,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "death-note-cast-first-part-008"
+    "death-note-soichiro-yagami-name-025",
+    "death-note-kanzo-mogi-name-029",
+    "death-note-hideki-ide-name-030",
+    "death-note-hirokazu-ukita-name-031"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }

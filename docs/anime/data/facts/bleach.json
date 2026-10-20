@@ -545,7 +545,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Ichigo Kurosaki (黒崎 一護) is the main protagonist of the Bleach franchise"
   },
   {
@@ -578,7 +578,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Sousuke Aizen (藍染 惣右介)"
   },
   {
@@ -611,7 +611,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Jin Kariya (狩矢 神) is the Leader of the Bounts"
   },
   {
@@ -673,5 +673,565 @@
     ],
     "status": "draft",
     "excerpt": "who obtains the powers of a Soul Reaper"
+  },
+  {
+    "id": "bleach-ichigo-kurosaki-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "ichigo-kurosaki"
+    },
+    "field": "name",
+    "value": "Ichigo Kurosaki (黒崎 一護)",
+    "text": "Ichigo Kurosaki is a main character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the main protagonist of the Bleach franchise. A tall orange-haired high school student, Ichigo becomes a"
+  },
+  {
+    "id": "bleach-rukia-kuchiki-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "rukia-kuchiki"
+    },
+    "field": "name",
+    "value": "Rukia Kuchiki (朽木 ルキア)",
+    "text": "Rukia Kuchiki is a main character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Soul Reaper,(死神, Shinigami, literally 'Death God'), who is assigned hollow extermination duties in Karakura Town."
+  },
+  {
+    "id": "bleach-orihime-inoue-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "orihime-inoue"
+    },
+    "field": "name",
+    "value": "Orihime Inoue (井上 織姫)",
+    "text": "Orihime Inoue is a main character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a long-time classmate of Ichigo and one of his closest friends. She used to have a crush on Ichigo since the beginning"
+  },
+  {
+    "id": "bleach-uryu-ishida-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "uryu-ishida"
+    },
+    "field": "name",
+    "value": "Uryū Ishida (石田 雨竜)",
+    "text": "Uryū Ishida is a main character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Quincy, a descendant of a line of near-extinct, priest-like, hollow-hunting archers, who were historical enemies of the"
+  },
+  {
+    "id": "bleach-yasutora-sado-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "yasutora-sado"
+    },
+    "field": "name",
+    "value": "Yasutora Sado (茶渡 泰虎)",
+    "text": "Yasutora Sado is a main character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "better known as Chad (チャド, Chado), is one of Ichigo's friends at school. He is of mixed Japanese/Mexican heritage and a"
+  },
+  {
+    "id": "bleach-kisuke-urahara-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kisuke-urahara"
+    },
+    "field": "name",
+    "value": "Kisuke Urahara (浦原 喜助)",
+    "text": "Kisuke Urahara is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the owner of the Urahara Shop, whose habit of wearing traditional Japanese wooden sandals and a bucket hat earned him"
+  },
+  {
+    "id": "bleach-isshin-kurosaki-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "isshin-kurosaki"
+    },
+    "field": "name",
+    "value": "Isshin Kurosaki (黒崎 一心)",
+    "text": "Isshin Kurosaki is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is, at the beginning of the series, the unassuming father of Ichigo, Karin and Yuzu, and the head of the family. Later"
+  },
+  {
+    "id": "bleach-kon-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kon"
+    },
+    "field": "name",
+    "value": "Kon (コン)",
+    "text": "Kon is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the first Mod-Soul to appear in Bleach, designated an Underpod (部下強化型（アンダーポッド）, Andāpoddo; Japanese for \"Lower Part-Strengthened Form\") model with"
+  },
+  {
+    "id": "bleach-karin-kurosaki-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "karin-kurosaki"
+    },
+    "field": "name",
+    "value": "Karin Kurosaki (黒崎 夏梨)",
+    "text": "Karin Kurosaki is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "and Yuzu Kurosaki (黒崎 遊子, Kurosaki Yuzu), are Ichigo's younger sisters. While Karin is typically cynical and sarcastic"
+  },
+  {
+    "id": "bleach-tatsuki-arisawa-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "tatsuki-arisawa"
+    },
+    "field": "name",
+    "value": "Tatsuki Arisawa (有沢 竜貴)",
+    "text": "Tatsuki Arisawa is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a good friend of Ichigo Kurosaki and the best friend of Orihime Inoue. She has known both since she was young"
+  },
+  {
+    "id": "bleach-renji-abarai-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "renji-abarai"
+    },
+    "field": "name",
+    "value": "Renji Abarai (阿散井 恋次)",
+    "text": "Renji Abarai is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Soul Reaper of Squad 6 in the Gotei 13. When he was first introduced he played an antagonistic role as he was sent to"
+  },
+  {
+    "id": "bleach-yoruichi-shihoin-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "yoruichi-shihoin"
+    },
+    "field": "name",
+    "value": "Yoruichi Shihōin (四楓院 夜一)",
+    "text": "Yoruichi Shihōin is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an old friend of Urahara Shop owner Kisuke Urahara, and so uses it as a place of residence when she is not"
+  },
+  {
+    "id": "bleach-ganju-shiba-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "ganju-shiba"
+    },
+    "field": "name",
+    "value": "Ganju Shiba (志波 岩鷲)",
+    "text": "Ganju Shiba is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Kaien and Kūkaku's younger brother. He is the leader of a gang, who all ride large boars. Incidentally, Ganju's boar"
+  },
+  {
+    "id": "bleach-kukaku-shiba-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kukaku-shiba"
+    },
+    "field": "name",
+    "value": "Kūkaku Shiba (志波 空鶴)",
+    "text": "Kūkaku Shiba is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fireworks expert, the younger sister of Kaien and the older sister of Ganju. She lives with her family in themed houses"
+  },
+  {
+    "id": "bleach-sousuke-aizen-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "sousuke-aizen"
+    },
+    "field": "name",
+    "value": "Sousuke Aizen (藍染 惣右介)",
+    "text": "Sousuke Aizen is an antagonist of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the primary antagonist of the pre-timeskip half of the Bleach series. While introduced as the captain of Squad Five"
+  },
+  {
+    "id": "bleach-jin-kariya-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "jin-kariya"
+    },
+    "field": "name",
+    "value": "Jin Kariya (狩矢 神)",
+    "text": "Jin Kariya is an antagonist of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Leader of the Bounts who planned to destroy the entire Soul Society through the Jōkaishō, the device that created the"
+  },
+  {
+    "id": "bleach-shinji-hirako-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "shinji-hirako"
+    },
+    "field": "name",
+    "value": "Shinji Hirako (平子 真子)",
+    "text": "Shinji Hirako is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the de facto leader of the Vizards and a friend of Urahara's. He is somewhat comical, adding a bit of levity to"
+  },
+  {
+    "id": "bleach-nozomi-kujo-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "nozomi-kujo"
+    },
+    "field": "name",
+    "value": "Nozomi Kujō (九条 望実)",
+    "text": "Nozomi Kujō is a supporting character of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 15,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Mod-Soul. She has escaped from the Soul Society and is wanted by Kagerōza Inaba. She is actually the result of Project"
+  },
+  {
+    "id": "bleach-kugo-ginjo-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kugo-ginjo"
+    },
+    "field": "name",
+    "value": "Kūgo Ginjō (銀城 空吾)",
+    "text": "Kūgo Ginjō is an antagonist of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the leader of Xcution. In the past, he was the first Substitute Soul Reaper before he went into hiding upon learning that he"
+  },
+  {
+    "id": "bleach-yhwach-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "yhwach"
+    },
+    "field": "name",
+    "value": "Yhwach (ユーハバッハ)",
+    "text": "Yhwach is an antagonist of Bleach.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the primary antagonist of the post-timeskip half, is the sovereign of the Wandenreich and"
   }
 ]

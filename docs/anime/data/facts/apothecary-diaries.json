@@ -470,7 +470,343 @@
         "fetched_at": "2026-10-20T20:03:57Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city."
+  },
+  {
+    "id": "apothecary-diaries-maomao-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "name",
+    "value": "Maomao (猫猫)",
+    "text": "Maomao is a main character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jinshi's loyal attendant, often supporting him and Maomao more quietly."
+  },
+  {
+    "id": "apothecary-diaries-jinshi-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "jinshi"
+    },
+    "field": "name",
+    "value": "Jinshi (壬氏)",
+    "text": "Jinshi is a main character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a eunuch who runs most of the administration of the rear palace, where the Emperor's concubines and their respective staff reside."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "name",
+    "value": "Gaoshun (高順)",
+    "text": "Gaoshun is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s straight-laced second son and one of Jinshi's most reliable attendants."
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "name",
+    "value": "Gyokuyō (玉葉)",
+    "text": "Gyokuyō is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s benevolent elderly father and the Governor of the Western Capital. He has a wife named Seibo and ten concubines, with many of adopted children, since"
+  },
+  {
+    "id": "apothecary-diaries-lihua-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lihua"
+    },
+    "field": "name",
+    "value": "Lihua (梨花)",
+    "text": "Lihua is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shin is the head lady-in-waiting of the Crystal Pavilion and Lihua's jealous cousin. She discarded Maomao's warning to Lihua about the poisoned face powder"
+  },
+  {
+    "id": "apothecary-diaries-lishu-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "name",
+    "value": "Lishu (里樹)",
+    "text": "Lishu is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s former food taster, her newly promoted head lady-in-waiting, and her only ally in the Diamond Pavilion."
+  },
+  {
+    "id": "apothecary-diaries-ah-duo-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "ah-duo"
+    },
+    "field": "name",
+    "value": "Ah-Duo (阿多)",
+    "text": "Ah-Duo is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s replacement as the Pure Consort. Behavior-wise, she is aloof and seems not to care, and has the most number of ladies-in-waiting, seemingly"
+  },
+  {
+    "id": "apothecary-diaries-lakan-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "name",
+    "value": "Lakan (羅漢)",
+    "text": "Lakan is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the face-blind, monocle-wearing tactician of the emperor's army and the head of the La clan, to which Maomao belongs, as he is her biological father."
+  },
+  {
+    "id": "apothecary-diaries-lihaku-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lihaku"
+    },
+    "field": "name",
+    "value": "Lihaku (李白)",
+    "text": "Lihaku is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A soldier who happened to give Maomao a hairpin during the garden party. She requested him to escort her outside the palace walls in exchange for time at the"
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "name",
+    "value": "Xiaolan (小蘭)",
+    "text": "Xiaolan is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A servant at the rear palace who is Maomao's close friend. Whenever she and Maomao come together, she sometimes shares the latest gossip and intel from all"
+  },
+  {
+    "id": "apothecary-diaries-basen-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "basen"
+    },
+    "field": "name",
+    "value": "Basen (馬閃)",
+    "text": "Basen is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Gaoshun's straight-laced second son and one of Jinshi's most reliable attendants."
+  },
+  {
+    "id": "apothecary-diaries-luomen-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "name",
+    "value": "Luomen (羅門)",
+    "text": "Luomen is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city. She was born and raised in the"
   }
 ]

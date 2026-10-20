@@ -40,11 +40,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-ai-hoshino-name-023",
+    "oshi-no-ko-kana-arima-name-024",
+    "oshi-no-ko-akane-kurokawa-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -59,11 +62,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-kana-arima-name-024",
+    "oshi-no-ko-akane-kurokawa-name-025",
+    "oshi-no-ko-mem-cho-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -78,11 +84,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-kana-arima-name-024",
+    "oshi-no-ko-akane-kurokawa-name-025",
+    "oshi-no-ko-mem-cho-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -97,11 +106,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-kana-arima-name-024",
+    "oshi-no-ko-akane-kurokawa-name-025",
+    "oshi-no-ko-mem-cho-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -116,11 +128,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-taishi-gotanda-name-027",
+    "oshi-no-ko-ichigo-saito-name-028",
+    "oshi-no-ko-miyako-saito-name-029",
+    "oshi-no-ko-melt-narushima-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -135,11 +150,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-taishi-gotanda-name-027",
+    "oshi-no-ko-ichigo-saito-name-028",
+    "oshi-no-ko-miyako-saito-name-029",
+    "oshi-no-ko-melt-narushima-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -154,11 +172,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-kana-arima-name-024",
+    "oshi-no-ko-akane-kurokawa-name-025",
+    "oshi-no-ko-miyako-saito-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -173,11 +194,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-taishi-gotanda-name-027",
+    "oshi-no-ko-ichigo-saito-name-028",
+    "oshi-no-ko-miyako-saito-name-029",
+    "oshi-no-ko-melt-narushima-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   },
@@ -192,11 +216,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-cast-main-016"
+    "oshi-no-ko-aqua-hoshino-name-021",
+    "oshi-no-ko-ruby-hoshino-name-022",
+    "oshi-no-ko-taishi-gotanda-name-027",
+    "oshi-no-ko-ichigo-saito-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   }
@@ -208,5 +235,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
   }
  ],
- "notes": "Characters quiz on the main cast fact (016, arc 1) and the Kana fact (019, arc 0). All ten are level 0 characters; the 016 questions are tagged arc 1 because C5 forces the tag of the cited cast fact. The past-life twist is not used here."
+ "notes": "The past-life twist is not used here. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
 }

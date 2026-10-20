@@ -26,11 +26,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-gon-freecss-name-021",
+        "hunter-x-hunter-killua-zoldyck-name-022",
+        "hunter-x-hunter-kurapika-name-023",
+        "hunter-x-hunter-leorio-paradinight-name-024"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -54,7 +57,11 @@
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-gon-freecss-name-021",
+        "hunter-x-hunter-killua-zoldyck-name-022",
+        "hunter-x-hunter-hisoka-morrow-name-025",
+        "hunter-x-hunter-illumi-zoldyck-name-026",
+        "hunter-x-hunter-ging-freecss-name-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -74,11 +81,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017",
+        "hunter-x-hunter-kurapika-name-023",
+        "hunter-x-hunter-leorio-paradinight-name-024",
+        "hunter-x-hunter-hisoka-morrow-name-025",
+        "hunter-x-hunter-isaac-netero-name-027",
         "hunter-x-hunter-kurapika-eyes-019"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
@@ -99,11 +109,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-killua-zoldyck-name-022",
+        "hunter-x-hunter-kurapika-name-023",
+        "hunter-x-hunter-leorio-paradinight-name-024",
+        "hunter-x-hunter-ging-freecss-name-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -127,7 +140,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-hisoka-morrow-name-025",
+        "hunter-x-hunter-illumi-zoldyck-name-026",
+        "hunter-x-hunter-isaac-netero-name-027",
+        "hunter-x-hunter-silva-zoldyck-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -151,7 +167,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-hisoka-morrow-name-025",
+        "hunter-x-hunter-illumi-zoldyck-name-026",
+        "hunter-x-hunter-ging-freecss-name-028",
+        "hunter-x-hunter-silva-zoldyck-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -171,11 +190,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 1,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-leorio-paradinight-name-024",
+        "hunter-x-hunter-isaac-netero-name-027",
+        "hunter-x-hunter-ging-freecss-name-028",
+        "hunter-x-hunter-silva-zoldyck-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     },
@@ -199,7 +221,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-cast-first-half-017"
+        "hunter-x-hunter-illumi-zoldyck-name-026",
+        "hunter-x-hunter-isaac-netero-name-027",
+        "hunter-x-hunter-ging-freecss-name-028",
+        "hunter-x-hunter-silva-zoldyck-name-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     }
@@ -211,5 +236,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
     }
   ],
-  "notes": "Clues paraphrase the first-half cast list fact (017), whose values give each role and Japanese name; the Kurapika answer also cites the scarlet eyes fact (019). Everyone is level 1 or lower."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
 }

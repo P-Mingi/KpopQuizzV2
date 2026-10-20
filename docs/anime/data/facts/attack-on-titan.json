@@ -190,7 +190,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Mikasa Ackerman (ミカサ・アッカーマン"
   },
   {
@@ -233,7 +233,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Willy Tybur (ヴィリー・タイバー"
   },
   {
@@ -884,5 +884,845 @@
     ],
     "status": "draft",
     "excerpt": "Attack Titan (進撃の巨人, Shingeki no Kyojin)"
+  },
+  {
+    "id": "attack-on-titan-eren-yeager-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "name",
+    "value": "Eren Yeager (エレン・イェーガー)",
+    "text": "Eren Yeager is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Eren Yēgā; alt. Eren Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-mikasa-ackerman-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mikasa-ackerman"
+    },
+    "field": "name",
+    "value": "Mikasa Ackerman (ミカサ・アッカーマン)",
+    "text": "Mikasa Ackerman is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mikasa Akkāman; alt. Mikasa Ackermann, Mikasa Azumabito)"
+  },
+  {
+    "id": "attack-on-titan-armin-arlert-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "armin-arlert"
+    },
+    "field": "name",
+    "value": "Armin Arlert (アルミン・アルレルト)",
+    "text": "Armin Arlert is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Arumin Arureruto; alt. Armin Arlelt)"
+  },
+  {
+    "id": "attack-on-titan-levi-ackerman-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "name",
+    "value": "Levi Ackerman (リヴァイ・アッカーマン)",
+    "text": "Levi Ackerman is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Rivai Akkāman; alt. Levi Ackermann)"
+  },
+  {
+    "id": "attack-on-titan-erwin-smith-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "erwin-smith"
+    },
+    "field": "name",
+    "value": "Erwin Smith (エルヴィン・スミス)",
+    "text": "Erwin Smith is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "57th Expedition Beyond the Walls, Part 4\". Attack on Titan. September 27, 2014. Adult Swim."
+  },
+  {
+    "id": "attack-on-titan-hange-zoe-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hange-zoe"
+    },
+    "field": "name",
+    "value": "Hange Zoë (ハンジ・ゾエ)",
+    "text": "Hange Zoë is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hanji Zoe; alt. Zoë Hange, Zoe Hans)"
+  },
+  {
+    "id": "attack-on-titan-jean-kirstein-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "name",
+    "value": "Jean Kirstein (ジャン・キルシュタイン)",
+    "text": "Jean Kirstein is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jan Kirushutain; alt. Jean Kirschtein)"
+  },
+  {
+    "id": "attack-on-titan-connie-springer-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "connie-springer"
+    },
+    "field": "name",
+    "value": "Connie Springer (コニー・スプリンガー)",
+    "text": "Connie Springer is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Konī Supuringā; alt. Conny Springer)"
+  },
+  {
+    "id": "attack-on-titan-sasha-blouse-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "sasha-blouse"
+    },
+    "field": "name",
+    "value": "Sasha Blouse (サシャ・ブラウス)",
+    "text": "Sasha Blouse is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sasha Burausu; alt. Sasha Braus)"
+  },
+  {
+    "id": "attack-on-titan-krista-lenz-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "krista-lenz"
+    },
+    "field": "name",
+    "value": "Krista Lenz (クリスタ・レンズ)",
+    "text": "Krista Lenz is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kurisuta Renzu; alt. Christa Lenz)"
+  },
+  {
+    "id": "attack-on-titan-ymir-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "ymir"
+    },
+    "field": "name",
+    "value": "Ymir (ユミル)",
+    "text": "Ymir is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is voiced by Saki Fujita in the Japanese version and by Elizabeth Maxwell in the English version."
+  },
+  {
+    "id": "attack-on-titan-reiner-braun-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "name",
+    "value": "Reiner Braun (ライナー・ブラウン)",
+    "text": "Reiner Braun is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Reiner is a member of the Marleyan military's Warrior Unit and is the holder of the Armoured Titan (鎧の巨人, Yoroi no Kyojin). As the leader of the infiltration"
+  },
+  {
+    "id": "attack-on-titan-bertolt-hoover-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "bertolt-hoover"
+    },
+    "field": "name",
+    "value": "Bertolt Hoover (ベルトルト・フーバー)",
+    "text": "Bertolt Hoover is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Berutoruto Fūbā; alt. Bertholdt Hoover)"
+  },
+  {
+    "id": "attack-on-titan-annie-leonhart-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "annie-leonhart"
+    },
+    "field": "name",
+    "value": "Annie Leonhart (アニ・レオンハート)",
+    "text": "Annie Leonhart is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An Eldian cadet of the Marleyan Warriors, Annie is introduced as a cadet in the 104th Training Corps, where she graduated ranking 4th in her class. She has"
+  },
+  {
+    "id": "attack-on-titan-marco-bott-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "marco-bott"
+    },
+    "field": "name",
+    "value": "Marco Bott (マルコ・ボット)",
+    "text": "Marco Bott is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Maruko Botto; alt. Marco Bodt)"
+  },
+  {
+    "id": "attack-on-titan-keith-shadis-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "keith-shadis"
+    },
+    "field": "name",
+    "value": "Keith Shadis (キース・シャーディス)",
+    "text": "Keith Shadis is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kīsu Shādisu; alt. Keith Sadies)"
+  },
+  {
+    "id": "attack-on-titan-hannes-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hannes"
+    },
+    "field": "name",
+    "value": "Hannes (ハンネス)",
+    "text": "Hannes is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A Garrison soldier who saves Eren and Mikasa during the attack on Shiganshina. While Eren finishes cadet training, Hannes becomes a Garrison squad leader. He"
+  },
+  {
+    "id": "attack-on-titan-dot-pixis-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "dot-pixis"
+    },
+    "field": "name",
+    "value": "Dot Pixis (ドット・ピクシス)",
+    "text": "Dot Pixis is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dotto Pikushisu; alt. Dot Pyxis)"
+  },
+  {
+    "id": "attack-on-titan-mike-zacharius-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mike-zacharius"
+    },
+    "field": "name",
+    "value": "Mike Zacharius (ミケ・ザカリアス)",
+    "text": "Mike Zacharius is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mike Zakariasu; alt. Miche Zacharius)"
+  },
+  {
+    "id": "attack-on-titan-petra-ral-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "petra-ral"
+    },
+    "field": "name",
+    "value": "Petra Ral (ペトラ・ラル)",
+    "text": "Petra Ral is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Petora Raru; alt. Petra Rall)"
+  },
+  {
+    "id": "attack-on-titan-zeke-yeager-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "zeke-yeager"
+    },
+    "field": "name",
+    "value": "Zeke Yeager (ジーク・イェーガー)",
+    "text": "Zeke Yeager is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jīku Yēgā; alt. Zeke Jaeger, Zeke Fritz)"
+  },
+  {
+    "id": "attack-on-titan-kenny-ackerman-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "kenny-ackerman"
+    },
+    "field": "name",
+    "value": "Kenny Ackerman (ケニー・アッカーマン)",
+    "text": "Kenny Ackerman is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "隊長, Kenī Akkāman-taichō; alt. Kenny Ackermann)"
+  },
+  {
+    "id": "attack-on-titan-rod-reiss-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "rod-reiss"
+    },
+    "field": "name",
+    "value": "Rod Reiss (ロッド・レイス)",
+    "text": "Rod Reiss is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Aurille is a noble who is loyal to King Fritz and Rod Reiss. When it came to Erwin Smith's trial where he is accused of not giving Eren Yeager to the Royal"
+  },
+  {
+    "id": "attack-on-titan-grisha-yeager-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "grisha-yeager"
+    },
+    "field": "name",
+    "value": "Grisha Yeager (グリシャ・イェーガー)",
+    "text": "Grisha Yeager is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Gurisha Yēgā; alt. Grisha Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-carla-yeager-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "carla-yeager"
+    },
+    "field": "name",
+    "value": "Carla Yeager (カルラ・イェーガー)",
+    "text": "Carla Yeager is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Karura Yēgā; alt. Carla Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-gabi-braun-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "gabi-braun"
+    },
+    "field": "name",
+    "value": "Gabi Braun (ガビ・ブラウン)",
+    "text": "Gabi Braun is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In 854, she discovers two escaped Marleyan children, Gabi Braun and Falco Grice, and kindly invites them home to eat with her family. When the Blouse family"
+  },
+  {
+    "id": "attack-on-titan-falco-grice-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "falco-grice"
+    },
+    "field": "name",
+    "value": "Falco Grice (ファルコ・グライス)",
+    "text": "Falco Grice is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A timid, kind-hearted Warrior candidate and nephew of the condemned Eldian Restorationist member Grice, competing with Gabi (whom he also has a crush on) to"
+  },
+  {
+    "id": "attack-on-titan-pieck-finger-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "pieck-finger"
+    },
+    "field": "name",
+    "value": "Pieck Finger (ピーク・フィンガー)",
+    "text": "Pieck Finger is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Pieck is known for her intelligence and perceptiveness, and is able to transform into the Cart Titan to transport"
+  },
+  {
+    "id": "attack-on-titan-porco-galliard-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "porco-galliard"
+    },
+    "field": "name",
+    "value": "Porco Galliard (ポルコ・ガリアード)",
+    "text": "Porco Galliard is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Porco is a holder of the Jaw Titan and the younger brother of Marcel Galliard, who previously held the Jaw Titan"
+  },
+  {
+    "id": "attack-on-titan-willy-tybur-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "willy-tybur"
+    },
+    "field": "name",
+    "value": "Willy Tybur (ヴィリー・タイバー)",
+    "text": "Willy Tybur is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The patriarch of the Tybur family and the true commander-in-chief of Marley prior to his death, Willy's ancestors orchestrated the downfall of the Eldian"
   }
 ]

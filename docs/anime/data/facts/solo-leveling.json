@@ -653,7 +653,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Sung Jin-woo: Protagonist; weak E-Rank Hunter who becomes exceptionally powerful through The System"
   },
   {
@@ -699,7 +699,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Thomas Andre: Strongest in America; Rulers' vessel; nicknamed \"Goliath\""
   },
   {
@@ -869,5 +869,845 @@
     ],
     "status": "draft",
     "excerpt": "\"King of Dragons\"; Monarch of Destruction; strongest Monarch; final antagonist"
+  },
+  {
+    "id": "solo-leveling-sung-jin-woo-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sung-jin-woo"
+    },
+    "field": "name",
+    "value": "Sung Jin-woo",
+    "text": "Sung Jin-woo is a main character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the protagonist of the series. Originally known as the weakest E-Rank South Korean Hunter, he gets the chance of a lifetime"
+  },
+  {
+    "id": "solo-leveling-sung-jin-ah-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sung-jin-ah"
+    },
+    "field": "name",
+    "value": "Sung Jin-ah",
+    "text": "Sung Jin-ah is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Japanese name: Aoi Mizushino (水篠 葵, Mizushino Aoi)"
+  },
+  {
+    "id": "solo-leveling-park-kyung-hye-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "park-kyung-hye"
+    },
+    "field": "name",
+    "value": "Park Kyung-hye",
+    "text": "Park Kyung-hye is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Jin-woo and Jin-ah's mother. Four years before the events of the main storyline, she suddenly became ill with Eternal"
+  },
+  {
+    "id": "solo-leveling-yoo-jin-ho-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "yoo-jin-ho"
+    },
+    "field": "name",
+    "value": "Yoo Jin-ho",
+    "text": "Yoo Jin-ho is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a D-Rank Hunter, is Jin-woo's sworn brother and a righteous man. He hails from a wealthy family and eventually becomes the"
+  },
+  {
+    "id": "solo-leveling-lee-joo-hee-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "lee-joo-hee"
+    },
+    "field": "name",
+    "value": "Lee Joo-hee",
+    "text": "Lee Joo-hee is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean B-Rank Hunter who specializes in healing magic. She is one of Jin-woo's friends during his days as an E-Rank Hunter."
+  },
+  {
+    "id": "solo-leveling-song-chi-yul-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "song-chi-yul"
+    },
+    "field": "name",
+    "value": "Song Chi-yul",
+    "text": "Song Chi-yul is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a C-Rank Hunter and a kumdo teacher. He is one of Jin-woo's old friends, having known him since he was an E-Rank Hunter"
+  },
+  {
+    "id": "solo-leveling-igris-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "igris"
+    },
+    "field": "name",
+    "value": "Igris",
+    "text": "Igris is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the Blood-Red Commander, is a high-ranking knight with exceptional swordsmanship and loyalty, holding the position of marshal that rivals Beru but is"
+  },
+  {
+    "id": "solo-leveling-cha-hae-in-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "cha-hae-in"
+    },
+    "field": "name",
+    "value": "Cha Hae-in",
+    "text": "Cha Hae-in is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter who specializes in swordsmanship. She is the only female S-Rank in the country. She has a rare condition"
+  },
+  {
+    "id": "solo-leveling-go-gun-hee-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "go-gun-hee"
+    },
+    "field": "name",
+    "value": "Go Gun-hee",
+    "text": "Go Gun-hee is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter and the Chairman of the Korean Hunters Association, the government agency responsible for overseeing all"
+  },
+  {
+    "id": "solo-leveling-baek-yoon-ho-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "baek-yoon-ho"
+    },
+    "field": "name",
+    "value": "Baek Yoon-ho",
+    "text": "Baek Yoon-ho is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter who specializes in transformation magic. He is the Guild Master of the White Tiger Guild. He is also"
+  },
+  {
+    "id": "solo-leveling-choi-jong-in-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "choi-jong-in"
+    },
+    "field": "name",
+    "value": "Choi Jong-in",
+    "text": "Choi Jong-in is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter who specializes in fire magic. He is the Guild Master of the Hunters Guild."
+  },
+  {
+    "id": "solo-leveling-kang-tae-shik-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "kang-tae-shik"
+    },
+    "field": "name",
+    "value": "Kang Tae-shik",
+    "text": "Kang Tae-shik is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a B-Rank Hunter who works as an inspector for the Korean Hunters Association's Surveillance Team. He is secretly a hitman"
+  },
+  {
+    "id": "solo-leveling-min-byung-gyu-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "min-byung-gyu"
+    },
+    "field": "name",
+    "value": "Min Byung-gyu",
+    "text": "Min Byung-gyu is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter who specializes in healing magic. He is an old friend of Baek and dies during the 4th Jeju Island"
+  },
+  {
+    "id": "solo-leveling-beru-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "beru"
+    },
+    "field": "name",
+    "value": "Beru",
+    "text": "Beru is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an ant shadow that was extracted from the Ant King, a powerful S-Rank beast that killed Goto Ryuji and incapacitated Cha Hae-in before Jin-woo managed"
+  },
+  {
+    "id": "solo-leveling-bellion-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "bellion"
+    },
+    "field": "name",
+    "value": "Bellion",
+    "text": "Bellion is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a servant of Ashborn and the strongest shadow in existence, holding the position of Grand Marshal. Bellion was born eons ago from the fruit of the"
+  },
+  {
+    "id": "solo-leveling-ashborn-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "ashborn"
+    },
+    "field": "name",
+    "value": "Ashborn",
+    "text": "Ashborn is an antagonist of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the King of the Dead and the Monarch of Shadows. He is also the strongest Ruler and the Greatest Fragment of Brilliant Light. After spending"
+  },
+  {
+    "id": "solo-leveling-sung-il-hwan-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sung-il-hwan"
+    },
+    "field": "name",
+    "value": "Sung Il-hwan",
+    "text": "Sung Il-hwan is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter, Kyung-hye's husband, and Jin-woo and Jin-ah's father. Ten years before the events of the main"
+  },
+  {
+    "id": "solo-leveling-sung-suho-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sung-suho"
+    },
+    "field": "name",
+    "value": "Sung Suho",
+    "text": "Sung Suho is a main character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the 16-year old son (21 in Ragnarok) of Sung Jin-woo and Cha Hae-in and the protagonist of the sequel series Solo Leveling"
+  },
+  {
+    "id": "solo-leveling-thomas-andre-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "thomas-andre"
+    },
+    "field": "name",
+    "value": "Thomas Andre",
+    "text": "Thomas Andre is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the strongest hunters in America and one of the five National Level Hunters, ranking 1st in the world. He is also a Rulers'"
+  },
+  {
+    "id": "solo-leveling-liu-zhigang-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "liu-zhigang"
+    },
+    "field": "name",
+    "value": "Liu Zhigang",
+    "text": "Liu Zhigang is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the strongest hunter in China and one of the five National Level Hunters, ranking 2nd in the world. He is also a Rulers' vessel and is the"
+  },
+  {
+    "id": "solo-leveling-christopher-reed-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "christopher-reed"
+    },
+    "field": "name",
+    "value": "Christopher Reed",
+    "text": "Christopher Reed is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the strongest hunters in America and one of the five National Level Hunters, ranking 3rd in the world. He is also a"
+  },
+  {
+    "id": "solo-leveling-siddharth-bachchan-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "siddharth-bachchan"
+    },
+    "field": "name",
+    "value": "Siddharth Bachchan",
+    "text": "Siddharth Bachchan is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the strongest hunter in India and one of the five National Level Hunters, ranking 4th in the world. He is also a Rulers' vessel"
+  },
+  {
+    "id": "solo-leveling-lennart-niermann-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "lennart-niermann"
+    },
+    "field": "name",
+    "value": "Lennart Niermann",
+    "text": "Lennart Niermann is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the strongest hunter in Germany, ranking 12th in the world. Despite being the best in his homeland, Lennart is not particularly"
+  },
+  {
+    "id": "solo-leveling-goto-ryuji-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "goto-ryuji"
+    },
+    "field": "name",
+    "value": "Goto Ryuji",
+    "text": "Goto Ryuji is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the strongest hunter in Japan. Despite not being strong compared to the National Level Hunters, Goto is egotistical and has a callous"
+  },
+  {
+    "id": "solo-leveling-lim-tae-gyu-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "lim-tae-gyu"
+    },
+    "field": "name",
+    "value": "Lim Tae-gyu",
+    "text": "Lim Tae-gyu is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Korean S-Rank Hunter who specializes in archery magic. He is the Guild Master of the Fiend Guild."
+  },
+  {
+    "id": "solo-leveling-ma-dong-wook-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "ma-dong-wook"
+    },
+    "field": "name",
+    "value": "Ma Dong-wook",
+    "text": "Ma Dong-wook is a supporting character of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a tank class Korean S-Rank Hunter who specializes in gigantification. He is the Guild Master of the Fame Guild."
+  },
+  {
+    "id": "solo-leveling-antares-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "antares"
+    },
+    "field": "name",
+    "value": "Antares",
+    "text": "Antares is an antagonist of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the King of Dragons and the Monarch of Destruction and the strongest Monarch. He is also the leader of the Monarchs which makes him the final"
+  },
+  {
+    "id": "solo-leveling-rakan-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "rakan"
+    },
+    "field": "name",
+    "value": "Rakan",
+    "text": "Rakan is an antagonist of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the King of Beasts and the Fang Monarch, who begins investigating Jinwoo along with Sillad, after his success on Jeju Island."
+  },
+  {
+    "id": "solo-leveling-sillad-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "sillad"
+    },
+    "field": "name",
+    "value": "Sillad",
+    "text": "Sillad is an antagonist of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the King of Snow Folk and the Frost Monarch, who begins investigating Jinwoo along with Rakan, after his success on Jeju Island."
+  },
+  {
+    "id": "solo-leveling-querehsha-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "querehsha"
+    },
+    "field": "name",
+    "value": "Querehsha",
+    "text": "Querehsha is an antagonist of Solo Leveling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1379866104",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Queen of Insects and the Monarch of Plagues, who teams up with Rakan and Tarnak during the Japan Crisis."
   }
 ]

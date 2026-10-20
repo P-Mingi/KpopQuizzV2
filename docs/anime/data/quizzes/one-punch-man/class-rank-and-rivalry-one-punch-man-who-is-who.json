@@ -21,11 +21,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-saitama-name-016",
+    "one-punch-man-genos-name-017",
+    "one-punch-man-king-name-020",
+    "one-punch-man-bang-name-021"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-genos-name-017",
+    "one-punch-man-mumen-rider-name-018",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-atomic-samurai-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -59,11 +65,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-saitama-name-016",
+    "one-punch-man-genos-name-017",
+    "one-punch-man-mumen-rider-name-018",
+    "one-punch-man-king-name-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -78,11 +87,15 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-saitama-name-016",
+    "one-punch-man-speed-o-sound-sonic-name-019",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-atomic-samurai-name-022",
+    "one-punch-man-boros-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -97,11 +110,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-genos-name-017",
+    "one-punch-man-king-name-020",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-atomic-samurai-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -116,11 +132,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-mumen-rider-name-018",
+    "one-punch-man-king-name-020",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-atomic-samurai-name-022"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -139,7 +158,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-genos-name-017",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-tatsumaki-name-023",
+    "one-punch-man-fubuki-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -154,11 +176,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 1,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-speed-o-sound-sonic-name-019",
+    "one-punch-man-atomic-samurai-name-022",
+    "one-punch-man-garou-name-024",
+    "one-punch-man-boros-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -173,11 +198,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 2,
+    "arc": 1,
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-speed-o-sound-sonic-name-019",
+    "one-punch-man-king-name-020",
+    "one-punch-man-garou-name-024",
+    "one-punch-man-boros-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
@@ -196,7 +224,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-cast-list-015"
+    "one-punch-man-mumen-rider-name-018",
+    "one-punch-man-tatsumaki-name-023",
+    "one-punch-man-boros-name-025",
+    "one-punch-man-fubuki-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   }
@@ -208,5 +239,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (015, arc 2). The cast list is tagged arc 2, so every question is tagged 2 and the quiz level is 2."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 2 both."
 }

@@ -21,11 +21,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-usagi-tsukino-name-016",
+    "sailor-moon-ami-mizuno-name-017",
+    "sailor-moon-rei-hino-name-018",
+    "sailor-moon-minako-aino-name-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -40,11 +43,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-ami-mizuno-name-017",
+    "sailor-moon-rei-hino-name-018",
+    "sailor-moon-makoto-kino-name-019",
+    "sailor-moon-minako-aino-name-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -59,11 +65,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-usagi-tsukino-name-016",
+    "sailor-moon-ami-mizuno-name-017",
+    "sailor-moon-rei-hino-name-018",
+    "sailor-moon-makoto-kino-name-019"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -78,11 +87,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-ami-mizuno-name-017",
+    "sailor-moon-rei-hino-name-018",
+    "sailor-moon-makoto-kino-name-019",
+    "sailor-moon-minako-aino-name-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -97,11 +109,15 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-usagi-tsukino-name-016",
+    "sailor-moon-ami-mizuno-name-017",
+    "sailor-moon-rei-hino-name-018",
+    "sailor-moon-minako-aino-name-020",
+    "sailor-moon-artemis-name-023"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -120,7 +136,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-mamoru-chiba-name-021",
+    "sailor-moon-queen-beryl-name-024",
+    "sailor-moon-chibiusa-name-025",
+    "sailor-moon-haruka-tenoh-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -135,11 +154,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-luna-name-022",
+    "sailor-moon-artemis-name-023",
+    "sailor-moon-queen-beryl-name-024",
+    "sailor-moon-chibiusa-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -158,7 +180,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-luna-name-022",
+    "sailor-moon-queen-beryl-name-024",
+    "sailor-moon-chibiusa-name-025",
+    "sailor-moon-michiru-kaioh-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -177,7 +202,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-minako-aino-name-020",
+    "sailor-moon-luna-name-022",
+    "sailor-moon-chibiusa-name-025",
+    "sailor-moon-michiru-kaioh-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   },
@@ -196,7 +224,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-cast-list-015"
+    "sailor-moon-makoto-kino-name-019",
+    "sailor-moon-mamoru-chiba-name-021",
+    "sailor-moon-haruka-tenoh-name-026",
+    "sailor-moon-michiru-kaioh-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   }
@@ -208,5 +239,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
   }
  ],
- "notes": "Characters quiz on the cast list fact (015, arc 3). The cast list is tagged arc 3, so every question is tagged 3 and the quiz level is 3. Mamoru Chiba is an identity spoiler of level 1; he is an answer here only because the whole quiz is tagged 3, and his name is not in the title."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
 }

@@ -26,11 +26,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-edward-elric-name-021",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -50,11 +53,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-alphonse-elric-name-022",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -74,11 +80,15 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-edward-elric-name-021",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -98,11 +108,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -122,11 +135,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -146,11 +162,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -170,11 +189,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -194,11 +216,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -218,11 +243,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   },
@@ -242,11 +270,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-cast-main-016"
+    "fullmetal-alchemist-alphonse-elric-name-022",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   }
@@ -258,5 +289,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
   }
  ],
- "notes": "Clues paraphrase the main cast fact (016, arc 1); all ten are level 0 characters. Tagged arc 1 only because the cited cast fact is arc 1 (C5 forces it)."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
 }

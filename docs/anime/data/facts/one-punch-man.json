@@ -476,7 +476,403 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Genos is a 19-year-old cyborg who becomes Saitama's disciple"
+  },
+  {
+    "id": "one-punch-man-saitama-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "saitama"
+    },
+    "field": "name",
+    "value": "Saitama (サイタマ)",
+    "text": "Saitama is a main character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "enters the Hero Association with a score of 71. Despite achieving exceptional results in the physical portion of the entrance examination, his poor"
+  },
+  {
+    "id": "one-punch-man-genos-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "genos"
+    },
+    "field": "name",
+    "value": "Genos (ジェノス)",
+    "text": "Genos is a main character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a 19-year-old cyborg who becomes Saitama's disciple after bearing witness to Saitama's easy victory over Mosquito Girl. Four years"
+  },
+  {
+    "id": "one-punch-man-mumen-rider-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "mumen-rider"
+    },
+    "field": "name",
+    "value": "Mumen Rider (無免ライダー)",
+    "text": "Mumen Rider is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is voiced by Yuichi Nakamura in the original Japanese version and by Robbie Daymond in the English dub."
+  },
+  {
+    "id": "one-punch-man-speed-o-sound-sonic-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "speed-o-sound-sonic"
+    },
+    "field": "name",
+    "value": "Speed-o'-Sound Sonic (音速のソニック)",
+    "text": "Speed-o'-Sound Sonic is an antagonist of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is first introduced as a ninja bodyguard for the rich man Zeniru, when he is deployed to fight the"
+  },
+  {
+    "id": "one-punch-man-king-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "king"
+    },
+    "field": "name",
+    "value": "King (キング)",
+    "text": "King is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "ranked 7 at the time of the S-class meeting, is a hero with large claw-scars down the left side of his face. The association believes"
+  },
+  {
+    "id": "one-punch-man-bang-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "bang"
+    },
+    "field": "name",
+    "value": "Bang (バング)",
+    "text": "Bang is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "who goes by the hero name Silverfang (シルバーファング, Shirubā Fangu; anime: Silver Fang), at rank 3, is an expert martial artist who runs a dojo"
+  },
+  {
+    "id": "one-punch-man-atomic-samurai-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "atomic-samurai"
+    },
+    "field": "name",
+    "value": "Atomic Samurai (アトミック侍)",
+    "text": "Atomic Samurai is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is voiced by Kenjiro Tsuda in the original Japanese version and by Kyle Hebert in the English dub."
+  },
+  {
+    "id": "one-punch-man-tatsumaki-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "tatsumaki"
+    },
+    "field": "name",
+    "value": "Tatsumaki (タツマキ)",
+    "text": "Tatsumaki is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is voiced by Aoi Yūki in the original Japanese version. In the English dub, she is voiced by Marieve Herington in Season 1 and Corina Boettger in"
+  },
+  {
+    "id": "one-punch-man-garou-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "garou"
+    },
+    "field": "name",
+    "value": "Garou (ガロウ)",
+    "text": "Garou is an antagonist of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a self-titled Hero Hunter (ヒーロー狩り, Hīrō Gari) and a former disciple, and adopted grandson of Bang before he was expelled for"
+  },
+  {
+    "id": "one-punch-man-boros-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "boros"
+    },
+    "field": "name",
+    "value": "Boros (ボロス)",
+    "text": "Boros is an antagonist of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "- Estimated disaster level: \"Dragon+/God\" is a cyclops-like alien with spiky hair whose armor limits his abilities. He is the leader of the"
+  },
+  {
+    "id": "one-punch-man-fubuki-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "fubuki"
+    },
+    "field": "name",
+    "value": "Fubuki (フブキ)",
+    "text": "Fubuki is a supporting character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is voiced by Saori Hayami in the original Japanese version and by Laura Post in the English dub."
+  },
+  {
+    "id": "one-punch-man-blast-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "blast"
+    },
+    "field": "name",
+    "value": "Blast (ブラスト)",
+    "text": "Blast is a character of One-Punch Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://onepunchman-anime.net/staff/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the top superhero in the Hero Association who can also use a teleportation suit. His whereabouts are currently unknown and it is said"
   }
 ]

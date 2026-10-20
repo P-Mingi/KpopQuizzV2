@@ -177,7 +177,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-cast-list-015"
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-anri-teieri-name-024",
+    "blue-lock-ryusei-shidou-name-025",
+    "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   }
@@ -194,5 +197,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   }
  ],
- "notes": "Mixed quiz across seasons: 009 and 013 are arc 2, 010 is arc 3, and the cast list question is forced to arc 3 by fact 015."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
 }

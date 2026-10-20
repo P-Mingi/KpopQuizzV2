@@ -40,11 +40,14 @@
    "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-momo-ayase-name-021",
+    "dandadan-turbo-granny-name-023",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-aira-shiratori-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -59,11 +62,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-momo-ayase-name-021",
+    "dandadan-ken-takakura-name-022",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-jin-enjoji-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -87,7 +93,7 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
   {
-   "question": "Which character is the school idol of Kami High?",
+   "question": "Who is the most popular girl at Kami High, seen as its idol?",
    "options": [
     "Aira Shiratori",
     "Momo Ayase",
@@ -97,11 +103,14 @@
    "correct": 0,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-momo-ayase-name-021",
+    "dandadan-turbo-granny-name-023",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-aira-shiratori-name-025"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -120,7 +129,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-turbo-granny-name-023",
+    "dandadan-acrobatic-silky-name-026",
+    "dandadan-alien-serpo-name-027",
+    "dandadan-peeny-weeny-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -135,11 +147,14 @@
    "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-ken-takakura-name-022",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-jin-enjoji-name-028",
+    "dandadan-peeny-weeny-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -154,11 +169,14 @@
    "correct": 2,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-turbo-granny-name-023",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-jin-enjoji-name-028",
+    "dandadan-peeny-weeny-name-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -177,7 +195,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-turbo-granny-name-023",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-acrobatic-silky-name-026"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -196,7 +217,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-cast-season-one-016"
+    "dandadan-turbo-granny-name-023",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-acrobatic-silky-name-026",
+    "dandadan-alien-serpo-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   }
@@ -208,5 +232,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   }
  ],
- "notes": "Characters quiz on the season one cast fact (016, arc 1), Okarun fact (018, arc 1) and the Seiko fact (019, arc 0). All are level 0 except Acrobatic Silky (level 1); the 016 questions are tagged arc 1, which also matches C5 for the fact."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
 }

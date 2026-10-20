@@ -175,7 +175,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Krillin (クリリン, Kuririn)"
   },
   {
@@ -218,7 +218,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Glorio (グロリオ Gurorio)"
   },
   {
@@ -915,5 +915,845 @@
     ],
     "status": "draft",
     "excerpt": "Dragon Ball Z Kai (2009-2015)"
+  },
+  {
+    "id": "dragon-ball-goku-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku"
+    },
+    "field": "name",
+    "value": "Goku (孫悟空)",
+    "text": "Goku is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Black (ゴクウブラック, Gokū Burakku), or simply Black, is an entity who is identical to Son Goku in appearance. He arrives on an alternate future Earth"
+  },
+  {
+    "id": "dragon-ball-bulma-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "bulma"
+    },
+    "field": "name",
+    "value": "Bulma (ブルマ)",
+    "text": "Bulma is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first appears as a teenager using the Dragon Radar, a device she created to detect the energy signal emitted by Dragon Balls. She is led to"
+  },
+  {
+    "id": "dragon-ball-master-roshi-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "master-roshi"
+    },
+    "field": "name",
+    "value": "Master Roshi (亀仙人)",
+    "text": "Master Roshi is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Turtle Hermit\"), also known as Muten-Rōshi (武天老師; lit \"Heavenly Old Martial Arts Master\"), which is rendered as \"Master Roshi\" in the"
+  },
+  {
+    "id": "dragon-ball-yamcha-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "yamcha"
+    },
+    "field": "name",
+    "value": "Yamcha (ヤムチャ)",
+    "text": "Yamcha is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "known as Zedaki in the Harmony Gold dub, is introduced as a desert bandit alongside his companion Puar, trying to steal Goku and"
+  },
+  {
+    "id": "dragon-ball-oolong-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "oolong"
+    },
+    "field": "name",
+    "value": "Oolong (ウーロン)",
+    "text": "Oolong is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "named Mao-Mao in the Harmony Gold dub, is a shapeshifting, anthropomorphic pig that uses his abilities for his greedy desires. He and Puar"
+  },
+  {
+    "id": "dragon-ball-chi-chi-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "chi-chi"
+    },
+    "field": "name",
+    "value": "Chi-Chi (チチ)",
+    "text": "Chi-Chi is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Goku's wife, Gohan and Goten's mother, and Pan's grandmother. She and Goku first meet as children when her father, the Ox-King, asks Goku to"
+  },
+  {
+    "id": "dragon-ball-emperor-pilaf-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "emperor-pilaf"
+    },
+    "field": "name",
+    "value": "Emperor Pilaf (ピラフ)",
+    "text": "Emperor Pilaf is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "in the English anime dub, is a small impish blue creature who is the leader of the Pilaf Gang (ピラフ一味, Pirafu Ichimi) and"
+  },
+  {
+    "id": "dragon-ball-krillin-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "krillin"
+    },
+    "field": "name",
+    "value": "Krillin (クリリン)",
+    "text": "Krillin is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Goku's best friend and one of the most talented martial artists on Earth. A monk who shaves his head for the sake of his training"
+  },
+  {
+    "id": "dragon-ball-tien-shinhan-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "tien-shinhan"
+    },
+    "field": "name",
+    "value": "Tien Shinhan (天津飯)",
+    "text": "Tien Shinhan is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "in the Funimation anime dub and also known as Shinto in the Harmony Gold dub, is first introduced, having been"
+  },
+  {
+    "id": "dragon-ball-king-piccolo-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "king-piccolo"
+    },
+    "field": "name",
+    "value": "King Piccolo (ピッコロ大魔王)",
+    "text": "King Piccolo is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "or Piccolo Daimaō (ピッコロ大魔王, Pikkoro Daimaō; \"The Great Demon King Piccolo\") in Japanese, was conceived by Toriyama as a truly evil opponent for"
+  },
+  {
+    "id": "dragon-ball-piccolo-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "piccolo"
+    },
+    "field": "name",
+    "value": "Piccolo (ピッコロ)",
+    "text": "Piccolo is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the spawn of King Piccolo, created to get revenge on Goku in the wake of his death, and subsequently assumes the role as the \"evil"
+  },
+  {
+    "id": "dragon-ball-raditz-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "raditz"
+    },
+    "field": "name",
+    "value": "Raditz (ラディッツ)",
+    "text": "Raditz is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as Raditz the Runt, is a Saiyan warrior and Goku's older brother. Raditz is one of the few remaining Saiyans following the"
+  },
+  {
+    "id": "dragon-ball-vegeta-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "vegeta"
+    },
+    "field": "name",
+    "value": "Vegeta (ベジータ)",
+    "text": "Vegeta is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the last prince of the Saiyan warrior people, and the fourth generation of the Saiyan royal bloodline to bear his namesake. He is"
+  },
+  {
+    "id": "dragon-ball-gohan-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "gohan"
+    },
+    "field": "name",
+    "value": "Gohan (孫悟飯)",
+    "text": "Gohan is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Goku's eldest son with Chi-Chi, who first appears at the age of four. He is kidnapped by Goku's brother, Raditz, and locked up in a space"
+  },
+  {
+    "id": "dragon-ball-frieza-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "frieza"
+    },
+    "field": "name",
+    "value": "Frieza (フリーザ)",
+    "text": "Frieza is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first appears on Planet Namek, where he systematically eradicates most of the native Namekian population to obtain the Dragon Balls so that he can wish"
+  },
+  {
+    "id": "dragon-ball-dende-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "dende"
+    },
+    "field": "name",
+    "value": "Dende (デンデ)",
+    "text": "Dende is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a child of the Great Elder of Namek. He was saved from Frieza's henchman Dodoria by Gohan and Krillin as a child and taken into their care."
+  },
+  {
+    "id": "dragon-ball-trunks-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "trunks"
+    },
+    "field": "name",
+    "value": "Trunks (トランクス)",
+    "text": "Trunks is a main character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first appears as a mysterious young man who easily defeats Frieza and his father King Cold prior to Goku's return to Earth from"
+  },
+  {
+    "id": "dragon-ball-android-18-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "android-18"
+    },
+    "field": "name",
+    "value": "Android 18 (人造人間18号)",
+    "text": "Android 18 is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Red Ribbon Android created by Doctor Gero, and the sister of Android 17. After"
+  },
+  {
+    "id": "dragon-ball-cell-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "cell"
+    },
+    "field": "name",
+    "value": "Cell (セル)",
+    "text": "Cell is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 14,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Doctor Gero's ultimate creation, who was created to get revenge on Goku. He is an artificial life form created using the cells of several"
+  },
+  {
+    "id": "dragon-ball-mr-satan-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "mr-satan"
+    },
+    "field": "name",
+    "value": "Mr. Satan (ミスター・サタン)",
+    "text": "Mr. Satan is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 15,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "known as Hercule in some of Funimation's dub and in Viz's English manga, is a flamboyant martial artist who becomes a"
+  },
+  {
+    "id": "dragon-ball-goten-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goten"
+    },
+    "field": "name",
+    "value": "Goten (孫悟天)",
+    "text": "Goten is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the most popular characters in the series. Japanese fans voted Goten the sixth most popular character of the Dragon Ball series in a 2004 poll."
+  },
+  {
+    "id": "dragon-ball-videl-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "videl"
+    },
+    "field": "name",
+    "value": "Videl (ビーデル)",
+    "text": "Videl is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the daughter of Mr. Satan. She is a martial artist but surpasses her father in strength. She uses her abilities to fight crime in the"
+  },
+  {
+    "id": "dragon-ball-majin-buu-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "majin-buu"
+    },
+    "field": "name",
+    "value": "Majin Buu (魔人ブウ)",
+    "text": "Majin Buu is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Goku and Piccolo teach Goten and Trunks the fusion technique, which allows them to form a single being, Gotenks"
+  },
+  {
+    "id": "dragon-ball-beerus-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "beerus"
+    },
+    "field": "name",
+    "value": "Beerus (ビルス)",
+    "text": "Beerus is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a deity who appears in the fourteenth and fifteenth Dragon Ball Z films, as well as in Dragon Ball Super. A purple catlike being, he is"
+  },
+  {
+    "id": "dragon-ball-whis-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "whis"
+    },
+    "field": "name",
+    "value": "Whis (ウイス)",
+    "text": "Whis is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an angelic being who appears in the fourteenth and fifteenth Dragon Ball Z films, as well as in Dragon Ball Super. A tall teal humanoid"
+  },
+  {
+    "id": "dragon-ball-hit-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "hit"
+    },
+    "field": "name",
+    "value": "Hit (ヒット)",
+    "text": "Hit is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 21,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as Hit the Infallible (百発百中のヒット, Hyappatsuhyakuchuu no Hitto) and as the Legendary Assassin (伝説の殺し屋, Densetsu no Koroshi-ya), is"
+  },
+  {
+    "id": "dragon-ball-zamasu-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "zamasu"
+    },
+    "field": "name",
+    "value": "Zamasu (ザマス)",
+    "text": "Zamasu is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Goku Black (ゴクウブラック, Gokū Burakku), or simply Black, is an entity who is identical to Son Goku in appearance. He arrives on an alternate future Earth"
+  },
+  {
+    "id": "dragon-ball-jiren-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "jiren"
+    },
+    "field": "name",
+    "value": "Jiren (ジレン)",
+    "text": "Jiren is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also referred to as \"Jiren The Gray\" (灰色のジレン, Haiiro no Jiren), is a member of the Pride Troopers. His quiet, stoic demeanor is a glimpse of his"
+  },
+  {
+    "id": "dragon-ball-gomah-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "gomah"
+    },
+    "field": "name",
+    "value": "Gomah (ゴマー)",
+    "text": "Gomah is an antagonist of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 24,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the main antagonist of Dragon Ball Daima and the former Supreme Demon King who ascended following Dabura's death. He was formerly the"
+  },
+  {
+    "id": "dragon-ball-glorio-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "glorio"
+    },
+    "field": "name",
+    "value": "Glorio (グロリオ)",
+    "text": "Glorio is a supporting character of Dragon Ball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 24,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a demon gunman who appears in Dragon Ball Daima and serves as a guide and pilot for the main characters. Glorio has light blue skin"
   }
 ]

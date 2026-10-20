@@ -26,18 +26,21 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 2,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-yuji-itadori-name-031",
+        "jujutsu-kaisen-megumi-fushiguro-name-033",
+        "jujutsu-kaisen-kento-nanami-name-036",
+        "jujutsu-kaisen-aoi-todo-name-040"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
     {
       "question": "Who is this sorcerer?",
       "clues": [
-        "A playful teacher at Tokyo Jujutsu High",
+        "A cheerful instructor at Tokyo Jujutsu High",
         "Takes Yuji in and trains the first-years",
         "His name is written 五条 悟 in Japanese"
       ],
@@ -50,11 +53,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 5,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-satoru-gojo-name-032",
+        "jujutsu-kaisen-kento-nanami-name-036",
+        "jujutsu-kaisen-aoi-todo-name-040",
+        "jujutsu-kaisen-suguru-geto-name-042"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -74,11 +80,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 5,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-yuji-itadori-name-031",
+        "jujutsu-kaisen-megumi-fushiguro-name-033",
+        "jujutsu-kaisen-toge-inumaki-name-038",
+        "jujutsu-kaisen-yuta-okkotsu-name-043"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -98,11 +107,14 @@
       "correct": 2,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 2,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-nobara-kugisaki-name-034",
+        "jujutsu-kaisen-maki-zenin-name-037",
+        "jujutsu-kaisen-panda-name-039",
+        "jujutsu-kaisen-mahito-name-041"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -126,7 +138,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-ryomen-sukuna-name-035",
+        "jujutsu-kaisen-mahito-name-041",
+        "jujutsu-kaisen-suguru-geto-name-042",
+        "jujutsu-kaisen-choso-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -146,11 +161,14 @@
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-nobara-kugisaki-name-034",
+        "jujutsu-kaisen-maki-zenin-name-037",
+        "jujutsu-kaisen-toge-inumaki-name-038",
+        "jujutsu-kaisen-panda-name-039"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -170,11 +188,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 1,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-yuji-itadori-name-031",
+        "jujutsu-kaisen-toge-inumaki-name-038",
+        "jujutsu-kaisen-panda-name-039",
+        "jujutsu-kaisen-aoi-todo-name-040"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -194,11 +215,14 @@
       "correct": 1,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 2,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-megumi-fushiguro-name-033",
+        "jujutsu-kaisen-toge-inumaki-name-038",
+        "jujutsu-kaisen-panda-name-039",
+        "jujutsu-kaisen-mahito-name-041"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -222,7 +246,10 @@
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-kento-nanami-name-036",
+        "jujutsu-kaisen-aoi-todo-name-040",
+        "jujutsu-kaisen-yuta-okkotsu-name-043",
+        "jujutsu-kaisen-choso-name-045"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     },
@@ -242,11 +269,14 @@
       "correct": 0,
       "kind": "character",
       "spoiler": {
-        "arc": 7,
+        "arc": 6,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-cast-first-half-002"
+        "jujutsu-kaisen-satoru-gojo-name-032",
+        "jujutsu-kaisen-kento-nanami-name-036",
+        "jujutsu-kaisen-aoi-todo-name-040",
+        "jujutsu-kaisen-toji-fushiguro-name-044"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     }
@@ -258,5 +288,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
     }
   ],
-  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the cast fact; answers cite jujutsu-kaisen-cast-first-half-002 (arc 7), so the quiz is tagged arc 7."
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 7 both, now arc 7 both."
 }
