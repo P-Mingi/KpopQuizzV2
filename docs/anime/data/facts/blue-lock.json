@@ -1,0 +1,457 @@
+[
+  {
+    "id": "blue-lock-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "title_native",
+    "value": "ブルーロック (Burū Rokku)",
+    "text": "The Japanese title ブルーロック is read Burū Rokku, a katakana rendering of Blue Lock.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62414782",
+        "ref": "Q62414782",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "ブルーロック (Burū Rokku)"
+  },
+  {
+    "id": "blue-lock-manga-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "author",
+    "value": "Muneyuki Kaneshiro (story), Yusuke Nomura (art)",
+    "text": "Muneyuki Kaneshiro writes the story and Yusuke Nomura draws the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62414782",
+        "ref": "Q62414782",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura"
+  },
+  {
+    "id": "blue-lock-magazine-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Magazine (from 2018)",
+    "text": "Kodansha's Weekly Shōnen Magazine has carried the manga since August 2018.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62414782",
+        "ref": "Q62414782",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Kodansha's Weekly Shōnen Magazine since August 2018"
+  },
+  {
+    "id": "blue-lock-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "volumes",
+    "value": "40 (as of August 2026)",
+    "text": "The collected edition stood at forty volumes in August 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62414782",
+        "ref": "Q62414782",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "40 tankōbon volumes as of August 2026"
+  },
+  {
+    "id": "blue-lock-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "copies",
+    "value": "over 65 million worldwide",
+    "text": "More than sixty-five million copies of the manga were in circulation worldwide.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "over 65 million copies in circulation worldwide"
+  },
+  {
+    "id": "blue-lock-kodansha-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "awards",
+    "value": "45th Kodansha Manga Award, shōnen category, 2021",
+    "text": "The manga won the shōnen prize at the 45th Kodansha Manga Award in 2021.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "won the 45th Kodansha Manga Award in the shōnen category in 2021"
+  },
+  {
+    "id": "blue-lock-anime-studio-director-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "staff",
+    "value": "Eight Bit (studio), Tetsuaki Watanabe (director)",
+    "text": "Studio Eight Bit animates the series with Tetsuaki Watanabe as director.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by Eight Bit and directed by Tetsuaki Watanabe"
+  },
+  {
+    "id": "blue-lock-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "anime_s1",
+    "value": "24 episodes, 9 October 2022 to 26 March 2023",
+    "text": "The first season ran twenty-four episodes between October 9, 2022 and March 26, 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "ran for 24 episodes from October 9, 2022, to March 26, 2023"
+  },
+  {
+    "id": "blue-lock-anime-season-two-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "anime_s2",
+    "value": "Blue Lock vs. U-20 Japan: 14 episodes (overall 25 to 38), October 5 to December 28, 2024",
+    "text": "Season 2, subtitled vs. U-20 Japan, added fourteen episodes, bringing the anime to 38 episodes in total.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the season aired from October 5 to December 28, 2024"
+  },
+  {
+    "id": "blue-lock-anime-season-three-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "anime_s3",
+    "value": "Neo Egoist League, announced September 28, 2025",
+    "text": "A third season adapting the Neo Egoist League arc was announced on September 28, 2025 at Blue Lock Egoist Fest 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bluelock-pr.com/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a third season covering the 'Neo Egoist League' story arc was announced"
+  },
+  {
+    "id": "blue-lock-film-episode-nagi-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "film",
+    "value": "Blue Lock: Episode Nagi, in Japanese cinemas from 19 April 2024",
+    "text": "A film adapting the Episode Nagi spin-off manga reached Japanese cinemas on April 19, 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a film adaptation of the Episode Nagi manga which released in Japanese theaters on April 19, 2024"
+  },
+  {
+    "id": "blue-lock-themes-season-one-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Chaos ga Kiwamaru - Unison Square Garden (season 1)",
+      "ED 1: Winner - Shugo Nakamura (season 1)",
+      "OP 2: Judgement - Ash Da Hero (season 1)",
+      "ED 2: Numbness Like a Ginger - Unison Square Garden (season 1)"
+    ],
+    "text": "Season one used two openings, Chaos ga Kiwamaru and Judgement, and two endings, Winner and Numbness Like a Ginger.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The second opening theme song is 'Judgement' by Ash Da Hero"
+  },
+  {
+    "id": "blue-lock-themes-season-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 3: Bōjaku no Charisma - Unison Square Garden (season 2)",
+      "ED 3: One - Snow Man (season 2)"
+    ],
+    "text": "Season two opens with Bōjaku no Charisma by Unison Square Garden and ends with One by Snow Man.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
+        "ref": "1374283835",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "performed by Unison Square Garden, while the ending theme song is 'One', performed by Snow Man"
+  },
+  {
+    "id": "blue-lock-program-premise-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "premise",
+    "value": "a program meant to produce the world's greatest egotistical striker",
+    "text": "The Blue Lock program is a harsh training scheme aimed at creating the most egotistical striker in the world.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+        "ref": "1380484703",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "training regimen designed to create the world's greatest egotistical striker"
+  },
+  {
+    "id": "blue-lock-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "blue-lock"
+    },
+    "field": "characters",
+    "value": [
+      "Yoichi Isagi (潔 世一): the protagonist striker",
+      "Meguru Bachira (蜂楽 廻): a dribbling winger",
+      "Seishirō Nagi (凪 誠士郎): a gifted forward",
+      "Reo Mikage (御影 玲王): Nagi's friend",
+      "Rensuke Kunigami (國神 錬介): the self-styled football superhero",
+      "Shōei Barō (馬狼 照英): an egotistical forward",
+      "Rin Itoshi (糸師 凛): a top-ranked player",
+      "Jinpachi Ego (絵心 甚八): the program director",
+      "Anri Teieri (帝襟 アンリ): a program co-creator",
+      "Ryūsei Shidou (士道 龍聖): a chaotic talent",
+      "Sae Itoshi (糸師 冴): Rin's elder brother",
+      "Michael Kaiser (ミヒャエル・カイザー): a German forward"
+    ],
+    "text": "The twelve characters of this series file, from the Blue Lock players to the program staff and the stars they meet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+        "ref": "1381067385",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Football strategist who co-developed the Blue Lock program alongside Noel Noa"
+  }
+]
