@@ -1,0 +1,263 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "U.A. Class 1-A Roll Call: Who Is This Hero?",
+  "slug": "u-a-class-1-a-roll-call-who-is-this-hero",
+  "description": "Three clues, four names. Spot the students and teachers of Class 1-A, with the last clue sometimes in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A timid, selfless boy",
+        "Born without a Quirk",
+        "Still dreams of becoming a hero"
+      ],
+      "options": [
+        "Izuku Midoriya",
+        "Katsuki Bakugo",
+        "Shoto Todoroki",
+        "Minoru Mineta"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009",
+        "my-hero-academia-izuku-quirkless-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Explosive and fiercely competitive",
+        "A childhood acquaintance of Izuku",
+        "Determined to be the number one hero"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Eijiro Kirishima",
+        "Shoto Todoroki",
+        "Denki Kaminari"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A cheerful, down-to-earth classmate",
+        "Can make things weightless",
+        "His name is written 麗日 お茶子 in Japanese"
+      ],
+      "options": [
+        "Momo Yaoyorozu",
+        "Mina Ashido",
+        "Ochaco Uraraka",
+        "Tsuyu Asui"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A calm, talented classmate",
+        "Comes from a famous hero family",
+        "Has a powerful ice-based Quirk"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Fumikage Tokoyami",
+        "Shoto Todoroki",
+        "Izuku Midoriya"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The strict, earnest class representative",
+        "Belongs to Class 1-A",
+        "His Quirk makes him very fast"
+      ],
+      "options": [
+        "Eijiro Kirishima",
+        "Denki Kaminari",
+        "Shoto Todoroki",
+        "Tenya Ida"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A hot-blooded, loyal classmate",
+        "His Quirk hardens his body",
+        "Tough as rock"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Tenya Ida",
+        "Eijiro Kirishima",
+        "Denki Kaminari"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A refined, brilliant classmate",
+        "Can create objects from her own body",
+        "His name is written 八百万 百 in Japanese"
+      ],
+      "options": [
+        "Momo Yaoyorozu",
+        "Ochaco Uraraka",
+        "Mina Ashido",
+        "Kyoka Jiro"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A blunt, frog-like classmate",
+        "Always says whatever she is thinking",
+        "Asks to be called Tsu"
+      ],
+      "options": [
+        "Tsuyu Asui",
+        "Ochaco Uraraka",
+        "Mina Ashido",
+        "Kyoka Jiro"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A calm, bird-headed classmate",
+        "Works with a living shadow",
+        "Calls the shadow Dark Shadow"
+      ],
+      "options": [
+        "Shoto Todoroki",
+        "Fumikage Tokoyami",
+        "Denki Kaminari",
+        "Minoru Mineta"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The Symbol of Peace",
+        "The greatest hero in the world",
+        "Becomes a teacher at U.A. and mentors Izuku"
+      ],
+      "options": [
+        "Shota Aizawa",
+        "Katsuki Bakugo",
+        "Eijiro Kirishima",
+        "All Might"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-cast-first-half-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of My Hero Academia characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    }
+  ],
+  "notes": "Clues paraphrase the K1 series file descriptions and the native names of the cast fact; answers cite my-hero-academia-cast-first-half-009 (arc 2), so the quiz is tagged arc 2."
+}

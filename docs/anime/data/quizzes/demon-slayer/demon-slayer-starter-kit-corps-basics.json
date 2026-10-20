@@ -1,0 +1,234 @@
+{
+  "site": "anime",
+  "account": "oq_creator_06",
+  "group_slug": "demon-slayer",
+  "title": "Demon Slayer Starter Kit: Corps Basics",
+  "slug": "demon-slayer-starter-kit-corps-basics",
+  "description": "Ten easy questions on who made Demon Slayer, who animated it and what its three siblings and a boar-masked swordsman are known for. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who both wrote and drew the Demon Slayer manga?",
+      "options": [
+        "Gege Akutami",
+        "Koyoharu Gotouge",
+        "Masashi Kishimoto",
+        "Tite Kubo"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-creator-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "question": "The Japanese title Kimetsu no Yaiba can be roughly translated as what?",
+      "options": [
+        "Sword of the Night Hunters",
+        "Edge of the Crimson Moon",
+        "Blade of Demon Destruction",
+        "Slayers of the Mountain"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-title-forms-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "question": "The Demon Slayer manga was gathered into how many collected volumes?",
+      "options": [
+        "23",
+        "12",
+        "31",
+        "40"
+      ],
+      "correct": 0,
+      "fun_fact": "Shueisha released the volumes between June 2016 and December 2020.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-volumes-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "question": "Which studio produced the Demon Slayer TV anime?",
+      "options": [
+        "Ufotable",
+        "MAPPA",
+        "Wit Studio",
+        "Bones"
+      ],
+      "correct": 0,
+      "fun_fact": "Haruo Sotozaki is the director.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-studio-director-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "In which year did the Demon Slayer TV anime launch?",
+      "options": [
+        "2016",
+        "2017",
+        "2021",
+        "2019"
+      ],
+      "correct": 3,
+      "fun_fact": "The TV anime launched on April 6, 2019.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-tv-start-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "Counting only the main TV series, how many episodes does Demon Slayer have in 4 seasons?",
+      "options": [
+        "26",
+        "48",
+        "63",
+        "80"
+      ],
+      "correct": 2,
+      "fun_fact": "These episodes aired from 2019 to 2024.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-tv-episodes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "How many episodes does season 1 of Demon Slayer have?",
+      "options": [
+        "12",
+        "26",
+        "18",
+        "24"
+      ],
+      "correct": 1,
+      "fun_fact": "Season 1 adapts manga chapters 1 to 54.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "Which sense helps Tanjiro track demons and sense how other people feel?",
+      "options": [
+        "Sense of hearing",
+        "Sense of smell",
+        "Sense of taste",
+        "Sense of touch"
+      ],
+      "correct": 1,
+      "fun_fact": "Tanjiro's unusually sharp sense of smell helps him track demons and sense how other people feel.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-tanjiro-smell-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "How does Nezuko keep up her strength instead of feeding on people?",
+      "options": [
+        "By eating rice",
+        "By sleeping",
+        "By drinking tea",
+        "By hunting animals"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-nezuko-sleep-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "What does Inosuke usually wear as a mask?",
+      "options": [
+        "The head of a boar",
+        "A fox face",
+        "A paper mask",
+        "A wolf pelt"
+      ],
+      "correct": 0,
+      "fun_fact": "Inosuke grew up among boars.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-inosuke-mask-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 1",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only."
+}

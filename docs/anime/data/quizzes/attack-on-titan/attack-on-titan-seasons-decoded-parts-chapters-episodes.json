@@ -1,0 +1,239 @@
+{
+  "site": "anime",
+  "account": "oq_creator_07",
+  "group_slug": "attack-on-titan",
+  "title": "Attack on Titan Seasons Decoded: Parts, Chapters and Episodes",
+  "slug": "attack-on-titan-seasons-decoded-parts-chapters-episodes",
+  "description": "Seasons, parts, chapter ranges and episode runs, from the first 25 episodes to the final broadcast.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "How many manga chapters did the first season adapt?",
+      "options": [
+        "34",
+        "18",
+        "51",
+        "72"
+      ],
+      "correct": 0,
+      "fun_fact": "The first season ran for 25 episodes in 2013.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-season-one-span-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
+    },
+    {
+      "question": "Season 2 followed which arc of the manga?",
+      "options": [
+        "Royal Government",
+        "Clash of the Titans",
+        "Return to Shiganshina",
+        "The Final Chapters"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-season-two-span-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2"
+    },
+    {
+      "question": "Which arc opened season 3?",
+      "options": [
+        "Clash of the Titans",
+        "Return to Shiganshina",
+        "The Final Season Part 1",
+        "Royal Government"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-season-three-span-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+    },
+    {
+      "question": "Which arc closed season 3?",
+      "options": [
+        "Royal Government",
+        "Clash of the Titans",
+        "The Final Season Part 2",
+        "Return to Shiganshina"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-season-three-span-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+    },
+    {
+      "question": "At which chapter does season 3 Part 2, Return to Shiganshina, end?",
+      "options": [
+        "72",
+        "91",
+        "116",
+        "90"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-season-three-span-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+    },
+    {
+      "question": "From which episode, counted over the whole series, does The Final Season begin?",
+      "options": [
+        "26",
+        "38",
+        "60",
+        "76"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-final-season-span-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    },
+    {
+      "question": "Which part of the last season covers episodes 76 to 87?",
+      "options": [
+        "The Final Season Part 2",
+        "The Final Season Part 1",
+        "The Final Chapters",
+        "Season 3 Part 2"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-final-season-span-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    },
+    {
+      "question": "The Final Season Part 1 ends at chapter 116. At which chapter does Part 2 end?",
+      "options": [
+        "130",
+        "90",
+        "117",
+        "139"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-final-season-chapter-split-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_chapters"
+    },
+    {
+      "question": "In which year did the anime reach its last broadcast, with the second Final Chapters special?",
+      "options": [
+        "2023",
+        "2019",
+        "2021",
+        "2024"
+      ],
+      "correct": 0,
+      "fun_fact": "The last broadcast was on 5 November 2023.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-anime-finale-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "What is the compilation film of the finale, released in Japan in November 2024, called?",
+      "options": [
+        "Clash of the Titans",
+        "The Last Attack",
+        "Royal Government",
+        "Return to Shiganshina"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-last-attack-film-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Attack on Titan season 1",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Attack on Titan season 2",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Attack on Titan season 3",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Attack on Titan season 4",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: List of Attack on Titan chapters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_chapters"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Attack on Titan (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 7: it cites the Final Season and finale facts. Ranges come straight from the span facts."
+}

@@ -9,6 +9,13 @@
 // source), trivia (entity_kind, entity_id, normalised fact)), and rows of a series that are no longer in its files
 // are removed (arcs, characters, themes, still-draft trivia), so a second run changes nothing.
 // A group's colour pair (the file's, else the placeholder below) is written only when the group row is created. Trivia status is never reset by a reload (a published row stays published).
+//
+// Lane K2 extension (optional files of the same directory): creators.json (the 30 Team creators and the OtakuQuiz Team
+// account, creator-profile.schema.json) and quizzes/<series>/*.json (quiz drafts, quiz-draft.schema.json). With
+// them the plan also holds `creators` and `quizzes`: the accounts must already exist as profiles of the branch (the owner
+// fixtures command creates them); the load sets their display name and avatar, their editorial_accounts row (the Team
+// badge, off every board: rule 7) and their anime membership (bio, header), and publishes the quizzes on the anime site
+// with the spoiler level computed from the question tags, never copied from a file. Without those files nothing changes.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -40,8 +47,107 @@ export function readDataDir(dir) {
   return out;
 }
 
-/** Plan = the rows to write, one object per table. Throws on a duplicate natural key. */
-export function buildDataPlan(files) {
+const SITE_URL = 'https://otakuquiz.org';
+const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
+const QUIZ_SLUG_RE = /^[a-z0-9-]{1,80}$/;
+const QUIZ_TYPES = ['multiple_choice', 'true_false', 'guess_from_clues', 'intruder'];
+const DIFFICULTIES = ['easy', 'medium', 'hard'];
+const SCOPES = ['anime', 'manga', 'both'];
+
+/** The spoiler level of a quiz: the same rules as computeSpoilerLevel in apps/quiz/src/lib/anime/spoilers/core.ts
+ *  (arc 0 or no tag is spoiler free; scope manga when a tagged question is manga or sits in a manga-only arc, else anime
+ *  when every tagged question is anime, else both). Mirrored here because this module is plain JS; a test compares the two. */
+export function computeQuizLevel(questions, mangaOnlyArcs = new Set()) {
+  let arcOrd = 0; let anyManga = false; let allAnime = true; let tagged = 0;
+  for (const q of questions) {
+    const tag = q.spoiler;
+    if (!tag || !Number.isFinite(tag.arc) || tag.arc <= 0) continue;
+    tagged += 1;
+    if (tag.arc > arcOrd) arcOrd = tag.arc;
+    if (tag.scope === 'manga' || mangaOnlyArcs.has(tag.arc)) anyManga = true;
+    if (tag.scope !== 'anime') allAnime = false;
+  }
+  if (tagged === 0) return { arcOrd: 0, scope: null };
+  return { arcOrd, scope: anyManga ? 'manga' : allAnime ? 'anime' : 'both' };
+}
+
+/** Reads the optional K2 files of the directory: { creators: [...profiles], quizzes: [...drafts] } (both empty when absent). */
+export function readExtras(dir) {
+  const creators = []; const quizzes = [];
+  const cf = join(dir, 'creators.json');
+  if (existsSync(cf)) {
+    const doc = JSON.parse(readFileSync(cf, 'utf8'));
+    const list = Array.isArray(doc) ? doc : doc.creators;
+    if (!Array.isArray(list)) throw new Error('creators.json: expected an array or { creators: [...] }');
+    creators.push(...list);
+  }
+  const qd = join(dir, 'quizzes');
+  if (existsSync(qd)) {
+    for (const g of readdirSync(qd).sort()) {
+      const gd = join(qd, g);
+      if (!existsSync(gd) || !readdirSync(gd).some((x) => x.endsWith('.json'))) continue;
+      for (const f of readdirSync(gd).filter((x) => x.endsWith('.json')).sort()) {
+        const doc = JSON.parse(readFileSync(join(gd, f), 'utf8'));
+        const list = Array.isArray(doc) ? doc : Array.isArray(doc.quizzes) ? doc.quizzes : [doc];
+        for (const q of list) quizzes.push({ file: `quizzes/${g}/${f}`, dir: g, ...q });
+      }
+    }
+  }
+  return { creators, quizzes };
+}
+
+function buildCreators(list) {
+  const seen = new Set(); const rows = [];
+  for (const c of list) {
+    const u = c.username;
+    if (typeof u !== 'string' || !USERNAME_RE.test(u)) throw new Error(`creator ${String(u)}: bad username`);
+    if (seen.has(u)) throw new Error(`creator ${u}: duplicate username`);
+    seen.add(u);
+    if (c.site !== 'anime') throw new Error(`creator ${u}: site must be anime`);
+    if (!['series', 'theme', 'system'].includes(c.kind)) throw new Error(`creator ${u}: bad kind`);
+    if (typeof c.display_name !== 'string' || c.display_name.length < 1 || c.display_name.length > 40) throw new Error(`creator ${u}: display_name must be 1 to 40 characters`);
+    if (typeof c.bio !== 'string' || c.bio.length > 160) throw new Error(`creator ${u}: bio must be at most 160 characters`);
+    if (typeof c.beat !== 'string' || c.beat.length < 1 || c.beat.length > 80) throw new Error(`creator ${u}: beat must be 1 to 80 characters`);
+    const url = (p) => {
+      const m = /^public(\/brand\/anime\/creators\/[a-z0-9_]{3,20}-(?:avatar|header)\.svg)$/.exec(p ?? '');
+      if (!m) throw new Error(`creator ${u}: bad asset path ${String(p)}`);
+      return `${SITE_URL}${m[1]}`;
+    };
+    rows.push({ username: u, kind: c.kind, display_name: c.display_name, bio: c.bio, beat: c.beat, avatar_url: url(c.avatar), header_url: url(c.header) });
+  }
+  return rows;
+}
+
+function buildQuizzes(list, creators, groups, arcsBySlug) {
+  const accounts = new Set(creators.map((c) => c.username));
+  const slugs = new Set(groups.map((g) => g.slug));
+  const seen = new Set(); const rows = [];
+  for (const q of list) {
+    const where = `${q.file ?? 'quiz'} (${q.slug})`;
+    if (typeof q.slug !== 'string' || !QUIZ_SLUG_RE.test(q.slug)) throw new Error(`${where}: bad quiz slug`);
+    if (seen.has(q.slug)) throw new Error(`${where}: duplicate quiz slug`);
+    seen.add(q.slug);
+    if (q.site !== 'anime') throw new Error(`${where}: site must be anime`);
+    if (!slugs.has(q.group_slug)) throw new Error(`${where}: no series file for group ${String(q.group_slug)}`);
+    if (q.dir && q.dir !== q.group_slug) throw new Error(`${where}: the file sits in ${q.dir} but the group is ${q.group_slug}`);
+    if (!accounts.has(q.account)) throw new Error(`${where}: account ${String(q.account)} is not in creators.json`);
+    if (typeof q.title !== 'string' || q.title.length < 5 || q.title.length > 100) throw new Error(`${where}: title must be 5 to 100 characters`);
+    if (!QUIZ_TYPES.includes(q.quiz_type)) throw new Error(`${where}: bad quiz_type ${String(q.quiz_type)}`);
+    if (!DIFFICULTIES.includes(q.difficulty)) throw new Error(`${where}: bad difficulty ${String(q.difficulty)}`);
+    if (!Array.isArray(q.questions) || q.questions.length < 3 || q.questions.length > 20) throw new Error(`${where}: 3 to 20 questions needed`);
+    q.questions.forEach((x, i) => {
+      if (!x?.spoiler || !Number.isInteger(x.spoiler.arc) || !SCOPES.includes(x.spoiler.scope)) throw new Error(`${where}: question ${i + 1} has no spoiler tag`);
+    });
+    const mangaOnly = new Set((arcsBySlug.get(q.group_slug) ?? []).filter((a) => a.manga_only === true).map((a) => a.ord));
+    const level = computeQuizLevel(q.questions, mangaOnly);
+    rows.push({ group_slug: q.group_slug, slug: q.slug, title: q.title, account: q.account, quiz_type: q.quiz_type, difficulty: q.difficulty,
+      questions: q.questions, question_count: q.questions.length, spoiler_arc_ord: level.arcOrd, spoiler_scope: level.scope });
+  }
+  return rows;
+}
+
+/** Plan = the rows to write, one object per table. Throws on a duplicate natural key. `extras` is readExtras(dir) (K2). */
+export function buildDataPlan(files, extras = { creators: [], quizzes: [] }) {
   const groups = []; const series = []; const arcs = []; const characters = []; const themes = []; const trivia = []; const sources = [];
   const seenSrc = new Set(); const seenTrivia = new Set();
   for (const f of files) {
@@ -70,11 +176,16 @@ export function buildDataPlan(files) {
       }
     }
   }
-  return { groups, series, arcs, characters, themes, trivia, sources };
+  const creators = buildCreators(extras.creators ?? []);
+  const arcsBySlug = new Map(files.map((f) => [f.slug, f.arcs ?? []]));
+  const quizzes = buildQuizzes(extras.quizzes ?? [], creators, groups, arcsBySlug);
+  return { groups, series, arcs, characters, themes, trivia, sources, creators, quizzes };
 }
 
 export function countDataPlan(plan) {
-  return { groups: plan.groups.length, series: plan.series.length, arcs: plan.arcs.length, characters: plan.characters.length, themes: plan.themes.length, trivia: plan.trivia.length, entity_sources: plan.sources.length };
+  const base = { groups: plan.groups.length, series: plan.series.length, arcs: plan.arcs.length, characters: plan.characters.length, themes: plan.themes.length, trivia: plan.trivia.length, entity_sources: plan.sources.length };
+  if (!plan.creators?.length && !plan.quizzes?.length) return base;
+  return { ...base, creators: plan.creators.length, quizzes: plan.quizzes.length, questions: plan.quizzes.reduce((n, q) => n + q.question_count, 0) };
 }
 
 // ---------------------------------------------------------------- SQL
@@ -123,6 +234,16 @@ function preflight(plan) {
     `  if not exists (select 1 from public.sites where id = ${sqlText(SITE)}) then`, "    raise exception 'load-fixtures: the anime row of sites is missing';", '  end if;',
     `  if exists (select 1 from public.groups where slug in (${slugs}, ${sqlText(MIX_SLUG)}) and site_id <> ${sqlText(SITE)}) then`,
     "    raise exception 'load-fixtures: a series slug is already a group of another site';", '  end if;',
+    ...(plan.creators?.length ? [
+      "  if to_regclass('public.editorial_accounts') is null or to_regclass('public.world_memberships') is null then",
+      "    raise exception 'load-fixtures: editorial_accounts or world_memberships is missing (apply SQL 003 and 012 first)';", '  end if;',
+      `  if exists (select 1 from (values ${plan.creators.map((c) => `(${sqlText(c.username)})`).join(', ')}) as a(u) where not exists (select 1 from public.profiles p where p.username = a.u)) then`,
+      "    raise exception 'load-fixtures: a creator has no profile (run the owner fixtures command first)';", '  end if;',
+    ] : []),
+    ...(plan.quizzes?.length ? [
+      "  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'quizzes' and column_name = 'spoiler_arc_ord') then",
+      "    raise exception 'load-fixtures: quizzes.spoiler_arc_ord is missing (apply SQL 011 first)';", '  end if;',
+    ] : []),
     'end', '$k1$;',
   ].join('\n');
 }
@@ -178,22 +299,53 @@ export function renderDataSql(plan) {
   out.push(`insert into public.trivia (entity_kind, entity_id, group_id, fact, category, source, source_url, lang, status, site_id) select v.entity_kind, v.entity_id, g.id, v.fact, v.category, v.source, v.source_url, 'en', v.status, ${sqlText(SITE)} from _k1_trivia v join public.groups g on g.slug = v.group_slug and g.site_id = ${sqlText(SITE)} where not exists (select 1 from public.trivia t where ${key('t', 'v')});`);
   out.push(`delete from public.trivia t where t.site_id = ${sqlText(SITE)} and t.status = 'draft' and t.created_by is null and t.group_id in (select id from public.groups where site_id = ${sqlText(SITE)} and slug in (${plan.groups.map((g) => sqlText(g.slug)).join(', ')})) and not exists (select 1 from _k1_trivia v where ${key('t', 'v')});`);
 
+  // K2: the Team creators (profiles must exist), then their quizzes
+  if (plan.creators?.length) {
+    const vals = (f) => plan.creators.map((c) => `(${f(c).map(lit).join(', ')})`).join(', ');
+    out.push(`update public.profiles p set display_name = v.display_name, avatar_url = v.avatar_url from (values ${vals((c) => [c.username, c.display_name, c.avatar_url])}) as v(username, display_name, avatar_url) where p.username = v.username and (p.display_name, p.avatar_url) is distinct from (v.display_name, v.avatar_url);`);
+    out.push(`insert into public.editorial_accounts (user_id, display_name, beat, active, site_id) select p.id, v.display_name, v.beat, true, ${sqlText(SITE)} from (values ${vals((c) => [c.username, c.display_name, c.beat])}) as v(username, display_name, beat) join public.profiles p on p.username = v.username on conflict (user_id) do update set display_name = excluded.display_name, beat = excluded.beat, active = true, site_id = excluded.site_id;`);
+    out.push(`insert into public.world_memberships (user_id, site_id, joined_via, activated_at, bio, header_url) select p.id, ${sqlText(SITE)}, 'seed', now(), v.bio, v.header_url from (values ${vals((c) => [c.username, c.bio, c.header_url])}) as v(username, bio, header_url) join public.profiles p on p.username = v.username on conflict (user_id, site_id) do update set bio = excluded.bio, header_url = excluded.header_url, activated_at = coalesce(public.world_memberships.activated_at, excluded.activated_at);`);
+    if (plan.creators.some((c) => c.kind === 'system')) {
+      const sys = plan.creators.find((c) => c.kind === 'system').username;
+      out.push(`update public.sites set system_user_id = (select id from public.profiles where username = ${sqlText(sys)}) where id = ${sqlText(SITE)} and system_user_id is null;`);
+    }
+  }
+  if (plan.quizzes?.length) {
+    out.push(...upsert('quizzes',
+      ['creator_id', 'group_id', 'title', 'slug', 'quiz_type', 'questions', 'difficulty', 'status', 'question_count', 'site_id', 'spoiler_arc_ord', 'spoiler_scope'],
+      plan.quizzes.map((q) => [raw(`(select id from public.profiles where username = ${sqlText(q.account)})`), groupId(q.group_slug), q.title, q.slug, q.quiz_type, json(q.questions), q.difficulty, 'published', q.question_count, SITE, q.spoiler_arc_ord, q.spoiler_scope]),
+      ['slug'], ` where quizzes.site_id = ${sqlText(SITE)}`));
+  }
+
   out.push('commit;');
   return out.join('\n') + '\n';
 }
 
-/** The read that proves a load: one line of numbers (groups series arcs characters themes trivia entity_sources). */
+/** The read that proves a load: one line of numbers (groups series arcs characters themes trivia entity_sources), then
+ *  with K2 files: creators (Team accounts with an editorial_accounts row), team memberships (anime membership with a bio),
+ *  quizzes (published, of the plan) and their questions. */
 export function countDataSql(plan) {
   const list = plan.groups.map((g) => sqlText(g.slug)).join(', ');
   const gid = `(select id from public.groups where site_id = ${sqlText(SITE)} and slug in (${list}))`;
   const ids = plan.sources.map((s) => `(${sqlText(s.entity_type)}, ${sqlText(s.entity_id)}, ${sqlText(s.field)}, ${sqlText(s.source)})`);
-  return [
-    `select (select count(*) from public.groups where site_id = ${sqlText(SITE)} and slug in (${list}, ${sqlText(MIX_SLUG)})),`,
-    `(select count(*) from public.series where group_id in ${gid}),`,
-    `(select count(*) from public.arcs where group_id in ${gid}),`,
-    `(select count(*) from public.characters where group_id in ${gid}),`,
-    `(select count(*) from public.series_themes where group_id in ${gid}),`,
-    `(select count(*) from public.trivia where site_id = ${sqlText(SITE)} and group_id in ${gid}),`,
-    `(select count(*) from public.entity_sources where (entity_type, entity_id, field, source) in (${ids.length ? ids.join(', ') : "('', '', '', '')"}));`,
-  ].join('\n');
+  const cols = [
+    `(select count(*) from public.groups where site_id = ${sqlText(SITE)} and slug in (${list}, ${sqlText(MIX_SLUG)}))`,
+    `(select count(*) from public.series where group_id in ${gid})`,
+    `(select count(*) from public.arcs where group_id in ${gid})`,
+    `(select count(*) from public.characters where group_id in ${gid})`,
+    `(select count(*) from public.series_themes where group_id in ${gid})`,
+    `(select count(*) from public.trivia where site_id = ${sqlText(SITE)} and group_id in ${gid})`,
+    `(select count(*) from public.entity_sources where (entity_type, entity_id, field, source) in (${ids.length ? ids.join(', ') : "('', '', '', '')"}))`,
+  ];
+  if (plan.creators?.length || plan.quizzes?.length) {
+    const users = plan.creators.map((c) => sqlText(c.username)).join(', ') || "''";
+    const slugs = plan.quizzes.map((q) => sqlText(q.slug)).join(', ') || "''";
+    cols.push(
+      `(select count(*) from public.editorial_accounts e join public.profiles p on p.id = e.user_id where e.site_id = ${sqlText(SITE)} and e.active and p.username in (${users}))`,
+      `(select count(*) from public.world_memberships m join public.profiles p on p.id = m.user_id where m.site_id = ${sqlText(SITE)} and p.username in (${users}))`,
+      `(select count(*) from public.quizzes where site_id = ${sqlText(SITE)} and status = 'published' and slug in (${slugs}))`,
+      `(select coalesce(sum(question_count), 0) from public.quizzes where site_id = ${sqlText(SITE)} and slug in (${slugs}))`,
+    );
+  }
+  return `select ${cols.join(',\n')};\n`;
 }

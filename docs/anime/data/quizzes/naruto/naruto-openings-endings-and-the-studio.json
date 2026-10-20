@@ -1,0 +1,233 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Naruto: Openings, Endings and the Studio",
+  "slug": "naruto-openings-endings-and-the-studio",
+  "description": "Who directed it, who designed it and who sang the songs you skipped or never skipped.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which song opened Naruto: Shippuden for its first thirty episodes?",
+      "options": [
+        "Haruka Kanata",
+        "Blue Bird",
+        "Closer",
+        "Hero's Come Back!!"
+      ],
+      "correct": 3,
+      "fun_fact": "It opened Shippuden from episode 1 to 30.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-first-shippuden-opening-027"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Which group performed Hero's Come Back!!, the first Shippuden opening?",
+      "options": [
+        "nobodyknows+",
+        "HOUND DOG",
+        "FLOW",
+        "Ikimonogakari"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-first-shippuden-opening-027"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Which artist performed the very first Naruto opening, used for episodes 1 to 25?",
+      "options": [
+        "HOUND DOG",
+        "FLOW",
+        "Sambomaster",
+        "Snowkel"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-op-part-one-018"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which singer performed two endings of the first series, Wind and Yellow moon?",
+      "options": [
+        "Rythem",
+        "Akeboshi",
+        "Orange Range",
+        "TiA"
+      ],
+      "correct": 1,
+      "fun_fact": "Wind opened the run of endings, and Yellow moon came much later.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-akeboshi-endings-028"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which band performed the openings GO!!!, Re:member and Sign?",
+      "options": [
+        "Asian Kung-Fu Generation",
+        "Ikimonogakari",
+        "FLOW",
+        "Nico Touches the Walls"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-op-part-one-018",
+        "naruto-themes-op-part-two-019"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which opening accompanied episodes 154 to 178 of the first series?",
+      "options": [
+        "Re:member",
+        "Namikaze Satellite",
+        "Yura Yura",
+        "No Boy, No Cry"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-op-part-one-018"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which group performed the third ending, Viva Rock ~japanese side~?",
+      "options": [
+        "Rythem",
+        "Orange Range",
+        "Raigo",
+        "Akeboshi"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-ed-part-one-020"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Who performed the first ending of Shippuden, Nagareboshi ~Shooting Star~?",
+      "options": [
+        "supercell",
+        "Home Made Kazoku",
+        "Aqua Timez",
+        "Nico Touches the Walls"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-ed-part-two-a-021"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Who directed both Naruto TV series?",
+      "options": [
+        "Tetsuro Araki",
+        "Shinichiro Watanabe",
+        "Hayato Date",
+        "Hiroyuki Imaishi"
+      ],
+      "correct": 2,
+      "fun_fact": "Hayato Date is the director of both Naruto TV series from Studio Pierrot.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006",
+        "naruto-tv-shippuden-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Who designed the characters for the Naruto anime?",
+      "options": [
+        "Masashi Kishimoto",
+        "Yoshiyuki Sadamoto",
+        "Tetsuya Nishio",
+        "Hirohiko Araki"
+      ],
+      "correct": 2,
+      "fun_fact": "Tetsuya Nishio designed the characters for the anime because Kishimoto himself asked for him.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-character-designer-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- 疾風伝",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "id": "S2",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- (アニメ)",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Naruto (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Naruto",
+      "url": "https://en.wikipedia.org/wiki/Naruto"
+    }
+  ],
+  "notes": "All facts at arc 0. Song titles and artists come from the opening and ending lists."
+}

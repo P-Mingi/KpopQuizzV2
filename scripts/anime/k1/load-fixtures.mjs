@@ -9,7 +9,9 @@
 //
 // With --data <dir> the contract fixtures are not loaded: every series file of <dir>/series (and the facts of
 // <dir>/facts) is loaded instead, with the `anime-mix` group created when missing; the facts land in `trivia` (those
-// with a text) and `entity_sources` (every source). See data-load.mjs. Run it twice: the second line must be equal.
+// with a text) and `entity_sources` (every source). Lane K2: when <dir>/creators.json and <dir>/quizzes exist, the Team
+// creators (their profiles must already exist on the branch) and their published quizzes are loaded too. See
+// data-load.mjs. Run it twice: the second line must be equal.
 //
 // Every database access goes through scripts/o1/env.sh <target> -- psql (the connection string stays inside that
 // wrapper and is never read or printed here). Any target other than scratch or dev is refused. Idempotent: a second
@@ -53,10 +55,10 @@ function psql(sql, extra = []) {
 }
 
 if (dataDir) {
-  const { readDataDir, buildDataPlan, countDataPlan, renderDataSql, countDataSql } = await import('./data-load.mjs');
+  const { readDataDir, readExtras, buildDataPlan, countDataPlan, renderDataSql, countDataSql } = await import('./data-load.mjs');
   let plan;
   try {
-    plan = buildDataPlan(readDataDir(resolve(ROOT, dataDir)));
+    plan = buildDataPlan(readDataDir(resolve(ROOT, dataDir)), readExtras(resolve(ROOT, dataDir)));
   } catch (err) {
     fail(err instanceof Error ? err.message : String(err));
   }
@@ -68,8 +70,9 @@ if (dataDir) {
   }
   psql(renderDataSql(plan), ['-v', 'ON_ERROR_STOP=1', '-f', '-']);
   const line = psql(countDataSql(plan), ['-At', '-F', ' ', '-f', '-']).trim();
-  const [groups, series, arcs, characters, themes, trivia, entitySources] = line.split(/\s+/).map(Number);
-  console.log(`loaded target=${target} groups=${groups} series=${series} arcs=${arcs} characters=${characters} themes=${themes} trivia=${trivia} entity_sources=${entitySources}`);
+  const [groups, series, arcs, characters, themes, trivia, entitySources, creators, teamMemberships, quizzes, questions] = line.split(/\s+/).map(Number);
+  const k2 = plan.creators?.length || plan.quizzes?.length ? ` creators=${creators} team_memberships=${teamMemberships} quizzes=${quizzes} questions=${questions}` : '';
+  console.log(`loaded target=${target} groups=${groups} series=${series} arcs=${arcs} characters=${characters} themes=${themes} trivia=${trivia} entity_sources=${entitySources}${k2}`);
   process.exit(0);
 }
 

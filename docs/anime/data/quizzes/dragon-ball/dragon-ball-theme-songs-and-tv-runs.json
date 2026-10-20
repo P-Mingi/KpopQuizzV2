@@ -1,0 +1,228 @@
+{
+  "site": "anime",
+  "account": "oq_creator_08",
+  "group_slug": "dragon-ball",
+  "title": "Dragon Ball Theme Songs and TV Runs",
+  "slug": "dragon-ball-theme-songs-and-tv-runs",
+  "description": "Who sang the openings and endings across the franchise, and when each series aired on television.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who performed the very first opening, Makafushigi Adventure!?",
+      "options": [
+        "Hironobu Kageyama",
+        "Kazuya Yoshii",
+        "Kiyoshi Hikawa",
+        "Hiroki Takahashi"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-theme-songs-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "question": "Which singer performed both Cha-La Head-Cha-La and We Gotta Power?",
+      "options": [
+        "Hiroki Takahashi",
+        "Hironobu Kageyama",
+        "Kazuya Yoshii",
+        "Kiyoshi Hikawa"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-z-theme-songs-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "question": "Who performed Chozetsu Dynamic!, the first Dragon Ball Super opening?",
+      "options": [
+        "Kiyoshi Hikawa",
+        "Hironobu Kageyama",
+        "Kazuya Yoshii",
+        "Hiroki Takahashi"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-super-theme-songs-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "question": "Who performed the second Super opening, Genkai Toppa x Survivor?",
+      "options": [
+        "Kazuya Yoshii",
+        "Hironobu Kageyama",
+        "Kiyoshi Hikawa",
+        "Hiroki Takahashi"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-super-theme-songs-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "question": "Which artists performed the Daima opening, Jaka Jaan?",
+      "options": [
+        "Zedd and Ai",
+        "Zedd and C&K",
+        "Hiroki Takahashi",
+        "Good Morning America"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-daima-theme-songs-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    },
+    {
+      "question": "Which artists performed the Daima ending, Nakama?",
+      "options": [
+        "Zedd and Ai",
+        "Zedd and C&K",
+        "Czecho No Republic",
+        "Batten Girls"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-daima-theme-songs-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    },
+    {
+      "question": "Who performed the very first ending, Romantic Ageru yo?",
+      "options": [
+        "Manna",
+        "Ushio Hashimoto",
+        "Hironobu Kageyama",
+        "Lacco Tower"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-theme-songs-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "question": "On which channel did the first Dragon Ball anime air from 1986 to 1989?",
+      "options": [
+        "TV Tokyo",
+        "Nippon TV",
+        "Fuji Television",
+        "TBS"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-dragon-ball-tv-run-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "question": "Dragon Ball Super ran for how many episodes?",
+      "options": [
+        "153",
+        "291",
+        "131",
+        "20"
+      ],
+      "correct": 2,
+      "fun_fact": "It returned to television in July 2015 after a long gap.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-super-tv-run-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "question": "Daima aired its 20 episodes from October 2024 until which month?",
+      "options": [
+        "February 2025",
+        "December 2024",
+        "January 2025",
+        "April 2025"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-daima-tv-run-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dragon Ball (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Dragon Ball Z",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Dragon Ball Super (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Dragon Ball Daima",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    }
+  ],
+  "notes": "All facts at arc 0, no character named."
+}
