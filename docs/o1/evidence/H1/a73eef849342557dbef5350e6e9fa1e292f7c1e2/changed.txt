@@ -1,0 +1,15 @@
+apps/quiz/src/app/sites/[site]/(hub)/passport/page.tsx
+apps/quiz/src/app/sites/[site]/hub-redirects.test.ts
+apps/quiz/src/app/sites/[site]/privacy/page.tsx
+apps/quiz/src/app/sites/[site]/settings/page.tsx
+apps/quiz/src/app/sites/[site]/u/[username]/page.tsx
+apps/quiz/src/components/hub/hub-privacy.tsx
+apps/quiz/src/copy/hub/h1.ts
+apps/quiz/src/lib/site/hub/copy.ts
+apps/quiz/src/lib/site/hub/network-page.ts
+apps/quiz/src/lib/site/hub/privacy-draft.test.ts
+apps/quiz/src/lib/site/hub/redirects.test.ts
+apps/quiz/src/lib/site/hub/redirects.ts
+apps/quiz/src/styles/sites/hub/h1.css
+docs/o1/reports/H1/privacy-draft.md
+docs/o1/reports/H1/twins-request.md

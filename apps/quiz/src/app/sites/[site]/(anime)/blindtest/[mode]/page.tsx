@@ -2,9 +2,9 @@
 import { SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import { notFound } from 'next/navigation';
 
-import { getModeById, isGroupModeId, getGroupSlugFromModeId, STATIC_MODES } from '@/lib/blind-test-modes';
+import { getModeById, isGroupModeId, getGroupSlugFromModeId } from '@/lib/blind-test-modes';
 import { getGroupBySlug } from '@/lib/db/queries/groups';
-import { getPlayableStaticModes, isThemedModePlayable } from '@/lib/blind-test-playlists';
+import { isThemedModePlayable } from '@/lib/blind-test-playlists';
 import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
 import { BlindtestGroupV12, groupBlindtestMetadata } from '@/components/blindtest/ux-v1/group-page';
 import { BlindtestModeV11 } from '@/components/blindtest/ux-v1/mode-page';
@@ -36,18 +36,10 @@ export const revalidate = 3600;
 // under 10 playable songs is hidden (G2's rule, lib/blind-test-playlists.ts): no
 // prerendered page, no metadata, a 404 like any unknown mode. Flag off: the list
 // is STATIC_MODES itself and no query runs, exactly as before.
-async function kpopStaticParams(): Promise<Array<{ mode: string }>> {
-  if (!isUxV12()) return STATIC_MODES.map((m) => ({ mode: m.id }));
-  let modes = STATIC_MODES;
-  try {
-    modes = await getPlayableStaticModes();
-  } catch {
-    // No database at build (a preview without secrets): the pages render on demand
-    // and decide there; prerender none of the themed ones.
-    modes = STATIC_MODES.filter((m) => !isThemePage(m.id));
-  }
-  return modes.map((m) => ({ mode: m.id }));
-}
+//
+// Run O1: that list (the generation, group-type and themed playlists) is the kpop catalog. This site has none of it: nothing is
+// prerendered and a static playlist id answers 404 (modeOf). Its own playlists are group-<slug> modes, on demand.
+const modeOf = (id: string): BlindTestMode | undefined => (O1_SITE_ID === 'kpop' ? getModeById(id) : undefined);
 
 /** Flag on: is this id a themed mode that must stay hidden? Flag off: never (no query). */
 async function hiddenTheme(modeId: string): Promise<boolean> {
@@ -102,7 +94,7 @@ export async function generateMetadata({ params }: ModePageProps): Promise<Metad
     };
   }
 
-  const mode = getModeById(modeId);
+  const mode = modeOf(modeId);
   if (!mode) return {};
   if (await hiddenTheme(modeId)) return {};
 
@@ -147,7 +139,7 @@ export default async function BlindTestModePage({ params }: ModePageProps): Prom
       category: 'group',
     };
   } else {
-    mode = getModeById(modeId);
+    mode = modeOf(modeId);
   }
 
   if (!mode) notFound();
@@ -172,6 +164,6 @@ export default async function BlindTestModePage({ params }: ModePageProps): Prom
 // Run O1: a child of app/sites/[site] returns its params with the parent's site, and nothing on the kpop build
 // (the [site] layout generates no site there and refuses params without one).
 export async function generateStaticParams({ params }: { params?: { site?: string } } = {}): Promise<Array<Record<string, string>>> {
-  if (O1_SITE_ID === 'kpop' || !params?.site) return [];
-  return (await kpopStaticParams()).map((p) => ({ ...p, site: params.site as string }));
+  void params;
+  return [];
 }

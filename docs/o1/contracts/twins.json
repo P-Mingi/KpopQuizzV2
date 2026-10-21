@@ -1458,16 +1458,9 @@
       "route": "/passport",
       "file": "apps/quiz/src/app/sites/[site]/(hub)/passport/page.tsx",
       "twin": "apps/quiz/src/app/(site)/me/page.tsx",
-      "mustImport": [
-        "@/components/profile/ux-v1/passport",
-        "@/components/profile/ux-v1/passport-guest"
-      ],
+      "mustImport": [],
       "renders": [
-        "components/profile/ux-v1/passport.tsx",
-        "passport-band.tsx",
-        "passport-tabs.tsx",
-        "components/ux-v1/badge-medal.tsx",
-        "passport-guest.tsx"
+        "nothing visible: a redirect to the member home site (D-080)"
       ],
       "allowed": [
         "Tn",
@@ -1477,7 +1470,7 @@
         "H3"
       ],
       "owner": "H1",
-      "body": "shared",
+      "body": "none",
       "notes": "The passport tabs are the twin ones (overview, quizzes, history, badges)."
     },
     {
@@ -1509,11 +1502,9 @@
       "route": "/settings",
       "file": "apps/quiz/src/app/sites/[site]/settings/page.tsx",
       "twin": "apps/quiz/src/app/(site)/settings/page.tsx",
-      "mustImport": [
-        "@/components/profile/ux-v1/settings"
-      ],
+      "mustImport": [],
       "renders": [
-        "components/profile/ux-v1/settings.tsx"
+        "nothing visible: a redirect to the member home site (D-080)"
       ],
       "allowed": [
         "Tn",
@@ -1523,7 +1514,7 @@
         "H4"
       ],
       "owner": "H1",
-      "body": "shared",
+      "body": "none",
       "notes": "The file is shared with row 18."
     },
     {

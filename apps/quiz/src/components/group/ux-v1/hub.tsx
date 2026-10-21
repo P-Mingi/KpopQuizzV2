@@ -209,11 +209,13 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   const art = slots?.heroArt ?? null;
   // Only a given grouping becomes a prop: without it the client island receives (and the RSC payload carries) today's props.
   const groupingProp = slots?.grouping ? { grouping: slots.grouping } : {};
+  // Same rule for the words of the growth blocks (Run O1): a given set becomes a prop, kpop passes none.
+  const growthWordsProp = slots?.growthWords ? { words: slots.growthWords } : {};
   // The quizzes list with, above it, whatever the slots put there. Built here and mounted at the same place as before.
   const quizzesBlock = isUxV12() ? (
     // V12 (G8): the additions take the slot of the quizzes list, which passes
     // through untouched; the v11-only branch below is the tree as it was.
-    <HubGrowth group={g} published={published} songs={songs}>
+    <HubGrowth group={g} published={published} songs={songs} {...growthWordsProp}>
       {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} {...groupingProp} /> : null}
     </HubGrowth>
   ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} {...groupingProp} /> : null;

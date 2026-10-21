@@ -13,7 +13,7 @@ import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypt
 import { flagOn, isSiteId } from '@/lib/site/registry';
 
 import {
-  B64U_16_RE, B64U_32_RE, MAC_LABELS, PASSPORT_LIMITS, PASSPORT_SECONDS, TX_COOKIE_NAMES,
+  B64U_16_RE, B64U_32_RE, MAC_LABELS, PASSPORT_LIMITS, PASSPORT_SECONDS,
 } from './types';
 
 import type { SiteId } from '@/lib/site/types';
@@ -173,47 +173,10 @@ export function verifyTx(secret: string, raw: string | null | undefined, nowSec:
 // The transaction cookie's name and attributes (cookies.md 2)
 // ---------------------------------------------------------------------------------------------------------------
 
-function isLocalHost(hostname: string): boolean {
-  return hostname === 'localhost' || hostname.endsWith('.localhost');
-}
-
-/**
- * The cookie name follows the request: `__Host-pp_tx` on every https request (and always on a production
- * deployment), `pp_tx` only on http requests to localhost or *.localhost, and null otherwise (no transaction can
- * be opened, so the jump falls back to the signed-out page). A server never reads `pp_tx` on an https request.
- */
-export function txCookieName(requestUrl: string, forwardedProto: string | null, env: PassportEnv = process.env): string | null {
-  let u: URL;
-  try {
-    u = new URL(requestUrl);
-  } catch {
-    return null;
-  }
-  const https = u.protocol === 'https:' || forwardedProto?.split(',')[0]?.trim() === 'https';
-  if (https || env.VERCEL_ENV === 'production') return TX_COOKIE_NAMES.https;
-  if (u.protocol === 'http:' && isLocalHost(u.hostname)) return TX_COOKIE_NAMES.devHttp;
-  return null;
-}
-
-export interface TxCookieAttributes {
-  readonly httpOnly: true;
-  readonly secure: boolean;
-  readonly sameSite: 'lax';
-  readonly path: '/';
-  readonly maxAge: number;
-  /** Only on the clearing cookie: the epoch, so a client that drops a falsy Max-Age=0 still deletes the cookie. */
-  readonly expires?: Date;
-}
-
-/**
- * HttpOnly, SameSite=Lax, Path=/, Max-Age=300, no Domain; Secure whenever the name is the `__Host-` one. With
- * maxAge 0 (clearing) the same attributes plus an Expires in the past: Next re-serialises the cookies of a response
- * that also set session cookies and then writes no Max-Age=0, so the Expires is what deletes the cookie there.
- */
-export function txCookieAttributes(name: string, maxAge: number = PASSPORT_SECONDS.txCookie): TxCookieAttributes {
-  const base = { httpOnly: true, secure: name === TX_COOKIE_NAMES.https, sameSite: 'lax', path: '/', maxAge } as const;
-  return maxAge === 0 ? { ...base, expires: new Date(0) } : base;
-}
+// The name and the attributes of the transaction cookie live in ./tx-cookie.ts (Run O1, lot a); these are the names this
+// module exported before, with the signature they had.
+export { txCookieNameFor as txCookieName, txCookieAttributes } from './tx-cookie';
+export type { TxCookieAttributes } from './tx-cookie';
 
 // ---------------------------------------------------------------------------------------------------------------
 // PKCE, state, code (cookies.md 2 and 3)

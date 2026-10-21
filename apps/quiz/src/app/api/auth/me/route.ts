@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
 import { isAdmin } from '@/lib/admin';
+import { SITE_ID } from '@/lib/site/registry';
 
 // Returns the signed-in user's nav profile or null. Hit by the client-side
 // <TopNavProfile> chip so the TopNav server tree never touches cookies() and
@@ -48,7 +49,8 @@ export async function GET(): Promise<NextResponse> {
     const data = (profileRes as { data: Record<string, unknown> | null }).data;
     if (!data) return NextResponse.json({ profile: null });
 
-    const info = getLevelInfo((data.xp as number) ?? 0);
+    // Run O1: the build's site (only the level name depends on it; the response carries level and progress).
+    const info = getLevelInfo((data.xp as number) ?? 0, SITE_ID);
     const meta = (user.user_metadata ?? {}) as { avatar_url?: string; picture?: string };
     const avatarUrl =
       (data.avatar_url as string | null) ??

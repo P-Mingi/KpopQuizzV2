@@ -1,0 +1,244 @@
+{
+ "ways": {
+  "full": [
+   {
+    "key": "quizzes",
+    "href": "#hub-quizzes",
+    "icon": "t-classic",
+    "title": "Quizzes",
+    "isNew": false,
+    "body": "12 fan-made Stray Kids quizzes.",
+    "foot": "Most played first"
+   },
+   {
+    "key": "blindtest",
+    "href": "/blindtest/group-stray-kids",
+    "icon": "music",
+    "title": "Blindtest",
+    "isNew": false,
+    "body": "40 Stray Kids songs, ten-second clips.",
+    "foot": "Solo or live with friends"
+   },
+   {
+    "key": "name-all",
+    "href": "/stray-kids-name-all-members",
+    "icon": "clock",
+    "title": "Name them all",
+    "isNew": true,
+    "body": "All 8 members in 60 seconds.",
+    "foot": "31% get them all"
+   },
+   {
+    "key": "which-member",
+    "href": "/which-stray-kids-member-are-you",
+    "icon": "users",
+    "title": "Which member are you?",
+    "isNew": true,
+    "body": "Eight questions about you.",
+    "foot": "5,400 results"
+   }
+  ],
+  "noLive": [
+   {
+    "key": "quizzes",
+    "href": "#hub-quizzes",
+    "icon": "t-classic",
+    "title": "Quizzes",
+    "isNew": false,
+    "body": "12 fan-made Stray Kids quizzes.",
+    "foot": "Most played first"
+   },
+   {
+    "key": "blindtest",
+    "href": "/blindtest/group-stray-kids",
+    "icon": "music",
+    "title": "Blindtest",
+    "isNew": false,
+    "body": "40 Stray Kids songs, ten-second clips.",
+    "foot": null
+   },
+   {
+    "key": "name-all",
+    "href": "/stray-kids-name-all-members",
+    "icon": "clock",
+    "title": "Name them all",
+    "isNew": true,
+    "body": "All 8 members in 60 seconds.",
+    "foot": "31% get them all"
+   },
+   {
+    "key": "which-member",
+    "href": "/which-stray-kids-member-are-you",
+    "icon": "users",
+    "title": "Which member are you?",
+    "isNew": true,
+    "body": "Eight questions about you.",
+    "foot": "5,400 results"
+   }
+  ],
+  "one": [
+   {
+    "key": "quizzes",
+    "href": "#hub-quizzes",
+    "icon": "t-classic",
+    "title": "Quizzes",
+    "isNew": false,
+    "body": "1 fan-made Stray Kids quiz.",
+    "foot": null
+   },
+   {
+    "key": "blindtest",
+    "href": "/blindtest/group-stray-kids",
+    "icon": "music",
+    "title": "Blindtest",
+    "isNew": false,
+    "body": "40 Stray Kids songs, ten-second clips.",
+    "foot": null
+   }
+  ],
+  "songsOnly": [
+   {
+    "key": "quizzes",
+    "href": "#hub-quizzes",
+    "icon": "t-classic",
+    "title": "Quizzes",
+    "isNew": false,
+    "body": "12 fan-made Stray Kids quizzes.",
+    "foot": "Most played first"
+   },
+   {
+    "key": "blindtest",
+    "href": "/blindtest/group-stray-kids",
+    "icon": "music",
+    "title": "Blindtest",
+    "isNew": false,
+    "body": "40 Stray Kids songs, ten-second clips.",
+    "foot": null
+   }
+  ],
+  "nothing": [],
+  "nullFoot": [
+   {
+    "key": "quizzes",
+    "href": "#hub-quizzes",
+    "icon": "t-classic",
+    "title": "Quizzes",
+    "isNew": false,
+    "body": "12 fan-made Stray Kids quizzes.",
+    "foot": "Most played first"
+   },
+   {
+    "key": "blindtest",
+    "href": "/blindtest/group-stray-kids",
+    "icon": "music",
+    "title": "Blindtest",
+    "isNew": false,
+    "body": "40 Stray Kids songs, ten-second clips.",
+    "foot": "Solo or live with friends"
+   },
+   {
+    "key": "name-all",
+    "href": "/x-name-all-members",
+    "icon": "clock",
+    "title": "Name them all",
+    "isNew": true,
+    "body": "All 5 members in 60 seconds.",
+    "foot": null
+   },
+   {
+    "key": "which-member",
+    "href": "/w",
+    "icon": "users",
+    "title": "Which member are you?",
+    "isNew": true,
+    "body": "Eight questions about you.",
+    "foot": null
+   }
+  ]
+ },
+ "first": [
+  [
+   {
+    "icon": "music",
+    "text": "12 KATSEYE songs are already in the blindtest, so fans are here."
+   },
+   {
+    "icon": "play",
+    "text": "Fans played the KATSEYE blindtest 40 times."
+   },
+   {
+    "icon": "star",
+    "text": "Your name stays on this page as its first creator."
+   },
+   {
+    "icon": "bell",
+    "text": "You get the Quiz maker badge and an alert at 10, 100 and 1,000 plays."
+   }
+  ],
+  [
+   {
+    "icon": "star",
+    "text": "Your name stays on this page as its first creator."
+   },
+   {
+    "icon": "bell",
+    "text": "You get the Quiz maker badge and an alert at 10, 100 and 1,000 plays."
+   }
+  ],
+  [
+   {
+    "icon": "music",
+    "text": "3 KATSEYE songs are already in the blindtest, so fans are here."
+   },
+   {
+    "icon": "star",
+    "text": "Your name stays on this page as its first creator."
+   },
+   {
+    "icon": "bell",
+    "text": "You get the Quiz maker badge and an alert at 10, 100 and 1,000 plays."
+   }
+  ]
+ ],
+ "templates": [
+  {
+   "type": "multiple_choice",
+   "icon": "t-classic",
+   "title": "Members basics",
+   "sub": "Four choices each, the classic start",
+   "href": "/create?group=katseye&type=multiple_choice"
+  },
+  {
+   "type": "true_false",
+   "icon": "t-tf",
+   "title": "True or false",
+   "sub": "Quick, great for sharing",
+   "href": "/create?group=katseye&type=true_false"
+  },
+  {
+   "type": "guess_from_clues",
+   "icon": "t-clue",
+   "title": "Guess the member from clues",
+   "sub": "Three clues each",
+   "href": "/create?group=katseye&type=guess_from_clues"
+  }
+ ],
+ "nudge": [
+  {
+   "title": "Only 1 KATSEYE quiz so far.",
+   "body": "Fans played it 80 times in the last 60 days. Make the next one and it shows here for every Gabriel.",
+   "href": "/create?group=katseye"
+  },
+  {
+   "title": "Only 2 KATSEYE quizzes so far.",
+   "body": "Make the next one and it shows here for every KATSEYE fan.",
+   "href": "/create?group=katseye"
+  },
+  {
+   "title": "Only 2 KATSEYE quizzes so far.",
+   "body": "Make the next one and it shows here for every KATSEYE fan.",
+   "href": "/create?group=katseye"
+  },
+  null
+ ]
+}

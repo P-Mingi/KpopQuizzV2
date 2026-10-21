@@ -1,5 +1,6 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/q/[slug]/page.tsx, rows 6, 7, 8: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
 import { SITE, SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 import { notFound } from 'next/navigation';
 
 import { jsonLdScript } from '@/lib/verse/jsonld';
@@ -44,7 +45,8 @@ import type { TriviaFact } from '@/lib/trivia/types';
 // (Next caches on first request, served from cache thereafter).
 export const revalidate = 3600;
 const TOP_PRERENDER = 1000;
-async function kpopStaticParams(): Promise<Array<{ slug: string }>> {
+// Run O1: the build params list only the slugs of this build's site (forSite), never the kpop catalog.
+async function siteStaticParams(): Promise<Array<{ slug: string }>> {
   // Fail-soft: if the DB is saturated at build time, fall back to [] (every
   // slug becomes on-demand ISR like before). A degraded build is better
   // than a failed build.
@@ -54,9 +56,9 @@ async function kpopStaticParams(): Promise<Array<{ slug: string }>> {
     const BUILD_QUERY_TIMEOUT_MS = 10000;
     const sentinel = Symbol('top-slugs-timeout');
     const raced = await Promise.race([
-      supabase
+      forSite(supabase
         .from('quizzes')
-        .select('slug')
+        .select('slug'), O1_SITE_ID)
         .eq('status', 'published')
         .order('play_count', { ascending: false })
         .limit(TOP_PRERENDER),
@@ -714,5 +716,5 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
 // (the [site] layout generates no site there and refuses params without one).
 export async function generateStaticParams({ params }: { params?: { site?: string } } = {}): Promise<Array<Record<string, string>>> {
   if (O1_SITE_ID === 'kpop' || !params?.site) return [];
-  return (await kpopStaticParams()).map((p) => ({ ...p, site: params.site as string }));
+  return (await siteStaticParams()).map((p) => ({ ...p, site: params.site as string }));
 }

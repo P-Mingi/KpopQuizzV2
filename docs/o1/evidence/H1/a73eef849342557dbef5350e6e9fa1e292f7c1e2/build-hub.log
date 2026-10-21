@@ -1,0 +1,1829 @@
+build-lock: waiting for b6-kpop-chunks (pid 44293)
+build-lock: waiting for b6-kpop-chunks (pid 44293)
+build-lock: waiting for P1-head2 (pid 44616)
+
+> quiz@1.0.0 build
+> npm run check:routes && npm run check:verse-tokens && npm run check:env && next build
+
+
+> quiz@1.0.0 check:routes
+> tsx scripts/check-route-allowlist.mts
+
+Route allowlist guard passed: 434 page routes reachable.
+  - skipped /blind-test (SEO consolidation: 301s to /blindtest.)
+  - skipped /blind-test/sample (SEO consolidation: 301s to /blindtest.)
+
+> quiz@1.0.0 check:verse-tokens
+> tsx scripts/check-verse-tokens.mts
+
+Verse token gate passed: no raw hex colors in Verse surfaces.
+
+> quiz@1.0.0 check:env
+> tsx scripts/check-env.mts
+
+[check:env] OK - NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY present (environment: local).
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/louis/IT/Dev/projects/KpopQuizzV2/pnpm-workspace.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-H1/pnpm-workspace.yaml
+
+▲ Next.js 16.2.1 (Turbopack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ Compiled successfully in 33.1s
+  Running TypeScript ...
+  Finished TypeScript in 63s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/771) ...
+[q/[slug]] build: the quiz read failed twice for plus-ultra-starter-my-hero-academia-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for plus-ultra-starter-my-hero-academia-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for elf-time-check-frieren-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for elf-time-check-frieren-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-spy-x-family-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-spy-x-family-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for u-a-class-1-a-roll-call-who-is-this-hero; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for u-a-class-1-a-roll-call-who-is-this-hero; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-romance-dawn-to-the-desert-one-piece-by-arc; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-romance-dawn-to-the-desert-one-piece-by-arc; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for imprints-volumes-and-a-film-omniscient-readers-viewpoint-behind-the-pages; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for imprints-volumes-and-a-film-omniscient-readers-viewpoint-behind-the-pages; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for music-and-makers-frieren-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for music-and-makers-frieren-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for journeys-beginning-frieren-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for journeys-beginning-frieren-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for season-by-season-frieren-toward-the-golden-land; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for season-by-season-frieren-toward-the-golden-land; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pirates-honor-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pirates-honor-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for inside-the-rear-palace-apothecary-diaries-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for inside-the-rear-palace-apothecary-diaries-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-season-2; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-season-2; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for asterisk-to-mask-bleach-staff-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for asterisk-to-mask-bleach-staff-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-credits-directors-studios-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-credits-directors-studios-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-naro-to-season-three-apothecary-diaries-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-naro-to-season-three-apothecary-diaries-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bones-batons-and-battle-themes-fma-production; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bones-batons-and-battle-themes-fma-production; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for steel-and-sums-fma-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for steel-and-sums-fma-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for straw-hats-and-early-rivals-one-piece-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for straw-hats-and-early-rivals-one-piece-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-old-hero-party-and-after-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-old-hero-party-and-after-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-alchemists-first-lesson-fma-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-alchemists-first-lesson-fma-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-first-punch-one-punch-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-first-punch-one-punch-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for subway-car-scenario-one-omniscient-readers-viewpoint-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for subway-car-scenario-one-omniscient-readers-viewpoint-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+  Generating static pages using 7 workers (192/771) 
+[q/[slug]] build: the quiz read failed twice for crows-on-court-who-plays-where; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for crows-on-court-who-plays-where; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-behind-the-walls-attack-on-titan-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-behind-the-walls-attack-on-titan-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for net-check-haikyu-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for net-check-haikyu-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for whistles-and-soundtracks-haikyu-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for whistles-and-soundtracks-haikyu-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for consorts-officials-and-servants-apothecary-diaries-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for consorts-officials-and-servants-apothecary-diaries-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for webcomic-to-season-three-one-punch-man-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for webcomic-to-season-three-one-punch-man-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-seasons-decoded-parts-chapters-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-seasons-decoded-parts-chapters-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-and-after-episode-26-death-note-by-part; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-and-after-episode-26-death-note-by-part; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for camera-mic-cut-oshi-no-ko-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-seasons-and-a-finale-the-haikyu-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for camera-mic-cut-oshi-no-ko-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-basics-toriyama-toei-and-the-monkey-king; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-seasons-and-a-finale-the-haikyu-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-basics-toriyama-toei-and-the-monkey-king; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-anime-one-story-fma-adaptations; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-anime-one-story-fma-adaptations; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for punch-or-bluff-one-punch-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for punch-or-bluff-one-punch-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for toei-tanaka-and-twenty-nine-openings-one-piece-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for toei-tanaka-and-twenty-nine-openings-one-piece-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-madhouse-curtain-screens-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-madhouse-curtain-screens-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-true-or-false-wall-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-true-or-false-wall-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for survey-corps-and-cadets-name-the-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for exam-day-hunter-x-hunter-for-beginners; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for exam-day-hunter-x-hunter-for-beginners; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for survey-corps-and-cadets-name-the-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for backstage-pass-oshi-no-ko-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for backstage-pass-oshi-no-ko-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-studios-and-theme-songs-one-punch-man-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-studios-and-theme-songs-one-punch-man-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ready-set-spike-haikyu-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ready-set-spike-haikyu-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for raising-the-flag-one-piece-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for raising-the-flag-one-piece-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for class-rank-and-rivalry-one-punch-man-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for class-rank-and-rivalry-one-punch-man-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for eight-seasons-deep-bleach-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for eight-seasons-deep-bleach-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for skald-or-liar-vinland-saga-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for skald-or-liar-vinland-saga-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-jujutsu-high-roll-call; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-jujutsu-high-roll-call; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for joestars-and-their-rivals-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for joestars-and-their-rivals-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nen-detector-hunter-x-hunter-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nen-detector-hunter-x-hunter-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spotlight-check-oshi-no-ko-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spotlight-check-oshi-no-ko-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-hunter-exam-to-election-the-arcs-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-hunter-exam-to-election-the-arcs-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-jujutsu-kaisen-directors-dubs-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-jujutsu-kaisen-directors-dubs-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-openings-endings-and-the-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-openings-endings-and-the-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for karakura-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for karakura-roll-call-who-is-this; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for menacing-beginnings-jojo-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for menacing-beginnings-jojo-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for moon-tiara-check-sailor-moon-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for moon-tiara-check-sailor-moon-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for guardians-cats-and-rivals-sailor-moon-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for guardians-cats-and-rivals-sailor-moon-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for stage-names-meet-the-cast-of-the-idol-story; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for stage-names-meet-the-cast-of-the-idol-story; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-duets-and-reboot-runs-sailor-moon-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-duets-and-reboot-runs-sailor-moon-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-seasons-apothecary-diaries-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for three-seasons-in-the-spotlight-the-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for three-seasons-in-the-spotlight-the-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-into-jujutsu-kaisen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-into-jujutsu-kaisen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-seasons-apothecary-diaries-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nine-parts-six-seasons-jojo-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nine-parts-six-seasons-jojo-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-hunter-exam-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-hunter-exam-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-cast-call-who-is-this-fighter; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-cast-call-who-is-this-fighter; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-transformation-sailor-moon-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-transformation-sailor-moon-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for brothers-mentors-and-soldiers-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for brothers-mentors-and-soldiers-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for roundabout-and-beyond-jojo-songs-and-studios; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for roundabout-and-beyond-jojo-songs-and-studios; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for cut-clean-or-cut-wrong-kagurabachi-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cut-clean-or-cut-wrong-kagurabachi-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sharpening-the-blade-kagurabachi-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sharpening-the-blade-kagurabachi-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for issue-42-and-beyond-kagurabachi-makers-and-milestones; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for issue-42-and-beyond-kagurabachi-makers-and-milestones; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for gate-check-solo-leveling-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gate-check-solo-leveling-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-true-or-false-cursed-facts; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-true-or-false-cursed-facts; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-arc-order-chapters-and-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ora-or-muda-jojo-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ora-or-muda-jojo-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forgers-friends-and-classmates-spy-x-family-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forgers-friends-and-classmates-spy-x-family-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-arc-order-chapters-and-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for full-time-mix-blue-lock-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for full-time-mix-blue-lock-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cover-story-or-truth-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cover-story-or-truth-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-of-konoha-who-is-this-ninja; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for faces-of-konoha-who-is-this-ninja; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for substitute-start-bleach-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for substitute-start-bleach-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for arise-from-the-shadow-and-the-road-ahead; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for arise-from-the-shadow-and-the-road-ahead; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-fake-family-on-day-one-spy-x-family-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-fake-family-on-day-one-spy-x-family-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kickoff-dates-and-theme-songs-blue-lock-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kickoff-dates-and-theme-songs-blue-lock-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for offside-check-blue-lock-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for offside-check-blue-lock-true-or-false; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for cloud-gouger-to-smelting-kagurabachi-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cloud-gouger-to-smelting-kagurabachi-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hunters-and-knights-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for hunters-and-knights-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for taste-test-apothecary-diaries-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for taste-test-apothecary-diaries-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for egos-on-the-pitch-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for egos-on-the-pitch-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for first-gate-solo-leveling-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-gate-solo-leveling-for-newcomers; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for behind-the-gate-staff-songs-and-idol-guests; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-gate-staff-songs-and-idol-guests; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for zanpakuto-check-bleach-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for zanpakuto-check-bleach-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for combat-power-check-kaiju-no-8-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for combat-power-check-kaiju-no-8-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for who-holds-the-blade-kagurabachi-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for who-holds-the-blade-kagurabachi-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-from-zero-the-friendly-start; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-from-zero-the-friendly-start; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for heroes-on-the-mic-my-hero-academia-openings-and-endings; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for heroes-on-the-mic-my-hero-academia-openings-and-endings; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-jump-plus-to-season-two-kaiju-no-8-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-jump-plus-to-season-two-kaiju-no-8-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for devil-hunter-licence-check-chainsaw-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for devil-hunter-licence-check-chainsaw-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for production-i-g-khara-and-onerepublic-kaiju-no-8-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for production-i-g-khara-and-onerepublic-kaiju-no-8-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for suit-up-rookie-kaiju-no-8-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for suit-up-rookie-kaiju-no-8-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-floor-basics-welcome-to-tower-of-god; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-floor-basics-welcome-to-tower-of-god; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for defense-force-roll-call-kaiju-no-8-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for defense-force-roll-call-kaiju-no-8-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-blocks-and-a-crowd-spy-x-family-by-season; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-blocks-and-a-crowd-spy-x-family-by-season; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for strikers-handbook-blue-lock-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for strikers-handbook-blue-lock-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for climbers-check-tower-of-god-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for climbers-check-tower-of-god-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kick-back-chainsaw-man-staff-songs-and-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kick-back-chainsaw-man-staff-songs-and-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bluff-or-bounty-cowboy-bebop-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bluff-or-bounty-cowboy-bebop-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pull-the-cord-chainsaw-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pull-the-cord-chainsaw-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-strings-the-tower-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-strings-the-tower-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hige-dandism-to-lilas-ikuta-spy-x-family-songs-and-staff; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hige-dandism-to-lilas-ikuta-spy-x-family-songs-and-staff; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for floor-by-floor-the-anime-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for floor-by-floor-the-anime-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for beyond-the-sea-to-vinland-vinland-saga-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for beyond-the-sea-to-vinland-vinland-saga-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for aboard-the-bebop-cowboy-bebop-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for aboard-the-bebop-cowboy-bebop-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-public-safety-to-school-the-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-public-safety-to-school-the-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for special-division-4-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for special-division-4-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-at-the-foot-of-the-tower-early-cast; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-at-the-foot-of-the-tower-early-cast; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for plus-ultra-starter-my-hero-academia-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for plus-ultra-starter-my-hero-academia-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fact-or-spoiler-free-fib-omniscient-readers-viewpoint-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fact-or-spoiler-free-fib-omniscient-readers-viewpoint-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-reader-and-his-novel-omniscient-readers-viewpoint-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-reader-and-his-novel-omniscient-readers-viewpoint-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-true-or-false-plus-ultra-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-true-or-false-plus-ultra-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for u-a-class-1-a-roll-call-who-is-this-hero; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for u-a-class-1-a-roll-call-who-is-this-hero; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for part-one-arc-by-arc-from-waves-to-sasuke; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for part-one-arc-by-arc-from-waves-to-sasuke; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for grand-prix-to-adult-swim-cowboy-bebop-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for grand-prix-to-adult-swim-cowboy-bebop-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-true-or-false-ninja-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-true-or-false-ninja-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-season-by-season-episodes-and-chapters; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-season-by-season-episodes-and-chapters; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sunrise-seatbelts-and-channels-cowboy-bebop-on-air; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bounties-and-bad-blood-cowboy-bebop-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-songs-and-premieres-dandadan-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sunrise-seatbelts-and-channels-cowboy-bebop-on-air; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-songs-and-premieres-dandadan-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bounties-and-bad-blood-cowboy-bebop-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for psychics-yokai-and-aliens-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for psychics-yokai-and-aliens-who-is-who; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for occult-check-dandadan-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for occult-check-dandadan-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-seasons-and-beyond-the-dandadan-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-seasons-and-beyond-the-dandadan-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spirits-meet-spaceships-dandadan-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spirits-meet-spaceships-dandadan-basics; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for before-the-first-punch-one-punch-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-first-punch-one-punch-man-basics; on-demand ISR re-renders it
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for straw-hats-and-early-rivals-one-piece-who-is-who; on-demand ISR re-renders it
+[p3] /apothecary-diaries-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for straw-hats-and-early-rivals-one-piece-who-is-who; on-demand ISR re-renders it
+[p3] /attack-on-titan-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for from-romance-dawn-to-the-desert-one-piece-by-arc; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-studios-and-theme-songs-one-punch-man-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-studios-and-theme-songs-one-punch-man-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for imprints-volumes-and-a-film-omniscient-readers-viewpoint-behind-the-pages; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for imprints-volumes-and-a-film-omniscient-readers-viewpoint-behind-the-pages; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-romance-dawn-to-the-desert-one-piece-by-arc; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for subway-car-scenario-one-omniscient-readers-viewpoint-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for subway-car-scenario-one-omniscient-readers-viewpoint-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for class-rank-and-rivalry-one-punch-man-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for class-rank-and-rivalry-one-punch-man-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pirates-honor-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pirates-honor-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-true-or-false-blades-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for longships-and-crossbows-vinland-saga-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-true-or-false-blades-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for longships-and-crossbows-vinland-saga-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-notebook-hits-the-ground-death-note-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-notebook-hits-the-ground-death-note-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for task-force-roll-call-death-note-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for task-force-roll-call-death-note-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[p3] /bleach-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[blindtest v11] read failed: [p6 popularity] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for four-arcs-and-seven-million-copies-vinland-saga-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-arcs-and-seven-million-copies-vinland-saga-odds-and-ends; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for from-season-1-to-the-castle-demon-slayer-arcs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-season-1-to-the-castle-demon-slayer-arcs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nightmare-hormone-and-madhouse-death-note-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nightmare-hormone-and-madhouse-death-note-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-wit-to-mappa-vinland-saga-on-screen; on-demand ISR re-renders it
+[popular-month] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[q/[slug]] build: the quiz read failed twice for from-wit-to-mappa-vinland-saga-on-screen; on-demand ISR re-renders it
+[popular-week] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[q/[slug]] build: the quiz read failed twice for demon-slayer-starter-kit-corps-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-starter-kit-corps-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-credits-roll-music-studio-awards; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-credits-roll-music-studio-awards; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for name-and-face-death-note-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for name-and-face-death-note-true-or-false; on-demand ISR re-renders it
+[popular-today] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for webcomic-to-season-three-one-punch-man-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for webcomic-to-season-three-one-punch-man-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for punch-or-bluff-one-punch-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for punch-or-bluff-one-punch-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for raising-the-flag-one-piece-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for raising-the-flag-one-piece-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spotlight-check-oshi-no-ko-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spotlight-check-oshi-no-ko-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for camera-mic-cut-oshi-no-ko-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for camera-mic-cut-oshi-no-ko-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for stage-names-meet-the-cast-of-the-idol-story; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for stage-names-meet-the-cast-of-the-idol-story; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for toei-tanaka-and-twenty-nine-openings-one-piece-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for toei-tanaka-and-twenty-nine-openings-one-piece-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for backstage-pass-oshi-no-ko-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for backstage-pass-oshi-no-ko-basics; on-demand ISR re-renders it
+  Generating static pages using 7 workers (385/771) 
+[q/[slug]] build: the quiz read failed twice for from-episode-26-to-rebuild-evangelion-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-episode-26-to-rebuild-evangelion-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-theme-songs-and-tv-runs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-theme-songs-and-tv-runs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for meet-the-corps-name-the-demon-slayer; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for meet-the-corps-name-the-demon-slayer; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sync-rate-check-evangelion-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sync-rate-check-evangelion-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pilots-nerv-and-family-evangelion-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pilots-nerv-and-family-evangelion-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-true-or-false-senzu-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-true-or-false-senzu-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-original-dragon-ball-sagas-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-original-dragon-ball-sagas-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gainax-khara-and-netflix-evangelion-behind-the-screens; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gainax-khara-and-netflix-evangelion-behind-the-screens; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for guardians-cats-and-rivals-sailor-moon-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for guardians-cats-and-rivals-sailor-moon-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-transformation-sailor-moon-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-the-transformation-sailor-moon-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for moon-tiara-check-sailor-moon-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-duets-and-reboot-runs-sailor-moon-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for directors-duets-and-reboot-runs-sailor-moon-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for moon-tiara-check-sailor-moon-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for three-seasons-in-the-spotlight-the-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for three-seasons-in-the-spotlight-the-timeline; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for arise-from-the-shadow-and-the-road-ahead; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for arise-from-the-shadow-and-the-road-ahead; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[trending] getTrendingQuizzes failed: Error: Failed to fetch trending quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3290)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__0_395ms._.js:1:3070)
+[q/[slug]] build: the quiz read failed twice for tokyo-3-2015-evangelion-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-3-2015-evangelion-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for music-and-makers-frieren-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for music-and-makers-frieren-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for elf-time-check-frieren-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for elf-time-check-frieren-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-old-hero-party-and-after-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-old-hero-party-and-after-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-gate-staff-songs-and-idol-guests; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-gate-staff-songs-and-idol-guests; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for steel-and-sums-fma-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for steel-and-sums-fma-true-or-false; on-demand ISR re-renders it
+[community] fresh failed: Error: Failed to fetch new quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at q (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3887)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async ah.revalidate (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_0r9qxo5._.js:147:2246)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async ai (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_0r9qxo5._.js:147:3576)
+[q/[slug]] build: the quiz read failed twice for bones-batons-and-battle-themes-fma-production; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bones-batons-and-battle-themes-fma-production; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forgers-friends-and-classmates-spy-x-family-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forgers-friends-and-classmates-spy-x-family-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-gate-solo-leveling-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-gate-solo-leveling-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hunters-and-knights-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hunters-and-knights-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for cover-story-or-truth-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cover-story-or-truth-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for season-by-season-frieren-toward-the-golden-land; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for season-by-season-frieren-toward-the-golden-land; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hige-dandism-to-lilas-ikuta-spy-x-family-songs-and-staff; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for hige-dandism-to-lilas-ikuta-spy-x-family-songs-and-staff; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gate-check-solo-leveling-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gate-check-solo-leveling-true-or-false; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for journeys-beginning-frieren-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for journeys-beginning-frieren-basics; on-demand ISR re-renders it
+[getQuizOfTheDay] Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+[q/[slug]] build: the quiz read failed twice for a-fake-family-on-day-one-spy-x-family-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-fake-family-on-day-one-spy-x-family-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-blocks-and-a-crowd-spy-x-family-by-season; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-blocks-and-a-crowd-spy-x-family-by-season; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-anime-one-story-fma-adaptations; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-anime-one-story-fma-adaptations; on-demand ISR re-renders it
+[community] week failed: Error: Failed to fetch top creators: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at j (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0-el~kf._.js:1:1254)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0zywszn._.js:1:9894)
+    at async ah.revalidate (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_0r9qxo5._.js:147:2246)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async ai (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_0r9qxo5._.js:147:3576)
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for behind-the-madhouse-curtain-screens-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ready-set-spike-haikyu-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ready-set-spike-haikyu-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-the-madhouse-curtain-screens-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for net-check-haikyu-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for net-check-haikyu-true-or-false; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for whistles-and-soundtracks-haikyu-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for whistles-and-soundtracks-haikyu-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for crows-on-court-who-plays-where; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for crows-on-court-who-plays-where; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-alchemists-first-lesson-fma-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-alchemists-first-lesson-fma-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for climbers-check-tower-of-god-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-seasons-and-a-finale-the-haikyu-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-seasons-and-a-finale-the-haikyu-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for climbers-check-tower-of-god-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-strings-the-tower-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-strings-the-tower-on-screen; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for from-wit-to-mappa-vinland-saga-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-wit-to-mappa-vinland-saga-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-arcs-and-seven-million-copies-vinland-saga-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for four-arcs-and-seven-million-copies-vinland-saga-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for beyond-the-sea-to-vinland-vinland-saga-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for beyond-the-sea-to-vinland-vinland-saga-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-floor-basics-welcome-to-tower-of-god; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-floor-basics-welcome-to-tower-of-god; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-at-the-foot-of-the-tower-early-cast; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-at-the-foot-of-the-tower-early-cast; on-demand ISR re-renders it
+[ux-leaderboard] fresh failed: Error: Failed to fetch new quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at q (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3887)
+    at async N (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:10810)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async P (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:11095)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0hy8w4u._.js:1:13600)
+    at async az (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:23503)
+[q/[slug]] build: the quiz read failed twice for floor-by-floor-the-anime-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for floor-by-floor-the-anime-arcs-so-far; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[new] getNewQuizzes failed: Error: Failed to fetch new quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at q (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3887)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0hy8w4u._.js:1:13600)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__04lw0mj._.js:1:3064)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /dandadan-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for exam-day-hunter-x-hunter-for-beginners; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for exam-day-hunter-x-hunter-for-beginners; on-demand ISR re-renders it
+[most-liked] getMostLikedQuizzes failed: Error: Failed to fetch most liked quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at r (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4219)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0hy8w4u._.js:1:13600)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__0-yj-oc._.js:1:3070)
+[p3] /blue-lock-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[ux-leaderboard] creators failed: Error: Failed to fetch top creators: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at j (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0r656fv._.js:1:3068)
+    at async G (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:8755)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async I (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:9322)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0hy8w4u._.js:1:13600)
+    at async az (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:23503)
+[q/[slug]] build: the quiz read failed twice for nen-detector-hunter-x-hunter-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nen-detector-hunter-x-hunter-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-hunter-exam-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-hunter-exam-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-jujutsu-kaisen-directors-dubs-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for behind-jujutsu-kaisen-directors-dubs-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for joestars-and-their-rivals-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for joestars-and-their-rivals-who-is-this; on-demand ISR re-renders it
+[p3] /cowboy-bebop-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for nine-parts-six-seasons-jojo-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nine-parts-six-seasons-jojo-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-hunter-exam-to-election-the-arcs-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-hunter-exam-to-election-the-arcs-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for menacing-beginnings-jojo-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for menacing-beginnings-jojo-for-newcomers; on-demand ISR re-renders it
+[p3] /chainsaw-man-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for ora-or-muda-jojo-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for ora-or-muda-jojo-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cut-clean-or-cut-wrong-kagurabachi-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cut-clean-or-cut-wrong-kagurabachi-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cloud-gouger-to-smelting-kagurabachi-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for cloud-gouger-to-smelting-kagurabachi-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for issue-42-and-beyond-kagurabachi-makers-and-milestones; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for issue-42-and-beyond-kagurabachi-makers-and-milestones; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for roundabout-and-beyond-jojo-songs-and-studios; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for roundabout-and-beyond-jojo-songs-and-studios; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-true-or-false-cursed-facts; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-true-or-false-cursed-facts; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-into-jujutsu-kaisen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for first-steps-into-jujutsu-kaisen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-arc-order-chapters-and-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for jujutsu-kaisen-arc-order-chapters-and-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for longships-and-crossbows-vinland-saga-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for longships-and-crossbows-vinland-saga-who-is-who; on-demand ISR re-renders it
+[popular-week] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_07zn49j._.js:1:622)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[popular-today] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_07zn49j._.js:1:622)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[popular-month] failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:6087)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_07zn49j._.js:1:622)
+    at async x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_024gr_p._.js:1:7568)
+[q/[slug]] build: the quiz read failed twice for suit-up-rookie-kaiju-no-8-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for suit-up-rookie-kaiju-no-8-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-jump-plus-to-season-two-kaiju-no-8-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-jump-plus-to-season-two-kaiju-no-8-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-part-2-new-detectives; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-part-2-new-detectives; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-from-zero-the-friendly-start; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-from-zero-the-friendly-start; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for defense-force-roll-call-kaiju-no-8-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for defense-force-roll-call-kaiju-no-8-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for who-holds-the-blade-kagurabachi-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for who-holds-the-blade-kagurabachi-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sharpening-the-blade-kagurabachi-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sharpening-the-blade-kagurabachi-basics; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for fx-death-note-basics-rules-and-creators; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-basics-rules-and-creators; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 song count] empty read
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-death-note-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-death-note-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for combat-power-check-kaiju-no-8-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for combat-power-check-kaiju-no-8-true-or-false; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 popularity] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for production-i-g-khara-and-onerepublic-kaiju-no-8-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for production-i-g-khara-and-onerepublic-kaiju-no-8-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-true-or-false; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[groups v11] getGroupsDirectoryIndex failed: Error: groups index: empty read
+    at k (.next/server/chunks/ssr/[root-of-the-server]__0dpvwgv._.js:1:18728)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_07zn49j._.js:1:622)
+    at async p (.next/server/chunks/ssr/[root-of-the-server]__0twt_ol._.js:1:16698)
+[p3] /groups: read(s) failed at build (getGroupsDirectoryIndex); prerendered with a 60s revalidate
+[trending] getTrendingQuizzes failed: Error: Failed to fetch trending quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at p (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3290)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_07zn49j._.js:1:622)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__13dq0tg._.js:1:3071)
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-true-or-false-plus-ultra-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-true-or-false-plus-ultra-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fact-or-spoiler-free-fib-omniscient-readers-viewpoint-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fact-or-spoiler-free-fib-omniscient-readers-viewpoint-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for part-one-arc-by-arc-from-waves-to-sasuke; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for part-one-arc-by-arc-from-waves-to-sasuke; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-true-or-false-ninja-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-true-or-false-ninja-edition; on-demand ISR re-renders it
+  Generating static pages using 7 workers (578/771) 
+[q/[slug]] build: the quiz read failed twice for heroes-on-the-mic-my-hero-academia-openings-and-endings; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for heroes-on-the-mic-my-hero-academia-openings-and-endings; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-basics-creator-and-crew; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-basics-creator-and-crew; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-spy-x-family-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-spy-x-family-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-season-by-season-episodes-and-chapters; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for my-hero-academia-season-by-season-episodes-and-chapters; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-straw-hat; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-straw-hat; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-reader-and-his-novel-omniscient-readers-viewpoint-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for a-reader-and-his-novel-omniscient-readers-viewpoint-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-east-blue-villains; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-east-blue-villains; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-basics-the-forgers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-basics-the-forgers; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for asterisk-to-mask-bleach-staff-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for asterisk-to-mask-bleach-staff-songs-and-films; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-credits-directors-studios-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-credits-directors-studios-songs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-naro-to-season-three-apothecary-diaries-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-naro-to-season-three-apothecary-diaries-odds-and-ends; on-demand ISR re-renders it
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for first-steps-behind-the-walls-attack-on-titan-basics; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for first-steps-behind-the-walls-attack-on-titan-basics; on-demand ISR re-renders it
+[p3] /death-note-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-seasons-decoded-parts-chapters-episodes; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-seasons-decoded-parts-chapters-episodes; on-demand ISR re-renders it
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /evangelion-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-odd-one-out; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-season-2; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-season-2; on-demand ISR re-renders it
+[p3] /dragon-ball-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[easy] getQuizzesByDifficulty failed: Error: Failed to fetch easy quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:5934)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0_ez7.n._.js:1:3297)
+[q/[slug]] build: the quiz read failed twice for inside-the-rear-palace-apothecary-diaries-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for inside-the-rear-palace-apothecary-diaries-basics; on-demand ISR re-renders it
+[p3] /demon-slayer-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[creators] page failed: Error: creators: empty quizzes read
+    at y (.next/server/chunks/ssr/[root-of-the-server]__07njz07._.js:1:41840)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async C (.next/server/chunks/ssr/[root-of-the-server]__07njz07._.js:1:43268)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async N (.next/server/chunks/ssr/[root-of-the-server]__07njz07._.js:1:47799)
+[q/[slug]] build: the quiz read failed twice for survey-corps-and-cadets-name-the-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for survey-corps-and-cadets-name-the-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-basics-toriyama-toei-and-the-monkey-king; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-basics-toriyama-toei-and-the-monkey-king; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for skald-or-liar-vinland-saga-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for skald-or-liar-vinland-saga-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for eight-seasons-deep-bleach-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for eight-seasons-deep-bleach-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-true-or-false-wall-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for attack-on-titan-true-or-false-wall-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-seasons-apothecary-diaries-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-singers-and-seasons-apothecary-diaries-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-and-after-episode-26-death-note-by-part; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for before-and-after-episode-26-death-note-by-part; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for consorts-officials-and-servants-apothecary-diaries-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for consorts-officials-and-servants-apothecary-diaries-who-is-who; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[guess-the-kpop-idol] getQuizzesByType failed: Error: Failed to fetch guess_from_clues quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at z (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6577)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0ebgbh1._.js:1:13467)
+[hard] getQuizzesByDifficulty failed: Error: Failed to fetch hard quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:5934)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0_p4za2._.js:1:3302)
+[q/[slug]] build: the quiz read failed twice for tokyo-jujutsu-high-roll-call; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-jujutsu-high-roll-call; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends; on-demand ISR re-renders it
+[groups v11] getGroupsDirectoryIndex failed: Error: groups index: empty read
+    at k (.next/server/chunks/ssr/[root-of-the-server]__0kz~qew._.js:1:8012)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async p (.next/server/chunks/ssr/[root-of-the-server]__0kz~qew._.js:1:16698)
+[p3] /groups: read(s) failed at build (getGroupsDirectoryIndex); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for taste-test-apothecary-diaries-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for taste-test-apothecary-diaries-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-cast-call-who-is-this-fighter; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-cast-call-who-is-this-fighter; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-openings-endings-and-the-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for naruto-openings-endings-and-the-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for karakura-roll-call-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for karakura-roll-call-who-is-this; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 song count] empty read
+[q/[slug]] build: the quiz read failed twice for brothers-mentors-and-soldiers-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for brothers-mentors-and-soldiers-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-of-konoha-who-is-this-ninja; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for faces-of-konoha-who-is-this-ninja; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[blindtest v11] read failed: [p6 song count] empty read
+[blindtest v11] read failed: [p6 playlists] empty read
+[q/[slug]] build: the quiz read failed twice for substitute-start-bleach-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for substitute-start-bleach-for-newcomers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for offside-check-blue-lock-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for offside-check-blue-lock-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kickoff-dates-and-theme-songs-blue-lock-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kickoff-dates-and-theme-songs-blue-lock-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for zanpakuto-check-bleach-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for zanpakuto-check-bleach-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for egos-on-the-pitch-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for egos-on-the-pitch-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for devil-hunter-licence-check-chainsaw-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for devil-hunter-licence-check-chainsaw-man-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for strikers-handbook-blue-lock-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for strikers-handbook-blue-lock-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for full-time-mix-blue-lock-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for full-time-mix-blue-lock-odds-and-ends; on-demand ISR re-renders it
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for from-public-safety-to-school-the-arcs-so-far; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-public-safety-to-school-the-arcs-so-far; on-demand ISR re-renders it
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for kick-back-chainsaw-man-staff-songs-and-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for kick-back-chainsaw-man-staff-songs-and-studio; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for grand-prix-to-adult-swim-cowboy-bebop-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for grand-prix-to-adult-swim-cowboy-bebop-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pull-the-cord-chainsaw-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pull-the-cord-chainsaw-man-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for special-division-4-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for special-division-4-who-is-this; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bluff-or-bounty-cowboy-bebop-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bluff-or-bounty-cowboy-bebop-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for aboard-the-bebop-cowboy-bebop-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for aboard-the-bebop-cowboy-bebop-basics; on-demand ISR re-renders it
+[blindtest v11] read failed: [p6 playlists] empty read
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for sunrise-seatbelts-and-channels-cowboy-bebop-on-air; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sunrise-seatbelts-and-channels-cowboy-bebop-on-air; on-demand ISR re-renders it
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /frieren-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[kpop-quiz-2026] getQuizzesByYear failed: Error: Failed to fetch 2026 quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at y (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6278)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__037tczo._.js:1:13408)
+[blindtest v11] read failed: [p6 song count] empty read
+[p3] /fullmetal-alchemist-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[kpop-true-or-false] getQuizzesByType failed: Error: Failed to fetch true_false quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at z (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6577)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__07_rlnu._.js:1:13432)
+[p3] /haikyu-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /hunter-x-hunter-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for psychics-yokai-and-aliens-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for psychics-yokai-and-aliens-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spirits-meet-spaceships-dandadan-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for spirits-meet-spaceships-dandadan-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for name-and-face-death-note-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for name-and-face-death-note-true-or-false; on-demand ISR re-renders it
+[ux-leaderboard] fresh failed: Error: Failed to fetch new quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at q (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3887)
+    at async N (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:10810)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async P (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:11095)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async az (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:23503)
+[q/[slug]] build: the quiz read failed twice for occult-check-dandadan-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for occult-check-dandadan-true-or-false; on-demand ISR re-renders it
+[ux-leaderboard] creators failed: Error: Failed to fetch top creators: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at j (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:8395)
+    at async G (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:8755)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async I (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:9322)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async az (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_leaderboard_ux-v1_0th--ji._.js:1:23503)
+[q/[slug]] build: the quiz read failed twice for bounties-and-bad-blood-cowboy-bebop-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for bounties-and-bad-blood-cowboy-bebop-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-seasons-and-beyond-the-dandadan-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for two-seasons-and-beyond-the-dandadan-timeline; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-songs-and-premieres-dandadan-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for studios-songs-and-premieres-dandadan-on-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nightmare-hormone-and-madhouse-death-note-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for nightmare-hormone-and-madhouse-death-note-behind-the-screen; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-true-or-false-blades-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-true-or-false-blades-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-starter-kit-corps-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-starter-kit-corps-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-theme-songs-and-tv-runs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-theme-songs-and-tv-runs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-notebook-hits-the-ground-death-note-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-notebook-hits-the-ground-death-note-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for task-force-roll-call-death-note-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for task-force-roll-call-death-note-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-true-or-false-senzu-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for dragon-ball-true-or-false-senzu-edition; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-credits-roll-music-studio-awards; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for demon-slayer-credits-roll-music-studio-awards; on-demand ISR re-renders it
+[most-liked] getMostLikedQuizzes failed: Error: Failed to fetch most liked quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at r (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4219)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__0tr6uer._.js:1:3069)
+[q/[slug]] build: the quiz read failed twice for from-season-1-to-the-castle-demon-slayer-arcs; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-season-1-to-the-castle-demon-slayer-arcs; on-demand ISR re-renders it
+[new] getNewQuizzes failed: Error: Failed to fetch new quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at q (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:3887)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__0cgr3rl._.js:1:3063)
+[q/[slug]] build: the quiz read failed twice for gainax-khara-and-netflix-evangelion-behind-the-screens; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for gainax-khara-and-netflix-evangelion-behind-the-screens; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-original-dragon-ball-sagas-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for the-original-dragon-ball-sagas-in-order; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pilots-nerv-and-family-evangelion-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for pilots-nerv-and-family-evangelion-who-is-who; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-3-2015-evangelion-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for tokyo-3-2015-evangelion-basics; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for meet-the-corps-name-the-demon-slayer; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for meet-the-corps-name-the-demon-slayer; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-episode-26-to-rebuild-evangelion-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for from-episode-26-to-rebuild-evangelion-odds-and-ends; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sync-rate-check-evangelion-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for sync-rate-check-evangelion-true-or-false; on-demand ISR re-renders it
+[ux-home] lists failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async H (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_0baewz2._.js:1:14226)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async s.read (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_home_02xqx.k._.js:1:9833)
+    at async P (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_components_home_02xqx.k._.js:1:15752)
+[ux-home] reads failed (lists): rendered without them, revalidate in 30s
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /jojo-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[home] itemlist failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async K (.next/server/chunks/ssr/[root-of-the-server]__0nqgccy._.js:1:21704)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /kaiju-no-8-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /jujutsu-kaisen-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /kagurabachi-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /naruto-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /omniscient-readers-viewpoint-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /my-hero-academia-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[p3] /one-piece-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /sailor-moon-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /one-punch-man-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /solo-leveling-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[pt/quiz-2026] getQuizzesByYear failed: Error: Failed to fetch 2026 quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at y (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6278)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0xl79u6._.js:1:13410)
+[pt/hard] getQuizzesByDifficulty failed: Error: Failed to fetch hard quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:5934)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0n0eq8m._.js:1:3219)
+[pt/guess] getQuizzesByType failed: Error: Failed to fetch guess_from_clues quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at z (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6577)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0zu1kpv._.js:1:13441)
+[pt/easy] getQuizzesByDifficulty failed: Error: Failed to fetch easy quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at x (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:5934)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0bzd4pf._.js:1:3297)
+[pt/true-or-false] getQuizzesByType failed: Error: Failed to fetch true_false quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at z (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:6577)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async h (.next/server/chunks/ssr/[root-of-the-server]__0m5k~v.._.js:1:13403)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[p3] /oshi-no-ko-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for fx-death-note-part-2-new-detectives; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-part-2-new-detectives; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-true-or-false; on-demand ISR re-renders it
+[pt/home] trending failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async w (.next/server/chunks/ssr/[root-of-the-server]__0ebby7~._.js:1:14864)
+[pt/leaderboard] getTopCreatorsThisWeek failed: Error: Failed to fetch top creators: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at j (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:8395)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async g (.next/server/chunks/ssr/[root-of-the-server]__0ijom1s._.js:1:8997)
+[pt/quizzes] getBrowseQuizzes failed: Error: Failed to fetch browse quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at n (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:2455)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/[root-of-the-server]__0wucfoa._.js:1:4982)
+    at async i (.next/server/chunks/ssr/[root-of-the-server]__11yon59._.js:1:7710)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-death-note-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-death-note-character; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-basics-rules-and-creators; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-basics-rules-and-creators; on-demand ISR re-renders it
+[p3] /spy-x-family-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getQuizzesByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[group-hub v11] getNewestByGroup failed: Error: Failed to fetch group quizzes: Could not embed because more than one relationship was found for 'quizzes' and 'profiles'
+    at t (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:10:4887)
+    at async (.next/server/chunks/ssr/0bni_next_05kxhk-._.js:15:28366)
+    at async d (.next/server/chunks/ssr/_claude_worktrees_o1-gate-H1_apps_quiz_src_lib_0dyo~iy._.js:1:622)
+    at async (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84394)
+    at async ba (.next/server/chunks/ssr/_claude_worktrees_08p6hb~._.js:1:84337)
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-basics-creator-and-crew; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-basics-creator-and-crew; on-demand ISR re-renders it
+[p3] /tower-of-god-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-east-blue-villains; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-east-blue-villains; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-straw-hat; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-guess-the-straw-hat; on-demand ISR re-renders it
+[p3] /vinland-saga-quiz: read(s) failed at build (initialQuizzes, newestQuizzes); prerendered with a 60s revalidate
+[q/[slug]] build: the quiz read failed twice for fx-death-note-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-death-note-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-odd-one-out; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-true-or-false; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-basics-the-forgers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-spy-x-family-basics-the-forgers; on-demand ISR re-renders it
+[q/[slug]] build: the quiz read failed twice for fx-one-piece-odd-one-out; on-demand ISR re-renders it
+✓ Generating static pages using 7 workers (771/771) in 9.0s
+  Finalizing page optimization ...
+
+Route (app)                                               Revalidate  Expire
+┌ ○ /                                                            30s      1y
+├ ○ /_not-found
+├ ● /[slug]
+├ ○ /about                                                        6h      1y
+├ ƒ /admin
+├ ƒ /admin/ai-visibility
+├ ƒ /admin/blind-tests/create
+├ ƒ /admin/blind-tests/runs
+├ ƒ /admin/community-reports
+├ ƒ /admin/dm
+├ ƒ /admin/editorial
+├ ƒ /admin/embed
+├ ƒ /admin/industry
+├ ƒ /admin/member-review
+├ ƒ /admin/pulse
+├ ƒ /admin/quiz-bank
+├ ƒ /admin/quiz/[id]/edit
+├ ƒ /admin/quiz/search
+├ ƒ /admin/songs
+├ ƒ /admin/songs/[id]
+├ ƒ /admin/songs/add
+├ ƒ /admin/space-images
+├ ƒ /admin/verse
+├ ƒ /admin/verse/entities
+├ ƒ /admin/verse/quality
+├ ƒ /admin/verse/suggestions
+├ ƒ /api/activity/recent
+├ ƒ /api/admin/ai-visibility
+├ ƒ /api/admin/auto-select-qotd
+├ ƒ /api/admin/comebacks
+├ ƒ /api/admin/comebacks/[id]
+├ ƒ /api/admin/community-reports
+├ ƒ /api/admin/editorial
+├ ƒ /api/admin/editorial/[id]
+├ ƒ /api/admin/group/[id]
+├ ƒ /api/admin/group/[id]/approve
+├ ƒ /api/admin/group/[id]/merge
+├ ƒ /api/admin/mv-tracking
+├ ƒ /api/admin/mv-tracking/[id]
+├ ƒ /api/admin/notifications/send
+├ ƒ /api/admin/pending-groups
+├ ƒ /api/admin/pulse-citations
+├ ƒ /api/admin/pulse-citations/[id]
+├ ƒ /api/admin/quiz-bank/[id]
+├ ƒ /api/admin/quiz-bank/auto-schedule
+├ ƒ /api/admin/quiz/[id]
+├ ƒ /api/admin/quiz/[id]/difficulty
+├ ƒ /api/admin/quiz/[id]/remove
+├ ƒ /api/admin/quiz/[id]/restore
+├ ƒ /api/admin/quiz/upload-image
+├ ƒ /api/admin/quizzes
+├ ƒ /api/admin/report/[id]/dismiss
+├ ƒ /api/admin/search-quizzes
+├ ƒ /api/admin/set-qotd
+├ ƒ /api/admin/songs
+├ ƒ /api/admin/songs/[id]
+├ ƒ /api/admin/stats
+├ ƒ /api/admin/user/[id]/ban
+├ ƒ /api/admin/user/[id]/edit
+├ ƒ /api/admin/user/[id]/unban
+├ ƒ /api/admin/users
+├ ƒ /api/admin/verse/action
+├ ƒ /api/admin/youtube-info
+├ ƒ /api/auth/check-username
+├ ƒ /api/auth/create-profile
+├ ƒ /api/auth/me
+├ ƒ /api/auth/update-profile
+├ ƒ /api/blind-test/generate
+├ ƒ /api/blind-test/modes
+├ ƒ /api/blind-test/play
+├ ƒ /api/cheer
+├ ƒ /api/claim-runs
+├ ƒ /api/community/fans
+├ ƒ /api/creators/kit
+├ ƒ /api/creators/standing
+├ ƒ /api/cron/editorial-publish
+├ ƒ /api/cron/ensure-daily-debate
+├ ƒ /api/cron/ensure-daily-quiz
+├ ƒ /api/cron/fans-picked
+├ ƒ /api/cron/live-expire
+├ ƒ /api/cron/mv-snapshot
+├ ƒ /api/cron/notification-prune
+├ ƒ /api/cron/plays-counter-reconcile
+├ ƒ /api/cron/prune-activity
+├ ƒ /api/cron/pulse-generate
+├ ƒ /api/cron/seo-indexability
+├ ƒ /api/cron/spotify-snapshot
+├ ƒ /api/cron/verse-refresh
+├ ƒ /api/cron/verse-role-decay
+├ ƒ /api/daily/blindtest
+├ ƒ /api/daily/blindtest/leaderboard
+├ ƒ /api/daily/blindtest/submit
+├ ƒ /api/daily/complete
+├ ƒ /api/daily/streak
+├ ƒ /api/debate/me
+├ ƒ /api/debate/report
+├ ƒ /api/debate/vote
+├ ƒ /api/dev/login
+├ ƒ /api/discord
+├ ƒ /api/discord/flex
+├ ƒ /api/discord/flex/status
+├ ƒ /api/discord/widget
+├ ƒ /api/duel/fans-picked
+├ ƒ /api/duel/pairs
+├ ƒ /api/duel/vote
+├ ƒ /api/fancard/[username]
+├ ƒ /api/follow
+├ ƒ /api/game/[id]/play
+├ ƒ /api/game/create
+├ ƒ /api/indexnow
+├ ƒ /api/legacy/battle
+├ ƒ /api/live
+├ ƒ /api/live/rooms
+├ ƒ /api/live/rooms/[code]
+├ ƒ /api/live/rooms/[code]/answer
+├ ƒ /api/live/rooms/[code]/host
+├ ƒ /api/live/rooms/[code]/join
+├ ƒ /api/live/rooms/[code]/state
+├ ƒ /api/name-all/result
+├ ƒ /api/notifications
+├ ƒ /api/notifications/mark-read
+├ ƒ /api/notifications/prefs
+├ ƒ /api/og/[slug]
+├ ƒ /api/og/group/[slug]
+├ ƒ /api/og/level-up
+├ ƒ /api/og/page
+├ ƒ /api/og/passport/[username]
+├ ƒ /api/og/verse
+├ ƒ /api/og/verse/[slug]
+├ ƒ /api/passport/after-signin
+├ ƒ /api/passport/merge-anon
+├ ƒ /api/passport/redeem
+├ ƒ /api/personality/result
+├ ƒ /api/profile/header/link
+├ ƒ /api/profile/header/upload
+├ ƒ /api/qotd/publish
+├ ƒ /api/quiz/[id]
+├ ƒ /api/quiz/[id]/comment
+├ ƒ /api/quiz/[id]/edit
+├ ƒ /api/quiz/[id]/like
+├ ƒ /api/quiz/[id]/my-rank
+├ ƒ /api/quiz/[id]/play
+├ ƒ /api/quiz/[id]/questions
+├ ƒ /api/quiz/[id]/react
+├ ƒ /api/quiz/[id]/related
+├ ƒ /api/quiz/[id]/report
+├ ƒ /api/quiz/[id]/share-card
+├ ƒ /api/quiz/[id]/stats
+├ ƒ /api/quiz/[id]/time-stats
+├ ƒ /api/quiz/create
+├ ƒ /api/quiz/title-check
+├ ƒ /api/quiz/upload-image
+├ ƒ /api/quizzes
+├ ○ /api/quizzes/count                                            1h      1y
+├ ƒ /api/quizzes/group
+├ ƒ /api/quizzes/liked
+├ ƒ /api/quizzes/search
+├ ƒ /api/quizzes/user
+├ ƒ /api/ranked/cron/nightly
+├ ƒ /api/ranked/ladder
+├ ƒ /api/ranked/me
+├ ƒ /api/ranked/run
+├ ƒ /api/ranked/run/answer
+├ ƒ /api/ranked/run/start
+├ ƒ /api/ranked/run/submit
+├ ƒ /api/search
+├ ƒ /api/share/click/[code]
+├ ƒ /api/share/generate
+├ ƒ /api/share/reddit-image
+├ ƒ /api/stats/live
+├ ƒ /api/track/bt-run
+├ ○ /api/ux-v1/a0/styles
+├ ƒ /api/ux-v1/p1/daily-band
+├ ƒ /api/ux-v1/p10/export
+├ ƒ /api/ux-v1/p11/search
+├ ƒ /api/ux-v1/p11/team
+├ ƒ /api/ux-v1/p2/quizzes
+├ ƒ /api/ux-v1/p3/notify
+├ ƒ /api/ux-v1/p4/challenge
+├ ƒ /api/ux-v1/p4/challenge/[id]
+├ ƒ /api/ux-v1/p4/challenge/[id]/attempt
+├ ƒ /api/ux-v1/p4/comments
+├ ƒ /api/ux-v1/p4/comments/like
+├ ƒ /api/ux-v1/p4/comments/reply
+├ ƒ /api/ux-v1/p4/relaxed
+├ ƒ /api/ux-v1/p4/standing
+├ ƒ /api/ux-v1/p6/board
+├ ƒ /api/ux-v1/p6/challenge
+├ ƒ /api/ux-v1/p6/challenge/[code]
+├ ƒ /api/ux-v1/p6/challenge/[code]/attempt
+├ ƒ /api/ux-v1/p8/challenges
+├ ƒ /api/ux-v1/p8/debate-vote
+├ ƒ /api/ux-v1/p8/debates
+├ ƒ /api/ux-v1/p8/like
+├ ƒ /api/ux-v1/p8/my-results
+├ ƒ /api/ux-v1/p8/photo
+├ ƒ /api/ux-v1/p8/replies
+├ ƒ /api/ux-v1/p8/viewer
+├ ƒ /api/ux-v1/p9/standing
+├ ƒ /api/verse/banned-terms
+├ ƒ /api/verse/binder
+├ ƒ /api/verse/can-edit
+├ ƒ /api/verse/collectible-collection
+├ ƒ /api/verse/collectibles
+├ ƒ /api/verse/collection
+├ ƒ /api/verse/comeback-mode
+├ ƒ /api/verse/discussions
+├ ƒ /api/verse/draft
+├ ƒ /api/verse/entities/search
+├ ƒ /api/verse/entity
+├ ƒ /api/verse/eras/color
+├ ƒ /api/verse/essays
+├ ƒ /api/verse/essays/reactions
+├ ƒ /api/verse/essays/series
+├ ƒ /api/verse/flags
+├ ƒ /api/verse/history
+├ ƒ /api/verse/live-now
+├ ƒ /api/verse/lock
+├ ƒ /api/verse/members
+├ ƒ /api/verse/membership
+├ ƒ /api/verse/my-spaces
+├ ƒ /api/verse/nav
+├ ƒ /api/verse/override
+├ ƒ /api/verse/pages/create
+├ ƒ /api/verse/pages/publish
+├ ƒ /api/verse/pages/rename
+├ ƒ /api/verse/pages/save
+├ ƒ /api/verse/pages/submit
+├ ƒ /api/verse/photocards
+├ ƒ /api/verse/poll
+├ ƒ /api/verse/poll/vote
+├ ƒ /api/verse/presentation
+├ ƒ /api/verse/presentation/fold
+├ ƒ /api/verse/presentation/publish
+├ ƒ /api/verse/presentation/rollback
+├ ƒ /api/verse/preview
+├ ƒ /api/verse/profile/resume
+├ ƒ /api/verse/section
+├ ƒ /api/verse/shelf
+├ ƒ /api/verse/space-config
+├ ƒ /api/verse/space-feed
+├ ƒ /api/verse/space-image
+├ ƒ /api/verse/space-members
+├ ƒ /api/verse/space-xp
+├ ƒ /api/verse/sticker
+├ ƒ /api/verse/suggest
+├ ƒ /api/verse/suggestions
+├ ƒ /api/verse/tags
+├ ƒ /api/verse/threads
+├ ƒ /api/verse/tree
+├ ƒ /api/verse/watch
+├ ○ /articles
+├ ● /articles/[slug]                                              1h      1y
+│ ├ /articles/who-is-cortis                                       1h      1y
+│ ├ /articles/kpop-blind-test-2026                                1h      1y
+│ ├ /articles/best-kpop-quiz-sites-2026                           1h      1y
+│ └ [+18 more paths]
+├ ƒ /auth/arrive
+├ ƒ /auth/authorize
+├ ƒ /auth/callback
+├ ƒ /auth/confirm
+├ ƒ /auth/land
+├ ƒ /auth/passport/out
+├ ○ /banned
+├ ○ /blind-test
+├ ƒ /blind-test/[mode]
+├ ○ /blindtest                                                    1h      1y
+├ ● /blindtest/[mode]                                            10m      1y
+│ ├ /blindtest/classic                                           10m      1y
+│ ├ /blindtest/intro-challenge                                   10m      1y
+│ ├ /blindtest/verse-only                                        10m      1y
+│ └ [+15 more paths]
+├ ƒ /blindtest/leaderboard
+├ ○ /blindtest/ranked
+├ ƒ /build/[slug]
+├ ○ /community                                                    1m      1y
+├ ƒ /community/[kind]/[id]
+├ ○ /contact
+├ ƒ /create
+├ ○ /creators                                                     5m      1y
+├ ƒ /daily
+├ ○ /data/knowledge-report-2026                                   1h      1y
+├ ○ /data/knowledge-report-2026/dataset
+├ ○ /data/pulse                                                   1h      1y
+├ ● /data/pulse/[month]
+├ ○ /dmca
+├ ○ /easy-kpop-quizzes
+├ ○ /editorial-policy
+├ ƒ /embed/q/[slug]
+├ ○ /es/adivina-la-cancion-kpop                                   1h      1y
+├ ○ /faq
+├ ○ /fr/blind-test-kpop                                           1h      1y
+├ ƒ /g/[slug]
+├ ○ /groups                                                       1m      1y
+├ ○ /guess-the-kpop-idol                                          1m      1y
+├ ○ /guess-the-kpop-song                                          1h      1y
+├ ○ /hard-kpop-quizzes
+├ ○ /id/tebak-lagu-kpop                                           1h      1y
+├ ○ /join
+├ ƒ /join/[code]
+├ ○ /kpop-demon-hunters-quiz                                      1h      1y
+├ ○ /kpop-quiz-2026                                               1m      1y
+├ ○ /kpop-true-or-false                                           1m      1y
+├ ○ /leaderboard                                                  5m      1y
+├ ○ /live
+├ ○ /llms.txt
+├ ○ /login
+├ ƒ /me
+├ ○ /most-liked                                                  10m      1y
+├ ƒ /name-all/[group]
+├ ○ /new                                                          5m      1y
+├ ○ /news                                                        10m      1y
+├ ƒ /notifications
+├ ○ /onboarding
+├ ● /personality/[group]
+├ ○ /privacy
+├ ○ /profile
+├ ○ /pt                                                          10m      1y
+├ ○ /pt/about                                                     6h      1y
+├ ○ /pt/articles
+├ ○ /pt/blindtest                                                 1h      1y
+├ ○ /pt/easy-kpop-quizzes
+├ ○ /pt/faq
+├ ○ /pt/guess-the-kpop-idol                                       1m      1y
+├ ○ /pt/hard-kpop-quizzes
+├ ○ /pt/kpop-quiz-2026                                            1m      1y
+├ ○ /pt/kpop-true-or-false                                        1m      1y
+├ ○ /pt/leaderboard                                               5m      1y
+├ ○ /pt/quizzes                                                  10m      1y
+├ ○ /pt/stats                                                     6h      1y
+├ ● /q/[slug]                                                     1h      1y
+│ ├ /q/fx-death-note-basics-rules-and-creators                    1h      1y
+│ ├ /q/fx-death-note-true-or-false                                1h      1y
+│ ├ /q/fx-guess-the-death-note-character                          1h      1y
+│ └ [+162 more paths]
+├ ƒ /quiz/[id]/edit
+├ ƒ /quizzes
+├ ○ /quizzes/popular-this-month                                   1h      1y
+├ ○ /quizzes/popular-this-week                                    1h      1y
+├ ○ /quizzes/popular-today                                       30m      1y
+├ ○ /robots.txt
+├ ƒ /s/[code]
+├ ƒ /search
+├ ○ /settings
+├ ○ /sitemap.xml                                                  1h      1y
+├ ƒ /sites/[site]
+├ ƒ /sites/[site]/[...rest]
+├ ● /sites/[site]/[slug]                                          1h      1y
+│ ├ /sites/hub/anime-mix-quiz                                     1h      1y
+│ ├ /sites/hub/apothecary-diaries-quiz                            1m      1y
+│ ├ /sites/hub/apothecary-diaries-trivia                          1h      1y
+│ └ [+58 more paths]
+├ ● /sites/[site]/about                                           6h      1y
+│ └ /sites/hub/about                                              6h      1y
+├ ƒ /sites/[site]/admin
+├ ƒ /sites/[site]/admin/quiz/[id]/edit
+├ ƒ /sites/[site]/admin/quiz/search
+├ ƒ /sites/[site]/admin/review
+├ ● /sites/[site]/blindtest                                       1h      1y
+│ └ /sites/hub/blindtest                                          1h      1y
+├ ● /sites/[site]/blindtest/[mode]                               10m      1y
+│ ├ /sites/hub/blindtest/classic                                 10m      1y
+│ ├ /sites/hub/blindtest/intro-challenge                         10m      1y
+│ ├ /sites/hub/blindtest/verse-only                              10m      1y
+│ └ [+15 more paths]
+├ ● /sites/[site]/community                                       1m      1y
+│ └ /sites/hub/community                                          1m      1y
+├ ƒ /sites/[site]/community/[kind]/[id]
+├ ● /sites/[site]/contact
+│ └ /sites/hub/contact
+├ ƒ /sites/[site]/create
+├ ƒ /sites/[site]/daily
+├ ● /sites/[site]/directory                                       1m      1y
+│ └ /sites/hub/directory                                          1m      1y
+├ ● /sites/[site]/dmca
+│ └ /sites/hub/dmca
+├ ● /sites/[site]/editorial-policy
+│ └ /sites/hub/editorial-policy
+├ ● /sites/[site]/faq
+│ └ /sites/hub/faq
+├ ● /sites/[site]/leaderboard                                     5m      1y
+│ └ /sites/hub/leaderboard                                        5m      1y
+├ ● /sites/[site]/login
+│ └ /sites/hub/login
+├ ƒ /sites/[site]/me
+├ ● /sites/[site]/most-liked                                     10m      1y
+│ └ /sites/hub/most-liked                                        10m      1y
+├ ƒ /sites/[site]/name-all/[group]
+├ ● /sites/[site]/new                                             5m      1y
+│ └ /sites/hub/new                                                5m      1y
+├ ƒ /sites/[site]/notifications
+├ ● /sites/[site]/onboarding
+│ └ /sites/hub/onboarding
+├ ● /sites/[site]/opening-of-the-day
+│ └ /sites/hub/opening-of-the-day
+├ ƒ /sites/[site]/passport
+├ ● /sites/[site]/privacy
+│ └ /sites/hub/privacy
+├ ● /sites/[site]/q/[slug]                                        1h      1y
+│ ├ /sites/hub/q/fx-death-note-basics-rules-and-creators          1h      1y
+│ ├ /sites/hub/q/fx-death-note-true-or-false                      1h      1y
+│ ├ /sites/hub/q/fx-guess-the-death-note-character                1h      1y
+│ └ [+162 more paths]
+├ ƒ /sites/[site]/quizzes
+├ ● /sites/[site]/quizzes/popular-this-month                      1h      1y
+│ └ /sites/hub/quizzes/popular-this-month                         1h      1y
+├ ● /sites/[site]/quizzes/popular-this-week                       1h      1y
+│ └ /sites/hub/quizzes/popular-this-week                          1h      1y
+├ ● /sites/[site]/quizzes/popular-today                          30m      1y
+│ └ /sites/hub/quizzes/popular-today                             30m      1y
+├ ● /sites/[site]/robots.txt
+│ └ /sites/hub/robots.txt
+├ ƒ /sites/[site]/search
+├ ● /sites/[site]/series                                          1h      1y
+│ └ /sites/hub/series                                             1h      1y
+├ ƒ /sites/[site]/settings
+├ ƒ /sites/[site]/sitemap.xml
+├ ● /sites/[site]/terms
+│ └ /sites/hub/terms
+├ ● /sites/[site]/trending                                       10m      1y
+│ └ /sites/hub/trending                                          10m      1y
+├ ● /sites/[site]/trivia                                         10m      1y
+│ └ /sites/hub/trivia                                            10m      1y
+├ ƒ /sites/[site]/u/[username]
+├ ● /sites/[site]/which-character/[group]
+├ ○ /stats                                                        1h      1y
+├ ○ /terms
+├ ○ /trending                                                    10m      1y
+├ ○ /trivia                                                      10m      1y
+├ ● /u/[username]
+├ ○ /ux-v1/kit                                                    1h      1y
+├ ○ /ux-v1/kit/focus
+├ ƒ /verse
+├ ƒ /verse/[slug]
+├ ƒ /verse/[slug]/[pageSlug]
+├ ƒ /verse/[slug]/[pageSlug]/edit
+├ ƒ /verse/[slug]/about
+├ ƒ /verse/[slug]/albums/[album]
+├ ƒ /verse/[slug]/awards
+├ ƒ /verse/[slug]/build
+├ ƒ /verse/[slug]/changes
+├ ƒ /verse/[slug]/collectibles
+├ ƒ /verse/[slug]/community
+├ ƒ /verse/[slug]/community/[thread]
+├ ƒ /verse/[slug]/content
+├ ƒ /verse/[slug]/create
+├ ƒ /verse/[slug]/curate
+├ ƒ /verse/[slug]/discography
+├ ƒ /verse/[slug]/essays
+├ ƒ /verse/[slug]/essays/[id]
+├ ƒ /verse/[slug]/essays/write
+├ ƒ /verse/[slug]/insights
+├ ƒ /verse/[slug]/members
+├ ƒ /verse/[slug]/members/[idol]
+├ ƒ /verse/[slug]/menu
+├ ƒ /verse/[slug]/new
+├ ƒ /verse/[slug]/ost
+├ ƒ /verse/[slug]/ost/[id]
+├ ƒ /verse/[slug]/patrol
+├ ƒ /verse/[slug]/photocards
+├ ƒ /verse/[slug]/photocards/[card]
+├ ƒ /verse/[slug]/quests
+├ ƒ /verse/[slug]/random
+├ ƒ /verse/[slug]/shows
+├ ƒ /verse/[slug]/shows/[id]
+├ ƒ /verse/[slug]/songs
+├ ƒ /verse/[slug]/songs/[id]
+├ ƒ /verse/[slug]/studio
+├ ƒ /verse/[slug]/tag/[key]
+├ ƒ /verse/[slug]/timeline
+├ ƒ /verse/[slug]/tours
+├ ƒ /verse/[slug]/tours/[id]
+├ ƒ /verse/[slug]/wiki
+├ ƒ /verse/[slug]/wiki/[pageSlug]
+├ ƒ /verse/[slug]/wiki/[pageSlug]/edit
+├ ƒ /verse/[slug]/wiki/new
+├ ○ /verse/community                                              5m      1y
+├ ƒ /verse/me
+├ ƒ /verse/name/[term]
+├ ƒ /verse/notifications
+├ ○ /verse/promises
+├ ƒ /verse/random
+├ ƒ /verse/tag/[tag]
+├ ○ /verse/tags                                                   1h      1y
+└ ƒ /verse/u/[username]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

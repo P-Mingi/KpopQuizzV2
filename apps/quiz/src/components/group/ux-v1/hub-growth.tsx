@@ -5,6 +5,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
 import {
+  KPOP_GROWTH_WORDS,
   HUB_QUIZZES_ID,
   firstSignals,
   fansPickedTitle,
@@ -13,6 +14,8 @@ import {
   waysToPlay,
 } from '@/lib/ux-v1/p3/growth';
 import { getHubGrowth } from '@/lib/ux-v1/p3/growth-data';
+
+import type { GrowthWords } from '@/lib/ux-v1/p3/growth';
 
 import { HubFansPickedLoader } from './loader';
 
@@ -24,6 +27,8 @@ interface HubGrowthProps {
   songs: number;
   /** The v11 quizzes list, exactly as the v11 hub renders it (null on an empty hub). */
   children: React.ReactNode;
+  /** Run O1: the words of another site (HubSlots.growthWords). Absent: today's kpop words, the tree as it was. */
+  words?: GrowthWords;
 }
 
 /**
@@ -36,12 +41,12 @@ interface HubGrowthProps {
  * component: every block is in the HTML. Additions only: the H1, intro, FAQ,
  * JSON-LD and every v11 link are hub.tsx's and do not pass through here.
  */
-export async function HubGrowth({ group: g, published, songs, children }: HubGrowthProps): Promise<React.ReactElement> {
+export async function HubGrowth({ group: g, published, songs, children, words = KPOP_GROWTH_WORDS }: HubGrowthProps): Promise<React.ReactElement> {
   const d = await getHubGrowth(g, published, songs);
-  const tiles = waysToPlay(d.ways);
+  const tiles = waysToPlay(d.ways, words);
   const nudge = thinNudge({ slug: g.slug, name: g.name, fandom: g.fandom_name, quizzes: published, plays: d.recentPlays });
   const empty = published <= 0;
-  const templates = empty ? hubTemplates(g.slug) : [];
+  const templates = empty ? hubTemplates(g.slug, words) : [];
   const picked = d.fansPicked;
 
   return (
@@ -53,7 +58,7 @@ export async function HubGrowth({ group: g, published, songs, children }: HubGro
             <h2 id="g8-first-h">No {g.name} quiz yet. Be the first.</h2>
             <p>The first {g.name} quiz opens this page for every fan who searches for one.</p>
             <ul>
-              {firstSignals({ name: g.name, songs, btPlays: d.btPlays }).map((s) => (
+              {firstSignals({ name: g.name, songs, btPlays: d.btPlays }, words).map((s) => (
                 <li key={s.text}><Icon name={s.icon} /><span>{s.text}</span></li>
               ))}
             </ul>
