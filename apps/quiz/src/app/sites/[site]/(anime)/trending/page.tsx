@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'Trending anime Quizzes',
-  description: 'The most popular anime quizzes right now. Play trending quizzes about BTS, BLACKPINK, Stray Kids, and more - created by real fans.',
+  description: 'The most popular anime quizzes right now. Play trending quizzes about your favourite series, and more, created by real fans.',
   openGraph: {
     title: 'Trending anime Quizzes | OtakuQuiz',
     description: 'The most popular anime quizzes right now.',

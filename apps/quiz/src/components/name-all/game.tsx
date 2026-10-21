@@ -11,6 +11,7 @@ import { getAnonId } from '@/lib/anon-id';
 import { matchName } from '@/lib/name-all/match';
 import { ROUND_SECONDS, formatSeconds, resultHeadline } from '@/lib/name-all/round';
 
+import type { NameAllWords } from '@/lib/name-all/words';
 import type { NameAllMember } from '@/lib/name-all/match';
 import type { NameAllStats, RoundPayload } from '@/lib/name-all/round';
 
@@ -32,7 +33,19 @@ interface Props {
   stats: NameAllStats | null;
   /** The public path of this page ("/stray-kids-name-all-members"). */
   path: string;
+  /** Run O1: the words of another site. Absent: today's kpop words. */
+  words?: Pick<NameAllWords, 'member' | 'members' | 'origin' | 'host' | 'acceptedIntro'>;
 }
+
+// Run O1: today's kpop words, written here so that the kpop page imports exactly what it imported before (lib/name-all/words.ts only
+// holds the type, and is not imported at run time: a new module in the graph of the page moved its client references and head tags).
+const KPOP_WORDS: Pick<NameAllWords, 'member' | 'members' | 'origin' | 'host' | 'acceptedIntro'> = {
+  member: 'member',
+  members: 'members',
+  host: 'kpopquiz.org',
+  origin: 'https://kpopquiz.org',
+  acceptedIntro: 'Stage names, real names and Hangul all count',
+};
 
 const RING_R = 36;
 const RING_C = 2 * Math.PI * RING_R;
@@ -50,9 +63,9 @@ function Ring({ left }: { left: number }): React.ReactElement {
   );
 }
 
-export function NameAllGame({ group, members, stats, path }: Props): React.ReactElement {
+export function NameAllGame({ group, members, stats, path, words = KPOP_WORDS }: Props): React.ReactElement {
   const total = members.length;
-  const what = `${total} ${group.name} members`;
+  const what = `${total} ${group.name} ${words.members}`;
   const [phase, setPhase] = useState<Phase>('intro');
   const [left, setLeft] = useState(ROUND_SECONDS);
   /** Display names, in the order they were found. */
@@ -61,7 +74,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
   const [last, setLast] = useState<string | null>(null);
   const [end, setEnd] = useState<{ seconds: number; gaveUp: boolean } | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
-  const [origin, setOrigin] = useState('https://kpopquiz.org');
+  const [origin, setOrigin] = useState(words.origin);
   const announce = useAnnounce();
   const toast = useUxToast();
   const input = useRef<HTMLInputElement>(null);
@@ -153,7 +166,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
       <div>
         <span className="ux-kicker"><Icon name="clock" />Name them all</span>
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
-        {intro ? <p>{ROUND_SECONDS} seconds. Type a name and press Enter. Stage names, real names and Hangul all count, and one typo is fine.</p> : null}
+        {intro ? <p>{ROUND_SECONDS}{` seconds. Type a name and press Enter. ${words.acceptedIntro}, and one typo is fine.`}</p> : null}
       </div>
       {phase === 'end' ? null : <Ring left={phase === 'intro' ? ROUND_SECONDS : left} />}
     </div>
@@ -190,7 +203,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
             autoCorrect="off"
             spellCheck={false}
             enterKeyHint="enter"
-            placeholder="Type a member"
+            placeholder={`Type a ${words.member}`}
             onKeyDown={(e) => { if (e.key === 'Enter' && e.nativeEvent.isComposing) e.preventDefault(); }}
           />
           <UxButton size="lg" type="submit">Enter</UxButton>
@@ -201,7 +214,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
             <b data-testid="nta-count">{found.length}</b> of {total} · <button type="button" className="ux-lnk" onClick={() => finish(true)}>Give up</button>
           </span>
         </div>
-        <ol className="ux-nta-grid" aria-label={`${group.name} members, in line-up order`}>
+        <ol className="ux-nta-grid" aria-label={`${group.name} ${words.members}, in line-up order`}>
           {members.map((m, i) => {
             const isFound = found.includes(m.name);
             return (
@@ -220,10 +233,10 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
 
   const n = found.length;
   const time = formatSeconds(end?.seconds ?? ROUND_SECONDS);
-  const line1 = `${n}/${total} ${group.name} members`;
+  const line1 = `${n}/${total} ${group.name} ${words.members}`;
   const line2 = `Named in ${time}`;
   const url = `${origin}${path}`;
-  const storyFile = (): Promise<File | null> => storyCardFile({ image: null, line1, line2, kicker: 'Name them all', cta: 'Play at kpopquiz.org', gradient: STORY_KIT_GRADIENT }).catch(() => null);
+  const storyFile = (): Promise<File | null> => storyCardFile({ image: null, line1, line2, kicker: 'Name them all', cta: `Play at ${words.host}`, gradient: STORY_KIT_GRADIENT }).catch(() => null);
   const saveStory = async (): Promise<void> => {
     const file = await storyFile();
     if (!file) { toast('Could not make the story image'); return; }
@@ -239,7 +252,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
     <div className="ux-nta" data-testid="nta" data-state="end">
       {head(resultHeadline(n, total))}
       <div className="ux-nta-res">
-        <ol className="ux-nta-grid is-two" aria-label={`${group.name} members`}>
+        <ol className="ux-nta-grid is-two" aria-label={`${group.name} ${words.members}`}>
           {members.map((m, i) => {
             const isFound = found.includes(m.name);
             return (
@@ -286,7 +299,7 @@ export function NameAllGame({ group, members, stats, path }: Props): React.React
         title="Share your round"
         preview={{ line1, line2 }}
         url={url}
-        text={`I named ${n} of ${total} ${group.name} members in ${time}. Your turn.`}
+        text={`I named ${n} of ${total} ${group.name} ${words.members} in ${time}. Your turn.`}
         onStoryImage={saveStory}
         storyFile={storyFile}
       />

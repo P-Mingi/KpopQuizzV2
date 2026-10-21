@@ -1,6 +1,7 @@
 // The optional slots of the group hub (hub.tsx). A site that is not kpop fills them from its own page (rule 18: one
 // hub component, a prop for each difference); with none given the hub renders exactly today's kpop page. Types only.
 
+import type { GrowthWords } from '@/lib/ux-v1/p3/growth';
 import type { ReactNode } from 'react';
 
 /** One section of the quizzes list when it is grouped (a series: one section per arc, spoiler-free first). */
@@ -65,6 +66,8 @@ export interface HubSlots {
   readonly main?: ReactNode;
   readonly faqs: readonly HubFaqSlot[];
   readonly related: readonly HubRelatedSlot[];
+  /** The words of the growth blocks (ways to play, "be the first", templates). Default: today's kpop words. */
+  readonly growthWords?: GrowthWords | undefined;
   readonly labels: {
     readonly faq: string;
     readonly community: string;

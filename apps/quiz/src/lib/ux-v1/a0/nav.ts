@@ -2,6 +2,8 @@
 // server-rendered nav, the tab bar and the tests agree on one route map. Every
 // item is a real <a href> (16.5): crawlers and keyboards see the real paths.
 
+import { SITE } from '@/lib/site/registry';
+import { isKnownRouteFor } from '@/lib/site/routing';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { UxIconName } from './icons';
@@ -24,6 +26,23 @@ export const NAV_ITEMS: NavItem<NavKey>[] = [
   { key: 'community', label: 'Community', href: '/community', icon: 'msg' },
   { key: 'leaderboard', label: 'Leaderboard', href: '/leaderboard', icon: 'trophy' },
 ];
+
+// Run O1: the top bar of another site names its own topic (Series) and shows only the doors the site has: the feature is on
+// and the route map of the site knows the path. On kpop it is NAV_ITEMS itself, the same array, as today.
+const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
+  home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards',
+};
+
+export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
+  if (site.id === 'kpop') return NAV_ITEMS;
+  const topic = site.vocabulary.topicPlural;
+  return NAV_ITEMS
+    .map((it) => (it.key === 'groups' ? { ...it, label: topic.charAt(0).toUpperCase() + topic.slice(1), href: '/series' } : it))
+    .filter((it) => {
+      const f = NAV_FEATURE[it.key];
+      return (f === null || site.features[f]) && isKnownRouteFor(site.id, it.href, { v1: true, v12: true });
+    });
+}
 
 export const TAB_ITEMS: NavItem<TabKey>[] = [
   { key: 'home', label: 'Home', href: '/', icon: 'home' },
@@ -78,7 +97,7 @@ export function activeNav(pathname: string, v12: boolean = isUxV12()): NavKey | 
     if (s) return s;
   }
   if (under(p, '/quizzes') || under(p, '/q')) return 'quizzes';
-  if (under(p, '/groups') || under(p, '/group') || isHub(p)) return 'groups';
+  if (under(p, '/groups') || under(p, '/group') || under(p, '/series') || isHub(p)) return 'groups';
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community')) return 'community';
   if (under(p, '/leaderboard')) return 'leaderboard';

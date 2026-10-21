@@ -8,6 +8,17 @@ import { whichMemberPath } from '@/lib/personality/view';
 
 import type { NameAllStats } from '@/lib/name-all/round';
 import type { NameAllSet } from '@/lib/name-all/server';
+import type { NameAllWords } from '@/lib/name-all/words';
+
+// Run O1: today's kpop words, written here so that the kpop page imports exactly what it imported before (lib/name-all/words.ts only
+// holds the type, and is not imported at run time: a new module in the graph of the page moved its client references and head tags).
+const KPOP_WORDS: Pick<NameAllWords, 'member' | 'members' | 'topic' | 'brand' | 'acceptedAbout'> = {
+  member: 'member',
+  members: 'members',
+  topic: 'group',
+  brand: 'KpopQuiz',
+  acceptedAbout: 'Stage names, birth names and Hangul are all accepted',
+};
 
 // The server-rendered part of a Name them all page, below the game (owner, 2026-10-13:
 // SEO). The game is a client island whose HTML holds a title, a sentence and eight "?"
@@ -28,6 +39,8 @@ export interface NameAllAboutProps {
   blindtestSlugs: readonly string[];
   /** Display names by slug, for the other Name them all pages; a slug without one is left out. */
   names: ReadonlyMap<string, string>;
+  /** Run O1: the words of another site. Absent: today's kpop words. */
+  words?: Pick<NameAllWords, 'member' | 'members' | 'topic' | 'brand' | 'acceptedAbout'>;
 }
 
 /** The spellings shown beside a member: the other accepted answers, the display name first removed. */
@@ -44,35 +57,34 @@ export function shownSpellings(name: string, spellings: readonly string[], max =
   return out;
 }
 
-export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names }: NameAllAboutProps): React.ReactElement {
+export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names, words = KPOP_WORDS }: NameAllAboutProps): React.ReactElement {
   const { group, members } = set;
   const n = members.length;
   const links: Array<{ href: string; label: string }> = [{ href: `/${group.slug}-quiz`, label: `${group.name} quizzes` }];
   if (blindtestSlugs.includes(group.slug)) links.push({ href: `/blindtest/group-${group.slug}`, label: `${group.name} blind test` });
-  if (wmaSlugs.includes(group.slug)) links.push({ href: whichMemberPath(group.slug), label: `Which ${group.name} member are you?` });
+  if (wmaSlugs.includes(group.slug)) links.push({ href: whichMemberPath(group.slug), label: `Which ${group.name} ${words.member} are you?` });
   const others = NAME_ALL_GROUPS.filter((s) => s !== group.slug && names.has(s));
 
   return (
     <>
       <section className="ux-sec" aria-labelledby="nta-how-h">
-        <SectionHeader id="nta-how-h" title={`How to play the ${group.name} member quiz`} icon="clock" />
+        <SectionHeader id="nta-how-h" title={`How to play the ${group.name} ${words.member} quiz`} icon="clock" />
         <div className="g3-prose">
           <p>
-            {group.name} has {n} members. Start the clock and type each name you remember, then press Enter: you have {ROUND_SECONDS} seconds to name all {n}.
-            Stage names, birth names and Hangul are all accepted, and one typo is forgiven on a name of five letters or more. Give up at any time to see who you missed.
+            {group.name} has {n}{` ${words.members}. Start the clock and type each name you remember, then press Enter: you have `}{ROUND_SECONDS} seconds to name all {n}{`. ${words.acceptedAbout}, and one typo is forgiven on a name of five letters or more. Give up at any time to see who you missed.`}
           </p>
           {stats ? (
             <p data-testid="nta-stats">
               Fans have played {stats.rounds.toLocaleString('en-US')} rounds of this quiz.
-              {stats.perfectPct !== null ? ` ${stats.perfectPct}% of them named all ${n} members.` : null}
-              {stats.namedFirst ? ` ${stats.namedFirst} is the member named first most often.` : null}
+              {stats.perfectPct !== null ? ` ${stats.perfectPct}% of them named all ${n} ${words.members}.` : null}
+              {stats.namedFirst ? ` ${stats.namedFirst} is the ${words.member} named first most often.` : null}
             </p>
           ) : null}
         </div>
       </section>
 
       <section className="ux-sec" aria-labelledby="nta-ans-h">
-        <SectionHeader id="nta-ans-h" title={`The ${n} ${group.name} members`} icon="users" />
+        <SectionHeader id="nta-ans-h" title={`The ${n} ${group.name} ${words.members}`} icon="users" />
         <details className="g3-acc">
           <summary>Show the answers<Icon name="chev" /></summary>
           <ol className="g3-lineup">
@@ -90,7 +102,7 @@ export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names }: Na
       </section>
 
       <section className="ux-sec" aria-labelledby="nta-more-h">
-        <SectionHeader id="nta-more-h" title={`More ${group.name} on KpopQuiz`} icon="layers" />
+        <SectionHeader id="nta-more-h" title={`More ${group.name} on ${words.brand}`} icon="layers" />
         <ul className="g3-links">
           {links.map((l) => <li key={l.href}><Link href={l.href} className="ux-lnk">{l.label}</Link></li>)}
         </ul>
@@ -98,9 +110,9 @@ export function NameAllAbout({ set, stats, wmaSlugs, blindtestSlugs, names }: Na
 
       {others.length > 0 ? (
         <section className="ux-sec" aria-labelledby="nta-other-h">
-          <SectionHeader id="nta-other-h" title="Name the members of another group" icon="clock" />
+          <SectionHeader id="nta-other-h" title={`Name the ${words.members} of another ${words.topic}`} icon="clock" />
           <ul className="g3-links">
-            {others.map((s) => <li key={s}><Link href={prettyPath(s)} className="ux-lnk">Name all {names.get(s)} members</Link></li>)}
+            {others.map((s) => <li key={s}><Link href={prettyPath(s)} className="ux-lnk">Name all {names.get(s)}{` ${words.members}`}</Link></li>)}
           </ul>
         </section>
       ) : null}
