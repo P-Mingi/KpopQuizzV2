@@ -1,23 +1,44 @@
-DIFFERENT (bytes)  /  status 200/200  raw bytes 115030/115030  normalised 113580/113580  js chunks 13/13
-  node 1333
-    A: self.__next_f.push([1,"3d:[\"$\",\"i\",null,{}]\n3e:[\"$\",\"i\",null,{}]\n3f:[\"$\",\"span\",null,{\"className\":\"ux-qpl\",\"children\":\"74 plays\"}]\n40:[\"$\",\"$L17\",\"e01b9dbc-4dc5-463d-bec7-f07eb76f618d\",{\"href\":\"/q/this-is-only-for-true-gllits-2\",\"className\":\"ux-qcard\",\"children\
-    B: self.__next_f.push([1,"4d:T577,"])</script>
+DIFFERENT (bytes)  /  status 200/200  raw bytes 115032/114989  normalised 113582/113539  js chunks 13/13
   node 1335
     A: self.__next_f.push([1,"\":\"ux-qpl\",\"children\":\"29 plays\"}]]}]]}]]}]\n45:[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"EXO-FunFacts\"}],[\"$\",\"span\",null,{\"className\":\"ux-rs\",\"children\":\"EXO · Classic · M
-    B: self.__next_f.push([1,"{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\"},{\"@t
+    B: self.__next_f.push([1,"\":\"ux-qpl\",\"children\":\"29 plays\"}]]}]]}]]}]\n45:[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"EXO-FunFacts\"}],[\"$\",\"span\",null,{\"className\":\"ux-rs\",\"children\":\"EXO · Classic · M
   node 1337
     A: self.__next_f.push([1,"4d:T577,"])</script>
-    B: self.__next_f.push([1,"22:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"$4d\"}}]\n"])</script>
+    B: self.__next_f.push([1,"{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\"},{\"@t
   node 1339
     A: self.__next_f.push([1,"{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\"},{\"@t
-    B: self.__next_f.push([1,"3d:[\"$\",\"i\",null,{}]\n3e:[\"$\",\"i\",null,{}]\n3f:[\"$\",\"span\",null,{\"className\":\"ux-qpl\",\"children\":\"74 plays\"}]\n40:[\"$\",\"$L17\",\"e01b9dbc-4dc5-463d-bec7-f07eb76f618d\",{\"href\":\"/q/this-is-only-for-true-gllits-2\",\"className\":\"ux-qcard\",\"children\
+    B: self.__next_f.push([1,"22:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"$4d\"}}]\n"])</script>
+  node 1340
+    A: <script>
+    B: </body>
   node 1341
     A: self.__next_f.push([1,"22:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"$4d\"}}]\n"])</script>
-    B: self.__next_f.push([1,"\":\"ux-qpl\",\"children\":\"29 plays\"}]]}]]}]]}]\n45:[\"$\",\"span\",null,{\"className\":\"ux-row-grow\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-rt\",\"children\":\"EXO-FunFacts\"}],[\"$\",\"span\",null,{\"className\":\"ux-rs\",\"children\":\"EXO · Classic · M
+    B: </html>
+  node 1342
+    A: </body>
+    B: 
 IDENTICAL (bytes)  /quizzes  status 200/200  raw bytes 199873/199873  normalised 198727/198727  js chunks 13/13
 IDENTICAL (bytes)  /groups  status 200/200  raw bytes 224492/224492  normalised 223406/223406  js chunks 13/13
 IDENTICAL (bytes)  /trending  status 200/200  raw bytes 58393/58393  normalised 57333/57333  js chunks 13/13
-IDENTICAL (bytes)  /bts-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+DIFFERENT (bytes)  /bts-quiz  status 500/200  raw bytes 21/130718  normalised 21/129554  js chunks 0/13
+  node 0
+    A: Internal Server Error
+    B: <!DOCTYPE html>
+  node 1
+    A: 
+    B: <html lang="en" class="pretendard_60cdc229-module__<h>
+  node 2
+    A: 
+    B: __variable inter_7773d004-module__<h>
+  node 3
+    A: 
+    B: __variable ux-v1">
+  node 4
+    A: 
+    B: <head>
+  node 5
+    A: 
+    B: <meta charSet="utf-8"/>
 DIFFERENT (bytes)  /blackpink-quiz  status 200/200  raw bytes 123115/123072  normalised 121951/121908  js chunks 13/13
   node 1887
     A: self.__next_f.push([1,"2d:[\"$\",\"details\",\"Are the BLACKPINK quizzes free?\",{\"className\":\"p3-acc\",\"open\":false,\"children\":[[\"$\",\"summary\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"p3-acc-q\",\"children\":\"Are the BLACKPINK quizzes free?\"}],[\"$\",\"svg\",null,{\"clas
@@ -150,25 +171,7 @@ IDENTICAL (bytes)  /q/k-pop-company-quiz-match-the-group-to-the-label  status 20
 IDENTICAL (bytes)  /blindtest  status 200/200  raw bytes 115134/115134  normalised 113502/113502  js chunks 14/14
 IDENTICAL (bytes)  /blindtest/classic  status 200/200  raw bytes 54334/54334  normalised 53183/53183  js chunks 13/13
 IDENTICAL (bytes)  /blindtest/intro-challenge  status 200/200  raw bytes 54530/54530  normalised 53379/53379  js chunks 13/13
-DIFFERENT (bytes)  /blindtest/group-bts  status 200/200  raw bytes 52576/52576  normalised 51373/51373  js chunks 13/13
-  node 787
-    A: self.__next_f.push([1,"23:I[662633,[\"static/chunks/<asset>
-    B: self.__next_f.push([1,"23:I[364645,[\"static/chunks/<asset>
-  node 789
-    A: .js\"],\"IconMark\"]\n1d:null\n"])</script>
-    B: .js\",\"static/chunks/<asset>
-  node 790
-    A: <script>
-    B: .js\",\"static/chunks/<asset>
-  node 791
-    A: self.__next_f.push([1,"22:[[\"$\",\"title\",\"0\",{\"children\":\"BTS Blind Test: Guess the Song | KpopQuiz\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Guess the BTS song from a ten-second clip: 20 songs in the pool, ten rounds a game. Free, no sign-up, and you can play it live
-    B: .js\"],\"BtModeControllerLoader\"]\n24:I[364645,[\"static/chunks/<asset>
-  node 792
-    A: <script>
-    B: .js\",\"static/chunks/<asset>
-  node 793
-    A: self.__next_f.push([1,"24:I[364645,[\"static/chunks/<asset>
-    B: .js\",\"static/chunks/<asset>
+IDENTICAL (bytes)  /blindtest/group-bts  status 200/200  raw bytes 52576/52576  normalised 51373/51373  js chunks 13/13
 IDENTICAL (bytes)  /guess-the-kpop-song  status 200/200  raw bytes 56440/56440  normalised 55237/55237  js chunks 13/13
 IDENTICAL (bytes)  /pt  status 200/200  raw bytes 117385/117385  normalised 116052/116052  js chunks 14/14
 IDENTICAL (bytes)  /pt/blindtest  status 200/200  raw bytes 66005/66005  normalised 64776/64776  js chunks 15/15
@@ -180,25 +183,7 @@ IDENTICAL (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 57100/
 IDENTICAL (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 56809/56809  normalised 55606/55606  js chunks 13/13
 IDENTICAL (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 69400/69400  normalised 68366/68366  js chunks 13/13
 IDENTICAL (bytes)  /kpop-true-or-false  status 200/200  raw bytes 100196/100196  normalised 99162/99162  js chunks 13/13
-DIFFERENT (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 33778/57826  normalised 32757/56753  js chunks 13/13
-  node 194
-    A: <div class="text-center py-12">
-    B: <div class="space-y-3">
-  node 195
-    A: <p class="text-sm text-secondary mb-3">
-    B: <a class="ux-qcard" href="/q/skz-true-or-false-only-real-stays-pass">
-  node 196
-    A: No easy quizzes yet.</p>
-    B: <div class="ux-qcov">
-  node 197
-    A: <a class="inline-block px-5 py-2.5 rounded-full bg-btn text-white text-sm font-medium" href="/create">
-    B: <img alt="" loading="lazy" decoding="async" data-nimg="fill" class="ux-qcov-img" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;object-position:72% 28%;color:transparent" sizes="(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px" srcSet="/_next/image?url=%2Fidols
-  node 198
-    A: Create the first one</a>
-    B: </div>
-  node 199
-    A: </div>
-    B: <div class="ux-qb">
+IDENTICAL (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 57826/57826  normalised 56753/56753  js chunks 13/13
 IDENTICAL (bytes)  /hard-kpop-quizzes  status 200/200  raw bytes 55486/55486  normalised 54413/54413  js chunks 13/13
 IDENTICAL (bytes)  /kpop-quiz-2026  status 200/200  raw bytes 164773/164773  normalised 163739/163739  js chunks 13/13
 IDENTICAL (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 42874/42874  normalised 41788/41788  js chunks 13/13
@@ -221,32 +206,44 @@ DIFFERENT (bytes)  /which-bts-member-are-you  status 200/200  raw bytes 62243/62
   node 752
     A: self.__next_f.push([1,"26:[\"$\",\"section\",null,{\"className\":\"ux-sec\",\"aria-labelledby\":\"pers-other-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"pers-other-h\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico ux-si\",\
     B: self.__next_f.push([1,"22:[[\"$\",\"title\",\"0\",{\"children\":\"Which BTS member are you? Personality quiz | KpopQuiz\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Eight questions about you, no right answers, no timer. Find out which BTS member matches how you move through life
-IDENTICAL (bytes)  /bts-name-all-members  status 200/200  raw bytes 50542/50542  normalised 49552/49552  js chunks 13/13
+DIFFERENT (bytes)  /bts-name-all-members  status 200/200  raw bytes 50542/50456  normalised 49552/49466  js chunks 13/13
+  node 52
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <meta name="next-size-adjust" content=""/>
+  node 53
+    A: <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)"/>
+    B: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+  node 54
+    A: <meta name="color-scheme" content="light dark"/>
+    B: <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)"/>
+  node 55
+    A: <meta name="next-size-adjust" content=""/>
+    B: <meta name="color-scheme" content="light dark"/>
+  node 724
+    A: .js\"],\"MetadataBoundary\"]\n:HL[\"static/chunks/<asset>
+    B: .js\"],\"MetadataBoundary\"]\n1c:I[133617,[\"static/chunks/<asset>
+  node 725
+    A: .css\",\"style\"]\n:HL[\"static/chunks/<asset>
+    B: .js\",\"static/chunks/<asset>
 IDENTICAL (bytes)  /about  status 200/200  raw bytes 52248/52248  normalised 51175/51175  js chunks 13/13
 IDENTICAL (bytes)  /editorial-policy  status 200/200  raw bytes 52600/52600  normalised 51618/51618  js chunks 12/12
 IDENTICAL (bytes)  /privacy  status 200/200  raw bytes 46727/46727  normalised 45745/45745  js chunks 12/12
 IDENTICAL (bytes)  /terms  status 200/200  raw bytes 43434/43434  normalised 42452/42452  js chunks 12/12
 IDENTICAL (bytes)  /faq  status 200/200  raw bytes 58950/58950  normalised 57968/57968  js chunks 12/12
 IDENTICAL (bytes)  /contact  status 200/200  raw bytes 33426/33426  normalised 32444/32444  js chunks 12/12
-DIFFERENT (bytes)  /leaderboard  status 200/200  raw bytes 177781/223941  normalised 176383/222543  js chunks 13/13
-  node 1763
-    A: </div>
-    B: <section class="ux-panel p9-panel">
-  node 1764
-    A: </section>
-    B: <h3 class="ux-panel-h">
-  node 1765
-    A: </div>
-    B: <span>
-  node 1766
-    A: <!--$-->
-    B: <span class="p9-live" aria-hidden="true">
-  node 1767
-    A: <!--/$-->
-    B: </span>
-  node 1768
-    A: </main>
-    B: Happening now</span>
+DIFFERENT (bytes)  /leaderboard  status 200/200  raw bytes 223933/223925  normalised 222535/222527  js chunks 13/13
+  node 1834
+    A: just now</span>
+    B: 1h ago</span>
+  node 2196
+    A: just now</span>
+    B: 1h ago</span>
+  node 2624
+    A: self.__next_f.push([1,"54:[\"$\",\"$L64\",null,{}]\n55:[\"$\",\"p\",null,{\"className\":\"g8-lb-creators\",\"children\":[\"$\",\"$L19\",null,{\"href\":\"/creators\",\"className\":\"ux-lnk\",\"children\":[\"See the full creators board\",[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 
+    B: self.__next_f.push([1,"54:[\"$\",\"$L64\",null,{}]\n55:[\"$\",\"p\",null,{\"className\":\"g8-lb-creators\",\"children\":[\"$\",\"$L19\",null,{\"href\":\"/creators\",\"className\":\"ux-lnk\",\"children\":[\"See the full creators board\",[\"$\",\"svg\",null,{\"className\":\"ux-ico\",\"viewBox\":\"0 0 
+  node 2636
+    A: self.__next_f.push([1,"eeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmm\"}],[\"$\",\"span\",null,{\"className\":\"p9-tm\",\"children\":\"after scoring 6/6 · 15d ago\"}]]}]]}]\n68:[\"$\",\"div\",\"80abcdb8-946e-4dd0-9a3e-04520462a535\",{\"className\":\"p9-hn\",\"c
+    B: self.__next_f.push([1,"eeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmm\"}],[\"$\",\"span\",null,{\"className\":\"p9-tm\",\"children\":\"after scoring 6/6 · 15d ago\"}]]}]]}]\n68:[\"$\",\"div\",\"80abcdb8-946e-4dd0-9a3e-04520462a535\",{\"className\":\"p9-hn\",\"c
 IDENTICAL (bytes)  /articles  status 200/200  raw bytes 97747/97747  normalised 96765/96765  js chunks 12/12
 IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
 IDENTICAL (bytes)  /an-unknown-o1-parity-path  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
