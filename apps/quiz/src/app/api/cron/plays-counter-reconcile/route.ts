@@ -1,4 +1,4 @@
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 
@@ -17,11 +17,13 @@ import type { NextRequest } from 'next/server';
  */
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
 
   if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
 
   const supabase = createServiceRoleClient();
   const { data, error } = await supabase.rpc('reconcile_quiz_counters');

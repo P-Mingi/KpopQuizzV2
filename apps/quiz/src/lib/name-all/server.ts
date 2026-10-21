@@ -12,6 +12,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { legacyRows, parseRawStats, publicStats, roundRows } from './round';
@@ -37,7 +38,7 @@ export interface NameAllSet {
 
 async function readSet(slug: string): Promise<NameAllSet | null> {
   const db = createPublicReadClient();
-  const { data: group, error: gErr } = await db.from('groups').select('id, slug, name, fandom_name').eq('slug', slug).maybeSingle();
+  const { data: group, error: gErr } = await forSite(db.from('groups').select('id, slug, name, fandom_name')).eq('slug', slug).maybeSingle();
   // ISR fail-closed: an error must not be cached as "this group has no page".
   if (gErr) throw new Error(`name-all ${slug}: group read: ${gErr.message}`);
   if (!group) return null;

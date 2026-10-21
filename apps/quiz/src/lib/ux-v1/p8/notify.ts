@@ -16,6 +16,7 @@
 
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
+import { withSite } from '@/lib/site/scope';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
@@ -98,10 +99,10 @@ export async function notifyCommunity(n: CommunityNotice): Promise<void> {
         return;
       }
       const sources = [source];
-      const { error } = await svc.from('creator_notifications').insert({
+      const { error } = await svc.from('creator_notifications').insert(withSite({
         user_id: n.recipient, type: n.type, title: titleOf(n.type, sources), body: source.excerpt,
         link_url: n.link, sender_id: n.actor, group_key: n.groupKey, sources,
-      });
+      }));
       if (!error || error.code !== '23505') return;
     }
   } catch (err) {

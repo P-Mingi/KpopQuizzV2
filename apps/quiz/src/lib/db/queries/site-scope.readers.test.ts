@@ -143,3 +143,58 @@ describe('blind test and trivia readers', () => {
     await judge(() => import('./related-quizzes'), (m) => m.getRelatedQuizzes(['a-group', 'b-group']), ['quizzes']);
   });
 });
+
+// Run O1, C2 fix B1: the "load more" source of InfiniteQuizList reads quizzes through forSite on both sites.
+describe('GET /api/quizzes and /api/quizzes/count (C2 B1)', () => {
+  const R = () => import('@/app/api/quizzes/route');
+  const C = async () => {
+    vi.stubEnv('NEXT_PUBLIC_UX_V1', '1'); // the count route answers 404 with the redesign flag off
+    return import('@/app/api/quizzes/count/route');
+  };
+  const req = (qs: string) => new Request(`https://x.test/api/quizzes?${qs}`) as unknown as import('next/server').NextRequest;
+  const cases: Array<[string, string]> = [
+    ['trending (the default tab)', 'tab=trending&offset=10&limit=10'],
+    ['new with every filter', 'tab=new&group_id=3&quiz_type=true_false&language=en&offset=0&limit=5'],
+    ['most_liked', 'tab=most_liked'],
+    ['all', 'tab=all'],
+  ];
+  for (const [name, qs] of cases) {
+    it(`/api/quizzes ${name}`, async () => { await judge(R, (m) => m.GET(req(qs)), ['quizzes']); });
+  }
+  it('/api/quizzes/count', async () => { await judge(C, (m) => m.GET(), ['quizzes']); });
+});
+
+// Run O1, C2 fix S1: the slug-keyed readers of the anime twins of /name-all/[group] and /which-character/[group] read
+// the group (and the profile rows) through forSite, so a kpop group is never served under the anime brand. The idol rows
+// are keyed by the scoped group's id and stay as they are.
+describe('name-all and personality group reads (C2 S1)', () => {
+  const SCOPED = ['groups', 'personality_profiles'];
+  async function readers(config: Config, load: () => Promise<unknown>, go: (m: never) => Promise<unknown>): Promise<string[]> {
+    const sent = await run(config, load as () => Promise<never>, go);
+    return sent.filter((u) => SCOPED.some((t) => u.startsWith(`/rest/v1/${t}?`)));
+  }
+  const judgeGroups = async (load: () => Promise<unknown>, go: (m: never) => Promise<unknown>): Promise<void> => {
+    const off = await readers('kpop-off', load, go);
+    const on = await readers('kpop-on', load, go);
+    const anime = await readers('anime', load, go);
+    expect(off.length, 'a scoped table is read').toBeGreaterThan(0);
+    expect(off.filter((u) => SITE_FILTER.test(u)), 'SITE_SCOPE off on kpop: today\'s requests').toEqual([]);
+    expect(on.length).toBe(off.length);
+    expect(anime.length).toBe(off.length);
+    on.forEach((u, i) => {
+      expect(u).toContain('site_id=eq.kpop');
+      expect(u.replace(/&site_id=eq\.kpop/, '')).toBe(off[i]);
+    });
+    anime.forEach((u) => expect(u).toContain('site_id=eq.anime'));
+  };
+  const N = () => import('@/lib/name-all/server');
+  const P = () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'http://127.0.0.1:9'); // the personality reader answers its fallback without a database env
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'o1-fake-anon-key');
+    return import('@/lib/personality/data');
+  };
+  it('getNameAllSet (the group row)', async () => { await judgeGroups(N, ((m: Awaited<ReturnType<typeof N>>) => m.getNameAllSet('bts')) as never); });
+  it('getWmaData (the group row and its profiles)', async () => { await judgeGroups(P, ((m: Awaited<ReturnType<typeof P>>) => m.getWmaData('bts')) as never); });
+  it('getWmaGroupSlugs (the profile rows behind the slug list)', async () => { await judgeGroups(P, ((m: Awaited<ReturnType<typeof P>>) => m.getWmaGroupSlugs()) as never); });
+  it('getBridgeGroups (the bridge group rows)', async () => { await judgeGroups(P, ((m: Awaited<ReturnType<typeof P>>) => m.getBridgeGroups()) as never); });
+});

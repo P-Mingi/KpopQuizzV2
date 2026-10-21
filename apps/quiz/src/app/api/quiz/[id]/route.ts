@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { spoilerColumnsFor } from '@/lib/quiz/site-insert';
+import { SITE_ID } from '@/lib/site/registry';
 import { createServerClient } from '@/lib/supabase/server';
 import { validateQuestions } from '@/lib/quiz-validation';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
@@ -108,6 +110,10 @@ export async function PUT(
     }
   }
 
+  // An edit changes the questions, so a world build recomputes the spoiler level from their tags (as create does,
+  // never from the client). kpopquiz.org has no such columns to write: its update payload stays as it is.
+  const spoilerLevel = SITE_ID === 'kpop' ? {} : await spoilerColumnsFor(supabase, input.group_id as number, input.questions);
+
   // Update - do NOT change slug
   const { error: updateError } = await supabase
     .from('quizzes')
@@ -119,6 +125,7 @@ export async function PUT(
       questions: input.questions,
       settings: input.settings,
       cover_image_url: coverImageUrl,
+      ...spoilerLevel,
       updated_at: new Date().toISOString(),
     })
     .eq('id', id);

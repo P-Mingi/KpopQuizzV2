@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { getEditorialLive } from '@/lib/editorial/live';
+import { withSite } from '@/lib/site/scope';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 import { tableLive } from '@/lib/ux-v1/p8/features';
@@ -121,7 +122,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (hit?.action === 'block') return NextResponse.json({ error: 'blocked_term' }, { status: 422 });
 
   const { data, error } = await svc.from('community_replies')
-    .insert({ target_type: r.type, target_id: r.targetId, parent_id: r.parentId, ...(r.parentVote ? { parent_vote: r.parentVote } : {}), author: user.id, body: r.body, status: 'visible' })
+    .insert(withSite({ target_type: r.type, target_id: r.targetId, parent_id: r.parentId, ...(r.parentVote ? { parent_vote: r.parentVote } : {}), author: user.id, body: r.body, status: 'visible' }))
     .select('id').single();
   if (error) return NextResponse.json({ error: 'post_failed' }, { status: 500 });
   const id = (data as { id: number }).id;
