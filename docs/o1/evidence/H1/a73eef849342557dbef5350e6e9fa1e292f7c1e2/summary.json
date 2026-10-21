@@ -1,0 +1,71 @@
+{
+  "lane": "H1",
+  "sha": "a73eef849342557dbef5350e6e9fa1e292f7c1e2",
+  "tree": "776408602e96b86b8690ee7bdbf068ed24d0f8fd",
+  "base": "99b4c12a7fc53af9634e87ff007005b223f85853",
+  "green": false,
+  "touchesKpop": true,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/H1/a73eef849342557dbef5350e6e9fa1e292f7c1e2",
+  "failures": "twins: FAIL copy apps/quiz/src/components/passport-ui/world-settings.tsx: shares a block with apps/quiz/src/components/layout/ux-v1/ux-appearance-setting.tsx: 8 meaningful lines at 71-81 (from 10-21); import the shared component, or ask its owner for a prop FAIL missing-import apps/quiz/src/app/sites/[site; ",
+  "sites": [
+    "kpop",
+    "hub"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-21T08:35:41Z",
+  "ended": "2026-10-21T08:52:51Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "twins",
+      "rc": "1",
+      "seconds": 12
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 42
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 14
+    },
+    {
+      "name": "build-hub",
+      "rc": "0",
+      "seconds": 275
+    },
+    {
+      "name": "parity",
+      "rc": "0",
+      "seconds": 659
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}

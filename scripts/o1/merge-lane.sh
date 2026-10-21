@@ -38,6 +38,8 @@ fi
 abort() { "$G" merge --abort >/dev/null 2>&1; out false red "$sha" "$1"; }
 ( cd apps/quiz && ./node_modules/.bin/tsc --noEmit -p tsconfig.json --incremental false ) > "$LOG/merge-tsc.log" 2>&1 || abort "tsc on the merged tree: $(grep -m3 'error TS' "$LOG/merge-tsc.log" | tr '\n' ' ')"
 ( cd apps/quiz && ./node_modules/.bin/vitest run --testTimeout=30000 ) > "$LOG/merge-unit.log" 2>&1 || abort "unit tests on the merged tree: $(tail -5 "$LOG/merge-unit.log" | tr '\n' ' ')"
+# D-081: rule 18 on the merged tree (a copy of a kpop component once reached o1/integration through a merge that only the gate checked).
+"$O1/scripts/o1/check.sh" "$O1" > "$LOG/merge-twins.log" 2>&1 || abort "twins on the merged tree: $(grep -E 'FAIL|twins:' "$LOG/merge-twins.log" | head -3 | tr '\n' ' ')"
 # D-025: while docs/o1/PARITY-OFFLINE exists, parity builds both sides against the offline Supabase (no production
 # read): KPQ for parity.sh points at a stand-in whose kpop-parity.env holds only offline values.
 parity_kpq() {
