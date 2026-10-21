@@ -530,6 +530,7 @@ export interface ContractTables {
   /** 015-spoilers */
   'public.spoiler_reports': {
     Row: {
+      id: number;
       quiz_id: string;
       reporter_id: string;
       site_id: string;

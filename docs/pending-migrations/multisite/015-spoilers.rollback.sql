@@ -5,6 +5,8 @@
 --         the first version of 015 (spoiler reports in public.reports): there it drops the index reports_spoiler_once and puts
 --         back today's reason_valid (five reasons), copied verbatim from the production schema dump (~/kpq-o1/prod-public.sql,
 --         line 6165).
+--         The table goes whole, whatever its key: the surrogate id and unique (quiz_id, reporter_id) of the current 015 and the
+--         primary key (quiz_id, reporter_id) of an earlier version alike; the refusal counts rows of either shape.
 -- Why:    the rollback of manifest.md row 19, the first rollback of the lot (reverse order: 015, 014, 013, 012, 011, 010, 009).
 -- Rows:   1 table, 2 columns and, on an earlier version, 1 index dropped. Refused, with nothing changed, while a spoiler report
 --         (spoiler_reports, or a row of public.reports with the reason 'spoiler'), a spoiler cover or a thread flair exists (the

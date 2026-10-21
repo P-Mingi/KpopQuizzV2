@@ -7,7 +7,7 @@
 --         quiz until a moderator decides. The cover never unpublishes.
 -- How:    report_spoiler acts on auth.uid() and raises when it is null (no session) or when the quiz is not a published quiz
 --         (a bad argument). It inserts one spoiler_reports row (the quiz's own site_id) and ignores a second report by the same
---         reader (primary key quiz_id, reporter_id; ON CONFLICT DO NOTHING). It returns the number of distinct signed-in reporters
+--         reader (unique spoiler_reports_quiz_reporter_key on quiz_id, reporter_id; ON CONFLICT DO NOTHING). It returns the number of distinct signed-in reporters
 --         whose spoiler reports are still pending. When that number reaches 3 it sets quizzes.spoiler_cover_until, and a repeated
 --         report returns the count unchanged and writes nothing else.
 -- Own table: a spoiler report is NOT a row of public.reports. The trigger on_report_insert (handle_new_report, left as it is) adds 1
@@ -16,7 +16,10 @@
 --         reports elsewhere keeps the trigger path, the reason list of reports (reason_valid) and kpop's report flow untouched.
 --         docs/o1/contracts/schema.sql still lists the reports row, the sixth reason and reports_spoiler_once for this file: a
 --         change request for ORCH (this table replaces them).
--- Rows:   2 new nullable columns, 1 new table; reads reports once, only to move the spoiler rows a first version of this file wrote
+-- Surrogate key: spoiler_reports has id bigint identity as primary key and unique (quiz_id, reporter_id), NOT a primary key on the pair:
+--         a table whose key is (quiz_id, reporter_id) with foreign keys to quizzes and profiles is a many-to-many junction to PostgREST
+--         and makes every quizzes-profiles embed ambiguous (PGRST201). An earlier version of this table is converted in place.
+-- Rows:   2 new nullable columns, 1 new table (an earlier spoiler_reports gains its id column, rows kept); reads reports once, only to move the spoiler rows a first version of this file wrote
 --         there (see "Earlier version"); no other row is written by this file.
 -- Decisions where the contract is silent: the cover lasts 7 days from the moment the third report arrives (it lifts itself if
 --         no moderator acts; it is set again only when the previous cover has ended and the pending count is still 3 or more);
@@ -50,13 +53,28 @@ alter table public.quizzes add column if not exists spoiler_cover_until timestam
 alter table public.verse_threads add column if not exists spoiler_flair smallint constraint verse_threads_spoiler_flair_check check (spoiler_flair >= 0);
 
 create table if not exists public.spoiler_reports (
+  id bigint generated always as identity constraint spoiler_reports_pkey primary key,
   quiz_id uuid not null constraint spoiler_reports_quiz_id_fkey references public.quizzes(id) on delete cascade,
   reporter_id uuid not null constraint spoiler_reports_reporter_id_fkey references public.profiles(id) on delete cascade,
   site_id text not null constraint spoiler_reports_site_id_fkey references public.sites(id),
   status text not null default 'pending' constraint spoiler_reports_status_check check (status in ('pending', 'reviewed', 'resolved', 'dismissed')),
   created_at timestamptz not null default now(),
-  constraint spoiler_reports_pkey primary key (quiz_id, reporter_id)
+  constraint spoiler_reports_quiz_reporter_key unique (quiz_id, reporter_id)
 );
+-- Earlier version of this table (primary key (quiz_id, reporter_id), no id): convert it in place, rows kept. With that key and its two
+-- foreign keys PostgREST read the table as a many-to-many junction between quizzes and profiles and every embed between the two
+-- became ambiguous (PGRST201). A surrogate primary key takes the junction shape away; the pair stays unique.
+do $$
+begin
+  if not exists (select 1 from pg_attribute where attrelid = 'public.spoiler_reports'::regclass and attname = 'id' and not attisdropped) then
+    alter table public.spoiler_reports drop constraint if exists spoiler_reports_pkey;
+    alter table public.spoiler_reports add column id bigint generated always as identity;
+    alter table public.spoiler_reports add constraint spoiler_reports_pkey primary key (id);
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'spoiler_reports_quiz_reporter_key' and conrelid = 'public.spoiler_reports'::regclass) then
+    alter table public.spoiler_reports add constraint spoiler_reports_quiz_reporter_key unique (quiz_id, reporter_id);
+  end if;
+end $$;
 create index if not exists spoiler_reports_quiz_status_idx on public.spoiler_reports (quiz_id, status);
 alter table public.spoiler_reports enable row level security;
 -- (no policy: written by report_spoiler, read by the moderators through the server)
