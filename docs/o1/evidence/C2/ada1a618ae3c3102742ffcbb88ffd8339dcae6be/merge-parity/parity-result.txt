@@ -1,0 +1,128 @@
+# parity verdict, rules q0a-g0-v3, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
+IDENTICAL / status 200/200 css 3
+IDENTICAL /quizzes status 200/200 css 3
+IDENTICAL /groups status 200/200 css 3
+IDENTICAL /trending status 200/200 css 3
+IDENTICAL /bts-quiz status 500/500
+IDENTICAL /blackpink-quiz status 200/200 css 3
+IDENTICAL /stray-kids-quiz status 200/200 css 3
+IDENTICAL /seventeen-quiz status 200/200 css 3
+IDENTICAL /cortis-quiz status 200/200 css 3
+IDENTICAL /twice-quiz status 200/200 css 3
+IDENTICAL /newjeans-quiz status 200/200 css 3
+IDENTICAL /trivia status 200/200 css 3
+IDENTICAL /bts-trivia status 200/200 css 3
+IDENTICAL /blackpink-trivia status 200/200 css 3
+IDENTICAL /q/ultimate-bts-era-quiz-only-real-armys-survive status 200/200 css 3
+IDENTICAL /q/skz-true-or-false-only-real-stays-pass status 200/200 css 3
+IDENTICAL /q/blackpink-ultimate-fan-challenge status 200/200 css 3
+IDENTICAL /q/are-you-a-real-coer status 200/200 css 3
+IDENTICAL /q/illit-fans-here status 200/200 css 3
+IDENTICAL /q/babymonster-quiz status 200/200 css 3
+IDENTICAL /q/le-sserafim-members-and-music-quiz status 200/200 css 3
+IDENTICAL /q/one-for-sones status 200/200 css 3
+IDENTICAL /q/twice-true-or-false status 200/200 css 3
+IDENTICAL /q/how-well-do-you-know-txt status 200/200 css 3
+IDENTICAL /q/enhypen-debut-and-beyond-quiz status 200/200 css 3
+IDENTICAL /q/k-pop-company-quiz-match-the-group-to-the-label status 200/200 css 3
+IDENTICAL /blindtest status 200/200 css 3
+IDENTICAL /blindtest/classic status 200/200 css 3
+IDENTICAL /blindtest/intro-challenge status 200/200 css 3
+DIFFERENT /blindtest/group-bts status 200/200
+  flight row
+    A: 1b:...nd test\",\"item\":\"https://kpopquiz.org/blindtest/group-bts\"}]}"}}],["$","$L24",null,{"preset":{"pick":{"playlist":"bts","label":"BTS","group":"bts"},"count":10,"exact":true},"shareUrl":"https://kpopquiz.org/blindtest/group-bts","challengeLink":true,"className":"g3-theme","children":[["$","nav",n
+    B: 1b:...nd test\",\"item\":\"https://kpopquiz.org/blindtest/group-bts\"}]}"}}],["$","$L23",null,{"preset":{"pick":{"playlist":"bts","label":"BTS","group":"bts"},"count":10,"exact":true},"shareUrl":"https://kpopquiz.org/blindtest/group-bts","challengeLink":true,"className":"g3-theme","children":[["$","nav",n
+  flight row
+    A: 22:...","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L23","26",{}]]
+    B: 22:...","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L35","26",{}]]
+  flight row
+    A: 23:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js"],"IconMark"]
+    B: 23:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtModeControllerLoader"]
+  flight row
+    A: 24:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtModeControllerLoader"]
+    B: 24:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtThemePlayLoader"]
+  flight row
+    A: 25:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtThemePlayLoader"]
+    B: 25:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtModeErrorLoader"]
+  flight row
+    A: 26:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js","static/chunks/<asset>.js"],"BtModeErrorLoader"]
+    B: 26:["$","span",null,{"children":[" · ","ARIRANG, 2026"]}]
+IDENTICAL /guess-the-kpop-song status 200/200 css 3
+IDENTICAL /pt status 200/200 css 3
+IDENTICAL /pt/blindtest status 200/200 css 3
+IDENTICAL /pt/quizzes status 200/200 css 3
+IDENTICAL /pt/faq status 200/200 css 3
+IDENTICAL /pt/leaderboard status 200/200 css 3
+IDENTICAL /fr/blind-test-kpop status 200/200 css 3
+IDENTICAL /es/adivina-la-cancion-kpop status 200/200 css 3
+IDENTICAL /id/tebak-lagu-kpop status 200/200 css 3
+IDENTICAL /guess-the-kpop-idol status 200/200 css 3
+IDENTICAL /kpop-true-or-false status 200/200 css 3
+DIFFERENT /easy-kpop-quizzes status 200/200
+  node 194
+    A: <div class="text-center py-12">
+    B: <div class="space-y-3">
+  node 195
+    A: <p class="text-sm text-secondary mb-3">
+    B: <a class="ux-qcard" href="/q/skz-true-or-false-only-real-stays-pass">
+  node 196
+    A: No easy quizzes yet.</p>
+    B: <div class="ux-qcov">
+  node 197
+    A: <a class="inline-block px-5 py-2.5 rounded-full bg-btn text-white text-sm font-medium" href="/create">
+    B: <img alt="" loading="lazy" decoding="async" data-nimg="fill" class="ux-qcov-img" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;object-position:72% 28%;color:transparent" sizes="(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px" srcSet="/_next/image?url=%2Fidols
+  node 198
+    A: Create the first one</a>
+    B: </div>
+  node 199
+    A: </div>
+    B: <div class="ux-qb">
+IDENTICAL /hard-kpop-quizzes status 200/200 css 3
+IDENTICAL /kpop-quiz-2026 status 200/200 css 3
+IDENTICAL /kpop-demon-hunters-quiz status 200/200 css 3
+DIFFERENT /which-bts-member-are-you status 200/200
+  flight row
+    A: 22:...,"href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L27","27",{}]]
+    B: 22:...,"href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L26","27",{}]]
+  flight row
+    A: 25:...l-members","className":"ux-lnk","children":"Name all BTS members"}]}]]}]]}],"$L26"]
+    B: 25:...l-members","className":"ux-lnk","children":"Name all BTS members"}]}]]}]]}],"$L27"]
+  flight row
+    A: 26:["$","section",null,{"className":"ux-sec","aria-labelledby":"pers-other-h","children":[["$","div",null,{"className":"ux-sec-h","children":[["$","h2",null,{"id":"pers-other-h","children":[["$","svg",null,{"className":"ux-ico ux-si","viewBox":"0 0 24 24","style":"$undefined","aria-hidden":true,"rol
+    B: 26:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js"],"IconMark"]
+  flight row
+    A: 27:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js"],"IconMark"]
+    B: 27:["$","section",null,{"className":"ux-sec","aria-labelledby":"pers-other-h","children":[["$","div",null,{"className":"ux-sec-h","children":[["$","h2",null,{"id":"pers-other-h","children":[["$","svg",null,{"className":"ux-ico ux-si","viewBox":"0 0 24 24","style":"$undefined","aria-hidden":true,"rol
+IDENTICAL /bts-name-all-members status 200/200 css 3
+IDENTICAL /about status 200/200 css 3
+IDENTICAL /editorial-policy status 200/200 css 3
+IDENTICAL /privacy status 200/200 css 3
+IDENTICAL /terms status 200/200 css 3
+IDENTICAL /faq status 200/200 css 3
+IDENTICAL /contact status 200/200 css 3
+DIFFERENT /leaderboard status 200/200
+  node 1763
+    A: </div>
+    B: <section class="ux-panel p9-panel">
+  node 1764
+    A: </section>
+    B: <h3 class="ux-panel-h">
+  node 1765
+    A: </div>
+    B: <span>
+  node 1766
+    A: <!--$-->
+    B: <span class="p9-live" aria-hidden="true">
+  node 1767
+    A: <!--/$-->
+    B: </span>
+  node 1768
+    A: </main>
+    B: Happening now</span>
+IDENTICAL /articles status 200/200 css 3
+IDENTICAL /daily status 307/307
+IDENTICAL /an-unknown-o1-parity-path status 500/500
+IDENTICAL /sitemap.xml status 200/200
+IDENTICAL /robots.txt status 200/200
+IDENTICAL /llms.txt status 200/200
+identical: false (4 of 60 pages differ)
