@@ -12,6 +12,7 @@ import { getAnonId } from '@/lib/anon-id';
 import { completeDaily } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { haptic } from '@/lib/haptics';
+import { SITE } from '@/lib/site/registry';
 import { playCorrect, playShare, playTap, playWrong } from '@/lib/sounds';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 import { challengeOutcome, parseChallengeParam } from '@/lib/ux-v1/p4/challenge';
@@ -83,7 +84,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   const [extras, setExtras] = useState<RunExtras>({ playId: null, relaxed: false, saved: false, outcome: null });
   const [share, setShare] = useState<ShareKind | null>(null);
   const [challengeUrl, setChallengeUrl] = useState<string | null>(null);
-  const [shareUrl, setShareUrl] = useState<string>(() => `${process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org'}/q/${quiz.slug}`);
+  const [shareUrl, setShareUrl] = useState<string>(() => `${(SITE.id === 'kpop' ? process.env.NEXT_PUBLIC_SITE_URL : undefined) || SITE.url}/q/${quiz.slug}`);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [claimed, setClaimed] = useState(false);
   const [rank, setRank] = useState<{ rank: number; total: number } | null>(null);
@@ -458,7 +459,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   // POST /api/share/generate payload), else the page URL with the same UTM fallback.
   useEffect(() => {
     if (!share) return;
-    const base = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org'}/q/${quiz.slug}`;
+    const base = `${(SITE.id === 'kpop' ? process.env.NEXT_PUBLIC_SITE_URL : undefined) || SITE.url}/q/${quiz.slug}`;
     setShareUrl(`${base}?utm_source=link&utm_medium=social&utm_campaign=quiz_share`);
     if (signedIn !== true) return;
     let cancelled = false;

@@ -50,7 +50,7 @@ function SeriesRow({ row }: { row: DirectoryGroup }): React.ReactElement {
         />
         <span className="gdir-text">
           <span className="gdir-name">{group.name}</span>
-          <span className="gdir-meta">
+          <span className="gdir-meta anime-c1-quiet">
             {quizzes} {quizzes === 1 ? 'quiz' : 'quizzes'}
             {group.total_plays > 0 && <> · {formatCount(group.total_plays)} plays</>}
           </span>
@@ -83,7 +83,7 @@ export default async function SeriesDirectoryPage(): Promise<React.ReactElement>
 
   return (
     <div className="gdir">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'All series' }]} />
+      <div className="anime-c1-crumbs"><Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'All series' }]} /></div>
 
       <header className="gdir-head">
         <h1 className="gdir-title">All anime series</h1>

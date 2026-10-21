@@ -52,6 +52,24 @@ export const TAB_ITEMS: NavItem<TabKey>[] = [
   { key: 'you', label: 'You', href: '/profile', icon: 'user' },
 ];
 
+// Run C1: the mobile tab bar of another site shows only the doors the site has, like the top bar above. On kpop it is TAB_ITEMS
+// itself, the same array, as today. "You" goes to the site's own passport page: /me on anime, /passport on the hub.
+const TAB_FEATURE: Record<TabKey, keyof typeof SITE.features | null> = {
+  home: null, quizzes: 'quizzes', blindtest: 'blindTest', community: 'community', you: null,
+};
+const YOU_HREF: Record<'anime' | 'hub', string> = { anime: '/me', hub: '/passport' };
+
+export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
+  if (site.id === 'kpop') return TAB_ITEMS;
+  const id = site.id;
+  return TAB_ITEMS
+    .map((it) => (it.key === 'you' ? { ...it, href: YOU_HREF[id] } : it))
+    .filter((it) => {
+      const f = TAB_FEATURE[it.key];
+      return (f === null || site.features[f]) && isKnownRouteFor(site.id, it.href, { v1: true, v12: true });
+    });
+}
+
 const under = (p: string, base: string): boolean => p === base || p.startsWith(`${base}/`);
 /** Group hubs are generated slugs: /bts-quiz, /twice-trivia (route-allowlist rule). */
 const isHub = (p: string): boolean => /^\/[^/]+-(quiz|trivia)\/?$/.test(p);
@@ -115,7 +133,7 @@ export function activeTab(pathname: string, v12: boolean = isUxV12()): TabKey | 
   if (under(p, '/quizzes') || under(p, '/q') || under(p, '/groups') || under(p, '/group') || isHub(p)) return 'quizzes';
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community') || under(p, '/leaderboard')) return 'community';
-  if (under(p, '/profile') || under(p, '/me') || under(p, '/u') || under(p, '/settings') || under(p, '/notifications')) return 'you';
+  if (under(p, '/profile') || under(p, '/passport') || under(p, '/me') || under(p, '/u') || under(p, '/settings') || under(p, '/notifications')) return 'you';
   return null;
 }
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { createBrowserClient } from '@/lib/supabase/client';
+import { SITE } from '@/lib/site/registry';
 import { isAdmin } from '@/lib/admin';
 
 interface Props {
@@ -79,6 +80,7 @@ export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactEleme
       <div className="quiz-owner-actions-row">
         {role === 'owner' && (
           <>
+            {SITE.id === 'kpop' ? (
             <a
               href={`/quiz/${quizId}/edit`}
               className="quiz-owner-btn"
@@ -87,6 +89,7 @@ export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactEleme
             >
               Edit quiz
             </a>
+            ) : null}
             <button
               type="button"
               className="quiz-owner-btn danger"

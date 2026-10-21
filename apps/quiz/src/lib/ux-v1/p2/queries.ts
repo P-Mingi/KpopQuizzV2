@@ -37,7 +37,7 @@ interface RawFacetRow {
 
 /**
  * One small row per published quiz, with the SAME inner joins as the live card
- * query (groups!inner, profiles!inner), so every count here is a count of quizzes
+ * query (groups!inner, profiles!quizzes_creator_id_fkey!inner), so every count here is a count of quizzes
  * the grid can show. Paginated past the 1000-row PostgREST cap (fetchAllRows), in
  * a stable order.
  */
@@ -45,7 +45,7 @@ async function fetchFacetRows(): Promise<P2FacetRow[]> {
   const supabase = createPublicReadClient();
   const rows = await fetchAllRows<RawFacetRow>(() => forSite(supabase
     .from('quizzes')
-    .select('id, quiz_type, difficulty, language, created_at, play_count, total_score_sum, total_completions, question_count, groups!inner (slug, name), profiles!inner (username)'))
+    .select('id, quiz_type, difficulty, language, created_at, play_count, total_score_sum, total_completions, question_count, groups!inner (slug, name), profiles!quizzes_creator_id_fkey!inner (username)'))
     .eq('status', 'published')
     .order('id', { ascending: true }));
   return rows

@@ -13,6 +13,8 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
+import { SITE } from '@/lib/site/registry';
+import { isKnownRouteFor } from '@/lib/site/routing';
 import { isPlainClick } from '@/lib/ux-v1/a0/nav';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { localDraftCount, MY_QUIZZES_HREF, samePageHash } from '@/lib/ux-v1/a0/my-quizzes';
@@ -198,6 +200,10 @@ function Account({ profile, accountExtra }: { profile: MeProfile; accountExtra?:
  * to /search: link-set rule). Once hydrated a plain click opens the overlay
  * instead; modified clicks (new tab) and visitors without JS reach the page.
  */
+// Run C1: a site whose route map has no /search or /create page (the hub) does not show the door; kpop always does, as today.
+const SHOWS_SEARCH = SITE.id === 'kpop' || isKnownRouteFor(SITE.id, '/search', { v1: true, v12: true });
+const SHOWS_CREATE = SITE.id === 'kpop' || isKnownRouteFor(SITE.id, '/create', { v1: true, v12: true });
+
 export function UxNavActions({ accountExtra }: { accountExtra?: AccountExtra } = {}): React.ReactElement {
   const me = useUxMe();
   const openSearch = useUxSearch();
@@ -206,6 +212,7 @@ export function UxNavActions({ accountExtra }: { accountExtra?: AccountExtra } =
 
   return (
     <div className="ux-nav-r">
+      {SHOWS_SEARCH && (
       <Link
         href="/search"
         prefetch={false}
@@ -216,8 +223,9 @@ export function UxNavActions({ accountExtra }: { accountExtra?: AccountExtra } =
       >
         <Icon name="search" size="sm" />
       </Link>
+      )}
       {/* the label is its own span so a0.css can show Create as its round icon, name kept, where a streak pill needs the room (901 to 959px) */}
-      <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" /><span className="ux-nav-create-t">Create</span></Link>
+      {SHOWS_CREATE && <Link href="/create" className="ux-btn ux-btn-ghost ux-nav-create"><Icon name="plus" /><span className="ux-nav-create-t">Create</span></Link>}
       {profile ? (
         <>
           <StreakPill profile={profile} />

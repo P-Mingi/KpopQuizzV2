@@ -34,8 +34,8 @@ export type StoryFormat = 'story' | 'square';
 export const STORY_W = 1080;
 export const STORY_H = 1920;
 export const STORY_SQUARE_H = 1080;
-export const STORY_FILE_NAME = 'kpopquiz-story.png';
-export const STORY_SQUARE_FILE_NAME = 'kpopquiz-square.png';
+export const STORY_FILE_NAME = `${SITE.domain.split('.')[0]}-story.png`;
+export const STORY_SQUARE_FILE_NAME = `${SITE.domain.split('.')[0]}-square.png`;
 /** The share kit's default ground (prototype `#kit-story`). */
 export const STORY_KIT_GRADIENT = ['#C93868', '#6B4FD8'] as const;
 
@@ -164,7 +164,7 @@ export async function renderStoryCard(card: StoryCard): Promise<Blob | null> {
   ctx.textAlign = 'left';
   ctx.fillStyle = 'rgba(255,255,255,.88)';
   ctx.font = `600 40px ${font}`;
-  ctx.fillText('KPOPQUIZ', PAD, PAD);
+  ctx.fillText(SITE.brand.name.toUpperCase(), PAD, PAD);
   if (card.tag) {
     ctx.textAlign = 'right';
     ctx.fillText(card.tag.toUpperCase(), W - PAD, PAD);

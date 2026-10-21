@@ -97,7 +97,8 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
         </section>
       ) : null}
 
-      <BlindtestBand fans={band.fans} date={band.date} />
+      {/* Run C1: the daily blindtest band (songs, /blindtest/leaderboard) is a kpop feature; anime has no daily blindtest. */}
+      {SITE.features.dailyBlindTest ? <BlindtestBand fans={band.fans} date={band.date} /> : null}
 
       {/* Always rendered: besides the rows it carries the live home's Discord links. */}
       <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">
