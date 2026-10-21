@@ -83,6 +83,7 @@ docs/*
 !docs/o1/
 !docs/design/
 !docs/anime/
+!docs/launch/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
 !docs/COWORK-HANDOFF.md
