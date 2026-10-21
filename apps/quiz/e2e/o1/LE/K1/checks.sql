@@ -316,7 +316,8 @@ select pg_temp.chk('015 report_spoiler is for authenticated (anon refused); reas
   and (select pg_get_constraintdef(oid) not like '%spoiler%' from pg_constraint where conname = 'reason_valid' and conrelid = 'public.reports'::regclass)
   and to_regclass('public.reports_spoiler_once') is null
   and (select relrowsecurity from pg_class where oid = 'public.spoiler_reports'::regclass)
-  and (select pg_get_constraintdef(oid) = 'PRIMARY KEY (quiz_id, reporter_id)' from pg_constraint where conname = 'spoiler_reports_pkey'));
+  and (select pg_get_constraintdef(oid) = 'UNIQUE (quiz_id, reporter_id)' from pg_constraint where conname = 'spoiler_reports_quiz_reporter_key')
+  and (select pg_get_constraintdef(oid) = 'PRIMARY KEY (id)' from pg_constraint where conname = 'spoiler_reports_pkey'));
 insert into public.quizzes (id, creator_id, group_id, title, slug, questions, status)
 select md5('chk-k1-kpop-quiz')::uuid, pg_temp.uid(1), g.id, 'Chk K1 kpop quiz', 'chk-k1-kpop-quiz', '[1, 2, 3]'::jsonb, 'published' from g where slug = 'chk-k1-kpop';
 insert into rs_out values ('kpop u6', pg_temp.as_role('authenticated', pg_temp.uid(6), $q$select public.report_spoiler(md5('chk-k1-kpop-quiz')::uuid)::text$q$));

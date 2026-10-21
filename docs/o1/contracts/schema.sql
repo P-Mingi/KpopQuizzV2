@@ -822,13 +822,15 @@ alter table public.verse_threads add column spoiler_flair smallint constraint ve
 -- Spoiler reports live in their own table (D-073, owner phase 2): public.reports, its reason list and the handle_new_report
 -- trigger path stay as today, so a spoiler report never counts toward report_count.
 create table public.spoiler_reports (
+  id bigint generated always as identity constraint spoiler_reports_pkey primary key,
   quiz_id uuid not null constraint spoiler_reports_quiz_id_fkey references public.quizzes(id) on delete cascade,
   reporter_id uuid not null constraint spoiler_reports_reporter_id_fkey references public.profiles(id) on delete cascade,
   site_id text not null constraint spoiler_reports_site_id_fkey references public.sites(id),
   status text not null default 'pending' constraint spoiler_reports_status_check check (status in ('pending', 'reviewed', 'resolved', 'dismissed')),
   created_at timestamptz not null default now(),
-  constraint spoiler_reports_pkey primary key (quiz_id, reporter_id)
+  constraint spoiler_reports_quiz_reporter_key unique (quiz_id, reporter_id)
 );
+-- D-086: a surrogate key, so PostgREST never reads spoiler_reports as a quizzes-profiles junction (ambiguous embeds, PGRST201).
 create index spoiler_reports_quiz_status_idx on public.spoiler_reports (quiz_id, status);
 alter table public.spoiler_reports enable row level security;
 
