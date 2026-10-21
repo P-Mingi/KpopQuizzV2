@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { Icon } from '@/components/ux-v1/icon';
-import { SITE, SITE_ID } from '@/lib/site/registry';
+import { NetFooterLine } from '@/components/network/net-footer-line';
+import { SITE, SITE_ID, flagOn } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 
 import { UxFooterLocale, UxFooterTheme } from './ux-footer-controls';
@@ -27,6 +28,8 @@ type FooterLink = FooterCol['links'][number];
 const F = SITE.features;
 const KPOP = SITE_ID === 'kpop';
 const FLAGS = { v1: true, v12: true } as const;
+// Run O1 (B6): the one anonymous cross-site link (link-allowlist.json "footer"), off unless the flag is on.
+const NET_FOOTER = flagOn(process.env.NEXT_PUBLIC_NET_FOOTER);
 
 /** One internal link: shown when its feature is on and the site's route map has its path. */
 function link(label: string, href: string, feature: boolean = true): FooterLink[] {
@@ -127,6 +130,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
             <Link href="/groups">All groups</Link>
           </div>
         ) : null}
+        {NET_FOOTER ? <NetFooterLine /> : null}
         <div className="ux-fbot">
           <span>{'\u00A9 '}{year}{COPYRIGHT_TAIL}</span>
           <span className="ux-fbot-r">{F.localizedLandings ? <UxFooterLocale /> : null}<UxFooterTheme /></span>

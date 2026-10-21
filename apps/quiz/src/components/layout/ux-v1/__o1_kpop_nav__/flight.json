@@ -1,0 +1,25 @@
+[
+ [
+  "$L",
+  "AccountBody",
+  {
+   "profile": {
+    "username": "fan1",
+    "display_name": "Fan One",
+    "avatar_url": null,
+    "avatar_bg": "#222222",
+    "avatar_text": "#ffffff",
+    "xp": 1200,
+    "daily_streak": 3,
+    "last_daily_date": "2026-10-20"
+   },
+   "close": "$undefined",
+   "onSignOut": "$undefined"
+  }
+ ],
+ [
+  "$L",
+  "UxNavActions",
+  {}
+ ]
+]

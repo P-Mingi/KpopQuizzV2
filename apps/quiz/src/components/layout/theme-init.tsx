@@ -18,6 +18,15 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
  * survives a reload without a visible flash. Renders nothing.
  */
 export function ThemeInit(): null {
+  // Run O1 (B6): with a NET flag on, the via-catcher and the Web Analytics filter load once after hydration (a separate chunk
+  // that a build with the flags off never fetches).
+  useEffect(() => {
+    const on = (v: string | undefined): boolean => v === '1' || v === 'true';
+    if (on(process.env.NEXT_PUBLIC_NET_BEACON) || on(process.env.NEXT_PUBLIC_NET_MENU) || on(process.env.NEXT_PUBLIC_NET_FACTS)) {
+      void import('@/lib/network/boot').then((m) => m.bootNetwork()).catch(() => undefined);
+    }
+  }, []);
+
   useIsomorphicLayoutEffect(() => {
     try {
       const stored = localStorage.getItem('theme');
