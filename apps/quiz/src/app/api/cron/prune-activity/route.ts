@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -13,10 +13,12 @@ export const dynamic = 'force-dynamic';
 
 const RETENTION_DAYS = 30;
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
 
   const cutoff = new Date(Date.now() - RETENTION_DAYS * 86_400_000).toISOString();
   const supabase = createServiceRoleClient();

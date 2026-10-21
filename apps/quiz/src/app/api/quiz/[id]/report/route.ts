@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { withSite } from '@/lib/site/scope';
 import { createServerClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -41,12 +42,12 @@ export async function POST(
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  const { error } = await supabase.from('reports').insert({
+  const { error } = await supabase.from('reports').insert(withSite({
     quiz_id: id,
     reporter_id: user?.id ?? null,
     reason,
     details: typeof details === 'string' ? details.trim() : '',
-  });
+  }));
 
   if (error) {
     console.error('Failed to create report:', error);

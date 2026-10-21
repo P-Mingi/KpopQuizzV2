@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { rankedServiceClient, SupabaseRankedStore } from '@/lib/ranked/db';
 import { RankedNotLiveError, runNightly } from '@/lib/ranked/service';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -20,8 +20,12 @@ import type { NextRequest } from 'next/server';
 // every v11 route answers.
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   const authorized = isCronAuthorized(req);
+  if (authorized) {
+    const skipped = cronForSite(['kpop']);
+    if (skipped) return skipped;
+  }
   if (!UX_V1) {
     return authorized
       ? NextResponse.json({ ok: true, skipped: 'flag_off' })

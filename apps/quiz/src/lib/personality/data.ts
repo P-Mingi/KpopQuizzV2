@@ -14,6 +14,7 @@
 import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { isCategoryGroup, realFandomName } from '@/lib/ux-v1/p3/model';
 
@@ -69,11 +70,11 @@ const readQuestions = unstable_cache(async (): Promise<AxisQuestion[]> => {
 
 const readGroupProfiles = unstable_cache(async (slug: string): Promise<{ group: PersonalityGroup; profiles: WmaProfile[] } | null> => {
   const db = createPublicReadClient();
-  const g = await db.from('groups').select('id, slug, name, fandom_name').eq('slug', slug).maybeSingle();
+  const g = await forSite(db.from('groups').select('id, slug, name, fandom_name')).eq('slug', slug).maybeSingle();
   if (g.error) throw new Error(g.error.message);
   const group = toGroup(g.data);
   if (!group) return null;
-  const p = await db.from('personality_profiles').select('member_name, member_slug, axes, ord')
+  const p = await forSite(db.from('personality_profiles').select('member_name, member_slug, axes, ord'))
     .eq('group_id', group.id).eq('active', true).order('ord').limit(100);
   if (p.error) throw new Error(p.error.message);
   return { group, profiles: parseProfiles(p.data) };
@@ -84,7 +85,7 @@ const readSlugs = unstable_cache(async (): Promise<string[]> => {
   // One row per member: about a hundred rows today. Paged anyway (the 1000-row cap).
   const slugs = new Map<string, number>();
   for (let from = 0; ; from += 1000) {
-    const { data, error } = await db.from('personality_profiles').select('group_id, groups!inner(slug)')
+    const { data, error } = await forSite(db.from('personality_profiles').select('group_id, groups!inner(slug)'))
       .eq('active', true).order('id').range(from, from + 999);
     if (error) throw new Error(error.message);
     const rows = (data ?? []) as unknown as Array<{ groups: { slug?: unknown } | Array<{ slug?: unknown }> | null }>;
@@ -107,7 +108,7 @@ const readCounts = unstable_cache(async (groupId: number): Promise<Record<string
 
 const readBridgeGroups = unstable_cache(async (): Promise<PersonalityGroup[]> => {
   const db = createPublicReadClient();
-  const { data, error } = await db.from('groups').select('id, slug, name, fandom_name').in('slug', BRIDGE_SLUGS);
+  const { data, error } = await forSite(db.from('groups').select('id, slug, name, fandom_name')).in('slug', BRIDGE_SLUGS);
   if (error) throw new Error(error.message);
   return ((data ?? []) as unknown[]).map(toGroup).filter((g): g is PersonalityGroup => g !== null);
 }, ['v12:g5:bridge-groups:v1'], { revalidate: CACHE_TTL.catalog, tags: ['groups'] });

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { forSite } from '@/lib/site/scope';
 import { createServerClient } from '@/lib/supabase/server';
 import { teaserText } from '@/lib/db/queries/quizzes';
 import { avgScorePct } from '@/lib/quiz/scoring';
@@ -51,9 +52,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const supabase = await createServerClient();
 
   try {
-    let query = supabase
+    let query = forSite(supabase
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT))
       .eq('status', 'published');
 
     // Server-side group filter

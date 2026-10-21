@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { liveDeps, liveJson } from '@/lib/live/server';
 import { expireRooms } from '@/lib/live/service';
 import { isUxV12 } from '@/lib/ux-v12';
@@ -17,8 +17,10 @@ import type { NextRequest } from 'next/server';
 // before the SQL is applied it answers 503 not_live.
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   if (!isCronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
   return liveJson(await expireRooms(liveDeps()));
 }

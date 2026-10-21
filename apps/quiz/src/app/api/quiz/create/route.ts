@@ -291,12 +291,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     (input.quiz_type === 'image' || input.quiz_type === 'intruder') &&
     JSON.stringify(input.questions ?? []).includes('/quiz-images/');
   if (coverIsUserUpload || questionsHaveUserImage) {
-    const { error: modError } = await supabase.from('reports').insert({
+    const { error: modError } = await supabase.from('reports').insert(withSite({
       quiz_id: quiz.id,
       reporter_id: null,
       reason: 'other',
       details: '[Auto] User-uploaded image(s) queued for moderation review.',
-    });
+    }));
     if (modError) console.error('Image moderation queue insert failed:', modError.message);
   }
 
