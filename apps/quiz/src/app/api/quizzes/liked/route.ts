@@ -53,7 +53,7 @@ export async function GET(): Promise<NextResponse> {
       quizzes!inner (
         id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url,
         groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-        profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+        profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text)
       )
     `)
     .eq('user_id', user.id)

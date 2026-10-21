@@ -1,0 +1,14 @@
+{
+ "findings": [
+  {
+   "page": "home",
+   "viewport": "desktop",
+   "kind": "dead-link",
+   "detail": "/bts-quiz 404 ; /blackpink-quiz 404 ; /stray-kids-quiz 404 ; /ateez-quiz 404 ; /twice-quiz 404 ; /aespa-quiz 404 ; /newjeans-quiz 404 ; /seventeen-quiz 404",
+   "blocking": false
+  }
+ ],
+ "note": [
+  "tab stops: a:Skip to content > a:KpopQuiz home > a:Home > a:Quizzes > a:Groups > a:Blindtest > a:Community > a:Leaderboard > a:Search > a:Create > button:Sign in > a:Browse K-pop quizzes > a:Create a quiz > a:see where you rank"
+ ]
+}

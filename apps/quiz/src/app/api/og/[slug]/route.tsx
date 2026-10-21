@@ -47,7 +47,7 @@ export async function GET(
   const supabase = await createServerClient();
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('title, question_count, quiz_type, cover_image_url, groups!inner (name, display_color, text_color), profiles!inner (username)')
+    .select('title, question_count, quiz_type, cover_image_url, groups!inner (name, display_color, text_color), profiles!quizzes_creator_id_fkey!inner (username)')
     .eq('slug', slug)
     .eq('status', 'published')
     .single();

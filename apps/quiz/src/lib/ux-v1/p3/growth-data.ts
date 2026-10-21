@@ -91,7 +91,7 @@ interface FirstRow {
 async function readFirst(groupId: number, notIds: readonly string[] | null): Promise<{ id: string; username: string } | null> {
   let q = forSite(createPublicReadClient()
     .from('quizzes')
-    .select('creator_id, profiles!inner(username, banned_at)'))
+    .select('creator_id, profiles!quizzes_creator_id_fkey!inner(username, banned_at)'))
     .eq('status', 'published')
     .eq('group_id', groupId);
   if (notIds && notIds.length) q = q.not('creator_id', 'in', pgList(notIds));

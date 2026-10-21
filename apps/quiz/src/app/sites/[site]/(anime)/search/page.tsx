@@ -31,7 +31,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
 const QUIZ_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url, group_id,
   series!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+  profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
 
 interface RawQuizRow {

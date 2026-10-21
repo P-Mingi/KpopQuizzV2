@@ -17,7 +17,13 @@ import { brandWordmark } from '@/lib/site/brand';
 export function UxBrand({ href = '/', label = `${SITE.brand.name} home` }: { href?: string | null; label?: string }): React.ReactElement {
   const inner = (
     <>
-      <Image src="/mascot/mascot-default.png" alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
+      {SITE.id === 'kpop' ? (
+        <Image src="/mascot/mascot-default.png" alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
+      ) : (
+        // Run C1: the rabbit is the mascot of the kpop site and the brand files of anime and hub (public/brand/<site>/) are not there yet,
+        // so another site shows the letter tile of its wordmark (the tile of DESIGN-SPEC 17.1).
+        <span className="ux-brand-mk" aria-hidden="true">{brandWordmark().head.charAt(0).toUpperCase()}</span>
+      )}
       <span>{brandWordmark().head}<b>{brandWordmark().tail}</b></span>
     </>
   );

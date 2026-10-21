@@ -80,7 +80,7 @@ export async function getTopCreatorsThisWeek(limit: number): Promise<TopCreator[
 
   let q = forSite(supabase
     .from('quizzes')
-    .select('creator_id, play_count, profiles!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)'))
+    .select('creator_id, play_count, profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text, total_quizzes_created, xp, follower_count, name_accent, name_font, pinned_badge_id, avatar_kind, avatar_ref, bias)'))
     .eq('status', 'published')
     .gte('created_at', sevenDaysAgo)
     .order('play_count', { ascending: false })

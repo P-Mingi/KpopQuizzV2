@@ -166,7 +166,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
             Continue with Discord
           </button>)}
 
-          <div className="auth-divider"><span>{words ? words.emailDivider : 'or with email'}</span></div>
+          <div className="auth-divider"><span className={words ? 'anime-c1-quiet hub-c1-quiet' : undefined}>{words ? words.emailDivider : 'or with email'}</span></div>
 
           {emailSent ? (
             <p className="auth-note">
@@ -174,7 +174,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
             </p>
           ) : (
             <form onSubmit={handleEmailLogin}>
-              <label className="field-l" htmlFor="login-email">{words ? words.emailLabel : 'Email'}</label>
+              <label className={words ? 'field-l anime-c1-quiet hub-c1-quiet' : 'field-l'} htmlFor="login-email">{words ? words.emailLabel : 'Email'}</label>
               <input
                 id="login-email"
                 className="auth-inp"
@@ -224,10 +224,16 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
             </>
           )}
 
-          <p className="auth-tos">
+          {words && !words.hasTerms ? (
+            <p className="auth-tos anime-c1-quiet hub-c1-quiet">
+              By continuing you agree to our <a href="/privacy">Privacy Policy</a>.
+            </p>
+          ) : (
+          <p className={words ? 'auth-tos anime-c1-quiet hub-c1-quiet' : 'auth-tos'}>
             By continuing you agree to our <a href="/terms">Terms</a> and{' '}
             <a href="/privacy">Privacy Policy</a>.
           </p>
+          )}
         </div>
       </div>
     </div>

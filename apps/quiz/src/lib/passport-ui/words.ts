@@ -4,6 +4,7 @@
 // function): server components pass it to client components.
 
 import { siteConfig } from '@/lib/site/registry';
+import { isKnownRouteFor } from '@/lib/site/routing';
 
 import { p1, p1Template } from './copy';
 import { fmt } from './fmt';
@@ -96,6 +97,8 @@ export interface SignInWords {
   /** The path the email link lands on (registry auth.emailLanding). */
   readonly emailLanding: string;
   readonly brand: string;
+  /** Run C1: the site has a /terms page (the hub has none, so its agreement line names the privacy policy only). */
+  readonly hasTerms: boolean;
 }
 
 export function signInWords(site: SiteId): SignInWords | undefined {
@@ -125,6 +128,7 @@ export function signInWords(site: SiteId): SignInWords | undefined {
     ],
     emailLanding: siteConfig(site).auth.emailLanding,
     brand: siteConfig(site).brand.name,
+    hasTerms: isKnownRouteFor(site, '/terms', { v1: true, v12: true }),
   };
 }
 
