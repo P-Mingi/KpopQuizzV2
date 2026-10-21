@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 
 import { SITE } from '@/lib/site/registry';
+import { robotsFor } from '@/lib/site/indexing';
 import { isServedSite, siteStaticParams } from '@/lib/site/routing';
 
 import { TopNav } from '@/components/layout/top-nav';
@@ -33,17 +34,18 @@ import { UxShell } from '@/components/layout/ux-v1/ux-shell';
 // Run O1 guard (F0's spike, routes.md): only the build's own site is generated, so nothing under /sites exists on the
 // kpop build, and a direct /sites/... request is a 404 on every build.
 export const dynamicParams = false;
+const NAVIGATION_JSON_LD = siteNavigationJsonLd();
 export function generateStaticParams(): { site: string }[] {
   return siteStaticParams();
 }
-// Staging: closed to crawlers until the launch switch; the root layout's kpop fields are reset.
+// Closed to crawlers until the owner sets NET_INDEXING=1 (lib/site/indexing.ts); the root layout's kpop fields are reset.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { absolute: SITE.brand.name, template: SITE.seo.titleTemplate },
   description: null, keywords: null, authors: null, creator: null, publisher: null,
   openGraph: null, twitter: null, icons: null, manifest: null,
   other: { 'p:domain_verify': [] },
-  robots: { index: false, follow: false },
+  robots: robotsFor(true),
 };
 
 export default async function SiteLayout({ children, params }: { children: React.ReactNode; params: Promise<{ site: string }> }): Promise<React.ReactElement> {
@@ -61,13 +63,15 @@ export default async function SiteLayout({ children, params }: { children: React
           __html: jsonLdString(organizationJsonLdFor()),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          // Main Navigation: the links of the features this site has (lib/site/jsonld.ts).
-          __html: jsonLdString(siteNavigationJsonLd()),
-        }}
-      />
+      {(NAVIGATION_JSON_LD.hasPart as readonly unknown[]).length > 0 ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            // Main Navigation: the links of the features this site has (lib/site/jsonld.ts). The hub has none: no empty element.
+            __html: jsonLdString(NAVIGATION_JSON_LD),
+          }}
+        />
+      ) : null}
       {/* UX v1 shell behind NEXT_PUBLIC_UX_V1. Flag-off renders the EXISTING chrome
           byte-identical; the site-wide JSON-LD above is shared by both, so search
           engines read the same markup either way (contract rule 2). */}

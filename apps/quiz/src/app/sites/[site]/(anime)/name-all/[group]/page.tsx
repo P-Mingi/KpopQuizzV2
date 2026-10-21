@@ -13,6 +13,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { getPlayableGroups, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { groupOgImage } from '@/lib/seo/og';
+import { robotsFor } from '@/lib/site/indexing';
 import { SITE } from '@/lib/site/registry';
 
 import type { NameAllSet } from '@/lib/name-all/server';
@@ -71,7 +72,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     title,
     description,
     alternates: { canonical },
-    robots: pretty ? { index: true, follow: true } : { index: false, follow: true },
+    robots: robotsFor(pretty),
     openGraph: { title, description, url: `${ORIGIN}${canonical}`, type: 'website', images: [groupOgImage(set.group.slug, title)] },
     twitter: { card: 'summary', title, description },
   };

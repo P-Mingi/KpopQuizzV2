@@ -26,6 +26,18 @@ export function siteNavigationJsonLd(site: SiteConfig = SITE): Record<string, un
   };
 }
 
+/** The WebSite of a home that has no search (the hub): its own name and origin. */
+export function websiteJsonLdFor(description: string, site: SiteConfig = SITE): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.brand.name,
+    alternateName: site.seo.organization.alternateName,
+    url: site.url,
+    description,
+  };
+}
+
 /**
  * The Organization of the chrome layout of an anime or hub site: its own name, host, logo and, once the owner names
  * one, contact mailbox. No founder and no profile links: those are kpopquiz.org's (lib/seo/org.ts organizationJsonLd(),

@@ -60,11 +60,11 @@ describe('robotsText and sitemapXml', () => {
 });
 
 describe('sitemapEntriesFor', () => {
-  it('hub: its home and /privacy, no read', async () => {
+  it('hub: its home only (the privacy draft is noindex), no read', async () => {
     const { REGISTRY } = await import('./registry');
     const { sitemapEntriesFor } = await import('./root-files');
     const db = recordingDb();
-    expect((await sitemapEntriesFor(REGISTRY.hub, db)).map((e) => e.path)).toEqual(['/', '/privacy']);
+    expect((await sitemapEntriesFor(REGISTRY.hub, db)).map((e) => e.path)).toEqual(['/']);
     expect(db.queries).toHaveLength(0);
   });
 
@@ -112,14 +112,14 @@ describe('the route handlers', () => {
     expect(await res.text()).toContain('Sitemap: https://fanquiz.org/sitemap.xml');
   });
 
-  it('hub: sitemap.xml lists its home and /privacy on its origin and reads nothing', async () => {
+  it('hub: sitemap.xml lists its home on its origin and reads nothing', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
     state.db = recordingDb();
     const res = await (await sitemapRoute()).GET(req, ctx('hub'));
     const body = await res.text();
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toMatch(/xml/);
-    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fanquiz.org/', 'https://fanquiz.org/privacy']);
+    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fanquiz.org/']);
     expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
   });
 

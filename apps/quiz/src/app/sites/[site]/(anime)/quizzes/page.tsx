@@ -66,7 +66,7 @@ export async function generateMetadata(
 
   return {
     // SEO (owner, 2026-10-14): within 60 characters with the suffix (", Every Group" dropped).
-    title: `anime Quizzes: ${countLabel}Free Fan-Made Tests`,
+    title: `Anime Quizzes: ${countLabel}Free Fan-Made Tests`,
     description:
       `Browse ${countLabel}free anime quizzes made by fans. Filter by series or type, sort by trending, newest, or most played, and test your oshi knowledge now.`,
     openGraph: {
@@ -76,16 +76,7 @@ export async function generateMetadata(
       images: [DEFAULT_OG_IMAGE],
     },
     twitter: { card: 'summary_large_image' },
-    alternates: {
-      canonical,
-      ...(canonical === '/quizzes' ? {
-        languages: {
-          en: '/quizzes',
-          'pt-BR': '/pt/quizzes',
-          'x-default': '/quizzes',
-        },
-      } : {}),
-    },
+    alternates: { canonical },
     ...(isIndexable ? {} : { robots: { index: false, follow: true } }),
   };
 }

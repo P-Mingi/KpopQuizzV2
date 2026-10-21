@@ -17,12 +17,12 @@ import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'anime Trivia and Fun Facts',
+  title: 'Anime Trivia and Fun Facts',
   description:
     'Browse anime trivia and fun facts by series. Surprising facts about the characters, their music, and the records they broke, then test yourself with quizzes.',
   alternates: { canonical: '/trivia' },
   openGraph: {
-    title: 'anime Trivia and Fun Facts | OtakuQuiz',
+    title: 'Anime Trivia and Fun Facts | OtakuQuiz',
     description: 'Surprising anime facts by series that even hardcore fans might not know.',
     url: `${SITE.url}/trivia`,
     siteName: 'OtakuQuiz',
@@ -93,8 +93,8 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
           __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            name: 'anime Trivia and Fun Facts',
-            description: 'anime trivia and fun facts by series on OtakuQuiz.',
+            name: 'Anime Trivia and Fun Facts',
+            description: 'Anime trivia and fun facts by series on OtakuQuiz.',
             url: `${SITE.url}/trivia`,
             mainEntity: {
               '@type': 'ItemList',

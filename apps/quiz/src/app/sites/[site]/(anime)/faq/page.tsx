@@ -9,14 +9,7 @@ export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions',
   description:
     'Answers to common questions about OtakuQuiz: is it free, do you need an account, how to create a anime quiz, which series are covered, the mini-games, and more.',
-  alternates: {
-    canonical: '/faq',
-    languages: {
-      en: '/faq',
-      'pt-BR': '/pt/faq',
-      'x-default': '/faq',
-    },
-  },
+  alternates: { canonical: '/faq' },
   openGraph: {
     title: 'OtakuQuiz FAQ',
     description: 'Everything you need to know about playing and creating anime quizzes on OtakuQuiz.',

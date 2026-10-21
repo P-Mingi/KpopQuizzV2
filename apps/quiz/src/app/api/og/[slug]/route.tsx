@@ -112,8 +112,13 @@ export async function GET(
           {/* Top: brand mark + group/type pills */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${origin}/mascot/mascot-default.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
+              {SITE.id === 'kpop' ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={`${origin}/mascot/mascot-default.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
+              ) : (
+                // The rabbit is the kpop mascot: another site shows the letter tile of its wordmark (C3).
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 60, height: 60, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.22)', fontSize: 34, fontWeight: 800 }}>{SITE.brand.name.charAt(0).toUpperCase()}</div>
+              )}
               <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, letterSpacing: -0.5, textShadow: SHADOW }}>{SITE.brand.name.toLowerCase()}</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
