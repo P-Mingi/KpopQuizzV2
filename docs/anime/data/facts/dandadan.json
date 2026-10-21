@@ -477,7 +477,7 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "A shy and friendless high school boy"
   },
   {
@@ -516,7 +516,7 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "The last survivor of the Sumerian alien race"
   },
   {
@@ -606,5 +606,565 @@
     ],
     "status": "draft",
     "excerpt": "Viz Media"
+  },
+  {
+    "id": "dandadan-momo-ayase-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "momo-ayase"
+    },
+    "field": "name",
+    "value": "Momo Ayase (綾瀬 桃)",
+    "text": "Momo Ayase is a main character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a high school girl who believes in ghosts and the supernatural. This is in part due to the influence of her grandmother"
+  },
+  {
+    "id": "dandadan-ken-takakura-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "ken-takakura"
+    },
+    "field": "name",
+    "value": "Ken Takakura (高倉 健)",
+    "text": "Ken Takakura is a main character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a shy and friendless high school boy who tries to connect with Momo over their shared interests in the supernatural. Momo"
+  },
+  {
+    "id": "dandadan-turbo-granny-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "turbo-granny"
+    },
+    "field": "name",
+    "value": "Turbo Granny (ターボババア)",
+    "text": "Turbo Granny is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a yōkai who takes the form of a cruel, foul-mouthed elderly woman. Turbo Granny used to comfort the spirits of girls who"
+  },
+  {
+    "id": "dandadan-seiko-ayase-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "seiko-ayase"
+    },
+    "field": "name",
+    "value": "Seiko Ayase (綾瀬 星子)",
+    "text": "Seiko Ayase is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a spirit medium and Momo's grandmother, though her youthful appearance suggests she is in her 20s. Despite lacking innate"
+  },
+  {
+    "id": "dandadan-aira-shiratori-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "aira-shiratori"
+    },
+    "field": "name",
+    "value": "Aira Shiratori (白鳥 愛羅)",
+    "text": "Aira Shiratori is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the school idol of Kami High. Although she puts on the appearance of a ditzy and amiable person, she is actually"
+  },
+  {
+    "id": "dandadan-acrobatic-silky-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "acrobatic-silky"
+    },
+    "field": "name",
+    "value": "Acrobatic Silky (アクロバティックさらさら)",
+    "text": "Acrobatic Silky is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a powerful yōkai with immense strength and agility. In life, she was a struggling single mother and"
+  },
+  {
+    "id": "dandadan-alien-serpo-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "alien-serpo"
+    },
+    "field": "name",
+    "value": "Alien Serpo (セルポ星人)",
+    "text": "Alien Serpo is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "are an entirely male alien race who come from Planet Serpo. Due to their race being exclusively all male, the Serpo have"
+  },
+  {
+    "id": "dandadan-jin-enjoji-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "jin-enjoji"
+    },
+    "field": "name",
+    "value": "Jin Enjoji (円城寺 仁)",
+    "text": "Jin Enjoji is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Momo's childhood friend and first crush, until he teased her over Seiko's rituals for her. He goes by the nickname \"Jiji\""
+  },
+  {
+    "id": "dandadan-peeny-weeny-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "peeny-weeny"
+    },
+    "field": "name",
+    "value": "Peeny-Weeny",
+    "text": "Peeny-Weeny is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also called Mr. Mantis Shrimp (シャコさん, Shako-san), is an alien resembling a mantis shrimp with a turtle shell, inspired by"
+  },
+  {
+    "id": "dandadan-evil-eye-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "evil-eye"
+    },
+    "field": "name",
+    "value": "Evil Eye (邪視)",
+    "text": "Evil Eye is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "based on the supernatural curse of the same name, is a vengeful yōkai born from a human sacrifice. His mind-corrupting presence drives"
+  },
+  {
+    "id": "dandadan-kinta-sakata-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "kinta-sakata"
+    },
+    "field": "name",
+    "value": "Kinta Sakata (坂田 金太)",
+    "text": "Kinta Sakata is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Okarun's classmate, a withdrawn but imaginative student fascinated by the supernatural. Though less overt than Okarun"
+  },
+  {
+    "id": "dandadan-rin-sawaki-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "rin-sawaki"
+    },
+    "field": "name",
+    "value": "Rin Sawaki",
+    "text": "Rin Sawaki is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "known as Class Rep (委員長, Iinchō), serves as the strict class representative for Okarun, Kinta, and Vamola's class. Secretly"
+  },
+  {
+    "id": "dandadan-chiquitita-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "chiquitita"
+    },
+    "field": "name",
+    "value": "Chiquitita (チキチータ)",
+    "text": "Chiquitita is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Peeny-Weeny's ailing but cheerful son, having inherited his mother's terminal illness. He grows close to the group through"
+  },
+  {
+    "id": "dandadan-taro-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "taro"
+    },
+    "field": "name",
+    "value": "Taro (太郎)",
+    "text": "Taro is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an anthropomorphized anatomical model that resides at Momo and Okarun's high school. He is madly in love with Hana."
+  },
+  {
+    "id": "dandadan-vamola-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "vamola"
+    },
+    "field": "name",
+    "value": "Vamola (バモラ)",
+    "text": "Vamola is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the last survivor of the Sumerian alien race, having escaped to Earth after her home planet's destruction. Honoring her adoptive"
+  },
+  {
+    "id": "dandadan-ludris-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "ludris"
+    },
+    "field": "name",
+    "value": "Ludris (ルドリス)",
+    "text": "Ludris is a supporting character of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a renowned, all-knowing and powerful alien who is constantly travelling the universe and a chance encounter with him being said to"
+  },
+  {
+    "id": "dandadan-reiko-kashima-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "reiko-kashima"
+    },
+    "field": "name",
+    "value": "Reiko Kashima (カシマレイコ)",
+    "text": "Reiko Kashima is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as the Slit-Mouthed Woman (口裂け女, Kuchisake-onna), is a yōkai that formerly resided in a ruined area in"
+  },
+  {
+    "id": "dandadan-count-saint-germain-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "count-saint-germain"
+    },
+    "field": "name",
+    "value": "Count Saint-Germain (サンジェルマン伯爵)",
+    "text": "Count Saint-Germain is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious collector of the paranormal and occult, with his main goal being to acquire something"
+  },
+  {
+    "id": "dandadan-unji-zuma-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "unji-zuma"
+    },
+    "field": "name",
+    "value": "Unji Zuma (頭間 雲児)",
+    "text": "Unji Zuma is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student at Renjaku High School, and is the leader of a gang of delinquents from other high schools. He lost his family as a"
+  },
+  {
+    "id": "dandadan-kouki-yukishiro-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "kouki-yukishiro"
+    },
+    "field": "name",
+    "value": "Kouki Yukishiro",
+    "text": "Kouki Yukishiro is an antagonist of Dandadan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1374284707",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student who confronted Momo in the school library while Momo was still small from the Danmanra adventure. Although"
   }
 ]

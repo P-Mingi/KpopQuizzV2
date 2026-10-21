@@ -471,7 +471,343 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Usagi Tsukino is the titular protagonist of the series"
+  },
+  {
+    "id": "sailor-moon-usagi-tsukino-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "usagi-tsukino"
+    },
+    "field": "name",
+    "value": "Usagi Tsukino (月野 うさぎ)",
+    "text": "Usagi Tsukino is a main character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the titular protagonist of the"
+  },
+  {
+    "id": "sailor-moon-ami-mizuno-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "ami-mizuno"
+    },
+    "field": "name",
+    "value": "Ami Mizuno (水野 亜美)",
+    "text": "Ami Mizuno is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old bookworm in Usagi's class, who is quiet yet intelligent"
+  },
+  {
+    "id": "sailor-moon-rei-hino-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "rei-hino"
+    },
+    "field": "name",
+    "value": "Rei Hino (火野 レイ)",
+    "text": "Rei Hino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elegant fourteen-year-old miko (English: shrine maiden). Because of her work as"
+  },
+  {
+    "id": "sailor-moon-makoto-kino-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "makoto-kino"
+    },
+    "field": "name",
+    "value": "Makoto Kino (木野 まこと)",
+    "text": "Makoto Kino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old girl who is a student in Usagi's class. She excels at"
+  },
+  {
+    "id": "sailor-moon-minako-aino-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "minako-aino"
+    },
+    "field": "name",
+    "value": "Minako Aino (愛野 美奈子)",
+    "text": "Minako Aino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old girl who first appears as the titular main protagonist"
+  },
+  {
+    "id": "sailor-moon-mamoru-chiba-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "mamoru-chiba"
+    },
+    "field": "name",
+    "value": "Mamoru Chiba (地場 衛)",
+    "text": "Mamoru Chiba is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student who is older than Usagi. When he was young, he was in a car"
+  },
+  {
+    "id": "sailor-moon-luna-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "luna"
+    },
+    "field": "name",
+    "value": "Luna (ルナ)",
+    "text": "Luna is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Artemis and Diana are cats from the planet Mau, which is named after the Chinese word \"貓\", meaning \"cat\", who act as advisors to their owners. They are"
+  },
+  {
+    "id": "sailor-moon-artemis-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "artemis"
+    },
+    "field": "name",
+    "value": "Artemis (アルテミス)",
+    "text": "Artemis is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the white cat companion to Minako Aino, who trains her to become Sailor V and remains by her side when she takes on her proper"
+  },
+  {
+    "id": "sailor-moon-queen-beryl-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "queen-beryl"
+    },
+    "field": "name",
+    "value": "Queen Beryl",
+    "text": "Queen Beryl is an antagonist of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Most of the antagonists in the series have names related to metals, minerals and gemstones, including Queen Beryl, Queen Metaria, Four Kings of Heaven, the"
+  },
+  {
+    "id": "sailor-moon-chibiusa-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "chibiusa"
+    },
+    "field": "name",
+    "value": "Chibiusa (ちびうさ)",
+    "text": "Chibiusa is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the future daughter of Neo-Queen Serenity and King Endymion in the 30th century. She"
+  },
+  {
+    "id": "sailor-moon-haruka-tenoh-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "haruka-tenoh"
+    },
+    "field": "name",
+    "value": "Haruka Tenoh (天王 はるか)",
+    "text": "Haruka Tenoh is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a good-natured tomboyish girl who is a year older than most of the other"
+  },
+  {
+    "id": "sailor-moon-michiru-kaioh-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "michiru-kaioh"
+    },
+    "field": "name",
+    "value": "Michiru Kaioh (海王 みちる)",
+    "text": "Michiru Kaioh is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elegant and talented violinist and painter. Similar to her"
   }
 ]

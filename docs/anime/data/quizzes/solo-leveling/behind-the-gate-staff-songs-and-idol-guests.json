@@ -1,0 +1,179 @@
+{
+  "site": "anime",
+  "account": "oq_creator_10",
+  "group_slug": "solo-leveling",
+  "title": "Behind the Gate: Staff, Songs and Idol Guests",
+  "slug": "behind-the-gate-staff-songs-and-idol-guests",
+  "description": "Eight questions on who directed, wrote and scored the anime, and which singers and K-pop guests performed its openings and endings.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the Solo Leveling anime?",
+      "options": [
+        "Shunsuke Nakashige",
+        "Noboru Kimura",
+        "Hiroyuki Sawano",
+        "Makoto Shinkai"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-director-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Who composed the anime's music?",
+      "options": [
+        "Yoko Kanno",
+        "Hiroyuki Sawano",
+        "Joe Hisaishi",
+        "Yuki Kajiura"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-director-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Who wrote the scripts of the anime?",
+      "options": [
+        "Noboru Kimura",
+        "Hiroshi Seko",
+        "Mari Okada",
+        "Yuko Kakihara"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-director-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Which song opens Season 1?",
+      "options": [
+        "Request",
+        "Reawaker",
+        "Level",
+        "Un-Apex"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-themes-season-one-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Which K-pop group joins SawanoHiroyuki[nZk] on the Season 1 opening?",
+      "options": [
+        "Stray Kids",
+        "Seventeen",
+        "ENHYPEN",
+        "Tomorrow X Together"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-themes-season-one-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Who performs the Season 1 ending, Request?",
+      "options": [
+        "Krage",
+        "LiSA",
+        "Aimer",
+        "YOASOBI"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-themes-season-one-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Which Stray Kids member features on the Season 2 opening with LiSA?",
+      "options": [
+        "Bang Chan",
+        "Hyunjin",
+        "Han",
+        "Felix"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-themes-season-two-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    },
+    {
+      "question": "Who performs the Season 2 ending, Un-Apex?",
+      "options": [
+        "TK from Ling Tosite Sigure",
+        "Ayase from YOASOBI",
+        "Taka from ONE OK ROCK",
+        "Yojiro Noda from Radwimps"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-themes-season-two-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Solo Leveling season 1",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Solo Leveling season 2",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+    }
+  ],
+  "notes": "Staff from fact 010, Season 1 themes from fact 015 (arc 0), Season 2 themes from fact 016 (arc 2). No lyrics."
+}

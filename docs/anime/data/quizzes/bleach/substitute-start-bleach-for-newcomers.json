@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "oq_creator_11",
+  "group_slug": "bleach",
+  "title": "Substitute Start: Bleach for Newcomers",
+  "slug": "substitute-start-bleach-for-newcomers",
+  "description": "Ten easy questions on who made Bleach, how long it ran and how big it got. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who both wrote and drew the Bleach manga?",
+      "options": [
+        "Tite Kubo",
+        "Masashi Kishimoto",
+        "Eiichiro Oda",
+        "Tatsuki Fujimoto"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "Which magazine carried the Bleach manga?",
+      "options": [
+        "Weekly Shōnen Jump",
+        "Weekly Shōnen Magazine",
+        "Weekly Shōnen Sunday",
+        "Monthly Shōnen Gangan"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-magazine-run-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "How long did Bleach run in Weekly Shōnen Jump?",
+      "options": [
+        "Five years",
+        "Ten years",
+        "Twenty-five years",
+        "Fifteen years"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-magazine-run-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "How many tankōbon volumes collect the finished manga?",
+      "options": [
+        "36",
+        "54",
+        "74",
+        "100"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "By 2022, more than how many copies of the manga were in circulation worldwide?",
+      "options": [
+        "130 million",
+        "30 million",
+        "60 million",
+        "300 million"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-copies-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "Which studio made the first Bleach anime?",
+      "options": [
+        "MAPPA",
+        "Pierrot",
+        "Bones",
+        "Madhouse"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "How many episodes did the first anime run?",
+      "options": [
+        "220",
+        "366",
+        "150",
+        "500"
+      ],
+      "correct": 1,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Which channel aired the first anime?",
+      "options": [
+        "Fuji TV",
+        "Nippon TV",
+        "TV Tokyo",
+        "TBS"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "From whom does Ichigo get his Soul Reaper powers?",
+      "options": [
+        "Orihime Inoue",
+        "Rukia Kuchiki",
+        "Kisuke Urahara",
+        "Isshin Kurosaki"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-ichigo-substitute-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "In which year did the manga win the shōnen prize at the 50th Shogakukan Manga Award?",
+      "options": [
+        "2005",
+        "2001",
+        "2010",
+        "2016"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "bleach-shogakukan-award-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Bleach (manga)",
+      "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Bleach (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine, volumes, sales, the first anime and the 2005 award."
+}

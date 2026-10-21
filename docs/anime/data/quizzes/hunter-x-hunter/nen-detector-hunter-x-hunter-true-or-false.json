@@ -1,0 +1,162 @@
+{
+  "site": "anime",
+  "account": "oq_creator_17",
+  "group_slug": "hunter-x-hunter",
+  "title": "Nen Detector: True or False",
+  "slug": "nen-detector-hunter-x-hunter-true-or-false",
+  "description": "Ten statements about the manga, the two anime and the films. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Yoshihiro Togashi is the creator of the Hunter x Hunter manga.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "question": "The manga has appeared in Weekly Shōnen Magazine since 1998.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-magazine-publisher-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "By June 2026 the manga had passed 500 million copies in circulation around the world.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-copies-in-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "The collected edition stood at 39 volumes as of July 2026.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "The longest break in the manga ended in October 2022.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-longest-hiatus-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "The earlier anime aired on Nippon TV in 1999 and had 62 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-first-anime-1999-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "The 2011 anime counts 148 episodes.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-second-anime-2011-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "The 2011 anime continues the story of the 1999 series.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-anime-reboot-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Hiroshi Kōjina directed the 2011 anime.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-anime-director-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Two animated theatrical films reached cinemas in 2010.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-two-films-2013-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Hunter × Hunter characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Hunter × Hunter",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Hunter × Hunter (2011 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a number, a channel or a year)."
+}

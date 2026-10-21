@@ -1,0 +1,198 @@
+{
+  "site": "anime",
+  "account": "oq_creator_11",
+  "group_slug": "bleach",
+  "title": "Asterisk to Mask: Bleach Staff, Songs and Films",
+  "slug": "asterisk-to-mask-bleach-staff-songs-and-films",
+  "description": "Nine questions on the directors, the fifteen openings, the thirty endings and the four films of the original anime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the first Bleach anime?",
+      "options": [
+        "Tomohisa Taguchi",
+        "Shinichirō Watanabe",
+        "Mamoru Hosoda",
+        "Noriyuki Abe"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Who took over as director for the sequel series Thousand-Year Blood War?",
+      "options": [
+        "Noriyuki Abe",
+        "Tomohisa Taguchi",
+        "Hiroshi Kōjina",
+        "Satoshi Kon"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-blood-war-sequel-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Which band sings the first opening, Asterisk?",
+      "options": [
+        "UVERworld",
+        "Orange Range",
+        "Aqua Timez",
+        "SCANDAL"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-opening-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "How many opening songs did the original anime use?",
+      "options": [
+        "Five",
+        "Thirty",
+        "Fifteen",
+        "Fifty"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-opening-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "Who sings the fifth opening, Rolling Star?",
+      "options": [
+        "Yui",
+        "Miwa",
+        "Rie fu",
+        "Younha"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-opening-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "Who sings the first ending, Life Is Like a Boat?",
+      "options": [
+        "Younha",
+        "Rie fu",
+        "Yui",
+        "Aimer"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-ending-themes-first-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "How many ending songs did the original anime use?",
+      "options": [
+        "Thirty",
+        "Fifteen",
+        "Twenty",
+        "Fifty"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-ending-themes-first-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "Which band performs Mask, the last ending of the original anime?",
+      "options": [
+        "SCANDAL",
+        "Spyair",
+        "Stereopony",
+        "Aqua Timez"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-ending-themes-second-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    },
+    {
+      "question": "Which of the four films came out in December 2010?",
+      "options": [
+        "Fade to Black",
+        "Memories of Nobody",
+        "The DiamondDust Rebellion",
+        "Hell Verse"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-four-films-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Bleach (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Bleach soundtracks",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    }
+  ],
+  "notes": "All facts are arc 0 (007, 008, 013, 014, 015, 019). Titles and artists come from the opening and ending lists; no lyrics."
+}

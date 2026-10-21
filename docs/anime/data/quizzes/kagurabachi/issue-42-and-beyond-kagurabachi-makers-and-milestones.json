@@ -1,0 +1,193 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Issue 42 and Beyond: Kagurabachi Makers and Milestones",
+ "slug": "issue-42-and-beyond-kagurabachi-makers-and-milestones",
+ "description": "Nine questions on the print dates, the magazine issue, the awards, the circulation and the chapters held in the collected volumes. The series has no music in our data, so this one is about the makers and the numbers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "notes": "Production quiz on arc 0 facts (003, 004, 005, 006, 007, 008). The data holds no soundtrack, so the quiz covers the print history, the awards and the circulation.",
+ "questions": [
+  {
+   "question": "Which company published the English print volume 1?",
+   "options": [
+    "Manga Plus",
+    "Kamunabi",
+    "Viz Media",
+    "Weekly Shonen Jump"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "When did Viz Media announce its print edition?",
+   "options": [
+    "March 2024",
+    "November 2024",
+    "September 2023",
+    "February 2024"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "On which date did volume 1 of the English print edition come out?",
+   "options": [
+    "February 2, 2024",
+    "September 4, 2026",
+    "March 2024",
+    "November 5, 2024"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which issue of Weekly Shonen Jump carried the start of the serial in 2023?",
+   "options": [
+    "12",
+    "42",
+    "24",
+    "36"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which year did the manga take the tenth Next Manga Award for print manga?",
+   "options": [
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-awards-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "In which year did the Japan Expo Awards give it the Daruma for best action manga?",
+   "options": [
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-awards-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "About how many copies were in circulation as of October 2026?",
+   "options": [
+    "4.5 million",
+    "1.5 million",
+    "45 million",
+    "14.5 million"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "On which date was the twelfth collected volume released?",
+   "options": [
+    "February 2, 2024",
+    "November 5, 2024",
+    "September 4, 2026",
+    "July 4, 2026"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "How many chapters do volumes 1 to 12 hold?",
+   "options": [
+    "100",
+    "120",
+    "150",
+    "113"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-arc-structure-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

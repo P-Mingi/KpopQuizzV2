@@ -1,0 +1,2 @@
+apps/quiz/src/components/layout/ux-v1/ux-footer.net.test.ts: +      expect(html).not.toMatch(/[–—]/);
+apps/quiz/src/components/network/net-components.test.ts: +      expect(html).not.toMatch(/[–—]/);

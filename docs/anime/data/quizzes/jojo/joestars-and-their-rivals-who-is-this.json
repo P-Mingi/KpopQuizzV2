@@ -1,0 +1,238 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Joestars and Their Rivals: Who Is This?",
+  "slug": "joestars-and-their-rivals-who-is-this",
+  "description": "Three clues, four names. Spot the hero, rival or traveler from Parts 1 to 3, and watch for the last clue written in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The hero of Part 1",
+        "The honorable heir of a family in Victorian England",
+        "His name is written ジョナサン・ジョースター in Japanese"
+      ],
+      "options": [
+        "Joseph Joestar",
+        "Jotaro Kujo",
+        "Caesar Anthonio Zeppeli",
+        "Jonathan Joestar"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-jonathan-joestar-name-021",
+        "jojo-joseph-joestar-name-023",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-jotaro-kujo-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this schemer?",
+      "clues": [
+        "Jonathan's adopted brother",
+        "Schemes to take over the household",
+        "His name is written ディオ・ブランドー in Japanese"
+      ],
+      "options": [
+        "Dio Brando",
+        "Kars",
+        "Jonathan Joestar",
+        "Joseph Joestar"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-jonathan-joestar-name-021",
+        "jojo-dio-brando-name-022",
+        "jojo-joseph-joestar-name-023",
+        "jojo-kars-name-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The hero of Part 2",
+        "Jonathan's grandson",
+        "His name is written ジョセフ・ジョースター in Japanese"
+      ],
+      "options": [
+        "Joseph Joestar",
+        "Jonathan Joestar",
+        "Jotaro Kujo",
+        "Jean Pierre Polnareff"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-jonathan-joestar-name-021",
+        "jojo-joseph-joestar-name-023",
+        "jojo-jotaro-kujo-name-027",
+        "jojo-polnareff-name-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this Hamon user?",
+      "clues": [
+        "A suave Hamon user",
+        "Paired with the Part 2 hero against the Pillar Men",
+        "His name is written シーザー・アントニオ・ツェペリ in Japanese"
+      ],
+      "options": [
+        "Caesar Anthonio Zeppeli",
+        "Joseph Joestar",
+        "Mohammed Avdol",
+        "Jean Pierre Polnareff"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-joseph-joestar-name-023",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-avdol-name-028",
+        "jojo-polnareff-name-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who leads the Pillar Men?",
+      "clues": [
+        "Leader of the Pillar Men",
+        "Creator of the Stone Masks",
+        "His name is written カーズ in Japanese"
+      ],
+      "options": [
+        "Kars",
+        "Dio Brando",
+        "Caesar Anthonio Zeppeli",
+        "Noriaki Kakyoin"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-dio-brando-name-022",
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-kars-name-026",
+        "jojo-kakyoin-name-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The hero of Part 3",
+        "A rough delinquent with a kind heart",
+        "His name is written 空条 承太郎 in Japanese"
+      ],
+      "options": [
+        "Joseph Joestar",
+        "Noriaki Kakyoin",
+        "Jotaro Kujo",
+        "Mohammed Avdol"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-joseph-joestar-name-023",
+        "jojo-jotaro-kujo-name-027",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this fortune teller?",
+      "clues": [
+        "A fortune teller from Egypt",
+        "Joins the road trip to Egypt",
+        "His name is written モハメド・アヴドゥル in Japanese"
+      ],
+      "options": [
+        "Jotaro Kujo",
+        "Noriaki Kakyoin",
+        "Mohammed Avdol",
+        "Jean Pierre Polnareff"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-jotaro-kujo-name-027",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029",
+        "jojo-polnareff-name-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Who is this traveler?",
+      "clues": [
+        "A French traveler",
+        "Chivalrous but goofy",
+        "His name is written ジャン・ピエール・ポルナレフ in Japanese"
+      ],
+      "options": [
+        "Mohammed Avdol",
+        "Noriaki Kakyoin",
+        "Jean Pierre Polnareff",
+        "Caesar Anthonio Zeppeli"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-caesar-zeppeli-name-024",
+        "jojo-avdol-name-028",
+        "jojo-kakyoin-name-029",
+        "jojo-polnareff-name-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    }
+  ],
+  "notes": "Native names come from the same values. No Stand details are given. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
+}

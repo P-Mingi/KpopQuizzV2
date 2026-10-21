@@ -1,0 +1,194 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Part I Arc by Arc: From Waves to Sasuke",
+  "slug": "part-one-arc-by-arc-from-waves-to-sasuke",
+  "description": "Put the arcs of the first series in order, from the first five episodes to the stories made only for TV.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which arc covers episodes 1 to 5 of the first series?",
+      "options": [
+        "Land of Waves",
+        "Chunin Exams",
+        "Introduction",
+        "Konoha Crush"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc covers episodes 6 to 19?",
+      "options": [
+        "Introduction",
+        "Land of Waves",
+        "Chunin Exams",
+        "Search for Tsunade"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc comes right after the Chunin Exams arc?",
+      "options": [
+        "Land of Waves",
+        "Sasuke Retrieval",
+        "Search for Tsunade",
+        "Konoha Crush"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc starts at episode 81?",
+      "options": [
+        "Konoha Crush",
+        "Sasuke Retrieval",
+        "Chunin Exams",
+        "Search for Tsunade"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "At which episode does the Search for Tsunade arc end?",
+      "options": [
+        "100",
+        "80",
+        "106",
+        "135"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc ends at episode 135?",
+      "options": [
+        "Sasuke Retrieval",
+        "Search for Tsunade",
+        "Konoha Crush",
+        "Chunin Exams"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc spans episodes 20 to 67?",
+      "options": [
+        "Chunin Exams",
+        "Land of Waves",
+        "Konoha Crush",
+        "Sasuke Retrieval"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Which arc of Part I is made only for the anime?",
+      "options": [
+        "Land of Waves",
+        "Search for Tsunade",
+        "Chunin Exams",
+        "Original Episodes of Part I"
+      ],
+      "correct": 3,
+      "fun_fact": "Original Episodes of Part I runs from episode 136 to 220, anime only.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "From which episode do the original episodes of Part I begin?",
+      "options": [
+        "136",
+        "101",
+        "107",
+        "221"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-arcs-part-one-010"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- (アニメ)",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 7 (the list fact): the arcs list of Part I. Episode ranges come straight from that list."
+}

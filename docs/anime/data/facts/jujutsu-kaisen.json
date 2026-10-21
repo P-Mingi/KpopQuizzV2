@@ -76,7 +76,7 @@
     "fetched_at": "2026-10-20T16:41:59Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "虎杖 悠仁"
  },
  {
@@ -118,7 +118,7 @@
     "fetched_at": "2026-10-20T16:41:59Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "鹿紫 雲一"
  },
  {
@@ -957,5 +957,845 @@
   ],
   "status": "draft",
   "excerpt": "a habit Todo adopted"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "name",
+  "value": "Yuji Itadori (虎杖 悠仁)",
+  "text": "Yuji Itadori is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a high school student who inadvertently becomes the vessel for the powerful Curse Ryomen Sukuna (両面 宿儺) after consuming"
+ },
+ {
+  "id": "jujutsu-kaisen-satoru-gojo-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "satoru-gojo"
+  },
+  "field": "name",
+  "value": "Satoru Gojo (五条 悟)",
+  "text": "Satoru Gojo is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a renowned Special Grade Jujutsu Sorcerer and teacher at Tokyo Jujutsu High, widely regarded as the world's strongest"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "name",
+  "value": "Megumi Fushiguro (伏黒 恵)",
+  "text": "Megumi Fushiguro is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo. He encounters Yuji Itadori while retrieving a"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "name",
+  "value": "Nobara Kugisaki (釘崎 野薔薇)",
+  "text": "Nobara Kugisaki is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo. She wields the Straw Doll Technique (芻霊呪法"
+ },
+ {
+  "id": "jujutsu-kaisen-ryomen-sukuna-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "ryomen-sukuna"
+  },
+  "field": "name",
+  "value": "Ryomen Sukuna (両面 宿儺)",
+  "text": "Ryomen Sukuna is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "the \"King of Curses\", is a legendary Heian-era sorcerer who reincarnates through 20 indestructible fingers. His Shrine"
+ },
+ {
+  "id": "jujutsu-kaisen-kento-nanami-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kento-nanami"
+  },
+  "field": "name",
+  "value": "Kento Nanami (七海 建人)",
+  "text": "Kento Nanami is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a methodical Grade 1 sorcerer who mentors Yuji Itadori after returning from a corporate career. His Ratio Technique (十劃"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "name",
+  "value": "Maki Zen'in (禪院 真希)",
+  "text": "Maki Zen'in is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a second-year student at Tokyo Jujutsu High. Born into the Zen'in clan without Cursed Energy, she compensates with"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "name",
+  "value": "Toge Inumaki (狗巻 棘)",
+  "text": "Toge Inumaki is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a second-year student at Tokyo Prefectural Jujutsu High School who takes part in the Sister School Exchange Event"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "name",
+  "value": "Panda (パンダ)",
+  "text": "Panda is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a sentient Cursed Corpse and second-year student at Tokyo Jujutsu High, created by principal Masamichi Yaga. Unlike typical Cursed Corpses"
+ },
+ {
+  "id": "jujutsu-kaisen-aoi-todo-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "aoi-todo"
+  },
+  "field": "name",
+  "value": "Aoi Todo (東堂 葵)",
+  "text": "Aoi Todo is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a formidable third-year sorcerer from Kyoto Jujutsu High, renowned for his exceptional combat skills and unorthodox personality."
+ },
+ {
+  "id": "jujutsu-kaisen-mahito-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "mahito"
+  },
+  "field": "name",
+  "value": "Mahito (真人)",
+  "text": "Mahito is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Special Grade Cursed Spirit embodying human hatred, seeking humanity's extinction. His philosophy of life's meaninglessness stems from his"
+ },
+ {
+  "id": "jujutsu-kaisen-suguru-geto-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "suguru-geto"
+  },
+  "field": "name",
+  "value": "Suguru Geto (夏油 傑)",
+  "text": "Suguru Geto is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "was a Special Grade sorcerer and classmate of Satoru Gojo, known for his Cursed Spirit Manipulation (呪霊操術, Jurei Sōjutsu)"
+ },
+ {
+  "id": "jujutsu-kaisen-yuta-okkotsu-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuta-okkotsu"
+  },
+  "field": "name",
+  "value": "Yuta Okkotsu (乙骨 憂太)",
+  "text": "Yuta Okkotsu is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Special Grade sorcerer originally introduced in Jujutsu Kaisen 0. Initially haunted by his cursed childhood friend Rika"
+ },
+ {
+  "id": "jujutsu-kaisen-toji-fushiguro-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toji-fushiguro"
+  },
+  "field": "name",
+  "value": "Toji Fushiguro (伏黒 甚爾)",
+  "text": "Toji Fushiguro is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a former member of the Zen'in Clan, he is known as the \"Sorcerer Killer\" and is the father of Megumi. Like Maki, he"
+ },
+ {
+  "id": "jujutsu-kaisen-choso-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "choso"
+  },
+  "field": "name",
+  "value": "Choso (脹相)",
+  "text": "Choso is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 7,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the eldest of nine Cursed Spirit-human hybrids who wields Blood Manipulation (赤血操術, Sekketsu Sōjutsu) with enhanced efficiency due to his"
+ },
+ {
+  "id": "jujutsu-kaisen-kenjaku-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kenjaku"
+  },
+  "field": "name",
+  "value": "Kenjaku (羂索)",
+  "text": "Kenjaku is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is an ancient sorcerer. He orchestrated the Shibuya Incident and Culling Game to recreate the Heian era in modern Japan. Initially appearing as"
+ },
+ {
+  "id": "jujutsu-kaisen-jogo-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "jogo"
+  },
+  "field": "name",
+  "value": "Jogo (漏瑚)",
+  "text": "Jogo is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Special Grade Cursed Spirit embodying volcanic forces, capable of generating eruptions and manipulating fire. His abilities include the"
+ },
+ {
+  "id": "jujutsu-kaisen-hanami-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hanami"
+  },
+  "field": "name",
+  "value": "Hanami (花御)",
+  "text": "Hanami is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Special Grade Cursed Spirit born of humanity's negative treatment towards the forests-to which Gojo reveals that Hanami may be more closer to"
+ },
+ {
+  "id": "jujutsu-kaisen-kinji-hakari-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kinji-hakari"
+  },
+  "field": "name",
+  "value": "Kinji Hakari (秤 金次)",
+  "text": "Kinji Hakari is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a suspended third-year at Tokyo Jujutsu High. He runs an underground Sorcerer fight club. Recognized by Gojo and Yuta as"
+ },
+ {
+  "id": "jujutsu-kaisen-hajime-kashimo-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hajime-kashimo"
+  },
+  "field": "name",
+  "value": "Hajime Kashimo (鹿紫雲一)",
+  "text": "Hajime Kashimo is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a formidable reincarnated sorcerer who dominated the Culling Games with over 40 kills. His electrified Cursed Energy"
+ },
+ {
+  "id": "jujutsu-kaisen-hiromi-higuruma-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hiromi-higuruma"
+  },
+  "field": "name",
+  "value": "Hiromi Higuruma (日車 寛見)",
+  "text": "Hiromi Higuruma is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a disillusioned defense lawyer turned Culling Games participant who awakens cursed abilities after witnessing"
+ },
+ {
+  "id": "jujutsu-kaisen-yuki-tsukumo-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuki-tsukumo"
+  },
+  "field": "name",
+  "value": "Yuki Tsukumo (九十九 由基)",
+  "text": "Yuki Tsukumo is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is one of the four special grade sorcerers and a former Star Plasma Vessel. Her Cursed Technique is Star Rage (星の怒り（ボンバイエ）"
+ },
+ {
+  "id": "jujutsu-kaisen-rika-orimoto-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "rika-orimoto"
+  },
+  "field": "name",
+  "value": "Rika Orimoto (祈本 里香)",
+  "text": "Rika Orimoto is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "was Yuta Okkotsu's childhood friend who became a Special Grade Vengeful Cursed Spirit after a fatal car accident. Bound by"
+ },
+ {
+  "id": "jujutsu-kaisen-junpei-yoshino-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "junpei-yoshino"
+  },
+  "field": "name",
+  "value": "Junpei Yoshino (吉野 順平)",
+  "text": "Junpei Yoshino is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a bullied high school student who develops a cynical worldview after enduring abuse. He falls under Mahito's"
+ },
+ {
+  "id": "jujutsu-kaisen-riko-amanai-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "riko-amanai"
+  },
+  "field": "name",
+  "value": "Riko Amanai (天内 理子)",
+  "text": "Riko Amanai is a character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the Star Plasma Vessel that was targeted for assassination by many Curse Users in 2006. She was a young girl, as well as a"
+ },
+ {
+  "id": "jujutsu-kaisen-mai-zenin-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "mai-zenin"
+  },
+  "field": "name",
+  "value": "Mai Zen'in (禪院 真依)",
+  "text": "Mai Zen'in is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a second-year Kyoto Jujutsu High sorcerer and Maki's estranged twin sister. Unlike Maki, Mai possesses a Construction (構築術式"
+ },
+ {
+  "id": "jujutsu-kaisen-kasumi-miwa-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kasumi-miwa"
+  },
+  "field": "name",
+  "value": "Kasumi Miwa (三輪 霞)",
+  "text": "Kasumi Miwa is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Kyoto Jujutsu High student and swordswoman trained in New Shadow Style: Simple Domain (シン陰流・簡易領域, Shin Kageryū: Kan'i"
+ },
+ {
+  "id": "jujutsu-kaisen-utahime-iori-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "utahime-iori"
+  },
+  "field": "name",
+  "value": "Utahime Iori (庵 歌姫)",
+  "text": "Utahime Iori is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Semi-Grade 1 sorcerer and Kyoto Jujutsu High instructor. Her Solo Forbidden Area (単独禁区, Soro Soro Kinku) technique"
+ },
+ {
+  "id": "jujutsu-kaisen-shoko-ieiri-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "shoko-ieiri"
+  },
+  "field": "name",
+  "value": "Shoko Ieiri (家入 硝子)",
+  "text": "Shoko Ieiri is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Jujutsu Sorcerer doctor at Tokyo Prefectural Jujutsu High School and former classmate of Satoru Gojo and Suguru Geto. She"
+ },
+ {
+  "id": "jujutsu-kaisen-kiyotaka-ijichi-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kiyotaka-ijichi"
+  },
+  "field": "name",
+  "value": "Kiyotaka Ijichi (伊地知 潔高)",
+  "text": "Kiyotaka Ijichi is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is an assistant manager of Tokyo Prefectural Jujutsu High School. He can create curtains, a technique used to"
  }
 ]

@@ -1,0 +1,243 @@
+{
+  "site": "anime",
+  "account": "oq_creator_05",
+  "group_slug": "jujutsu-kaisen",
+  "title": "Behind Jujutsu Kaisen: Directors, Dubs and Songs",
+  "slug": "behind-jujutsu-kaisen-directors-dubs-songs",
+  "description": "The people, the film and the songs behind the TV anime: who directed it, who dubbed it and who sang it.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed season 1 of the Jujutsu Kaisen TV anime?",
+      "options": [
+        "Shota Goshozono",
+        "Sunghoo Park",
+        "Tetsuro Araki",
+        "Hayato Date"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-series-director-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
+    },
+    {
+      "question": "Who took over as series director from season 2?",
+      "options": [
+        "Shota Goshozono",
+        "Sunghoo Park",
+        "Tetsuro Araki",
+        "Yutaka Yamada"
+      ],
+      "correct": 0,
+      "fun_fact": "Sunghoo Park directed season 1, and Shota Goshozono took over as series director from season 2.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-series-director-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
+    },
+    {
+      "question": "Crunchyroll rolled out dubs on 20 November 2020. Which of these was one of the five languages?",
+      "options": [
+        "Italian",
+        "Korean",
+        "Portuguese",
+        "Hindi"
+      ],
+      "correct": 2,
+      "fun_fact": "The five were German, French, Portuguese, Spanish and English.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-crunchyroll-dubs-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "In which year did the film Jujutsu Kaisen 0 open in Japanese cinemas?",
+      "options": [
+        "2019",
+        "2020",
+        "2022",
+        "2021"
+      ],
+      "correct": 3,
+      "fun_fact": "It was that year's top earner at the Japanese box office.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-prequel-film-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
+    },
+    {
+      "question": "Before it became Jujutsu Kaisen 0, the prequel was a four-chapter manga with which title?",
+      "options": [
+        "Tokyo Metropolitan Curse Technical School",
+        "Tokyo Jujutsu High Chronicle",
+        "Curse Academy Zero",
+        "Sorcery School Prologue"
+      ],
+      "correct": 0,
+      "fun_fact": "The prequel was printed in Jump Giga in 2017.",
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-prequel-manga-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+    },
+    {
+      "question": "Why did the Jujutsu Kaisen manga pause in June 2021?",
+      "options": [
+        "The author's health",
+        "A magazine merger",
+        "A printing strike",
+        "An anime delay"
+      ],
+      "correct": 0,
+      "fun_fact": "Serialization resumed on 2 August 2021.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-manga-hiatus-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "What are the short slice-of-life clips that play after the credits called?",
+      "options": [
+        "Jujutsu Diary",
+        "Juju Sanpo",
+        "Curse Break",
+        "Sorcerer Notes"
+      ],
+      "correct": 1,
+      "fun_fact": "They start from episode 3 of season 1.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-post-credits-shorts-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
+    },
+    {
+      "question": "Which artist performed the first opening, Kaikai Kitan?",
+      "options": [
+        "Eve",
+        "King Gnu",
+        "Who-ya Extended",
+        "Tatsuya Kitani"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-opening-themes-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Which band performed both Specialz and AIZO, two of the openings?",
+      "options": [
+        "King Gnu",
+        "Eve",
+        "Who-ya Extended",
+        "Hitsujibungaku"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-opening-themes-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Which ending, performed by Jo0ji, accompanied season 3?",
+      "options": [
+        "Yoake no Uta",
+        "Akari",
+        "More than Words",
+        "Give It Back"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-ending-themes-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Jujutsu Kaisen episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Jujutsu Kaisen 0 (film)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Jujutsu Kaisen 0",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: Jujutsu Kaisen",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Jujutsu Kaisen season 1",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
+    }
+  ],
+  "notes": "All facts at arc 0, no character named."
+}

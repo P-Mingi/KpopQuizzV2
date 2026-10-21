@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "A Fake Family on Day One: Spy x Family Basics",
+ "slug": "a-fake-family-on-day-one-spy-x-family-basics",
+ "description": "Ten easy questions on the creator, the start years, the volumes, the studios, the broadcaster, the film and the family's jobs.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Spy × Family characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 005, 007, 013, 014, 016, 020). Creator, manga year, volumes, studios, broadcaster, episode count, Anya's gift, Yor's day job, the handler and the film year.",
+ "questions": [
+  {
+   "question": "Who both writes and draws the Spy x Family manga?",
+   "options": [
+    "Kazuhiro Furuhashi",
+    "Yukiko Imai",
+    "Tatsuya Endo",
+    "Takahiro Harada"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "In which year did the Spy x Family manga begin?",
+   "options": [
+    "2019",
+    "2017",
+    "2021",
+    "2022"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "How many collected volumes had the manga filled by April 2026?",
+   "options": [
+    "12",
+    "21",
+    "25",
+    "17"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Which two studios share the animation of the Spy x Family anime?",
+   "options": [
+    "Wit Studio and MAPPA",
+    "Wit Studio and CloverWorks",
+    "CloverWorks and Madhouse",
+    "MAPPA and Madhouse"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-studios-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which channel aired the three seasons of the Spy x Family anime?",
+   "options": [
+    "NHK General TV",
+    "TV Tokyo",
+    "Nippon Television",
+    "Kodansha"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "How many episodes do the three seasons of the anime add up to?",
+   "options": [
+    "37",
+    "25",
+    "74",
+    "50"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "What is the gift that lets Anya see through the secret jobs of both of her new parents?",
+   "options": [
+    "Telepathy",
+    "Time travel",
+    "Invisibility",
+    "Super strength"
+   ],
+   "correct": 0,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-anya-telepath-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Where does Yor work by day?",
+   "options": [
+    "Berlint General Hospital",
+    "Eden Academy",
+    "City Hall",
+    "Ministry of Foreign Affairs"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-yor-thorn-princess-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  },
+  {
+   "question": "Who is the handler who oversees Loid's mission, Operation Strix?",
+   "options": [
+    "Fiona Frost",
+    "Franky Franklin",
+    "Yor Forger",
+    "Sylvia Sherwood"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-operation-strix-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  },
+  {
+   "question": "In which year did the theatrical film Code: White reach Japanese cinemas?",
+   "options": [
+    "2023",
+    "2019",
+    "2021",
+    "2025"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-film-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  }
+ ]
+}

@@ -491,7 +491,7 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Mem-cho is a YouTuber and TikToker who signs"
   },
   {
@@ -527,7 +527,7 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Minami Kotobuki is a student in the Performing"
   },
   {
@@ -618,5 +618,509 @@
     ],
     "status": "draft",
     "excerpt": "The film Oshi no Ko: The Final Act premiered on December 20, 2024"
+  },
+  {
+    "id": "oshi-no-ko-aqua-hoshino-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "aqua-hoshino"
+    },
+    "field": "name",
+    "value": "Aqua Hoshino (星野 愛久愛海)",
+    "text": "Aqua Hoshino is a main character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hoshino Akuamarin), known as Aqua (アクア, Akua), was originally Gorou Amamiya (雨宮 吾郎, Amamiya Gorō), an obstetrician-gynecologist"
+  },
+  {
+    "id": "oshi-no-ko-ruby-hoshino-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ruby-hoshino"
+    },
+    "field": "name",
+    "value": "Ruby Hoshino (星野 瑠美衣)",
+    "text": "Ruby Hoshino is a main character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "originally Sarina Tendōji (天童寺 さりな, Tendōji Sarina), was a terminally ill patient who idolized Gorou before reincarnating"
+  },
+  {
+    "id": "oshi-no-ko-ai-hoshino-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ai-hoshino"
+    },
+    "field": "name",
+    "value": "Ai Hoshino (星野 アイ)",
+    "text": "Ai Hoshino is a main character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a selfless, empathetic but altruisticly deceptive pop idol who rose from humble beginnings. Raised in an orphanage after her"
+  },
+  {
+    "id": "oshi-no-ko-kana-arima-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "kana-arima"
+    },
+    "field": "name",
+    "value": "Kana Arima (有馬 かな)",
+    "text": "Kana Arima is a main character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "once hailed as a child acting prodigy for her ability to cry on command, first meets Aqua when he fills in as a movie extra. As"
+  },
+  {
+    "id": "oshi-no-ko-akane-kurokawa-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "akane-kurokawa"
+    },
+    "field": "name",
+    "value": "Akane Kurokawa (黒川 あかね)",
+    "text": "Akane Kurokawa is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a stage actress who joins the reality show My Love with a Star Begins Now (LoveNow) to promote her theater troupe."
+  },
+  {
+    "id": "oshi-no-ko-mem-cho-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "mem-cho"
+    },
+    "field": "name",
+    "value": "MEM-cho (MEMちょ)",
+    "text": "MEM-cho is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": ") is a YouTuber and TikToker who signs up for LoveNow who is revealed to be aged 25 despite her appearance resembling a high school student. She"
+  },
+  {
+    "id": "oshi-no-ko-taishi-gotanda-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "taishi-gotanda"
+    },
+    "field": "name",
+    "value": "Taishi Gotanda (五反田 泰志)",
+    "text": "Taishi Gotanda is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the film director who scouted Aqua and convinced him to become an actor when he saw his potential. After Ai's death"
+  },
+  {
+    "id": "oshi-no-ko-ichigo-saito-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ichigo-saito"
+    },
+    "field": "name",
+    "value": "Ichigo Saitō (斎藤 壱護)",
+    "text": "Ichigo Saitō is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the president of Strawberry Productions. He is the husband of Miyako Saitō. Ichigo was responsible for the recruitment of"
+  },
+  {
+    "id": "oshi-no-ko-miyako-saito-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "miyako-saito"
+    },
+    "field": "name",
+    "value": "Miyako Saitō (斎藤 ミヤコ)",
+    "text": "Miyako Saitō is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the wife of Ichigo Saitō and acts as the primary caretaker for Aqua and Ruby after Ai's death. She manages Strawberry"
+  },
+  {
+    "id": "oshi-no-ko-melt-narushima-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "melt-narushima"
+    },
+    "field": "name",
+    "value": "Melt Narushima (鳴嶋 メルト)",
+    "text": "Melt Narushima is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an actor and model affiliated with Sonic Stage Productions. He was an arrogant and untrained actor when playing"
+  },
+  {
+    "id": "oshi-no-ko-frill-shiranui-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "frill-shiranui"
+    },
+    "field": "name",
+    "value": "Frill Shiranui (不知火 フリル)",
+    "text": "Frill Shiranui is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student of Youtou High School's Performing Arts Program and one of Ruby's classmates. She is an aloof, attentive"
+  },
+  {
+    "id": "oshi-no-ko-taiki-himekawa-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "taiki-himekawa"
+    },
+    "field": "name",
+    "value": "Taiki Himekawa (姫川 大輝)",
+    "text": "Taiki Himekawa is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an award-winning stage actor affiliated with the Lalalai Theatrical Company, first seen as the main star of the Tokyo"
+  },
+  {
+    "id": "oshi-no-ko-masaya-kaburagi-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "masaya-kaburagi"
+    },
+    "field": "name",
+    "value": "Masaya Kaburagi (鏑木 勝也)",
+    "text": "Masaya Kaburagi is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a producer affiliated with an internet TV Station Dot TV!, and producer of the Sweet Today live-action adaptation"
+  },
+  {
+    "id": "oshi-no-ko-pieyon-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "pieyon"
+    },
+    "field": "name",
+    "value": "Pieyon (ぴえヨン)",
+    "text": "Pieyon is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an anonymous famous physical training YouTuber affiliated with Strawberry Productions, who coaches choreography for B-Komachi members. He"
+  },
+  {
+    "id": "oshi-no-ko-abiko-samejima-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "abiko-samejima"
+    },
+    "field": "name",
+    "value": "Abiko Samejima (鮫島 アビ子)",
+    "text": "Abiko Samejima is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the manga artist behind the manga series Tokyo Blade, and became a producer for its stage play after expressing"
+  },
+  {
+    "id": "oshi-no-ko-yoriko-kichijouji-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "yoriko-kichijouji"
+    },
+    "field": "name",
+    "value": "Yoriko Kichijouji (吉祥寺 頼子)",
+    "text": "Yoriko Kichijouji is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the manga artist behind the popular manga series I'll Go With Sweet Today and Abiko's mentor. She also serves"
+  },
+  {
+    "id": "oshi-no-ko-sakuya-kamoshida-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "sakuya-kamoshida"
+    },
+    "field": "name",
+    "value": "Sakuya Kamoshida (鴨志田 朔夜)",
+    "text": "Sakuya Kamoshida is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a 22-year-old professional stage actor who is well known within the industry for his extensive experience in"
+  },
+  {
+    "id": "oshi-no-ko-minami-kotobuki-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "minami-kotobuki"
+    },
+    "field": "name",
+    "value": "Minami Kotobuki (寿 みなみ)",
+    "text": "Minami Kotobuki is a supporting character of Oshi no Ko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student in the Performing Arts Program of Youtou High School and a classmate of Ruby and Frill. In the show"
   }
 ]

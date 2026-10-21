@@ -506,7 +506,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "A Blood Fiend serving as a Public Safety Devil Hunter under Makima."
   },
   {
@@ -544,7 +544,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "The Famine Devil (Fami), one of the Four Horsemen representing the fear of famine and hunger."
   },
   {
@@ -602,5 +602,565 @@
     ],
     "status": "draft",
     "excerpt": "The weakened War Devil and one of the Four Horsemen"
+  },
+  {
+    "id": "chainsaw-man-denji-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "denji"
+    },
+    "field": "name",
+    "value": "Denji",
+    "text": "Denji is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Chainsaw Man (チェンソーマン, Chensō Man)"
+  },
+  {
+    "id": "chainsaw-man-pochita-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "pochita"
+    },
+    "field": "name",
+    "value": "Pochita",
+    "text": "Pochita is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Chainsaw Devil (チェンソーの悪魔, Chensō no Akuma)"
+  },
+  {
+    "id": "chainsaw-man-power-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "power"
+    },
+    "field": "name",
+    "value": "Power",
+    "text": "Power is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s pet cat Meowy hostage in exchange for her bringing him humans to eat, but Denji later kills him. His next"
+  },
+  {
+    "id": "chainsaw-man-aki-hayakawa-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "aki-hayakawa"
+    },
+    "field": "name",
+    "value": "Aki Hayakawa",
+    "text": "Aki Hayakawa is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A Tokyo Special Division 4 Devil Hunter driven by vengeance against the Gun Devil for killing his family. Initially contracted with the Fox and Curse Devils"
+  },
+  {
+    "id": "chainsaw-man-makima-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "makima"
+    },
+    "field": "name",
+    "value": "Makima",
+    "text": "Makima is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A Blood Fiend serving as a Public Safety Devil Hunter under Makima. Distinguished by her red horns, Power exhibits violent tendencies but forms genuine"
+  },
+  {
+    "id": "chainsaw-man-kobeni-higashiyama-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "kobeni-higashiyama"
+    },
+    "field": "name",
+    "value": "Kobeni Higashiyama",
+    "text": "Kobeni Higashiyama is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kobeni Higashiyama (東山 コベニ, Higashiyama Kobeni)"
+  },
+  {
+    "id": "chainsaw-man-himeno-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "himeno"
+    },
+    "field": "name",
+    "value": "Himeno",
+    "text": "Himeno is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A devil embodying the fear of ghosts. It had a contract with Himeno, allowing her to grab objects with invisible arms, and manifests to fight Samurai Sword"
+  },
+  {
+    "id": "chainsaw-man-kishibe-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "kishibe"
+    },
+    "field": "name",
+    "value": "Kishibe",
+    "text": "Kishibe is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The organization's most experienced devil hunter, Kishibe is a cynical veteran formerly of Tokyo Special Division 1. After transferring to Division 4, he"
+  },
+  {
+    "id": "chainsaw-man-angel-devil-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "angel-devil"
+    },
+    "field": "name",
+    "value": "Angel Devil",
+    "text": "Angel Devil is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A humanoid embodiment of angelic fear, appears as an androgynous youth capable of draining lifespans through touch. Despite his dangerous ability, he harbors"
+  },
+  {
+    "id": "chainsaw-man-katana-man-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "katana-man"
+    },
+    "field": "name",
+    "value": "Katana Man",
+    "text": "Katana Man is an antagonist of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Samurai Sword (サムライソード, Samurai Sōdo) / Katana Man"
+  },
+  {
+    "id": "chainsaw-man-reze-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "reze"
+    },
+    "field": "name",
+    "value": "Reze",
+    "text": "Reze is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A café employee initially presenting romantic interest in Denji, later revealed as a Soviet Bomb Devil hybrid assassin. Capable of transforming via a grenade"
+  },
+  {
+    "id": "chainsaw-man-santa-claus-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "santa-claus"
+    },
+    "field": "name",
+    "value": "Santa Claus",
+    "text": "Santa Claus is an antagonist of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An assassin targeting Denji, initially appearing as an elderly German man before being revealed as a Russian woman controlling multiple bodies through the Doll"
+  },
+  {
+    "id": "chainsaw-man-quanxi-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "quanxi"
+    },
+    "field": "name",
+    "value": "Quanxi",
+    "text": "Quanxi is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "'s girlfriend Fiends, who has horns similar to Power's and is able to breathe fire. She dies after being decapitated by the Darkness Devil, and is"
+  },
+  {
+    "id": "chainsaw-man-beam-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "beam"
+    },
+    "field": "name",
+    "value": "Beam",
+    "text": "Beam is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Shark Fiend, who has the ability to \"swim\" through solid objects and transform into a more monstrous shark-like form. He is partnered with Denji, whom he"
+  },
+  {
+    "id": "chainsaw-man-galgali-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "galgali"
+    },
+    "field": "name",
+    "value": "Galgali",
+    "text": "Galgali is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The Violence Fiend, who ironically is friendly and polite and loves peace. He wears a plague doctor-like mask that dispenses poisonous gas to keep his immense"
+  },
+  {
+    "id": "chainsaw-man-asa-mitaka-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "asa-mitaka"
+    },
+    "field": "name",
+    "value": "Asa Mitaka",
+    "text": "Asa Mitaka is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A socially isolated high school student at Fourth East High, Asa Mitaka is consumed by guilt over past deaths and harbors deep resentment toward devils after"
+  },
+  {
+    "id": "chainsaw-man-yoru-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "yoru"
+    },
+    "field": "name",
+    "value": "Yoru",
+    "text": "Yoru is a main character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ War Devil (戦争の悪魔, Sensō no Akuma)"
+  },
+  {
+    "id": "chainsaw-man-fami-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "fami"
+    },
+    "field": "name",
+    "value": "Fami",
+    "text": "Fami is an antagonist of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Famine (or Hunger) Devil (飢餓の悪魔, Kiga no Akuma)"
+  },
+  {
+    "id": "chainsaw-man-fumiko-mifune-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "fumiko-mifune"
+    },
+    "field": "name",
+    "value": "Fumiko Mifune",
+    "text": "Fumiko Mifune is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A public safety devil hunter from Special Division 7 who Yoshida assigns to be Denji's bodyguard in school. She entered into a contract with the STD Devil at"
+  },
+  {
+    "id": "chainsaw-man-yoshida-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "yoshida"
+    },
+    "field": "name",
+    "value": "Yoshida",
+    "text": "Yoshida is a supporting character of Chainsaw Man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A public safety devil hunter from Special Division 7 who Yoshida assigns to be Denji's bodyguard in school. She entered into a contract with the STD Devil at"
   }
 ]

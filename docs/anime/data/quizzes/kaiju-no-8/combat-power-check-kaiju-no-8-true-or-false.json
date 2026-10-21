@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_26",
+ "group_slug": "kaiju-no-8",
+ "title": "Combat Power Check: Kaiju No. 8 True or False",
+ "slug": "combat-power-check-kaiju-no-8-true-or-false",
+ "description": "Ten statements on the manga, its run, the suits, the influences and the awards. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Naoya Matsumoto is both writer and artist of the manga, which ran on Shueisha's Shōnen Jump+ from July 3, 2020 until July 18, 2025.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "The manga closed after 129 chapters collected in 26 volumes, with the final book reaching Japanese shops on September 4, 2025.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-manga-completion-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "The manga closed after 129 chapters collected in 16 volumes, with the final book reaching Japanese shops on September 4, 2025.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-manga-completion-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "Officers fight in powered suits built from kaiju remains, and each suit shows a combat power percentage that tops out at 200.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-setting-powered-suits-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "Officers fight in powered suits built from kaiju remains, and each suit shows a combat power percentage that tops out at 100.",
+   "correct": true,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-setting-powered-suits-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "Naoya Matsumoto is both writer and artist of the manga, which ran on Shueisha's Weekly Shōnen Jump from July 3, 2020 until July 18, 2025.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "Matsumoto drew on Japanese tokusatsu shows, above all the Ultraman series.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-tokusatsu-influence-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "The manga took the 2021 Next Manga Award for web manga and won an Eisner Award the year after.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-awards-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "The manga took the 2021 Next Manga Award for web manga and was shortlisted for an Eisner Award the year after.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-awards-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "Matsumoto drew on Japanese tokusatsu shows, above all the Kamen Rider series.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-tokusatsu-influence-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Kaiju No. 8 chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Kaiju No. 8",
+   "url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 009, 010, 011); each false one changes a single detail (a magazine, a volume count, a percentage, an influence or an award result)."
+}

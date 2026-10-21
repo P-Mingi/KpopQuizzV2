@@ -1,0 +1,193 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Cloud Gouger to Smelting: Kagurabachi Odds and Ends",
+ "slug": "cloud-gouger-to-smelting-kagurabachi-odds-and-ends",
+ "description": "Nine mixed questions on the story blocks, the blade Chihiro carries, a subspace technique and the style built around speed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 block names (008), the Enten fact (013, arc 1), the Storehouse fact (014, arc 2) and the Iai White Purity fact (015, arc 3). Level 3, manga scope. Blade names Tobimune and Magatsumi come from the series characters file.",
+ "questions": [
+  {
+   "question": "Which block covers chapters 1 to 18?",
+   "options": [
+    "Rakuzaichi",
+    "Kamunabi Headquarters",
+    "Cloud Gouger",
+    "Irishima Talks and Smelting"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-arc-structure-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which block covers chapters 19 to 46?",
+   "options": [
+    "Rakuzaichi",
+    "Cloud Gouger",
+    "Kamunabi Headquarters",
+    "Irishima Talks and Smelting"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-arc-structure-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which block covers chapters 47 to 74?",
+   "options": [
+    "Cloud Gouger",
+    "Kamunabi Headquarters",
+    "Irishima Talks and Smelting",
+    "Samura and the Sword Bearers"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-arc-structure-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which block starts at chapter 114?",
+   "options": [
+    "Cloud Gouger",
+    "Irishima Talks and Smelting",
+    "Rakuzaichi",
+    "Kamunabi Headquarters"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-arc-structure-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which secret seventh Enchanted Blade does Chihiro carry, made by his father?",
+   "options": [
+    "Tobimune",
+    "Enten",
+    "Magatsumi",
+    "Isou"
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-enten-blade-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Besides stronger physical ability, what does that blade let Chihiro do?",
+   "options": [
+    "Turn invisible",
+    "Control the weather",
+    "Heal any wound",
+    "Absorb energy"
+   ],
+   "correct": 3,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-enten-blade-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Besides Hakuri, how many members of his clan ever managed to use the Storehouse subspace?",
+   "options": [
+    "One",
+    "Two",
+    "Three",
+    "Five"
+   ],
+   "correct": 0,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 2,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-storehouse-isou-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Around the pursuit of what was the Iai White Purity Style created?",
+   "options": [
+    "Strength",
+    "Defense",
+    "Speed",
+    "Patience"
+   ],
+   "correct": 2,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 3,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-iai-white-purity-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Who is the swordsman who created the Iai White Purity Style?",
+   "options": [
+    "Kunishige Rokuhira",
+    "Genichi Sojo",
+    "Soshiro Azami",
+    "Itsuo Shirakai"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-iai-white-purity-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

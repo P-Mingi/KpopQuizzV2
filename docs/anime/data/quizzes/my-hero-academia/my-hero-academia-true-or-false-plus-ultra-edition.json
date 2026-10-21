@@ -1,0 +1,161 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "My Hero Academia True or False: Plus Ultra Edition",
+  "slug": "my-hero-academia-true-or-false-plus-ultra-edition",
+  "description": "Ten statements about the manga, the anime and the world of Quirks. Read the numbers twice.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Kohei Horikoshi wrote and drew every chapter of the My Hero Academia manga himself.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-creator-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia manga ran for twenty years, from July 2004 until August 2024.",
+      "correct": false,
+      "fun_fact": "It ran for a decade, from July 2014.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-run-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia anime comes to 170 episodes over eight seasons, plus a single bonus special.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-episode-count-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Wit Studio animated My Hero Academia for seven seasons.",
+      "correct": false,
+      "fun_fact": "Bones animated seven seasons, and Bones Film produced the last one.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-animation-studio-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Bones animated the show for seven seasons, and Bones Film produced the last one.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-animation-studio-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Roughly four in five people in the world of My Hero Academia have a superpower called a Quirk.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-quirk-world-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Izuku starts the story as a boy with a powerful Quirk.",
+      "correct": false,
+      "fun_fact": "Izuku starts with no Quirk at all, yet still dreams of becoming a hero.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-izuku-quirkless-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Four animated films have been released, starting with Two Heroes and ending with You're Next.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-anime-films-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia anime began on 3 April 2012.",
+      "correct": false,
+      "fun_fact": "It began on 3 April 2016.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-anime-run-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Shueisha's Weekly Shonen Jump ran the My Hero Academia manga from start to finish.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-magazine-publisher-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: My Hero Academia",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: My Hero Academia (TV series)",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail."
+}

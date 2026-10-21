@@ -1,0 +1,257 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "My Hero Academia Season by Season: Episodes and Chapters",
+  "slug": "my-hero-academia-season-by-season-episodes-and-chapters",
+  "description": "Eight seasons, 430 chapters. Match the arcs and numbers to the right season of the anime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "How many episodes does season 1 have?",
+      "options": [
+        "11",
+        "21",
+        "25",
+        "13"
+      ],
+      "correct": 3,
+      "fun_fact": "It adapted the opening 21 chapters of the manga.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-1-span-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_1"
+    },
+    {
+      "question": "Which season turned the U.A. Sports Festival into episodes?",
+      "options": [
+        "Season 1",
+        "Season 2",
+        "Season 3",
+        "Season 4"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-2-span-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_2"
+    },
+    {
+      "question": "Which season moved from the training camp attack through the hideout raid to the license exam?",
+      "options": [
+        "Season 2",
+        "Season 3",
+        "Season 4",
+        "Season 5"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-3-span-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_3"
+    },
+    {
+      "question": "Which season spent its 25 episodes on the Shie Hassaikai raid and the school festival?",
+      "options": [
+        "Season 3",
+        "Season 4",
+        "Season 5",
+        "Season 6"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-4-span-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_4"
+    },
+    {
+      "question": "Which season followed the joint training and the Meta Liberation Army?",
+      "options": [
+        "Season 5",
+        "Season 4",
+        "Season 6",
+        "Season 7"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-5-span-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_5"
+    },
+    {
+      "question": "During the Meta Liberation Army stretch, the series title temporarily changes to what?",
+      "options": [
+        "My Villain Academia",
+        "My Hero Villainy",
+        "Our Hero Academia",
+        "Class 1-B Academia"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-my-villain-academia-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_5"
+    },
+    {
+      "question": "Which season covered the large Paranormal Liberation War and the Dark Hero arc?",
+      "options": [
+        "Season 6",
+        "Season 5",
+        "Season 7",
+        "Season 8"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-6-span-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_6"
+    },
+    {
+      "question": "Season 7 is shorter than the five seasons before it. Up to which chapter does it cover the manga?",
+      "options": [
+        "398",
+        "328",
+        "399",
+        "430"
+      ],
+      "correct": 0,
+      "fun_fact": "Season 7 has 21 episodes.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-7-span-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_7"
+    },
+    {
+      "question": "How many episodes does the eighth and final season have?",
+      "options": [
+        "13",
+        "11",
+        "21",
+        "25"
+      ],
+      "correct": 1,
+      "fun_fact": "It takes the story to the last chapter, number 430.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-season-8-span-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_8"
+    },
+    {
+      "question": "A bonus television special that premiered in 2026 adapts which chapter?",
+      "options": [
+        "398",
+        "399",
+        "431",
+        "430"
+      ],
+      "correct": 2,
+      "fun_fact": "The last volume also holds that bonus chapter.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-final-special-022",
+        "my-hero-academia-volumes-chapters-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: My Hero Academia season 1",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_1"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: My Hero Academia season 2",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_2"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: My Hero Academia season 3",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_3"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: My Hero Academia season 4",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_4"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: My Hero Academia season 5",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_5"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: My Hero Academia season 6",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_6"
+    },
+    {
+      "id": "S7",
+      "title": "Wikipedia: My Hero Academia season 7",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_7"
+    },
+    {
+      "id": "S8",
+      "title": "Wikipedia: My Hero Academia season 8",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_8"
+    },
+    {
+      "id": "S9",
+      "title": "Wikipedia: My Hero Academia",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 8: it cites the span facts of every season up to the final one. Season contents come straight from the span facts."
+}

@@ -1,0 +1,174 @@
+{
+  "site": "anime",
+  "account": "oq_creator_11",
+  "group_slug": "bleach",
+  "title": "Eight Seasons Deep: Bleach in Order",
+  "slug": "eight-seasons-deep-bleach-in-order",
+  "description": "Eight questions on the first eight seasons of the original anime: their names, their order and their episode ranges.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which season opens the original anime, running from episode 1 to 20?",
+      "options": [
+        "The Entry",
+        "The Substitute Soul Reaper",
+        "The Rescue",
+        "The Bount"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which season follows The Substitute Soul Reaper?",
+      "options": [
+        "The Entry",
+        "The Rescue",
+        "The Assault",
+        "The Bount"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which season covers episodes 42 to 63 and the Soul Society rescue?",
+      "options": [
+        "The Rescue",
+        "The Entry",
+        "The Assault",
+        "The Bount"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which story takes up episodes 64 to 91?",
+      "options": [
+        "The Rescue",
+        "The Assault",
+        "The Entry",
+        "The Bount"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which season runs from episode 92 to 109?",
+      "options": [
+        "The Bount",
+        "The Rescue",
+        "The Assault",
+        "The Entry"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Season 6 is the first Arrancar story. What is its subtitle?",
+      "options": [
+        "Arrancar: The Appearance",
+        "The Arrancar Part 3: The Fierce Fight",
+        "The Substitute Soul Reaper",
+        "The Arrancar Part 2: The Hueco Mundo Sneak Entry"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which season runs from episode 132 to 151?",
+      "options": [
+        "The Arrancar Part 3: The Fierce Fight",
+        "The Arrancar Part 2: The Hueco Mundo Sneak Entry",
+        "Arrancar: The Appearance",
+        "The Substitute Soul Reaper"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    },
+    {
+      "question": "Which season covers episodes 152 to 167, the last of the first eight?",
+      "options": [
+        "The Arrancar Part 2: The Hueco Mundo Sneak Entry",
+        "The Arrancar Part 3: The Fierce Fight",
+        "Arrancar: The Appearance",
+        "The Substitute Soul Reaper"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-seasons-first-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Bleach episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bleach_episodes"
+    }
+  ],
+  "notes": "Arc quiz: every question cites the first-eight-seasons list fact (010), tagged arc 8 (anime). The later seasons and the Blood War parts are left out on purpose to keep the tag low."
+}

@@ -758,7 +758,7 @@
     "fetched_at": "2026-10-20T16:45:48Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "The Water Hashira and the first Demon Slayer that Tanjiro meets"
  },
  {
@@ -793,7 +793,7 @@
     "fetched_at": "2026-10-20T16:45:48Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "The Insect Hashira and sister of Kanae"
  },
  {
@@ -826,7 +826,7 @@
     "fetched_at": "2026-10-20T16:45:48Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "The Flame Hashira and successor to his father Shinjuro"
  },
  {
@@ -862,7 +862,7 @@
     "fetched_at": "2026-10-20T16:45:48Z"
    }
   ],
-  "status": "draft",
+  "status": "rejected",
   "excerpt": "The Stone Hashira, regarded as the strongest combatant in the Demon Slayer Corps"
  },
  {
@@ -976,5 +976,845 @@
   ],
   "status": "draft",
   "excerpt": "He typically wears the head of his deceased boar mother as a mask"
+ },
+ {
+  "id": "demon-slayer-tanjiro-kamado-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tanjiro-kamado"
+  },
+  "field": "name",
+  "value": "Tanjiro Kamado (竈門 炭治郎)",
+  "text": "Tanjiro Kamado is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the eldest son of a charcoal selling family. After a demon attack kills his mother and younger siblings, and turns"
+ },
+ {
+  "id": "demon-slayer-nezuko-kamado-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "nezuko-kamado"
+  },
+  "field": "name",
+  "value": "Nezuko Kamado (竈門 禰豆子)",
+  "text": "Nezuko Kamado is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the younger sister of Tanjiro, transformed into a demon during an attack that killed the rest of their family. She"
+ },
+ {
+  "id": "demon-slayer-zenitsu-agatsuma-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "zenitsu-agatsuma"
+  },
+  "field": "name",
+  "value": "Zenitsu Agatsuma (我妻 善逸)",
+  "text": "Zenitsu Agatsuma is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer who joined the Corps alongside Tanjiro. Trained in the Thunder Breathing (雷の呼吸, Kaminari no"
+ },
+ {
+  "id": "demon-slayer-inosuke-hashibira-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "name",
+  "value": "Inosuke Hashibira (嘴平 伊之助)",
+  "text": "Inosuke Hashibira is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer raised by boars, resulting in a feral and aggressive personality. He fights using a self-taught"
+ },
+ {
+  "id": "demon-slayer-muzan-kibutsuji-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muzan-kibutsuji"
+  },
+  "field": "name",
+  "value": "Muzan Kibutsuji (鬼舞辻 無惨)",
+  "text": "Muzan Kibutsuji is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the first demon, originating from a failed experimental treatment during the Heian Period. He seeks to create a"
+ },
+ {
+  "id": "demon-slayer-giyu-tomioka-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "giyu-tomioka"
+  },
+  "field": "name",
+  "value": "Giyu Tomioka (冨岡 義勇)",
+  "text": "Giyu Tomioka is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Water Hashira and the first Demon Slayer that Tanjiro meets. He initially tries to kill Nezuko but reconsiders after she protects Tanjiro from him, and"
+ },
+ {
+  "id": "demon-slayer-sakonji-urokodaki-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "sakonji-urokodaki"
+  },
+  "field": "name",
+  "value": "Sakonji Urokodaki (鱗滝 左近次)",
+  "text": "Sakonji Urokodaki is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Urokodaki Sakonji)"
+ },
+ {
+  "id": "demon-slayer-shinobu-kocho-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "shinobu-kocho"
+  },
+  "field": "name",
+  "value": "Shinobu Kocho (胡蝶 しのぶ)",
+  "text": "Shinobu Kocho is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Insect Hashira and sister of Kanae. Her surname, Kochō (胡蝶), means \"butterfly\", hence her motif. Outwardly cool-headed and optimistic, her cheery façade"
+ },
+ {
+  "id": "demon-slayer-kanao-tsuyuri-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kanao-tsuyuri"
+  },
+  "field": "name",
+  "value": "Kanao Tsuyuri (栗花落 カナヲ)",
+  "text": "Kanao Tsuyuri is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer and the adopted sister of Shinobu Kocho. Trained as a tsuguko, she is a practitioner of the Flower"
+ },
+ {
+  "id": "demon-slayer-sanemi-shinazugawa-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "sanemi-shinazugawa"
+  },
+  "field": "name",
+  "value": "Sanemi Shinazugawa (不死川 実弥)",
+  "text": "Sanemi Shinazugawa is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Shinazugawa Sanemi)"
+ },
+ {
+  "id": "demon-slayer-kagaya-ubuyashiki-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kagaya-ubuyashiki"
+  },
+  "field": "name",
+  "value": "Kagaya Ubuyashiki (産屋敷 耀哉)",
+  "text": "Kagaya Ubuyashiki is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Ubuyashiki Kagaya)"
+ },
+ {
+  "id": "demon-slayer-tamayo-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tamayo"
+  },
+  "field": "name",
+  "value": "Tamayo (珠世)",
+  "text": "Tamayo is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "who cares for and is deeply protective of her. Like Tamayo, he survives on small amounts of blood, even less than her. He is"
+ },
+ {
+  "id": "demon-slayer-yushiro-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "yushiro"
+  },
+  "field": "name",
+  "value": "Yushiro (愈史郎)",
+  "text": "Yushiro is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A demon created by Tamayo, who cares for and is deeply protective of her. Like Tamayo, he survives on small amounts of blood, even less than her. He is"
+ },
+ {
+  "id": "demon-slayer-rui-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "rui"
+  },
+  "field": "name",
+  "value": "Rui (累)",
+  "text": "Rui is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A child-like demon who holds the position of Lower Rank Five. As a human, he was a sickly boy who was transformed by Muzan. He killed his parents in"
+ },
+ {
+  "id": "demon-slayer-hotaru-haganezuka-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "hotaru-haganezuka"
+  },
+  "field": "name",
+  "value": "Hotaru Haganezuka (鋼鐵塚 螢)",
+  "text": "Hotaru Haganezuka is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "One of the swordsmiths who makes swords for the Demon Slayer Corps, and is assigned to forge Tanjiro's sword. He is a hot-headed figure who is extremely"
+ },
+ {
+  "id": "demon-slayer-kyojuro-rengoku-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kyojuro-rengoku"
+  },
+  "field": "name",
+  "value": "Kyojuro Rengoku (煉獄 杏寿郎)",
+  "text": "Kyojuro Rengoku is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": ". Passionate and somewhat air-headed, she is unlike her fellow Demon Slayers, in that she did not join"
+ },
+ {
+  "id": "demon-slayer-tengen-uzui-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tengen-uzui"
+  },
+  "field": "name",
+  "value": "Tengen Uzui (宇髄 天元)",
+  "text": "Tengen Uzui is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Sound Hashira and a former shinobi. He is exuberant and prideful, always striving to do things in a flamboyant manner. Beneath his arrogant, condescending"
+ },
+ {
+  "id": "demon-slayer-akaza-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "akaza"
+  },
+  "field": "name",
+  "value": "Akaza (猗窩座)",
+  "text": "Akaza is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Keizo was the master of Hakuji, who would go on become the demon Akaza. They met when he confronted Hakuji after beating several men in a fit of rage. Keizo"
+ },
+ {
+  "id": "demon-slayer-enmu-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "enmu"
+  },
+  "field": "name",
+  "value": "Enmu (魘夢)",
+  "text": "Enmu is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A sadistic demon who holds the position of Lower Rank One and is the main antagonist of the Mugen Train arc. He is intensely devoted to Muzan, having rose up"
+ },
+ {
+  "id": "demon-slayer-daki-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "daki"
+  },
+  "field": "name",
+  "value": "Daki (堕姫)",
+  "text": "Daki is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A young demon who becomes the new Upper Rank Six following Daki and Gyutaro's deaths. As a human, he was one of the orphans under Gyomei's care; he was chased"
+ },
+ {
+  "id": "demon-slayer-gyutaro-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyutaro"
+  },
+  "field": "name",
+  "value": "Gyutaro (妓夫太郎)",
+  "text": "Gyutaro is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A misanthropic demon who shares the position of Upper Rank Six with his younger sister Daki. As a human, he was born in the red-light district slums alongside"
+ },
+ {
+  "id": "demon-slayer-mitsuri-kanroji-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "mitsuri-kanroji"
+  },
+  "field": "name",
+  "value": "Mitsuri Kanroji (甘露寺 蜜璃)",
+  "text": "Mitsuri Kanroji is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Love Hashira and a former disciple of Kyojuro Rengoku. Passionate and somewhat air-headed, she is unlike her fellow Demon Slayers, in that she did not join"
+ },
+ {
+  "id": "demon-slayer-muichiro-tokito-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muichiro-tokito"
+  },
+  "field": "name",
+  "value": "Muichiro Tokito (時透 無一郎)",
+  "text": "Muichiro Tokito is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Mist Hashira, and a descendant of Demon Slayers of the past. Aloof yet secretly caring, he was orphaned with only his older twin brother Yuichiro as"
+ },
+ {
+  "id": "demon-slayer-gyomei-himejima-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyomei-himejima"
+  },
+  "field": "name",
+  "value": "Gyomei Himejima (悲鳴嶼 行冥)",
+  "text": "Gyomei Himejima is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Stone Hashira, regarded as the strongest combatant in the Demon Slayer Corps. A former monk, he was falsely imprisoned after children under his care were"
+ },
+ {
+  "id": "demon-slayer-obanai-iguro-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "obanai-iguro"
+  },
+  "field": "name",
+  "value": "Obanai Iguro (伊黒 小芭内)",
+  "text": "Obanai Iguro is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Serpent Hashira, who is accompanied by his companion snake, Kaburamaru. Harsh and ruthless towards others, he possesses deep self-loathing because of his"
+ },
+ {
+  "id": "demon-slayer-genya-shinazugawa-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "genya-shinazugawa"
+  },
+  "field": "name",
+  "value": "Genya Shinazugawa (不死川 玄弥)",
+  "text": "Genya Shinazugawa is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer who cannot use breathing techniques. Instead, he possesses a unique ability to temporarily"
+ },
+ {
+  "id": "demon-slayer-doma-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "doma"
+  },
+  "field": "name",
+  "value": "Doma (童磨)",
+  "text": "Doma is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "just before dropping Inosuke from a cliff to save his life."
+ },
+ {
+  "id": "demon-slayer-kokushibo-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kokushibo"
+  },
+  "field": "name",
+  "value": "Kokushibo (黒死牟)",
+  "text": "Kokushibo is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "'s younger twin brother, who was born with a mark that gave him enhanced perception and physical abilities; he later became a Demon Slayer after a"
+ },
+ {
+  "id": "demon-slayer-hantengu-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "hantengu"
+  },
+  "field": "name",
+  "value": "Hantengu (半天狗)",
+  "text": "Hantengu is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A cowardly demon who holds the position of Upper Rank Four. Hantengu shows his true strength upon dividing himself into multiple clones which denote different"
+ },
+ {
+  "id": "demon-slayer-gyokko-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyokko"
+  },
+  "field": "name",
+  "value": "Gyokko (玉壼)",
+  "text": "Gyokko is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "An arrogant demon holds the position of Upper Rank Five. Unlike the others, Gyokko has a highly distorted djinn-like anatomy with his eyes being on his"
  }
 ]

@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_23",
+ "group_slug": "cowboy-bebop",
+ "title": "Aboard the Bebop: Cowboy Bebop Basics",
+ "slug": "aboard-the-bebop-cowboy-bebop-basics",
+ "description": "Ten easy questions on the studio, the pen name behind the credits, the setting, the ship and the composer. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which studio made the series?",
+   "options": [
+    "Madhouse",
+    "Studio Pierrot",
+    "Sunrise",
+    "MAPPA"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "What is Hajime Yatate, the credited creator?",
+   "options": [
+    "A shared pen name for the Sunrise staff",
+    "A novelist who wrote the original book",
+    "A manga artist who drew the original comic",
+    "The composer of the soundtrack"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-creator-credit-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "How many episodes does the single season have?",
+   "options": [
+    "13",
+    "24",
+    "52",
+    "26"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-episode-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "What does the show call its episodes?",
+   "options": [
+    "Chapters",
+    "Sessions",
+    "Acts",
+    "Rounds"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-episode-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "In which year is the story set?",
+   "options": [
+    "2031",
+    "2071",
+    "2051",
+    "2091"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-setting-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "What is the name of the spaceship the bounty hunters call home?",
+   "options": [
+    "Swordfish",
+    "Hammerhead",
+    "Red Tail",
+    "Bebop"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-setting-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "What are the bounty hunters nicknamed in the story?",
+   "options": [
+    "Cowboys",
+    "Drifters",
+    "Rangers",
+    "Wolves"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-setting-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Who scored the show in a jazz-heavy style?",
+   "options": [
+    "Joe Hisaishi",
+    "Hiroyuki Sawano",
+    "Yoko Kanno",
+    "Yuki Kajiura"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-composer-seatbelts-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Which band did the composer form to play the score?",
+   "options": [
+    "Yellow Magic Orchestra",
+    "JAM Project",
+    "Radwimps",
+    "Seatbelts"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-composer-seatbelts-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "What kind of piece is the opening theme, Tank!?",
+   "options": [
+    "A mostly instrumental big band number",
+    "A sung pop ballad",
+    "A choir hymn",
+    "A rap track"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-opening-tank-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Music of Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 007, 008, 009). Studio, the Yatate pen name, episode count and the word sessions, the year 2071, the ship, the cowboys nickname, the composer, her band and the opening title."
+}

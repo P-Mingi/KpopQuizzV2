@@ -505,7 +505,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Gon Freecss (Japanese: ゴン=フリークス, Hepburn: Gon Furīkusu) is an athletic, naive, and friendly boy."
   },
   {
@@ -544,7 +544,7 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Meruem (メルエム, Meruemu; alternately \"Meryem\") is the Chimera Ant King"
   },
   {
@@ -602,5 +602,565 @@
     ],
     "status": "draft",
     "excerpt": "is the Chimera Ant King (キメラアントの王, Kimerānto no Ō) and the most powerful of the Queen's offspring"
+  },
+  {
+    "id": "hunter-x-hunter-gon-freecss-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "gon-freecss"
+    },
+    "field": "name",
+    "value": "Gon Freecss (ゴン=フリークス)",
+    "text": "Gon Freecss is a main character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an athletic, naive, and friendly boy. Having spent a lot of time in the woods as a child, he gets"
+  },
+  {
+    "id": "hunter-x-hunter-killua-zoldyck-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "killua-zoldyck"
+    },
+    "field": "name",
+    "value": "Killua Zoldyck (キルア=ゾルディック)",
+    "text": "Killua Zoldyck is a main character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is initially introduced as a cheeky, cheerful and mischievous boy who befriends Gon during the Hunter Exam. His"
+  },
+  {
+    "id": "hunter-x-hunter-kurapika-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "kurapika"
+    },
+    "field": "name",
+    "value": "Kurapika (クラピカ)",
+    "text": "Kurapika is a main character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the sole survivor of the Kurta Clan (クルタ族, Kuruta-zoku), a race with treasured irises that turn scarlet in times of anger or emotional"
+  },
+  {
+    "id": "hunter-x-hunter-leorio-paradinight-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "leorio-paradinight"
+    },
+    "field": "name",
+    "value": "Leorio Paradinight (レオリオ=パラディナイト)",
+    "text": "Leorio Paradinight is a main character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an older-looking young man that befriends Gon, Kurapika and Killua during the Hunter Exam. After"
+  },
+  {
+    "id": "hunter-x-hunter-hisoka-morrow-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "hisoka-morrow"
+    },
+    "field": "name",
+    "value": "Hisoka Morrow (ヒソカ=モロウ)",
+    "text": "Hisoka Morrow is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious magician that magic tricks with violence and delights in battling those he considers strong to the point"
+  },
+  {
+    "id": "hunter-x-hunter-illumi-zoldyck-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "illumi-zoldyck"
+    },
+    "field": "name",
+    "value": "Illumi Zoldyck (イルミ=ゾルディック)",
+    "text": "Illumi Zoldyck is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Killua's eldest brother, an experienced and expert assassin who played a part in Killua's training and"
+  },
+  {
+    "id": "hunter-x-hunter-isaac-netero-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "isaac-netero"
+    },
+    "field": "name",
+    "value": "Isaac Netero (アイザック=ネテロ)",
+    "text": "Isaac Netero is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Chairman of the Selection Committee for the Hunter Exam. Presiding over it, he has final authority over every"
+  },
+  {
+    "id": "hunter-x-hunter-ging-freecss-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "ging-freecss"
+    },
+    "field": "name",
+    "value": "Ging Freecss (ジン=フリークス)",
+    "text": "Ging Freecss is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Double Star Ruins Hunter and Gon's father and motivation to become a Hunter. He left Whale Island to become a Hunter"
+  },
+  {
+    "id": "hunter-x-hunter-silva-zoldyck-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "silva-zoldyck"
+    },
+    "field": "name",
+    "value": "Silva Zoldyck",
+    "text": "Silva Zoldyck is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Killua's father. A silent, pensive figure, Killua's interaction with him seems limited. He allows Killua to go"
+  },
+  {
+    "id": "hunter-x-hunter-kite-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "kite"
+    },
+    "field": "name",
+    "value": "Kite",
+    "text": "Kite is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the very first Hunter introduced in the story. A student of Ging Freecss, Gon's father, he traveled to Whale Island three years prior to"
+  },
+  {
+    "id": "hunter-x-hunter-chrollo-lucilfer-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "chrollo-lucilfer"
+    },
+    "field": "name",
+    "value": "Chrollo Lucilfer (クロロ ルシルフル)",
+    "text": "Chrollo Lucilfer is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the founder and leader of the Phantom Troupe, bearing the number 0, and is considered by its members as"
+  },
+  {
+    "id": "hunter-x-hunter-feitan-portor-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "feitan-portor"
+    },
+    "field": "name",
+    "value": "Feitan Portor",
+    "text": "Feitan Portor is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the original members hailing from Meteor City and bears the number 2 in the Troupe. He's physically the"
+  },
+  {
+    "id": "hunter-x-hunter-machi-komacine-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "machi-komacine"
+    },
+    "field": "name",
+    "value": "Machi Komacine",
+    "text": "Machi Komacine is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is incredibly loyal to Chrollo and is one of the original members from Meteor City, bearing the number 3. Physically, she is the"
+  },
+  {
+    "id": "hunter-x-hunter-uvogin-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "uvogin"
+    },
+    "field": "name",
+    "value": "Uvogin",
+    "text": "Uvogin is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the original members of the Troupe from Meteor City and bears the number 11 in the Troupe. Out of all, he is the strongest in"
+  },
+  {
+    "id": "hunter-x-hunter-biscuit-krueger-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "biscuit-krueger"
+    },
+    "field": "name",
+    "value": "Biscuit Krueger",
+    "text": "Biscuit Krueger is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Double Star Stone Hunter who Gon and Killua team up with in Greed Island. Although she appears to be a"
+  },
+  {
+    "id": "hunter-x-hunter-meruem-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "meruem"
+    },
+    "field": "name",
+    "value": "Meruem (メルエム)",
+    "text": "Meruem is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Chimera Ant King (キメラアントの王, Kimerānto no Ō) and the most powerful of the Queen's offspring. Forcing himself"
+  },
+  {
+    "id": "hunter-x-hunter-neferpitou-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "neferpitou"
+    },
+    "field": "name",
+    "value": "Neferpitou (ネフェルピトー)",
+    "text": "Neferpitou is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as \"Pitou\" (ピトー, Pitō), is a kemonomimi-themed Chimera Ant and the firstborn of the Royal Guards. Pitou is one of"
+  },
+  {
+    "id": "hunter-x-hunter-komugi-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "komugi"
+    },
+    "field": "name",
+    "value": "Komugi",
+    "text": "Komugi is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a blind girl from the Republic of East Gorteau and reigning world champion of Gungi (軍儀), a board game created in the country. When Meruem took"
+  },
+  {
+    "id": "hunter-x-hunter-pariston-hill-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "pariston-hill"
+    },
+    "field": "name",
+    "value": "Pariston Hill (パリストン=ヒル)",
+    "text": "Pariston Hill is an antagonist of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Triple Star Hunter and Vice Chairman of the Hunter Association. A member of the Zodiacs, his code name is the"
+  },
+  {
+    "id": "hunter-x-hunter-alluka-zoldyck-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "alluka-zoldyck"
+    },
+    "field": "name",
+    "value": "Alluka Zoldyck",
+    "text": "Alluka Zoldyck is a supporting character of Hunter × Hunter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+        "ref": "1378757391",
+        "fetched_at": "2026-10-20T18:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the second youngest sibling of Killua. While the other members of the Zoldyck family refer to Alluka as male or"
   }
 ]

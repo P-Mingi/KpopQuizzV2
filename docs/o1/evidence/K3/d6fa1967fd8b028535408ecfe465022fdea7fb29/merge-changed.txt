@@ -1,0 +1,5 @@
+docs/anime/data/daily/b1.json
+docs/anime/editorial/packets/k3-b1.html
+scripts/anime/k1/data-load.mjs
+scripts/anime/k1/data-load.test.mjs
+scripts/anime/k1/load-fixtures.mjs

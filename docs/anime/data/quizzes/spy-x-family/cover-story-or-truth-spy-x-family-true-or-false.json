@@ -1,0 +1,162 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Cover Story or Truth: Spy x Family True or False",
+ "slug": "cover-story-or-truth-spy-x-family-true-or-false",
+ "description": "Ten statements on the creator, the magazine, the volumes, the studios, the directors, the broadcast, the film, the award and the mission. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Spy × Family characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 006, 007, 016, 017, 020); each false one changes a single detail (a frequency, a count, a director's season, a year, the handler).",
+ "questions": [
+  {
+   "question": "Tatsuya Endo both writes and draws the Spy x Family manga.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Shueisha publishes the manga every week on its Shōnen Jump+ app.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "The run in Shōnen Jump+ began in March 2019.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "By the spring of 2026 the chapters filled twenty-seven collected volumes.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "spy-x-family-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Two studios share the animation, Wit Studio and CloverWorks.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-studios-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Yukiko Imai is credited as the director of season 1.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-directors-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "The TV anime aired 50 episodes in three seasons on TV Tokyo between April 2022 and December 2025.",
+   "correct": true,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "The theatrical film Code: White reached Japanese cinemas in December 2022.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-film-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "The Tokyo Anime Award Festival named the series its Animation of the Year.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-award-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Loid's mission is code-named Operation Strix, and Yor Forger is the handler who oversees it.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-operation-strix-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  }
+ ]
+}

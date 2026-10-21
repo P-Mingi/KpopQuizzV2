@@ -1,0 +1,243 @@
+{
+  "site": "anime",
+  "account": "oq_creator_14",
+  "group_slug": "frieren",
+  "title": "The Old Hero Party and After: Who Is This?",
+  "slug": "the-old-hero-party-and-after-who-is-this",
+  "description": "Three clues, four names. Spot the mage, the warrior or the priest from the main cast, and watch for the last clue written in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this mage?",
+      "clues": [
+        "An elven mage",
+        "More than a thousand years old",
+        "Her name is written フリーレン in Japanese"
+      ],
+      "options": [
+        "Fern",
+        "Serie",
+        "Frieren",
+        "Aura"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-frieren-name-021",
+        "frieren-fern-name-022",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
+        "frieren-frieren-age-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this apprentice?",
+      "clues": [
+        "The elf's apprentice",
+        "Raised by the priest Heiter",
+        "Her name is written フェルン in Japanese"
+      ],
+      "options": [
+        "Frieren",
+        "Fern",
+        "Serie",
+        "Aura"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-frieren-name-021",
+        "frieren-fern-name-022",
+        "frieren-heiter-name-026",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
+        "frieren-fern-apprentice-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this warrior?",
+      "clues": [
+        "A young warrior",
+        "Recommended to the elf by a dwarf warrior",
+        "His name is written シュタルク in Japanese"
+      ],
+      "options": [
+        "Himmel",
+        "Sein",
+        "Stark",
+        "Eisen"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this priest?",
+      "clues": [
+        "A priest",
+        "Travels with the party for a time",
+        "His name is written ザイン in Japanese"
+      ],
+      "options": [
+        "Sein",
+        "Stark",
+        "Himmel",
+        "Eisen"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this hero?",
+      "clues": [
+        "The hero of the old party",
+        "Fought alongside the party that defeated the Demon King",
+        "His name is written ヒンメル in Japanese"
+      ],
+      "options": [
+        "Himmel",
+        "Stark",
+        "Sein",
+        "Eisen"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-stark-name-023",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-eisen-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this priest of the old party?",
+      "clues": [
+        "A priest of the old Hero Party",
+        "Took Fern in once the group disbanded",
+        "His name is written ハイター in Japanese"
+      ],
+      "options": [
+        "Sein",
+        "Himmel",
+        "Eisen",
+        "Heiter"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-fern-name-022",
+        "frieren-sein-name-024",
+        "frieren-himmel-name-025",
+        "frieren-heiter-name-026",
+        "frieren-eisen-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Who is this dwarf?",
+      "clues": [
+        "A dwarf warrior",
+        "A member of the old Hero Party",
+        "His name is written アイゼン in Japanese"
+      ],
+      "options": [
+        "Stark",
+        "Heiter",
+        "Eisen",
+        "Himmel"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-stark-name-023",
+        "frieren-himmel-name-025",
+        "frieren-heiter-name-026",
+        "frieren-eisen-name-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Which demon is this?",
+      "clues": [
+        "A demon sealed away long ago",
+        "Invented the spell Zoltraak",
+        "His name is written クヴァール in Japanese"
+      ],
+      "options": [
+        "Aura",
+        "Qual",
+        "Serie",
+        "Himmel"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-himmel-name-025",
+        "frieren-qual-name-028",
+        "frieren-aura-name-029",
+        "frieren-serie-name-030",
+        "frieren-qual-zoltraak-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Frieren characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    }
+  ],
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
+}

@@ -1,0 +1,208 @@
+{
+ "site": "anime",
+ "account": "oq_creator_27",
+ "group_slug": "omniscient-readers-viewpoint",
+ "title": "Forty-Eight Episodes to a Block: Omniscient Reader's Viewpoint Odds and Ends",
+ "slug": "forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends",
+ "description": "Nine mixed questions on the five blocks of the webtoon, the novel's chapter count, the English licence and one number about a fighter who starts over.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "comic.naver.com/webtoon/list",
+   "url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia (zh): 全知讀者視角",
+   "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia (ko): 전지적 독자 시점",
+   "url": "https://ko.wikipedia.org/wiki/%EC%A0%84%EC%A7%80%EC%A0%81_%EB%8F%85%EC%9E%90_%EC%8B%9C%EC%A0%90"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Omniscient Reader's Viewpoint",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 facts (005, 006, 008, 009, 012) plus the regression count (015, arc 2). Level 2 from fact 015. Block names are the five arc names stored in fact 012.",
+ "questions": [
+  {
+   "question": "How many episodes does the first block of the webtoon cover?",
+   "options": [
+    "50",
+    "98",
+    "48",
+    "177"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-arc-structure-012"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "question": "Which block covers episodes 99 to 177?",
+   "options": [
+    "What Cannot Be Changed to Dark Castle",
+    "Night of the Prophets to Flood Calamity",
+    "Graveyard of Scenarios to Hatching",
+    "The Real Revolutionary to The Reader's Tale"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-arc-structure-012"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "question": "Which block covers episodes 178 to 244?",
+   "options": [
+    "Paid Service Begins to Future War",
+    "What Cannot Be Changed to Dark Castle",
+    "The Real Revolutionary to The Reader's Tale",
+    "Graveyard of Scenarios to Hatching"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-arc-structure-012"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "question": "Which block starts at episode 49?",
+   "options": [
+    "Paid Service Begins to Future War",
+    "Night of the Prophets to Flood Calamity",
+    "What Cannot Be Changed to Dark Castle",
+    "Graveyard of Scenarios to Hatching"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-arc-structure-012"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "question": "How many times had Yoo Joonghyuk's power to start over been used before Dokja's story begins in the web novel?",
+   "options": [
+    "863",
+    "1,863",
+    "1,368",
+    "3,149"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-regression-count-015"
+   ],
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+  },
+  {
+   "question": "The 551-chapter count of the main web novel leaves out what?",
+   "options": [
+    "The prologue chapter",
+    "The final chapter",
+    "The first fifty chapters",
+    "The side stories added later"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-length-005"
+   ],
+   "source_url": "https://ko.wikipedia.org/wiki/%EC%A0%84%EC%A7%80%EC%A0%81_%EB%8F%85%EC%9E%90_%EC%8B%9C%EC%A0%90"
+  },
+  {
+   "question": "When did IZE Press announce its English rights to the comic and the novel?",
+   "options": [
+    "June 2023",
+    "June 2020",
+    "July 2025",
+    "December 2020"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-licence-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "What did the webtoon open with when it went live on Naver Webtoon?",
+   "options": [
+    "A recap episode",
+    "A side story",
+    "A prologue episode",
+    "A season finale"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-webtoon-launch-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "How was episode 311 of the webtoon labeled?",
+   "options": [
+    "An extra episode",
+    "The prologue",
+    "A side story",
+    "The season finale"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-season-one-finale-008"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  }
+ ]
+}

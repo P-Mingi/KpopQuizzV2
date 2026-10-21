@@ -396,7 +396,7 @@
         "fetched_at": "2026-10-20T20:04:29Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "The show's protagonist is Shinji Ikari, a teenage boy whose father Gendo recruits to the shadowy organization Nerv to pilot a giant, bio-machine mecha"
   },
   {
@@ -454,5 +454,341 @@
     ],
     "status": "draft",
     "excerpt": "the media referred to the character as \"Premium Girl\" due to the high sales of books with Rei on the cover"
+  },
+  {
+    "id": "evangelion-shinji-ikari-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "shinji-ikari"
+    },
+    "field": "name",
+    "value": "Shinji Ikari (碇 シンジ)",
+    "text": "Shinji Ikari is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the only son of Gendo Rokubungi and Yui Ikari. Following the early death of his mother, who disappeared in a mysterious"
+  },
+  {
+    "id": "evangelion-rei-ayanami-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "rei-ayanami"
+    },
+    "field": "name",
+    "value": "Rei Ayanami (綾波 レイ)",
+    "text": "Rei Ayanami is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a pilot assigned to command Evangelion Unit 00 as the First Child. Her date of birth is unknown. Rei is a taciturn, shy"
+  },
+  {
+    "id": "evangelion-asuka-langley-soryu-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "asuka-langley-soryu"
+    },
+    "field": "name",
+    "value": "Asuka Langley Soryu (惣流・アスカ・ラングレー)",
+    "text": "Asuka Langley Soryu is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fiery pilot who is assigned to command Evangelion Unit 02 as the"
+  },
+  {
+    "id": "evangelion-misato-katsuragi-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "misato-katsuragi"
+    },
+    "field": "name",
+    "value": "Misato Katsuragi (葛城 ミサト)",
+    "text": "Misato Katsuragi is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the captain of the Nerv Operations Department and Shinji's guardian. Due to her childhood trauma, she has"
+  },
+  {
+    "id": "evangelion-gendo-ikari-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "gendo-ikari"
+    },
+    "field": "name",
+    "value": "Gendo Ikari (碇 ゲンドウ)",
+    "text": "Gendo Ikari is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Nerv's supreme commander, husband of Yui Ikari, and father of Shinji, with whom he has a difficult relationship. Gendo"
+  },
+  {
+    "id": "evangelion-ritsuko-akagi-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ritsuko-akagi"
+    },
+    "field": "name",
+    "value": "Ritsuko Akagi (赤木 リツコ)",
+    "text": "Ritsuko Akagi is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the head of the first section of the technology department at Nerv's headquarters, and one of the main developers of"
+  },
+  {
+    "id": "evangelion-ryoji-kaji-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ryoji-kaji"
+    },
+    "field": "name",
+    "value": "Ryoji Kaji (加持 リョウジ)",
+    "text": "Ryoji Kaji is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a member of Nerv's Special Investigations Department. During college, he met Misato Katsuragi and Ritsuko Akagi. He later"
+  },
+  {
+    "id": "evangelion-kaworu-nagisa-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kaworu-nagisa"
+    },
+    "field": "name",
+    "value": "Kaworu Nagisa (渚 カヲル)",
+    "text": "Kaworu Nagisa is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Fifth Child, who is sent to Nerv as a replacement pilot for Unit 02 following Asuka's psychological breakdown."
+  },
+  {
+    "id": "evangelion-toji-suzuhara-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "toji-suzuhara"
+    },
+    "field": "name",
+    "value": "Toji Suzuhara (鈴原 トウジ)",
+    "text": "Toji Suzuhara is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student of class 2-A at the first municipal middle school in Tokyo-3. At first, he shows strong animosity towards"
+  },
+  {
+    "id": "evangelion-kozo-fuyutsuki-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kozo-fuyutsuki"
+    },
+    "field": "name",
+    "value": "Kozo Fuyutsuki (冬月 コウゾウ)",
+    "text": "Kozo Fuyutsuki is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Nerv's deputy commander. After obtaining a professorship as a teacher of metaphysical biology at Kyoto University"
+  },
+  {
+    "id": "evangelion-yui-ikari-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "yui-ikari"
+    },
+    "field": "name",
+    "value": "Yui Ikari (碇 ユイ)",
+    "text": "Yui Ikari is a character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Shinji's mother and Gendo's wife. In 1999, when she was a student at Kyoto University, she met Professor Fuyutsuki and discussed"
+  },
+  {
+    "id": "evangelion-mari-illustrious-makinami-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "mari-illustrious-makinami"
+    },
+    "field": "name",
+    "value": "Mari Illustrious Makinami (真希波・マリ・イラストリアス)",
+    "text": "Mari Illustrious Makinami is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is introduced in the film Evangelion: 2.0 You Can (Not) Advance (2009), the second"
   }
 ]

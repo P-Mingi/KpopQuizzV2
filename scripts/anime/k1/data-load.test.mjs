@@ -66,3 +66,102 @@ test('the SQL is one idempotent transaction: upserts, the anime-mix group, no de
   assert.match(countDataSql(plan), /public\.trivia/);
   assert.equal(sqlText("a'b"), "'a''b'");
 });
+
+// ---- lane K2: creators and quizzes
+import { readExtras, computeQuizLevel } from './data-load.mjs';
+
+const creator = (u, over = {}) => ({ site: 'anime', kind: 'series', username: u, display_name: 'Test Creator', bio: 'A bio.', beat: 'Test Show', groups: ['test-show'], style: { voice: 'v', do: ['d'], dont: ['n'] }, avatar: `public/brand/anime/creators/${u}-avatar.svg`, header: `public/brand/anime/creators/${u}-header.svg`, ...over });
+const tag = (arc, scope = 'both') => ({ arc, scope });
+const quiz = (over = {}) => ({
+  site: 'anime', account: 'oq_creator_01', group_slug: 'test-show', title: 'A Test Quiz Title', slug: 'a-test-quiz', quiz_type: 'true_false', difficulty: 'easy', language: 'en',
+  questions: [{ question: 'a', correct: true, kind: 'lore', spoiler: tag(0) }, { question: 'b', correct: false, kind: 'lore', spoiler: tag(0) }, { question: 'c', correct: true, kind: 'lore', spoiler: tag(0) }], ...over,
+});
+function extrasDir(creators, quizzes) {
+  const dir = dataDir([fact('test-show-a-001', 'series', null, 'titles', { text: 'A trivia sentence.' })]);
+  writeFileSync(join(dir, 'creators.json'), JSON.stringify({ creators }));
+  mkdirSync(join(dir, 'quizzes', 'test-show'), { recursive: true });
+  quizzes.forEach((q, i) => writeFileSync(join(dir, 'quizzes', 'test-show', `q${i}.json`), JSON.stringify(q)));
+  return dir;
+}
+
+test('K2: creators and quizzes are planned, the level is computed from the tags, never read from the file', () => {
+  const q1 = quiz({ questions: [{ question: 'a', correct: true, kind: 'arc', spoiler: tag(2) }, { question: 'b', correct: true, kind: 'arc', spoiler: tag(0) }, { question: 'c', correct: true, kind: 'arc', spoiler: tag(1, 'anime') }] });
+  const dir = extrasDir([creator('oq_creator_01')], [q1, quiz({ slug: 'second-quiz', title: 'Second Quiz Title' })]);
+  const plan = buildDataPlan(readDataDir(dir), readExtras(dir));
+  assert.deepEqual(countDataPlan(plan), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1, creators: 1, quizzes: 2, questions: 6 });
+  assert.deepEqual([plan.quizzes[0].spoiler_arc_ord, plan.quizzes[0].spoiler_scope], [2, 'both']);
+  assert.deepEqual([plan.quizzes[1].spoiler_arc_ord, plan.quizzes[1].spoiler_scope], [0, null]);
+  assert.equal(plan.creators[0].avatar_url, 'https://otakuquiz.org/brand/anime/creators/oq_creator_01-avatar.svg');
+  const sql = renderDataSql(plan);
+  assert.match(sql, /a creator has no profile/);
+  assert.match(sql, /insert into public\.editorial_accounts .* on conflict \(user_id\) do update/);
+  assert.match(sql, /insert into public\.world_memberships .* on conflict \(user_id, site_id\) do update/);
+  assert.match(sql, /insert into public\.quizzes .* on conflict \(slug\) do update .* where quizzes\.site_id = 'anime';/);
+  assert.doesNotMatch(sql, /drop table|truncate|delete from public\.quizzes|delete from public\.profiles/i);
+  assert.match(countDataSql(plan), /public\.editorial_accounts/);
+});
+
+test('K2: a quiz of an unknown account, a bad group or without a tag is refused', () => {
+  const run = (q) => { const dir = extrasDir([creator('oq_creator_01')], [q]); return () => buildDataPlan(readDataDir(dir), readExtras(dir)); };
+  assert.throws(run(quiz({ account: 'oq_creator_09' })), /not in creators\.json/);
+  assert.throws(run(quiz({ group_slug: 'nope' })), /no series file/);
+  assert.throws(run(quiz({ questions: [{ question: 'a', correct: true }, { question: 'b', correct: true }, { question: 'c', correct: true }] })), /no spoiler tag/);
+  assert.throws(() => { const dir = extrasDir([creator('oq_creator_01'), creator('oq_creator_01')], []); buildDataPlan(readDataDir(dir), readExtras(dir)); }, /duplicate username/);
+  assert.throws(() => { const dir = extrasDir([creator('oq_creator_01', { bio: 'x'.repeat(161) })], []); buildDataPlan(readDataDir(dir), readExtras(dir)); }, /bio/);
+});
+
+test('K2: the level rules equal computeSpoilerLevel of lib/anime/spoilers/core.ts', async () => {
+  let core;
+  try { const { tsImport } = await import('tsx/esm/api'); core = await tsImport('../../../apps/quiz/src/lib/anime/spoilers/core.ts', import.meta.url); } catch { return; /* tsx not available: the mirror is checked by the plan test above */ }
+  const cases = [[], [tag(0)], [tag(3, 'anime')], [tag(3, 'anime'), tag(1, 'both')], [tag(2, 'manga'), tag(5, 'anime')], [tag(4, 'anime')]];
+  for (const tags of cases) {
+    for (const manga of [new Set(), new Set([4])]) {
+      const qs = tags.map((t) => ({ spoiler: t }));
+      const a = core.computeSpoilerLevel(qs, manga); const b = computeQuizLevel(qs, manga);
+      assert.deepEqual([b.arcOrd, b.scope], [a.arcOrd, a.scope ?? null]);
+    }
+  }
+});
+
+// ---- lane K3: daily bank rows
+import { readDaily } from './data-load.mjs';
+
+const dq = (over = {}) => ({ question: 'a', correct: true, kind: 'lore', spoiler: tag(0), fact_ids: ['test-show-a-001'], source_url: 'https://en.wikipedia.org/wiki/Test', ...over });
+const dailyRow = (over = {}) => ({
+  site: 'anime', title: 'A Daily Bank Row', description: 'Eight statements.', group_slug: 'test-show', quiz_type: 'true_false', difficulty: 'easy', category: 'true_false',
+  questions: Array.from({ length: 8 }, (_, i) => dq({ question: `q${i}` })), sources: [{ id: 'S1', title: 'Wikipedia: Test', url: 'https://en.wikipedia.org/wiki/Test' }], ...over,
+});
+function dailyDir(rows) {
+  const dir = dataDir([fact('test-show-a-001', 'series', null, 'titles', { text: 'A trivia sentence.' })]);
+  mkdirSync(join(dir, 'daily'));
+  writeFileSync(join(dir, 'daily', 'b1.json'), JSON.stringify(rows));
+  return dir;
+}
+const planOf = (dir) => buildDataPlan(readDataDir(dir), { creators: [], quizzes: [], daily: readDaily(dir) });
+
+test('K3: daily rows are planned, a null group files under anime-mix, counts add daily and daily_questions', () => {
+  const dir = dailyDir([dailyRow(), dailyRow({ title: 'A Mixed Daily Row', group_slug: 'anime-mix' }), dailyRow({ title: 'A Null Group Row', group_slug: null })]);
+  const plan = planOf(dir);
+  assert.deepEqual(plan.daily.map((r) => r.group_slug), ['test-show', 'anime-mix', 'anime-mix']);
+  assert.deepEqual(countDataPlan(plan), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1, daily: 3, daily_questions: 24 });
+  assert.deepEqual(countDataPlan(buildDataPlan(readDataDir(dir))), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1 });
+});
+
+test('K3: the SQL never sets a date, inserts drafts of site anime, and deletes only unscheduled unpublished drafts', () => {
+  const sql = renderDataSql(planOf(dailyDir([dailyRow({ title: "Bob's Daily Row" })])));
+  assert.match(sql, /insert into public\.quiz_bank \(title, description, group_id, quiz_type, difficulty, category, questions, status, site_id\) select .* 'draft', 'anime' from _k3_bank/);
+  assert.doesNotMatch(sql, /scheduled_date\s*=\s*[^n]/);
+  assert.match(sql, /delete from public\.quiz_bank b where b\.site_id = 'anime' and b\.scheduled_date is null and b\.published_quiz_id is null and b\.verified_at is null and b\.status = 'draft'/);
+  assert.match(sql, /'Bob''s Daily Row'/);
+  assert.doesNotMatch(sql, /drop table|truncate/i);
+  assert.match(countDataSql(planOf(dailyDir([dailyRow()]))), /public\.quiz_bank/);
+});
+
+test('K3: a bad daily row is refused: wrong count, a tag above arc 0, a bad category, an unknown group, a duplicate title', () => {
+  const run = (rows) => () => planOf(dailyDir(rows));
+  assert.throws(run([dailyRow({ questions: dailyRow().questions.slice(0, 7) })]), /exactly 8 questions/);
+  assert.throws(run([dailyRow({ questions: dailyRow().questions.map((q, i) => (i === 2 ? { ...q, spoiler: tag(1) } : q)) })]), /spoiler arc 0/);
+  assert.throws(run([dailyRow({ category: 'knowledge' })]), /bad category/);
+  assert.throws(run([dailyRow({ group_slug: 'nope' })]), /no series file/);
+  assert.throws(run([dailyRow(), dailyRow()]), /duplicate title/);
+});

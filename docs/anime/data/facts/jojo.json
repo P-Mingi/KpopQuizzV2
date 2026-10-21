@@ -488,7 +488,7 @@
       "Joseph Joestar (ジョセフ・ジョースター): Part 2 hero",
       "Caesar Anthonio Zeppeli (シーザー・アントニオ・ツェペリ): Hamon user",
       "Lisa Lisa (リサリサ): Hamon master",
-      "Kars (カーズ): leader of the Pillar Men",
+      "Kars (カーズ): chief of the Pillar Men",
       "Jotaro Kujo (空条 承太郎): Part 3 hero",
       "Mohammed Avdol (モハメド・アヴドゥル): fortune teller",
       "Noriaki Kakyoin (花京院 典明): high school student",
@@ -509,7 +509,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Jotaro Kujo (空条 承太郎"
   },
   {
@@ -547,7 +547,7 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Josuke Higashikata (東方 仗助"
   },
   {
@@ -631,5 +631,565 @@
     ],
     "status": "draft",
     "excerpt": "A 13-episode original video animation adaptation of Part 3, Stardust Crusaders, was produced by A.P.P.P."
+  },
+  {
+    "id": "jojo-jonathan-joestar-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jonathan-joestar"
+    },
+    "field": "name",
+    "value": "Jonathan Joestar (ジョナサン・ジョースター)",
+    "text": "Jonathan Joestar is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "When first beginning the series, Dio Brando is the character that Araki looked forward to drawing the most. Inspired by FBI profiling of serial killers and how"
+  },
+  {
+    "id": "jojo-dio-brando-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "dio-brando"
+    },
+    "field": "name",
+    "value": "Dio Brando (ディオ・ブランドー)",
+    "text": "Dio Brando is an antagonist of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the character that Araki looked forward to drawing the most. Inspired by FBI profiling of serial killers and how"
+  },
+  {
+    "id": "jojo-joseph-joestar-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "joseph-joestar"
+    },
+    "field": "name",
+    "value": "Joseph Joestar (ジョセフ・ジョースター)",
+    "text": "Joseph Joestar is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Joseph (born September 27, 1920) is the main protagonist of Battle Tendency and the grandson of Jonathan Joestar. Having been brought up by his grandmother"
+  },
+  {
+    "id": "jojo-caesar-zeppeli-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "caesar-zeppeli"
+    },
+    "field": "name",
+    "value": "Caesar Anthonio Zeppeli (シーザー・アントニオ・ツェペリ)",
+    "text": "Caesar Anthonio Zeppeli is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shīzā Antonio Tseperi)"
+  },
+  {
+    "id": "jojo-lisa-lisa-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "lisa-lisa"
+    },
+    "field": "name",
+    "value": "Lisa Lisa (リサリサ)",
+    "text": "Lisa Lisa is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious female Hamon master and Caesar's Hamon teacher who lives in Venice. Lisa Lisa is one of the few remaining Hamon users"
+  },
+  {
+    "id": "jojo-kars-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "kars"
+    },
+    "field": "name",
+    "value": "Kars (カーズ)",
+    "text": "Kars is an antagonist of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the leader of the Pillar Men and the creator of the Stone Masks. He is intelligent and ruthless, and single minded in his"
+  },
+  {
+    "id": "jojo-jotaro-kujo-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jotaro-kujo"
+    },
+    "field": "name",
+    "value": "Jotaro Kujo (空条 承太郎)",
+    "text": "Jotaro Kujo is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Although a Japanese protagonist, Araki modeled Jotaro Kujo after American actor Clint Eastwood, including his poses and catchphrases. Although the author said"
+  },
+  {
+    "id": "jojo-avdol-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "avdol"
+    },
+    "field": "name",
+    "value": "Mohammed Avdol (モハメド・アヴドゥル)",
+    "text": "Mohammed Avdol is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mohamedo Avuduru)"
+  },
+  {
+    "id": "jojo-kakyoin-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "kakyoin"
+    },
+    "field": "name",
+    "value": "Noriaki Kakyoin (花京院 典明)",
+    "text": "Noriaki Kakyoin is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kakyoin is a highschool student that Dio inflicted with a mind-controlling flesh bud and sends after Jotaro, only for life is instead saved by Jotaro with"
+  },
+  {
+    "id": "jojo-polnareff-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "polnareff"
+    },
+    "field": "name",
+    "value": "Jean Pierre Polnareff (ジャン・ピエール・ポルナレフ)",
+    "text": "Jean Pierre Polnareff is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jan Piēru Porunarefu)"
+  },
+  {
+    "id": "jojo-josuke-higashikata-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "josuke-higashikata"
+    },
+    "field": "name",
+    "value": "Josuke Higashikata (東方 仗助)",
+    "text": "Josuke Higashikata is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" redirects here. For the JoJolion character, see § Josuke Higashikata (JoJolion)."
+  },
+  {
+    "id": "jojo-yoshikage-kira-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "yoshikage-kira"
+    },
+    "field": "name",
+    "value": "Yoshikage Kira (吉良 吉影)",
+    "text": "Yoshikage Kira is an antagonist of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The main antagonist of Diamond Is Unbreakable, Kira is a handsome office worker who holds a strong desire to live a simple life, but has a murderous obsession"
+  },
+  {
+    "id": "jojo-rohan-kishibe-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "rohan-kishibe"
+    },
+    "field": "name",
+    "value": "Rohan Kishibe (岸辺 露伴)",
+    "text": "Rohan Kishibe is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a successful Japanese manga artist visiting Hawaii for a 15-day vacation. Jodio and his classmates are tasked with stealing the diamond from"
+  },
+  {
+    "id": "jojo-giorno-giovanna-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "giorno-giovanna"
+    },
+    "field": "name",
+    "value": "Giorno Giovanna (ジョルノ・ジョバァーナ)",
+    "text": "Giorno Giovanna is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The main protagonist of Golden Wind, born Haruno Shiobana (汐華 初流乃), Giorno is the illegitimate son of Dio. However, because Dio's head was attached to the"
+  },
+  {
+    "id": "jojo-bruno-bucciarati-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "bruno-bucciarati"
+    },
+    "field": "name",
+    "value": "Bruno Bucciarati (ブローノ・ブチャラティ)",
+    "text": "Bruno Bucciarati is a supporting character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Burōno Bucharati)"
+  },
+  {
+    "id": "jojo-jolyne-cujoh-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jolyne-cujoh"
+    },
+    "field": "name",
+    "value": "Jolyne Cujoh (空条 徐倫)",
+    "text": "Jolyne Cujoh is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the daughter of Jotaro Kujo and an unknown American woman. Framed for a DUI homicide, she is sent to Green"
+  },
+  {
+    "id": "jojo-enrico-pucci-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "enrico-pucci"
+    },
+    "field": "name",
+    "value": "Enrico Pucci (エンリコ・プッチ)",
+    "text": "Enrico Pucci is an antagonist of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the main antagonist of Stone Ocean and a loyal follower of Dio, having met him in the 1980s while on the path of priesthood at the age of"
+  },
+  {
+    "id": "jojo-johnny-joestar-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "johnny-joestar"
+    },
+    "field": "name",
+    "value": "Johnny Joestar (ジョニィ・ジョースター)",
+    "text": "Johnny Joestar is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the main protagonist of Steel Ball Run. Born in Kentucky and spending some time in the United Kingdom, Johnny was a horse racing prodigy"
+  },
+  {
+    "id": "jojo-gyro-zeppeli-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "gyro-zeppeli"
+    },
+    "field": "name",
+    "value": "Gyro Zeppeli (ジャイロ・ツェペリ)",
+    "text": "Gyro Zeppeli is a main character of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a disgraced magistrate and executioner from the Kingdom of Naples, who participates in the Steel Ball Run to free someone who he believes has"
+  },
+  {
+    "id": "jojo-funny-valentine-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "funny-valentine"
+    },
+    "field": "name",
+    "value": "Funny Valentine (ファニー・ヴァレンタイン)",
+    "text": "Funny Valentine is an antagonist of JoJo's Bizarre Adventure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Fanī Varentain)"
   }
 ]

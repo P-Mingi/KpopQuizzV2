@@ -372,7 +372,8 @@
     "apps/quiz/e2e/o1/K2/**",
     "docs/o1/reports/K2/**",
     "docs/anime/**",
-    "scripts/anime/**"
+    "scripts/anime/**",
+    "apps/quiz/public/brand/anime/creators/**"
   ],
   "K3": [
     "docs/pending-migrations/multisite/launch/L*-k3-*",

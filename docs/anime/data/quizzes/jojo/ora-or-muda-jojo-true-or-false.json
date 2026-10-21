@@ -1,0 +1,162 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Ora or Muda: True or False",
+  "slug": "ora-or-muda-jojo-true-or-false",
+  "description": "Ten statements about the manga, its magazines and the TV anime. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Hirohiko Araki wrote and drew the whole manga himself.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga began in Weekly Shōnen Jump on 1 January 1997.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga moved to the monthly Ultra Jump in 2005.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga began in Kodansha's Weekly Shōnen Jump.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By March 2026 the manga filled 39 collected volumes.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By August 2023 the manga had more than 120 million copies in circulation.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-copies-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By October 2026 the TV anime counted 195 episodes over six seasons.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "question": "David Production has made the TV anime since October 2002.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "question": "The first season of the anime used a single opening song.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "The first season used one ending song for all of its episodes.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: JoJo's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: JoJo's Bizarre Adventure (TV series)",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: JoJo's Bizarre Adventure season 1",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a publisher or a count)."
+}

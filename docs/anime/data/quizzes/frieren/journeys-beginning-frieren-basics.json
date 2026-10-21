@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "oq_creator_14",
+  "group_slug": "frieren",
+  "title": "Journey's Beginning: Frieren Basics",
+  "slug": "journeys-beginning-frieren-basics",
+  "description": "Ten easy questions on the two creators, the magazine, the studio and the first season. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who writes the Frieren manga?",
+      "options": [
+        "Tsukasa Abe",
+        "Keiichirō Saitō",
+        "Evan Call",
+        "Kanehito Yamada"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-manga-creators-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "Who draws the Frieren manga?",
+      "options": [
+        "Kanehito Yamada",
+        "Tomoya Kitagawa",
+        "Evan Call",
+        "Tsukasa Abe"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-manga-creators-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "In which magazine did the manga begin?",
+      "options": [
+        "Weekly Shōnen Sunday",
+        "Weekly Shōnen Jump",
+        "Weekly Shōnen Magazine",
+        "Monthly Shōnen Gangan"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-magazine-start-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "Frieren first appeared in a magazine in which year?",
+      "options": [
+        "2016",
+        "2018",
+        "2023",
+        "2020"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-magazine-start-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "How many collected volumes were out by the end of 2025?",
+      "options": [
+        "Fifteen",
+        "Five",
+        "Thirty",
+        "Fifty"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "By January 2026, how many copies of the manga had passed into circulation?",
+      "options": [
+        "5 million",
+        "15 million",
+        "100 million",
+        "35 million"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-copies-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "Which studio made the first anime season?",
+      "options": [
+        "Madhouse",
+        "Bones",
+        "MAPPA",
+        "Wit Studio"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "How many episodes did the first anime season run?",
+      "options": [
+        "28",
+        "12",
+        "24",
+        "38"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "How old is Frieren, the elf?",
+      "options": [
+        "About three hundred years",
+        "Around eighty years",
+        "More than a thousand years",
+        "Exactly one hundred years"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-frieren-age-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "What does the Japanese title literally mean?",
+      "options": [
+        "Frieren Beyond the Sea",
+        "The Elf in Winter",
+        "Journey of the Hero",
+        "Frieren at the Funeral"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-japanese-title-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Frieren",
+      "url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Frieren (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Frieren characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. Creators, magazine, volumes, sales, studio and the age of the elf."
+}

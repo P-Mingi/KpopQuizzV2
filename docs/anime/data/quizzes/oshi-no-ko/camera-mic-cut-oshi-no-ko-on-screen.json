@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Camera, Mic, Cut: Oshi no Ko on Screen",
+ "slug": "camera-mic-cut-oshi-no-ko-on-screen",
+ "description": "Ten questions on the director, the series composer, the composer, the first-season songs and the live-action version.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directs the television series?",
+   "options": [
+    "Daisuke Hiramaki",
+    "Susumu Mitsunaka",
+    "Takashi Sano",
+    "Seiji Mizushima"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-studio-staff-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Who handles series composition?",
+   "options": [
+    "Jin Tanaka",
+    "Daisuke Hiramaki",
+    "Takurō Iga",
+    "Shō Aikawa"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-studio-staff-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Who composes the music of the series?",
+   "options": [
+    "Takurō Iga",
+    "Jin Tanaka",
+    "Yuki Hayashi",
+    "Evan Call"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-studio-staff-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which act performs Idol, the opening of season one?",
+   "options": [
+    "YOASOBI",
+    "Queen Bee",
+    "Gemn",
+    "Hitsujibungaku"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which act performs Mephisto, the ending of season one?",
+   "options": [
+    "Queen Bee",
+    "YOASOBI",
+    "Chanmina",
+    "Natori"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "On which date did the first episode have a cinema screening?",
+   "options": [
+    "January 5, 2023",
+    "April 12, 2023",
+    "June 28, 2023",
+    "March 17, 2023"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-first-episode-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "How many minutes long is the feature-length opener shown in cinemas?",
+   "options": [
+    "24",
+    "90",
+    "45",
+    "150"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-first-episode-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "On which date did season one begin?",
+   "options": [
+    "January 5, 2023",
+    "July 3, 2023",
+    "October 2, 2023",
+    "April 12, 2023"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "Which feature film followed the live-action series on December 20, 2024?",
+   "options": [
+    "The Final Act",
+    "The Last Curtain",
+    "The Closing Night",
+    "The Encore Tour"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-live-action-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "On which date did the live-action series debut?",
+   "options": [
+    "March 17, 2023",
+    "April 12, 2023",
+    "November 28, 2024",
+    "December 20, 2023"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-live-action-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Oshi no Ko episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Oshi no Ko",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  }
+ ],
+ "notes": "All facts arc 0 (007, 008, 009, 012, 020). Names, dates and song titles only, no lyrics."
+}

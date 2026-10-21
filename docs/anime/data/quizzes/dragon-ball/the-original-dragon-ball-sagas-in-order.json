@@ -1,0 +1,213 @@
+{
+  "site": "anime",
+  "account": "oq_creator_08",
+  "group_slug": "dragon-ball",
+  "title": "The Original Dragon Ball Sagas in Order",
+  "slug": "the-original-dragon-ball-sagas-in-order",
+  "description": "Nine saga seasons, 153 episodes. Match the sagas of the 1986 series to their episode ranges.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which saga covers episodes 1 to 13 of the first series?",
+      "options": [
+        "Emperor Pilaf Saga",
+        "Tournament Saga",
+        "Red Ribbon Army Saga",
+        "General Blue Saga"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 14 to 28?",
+      "options": [
+        "Emperor Pilaf Saga",
+        "Red Ribbon Army Saga",
+        "Fortuneteller Baba Saga",
+        "Tournament Saga"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 29 to 45?",
+      "options": [
+        "Red Ribbon Army Saga",
+        "Tournament Saga",
+        "General Blue Saga",
+        "Commander Red Saga"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 46 to 57?",
+      "options": [
+        "Red Ribbon Army Saga",
+        "General Blue Saga",
+        "Commander Red Saga",
+        "Fortuneteller Baba Saga"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 58 to 68?",
+      "options": [
+        "General Blue Saga",
+        "Fortuneteller Baba Saga",
+        "Commander Red Saga",
+        "Tien Shinhan Saga"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 69 to 83?",
+      "options": [
+        "Commander Red Saga",
+        "Tien Shinhan Saga",
+        "General Blue Saga",
+        "Fortuneteller Baba Saga"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "At which episode does the Tien Shinhan Saga end?",
+      "options": [
+        "83",
+        "84",
+        "122",
+        "101"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga covers episodes 102 to 122?",
+      "options": [
+        "Tien Shinhan Saga",
+        "King Piccolo Saga",
+        "Piccolo Jr. Saga",
+        "Fortuneteller Baba Saga"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "Which saga closes the first series, from episode 123 to episode 153?",
+      "options": [
+        "King Piccolo Saga",
+        "Piccolo Jr. Saga",
+        "Tien Shinhan Saga",
+        "Tournament Saga"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    },
+    {
+      "question": "The 1986 series is split into how many saga seasons in the episode list?",
+      "options": [
+        "Five",
+        "Twelve",
+        "Nine",
+        "Eighteen"
+      ],
+      "correct": 2,
+      "fun_fact": "The nine saga seasons add up to 153 episodes.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 9,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-db-saga-seasons-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Dragon Ball episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_episodes"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 9: the saga list of the first series (fact dragon-ball-db-saga-seasons-001, arc 9). Saga names and ranges come straight from the list."
+}

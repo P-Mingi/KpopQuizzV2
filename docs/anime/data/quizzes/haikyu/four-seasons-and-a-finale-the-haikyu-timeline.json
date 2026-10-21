@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Four Seasons and a Finale: The Haikyu!! Timeline",
+ "slug": "four-seasons-and-a-finale-the-haikyu-timeline",
+ "description": "Ten questions on seasons three and four, the pandemic delay and the two Haikyu!! Final films.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "How many episodes does season three, Karasuno High School vs Shiratorizawa Academy, run?",
+   "options": [
+    "5",
+    "13",
+    "10",
+    "25"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which year was season three shown?",
+   "options": [
+    "2014",
+    "2015",
+    "2018",
+    "2016"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which band performed Hikariare, the opening of season three?",
+   "options": [
+    "Spyair",
+    "Super Beaver",
+    "Burnout Syndromes",
+    "Sukima Switch"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-three-four-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "What is the title of the fourth season?",
+   "options": [
+    "Road to Nationals",
+    "Flight of the Crows",
+    "Beyond the Net",
+    "To The Top"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-four-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "On which date did the fourth season begin?",
+   "options": [
+    "April 4, 2020",
+    "July 5, 2020",
+    "October 3, 2020",
+    "January 11, 2020"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-four-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Why did the second cour of season four slip to October 2020?",
+   "options": [
+    "A change of studio",
+    "A cast change",
+    "A shortage of paper",
+    "The COVID-19 pandemic"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-four-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many opening songs does the split-cour fourth season have?",
+   "options": [
+    "One",
+    "Two",
+    "Three",
+    "Four"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-three-four-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Into how many Haikyu!! Final films is the finale split?",
+   "options": [
+    "Two",
+    "One",
+    "Three",
+    "Four"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-final-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which Final film came out on February 16, 2024?",
+   "options": [
+    "The Dumpster Battle",
+    "vs. The Little Giant",
+    "The Crow Returns",
+    "The Last Spike"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-final-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which year is the second Final film, vs. The Little Giant, set to come out?",
+   "options": [
+    "2025",
+    "2027",
+    "2026",
+    "2028"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-final-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  }
+ ],
+ "notes": "Arc quiz: tags follow the cited facts (010 and 014 arc 3, 011 arc 4, 012 arc 5). The season four song question is tagged 4 although 014 only needs 3, as it spoils season four."
+}

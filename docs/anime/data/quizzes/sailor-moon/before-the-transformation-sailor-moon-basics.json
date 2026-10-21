@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_29",
+ "group_slug": "sailor-moon",
+ "title": "Before the Transformation: Sailor Moon Basics",
+ "slug": "before-the-transformation-sailor-moon-basics",
+ "description": "Ten easy questions on the manga, its magazine and publisher, the 1993 prize and the first anime. Each question says which work it means. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who wrote and drew the Sailor Moon manga?",
+   "options": [
+    "Rumiko Takahashi",
+    "Hiromu Arakawa",
+    "Naoko Takeuchi",
+    "Masashi Kishimoto"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-author-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Which girls' magazine ran the manga?",
+   "options": [
+    "Nakayoshi",
+    "Ribon",
+    "Hana to Yume",
+    "Weekly Shōnen Jump"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Which publisher owns the magazine that ran the manga?",
+   "options": [
+    "Shueisha",
+    "Shogakukan",
+    "Hakusensha",
+    "Kodansha"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "In which year did the manga begin its run?",
+   "options": [
+    "1989",
+    "1991",
+    "1993",
+    "1995"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "How many volumes did the original manga edition fill?",
+   "options": [
+    "12",
+    "18",
+    "28",
+    "60"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "How many copies of the manga have been sold worldwide?",
+   "options": [
+    "Over 4.6 million",
+    "Over 14 million",
+    "Over 460 million",
+    "Over 46 million"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-copies-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Which prize did the manga win in the shōjo category in 1993?",
+   "options": [
+    "Kodansha Manga Award",
+    "Shogakukan Manga Award",
+    "Eisner Award",
+    "Tezuka Osamu Cultural Prize"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-kodansha-award-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Which studio made the 1992 anime?",
+   "options": [
+    "Sunrise",
+    "Madhouse",
+    "Toei Animation",
+    "Studio Pierrot"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Which channel first aired the 1992 anime in Japan?",
+   "options": [
+    "TV Tokyo",
+    "Fuji TV",
+    "NHK",
+    "TV Asahi"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "How many episodes does the 1992 anime have in total?",
+   "options": [
+    "200",
+    "46",
+    "100",
+    "52"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Sailor Moon",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 006, 007, 008). Manga author, magazine, publisher, start year, volumes, circulation, prize, then the 1992 anime studio, channel and episode count."
+}

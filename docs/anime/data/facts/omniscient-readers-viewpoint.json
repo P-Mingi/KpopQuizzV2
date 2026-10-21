@@ -409,7 +409,7 @@
         "fetched_at": "2026-10-20T20:20:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "金獨子（김독자；Kim Dokja）, 劉衆赫（유중혁；Yoo Joonghyuk）, 韓秀英（한수영；Han Sooyoung）, 劉尚雅（유상아；Yoo Sangah）"
   },
   {
@@ -467,5 +467,341 @@
     ],
     "status": "draft",
     "excerpt": "在《滅活法》中回歸了1863次"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-kim-dokja-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "kim-dokja"
+    },
+    "field": "name",
+    "value": "Kim Dokja (김독자)",
+    "text": "Kim Dokja is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：28歲（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-yoo-joonghyuk-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "yoo-joonghyuk"
+    },
+    "field": "name",
+    "value": "Yoo Joonghyuk (유중혁)",
+    "text": "Yoo Joonghyuk is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：28歲（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-han-sooyoung-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "han-sooyoung"
+    },
+    "field": "name",
+    "value": "Han Sooyoung (한수영)",
+    "text": "Han Sooyoung is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：26（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-yoo-sangah-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "yoo-sangah"
+    },
+    "field": "name",
+    "value": "Yoo Sangah (유상아)",
+    "text": "Yoo Sangah is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：月光女孩→月光賢帝→曼荼羅的繼承者"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "jung-heewon"
+    },
+    "field": "name",
+    "value": "Jung Heewon (정희원)",
+    "text": "Jung Heewon is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：滅惡的審判者→滅亡的審判者"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-hyunsung"
+    },
+    "field": "name",
+    "value": "Lee Hyunsung (이현성)",
+    "text": "Lee Hyunsung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：純情強鐵→鋼鐵劍帝"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-gilyoung-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-gilyoung"
+    },
+    "field": "name",
+    "value": "Lee Gilyoung (이길영)",
+    "text": "Lee Gilyoung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "背後星：無底坑的主宰（亞巴頓）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-jihye"
+    },
+    "field": "name",
+    "value": "Lee Jihye (이지혜)",
+    "text": "Lee Jihye is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "背後星：海上戰神（李舜臣）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-gong-pildu-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "gong-pildu"
+    },
+    "field": "name",
+    "value": "Gong Pildu (공필두)",
+    "text": "Gong Pildu is an antagonist of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "《滅活法》的反派角色「十惡」之一，統領「屋主聯盟」，在主線任務#3被金獨子使計拉攏成為夥伴之一。"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-han-myungoh-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "han-myungoh"
+    },
+    "field": "name",
+    "value": "Han Myungoh (한명오)",
+    "text": "Han Myungoh is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "金獨子在Minosoft的上司，多次欲接送劉尚雅上下班被拒絕，於是偷了她通勤用的腳踏車但仍被拒絕，因此又跟蹤劉尚雅進入地鐵第3807車廂。由於在金湖站給了惡魔物種「黑暗守護者」最後一擊，被惡魔物種主人「盛怒與慾望的魔神」魔王阿斯莫德詛咒而懷孕生下一女。其女之後成為阿斯莫德的化身體，韓明伍也因此被賜予惡魔貴族的頭銜。在第"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-bihyung-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "bihyung"
+    },
+    "field": "name",
+    "value": "Bihyung (비형)",
+    "text": "Bihyung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "頻道代號：BI-7623"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-shin-yoosung-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "shin-yoosung"
+    },
+    "field": "name",
+    "value": "Shin Yoosung (신유승)",
+    "text": "Shin Yoosung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：馴獸大師→靈獸之王"
   }
 ]

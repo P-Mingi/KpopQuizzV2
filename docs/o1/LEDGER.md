@@ -337,3 +337,16 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
 - D-075 K1 complete: 27 series in docs/anime/data (b7 ef67c04, b8 7261ab0, b9 c20140f; 0.32, 0.28, 0.31 M). Omniscient Reader's Viewpoint and Kagurabachi have no aired anime, so no themes: C1's two-theme minimum (from the fixture schema) now applies only to series with anime_start_year, otherwise a warning. check.mjs on the folder: 54 of 54 pass.
 | 2026-10-20T20:28:44Z | K1 | d123e6a49fe8 | not needed | 0 SQL file(s) |
 - D-076 Disk at 97 percent (14 GB free): new-lane.sh takes O1_MIN_FREE_GB (default 15); ORCH opens content lanes, which never build, at 12. K1 worktree removed (branch kept). K2 starts (brief K2.md): 30 Team creators and 5 quizzes per series, in batches of 6 series.
+| 2026-10-20T20:51:20Z | P1 | 05c2cfbd0c85 | identical (base f4416b4110234d5ca55bdcbe31b95d4c71b2edff, merged tree d37507dc92667374e3cbe709671f511312420334), production through the read-only proxy | 0 SQL file(s) |
+- D-077 Lot b merged (P1 29a1f5f; fix 05c2cfb, 0.24 M: kpop routes reached new client modules through the shared sign-in sheet, header actions and passport model; world-only modules now; 162 kpop page manifests reach the same client modules). Production comparison identical, 60 of 60. K1 b9 merged (2ac66d5): 30 series on o1-dev. K2 batch 1 and lot c (B6) started.
+| 2026-10-20T20:53:59Z | K2 | 45c95687fd1b | not needed | 0 SQL file(s) |
+| 2026-10-20T21:20:32Z | K2 | eaafb8845ba7 | identical (base 15fdfbaac7f4ebecba1dfd7a819568230a9b9def, merged tree 3b01313633c798e1db0af6b155352d167f4f829c), production through the read-only proxy | 0 SQL file(s) |
+| 2026-10-20T21:47:23Z | K1 | 846d736f68c9 | not needed | 0 SQL file(s) |
+| 2026-10-20T21:57:38Z | K2 | a9a274c7d427 | not needed | 0 SQL file(s) |
+| 2026-10-20T22:09:58Z | K2 | e42ffa20c880 | not needed | 0 SQL file(s) |
+| 2026-10-20T22:22:11Z | K2 | 4f7c50e6a051 | not needed | 0 SQL file(s) |
+- D-078 K1 complete (b10 846d736: real Death Note, One Piece, Spy x Family data; 30 series, 600 characters, 590 facts on o1-dev). K2 complete (b2 to b5; 150 quizzes, 1449 questions, signed by the 30 Team creators). Packets sent. Known content defect: cast-list facts carry the arc of their last character, which lifts several Characters quizzes above arc 0; a content lot after K3 splits them per character and retags. K3 (daily bank, 100) next, brief K3.md.
+| 2026-10-20T22:49:30Z | K3 | d6fa1967fd8b | not needed | 0 SQL file(s) |
+| 2026-10-20T23:09:27Z | K3 | cf2f0afb6109 | not needed | 0 SQL file(s) |
+| 2026-10-20T23:35:41Z | K1 | 8a3312f0518f | not needed | 0 SQL file(s) |
+- D-079 Content for launch complete on o1-dev: 30 series, 150 quizzes (1449 questions), 100 daily rows (800 questions), 31 Team accounts. K3 b1 d6fa196, b2 cf2f0af (its agent committed with core.hooksPath overridden; merge-lane's guard checked the range as K3: ok). Cast fix 8a3312f: 54 cast-list facts rejected, 598 per-character facts, 11 Characters quizzes lowered (9 to arc 0). The loader maps rejected to hidden but never resets an existing trivia status: on o1-dev the 54 old rows stay draft (nothing published); a fresh launch load hides them. All facts are draft until the owner's review.

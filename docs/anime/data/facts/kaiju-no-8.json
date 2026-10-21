@@ -396,7 +396,7 @@
         "fetched_at": "2026-10-20T20:00:51Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Kafka Hibino is a cleaner for a kaiju disposal company who once aspired to join the Defense Force."
   },
   {
@@ -453,5 +453,341 @@
     ],
     "status": "draft",
     "excerpt": "A kaiju-slaying prodigy, Kikoru is one of the greatest talents in the Defense Force and has the highest recorded unleashed combat power as a recruit."
+  },
+  {
+    "id": "kaiju-no-8-kafka-hibino-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kafka-hibino"
+    },
+    "field": "name",
+    "value": "Kafka Hibino (日比野 カフカ)",
+    "text": "Kafka Hibino is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a cleaner for a kaiju disposal company who once aspired to join the Defense Force. A small, parasitic creature (voiced"
+  },
+  {
+    "id": "kaiju-no-8-reno-ichikawa-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "reno-ichikawa"
+    },
+    "field": "name",
+    "value": "Reno Ichikawa (市川 レノ)",
+    "text": "Reno Ichikawa is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an 18-year-old man who starts working in the same company as Kafka with plans to join the Defense Force. He becomes"
+  },
+  {
+    "id": "kaiju-no-8-kikoru-shinomiya-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kikoru-shinomiya"
+    },
+    "field": "name",
+    "value": "Kikoru Shinomiya (四ノ宮 キコル)",
+    "text": "Kikoru Shinomiya is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a young woman who joins the Third Division together with Kafka and Reno. A kaiju-slaying prodigy, Kikoru is one"
+  },
+  {
+    "id": "kaiju-no-8-mina-ashiro-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "mina-ashiro"
+    },
+    "field": "name",
+    "value": "Mina Ashiro (亜白 ミナ)",
+    "text": "Mina Ashiro is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the 27-year-old captain of the Third Division of the Defense Force. She is Kafka's childhood friend with whom he vowed to"
+  },
+  {
+    "id": "kaiju-no-8-soshiro-hoshina-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "soshiro-hoshina"
+    },
+    "field": "name",
+    "value": "Soshiro Hoshina (保科 宗四郎)",
+    "text": "Soshiro Hoshina is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the vice-captain of the Third Division. He is a skilled swordsman who is good at fighting smaller kaiju. Soshiro"
+  },
+  {
+    "id": "kaiju-no-8-gen-narumi-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "gen-narumi"
+    },
+    "field": "name",
+    "value": "Gen Narumi (鳴海 弦)",
+    "text": "Gen Narumi is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the captain of the First Division of the Defense Force and its strongest active combatant of the Defense Force. Gen uses the"
+  },
+  {
+    "id": "kaiju-no-8-isao-shinomiya-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "isao-shinomiya"
+    },
+    "field": "name",
+    "value": "Isao Shinomiya (四ノ宮 功)",
+    "text": "Isao Shinomiya is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Director General of the Defense Force and father to Kikoru Shinomiya. A historically powerful combatant, he"
+  },
+  {
+    "id": "kaiju-no-8-iharu-furuhashi-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "iharu-furuhashi"
+    },
+    "field": "name",
+    "value": "Iharu Furuhashi (古橋 伊春)",
+    "text": "Iharu Furuhashi is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a new recruit who joins the Third Division together with Kafka, Reno and Kikoru. He and Reno become part of the"
+  },
+  {
+    "id": "kaiju-no-8-haruichi-izumo-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "haruichi-izumo"
+    },
+    "field": "name",
+    "value": "Haruichi Izumo (出雲 ハルイチ)",
+    "text": "Haruichi Izumo is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a new recruit of the Third Division, Haruichi is the scion of the Izumo family who run the Izumo Tech corporation"
+  },
+  {
+    "id": "kaiju-no-8-keiji-itami-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "keiji-itami"
+    },
+    "field": "name",
+    "value": "Keiji Itami (伊丹 啓司)",
+    "text": "Keiji Itami is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the dutiful Deputy Director of the Defense Force who is later appointed as Director General of the Defense Force after"
+  },
+  {
+    "id": "kaiju-no-8-kaiju-no-9-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kaiju-no-9"
+    },
+    "field": "name",
+    "value": "Kaiju No. 9 (怪獣9号)",
+    "text": "Kaiju No. 9 is an antagonist of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a humanoid kaiju capable of creating other kaiju and absorbing humans to assume their form and memories. It orchestrates"
+  },
+  {
+    "id": "kaiju-no-8-kaiju-no-10-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kaiju-no-10"
+    },
+    "field": "name",
+    "value": "Kaiju No. 10 (怪獣10号)",
+    "text": "Kaiju No. 10 is an antagonist of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a humanoid kaiju that leads an assault on the Defense Force's Third Division base using a group of wyvern-type kaiju."
   }
 ]

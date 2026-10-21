@@ -537,7 +537,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Edward \"Ed\" Elric (エドワード・エルリック, Edowādo Erurikku), the \"Fullmetal Alchemist\" (鋼の錬金術師, Hagane no Renkinjutsushi)"
   },
   {
@@ -575,7 +575,7 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Envy (エンヴィー, Envī), the Jealous, is a shape-shifting homunculus whose preferred form is that of an androgynous-looking teenage young man."
   },
   {
@@ -660,5 +660,565 @@
     ],
     "status": "draft",
     "excerpt": "Lin Yao (リン・ヤオ, Rin Yao; \"Ling Yao\" in the first Viz's volumes and the second anime)"
+  },
+  {
+    "id": "fullmetal-alchemist-edward-elric-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "edward-elric"
+    },
+    "field": "name",
+    "value": "Edward Elric (エドワード・エルリック)",
+    "text": "Edward Elric is a main character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The story follows the adventure of the titular character, Edward Elric, also known as the \"Fullmetal Alchemist\", who is frequently accompanied by his brother"
+  },
+  {
+    "id": "fullmetal-alchemist-alphonse-elric-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alphonse-elric"
+    },
+    "field": "name",
+    "value": "Alphonse Elric (アルフォンス・エルリック)",
+    "text": "Alphonse Elric is a main character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Arufonsu Erurikku) is Edward's younger brother. Together, both of them scour the country in search of the Philosopher's"
+  },
+  {
+    "id": "fullmetal-alchemist-roy-mustang-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "roy-mustang"
+    },
+    "field": "name",
+    "value": "Roy Mustang (ロイ・マスタング)",
+    "text": "Roy Mustang is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Flame Alchemist\" (焔の錬金術師, Honō no Renkinjutsushi), is a State Alchemist and Edward's direct superior."
+  },
+  {
+    "id": "fullmetal-alchemist-winry-rockbell-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "winry-rockbell"
+    },
+    "field": "name",
+    "value": "Winry Rockbell (ウィンリィ・ロックベル)",
+    "text": "Winry Rockbell is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a childhood friend of Edward and Alphonse Elric, lives in Resembool with her grandmother, Pinako Rockbell, who"
+  },
+  {
+    "id": "fullmetal-alchemist-riza-hawkeye-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "riza-hawkeye"
+    },
+    "field": "name",
+    "value": "Riza Hawkeye (リザ・ホークアイ)",
+    "text": "Riza Hawkeye is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Roy Mustang's most trusted and dearest subordinate. She often carries out many of the tasks he is too"
+  },
+  {
+    "id": "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alex-louis-armstrong"
+    },
+    "field": "name",
+    "value": "Alex Louis Armstrong (アレックス・ルイ・アームストロング)",
+    "text": "Alex Louis Armstrong is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Strong Arm Alchemist\" (豪腕の錬金術師, Gōwan no Renkinjutsushi), is a tall, large and"
+  },
+  {
+    "id": "fullmetal-alchemist-maes-hughes-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "maes-hughes"
+    },
+    "field": "name",
+    "value": "Maes Hughes (マース・ヒューズ)",
+    "text": "Maes Hughes is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an old friend of Roy Mustang. He works in the military's intelligence division but spends much of his"
+  },
+  {
+    "id": "fullmetal-alchemist-izumi-curtis-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "izumi-curtis"
+    },
+    "field": "name",
+    "value": "Izumi Curtis (イズミ・カーティス)",
+    "text": "Izumi Curtis is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the short-tempered, buxom and caring alchemy teacher of the Elric brothers who is also a butcher at her family"
+  },
+  {
+    "id": "fullmetal-alchemist-van-hohenheim-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "van-hohenheim"
+    },
+    "field": "name",
+    "value": "Van Hohenheim (ヴァン・ホーエンハイム)",
+    "text": "Van Hohenheim is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Elric brothers' estranged father with a keen knowledge of alchemy processes. He left them and his wife Trisha"
+  },
+  {
+    "id": "fullmetal-alchemist-scar-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "scar"
+    },
+    "field": "name",
+    "value": "Scar (傷の男（スカー）)",
+    "text": "Scar is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sukā; literally \"the scarred man\") is one of the survivors of the Ishbalan Extermination Campaign, and named for the scar across his face."
+  },
+  {
+    "id": "fullmetal-alchemist-lin-yao-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "lin-yao"
+    },
+    "field": "name",
+    "value": "Lin Yao (リン・ヤオ)",
+    "text": "Lin Yao is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the twelfth prince of Xing, and represents the Yao Clan. He meets"
+  },
+  {
+    "id": "fullmetal-alchemist-may-chang-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "may-chang"
+    },
+    "field": "name",
+    "value": "May Chang (メイ・チャン)",
+    "text": "May Chang is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the seventeenth princess of Xing who represents the Chang clan. Unlike Lin Yao, she comes to Amestris without any bodyguards"
+  },
+  {
+    "id": "fullmetal-alchemist-olivier-mira-armstrong-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "olivier-mira-armstrong"
+    },
+    "field": "name",
+    "value": "Olivier Mira Armstrong (オリヴィエ・ミラ・アームストロング)",
+    "text": "Olivier Mira Armstrong is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the older sister of Alex Louis Armstrong. She is charged with leading"
+  },
+  {
+    "id": "fullmetal-alchemist-envy-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "envy"
+    },
+    "field": "name",
+    "value": "Envy (エンヴィー)",
+    "text": "Envy is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Envī), the Jealous, is a shape-shifting homunculus whose preferred form is that of an androgynous-looking teenage young man. While Envy can assume"
+  },
+  {
+    "id": "fullmetal-alchemist-greed-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "greed"
+    },
+    "field": "name",
+    "value": "Greed (グリード)",
+    "text": "Greed is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the Avaricious, the \"Ultimate Shield\" (最強の盾, Saikyō no Tate), is a rogue homunculus who craves money, women, and otherworldly possessions"
+  },
+  {
+    "id": "fullmetal-alchemist-king-bradley-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "king-bradley"
+    },
+    "field": "name",
+    "value": "King Bradley (キング・ブラッドレイ)",
+    "text": "King Bradley is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" redirects here. For other uses, see Bradley (disambiguation)."
+  },
+  {
+    "id": "fullmetal-alchemist-father-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "father"
+    },
+    "field": "name",
+    "value": "Father (お父様)",
+    "text": "Father is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" (お父様, Otō-sama) is the creator and leader of the other homunculi, and the series' main antagonist. He is a cruel and greedy homunculus with no regard"
+  },
+  {
+    "id": "fullmetal-alchemist-dante-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "dante"
+    },
+    "field": "name",
+    "value": "Dante (ダンテ)",
+    "text": "Dante is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an anime-only character and the main antagonist of the first anime adaptation. She is the former lover of Hohenheim and has used Philosopher's"
+  },
+  {
+    "id": "fullmetal-alchemist-shou-tucker-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "shou-tucker"
+    },
+    "field": "name",
+    "value": "Shou Tucker (ショウ・タッカー)",
+    "text": "Shou Tucker is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Sewing-Life Alchemist\" (綴命の錬金術師, Teimei no Renkinjutsushi), is a bio-alchemist who excels in the creation of"
+  },
+  {
+    "id": "fullmetal-alchemist-truth-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "truth"
+    },
+    "field": "name",
+    "value": "Truth (真理)",
+    "text": "Truth is a character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious being/deity that lives on another plane of existence as both overseer and enforcer of alchemy's universal laws, going by"
   }
 ]

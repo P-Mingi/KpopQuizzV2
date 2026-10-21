@@ -271,7 +271,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Izuku Midoriya (緑谷 出久, Midoriya Izuku)"
   },
   {
@@ -314,7 +314,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "Eri (エリ)"
   },
   {
@@ -912,5 +912,845 @@
     ],
     "status": "draft",
     "excerpt": "A live-action film by Legendary Entertainment is in development."
+  },
+  {
+    "id": "my-hero-academia-izuku-midoriya-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "izuku-midoriya"
+    },
+    "field": "name",
+    "value": "Izuku Midoriya (緑谷 出久)",
+    "text": "Izuku Midoriya is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Midoriya Izuku) / Deku (デク)"
+  },
+  {
+    "id": "my-hero-academia-katsuki-bakugo-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "katsuki-bakugo"
+    },
+    "field": "name",
+    "value": "Katsuki Bakugo (爆豪 勝己)",
+    "text": "Katsuki Bakugo is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Kacchan (かっちゃん, Katchan) / Dynamight (ダイナマイト, Dainamaito)"
+  },
+  {
+    "id": "my-hero-academia-ochaco-uraraka-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "ochaco-uraraka"
+    },
+    "field": "name",
+    "value": "Ochaco Uraraka (麗日 お茶子)",
+    "text": "Ochaco Uraraka is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Uravity (ウラビティ, Urabiti)"
+  },
+  {
+    "id": "my-hero-academia-shoto-todoroki-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shoto-todoroki"
+    },
+    "field": "name",
+    "value": "Shoto Todoroki (轟 焦凍)",
+    "text": "Shoto Todoroki is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Shoto (ショート, Shōto)"
+  },
+  {
+    "id": "my-hero-academia-tenya-ida-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tenya-ida"
+    },
+    "field": "name",
+    "value": "Tenya Ida (飯田 天哉)",
+    "text": "Tenya Ida is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Ingenium (インゲニウム, Ingeniumu)"
+  },
+  {
+    "id": "my-hero-academia-eijiro-kirishima-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "eijiro-kirishima"
+    },
+    "field": "name",
+    "value": "Eijiro Kirishima (切島 鋭児郎)",
+    "text": "Eijiro Kirishima is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Red Riot (烈怒頼雄斗(レッドライオット), Reddo Raiotto)"
+  },
+  {
+    "id": "my-hero-academia-momo-yaoyorozu-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "momo-yaoyorozu"
+    },
+    "field": "name",
+    "value": "Momo Yaoyorozu (八百万 百)",
+    "text": "Momo Yaoyorozu is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Creati (クリエイティ, Kurieiti)"
+  },
+  {
+    "id": "my-hero-academia-tsuyu-asui-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tsuyu-asui"
+    },
+    "field": "name",
+    "value": "Tsuyu Asui (蛙吹 梅雨)",
+    "text": "Tsuyu Asui is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Froppy (フロッピー, Furoppi)"
+  },
+  {
+    "id": "my-hero-academia-denki-kaminari-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "denki-kaminari"
+    },
+    "field": "name",
+    "value": "Denki Kaminari (上鳴 電気)",
+    "text": "Denki Kaminari is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Chargebolt (チャージズマ, Chājizuma)"
+  },
+  {
+    "id": "my-hero-academia-fumikage-tokoyami-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "fumikage-tokoyami"
+    },
+    "field": "name",
+    "value": "Fumikage Tokoyami (常闇 踏陰)",
+    "text": "Fumikage Tokoyami is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Tsukuyomi (ツクヨミ)"
+  },
+  {
+    "id": "my-hero-academia-mina-ashido-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mina-ashido"
+    },
+    "field": "name",
+    "value": "Mina Ashido (芦戸 三奈)",
+    "text": "Mina Ashido is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Pinky (ピンキー, Pinkī)"
+  },
+  {
+    "id": "my-hero-academia-kyoka-jiro-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "kyoka-jiro"
+    },
+    "field": "name",
+    "value": "Kyoka Jiro (耳郎 響香)",
+    "text": "Kyoka Jiro is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Earphone Jack (イヤホン = ジャック, Iyahon Jakku)"
+  },
+  {
+    "id": "my-hero-academia-minoru-mineta-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "minoru-mineta"
+    },
+    "field": "name",
+    "value": "Minoru Mineta (峰田 実)",
+    "text": "Minoru Mineta is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Grape Juice (グレープジュース, Gurēpu Jūsu)"
+  },
+  {
+    "id": "my-hero-academia-all-might-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "all-might"
+    },
+    "field": "name",
+    "value": "All Might (八木 俊典)",
+    "text": "All Might is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ All Might (オールマイト, Ōru Maito)"
+  },
+  {
+    "id": "my-hero-academia-shota-aizawa-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shota-aizawa"
+    },
+    "field": "name",
+    "value": "Shota Aizawa (相澤 消太)",
+    "text": "Shota Aizawa is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Eraser Head (イレイザーヘッド, Ireizā Heddo)"
+  },
+  {
+    "id": "my-hero-academia-recovery-girl-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "recovery-girl"
+    },
+    "field": "name",
+    "value": "Recovery Girl (修善寺 治与)",
+    "text": "Recovery Girl is a character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shūzenji Chiyo) / Recovery Girl (リカバリーガール, Rikabarī Gāru)"
+  },
+  {
+    "id": "my-hero-academia-present-mic-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "present-mic"
+    },
+    "field": "name",
+    "value": "Present Mic (山田 ひざし)",
+    "text": "Present Mic is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yamada Hizashi) / Present Mic (プレゼントマイク, Purezento Maiku)"
+  },
+  {
+    "id": "my-hero-academia-inko-midoriya-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "inko-midoriya"
+    },
+    "field": "name",
+    "value": "Inko Midoriya (緑谷 引子)",
+    "text": "Inko Midoriya is a character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Izuku's mother. Initially supportive of her son's dreams, the constant villain attacks on U.A. make her briefly doubt the safety of the school. Her unnamed"
+  },
+  {
+    "id": "my-hero-academia-endeavor-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "endeavor"
+    },
+    "field": "name",
+    "value": "Endeavor (轟 炎司)",
+    "text": "Endeavor is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Endeavor (エンデヴァー, Endevā)"
+  },
+  {
+    "id": "my-hero-academia-hitoshi-shinso-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "hitoshi-shinso"
+    },
+    "field": "name",
+    "value": "Hitoshi Shinso (心操 人使)",
+    "text": "Hitoshi Shinso is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ NightHide (ナイトハイド, Naitohaido)"
+  },
+  {
+    "id": "my-hero-academia-stain-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "stain"
+    },
+    "field": "name",
+    "value": "Stain (赤黒 血染)",
+    "text": "Stain is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Akaguro Chizome) / Stain (ステイン, Sutein)"
+  },
+  {
+    "id": "my-hero-academia-tomura-shigaraki-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tomura-shigaraki"
+    },
+    "field": "name",
+    "value": "Tomura Shigaraki (死柄木 弔)",
+    "text": "Tomura Shigaraki is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tenko Shimura (志村 転弧, Shimura Tenko) / Tomura Shigaraki (死柄木 弔, Shigaraki Tomura)"
+  },
+  {
+    "id": "my-hero-academia-kurogiri-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "kurogiri"
+    },
+    "field": "name",
+    "value": "Kurogiri (黒霧)",
+    "text": "Kurogiri is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the following are the known Nomu:"
+  },
+  {
+    "id": "my-hero-academia-mirio-togata-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mirio-togata"
+    },
+    "field": "name",
+    "value": "Mirio Togata (通形 ミリオ)",
+    "text": "Mirio Togata is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Lemillion (ルミリオン, Rumirion)"
+  },
+  {
+    "id": "my-hero-academia-dabi-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "dabi"
+    },
+    "field": "name",
+    "value": "Dabi (荼毘)",
+    "text": "Dabi is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Toya Todoroki (轟 燈矢, Todoroki Tōya) / Dabi (荼毘)"
+  },
+  {
+    "id": "my-hero-academia-himiko-toga-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "himiko-toga"
+    },
+    "field": "name",
+    "value": "Himiko Toga (渡我 被身子)",
+    "text": "Himiko Toga is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The archnemesis of Ochaco Uraraka, a demented yandere-type girl who is able to assume the physical appearance of another with her Quirk Transform"
+  },
+  {
+    "id": "my-hero-academia-twice-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "twice"
+    },
+    "field": "name",
+    "value": "Twice (トゥワイス)",
+    "text": "Twice is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jin Bubaigawara (分倍河原 仁, Bubaigawara Jin) / Twice (トゥワイス, Tuwaisu)"
+  },
+  {
+    "id": "my-hero-academia-overhaul-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "overhaul"
+    },
+    "field": "name",
+    "value": "Overhaul (オーバーホール)",
+    "text": "Overhaul is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The unnamed former crime boss of the Shie Hassaikai, Overhaul's foster father, and Eri's maternal grandfather. After refusing to consent to Overhaul's inhumane"
+  },
+  {
+    "id": "my-hero-academia-hawks-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "hawks"
+    },
+    "field": "name",
+    "value": "Hawks (鷹見 啓悟)",
+    "text": "Hawks is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Hawks (ホークス, Hōkusu)"
+  },
+  {
+    "id": "my-hero-academia-eri-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "eri"
+    },
+    "field": "name",
+    "value": "Eri (エリ)",
+    "text": "Eri is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The young granddaughter of the Shie Hassaikai's former crime boss. She was abused and experimented on by Overhaul to create the Quirk-destroying drug that he"
   }
 ]

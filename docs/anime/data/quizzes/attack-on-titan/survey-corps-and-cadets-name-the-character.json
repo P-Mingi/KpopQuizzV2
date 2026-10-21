@@ -1,0 +1,294 @@
+{
+  "site": "anime",
+  "account": "oq_creator_07",
+  "group_slug": "attack-on-titan",
+  "title": "Survey Corps and Cadets: Name the Character",
+  "slug": "survey-corps-and-cadets-name-the-character",
+  "description": "Three clues, four names. Pick out the soldiers and cadets of the first story, with the last clue sometimes in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A boy from Shiganshina",
+        "Vows to wipe out the Titans after they wreck his home",
+        "His name is written エレン・イェーガー in Japanese"
+      ],
+      "options": [
+        "Eren Yeager",
+        "Jean Kirstein",
+        "Armin Arlert",
+        "Marco Bott"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-eren-yeager-name-031",
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-marco-bott-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Eren's adoptive sister and childhood friend",
+        "A gifted fighter",
+        "His name is written ミカサ・アッカーマン in Japanese"
+      ],
+      "options": [
+        "Sasha Blouse",
+        "Hange Zoë",
+        "Annie Leonhart",
+        "Mikasa Ackerman"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-mikasa-ackerman-name-032",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Eren's bookish childhood friend",
+        "Physically frail but a sharp strategist",
+        "Dreams of seeing the world beyond the walls"
+      ],
+      "options": [
+        "Connie Springer",
+        "Armin Arlert",
+        "Marco Bott",
+        "Jean Kirstein"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-marco-bott-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A blunt, cleanliness-obsessed Survey Corps captain",
+        "Widely regarded as humanity's strongest soldier",
+        "Modeled on Rorschach from Watchmen"
+      ],
+      "options": [
+        "Levi Ackerman",
+        "Erwin Smith",
+        "Reiner Braun",
+        "Hange Zoë"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-levi-ackerman-name-034",
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-reiner-braun-name-042",
+        "attack-on-titan-levi-inspiration-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The calculating commander of the Survey Corps",
+        "Drives humanity to push expeditions beyond the walls",
+        "His name is written エルヴィン・スミス in Japanese"
+      ],
+      "options": [
+        "Erwin Smith",
+        "Levi Ackerman",
+        "Hange Zoë",
+        "Reiner Braun"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-levi-ackerman-name-034",
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-reiner-braun-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "An energetic Survey Corps squad leader",
+        "Obsessed with studying Titans",
+        "Famed for eccentric experiments"
+      ],
+      "options": [
+        "Erwin Smith",
+        "Annie Leonhart",
+        "Hange Zoë",
+        "Sasha Blouse"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-erwin-smith-name-035",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A blunt, hot-headed cadet",
+        "First aims for a safe life in the Military Police",
+        "The author's favourite character"
+      ],
+      "options": [
+        "Connie Springer",
+        "Marco Bott",
+        "Jean Kirstein",
+        "Reiner Braun"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-reiner-braun-name-042",
+        "attack-on-titan-marco-bott-name-045",
+        "attack-on-titan-creator-favourite-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A cheerful, quick-footed cadet",
+        "Has a shaved head",
+        "A loyal streak"
+      ],
+      "options": [
+        "Jean Kirstein",
+        "Connie Springer",
+        "Marco Bott",
+        "Bertolt Hoover"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-bertolt-hoover-name-043",
+        "attack-on-titan-marco-bott-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A food-loving cadet from a hunting village",
+        "Nicknamed Potato Girl",
+        "A sharp eye and a steady aim"
+      ],
+      "options": [
+        "Mikasa Ackerman",
+        "Sasha Blouse",
+        "Annie Leonhart",
+        "Hange Zoë"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-mikasa-ackerman-name-032",
+        "attack-on-titan-hange-zoe-name-036",
+        "attack-on-titan-sasha-blouse-name-039",
+        "attack-on-titan-annie-leonhart-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A kind, level-headed cadet",
+        "Aims to join the Military Police and serve the king",
+        "His name is written マルコ・ボット in Japanese"
+      ],
+      "options": [
+        "Connie Springer",
+        "Jean Kirstein",
+        "Marco Bott",
+        "Armin Arlert"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-armin-arlert-name-033",
+        "attack-on-titan-jean-kirstein-name-037",
+        "attack-on-titan-connie-springer-name-038",
+        "attack-on-titan-marco-bott-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Attack on Titan characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
+}

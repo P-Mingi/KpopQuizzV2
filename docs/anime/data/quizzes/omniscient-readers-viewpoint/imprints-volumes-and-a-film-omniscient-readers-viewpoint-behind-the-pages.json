@@ -1,0 +1,203 @@
+{
+ "site": "anime",
+ "account": "oq_creator_27",
+ "group_slug": "omniscient-readers-viewpoint",
+ "title": "Imprints, Volumes and a Film: Omniscient Reader's Viewpoint Behind the Pages",
+ "slug": "imprints-volumes-and-a-film-omniscient-readers-viewpoint-behind-the-pages",
+ "description": "Nine questions on the credits, the Korean and English publishers, the dates of the collected editions and the film.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Omniscient Reader's Viewpoint",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Omniscient Reader: The Prophecy",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  },
+  {
+   "id": "S3",
+   "title": "comic.naver.com/webtoon/list",
+   "url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  }
+ ],
+ "notes": "Production quiz on arc 0 facts (003, 007, 008, 009, 010, 011). The series has no aired anime, so there is no music; the quiz covers credits, platforms, publishers and dates.",
+ "questions": [
+  {
+   "question": "IZE Press, which holds English rights to the comic and the novel, is an imprint of which publisher?",
+   "options": [
+    "A.Tempo Media",
+    "Munpia",
+    "Yen Press",
+    "Naver Webtoon"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-licence-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Which company collects the comic in Korea?",
+   "options": [
+    "A.Tempo Media",
+    "Yen Press",
+    "Munpia",
+    "Naver Webtoon"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-korean-volumes-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "On which date did the first two Korean volumes appear together?",
+   "options": [
+    "May 26, 2020",
+    "August 18, 2020",
+    "July 22, 2025",
+    "December 22, 2020"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-korean-volumes-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "How many Korean volumes had been released by March 2026?",
+   "options": [
+    "12",
+    "18",
+    "24",
+    "30"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-korean-volumes-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "When did the first English volume of the novel come out?",
+   "options": [
+    "June 9, 2026",
+    "July 22, 2025",
+    "July 23, 2025",
+    "August 18, 2020"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-licence-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Who is credited as the artist of the webtoon?",
+   "options": [
+    "singNsong",
+    "Kim Byung-woo",
+    "UMI",
+    "Sleepy-C"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-credited-authors-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "On which platform's list were the prologue and the first two episodes posted on the same day for English readers?",
+   "options": [
+    "Line Webtoon",
+    "Naver Webtoon",
+    "Munpia",
+    "A.Tempo Media"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-webtoon-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "On which date did the live-action film open in South Korean cinemas?",
+   "options": [
+    "July 22, 2025",
+    "May 26, 2020",
+    "July 23, 2025",
+    "December 22, 2020"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  },
+  {
+   "question": "Which episode number was labeled the season finale of the webtoon?",
+   "options": [
+    "300",
+    "310",
+    "312",
+    "311"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-season-one-finale-008"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  }
+ ]
+}

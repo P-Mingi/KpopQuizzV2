@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_29",
+ "group_slug": "sailor-moon",
+ "title": "Directors, Duets and Reboot Runs: Sailor Moon on Screen",
+ "slug": "directors-duets-and-reboot-runs-sailor-moon-on-screen",
+ "description": "Ten questions on the directors of the 1992 anime, the singers of its opening and the episode counts and years of Sailor Moon Crystal.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed the first season of the 1992 anime?",
+   "options": [
+    "Kunihiko Ikuhara",
+    "Takuya Igarashi",
+    "Naoko Takeuchi",
+    "Junichi Sato"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-directors-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Who directed the three seasons after the first in the 1992 anime?",
+   "options": [
+    "Junichi Sato",
+    "Kunihiko Ikuhara",
+    "Takuya Igarashi",
+    "Naoko Takeuchi"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-directors-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Who directed the last season of the 1992 anime?",
+   "options": [
+    "Junichi Sato",
+    "Takuya Igarashi",
+    "Kunihiko Ikuhara",
+    "Naoko Takeuchi"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-directors-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Who sang the opening Moonlight Densetsu for the first two seasons of the 1992 anime?",
+   "options": [
+    "Moon Lips",
+    "Kae Hanazawa",
+    "Hiroko Moriguchi",
+    "DALI"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-themes-opening-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Who sang that opening for the next two seasons?",
+   "options": [
+    "Moon Lips",
+    "DALI",
+    "Kae Hanazawa",
+    "Hiroko Moriguchi"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-themes-opening-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "For how many episodes did the one opening Moonlight Densetsu serve in the 1992 anime?",
+   "options": [
+    "89",
+    "127",
+    "166",
+    "200"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-themes-opening-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "How many episodes does Sailor Moon Crystal have in its three seasons?",
+   "options": [
+    "26",
+    "52",
+    "46",
+    "39"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "How many episodes does the first season of Crystal have?",
+   "options": [
+    "14",
+    "12",
+    "13",
+    "39"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "How many episodes does the second season of Crystal have?",
+   "options": [
+    "13",
+    "12",
+    "14",
+    "39"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "In which year did the third season of Crystal air?",
+   "options": [
+    "2014",
+    "2015",
+    "2016",
+    "2021"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Sailor Moon Crystal",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  }
+ ],
+ "notes": "Production and music quiz on facts 010, 011 and 013, all arc 0. Names, counts and years only. Distractors are real names from the same fact files."
+}

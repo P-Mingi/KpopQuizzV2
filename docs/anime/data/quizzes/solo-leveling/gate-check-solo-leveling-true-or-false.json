@@ -1,0 +1,157 @@
+{
+  "site": "anime",
+  "account": "oq_creator_10",
+  "group_slug": "solo-leveling",
+  "title": "Gate Check: True or False",
+  "slug": "gate-check-solo-leveling-true-or-false",
+  "description": "Ten statements about the novel, the comic and the anime. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "The webtoon ends at chapter number 179.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-webtoon-chapters-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "The webtoon wrapped up its run in December 2019.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-webtoon-run-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Season 1 of the anime aired from January to March 2024.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-season-one-span-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Season 1 of the anime ran for 13 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-season-one-span-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Noboru Kimura directed the anime.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-director-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "Hiroyuki Sawano composed the music of the anime.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-director-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    },
+    {
+      "question": "The anime adaptation was first announced at Comic-Con in 2022.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-announcement-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "The comic version of the story was drawn by Dubu.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-webtoon-artist-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "The print edition of the novel comes from the publisher Kodansha.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-novel-publisher-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "The anime counts 25 episodes over its two seasons.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-episode-total-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Solo Leveling",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Solo Leveling season 1",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a name or a place)."
+}
