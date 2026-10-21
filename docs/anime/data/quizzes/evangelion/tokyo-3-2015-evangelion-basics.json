@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "Tokyo-3, 2015: Evangelion Basics",
+ "slug": "tokyo-3-2015-evangelion-basics",
+ "description": "Ten easy questions on the studio, the director, the channel, the setting and the two songs of the 1995 series. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which studio animated the 1995 series together with Tatsunoko Production?",
+   "options": [
+    "Sunrise",
+    "Madhouse",
+    "Gainax",
+    "Bones"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Who directed the 1995 series?",
+   "options": [
+    "Hideaki Anno",
+    "Hayao Miyazaki",
+    "Satoshi Kon",
+    "Mamoru Oshii"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Which channel aired the 1995 series in Japan?",
+   "options": [
+    "TV Asahi",
+    "Fuji TV",
+    "NHK",
+    "TV Tokyo"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "How many episodes does the single season of the 1995 series have?",
+   "options": [
+    "13",
+    "26",
+    "24",
+    "52"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "In which month of 1995 did the series start airing?",
+   "options": [
+    "January",
+    "October",
+    "April",
+    "July"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "In which year is the 1995 series set?",
+   "options": [
+    "1995",
+    "2000",
+    "2035",
+    "2015"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-setting-tokyo-3-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "How many years before the story did a catastrophe hit the planet?",
+   "options": [
+    "15",
+    "5",
+    "10",
+    "30"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-setting-tokyo-3-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Who sings the opening theme, A Cruel Angel's Thesis?",
+   "options": [
+    "Claire Littley",
+    "Hiroko Moriguchi",
+    "Yoko Takahashi",
+    "Mai Yamane"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Which British singer takes the lead on the closing song Fly Me to the Moon?",
+   "options": [
+    "Yoko Takahashi",
+    "Hiroko Moriguchi",
+    "Mai Yamane",
+    "Claire Littley"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-ending-fly-me-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "What was Rei nicknamed after books with her on the cover sold so well?",
+   "options": [
+    "Premium Girl",
+    "Cover Girl",
+    "Best Girl",
+    "Lucky Girl"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-rei-premium-girl-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Neon Genesis Evangelion episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 005, 006, 015). All questions are about the 1995 TV series. Rei is level 0 in the series file."
+}

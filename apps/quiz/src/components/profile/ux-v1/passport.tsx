@@ -9,6 +9,7 @@ import { UxAvatar } from '@/components/ux-v1/avatar';
 import { TeamNote, TeamTag } from '@/components/ux-v1/team';
 import { isUxV12 } from '@/lib/ux-v12';
 import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
+import { fmt } from '@/lib/passport-ui/fmt';
 import { compact, earnedLine } from '@/lib/ux-v1/p10/passport-model';
 
 import { LocalDraftOrEmpty, LocalDraftRow, MoreQuizzes, PassportActions, PassportBand, PassportTabs } from './islands';
@@ -16,8 +17,8 @@ import { OwnQuizRows } from './own-quiz-row';
 import { GroupAvatar, HistoryList, QuizRows } from './rows';
 
 import type { BadgeTile, BandMode, HistoryRow, MasteryRow, MetaSegment, StatCell } from '@/lib/ux-v1/p10/passport-model';
-import type { PassportWords } from '@/lib/ux-v1/p10/words';
 import type { QuizCardData } from '@/lib/db/types';
+import type { PassportWords } from '@/lib/passport-ui/words';
 
 export interface UxPassportProps {
   /** personal = /me (the owner, server-known); public = /u/[username] (ISR, owner resolved on the client). */
@@ -52,7 +53,7 @@ export interface UxPassportProps {
   /** v12 (SYSTEM.md 5.6): an editorial (team) account. Ignored unless isUxV12().
    *  Typed `true` to match PassportProps (build-passport) under exactOptionalPropertyTypes. */
   isTeam?: true;
-  /** Run O1: the words of another site (lib/ux-v1/p10/words.ts). Absent: today's kpop words. */
+  /** A world site's words (Run O1, lot b, P1; rule 18): the name tag icon, the series wording, the share text. Absent on kpop. */
   words?: PassportWords;
 }
 
@@ -109,7 +110,8 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
     ...(p.history ? [{ id: 'history', label: 'History' }] : []),
     { id: 'badges', label: 'Badges' },
   ];
-  const stats = team ? p.stats.filter((s) => TEAM_STATS.has(s.label)) : p.stats;
+  const teamStats = p.words ? new Set([p.words.made, p.words.plays]) : TEAM_STATS;
+  const stats = team ? p.stats.filter((s) => teamStats.has(s.label)) : p.stats;
   const recent = p.history?.rows.slice(0, 3) ?? [];
   const nothing = p.pinned.length === 0 && p.mastery.length === 0 && recent.length === 0;
 
@@ -134,7 +136,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
         <section className={['p10-two', p.pinned.length > 0 ? '' : 'p10-sec-first'].filter(Boolean).join(' ')}>
           {p.mastery.length > 0 ? (
             <div>
-              <SectionHeader title={p.words?.masteredTitle ?? 'Groups mastered'} />
+              <SectionHeader title={p.words ? p.words.seriesMasteredTitle : 'Groups mastered'} />
               <div className="ux-rows">
                 {p.mastery.map((m) => (
                   <Link key={m.slug} href={`/${m.slug}-quiz`} className="ux-row">
@@ -143,7 +145,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
                       <span className="ux-rt">{m.name}</span>
                       <span className="p10-mbar" aria-hidden="true"><i style={{ width: `${m.pct}%` }} /></span>
                     </span>
-                    <span className="ux-row-end ux-num" aria-label={m.pct === 100 ? 'Mastered' : `${m.pct}% of the way to mastery`}>{m.pct === 100 ? 'Mastered' : `${m.pct}%`}</span>
+                    <span className="ux-row-end ux-num" aria-label={m.pct === 100 ? (p.words ? p.words.mastered : 'Mastered') : (p.words ? fmt(p.words.masteredPct, { pct: m.pct }) : `${m.pct}% of the way to mastery`)}>{m.pct === 100 ? (p.words ? p.words.mastered : 'Mastered') : `${m.pct}%`}</span>
                   </Link>
                 ))}
               </div>
@@ -224,13 +226,13 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       <PassportBand username={p.username} owner={personal ? 'server' : 'check'} mode={p.band.mode} image={p.band.image} groupPhoto={p.band.groupPhoto} tint={p.theme.band} />
       <div className="p10-head">
         {team ? <UxAvatar name={p.displayName} size={96} team className="p10-pav" /> : <PassportAvatar name={p.displayName} avatar={p.avatar} />}
-        <PassportActions username={p.username} displayName={p.displayName} owner={personal ? 'server' : 'check'} level={p.level} {...(p.words ? { passport: p.words.passport, brand: p.words.brand } : {})} />
+        <PassportActions username={p.username} displayName={p.displayName} owner={personal ? 'server' : 'check'} level={p.level} {...(p.words ? { words: p.words } : {})} />
       </div>
       <div className="p10-id">
         <div className="p10-idrow">
           <h1 className={['p10-pname', 'ux-who', acc].filter(Boolean).join(' ')} style={ff ? { fontFamily: ff } : undefined}>{p.displayName}</h1>
-          {team ? <TeamTag /> : null}
-          <BiasTag bias={p.bias} accent={p.accent} />
+          {team ? <TeamTag {...(p.words ? { title: p.words.teamTitle } : {})} /> : null}
+          <BiasTag bias={p.bias} accent={p.accent} {...(p.words ? { tagIcon: p.words.tagIcon } : {})} />
           {p.pinnedBadge ? (
             <span className="p10-pinb" title={p.pinnedBadge.name}>
               <BadgeMedal id={p.pinnedBadge.id} rarity={p.pinnedBadge.rarity} earned size={28} label={`Pinned badge: ${p.pinnedBadge.name}`} />
@@ -247,7 +249,7 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
           ))}
         </p>
         {p.bio && p.bio.trim() ? <p className="p10-bio">{p.bio.trim()}</p> : null}
-        {team ? <TeamNote surface="profile" /> : null}
+        {team ? <TeamNote surface="profile" {...(p.words ? { text: p.words.teamLine } : {})} /> : null}
       </div>
       {team ? null : <div className="p10-xpwrap">
         <div className="p10-xpw">

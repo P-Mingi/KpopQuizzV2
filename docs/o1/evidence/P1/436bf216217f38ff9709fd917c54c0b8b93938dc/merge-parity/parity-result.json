@@ -1,0 +1,1002 @@
+{
+ "rules": "q0a-g0-v3",
+ "identical": false,
+ "rows": [
+  {
+   "page": "/",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/groups",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/trending",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blackpink-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/stray-kids-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/seventeen-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/cortis-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/twice-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/newjeans-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blackpink-trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "Ultimate BTS era quiz - only real ARMYs survive | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/skz-true-or-false-only-real-stays-pass",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "SKZ true or false - only real STAYs pass | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/blackpink-ultimate-fan-challenge",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "BLACKPINK ultimate fan challenge · 8 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/are-you-a-real-coer",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "Are you a real coer??!! · 7 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/illit-fans-here",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "Illit fans here · 6 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/babymonster-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "BABYMONSTER quiz · 15 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/le-sserafim-members-and-music-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "LE SSERAFIM members and music quiz · 7 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/one-for-sones",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "One for Sones · 8 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/twice-true-or-false",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "TWICE true or false · 7 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/how-well-do-you-know-txt",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "How well do you know TXT? · 7 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/enhypen-debut-and-beyond-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "ENHYPEN debut and beyond quiz · 7 questions | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/k-pop-company-quiz-match-the-group-to-the-label",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 74,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 75,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 76,
+     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
+     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
+    },
+    {
+     "at": 77,
+     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
+     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
+    },
+    {
+     "at": 78,
+     "a": "<title>",
+     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
+    },
+    {
+     "at": 79,
+     "a": "K-pop company quiz - match the group to the label | KpopQuiz</title>",
+     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/classic",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/intro-challenge",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/group-bts",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1b:...nd test\\\",\\\"item\\\":\\\"https://kpopquiz.org/blindtest/group-bts\\\"}]}\"}}],[\"$\",\"$L24\",null,{\"preset\":{\"pick\":{\"playlist\":\"bts\",\"label\":\"BTS\",\"group\":\"bts\"},\"count\":10,\"exact\":true},\"shareUrl\":\"https://kpopquiz.org/blindtest/group-bts\",\"challengeLink\":true,\"className\":\"g3-theme\",\"children\":[[\"$\",\"nav\",n",
+     "b": "1b:...nd test\\\",\\\"item\\\":\\\"https://kpopquiz.org/blindtest/group-bts\\\"}]}\"}}],[\"$\",\"$L23\",null,{\"preset\":{\"pick\":{\"playlist\":\"bts\",\"label\":\"BTS\",\"group\":\"bts\"},\"count\":10,\"exact\":true},\"shareUrl\":\"https://kpopquiz.org/blindtest/group-bts\",\"challengeLink\":true,\"className\":\"g3-theme\",\"children\":[[\"$\",\"nav\",n"
+    },
+    {
+     "at": "flight row",
+     "a": "22:...\",\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L23\",\"26\",{}]]",
+     "b": "22:...\",\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L35\",\"26\",{}]]"
+    },
+    {
+     "at": "flight row",
+     "a": "23:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"IconMark\"]",
+     "b": "23:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtModeControllerLoader\"]"
+    },
+    {
+     "at": "flight row",
+     "a": "24:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtModeControllerLoader\"]",
+     "b": "24:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtThemePlayLoader\"]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtThemePlayLoader\"]",
+     "b": "25:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtModeErrorLoader\"]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"BtModeErrorLoader\"]",
+     "b": "26:[\"$\",\"span\",null,{\"children\":[\" · \",\"ARIRANG, 2026\"]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/guess-the-kpop-song",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/fr/blind-test-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/es/adivina-la-cancion-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/id/tebak-lagu-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-idol",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-true-or-false",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/easy-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/hard-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-quiz-2026",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-demon-hunters-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 52,
+     "a": "<link rel=\"preload\" href=\"static/chunks/<asset>",
+     "b": "<script src=\"static/chunks/<asset>"
+    },
+    {
+     "at": 53,
+     "a": ".js\" as=\"script\" fetchPriority=\"low\"/>",
+     "b": ".js\" async=\"\">"
+    },
+    {
+     "at": 54,
+     "a": "<link rel=\"preload\" href=\"static/chunks/<asset>",
+     "b": "</script>"
+    },
+    {
+     "at": 55,
+     "a": ".js\" as=\"script\" fetchPriority=\"low\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 56,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 57,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/which-bts-member-are-you",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 52,
+     "a": "<link rel=\"preload\" href=\"static/chunks/<asset>",
+     "b": "<script src=\"static/chunks/<asset>"
+    },
+    {
+     "at": 53,
+     "a": ".js\" as=\"script\" fetchPriority=\"low\"/>",
+     "b": ".js\" async=\"\">"
+    },
+    {
+     "at": 54,
+     "a": "<link rel=\"preload\" href=\"static/chunks/<asset>",
+     "b": "</script>"
+    },
+    {
+     "at": 55,
+     "a": ".js\" as=\"script\" fetchPriority=\"low\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    },
+    {
+     "at": 56,
+     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
+     "b": ".js\" as=\"script\" fetchPriority=\"low\"/>"
+    },
+    {
+     "at": 57,
+     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
+     "b": "<link rel=\"preload\" href=\"static/chunks/<asset>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/bts-name-all-members",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/about",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/editorial-policy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/privacy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/terms",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/contact",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/articles",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/daily",
+   "status": "307/307",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/an-unknown-o1-parity-path",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/sitemap.xml",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/robots.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/llms.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  }
+ ]
+}

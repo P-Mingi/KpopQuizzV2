@@ -1,0 +1,1756 @@
+[
+  {
+    "id": "my-hero-academia-season-1-span-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s1",
+    "value": [
+      "1: Season 1, episodes 1-13, chapters 1-21"
+    ],
+    "text": "The first season of 13 episodes adapted the opening 21 chapters of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_1",
+        "ref": "1341995052",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the first story arcs (chapters 1-21) of the series"
+  },
+  {
+    "id": "my-hero-academia-season-2-span-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s2",
+    "value": [
+      "2: Season 2: U.A. Sports Festival, Vs. Hero Killer, Final Exams, episodes 14-38, chapters 22-69"
+    ],
+    "text": "Season 2 turned the Sports Festival, the Hero Killer and the final exams into 25 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_2",
+        "ref": "1356127086",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"U.A. Sports Festival\" (chapters 22-44), \"Vs. Hero Killer\" (chapters 45-59), and \"Final Exams\" arcs (chapters 60-69)"
+  },
+  {
+    "id": "my-hero-academia-season-3-span-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s3",
+    "value": [
+      "3: Season 3: Forest Training Camp, Hideout Raid, Provisional Hero License Exam, episodes 39-63, chapters 70-124"
+    ],
+    "text": "Season 3 ran for 25 episodes and moved from the training camp attack through the hideout raid to the license exam.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_3",
+        "ref": "1377659755",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Forest Training Camp\" (chapters 70-83), \"Hideout Raid\" (chapters 84-97), \"Provisional Hero License Exam\" (chapters 98-121)"
+  },
+  {
+    "id": "my-hero-academia-season-4-span-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s4",
+    "value": [
+      "4: Season 4: Shie Hassaikai, Remedial Course, U.A. School Festival, Pro Hero, episodes 64-88, chapters 125-190"
+    ],
+    "text": "Season 4 spent its 25 episodes on the Shie Hassaikai raid, the school festival and the start of the Pro Hero arc.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_4",
+        "ref": "1373264285",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Shie Hassaikai\" (chapters 125-162), \"Remedial Course\" (chapters 163-168), \"U.A. School Festival\" (chapters 169-183)"
+  },
+  {
+    "id": "my-hero-academia-season-5-span-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s5",
+    "value": [
+      "5: Season 5: Joint Training, Meta Liberation Army, Endeavor Agency, episodes 89-113, chapters 190-258"
+    ],
+    "text": "Season 5 followed Class 1-A's joint training, the Meta Liberation Army and Endeavor's agency across 25 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_5",
+        "ref": "1379267909",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the final parts of \"Pro Hero\" arc (chapters 190-193), \"Joint Training\" (chapters 194-217)"
+  },
+  {
+    "id": "my-hero-academia-season-6-span-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s6",
+    "value": [
+      "6: Season 6: Paranormal Liberation War, Dark Hero, episodes 114-138, chapters 258-328"
+    ],
+    "text": "Season 6 covered the large Paranormal Liberation War and the Dark Hero arc in 25 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_6",
+        "ref": "1380897192",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Paranormal Liberation War\" (chapters 258-306) and \"Dark Hero\" arcs (chapters 307-328)"
+  },
+  {
+    "id": "my-hero-academia-season-7-span-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s7",
+    "value": [
+      "7: Season 7, episodes 139-159, chapters 329-398"
+    ],
+    "text": "Season 7 was shorter than the five before it, at 21 episodes, and covered the manga up to chapter 398.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_7",
+        "ref": "1375804144",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "through the end of the 39th volume (chapters 329-398)"
+  },
+  {
+    "id": "my-hero-academia-season-8-span-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "arc_s8",
+    "value": [
+      "8: Season 8: Final Season, episodes 160-170, chapters 399-430"
+    ],
+    "text": "The eighth and final season is only 11 episodes long and takes the story to the last chapter, number 430.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_8",
+        "ref": "1376316509",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "through the end of the 42nd and final volume (chapters 399-430)"
+  },
+  {
+    "id": "my-hero-academia-cast-first-half-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "characters_a",
+    "value": [
+      "Izuku Midoriya (緑谷 出久)",
+      "Katsuki Bakugo (爆豪 勝己)",
+      "Ochaco Uraraka (麗日 お茶子)",
+      "Shoto Todoroki (轟 焦凍)",
+      "Tenya Ida (飯田 天哉)",
+      "Eijiro Kirishima (切島 鋭児郎)",
+      "Momo Yaoyorozu (八百万 百)",
+      "Tsuyu Asui (蛙吹 梅雨)",
+      "Denki Kaminari (上鳴 電気)",
+      "Fumikage Tokoyami (常闇 踏陰)",
+      "Mina Ashido (芦戸 三奈)",
+      "Kyoka Jiro (耳郎 響香)",
+      "Minoru Mineta (峰田 実)",
+      "All Might (八木 俊典)",
+      "Shota Aizawa (相澤 消太)"
+    ],
+    "text": "The first half of the cast: Class 1-A, the staff of U.A., and the first villains.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Izuku Midoriya (緑谷 出久, Midoriya Izuku)"
+  },
+  {
+    "id": "my-hero-academia-cast-second-half-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "characters_b",
+    "value": [
+      "Recovery Girl (修善寺 治与)",
+      "Present Mic (山田 ひざし)",
+      "Inko Midoriya (緑谷 引子)",
+      "Endeavor (轟 炎司)",
+      "Hitoshi Shinso (心操 人使)",
+      "Stain (赤黒 血染)",
+      "Tomura Shigaraki (死柄木 弔)",
+      "Kurogiri (黒霧)",
+      "Mirio Togata (通形 ミリオ)",
+      "Dabi (荼毘)",
+      "Himiko Toga (渡我 被身子)",
+      "Twice (トゥワイス)",
+      "Overhaul (オーバーホール)",
+      "Hawks (鷹見 啓悟)",
+      "Eri (エリ)"
+    ],
+    "text": "The second half of the cast: the pro heroes, the League of Villains and the rest of the hero students.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Eri (エリ)"
+  },
+  {
+    "id": "my-hero-academia-opening-themes-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: The Day - Porno Graffitti (season 1)",
+      "OP 2: Peace Sign - Kenshi Yonezu (season 2)",
+      "OP 3: Sora ni Utaeba - amazarashi (season 2)",
+      "OP 4: Odd Future - Uverworld (season 3)",
+      "OP 5: Make my story - Lenny code fiction (season 3)",
+      "OP 6: Polaris - Blue Encount (season 4)",
+      "OP 7: Starmarker - Kana-Boon (season 4)",
+      "OP 8: No.1 - Dish (season 5)",
+      "OP 9: Merry-Go-Round - Man with a Mission (season 5)",
+      "OP 10: Hitamuki - Super Beaver (season 6)",
+      "OP 11: Bokurano - Eve (season 6)",
+      "OP 12: Tagatame - TK from Ling Tosite Sigure (season 7)",
+      "OP 13: Curtain Call - Yuuri (season 7)",
+      "OP 14: The Revo - Porno Graffitti (season 8)"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme \"The Day\", performed by Porno Graffitti"
+  },
+  {
+    "id": "my-hero-academia-ending-themes-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Heroes - Brian the Sun (season 1)",
+      "ED 2: Dakara, Hitori ja nai - Little Glee Monster (season 2)",
+      "ED 3: Datte Atashi no Hīrō - LiSA (season 2)",
+      "ED 4: Update - miwa (season 3)",
+      "ED 5: Long Hope Philia - Masaki Suda (season 3)",
+      "ED 6: Kōkai no Uta - Sayuri (season 4)",
+      "ED 7: Shout Baby - Ryokuōshoku Shakai (season 4)",
+      "ED 8: Ashiato - the Peggies (season 5)",
+      "ED 9: Uso ja Nai - Soshi Sakiyama (season 5)",
+      "ED 10: Sketch - Kiro Akiyama (season 6)",
+      "ED 11: Kitakaze - Six Lounge (season 6)",
+      "ED 12: Tsubomi - Omoinotake (season 7)",
+      "ED 13: Rokutōsei - Zarame (season 7)",
+      "ED 14: I - Bump of Chicken (season 8)"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the ending theme \"Heroes\", performed by Brian the Sun"
+  },
+  {
+    "id": "my-hero-academia-japanese-title-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "title_native",
+    "value": "僕のヒーローアカデミア",
+    "text": "In Japan the series is titled 僕のヒーローアカデミア, read Boku no Hīrō Akademia.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18047903",
+        "ref": "Q18047903",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hepburn: Boku no Hīrō Akademia"
+  },
+  {
+    "id": "my-hero-academia-manga-creator-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "author",
+    "value": "Kōhei Horikoshi",
+    "text": "Kōhei Horikoshi wrote and drew every chapter of the manga himself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese manga series written and illustrated by Kōhei Horikoshi"
+  },
+  {
+    "id": "my-hero-academia-manga-run-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "manga_run",
+    "value": "July 2014 to August 2024",
+    "text": "The manga ran for a decade, from July 2014 until its finale in August 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "from July 2014 to August 2024"
+  },
+  {
+    "id": "my-hero-academia-magazine-publisher-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha)",
+    "text": "Shueisha's Weekly Shonen Jump ran the manga from start to finish.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shueisha's shōnen manga magazine Weekly Shōnen Jump"
+  },
+  {
+    "id": "my-hero-academia-volumes-chapters-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "manga_size",
+    "value": [
+      "42 volumes",
+      "430 chapters"
+    ],
+    "text": "The manga closed with 430 chapters spread over 42 volumes, plus a bonus chapter 431 in the last volume.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 8,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_8",
+        "ref": "1376316509",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "through the end of the 42nd and final volume (chapters 399-430)"
+  },
+  {
+    "id": "my-hero-academia-anime-run-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "anime_run",
+    "value": [
+      "April 3, 2016",
+      "December 13, 2025"
+    ],
+    "text": "The anime began on 3 April 2016 and its final season ended on 13 December 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "April 3, 2016"
+  },
+  {
+    "id": "my-hero-academia-episode-count-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "episodes",
+    "value": [
+      "170 episodes",
+      "8 seasons",
+      "1 bonus special"
+    ],
+    "text": "The anime comes to 170 episodes over eight seasons, plus a single bonus special.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "170 + SP"
+  },
+  {
+    "id": "my-hero-academia-animation-studio-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "studio",
+    "value": [
+      "Bones (seasons 1-7)",
+      "Bones Film (season 8)"
+    ],
+    "text": "Bones animated the show for seven seasons, and Bones Film produced the last one.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bones (S1-7)"
+  },
+  {
+    "id": "my-hero-academia-chief-director-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "director",
+    "value": "Kenji Nagasaki",
+    "text": "Kenji Nagasaki directed the early seasons and then served as chief director for the rest.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+        "ref": "1380752995",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kenji Nagasaki"
+  },
+  {
+    "id": "my-hero-academia-final-special-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "bonus_special",
+    "value": "May 2, 2026",
+    "text": "A bonus television special that adapts chapter 431 premiered on 2 May 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "premiered on May 2, 2026"
+  },
+  {
+    "id": "my-hero-academia-copies-in-circulation-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "copies",
+    "value": "over 100 million by April 2024",
+    "text": "By April 2024 the manga had passed 100 million copies in circulation, spin-offs included.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By April 2024, the manga had over 100 million copies in circulation"
+  },
+  {
+    "id": "my-hero-academia-awards-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "awards",
+    "value": [
+      "Sugoi Japan Award",
+      "Harvey Award"
+    ],
+    "text": "The manga has won both a Sugoi Japan Award and a Harvey Award.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "including the Sugoi Japan Award and Harvey Award for Best Manga"
+  },
+  {
+    "id": "my-hero-academia-my-villain-academia-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "title_change",
+    "value": "My Villain Academia",
+    "text": "During the Meta Liberation Army stretch, the title of the series temporarily changes to My Villain Academia.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_season_5",
+        "ref": "1379267909",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "which temporarily shifts the title of the series to My Villain Academia"
+  },
+  {
+    "id": "my-hero-academia-quirk-world-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "quirks",
+    "value": "about 80 percent of people",
+    "text": "Roughly four in five people in this world have a superpower called a Quirk.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "about 80% of the human population has gained superpowers"
+  },
+  {
+    "id": "my-hero-academia-anime-films-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "films",
+    "value": [
+      "Two Heroes",
+      "Heroes Rising",
+      "World Heroes' Mission",
+      "You're Next"
+    ],
+    "text": "Four animated films have been released, starting with Two Heroes and ending with You're Next.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "four animated films, subtitled Two Heroes, Heroes Rising, World Heroes' Mission, and You're Next"
+  },
+  {
+    "id": "my-hero-academia-vigilantes-spinoff-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "spinoff",
+    "value": "My Hero Academia: Vigilantes (2016-2022)",
+    "text": "One of the spin-off manga is Vigilantes, which ran between 2016 and 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vigilantes (2016-2022)"
+  },
+  {
+    "id": "my-hero-academia-izuku-quirkless-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "izuku-midoriya"
+    },
+    "field": "premise",
+    "value": "born without a Quirk",
+    "text": "Izuku starts the story as a boy with no Quirk at all, yet still dreams of becoming a hero.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a boy who was born without a Quirk"
+  },
+  {
+    "id": "my-hero-academia-live-action-film-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "live_action",
+    "value": "Legendary Entertainment film in development",
+    "text": "A live-action film from Legendary Entertainment has been announced and is still in development.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+        "ref": "1381034934",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A live-action film by Legendary Entertainment is in development."
+  },
+  {
+    "id": "my-hero-academia-izuku-midoriya-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "izuku-midoriya"
+    },
+    "field": "name",
+    "value": "Izuku Midoriya (緑谷 出久)",
+    "text": "Izuku Midoriya is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Midoriya Izuku) / Deku (デク)"
+  },
+  {
+    "id": "my-hero-academia-katsuki-bakugo-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "katsuki-bakugo"
+    },
+    "field": "name",
+    "value": "Katsuki Bakugo (爆豪 勝己)",
+    "text": "Katsuki Bakugo is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Kacchan (かっちゃん, Katchan) / Dynamight (ダイナマイト, Dainamaito)"
+  },
+  {
+    "id": "my-hero-academia-ochaco-uraraka-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "ochaco-uraraka"
+    },
+    "field": "name",
+    "value": "Ochaco Uraraka (麗日 お茶子)",
+    "text": "Ochaco Uraraka is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Uravity (ウラビティ, Urabiti)"
+  },
+  {
+    "id": "my-hero-academia-shoto-todoroki-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shoto-todoroki"
+    },
+    "field": "name",
+    "value": "Shoto Todoroki (轟 焦凍)",
+    "text": "Shoto Todoroki is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Shoto (ショート, Shōto)"
+  },
+  {
+    "id": "my-hero-academia-tenya-ida-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tenya-ida"
+    },
+    "field": "name",
+    "value": "Tenya Ida (飯田 天哉)",
+    "text": "Tenya Ida is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Ingenium (インゲニウム, Ingeniumu)"
+  },
+  {
+    "id": "my-hero-academia-eijiro-kirishima-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "eijiro-kirishima"
+    },
+    "field": "name",
+    "value": "Eijiro Kirishima (切島 鋭児郎)",
+    "text": "Eijiro Kirishima is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Red Riot (烈怒頼雄斗(レッドライオット), Reddo Raiotto)"
+  },
+  {
+    "id": "my-hero-academia-momo-yaoyorozu-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "momo-yaoyorozu"
+    },
+    "field": "name",
+    "value": "Momo Yaoyorozu (八百万 百)",
+    "text": "Momo Yaoyorozu is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Creati (クリエイティ, Kurieiti)"
+  },
+  {
+    "id": "my-hero-academia-tsuyu-asui-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tsuyu-asui"
+    },
+    "field": "name",
+    "value": "Tsuyu Asui (蛙吹 梅雨)",
+    "text": "Tsuyu Asui is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Froppy (フロッピー, Furoppi)"
+  },
+  {
+    "id": "my-hero-academia-denki-kaminari-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "denki-kaminari"
+    },
+    "field": "name",
+    "value": "Denki Kaminari (上鳴 電気)",
+    "text": "Denki Kaminari is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Chargebolt (チャージズマ, Chājizuma)"
+  },
+  {
+    "id": "my-hero-academia-fumikage-tokoyami-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "fumikage-tokoyami"
+    },
+    "field": "name",
+    "value": "Fumikage Tokoyami (常闇 踏陰)",
+    "text": "Fumikage Tokoyami is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Tsukuyomi (ツクヨミ)"
+  },
+  {
+    "id": "my-hero-academia-mina-ashido-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mina-ashido"
+    },
+    "field": "name",
+    "value": "Mina Ashido (芦戸 三奈)",
+    "text": "Mina Ashido is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Pinky (ピンキー, Pinkī)"
+  },
+  {
+    "id": "my-hero-academia-kyoka-jiro-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "kyoka-jiro"
+    },
+    "field": "name",
+    "value": "Kyoka Jiro (耳郎 響香)",
+    "text": "Kyoka Jiro is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Earphone Jack (イヤホン = ジャック, Iyahon Jakku)"
+  },
+  {
+    "id": "my-hero-academia-minoru-mineta-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "minoru-mineta"
+    },
+    "field": "name",
+    "value": "Minoru Mineta (峰田 実)",
+    "text": "Minoru Mineta is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Grape Juice (グレープジュース, Gurēpu Jūsu)"
+  },
+  {
+    "id": "my-hero-academia-all-might-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "all-might"
+    },
+    "field": "name",
+    "value": "All Might (八木 俊典)",
+    "text": "All Might is a main character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ All Might (オールマイト, Ōru Maito)"
+  },
+  {
+    "id": "my-hero-academia-shota-aizawa-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shota-aizawa"
+    },
+    "field": "name",
+    "value": "Shota Aizawa (相澤 消太)",
+    "text": "Shota Aizawa is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Eraser Head (イレイザーヘッド, Ireizā Heddo)"
+  },
+  {
+    "id": "my-hero-academia-recovery-girl-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "recovery-girl"
+    },
+    "field": "name",
+    "value": "Recovery Girl (修善寺 治与)",
+    "text": "Recovery Girl is a character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shūzenji Chiyo) / Recovery Girl (リカバリーガール, Rikabarī Gāru)"
+  },
+  {
+    "id": "my-hero-academia-present-mic-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "present-mic"
+    },
+    "field": "name",
+    "value": "Present Mic (山田 ひざし)",
+    "text": "Present Mic is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yamada Hizashi) / Present Mic (プレゼントマイク, Purezento Maiku)"
+  },
+  {
+    "id": "my-hero-academia-inko-midoriya-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "inko-midoriya"
+    },
+    "field": "name",
+    "value": "Inko Midoriya (緑谷 引子)",
+    "text": "Inko Midoriya is a character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Izuku's mother. Initially supportive of her son's dreams, the constant villain attacks on U.A. make her briefly doubt the safety of the school. Her unnamed"
+  },
+  {
+    "id": "my-hero-academia-endeavor-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "endeavor"
+    },
+    "field": "name",
+    "value": "Endeavor (轟 炎司)",
+    "text": "Endeavor is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Endeavor (エンデヴァー, Endevā)"
+  },
+  {
+    "id": "my-hero-academia-hitoshi-shinso-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "hitoshi-shinso"
+    },
+    "field": "name",
+    "value": "Hitoshi Shinso (心操 人使)",
+    "text": "Hitoshi Shinso is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ NightHide (ナイトハイド, Naitohaido)"
+  },
+  {
+    "id": "my-hero-academia-stain-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "stain"
+    },
+    "field": "name",
+    "value": "Stain (赤黒 血染)",
+    "text": "Stain is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Akaguro Chizome) / Stain (ステイン, Sutein)"
+  },
+  {
+    "id": "my-hero-academia-tomura-shigaraki-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tomura-shigaraki"
+    },
+    "field": "name",
+    "value": "Tomura Shigaraki (死柄木 弔)",
+    "text": "Tomura Shigaraki is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tenko Shimura (志村 転弧, Shimura Tenko) / Tomura Shigaraki (死柄木 弔, Shigaraki Tomura)"
+  },
+  {
+    "id": "my-hero-academia-kurogiri-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "kurogiri"
+    },
+    "field": "name",
+    "value": "Kurogiri (黒霧)",
+    "text": "Kurogiri is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the following are the known Nomu:"
+  },
+  {
+    "id": "my-hero-academia-mirio-togata-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mirio-togata"
+    },
+    "field": "name",
+    "value": "Mirio Togata (通形 ミリオ)",
+    "text": "Mirio Togata is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Lemillion (ルミリオン, Rumirion)"
+  },
+  {
+    "id": "my-hero-academia-dabi-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "dabi"
+    },
+    "field": "name",
+    "value": "Dabi (荼毘)",
+    "text": "Dabi is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Toya Todoroki (轟 燈矢, Todoroki Tōya) / Dabi (荼毘)"
+  },
+  {
+    "id": "my-hero-academia-himiko-toga-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "himiko-toga"
+    },
+    "field": "name",
+    "value": "Himiko Toga (渡我 被身子)",
+    "text": "Himiko Toga is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The archnemesis of Ochaco Uraraka, a demented yandere-type girl who is able to assume the physical appearance of another with her Quirk Transform"
+  },
+  {
+    "id": "my-hero-academia-twice-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "twice"
+    },
+    "field": "name",
+    "value": "Twice (トゥワイス)",
+    "text": "Twice is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jin Bubaigawara (分倍河原 仁, Bubaigawara Jin) / Twice (トゥワイス, Tuwaisu)"
+  },
+  {
+    "id": "my-hero-academia-overhaul-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "overhaul"
+    },
+    "field": "name",
+    "value": "Overhaul (オーバーホール)",
+    "text": "Overhaul is an antagonist of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The unnamed former crime boss of the Shie Hassaikai, Overhaul's foster father, and Eri's maternal grandfather. After refusing to consent to Overhaul's inhumane"
+  },
+  {
+    "id": "my-hero-academia-hawks-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "hawks"
+    },
+    "field": "name",
+    "value": "Hawks (鷹見 啓悟)",
+    "text": "Hawks is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "/ Hawks (ホークス, Hōkusu)"
+  },
+  {
+    "id": "my-hero-academia-eri-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "eri"
+    },
+    "field": "name",
+    "value": "Eri (エリ)",
+    "text": "Eri is a supporting character of My Hero Academia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The young granddaughter of the Shie Hassaikai's former crime boss. She was abused and experimented on by Overhaul to create the Quirk-destroying drug that he"
+  }
+]

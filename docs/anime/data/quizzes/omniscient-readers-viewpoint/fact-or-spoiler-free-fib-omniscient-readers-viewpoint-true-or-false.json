@@ -1,0 +1,162 @@
+{
+ "site": "anime",
+ "account": "oq_creator_27",
+ "group_slug": "omniscient-readers-viewpoint",
+ "title": "Fact or Spoiler-Free Fib: Omniscient Reader's Viewpoint True or False",
+ "slug": "fact-or-spoiler-free-fib-omniscient-readers-viewpoint-true-or-false",
+ "description": "Ten statements on the novel, the webtoon, the English editions and the film. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Omniscient Reader's Viewpoint",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "id": "S2",
+   "title": "comic.naver.com/webtoon/list",
+   "url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Omniscient Reader: The Prophecy",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (004, 006, 007, 008, 009, 010, 011, 014); each false one changes a single detail (a year, a publisher, what was posted, a count).",
+ "questions": [
+  {
+   "question": "The web novel started on Munpia on January 6, 2018.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-run-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "The main story of the web novel was finished in 2021.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-run-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "The webtoon went live on Naver Webtoon on May 26, 2020, opening with a prologue episode.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-webtoon-launch-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "On August 18, 2020, English readers got only the prologue of the webtoon.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-webtoon-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Season 1 of the webtoon ended on Naver with episode 311 on June 9, 2026.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-season-one-finale-008"
+   ],
+   "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
+  },
+  {
+   "question": "IZE Press, a Yen Press imprint, announced its English rights in June 2021.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-licence-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "The first English volume of the novel came out on July 22, 2025.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-licence-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "In Korea the comic is collected by IZE Press.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-korean-volumes-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "A live-action film directed by Kim Byung-woo opened in South Korean cinemas on July 23, 2025.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy"
+  },
+  {
+   "question": "Kim Dokja has been the sole reader of a web novel with 551 chapters for 13 years.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-within-novel-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  }
+ ]
+}

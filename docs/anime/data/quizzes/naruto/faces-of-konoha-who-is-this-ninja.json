@@ -1,0 +1,292 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Faces of Konoha: Who Is This Ninja?",
+  "slug": "faces-of-konoha-who-is-this-ninja",
+  "description": "Three clues, four names. Spot the ninja from the early story, and watch for the last clue written in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A loud, determined young ninja of Konoha",
+        "Dreams of becoming Hokage",
+        "His name is written うずまき ナルト in Japanese"
+      ],
+      "options": [
+        "Sasuke Uchiha",
+        "Shikamaru Nara",
+        "Naruto Uzumaki",
+        "Rock Lee"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-naruto-uzumaki-name-031",
+        "naruto-sasuke-uchiha-name-032",
+        "naruto-rock-lee-name-041",
+        "naruto-shikamaru-nara-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "Naruto's gifted teammate and rival",
+        "A cool and serious member of the Uchiha clan",
+        "His name is written うちは サスケ in Japanese"
+      ],
+      "options": [
+        "Neji Hyuga",
+        "Gaara",
+        "Sasuke Uchiha",
+        "Haku"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-sasuke-uchiha-name-032",
+        "naruto-gaara-name-040",
+        "naruto-neji-hyuga-name-042",
+        "naruto-haku-name-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "The relaxed leader of Team 7",
+        "A veteran jonin famous for copying techniques",
+        "A mask covers most of his face"
+      ],
+      "options": [
+        "Might Guy",
+        "Kakashi Hatake",
+        "Iruka Umino",
+        "Hiruzen Sarutobi"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-hiruzen-sarutobi-name-036",
+        "naruto-might-guy-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A caring teacher at the ninja academy",
+        "Believes in Naruto from the start",
+        "His name is written うみの イルカ in Japanese"
+      ],
+      "options": [
+        "Iruka Umino",
+        "Kakashi Hatake",
+        "Might Guy",
+        "Jiraiya"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-jiraiya-name-038",
+        "naruto-might-guy-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "The elderly Third Hokage",
+        "A wise and respected leader of Konoha",
+        "Known for an enormous range of jutsu"
+      ],
+      "options": [
+        "Hiruzen Sarutobi",
+        "Jiraiya",
+        "Iruka Umino",
+        "Kakashi Hatake"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-kakashi-hatake-name-034",
+        "naruto-iruka-umino-name-035",
+        "naruto-hiruzen-sarutobi-name-036",
+        "naruto-jiraiya-name-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A Leaf ninja who cannot use ninjutsu or genjutsu",
+        "Trains relentlessly in taijutsu",
+        "His name is written ロック・リー in Japanese"
+      ],
+      "options": [
+        "Rock Lee",
+        "Neji Hyuga",
+        "Shikamaru Nara",
+        "Konohamaru Sarutobi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-konohamaru-sarutobi-name-037",
+        "naruto-rock-lee-name-041",
+        "naruto-neji-hyuga-name-042",
+        "naruto-shikamaru-nara-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A lazy but brilliant strategist",
+        "Fights with shadow techniques",
+        "Dislikes effort"
+      ],
+      "options": [
+        "Shikamaru Nara",
+        "Rock Lee",
+        "Neji Hyuga",
+        "Konohamaru Sarutobi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-konohamaru-sarutobi-name-037",
+        "naruto-rock-lee-name-041",
+        "naruto-neji-hyuga-name-042",
+        "naruto-shikamaru-nara-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A missing ninja of the Mist",
+        "Called the Demon of the Hidden Mist",
+        "His name is written 桃地 再不斬 in Japanese"
+      ],
+      "options": [
+        "Haku",
+        "Orochimaru",
+        "Gaara",
+        "Zabuza Momochi"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-orochimaru-name-039",
+        "naruto-gaara-name-040",
+        "naruto-zabuza-momochi-name-046",
+        "naruto-haku-name-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this ninja?",
+      "clues": [
+        "A ninja of the Hidden Sand",
+        "Commands sand from a gourd",
+        "His name is written 我愛羅 in Japanese"
+      ],
+      "options": [
+        "Zabuza Momochi",
+        "Neji Hyuga",
+        "Gaara",
+        "Kabuto Yakushi"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-gaara-name-040",
+        "naruto-neji-hyuga-name-042",
+        "naruto-zabuza-momochi-name-046",
+        "naruto-kabuto-yakushi-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    },
+    {
+      "question": "Who is this being?",
+      "clues": [
+        "A giant fox with nine tails",
+        "Sealed inside Naruto",
+        "Resents its captivity"
+      ],
+      "options": [
+        "Kurama",
+        "Haku",
+        "Jiraiya",
+        "Orochimaru"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-jiraiya-name-038",
+        "naruto-orochimaru-name-039",
+        "naruto-haku-name-047",
+        "naruto-kurama-name-049"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Naruto characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    }
+  ],
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
+}

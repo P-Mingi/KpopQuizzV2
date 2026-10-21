@@ -44,7 +44,12 @@ export function c1(item, ctx) {
     questionIntegrity(item, r);
   } else if (item.kind === 'series') {
     const v = validate('series-fixture.schema.json', item.data, reg, { dropRequired: ['quizzes', '$comment'], unknownAsWarning: true });
-    push(v.errors);
+    // A series with no aired anime (no anime_start_year) has no openings or endings: the fixture's two-theme minimum does not apply
+    // (D-075). It stays a warning so a missing list is still visible.
+    const noAnime = isObj(item.data?.series) && item.data.series.anime_start_year == null;
+    const themesMin = (e) => noAnime && e.path === '/themes' && /fewer than/.test(e.message);
+    v.errors.filter(themesMin).forEach((e) => r.warn(e.path, `${e.message} (no aired anime)`));
+    push(v.errors.filter((e) => !themesMin(e)));
     unknownSummary(v.warnings).forEach((w) => r.warn(w.path, w.message));
     const d = item.data;
     if (isObj(d?.group) && 'site' in d.group && d.group.site !== 'anime') r.fail('/group/site', 'site must be anime');

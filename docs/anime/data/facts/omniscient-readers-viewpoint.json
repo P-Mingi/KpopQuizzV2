@@ -1,0 +1,807 @@
+[
+  {
+    "id": "omniscient-readers-viewpoint-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "title_native",
+    "value": "전지적 독자 시점 (Jeonjijeok Dokja Sijeom)",
+    "text": "The Korean title is 전지적 독자 시점, and the English name Omniscient Reader's Viewpoint is also shortened to Omniscient Reader.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q139567602",
+        "ref": "Q139567602",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Omniscient Reader's Viewpoint, alternatively translated as Omniscient Reader (Korean: 전지적 독자 시점), is a South Korean web novel"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-romanized-title-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "title_romaji",
+    "value": "Jeonjijeok Dokja Sijeom",
+    "text": "The Chinese Wikipedia infobox gives the Korean title in Latin letters as Jeonjijeok Dokja Sijeom.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "romaji = Jeonjijeok Dokja Sijeom"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-credited-authors-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "author",
+    "value": "singNsong (story), UMI (adaptation), Sleepy-C (art)",
+    "text": "The story comes from singNsong's web novel; the Webtoon page credits UMI and Sleepy-C alongside it, with Sleepy-C as the webtoon artist.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "illustrator = Blackbox for web novel, Sleepy-C for webtoon"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-novel-run-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "novel_run",
+    "value": "Munpia, January 6, 2018 to February 2, 2020",
+    "text": "The original web novel started on the Munpia platform on January 6, 2018, and its main story was finished on February 2, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q124338944",
+        "ref": "Q124338944",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It was first published on January 6, 2018, on the platform Munpia, and ended on February 2, 2020."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-novel-length-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "novel_chapters",
+    "value": "551 chapters in the main story",
+    "text": "The main web novel runs for 551 chapters, a count that leaves out the side stories added later.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ko.wikipedia.org/wiki/%EC%A0%84%EC%A7%80%EC%A0%81_%EB%8F%85%EC%9E%90_%EC%8B%9C%EC%A0%90",
+        "ref": "42564368",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "총 551화로 외전을 제외한 본편이 완결되었다"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-webtoon-launch-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "webtoon_launch",
+    "value": "Naver Webtoon, May 26, 2020",
+    "text": "The webtoon adaptation went live on Naver Webtoon on May 26, 2020, opening with a prologue episode.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q139567602",
+        "ref": "Q139567602",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://comic.naver.com/webtoon/list?titleId=747269",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An ongoing webtoon adaptation of the e-book, illustrated by Sleepy-C under Redice Studios launched on Naver on May 26, 2020."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-english-webtoon-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "english_release",
+    "value": "Line Webtoon, August 18, 2020",
+    "text": "English readers got the webtoon on August 18, 2020, when the prologue and the first two episodes were posted on the same day.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The webtoon was published digitally in English by Line Webtoon on August 18, 2020."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-season-one-finale-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "season_one_end",
+    "value": "Episode 311, June 9, 2026",
+    "text": "Season 1 ended on the Naver Webtoon with episode 311 on June 9, 2026, labeled as the season finale, and the series is now on a break.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://comic.naver.com/webtoon/list?titleId=747269",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "311. Ep.50 독자의 설화 (13) (시즌1 마지막화)"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-english-licence-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "english_licence",
+    "value": "IZE Press (Yen Press), announced June 2023",
+    "text": "The Yen Press imprint IZE Press announced in June 2023 that it holds English rights to both the comic and the novel; the first English novel volume came out on July 22, 2025.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In June 2023, IZE Press, an imprint of Yen Press, announced that they have licensed both the manhwa and novel for English publication."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-korean-volumes-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "korean_volumes",
+    "value": "18 collected volumes by March 2026, the first two on December 22, 2020",
+    "text": "In Korea the comic is collected by A.Tempo Media: volumes 1 and 2 appeared together on December 22, 2020, and 18 had been released by March 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Its first two collected volumes were released by A.Tempo Media on December 22, 2020, with eighteen collected volumes released as of March 2026."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-film-release-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "film",
+    "value": "Omniscient Reader: The Prophecy, July 23, 2025",
+    "text": "A live-action film directed by Kim Byung-woo opened in South Korean cinemas on July 23, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy",
+        "ref": "1376160456",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q126724933",
+        "ref": "Q126724933",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The film was released in South Korea on July 23, 2025."
+  },
+  {
+    "id": "omniscient-readers-viewpoint-arc-structure-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Paid Service Begins to Future War (episodes 1 to 48)",
+      "2: Night of the Prophets to Flood Calamity (episodes 49 to 98)",
+      "3: What Cannot Be Changed to Dark Castle (episodes 99 to 177)",
+      "4: Graveyard of Scenarios to Hatching (episodes 178 to 244)",
+      "5: The Real Revolutionary to The Reader's Tale (episodes 245 to 311)"
+    ],
+    "text": "We split the webtoon into five blocks of ten of Naver's own Ep. chapters, named after the first and last chapter titles; the episode numbers are the ones printed in the Naver titles.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://comic.naver.com/webtoon/list?titleId=747269",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "002. Ep.01 유료 서비스 시작 (1) / 311. Ep.50 독자의 설화 (13) (시즌1 마지막화)"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-cast-list-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "characters",
+    "value": [
+      "Kim Dokja (김독자)",
+      "Yoo Joonghyuk (유중혁)",
+      "Han Sooyoung (한수영)",
+      "Yoo Sangah (유상아)",
+      "Jung Heewon (정희원)",
+      "Lee Hyunsung (이현성)",
+      "Lee Gilyoung (이길영)",
+      "Lee Jihye (이지혜)",
+      "Gong Pildu (공필두)",
+      "Han Myungoh (한명오)",
+      "Bihyung (비형)",
+      "Shin Yoosung (신유승)"
+    ],
+    "text": "The Chinese Wikipedia cast section pairs each character's Latin spelling with the Korean name; these twelve are the ones featured here.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "金獨子（김독자；Kim Dokja）, 劉衆赫（유중혁；Yoo Joonghyuk）, 韓秀英（한수영；Han Sooyoung）, 劉尚雅（유상아；Yoo Sangah）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-novel-within-novel-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "kim-dokja",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "novel",
+    "value": "The only reader of a 3,149-chapter web novel",
+    "text": "Dokja has been the sole reader of the web novel Three Ways to Survive in a Ruined World for 13 years, and it has 3,149 chapters.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "for 13 years of his life, due to the absurd length of the novel (3,149 chapters)"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-regression-count-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "yoo-joonghyuk",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "regressions",
+    "value": "1,863 regressions in the novel",
+    "text": "In the web novel, Joonghyuk's power to start over after death has been used 1,863 times before Dokja's story begins.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "在《滅活法》中回歸了1863次"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-kim-dokja-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "kim-dokja"
+    },
+    "field": "name",
+    "value": "Kim Dokja (김독자)",
+    "text": "Kim Dokja is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：28歲（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-yoo-joonghyuk-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "yoo-joonghyuk"
+    },
+    "field": "name",
+    "value": "Yoo Joonghyuk (유중혁)",
+    "text": "Yoo Joonghyuk is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：28歲（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-han-sooyoung-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "han-sooyoung"
+    },
+    "field": "name",
+    "value": "Han Sooyoung (한수영)",
+    "text": "Han Sooyoung is a main character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "年齡：26（任務剛開始）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-yoo-sangah-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "yoo-sangah"
+    },
+    "field": "name",
+    "value": "Yoo Sangah (유상아)",
+    "text": "Yoo Sangah is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：月光女孩→月光賢帝→曼荼羅的繼承者"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-jung-heewon-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "jung-heewon"
+    },
+    "field": "name",
+    "value": "Jung Heewon (정희원)",
+    "text": "Jung Heewon is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：滅惡的審判者→滅亡的審判者"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-hyunsung-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-hyunsung"
+    },
+    "field": "name",
+    "value": "Lee Hyunsung (이현성)",
+    "text": "Lee Hyunsung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：純情強鐵→鋼鐵劍帝"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-gilyoung-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-gilyoung"
+    },
+    "field": "name",
+    "value": "Lee Gilyoung (이길영)",
+    "text": "Lee Gilyoung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "背後星：無底坑的主宰（亞巴頓）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-lee-jihye-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "lee-jihye"
+    },
+    "field": "name",
+    "value": "Lee Jihye (이지혜)",
+    "text": "Lee Jihye is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "背後星：海上戰神（李舜臣）"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-gong-pildu-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "gong-pildu"
+    },
+    "field": "name",
+    "value": "Gong Pildu (공필두)",
+    "text": "Gong Pildu is an antagonist of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "《滅活法》的反派角色「十惡」之一，統領「屋主聯盟」，在主線任務#3被金獨子使計拉攏成為夥伴之一。"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-han-myungoh-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "han-myungoh"
+    },
+    "field": "name",
+    "value": "Han Myungoh (한명오)",
+    "text": "Han Myungoh is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "金獨子在Minosoft的上司，多次欲接送劉尚雅上下班被拒絕，於是偷了她通勤用的腳踏車但仍被拒絕，因此又跟蹤劉尚雅進入地鐵第3807車廂。由於在金湖站給了惡魔物種「黑暗守護者」最後一擊，被惡魔物種主人「盛怒與慾望的魔神」魔王阿斯莫德詛咒而懷孕生下一女。其女之後成為阿斯莫德的化身體，韓明伍也因此被賜予惡魔貴族的頭銜。在第"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-bihyung-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "bihyung"
+    },
+    "field": "name",
+    "value": "Bihyung (비형)",
+    "text": "Bihyung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "頻道代號：BI-7623"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-shin-yoosung-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "omniscient-readers-viewpoint",
+      "ref": "shin-yoosung"
+    },
+    "field": "name",
+    "value": "Shin Yoosung (신유승)",
+    "text": "Shin Yoosung is a supporting character of Omniscient Reader's Viewpoint.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92",
+        "ref": "95012189",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "稱號：馴獸大師→靈獸之王"
+  }
+]

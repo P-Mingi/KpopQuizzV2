@@ -1,0 +1,226 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "Gainax, Khara and Netflix: Evangelion Behind the Screens",
+ "slug": "gainax-khara-and-netflix-evangelion-behind-the-screens",
+ "description": "Ten questions on the film studios, the dates of The End of Evangelion and the Rebuild films, the Netflix arrival and one award for the opening song.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who co-directed The End of Evangelion with Hideaki Anno?",
+   "options": [
+    "Hayao Miyazaki",
+    "Kazuya Tsurumaki",
+    "Satoshi Kon",
+    "Mamoru Oshii"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "Which studio made The End of Evangelion together with Gainax?",
+   "options": [
+    "Madhouse",
+    "Production I.G",
+    "Bones",
+    "Studio Khara"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "On which date did The End of Evangelion reach Japanese cinemas?",
+   "options": [
+    "October 4, 1995",
+    "March 27, 1996",
+    "June 21, 2019",
+    "July 19, 1997"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "Which studio made the Rebuild of Evangelion films?",
+   "options": [
+    "Studio Khara",
+    "Gainax",
+    "Tatsunoko Production",
+    "Production I.G"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion"
+  },
+  {
+   "question": "How many Rebuild of Evangelion films are there?",
+   "options": [
+    "Two",
+    "Three",
+    "Four",
+    "Six"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion"
+  },
+  {
+   "question": "On which date was the first Rebuild film shown?",
+   "options": [
+    "19 July 1997",
+    "8 March 2021",
+    "21 June 2019",
+    "1 September 2007"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-rebuild-films-009",
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "On which date was the last Rebuild film shown?",
+   "options": [
+    "8 March 2021",
+    "1 September 2007",
+    "19 July 1997",
+    "21 June 2019"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-rebuild-films-009",
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "question": "From which date did Netflix bring the 1995 series to a global audience?",
+   "options": [
+    "September 1, 2007",
+    "June 21, 2019",
+    "July 19, 1997",
+    "March 8, 2021"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Why is the closing song Fly Me to the Moon left out of the Netflix release outside Japan?",
+   "options": [
+    "Age rating rules",
+    "Running time limits",
+    "Licensing reasons",
+    "Dubbing costs"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Which prize did the opening A Cruel Angel's Thesis take from Animage in 1996?",
+   "options": [
+    "Best opening animation",
+    "Best voice actor",
+    "Best song",
+    "Best director"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: The End of Evangelion",
+   "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Rebuild of Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ],
+ "notes": "Production quiz on facts 005, 008, 009, 012. Fact 008 is arc 4 and 009 is arc 5, so the quiz level is 5. Questions say which version they ask about."
+}

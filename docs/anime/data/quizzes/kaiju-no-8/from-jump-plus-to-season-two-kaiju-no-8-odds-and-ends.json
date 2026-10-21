@@ -1,0 +1,209 @@
+{
+ "site": "anime",
+ "account": "oq_creator_26",
+ "group_slug": "kaiju-no-8",
+ "title": "From Jump+ to Season Two: Kaiju No. 8 Odds and Ends",
+ "slug": "from-jump-plus-to-season-two-kaiju-no-8-odds-and-ends",
+ "description": "Nine mixed questions on the light novel, the spin-offs, the end dates, the sales and the awards, plus one about a recruit.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who wrote the light novel from November 2022?",
+   "options": [
+    "Naoya Matsumoto",
+    "Keiji Andō",
+    "Shigeyuki Miya",
+    "Hideaki Anno"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-spin-offs-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "How many spin-off manga began in 2024?",
+   "options": [
+    "One",
+    "Two",
+    "Three",
+    "Four"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-spin-offs-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "In which year did the manga earn its Eisner Award nomination?",
+   "options": [
+    "2020",
+    "2021",
+    "2023",
+    "2022"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-awards-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "How many copies of the manga were in circulation by September 2026?",
+   "options": [
+    "Over 20 million",
+    "Over 2 million",
+    "Over 10 million",
+    "Over 200 million"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-copies-circulation-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "On which date did the final manga volume reach Japanese shops?",
+   "options": [
+    "July 3, 2020",
+    "July 18, 2025",
+    "September 4, 2025",
+    "September 27, 2025"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002",
+    "kaiju-no-8-manga-completion-003",
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "On which date did the manga end its run?",
+   "options": [
+    "July 3, 2020",
+    "September 4, 2025",
+    "September 27, 2025",
+    "July 18, 2025"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002",
+    "kaiju-no-8-manga-completion-003",
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "On which date did the last episode of season two air?",
+   "options": [
+    "September 27, 2025",
+    "July 19, 2025",
+    "July 18, 2025",
+    "September 4, 2025"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002",
+    "kaiju-no-8-manga-completion-003",
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "What record is Kikoru credited with among recruits?",
+   "options": [
+    "The fastest exam time",
+    "The highest unleashed combat power logged",
+    "The most kaiju defeated",
+    "The youngest enlistment"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-kikoru-record-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "In which year did the manga first appear in Shōnen Jump+?",
+   "options": [
+    "2019",
+    "2021",
+    "2020",
+    "2022"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kaiju No. 8",
+   "url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Kaiju No. 8 chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Kaiju No. 8 characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 manga facts (002, 003, 011, 012, 014), Kikoru record (015, arc 1) and the season two finale date (005, arc 2). Level 2."
+}

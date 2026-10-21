@@ -1,0 +1,184 @@
+{
+ "site": "anime",
+ "account": "oq_creator_23",
+ "group_slug": "cowboy-bebop",
+ "title": "Grand Prix to Adult Swim: Cowboy Bebop Odds and Ends",
+ "slug": "grand-prix-to-adult-swim-cowboy-bebop-odds-and-ends",
+ "description": "Eight mixed questions on the 1999 awards, the dates of the Wowow run and the film, and the American launch night.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which year did the 1999 Anime Grand Prix look back on?",
+   "options": [
+    "1997",
+    "1998",
+    "1999",
+    "2001"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-grand-prix-1999-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Which honour did Spike Spiegel win at the 1999 Anime Grand Prix?",
+   "options": [
+    "Best villain",
+    "Best male character",
+    "Best sidekick",
+    "Best new character"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-grand-prix-1999-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Who won best voice actor for voicing Faye?",
+   "options": [
+    "Mai Yamane",
+    "Yoko Kanno",
+    "Masato Honda",
+    "Megumi Hayashibara"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-grand-prix-1999-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "When did the complete Wowow run end?",
+   "options": [
+    "24 April 1999",
+    "26 June 1998",
+    "2 September 2001",
+    "1 September 2001"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-wowow-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "On which date did TV Tokyo finish its first airing?",
+   "options": [
+    "24 April 1999",
+    "23 October 1998",
+    "26 June 1998",
+    "1 September 2001"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-tv-tokyo-run-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "On which date did the film open in Japan?",
+   "options": [
+    "2 September 2001",
+    "3 April 1998",
+    "24 April 1999",
+    "1 September 2001"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  },
+  {
+   "question": "On which date did Adult Swim launch with Cowboy Bebop on its schedule?",
+   "options": [
+    "2 September 2001",
+    "1 September 2001",
+    "26 June 1998",
+    "23 October 1998"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-adult-swim-debut-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "At what time did the show air on the launch night of Adult Swim?",
+   "options": [
+    "6 pm Eastern",
+    "Midnight Eastern",
+    "9 pm Eastern",
+    "3 am Eastern"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-adult-swim-debut-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Cowboy Bebop episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Cowboy Bebop: The Movie",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 facts (005, 006, 012, 013) plus the film date (011, arc 2). Level 2 from fact 011. The Wowow start date is not asked because the sources disagree between 23 and 24 October 1998."
+}

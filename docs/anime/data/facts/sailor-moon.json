@@ -1,0 +1,813 @@
+[
+  {
+    "id": "sailor-moon-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "title_native",
+    "value": "美少女戦士セーラームーン (Bishōjo Senshi Sērā Mūn)",
+    "text": "In Japanese the title is 美少女戦士セーラームーン, read Bishōjo Senshi Sērā Mūn; it was first rendered in English as Pretty Soldier Sailor Moon and later as Pretty Guardian Sailor Moon.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1643098",
+        "ref": "Q1643098",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sailor Moon (美少女戦士セーラームーン, Bishōjo Senshi Sērā Mūn"
+  },
+  {
+    "id": "sailor-moon-manga-author-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "author",
+    "value": "Naoko Takeuchi (story and art)",
+    "text": "Naoko Takeuchi both wrote and drew the Sailor Moon manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1643098",
+        "ref": "Q1643098",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://sailormoon-official.com/",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a Japanese manga series written and illustrated by Naoko Takeuchi"
+  },
+  {
+    "id": "sailor-moon-manga-serialization-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "magazine",
+    "value": "Nakayoshi (Kodansha), 28 December 1991 to 3 February 1997",
+    "text": "Kodansha's girls' magazine Nakayoshi ran the manga from the end of December 1991 until early February 1997.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1643098",
+        "ref": "Q1643098",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized by Kodansha in the shōjo manga anthology Nakayoshi from December 28, 1991, to February 3, 1997"
+  },
+  {
+    "id": "sailor-moon-manga-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "volumes",
+    "value": "18 volumes, 6 July 1992 to 4 April 1997",
+    "text": "The original edition filled 18 volumes, released between July 1992 and April 1997.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "published in 18 tankōbon volumes by Kodansha from July 6, 1992, to April 4, 1997"
+  },
+  {
+    "id": "sailor-moon-chapters-reorganized-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "chapters",
+    "value": "60 in the magazine, regrouped as 52 in book form",
+    "text": "In magazine form the story had 60 chapters, which the book editions regrouped into 52.",
+    "category": "fun",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the 60 individual chapters (later reorganized into 52)"
+  },
+  {
+    "id": "sailor-moon-manga-copies-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "copies",
+    "value": "over 46 million copies worldwide",
+    "text": "The manga has passed 46 million copies sold worldwide, among the best sellers in shōjo history.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga has sold over 46 million copies worldwide"
+  },
+  {
+    "id": "sailor-moon-kodansha-award-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "awards",
+    "value": "Kodansha Manga Award, shōjo category, 1993",
+    "text": "The manga won the 1993 Kodansha Manga Award in the shōjo category.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga won the Kodansha Manga Award in 1993 in the shōjo genre."
+  },
+  {
+    "id": "sailor-moon-anime-run-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "anime_run",
+    "value": "Toei Animation, TV Asahi, March 7, 1992 to February 8, 1997, 200 episodes in 5 seasons",
+    "text": "Toei Animation's 1992 anime aired on TV Asahi from 7 March 1992 to 8 February 1997 and totals 200 episodes across 5 seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+        "ref": "1379368186",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q704353",
+        "ref": "Q704353",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first aired in Japan on TV Asahi from March 7, 1992, to February 8, 1997"
+  },
+  {
+    "id": "sailor-moon-arc-season-split-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "arcs",
+    "value": [
+      "Dark Kingdom: Sailor Moon, episodes 1 to 46",
+      "Black Moon: Sailor Moon R, episodes 47 to 89",
+      "Infinity: Sailor Moon S, episodes 90 to 127",
+      "Dream: Sailor Moon SuperS, episodes 128 to 166",
+      "Stars: Sailor Moon Sailor Stars, episodes 167 to 200"
+    ],
+    "text": "The manga's five story arcs match the anime's five seasons: 46, 43, 38, 39 and 34 episodes in 1992 anime order.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+        "ref": "1380981876",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "four more story arcs, which were often published simultaneously with the five corresponding seasons of the anime adaptation"
+  },
+  {
+    "id": "sailor-moon-anime-directors-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "anime_directors",
+    "value": "Junichi Sato (season 1), Kunihiko Ikuhara (R to SuperS), Takuya Igarashi (Sailor Stars)",
+    "text": "Junichi Sato directed the first season, Kunihiko Ikuhara the next three, and Takuya Igarashi the last.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+        "ref": "1379368186",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q704353",
+        "ref": "Q704353",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "director = Junichi Sato (season 1), Kunihiko Ikuhara, Takuya Igarashi (Sailor Stars)"
+  },
+  {
+    "id": "sailor-moon-crystal-run-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "crystal_run",
+    "value": [
+      "Season I: Dark Kingdom, 14 episodes, July 5, 2014 to January 17, 2015",
+      "Season II: Black Moon, 12 episodes, February 7 to July 18, 2015",
+      "Season III: Death Busters, 13 episodes, April 4 to June 27, 2016"
+    ],
+    "text": "Sailor Moon Crystal, Toei's reboot, has 39 episodes in three seasons; the third adapts the manga's Infinity arc.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal",
+        "ref": "1376500832",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16138249",
+        "ref": "Q16138249",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a third season based on the Infinity arc of the manga premiered on Japanese television on April 4, 2016"
+  },
+  {
+    "id": "sailor-moon-crystal-films-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "crystal_films",
+    "value": "Eternal (2021, Dream arc, two parts) and Cosmos (2023, Stars arc, two parts)",
+    "text": "The Crystal story continues in two-part films: Eternal in 2021 covers the Dream arc and Cosmos in 2023 covers the Stars arc.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal",
+        "ref": "1376500832",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "based on the Dream arc of the manga, was released in 2021"
+  },
+  {
+    "id": "sailor-moon-themes-opening-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Moonlight Densetsu - DALI (episodes 1 to 89)",
+      "OP 2: Moonlight Densetsu - Moon Lips (episodes 90 to 166)"
+    ],
+    "text": "One opening, Moonlight Densetsu, served the first 166 episodes: DALI sang it for the first two seasons and Moon Lips for the next two.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+        "ref": "1379368186",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was used for the first 166 episodes, being performed by DALI for the first two seasons and then by Moon Lips"
+  },
+  {
+    "id": "sailor-moon-themes-final-season-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "themes_s5",
+    "value": [
+      "OP 3: Sailor Star Song - Kae Hanazawa (episodes 167 to 200)",
+      "ED 1: Moonlight Densetsu - Moon Lips (series finale, episode 200)"
+    ],
+    "text": "The last season has its own opening, Sailor Star Song by Kae Hanazawa, and the finale closes on Moon Lips' Moonlight Densetsu.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+        "ref": "1379368186",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The second opening theme, for the remaining episodes, is \"Sailor Star Song\" performed by Kae Hanazawa"
+  },
+  {
+    "id": "sailor-moon-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "characters",
+    "value": [
+      "Usagi Tsukino (月野 うさぎ): the heroine Sailor Moon",
+      "Ami Mizuno (水野 亜美): Sailor Mercury",
+      "Rei Hino (火野 レイ): Sailor Mars",
+      "Makoto Kino (木野 まこと): Sailor Jupiter",
+      "Minako Aino (愛野 美奈子): Sailor Venus",
+      "Mamoru Chiba (地場 衛): the masked Tuxedo Mask",
+      "Luna (ルナ): the talking black cat",
+      "Artemis (アルテミス): Minako's white cat companion",
+      "Queen Beryl: founder of the Dark Kingdom",
+      "Chibiusa (ちびうさ): the pink-haired girl from the future",
+      "Haruka Tenoh (天王 はるか): Sailor Uranus",
+      "Michiru Kaioh (海王 みちる): Sailor Neptune"
+    ],
+    "text": "The core Guardians and companions plus a few antagonists and newcomers, with their Japanese names where the list gives them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Usagi Tsukino is the titular protagonist of the series"
+  },
+  {
+    "id": "sailor-moon-usagi-tsukino-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "usagi-tsukino"
+    },
+    "field": "name",
+    "value": "Usagi Tsukino (月野 うさぎ)",
+    "text": "Usagi Tsukino is a main character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the titular protagonist of the"
+  },
+  {
+    "id": "sailor-moon-ami-mizuno-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "ami-mizuno"
+    },
+    "field": "name",
+    "value": "Ami Mizuno (水野 亜美)",
+    "text": "Ami Mizuno is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old bookworm in Usagi's class, who is quiet yet intelligent"
+  },
+  {
+    "id": "sailor-moon-rei-hino-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "rei-hino"
+    },
+    "field": "name",
+    "value": "Rei Hino (火野 レイ)",
+    "text": "Rei Hino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elegant fourteen-year-old miko (English: shrine maiden). Because of her work as"
+  },
+  {
+    "id": "sailor-moon-makoto-kino-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "makoto-kino"
+    },
+    "field": "name",
+    "value": "Makoto Kino (木野 まこと)",
+    "text": "Makoto Kino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old girl who is a student in Usagi's class. She excels at"
+  },
+  {
+    "id": "sailor-moon-minako-aino-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "minako-aino"
+    },
+    "field": "name",
+    "value": "Minako Aino (愛野 美奈子)",
+    "text": "Minako Aino is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a fourteen-year-old girl who first appears as the titular main protagonist"
+  },
+  {
+    "id": "sailor-moon-mamoru-chiba-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "mamoru-chiba"
+    },
+    "field": "name",
+    "value": "Mamoru Chiba (地場 衛)",
+    "text": "Mamoru Chiba is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a student who is older than Usagi. When he was young, he was in a car"
+  },
+  {
+    "id": "sailor-moon-luna-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "luna"
+    },
+    "field": "name",
+    "value": "Luna (ルナ)",
+    "text": "Luna is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Artemis and Diana are cats from the planet Mau, which is named after the Chinese word \"貓\", meaning \"cat\", who act as advisors to their owners. They are"
+  },
+  {
+    "id": "sailor-moon-artemis-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "artemis"
+    },
+    "field": "name",
+    "value": "Artemis (アルテミス)",
+    "text": "Artemis is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the white cat companion to Minako Aino, who trains her to become Sailor V and remains by her side when she takes on her proper"
+  },
+  {
+    "id": "sailor-moon-queen-beryl-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "queen-beryl"
+    },
+    "field": "name",
+    "value": "Queen Beryl",
+    "text": "Queen Beryl is an antagonist of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Most of the antagonists in the series have names related to metals, minerals and gemstones, including Queen Beryl, Queen Metaria, Four Kings of Heaven, the"
+  },
+  {
+    "id": "sailor-moon-chibiusa-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "chibiusa"
+    },
+    "field": "name",
+    "value": "Chibiusa (ちびうさ)",
+    "text": "Chibiusa is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the future daughter of Neo-Queen Serenity and King Endymion in the 30th century. She"
+  },
+  {
+    "id": "sailor-moon-haruka-tenoh-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "haruka-tenoh"
+    },
+    "field": "name",
+    "value": "Haruka Tenoh (天王 はるか)",
+    "text": "Haruka Tenoh is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a good-natured tomboyish girl who is a year older than most of the other"
+  },
+  {
+    "id": "sailor-moon-michiru-kaioh-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "michiru-kaioh"
+    },
+    "field": "name",
+    "value": "Michiru Kaioh (海王 みちる)",
+    "text": "Michiru Kaioh is a supporting character of Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an elegant and talented violinist and painter. Similar to her"
+  }
+]

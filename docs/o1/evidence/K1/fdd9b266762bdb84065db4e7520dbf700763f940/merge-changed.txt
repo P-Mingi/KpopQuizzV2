@@ -1,0 +1,14 @@
+docs/anime/data/facts/blue-lock.json
+docs/anime/data/facts/dandadan.json
+docs/anime/data/facts/fullmetal-alchemist.json
+docs/anime/data/facts/haikyu.json
+docs/anime/data/facts/oshi-no-ko.json
+docs/anime/data/facts/tower-of-god.json
+docs/anime/data/series/blue-lock.json
+docs/anime/data/series/dandadan.json
+docs/anime/data/series/fullmetal-alchemist.json
+docs/anime/data/series/haikyu.json
+docs/anime/data/series/oshi-no-ko.json
+docs/anime/data/series/tower-of-god.json
+docs/anime/editorial/packets/k1-b5.html
+docs/anime/editorial/packets/k1-b6.html

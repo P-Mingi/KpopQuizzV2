@@ -1,0 +1,223 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "The Alchemist's First Lesson: Fullmetal Alchemist Basics",
+ "slug": "the-alchemists-first-lesson-fma-basics",
+ "description": "Ten easy questions on the author, the magazine, the studio and the two TV anime. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who wrote and drew the Fullmetal Alchemist manga all by herself?",
+   "options": [
+    "Hiromu Arakawa",
+    "Masashi Kishimoto",
+    "Tite Kubo",
+    "Kohei Horikoshi"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "In which magazine did the manga run?",
+   "options": [
+    "Weekly Shōnen Jump",
+    "Weekly Shōnen Magazine",
+    "Monthly Shōnen Sirius",
+    "Monthly Shōnen Gangan"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "Which company published the manga?",
+   "options": [
+    "Shueisha",
+    "Kodansha",
+    "Shogakukan",
+    "Square Enix"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "How many collected volumes does the finished story fill?",
+   "options": [
+    "18",
+    "27",
+    "24",
+    "36"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "Which studio produced the TV anime?",
+   "options": [
+    "Madhouse",
+    "MAPPA",
+    "Bones",
+    "Wit Studio"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-run-007",
+    "fullmetal-alchemist-brotherhood-staff-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "How many episodes does Brotherhood run?",
+   "options": [
+    "26",
+    "64",
+    "51",
+    "100"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brotherhood-run-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "question": "How many episodes did the first TV anime have, shown from 2003 to 2004?",
+   "options": [
+    "51",
+    "26",
+    "39",
+    "64"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "In which year did Brotherhood begin broadcasting?",
+   "options": [
+    "2009",
+    "2003",
+    "2006",
+    "2011"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brotherhood-run-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  },
+  {
+   "question": "What does the Japanese title Hagane no Renkinjutsushi mean in English?",
+   "options": [
+    "Alchemist of Steel",
+    "Soldier of Bronze",
+    "Smith of Silver",
+    "Master of Iron"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-japanese-title-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "How many copies of the manga have sold worldwide?",
+   "options": [
+    "Over 5 million",
+    "Over 90 million",
+    "Over 30 million",
+    "Over 150 million"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-copies-sold-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Fullmetal Alchemist",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Fullmetal Alchemist (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Fullmetal Alchemist: Brotherhood",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (001 to 008, 010, 011, 004 to 006). Creator, magazine, publisher, volumes, sales, award, studio and episode counts."
+}

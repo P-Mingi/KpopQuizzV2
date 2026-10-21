@@ -1,0 +1,1180 @@
+[
+  {
+    "id": "death-note-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "title_native",
+    "value": "デスノート (Desu Nōto)",
+    "text": "The Japanese title is written デスノート, read Desu Nōto, which is simply the English name spelled in katakana.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/DEATH_NOTE",
+        "ref": "111391654",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1834",
+        "ref": "Q1834",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "『DEATH NOTE』（デスノート）は、原作：大場つぐみ、漫画：小畑健による日本の漫画"
+  },
+  {
+    "id": "death-note-manga-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "author",
+    "value": "Tsugumi Ohba (story), Takeshi Obata (art)",
+    "text": "The manga pairs writer Tsugumi Ohba with artist Takeshi Obata.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1834",
+        "ref": "Q1834",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written by Tsugumi Ohba and illustrated by Takeshi Obata"
+  },
+  {
+    "id": "death-note-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha), December 2003 to May 2006",
+    "text": "Shueisha serialized the story in Weekly Shōnen Jump, starting in December 2003 and wrapping up in May 2006.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1834",
+        "ref": "Q1834",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from December 2003 to May 2006"
+  },
+  {
+    "id": "death-note-manga-size-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "manga_size",
+    "value": [
+      "108 chapters",
+      "12 volumes"
+    ],
+    "text": "The weekly chapters, 108 in all, were gathered into twelve tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters",
+        "ref": "1372219355",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1834",
+        "ref": "Q1834",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 108 individual chapters were originally serialized in Shueisha's Weekly Shōnen Jump"
+  },
+  {
+    "id": "death-note-anime-staff-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "anime_staff",
+    "value": "Madhouse, directed by Tetsurō Araki",
+    "text": "Studio Madhouse made the TV adaptation, with Tetsurō Araki in the director's chair.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by Madhouse and directed by Tetsurō Araki"
+  },
+  {
+    "id": "death-note-anime-run-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "anime_run",
+    "value": [
+      "37 episodes",
+      "October 2006 to June 2007",
+      "Nippon Television"
+    ],
+    "text": "The anime ran for 37 episodes on Nippon Television, from the autumn of 2006 to the summer of 2007.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q718624",
+        "ref": "Q718624",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "was broadcast on Nippon Television from October 2006 to June 2007"
+  },
+  {
+    "id": "death-note-anime-parts-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "parts",
+    "value": [
+      "Part I: episodes 1-26",
+      "Part II: episodes 27-37"
+    ],
+    "text": "The episode list divides the anime into two parts: Part I closes with episode 26 and Part II holds episodes 27 to 37.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)",
+        "ref": "1380247303",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Part II No. | Title | Directed by | Written by | Storyboarded by | Animation directed by | Original release date | American air date | 27"
+  },
+  {
+    "id": "death-note-cast-first-part-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "characters_a",
+    "value": [
+      "Light Yagami (夜神 月)",
+      "L (エル・ローライト)",
+      "Ryuk (リューク)",
+      "Misa Amane (弥 海砂)",
+      "Soichiro Yagami (夜神 総一郎)",
+      "Touta Matsuda (松田 桃太)",
+      "Sayu Yagami (夜神 粧裕)",
+      "Shuichi Aizawa (相沢 周市)",
+      "Kanzo Mogi (模木 完造)",
+      "Hideki Ide (伊出 英基)",
+      "Hirokazu Ukita (宇生田 広数)",
+      "Watari (ワタリ)",
+      "Rem (レム)",
+      "Raye Penber (レイ・ペンバー)",
+      "Naomi Misora (南空 ナオミ)"
+    ],
+    "text": "The first group of the cast covers Light, L, Ryuk and Misa, the Yagami family, the police task force, L's assistant Watari and the FBI agents.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Light Yagami (夜神 月, Yagami Raito) is the protagonist of Death Note"
+  },
+  {
+    "id": "death-note-cast-second-part-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "characters_b",
+    "value": [
+      "Kiyomi Takada (高田 清美)",
+      "Sidoh (シドウ)",
+      "Teru Mikami (魅上 照)",
+      "Near (ニア)",
+      "Mello (メロ)"
+    ],
+    "text": "The second group of the cast gathers people who matter most in the later story: Takada, Sidoh, Mikami and the successors Near and Mello.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Near (ニア, Nia), whose real name is Nate River, is the young detective who succeeds L after his death"
+  },
+  {
+    "id": "death-note-theme-songs-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "themes",
+    "value": [
+      "OP 1: The World - Nightmare",
+      "OP 2: What's Up, People?! - Maximum the Hormone",
+      "ED 1: Alumina - Nightmare",
+      "ED 2: Zetsubō Billy - Maximum the Hormone",
+      "ED 3: Coda - Death Note - Yoshihisa Hirano"
+    ],
+    "text": "Two bands share the anime's songs: Nightmare opens and closes the first half, then Maximum the Hormone takes over both slots, and the last episode ends on a short piece by the composer.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)",
+        "ref": "1380247303",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Five pieces of theme music are used for the series."
+  },
+  {
+    "id": "death-note-character-names-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "naming",
+    "value": "names that seem real but could not exist",
+    "text": "Writer Ohba picked names that sound plausible yet are not found in real life, since so many of the characters are criminals or victims.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "seemed real but could not exist in the real world"
+  },
+  {
+    "id": "death-note-copies-in-print-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "copies",
+    "value": [
+      "30 million copies and more",
+      "as of April 2015"
+    ],
+    "text": "Circulation passed thirty million copies by spring 2015, which ranks the manga among the best sellers of its kind.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By April 2015, the Death Note manga had over 30 million copies in circulation"
+  },
+  {
+    "id": "death-note-notebook-rule-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "notebook_rule",
+    "value": "name plus face",
+    "text": "A victim dies only if the writer pictures the face while writing the name, so a name alone is not enough.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "as long as the writer knows both the target's true name and face"
+  },
+  {
+    "id": "death-note-ryuk-apples-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "ryuk"
+    },
+    "field": "fond_of",
+    "value": "apples",
+    "text": "Ryuk, the Shinigami who loses his notebook, has a weakness for apples.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "He has an affinity for apples."
+  },
+  {
+    "id": "death-note-l-habits-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "l"
+    },
+    "field": "habits",
+    "value": [
+      "crouches instead of sitting",
+      "eats sweets obsessively"
+    ],
+    "text": "L is a scrawny detective who crouches in his chair and eats sweets without end.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "such as crouching instead of sitting and an obsessive consumption of sweets"
+  },
+  {
+    "id": "death-note-watari-wammy-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "watari"
+    },
+    "field": "public_identity",
+    "value": "Quillsh Wammy, founder of Wammy's House",
+    "text": "On the surface Watari is Quillsh Wammy, an inventor who founded Wammy's House, a home for gifted orphans in Winchester, England.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "founder of Wammy's House, an orphanage for gifted children in Winchester, England"
+  },
+  {
+    "id": "death-note-mello-chocolate-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "mello"
+    },
+    "field": "trademark",
+    "value": "chocolate bar",
+    "text": "Mello has blond hair, flashy clothes and almost always carries a chocolate bar.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is rarely seen without a bar of chocolate"
+  },
+  {
+    "id": "death-note-another-note-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "novel",
+    "value": "Death Note Another Note, by Nisio Isin, 2006",
+    "text": "A prose novel by Nisio Isin, Another Note, came out in 2006 as a spin-off of the manga.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A light novel based on the series, written by Nisio Isin, was released in 2006."
+  },
+  {
+    "id": "death-note-netflix-film-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "us_film",
+    "value": "Netflix film, August 2017",
+    "text": "An American film version premiered only on Netflix in August 2017.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An American film adaptation was released exclusively on Netflix in August 2017"
+  },
+  {
+    "id": "death-note-north-america-license-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "license",
+    "value": "Viz Media (North America)",
+    "text": "In North America Viz Media holds the license for the Death Note books and anime.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1379383524",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is licensed and released in North America by Viz Media"
+  },
+  {
+    "id": "death-note-light-yagami-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "light-yagami"
+    },
+    "field": "name",
+    "value": "Light Yagami (夜神 月)",
+    "text": "Light Yagami is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the protagonist of Death Note, a brilliant yet bored genius who adopts the alias \"Kira\" to cleanse the world of criminals."
+  },
+  {
+    "id": "death-note-l-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "l"
+    },
+    "field": "name",
+    "value": "L (エル・ローライト)",
+    "text": "L is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Eru Rōraito), known mononymously as L, is a world-renowned detective who takes on the challenge of catching the serial killer known as"
+  },
+  {
+    "id": "death-note-ryuk-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "ryuk"
+    },
+    "field": "name",
+    "value": "Ryuk (リューク)",
+    "text": "Ryuk is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a bored Shinigami that drops a Death Note, the notebook that allows the one in its possession to kill anyone simply by knowing their name"
+  },
+  {
+    "id": "death-note-misa-amane-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "misa-amane"
+    },
+    "field": "name",
+    "value": "Misa Amane (弥 海砂)",
+    "text": "Misa Amane is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also known as \"Misa-Misa\", is a popular Japanese idol, who is known for her Gothic-style of dress, hyperactive personality and"
+  },
+  {
+    "id": "death-note-soichiro-yagami-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "soichiro-yagami"
+    },
+    "field": "name",
+    "value": "Soichiro Yagami (夜神 総一郎)",
+    "text": "Soichiro Yagami is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Light's father and detective superintendent of Japan's National Police Agency. He initially leads the Kira"
+  },
+  {
+    "id": "death-note-touta-matsuda-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "touta-matsuda"
+    },
+    "field": "name",
+    "value": "Touta Matsuda (松田 桃太)",
+    "text": "Touta Matsuda is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the youngest member of the Kira investigation team. His alias is Taro"
+  },
+  {
+    "id": "death-note-sayu-yagami-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "sayu-yagami"
+    },
+    "field": "name",
+    "value": "Sayu Yagami (夜神 粧裕)",
+    "text": "Sayu Yagami is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Light's kindhearted younger sister. Like her mother she never learns of Light's possession of the Death Note or his"
+  },
+  {
+    "id": "death-note-shuichi-aizawa-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "shuichi-aizawa"
+    },
+    "field": "name",
+    "value": "Shuichi Aizawa (相沢 周市)",
+    "text": "Shuichi Aizawa is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a member of the Kira investigation team that leaves the team under the guise of needing to support his family because"
+  },
+  {
+    "id": "death-note-kanzo-mogi-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "kanzo-mogi"
+    },
+    "field": "name",
+    "value": "Kanzo Mogi (模木 完造)",
+    "text": "Kanzo Mogi is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the most dedicated members of the Kira investigation team, but also one of the most reserved. Mogi rarely speaks, even"
+  },
+  {
+    "id": "death-note-hideki-ide-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "hideki-ide"
+    },
+    "field": "name",
+    "value": "Hideki Ide (伊出 英基)",
+    "text": "Hideki Ide is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is one of the few police officers who remain with Soichiro during the Kira Investigation. He initially leaves when he disagrees"
+  },
+  {
+    "id": "death-note-hirokazu-ukita-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "hirokazu-ukita"
+    },
+    "field": "name",
+    "value": "Hirokazu Ukita (宇生田 広数)",
+    "text": "Hirokazu Ukita is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a member of the Kira investigation team that is led by L. He is characterized as a brave young man who is also a"
+  },
+  {
+    "id": "death-note-watari-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "watari"
+    },
+    "field": "name",
+    "value": "Watari (ワタリ)",
+    "text": "Watari is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is L's assistant, providing logistics to the investigation team. Before the team is formed, he is the only person who has seen L, and the only one"
+  },
+  {
+    "id": "death-note-rem-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "rem"
+    },
+    "field": "name",
+    "value": "Rem (レム)",
+    "text": "Rem is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Shinigami who gives Misa her Death Note. Like Ryuk, Rem possesses two Death Notes; however, Rem did not get hers through trickery. The"
+  },
+  {
+    "id": "death-note-raye-penber-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "raye-penber"
+    },
+    "field": "name",
+    "value": "Raye Penber (レイ・ペンバー)",
+    "text": "Raye Penber is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an American investigator from the FBI, sent to Japan with eleven other agents to aid in tracking down Kira early in the"
+  },
+  {
+    "id": "death-note-naomi-misora-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "naomi-misora"
+    },
+    "field": "name",
+    "value": "Naomi Misora (南空 ナオミ)",
+    "text": "Naomi Misora is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Raye Penber's fiancée. A former first rate FBI agent, Naomi left the Bureau in October 2003 (2006 in the anime) for the"
+  },
+  {
+    "id": "death-note-kiyomi-takada-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "kiyomi-takada"
+    },
+    "field": "name",
+    "value": "Kiyomi Takada (高田 清美)",
+    "text": "Kiyomi Takada is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "first appears for a short period as Light Yagami's classmate and girlfriend; Light appears with Takada in public to"
+  },
+  {
+    "id": "death-note-sidoh-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "sidoh"
+    },
+    "field": "name",
+    "value": "Sidoh (シドウ)",
+    "text": "Sidoh is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Shinigami whose Death Note was stolen by Ryuk. By the time he realizes this, however, the note has already changed hands several"
+  },
+  {
+    "id": "death-note-teru-mikami-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "teru-mikami"
+    },
+    "field": "name",
+    "value": "Teru Mikami (魅上 照)",
+    "text": "Teru Mikami is an antagonist of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a criminal prosecutor and fanatical worshipper of Kira. When Light needs a new proxy to hide his identity, Light uses his"
+  },
+  {
+    "id": "death-note-near-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "near"
+    },
+    "field": "name",
+    "value": "Near (ニア)",
+    "text": "Near is a main character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "whose real name is Nate River, is the young detective who succeeds L after his death, He is the head of an organization created to catch Kira"
+  },
+  {
+    "id": "death-note-mello-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "mello"
+    },
+    "field": "name",
+    "value": "Mello (メロ)",
+    "text": "Mello is a supporting character of Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "real name is Mihael Keehl, grows up in competition with Near to succeed L. After L's death, however, he concedes the position to Near and"
+  }
+]

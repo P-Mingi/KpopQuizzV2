@@ -5,6 +5,15 @@
 // level (spoiler_arc_ord, spoiler_scope, computed by lib/anime/spoilers, never copied from the file), published.
 //
 //   node scripts/anime/k1/load-fixtures.mjs <scratch|dev> [--dry-run]
+//   node scripts/anime/k1/load-fixtures.mjs <scratch|dev> --data docs/anime/data [--dry-run]
+//
+// With --data <dir> the contract fixtures are not loaded: every series file of <dir>/series (and the facts of
+// <dir>/facts) is loaded instead, with the `anime-mix` group created when missing; the facts land in `trivia` (those
+// with a text) and `entity_sources` (every source). Lane K2: when <dir>/creators.json and <dir>/quizzes exist, the Team
+// creators (their profiles must already exist on the branch) and their published quizzes are loaded too. See
+// data-load.mjs. Lane K3: when <dir>/daily/*.json exists, its daily bank rows are loaded into quiz_bank (site anime, draft,
+// no scheduled_date: the daily cron schedules them) and the loaded line ends with daily_rows and daily_questions.
+// Run it twice: the second line must be equal.
 //
 // Every database access goes through scripts/o1/env.sh <target> -- psql (the connection string stays inside that
 // wrapper and is never read or printed here). Any target other than scratch or dev is refused. Idempotent: a second
@@ -30,9 +39,55 @@ function fail(message, code = 1) {
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
-const target = args.find((a) => !a.startsWith('--'));
-if (args.some((a) => a.startsWith('--') && a !== '--dry-run')) fail('usage: load-fixtures.mjs <scratch|dev> [--dry-run]', 2);
+const dataAt = args.indexOf('--data');
+const dataDir = dataAt >= 0 ? args[dataAt + 1] : null;
+const target = args.find((a, i) => !a.startsWith('--') && (dataAt < 0 || i !== dataAt + 1));
+const USAGE = 'usage: load-fixtures.mjs <scratch|dev> [--data <dir>] [--dry-run]';
+if (args.some((a) => a.startsWith('--') && a !== '--dry-run' && a !== '--data')) fail(USAGE, 2);
+if (dataAt >= 0 && (!dataDir || dataDir.startsWith('--'))) fail(USAGE, 2);
 if (target !== 'scratch' && target !== 'dev') fail(`refused: the target must be scratch or dev (got ${target ?? 'none'})`, 2);
+
+function psql(sql, extra = []) {
+  const r = spawnSync(ENV_SH, [target, '--', 'bash', '-c', '"$0" "$O1_DB_URL" -X -q "$@"', PSQL, ...extra], { input: sql, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  if (r.status !== 0) {
+    // psql errors may echo statement text, never the connection string (it is not in any argument); show the first lines only.
+    fail(`psql failed (${r.status}): ${(r.stderr || '').split('\n').slice(0, 4).join(' | ')}`);
+  }
+  return r.stdout;
+}
+
+if (dataDir) {
+  const { readDataDir, readExtras, buildDataPlan, countDataPlan, renderDataSql, countDataSql } = await import('./data-load.mjs');
+  let plan;
+  try {
+    plan = buildDataPlan(readDataDir(resolve(ROOT, dataDir)), readExtras(resolve(ROOT, dataDir)));
+  } catch (err) {
+    fail(err instanceof Error ? err.message : String(err));
+  }
+  const counts = countDataPlan(plan);
+  console.log(`plan target=${target} data=${dataDir} ${Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' ')}`);
+  if (dryRun) {
+    console.log('dry-run: nothing written');
+    process.exit(0);
+  }
+  psql(renderDataSql(plan), ['-v', 'ON_ERROR_STOP=1', '-f', '-']);
+  const line = psql(countDataSql(plan), ['-At', '-F', ' ', '-f', '-']).trim();
+  const nums = line.split(/\s+/).map(Number);
+  const [groups, series, arcs, characters, themes, trivia, entitySources] = nums;
+  let at = 7;
+  let k2 = '';
+  if (plan.creators?.length || plan.quizzes?.length) {
+    const [creators, teamMemberships, quizzes, questions] = nums.slice(at, at + 4);
+    at += 4;
+    k2 = ` creators=${creators} team_memberships=${teamMemberships} quizzes=${quizzes} questions=${questions}`;
+  }
+  if (plan.daily?.length) {
+    const [bank, bankQuestions] = nums.slice(at, at + 2);
+    k2 += ` daily_rows=${bank} daily_questions=${bankQuestions}`;
+  }
+  console.log(`loaded target=${target} groups=${groups} series=${series} arcs=${arcs} characters=${characters} themes=${themes} trivia=${trivia} entity_sources=${entitySources}${k2}`);
+  process.exit(0);
+}
 
 let lib;
 try {
@@ -45,15 +100,6 @@ try {
 const fixtures = FIXTURES.map((name) => JSON.parse(readFileSync(resolve(FIXTURE_DIR, `${name}.json`), 'utf8')));
 const plan = lib.buildPlan(fixtures);
 const counts = lib.countPlan(plan);
-
-function psql(sql, extra = []) {
-  const r = spawnSync(ENV_SH, [target, '--', 'bash', '-c', '"$0" "$O1_DB_URL" -X -q "$@"', PSQL, ...extra], { input: sql, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-  if (r.status !== 0) {
-    // psql errors may echo statement text, never the connection string (it is not in any argument); show the first lines only.
-    fail(`psql failed (${r.status}): ${(r.stderr || '').split('\n').slice(0, 4).join(' | ')}`);
-  }
-  return r.stdout;
-}
 
 console.log(`plan target=${target} ${Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' ')}`);
 if (dryRun) {

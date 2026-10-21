@@ -7,6 +7,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 import { clientRefsOf, flightTree } from '@/lib/o1-flight-tree';
+import { fmt } from '@/lib/passport-ui/fmt';
+import { passportWords } from '@/lib/passport-ui/words';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: () => undefined, push: () => undefined }), usePathname: () => '/u/mingi' }));
 // A server component may call useId; the Flight walker renders outside React, so the id is fixed (the same in every run).
@@ -101,7 +103,7 @@ describe('public passport, kpop words', () => {
 });
 
 describe('public passport, anime words', () => {
-  const words = { masteredStat: 'series mastered', masteredTitle: 'Series mastered', fanSince: 'Fan since', passport: 'passport', brand: 'OtakuQuiz' };
+  const words = passportWords('anime')!;
   const noMain = (mode: 'public' | 'personal'): PassportInput => {
     const i = input(mode);
     return { ...i, spine: { ...i.spine!, ult_groups: [] }, war: null };
@@ -110,12 +112,12 @@ describe('public passport, anime words', () => {
   it('the stat cell, the section title and the share text use the site words; the level title is the site ladder', () => {
     const props = buildPassport({ ...noMain('public'), words, site: 'anime' });
     expect(props.words).toEqual(words);
-    expect(props.stats.map((c) => c.label)).toContain('series mastered');
+    expect(props.stats.map((c) => c.label)).toContain(words.seriesMasteredStat);
     expect(props.stats.map((c) => c.label)).not.toContain('groups mastered');
-    expect(props.meta.flat().map((p) => p.text)).toContain('Fan since 2019');
+    expect(props.meta.flat().map((p) => p.text)).toContain(fmt(words.watchingSince, { year: 2019 }));
     expect(props.level).not.toContain('Stan');
     const html = renderToStaticMarkup(createElement(UxPassport, props));
-    expect(html).toContain('Series mastered');
+    expect(html).toContain(words.seriesMasteredTitle);
     expect(html).not.toContain('Groups mastered');
     expect(html).not.toMatch(/Stan since|K-pop|KpopQuiz|groups mastered/);
   });

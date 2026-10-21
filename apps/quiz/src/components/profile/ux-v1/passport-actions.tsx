@@ -11,14 +11,15 @@ import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import { useIsOwner } from './passport-band';
 
+import type { PassportWords } from '@/lib/passport-ui/words';
+
 interface PassportActionsProps {
   username: string;
   displayName: string;
   owner: 'server' | 'check';
   level: string;
-  /** Run O1: the words of the share text on another site ("K-pop passport", "KpopQuiz"). Absent: today's wording. */
-  passport?: string;
-  brand?: string;
+  /** A world site's words (Run O1, lot b, P1; rule 18): the follow label, the share text, no fan card. Absent on kpop. */
+  words?: Pick<PassportWords, 'follow' | 'following' | 'shareOwn' | 'shareOther' | 'storyCard'> | undefined;
 }
 
 type FollowState = { signedIn: boolean; isSelf: boolean; following: boolean } | null;
@@ -30,7 +31,7 @@ const FOLLOW_ACTION = 'p10-follow';
  * same GET + POST as the live button; a guest gets the sign-in sheet and the
  * follow resumes after sign-in). Share opens A0's share sheet with the public URL.
  */
-export function PassportActions({ username, displayName, owner, level, passport = 'K-pop passport', brand = 'KpopQuiz' }: PassportActionsProps): React.ReactElement {
+export function PassportActions({ username, displayName, owner, level, words }: PassportActionsProps): React.ReactElement {
   const isOwner = useIsOwner(username, owner);
   const signIn = useSignIn();
   const toast = useUxToast();
@@ -94,7 +95,7 @@ export function PassportActions({ username, displayName, owner, level, passport 
         <UxButton variant="ghost" href="/settings" icon="pen">Edit passport</UxButton>
       ) : follow && !follow.isSelf ? (
         <UxButton variant={follow.following ? 'ghost' : 'primary'} aria-pressed={follow.following} onClick={onFollow} disabled={pending}>
-          {follow.following ? <><Icon name="check" />Following</> : <><Icon name="plus" />Follow</>}
+          {follow.following ? <><Icon name="check" />{words ? words.following : 'Following'}</> : <><Icon name="plus" />{words ? words.follow : 'Follow'}</>}
         </UxButton>
       ) : null}
       <button type="button" className="ux-ib ux-ib-bordered" aria-label="Share passport" aria-haspopup="dialog" onClick={() => setShare(true)}>
@@ -106,8 +107,8 @@ export function PassportActions({ username, displayName, owner, level, passport 
         title={isOwner ? 'Share your passport' : `Share ${displayName}'s passport`}
         preview={{ image: `/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
         url={url}
-        text={isOwner ? `My ${passport} on ${brand}` : `${displayName}'s ${passport} on ${brand}`}
-        {...(isOwner ? {
+        text={words ? (isOwner ? words.shareOwn : words.shareOther.replace('{name}', () => displayName)) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
+        {...(isOwner && !words ? {
           onStoryImage: () => { window.open(`/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
           storyFile: async () => {
             try {

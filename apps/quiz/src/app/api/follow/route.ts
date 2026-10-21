@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { notifyNewFollower } from '@/lib/notifications';
+import { isEditorialUser } from '@/lib/editorial/accounts';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -11,6 +13,10 @@ import type { NextRequest } from 'next/server';
 // rejects self-follow, validates the target exists. Counts are maintained by the
 // DB trigger, so this route never touches follower_count directly.
 export const dynamic = 'force-dynamic';
+
+// Run O1 (lot b, P1; apis.md section 6): on a world site the follow graph is `world_follows` of that site, and an
+// editorial (Team) account neither follows nor is followed (RUN-4). kpop keeps today's `follows` and its notification.
+const WORLD = SITE_ID !== 'kpop';
 
 async function resolveTarget(supabase: Awaited<ReturnType<typeof createServerClient>>, username: string): Promise<string | null> {
   const { data } = await supabase.from('profiles').select('id').eq('username', username).maybeSingle();
@@ -29,8 +35,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (!targetId) return NextResponse.json({ signedIn: true, isSelf: false, following: false });
   if (targetId === user.id) return NextResponse.json({ signedIn: true, isSelf: true, following: false });
 
-  const { data: row } = await supabase
-    .from('follows').select('follower_id').eq('follower_id', user.id).eq('followed_id', targetId).maybeSingle();
+  const { data: row } = WORLD
+    ? await supabase.from('world_follows').select('follower_id').eq('site_id', SITE_ID).eq('follower_id', user.id).eq('followed_id', targetId).maybeSingle()
+    : await supabase.from('follows').select('follower_id').eq('follower_id', user.id).eq('followed_id', targetId).maybeSingle();
   return NextResponse.json({ signedIn: true, isSelf: false, following: !!row });
 }
 
@@ -48,6 +55,24 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const targetId = await resolveTarget(supabase, username);
   if (!targetId) return NextResponse.json({ error: 'User not found' }, { status: 404 });
   if (targetId === user.id) return NextResponse.json({ error: 'Cannot follow yourself' }, { status: 400 });
+  if (WORLD && (await isEditorialUser(targetId) || await isEditorialUser(user.id))) return NextResponse.json({ error: 'Not available for this account' }, { status: 403 });
+
+  if (WORLD) {
+    if (action === 'follow') {
+      const { error } = await supabase.from('world_follows').insert({ site_id: SITE_ID, follower_id: user.id, followed_id: targetId });
+      if (error && error.code !== '23505') {
+        console.error('[api/follow] world insert failed:', error.message);
+        return NextResponse.json({ error: 'Could not follow' }, { status: 500 });
+      }
+      return NextResponse.json({ following: true });
+    }
+    const { error } = await supabase.from('world_follows').delete().eq('site_id', SITE_ID).eq('follower_id', user.id).eq('followed_id', targetId);
+    if (error) {
+      console.error('[api/follow] world delete failed:', error.message);
+      return NextResponse.json({ error: 'Could not unfollow' }, { status: 500 });
+    }
+    return NextResponse.json({ following: false });
+  }
 
   if (action === 'follow') {
     // Idempotent: the PK rejects a duplicate, which we treat as already following.

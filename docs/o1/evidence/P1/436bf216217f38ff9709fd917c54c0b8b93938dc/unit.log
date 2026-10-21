@@ -1,0 +1,12 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-P1/apps/quiz
+
+
+ Test Files  38 passed (38)
+      Tests  397 passed (397)
+   Start at  21:48:44
+   Duration  7.61s (tests 65%, import 31%, transform 3%, worker 1%)
+
+    Isolate  38 workers spawned · ~375ms startup each (spawn + environment, per file)
+             at least ~1.66s faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "Skald or Liar: Vinland Saga True or False",
+ "slug": "skald-or-liar-vinland-saga-true-or-false",
+ "description": "Ten statements on the creator, the magazines, the volumes, the arcs and the English edition. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Vinland Saga chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 009, 010, 012, 013); each false one changes a single detail (a magazine, a count, the number of arcs, which arcs are animated, a year).",
+ "questions": [
+  {
+   "question": "Makoto Yukimura writes and draws the manga, which Kodansha publishes.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "The manga began in Monthly Afternoon in April 2005.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "The manga finished in Monthly Afternoon on July 25, 2025.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "The story is collected in 29 volumes holding 200 chapters.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "The last volume came out on September 22, 2025.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "The manga article divides the plot into three arcs.",
+   "correct": false,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-story-arcs-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "The War Arc fills chapters 1 to 54 and the Slave Arc chapters 55 to 100.",
+   "correct": true,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "The Eastern Expedition Arc and the Vinland Arc are both animated.",
+   "correct": false,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-arc-ranges-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "question": "Kodansha USA publishes the manga in English in two-in-one hardcovers, starting on October 14, 2013.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-english-release-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "In 2012 the Japan Media Arts Festival gave the manga its top honor.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-awards-sales-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  }
+ ]
+}

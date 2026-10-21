@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_21",
+ "group_slug": "apothecary-diaries",
+ "title": "Taste Test: Apothecary Diaries True or False",
+ "slug": "taste-test-apothecary-diaries-true-or-false",
+ "description": "Ten statements on the author, the web novel, the manga, the setting, the first anime season and the sales. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Hyūganatsu is the author of the story, and Touko Shino draws the illustrations of the published light novels.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-author-story-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "The tale began as a web novel on Shōsetsuka ni Narō in 2017, then Shufunotomo issued a single book in 2012 and a Hero Bunko light novel line from August 29, 2014.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "The tale began as a web novel on Shōsetsuka ni Narō in 2011, then Shufunotomo issued a single book in 2012 and a Hero Bunko light novel line from August 29, 2014.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Hyūganatsu is the author of the story, and Nekokurage draws the illustrations of the published light novels.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-author-story-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Square Enix publishes the first manga adaptation, drawn by Nekokurage, in Monthly Big Gangan; it started on May 25, 2017 and has reached 17 volumes.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-big-gangan-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "The story takes place in an invented empire modeled on Ming-era China.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-setting-tang-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-gene-x-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Square Enix publishes the first manga adaptation, drawn by Minoji Kurata, in Monthly Big Gangan; it started on May 25, 2017 and has reached 17 volumes.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-big-gangan-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Toho Animation Studio and OLM made the first anime season together, and its 24 episodes ran on Nippon TV from October 22, 2023 until March 24, 2024.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Counting the light novels and both manga series, the franchise had more than 17 million copies in circulation by August 2026.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-copies-circulation-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: The Apothecary Diaries",
+   "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of The Apothecary Diaries episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 006, 009, 010); each false one changes a single detail (an illustrator, a year, an artist, an era or a number)."
+}

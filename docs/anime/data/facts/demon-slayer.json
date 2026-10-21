@@ -1,0 +1,1820 @@
+[
+ {
+  "id": "demon-slayer-arcs-list-001",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "arcs",
+  "value": [
+   "Tanjiro Kamado, Unwavering Resolve Arc (arc 1): episodes 1-26",
+   "Mugen Train Arc (arc 2): episodes 27-33",
+   "Entertainment District Arc (arc 3): episodes 34-44",
+   "Swordsmith Village Arc (arc 4): episodes 45-55",
+   "Hashira Training Arc (arc 5): episodes 56-63",
+   "Infinity Castle Arc (arc 6): adapted as a film trilogy from 2025"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes",
+    "ref": "1378330428",
+    "fetched_at": "2026-10-20T16:42:30Z"
+   },
+   {
+    "source": "official",
+    "url": "https://demonslayer-anime.com/",
+    "fetched_at": "2026-10-20T16:44:33Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Season 2: Mugen Train Arc and Entertainment District Arc"
+ },
+ {
+  "id": "demon-slayer-title-forms-002",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "title_forms",
+  "value": [
+   "Demon Slayer: Kimetsu no Yaiba",
+   "鬼滅の刃",
+   "Kimetsu no Yaiba",
+   "Blade of Demon Destruction (rough translation)"
+  ],
+  "text": "The Japanese title 鬼滅の刃, Kimetsu no Yaiba, can be roughly translated as Blade of Demon Destruction.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "ref": "1378537185",
+    "fetched_at": "2026-10-20T16:42:13Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q24862683",
+    "ref": "Q24862683",
+    "fetched_at": "2026-10-20T16:45:08Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Blade of Demon Destruction"
+ },
+ {
+  "id": "demon-slayer-creator-003",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "creator",
+  "value": "Koyoharu Gotouge",
+  "text": "Koyoharu Gotouge both wrote and drew the Demon Slayer manga.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "ref": "1378537185",
+    "fetched_at": "2026-10-20T16:42:13Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q24862683",
+    "ref": "Q24862683",
+    "fetched_at": "2026-10-20T16:45:08Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.shonenjump.com/j/rensai/kimetsu/",
+    "fetched_at": "2026-10-20T16:49:35Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "written and illustrated by Koyoharu Gotouge"
+ },
+ {
+  "id": "demon-slayer-manga-run-004",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "manga_run",
+  "value": "2016 to 2020",
+  "text": "Shueisha's Weekly Shonen Jump carried the manga between 15 February 2016 and 18 May 2020.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "ref": "1378537185",
+    "fetched_at": "2026-10-20T16:42:13Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q24862683",
+    "ref": "Q24862683",
+    "fetched_at": "2026-10-20T16:45:08Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.shonenjump.com/j/rensai/kimetsu/",
+    "fetched_at": "2026-10-20T16:49:35Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from February 15, 2016"
+ },
+ {
+  "id": "demon-slayer-volumes-005",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "volumes",
+  "value": 23,
+  "text": "Shueisha gathered the manga into 23 collected volumes, released between June 2016 and December 2020.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "ref": "1378537185",
+    "fetched_at": "2026-10-20T16:42:13Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q24862683",
+    "ref": "Q24862683",
+    "fetched_at": "2026-10-20T16:45:08Z"
+   },
+   {
+    "source": "official",
+    "url": "https://kimetsu.com/anime/about/",
+    "fetched_at": "2026-10-20T16:53:26Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Shueisha collected its chapters in 23 individual tankōbon volumes"
+ },
+ {
+  "id": "demon-slayer-chapters-006",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "chapters",
+  "value": 205,
+  "text": "The manga runs for 205 chapters in total.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83",
+    "ref": "111365234",
+    "fetched_at": "2026-10-20T16:43:36Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "全205話"
+ },
+ {
+  "id": "demon-slayer-studio-director-007",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "studio_director",
+  "value": [
+   "Ufotable",
+   "Haruo Sotozaki"
+  ],
+  "text": "Studio Ufotable produced the TV anime, with Haruo Sotozaki as its director.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+    "ref": "1377042192",
+    "fetched_at": "2026-10-20T16:42:21Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q63350570",
+    "ref": "Q63350570",
+    "fetched_at": "2026-10-20T16:45:09Z"
+   },
+   {
+    "source": "official",
+    "url": "https://demonslayer-anime.com/risshihen/",
+    "fetched_at": "2026-10-20T16:53:14Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The anime was directed by Haruo Sotozaki and produced by Hikaru Kondo"
+ },
+ {
+  "id": "demon-slayer-tv-start-008",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "tv_start",
+  "value": "2019-04-06",
+  "text": "The TV anime launched on April 6, 2019.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+    "ref": "1377042192",
+    "fetched_at": "2026-10-20T16:42:21Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q63350570",
+    "ref": "Q63350570",
+    "fetched_at": "2026-10-20T16:45:09Z"
+   },
+   {
+    "source": "official",
+    "url": "https://kimetsu.com/anime/about/",
+    "fetched_at": "2026-10-20T16:53:26Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "April 6 to September 28, 2019"
+ },
+ {
+  "id": "demon-slayer-tv-episodes-009",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "tv_episodes",
+  "value": 63,
+  "text": "Counting only the main TV series, not the films or compilation films, there are 63 episodes in 4 seasons (the usual Wikipedia grouping), aired from 2019 to 2024.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+    "ref": "1377042192",
+    "fetched_at": "2026-10-20T16:42:21Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q63350570",
+    "ref": "Q63350570",
+    "fetched_at": "2026-10-20T16:45:09Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "No. of seasons 4 No. of episodes 63"
+ },
+ {
+  "id": "demon-slayer-season-1-010",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "season_1",
+  "value": "26 episodes, chapters 1-54",
+  "text": "Season 1 ran for 26 episodes and adapts manga chapters 1-54.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1",
+    "ref": "1374154710",
+    "fetched_at": "2026-10-20T16:42:43Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "adapts the first seven volumes (chapters 1-54) of the manga"
+ },
+ {
+  "id": "demon-slayer-sibling-bond-011",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "sibling_bond",
+  "value": "2019-03-29",
+  "text": "Ahead of the TV broadcast, the first five episodes had a two-week cinema run in Japan starting March 29, 2019, billed as Sibling's Bond.",
+  "category": "fun",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1",
+    "ref": "1374154710",
+    "fetched_at": "2026-10-20T16:42:43Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "the first five episodes screened theatrically in Japan"
+ },
+ {
+  "id": "demon-slayer-mugen-train-film-012",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "mugen_train_film",
+  "value": "2020-10-16",
+  "text": "On October 16, 2020, the Mugen Train film opened in Japan, and it went on to be the top-grossing film of 2020 worldwide.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Mugen_Train",
+    "ref": "1380945715",
+    "fetched_at": "2026-10-20T16:43:08Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q96376192",
+    "ref": "Q96376192",
+    "fetched_at": "2026-10-20T16:52:54Z"
+   },
+   {
+    "source": "official",
+    "url": "https://kimetsu.com/anime/about/",
+    "fetched_at": "2026-10-20T16:53:26Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "making it the highest-grossing film of 2020"
+ },
+ {
+  "id": "demon-slayer-season-2-013",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "season_2",
+  "value": "18 episodes, chapters 54-97",
+  "text": "Season 2 filled two back-to-back cours: from October 2021, seven Mugen Train Arc episodes (one brand new, six reworked from the film), then eleven Entertainment District Arc episodes, covering chapters 54-97.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2",
+    "ref": "1374154719",
+    "fetched_at": "2026-10-20T16:42:44Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "(chapters 54-97) of the manga and ran for two continuous cours"
+ },
+ {
+  "id": "demon-slayer-season-3-014",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "season_3",
+  "value": "11 episodes, chapters 98-127",
+  "text": "Season 3, the Swordsmith Village Arc, runs 11 episodes and adapts manga chapters 98-127.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3",
+    "ref": "1377696261",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "(chapters 98-127) of the manga and aired from April 9 to June 18, 2023"
+ },
+ {
+  "id": "demon-slayer-season-4-015",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "season_4",
+  "value": "2024-05-12",
+  "text": "Season 4, the Hashira Training Arc, opened on May 12, 2024, ran for eight episodes and adapts manga chapters 128-139.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4",
+    "ref": "1372512950",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q124624636",
+    "ref": "Q124624636",
+    "fetched_at": "2026-10-20T16:52:56Z"
+   },
+   {
+    "source": "official",
+    "url": "https://kimetsu.com/anime/about/",
+    "fetched_at": "2026-10-20T16:53:26Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "It premiered on May 12, 2024, with a one-hour episode"
+ },
+ {
+  "id": "demon-slayer-infinity-castle-film-016",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "infinity_castle_film",
+  "value": "2025-07-18",
+  "text": "The Infinity Castle story is being adapted as a film trilogy, and its first film reached Japanese cinemas on July 18, 2025.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Infinity_Castle",
+    "ref": "1380783601",
+    "fetched_at": "2026-10-20T16:43:09Z"
+   },
+   {
+    "source": "official",
+    "url": "https://kimetsu.com/anime/mugenjyohen_movie/",
+    "fetched_at": "2026-10-20T16:53:24Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "It was released in Japan on July 18, 2025"
+ },
+ {
+  "id": "demon-slayer-composers-017",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "composers",
+  "value": [
+   "Yuki Kajiura",
+   "Go Shiina"
+  ],
+  "text": "Two composers, Yuki Kajiura and Go Shiina, share the music of the TV anime.",
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+    "ref": "1377042192",
+    "fetched_at": "2026-10-20T16:42:21Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q63350570",
+    "ref": "Q63350570",
+    "fetched_at": "2026-10-20T16:45:09Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Yuki Kajiura and Go Shiina composed the anime's music"
+ },
+ {
+  "id": "demon-slayer-gurenge-award-018",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "gurenge_award",
+  "value": "Best theme song prize at the Newtype Anime Awards, 2019",
+  "text": "LiSA's Gurenge, the first opening theme, took the best theme song prize at the 2019 Newtype Anime Awards.",
+  "category": "achievements",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gurenge",
+    "ref": "1372196624",
+    "fetched_at": "2026-10-20T16:49:56Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "won a Newtype Anime Awards for 2019 best theme song"
+ },
+ {
+  "id": "demon-slayer-themes-season-1-019",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "themes_s1",
+  "value": [
+   "OP 1: Gurenge - LiSA (season 1)",
+   "ED 1: from the edge - FictionJunction feat. LiSA (season 1)",
+   "ED 2: Kamado Tanjiro no Uta - Go Shiina feat. Nami Nakagawa (season 1)"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1",
+    "ref": "1374154710",
+    "fetched_at": "2026-10-20T16:42:43Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "while the ending theme is \"from the edge\" by FictionJunction feat. LiSA"
+ },
+ {
+  "id": "demon-slayer-themes-season-2-020",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "themes_s2",
+  "value": [
+   "OP 2: Akeboshi - LiSA (season 2)",
+   "OP 3: Zankyōsanka - Aimer (season 2)",
+   "ED 3: Shirogane - LiSA (season 2)",
+   "ED 4: Homura - LiSA (season 2)",
+   "ED 5: Asa ga Kuru - Aimer (season 2)"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2",
+    "ref": "1374154719",
+    "fetched_at": "2026-10-20T16:42:44Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "For the Entertainment District Arc, the opening theme is"
+ },
+ {
+  "id": "demon-slayer-themes-season-3-021",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "themes_s3",
+  "value": [
+   "OP 4: Kizuna no Kiseki - Man with a Mission x Milet (season 3)",
+   "ED 6: Koi Kogare - Man with a Mission x Milet (season 3)"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3",
+    "ref": "1377696261",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "both performed by Man with a Mission and Milet"
+ },
+ {
+  "id": "demon-slayer-themes-season-4-022",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "themes_s4",
+  "value": [
+   "OP 5: Mugen - My First Story x Hyde (season 4)",
+   "ED 7: Tokoshie - My First Story x Hyde (season 4)"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4",
+    "ref": "1372512950",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "both performed by My First Story and Hyde"
+ },
+ {
+  "id": "demon-slayer-characters-core-023",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "characters_core",
+  "value": [
+   "Tanjiro Kamado (竈門 炭治郎)",
+   "Nezuko Kamado (竈門 禰豆子)",
+   "Zenitsu Agatsuma (我妻 善逸)",
+   "Inosuke Hashibira (嘴平 伊之助)",
+   "Muzan Kibutsuji (鬼舞辻 無惨)",
+   "Giyu Tomioka (冨岡 義勇)",
+   "Sakonji Urokodaki (鱗滝 左近次)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "The Water Hashira and the first Demon Slayer that Tanjiro meets"
+ },
+ {
+  "id": "demon-slayer-characters-first-arc-024",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "characters_arc1",
+  "value": [
+   "Shinobu Kocho (胡蝶 しのぶ)",
+   "Kanao Tsuyuri (栗花落 カナヲ)",
+   "Sanemi Shinazugawa (不死川 実弥)",
+   "Kagaya Ubuyashiki (産屋敷 耀哉)",
+   "Tamayo (珠世)",
+   "Yushiro (愈史郎)",
+   "Rui (累)",
+   "Hotaru Haganezuka (鋼鐵塚 螢)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "The Insect Hashira and sister of Kanae"
+ },
+ {
+  "id": "demon-slayer-characters-mid-025",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "characters_mid",
+  "value": [
+   "Kyojuro Rengoku (煉獄 杏寿郎)",
+   "Tengen Uzui (宇髄 天元)",
+   "Akaza (猗窩座)",
+   "Enmu (魘夢)",
+   "Daki (堕姫)",
+   "Gyutaro (妓夫太郎)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "The Flame Hashira and successor to his father Shinjuro"
+ },
+ {
+  "id": "demon-slayer-characters-late-026",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "characters_late",
+  "value": [
+   "Mitsuri Kanroji (甘露寺 蜜璃)",
+   "Muichiro Tokito (時透 無一郎)",
+   "Gyomei Himejima (悲鳴嶼 行冥)",
+   "Obanai Iguro (伊黒 小芭内)",
+   "Genya Shinazugawa (不死川 玄弥)",
+   "Doma (童磨)",
+   "Kokushibo (黒死牟)",
+   "Hantengu (半天狗)",
+   "Gyokko (玉壼)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "The Stone Hashira, regarded as the strongest combatant in the Demon Slayer Corps"
+ },
+ {
+  "id": "demon-slayer-tanjiro-smell-027",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tanjiro-kamado"
+  },
+  "field": "sense_of_smell",
+  "value": "heightened sense of smell",
+  "text": "Tanjiro's unusually sharp sense of smell helps him track demons and sense how other people feel.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "He possesses a heightened sense of smell"
+ },
+ {
+  "id": "demon-slayer-nezuko-sleep-028",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "nezuko-kamado"
+  },
+  "field": "feeding",
+  "value": "sleeps instead of eating humans",
+  "text": "Nezuko does not feed on people; she keeps up her strength by sleeping instead.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Instead of consuming humans, she sustains herself by sleeping"
+ },
+ {
+  "id": "demon-slayer-zenitsu-thunder-029",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "zenitsu-agatsuma"
+  },
+  "field": "thunder_breathing",
+  "value": "only the first form",
+  "text": "Zenitsu knows just one form of Thunder Breathing, yet he has honed it to a remarkable level.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "he can only use the first form but has mastered it to an exceptional degree"
+ },
+ {
+  "id": "demon-slayer-inosuke-mask-030",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "boar_mask",
+  "value": "boar head mask",
+  "text": "Inosuke grew up among boars and usually wears the head of his late boar mother as a mask.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "He typically wears the head of his deceased boar mother as a mask"
+ },
+ {
+  "id": "demon-slayer-tanjiro-kamado-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tanjiro-kamado"
+  },
+  "field": "name",
+  "value": "Tanjiro Kamado (竈門 炭治郎)",
+  "text": "Tanjiro Kamado is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the eldest son of a charcoal selling family. After a demon attack kills his mother and younger siblings, and turns"
+ },
+ {
+  "id": "demon-slayer-nezuko-kamado-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "nezuko-kamado"
+  },
+  "field": "name",
+  "value": "Nezuko Kamado (竈門 禰豆子)",
+  "text": "Nezuko Kamado is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the younger sister of Tanjiro, transformed into a demon during an attack that killed the rest of their family. She"
+ },
+ {
+  "id": "demon-slayer-zenitsu-agatsuma-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "zenitsu-agatsuma"
+  },
+  "field": "name",
+  "value": "Zenitsu Agatsuma (我妻 善逸)",
+  "text": "Zenitsu Agatsuma is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer who joined the Corps alongside Tanjiro. Trained in the Thunder Breathing (雷の呼吸, Kaminari no"
+ },
+ {
+  "id": "demon-slayer-inosuke-hashibira-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "name",
+  "value": "Inosuke Hashibira (嘴平 伊之助)",
+  "text": "Inosuke Hashibira is a main character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer raised by boars, resulting in a feral and aggressive personality. He fights using a self-taught"
+ },
+ {
+  "id": "demon-slayer-muzan-kibutsuji-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muzan-kibutsuji"
+  },
+  "field": "name",
+  "value": "Muzan Kibutsuji (鬼舞辻 無惨)",
+  "text": "Muzan Kibutsuji is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is the first demon, originating from a failed experimental treatment during the Heian Period. He seeks to create a"
+ },
+ {
+  "id": "demon-slayer-giyu-tomioka-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "giyu-tomioka"
+  },
+  "field": "name",
+  "value": "Giyu Tomioka (冨岡 義勇)",
+  "text": "Giyu Tomioka is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Water Hashira and the first Demon Slayer that Tanjiro meets. He initially tries to kill Nezuko but reconsiders after she protects Tanjiro from him, and"
+ },
+ {
+  "id": "demon-slayer-sakonji-urokodaki-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "sakonji-urokodaki"
+  },
+  "field": "name",
+  "value": "Sakonji Urokodaki (鱗滝 左近次)",
+  "text": "Sakonji Urokodaki is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Urokodaki Sakonji)"
+ },
+ {
+  "id": "demon-slayer-shinobu-kocho-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "shinobu-kocho"
+  },
+  "field": "name",
+  "value": "Shinobu Kocho (胡蝶 しのぶ)",
+  "text": "Shinobu Kocho is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Insect Hashira and sister of Kanae. Her surname, Kochō (胡蝶), means \"butterfly\", hence her motif. Outwardly cool-headed and optimistic, her cheery façade"
+ },
+ {
+  "id": "demon-slayer-kanao-tsuyuri-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kanao-tsuyuri"
+  },
+  "field": "name",
+  "value": "Kanao Tsuyuri (栗花落 カナヲ)",
+  "text": "Kanao Tsuyuri is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer and the adopted sister of Shinobu Kocho. Trained as a tsuguko, she is a practitioner of the Flower"
+ },
+ {
+  "id": "demon-slayer-sanemi-shinazugawa-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "sanemi-shinazugawa"
+  },
+  "field": "name",
+  "value": "Sanemi Shinazugawa (不死川 実弥)",
+  "text": "Sanemi Shinazugawa is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Shinazugawa Sanemi)"
+ },
+ {
+  "id": "demon-slayer-kagaya-ubuyashiki-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kagaya-ubuyashiki"
+  },
+  "field": "name",
+  "value": "Kagaya Ubuyashiki (産屋敷 耀哉)",
+  "text": "Kagaya Ubuyashiki is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Ubuyashiki Kagaya)"
+ },
+ {
+  "id": "demon-slayer-tamayo-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tamayo"
+  },
+  "field": "name",
+  "value": "Tamayo (珠世)",
+  "text": "Tamayo is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "who cares for and is deeply protective of her. Like Tamayo, he survives on small amounts of blood, even less than her. He is"
+ },
+ {
+  "id": "demon-slayer-yushiro-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "yushiro"
+  },
+  "field": "name",
+  "value": "Yushiro (愈史郎)",
+  "text": "Yushiro is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A demon created by Tamayo, who cares for and is deeply protective of her. Like Tamayo, he survives on small amounts of blood, even less than her. He is"
+ },
+ {
+  "id": "demon-slayer-rui-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "rui"
+  },
+  "field": "name",
+  "value": "Rui (累)",
+  "text": "Rui is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A child-like demon who holds the position of Lower Rank Five. As a human, he was a sickly boy who was transformed by Muzan. He killed his parents in"
+ },
+ {
+  "id": "demon-slayer-hotaru-haganezuka-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "hotaru-haganezuka"
+  },
+  "field": "name",
+  "value": "Hotaru Haganezuka (鋼鐵塚 螢)",
+  "text": "Hotaru Haganezuka is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "One of the swordsmiths who makes swords for the Demon Slayer Corps, and is assigned to forge Tanjiro's sword. He is a hot-headed figure who is extremely"
+ },
+ {
+  "id": "demon-slayer-kyojuro-rengoku-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kyojuro-rengoku"
+  },
+  "field": "name",
+  "value": "Kyojuro Rengoku (煉獄 杏寿郎)",
+  "text": "Kyojuro Rengoku is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": ". Passionate and somewhat air-headed, she is unlike her fellow Demon Slayers, in that she did not join"
+ },
+ {
+  "id": "demon-slayer-tengen-uzui-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tengen-uzui"
+  },
+  "field": "name",
+  "value": "Tengen Uzui (宇髄 天元)",
+  "text": "Tengen Uzui is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Sound Hashira and a former shinobi. He is exuberant and prideful, always striving to do things in a flamboyant manner. Beneath his arrogant, condescending"
+ },
+ {
+  "id": "demon-slayer-akaza-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "akaza"
+  },
+  "field": "name",
+  "value": "Akaza (猗窩座)",
+  "text": "Akaza is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "Keizo was the master of Hakuji, who would go on become the demon Akaza. They met when he confronted Hakuji after beating several men in a fit of rage. Keizo"
+ },
+ {
+  "id": "demon-slayer-enmu-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "enmu"
+  },
+  "field": "name",
+  "value": "Enmu (魘夢)",
+  "text": "Enmu is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A sadistic demon who holds the position of Lower Rank One and is the main antagonist of the Mugen Train arc. He is intensely devoted to Muzan, having rose up"
+ },
+ {
+  "id": "demon-slayer-daki-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "daki"
+  },
+  "field": "name",
+  "value": "Daki (堕姫)",
+  "text": "Daki is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A young demon who becomes the new Upper Rank Six following Daki and Gyutaro's deaths. As a human, he was one of the orphans under Gyomei's care; he was chased"
+ },
+ {
+  "id": "demon-slayer-gyutaro-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyutaro"
+  },
+  "field": "name",
+  "value": "Gyutaro (妓夫太郎)",
+  "text": "Gyutaro is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A misanthropic demon who shares the position of Upper Rank Six with his younger sister Daki. As a human, he was born in the red-light district slums alongside"
+ },
+ {
+  "id": "demon-slayer-mitsuri-kanroji-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "mitsuri-kanroji"
+  },
+  "field": "name",
+  "value": "Mitsuri Kanroji (甘露寺 蜜璃)",
+  "text": "Mitsuri Kanroji is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Love Hashira and a former disciple of Kyojuro Rengoku. Passionate and somewhat air-headed, she is unlike her fellow Demon Slayers, in that she did not join"
+ },
+ {
+  "id": "demon-slayer-muichiro-tokito-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muichiro-tokito"
+  },
+  "field": "name",
+  "value": "Muichiro Tokito (時透 無一郎)",
+  "text": "Muichiro Tokito is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Mist Hashira, and a descendant of Demon Slayers of the past. Aloof yet secretly caring, he was orphaned with only his older twin brother Yuichiro as"
+ },
+ {
+  "id": "demon-slayer-gyomei-himejima-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyomei-himejima"
+  },
+  "field": "name",
+  "value": "Gyomei Himejima (悲鳴嶼 行冥)",
+  "text": "Gyomei Himejima is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Stone Hashira, regarded as the strongest combatant in the Demon Slayer Corps. A former monk, he was falsely imprisoned after children under his care were"
+ },
+ {
+  "id": "demon-slayer-obanai-iguro-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "obanai-iguro"
+  },
+  "field": "name",
+  "value": "Obanai Iguro (伊黒 小芭内)",
+  "text": "Obanai Iguro is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The Serpent Hashira, who is accompanied by his companion snake, Kaburamaru. Harsh and ruthless towards others, he possesses deep self-loathing because of his"
+ },
+ {
+  "id": "demon-slayer-genya-shinazugawa-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "genya-shinazugawa"
+  },
+  "field": "name",
+  "value": "Genya Shinazugawa (不死川 玄弥)",
+  "text": "Genya Shinazugawa is a supporting character of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "is a Demon Slayer who cannot use breathing techniques. Instead, he possesses a unique ability to temporarily"
+ },
+ {
+  "id": "demon-slayer-doma-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "doma"
+  },
+  "field": "name",
+  "value": "Doma (童磨)",
+  "text": "Doma is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "just before dropping Inosuke from a cliff to save his life."
+ },
+ {
+  "id": "demon-slayer-kokushibo-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kokushibo"
+  },
+  "field": "name",
+  "value": "Kokushibo (黒死牟)",
+  "text": "Kokushibo is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "'s younger twin brother, who was born with a mark that gave him enhanced perception and physical abilities; he later became a Demon Slayer after a"
+ },
+ {
+  "id": "demon-slayer-hantengu-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "hantengu"
+  },
+  "field": "name",
+  "value": "Hantengu (半天狗)",
+  "text": "Hantengu is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "A cowardly demon who holds the position of Upper Rank Four. Hantengu shows his true strength upon dividing himself into multiple clones which denote different"
+ },
+ {
+  "id": "demon-slayer-gyokko-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyokko"
+  },
+  "field": "name",
+  "value": "Gyokko (玉壼)",
+  "text": "Gyokko is an antagonist of Demon Slayer: Kimetsu no Yaiba.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1380846107",
+    "fetched_at": "2026-10-20T16:45:48Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "An arrogant demon holds the position of Upper Rank Five. Unlike the others, Gyokko has a highly distorted djinn-like anatomy with his eyes being on his"
+ }
+]

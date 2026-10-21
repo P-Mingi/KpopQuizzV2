@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "Studios, Singers and Strings: The Tower on Screen",
+ "slug": "studios-singers-and-strings-the-tower-on-screen",
+ "description": "Ten questions on the directors, the two studios, the composer and the Stray Kids and NiziU songs of both seasons.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed season one of the anime?",
+   "options": [
+    "Akira Suzuki",
+    "Kevin Penkin",
+    "Takashi Sano",
+    "Kazuyoshi Takeuchi"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-staff-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Who directed season two?",
+   "options": [
+    "Akira Suzuki",
+    "Takashi Sano",
+    "Kevin Penkin",
+    "Kazuyoshi Takeuchi"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-staff-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Which studio made season one?",
+   "options": [
+    "Telecom Animation Film",
+    "The Answer Studio",
+    "Bones",
+    "Madhouse"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "Which studio made season two?",
+   "options": [
+    "Telecom Animation Film",
+    "Bones",
+    "The Answer Studio",
+    "Madhouse"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Who wrote the music for both seasons?",
+   "options": [
+    "Kevin Penkin",
+    "Takashi Sano",
+    "Akira Suzuki",
+    "Kazuyoshi Takeuchi"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-staff-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Which group performed both songs that frame season one?",
+   "options": [
+    "NiziU",
+    "Twice",
+    "ITZY",
+    "Stray Kids"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "Which group sang Rise Up, the opening of the first cour of season two?",
+   "options": [
+    "NiziU",
+    "Stray Kids",
+    "Twice",
+    "ITZY"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which song was the ending of the first cour of season two?",
+   "options": [
+    "Slump",
+    "Falling Up",
+    "Night",
+    "Believe"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "In which languages did Stray Kids sing the season one songs?",
+   "options": [
+    "Korean, Mandarin and Thai",
+    "Japanese, French and Spanish",
+    "Japanese, English and Korean",
+    "English, German and Italian"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-stray-kids-languages-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "How many episodes did season two add between July and December 2024?",
+   "options": [
+    "13",
+    "24",
+    "39",
+    "26"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Tower of God season 1",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Tower of God season 2",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  }
+ ],
+ "notes": "All facts arc 0 (008, 009, 010, 011, 012, 013). Names, groups and song titles only, no lyrics."
+}

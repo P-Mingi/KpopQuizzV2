@@ -1,0 +1,162 @@
+{
+  "site": "anime",
+  "account": "oq_creator_11",
+  "group_slug": "bleach",
+  "title": "Zanpakutō Check: True or False",
+  "slug": "zanpakuto-check-bleach-true-or-false",
+  "description": "Ten statements about the manga, the anime and its sequel. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "The Bleach manga was both written and drawn by Tite Kubo.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "Bleach ran in Weekly Shōnen Jump for twenty years.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-magazine-run-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "By 2022 the manga had more than 300 million copies in circulation worldwide.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-copies-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "The finished manga was collected in 74 tankōbon volumes.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bleach-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "question": "The first Bleach anime ran for 266 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Pierrot made the first Bleach anime.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-anime-production-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "The sequel series Thousand-Year Blood War began on TV Tokyo in October 2022.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-blood-war-sequel-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Noriyuki Abe directed the sequel series Thousand-Year Blood War.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-blood-war-sequel-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "Three animated Bleach films came out between 2006 and 2010.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-four-films-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "question": "The original anime used fifteen opening songs.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bleach-opening-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Bleach (manga)",
+      "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Bleach (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Bleach soundtracks",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a number, a name or a place)."
+}

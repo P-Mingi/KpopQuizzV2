@@ -1,0 +1,243 @@
+{
+ "site": "anime",
+ "account": "oq_creator_01",
+ "group_slug": "death-note",
+ "title": "Task Force Roll Call: Death Note Who Is Who",
+ "slug": "task-force-roll-call-death-note-who-is-who",
+ "description": "Ten questions on the student, the detective, the Shinigami and the police and FBI people around them, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ],
+ "notes": "Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both.",
+ "questions": [
+  {
+   "question": "Which character is the brilliant, bored high school student who finds a notebook that kills anyone whose name is written in it?",
+   "options": [
+    "Touta Matsuda",
+    "Shuichi Aizawa",
+    "Light Yagami",
+    "Hideki Ide"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-light-yagami-name-021",
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hideki-ide-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the world-famous detective who takes on the hunt for the killer known as Kira?",
+   "options": [
+    "L",
+    "Soichiro Yagami",
+    "Raye Penber",
+    "Hirokazu Ukita"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-l-name-022",
+    "death-note-soichiro-yagami-name-025",
+    "death-note-hirokazu-ukita-name-031",
+    "death-note-raye-penber-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the bored Shinigami who drops his Death Note into the human world?",
+   "options": [
+    "Light Yagami",
+    "L",
+    "Watari",
+    "Ryuk"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-light-yagami-name-021",
+    "death-note-l-name-022",
+    "death-note-ryuk-name-023",
+    "death-note-watari-name-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the popular idol with a gothic style and a deep devotion to Light?",
+   "options": [
+    "Sayu Yagami",
+    "Misa Amane",
+    "Naomi Misora",
+    "Rem"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-misa-amane-name-024",
+    "death-note-rem-name-033",
+    "death-note-sayu-yagami-name-027",
+    "death-note-naomi-misora-name-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is Light's father, a detective superintendent who leads the investigation team?",
+   "options": [
+    "Shuichi Aizawa",
+    "Soichiro Yagami",
+    "Hideki Ide",
+    "Touta Matsuda"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-soichiro-yagami-name-025",
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hideki-ide-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which investigator is the most junior member of the team hunting Kira?",
+   "options": [
+    "Shuichi Aizawa",
+    "Kanzo Mogi",
+    "Hideki Ide",
+    "Touta Matsuda"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-touta-matsuda-name-026",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-kanzo-mogi-name-029",
+    "death-note-hideki-ide-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is L's assistant, the only one able to contact L directly?",
+   "options": [
+    "Watari",
+    "Soichiro Yagami",
+    "Raye Penber",
+    "Rem"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-soichiro-yagami-name-025",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-raye-penber-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the Shinigami who delivers a Death Note to Misa Amane?",
+   "options": [
+    "Ryuk",
+    "Watari",
+    "Rem",
+    "Naomi Misora"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-ryuk-name-023",
+    "death-note-misa-amane-name-024",
+    "death-note-watari-name-032",
+    "death-note-rem-name-033",
+    "death-note-naomi-misora-name-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which character is the American FBI investigator sent to Japan with eleven other agents?",
+   "options": [
+    "Shuichi Aizawa",
+    "Hirokazu Ukita",
+    "Watari",
+    "Raye Penber"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-watari-name-032",
+    "death-note-shuichi-aizawa-name-028",
+    "death-note-hirokazu-ukita-name-031",
+    "death-note-raye-penber-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which member of the Kira investigation team is a brave chronic smoker?",
+   "options": [
+    "Hirokazu Ukita",
+    "Hideki Ide",
+    "Kanzo Mogi",
+    "Soichiro Yagami"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-soichiro-yagami-name-025",
+    "death-note-kanzo-mogi-name-029",
+    "death-note-hideki-ide-name-030",
+    "death-note-hirokazu-ukita-name-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ]
+}

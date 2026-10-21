@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_26",
+ "group_slug": "kaiju-no-8",
+ "title": "Production I.G, Khara and OneRepublic: Kaiju No. 8 on Screen",
+ "slug": "production-i-g-khara-and-onerepublic-kaiju-no-8-on-screen",
+ "description": "Ten questions on the studios, the director, the dates of the two seasons and the artists and titles of the openings and endings. Names and titles only.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed season one of the Kaiju No. 8 anime?",
+   "options": [
+    "Hideaki Anno",
+    "Mamoru Hosoda",
+    "Makoto Shinkai",
+    "Shigeyuki Miya"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "Which studio animated both seasons?",
+   "options": [
+    "Madhouse",
+    "Production I.G",
+    "Bones",
+    "MAPPA"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "Which studio handled the kaiju designs?",
+   "options": [
+    "Trigger",
+    "Studio Khara",
+    "Science SARU",
+    "Wit Studio"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "On which date did the first season begin airing?",
+   "options": [
+    "June 29, 2024",
+    "July 19, 2025",
+    "September 27, 2025",
+    "April 13, 2024"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004",
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "How many episodes does the Kaiju No. 8 anime have after its second season?",
+   "options": [
+    "23",
+    "12",
+    "11",
+    "24"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "Who performs the opening of season one?",
+   "options": [
+    "Aurora",
+    "OneRepublic",
+    "Yungblud",
+    "Imagine Dragons"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-themes-season-one-006",
+    "kaiju-no-8-themes-season-two-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "On which date did season one finish airing?",
+   "options": [
+    "April 13, 2024",
+    "July 19, 2025",
+    "September 27, 2025",
+    "June 29, 2024"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004",
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "Who performs the opening of season two?",
+   "options": [
+    "Aurora",
+    "Yungblud",
+    "OneRepublic",
+    "Imagine Dragons"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-themes-season-one-006",
+    "kaiju-no-8-themes-season-two-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "Which band performs the endings of both seasons?",
+   "options": [
+    "Yungblud",
+    "OneRepublic",
+    "Aurora",
+    "Imagine Dragons"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-themes-season-one-006",
+    "kaiju-no-8-themes-season-two-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "How many episodes does season two have?",
+   "options": [
+    "10",
+    "12",
+    "11",
+    "13"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Kaiju No. 8 episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  }
+ ],
+ "notes": "Production and music quiz on facts 004 (arc 1), 005 (arc 2), 006 (arc 0) and 007 (arc 2); level 2. Artists and dates only, no lyrics and no song titles as distractors."
+}

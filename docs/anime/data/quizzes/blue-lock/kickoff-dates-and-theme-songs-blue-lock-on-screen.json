@@ -1,0 +1,198 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Kickoff Dates and Theme Songs: Blue Lock on Screen",
+ "slug": "kickoff-dates-and-theme-songs-blue-lock-on-screen",
+ "description": "Nine questions on the anime director, the dates of season one, its openings and endings and the film.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directs the anime?",
+   "options": [
+    "Fūga Yamashiro",
+    "Tetsuaki Watanabe",
+    "Takashi Sano",
+    "Daisuke Hiramaki"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-studio-director-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Which band performs Chaos ga Kiwamaru, the first opening?",
+   "options": [
+    "Ash Da Hero",
+    "Shugo Nakamura",
+    "Unison Square Garden",
+    "Snow Man"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who performs Judgement, the second opening of season one?",
+   "options": [
+    "Unison Square Garden",
+    "Shugo Nakamura",
+    "Ash Da Hero",
+    "Snow Man"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who performs Winner, the first ending of season one?",
+   "options": [
+    "Unison Square Garden",
+    "Ash Da Hero",
+    "Snow Man",
+    "Shugo Nakamura"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which band performs Numbness Like a Ginger, the second ending?",
+   "options": [
+    "Ash Da Hero",
+    "Unison Square Garden",
+    "Shugo Nakamura",
+    "Snow Man"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "How many openings and endings did season one use?",
+   "options": [
+    "Two openings and two endings",
+    "One opening and one ending",
+    "Three openings and two endings",
+    "Four openings and one ending"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Season one premiered in autumn 2022. On which date?",
+   "options": [
+    "April 6, 2022",
+    "October 9, 2022",
+    "July 3, 2022",
+    "January 8, 2023"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "On which date did the 24-episode first season finish?",
+   "options": [
+    "December 25, 2022",
+    "June 25, 2023",
+    "March 26, 2023",
+    "September 24, 2023"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which spin-off manga was adapted by the film that reached Japanese cinemas on April 19, 2024?",
+   "options": [
+    "Episode Nagi",
+    "Episode Rin",
+    "Episode Bachira",
+    "Episode Isagi"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-film-episode-nagi-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  }
+ ],
+ "notes": "All facts arc 0 (007, 008, 011, 012). Names, dates and song titles only, no lyrics."
+}

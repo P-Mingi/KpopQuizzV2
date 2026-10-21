@@ -1,0 +1,293 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "Brothers, Mentors and Soldiers: Who Is This?",
+ "slug": "brothers-mentors-and-soldiers-who-is-this",
+ "description": "Three clues, four names. Spot the alchemists, soldiers and elders of the main cast, with the last clue written in Japanese.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Holds the title of the Fullmetal Alchemist",
+    "Has a younger brother who also does alchemy",
+    "His name is written エドワード・エルリック in Japanese"
+   ],
+   "options": [
+    "Roy Mustang",
+    "Maes Hughes",
+    "Van Hohenheim",
+    "Edward Elric"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-edward-elric-name-021",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "The younger brother of the Fullmetal Alchemist",
+    "Shares a surname with the lead alchemist",
+    "His name is written アルフォンス・エルリック in Japanese"
+   ],
+   "options": [
+    "Alex Louis Armstrong",
+    "Scar",
+    "Maes Hughes",
+    "Alphonse Elric"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-alphonse-elric-name-022",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Known as the Flame Alchemist",
+    "A military officer",
+    "Lieutenant Riza Hawkeye serves under him"
+   ],
+   "options": [
+    "Edward Elric",
+    "Alex Louis Armstrong",
+    "Maes Hughes",
+    "Roy Mustang"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-edward-elric-name-021",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Works as an automail mechanic",
+    "Her name is written ウィンリィ・ロックベル in Japanese",
+    "Appears in the main cast beside the two brothers"
+   ],
+   "options": [
+    "Riza Hawkeye",
+    "Izumi Curtis",
+    "Olivier Mira Armstrong",
+    "Winry Rockbell"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Serves as a lieutenant",
+    "Her superior is the Flame Alchemist",
+    "Her name is written リザ・ホークアイ in Japanese"
+   ],
+   "options": [
+    "Winry Rockbell",
+    "Izumi Curtis",
+    "Olivier Mira Armstrong",
+    "Riza Hawkeye"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Goes by the Strong Arm Alchemist",
+    "Part of the military allies of the main cast",
+    "His name is written アレックス・ルイ・アームストロング in Japanese"
+   ],
+   "options": [
+    "Roy Mustang",
+    "Maes Hughes",
+    "Scar",
+    "Alex Louis Armstrong"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Works in military intelligence",
+    "An officer and ally of the lead alchemists",
+    "His name is written マース・ヒューズ in Japanese"
+   ],
+   "options": [
+    "Roy Mustang",
+    "Van Hohenheim",
+    "Alex Louis Armstrong",
+    "Maes Hughes"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "Teaches alchemy to the two brothers",
+    "One of the elders of the story",
+    "Her name is written イズミ・カーティス in Japanese"
+   ],
+   "options": [
+    "Winry Rockbell",
+    "Riza Hawkeye",
+    "Olivier Mira Armstrong",
+    "Izumi Curtis"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-winry-rockbell-name-024",
+    "fullmetal-alchemist-riza-hawkeye-name-025",
+    "fullmetal-alchemist-izumi-curtis-name-028",
+    "fullmetal-alchemist-olivier-mira-armstrong-name-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "The father of the two brothers",
+    "One of the elders of their story",
+    "His name is written ヴァン・ホーエンハイム in Japanese"
+   ],
+   "options": [
+    "Maes Hughes",
+    "Roy Mustang",
+    "Alex Louis Armstrong",
+    "Van Hohenheim"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-van-hohenheim-name-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which character is this?",
+   "clues": [
+    "A survivor of the Ishbalan people",
+    "Listed among the main cast",
+    "His name is written 傷の男（スカー） in Japanese"
+   ],
+   "options": [
+    "Alphonse Elric",
+    "Roy Mustang",
+    "Maes Hughes",
+    "Scar"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-alphonse-elric-name-022",
+    "fullmetal-alchemist-roy-mustang-name-023",
+    "fullmetal-alchemist-maes-hughes-name-027",
+    "fullmetal-alchemist-scar-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Fullmetal Alchemist characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  }
+ ],
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
+}

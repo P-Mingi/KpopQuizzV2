@@ -1,0 +1,37 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/apps/quiz
+
+ ❯ src/lib/anime/fixture-load.test.ts (14 tests | 1 failed) 707ms
+   ❯ load-fixtures.mjs (2)
+     × prints the row counts of a dry run and touches no database 116ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/anime/fixture-load.test.ts > load-fixtures.mjs > prints the row counts of a dry run and touches no database
+AssertionError: expected 2 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 2
+
+ ❯ src/lib/anime/fixture-load.test.ts:146:22
+    144|   it('prints the row counts of a dry run and touches no database', () …
+    145|     const r = run('scratch', '--dry-run');
+    146|     expect(r.status).toBe(0);
+       |                      ^
+    147|     expect(r.stdout).toMatch(/groups=3 series=3 arcs=\d+ characters=\d…
+    148|     expect(r.stdout).toContain('dry-run: nothing written');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 189 passed (190)
+      Tests  1 failed | 3123 passed (3124)
+   Start at  19:10:19
+   Duration  28.44s (tests 55%, import 31%, transform 12%, worker 2%)
+
+    Isolate  190 workers spawned · ~402ms startup each (spawn + environment, per file)
+             at least ~10.52s faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,0 +1,1224 @@
+[
+  {
+    "id": "fullmetal-alchemist-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "title_native",
+    "value": "鋼の錬金術師 (Hagane no Renkinjutsushi)",
+    "text": "The Japanese title is 鋼の錬金術師, read Hagane no Renkinjutsushi, which can be rendered as Alchemist of Steel.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q189562",
+        "ref": "Q189562",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Fullmetal Alchemist (Japanese: 鋼の錬金術師, Hepburn: Hagane no Renkinjutsushi; lit. 'Alchemist of Steel')"
+  },
+  {
+    "id": "fullmetal-alchemist-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "author",
+    "value": "Hiromu Arakawa (story and art)",
+    "text": "Hiromu Arakawa wrote and drew the Fullmetal Alchemist manga all by herself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q189562",
+        "ref": "Q189562",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ganganonline.com/title/586",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a Japanese manga series written and illustrated by Hiromu Arakawa"
+  },
+  {
+    "id": "fullmetal-alchemist-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "magazine",
+    "value": "Monthly Shōnen Gangan, July 2001 to June 2010",
+    "text": "Square Enix published the manga in its Monthly Shōnen Gangan magazine, from July 2001 until June 2010.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q189562",
+        "ref": "Q189562",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized in Square Enix's shōnen manga anthology magazine Monthly Shōnen Gangan between July 2001 and June 2010"
+  },
+  {
+    "id": "fullmetal-alchemist-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "volumes",
+    "value": 27,
+    "text": "The finished story fills 27 collected volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q189562",
+        "ref": "Q189562",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ganganonline.com/title/586",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the publisher later collected the individual chapters in 27 tankōbon volumes"
+  },
+  {
+    "id": "fullmetal-alchemist-copies-sold-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "copies",
+    "value": "over 90 million",
+    "text": "Worldwide sales of the manga have passed 90 million copies.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It has sold over 90 million copies worldwide"
+  },
+  {
+    "id": "fullmetal-alchemist-manga-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "awards",
+    "value": "Shogakukan Manga Award (shōnen), 2004",
+    "text": "In 2004 the manga won the 49th Shogakukan Manga Award in the shōnen category.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1379208505",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It received the 49th Shogakukan Manga Award for the shōnen category in 2004"
+  },
+  {
+    "id": "fullmetal-alchemist-anime-2003-run-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "anime_s1",
+    "value": "51 episodes, 2003 to 2004",
+    "text": "Studio Bones produced the first TV anime. Its 51 episodes were broadcast on the MBS and TBS networks, starting in October 2003 and finishing a year later.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+        "ref": "1380783824",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q711257",
+        "ref": "Q711257",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The anime series aired a total of 51 episodes on MBS, TBS and its affiliates from October 2003 to October 2004."
+  },
+  {
+    "id": "fullmetal-alchemist-anime-2003-staff-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "staff_2003",
+    "value": "Seiji Mizushima (director), Shō Aikawa (writer), Michiru Ōshima (music)",
+    "text": "Seiji Mizushima directed the 2003 anime, Shō Aikawa wrote it and Michiru Ōshima composed the score.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+        "ref": "1380783824",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q711257",
+        "ref": "Q711257",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series was directed by Seiji Mizushima, written by Shō Aikawa, and musically composed by Michiru Ōshima."
+  },
+  {
+    "id": "fullmetal-alchemist-anime-2003-original-story-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "anime_s1_ending",
+    "value": "original ending from about episode 12",
+    "text": "Arakawa asked for an original ending, so the first anime left the manga plot after roughly a dozen episodes and told its own story.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+        "ref": "1380783824",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Arakawa requested a screenwriter-led original ending for the series that differed from the manga"
+  },
+  {
+    "id": "fullmetal-alchemist-brotherhood-run-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "anime_s2",
+    "value": "64 episodes, 2009 to 2010",
+    "text": "The second anime, Brotherhood, was shown on MBS and TBS from spring 2009 to summer 2010 and adapts the whole manga story in 64 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+        "ref": "1380783803",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q437808",
+        "ref": "Q437808",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series aired a total of 64 episodes on MBS, TBS and its affiliates from April 2009 to July 2010."
+  },
+  {
+    "id": "fullmetal-alchemist-brotherhood-staff-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "staff_brotherhood",
+    "value": "Yasuhiro Irie (director), Hiroshi Ōnogi (writer), Akira Senju (music)",
+    "text": "Yasuhiro Irie directed Brotherhood, Hiroshi Ōnogi wrote it and Akira Senju composed the music, all at Bones.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+        "ref": "1380783803",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q437808",
+        "ref": "Q437808",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Produced by Bones, the series was directed by Yasuhiro Irie and written by Hiroshi Ōnogi, with music composed by Akira Senju."
+  },
+  {
+    "id": "fullmetal-alchemist-anime-directors-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "director",
+    "value": "Seiji Mizushima and Yasuhiro Irie",
+    "text": "Two directors shaped the anime: Seiji Mizushima for the 2003 series and Yasuhiro Irie for Brotherhood.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+        "ref": "1380783803",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q711257",
+        "ref": "Q711257",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the series was directed by Yasuhiro Irie and written by Hiroshi Ōnogi"
+  },
+  {
+    "id": "fullmetal-alchemist-themes-2003-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "themes_2003",
+    "value": [
+      "OP 1: Melissa - Porno Graffitti (2003 anime)",
+      "OP 2: Ready Steady Go - L'Arc-en-Ciel (2003 anime)",
+      "OP 3: Undo - Cool Joke (2003 anime)",
+      "OP 4: Rewrite - Asian Kung-Fu Generation (2003 anime)",
+      "ED 1: Kesenai Tsumi - Nana Kitade (2003 anime)",
+      "ED 2: Tobira no Mukō e - Yellow Generation (2003 anime)",
+      "ED 3: Motherland - Crystal Kay (2003 anime)",
+      "ED 4: I Will - Sowelu (2003 anime)"
+    ],
+    "text": "The 2003 anime used four opening and four ending songs, swapping them roughly every dozen episodes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes",
+        "ref": "1374972262",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Eight pieces of theme music are used for the episodes."
+  },
+  {
+    "id": "fullmetal-alchemist-themes-brotherhood-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "themes_brotherhood",
+    "value": [
+      "OP 5: Again - Yui (Brotherhood)",
+      "OP 6: Hologram - Nico Touches the Walls (Brotherhood)",
+      "OP 7: Golden Time Lover - Sukima Switch (Brotherhood)",
+      "OP 8: Period - Chemistry (Brotherhood)",
+      "OP 9: Rain - Sid (Brotherhood)",
+      "ED 5: Uso - Sid (Brotherhood)",
+      "ED 6: Let It Out - Miho Fukuhara (Brotherhood)",
+      "ED 7: Tsunaida Te - Lil'B (Brotherhood)",
+      "ED 8: Shunkan Sentimental - Scandal (Brotherhood)",
+      "ED 9: Ray of Light - Shoko Nakagawa (Brotherhood)"
+    ],
+    "text": "Brotherhood went through five openings and five endings, and Sid sang both the first ending and the last opening.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes",
+        "ref": "1374973612",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.hagaren.jp/fa/about/artist.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the respective opening and ending themes are \"Rain\" (レイン, Rein) by Sid, and \"Ray of Light\" by Shoko Nakagawa"
+  },
+  {
+    "id": "fullmetal-alchemist-arc-structure-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Fullmetal Alchemist (2003 anime), episodes 1-51",
+      "2: Fullmetal Alchemist: Brotherhood, episodes 1-64"
+    ],
+    "text": "The story comes in two anime adaptations of 51 and 64 episodes, 115 episodes between them, and questions name which one they mean.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+        "ref": "1380783824",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q437808",
+        "ref": "Q437808",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The anime series aired a total of 51 episodes on MBS, TBS and its affiliates from October 2003 to October 2004."
+  },
+  {
+    "id": "fullmetal-alchemist-cast-main-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "characters_a",
+    "value": [
+      "Edward Elric (エドワード・エルリック): the Fullmetal Alchemist",
+      "Alphonse Elric (アルフォンス・エルリック): his younger brother",
+      "Roy Mustang (ロイ・マスタング): the Flame Alchemist",
+      "Winry Rockbell (ウィンリィ・ロックベル): the automail mechanic",
+      "Riza Hawkeye (リザ・ホークアイ): Mustang's lieutenant",
+      "Alex Louis Armstrong (アレックス・ルイ・アームストロング): the Strong Arm Alchemist",
+      "Maes Hughes (マース・ヒューズ): a military intelligence officer",
+      "Izumi Curtis (イズミ・カーティス): the brothers' alchemy teacher",
+      "Van Hohenheim (ヴァン・ホーエンハイム): their father",
+      "Scar (傷の男（スカー）): an Ishbalan survivor"
+    ],
+    "text": "The Elric brothers, their friends and military allies, and the elders of their story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Edward \"Ed\" Elric (エドワード・エルリック, Edowādo Erurikku), the \"Fullmetal Alchemist\" (鋼の錬金術師, Hagane no Renkinjutsushi)"
+  },
+  {
+    "id": "fullmetal-alchemist-cast-allies-foes-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "characters_b",
+    "value": [
+      "Lin Yao (リン・ヤオ): a prince of Xing",
+      "May Chang (メイ・チャン): a princess of Xing",
+      "Olivier Mira Armstrong (オリヴィエ・ミラ・アームストロング): commander of Briggs",
+      "Envy (エンヴィー): a homunculus",
+      "Greed (グリード): a homunculus",
+      "King Bradley (キング・ブラッドレイ): the Führer President of Amestris",
+      "Father (お父様): the creator of the homunculi",
+      "Dante (ダンテ): the 2003 anime's own antagonist",
+      "Shou Tucker (ショウ・タッカー): the Sewing-Life Alchemist",
+      "Truth (真理): the being behind alchemy's laws"
+    ],
+    "text": "Newcomers from Xing and Briggs, the homunculi and their creators, and the force that guards alchemy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Envy (エンヴィー, Envī), the Jealous, is a shape-shifting homunculus whose preferred form is that of an androgynous-looking teenage young man."
+  },
+  {
+    "id": "fullmetal-alchemist-dante-anime-only-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "dante",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "role",
+    "value": "anime-only antagonist",
+    "text": "Dante exists only in the 2003 anime, where she is the main villain and an old flame of Hohenheim.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dante (ダンテ) is an anime-only character and the main antagonist of the first anime adaptation."
+  },
+  {
+    "id": "fullmetal-alchemist-brothers-song-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "signature_song",
+    "value": "Brothers, sung in Russian",
+    "text": "The song Brothers, sung in Russian, became the 2003 anime's signature piece and was never reused in Brotherhood.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+        "ref": "1380783824",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\"Brothers\" became the signature song of the 2003 TV series because it was not used in Fullmetal Alchemist: Brotherhood (2009)"
+  },
+  {
+    "id": "fullmetal-alchemist-lin-yao-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "lin-yao",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "name_variant",
+    "value": "Ling Yao",
+    "text": "The prince of Xing is Lin Yao in the Japanese manga, but the 2009 anime and Viz's earliest English volumes write his name as Ling Yao.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Lin Yao (リン・ヤオ, Rin Yao; \"Ling Yao\" in the first Viz's volumes and the second anime)"
+  },
+  {
+    "id": "fullmetal-alchemist-edward-elric-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "edward-elric"
+    },
+    "field": "name",
+    "value": "Edward Elric (エドワード・エルリック)",
+    "text": "Edward Elric is a main character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The story follows the adventure of the titular character, Edward Elric, also known as the \"Fullmetal Alchemist\", who is frequently accompanied by his brother"
+  },
+  {
+    "id": "fullmetal-alchemist-alphonse-elric-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alphonse-elric"
+    },
+    "field": "name",
+    "value": "Alphonse Elric (アルフォンス・エルリック)",
+    "text": "Alphonse Elric is a main character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Arufonsu Erurikku) is Edward's younger brother. Together, both of them scour the country in search of the Philosopher's"
+  },
+  {
+    "id": "fullmetal-alchemist-roy-mustang-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "roy-mustang"
+    },
+    "field": "name",
+    "value": "Roy Mustang (ロイ・マスタング)",
+    "text": "Roy Mustang is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Flame Alchemist\" (焔の錬金術師, Honō no Renkinjutsushi), is a State Alchemist and Edward's direct superior."
+  },
+  {
+    "id": "fullmetal-alchemist-winry-rockbell-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "winry-rockbell"
+    },
+    "field": "name",
+    "value": "Winry Rockbell (ウィンリィ・ロックベル)",
+    "text": "Winry Rockbell is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a childhood friend of Edward and Alphonse Elric, lives in Resembool with her grandmother, Pinako Rockbell, who"
+  },
+  {
+    "id": "fullmetal-alchemist-riza-hawkeye-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "riza-hawkeye"
+    },
+    "field": "name",
+    "value": "Riza Hawkeye (リザ・ホークアイ)",
+    "text": "Riza Hawkeye is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is Roy Mustang's most trusted and dearest subordinate. She often carries out many of the tasks he is too"
+  },
+  {
+    "id": "fullmetal-alchemist-alex-louis-armstrong-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alex-louis-armstrong"
+    },
+    "field": "name",
+    "value": "Alex Louis Armstrong (アレックス・ルイ・アームストロング)",
+    "text": "Alex Louis Armstrong is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Strong Arm Alchemist\" (豪腕の錬金術師, Gōwan no Renkinjutsushi), is a tall, large and"
+  },
+  {
+    "id": "fullmetal-alchemist-maes-hughes-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "maes-hughes"
+    },
+    "field": "name",
+    "value": "Maes Hughes (マース・ヒューズ)",
+    "text": "Maes Hughes is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an old friend of Roy Mustang. He works in the military's intelligence division but spends much of his"
+  },
+  {
+    "id": "fullmetal-alchemist-izumi-curtis-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "izumi-curtis"
+    },
+    "field": "name",
+    "value": "Izumi Curtis (イズミ・カーティス)",
+    "text": "Izumi Curtis is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the short-tempered, buxom and caring alchemy teacher of the Elric brothers who is also a butcher at her family"
+  },
+  {
+    "id": "fullmetal-alchemist-van-hohenheim-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "van-hohenheim"
+    },
+    "field": "name",
+    "value": "Van Hohenheim (ヴァン・ホーエンハイム)",
+    "text": "Van Hohenheim is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Elric brothers' estranged father with a keen knowledge of alchemy processes. He left them and his wife Trisha"
+  },
+  {
+    "id": "fullmetal-alchemist-scar-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "scar"
+    },
+    "field": "name",
+    "value": "Scar (傷の男（スカー）)",
+    "text": "Scar is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sukā; literally \"the scarred man\") is one of the survivors of the Ishbalan Extermination Campaign, and named for the scar across his face."
+  },
+  {
+    "id": "fullmetal-alchemist-lin-yao-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "lin-yao"
+    },
+    "field": "name",
+    "value": "Lin Yao (リン・ヤオ)",
+    "text": "Lin Yao is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the twelfth prince of Xing, and represents the Yao Clan. He meets"
+  },
+  {
+    "id": "fullmetal-alchemist-may-chang-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "may-chang"
+    },
+    "field": "name",
+    "value": "May Chang (メイ・チャン)",
+    "text": "May Chang is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the seventeenth princess of Xing who represents the Chang clan. Unlike Lin Yao, she comes to Amestris without any bodyguards"
+  },
+  {
+    "id": "fullmetal-alchemist-olivier-mira-armstrong-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "olivier-mira-armstrong"
+    },
+    "field": "name",
+    "value": "Olivier Mira Armstrong (オリヴィエ・ミラ・アームストロング)",
+    "text": "Olivier Mira Armstrong is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the older sister of Alex Louis Armstrong. She is charged with leading"
+  },
+  {
+    "id": "fullmetal-alchemist-envy-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "envy"
+    },
+    "field": "name",
+    "value": "Envy (エンヴィー)",
+    "text": "Envy is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Envī), the Jealous, is a shape-shifting homunculus whose preferred form is that of an androgynous-looking teenage young man. While Envy can assume"
+  },
+  {
+    "id": "fullmetal-alchemist-greed-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "greed"
+    },
+    "field": "name",
+    "value": "Greed (グリード)",
+    "text": "Greed is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the Avaricious, the \"Ultimate Shield\" (最強の盾, Saikyō no Tate), is a rogue homunculus who craves money, women, and otherworldly possessions"
+  },
+  {
+    "id": "fullmetal-alchemist-king-bradley-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "king-bradley"
+    },
+    "field": "name",
+    "value": "King Bradley (キング・ブラッドレイ)",
+    "text": "King Bradley is a supporting character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" redirects here. For other uses, see Bradley (disambiguation)."
+  },
+  {
+    "id": "fullmetal-alchemist-father-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "father"
+    },
+    "field": "name",
+    "value": "Father (お父様)",
+    "text": "Father is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "\" (お父様, Otō-sama) is the creator and leader of the other homunculi, and the series' main antagonist. He is a cruel and greedy homunculus with no regard"
+  },
+  {
+    "id": "fullmetal-alchemist-dante-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "dante"
+    },
+    "field": "name",
+    "value": "Dante (ダンテ)",
+    "text": "Dante is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an anime-only character and the main antagonist of the first anime adaptation. She is the former lover of Hohenheim and has used Philosopher's"
+  },
+  {
+    "id": "fullmetal-alchemist-shou-tucker-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "shou-tucker"
+    },
+    "field": "name",
+    "value": "Shou Tucker (ショウ・タッカー)",
+    "text": "Shou Tucker is an antagonist of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the \"Sewing-Life Alchemist\" (綴命の錬金術師, Teimei no Renkinjutsushi), is a bio-alchemist who excels in the creation of"
+  },
+  {
+    "id": "fullmetal-alchemist-truth-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "truth"
+    },
+    "field": "name",
+    "value": "Truth (真理)",
+    "text": "Truth is a character of Fullmetal Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a mysterious being/deity that lives on another plane of existence as both overseer and enforcer of alchemy's universal laws, going by"
+  }
+]

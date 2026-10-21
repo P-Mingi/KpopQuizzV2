@@ -1,0 +1,181 @@
+{
+  "site": "anime",
+  "account": "oq_creator_06",
+  "group_slug": "demon-slayer",
+  "title": "Demon Slayer True or False: Blades Out",
+  "slug": "demon-slayer-true-or-false-blades-out",
+  "description": "Ten statements about the manga, the anime and its heroes. Trust your memory and read the numbers twice.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Koyoharu Gotouge both wrote and drew the Demon Slayer manga.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-creator-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "question": "The Demon Slayer manga runs for 250 chapters in total.",
+      "correct": false,
+      "fun_fact": "The manga runs for 205 chapters.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-chapters-006"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83"
+    },
+    {
+      "question": "Studio Ufotable produced the Demon Slayer TV anime, with Haruo Sotozaki as its director.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-studio-director-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "Studio MAPPA produced the Demon Slayer TV anime.",
+      "correct": false,
+      "fun_fact": "Ufotable produced it.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-studio-director-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "question": "The Demon Slayer manga was gathered into 23 collected volumes.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-volumes-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "question": "Season 1 of Demon Slayer ran for 40 episodes and adapts manga chapters 1 to 54.",
+      "correct": false,
+      "fun_fact": "Season 1 ran for 26 episodes.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "Ahead of the TV broadcast, the first five episodes had a two-week cinema run in Japan, billed as Sibling's Bond.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-sibling-bond-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "question": "Nezuko keeps up her strength by feeding on people.",
+      "correct": false,
+      "fun_fact": "She does not feed on people. She sleeps instead.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-nezuko-sleep-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "Tanjiro's unusually sharp sense of smell helps him track demons.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-tanjiro-smell-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "question": "LiSA's Gurenge, the first opening theme, took the best theme song prize at the 2019 Newtype Anime Awards.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-gurenge-award-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gurenge"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
+    },
+    {
+      "id": "S2",
+      "title": "Japanese Wikipedia: 鬼滅の刃",
+      "url": "https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 1",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Gurenge",
+      "url": "https://en.wikipedia.org/wiki/Gurenge"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail."
+}

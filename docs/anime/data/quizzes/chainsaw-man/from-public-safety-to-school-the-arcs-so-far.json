@@ -1,0 +1,189 @@
+{
+  "site": "anime",
+  "account": "oq_creator_12",
+  "group_slug": "chainsaw-man",
+  "title": "From Public Safety to School: The Arcs So Far",
+  "slug": "from-public-safety-to-school-the-arcs-so-far",
+  "description": "Eight questions on which arc the anime covered, which one became a film, what is announced next and what only the manga has reached.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which arc does the first season of the anime cover?",
+      "options": [
+        "Reze Arc",
+        "Public Safety Arc",
+        "Assassins Arc",
+        "School Arc"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-public-safety-arc-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "The Public Safety Arc is the name given to which part of the manga?",
+      "options": [
+        "Part 1",
+        "Part 2",
+        "Part 3",
+        "Part 4"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-public-safety-arc-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "What form did the Reze Arc take on screen?",
+      "options": [
+        "A film",
+        "A second television season",
+        "An original video series",
+        "A stage play"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-reze-arc-film-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "In which year did the Reze Arc film premiere in Japan?",
+      "options": [
+        "2023",
+        "2024",
+        "2026",
+        "2025"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-reze-arc-film-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which arc is the announced next anime adaptation?",
+      "options": [
+        "School Arc",
+        "Reze Arc",
+        "Public Safety Arc",
+        "Assassins Arc"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-assassins-arc-013"
+      ],
+      "source_url": "https://chainsawman.dog/"
+    },
+    {
+      "question": "Which arc is Part 2 of the manga and not yet adapted into the anime?",
+      "options": [
+        "Assassins Arc",
+        "School Arc",
+        "Reze Arc",
+        "Public Safety Arc"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-school-arc-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "Whom does the School Arc follow?",
+      "options": [
+        "Reze",
+        "Power",
+        "Kobeni Higashiyama",
+        "Asa Mitaka"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-school-arc-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "Yoru counts among the four Horsemen. Which kind of devil is she?",
+      "options": [
+        "Famine Devil",
+        "War Devil",
+        "Blood Devil",
+        "Angel Devil"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-yoru-war-devil-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Chainsaw Man",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Chainsaw Man (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Official site: chainsawman.dog",
+      "url": "https://chainsawman.dog/"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Chainsaw Man characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "notes": "Arc quiz: tags run from arc 1 to arc 4 (School Arc, manga). Arc facts 011 to 014 and the Yoru fact 020. No graphic detail."
+}

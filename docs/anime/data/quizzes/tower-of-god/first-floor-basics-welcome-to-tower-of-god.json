@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "First Floor Basics: Welcome to the Tower",
+ "slug": "first-floor-basics-welcome-to-tower-of-god",
+ "description": "Ten easy questions on the creator, the webtoon launch, the English release and the first anime season. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Under which pen name does the creator write and draw the series?",
+   "options": [
+    "S.I.U.",
+    "Chugong",
+    "Dubu",
+    "Hajime Isayama"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "What is the real name of the creator behind that pen name?",
+   "options": [
+    "Kim Min-seok",
+    "Park Jin-woo",
+    "Lee Jong-hui",
+    "Han Dae-sung"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "On which platform did the webtoon begin in June 2010?",
+   "options": [
+    "Kakao Page",
+    "Lezhin Comics",
+    "Tapas",
+    "Naver Webtoon"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many printed volumes has Young Com gathered the chapters into?",
+   "options": [
+    "8",
+    "35",
+    "50",
+    "20"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many views had readers around the world racked up by February 2020?",
+   "options": [
+    "450 million",
+    "1.2 billion",
+    "9 billion",
+    "4.5 billion"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-total-views-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Which platform released the official English translation from July 2014?",
+   "options": [
+    "Line Webtoon",
+    "Tappytoon",
+    "Lezhin Comics",
+    "Comikey"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-english-release-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "At which event was the anime first revealed in August 2019?",
+   "options": [
+    "Anime Expo",
+    "Seoul Comic-Con",
+    "Comiket",
+    "Tokyo Game Show"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-announcement-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many episodes did the first anime season have?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "26"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "What does the word shinsu mean, roughly, in English?",
+   "options": [
+    "Sacred Fire",
+    "Holy Stone",
+    "Spirit Wind",
+    "Divine Water"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-shinsu-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How is the series title written in Korean, read Sin-ui Tap in Latin letters?",
+   "options": [
+    "신의 성",
+    "신의 탑",
+    "탑의 신",
+    "하늘의 탑"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-korean-title-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Tower of God season 1",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Tower of God characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002 to 008, 017). Pen name, real name, platform, year, volumes, views, English release, anime reveal, season one and shinsu."
+}

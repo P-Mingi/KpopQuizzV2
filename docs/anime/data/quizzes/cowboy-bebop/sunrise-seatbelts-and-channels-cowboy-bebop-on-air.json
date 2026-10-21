@@ -1,0 +1,228 @@
+{
+ "site": "anime",
+ "account": "oq_creator_23",
+ "group_slug": "cowboy-bebop",
+ "title": "Sunrise, Seatbelts and Channels: Cowboy Bebop on Air",
+ "slug": "sunrise-seatbelts-and-channels-cowboy-bebop-on-air",
+ "description": "Ten questions on the director, the first broadcasts, the saxophone solo, the vocals of the first ending and the film. Names, dates and channels only.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who leads the team as director?",
+   "options": [
+    "Hayao Miyazaki",
+    "Satoshi Kon",
+    "Hideaki Anno",
+    "Shinichirō Watanabe"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-studio-director-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Which channel aired the show first?",
+   "options": [
+    "Wowow",
+    "TV Tokyo",
+    "NHK",
+    "Fuji TV"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-tv-tokyo-run-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "Which satellite channel showed the complete run?",
+   "options": [
+    "TV Tokyo",
+    "Wowow",
+    "NHK",
+    "Fuji TV"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-wowow-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "Between which dates did TV Tokyo air the show in 1998?",
+   "options": [
+    "23 October to 24 April",
+    "1 September to 2 September",
+    "3 April to 23 October",
+    "3 April to 26 June"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-tv-tokyo-run-005",
+    "cowboy-bebop-wowow-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "Which musical style marks the score?",
+   "options": [
+    "Jazz",
+    "Country",
+    "Reggae",
+    "Opera"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-composer-seatbelts-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Who plays the long alto saxophone solo in the opening?",
+   "options": [
+    "Mai Yamane",
+    "Yoko Kanno",
+    "Masato Honda",
+    "Shinichirō Watanabe"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-opening-tank-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  },
+  {
+   "question": "Which vocalist sings the first ending theme?",
+   "options": [
+    "Megumi Hayashibara",
+    "Yoko Kanno",
+    "Masato Honda",
+    "Mai Yamane"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-ending-real-folk-blues-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  },
+  {
+   "question": "In which language is the first ending, one of few vocal songs of the series, sung?",
+   "options": [
+    "Japanese",
+    "English",
+    "Italian",
+    "French"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-ending-real-folk-blues-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  },
+  {
+   "question": "Which studio animated the film for Sunrise?",
+   "options": [
+    "Madhouse",
+    "Bones",
+    "Studio Pierrot",
+    "MAPPA"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  },
+  {
+   "question": "Between which two episodes does the film take place?",
+   "options": [
+    "5 and 6",
+    "12 and 13",
+    "22 and 23",
+    "25 and 26"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Cowboy Bebop episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Music of Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Cowboy Bebop: The Movie",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  }
+ ],
+ "notes": "Production and music quiz on facts 002, 005, 006, 008, 009, 010 and 011; tagged arc 2 by the film fact (011). Artists only, no lyrics, no song titles as distractors."
+}

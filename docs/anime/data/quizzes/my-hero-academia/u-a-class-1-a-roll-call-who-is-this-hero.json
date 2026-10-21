@@ -1,0 +1,293 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "U.A. Class 1-A Roll Call: Who Is This Hero?",
+  "slug": "u-a-class-1-a-roll-call-who-is-this-hero",
+  "description": "Three clues, four names. Spot the students and teachers of Class 1-A, with the last clue sometimes in Japanese.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A timid, selfless boy",
+        "Born without a Quirk",
+        "Still dreams of becoming a hero"
+      ],
+      "options": [
+        "Izuku Midoriya",
+        "Katsuki Bakugo",
+        "Shoto Todoroki",
+        "Minoru Mineta"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-izuku-midoriya-name-031",
+        "my-hero-academia-katsuki-bakugo-name-032",
+        "my-hero-academia-shoto-todoroki-name-034",
+        "my-hero-academia-minoru-mineta-name-043",
+        "my-hero-academia-izuku-quirkless-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Explosive and fiercely competitive",
+        "A childhood acquaintance of Izuku",
+        "Determined to be the number one hero"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Eijiro Kirishima",
+        "Shoto Todoroki",
+        "Denki Kaminari"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-katsuki-bakugo-name-032",
+        "my-hero-academia-shoto-todoroki-name-034",
+        "my-hero-academia-eijiro-kirishima-name-036",
+        "my-hero-academia-denki-kaminari-name-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A cheerful, down-to-earth classmate",
+        "Can make things weightless",
+        "His name is written 麗日 お茶子 in Japanese"
+      ],
+      "options": [
+        "Momo Yaoyorozu",
+        "Mina Ashido",
+        "Ochaco Uraraka",
+        "Tsuyu Asui"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-ochaco-uraraka-name-033",
+        "my-hero-academia-momo-yaoyorozu-name-037",
+        "my-hero-academia-tsuyu-asui-name-038",
+        "my-hero-academia-mina-ashido-name-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A calm, talented classmate",
+        "Comes from a famous hero family",
+        "Has a powerful ice-based Quirk"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Fumikage Tokoyami",
+        "Shoto Todoroki",
+        "Izuku Midoriya"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-izuku-midoriya-name-031",
+        "my-hero-academia-katsuki-bakugo-name-032",
+        "my-hero-academia-shoto-todoroki-name-034",
+        "my-hero-academia-fumikage-tokoyami-name-040"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The strict, earnest class representative",
+        "Belongs to Class 1-A",
+        "His Quirk makes him very fast"
+      ],
+      "options": [
+        "Eijiro Kirishima",
+        "Denki Kaminari",
+        "Shoto Todoroki",
+        "Tenya Ida"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-shoto-todoroki-name-034",
+        "my-hero-academia-tenya-ida-name-035",
+        "my-hero-academia-eijiro-kirishima-name-036",
+        "my-hero-academia-denki-kaminari-name-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A hot-blooded, loyal classmate",
+        "His Quirk hardens his body",
+        "Tough as rock"
+      ],
+      "options": [
+        "Katsuki Bakugo",
+        "Tenya Ida",
+        "Eijiro Kirishima",
+        "Denki Kaminari"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-katsuki-bakugo-name-032",
+        "my-hero-academia-tenya-ida-name-035",
+        "my-hero-academia-eijiro-kirishima-name-036",
+        "my-hero-academia-denki-kaminari-name-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A refined, brilliant classmate",
+        "Can create objects from her own body",
+        "His name is written 八百万 百 in Japanese"
+      ],
+      "options": [
+        "Momo Yaoyorozu",
+        "Ochaco Uraraka",
+        "Mina Ashido",
+        "Kyoka Jiro"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-ochaco-uraraka-name-033",
+        "my-hero-academia-momo-yaoyorozu-name-037",
+        "my-hero-academia-mina-ashido-name-041",
+        "my-hero-academia-kyoka-jiro-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A blunt, frog-like classmate",
+        "Always says whatever she is thinking",
+        "Asks to be called Tsu"
+      ],
+      "options": [
+        "Tsuyu Asui",
+        "Ochaco Uraraka",
+        "Mina Ashido",
+        "Kyoka Jiro"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-ochaco-uraraka-name-033",
+        "my-hero-academia-tsuyu-asui-name-038",
+        "my-hero-academia-mina-ashido-name-041",
+        "my-hero-academia-kyoka-jiro-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A calm, bird-headed classmate",
+        "Works with a living shadow",
+        "Calls the shadow Dark Shadow"
+      ],
+      "options": [
+        "Shoto Todoroki",
+        "Fumikage Tokoyami",
+        "Denki Kaminari",
+        "Minoru Mineta"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-shoto-todoroki-name-034",
+        "my-hero-academia-denki-kaminari-name-039",
+        "my-hero-academia-fumikage-tokoyami-name-040",
+        "my-hero-academia-minoru-mineta-name-043"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "The Symbol of Peace",
+        "The greatest hero in the world",
+        "Becomes a teacher at U.A. and mentors Izuku"
+      ],
+      "options": [
+        "Shota Aizawa",
+        "Katsuki Bakugo",
+        "Eijiro Kirishima",
+        "All Might"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-katsuki-bakugo-name-032",
+        "my-hero-academia-eijiro-kirishima-name-036",
+        "my-hero-academia-all-might-name-044",
+        "my-hero-academia-shota-aizawa-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of My Hero Academia characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    }
+  ],
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 0."
+}

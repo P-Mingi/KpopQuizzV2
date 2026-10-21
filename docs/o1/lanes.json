@@ -112,5 +112,32 @@
   "Q0b": {
     "sites": [],
     "kind": "script"
+  },
+  "P1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "B6": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "B7": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
   }
 }

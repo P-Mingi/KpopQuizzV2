@@ -1,0 +1,198 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Nine Parts, Six Seasons: JoJo in Order",
+  "slug": "nine-parts-six-seasons-jojo-in-order",
+  "description": "Nine questions on how the story splits into parts, how many chapters the early parts have and how the anime adapted them.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "How many chapters does Part 1, Phantom Blood, have?",
+      "options": [
+        "69",
+        "44",
+        "152",
+        "174"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-parts-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Which part has 152 chapters?",
+      "options": [
+        "Battle Tendency",
+        "Diamond Is Unbreakable",
+        "Golden Wind",
+        "Stardust Crusaders"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-parts-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Which of the first five parts is the longest, at 174 chapters?",
+      "options": [
+        "Stardust Crusaders",
+        "Golden Wind",
+        "Diamond Is Unbreakable",
+        "Battle Tendency"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-parts-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Which part has 155 chapters?",
+      "options": [
+        "Diamond Is Unbreakable",
+        "Stardust Crusaders",
+        "Phantom Blood",
+        "Golden Wind"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-parts-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "In how many parts is the story told?",
+      "options": [
+        "Seven",
+        "Eight",
+        "Ten",
+        "Nine"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-parts-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Which parts does the first season of the anime squeeze together?",
+      "options": [
+        "Parts 1 and 2",
+        "Parts 3 and 4",
+        "Parts 4 and 5",
+        "Parts 5 and 6"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-seasons-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    },
+    {
+      "question": "How many episodes does season 2, based on Part 3, run?",
+      "options": [
+        "39",
+        "48",
+        "26",
+        "38"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-seasons-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    },
+    {
+      "question": "Which season adapts Part 4?",
+      "options": [
+        "Season 3",
+        "Season 2",
+        "Season 4",
+        "Season 5"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-seasons-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    },
+    {
+      "question": "Which two parts came out on Netflix?",
+      "options": [
+        "Phantom Blood and Battle Tendency",
+        "Golden Wind and Stone Ocean",
+        "Stone Ocean and Steel Ball Run",
+        "Diamond Is Unbreakable and Golden Wind"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-seasons-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: JoJo's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of JoJo's Bizarre Adventure episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    }
+  ],
+  "notes": "Arc quiz: parts list fact (006) is arc 5 manga, seasons fact (009) is arc 7 anime. Chapter counts and episode counts come straight from those lists."
+}

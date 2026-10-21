@@ -1,0 +1,7 @@
+docs/anime/data/facts/chainsaw-man.json
+docs/anime/data/facts/hunter-x-hunter.json
+docs/anime/data/facts/solo-leveling.json
+docs/anime/data/series/chainsaw-man.json
+docs/anime/data/series/hunter-x-hunter.json
+docs/anime/data/series/solo-leveling.json
+docs/anime/editorial/packets/k1-b3.html

@@ -1,0 +1,7 @@
+docs/anime/data/facts/attack-on-titan.json
+docs/anime/data/facts/dragon-ball.json
+docs/anime/data/facts/my-hero-academia.json
+docs/anime/data/series/attack-on-titan.json
+docs/anime/data/series/dragon-ball.json
+docs/anime/data/series/my-hero-academia.json
+docs/anime/editorial/packets/k1-b2.html

@@ -16,7 +16,7 @@ WT="$ROOT/.claude/worktrees/o1-$lane"
 BR="o1/$lane"
 free_gb=$(df -Pk "$ROOT" | awk 'NR==2 { printf "%d", $4 / 1048576 }')
 if [ ! -d "$WT" ]; then
-  [ "$free_gb" -ge 15 ] || { echo "new-lane: refused, only $free_gb GB free (15 needed)" >&2; exit 4; }
+  min="${O1_MIN_FREE_GB:-15}"; [ "$free_gb" -ge "$min" ] || { echo "new-lane: refused, only $free_gb GB free ($min needed)" >&2; exit 4; }
   n=$("$G" -C "$O1" worktree list --porcelain | grep '^worktree ' | grep -c "/.claude/worktrees/o1-[A-Za-z0-9]*$" || true)
   n_gate=$("$G" -C "$O1" worktree list --porcelain | grep '^worktree ' | grep -cE "/.claude/worktrees/o1-(gate|parity|merge)-" || true)
   [ $((n - n_gate)) -lt 6 ] || { echo "new-lane: refused, already 6 lane worktrees" >&2; exit 4; }

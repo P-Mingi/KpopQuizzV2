@@ -12,15 +12,12 @@ import type { NameAllWords } from '@/lib/name-all/words';
 
 // Run O1: today's kpop words, written here so that the kpop page imports exactly what it imported before (lib/name-all/words.ts only
 // holds the type, and is not imported at run time: a new module in the graph of the page moved its client references and head tags).
-const KPOP_WORDS: NameAllWords = {
+const KPOP_WORDS: Pick<NameAllWords, 'member' | 'members' | 'topic' | 'brand' | 'acceptedAbout'> = {
   member: 'member',
   members: 'members',
   topic: 'group',
   brand: 'KpopQuiz',
-  host: 'kpopquiz.org',
-  origin: 'https://kpopquiz.org',
   acceptedAbout: 'Stage names, birth names and Hangul are all accepted',
-  acceptedIntro: 'Stage names, real names and Hangul all count',
 };
 
 // The server-rendered part of a Name them all page, below the game (owner, 2026-10-13:
@@ -43,7 +40,7 @@ export interface NameAllAboutProps {
   /** Display names by slug, for the other Name them all pages; a slug without one is left out. */
   names: ReadonlyMap<string, string>;
   /** Run O1: the words of another site. Absent: today's kpop words. */
-  words?: NameAllWords;
+  words?: Pick<NameAllWords, 'member' | 'members' | 'topic' | 'brand' | 'acceptedAbout'>;
 }
 
 /** The spellings shown beside a member: the other accepted answers, the display name first removed. */

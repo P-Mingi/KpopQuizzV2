@@ -1,0 +1,198 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "Floor by Floor: The Anime Arcs So Far",
+ "slug": "floor-by-floor-the-anime-arcs-so-far",
+ "description": "Nine questions on how the anime splits into arcs, which studio and singers carry each one and what only the webtoon has reached.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "How many episodes does season one, the first arc, contain?",
+   "options": [
+    "12",
+    "24",
+    "26",
+    "13"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "Which arc covers episodes 14 to 26?",
+   "options": [
+    "Workshop Battle",
+    "Season 1",
+    "Return of the Prince",
+    "Beyond season 2"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which arc covers episodes 27 to 39?",
+   "options": [
+    "Workshop Battle",
+    "Return of the Prince",
+    "Season 1",
+    "Beyond season 2"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "How many episodes does the anime cover in all so far?",
+   "options": [
+    "39",
+    "13",
+    "26",
+    "52"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which arc exists only in the webtoon, past the anime?",
+   "options": [
+    "Season 1",
+    "Return of the Prince",
+    "Workshop Battle",
+    "Beyond season 2"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which group sang the opening of the Return of the Prince arc?",
+   "options": [
+    "NiziU",
+    "Stray Kids",
+    "Twice",
+    "ITZY"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which group sang the opening of the Workshop Battle arc?",
+   "options": [
+    "Stray Kids",
+    "NiziU",
+    "Twice",
+    "ITZY"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Which studio made the season that holds the Return of the Prince and Workshop Battle arcs?",
+   "options": [
+    "Telecom Animation Film",
+    "Bones",
+    "Madhouse",
+    "The Answer Studio"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Into how many back-to-back cours was season two split?",
+   "options": [
+    "One",
+    "Two",
+    "Three",
+    "Four"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God season 1",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Tower of God season 2",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  }
+ ],
+ "notes": "Arc quiz: arcs 1 to 4 (Season 1, Return of the Prince, Workshop Battle, Beyond season 2). Tags follow the cited facts: 008, 009 and 012 are arc 0; the arc structure fact 014 is arc 4, so its questions are tagged 4."
+}

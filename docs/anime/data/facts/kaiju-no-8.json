@@ -1,0 +1,793 @@
+[
+  {
+    "id": "kaiju-no-8-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "title_native",
+    "value": "怪獣8号 (Kaijū Hachigō)",
+    "text": "Kaiju No. 8 is called Kaijū Hachigō in Japan, and its English alternate title is Monster #8.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q103888159",
+        "ref": "Q103888159",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kaiju No. 8 (怪獣8号, Kaijū Hachigō), also known in English as Monster #8, is a Japanese web manga series"
+  },
+  {
+    "id": "kaiju-no-8-author-run-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "author",
+    "value": "Written and drawn by Naoya Matsumoto for Shōnen Jump+ (Shueisha)",
+    "text": "Naoya Matsumoto is both writer and artist of the manga, which ran on Shueisha's Shōnen Jump+ from July 3, 2020 until July 18, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+        "ref": "1377041414",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjumpplus.com/episode/13933686331762212128",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written and illustrated by Naoya Matsumoto. It was serialized on Shueisha's Shōnen Jump+ app and website from July 2020 to July 2025"
+  },
+  {
+    "id": "kaiju-no-8-manga-completion-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "chapters",
+    "value": "129 chapters in 16 volumes, last volume on September 4, 2025",
+    "text": "The story closed after 129 chapters collected in 16 volumes, with the final book reaching Japanese shops on September 4, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+        "ref": "1377041414",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjumpplus.com/episode/13933686331762212128",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The 16th and final volume was released on September 4, 2025."
+  },
+  {
+    "id": "kaiju-no-8-anime-season-one-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "anime_s1",
+    "value": "Production I.G, director Shigeyuki Miya, 12 episodes, April 13 to June 29, 2024",
+    "text": "Production I.G animated the first season, with Studio Khara handling the kaiju designs; the 12 episodes ran between April 13 and June 29, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+        "ref": "1376808063",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      },
+      {
+        "source": "official",
+        "url": "https://kaiju-no8.net/",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first season aired from April 13 to June 29, 2024, on TV Tokyo and its affiliates. The series is directed by Shigeyuki Miya and Tomomi Kamiya"
+  },
+  {
+    "id": "kaiju-no-8-anime-season-two-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "anime_s2",
+    "value": "11 episodes (overall 13 to 23), July 19 to September 27, 2025",
+    "text": "Season two followed in July 2025 and brought the anime to 23 episodes in total; its last episode aired on September 27, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+        "ref": "1376808063",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      },
+      {
+        "source": "official",
+        "url": "https://kaiju-no8.net/",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A second season was announced in December 2024 at Jump Festa, and aired from July 19 to September 27, 2025."
+  },
+  {
+    "id": "kaiju-no-8-themes-season-one-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Abyss - Yungblud (season 1)",
+      "ED 1: Nobody - OneRepublic (season 1)"
+    ],
+    "text": "The first season opens with Abyss by Yungblud and closes each episode with Nobody by OneRepublic.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+        "ref": "1376808063",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "For the first season: the opening theme song is \"Abyss\" performed by Yungblud, while the ending theme song is \"Nobody\" performed by OneRepublic."
+  },
+  {
+    "id": "kaiju-no-8-themes-season-two-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: You Can't Run From Yourself - Aurora (season 2)",
+      "ED 2: Beautiful Colors - OneRepublic (season 2)"
+    ],
+    "text": "For season two the opening is You Can't Run From Yourself by Aurora, and OneRepublic returns with Beautiful Colors as the ending.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+        "ref": "1376808063",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the opening theme song is \"You Can't Run From Yourself\" performed by Aurora, while the ending theme song is \"Beautiful Colors\" performed by OneRepublic."
+  },
+  {
+    "id": "kaiju-no-8-arc-structure-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1 (episodes 1 to 12)",
+      "2: Season 2 (episodes 13 to 23)",
+      "3: Manga after season 2"
+    ],
+    "text": "No source names story arcs, so this quiz uses the two anime seasons and then the part of the manga the anime has not covered yet.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes",
+        "ref": "1376808063",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A second season was announced in December 2024 at Jump Festa, and aired from July 19 to September 27, 2025."
+  },
+  {
+    "id": "kaiju-no-8-setting-powered-suits-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "setting",
+    "value": "Defense Force suits are made from kaiju remains; power is rated up to 100%",
+    "text": "Officers fight in powered suits built from kaiju remains, and each suit shows a combat power percentage that tops out at 100.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Defense Force officers wear powered suits made from kaiju remains that grant them increased strength, speed, and durability."
+  },
+  {
+    "id": "kaiju-no-8-tokusatsu-influence-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "inspiration",
+    "value": "Influenced by tokusatsu, especially Ultraman",
+    "text": "Matsumoto drew on Japanese tokusatsu shows, above all the Ultraman series, and used his own struggles as a manga artist for Kafka's backstory.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series was heavily influenced by Japanese tokusatsu media, especially Ultraman"
+  },
+  {
+    "id": "kaiju-no-8-awards-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "awards",
+    "value": "Next Manga Award, web manga category, 2021 (winner); Eisner Award nominee, 2022",
+    "text": "The manga took the 2021 Next Manga Award for web manga and was shortlisted for an Eisner Award the year after.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series won the Next Manga Award in the web manga category in 2021 and was nominated for the Eisner Award in 2022."
+  },
+  {
+    "id": "kaiju-no-8-copies-circulation-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "copies",
+    "value": "Over 20 million copies, September 2026",
+    "text": "By September 2026 more than 20 million copies of the manga were in circulation.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By September 2026, the manga had over 20 million copies in circulation."
+  },
+  {
+    "id": "kaiju-no-8-cast-list-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "characters",
+    "value": [
+      "Kafka Hibino (日比野 カフカ): the cleaner who becomes Kaiju No. 8",
+      "Reno Ichikawa (市川 レノ): the young recruit and Kafka's friend",
+      "Kikoru Shinomiya (四ノ宮 キコル): the prodigy recruit",
+      "Mina Ashiro (亜白 ミナ): Third Division captain",
+      "Soshiro Hoshina (保科 宗四郎): Third Division vice-captain",
+      "Gen Narumi (鳴海 弦): First Division captain",
+      "Isao Shinomiya (四ノ宮 功): Director General of the Defense Force",
+      "Iharu Furuhashi (古橋 伊春): a Third Division recruit",
+      "Haruichi Izumo (出雲 ハルイチ): a recruit from the Izumo Tech family",
+      "Keiji Itami (伊丹 啓司): Deputy Director of the Defense Force",
+      "Kaiju No. 9 (怪獣9号): the humanoid kaiju that creates others",
+      "Kaiju No. 10 (怪獣10号): the humanoid kaiju who raids the Third Division"
+    ],
+    "text": "The twelve characters of this quiz cover the Third Division recruits, the Defense Force leaders and the two humanoid kaiju.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Kafka Hibino is a cleaner for a kaiju disposal company who once aspired to join the Defense Force."
+  },
+  {
+    "id": "kaiju-no-8-spin-offs-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "spin_offs",
+    "value": "Light novel (Keiji Andō, 2022), B-Side manga (2024), Relax manga (2024)",
+    "text": "Besides the main manga there is a light novel by Keiji Andō from November 2022 and two spin-off manga that both began in 2024, B-Side and Relax.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1380846548",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The series has spawned a light novel, two spin-off manga series, and a video game."
+  },
+  {
+    "id": "kaiju-no-8-kikoru-record-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "kikoru-shinomiya",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "talent",
+    "value": "Record combat power for a recruit",
+    "text": "Kikoru is a prodigy: no recruit before her has been logged with a higher unleashed combat power score.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "A kaiju-slaying prodigy, Kikoru is one of the greatest talents in the Defense Force and has the highest recorded unleashed combat power as a recruit."
+  },
+  {
+    "id": "kaiju-no-8-kafka-hibino-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kafka-hibino"
+    },
+    "field": "name",
+    "value": "Kafka Hibino (日比野 カフカ)",
+    "text": "Kafka Hibino is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a cleaner for a kaiju disposal company who once aspired to join the Defense Force. A small, parasitic creature (voiced"
+  },
+  {
+    "id": "kaiju-no-8-reno-ichikawa-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "reno-ichikawa"
+    },
+    "field": "name",
+    "value": "Reno Ichikawa (市川 レノ)",
+    "text": "Reno Ichikawa is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is an 18-year-old man who starts working in the same company as Kafka with plans to join the Defense Force. He becomes"
+  },
+  {
+    "id": "kaiju-no-8-kikoru-shinomiya-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kikoru-shinomiya"
+    },
+    "field": "name",
+    "value": "Kikoru Shinomiya (四ノ宮 キコル)",
+    "text": "Kikoru Shinomiya is a main character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a young woman who joins the Third Division together with Kafka and Reno. A kaiju-slaying prodigy, Kikoru is one"
+  },
+  {
+    "id": "kaiju-no-8-mina-ashiro-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "mina-ashiro"
+    },
+    "field": "name",
+    "value": "Mina Ashiro (亜白 ミナ)",
+    "text": "Mina Ashiro is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the 27-year-old captain of the Third Division of the Defense Force. She is Kafka's childhood friend with whom he vowed to"
+  },
+  {
+    "id": "kaiju-no-8-soshiro-hoshina-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "soshiro-hoshina"
+    },
+    "field": "name",
+    "value": "Soshiro Hoshina (保科 宗四郎)",
+    "text": "Soshiro Hoshina is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the vice-captain of the Third Division. He is a skilled swordsman who is good at fighting smaller kaiju. Soshiro"
+  },
+  {
+    "id": "kaiju-no-8-gen-narumi-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "gen-narumi"
+    },
+    "field": "name",
+    "value": "Gen Narumi (鳴海 弦)",
+    "text": "Gen Narumi is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the captain of the First Division of the Defense Force and its strongest active combatant of the Defense Force. Gen uses the"
+  },
+  {
+    "id": "kaiju-no-8-isao-shinomiya-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "isao-shinomiya"
+    },
+    "field": "name",
+    "value": "Isao Shinomiya (四ノ宮 功)",
+    "text": "Isao Shinomiya is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the Director General of the Defense Force and father to Kikoru Shinomiya. A historically powerful combatant, he"
+  },
+  {
+    "id": "kaiju-no-8-iharu-furuhashi-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "iharu-furuhashi"
+    },
+    "field": "name",
+    "value": "Iharu Furuhashi (古橋 伊春)",
+    "text": "Iharu Furuhashi is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a new recruit who joins the Third Division together with Kafka, Reno and Kikoru. He and Reno become part of the"
+  },
+  {
+    "id": "kaiju-no-8-haruichi-izumo-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "haruichi-izumo"
+    },
+    "field": "name",
+    "value": "Haruichi Izumo (出雲 ハルイチ)",
+    "text": "Haruichi Izumo is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a new recruit of the Third Division, Haruichi is the scion of the Izumo family who run the Izumo Tech corporation"
+  },
+  {
+    "id": "kaiju-no-8-keiji-itami-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "keiji-itami"
+    },
+    "field": "name",
+    "value": "Keiji Itami (伊丹 啓司)",
+    "text": "Keiji Itami is a supporting character of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the dutiful Deputy Director of the Defense Force who is later appointed as Director General of the Defense Force after"
+  },
+  {
+    "id": "kaiju-no-8-kaiju-no-9-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kaiju-no-9"
+    },
+    "field": "name",
+    "value": "Kaiju No. 9 (怪獣9号)",
+    "text": "Kaiju No. 9 is an antagonist of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a humanoid kaiju capable of creating other kaiju and absorbing humans to assume their form and memories. It orchestrates"
+  },
+  {
+    "id": "kaiju-no-8-kaiju-no-10-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kaiju-no-10"
+    },
+    "field": "name",
+    "value": "Kaiju No. 10 (怪獣10号)",
+    "text": "Kaiju No. 10 is an antagonist of Kaiju No. 8.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-20T20:00:51Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a humanoid kaiju that leads an assault on the Defense Force's Third Division base using a group of wyvern-type kaiju."
+  }
+]

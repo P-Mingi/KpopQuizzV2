@@ -1,0 +1,213 @@
+{
+ "site": "anime",
+ "account": "oq_creator_21",
+ "group_slug": "apothecary-diaries",
+ "title": "Studios, Singers and Seasons: Apothecary Diaries on Screen",
+ "slug": "studios-singers-and-seasons-apothecary-diaries-on-screen",
+ "description": "Ten questions on the studios, the directors, the dates of season one and the artists of the openings and endings of the first two seasons.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which two studios made the first anime season together?",
+   "options": [
+    "Madhouse and Bones",
+    "MAPPA and Wit Studio",
+    "Sunrise and Trigger",
+    "Toho Animation Studio and OLM"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which director shares season one with Norihiro Naganuma?",
+   "options": [
+    "Mamoru Hosoda",
+    "Akinori Fudesaka",
+    "Makoto Shinkai",
+    "Hideaki Anno"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "On which date did the first anime season begin airing?",
+   "options": [
+    "March 24, 2024",
+    "October 22, 2023",
+    "January 10, 2025",
+    "July 4, 2025"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006",
+    "apothecary-diaries-anime-season-two-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "How many episodes does the first anime season have?",
+   "options": [
+    "12",
+    "13",
+    "48",
+    "24"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which band performs the first opening of season one, Hana ni Natte?",
+   "options": [
+    "Ryokuoushoku Shakai",
+    "Aina the End",
+    "Uru",
+    "Wacci"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Who performs the first ending of season one, Aikotoba?",
+   "options": [
+    "Ryokuoushoku Shakai",
+    "Uru",
+    "Aina the End",
+    "Wacci"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Who performs the second opening of season one, Ambivalent?",
+   "options": [
+    "Ryokuoushoku Shakai",
+    "Aina the End",
+    "Wacci",
+    "Uru"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which band performs the second ending of season one, Ai wa Kusuri?",
+   "options": [
+    "Wacci",
+    "Ryokuoushoku Shakai",
+    "Aina the End",
+    "Uru"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Who performs Hyakka Ryōran, the first opening of season two?",
+   "options": [
+    "Uru",
+    "Lilas Ikuta",
+    "Dai Hirai",
+    "Aina the End"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which band performs Kusushiki, the later opening of season two?",
+   "options": [
+    "Wacci",
+    "Omoinotake",
+    "Mrs. Green Apple",
+    "Ryokuoushoku Shakai"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of The Apothecary Diaries episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "notes": "Production and music quiz on facts 006 and 011 (arc 0) and 012 (arc 2); level 2. Artists only, no lyrics and no song titles as distractors."
+}

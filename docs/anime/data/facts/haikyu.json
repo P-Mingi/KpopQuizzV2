@@ -1,0 +1,1276 @@
+[
+  {
+    "id": "haikyu-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "title_native",
+    "value": "ハイキュー!! (Haikyū!!)",
+    "text": "The Japanese title ハイキュー!!, read Haikyū!!, comes from the kanji 排球, an old word for volleyball.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q326642",
+        "ref": "Q326642",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Haikyu!! (ハイキュー!!, Haikyū!!; from the kanji 排球, 'volleyball')"
+  },
+  {
+    "id": "haikyu-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "author",
+    "value": "Haruichi Furudate (story and art)",
+    "text": "Haruichi Furudate is the single creator behind Haikyu!!, handling both the story and the drawings.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q326642",
+        "ref": "Q326642",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "written and illustrated by Haruichi Furudate"
+  },
+  {
+    "id": "haikyu-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump, February 2012 to July 2020",
+    "text": "Weekly Shōnen Jump magazine carried the manga from February 2012 until July 2020, published by Shueisha.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q326642",
+        "ref": "Q326642",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It was serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from February 2012 to July 2020"
+  },
+  {
+    "id": "haikyu-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "volumes",
+    "value": 45,
+    "text": "The collected edition of the manga has 45 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q326642",
+        "ref": "Q326642",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with its chapters collected in 45 tankōbon volumes"
+  },
+  {
+    "id": "haikyu-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "copies",
+    "value": "over 75 million",
+    "text": "Circulation of the manga stood above 75 million copies by December 2025.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By December 2025, the manga had over 75 million copies in circulation"
+  },
+  {
+    "id": "haikyu-manga-award-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "awards",
+    "value": "Shogakukan Manga Award (shōnen), 2016",
+    "text": "The manga took the 61st Shogakukan Manga Award in the shōnen category in 2016.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "In 2016, Haikyu!! won the 61st Shogakukan Manga Award for the shōnen category."
+  },
+  {
+    "id": "haikyu-anime-season-one-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "anime_s1",
+    "value": "25 episodes in 2014",
+    "text": "The manga reached television in spring 2014 through Production I.G, whose first season has 25 episodes and wrapped up in September.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q67144604",
+        "ref": "Q67144604",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "An anime television series produced by Production I.G aired from April 6 to September 21, 2014, on MBS"
+  },
+  {
+    "id": "haikyu-anime-totals-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "anime_total",
+    "value": "85 episodes, four seasons",
+    "text": "In all, the TV anime has 85 episodes over four seasons, with seven opening songs and seven ending songs.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes",
+        "ref": "1379123132",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q67144604",
+        "ref": "Q67144604",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Recently, the anime series ran for 85 episodes overall."
+  },
+  {
+    "id": "haikyu-anime-staff-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "staff",
+    "value": "Susumu Mitsunaka and Masako Satō (directors), Yuki Hayashi (music)",
+    "text": "Susumu Mitsunaka directed the early seasons and Masako Satō took over for the fourth; Yuki Hayashi and Asami Tachibana composed the music.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes",
+        "ref": "1379123132",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Masako Satō replaced Susumu Mitsunaka as director, with the returning staff from the previous seasons."
+  },
+  {
+    "id": "haikyu-anime-season-three-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "anime_s3",
+    "value": "10 episodes in 2016",
+    "text": "Season three, titled Karasuno High School vs Shiratorizawa Academy, is a short run of 10 episodes shown in autumn 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "aired from October 8 to December 10, 2016"
+  },
+  {
+    "id": "haikyu-anime-season-four-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "anime_s4",
+    "value": "25 episodes, January to December 2020",
+    "text": "The fourth season, To The Top, began on January 11, 2020; its second cour slipped to October because of the COVID-19 pandemic and ended on December 19, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q67144604",
+        "ref": "Q67144604",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the second cour was supposed to air in July 2020 but was delayed due to the COVID-19 pandemic"
+  },
+  {
+    "id": "haikyu-final-films-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "final_films",
+    "value": "The Dumpster Battle (February 16, 2024); vs. The Little Giant (2027)",
+    "text": "The finale is split into two Haikyu!! Final films: The Dumpster Battle came out on February 16, 2024, and vs. The Little Giant is set for 2027.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first film, Haikyu!! The Dumpster Battle, was released on February 16, 2024."
+  },
+  {
+    "id": "haikyu-themes-seasons-one-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "themes_s1_s2",
+    "value": [
+      "OP 1: Imagination - Spyair (season 1)",
+      "OP 2: Ah Yeah - Sukima Switch (season 1)",
+      "ED 1: Tenchi Gaeshi - Nico Touches the Walls (season 1)",
+      "ED 2: LEO - Tacica (season 1)",
+      "OP 3: I'm a Believer - Spyair (season 2)",
+      "OP 4: FLY HIGH - Burnout Syndromes (season 2)",
+      "ED 3: Climber - Galileo Galilei (season 2)",
+      "ED 4: Hatsunetsu - Tacica (season 2)"
+    ],
+    "text": "The first two seasons each switched songs halfway through, so every season has two openings and two endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "the opening theme song is \"Imagination\" by Spyair, while the ending theme song is \"Tenchi Gaeshi\" by Nico Touches the Walls"
+  },
+  {
+    "id": "haikyu-themes-seasons-three-four-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "themes_s3_s4",
+    "value": [
+      "OP 5: Hikariare - Burnout Syndromes (season 3)",
+      "ED 5: Mashi Mashi - Nico Touches the Walls (season 3)",
+      "OP 6: Phoenix - Burnout Syndromes (season 4)",
+      "ED 6: Kessen Spirit - CHiCO with HoneyWorks (season 4)",
+      "OP 7: Toppakō - Super Beaver (season 4)",
+      "ED 7: One Day - Spyair (season 4)"
+    ],
+    "text": "Season three kept one pair of songs, while the split-cour fourth season had two pairs.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The opening theme song is \"Hikariare\" by Burnout Syndromes, while the ending theme song is \"Mashi Mashi\" by Nico Touches the Walls."
+  },
+  {
+    "id": "haikyu-arc-structure-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-25",
+      "2: Season 2, episodes 26-50",
+      "3: Karasuno High School vs Shiratorizawa Academy, episodes 51-60",
+      "4: To The Top, episodes 61-85",
+      "5: Haikyu!! Final, the finale films"
+    ],
+    "text": "The TV anime runs four seasons of 25, 25, 10 and 25 episodes, and the story ends in the Haikyu!! Final films.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes",
+        "ref": "1379123132",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q67144604",
+        "ref": "Q67144604",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Recently, the anime series ran for 85 episodes overall."
+  },
+  {
+    "id": "haikyu-cast-karasuno-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "characters_a",
+    "value": [
+      "Shoyo Hinata (日向 翔陽): the main protagonist",
+      "Tobio Kageyama (影山 飛雄): the setter",
+      "Kei Tsukishima (月島 蛍): the middle blocker",
+      "Tadashi Yamaguchi (山口 忠): the serving specialist",
+      "Daichi Sawamura (澤村 大地): the captain",
+      "Kōshi Sugawara (菅原 孝支): the vice captain",
+      "Asahi Azumane (東峰 旭): the ace",
+      "Yū Nishinoya (西谷 夕): the libero",
+      "Ryūnosuke Tanaka (田中 龍之介): a wing spiker",
+      "Hitoka Yachi (谷地 仁花): the assistant manager"
+    ],
+    "text": "The Karasuno High School volleyball club that Hinata joins.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Shoyo Hinata (日向 翔陽, Hinata Shōyō) is a first-year student at Karasuno High School"
+  },
+  {
+    "id": "haikyu-cast-rivals-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "characters_b",
+    "value": [
+      "Tōru Oikawa (及川 徹): Aoba Johsai's captain",
+      "Kenma Kozume (孤爪 研磨): Nekoma's setter",
+      "Tetsurō Kuroo (黒尾 鉄朗): Nekoma's captain",
+      "Kōtarō Bokuto (木兎 光太郎): Fukurodani's ace",
+      "Keiji Akaashi (赤葦 京治): Fukurodani's setter",
+      "Wakatoshi Ushijima (牛島 若利): Shiratorizawa's ace",
+      "Satori Tendō (天童 覚): Shiratorizawa's blocker",
+      "Atsumu Miya (宮 侑): Inarizaki's setter",
+      "Kiyoomi Sakusa (佐久早 聖臣): Itachiyama's ace",
+      "Kōrai Hoshiumi (星海 光来): Kamomedai's ace"
+    ],
+    "text": "Standout players from the rival schools Karasuno meets from the first season to the fourth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Tōru Oikawa (及川 徹, Oikawa Tōru) is a third-year student at Aoba Johsai High."
+  },
+  {
+    "id": "haikyu-hinata-little-giant-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "shoyo-hinata",
+      "group_slug": "haikyu"
+    },
+    "field": "motivation",
+    "value": "inspired by the Little Giant",
+    "text": "Hinata's dream starts when he sees a small ace called the Little Giant lead Karasuno on TV, which is why he joins that school.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hinata is inspired by a player the commentators nickname 'The Little Giant', Karasuno's short but talented wing spiker"
+  },
+  {
+    "id": "haikyu-hinata-best-boy-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "shoyo-hinata",
+      "group_slug": "haikyu"
+    },
+    "field": "award",
+    "value": "Best Boy, 5th Crunchyroll Anime Awards",
+    "text": "Hinata won Best Boy at the fifth Crunchyroll Anime Awards and was also up for Best Protagonist.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "At the 5th Crunchyroll Anime Awards, Shoyo Hinata was awarded \"Best Boy\" while he was nominated for \"Best Protagonist\"."
+  },
+  {
+    "id": "haikyu-first-ova-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "ova",
+    "value": "The Arrival of Haiba Lev, November 9, 2014",
+    "text": "The first of four OVA episodes, about the arrival of Lev Haiba, was shown at Jump Festa on November 9, 2014.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The first, \"The Arrival of Haiba Lev\", premiered at the Jump Festa on November 9, 2014"
+  },
+  {
+    "id": "haikyu-shoyo-hinata-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "shoyo-hinata"
+    },
+    "field": "name",
+    "value": "Shoyo Hinata (日向 翔陽)",
+    "text": "Shoyo Hinata is a main character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School and the main protagonist of the series. Despite his short stature, he is"
+  },
+  {
+    "id": "haikyu-tobio-kageyama-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tobio-kageyama"
+    },
+    "field": "name",
+    "value": "Tobio Kageyama (影山 飛雄)",
+    "text": "Tobio Kageyama is a main character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School. Though an exceptionally diligent and strategic setter, his ruthless"
+  },
+  {
+    "id": "haikyu-kei-tsukishima-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kei-tsukishima"
+    },
+    "field": "name",
+    "value": "Kei Tsukishima (月島 蛍)",
+    "text": "Kei Tsukishima is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School and the volleyball team's tallest player. A middle blocker, he is known"
+  },
+  {
+    "id": "haikyu-tadashi-yamaguchi-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tadashi-yamaguchi"
+    },
+    "field": "name",
+    "value": "Tadashi Yamaguchi (山口 忠)",
+    "text": "Tadashi Yamaguchi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student at Karasuno High School. The only first-year on the team not to make the starting lineup"
+  },
+  {
+    "id": "haikyu-daichi-sawamura-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "daichi-sawamura"
+    },
+    "field": "name",
+    "value": "Daichi Sawamura (澤村 大地)",
+    "text": "Daichi Sawamura is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the captain of the volleyball team and a third-year student at Karasuno High School. A wing spiker and dependable"
+  },
+  {
+    "id": "haikyu-koshi-sugawara-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "koshi-sugawara"
+    },
+    "field": "name",
+    "value": "Kōshi Sugawara (菅原 孝支)",
+    "text": "Kōshi Sugawara is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is the vice captain of the volleyball team and a third-year student at Karasuno High School. Sugawara acts like the"
+  },
+  {
+    "id": "haikyu-asahi-azumane-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "asahi-azumane"
+    },
+    "field": "name",
+    "value": "Asahi Azumane (東峰 旭)",
+    "text": "Asahi Azumane is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Karasuno and a wing spiker. Known as Samurai Man. Physically the strongest member of the team"
+  },
+  {
+    "id": "haikyu-yu-nishinoya-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "yu-nishinoya"
+    },
+    "field": "name",
+    "value": "Yū Nishinoya (西谷 夕)",
+    "text": "Yū Nishinoya is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Karasuno High School and the team's libero and defensive specialist. Along with Tobio Kageyama"
+  },
+  {
+    "id": "haikyu-ryunosuke-tanaka-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "ryunosuke-tanaka"
+    },
+    "field": "name",
+    "value": "Ryūnosuke Tanaka (田中 龍之介)",
+    "text": "Ryūnosuke Tanaka is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Karasuno High School and a wing spiker. He is loud, fierce, and aggressive, but deeply"
+  },
+  {
+    "id": "haikyu-hitoka-yachi-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "hitoka-yachi"
+    },
+    "field": "name",
+    "value": "Hitoka Yachi (谷地 仁花)",
+    "text": "Hitoka Yachi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shonenjump.com/j/rensai/haikyu.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a first-year student and the assistant manager of Karasuno's volleyball club. Kiyoko recruits her to take over managing"
+  },
+  {
+    "id": "haikyu-toru-oikawa-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "toru-oikawa"
+    },
+    "field": "name",
+    "value": "Tōru Oikawa (及川 徹)",
+    "text": "Tōru Oikawa is an antagonist of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Aoba Johsai High. He is the volleyball team's captain and starting setter. He is introduced as one"
+  },
+  {
+    "id": "haikyu-kenma-kozume-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kenma-kozume"
+    },
+    "field": "name",
+    "value": "Kenma Kozume (孤爪 研磨)",
+    "text": "Kenma Kozume is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Nekoma High and the team's setter. He is introverted and prefers to keep to himself, choosing to"
+  },
+  {
+    "id": "haikyu-tetsuro-kuroo-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "tetsuro-kuroo"
+    },
+    "field": "name",
+    "value": "Tetsurō Kuroo (黒尾 鉄朗)",
+    "text": "Tetsurō Kuroo is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Nekoma. He is the captain of the volleyball club and a talented middle blocker known for his"
+  },
+  {
+    "id": "haikyu-kotaro-bokuto-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kotaro-bokuto"
+    },
+    "field": "name",
+    "value": "Kōtarō Bokuto (木兎 光太郎)",
+    "text": "Kōtarō Bokuto is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Fukurodani Academy and captain and ace of the volleyball team. He is one of Japan's top 5"
+  },
+  {
+    "id": "haikyu-keiji-akaashi-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "keiji-akaashi"
+    },
+    "field": "name",
+    "value": "Keiji Akaashi (赤葦 京治)",
+    "text": "Keiji Akaashi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Fukurodani Academy. He is the vice-captain and a setter of the volleyball team. He is an"
+  },
+  {
+    "id": "haikyu-wakatoshi-ushijima-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "wakatoshi-ushijima"
+    },
+    "field": "name",
+    "value": "Wakatoshi Ushijima (牛島 若利)",
+    "text": "Wakatoshi Ushijima is an antagonist of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "also nicknamed \"Ushiwaka\", is a third-year student at Shiratorizawa Academy. He is a wing spiker and the"
+  },
+  {
+    "id": "haikyu-satori-tendo-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "satori-tendo"
+    },
+    "field": "name",
+    "value": "Satori Tendō (天童 覚)",
+    "text": "Satori Tendō is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a third-year student at Shiratorizawa Academy, and is a middle blocker for the volleyball team. Nicknamed \"The Guess"
+  },
+  {
+    "id": "haikyu-atsumu-miya-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "atsumu-miya"
+    },
+    "field": "name",
+    "value": "Atsumu Miya (宮 侑)",
+    "text": "Atsumu Miya is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student and the team's setter. He is the older twin brother of Osamu Miya, who nicknames him \"Tsumu\". He is"
+  },
+  {
+    "id": "haikyu-kiyoomi-sakusa-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "kiyoomi-sakusa"
+    },
+    "field": "name",
+    "value": "Kiyoomi Sakusa (佐久早 聖臣)",
+    "text": "Kiyoomi Sakusa is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Itachiyama Institute. He is a wing spiker and the ace of his volleyball team, being the top"
+  },
+  {
+    "id": "haikyu-korai-hoshiumi-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "haikyu",
+      "ref": "korai-hoshiumi"
+    },
+    "field": "name",
+    "value": "Kōrai Hoshiumi (星海 光来)",
+    "text": "Kōrai Hoshiumi is a supporting character of Haikyu!!.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters",
+        "ref": "1379380675",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "is a second-year student at Kamomedai High. He is a wing spiker and ace for his volleyball team. He is first introduced"
+  }
+]

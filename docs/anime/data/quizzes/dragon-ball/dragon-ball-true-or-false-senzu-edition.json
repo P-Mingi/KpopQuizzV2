@@ -1,0 +1,175 @@
+{
+  "site": "anime",
+  "account": "oq_creator_08",
+  "group_slug": "dragon-ball",
+  "title": "Dragon Ball True or False: Senzu Edition",
+  "slug": "dragon-ball-true-or-false-senzu-edition",
+  "description": "Ten statements about the manga, the four TV series and the studio. One small change is enough to make a statement false.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Akira Toriyama created the franchise and wrote and drew the original manga on his own.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-series-creator-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "The original Dragon Ball manga ran for a little over ten years in Weekly Shonen Jump, starting in December 1984.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dragon-ball-manga-run-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "The original Dragon Ball manga reached 400 chapters, bound in 42 volumes.",
+      "correct": false,
+      "fun_fact": "It reached 519 chapters.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dragon-ball-manga-volumes-chapters-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "The first Dragon Ball anime ran for 153 episodes on Fuji Television.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-dragon-ball-tv-run-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "question": "Dragon Ball Z aired 153 episodes before ending in January 1996.",
+      "correct": false,
+      "fun_fact": "Dragon Ball Z aired 291 episodes.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-z-tv-run-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "question": "Toei Animation produced the anime television series of the Dragon Ball franchise.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-animation-studio-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "question": "Dragon Ball Super returned to television in July 2010.",
+      "correct": false,
+      "fun_fact": "It returned in July 2015.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-super-tv-run-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "question": "The Dragon Ball story was inspired by the Chinese novel Journey to the West, with Hong Kong kung fu films mixed in.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-journey-to-the-west-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "question": "Daima aired its 20 episodes between October 2024 and February 2025.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dragon-ball-daima-tv-run-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    },
+    {
+      "question": "Goku's Japanese name, Son Goku, is how the Monkey King Sun Wukong of Journey to the West is read in Japanese.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-sun-wukong-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dragon Ball",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Dragon Ball (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Dragon Ball Z",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Dragon Ball Super (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: Dragon Ball Daima",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail."
+}
