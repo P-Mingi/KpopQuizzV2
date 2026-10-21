@@ -98,7 +98,8 @@
       "anime",
       "hub"
     ],
-    "kind": "e2e"
+    "kind": "e2e",
+    "hotExempt": true
   },
   "O1": {
     "sites": [
@@ -132,6 +133,33 @@
     "hotExempt": true
   },
   "B7": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "C1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "C2": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "L1": {
     "sites": [
       "kpop",
       "anime",
