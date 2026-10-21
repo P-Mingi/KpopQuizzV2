@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { flightTree } from '@/lib/o1-flight-tree';
 
@@ -39,6 +39,10 @@ async function check(name: string, actual: string): Promise<void> {
 }
 
 describe('kpop account menu and top bar (no accountExtra)', () => {
+  // The streak pill reads the clock (is-risk, hours left): pin it so the snapshot does not depend on the day it is run.
+  beforeAll(() => { vi.useFakeTimers({ toFake: ['Date'] }); vi.setSystemTime(new Date('2026-10-20T12:00:00Z')); });
+  afterAll(() => { vi.useRealTimers(); });
+
   it('AccountBody markup', async () => {
     const { AccountBody } = await import('./ux-nav-actions');
     const html = renderToString(h(AccountBody, { profile: PROFILE, close: () => undefined, onSignOut: () => undefined }));

@@ -44,7 +44,7 @@ describe('NetFooterLine', () => {
       expect([...html.matchAll(/<a\b[^>]*>/g)]).toHaveLength(1);
       expect(html).toContain('href="https://fanquiz.org/"');
       expect(html).not.toMatch(/rel=|\?|nofollow/);
-      expect(html).not.toMatch(/[–—]/);
+      expect(html).not.toMatch(/[\u2013\u2014]/);
       if (site === 'anime') expect(html).not.toMatch(/k-?pop/i);
     }
   });

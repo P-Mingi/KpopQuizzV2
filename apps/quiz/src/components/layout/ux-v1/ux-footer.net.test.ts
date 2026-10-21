@@ -36,7 +36,7 @@ describe('UxFooter network line', () => {
       const links = hubLinks(html);
       expect(links).toHaveLength(1);
       expect(links[0]).toMatch(/^<a href="https:\/\/fanquiz\.org\/">$/);
-      expect(html).not.toMatch(/[–—]/);
+      expect(html).not.toMatch(/[\u2013\u2014]/);
       expect(await footer(site, 'true')).toBe(html);
     });
   }
