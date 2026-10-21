@@ -1,0 +1,14 @@
+{
+ "findings": [
+  {
+   "page": "daily",
+   "viewport": "phone",
+   "kind": "axe:heading-order",
+   "detail": "moderate x1 Heading levels should only increase by one :: .ux-qcard:nth-child(1) > .ux-qb > h3 Fix any of the following: |   Heading order invalid",
+   "blocking": false
+  }
+ ],
+ "note": [
+  "tab stops: a:Skip to content > a:OtakuQuiz home > a:Search > button:Sign in > a:Home > a:Create a quiz > a:Trending > a:Newest > a:Most played > a:Top rated > button:Type > button:Level > button:Group > a:Attack on TitanAttack on"
+ ]
+}
