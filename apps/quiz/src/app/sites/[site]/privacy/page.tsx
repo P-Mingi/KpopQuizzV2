@@ -1,16 +1,31 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/privacy/page.tsx, rows 26, H-2: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { HubShares } from '@/components/hub/hub-shares';
+import { HubPrivacy } from '@/components/hub/hub-privacy';
+import { ht } from '@/lib/site/hub/copy';
+import { PRIVACY_PAGE } from '@/lib/site/hub/network-page';
 import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+const ANIME_METADATA: Metadata = {
   title: 'Privacy Policy',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
   description: `${SITE.brand.name} privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.`,
   robots: { index: true, follow: true },
   alternates: { canonical: '/privacy' },
 };
+
+// Lot (d), H1: the hub serves the DRAFT of the network policy (copy keys privacy.*), closed to search engines until the owner
+// validates the text; any other build keeps the page below.
+const HUB_DRAFT_METADATA: Metadata = {
+  title: ht(PRIVACY_PAGE.metaTitle),
+  description: ht(PRIVACY_PAGE.metaDescription),
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/privacy' },
+};
+
+export function generateMetadata(): Metadata {
+  return SITE.id === 'hub' ? HUB_DRAFT_METADATA : ANIME_METADATA;
+}
 
 // What the site signs in with, from its registry (anime and hub: Google and an email link, no Discord).
 const HAS_DISCORD = SITE.auth.providers.includes('discord');
@@ -21,6 +36,7 @@ const SIGN_IN_SERVICES = HAS_DISCORD ? 'Google OAuth and Discord OAuth' : 'Googl
 const CONTACT = `contact@${SITE.domain}`;
 
 export default function PrivacyPage(): React.ReactElement {
+  if (SITE.id === 'hub') return <HubPrivacy />;
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
@@ -30,9 +46,6 @@ export default function PrivacyPage(): React.ReactElement {
         {SITE.brand.name} ({SITE.domain}) respects your privacy. This policy explains what data we collect, how we
         use it, and your rights.
       </p>
-
-      {/* Run O1, lot (d): on the hub only, the same block as the network page (components/hub/hub-shares.tsx). */}
-      {SITE.id === 'hub' ? <HubShares /> : null}
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
       <p className="text-sm text-secondary leading-relaxed">
