@@ -29,3 +29,11 @@ html.ux-v1[data-site="hub"] .hub-h1-account-line { margin: 0 0 14px; font-size: 
 html.ux-v1[data-site="hub"] .hub-h1-facts { margin: 0 0 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px var(--hub-gap); }
 html.ux-v1[data-site="hub"] .hub-h1-facts dt { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); }
 html.ux-v1[data-site="hub"] .hub-h1-facts dd { margin: 2px 0 0; font-size: 15px; line-height: 1.45; color: var(--ux-ink); overflow-wrap: anywhere; }
+
+/* Lot (d), lane H1: the draft of the privacy page (components/hub/hub-privacy.tsx). */
+html.ux-v1[data-site="hub"] .hub-h1-draft { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--ux-warn); border-radius: 12px; background: var(--ux-surface); color: var(--ux-ink); font-size: 15px; line-height: 1.45; }
+html.ux-v1[data-site="hub"] .hub-h1-draft strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ux-warn); }
+html.ux-v1[data-site="hub"] .hub-h1-policy-h { margin: 0 0 8px; font-size: 20px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-prose { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-prose-list { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; line-height: 1.55; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-h1-policy .hub-h1-shares { margin: 0 0 12px; }
