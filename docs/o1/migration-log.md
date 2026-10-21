@@ -76,3 +76,4 @@
 | 2026-10-20T11:34:37Z | o1-dev | docs/pending-migrations/multisite/013-formats.sql | 232e87d3e757a6ec | ok |
 | 2026-10-20T11:34:37Z | o1-dev | docs/pending-migrations/multisite/014-daily-openings.sql | 13352477bc8962e7 | ok |
 | 2026-10-20T11:34:38Z | o1-dev | docs/pending-migrations/multisite/015-spoilers.sql | fe121c6504dd1f90 | ok |
+| 2026-10-21T08:35:01Z | dev | docs/pending-migrations/multisite/015-spoilers.sql | re-applied by ORCH (changed in place by lot a, D-073; migrate-dev skips an applied name) | ok |
