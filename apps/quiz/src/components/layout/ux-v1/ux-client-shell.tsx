@@ -1,9 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
 import { VerseFooter } from '@/components/verse/verse-footer';
 import { UxBrand } from '@/components/ux-v1/brand';
+import { flagOn } from '@/lib/site/registry';
 import { isBuilderCanvas, worldForPath } from '@/lib/world';
 
 import { UxChromeGate, UxNavScroll, UxRouteFocus } from './ux-chrome-gate';
@@ -12,6 +14,10 @@ import { UxNavActions } from './ux-nav-actions';
 import { UxNavLinks } from './ux-nav-links';
 import { UxProviders } from './ux-providers';
 import { UxTabBar } from './ux-tab-bar';
+
+// Run O1 (B6): "Your sites" in the account menu. A separate chunk, fetched only when the flag is on and a signed-in member opens the menu.
+const NetSitesMenu = dynamic(() => import('@/components/network/net-sites-menu').then((m) => m.NetSitesMenu), { ssr: false });
+const NET_MENU = flagOn(process.env.NEXT_PUBLIC_NET_MENU);
 
 export interface UxClientShellProps {
   children: React.ReactNode;
@@ -46,7 +52,7 @@ export function UxClientShell({ children, showFandoms, year }: UxClientShellProp
             <div className="ux-wrap ux-nav-in">
               <UxBrand />
               <UxNavLinks />
-              <UxNavActions />
+              <UxNavActions {...(NET_MENU ? { accountExtra: () => <NetSitesMenu /> } : {})} />
             </div>
           </header>
           <UxNavScroll />
