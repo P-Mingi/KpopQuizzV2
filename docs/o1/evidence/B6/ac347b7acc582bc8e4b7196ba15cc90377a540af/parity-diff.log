@@ -1,0 +1,82 @@
+IDENTICAL (bytes)  /  status 200/200  raw bytes 39437/39437  normalised 38104/38104  js chunks 13/13
+DIFFERENT (bytes)  /quizzes  status 200/200  raw bytes 48477/48434  normalised 47396/47353  js chunks 13/13
+  node 591
+    A: .js\"],\"MetadataBoundary\"]\n:HL[\"static/chunks/<asset>
+    B: .js\"],\"MetadataBoundary\"]\n22:I[662633,[\"static/chunks/<asset>
+  node 592
+    A: .css\",\"style\"]\n:HL[\"static/chunks/<asset>
+    B: .js\",\"static/chunks/<asset>
+  node 593
+    A: .css\",\"style\"]\n:HL[\"static/media/<asset>
+    B: .js\"],\"IconMark\"]\n:HL[\"static/chunks/<asset>
+  node 594
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"static/media/<asset>
+    B: .css\",\"style\"]\n:HL[\"static/chunks/<asset>
+  node 595
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=4f6ea5ca2632\",\"style\"]\n"])</script>
+    B: .css\",\"style\"]\n:HL[\"static/media/<asset>
+  node 596
+    A: <script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"static/media/<asset>
+IDENTICAL (bytes)  /groups  status 200/200  raw bytes 32677/32677  normalised 31656/31656  js chunks 13/13
+IDENTICAL (bytes)  /trending  status 200/200  raw bytes 31781/31781  normalised 30773/30773  js chunks 13/13
+IDENTICAL (bytes)  /bts-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /blackpink-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /stray-kids-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /seventeen-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /cortis-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /twice-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /newjeans-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /trivia  status 200/200  raw bytes 35139/35139  normalised 34118/34118  js chunks 13/13
+IDENTICAL (bytes)  /bts-trivia  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /blackpink-trivia  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/ultimate-bts-era-quiz-only-real-armys-survive  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/skz-true-or-false-only-real-stays-pass  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/blackpink-ultimate-fan-challenge  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/are-you-a-real-coer  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/illit-fans-here  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/babymonster-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/le-sserafim-members-and-music-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/one-for-sones  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/twice-true-or-false  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/how-well-do-you-know-txt  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/enhypen-debut-and-beyond-quiz  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /q/k-pop-company-quiz-match-the-group-to-the-label  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /blindtest  status 200/200  raw bytes 68221/68221  normalised 66654/66654  js chunks 14/14
+IDENTICAL (bytes)  /blindtest/classic  status 200/200  raw bytes 35194/35194  normalised 34043/34043  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/intro-challenge  status 200/200  raw bytes 35145/35145  normalised 33994/33994  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/group-bts  status 200/200  raw bytes 34637/34637  normalised 33486/33486  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-song  status 200/200  raw bytes 49132/49132  normalised 47929/47929  js chunks 13/13
+DIFFERENT (bytes)  /pt  status 200/200  raw bytes 44306/44306  normalised 43168/43168  js chunks 14/14
+  node 605
+    A: self.__next_f.push([1,"1c:\"$undefined\"\n1b:\"$undefined\"\n1d:null\n"])</script>
+    B: self.__next_f.push([1,"1b:\"$undefined\"\n1c:\"$undefined\"\n1d:null\n"])</script>
+IDENTICAL (bytes)  /pt/blindtest  status 200/200  raw bytes 60263/60263  normalised 59034/59034  js chunks 15/15
+IDENTICAL (bytes)  /pt/quizzes  status 200/200  raw bytes 41460/41460  normalised 40283/40283  js chunks 14/14
+IDENTICAL (bytes)  /pt/faq  status 200/200  raw bytes 60482/60482  normalised 59409/59409  js chunks 13/13
+IDENTICAL (bytes)  /pt/leaderboard  status 200/200  raw bytes 36332/36332  normalised 35181/35181  js chunks 14/14
+IDENTICAL (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 50080/50080  normalised 48877/48877  js chunks 13/13
+IDENTICAL (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 49862/49862  normalised 48659/48659  js chunks 13/13
+IDENTICAL (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 49755/49755  normalised 48552/48552  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 33920/33920  normalised 32886/32886  js chunks 13/13
+IDENTICAL (bytes)  /kpop-true-or-false  status 200/200  raw bytes 33830/33830  normalised 32796/32796  js chunks 13/13
+IDENTICAL (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 33778/33778  normalised 32757/32757  js chunks 13/13
+IDENTICAL (bytes)  /hard-kpop-quizzes  status 200/200  raw bytes 33784/33784  normalised 32763/32763  js chunks 13/13
+IDENTICAL (bytes)  /kpop-quiz-2026  status 200/200  raw bytes 33864/33864  normalised 32830/32830  js chunks 13/13
+IDENTICAL (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 42655/42655  normalised 41569/41569  js chunks 13/13
+IDENTICAL (bytes)  /which-bts-member-are-you  status 404/404  raw bytes 22027/22027  normalised 21160/21160  js chunks 10/10
+IDENTICAL (bytes)  /bts-name-all-members  status 500/500  raw bytes 16525/16525  normalised 15684/15684  js chunks 10/10
+IDENTICAL (bytes)  /about  status 200/200  raw bytes 50336/50336  normalised 49263/49263  js chunks 13/13
+IDENTICAL (bytes)  /editorial-policy  status 200/200  raw bytes 52600/52600  normalised 51618/51618  js chunks 12/12
+IDENTICAL (bytes)  /privacy  status 200/200  raw bytes 46727/46727  normalised 45745/45745  js chunks 12/12
+IDENTICAL (bytes)  /terms  status 200/200  raw bytes 43434/43434  normalised 42452/42452  js chunks 12/12
+IDENTICAL (bytes)  /faq  status 200/200  raw bytes 58950/58950  normalised 57968/57968  js chunks 12/12
+IDENTICAL (bytes)  /contact  status 200/200  raw bytes 33426/33426  normalised 32444/32444  js chunks 12/12
+IDENTICAL (bytes)  /leaderboard  status 200/200  raw bytes 46500/46500  normalised 45167/45167  js chunks 13/13
+IDENTICAL (bytes)  /articles  status 200/200  raw bytes 97747/97747  normalised 96765/96765  js chunks 12/12
+IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
+IDENTICAL (bytes)  /an-unknown-o1-parity-path  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /sitemap.xml  status 200/200  raw bytes 15995/15995  normalised 15995/15995  js chunks 0/0
+IDENTICAL (bytes)  /robots.txt  status 200/200  raw bytes 1623/1623  normalised 1623/1623  js chunks 0/0
+IDENTICAL (bytes)  /llms.txt  status 200/200  raw bytes 1246/1246  normalised 1246/1246  js chunks 0/0
+2 page(s) differ
