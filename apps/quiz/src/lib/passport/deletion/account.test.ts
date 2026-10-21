@@ -12,6 +12,7 @@ const state = vi.hoisted(() => ({
   deleteUser: { error: null } as { error: { status?: number; message?: string } | null },
   calls: [] as Array<{ fn: string; args: Record<string, unknown> }>,
   signOuts: [] as unknown[],
+  signOutResult: { error: null } as { error: unknown },
 }));
 
 vi.mock('@/lib/supabase/server', () => {
@@ -35,7 +36,7 @@ vi.mock('@/lib/supabase/server', () => {
     createServerClient: async () => ({
       auth: {
         getUser: async () => ({ data: { user: state.user } }),
-        signOut: async (o: unknown) => { state.signOuts.push(o); return { error: null }; },
+        signOut: async (o: unknown) => { state.signOuts.push(o); return state.signOutResult; },
       },
       from,
     }),
@@ -79,6 +80,7 @@ beforeEach(() => {
   state.deleteUser = { error: null };
   state.calls = [];
   state.signOuts = [];
+  state.signOutResult = { error: null };
 });
 
 function expectPrivate(res: Response): void {
@@ -178,6 +180,28 @@ describe('POST /api/passport/delete', () => {
     expect(res.status).toBe(500);
     expect(await res.json()).toEqual({ error: 'server' });
     expect(state.signOuts).toEqual([]);
+  });
+
+  it('500 server when the sign-out returns an error: sessions are alive, so no 200, no notice, no revalidation', async () => {
+    signedIn();
+    state.rpc.passport_request_deletion = { data: '2026-10-28T12:00:00+00:00', error: null };
+    state.signOutResult = { error: new Error('network – sign-out refused') };
+    const res = await handleDelete(post('/api/passport/delete', ok), ctx());
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({ error: 'server' });
+    expect(state.signOuts).toEqual([{ scope: 'global' }]);
+    await new Promise((r) => setTimeout(r, 20));
+    expect(calls('notice')).toHaveLength(0);
+    expect(calls('notify')).toHaveLength(0);
+  });
+
+  it('no sign-out error: still 200 with the same body (unchanged)', async () => {
+    signedIn();
+    state.rpc.passport_request_deletion = { data: '2026-10-28T12:00:00+00:00', error: null };
+    state.signOutResult = { error: null };
+    const res = await handleDelete(post('/api/passport/delete', ok), ctx());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ runAfter: '2026-10-28T12:00:00.000Z' });
   });
 
   it('never returns or logs an address', async () => {

@@ -54,3 +54,18 @@ shared bodies (sentinel, reassign, purge) have no EXECUTE for any role. Both tab
 | after the rollback: requests, anime membership, quizzes, log rows | 0, 1, 3, 0 |
 
 The scratch database ends as it began: no request, no log row, no stand-in function (`to_regprocedure('public.admin_delete_account(uuid)')` is null).
+
+## Rollback guard, review fix (real leave of a world)
+
+The guard of `016-passport-deletion.rollback.sql` now refuses on any real log row: `dry_run = false and outcome = 'ok' and (kind = 'leave_world' or counts ? 'mission_u_d_installed')`.
+Cycle on o1-scratch (one `--single-transaction` psql run per step; the test row is committed first and deleted after):
+
+| step | result |
+|---|---|
+| insert one real `leave_world` log row (`dry_run` false, `outcome` ok) | 1 row |
+| rollback with that row | refused: "1 real deletion runs or leaves are logged"; nothing changed (tables present, 1 `passport_run_deletion`) |
+| delete the test row, rollback | clean: both tables `null`, 8 functions dropped |
+| rollback again | no change, no error (idempotent) |
+| re-apply 016 | `passport.deletion_log` present, 8 functions, 0 log rows, 0 requests |
+
+Scratch is left with 016 applied and no test row.

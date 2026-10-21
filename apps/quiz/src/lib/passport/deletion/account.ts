@@ -128,7 +128,10 @@ export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): 
   try {
     await signOut(supabase, 'global', site);
   } catch {
-    // the request is recorded; the sessions end at their expiry at the latest and the jump refuses codes meanwhile
+    // The request is recorded but the sessions are still alive: answer 500 so the member retries (the request is
+    // idempotent, a retry refreshes it and signs out again). No notice and no revalidation until the sessions are ended.
+    log('delete', 'signout_failed', site);
+    return json(500, { error: 'server' });
   }
   if (caller.email) {
     const to = caller.email;

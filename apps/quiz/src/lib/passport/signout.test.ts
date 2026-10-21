@@ -36,4 +36,18 @@ describe('sign-out scopes', () => {
     const bad = { auth: { signOut: async () => { throw new Error('network'); } } };
     await expect(signOut(bad, 'global', 'anime')).rejects.toThrow('network');
   });
+
+  it('a returned { error } is a failure too, on every site (supabase-js does not throw)', async () => {
+    const bad = { auth: { signOut: async () => ({ error: new Error('401 – session not found') }) } };
+    await expect(signOut(bad, 'global', 'hub')).rejects.toThrow('session not found');
+    await expect(signOut(bad, 'local', 'anime')).rejects.toThrow('session not found');
+    await expect(signOut(bad, 'global', 'kpop')).rejects.toThrow('session not found');
+  });
+
+  it('no error: the scope is returned, whatever else the call returns', async () => {
+    const none = { auth: { signOut: async () => undefined } };
+    const nul = { auth: { signOut: async () => ({ error: null }) } };
+    expect(await signOut(none, 'global', 'kpop')).toBe('global');
+    expect(await signOut(nul, 'local', 'hub')).toBe('local');
+  });
 });

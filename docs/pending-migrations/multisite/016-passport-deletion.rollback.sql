@@ -6,7 +6,7 @@
 --         constraints go with them).
 -- Why:    the rollback of manifest.md row 20. 006's rollback is refused while these tables exist, so this one runs first.
 -- Rows:   2 tables dropped. Refused, with nothing changed, while a request is pending (it would cancel a member's
---         deletion silently) or while a real run is logged (the audit of a real deletion must be kept deliberately).
+--         deletion silently) or while a real run or a real leave of a world is logged (the audit of a real deletion must be kept deliberately).
 --         Dry-run log rows and cancelled or completed requests are dropped.
 -- Verify: select to_regclass('passport.deletion_requests'), to_regclass('passport.deletion_log');   expect null, null
 --         select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('passport_request_deletion','passport_cancel_deletion','passport_due_deletions','passport_run_deletion','passport_leave_world','passport_world_purge','passport_reassign_quizzes','passport_site_sentinel');   expect 0
@@ -27,9 +27,9 @@ begin
     end if;
   end if;
   if to_regclass('passport.deletion_log') is not null then
-    select count(*) into n from passport.deletion_log where dry_run = false and kind = 'passport' and outcome = 'ok' and counts ? 'mission_u_d_installed';
+    select count(*) into n from passport.deletion_log where dry_run = false and outcome = 'ok' and (kind = 'leave_world' or counts ? 'mission_u_d_installed');
     if n > 0 then
-      raise exception '016-passport-deletion rollback refused: % real deletion runs are logged', n;
+      raise exception '016-passport-deletion rollback refused: % real deletion runs or leaves are logged', n;
     end if;
   end if;
 end $$;

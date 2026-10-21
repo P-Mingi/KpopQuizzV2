@@ -22,9 +22,11 @@ export function signOutScopeFor(requested: SignOutMode | undefined, site: SiteId
   return requested !== undefined && signOutModesFor(site).includes(requested) ? requested : 'global';
 }
 
-/** Signs out with the scope `signOutScopeFor` gives, and returns it. A failure of the call is thrown to the caller. */
+/** Signs out with the scope `signOutScopeFor` gives, and returns it. A failure is thrown to the caller: a call that throws,
+ *  and also one that returns `{ error }` (supabase-js does not throw on an API or network failure and keeps the session). */
 export async function signOut(client: SignOutClient, requested?: SignOutMode, site: SiteId = SITE_ID): Promise<SignOutMode> {
   const scope = signOutScopeFor(requested, site);
-  await client.auth.signOut({ scope });
+  const result = await client.auth.signOut({ scope });
+  if (result && typeof result === 'object' && 'error' in result && result.error) throw result.error;
   return scope;
 }
