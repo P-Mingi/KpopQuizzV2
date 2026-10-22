@@ -40,6 +40,7 @@ kpopquiz.org is byte-identical (parity).
 | `PASSPORT_JUMP` | server | B4 | the jump of P S1 (`/auth/passport/out` mints a ticket, `/auth/arrive` bounces, `/auth/authorize` issues codes) | `/auth/passport/out` sends a 302 to the target page signed out, with `via`; `/auth/arrive` sends a 302 to `next` with no bounce; `/auth/authorize`, `/auth/land` and `/api/passport/redeem` answer 404 |
 | `PASSPORT_CONTINUE` | server | B4 | reserved for P2 (`/auth/start`, `/auth/continue`); inert in the run | the routes answer 404 whatever the value |
 | `PASSPORT_SEED` | server | B4 | reserved for P3a (`mode=seed`, `pp_seeded`); inert in the run | `mode=seed` is refused whatever the value |
+| `NET_INDEXING` | server | L1 | anime and hub builds let each page speak for itself: the indexable pages say index, follow; login, settings, search, profiles and thin series hubs keep their noindex; no `X-Robots-Tag` (C3, `lib/site/indexing.ts`) | every page of the build answers `noindex, nofollow` (meta and `X-Robots-Tag`, except /robots.txt and /sitemap.xml). Default. kpop is never closed by it |
 
 Reading a reserved flag in code is a review finding (R-SEC).
 

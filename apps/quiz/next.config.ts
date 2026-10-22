@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 
+import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
@@ -177,6 +178,12 @@ const nextConfig: NextConfig = {
   // Order matters: the more specific /embed rule is listed first.
   async headers() {
     return [
+      // Run O1, lane C3: an anime or hub build is closed to search engines until NET_INDEXING=1 (lib/site/indexing.ts):
+      // every answer but robots.txt and sitemap.xml says noindex, nofollow. The kpop build never gets this entry.
+      ...(INDEXING_OPEN ? [] : [{
+        source: '/((?!robots\\.txt|sitemap\\.xml).*)',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      }]),
       {
         source: '/embed/:path*',
         headers: [

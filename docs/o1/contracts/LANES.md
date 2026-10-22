@@ -95,7 +95,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8 | hub.h1 | none | none | none | none |
 | E1b | 012 | 29 | anime.e1b | none | none | none | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
-| L1 | L12 | none | kpop.l1 | /admin/network | none | none | none |
+| L1 | L12 | none | kpop.l1 | /admin/network | none | NET_INDEXING | none |
 | C1 | none | none | none | none | none | none | none |
 | C2 | none | none | none | none | none | none | none |
 | C3 | none | none | none | none | none | none | none |

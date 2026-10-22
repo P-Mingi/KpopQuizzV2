@@ -126,7 +126,13 @@ async function audit(page: Page, vp: string, o: AuditOpts): Promise<Finding[]> {
   // axe (light), and a second pass in dark mode on the pages that ask for it (o.dark)
   await page.addScriptTag({ content: AXE });
   for (const scheme of o.dark ? (['light', 'dark'] as const) : (['light'] as const)) {
-    if (scheme === 'dark') { await page.emulateMedia({ colorScheme: 'dark' }); await page.waitForTimeout(250); }
+    if (scheme === 'dark') {
+      // C3: the shell fades its background in 250 ms (a0.css .ux-app); under load axe sampled colours in mid-fade (a different
+      // node count every run). Transitions off for the sample, then a beat for the paint.
+      await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important}' });
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.waitForTimeout(400);
+    }
     const axe = await page.evaluate(async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const r = await (window as any).axe.run(document, { resultTypes: ['violations'] });

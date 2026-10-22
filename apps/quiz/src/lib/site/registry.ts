@@ -357,6 +357,7 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'PASSPORT_JUMP', scope: 'server', lane: 'B4', reserved: false },
   { name: 'PASSPORT_CONTINUE', scope: 'server', lane: 'B4', reserved: true },
   { name: 'PASSPORT_SEED', scope: 'server', lane: 'B4', reserved: true },
+  { name: 'NET_INDEXING', scope: 'server', lane: 'L1', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */
