@@ -96,8 +96,15 @@ describe('the page of the hub', () => {
   it('leaves the page of the other builds as it was', async () => {
     vi.resetModules();
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    vi.stubEnv('NET_INDEXING', '1');
     const page = await import('@/app/sites/[site]/privacy/page');
     expect(renderToStaticMarkup(page.default())).not.toContain('data-hub-draft');
     expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
+  });
+  it('is closed on the other builds while NET_INDEXING is off', async () => {
+    vi.resetModules();
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    const page = await import('@/app/sites/[site]/privacy/page');
+    expect(page.generateMetadata().robots).toEqual({ index: false, follow: false });
   });
 });

@@ -61,7 +61,7 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
 
 /**
  * The URLs a non-kpop site lists, in the order a crawler should meet them.
- *   hub:   its home and /privacy (routes.md, hub table).
+ *   hub:   its home (its /privacy is a noindex draft, so it stays out until the owner validates the text).
  *   anime: its home, /series, every series hub that has at least `seo.minPublishedForIndexableHub` published quizzes
  *          (below it the hub page is noindex, so it stays out), then every published quiz of the site, newest first.
  * A read that fails is not swallowed into a half list: the error reaches the caller, which answers 500 and lets the
@@ -69,10 +69,9 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
  */
 export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createPublicReadClient()): Promise<SitemapEntry[]> {
   if (site.id === 'hub') {
-    return [
-      { path: '/', changeFrequency: 'weekly', priority: 1 },
-      { path: '/privacy', changeFrequency: 'yearly', priority: 0.3 },
-    ];
+    // /privacy is the network policy DRAFT, noindex until the owner validates the text (app/sites/[site]/privacy/page.tsx
+    // HUB_DRAFT_METADATA): a noindex URL stays out of the sitemap. Add it back with the day that metadata says index.
+    return [{ path: '/', changeFrequency: 'weekly', priority: 1 }];
   }
   if (site.id !== 'anime') throw new Error('sitemapEntriesFor: kpop has app/sitemap.ts');
   const home: SitemapEntry[] = [
@@ -96,4 +95,50 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     path: `/q/${q.slug}`, lastModified: new Date(q.created_at), changeFrequency: 'monthly', priority: 0.6,
   }));
   return [...home, ...hubs, ...plays];
+}
+
+/**
+ * /llms.txt of anime and hub (routes.md, "Per-site root files"): fixed facts and real routes only, no count (a hardcoded one
+ * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host, never
+ * kpopquiz.org's. kpop keeps app/llms.txt/route.ts.
+ */
+export function llmsText(site: SiteConfig): string {
+  const { name } = site.brand;
+  const title = site.seo.llmsTxt.title;
+  if (site.id === 'hub') {
+    return `# ${title}
+
+> ${name} is the home of one account shared by a network of independent fan quiz sites. It holds no quiz of its own.
+
+## What this site is
+${name} lists the quiz sites of the network and shows a signed-in member which of them they have joined. Each site keeps its
+own quizzes, scores and community; the account is the only thing they share.
+
+## Best entry points
+- /: the sites of the network
+- /privacy: what one account shares between the sites
+
+## What we do not publish
+We do not publish simulated scores, invented play counts, or fabricated opponents.
+`;
+  }
+  return `# ${title}
+
+> Free, fan-made anime quizzes. Every quiz is written by a fan, and every statistic on the site comes from real plays, never simulated.
+
+## What this site is
+${site.domain} is an independent anime quiz site. Visitors play quizzes about anime series, with a spoiler shield that keeps
+questions beyond the episode or chapter a visitor has reached out of sight. Quizzes are created by fans and checked before they go live.
+
+## Best entry points
+- /quizzes: every published quiz, filterable by series and type
+- /series: every series with quizzes, A to Z
+- /{series}-quiz: a series hub with its quizzes, e.g. /attack-on-titan-quiz
+- /trivia: sourced trivia and fun facts by series
+- /blindtest: guess the opening from a short clip
+- /community: threads, blogs and debates from the fandoms
+
+## What we do not publish
+We do not publish simulated scores, invented play counts, or fabricated opponents. If a number appears on this site, a person produced it.
+`;
 }

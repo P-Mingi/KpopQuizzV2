@@ -1,6 +1,8 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/dmca/page.tsx, rows 36: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
 import Link from 'next/link';
 
+import { robotsFor } from '@/lib/site/indexing';
+
 import type { Metadata } from 'next';
 
 // V-BUILDER-3 step 3 (L-047): the public DMCA / takedown page. A legit public page (indexable,
@@ -8,7 +10,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'DMCA & Image Takedown',
   description: 'How to report a copyrighted image on OtakuQuiz and have it taken down.',
-  robots: { index: true, follow: true },
+  robots: robotsFor(true),
   alternates: { canonical: '/dmca' },
 };
 

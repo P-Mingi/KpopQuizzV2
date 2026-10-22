@@ -38,8 +38,8 @@ export const revalidate = 3600;
 function homeCopy(quizzes: string | null): { title: string; social: string; description: string } {
   const n = quizzes ? `${quizzes} ` : '';
   return {
-    title: `anime Quiz - ${n}Free Fan-Made Quizzes for Every Series`,
-    social: `anime Quiz - ${n}Free Fan-Made Quizzes | OtakuQuiz`,
+    title: `Anime Quiz - ${n}Free Fan-Made Quizzes for Every Series`,
+    social: `Anime Quiz - ${n}Free Fan-Made Quizzes | OtakuQuiz`,
     description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of every anime series. No sign-up.`,
   };
 }
@@ -68,14 +68,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: copy.social,
     description: copy.description,
   },
-  alternates: {
-    canonical: '/',
-    languages: {
-      en: '/',
-      'pt-BR': '/pt',
-      'x-default': '/',
-    },
-  },
+  // English only: anime has no /pt (C3), so no hreflang.
+  alternates: { canonical: '/' },
   };
 }
 
@@ -269,7 +263,7 @@ const WEBSITE_JSON_LD = {
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
   alternateName: SITE.seo.organization.alternateName,
   url: SITE.url,
-  description: 'anime quizzes made by fans, played by thousands.',
+  description: 'Anime quizzes made by fans, played by thousands.',
   potentialAction: {
     '@type': 'SearchAction',
     target: {

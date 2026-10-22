@@ -10,6 +10,9 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { ht } from '@/lib/site/hub/copy';
 import { networkCards } from '@/lib/site/hub/network-page';
 import { readHubPassport } from '@/lib/site/hub/passport-summary';
+import { jsonLdString } from '@/lib/seo/json-ld';
+import { robotsFor } from '@/lib/site/indexing';
+import { websiteJsonLdFor } from '@/lib/site/jsonld';
 import { NETWORK, SITE } from '@/lib/site/registry';
 
 import type { NetworkCard } from '@/lib/site/hub/network-page';
@@ -18,11 +21,12 @@ import type { Metadata } from 'next';
 
 const HOME_URL = `${NETWORK.url}/`;
 
-// The home is the one indexable page of the hub (the layout closes the others); canonical from the registry.
+
+// The home is the one indexable page of the hub (the layout closes the others, and every page while NET_INDEXING is off); canonical from the registry.
 export const metadata: Metadata = {
   title: { absolute: ht('home.metaTitle') },
   description: ht('home.metaDescription'),
-  robots: { index: true, follow: true },
+  robots: robotsFor(true),
   alternates: { canonical: HOME_URL },
   openGraph: {
     type: 'website',
@@ -92,6 +96,7 @@ export default async function HubHome(): Promise<React.ReactElement> {
   const passport = await readHubPassport();
   return (
     <UxPage width="wide" className="hub-h1-home">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(websiteJsonLdFor(ht('home.metaDescription'))) }} />
       <div className="ux-ph">
         <h1>{ht('home.h1')}</h1>
         <p>{ht('home.lede')}</p>

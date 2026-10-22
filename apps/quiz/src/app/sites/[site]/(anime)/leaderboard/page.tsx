@@ -16,10 +16,7 @@ export const metadata: Metadata = {
   description: 'See the top players of the week, watch what fans are playing right now, and follow the top quiz creators.',
   openGraph: { title: 'Community | OtakuQuiz', description: 'The top players, a live feed of what fans are playing, and the top creators on otakuquiz.org.', url: '/leaderboard', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary_large_image' },
-  alternates: {
-    canonical: '/leaderboard',
-    languages: { en: '/leaderboard', 'pt-BR': '/pt/leaderboard', 'x-default': '/leaderboard' },
-  },
+  alternates: { canonical: '/leaderboard' },
 };
 
 // V-UPGRADE-1 Phase B: the Play-world Community route. Content lives in the

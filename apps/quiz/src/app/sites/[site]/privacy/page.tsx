@@ -2,6 +2,7 @@
 import { HubPrivacy } from '@/components/hub/hub-privacy';
 import { ht } from '@/lib/site/hub/copy';
 import { PRIVACY_PAGE } from '@/lib/site/hub/network-page';
+import { robotsFor } from '@/lib/site/indexing';
 import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
@@ -10,7 +11,7 @@ const ANIME_METADATA: Metadata = {
   title: 'Privacy Policy',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
   description: `${SITE.brand.name} privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.`,
-  robots: { index: true, follow: true },
+  robots: robotsFor(true),
   alternates: { canonical: '/privacy' },
 };
 

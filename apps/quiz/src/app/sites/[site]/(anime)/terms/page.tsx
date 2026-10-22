@@ -1,11 +1,13 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/terms/page.tsx, rows 26b: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+import { robotsFor } from '@/lib/site/indexing';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
   description: 'OtakuQuiz terms of service: who can play and create quizzes, what you may not publish, who owns your quizzes, how moderation works and how to contact us.',
-  robots: { index: true, follow: true },
+  robots: robotsFor(true),
   alternates: { canonical: '/terms' },
 };
 

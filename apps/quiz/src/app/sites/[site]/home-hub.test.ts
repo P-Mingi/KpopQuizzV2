@@ -41,9 +41,10 @@ const MEMBERSHIPS = [
   { site_id: 'anime', xp: 80, activated_at: '2026-10-01T00:00:00Z', banned_at: null },
 ];
 
-async function load(site: 'hub' | 'anime' = 'hub') {
+async function load(site: 'hub' | 'anime' = 'hub', indexing: '1' | '' = '1') {
   vi.resetModules();
   vi.stubEnv('NEXT_PUBLIC_SITE_ID', site);
+  vi.stubEnv('NET_INDEXING', indexing);
   const [home, privacy, registry, network] = await Promise.all([
     import('./home-hub'), import('./privacy/page'), import('@/lib/site/registry'), import('@/lib/site/hub/network-page'),
   ]);
@@ -181,7 +182,20 @@ describe('the account block', () => {
 });
 
 describe('the metadata', () => {
-  it('is indexable, canonical on the network origin, with the title and description of the copy', async () => {
+  it('is closed (noindex, nofollow) while NET_INDEXING is off, the default', async () => {
+    const { home } = await load('hub', '');
+    expect(home.metadata.robots).toEqual({ index: false, follow: false });
+  });
+
+  it('carries a WebSite JSON-LD with the name and origin of the hub and no search action', async () => {
+    const html = await renderHome();
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].map((m) => JSON.parse(m[1]!.replace(/&quot;/g, '"')) as Record<string, unknown>);
+    expect(blocks).toHaveLength(1);
+    expect(blocks[0]).toMatchObject({ '@type': 'WebSite', name: 'FanQuiz', url: 'https://fanquiz.org' });
+    expect(blocks[0]).not.toHaveProperty('potentialAction');
+  });
+
+  it('is indexable once NET_INDEXING is on, canonical on the network origin, with the title and description of the copy', async () => {
     const { home, registry } = await load();
     const m = home.metadata;
     expect(m.robots).toEqual({ index: true, follow: true });
