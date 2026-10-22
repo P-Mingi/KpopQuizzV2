@@ -5,13 +5,23 @@
   {
    "page": "/",
    "status": "200/200",
-   "identical": true,
+   "identical": false,
    "normalised": [
-    "analytics-ref",
-    "flight-rows"
+    "analytics-ref"
    ],
-   "found": [],
-   "sheets": 3
+   "found": [
+    {
+     "at": 823,
+     "a": "2 hours ago</span>",
+     "b": "3 hours ago</span>"
+    },
+    {
+     "at": "flight row",
+     "a": "46:[\"$\",\"span\",null,{\"className\":\"ux-row-end\",\"children\":[\"$\",\"span\",null,{\"className\":\"ux-num\",\"children\":\"2 hours ago\"}]}]",
+     "b": "46:[\"$\",\"span\",null,{\"className\":\"ux-row-end\",\"children\":[\"$\",\"span\",null,{\"className\":\"ux-num\",\"children\":\"3 hours ago\"}]}]"
+    }
+   ],
+   "sheets": 0
   },
   {
    "page": "/quizzes",
@@ -39,42 +49,14 @@
   },
   {
    "page": "/bts-quiz",
-   "status": "500/200",
-   "identical": false,
-   "normalised": [],
-   "found": [
-    {
-     "at": 0,
-     "a": "Internal Server Error",
-     "b": "<!DOCTYPE html>"
-    },
-    {
-     "at": 1,
-     "a": "",
-     "b": "<html lang=\"en\" class=\"pretendard_60cdc229-module__<h>"
-    },
-    {
-     "at": 2,
-     "a": "",
-     "b": "__variable inter_7773d004-module__<h>"
-    },
-    {
-     "at": 3,
-     "a": "",
-     "b": "__variable ux-v1\">"
-    },
-    {
-     "at": 4,
-     "a": "",
-     "b": "<head>"
-    },
-    {
-     "at": 5,
-     "a": "",
-     "b": "<meta charSet=\"utf-8\"/>"
-    }
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
    ],
-   "sheets": 0
+   "found": [],
+   "sheets": 3
   },
   {
    "page": "/blackpink-quiz",
@@ -417,74 +399,18 @@
   {
    "page": "/which-bts-member-are-you",
    "status": "200/200",
-   "identical": false,
-   "normalised": [
-    "analytics-ref"
-   ],
-   "found": [
-    {
-     "at": "flight row",
-     "a": "22:...,\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L27\",\"27\",{}]]",
-     "b": "22:...,\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L26\",\"27\",{}]]"
-    },
-    {
-     "at": "flight row",
-     "a": "25:...l-members\",\"className\":\"ux-lnk\",\"children\":\"Name all BTS members\"}]}]]}]]}],\"$L26\"]",
-     "b": "25:...l-members\",\"className\":\"ux-lnk\",\"children\":\"Name all BTS members\"}]}]]}]]}],\"$L27\"]"
-    },
-    {
-     "at": "flight row",
-     "a": "26:[\"$\",\"section\",null,{\"className\":\"ux-sec\",\"aria-labelledby\":\"pers-other-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"pers-other-h\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico ux-si\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"rol",
-     "b": "26:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"IconMark\"]"
-    },
-    {
-     "at": "flight row",
-     "a": "27:I[<id>,[\"static/chunks/<asset>.js\",\"static/chunks/<asset>.js\"],\"IconMark\"]",
-     "b": "27:[\"$\",\"section\",null,{\"className\":\"ux-sec\",\"aria-labelledby\":\"pers-other-h\",\"children\":[[\"$\",\"div\",null,{\"className\":\"ux-sec-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"pers-other-h\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico ux-si\",\"viewBox\":\"0 0 24 24\",\"style\":\"$undefined\",\"aria-hidden\":true,\"rol"
-    }
-   ],
-   "sheets": 0
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
   },
   {
    "page": "/bts-name-all-members",
    "status": "200/200",
-   "identical": false,
-   "normalised": [
-    "analytics-ref"
-   ],
-   "found": [
-    {
-     "at": 52,
-     "a": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>",
-     "b": "<meta name=\"next-size-adjust\" content=\"\"/>"
-    },
-    {
-     "at": 53,
-     "a": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>",
-     "b": "<meta name=\"theme-color\" content=\"#FAF8F5\" media=\"(prefers-color-scheme: light)\"/>"
-    },
-    {
-     "at": 54,
-     "a": "<meta name=\"color-scheme\" content=\"light dark\"/>",
-     "b": "<meta name=\"theme-color\" content=\"#141210\" media=\"(prefers-color-scheme: dark)\"/>"
-    },
-    {
-     "at": 55,
-     "a": "<meta name=\"next-size-adjust\" content=\"\"/>",
-     "b": "<meta name=\"color-scheme\" content=\"light dark\"/>"
-    },
-    {
-     "at": "flight row",
-     "a": "14:...\"$\",\"span\",null,{\"aria-current\":\"page\",\"children\":\"Name them all\"}]]}],[\"$\",\"$L1d\",null,{\"group\":{\"slug\":\"bts\",\"name\":\"BTS\"},\"members\":[{\"name\":\"RM\",\"spellings\":[\"Namjoon\",\"Kim Namjoon\",\"Rap Monster\",\"알엠\",\"남준\",\"김남준\",\"김남준\"]},{\"name\":\"Jin\",\"spellings\":[\"Seokjin\",\"Kim Seokjin\",\"진\",\"석진\",\"김석진\",\"김석진\"]},{\"",
-     "b": "14:...\"$\",\"span\",null,{\"aria-current\":\"page\",\"children\":\"Name them all\"}]]}],[\"$\",\"$L1c\",null,{\"group\":{\"slug\":\"bts\",\"name\":\"BTS\"},\"members\":[{\"name\":\"RM\",\"spellings\":[\"Namjoon\",\"Kim Namjoon\",\"Rap Monster\",\"알엠\",\"남준\",\"김남준\",\"김남준\"]},{\"name\":\"Jin\",\"spellings\":[\"Seokjin\",\"Kim Seokjin\",\"진\",\"석진\",\"김석진\",\"김석진\"]},{\""
-    },
-    {
-     "at": "flight row",
-     "a": "1b:...\",\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L1c\",\"31\",{}]]",
-     "b": "1b:...\",\"href\":\"/apple-touch-icon.png\",\"sizes\":\"180x180\",\"type\":\"image/png\"}],[\"$\",\"$L21\",\"31\",{}]]"
-    }
-   ],
-   "sheets": 0
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
   },
   {
    "page": "/about",
@@ -537,33 +463,10 @@
   {
    "page": "/leaderboard",
    "status": "200/200",
-   "identical": false,
-   "normalised": [
-    "analytics-ref"
-   ],
-   "found": [
-    {
-     "at": 1834,
-     "a": "just now</span>",
-     "b": "1h ago</span>"
-    },
-    {
-     "at": 2196,
-     "a": "just now</span>",
-     "b": "1h ago</span>"
-    },
-    {
-     "at": "flight row",
-     "a": "58:...\"scored a perfect 10/10\"}]]}],[\"$\",\"span\",null,{\"className\":\"p9-tm\",\"children\":\"just now\"}]]}]]}]",
-     "b": "58:...\"scored a perfect 10/10\"}]]}],[\"$\",\"span\",null,{\"className\":\"p9-tm\",\"children\":\"1h ago\"}]]}]]}]"
-    },
-    {
-     "at": "flight row",
-     "a": "6a:...ry\",\"className\":\"ux-who\",\"style\":\"$undefined\",\"children\":\"beary\"}],null],\" · \",\"just now\"]}]]}]",
-     "b": "6a:...ry\",\"className\":\"ux-who\",\"style\":\"$undefined\",\"children\":\"beary\"}],null],\" · \",\"1h ago\"]}]]}]"
-    }
-   ],
-   "sheets": 0
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
   },
   {
    "page": "/articles",

@@ -1,27 +1,15 @@
 # parity verdict, rules q0a-g0-v3, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
-IDENTICAL / status 200/200 css 3
+DIFFERENT / status 200/200
+  node 823
+    A: 2 hours ago</span>
+    B: 3 hours ago</span>
+  flight row
+    A: 46:["$","span",null,{"className":"ux-row-end","children":["$","span",null,{"className":"ux-num","children":"2 hours ago"}]}]
+    B: 46:["$","span",null,{"className":"ux-row-end","children":["$","span",null,{"className":"ux-num","children":"3 hours ago"}]}]
 IDENTICAL /quizzes status 200/200 css 3
 IDENTICAL /groups status 200/200 css 3
 IDENTICAL /trending status 200/200 css 3
-DIFFERENT /bts-quiz status 500/200
-  node 0
-    A: Internal Server Error
-    B: <!DOCTYPE html>
-  node 1
-    A: 
-    B: <html lang="en" class="pretendard_60cdc229-module__<h>
-  node 2
-    A: 
-    B: __variable inter_7773d004-module__<h>
-  node 3
-    A: 
-    B: __variable ux-v1">
-  node 4
-    A: 
-    B: <head>
-  node 5
-    A: 
-    B: <meta charSet="utf-8"/>
+IDENTICAL /bts-quiz status 200/200 css 3
 IDENTICAL /blackpink-quiz status 200/200 css 3
 IDENTICAL /stray-kids-quiz status 200/200 css 3
 IDENTICAL /seventeen-quiz status 200/200 css 3
@@ -62,61 +50,19 @@ IDENTICAL /easy-kpop-quizzes status 200/200 css 3
 IDENTICAL /hard-kpop-quizzes status 200/200 css 3
 IDENTICAL /kpop-quiz-2026 status 200/200 css 3
 IDENTICAL /kpop-demon-hunters-quiz status 200/200 css 3
-DIFFERENT /which-bts-member-are-you status 200/200
-  flight row
-    A: 22:...,"href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L27","27",{}]]
-    B: 22:...,"href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L26","27",{}]]
-  flight row
-    A: 25:...l-members","className":"ux-lnk","children":"Name all BTS members"}]}]]}]]}],"$L26"]
-    B: 25:...l-members","className":"ux-lnk","children":"Name all BTS members"}]}]]}]]}],"$L27"]
-  flight row
-    A: 26:["$","section",null,{"className":"ux-sec","aria-labelledby":"pers-other-h","children":[["$","div",null,{"className":"ux-sec-h","children":[["$","h2",null,{"id":"pers-other-h","children":[["$","svg",null,{"className":"ux-ico ux-si","viewBox":"0 0 24 24","style":"$undefined","aria-hidden":true,"rol
-    B: 26:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js"],"IconMark"]
-  flight row
-    A: 27:I[<id>,["static/chunks/<asset>.js","static/chunks/<asset>.js"],"IconMark"]
-    B: 27:["$","section",null,{"className":"ux-sec","aria-labelledby":"pers-other-h","children":[["$","div",null,{"className":"ux-sec-h","children":[["$","h2",null,{"id":"pers-other-h","children":[["$","svg",null,{"className":"ux-ico ux-si","viewBox":"0 0 24 24","style":"$undefined","aria-hidden":true,"rol
-DIFFERENT /bts-name-all-members status 200/200
-  node 52
-    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
-    B: <meta name="next-size-adjust" content=""/>
-  node 53
-    A: <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)"/>
-    B: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
-  node 54
-    A: <meta name="color-scheme" content="light dark"/>
-    B: <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)"/>
-  node 55
-    A: <meta name="next-size-adjust" content=""/>
-    B: <meta name="color-scheme" content="light dark"/>
-  flight row
-    A: 14:..."$","span",null,{"aria-current":"page","children":"Name them all"}]]}],["$","$L1d",null,{"group":{"slug":"bts","name":"BTS"},"members":[{"name":"RM","spellings":["Namjoon","Kim Namjoon","Rap Monster","알엠","남준","김남준","김남준"]},{"name":"Jin","spellings":["Seokjin","Kim Seokjin","진","석진","김석진","김석진"]},{"
-    B: 14:..."$","span",null,{"aria-current":"page","children":"Name them all"}]]}],["$","$L1c",null,{"group":{"slug":"bts","name":"BTS"},"members":[{"name":"RM","spellings":["Namjoon","Kim Namjoon","Rap Monster","알엠","남준","김남준","김남준"]},{"name":"Jin","spellings":["Seokjin","Kim Seokjin","진","석진","김석진","김석진"]},{"
-  flight row
-    A: 1b:...","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L1c","31",{}]]
-    B: 1b:...","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L21","31",{}]]
+IDENTICAL /which-bts-member-are-you status 200/200 css 3
+IDENTICAL /bts-name-all-members status 200/200 css 3
 IDENTICAL /about status 200/200 css 3
 IDENTICAL /editorial-policy status 200/200 css 3
 IDENTICAL /privacy status 200/200 css 3
 IDENTICAL /terms status 200/200 css 3
 IDENTICAL /faq status 200/200 css 3
 IDENTICAL /contact status 200/200 css 3
-DIFFERENT /leaderboard status 200/200
-  node 1834
-    A: just now</span>
-    B: 1h ago</span>
-  node 2196
-    A: just now</span>
-    B: 1h ago</span>
-  flight row
-    A: 58:..."scored a perfect 10/10"}]]}],["$","span",null,{"className":"p9-tm","children":"just now"}]]}]]}]
-    B: 58:..."scored a perfect 10/10"}]]}],["$","span",null,{"className":"p9-tm","children":"1h ago"}]]}]]}]
-  flight row
-    A: 6a:...ry","className":"ux-who","style":"$undefined","children":"beary"}],null]," · ","just now"]}]]}]
-    B: 6a:...ry","className":"ux-who","style":"$undefined","children":"beary"}],null]," · ","1h ago"]}]]}]
+IDENTICAL /leaderboard status 200/200 css 3
 IDENTICAL /articles status 200/200 css 3
 IDENTICAL /daily status 307/307
 IDENTICAL /an-unknown-o1-parity-path status 500/500
 IDENTICAL /sitemap.xml status 200/200
 IDENTICAL /robots.txt status 200/200
 IDENTICAL /llms.txt status 200/200
-identical: false (4 of 60 pages differ)
+identical: false (1 of 60 pages differ)
