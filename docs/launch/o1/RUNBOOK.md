@@ -220,6 +220,8 @@ Check: V6 (016 lines). Back: `sql1 $M/016-passport-deletion.rollback.sql`.
 ## H. Vercel projects, domains, Supabase and Google settings (T-14 to T-7, in parallel with C to G)
 
 **H1  Create the two Vercel projects.**
+Done on 2026-10-22 by docs/strategy/o1/vercel-setup.sh: projects `otakuquiz` and `fanquiz` exist, linked to the repository, with the
+public variables only and builds paused by the Ignored Build Step `exit 0` (removed at K5b). What follows is what to check on them.
 Do: Vercel, Add New Project, import the same GitHub repository twice: names `otakuquiz` and `fanquiz`. For each, copy the settings of the kpop project: Framework Next.js, Root Directory `apps/quiz`, install and build commands, Node version, region `dub1`, Production Branch `main`.
 Turn Deployment Protection on for previews. Do not attach the domains yet.
 Check: `ENV.md` section 4 ticked for both. Back: delete the project.
@@ -332,6 +334,13 @@ Check: dashboard, Authentication, Users, search `team.`: 31 users, all confirmed
 
    Without a dated verified row the anime `/daily` has nothing to show and `ensure_daily_quiz_v2` returns nothing. Dated rows must exist for the first days.
 Back: each file's rollback, in reverse (refused once data was written, ROLLBACK.md section 3).
+
+**K5b  Turn the builds on (otherwise the two sites never build).**
+Do: Vercel, project `otakuquiz`, Settings, Git, Ignored Build Step: remove the command `exit 0` (back to the default, so every push to
+main builds); same for project `fanquiz`. Then redeploy the latest main commit of each project once (Deployments, Redeploy) with the
+secrets of H2 already set. The kpop project is not touched.
+Check: each project has a Ready production deployment of the main commit, built with its own NEXT_PUBLIC_SITE_ID (anime, hub).
+Back: put `exit 0` back in the Ignored Build Step of the project (no new build; the last deployment stays as it is).
 
 **K6  Attach the domains and test the email.**
 Do: Vercel, project `otakuquiz`, Settings, Domains: add `otakuquiz.org`; project `fanquiz`: add `fanquiz.org`; set the DNS records Vercel shows (apex and `www` redirect); wait for the certificates. The kpop project keeps `kpopquiz.org`.
