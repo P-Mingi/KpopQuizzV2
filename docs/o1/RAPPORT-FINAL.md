@@ -67,3 +67,37 @@
   - la QA, le SEO, la parity et la performance (C3) ;
   - le kit de lancement : guide, scripts de bascule, répétition (L1).
 - Les parties A à D de la Mission U, à fusionner sur main, sont des dépendances de O6, B7 et X1.
+
+## Phase 2 (2026-10-20 to 2026-10-22): prêt pour la prod, côté code
+
+- **Code fusionné dans o1/integration (0a32134), rien dans main ni en prod :**
+  - lot a, finitions ;
+  - lot b, P1 : le passeport sur otakuquiz, la connexion anime, /auth/confirm ;
+  - lot c, B6 : le menu réseau ;
+  - lot d, les redirections fanquiz ;
+  - lot e, B7 : emails, suppression, « quitter un site », SQL 016 ;
+  - lot f, les contrôles C1 à C14 et les paquets de relecture ;
+  - lot g, le brouillon de confidentialité ;
+  - lot h, C1, C2, C3 et L1 ;
+  - les outils de test.
+- **Contenu sur o1-dev, au brouillon jusqu'à ta relecture :** 30 séries sourcées (600 personnages, 1188 faits), 150 quiz signés par les 30 créateurs de l'équipe, 100 quiz du jour.
+- **Validation finale :**
+  - la comparaison de production via le proxy : 59 pages sur 60 identiques, et une coupure de flux de 43 octets jugée ;
+  - l'e2e sur o1-dev : 42 réussis, 0 échec ;
+  - la parity hors ligne : 60 pages sur 60 ;
+  - les jumelles : ok, avec la vérification ajoutée à chaque fusion ;
+  - les revues R : PASS pour P1, B7 et la clé de spoiler_reports.
+- **Pour tester :** `scripts/o1-tools/dev-up.sh`, puis `scripts/o1-tools/signin-link.sh dual anime`, ou l'e2e complet avec `bash apps/quiz/e2e/o1/O1/run-dev.sh --with-jump`.
+- **Kit de lancement :** docs/launch/o1/, avec RUNBOOK, SQL-ORDER, ENV, VERIFY et ROLLBACK, plus apps/quiz/e2e/o1/L1/content-sql.mjs pour le SQL du contenu.
+- **À toi avant le lancement :**
+  1. Les fichiers de marque d'otakuquiz.org et de fanquiz.org (logo, favicon, image de partage, manifest).
+  2. La relecture des paquets de contenu, pour passer les faits en « vérifié ».
+  3. Les 18 points du brouillon de confidentialité.
+  4. La partie D de la Mission U sur main : sans elle, la suppression définitive reste désactivée.
+  5. S4 : merge_anon_passport et award_xp restent exécutables par PUBLIC, comme aujourd'hui.
+  6. Les 6 décisions du kit : le domaine email de l'équipe, l'indexation, la datation des quiz du jour, l'approbation du pied de page réseau, et les autres.
+- **Restes connus, sans blocage :**
+  - le passage connecté entre sites n'est pas compté dans les statistiques réseau ;
+  - le bannissement par site n'existe pas ;
+  - le hub de série pèse 23 % de JavaScript de plus que sa jumelle kpop.
+- **Coût de la phase 2 :** environ 11,8 M de jetons pour les agents, plus environ 11,5 M nouveaux pour mon pilotage (11,0 M écrits en cache et 0,5 M de sortie), plus 312 M relus en cache. Le seuil de 15 M est dépassé si l'on compte mon pilotage : voir D-090.
