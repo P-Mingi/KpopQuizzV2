@@ -4,6 +4,7 @@
 //         (run under scripts/o1/env.sh dev: it holds the service role key for the length of the command only)
 //   serve --port <helper port> --state <file>     the small local server that consumes a link (started by mint, detached)
 //   stop  --state <file>
+//   vercel --who <key|email> --site kpop|anime|hub --fixtures <json>     (under env.sh dev) prints the --vercel link, no local server
 //
 // How a link works. mint asks Supabase's admin API (generateLink, type magiclink, no email sent) for a one-time token of
 // the fixture account and hands the token to the local server, which keeps it in memory only. The printed link is
@@ -61,6 +62,38 @@ function request(port, method, urlPath, headers, body) {
   });
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// The shared part of mint and vercel: only o1-dev, only a confirmed fixture account, a one-time token from the admin API.
+async function adminToken() {
+  const env = process.env;
+  // Only o1-dev: the same checks as scripts/o1/env.sh and dev-up.sh, again, because this command holds the service role.
+  const ref = env.O1_BRANCH_REF || '';
+  const url = (env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/+$/, '');
+  if (env.O1_ENV !== 'dev' || env.O1_BRANCH !== 'o1-dev' || !ref || ref === PROD_REF || url !== `https://${ref}.supabase.co`
+      || [url, ref, env.O1_DB_URL || ''].some((v) => v.includes(PROD_REF))) fail('refused, the environment is not o1-dev', 5);
+  const ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY; const SERVICE = env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!ANON || !SERVICE) fail('the o1-dev settings are incomplete', 5);
+
+  let fx;
+  try { fx = JSON.parse(fs.readFileSync(opt.fixtures, 'utf8')); } catch { fail('cannot read docs/o1/fixtures-dev.json', 4); }
+  if (fx.branch !== 'o1-dev') fail('docs/o1/fixtures-dev.json is not the o1-dev list', 5);
+  const who = String(opt.who || '').trim().toLowerCase();
+  const user = (fx.users || []).find((u) => String(u.key).toLowerCase() === who || String(u.email).toLowerCase() === who);
+  if (!user) fail('refused: not a fixture account of docs/o1/fixtures-dev.json (use a key such as kpop_only, dual, anime_new, or a fixture email)', 4);
+  if (user.confirmed === false) fail(`refused: ${user.key} is an unconfirmed-email fixture; a sign-in link would confirm its email and break the fixture`, 4);
+
+  const { createClient } = await lib('@supabase/supabase-js');
+  const admin = createClient(url, SERVICE, { auth: { persistSession: false, autoRefreshToken: false } });
+  // Look the account up first: generateLink would create an account for an unknown email.
+  const found = await admin.auth.admin.getUserById(user.id);
+  if (found.error || !found.data?.user || String(found.data.user.email || '').toLowerCase() !== String(user.email).toLowerCase()) {
+    fail(`refused: ${user.key} is not on this database (run the fixtures script)`, 4);
+  }
+  const link = await admin.auth.admin.generateLink({ type: 'magiclink', email: user.email });
+  const tokenHash = link.data?.properties?.hashed_token;
+  if (link.error || !tokenHash || link.data?.user?.id !== user.id) fail('could not make a sign-in link for that account', 3);
+  return { url, ANON, user, tokenHash };
+}
 
 // ------------------------------------------------------------------------------------------------------------------
 if (cmd === 'stop') {
@@ -157,33 +190,8 @@ if (cmd === 'serve') {
   // ----------------------------------------------------------------------------------------------------------------
   const site = opt.site;
   if (!SITES.includes(site)) fail(`site must be one of ${SITES.join(', ')}`, 2);
+  const { url, ANON, user, tokenHash } = await adminToken();
   const env = process.env;
-  // Only o1-dev: the same checks as scripts/o1/env.sh and dev-up.sh, again, because this command holds the service role.
-  const ref = env.O1_BRANCH_REF || '';
-  const url = (env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/+$/, '');
-  if (env.O1_ENV !== 'dev' || env.O1_BRANCH !== 'o1-dev' || !ref || ref === PROD_REF || url !== `https://${ref}.supabase.co`
-      || [url, ref, env.O1_DB_URL || ''].some((v) => v.includes(PROD_REF))) fail('refused, the environment is not o1-dev', 5);
-  const ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY; const SERVICE = env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!ANON || !SERVICE) fail('the o1-dev settings are incomplete', 5);
-
-  let fx;
-  try { fx = JSON.parse(fs.readFileSync(opt.fixtures, 'utf8')); } catch { fail('cannot read docs/o1/fixtures-dev.json', 4); }
-  if (fx.branch !== 'o1-dev') fail('docs/o1/fixtures-dev.json is not the o1-dev list', 5);
-  const who = String(opt.who || '').trim().toLowerCase();
-  const user = (fx.users || []).find((u) => String(u.key).toLowerCase() === who || String(u.email).toLowerCase() === who);
-  if (!user) fail('refused: not a fixture account of docs/o1/fixtures-dev.json (use a key such as kpop_only, dual, anime_new, or a fixture email)', 4);
-  if (user.confirmed === false) fail(`refused: ${user.key} is an unconfirmed-email fixture; a sign-in link would confirm its email and break the fixture`, 4);
-
-  const { createClient } = await lib('@supabase/supabase-js');
-  const admin = createClient(url, SERVICE, { auth: { persistSession: false, autoRefreshToken: false } });
-  // Look the account up first: generateLink would create an account for an unknown email.
-  const found = await admin.auth.admin.getUserById(user.id);
-  if (found.error || !found.data?.user || String(found.data.user.email || '').toLowerCase() !== String(user.email).toLowerCase()) {
-    fail(`refused: ${user.key} is not on this database (run the fixtures script)`, 4);
-  }
-  const link = await admin.auth.admin.generateLink({ type: 'magiclink', email: user.email });
-  const tokenHash = link.data?.properties?.hashed_token;
-  if (link.error || !tokenHash || link.data?.user?.id !== user.id) fail('could not make a sign-in link for that account', 3);
 
   // The local server: running already, or started now (detached, without the service role).
   const stateFile = path.join(opt.kpq, 'logs', 'dev-up', 'signin.state');
@@ -209,6 +217,15 @@ if (cmd === 'serve') {
   if (r.status !== 200 || !id) fail('the sign-in helper refused the link', 3);
   process.stdout.write(`http://${site}.localhost:${st.PORT}/s/${id}\n`);
   process.exit(0);
+} else if (cmd === 'vercel') {
+  // ----------------------------------------------------------------------------------------------------------------
+  // No local server: the link is the Supabase token itself, for /auth/confirm of the Vercel test address (signin-urls.mjs).
+  const site = opt.site;
+  if (!SITES.includes(site)) fail(`site must be one of ${SITES.join(', ')}`, 2);
+  const { tokenHash } = await adminToken();
+  const { vercelLink } = await import('./signin-urls.mjs');
+  process.stdout.write(`${vercelLink(site, tokenHash)}\n`);
+  process.exit(0);
 } else {
-  fail('usage: signin-helper.mjs mint|serve|stop (see signin-link.sh)', 2);
+  fail('usage: signin-helper.mjs mint|serve|stop|vercel (see signin-link.sh)', 2);
 }

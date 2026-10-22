@@ -1,7 +1,7 @@
 # Q0b: owner test tools (3 local sites on o1-dev, one-time sign-in link)
 
 Lane Q0b, branch o1/Q0b. New files only: `scripts/o1-tools/dev-up.sh`, `scripts/o1-tools/signin-link.sh`,
-`scripts/o1-tools/signin-helper.mjs` and this report. No app code changed. No secret in any file or in this report.
+`scripts/o1-tools/signin-helper.mjs`, `scripts/o1-tools/signin-urls.mjs` (+ test) and this report. No app code changed. No secret in any file or in this report.
 
 ## Tool 1: `scripts/o1-tools/dev-up.sh [--rebuild] [--stop] [--status] [--ports p1,p2,p3]`
 
@@ -62,6 +62,35 @@ Refusals: exit 5 unless `env.sh dev` gives o1-dev (same checks as dev-up, again 
 docs/o1/fixtures-dev.json (key or email), is not on the database, or is the `unconfirmed` fixture (a link would confirm its email and
 break the fixture); exit 3 when the site is not running; exit 2 for a bad usage or site. Nothing but the link goes to stdout.
 Test knobs: `O1_SIGNIN_PORT` (helper port), `O1_SIGNIN_TTL_S` (shortens a link's life to 5 to 600 s, never lengthens it).
+
+## Tool 2, `--vercel`: the same link for the Vercel test addresses of o1/integration
+
+    scripts/o1-tools/signin-link.sh --vercel <fixture key or email> [kpop|anime|hub]
+
+Example: `scripts/o1-tools/signin-link.sh --vercel dual anime` prints one line,
+`https://otakuquiz-git-o1-integration-p-mingis-projects.vercel.app/auth/confirm?token_hash=<hashed token>&type=magiclink&next=%2F`.
+The sites are wired to o1-dev, so nothing local is needed (no dev-up, no helper, no Supabase redirect setting).
+- How: the same checks and the same admin API call as the local link (`generateLink`, type magiclink, no email), through
+  `scripts/o1/env.sh dev`, then the printed link points at the `/auth/confirm` route of anime or hub (apps/quiz/src/lib/passport/signin.ts:
+  `verifyOtp` with `token_hash` and `type`, then the membership stamp and a redirect to `next`). The link is the only secret printed,
+  on purpose: it is the token. It works once; a new link for the same account replaces the previous one.
+- Addresses (scripts/o1-tools/signin-urls.mjs): kpop `kpopquiz-git-o1-integration-p-mingis-projects.vercel.app`, anime
+  `otakuquiz-git-o1-integration-...`, hub `fanquiz-git-o1-integration-...` (same suffix `-p-mingis-projects.vercel.app`).
+- kpop has no `/auth/confirm` (it answers 404 there; kpop keeps `/auth/callback`). For `kpop` the tool prints the anime link whose `next`
+  is `/auth/passport/out?to=kpop&next=/` (encoded as one value), so the passport jump of anime signs the user in on kpop. Not tried end to
+  end here (the Vercel wall stops a curl); the owner's first open of the kpop link is its test.
+- Vercel Authentication: the previews sit behind it. Opened without a Vercel session the link does not reach the app (see the check
+  below). The owner opens it in the browser where he is signed in to Vercel; no bypass is used or needed.
+- Every refusal of the local tool stays: exit 4 for an account that is not in docs/o1/fixtures-dev.json, is not on the database, or is
+  `unconfirmed`; exit 5 unless `env.sh dev` gives o1-dev; exit 2 for a bad usage or site. Nothing but the link goes to stdout.
+- Unit test, no network: `node scripts/o1-tools/signin-urls.test.mjs` (5 cases: the three addresses, the anime and hub links, the kpop
+  jump as one encoded `next`, refusal of an unknown site or a malformed token hash).
+
+Check (o1-dev, dual, `--vercel anime`): refusals `somebody@example.com` and `unconfirmed` exit 4, site `blog` exit 2, no output. The real
+run exits 0 and prints the link (anime address, `/auth/confirm`, `type=magiclink`, `next=%2F`). `curl` with a cookie jar and no bypass
+got `302` to `https://vercel.com/sso-api?...` (Vercel Authentication: `server: Vercel`, a `_vercel_sso_nonce` cookie), then, following it,
+the Vercel login page (200). So the request never reached `/auth/confirm`: the owner must open the link in his signed-in browser. The
+token was not used by the check (a new link for `dual` was made afterwards to replace it).
 
 ## Checks (this worktree, o1-dev, sites on 3190 to 3192, helper on 3106)
 
