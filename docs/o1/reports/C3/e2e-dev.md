@@ -1,7 +1,7 @@
 # E2E pass on o1-dev, lane C3
 
-- date: 2026-10-21T20:41:32.860Z
-- commit: 1469bb0ef405 (with local changes in the app sources); o1/integration at 1469bb0ef405
+- date: 2026-10-21T22:01:45.030Z
+- commit: 29fcca6200c6; o1/integration at 45d42450cab9
 - command: `bash apps/quiz/e2e/o1/C3/run-dev.sh`
 - servers: kpop.localhost, anime.localhost, hub.localhost on ports 3100,3101,3102 (next start, builds against o1-dev, PASSPORT_JUMP on with run-only secrets)
 - B3/jump: ran with the service role (creates its own user on o1-dev)
