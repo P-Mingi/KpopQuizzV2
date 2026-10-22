@@ -1,0 +1,5 @@
+docs/o1/reports/Q0b/tools.md
+scripts/o1-tools/signin-helper.mjs
+scripts/o1-tools/signin-link.sh
+scripts/o1-tools/signin-urls.mjs
+scripts/o1-tools/signin-urls.test.mjs
