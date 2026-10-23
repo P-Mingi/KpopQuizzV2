@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { QUIZ_TYPE_WORD, SeriesCover } from '@/components/anime/series-cover';
+import { IS_KPOP } from '@/lib/site/genre';
 import { formatCount } from '@/lib/utils';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
@@ -71,12 +73,14 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
   const local = preview && quiz.cover_image_url && /^(data:image\/|blob:)/.test(quiz.cover_image_url) ? quiz.cover_image_url : null;
   const own = !local && quiz.cover_image_url && isConfiguredImageHost(quiz.cover_image_url) ? quiz.cover_image_url : null;
   const photo = own ?? (local ? null : groupPhotoUrl(quiz.group_slug));
+  // Run O1, lane O2: on a site that is not kpop a card with no picture of its own shows the art of its series (anime-only module).
+  const art = !IS_KPOP && !local && !photo;
   const level = levelOf(quiz.difficulty);
   const plays = quiz.play_count < NEW_QUIZ_PLAY_THRESHOLD ? 'New' : `${formatCount(quiz.play_count)} plays`;
 
   const body = (
     <>
-      <div className="ux-qcov">
+      <div className={art ? 'ux-qcov anime-o2-art-cov' : 'ux-qcov'}>
         {local ? (
           // eslint-disable-next-line @next/next/no-img-element -- a draft's data: / blob: cover (preview only)
           <img src={local} alt="" className="ux-qcov-img" style={{ objectPosition: 'center 25%' }} />
@@ -90,6 +94,8 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
             className="ux-qcov-img"
             style={{ objectPosition: own ? 'center 25%' : photoFocal(quiz.title) }}
           />
+        ) : art ? (
+          <SeriesCover slug={quiz.group_slug} name={quiz.group_name} />
         ) : (
           <div className="ux-qcov-fb">
             <span className="ux-fbn"><TypeGlyph quizType={quiz.quiz_type} />{quiz.group_name}</span>
@@ -97,8 +103,12 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
         )}
       </div>
       <div className="ux-qb">
-        <span className="ux-qg">{quiz.group_name}</span>
-        <T className="ux-qt">{quiz.title}</T>
+        {art ? (
+          <span className="ux-qg anime-o2-art-type"><TypeGlyph quizType={quiz.quiz_type} />{QUIZ_TYPE_WORD[quiz.quiz_type] ?? 'Classic'}</span>
+        ) : (
+          <span className="ux-qg">{quiz.group_name}</span>
+        )}
+        <T className={art ? 'ux-qt anime-o2-art-name' : 'ux-qt'}>{quiz.title}</T>
         <div className="ux-qf">
           <span className="ux-qlv"><LevelBars level={level.n} />{level.label}</span>
           <span className="ux-qpl">{plays}</span>
@@ -118,6 +128,6 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
 export function UxQuizGrid({ children, stack, columns = 4, className }: {
   children: React.ReactNode; stack?: boolean; columns?: 3 | 4; className?: string;
 }): React.ReactElement {
-  const cls = ['ux-qgrid', stack ? 'ux-qgrid-stack' : '', columns === 3 ? 'ux-qgrid-3' : '', className ?? ''].filter(Boolean).join(' ');
+  const cls = ['ux-qgrid', stack ? 'ux-qgrid-stack' : '', columns === 3 ? 'ux-qgrid-3' : '', stack && !IS_KPOP ? 'anime-o2-art-stack' : '', className ?? ''].filter(Boolean).join(' ');
   return <div className={cls}>{children}</div>;
 }

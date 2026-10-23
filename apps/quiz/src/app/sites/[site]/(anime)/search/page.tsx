@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { QuizCard } from '@/components/ui/quiz-card';
+import { SeriesArt } from '@/components/anime/series-art';
 import { Mascot } from '@/components/ui/mascot';
 import { FollowButton } from '@/components/profile/follow-button';
 import { TeamTag } from '@/components/ux-v1/team';
@@ -180,9 +181,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
               <p className="sec-label">Series</p>
               <div className="flex flex-wrap gap-2">
                 {groups.map((g) => (
-                  <Link key={g.id} href={`/quizzes?series=${g.slug}`} className="px-4 py-2 rounded-full text-sm font-medium transition-opacity hover:opacity-85"
-                    style={{ backgroundColor: g.display_color, color: g.text_color }}>
-                    {g.name} ({g.quiz_count})
+                  <Link key={g.id} href={`/quizzes?series=${g.slug}`} className="anime-o2-art-pill">
+                    <span className="anime-o2-art-pill-av" aria-hidden="true"><SeriesArt slug={g.slug} title={g.name} size="avatar" /></span>
+                    <span className="anime-o2-art-pill-name">{g.name} ({g.quiz_count})</span>
                   </Link>
                 ))}
               </div>

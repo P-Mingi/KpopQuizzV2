@@ -1,6 +1,8 @@
+import { SeriesArt } from '@/components/anime/series-art';
 import { UxRow } from '@/components/ux-v1/panel';
 import { levelOf } from '@/components/ux-v1/quiz-card';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { IS_KPOP } from '@/lib/site/genre';
 import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { ageLabel, comma } from '@/lib/ux-v1/p1/format';
@@ -52,7 +54,9 @@ export function NewRows({ quizzes, now }: { quizzes: QuizCardData[]; now: Date }
         <UxRow
           key={q.id}
           href={`/q/${q.slug}`}
-          lead={<NewThumb candidates={newThumbCandidates(q)} icon={QUIZ_TYPE_ICON[q.quiz_type] ?? 't-classic'} />}
+          lead={!IS_KPOP && newThumbCandidates(q).length === 0
+            ? <span className="anime-o2-art-thumb" aria-hidden="true"><SeriesArt slug={q.group_slug} title={q.group_name} size="avatar" /></span>
+            : <NewThumb candidates={newThumbCandidates(q)} icon={QUIZ_TYPE_ICON[q.quiz_type] ?? 't-classic'} />}
           title={q.title}
           sub={`${q.group_name} · ${QUIZ_TYPE_LABEL[q.quiz_type] ?? 'Classic'} · ${levelOf(q.difficulty).label}`}
           end={<span className="ux-num">{ageLabel(q.created_at, now)}</span>}

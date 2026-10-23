@@ -5,7 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { SeriesArt } from '@/components/anime/series-art';
 import { Icon } from '@/components/ux-v1/icon';
+import { IS_KPOP } from '@/lib/site/genre';
 import { photoFocal } from '@/lib/ux-v1/a0/group-photos';
 import { flatRows, normalizeQuery, resultSummary } from '@/lib/ux-v1/p11/search-model';
 
@@ -193,7 +195,7 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
             {shown.groups.map((g, gi) => (
               <li key={g.slug}>
                 <Link {...row(g.href, gi)}>
-                  <Thumb src={g.photo} initials={g.initials} seed={g.slug} />
+                  {IS_KPOP || g.photo ? <Thumb src={g.photo} initials={g.initials} seed={g.slug} /> : <span className="ux-srow-th p11-sth anime-o2-art-search" aria-hidden="true"><SeriesArt slug={g.slug} title={g.name} size="avatar" /></span>}
                   <span className="p11-st">{g.name}</span>
                   <small>{g.sub}</small>
                 </Link>

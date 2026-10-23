@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { alphaKey } from '@/lib/db/queries/group-directory';
 import { getSeriesDirectory } from '@/lib/anime/directory';
-import { GroupLogo } from '@/components/ui/group-logo';
+import { SeriesArt } from '@/components/anime/series-art';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { formatCount } from '@/lib/utils';
@@ -41,16 +41,10 @@ function SeriesRow({ row }: { row: DirectoryGroup }): React.ReactElement {
   return (
     <li className="gdir-item">
       <Link href={`/${group.slug}-quiz`} className="gdir-card">
-        <GroupLogo
-          groupName={group.name}
-          logoUrl={group.logo_url}
-          displayColor={group.display_color}
-          textColor={group.text_color}
-          size={40}
-        />
+        <span className="anime-o2-art-row" aria-hidden="true"><SeriesArt slug={group.slug} title={group.name} size="avatar" /></span>
         <span className="gdir-text">
           <span className="gdir-name">{group.name}</span>
-          <span className="gdir-meta anime-c1-quiet">
+          <span className="gdir-meta anime-c1-quiet anime-o2-art-meta">
             {quizzes} {quizzes === 1 ? 'quiz' : 'quizzes'}
             {group.total_plays > 0 && <> · {formatCount(group.total_plays)} plays</>}
           </span>
