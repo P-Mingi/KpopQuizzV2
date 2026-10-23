@@ -20,15 +20,16 @@ async function onSite<T>(site: 'kpop' | 'anime' | 'hub', load: () => Promise<T>)
 }
 
 describe('organizationJsonLdFor', () => {
-  for (const [site, name, origin] of [['anime', 'OtakuQuiz', 'https://otakuquiz.org'], ['hub', 'FanQuiz', 'https://fanquiz.org']] as const) {
-    it(`${site}: its own name, host, origin and logo; no founder, no profile links, no kpop`, async () => {
+  for (const [site, name, origin, email] of [['anime', 'OtakuQuiz', 'https://otakuquiz.org', 'contact@otakuquiz.org'], ['hub', 'FanQuiz', 'https://fanquiz.org', 'contact@fanquiz.org']] as const) {
+    it(`${site}: its own name, host, origin, logo and organization mailbox; no founder, no profile links, no kpop`, async () => {
       const { organizationJsonLdFor } = await onSite(site, () => import('./jsonld'));
       const org = organizationJsonLdFor();
       expect(org).toMatchObject({ '@type': 'Organization', name, url: origin });
       expect(String(org.logo)).toMatch(new RegExp(`^${origin.replace(/[.]/g, '\\.')}/brand/${site}/`));
       expect(org).not.toHaveProperty('founder');
       expect(org).not.toHaveProperty('sameAs');
-      expect(org).not.toHaveProperty('email');
+      // The organization mailbox is set since lane L1 (owner decision D-099): the site's own, never kpop's.
+      expect(org).toHaveProperty('email', email);
       expect(JSON.stringify(org)).not.toMatch(/kpopquiz|discord|reddit/i);
     });
   }
