@@ -66,7 +66,7 @@ checks C2, C3, C5, the second-pass verifier, the review packets and the SQL emit
 | `category` | today's `trivia_category_check`: production and dates `history`, themes `music`, characters `members`, awards `achievements`, anything else `fun` |
 | `load_bearing` | dates, counts and creators (S 2.8) |
 | `spoiler` | the arc from which the fact spoils (C5 compares question tags with it) |
-| `sources` | 1 to 5: `source` (wikidata, musicbrainz, wikipedia, official), `url`, `ref` (Wikipedia: the revision id read, required; Wikidata: the QID; MusicBrainz: the MBID), `fetched_at` |
+| `sources` | 1 to 5: `source` (wikidata, musicbrainz, wikipedia, official, press: Oricon or Anime News Network, D-105; files only: entity_sources_source_check does not know it, the loader skips it, it never counts as the second source of C2), `url`, `ref` (Wikipedia: the revision id read, required; Wikidata: the QID; MusicBrainz: the MBID), `fetched_at` |
 | `status`, `verified_at` | draft, verified, rejected; a verified fact has its date |
 
 Schema rules: a verified load-bearing fact has 2 or more sources, one of them Wikidata or official (S 2.8, C2).
