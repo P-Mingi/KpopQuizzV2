@@ -49,8 +49,8 @@ The source files of the lot are `lot1-A.json` to `lot1-D.json` (regenerate the S
 
 1. Relire le lot sur la page de relecture (lien dans la PR) : les 20 titres, les 50 questions
    marquées « À relire » et les 20 points signalés. Deux erreurs dans l'échantillon : le lot repart.
-2. Cliquer « Je valide le lot 1 » en bas de la page. Claude régénère alors le SQL avec votre nom
-   et la date de relecture.
+2. Cliquer « Je valide le lot 1 » en bas de la page. Le SQL final est déjà prêt avec votre nom
+   et la date du 23 octobre : ne le lancez qu'après votre relecture.
 3. Lancer le SQL dans l'éditeur SQL de Supabase avant 2 h 05 (heure de Paris) la nuit du
    23 au 24 octobre (le cron du quiz du jour tourne à 00 h 05 UTC). Si c'est plus tard, le quiz
    du 24 passe simplement après la fin du lot :
