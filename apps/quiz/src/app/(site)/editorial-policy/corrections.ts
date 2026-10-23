@@ -14,6 +14,11 @@ export interface Correction {
 
 export const CORRECTIONS: readonly Correction[] = [
   {
+    date: '2026-10-15',
+    page: 'Which member are you',
+    what: 'The roles printed on results (such as "main dancer" or "the youngest") came from an unsourced list. Each page now lists the members and public roles that Wikidata and Wikipedia agree on, with both sources linked. Heeseung (ENHYPEN) and Danielle (NewJeans) are no longer given as results: both sources list them as former members.',
+  },
+  {
     date: '2026-10-14',
     page: 'BTS trivia',
     href: '/bts-trivia',
