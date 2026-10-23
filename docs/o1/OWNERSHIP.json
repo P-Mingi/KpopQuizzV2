@@ -468,7 +468,9 @@
     "apps/quiz/e2e/o1/L1/**",
     "apps/quiz/src/**",
     "docs/o1/reports/L1/**",
-    "docs/launch/**"
+    "docs/launch/**",
+    "docs/pending-migrations/multisite/launch/**",
+    "apps/quiz/public/*.txt"
   ],
   "C1": [
     "apps/quiz/e2e/o1/C1/**",
