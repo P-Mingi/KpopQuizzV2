@@ -1,0 +1,3 @@
+docs/o1/reports/Q0b/kpop-catalog.md
+scripts/o1-tools/copy-kpop-catalog.mjs
+scripts/o1-tools/copy-kpop-catalog.sh

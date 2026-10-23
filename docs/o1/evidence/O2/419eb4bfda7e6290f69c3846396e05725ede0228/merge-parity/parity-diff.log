@@ -1,0 +1,313 @@
+DIFFERENT (bytes)  /  status 200/200  raw bytes 114629/114586  normalised 113179/113136  js chunks 13/13
+  node 1327
+    A: self.__next_f.push([1,"um\",\"children\":\"4 days ago\"}]}]]}]\n"])</script>
+    B: self.__next_f.push([1,"um\",\"children\":\"4 days ago\"}]}]]}]\n4b:T58c,"])</script>
+  node 1329
+    A: self.__next_f.push([1,"4b:T58c,"])</script>
+    B: self.__next_f.push([1,"{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\"},{\"@t
+  node 1331
+    A: self.__next_f.push([1,"{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"name\":\"Trending K-pop quizzes\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://kpopquiz.org/q/only-a-real-gllit-can-pass-this\",\"name\":\"Only a real GLLIT can pass this!!!\"},{\"@t
+    B: self.__next_f.push([1,"22:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"$4b\"}}]\n"])</script>
+  node 1332
+    A: <script>
+    B: </body>
+  node 1333
+    A: self.__next_f.push([1,"22:[\"$\",\"script\",null,{\"type\":\"application/ld+json\",\"dangerouslySetInnerHTML\":{\"__html\":\"$4b\"}}]\n"])</script>
+    B: </html>
+  node 1334
+    A: </body>
+    B: 
+IDENTICAL (bytes)  /quizzes  status 200/200  raw bytes 199869/199869  normalised 198723/198723  js chunks 13/13
+IDENTICAL (bytes)  /groups  status 200/200  raw bytes 224491/224491  normalised 223405/223405  js chunks 13/13
+DIFFERENT (bytes)  /trending  status 200/200  raw bytes 59694/59930  normalised 58634/58831  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /bts-quiz  status 200/200  raw bytes 130711/131030  normalised 129547/129788  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /blackpink-quiz  status 200/200  raw bytes 123115/123434  normalised 121951/122192  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /stray-kids-quiz  status 200/200  raw bytes 137160/137479  normalised 135996/136237  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /seventeen-quiz  status 200/200  raw bytes 118200/118519  normalised 117036/117277  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /cortis-quiz  status 200/200  raw bytes 91206/91525  normalised 90042/90283  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /twice-quiz  status 200/200  raw bytes 109697/109974  normalised 108598/108810  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /newjeans-quiz  status 200/200  raw bytes 106953/107230  normalised 105854/106066  js chunks 13/14
+  node 53
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 54
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 55
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 56
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 57
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+  node 58
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+IDENTICAL (bytes)  /trivia  status 200/200  raw bytes 138064/138064  normalised 136991/136991  js chunks 13/13
+DIFFERENT (bytes)  /bts-trivia  status 200/200  raw bytes 190843/191205  normalised 189705/189989  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /blackpink-trivia  status 200/200  raw bytes 163878/164240  normalised 162740/163024  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+IDENTICAL (bytes)  /q/ultimate-bts-era-quiz-only-real-armys-survive  status 200/200  raw bytes 81444/81444  normalised 79565/79565  js chunks 16/16
+IDENTICAL (bytes)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 78315/78315  normalised 76436/76436  js chunks 16/16
+IDENTICAL (bytes)  /q/blackpink-ultimate-fan-challenge  status 200/200  raw bytes 81370/81370  normalised 79491/79491  js chunks 16/16
+IDENTICAL (bytes)  /q/are-you-a-real-coer  status 200/200  raw bytes 75759/75759  normalised 73880/73880  js chunks 16/16
+IDENTICAL (bytes)  /q/illit-fans-here  status 200/200  raw bytes 74884/74884  normalised 73005/73005  js chunks 16/16
+IDENTICAL (bytes)  /q/babymonster-quiz  status 200/200  raw bytes 84249/84249  normalised 82370/82370  js chunks 16/16
+IDENTICAL (bytes)  /q/le-sserafim-members-and-music-quiz  status 200/200  raw bytes 77951/77951  normalised 76072/76072  js chunks 16/16
+IDENTICAL (bytes)  /q/one-for-sones  status 200/200  raw bytes 76490/76490  normalised 74611/74611  js chunks 16/16
+IDENTICAL (bytes)  /q/twice-true-or-false  status 200/200  raw bytes 72562/72562  normalised 70683/70683  js chunks 16/16
+IDENTICAL (bytes)  /q/how-well-do-you-know-txt  status 200/200  raw bytes 75446/75446  normalised 73567/73567  js chunks 16/16
+IDENTICAL (bytes)  /q/enhypen-debut-and-beyond-quiz  status 200/200  raw bytes 77477/77477  normalised 75598/75598  js chunks 16/16
+IDENTICAL (bytes)  /q/k-pop-company-quiz-match-the-group-to-the-label  status 200/200  raw bytes 81446/81446  normalised 79567/79567  js chunks 16/16
+IDENTICAL (bytes)  /blindtest  status 200/200  raw bytes 115057/115057  normalised 113425/113425  js chunks 14/14
+IDENTICAL (bytes)  /blindtest/classic  status 200/200  raw bytes 54334/54334  normalised 53183/53183  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/intro-challenge  status 200/200  raw bytes 54530/54530  normalised 53379/53379  js chunks 13/13
+IDENTICAL (bytes)  /blindtest/group-bts  status 200/200  raw bytes 52576/52576  normalised 51373/51373  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-song  status 200/200  raw bytes 56440/56440  normalised 55237/55237  js chunks 13/13
+IDENTICAL (bytes)  /pt  status 200/200  raw bytes 117288/117288  normalised 115955/115955  js chunks 14/14
+IDENTICAL (bytes)  /pt/blindtest  status 200/200  raw bytes 66005/66005  normalised 64776/64776  js chunks 15/15
+IDENTICAL (bytes)  /pt/quizzes  status 200/200  raw bytes 248444/248444  normalised 247267/247267  js chunks 14/14
+IDENTICAL (bytes)  /pt/faq  status 200/200  raw bytes 60482/60482  normalised 59409/59409  js chunks 13/13
+IDENTICAL (bytes)  /pt/leaderboard  status 200/200  raw bytes 70980/70980  normalised 69829/69829  js chunks 14/14
+IDENTICAL (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 57380/57380  normalised 56177/56177  js chunks 13/13
+IDENTICAL (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 57100/57100  normalised 55897/55897  js chunks 13/13
+IDENTICAL (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 56809/56809  normalised 55606/55606  js chunks 13/13
+IDENTICAL (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 69400/69400  normalised 68366/68366  js chunks 13/13
+IDENTICAL (bytes)  /kpop-true-or-false  status 200/200  raw bytes 100192/100192  normalised 99158/99158  js chunks 13/13
+DIFFERENT (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 57824/58102  normalised 56751/56977  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+DIFFERENT (bytes)  /hard-kpop-quizzes  status 200/200  raw bytes 55871/56149  normalised 54798/55024  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+IDENTICAL (bytes)  /kpop-quiz-2026  status 200/200  raw bytes 163504/163504  normalised 162470/162470  js chunks 13/13
+DIFFERENT (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 42874/43194  normalised 41788/42043  js chunks 13/14
+  node 52
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 53
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 54
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 55
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 56
+    A: <meta name="next-size-adjust" content=""/>
+    B: .js" as="script" fetchPriority="low"/>
+  node 57
+    A: <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+IDENTICAL (bytes)  /which-bts-member-are-you  status 200/200  raw bytes 62243/62243  normalised 61170/61170  js chunks 13/13
+IDENTICAL (bytes)  /bts-name-all-members  status 200/200  raw bytes 50456/50456  normalised 49466/49466  js chunks 13/13
+IDENTICAL (bytes)  /about  status 200/200  raw bytes 52248/52248  normalised 51175/51175  js chunks 13/13
+IDENTICAL (bytes)  /editorial-policy  status 200/200  raw bytes 52600/52600  normalised 51618/51618  js chunks 12/12
+IDENTICAL (bytes)  /privacy  status 200/200  raw bytes 46727/46727  normalised 45745/45745  js chunks 12/12
+IDENTICAL (bytes)  /terms  status 200/200  raw bytes 43434/43434  normalised 42452/42452  js chunks 12/12
+IDENTICAL (bytes)  /faq  status 200/200  raw bytes 58950/58950  normalised 57968/57968  js chunks 12/12
+IDENTICAL (bytes)  /contact  status 200/200  raw bytes 33426/33426  normalised 32444/32444  js chunks 12/12
+IDENTICAL (bytes)  /leaderboard  status 200/200  raw bytes 224110/224110  normalised 222712/222712  js chunks 13/13
+IDENTICAL (bytes)  /articles  status 200/200  raw bytes 97747/97747  normalised 96765/96765  js chunks 12/12
+IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
+IDENTICAL (bytes)  /an-unknown-o1-parity-path  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /sitemap.xml  status 200/200  raw bytes 129461/129461  normalised 129461/129461  js chunks 0/0
+IDENTICAL (bytes)  /robots.txt  status 200/200  raw bytes 1623/1623  normalised 1623/1623  js chunks 0/0
+IDENTICAL (bytes)  /llms.txt  status 200/200  raw bytes 1246/1246  normalised 1246/1246  js chunks 0/0
+14 page(s) differ
