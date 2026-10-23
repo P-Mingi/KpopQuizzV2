@@ -1,9 +1,11 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import nextConfig from '../../next.config';
 
 import { DEEZER_LINES, DEEZER_LOGO_SRC, DeezerAttribution } from './deezer-attribution';
 
@@ -27,7 +29,10 @@ describe('DeezerAttribution', () => {
     expect(html).toMatch(/^<p class="dz-attr" lang="en" data-deezer-attribution="live">/);
   });
 
-  it('server markup has no <img>: the logo is created on the client only, so a missing file never shows a broken image', () => {
+  afterEach(() => { vi.unstubAllEnvs(); });
+
+  it('without the logo file in the repo: text only, no <img>, so nothing is requested (no 404)', () => {
+    vi.stubEnv('NEXT_PUBLIC_DEEZER_LOGO', '');
     for (const variant of ['private', 'live'] as const) {
       const html = renderToStaticMarkup(h(DeezerAttribution, { variant }));
       expect(html).not.toContain('<img');
@@ -35,11 +40,16 @@ describe('DeezerAttribution', () => {
     }
   });
 
-  it('the logo points at the asset the owner adds, with "Deezer" as its accessible name', () => {
+  it('with the logo file in the repo: the logo, with "Deezer" as its accessible name', () => {
+    vi.stubEnv('NEXT_PUBLIC_DEEZER_LOGO', '1');
+    const html = renderToStaticMarkup(h(DeezerAttribution, {}));
     expect(DEEZER_LOGO_SRC).toBe('/brand/deezer-logo.svg');
-    const src = read('./deezer-attribution.tsx');
-    expect(src).toMatch(/<img src=\{DEEZER_LOGO_SRC\} alt="Deezer"/);
-    expect(src).toMatch(/onError=\{\(\) => setLogoFailed\(true\)\}/);
+    expect(html).toContain('<img src="/brand/deezer-logo.svg" alt="Deezer" class="dz-attr-logo"');
+  });
+
+  it('the build flag follows the file: set only when public/brand/deezer-logo.svg is in the repo', () => {
+    const inRepo = existsSync(fileURLToPath(new URL('../../public/brand/deezer-logo.svg', import.meta.url)));
+    expect(nextConfig.env?.NEXT_PUBLIC_DEEZER_LOGO).toBe(inRepo ? '1' : '');
   });
 
   it('no em dash or en dash in the lines', () => {

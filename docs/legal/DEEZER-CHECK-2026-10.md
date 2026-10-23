@@ -5,7 +5,7 @@ Branch `mission-u/deezer`. Written 2026-10-15. Scope: kpopquiz.org (`apps/quiz`)
 ## En bref (pour le propriétaire)
 
 - Chaque écran qui joue un extrait Deezer affiche maintenant la mention "Song previews by Deezer, for private, personal listening only." à côté du lecteur. L'écran hôte des salons live affiche "Song previews by Deezer. Not for public or commercial events."
-- Le logo Deezer officiel n'est PAS encore dans le site. Le code l'attend à `apps/quiz/public/brand/deezer-logo.svg`. Tant que le fichier manque, seule la phrase s'affiche, proprement, sans image cassée. Il faut ton accord pour télécharger le logo officiel (adresse en section 6).
+- Le logo Deezer officiel n'est PAS encore dans le site. Le code l'attend à `apps/quiz/public/brand/deezer-logo.svg`. Tant que le fichier n'est pas dans le dépôt, seule la phrase s'affiche et aucune page ne demande le fichier (zéro 404). Dès qu'il est ajouté, le build suivant affiche le logo, sans autre changement. Il faut ton accord pour télécharger le logo officiel (adresse en section 6).
 - Aucun MP3 n'est copié ni stocké, aucune route ne relaie ou ne met l'audio en cache : le navigateur lit l'extrait directement chez Deezer.
 - Aucune pub, aucune affiliation, aucun paiement sur les pages avec audio. Seul outil tiers : Vercel Web Analytics (statistiques de visite), partout sur le site.
 - Questions ouvertes en section 7, dont la plus importante : les conditions Deezer interdisent tout revenu, même indirect, et citent aussi les "données". Confirme qu'aucun revenu n'existe ou n'est prévu sur ce site.
@@ -78,9 +78,9 @@ Surfaces checked that do NOT play a Deezer preview (nothing added):
 
 - Text: `Song previews by Deezer, for private, personal listening only.` (variant `private`) or `Song previews by Deezer. Not for public or commercial events.` (variant `live`).
 - Logo: an `<img src="/brand/deezer-logo.svg" alt="Deezer">` in front of the text, height 1.4 times the line's font size (about 18 px), width from the file's own ratio.
-- **The logo file does not exist yet.** Nothing was downloaded. Until the owner approves fetching Deezer's asset and the file is added at `apps/quiz/public/brand/deezer-logo.svg`, the request 404s and the image removes itself (it is created on the client only, so its error handler is always attached before the browser asks for the file, even on the server-rendered `/live` page). The text line shows on its own, with "Deezer" in it. No broken-image icon, no empty gap.
+- **The logo file does not exist yet.** Nothing was downloaded. Until the owner approves fetching Deezer's asset and the file is added at `apps/quiz/public/brand/deezer-logo.svg`, the attribution is text only and no page requests the file (no 404): `next.config.ts` sets `NEXT_PUBLIC_DEEZER_LOGO` at build time only when the file exists, and the component renders the `<img>` only then. The next build after the file is added shows the logo with no other change. The text line carries "Deezer" on its own. No broken-image icon, no empty gap.
 - Styling follows each surface: base layout `.dz-attr` in `styles/globals.css`; `.p6-dz` in `styles/ux-v1/p6.css` (`--ux-muted`, 13 px); `.ux-live-dz` in `styles/ux-v12/g4.css` (`--ux-muted`); `.bt-dz` in `globals.css` (`--txt2`); the legacy mode player uses its own Tailwind tokens (`--text-secondary`). The secondary text tokens were chosen over the tertiary ones because `--txt3` / `--text-tertiary` (#9e998f) is about 2.7:1 on the light page, too faint for a notice that must be clearly visible. No Verse surface is touched.
-- Guard: `components/deezer-attribution.test.ts` pins the two lines, the server markup (no `<img>` on the server), the logo path and alt, and the presence of the component on each of the five player files.
+- Guard: `components/deezer-attribution.test.ts` pins the two lines, text only without the logo file (no `<img>`), the logo with its path and alt once the file is in the repo, the build flag following the file, and the presence of the component on each of the five player files.
 
 ## 3. Nothing stored, nothing proxied
 
