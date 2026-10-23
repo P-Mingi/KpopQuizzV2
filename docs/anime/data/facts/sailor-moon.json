@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Sailor Moon (美少女戦士セーラームーン, Bishōjo Senshi Sērā Mūn"
   },
   {
@@ -67,7 +68,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Japanese manga series written and illustrated by Naoko Takeuchi"
   },
   {
@@ -100,7 +102,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized by Kodansha in the shōjo manga anthology Nakayoshi from December 28, 1991, to February 3, 1997"
   },
   {
@@ -206,9 +209,15 @@
         "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
         "ref": "1380981876",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://cstation.kodansha.co.jp/mangaip/award/24",
+        "fetched_at": "2026-10-23T17:28:06Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The manga won the Kodansha Manga Award in 1993 in the shōjo genre."
   },
   {
@@ -241,7 +250,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "first aired in Japan on TV Asahi from March 7, 1992, to February 8, 1997"
   },
   {
@@ -274,7 +284,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "four more story arcs, which were often published simultaneously with the five corresponding seasons of the anime adaptation"
   },
   {
@@ -307,7 +318,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "director = Junichi Sato (season 1), Kunihiko Ikuhara, Takuya Igarashi (Sailor Stars)"
   },
   {
@@ -344,7 +356,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a third season based on the Infinity arc of the manga premiered on Japanese television on April 4, 2016"
   },
   {
@@ -371,7 +384,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "based on the Dream arc of the manga, was released in 2021"
   },
   {
@@ -401,7 +415,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was used for the first 166 episodes, being performed by DALI for the first two seasons and then by Moon Lips"
   },
   {
@@ -431,7 +446,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The second opening theme, for the remaining episodes, is \"Sailor Star Song\" performed by Kae Hanazawa"
   },
   {
@@ -499,7 +515,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the titular protagonist of the"
   },
   {
@@ -527,7 +544,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a fourteen-year-old bookworm in Usagi's class, who is quiet yet intelligent"
   },
   {
@@ -555,7 +573,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an elegant fourteen-year-old miko (English: shrine maiden). Because of her work as"
   },
   {
@@ -583,7 +602,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a fourteen-year-old girl who is a student in Usagi's class. She excels at"
   },
   {
@@ -611,7 +631,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a fourteen-year-old girl who first appears as the titular main protagonist"
   },
   {
@@ -639,7 +660,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student who is older than Usagi. When he was young, he was in a car"
   },
   {
@@ -667,7 +689,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Artemis and Diana are cats from the planet Mau, which is named after the Chinese word \"貓\", meaning \"cat\", who act as advisors to their owners. They are"
   },
   {
@@ -695,7 +718,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the white cat companion to Minako Aino, who trains her to become Sailor V and remains by her side when she takes on her proper"
   },
   {
@@ -723,7 +747,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Most of the antagonists in the series have names related to metals, minerals and gemstones, including Queen Beryl, Queen Metaria, Four Kings of Heaven, the"
   },
   {
@@ -751,7 +776,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the future daughter of Neo-Queen Serenity and King Endymion in the 30th century. She"
   },
   {
@@ -779,7 +805,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a good-natured tomboyish girl who is a year older than most of the other"
   },
   {
@@ -807,7 +834,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an elegant and talented violinist and painter. Similar to her"
   }
 ]

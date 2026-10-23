@@ -35,6 +35,8 @@ const { validate } = await tsImport(resolve(ROOT, 'apps/quiz/scripts/o1/contract
 const registry = {};
 for (const f of readdirSync(SCHEMAS)) if (f.endsWith('.schema.json')) registry[f] = JSON.parse(readFileSync(join(SCHEMAS, f), 'utf8'));
 const fixture = JSON.parse(readFileSync(FIXTURE_SCHEMA, 'utf8'));
+// D-105: press (Oricon, Anime News Network) is a fact source kind kept in the files only; docs/o1/requests/K1.md asks ORCH to add it to the contract
+{ const kinds = registry['fact.schema.json']?.properties?.sources?.items?.properties?.source; if (kinds && !kinds.enum.includes('press')) kinds.enum = [...kinds.enum, 'press']; }
 const common = registry['common.schema.json'].$defs;
 
 // The data-file schema: the fixture without quizzes, plus the keys the brief adds.
@@ -143,7 +145,7 @@ for (const slug of slugs) {
         if (f.spoiler && f.spoiler.arc > arcMax) msgs.push(`fact ${f.id}: spoiler arc ${f.spoiler.arc} above the last arc`);
         // entity_sources keeps one row per (entity_type, entity_id, field, source): a fact has at most one source of each
         // kind and no two facts share an entity and field for the same source kind.
-        const kinds = (f.sources ?? []).map((x) => x.source);
+        const kinds = (f.sources ?? []).map((x) => x.source).filter((k) => k !== 'press'); // press is not loaded into entity_sources
         if (new Set(kinds).size !== kinds.length) msgs.push(`fact ${f.id}: two sources of the same kind (${kinds.join(', ')})`);
         for (const k of new Set(kinds)) {
           const slotKey = `${f.entity?.kind}|${f.entity?.kind === 'series' ? slug : (f.entity?.ref ?? '')}|${f.field}|${k}`;

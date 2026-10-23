@@ -1,22 +1,22 @@
 {
-  "mode": "drafts",
+  "mode": "verified",
   "selection": {
-    "mode": "drafts",
+    "mode": "verified",
     "series": {
       "total": 30,
       "loaded": 30
     },
     "facts": {
       "total": 1228,
-      "loaded": 1174
+      "loaded": 1058
     },
     "quizzes": {
       "total": 150,
-      "loaded": 150
+      "loaded": 72
     },
     "daily": {
       "total": 100,
-      "loaded": 100
+      "loaded": 37
     },
     "creators": {
       "total": 31,
@@ -29,12 +29,12 @@
     "arcs": 249,
     "characters": 600,
     "themes": 427,
-    "trivia": 1143,
-    "entity_sources": 1396,
+    "trivia": 1032,
+    "entity_sources": 1348,
     "creators": 31,
-    "quizzes": 150,
-    "questions": 1449,
-    "daily": 100,
-    "daily_questions": 800
+    "quizzes": 72,
+    "questions": 691,
+    "daily": 37,
+    "daily_questions": 296
   }
 }

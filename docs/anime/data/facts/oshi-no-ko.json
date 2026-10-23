@@ -34,7 +34,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Oshi no Ko (【推しの子】) is a Japanese manga series"
   },
   {
@@ -72,7 +73,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written by Aka Akasaka and illustrated by Mengo Yokoyari"
   },
   {
@@ -110,7 +112,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Shueisha's Weekly Young Jump from April 2020 to November 2024"
   },
   {
@@ -143,7 +146,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "with its chapters collected in 16 tankōbon volumes"
   },
   {
@@ -168,6 +172,11 @@
         "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
         "ref": "1377608811",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.oricon.co.jp/news/2447276/full/",
+        "fetched_at": "2026-10-23T17:25:18Z"
       }
     ],
     "status": "draft",
@@ -195,6 +204,11 @@
         "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
         "ref": "1377608811",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/interest/2021-08-24/kaiju-no-8-oshi-no-ko-win-next-manga-awards-web-print-categories/.176367",
+        "fetched_at": "2026-10-23T17:25:18Z"
       }
     ],
     "status": "draft",
@@ -222,9 +236,20 @@
         "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
         "ref": "1379821089",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://license.kadokawa.co.jp/anime/2026winter/entry-26814.html",
+        "fetched_at": "2026-10-23T17:25:18Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33662",
+        "fetched_at": "2026-10-23T17:25:18Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a Japanese anime television series produced by Doga Kobo, directed by Daisuke Hiramaki"
   },
   {
@@ -249,9 +274,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
         "ref": "1379822538",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q120055455",
+        "ref": "Q120055455",
+        "fetched_at": "2026-10-23T17:25:18Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "aired its first 11-episode season from April to June 2023"
   },
   {
@@ -278,7 +310,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The 90-minute first episode, 'Mother and Children', also premiered at selected theaters in Japan on March 17"
   },
   {
@@ -303,9 +336,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes",
         "ref": "1379822538",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q120122299",
+        "ref": "Q120122299",
+        "fetched_at": "2026-10-23T17:25:18Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A second season aired from July 3 to October 6, 2024"
   },
   {
@@ -362,7 +402,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Opening: Idol by Yoasobi; Ending: Mephisto by Queen Bee"
   },
   {
@@ -392,7 +433,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Opening: Fatal by Gemn; Ending: Burning by Hitsujibungaku"
   },
   {
@@ -422,7 +464,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Opening: Test Me by Chanmina; Ending: Serenade by Natori"
   },
   {
@@ -561,7 +604,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "{{Nihongo|Sarina Tendōji|天童寺 さりな|Tendōji Sarina}}, was a terminally ill patient who idolized Gorou"
   },
   {
@@ -589,7 +633,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "once hailed as a child acting prodigy for her ability to cry on command"
   },
   {
@@ -616,7 +661,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The film Oshi no Ko: The Final Act premiered on December 20, 2024"
   },
   {
@@ -644,7 +690,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Hoshino Akuamarin), known as Aqua (アクア, Akua), was originally Gorou Amamiya (雨宮 吾郎, Amamiya Gorō), an obstetrician-gynecologist"
   },
   {
@@ -672,7 +719,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "originally Sarina Tendōji (天童寺 さりな, Tendōji Sarina), was a terminally ill patient who idolized Gorou before reincarnating"
   },
   {
@@ -700,7 +748,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a selfless, empathetic but altruisticly deceptive pop idol who rose from humble beginnings. Raised in an orphanage after her"
   },
   {
@@ -728,7 +777,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "once hailed as a child acting prodigy for her ability to cry on command, first meets Aqua when he fills in as a movie extra. As"
   },
   {
@@ -756,7 +806,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a stage actress who joins the reality show My Love with a Star Begins Now (LoveNow) to promote her theater troupe."
   },
   {
@@ -784,7 +835,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": ") is a YouTuber and TikToker who signs up for LoveNow who is revealed to be aged 25 despite her appearance resembling a high school student. She"
   },
   {
@@ -812,7 +864,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the film director who scouted Aqua and convinced him to become an actor when he saw his potential. After Ai's death"
   },
   {
@@ -840,7 +893,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the president of Strawberry Productions. He is the husband of Miyako Saitō. Ichigo was responsible for the recruitment of"
   },
   {
@@ -868,7 +922,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the wife of Ichigo Saitō and acts as the primary caretaker for Aqua and Ruby after Ai's death. She manages Strawberry"
   },
   {
@@ -896,7 +951,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an actor and model affiliated with Sonic Stage Productions. He was an arrogant and untrained actor when playing"
   },
   {
@@ -924,7 +980,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student of Youtou High School's Performing Arts Program and one of Ruby's classmates. She is an aloof, attentive"
   },
   {
@@ -952,7 +1009,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an award-winning stage actor affiliated with the Lalalai Theatrical Company, first seen as the main star of the Tokyo"
   },
   {
@@ -980,7 +1038,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a producer affiliated with an internet TV Station Dot TV!, and producer of the Sweet Today live-action adaptation"
   },
   {
@@ -1008,7 +1067,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an anonymous famous physical training YouTuber affiliated with Strawberry Productions, who coaches choreography for B-Komachi members. He"
   },
   {
@@ -1036,7 +1096,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the manga artist behind the manga series Tokyo Blade, and became a producer for its stage play after expressing"
   },
   {
@@ -1064,7 +1125,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the manga artist behind the popular manga series I'll Go With Sweet Today and Abiko's mentor. She also serves"
   },
   {
@@ -1092,7 +1154,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a 22-year-old professional stage actor who is well known within the industry for his extensive experience in"
   },
   {
@@ -1120,7 +1183,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student in the Performing Arts Program of Youtou High School and a classmate of Ruby and Frill. In the show"
   }
 ]

@@ -209,6 +209,8 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily
       if (fact.entity.group_slug !== slug) throw new Error(`fact ${fact.id}: group_slug differs from ${slug}`);
       const entityId = kind === 'series' ? slug : String(fact.entity.ref);
       for (const s of fact.sources) {
+        // press (Oricon, Anime News Network) is kept in the files only: entity_sources_source_check does not know it
+        if (s.source === 'press') continue;
         const key = `${ENTITY_TYPE[kind]}|${entityId}|${fact.field}|${s.source}`;
         if (seenSrc.has(key)) throw new Error(`fact ${fact.id}: entity_sources slot ${key} is already used`);
         seenSrc.add(key);
@@ -218,7 +220,7 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily
         const key = `${kind}|${entityId}|${fact.text.trim().toLowerCase()}`;
         if (seenTrivia.has(key)) throw new Error(`fact ${fact.id}: duplicate trivia text`);
         seenTrivia.add(key);
-        trivia.push({ slug, entity_kind: kind, entity_id: entityId, fact: fact.text.trim(), category: fact.category, source: fact.sources[0].source, source_url: fact.sources[0].url, status: TRIVIA_STATUS[fact.status] ?? 'draft' });
+        trivia.push({ slug, entity_kind: kind, entity_id: entityId, fact: fact.text.trim(), category: fact.category, source: (fact.sources.find((x) => x.source !== 'press') ?? fact.sources[0]).source, source_url: (fact.sources.find((x) => x.source !== 'press') ?? fact.sources[0]).url, status: TRIVIA_STATUS[fact.status] ?? 'draft' });
       }
     }
   }

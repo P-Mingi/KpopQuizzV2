@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The series' Japanese title is チェンソーマン with the romanization Chensō Man."
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Written and illustrated by Tatsuki Fujimoto"
   },
   {
@@ -87,6 +89,11 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
         "ref": "1381105424",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-03-10/chainsaw-man-manga-2nd-part-ends-on-march-24/.235143",
+        "fetched_at": "2026-10-23T17:25:06Z"
       }
     ],
     "status": "draft",
@@ -122,7 +129,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Original run: December 3, 2018 - March 25, 2026"
   },
   {
@@ -147,9 +155,21 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
         "ref": "1381105424",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65240543",
+        "ref": "Q65240543",
+        "fetched_at": "2026-10-23T17:24:39Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=22369",
+        "fetched_at": "2026-10-23T17:25:06Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Volumes: 24"
   },
   {
@@ -203,7 +223,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "won the Harvey Award in the Best Manga category from 2021 to 2023"
   },
   {
@@ -228,9 +249,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104211858",
+        "ref": "Q104211858",
+        "fetched_at": "2026-10-23T17:24:39Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "MAPPA"
   },
   {
@@ -255,6 +283,11 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23843",
+        "fetched_at": "2026-10-23T17:24:39Z"
       }
     ],
     "status": "draft",
@@ -282,9 +315,21 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104211858",
+        "ref": "Q104211858",
+        "fetched_at": "2026-10-23T17:24:39Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23843",
+        "fetched_at": "2026-10-23T17:24:39Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "October 12 to December 28, 2022"
   },
   {
@@ -340,9 +385,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123906765",
+        "ref": "Q123906765",
+        "fetched_at": "2026-10-23T17:24:39Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "premiered September 19, 2025, distributed by Toho"
   },
   {
@@ -370,7 +422,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Chainsaw Man - Assassins Arc"
   },
   {
@@ -399,7 +452,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "School Arc"
   },
   {
@@ -428,7 +482,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Kick Back\" by Kenshi Yonezu"
   },
   {
@@ -468,7 +523,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Zanki\" by Zutomayo"
   },
   {
@@ -572,7 +628,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Denji inherited his father's debt to the yakuza"
   },
   {
@@ -600,7 +657,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The weakened War Devil and one of the Four Horsemen"
   },
   {
@@ -628,7 +686,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Chainsaw Man (チェンソーマン, Chensō Man)"
   },
   {
@@ -656,7 +715,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Chainsaw Devil (チェンソーの悪魔, Chensō no Akuma)"
   },
   {
@@ -684,7 +744,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "'s pet cat Meowy hostage in exchange for her bringing him humans to eat, but Denji later kills him. His next"
   },
   {
@@ -712,7 +773,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A Tokyo Special Division 4 Devil Hunter driven by vengeance against the Gun Devil for killing his family. Initially contracted with the Fox and Curse Devils"
   },
   {
@@ -740,7 +802,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A Blood Fiend serving as a Public Safety Devil Hunter under Makima. Distinguished by her red horns, Power exhibits violent tendencies but forms genuine"
   },
   {
@@ -768,7 +831,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kobeni Higashiyama (東山 コベニ, Higashiyama Kobeni)"
   },
   {
@@ -796,7 +860,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A devil embodying the fear of ghosts. It had a contract with Himeno, allowing her to grab objects with invisible arms, and manifests to fight Samurai Sword"
   },
   {
@@ -824,7 +889,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The organization's most experienced devil hunter, Kishibe is a cynical veteran formerly of Tokyo Special Division 1. After transferring to Division 4, he"
   },
   {
@@ -852,7 +918,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A humanoid embodiment of angelic fear, appears as an androgynous youth capable of draining lifespans through touch. Despite his dangerous ability, he harbors"
   },
   {
@@ -880,7 +947,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Samurai Sword (サムライソード, Samurai Sōdo) / Katana Man"
   },
   {
@@ -908,7 +976,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A café employee initially presenting romantic interest in Denji, later revealed as a Soviet Bomb Devil hybrid assassin. Capable of transforming via a grenade"
   },
   {
@@ -936,7 +1005,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An assassin targeting Denji, initially appearing as an elderly German man before being revealed as a Russian woman controlling multiple bodies through the Doll"
   },
   {
@@ -964,7 +1034,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "'s girlfriend Fiends, who has horns similar to Power's and is able to breathe fire. She dies after being decapitated by the Darkness Devil, and is"
   },
   {
@@ -992,7 +1063,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The Shark Fiend, who has the ability to \"swim\" through solid objects and transform into a more monstrous shark-like form. He is partnered with Denji, whom he"
   },
   {
@@ -1020,7 +1092,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The Violence Fiend, who ironically is friendly and polite and loves peace. He wears a plague doctor-like mask that dispenses poisonous gas to keep his immense"
   },
   {
@@ -1048,7 +1121,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A socially isolated high school student at Fourth East High, Asa Mitaka is consumed by guilt over past deaths and harbors deep resentment toward devils after"
   },
   {
@@ -1076,7 +1150,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ War Devil (戦争の悪魔, Sensō no Akuma)"
   },
   {
@@ -1104,7 +1179,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Famine (or Hunger) Devil (飢餓の悪魔, Kiga no Akuma)"
   },
   {
@@ -1132,7 +1208,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A public safety devil hunter from Special Division 7 who Yoshida assigns to be Denji's bodyguard in school. She entered into a contract with the STD Devil at"
   },
   {
@@ -1160,7 +1237,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A public safety devil hunter from Special Division 7 who Yoshida assigns to be Denji's bodyguard in school. She entered into a contract with the STD Devil at"
   }
 ]

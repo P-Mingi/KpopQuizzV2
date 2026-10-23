@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "『DEATH NOTE』（デスノート）は、原作：大場つぐみ、漫画：小畑健による日本の漫画"
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written by Tsugumi Ohba and illustrated by Takeshi Obata"
   },
   {
@@ -95,7 +97,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from December 2003 to May 2006"
   },
   {
@@ -131,7 +134,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The 108 individual chapters were originally serialized in Shueisha's Weekly Shōnen Jump"
   },
   {
@@ -156,6 +160,11 @@
         "url": "https://en.wikipedia.org/wiki/Death_Note",
         "ref": "1379383524",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6592",
+        "fetched_at": "2026-10-23T17:29:20Z"
       }
     ],
     "status": "draft",
@@ -195,7 +204,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was broadcast on Nippon Television from October 2006 to June 2007"
   },
   {
@@ -334,7 +344,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Five pieces of theme music are used for the series."
   },
   {
@@ -361,7 +372,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "seemed real but could not exist in the real world"
   },
   {
@@ -391,7 +403,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "By April 2015, the Death Note manga had over 30 million copies in circulation"
   },
   {
@@ -418,7 +431,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "as long as the writer knows both the target's true name and face"
   },
   {
@@ -446,7 +460,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "He has an affinity for apples."
   },
   {
@@ -477,7 +492,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "such as crouching instead of sitting and an obsessive consumption of sweets"
   },
   {
@@ -505,7 +521,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "founder of Wammy's House, an orphanage for gifted children in Winchester, England"
   },
   {
@@ -533,7 +550,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is rarely seen without a bar of chocolate"
   },
   {
@@ -560,7 +578,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A light novel based on the series, written by Nisio Isin, was released in 2006."
   },
   {
@@ -587,7 +606,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An American film adaptation was released exclusively on Netflix in August 2017"
   },
   {
@@ -614,7 +634,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is licensed and released in North America by Viz Media"
   },
   {
@@ -642,7 +663,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the protagonist of Death Note, a brilliant yet bored genius who adopts the alias \"Kira\" to cleanse the world of criminals."
   },
   {
@@ -670,7 +692,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Eru Rōraito), known mononymously as L, is a world-renowned detective who takes on the challenge of catching the serial killer known as"
   },
   {
@@ -698,7 +721,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a bored Shinigami that drops a Death Note, the notebook that allows the one in its possession to kill anyone simply by knowing their name"
   },
   {
@@ -726,7 +750,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as \"Misa-Misa\", is a popular Japanese idol, who is known for her Gothic-style of dress, hyperactive personality and"
   },
   {
@@ -754,7 +779,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Light's father and detective superintendent of Japan's National Police Agency. He initially leads the Kira"
   },
   {
@@ -782,7 +808,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the youngest member of the Kira investigation team. His alias is Taro"
   },
   {
@@ -810,7 +837,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Light's kindhearted younger sister. Like her mother she never learns of Light's possession of the Death Note or his"
   },
   {
@@ -838,7 +866,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a member of the Kira investigation team that leaves the team under the guise of needing to support his family because"
   },
   {
@@ -866,7 +895,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the most dedicated members of the Kira investigation team, but also one of the most reserved. Mogi rarely speaks, even"
   },
   {
@@ -894,7 +924,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the few police officers who remain with Soichiro during the Kira Investigation. He initially leaves when he disagrees"
   },
   {
@@ -922,7 +953,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a member of the Kira investigation team that is led by L. He is characterized as a brave young man who is also a"
   },
   {
@@ -950,7 +982,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is L's assistant, providing logistics to the investigation team. Before the team is formed, he is the only person who has seen L, and the only one"
   },
   {
@@ -978,7 +1011,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Shinigami who gives Misa her Death Note. Like Ryuk, Rem possesses two Death Notes; however, Rem did not get hers through trickery. The"
   },
   {
@@ -1006,7 +1040,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an American investigator from the FBI, sent to Japan with eleven other agents to aid in tracking down Kira early in the"
   },
   {
@@ -1034,7 +1069,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Raye Penber's fiancée. A former first rate FBI agent, Naomi left the Bureau in October 2003 (2006 in the anime) for the"
   },
   {
@@ -1062,7 +1098,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "first appears for a short period as Light Yagami's classmate and girlfriend; Light appears with Takada in public to"
   },
   {
@@ -1090,7 +1127,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Shinigami whose Death Note was stolen by Ryuk. By the time he realizes this, however, the note has already changed hands several"
   },
   {
@@ -1118,7 +1156,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a criminal prosecutor and fanatical worshipper of Kira. When Light needs a new proxy to hide his identity, Light uses his"
   },
   {
@@ -1146,7 +1185,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "whose real name is Nate River, is the young detective who succeeds L after his death, He is the head of an organization created to catch Kira"
   },
   {
@@ -1174,7 +1214,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "real name is Mihael Keehl, grows up in competition with Near to succeed L. After L's death, however, he concedes the position to Near and"
   }
 ]

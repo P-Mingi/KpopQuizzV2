@@ -34,7 +34,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Haikyu!! (ハイキュー!!, Haikyū!!; from the kanji 排球, 'volleyball')"
   },
   {
@@ -72,7 +73,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written and illustrated by Haruichi Furudate"
   },
   {
@@ -110,7 +112,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "It was serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from February 2012 to July 2020"
   },
   {
@@ -148,7 +151,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "with its chapters collected in 45 tankōbon volumes"
   },
   {
@@ -200,6 +204,11 @@
         "url": "https://en.wikipedia.org/wiki/Haikyu!!",
         "ref": "1380484279",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2016-01-21/haikyu-my-love-story-sunny-win-shogakukan-manga-awards/.97818",
+        "fetched_at": "2026-10-23T17:27:59Z"
       }
     ],
     "status": "draft",
@@ -235,7 +244,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An anime television series produced by Production I.G aired from April 6 to September 21, 2014, on MBS"
   },
   {
@@ -268,7 +278,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Recently, the anime series ran for 85 episodes overall."
   },
   {
@@ -320,6 +331,11 @@
         "url": "https://en.wikipedia.org/wiki/Haikyu!!",
         "ref": "1380484279",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=18459",
+        "fetched_at": "2026-10-23T17:27:32Z"
       }
     ],
     "status": "draft",
@@ -355,7 +371,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the second cour was supposed to air in July 2020 but was delayed due to the COVID-19 pandemic"
   },
   {
@@ -387,7 +404,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The first film, Haikyu!! The Dumpster Battle, was released on February 16, 2024."
   },
   {
@@ -423,7 +441,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the opening theme song is \"Imagination\" by Spyair, while the ending theme song is \"Tenchi Gaeshi\" by Nico Touches the Walls"
   },
   {
@@ -457,7 +476,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The opening theme song is \"Hikariare\" by Burnout Syndromes, while the ending theme song is \"Mashi Mashi\" by Nico Touches the Walls."
   },
   {
@@ -496,7 +516,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Recently, the anime series ran for 85 episodes overall."
   },
   {
@@ -605,7 +626,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Hinata is inspired by a player the commentators nickname 'The Little Giant', Karasuno's short but talented wing spiker"
   },
   {
@@ -633,7 +655,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "At the 5th Crunchyroll Anime Awards, Shoyo Hinata was awarded \"Best Boy\" while he was nominated for \"Best Protagonist\"."
   },
   {
@@ -660,7 +683,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The first, \"The Arrival of Haiba Lev\", premiered at the Jump Festa on November 9, 2014"
   },
   {
@@ -693,7 +717,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a first-year student at Karasuno High School and the main protagonist of the series. Despite his short stature, he is"
   },
   {
@@ -726,7 +751,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a first-year student at Karasuno High School. Though an exceptionally diligent and strategic setter, his ruthless"
   },
   {
@@ -759,7 +785,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a first-year student at Karasuno High School and the volleyball team's tallest player. A middle blocker, he is known"
   },
   {
@@ -792,7 +819,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a first-year student at Karasuno High School. The only first-year on the team not to make the starting lineup"
   },
   {
@@ -825,7 +853,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the captain of the volleyball team and a third-year student at Karasuno High School. A wing spiker and dependable"
   },
   {
@@ -858,7 +887,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the vice captain of the volleyball team and a third-year student at Karasuno High School. Sugawara acts like the"
   },
   {
@@ -891,7 +921,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a third-year student at Karasuno and a wing spiker. Known as Samurai Man. Physically the strongest member of the team"
   },
   {
@@ -924,7 +955,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Karasuno High School and the team's libero and defensive specialist. Along with Tobio Kageyama"
   },
   {
@@ -957,7 +989,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Karasuno High School and a wing spiker. He is loud, fierce, and aggressive, but deeply"
   },
   {
@@ -990,7 +1023,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a first-year student and the assistant manager of Karasuno's volleyball club. Kiyoko recruits her to take over managing"
   },
   {
@@ -1018,7 +1052,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a third-year student at Aoba Johsai High. He is the volleyball team's captain and starting setter. He is introduced as one"
   },
   {
@@ -1046,7 +1081,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Nekoma High and the team's setter. He is introverted and prefers to keep to himself, choosing to"
   },
   {
@@ -1074,7 +1110,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a third-year student at Nekoma. He is the captain of the volleyball club and a talented middle blocker known for his"
   },
   {
@@ -1102,7 +1139,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a third-year student at Fukurodani Academy and captain and ace of the volleyball team. He is one of Japan's top 5"
   },
   {
@@ -1130,7 +1168,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Fukurodani Academy. He is the vice-captain and a setter of the volleyball team. He is an"
   },
   {
@@ -1158,7 +1197,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also nicknamed \"Ushiwaka\", is a third-year student at Shiratorizawa Academy. He is a wing spiker and the"
   },
   {
@@ -1186,7 +1226,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a third-year student at Shiratorizawa Academy, and is a middle blocker for the volleyball team. Nicknamed \"The Guess"
   },
   {
@@ -1214,7 +1255,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student and the team's setter. He is the older twin brother of Osamu Miya, who nicknames him \"Tsumu\". He is"
   },
   {
@@ -1242,7 +1284,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Itachiyama Institute. He is a wing spiker and the ace of his volleyball team, being the top"
   },
   {
@@ -1270,7 +1313,8 @@
         "fetched_at": "2026-10-20T21:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Kamomedai High. He is a wing spiker and ace for his volleyball team. He is first introduced"
   }
 ]

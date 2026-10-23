@@ -20,7 +20,7 @@
 //   C7  copy guard: normalized word n-gram overlap with the stored source excerpts
 //   C8  no lyrics; at most one short quoted line per quiz; none in a music question
 //   C9  dedupe against the whole corpus (questions, titles, slugs, facts, characters)
-//   C10 allowed sources only: https, Wikipedia, Wikidata, MusicBrainz, official sites; never MyAnimeList, Jikan, Fandom,
+//   C10 allowed sources only: https, Wikipedia, Wikidata, MusicBrainz, Oricon and Anime News Network (press), official sites; never MyAnimeList, Jikan, Fandom,
 //       AnimeThemes, kprofiles, AniList, Sporcle; each question source is one of the quiz sources
 //   C11 no en dash, no em dash (nor a double hyphen) in any text a visitor can read
 //   C12 no emoji

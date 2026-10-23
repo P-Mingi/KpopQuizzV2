@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Dandadan (ダンダダン), also written as Dan Da Dan"
   },
   {
@@ -67,7 +68,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written and illustrated by Yukinobu Tatsu"
   },
   {
@@ -100,7 +102,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Shueisha's Shōnen Jump+ app and website since April 2021"
   },
   {
@@ -133,7 +136,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "As of September 4, 2026, 25 volumes have been released"
   },
   {
@@ -185,6 +189,11 @@
         "url": "https://en.wikipedia.org/wiki/Dandadan",
         "ref": "1380355741",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-01-14/unmei-no-makimodo-shi-cosmos-dan-da-dan-more-win-71st-shogakukan-manga-awards/.233055",
+        "fetched_at": "2026-10-23T17:28:23Z"
       }
     ],
     "status": "draft",
@@ -214,7 +223,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "it won in the same category at the 31st edition in 2025"
   },
   {
@@ -239,9 +249,20 @@
         "url": "https://en.wikipedia.org/wiki/Dandadan",
         "ref": "1380355741",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/staffcast/",
+        "fetched_at": "2026-10-23T17:28:23Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=30869",
+        "fetched_at": "2026-10-23T17:28:23Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "produced by Science Saru"
   },
   {
@@ -347,9 +368,20 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
         "ref": "1378501554",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/news/2673/",
+        "fetched_at": "2026-10-23T17:28:24Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2025-12-21/dan-da-dan-season-3-anime-reveals-visual-2027-premiere/.232279",
+        "fetched_at": "2026-10-23T17:28:24Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "It is set to premiere in 2027"
   },
   {
@@ -379,7 +411,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "performed by Creepy Nuts"
   },
   {
@@ -409,7 +442,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "performed by Aina the End"
   },
   {
@@ -572,7 +606,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A spirit medium and Momo's grandmother"
   },
   {
@@ -604,7 +639,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Viz Media"
   },
   {
@@ -632,7 +668,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a high school girl who believes in ghosts and the supernatural. This is in part due to the influence of her grandmother"
   },
   {
@@ -660,7 +697,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a shy and friendless high school boy who tries to connect with Momo over their shared interests in the supernatural. Momo"
   },
   {
@@ -688,7 +726,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a yōkai who takes the form of a cruel, foul-mouthed elderly woman. Turbo Granny used to comfort the spirits of girls who"
   },
   {
@@ -716,7 +755,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a spirit medium and Momo's grandmother, though her youthful appearance suggests she is in her 20s. Despite lacking innate"
   },
   {
@@ -744,7 +784,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the school idol of Kami High. Although she puts on the appearance of a ditzy and amiable person, she is actually"
   },
   {
@@ -772,7 +813,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a powerful yōkai with immense strength and agility. In life, she was a struggling single mother and"
   },
   {
@@ -800,7 +842,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "are an entirely male alien race who come from Planet Serpo. Due to their race being exclusively all male, the Serpo have"
   },
   {
@@ -828,7 +871,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Momo's childhood friend and first crush, until he teased her over Seiko's rituals for her. He goes by the nickname \"Jiji\""
   },
   {
@@ -856,7 +900,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also called Mr. Mantis Shrimp (シャコさん, Shako-san), is an alien resembling a mantis shrimp with a turtle shell, inspired by"
   },
   {
@@ -884,7 +929,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "based on the supernatural curse of the same name, is a vengeful yōkai born from a human sacrifice. His mind-corrupting presence drives"
   },
   {
@@ -912,7 +958,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Okarun's classmate, a withdrawn but imaginative student fascinated by the supernatural. Though less overt than Okarun"
   },
   {
@@ -940,7 +987,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "known as Class Rep (委員長, Iinchō), serves as the strict class representative for Okarun, Kinta, and Vamola's class. Secretly"
   },
   {
@@ -968,7 +1016,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Peeny-Weeny's ailing but cheerful son, having inherited his mother's terminal illness. He grows close to the group through"
   },
   {
@@ -996,7 +1045,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an anthropomorphized anatomical model that resides at Momo and Okarun's high school. He is madly in love with Hana."
   },
   {
@@ -1024,7 +1074,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the last survivor of the Sumerian alien race, having escaped to Earth after her home planet's destruction. Honoring her adoptive"
   },
   {
@@ -1052,7 +1103,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a renowned, all-knowing and powerful alien who is constantly travelling the universe and a chance encounter with him being said to"
   },
   {
@@ -1080,7 +1132,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as the Slit-Mouthed Woman (口裂け女, Kuchisake-onna), is a yōkai that formerly resided in a ruined area in"
   },
   {
@@ -1108,7 +1161,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a mysterious collector of the paranormal and occult, with his main goal being to acquire something"
   },
   {
@@ -1136,7 +1190,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student at Renjaku High School, and is the leader of a gang of delinquents from other high schools. He lost his family as a"
   },
   {
@@ -1164,7 +1219,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student who confronted Momo in the school library while Momo was still small from the Danmanra adventure. Although"
   }
 ]
