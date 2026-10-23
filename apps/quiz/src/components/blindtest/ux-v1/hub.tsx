@@ -99,12 +99,14 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
       <SectionHeader id="p6-ways-h" title="Ways to play" icon="music" />
       <div className="p6-mgrid">
         <BtDailyCardLoader />
-        <Link className="p6-mcard" href="/blindtest/ranked">
-          <Icon name="trophy" size="lg" />
-          <h3>Ranked</h3>
-          <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
-          <BtRankedFootLoader />
-        </Link>
+        {SITE.features.ranked ? (
+          <Link className="p6-mcard" href="/blindtest/ranked">
+            <Icon name="trophy" size="lg" />
+            <h3>Ranked</h3>
+            <p>A fixed pool, speed and combos count. Your five best runs make your season score.</p>
+            <BtRankedFootLoader />
+          </Link>
+        ) : null}
         <BtChallengeCardLoader />
       </div>
     </section>

@@ -9,7 +9,7 @@ import { CREATOR_NOTE_MAX } from '@/lib/quiz/creator-note';
 import { LANGUAGES } from '@/lib/languages';
 import { ACCEPTED_IMAGE_TYPES } from '@/lib/create-draft';
 import { DIFFICULTIES, MIN_TITLE, TITLE_MAX, TITLE_PLACEHOLDER } from '@/lib/ux-v1/p5/funnel';
-import { DIFFICULTY_HELP, TYPE_ROWS, groupHelp, visibleGroups } from '@/lib/ux-v1/p5/view';
+import { difficultyHelpFor, groupHelp, topicCopy, typeRowsFor, visibleGroups } from '@/lib/ux-v1/p5/view';
 
 import { GroupField } from './group-field';
 
@@ -25,6 +25,7 @@ const DUP_HINT = 'A quiz with this exact name already exists. Add your angle (er
 
 export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: FunnelGroup[]; shown: DetailsGate | null }): React.ReactElement {
   const d = f.data;
+  const T = topicCopy();
   const [dragOver, setDragOver] = useState(false);
   const titleErr = shown !== null && !shown.title && d.title.trim().length < MIN_TITLE;
   const groupErr = shown !== null && !shown.group && !d.group_slug && !d.newGroup;
@@ -44,7 +45,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
           className="ux-inp p5-inp-big"
           value={d.title}
           onChange={(e) => f.setTitle(e.target.value)}
-          placeholder={TITLE_PLACEHOLDER}
+          placeholder={T.titlePlaceholder ?? TITLE_PLACEHOLDER}
           maxLength={TITLE_MAX}
           autoComplete="off"
           aria-invalid={titleErr || undefined}
@@ -63,7 +64,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
           maxLength={CREATOR_NOTE_MAX}
           value={d.creatorNote}
           onChange={(e) => f.setNote(e.target.value)}
-          placeholder="e.g. My hardest ARMY quiz yet, focused on the B-sides most fans skip."
+          placeholder={T.aboutPlaceholder ?? 'e.g. My hardest ARMY quiz yet, focused on the B-sides most fans skip.'}
           aria-describedby="p5-about-h"
         />
         <p className="ux-help" id="p5-about-h">Shown on your quiz page and in Google results.</p>
@@ -72,7 +73,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
       <div className="ux-field">
         <div className="ux-flabel" id="p5-type-l">Quiz type <small>Locked once you add questions</small></div>
         <div className="p5-opts" role="radiogroup" aria-labelledby="p5-type-l">
-          {TYPE_ROWS.map((t) => {
+          {typeRowsFor().map((t) => {
             const on = d.quiz_type === t.value;
             const off = f.typeLocked && !on;
             return (
@@ -89,7 +90,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
       </div>
 
       <div className="ux-field">
-        <label htmlFor="p5-group-q">Group <small>{visibleGroups(groups).length} groups</small></label>
+        <label htmlFor="p5-group-q">{`${T.label} `}<small>{visibleGroups(groups).length}{T.manySp}</small></label>
         <GroupField
           groups={groups}
           selectedSlug={d.group_slug}
@@ -101,14 +102,14 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
           describedBy="p5-group-h"
         />
         <p className={`ux-help${groupErr ? ' p5-err' : ''}`} id="p5-group-h" role={groupErr ? 'alert' : undefined}>
-          {groupErr ? 'Pick a group to continue.' : groups.length === 0 ? 'The group list did not load. Reload the page to pick a group.' : groupHelp(d, groups)}
+          {groupErr ? T.pickToContinue : groups.length === 0 ? T.loadFailed : groupHelp(d, groups)}
         </p>
       </div>
 
       <div className="ux-field">
         <div className="ux-flabel" id="p5-diff-l">Difficulty</div>
         <Segmented<DraftDifficulty> options={DIFFICULTIES} value={d.difficulty} onChange={f.setDifficulty} label="Difficulty" />
-        <p className="ux-help">{DIFFICULTY_HELP[d.difficulty]}</p>
+        <p className="ux-help">{difficultyHelpFor(d.difficulty)}</p>
       </div>
 
       <div className="ux-field">

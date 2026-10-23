@@ -4,7 +4,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
-import { forSite } from '@/lib/site/scope';
+import { forSite, siteScoped } from '@/lib/site/scope';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -182,13 +182,19 @@ export const getTodayStats = unstable_cache(
       hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
     }>)[0];
     if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
+    let hotGroup = row.hot_group_slug && row.hot_group_name
+      ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
+      : null;
+    // The RPC folds every site's plays: with the site scope on, a hottest group of another site is not shown (no query with it off).
+    if (hotGroup && siteScoped()) {
+      const own = await forSite(db.from('groups').select('slug')).eq('slug', hotGroup.slug).maybeSingle();
+      if (own.error || !own.data) hotGroup = null;
+    }
     return {
       playsToday: Number(row.plays_today ?? 0),
       quizzesToday: Number(row.quizzes_today ?? 0),
       mastersToday: Number(row.masters_today ?? 0),
-      hotGroup: row.hot_group_slug && row.hot_group_name
-        ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
-        : null,
+      hotGroup,
     };
   },
   ['db:community:getTodayStats:v1'],

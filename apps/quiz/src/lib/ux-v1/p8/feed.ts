@@ -11,6 +11,7 @@ import { excerpt, readingMinutes, timeAgo, utcDate } from './format';
 import { dailyKey } from './nesting';
 import { readPeople } from './people';
 import { communityPostsOn, gateVersePosts, retiredVerseRow } from './verse-gate';
+import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -209,6 +210,8 @@ export interface DailyDebateRow { date: string; question: string; sideA: string;
 /** Daily debates up to `today` (read only: never ensure_daily_debate, which writes),
  *  with their vote split and reply count. */
 export async function readDailyDebates(db: Db, today: string, days = DEBATE_DAYS): Promise<DailyDebateRow[]> {
+  // daily_debates and debate_questions carry no site_id: they are the K-pop debate, so a world site has none (not the K-pop one).
+  if (SITE_ID !== 'kpop') return [];
   const { data } = must(await db.from('daily_debates').select('date, question_id').lte('date', today)
     .order('date', { ascending: false }).limit(days), 'daily_debates');
   const rows = (data ?? []) as { date: string; question_id: string }[];

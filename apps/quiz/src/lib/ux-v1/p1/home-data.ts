@@ -27,6 +27,7 @@ import { LIVE_HUB_ORDER } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
 import { isUxV12 } from '@/lib/ux-v12';
+import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 
 /** A read that failed must THROW inside unstable_cache: a thrown read is not
@@ -272,8 +273,9 @@ async function readCommunity(today: string): Promise<HomeCommunity> {
   const db = createPublicReadClient();
   const rows: CommunityRow[] = [];
 
-  // Daily debate (read only: never ensure_daily_debate, which writes).
-  const { data: dd } = must(await db.from('daily_debates').select('date, question_id').lte('date', today)
+  // Daily debate (read only: never ensure_daily_debate, which writes). The debate tables have no site_id (they are the K-pop
+  // debate), so a world site never reads them: its community row would be a K-pop question under the KpopQuiz rabbit.
+  const { data: dd } = SITE_ID !== 'kpop' ? { data: null } : must(await db.from('daily_debates').select('date, question_id').lte('date', today)
     .order('date', { ascending: false }).limit(1).maybeSingle(), 'daily_debates');
   const debate = dd as { date: string; question_id: string } | null;
   if (debate) {

@@ -25,7 +25,7 @@ import { isSoundEnabled, setSoundEnabled } from '@/lib/sounds';
 import { AVATAR_PRESETS, AVATAR_PRESET_KEYS, NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
 import { BIAS_MAX, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX } from '@/lib/passport-themes';
 import { applyTheme, storedTheme } from '@/lib/ux-v1/a0/theme';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl } from '@/lib/ux-v1/p10/passport-model';
 import { fmt } from '@/lib/passport-ui/fmt';
 import { formFromRow, formProblems, prefsPayload, profilePayload, usernameProblem } from '@/lib/ux-v1/p10/settings-model';
@@ -688,7 +688,7 @@ function GroupSheet({ open, onClose, groups, picked, onPick, labels }: {
             return (
               <li key={g.slug}>
                 <button type="button" className="p10-gpick" onClick={() => { setQ(''); onPick(g.slug); }}>
-                  <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : g.name.slice(0, 1)}</span>
+                  <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : labels && SERIES_ART.avatar ? SERIES_ART.avatar(g.slug, g.name) : g.name.slice(0, 1)}</span>
                   {g.name}
                 </button>
               </li>
