@@ -8,10 +8,20 @@ Helpers (the same as `SQL-ORDER.md` section 1):
 
     read -rs PROD_DB_URL; export PROD_DB_URL
     q() { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
+    M=docs/pending-migrations/multisite
     mkdir -p ~/kpq-launch        # a folder of your own for the snapshots below, outside the repository
 
 Where a result is "the same as V0", compare with the numbers you saved in `~/kpq-launch/v0.txt`. Counts that move with traffic
 (plays, profiles) are compared with the rule written next to them, never as equal to the old number.
+
+## A0. S4, right after step A0 (and again after 008)
+
+The query is in the header of `docs/pending-migrations/s4/S4-revoke-public-execute.sql`; run it as one command:
+
+    q "select count(*) filter (where not has_function_privilege('anon', p.oid, 'EXECUTE') and not has_function_privilege('authenticated', p.oid, 'EXECUTE') and has_function_privilege('service_role', p.oid, 'EXECUTE')), count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('award_xp', 'award_bt_xp', 'award_daily_capped_byeol', 'award_first_time_byeol', 'award_like_xp', 'dev_award_byeol', 'dev_open_card_pack', 'dev_open_starter_pack', 'create_quiz_bypass', 'merge_anon_passport', 'record_bt_play', 'record_game_play', 'update_player_rank', 'update_player_streak', 'grant_streak_badges', 'emit_activity', 'fanout_followed_new_quiz', 'generate_daily_challenges', 'ensure_daily_blindtest', 'ensure_daily_debate', 'reconcile_quiz_counters', 'recalculate_difficulty', 'increment_game_play_count', 'increment_tot_appear', 'increment_tot_category_plays', 'increment_tot_pick', 'tier_list_bump_view', 'get_daily_bt_leaderboard')"
+
+Expect `28|28` (every one of the 28 closed to anon and authenticated, open to service_role). After 008 the 7 argument `merge_anon_passport` replaces the 6 argument one and 008 hands it back to PUBLIC: the line then reads `27|28` until you close it as RUNBOOK D2 says, then `28|28` again.
+The four kept functions (`record_play`, `increment_like_count`, `decrement_like_count`, `get_personality_counts`) stay executable by anon and authenticated.
 
 ## V0. Baseline, before anything (save it)
 
@@ -193,9 +203,9 @@ Vercel, project kpop, Cron Jobs: `ensure-daily-quiz` shows a success at 00:05.
     q "select pg_get_constraintdef(oid) from pg_constraint where conname='reason_valid' and conrelid='public.reports'::regclass"  # the five reasons of today
     q "select count(*) from pg_indexes where indexname='reports_spoiler_once'"                                                   # 0
 
-016 (B7, to confirm when merged): the tables `passport.deletion_requests` and `passport.deletion_log` exist with RLS on and no policy; the four functions
-`passport_request_deletion`, `passport_cancel_deletion`, `passport_run_deletion`, `passport_leave_world` are executable by `service_role` only
-(`has_function_privilege('anon', ..., 'execute')` is `f`); `select count(*) from passport.deletion_requests` is 0.
+016: the tables `passport.deletion_requests` and `passport.deletion_log` exist with RLS on and no policy (`select relname, relrowsecurity from pg_class where relnamespace = 'passport'::regnamespace and relname like 'deletion%' and relkind = 'r' order by 1` gives `deletion_log|t`, `deletion_requests|t`); the five functions
+`passport_request_deletion`, `passport_cancel_deletion`, `passport_run_deletion`, `passport_leave_world`, `passport_due_deletions` are executable by `service_role` only
+(`has_function_privilege('anon', ..., 'execute')` and the same for `authenticated` are `f`); `select count(*) from passport.deletion_requests` is 0.
 
 After the whole P5, V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of kpop for the last hour.
 
@@ -213,17 +223,23 @@ All of:
 
 Run `content-verify.sql` after L04 to L08 and compare with `expected-counts.json`:
 
-    psql "$PROD_DB_URL" -X -At -F ' | ' -f docs/launch/o1/sql/content-verify.sql
-    cat docs/launch/o1/sql/expected-counts.json
+    psql "$PROD_DB_URL" -X -At -F ' | ' -f $M/launch/content-verify.sql
+    cat $M/launch/expected-counts.json
+    grep -l '^-- DRAFTS' $M/launch/*.sql        # prints nothing
 
 The columns are, in order: groups, series, arcs, characters, themes, trivia, entity_sources, then (when the files L02 and L07 are in) Team accounts,
 Team memberships, published quizzes, questions, then (L08) bank rows, bank questions. Each must equal the `counts` object, except `groups`, which is
-one more than `counts.groups` (the series groups plus `anime-mix`). Rehearsed on a local Postgres 18 with the repository's SQL 001 to 015 and the stand-in base
-schema: all six generated files applied twice with no change the second time, the counts matched, every rollback refused when data had been written and
-ran clean otherwise, and the files re-applied after the rollbacks.
+one more than `counts.groups` (the series groups plus `anime-mix`). Rehearsed on o1-scratch on 2026-10-23 with the DRAFTS files and the whole repository SQL (`SQL-ORDER.md` section 5):
+every file applied twice with no change the second time, every rollback refused when data had been written and ran clean otherwise.
 
     q "select id, domain, brand, kind, status, sort from public.sites order by sort"
-After L01: `kpop|...|live|1`, `anime|otakuquiz.org|OtakuQuiz|world|building|2`, `hub|fanquiz.org|FanQuiz|hub|building|3`. After L12: all three `live`.
+After L01: `kpop|...|live|1`, `anime|otakuquiz.org|OtakuQuiz|world|building|2`, `hub|fanquiz.org|FanQuiz|hub|building|3`. After L12 (K8): all three `live`.
+
+After L03 (the sentinels): `q "select username, id from public.profiles where id::text like '00000000-0000-0000-0000-%' and username like 'deleted_user_%' order by 1"` gives `deleted_user_anime|00000000-0000-0000-0000-00000000dea2` and `deleted_user_hub|...dea3`
+(plus `deleted_user` of Mission U part D when it is applied); `q "select count(*) from public.world_memberships where user_id in ('00000000-0000-0000-0000-00000000dea2', '00000000-0000-0000-0000-00000000dea3')"` is 0;
+with 016 applied `q "select public.passport_site_sentinel('anime'), public.passport_site_sentinel('hub')"` returns the two ids.
+After L06 (the badges): `q "select count(*) from public.badge_definitions where site_id <> 'kpop'"` is 6 (`anime_first_steps`, `anime_quiz_maker`, `anime_prolific_creator`, `anime_multi_stan`, `anime_dedicated_fan`, `anime_community_star`), and `q "select count(*) from public.badge_definitions where site_id = 'hub'"` is 0.
+After L05: `q "select count(*) from public.trivia where site_id='anime' and status='published'"` equals the `published` figure in its header (every verified fact).
 
     q "select count(*) from public.editorial_accounts where site_id='anime' and active"                      # 31 (L02)
     q "select s.system_user_id is not null, s.fallback_group_slug from public.sites s where id='anime'"       # t|anime-mix
@@ -266,8 +282,8 @@ Replace `D` with each domain in turn.
     done
 
 Expect: home 200 on all three; each canonical names its own domain (never another); each robots `Sitemap:` line names its own domain;
-sitemap and llms 200; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K7); on the anime and hub homes no `set-cookie` of a kpop name; `strict-transport-security` present.
-Before indexing is open the anime and hub homes carry a `noindex` robots meta (`curl -sS https://otakuquiz.org/ | grep -io '<meta name="robots"[^>]*>'`); after K7 it must be gone on the home, `/series`, a series page and `/q/<slug>`, and still there on `/settings`, `/me`, `/admin`.
+sitemap and llms 200; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K10); on the anime and hub homes no `set-cookie` of a kpop name; `strict-transport-security` present.
+Before indexing is open the anime and hub homes carry a `noindex` robots meta (`curl -sS https://otakuquiz.org/ | grep -io '<meta name="robots"[^>]*>'`); after K10 it must be gone on the home, `/series`, a series page and `/q/<slug>`, and still there on `/settings`, `/me`, `/admin`.
 
 String leaks (a site must not talk like another):
 
@@ -278,20 +294,19 @@ String leaks (a site must not talk like another):
 Expect `0` on each line. Known leftovers from `RAPPORT-FINAL.md` section 5 (K-pop text on `/u/<name>`, name-all, the empty hub, the "Ways to play"
 tiles and `/dmca`; `/privacy` on the hub is the kpop copy until you validate the text) may show here: write each hit down as a launch decision (fix first, or accept and date it).
 
-Cross-site cookie check: sign in on kpopquiz.org, open otakuquiz.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K8): from kpop open
+Cross-site cookie check: sign in on kpopquiz.org, open otakuquiz.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K7): from kpop open
 `https://kpopquiz.org/auth/passport/out?to=anime`, you land on otakuquiz.org signed in; the Network tab shows the `via` parameter once and no token left in the URL after the landing.
 
 Admin and noindex pages answer 404 or a login page for an anonymous visitor: `curl -sS -o /dev/null -w '%{http_code}\n' https://otakuquiz.org/admin/review` is not 200; `https://fanquiz.org/admin` is 404.
 
-Email (P6, B7, to confirm when merged): request a magic link on each of the three domains with a mailbox you own. kpop: the mail looks exactly as before. anime and hub: the
+Email (P6, section I of the runbook): request a magic link on each of the three domains with a mailbox you own. kpop: the mail looks exactly as before. anime and hub: the
 brand, subject, button and footer are the site's own and the link goes to `https://<that domain>/auth/confirm?...` (anime) and signs you in. Resend dashboard shows delivered, not bounced.
 
 ## V11. First 72 hours (hour 0, +1h, +24h, +72h)
 
 Each time:
 1. V10 loop, quickly. 2. Vercel, each project, Runtime Logs: errors in the last hour (compare with the previous hour; any new error type is a finding).
-3. Cron Jobs: `ensure-daily-quiz` on kpop and anime (00:05 UTC), `ensure-daily-opening` on anime (00:12, O6's route; `{themeId}` null is fine until openings exist),
-   `passport-cleanup` and `passport-deletions` on hub (03:55 and 03:50), and the same routes on the other two projects answer `{"skipped":true}`.
+3. Cron Jobs: `ensure-daily-quiz` on kpop and anime (00:05 UTC; on anime it answers 500 when the day has no quiz, RUNBOOK J4), `passport-deletions` (03:50) once it is in `vercel.json`; the other routes answer `{"skipped":true}` on a site that is not theirs.
 4. `q "select featured_date, site_id from public.qotd_log order by featured_date desc, site_id limit 4"`: today's date has one `kpop` and one `anime` row.
 5. `q "select site_id, count(*) from public.world_memberships group by 1 order by 1"`, `q "select src_site, dst_site, step, sum(n) from public.bridge_daily group by 1,2,3 order by 1,2,3"`:
    numbers only, small at first; no row of the 31 Team accounts in a leaderboard.

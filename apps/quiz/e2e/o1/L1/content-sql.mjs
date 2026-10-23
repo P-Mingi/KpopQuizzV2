@@ -1,9 +1,10 @@
 // Run O1, lane L1: the launch SQL of the content, generated from docs/anime/data. Never applied by an agent: the owner
 // applies the files on launch day (docs/launch/o1/RUNBOOK.md).
 //
-//   node apps/quiz/e2e/o1/L1/content-sql.mjs [--data docs/anime/data] [--out docs/launch/o1/sql] [--drafts] [--team-email-domain otakuquiz.org]
+//   node apps/quiz/e2e/o1/L1/content-sql.mjs [--data docs/anime/data] [--out <dir>] [--drafts] [--team-email-domain otakuquiz.org]
 //
-// Writes, in --out (default docs/launch/o1/sql, or docs/launch/o1/sql-drafts with --drafts):
+// Writes, in --out (default docs/pending-migrations/multisite/launch, beside L01, L03 and L06; with --drafts the first line of
+// every file says DRAFTS, and the owner's run without --drafts overwrites them after the review):
 //   L02-K2-team-accounts   the 31 Team accounts (needs their auth users first: team-auth.mjs, same folder)
 //   L04-K1-series          anime-mix and the series groups, series, arcs, characters, openings and endings
 //   L05-K1-facts           entity_sources and trivia
@@ -17,12 +18,13 @@
 //   - series, arcs, characters, openings: the rows the files mark published (series.published, row status);
 //   - quizzes and daily rows: every question cites at least one fact and every cited fact is loaded.
 // --drafts loads every draft fact and every row of the files, for a rehearsal on o1-dev or o1-scratch: its files say DRAFTS on
-// their first line and go to sql-drafts by default. Never apply them to production.
+// their first line. Never apply them to production (RUNBOOK J2 greps the launch folder for that first line before K).
 //
 // The SQL is the one of scripts/anime/k1/data-load.mjs (the loader the branches use), cut into the launch files by statement
 // kind, so the production load and the branch load can never differ. A verified fact is loaded as a published trivia row
-// (the loader files every fact as a draft; here the owner's verification is the approval). Idempotent upserts: a second run
-// of a file changes nothing. No timestamp in the output, so the same data gives the same bytes.
+// (owner decision D-099: the dev loader maps verified to draft on purpose, the owner's verification is the approval here):
+// L05 inserts it as published and, when an earlier run left it as a draft, promotes it (the loader never changes a status).
+// Idempotent upserts: a second run of a file changes nothing. No timestamp in the output, so the same data gives the same bytes.
 
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
@@ -35,6 +37,7 @@ import {
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = resolve(HERE, '../../../../..');
 export const DEFAULT_TEAM_DOMAIN = 'otakuquiz.org';
+export const DEFAULT_OUT = 'docs/pending-migrations/multisite/launch';
 const AVATAR = { bg: '#1A1A1A', text: '#FFFFFF' };
 
 /** The address of a Team auth user. One place, shared by this script and team-auth.mjs. */
@@ -216,7 +219,7 @@ export function buildLaunchFiles(sel, { drafts = false, teamDomain = DEFAULT_TEA
   files.push({
     name: 'L05-K1-facts',
     sql: header('L05-K1-facts', drafts, [
-      `What:   ${plan.sources.length} entity_sources rows and ${plan.trivia.length} trivia rows (${plan.trivia.filter((t) => t.status === 'published').length} published, the rest draft).`,
+      `What:   ${plan.sources.length} entity_sources rows and ${plan.trivia.length} trivia rows (${plan.trivia.filter((t) => t.status === 'published').length} published because the owner verified them, the rest draft). A draft row of an earlier run whose fact is verified now is promoted; nothing is ever demoted.`,
       'Needs:  L04.',
       `Verify: select count(*) from public.trivia where site_id = 'anime';   expect ${plan.trivia.length}`,
       'Undo:   L05-K1-facts.rollback.sql.',
@@ -224,6 +227,7 @@ export function buildLaunchFiles(sel, { drafts = false, teamDomain = DEFAULT_TEA
       guard('L05', `(select count(*) from public.groups where site_id = ${A} and slug in (${slugList})) <> ${slugs.length + 1}`, 'the series groups are missing (apply L04 first)'),
       guard('L05', "not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'trivia' and column_name = 'site_id') or not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'entity_sources' and column_name = 'source_url')", 'trivia.site_id or entity_sources.source_url is missing (apply 002a and 011 first)'),
       ...by.sources, ...by.trivia,
+      ...(plan.trivia.some((t) => t.status === 'published') ? [promoteTrivia(A)] : []),
     ]),
     rollback: header('L05-K1-facts.rollback', drafts, ['What:   undoes L05: deletes the anime trivia of these groups and the entity_sources rows of the load.'])
       + body([
@@ -298,6 +302,12 @@ export function buildLaunchFiles(sel, { drafts = false, teamDomain = DEFAULT_TEA
   return { files, counts: countDataPlan(plan), verifySql: countDataSql(plan), plan };
 }
 
+/** Promotes a draft row (left by an earlier run, or by the dev loader) to published when its fact is verified now. Never demotes. */
+function promoteTrivia(site) {
+  const key = "t.entity_kind = v.entity_kind and t.entity_id = v.entity_id and md5(btrim(lower(t.fact))) = md5(btrim(lower(v.fact)))";
+  return `update public.trivia t set status = 'published', updated_at = now() from _k1_trivia v where t.site_id = ${site} and ${key} and v.status = 'published' and t.status = 'draft' and t.created_by is null;`;
+}
+
 /** A verified fact is loaded as a published trivia row; a draft stays draft. The loader maps both to draft. */
 function applyTriviaStatus(plan, files) {
   const want = new Map();
@@ -340,7 +350,7 @@ export function parseArgs(argv) {
     else if (a === '--help' || a === '-h') o.help = true;
     else throw new Error(`unknown argument ${a}`);
   }
-  if (!o.out) o.out = o.drafts ? 'docs/launch/o1/sql-drafts' : 'docs/launch/o1/sql';
+  if (!o.out) o.out = DEFAULT_OUT;
   return o;
 }
 

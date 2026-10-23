@@ -39,6 +39,8 @@ changing one needs a redeploy of that project. Server variables are read at run 
 | `NEXT_PUBLIC_NET_MENU` | `1` later | `1` | `1` | `1`. Visible on kpopquiz.org. |
 | `NEXT_PUBLIC_NET_BEACON` | `1` later | `1` | `1` | `1`. Counts clicks between sites (aggregate counters only, no identifier). |
 | `NEXT_PUBLIC_NET_FACTS` | `1` later | `1` | not used | `1`, only when L11 (X1) has been applied. |
+| `NET_INDEXING` | ignored (kpop is never closed) | `1` at RUNBOOK K10, last step of launch day | `1` at K10 | Server flag, read at build: unset, every page of the build answers `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`); `1` removes the header and lets each page speak for itself (`/settings`, `/me`, `/admin`, login, search, profiles keep their noindex). Redeploy after changing it. |
+| `QOTD_ROTATION_FIX` | already (kpop's own, untouched) | `1` (auto-scheduling of the anime daily, RUNBOOK J4) | leave unset | Server switch read by the cron `ensure-daily-quiz` (00:05 UTC) and by the bank `auto-schedule` route: with `1`, an empty day is filled from the next verified or scheduled bank row of the site, else a catalogue pick, and a day that stays empty makes the cron answer 500. |
 | `PASSPORT_CONTINUE`, `PASSPORT_SEED` | never | never | never | Reserved for later work; they do nothing in this run. Reading one in code is a review finding, setting one is pointless. |
 
 ### 1.3 Passport secrets (same on the 3 projects)
@@ -61,9 +63,9 @@ If the three values differ, the jump fails with an invalid ticket. After setting
 ### 1.5 kpop only: already set, leave alone, do not copy to the new projects
 
 `NEXT_PUBLIC_BT_TRACKING`, `VERSE_PUBLIC`, `COMMUNITY_FEATURES_ENABLED` (defaults on when unset; anime community works with it unset),
-`SONGS_IS_CURATED`, `DISCORD_FLEX_WEBHOOK_URL`, `DISCORD_ALERT_WEBHOOK_URL`, `DISCORD_PUBLIC_KEY`, `DISCORD_BOT_TOKEN`, `SPOTIFY_CLIENT_ID`,
+`SONGS_IS_CURATED`, `DISCORD_FLEX_WEBHOOK_URL`, `DISCORD_ALERT_WEBHOOK_URL`, `DISCORD_PUBLIC_KEY`, `DISCORD_BOT_TOKEN` (no Discord on the new domains, D-099), `SPOTIFY_CLIENT_ID`,
 `SPOTIFY_CLIENT_SECRET`, `YOUTUBE_API_KEY`, `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_BOT_USERNAME`, `REDDIT_BOT_PASSWORD`,
-`UX_P4_CHALLENGE_SECRET`, `INDEXNOW_TRIGGER_TOKEN`, `ACTIVITY_MIN_PER_HOUR`, `QOTD_ROTATION_FIX` (untouched by the run; its meaning for kpop does not change).
+`UX_P4_CHALLENGE_SECRET`, `INDEXNOW_TRIGGER_TOKEN`, `ACTIVITY_MIN_PER_HOUR` (untouched by the run). `QOTD_ROTATION_FIX` stays as it is on kpop; its meaning for kpop does not change, and the anime project sets it (1.2).
 `NEXT_PUBLIC_KDRAMA` belongs to another mission and is never set by this run.
 
 To confirm with the code lanes before launch: an anime or hub route that reads one of the kpop only variables above (for example the
@@ -81,25 +83,41 @@ anime blind test and `SPOTIFY_*` or `YOUTUBE_API_KEY`, O6 and Mission U part B).
 | `RECORD_BASELINE`, `PLAYLIST_TRACE` | test and trace switches |
 | the dev or branch Supabase keys (`o1-dev`, `o1-scratch`) | a production project must only hold production keys; check the URL ends with the production ref |
 
+### 1.7 IndexNow keys and organization mailboxes (decided 2026-10-23; no environment variable)
+
+An IndexNow key is a public value (it is served as `/<key>.txt`), so it lives in the repository, not in a variable. One key of 32 hex characters per new site, generated on 2026-10-23:
+
+| site | domain | key file (the file holds the key, no newline) | registry field |
+|---|---|---|---|
+| anime | otakuquiz.org | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://otakuquiz.org/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` | `seo.indexNowKey` of `anime` in `apps/quiz/src/lib/site/registry.ts` (still `null`: a code lane sets it) |
+| hub | fanquiz.org | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://fanquiz.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` (still `null`) |
+| kpop | kpopquiz.org | `apps/quiz/public/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt` (as before) | `seo.indexNowKey` of `kpop` and `INDEXNOW_KEY` in `apps/quiz/src/lib/indexnow.ts` |
+
+kpopquiz.org serves its key the same way: a static file in `public/`, which the three builds share (`routes.md`: all builds serve all key files, harmless, a key only proves control of the host that lists it). So each key answers on every domain, and the file is the one the engine fetches on its own domain. Making a key answer on its own domain only would need a rewrite in `next.config.ts`, which is not part of this kit.
+The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpop, 1.5). The two new keys are not secrets and need nothing in Vercel.
+Organization mailboxes (public values, set in the registry by a code lane, `seo.organization.email`): `contact@otakuquiz.org` for anime, `contact@fanquiz.org` for hub. They must exist before launch (RUNBOOK H5). The Team addresses `<username>@team.otakuquiz.org` must not receive mail: no MX record and no mailbox for `team.otakuquiz.org`.
+
 ## 2. Supabase
 
-### 2.1 Edge Function `send-email` (lane B7, to confirm when merged)
+### 2.1 Edge Function `send-email` (lane B7, merged)
 
 | variable | value source | notes |
 |---|---|---|
 | `SEND_EMAIL_HOOK_SECRET` | the secret Supabase shows when you create the Send Email hook (secret) | signature check of the hook; the function refuses unsigned calls |
 | `RESEND_API_KEY` | secret, from your Resend account (a key limited to sending) | sending the branded emails |
-| `NET_ORIGINS` | **never in production** | same format as `NEXT_PUBLIC_NET_ORIGINS`; for branches only |
+| `SEND_EMAIL_FROM_KPOP` | the sender kpopquiz.org mail uses today (required) | the function refuses kpop mail without it, so a missing sender never sends from a wrong address |
+| `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | optional | default `OtakuQuiz <no-reply@otakuquiz.org>` and `FanQuiz <no-reply@fanquiz.org>` |
+| `SEND_EMAIL_ORIGINS` | **never in production** | same syntax as `NEXT_PUBLIC_NET_ORIGINS`; staging projects only |
 
-Anything else B7's deploy note asks for (a sender address, for example) is to confirm when B7 merges. The deploy note named in the brief
-is `docs/o1/b7/send-email-hook.md`; the manifest names `deploy/B7-send-email-hook.md` in the multisite folder. Use whichever exists
-at merge.
+The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fanquiz` Vercel project also takes `RESEND_API_KEY` (and optionally
+`SEND_EMAIL_FROM_HUB`) for the "your passport will be deleted" notice; without them the notice is skipped and the deletion still goes ahead.
 
 ### 2.2 Auth settings (dashboard, no variable)
 
 Site URL stays `https://kpopquiz.org`. Redirect URLs gain `https://otakuquiz.org/**` and `https://fanquiz.org/**` (RUNBOOK H3). The
 Send Email hook is switched on at P6. The Google provider keeps its client and gains the two new client ids in its "Client IDs" list (H4).
 The Data API's exposed schemas must **not** contain `passport` (006 revokes every grant, but the setting is the second wall).
+No Discord for the new domains (D-099): the Discord provider and its client stay as they are for kpopquiz.org, nothing is added for otakuquiz.org or fanquiz.org.
 
 ## 3. Owner's shell only (not a project)
 
@@ -107,7 +125,7 @@ The Data API's exposed schemas must **not** contain `passport` (006 revokes ever
 |---|---|
 | `PROD_DB_URL` | psql connection string for the SQL steps; typed with `read -rs`, never saved |
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | only for `apps/quiz/e2e/o1/L1/team-auth.mjs`, one run; `unset` them afterwards |
-| `RESEND_API_KEY` | X1's waitlist email script, owner run (X1 is not merged yet; to confirm) |
+| `CRON_SECRET` | typed with `read -rs` for the one manual call of `/api/cron/ensure-daily-quiz` on launch day (RUNBOOK K9); `unset` it afterwards |
 
 ## 4. Checklist to print
 
