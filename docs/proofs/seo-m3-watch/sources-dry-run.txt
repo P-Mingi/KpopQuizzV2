@@ -1,0 +1,443 @@
+# /api/cron/seo-sources?dry=1 on a local dev server of seo/m3-monitoring (reads production, sends nothing), 2026-10-15 about 22:00 UTC
+# total 769, checked 769, not checked 0, dead 325, unverified 109, ok 335
+# dead, uses summed: group_site 2, quiz_bank 342
+# dead by host: www.soompi.com 275, en.wikipedia.org 30, open.spotify.com 6, www.bbc.com 5, www.billboard.com 4, nct.smtown.com 1, bt21.com 1, staydepartment.com 1, www.vogue.com 1, www.vox.com 1
+# unverified by (status, host): 403 www.allkpop.com 99, 400 open.spotify.com 5, 403 kpop.fandom.com 2, 503 www.bpment.co.kr 1, None www.cubeent.co.kr 1, None www.gaonchart.co.kr 1
+
+status	url	uses	where (first labels)
+no host	http://nct.smtown.com/	group_site x1	NCT
+404	https://bt21.com/characters	quiz_bank x3	K-pop Mascots and Cute Culture
+404	https://en.wikipedia.org/wiki/0X1%3DLOVESONG_(I_Know_I_Love_You)	quiz_bank x1	TXT: Can't You See Me? Quiz
+404	https://en.wikipedia.org/wiki/3racha	quiz_bank x1	Stray Kids: District 9 Quiz
+404	https://en.wikipedia.org/wiki/Ador_(record_label)	quiz_bank x1	K-pop Label Structure and Companies
+404	https://en.wikipedia.org/wiki/All-kill_(music)	quiz_bank x1	K-pop Training System and Idol Life
+404	https://en.wikipedia.org/wiki/BamBam_(rapper)	quiz_bank x2	GOT7: Never Ever Quiz; K-pop Idol Nationalities
+404	https://en.wikipedia.org/wiki/Bigbang_(South_Korean_band)	quiz_bank x1	K-pop Group Colors and Lightsticks
+404	https://en.wikipedia.org/wiki/Blackpink_at_Coachella	quiz_bank x3	BLACKPINK True or False; K-pop Goes West; BLACKPINK: How You Like That Quiz
+404	https://en.wikipedia.org/wiki/Chaeryeon	quiz_bank x1	ITZY: DALLA DALLA Quiz
+404	https://en.wikipedia.org/wiki/Cheer_Up_(Twice_song)	quiz_bank x1	TWICE: Feel Special Quiz
+404	https://en.wikipedia.org/wiki/Eleven_(IVE_song)	quiz_bank x1	IVE: I AM Quiz
+404	https://en.wikipedia.org/wiki/Eunchae	quiz_bank x1	LE SSERAFIM: FEARLESS Quiz
+404	https://en.wikipedia.org/wiki/Felix_(singer)	quiz_bank x1	Stray Kids: District 9 Quiz
+404	https://en.wikipedia.org/wiki/Formula_of_Love:_O+T%3D%3C3	quiz_bank x1	K-pop Goes West
+404	https://en.wikipedia.org/wiki/Hello_Future_(album)	quiz_bank x1	NCT Dream: Hot Sauce Quiz
+404	https://en.wikipedia.org/wiki/I_Burn_(EP)	quiz_bank x1	(G)I-DLE: TOMBOY Quiz
+404	https://en.wikipedia.org/wiki/K-Pop_Star	quiz_bank x1	K-pop Survival Shows
+404	https://en.wikipedia.org/wiki/MCM_(brand)	quiz_bank x1	K-pop Fashion and Brand Ambassadors
+404	https://en.wikipedia.org/wiki/Mama_(EXO_EP)	quiz_bank x1	EXO: Power Quiz
+404	https://en.wikipedia.org/wiki/Military_service_in_South_Korea	quiz_bank x1	K-pop Training System and Idol Life
+404	https://en.wikipedia.org/wiki/Monster_(EXO_song)	quiz_bank x1	EXO: Power Quiz
+404	https://en.wikipedia.org/wiki/Next_Level_(aespa_song)	quiz_bank x1	aespa: Black Mamba Quiz
+404	https://en.wikipedia.org/wiki/Replay_(SHINee_song)	quiz_bank x1	SHINee: Ring Ding Dong Quiz
+404	https://en.wikipedia.org/wiki/Rush_(Monsta_X_EP)	quiz_bank x1	MONSTA X Ultimate Fan Quiz
+404	https://en.wikipedia.org/wiki/Savage_(aespa_EP)	quiz_bank x1	aespa: Black Mamba Quiz
+404	https://en.wikipedia.org/wiki/Sky_Castle_(TV_series)	quiz_bank x1	K-pop and K-drama OSTs
+404	https://en.wikipedia.org/wiki/The_Baddest_Female_(CL_song)	quiz_bank x1	K-pop International Collaborations
+404	https://en.wikipedia.org/wiki/The_Chaos_Chapter:_FREEZE	quiz_bank x2	TXT: Can't You See Me? Quiz; K-pop International Collaborations
+404	https://en.wikipedia.org/wiki/The_Clan_Pt._2.5_%27Beautiful%27	quiz_bank x1	MONSTA X Ultimate Fan Quiz
+404	https://en.wikipedia.org/wiki/Xoxo_(EXO_album)	quiz_bank x2	EXO: Power Quiz; K-pop Records True or False
+404	https://en.wikipedia.org/wiki/Zero:_Fever_Part_1	quiz_bank x1	ATEEZ: Fireworks Quiz
+404	https://open.spotify.com/album/0Ppj3Y0j5EBKCRJgcDnMwg	quiz_bank x2	BLACKPINK: Kill This Love Era; aespa: MY WORLD Era
+404	https://open.spotify.com/album/0pjsL4OM9tjFY2FElqNKdq	quiz_bank x1	EXO: The EXODUS Era
+404	https://open.spotify.com/album/1S4AywMQQJ4ZmB2QpjUVNH	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://open.spotify.com/album/2RM4jf1Xa9zPgMGRDiht8O	quiz_bank x1	TWICE: Formula of Love Era
+404	https://open.spotify.com/track/0Qxx4aelHhCb7d1yNMKFyI	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://open.spotify.com/track/6wEjDlqjb7WwuB3c3N2Tl0	quiz_bank x1	BLACKPINK: Kill This Love Era
+no host	https://staydepartment.com/	group_site x1	Stray Kids
+404	https://www.bbc.com/culture/article/20190716-how-youtube-spread-k-pop-around-the-world	quiz_bank x1	K-pop Global Expansion
+404	https://www.bbc.com/culture/article/20210901-hallyu-how-south-korea-conquered-the-world	quiz_bank x2	K-pop Global Expansion; K-pop Milestones and Firsts True or False
+404	https://www.bbc.com/news/world-asia-49472481	quiz_bank x6	K-pop Agencies True or False; K-pop Fan Moments and Memes; K-pop Idols and Food
+404	https://www.bbc.com/news/world-asia-58649485	quiz_bank x2	K-pop Global Expansion; K-pop Surprise Collaborations
+404	https://www.bbc.com/news/world-asia-62766997	quiz_bank x2	K-pop Idol Life True or False
+404	https://www.billboard.com/music/awards/bts-top-social-artist-bbmas	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.billboard.com/music/chart-beat/bts-butter-10-weeks-number-one-hot-100/	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.billboard.com/music/chart-beat/bts-dynamite-number-one-hot-100-1235122/	quiz_bank x1	K-pop Global Expansion
+404	https://www.billboard.com/music/chart-beat/bts-map-of-soul-7-number-one-billboard-200/	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/1234567wpp/kpop-dance-terminology	quiz_bank x1	K-pop Choreography and Dance
+404	https://www.soompi.com/article/1400000wpp/history-of-kpop-dance	quiz_bank x1	K-pop Choreography and Dance
+404	https://www.soompi.com/article/1418862wpp/sienna-lalau-kpop-choreographer	quiz_bank x1	K-pop Choreography and Dance
+404	https://www.soompi.com/article/2ne1-yg-history	quiz_bank x1	K-pop Girl Groups True or False
+404	https://www.soompi.com/article/3racha-stray-kids	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/97-line-kpop-friendship	quiz_bank x1	K-pop Group Friendships
+404	https://www.soompi.com/article/aespa-ae-concept	quiz_bank x1	K-pop Mascots and Cute Culture
+404	https://www.soompi.com/article/aespa-bbmas-2023	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-coachella-2023	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-debut-concept	quiz_bank x1	K-pop Girl Groups True or False
+404	https://www.soompi.com/article/aespa-girls-mini-album	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-my-world-concept	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-my-world-release	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-my-world-visual-contrast	quiz_bank x1	aespa: MY WORLD Era
+404	https://www.soompi.com/article/aespa-nmixx-collaboration	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/apink-debut-history	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/astro-debut	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/astro-debut-concept	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/astro-name-meaning	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/ateez-fever-concept	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-fever-series	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-inception-white-lotus	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-kingdom-fireworks	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-kingdom-win	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-zero-fever-meaning	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/ateez-zero-fever-part1	quiz_bank x1	ATEEZ: The FEVER Era
+404	https://www.soompi.com/article/baekhyun-exo-personality	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/bang-chan-3racha	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/bang-si-hyuk-bts-producer	quiz_bank x1	K-pop Music Production
+404	https://www.soompi.com/article/blackpink-coachella	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/blackpink-coachella-2019	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/blackpink-coachella-2023	quiz_bank x1	K-pop Global Expansion
+404	https://www.soompi.com/article/blackpink-first-kpop-coachella	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/blackpink-grammy-history	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/blackpink-how-you-like-that-challenge	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/blackpink-kill-this-love-production	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/blackpink-kill-this-love-release	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/blackpink-kill-this-love-youtube-record	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/blackpink-lady-gaga-sour-candy	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/blackpink-world-cup-2022	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/blackpink-youtube-subscribers-record	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/boa-japan-kpop-pioneer	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/btob-anniversary	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/bts-amas-performance	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/bts-army-bomb-bluetooth	quiz_bank x1	K-pop Concert and Light Stick Culture
+404	https://www.soompi.com/article/bts-army-twitter-records	quiz_bank x1	K-pop Social Media and Online Culture
+404	https://www.soompi.com/article/bts-butter-aesthetic	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.soompi.com/article/bts-coldplay-my-universe	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/bts-demian-hyyh	quiz_bank x1	BTS: The HYYH Era (Hwa Yang Yeon Hwa)
+404	https://www.soompi.com/article/bts-dynamite-tiktok-challenge	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/bts-grammy-performance-2021	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/bts-hyyh-era	quiz_bank x1	BTS: The HYYH Era (Hwa Yang Yeon Hwa)
+404	https://www.soompi.com/article/bts-hyyh-pt1-release	quiz_bank x1	BTS: The HYYH Era (Hwa Yang Yeon Hwa)
+404	https://www.soompi.com/article/bts-hyyh-storyline	quiz_bank x1	BTS: The HYYH Era (Hwa Yang Yeon Hwa)
+404	https://www.soompi.com/article/bts-hyyh-universe-lore	quiz_bank x1	K-pop Aesthetics and Concepts
+404	https://www.soompi.com/article/bts-japan-concert-records	quiz_bank x1	K-pop and Japan
+404	https://www.soompi.com/article/bts-mtv-ema-history	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/bts-music-show-win-records	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/bts-pepero-collaboration	quiz_bank x1	K-pop Idols and Food
+404	https://www.soompi.com/article/bts-permission-to-dance-challenge	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/bts-purple-meaning	quiz_bank x1	K-pop Concert and Light Stick Culture
+404	https://www.soompi.com/article/bts-self-produced-tracks	quiz_bank x1	K-pop Music Production
+404	https://www.soompi.com/article/bts-universe-complexity	quiz_bank x1	K-pop Inside Jokes and Running Gags
+404	https://www.soompi.com/article/bts-us-stadium-concert	quiz_bank x1	K-pop Global Expansion
+404	https://www.soompi.com/article/bts-young-forever-album	quiz_bank x1	BTS: The HYYH Era (Hwa Yang Yeon Hwa)
+404	https://www.soompi.com/article/cha-eunwoo-actor	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/chaeryeong-itzy-dancer	quiz_bank x1	ITZY: The CRAZY IN LOVE Era
+404	https://www.soompi.com/article/chaewon-le-sserafim-leader	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/enhypen-dark-blood-billboard-1	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-dark-blood-paranormal	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-dark-blood-release	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-dark-blood-visual	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-i-land-debut	quiz_bank x2	K-pop Boy Groups True or False; ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-manifesto-album	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/enhypen-vampire-lore	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/exo-after-member-departures	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-cbx-debut	quiz_bank x1	K-pop Boy Groups True or False
+404	https://www.soompi.com/article/exo-debut-anniversary	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/exo-exodus-concept	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-exodus-release	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-exodus-sales	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-exodus-versions	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-l-fandom-name	quiz_bank x1	K-pop Fandoms True or False
+404	https://www.soompi.com/article/exo-mama-2015-daesang	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/exo-olympics-2018	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/exo-planet-concept	quiz_bank x1	K-pop Aesthetics and Concepts
+404	https://www.soompi.com/article/exo-transformer	quiz_bank x1	EXO: The EXODUS Era
+404	https://www.soompi.com/article/fantagio-entertainment	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/fx-sm-entertainment-status	quiz_bank x1	K-pop Girl Groups True or False
+404	https://www.soompi.com/article/fx-status-2023	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/gidle-5-members	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-cube-entertainment	quiz_bank x1	K-pop Agencies True or False
+404	https://www.soompi.com/article/gidle-hwaa-era	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-i-never-die-release	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-mama-2022	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-tomboy-awards	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-tomboy-theme	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/gidle-villain-dies	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/got7-flight-log-narrative	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/got7-flight-log-trilogy	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/got7-hard-carry-choreography	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/got7-leave-jyp	quiz_bank x1	K-pop Boy Groups True or False
+404	https://www.soompi.com/article/got7-leave-jyp-2021	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/got7-mama-2016	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/got7-martial-arts-tricking	quiz_bank x1	K-pop Choreography and Dance
+404	https://www.soompi.com/article/halsey-bts-collaboration	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/hybe-pledis-acquisition-2020	quiz_bank x1	K-pop Agencies True or False
+404	https://www.soompi.com/article/hybe-rebranding-2021	quiz_bank x1	K-pop Agencies True or False
+404	https://www.soompi.com/article/hybe-source-music-acquisition	quiz_bank x1	K-pop Agencies True or False
+404	https://www.soompi.com/article/idol-room-mbc	quiz_bank x1	K-pop Variety Shows and Games
+404	https://www.soompi.com/article/ikon-winner-debut-timeline	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/inkigayo-sbs-history	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/itzy-crazy-in-love-billboard	quiz_bank x1	ITZY: The CRAZY IN LOVE Era
+404	https://www.soompi.com/article/itzy-crazy-in-love-release	quiz_bank x1	ITZY: The CRAZY IN LOVE Era
+404	https://www.soompi.com/article/itzy-crazy-in-love-theme	quiz_bank x1	ITZY: The CRAZY IN LOVE Era
+404	https://www.soompi.com/article/itzy-loco-point-choreo	quiz_bank x1	ITZY: The CRAZY IN LOVE Era
+404	https://www.soompi.com/article/iu-nickname-one-person	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/iu-sales-records	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/ive-after-like-viral	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/ive-debut-to-album-timeline	quiz_bank x1	IVE: The 'I've IVE' Era
+404	https://www.soompi.com/article/ive-i-am-theme	quiz_bank x1	IVE: The 'I've IVE' Era
+404	https://www.soompi.com/article/ive-ive-ive-album-release	quiz_bank x1	IVE: The 'I've IVE' Era
+404	https://www.soompi.com/article/ive-iz-one-members	quiz_bank x1	IVE: The 'I've IVE' Era
+404	https://www.soompi.com/article/ive-kitsch-fan-favorite	quiz_bank x1	IVE: The 'I've IVE' Era
+404	https://www.soompi.com/article/ive-starship-debut	quiz_bank x1	K-pop Agencies True or False
+404	https://www.soompi.com/article/izone-disband-2021	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/j-hope-becky-g-cns	quiz_bank x1	K-pop Surprise Collaborations
+404	https://www.soompi.com/article/jackson-got7-fencer	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/jackson-wang-languages	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/jay-park-business-ventures	quiz_bank x1	K-pop Idols and Food
+404	https://www.soompi.com/article/jennie-chanel-ambassador	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.soompi.com/article/jimin-mama-2018-fancam	quiz_bank x1	K-pop Social Media and Online Culture
+404	https://www.soompi.com/article/jin-laugh-meme	quiz_bank x1	K-pop Inside Jokes and Running Gags
+404	https://www.soompi.com/article/jin-world-wide-handsome	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/jisoo-bear-fans	quiz_bank x1	K-pop Mascots and Cute Culture
+404	https://www.soompi.com/article/jungkook-everywhere-meme	quiz_bank x1	K-pop Inside Jokes and Running Gags
+404	https://www.soompi.com/article/jungkook-nicknames	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/kara-japan-success	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/kill-this-love-24hour-views	quiz_bank x1	BLACKPINK: Kill This Love Era
+404	https://www.soompi.com/article/knowing-bros-jtbc	quiz_bank x1	K-pop Variety Shows and Games
+404	https://www.soompi.com/article/kpop-awards-prestige-comparison	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/kpop-bingsu-culture	quiz_bank x1	K-pop Idols and Food
+404	https://www.soompi.com/article/kpop-concept-photo-culture	quiz_bank x1	K-pop Aesthetics and Concepts
+404	https://www.soompi.com/article/kpop-concert-fan-service	quiz_bank x1	K-pop Concert and Light Stick Culture
+404	https://www.soompi.com/article/kpop-fan-chant-culture	quiz_bank x1	K-pop Social Media and Online Culture
+404	https://www.soompi.com/article/kpop-fancafe-explained	quiz_bank x1	K-pop Fan Moments and Memes
+404	https://www.soompi.com/article/kpop-fancam-culture	quiz_bank x1	K-pop Social Media and Online Culture
+404	https://www.soompi.com/article/kpop-grammy-history	quiz_bank x2	K-pop Global Expansion; K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/kpop-idol-stage-names	quiz_bank x1	K-pop Idol Life True or False
+404	https://www.soompi.com/article/kpop-japan-debut-explained	quiz_bank x1	K-pop and Japan
+404	https://www.soompi.com/article/kpop-light-stick-guide	quiz_bank x1	K-pop Fan Moments and Memes
+404	https://www.soompi.com/article/kpop-msg-history	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/kpop-music-show-criteria	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/kris-wu-exo-lawsuit	quiz_bank x1	K-pop Idol Life True or False
+404	https://www.soompi.com/article/le-sserafim-coachella-2024	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/le-sserafim-debut-hybe	quiz_bank x1	K-pop Girl Groups True or False
+404	https://www.soompi.com/article/le-sserafim-easy-challenge	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/le-sserafim-members	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/le-sserafim-name-meaning	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/le-sserafim-unforgiven-nile-rodgers	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/le-sserafim-unforgiven-release	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/le-sserafim-unforgiven-spotify	quiz_bank x1	LE SSERAFIM: The UNFORGIVEN Era
+404	https://www.soompi.com/article/lisa-blackpink-biography	quiz_bank x1	K-pop Idol Life True or False
+404	https://www.soompi.com/article/m-countdown-mnet	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/mamamoo-curtain-call-meaning	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/mamamoo-curtain-call-release	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/mamamoo-curtain-call-three	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/mamamoo-debut-rbw	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/mamamoo-mama-daesang-2019	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/mamamoo-season-format	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/mark-got7-la	quiz_bank x1	GOT7: The Flight Log Trilogy
+404	https://www.soompi.com/article/mark-nct-canadian	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/mingyu-seventeen-appearance	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.soompi.com/article/minnie-gidle-piano	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/moonbin-astro-passing	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/moonbin-sanha-subunit	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/moonbyul-mamamoo-rapper	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/music-bank-kbs	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/nct-127-members-2018	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-regular-bilingual	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-regular-irregular-concept	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-regular-irregular-release	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-regular-irregular-sales	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-regular-production	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-127-sticker-first-week-sales	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/nct-127-us-tour-2019	quiz_bank x1	NCT 127: Regular-Irregular Era
+404	https://www.soompi.com/article/nct-life-series	quiz_bank x1	K-pop Variety Shows and Games
+404	https://www.soompi.com/article/nct-unlimited-concept	quiz_bank x1	K-pop Boy Groups True or False
+404	https://www.soompi.com/article/newjeans-ador-hybe	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-debut-aesthetic	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.soompi.com/article/newjeans-ditto-dance-challenge	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-ditto-melon-record	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-omg-aesthetic	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-omg-ep-release	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-omg-genre	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-spotify-global	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/newjeans-super-shy-tiktok	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/newjeans-vocal-distribution	quiz_bank x1	NewJeans: The OMG Era
+404	https://www.soompi.com/article/niki-enhypen-japanese	quiz_bank x1	ENHYPEN: The DARK BLOOD Era
+404	https://www.soompi.com/article/red-velvet-concept-duality	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-mama-2017	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-peek-a-boo-concept	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-perfect-repackage	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-perfect-velvet-release	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-perfect-velvet-sound	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-power-up-era	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/red-velvet-yeri-joining	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/rm-art-museum	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/rose-blackpink-background	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/seventeen-an-ode-meaning	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/seventeen-an-ode-release	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/seventeen-an-ode-theme	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/seventeen-an-ode-units	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/seventeen-an-ode-visual	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/seventeen-getting-closer-concert	quiz_bank x1	SEVENTEEN: The 'An Ode' Era
+404	https://www.soompi.com/article/shinee-debut-history	quiz_bank x1	K-pop Boy Groups True or False
+404	https://www.soompi.com/article/shinee-exo-influence	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/shinee-sherlock-choreographer	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/shinee-sherlock-concept	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/shinee-sherlock-japan	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/shinee-sherlock-mashup	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/shinee-sherlock-release	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/show-champion-schedule	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/show-music-core-mbc	quiz_bank x1	K-pop Music Shows True or False
+404	https://www.soompi.com/article/sm-entertainment-history	quiz_bank x1	K-pop Music Production
+404	https://www.soompi.com/article/solar-mamamoo-vocalist	quiz_bank x1	MAMAMOO: The Curtain Call Era
+404	https://www.soompi.com/article/soyeon-gidle-producer	quiz_bank x1	(G)I-DLE: The TOMBOY Era
+404	https://www.soompi.com/article/stayc-viral-moments	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/stray-kids-cle-1-miroh	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-district-9-concert	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-formation	quiz_bank x1	K-pop Boy Groups True or False
+404	https://www.soompi.com/article/stray-kids-miroh-billboard	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-miroh-meaning	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-miroh-themes	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-victory-song	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/stray-kids-woojin-departure	quiz_bank x1	Stray Kids: The MIROH Era
+404	https://www.soompi.com/article/suho-exo-education	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/super-junior-member-history	quiz_bank x1	K-pop Surprising and Weird Facts
+404	https://www.soompi.com/article/taemin-shinee-dancer	quiz_bank x1	SHINee: The Sherlock Era
+404	https://www.soompi.com/article/teddy-park-blackpink-producer	quiz_bank x1	K-pop Music Production
+404	https://www.soompi.com/article/true-beauty-drama	quiz_bank x1	ASTRO: A to Z
+404	https://www.soompi.com/article/tvxq-japan-success	quiz_bank x1	K-pop and Japan
+404	https://www.soompi.com/article/tvxq-tohoshinki-japan	quiz_bank x1	K-pop and Japan
+404	https://www.soompi.com/article/twice-color-coded-members	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.soompi.com/article/twice-cruel	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-formula-love-concept	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-formula-love-million-seller	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-formula-love-title-meaning	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-formula-of-love-release	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-friendship	quiz_bank x1	K-pop Group Friendships
+404	https://www.soompi.com/article/twice-million-seller	quiz_bank x1	K-pop Milestones and Firsts True or False
+404	https://www.soompi.com/article/twice-riaa-certifications	quiz_bank x1	K-pop Awards and Records True or False
+404	https://www.soompi.com/article/twice-scientist-mv	quiz_bank x1	TWICE: Formula of Love Era
+404	https://www.soompi.com/article/twice-sixteen-debut	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/twice-tt-challenge	quiz_bank x1	K-pop Viral Dance Challenges
+404	https://www.soompi.com/article/txt-0x1-lovesong-seori	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-0x1-meaning	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-bear-concept	quiz_bank x1	K-pop Mascots and Cute Culture
+404	https://www.soompi.com/article/txt-chaos-chapter-billboard	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-chaos-chapter-concept	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-chaos-chapter-fight-or-escape	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-chaos-chapter-freeze-release	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-chaos-chapter-visual	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/txt-rock-influence	quiz_bank x1	TXT: The Chaos Chapter Era
+404	https://www.soompi.com/article/tzuyu-twice-nationality	quiz_bank x1	K-pop Idol Life True or False
+404	https://www.soompi.com/article/v-bts-celine-ambassador	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.soompi.com/article/v-bts-wooga-squad	quiz_bank x1	K-pop Group Friendships
+404	https://www.soompi.com/article/wanna-one-disband-2019	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/we-got-married-history	quiz_bank x1	K-pop Variety Shows and Games
+404	https://www.soompi.com/article/weekly-idol-history	quiz_bank x1	K-pop Variety Shows and Games
+404	https://www.soompi.com/article/wendy-red-velvet-vocalist	quiz_bank x1	Red Velvet: The Perfect Velvet Era
+404	https://www.soompi.com/article/weverse-kpop-platform	quiz_bank x1	K-pop Social Media and Online Culture
+404	https://www.soompi.com/article/wonder-girls-billboard-hot-100	quiz_bank x1	K-pop Debuts and Disbandments True or False
+404	https://www.soompi.com/article/wonho-monsta-x-departure	quiz_bank x1	3rd Generation K-pop True or False
+404	https://www.soompi.com/article/woozi-seventeen-producer	quiz_bank x1	K-pop Member Nicknames and Fun Facts
+404	https://www.vogue.com/article/g-dragon-fashion-icon	quiz_bank x1	K-pop Iconic Outfits and Fashion
+404	https://www.vox.com/culture/2020/6/4/21280013/kpop-fans-bts-army-activism	quiz_bank x2	K-pop Global Expansion; K-pop Fan Moments and Memes
+
+# unverified (could not be checked: bot walls, bad requests, timeouts)
+503	http://www.bpment.co.kr/bpm/artist/detail.do?artistId=25
+error	http://www.cubeent.co.kr/idle
+403	https://kpop.fandom.com/wiki/BLACKPINK_House
+403	https://kpop.fandom.com/wiki/NCT_Life
+400	https://open.spotify.com/album/IVE-Ive-Ive
+400	https://open.spotify.com/album/NewJeans-OMG
+400	https://open.spotify.com/album/Red-Velvet-Perfect-Velvet
+400	https://open.spotify.com/album/aespa-my-world
+400	https://open.spotify.com/artist/TXT
+403	https://www.allkpop.com/article/2018/07/kpop-fan-terminology-guide
+403	https://www.allkpop.com/article/2019/05/svt-formation-changes
+403	https://www.allkpop.com/article/2019/08/nct-noise-music-explained
+403	https://www.allkpop.com/article/2020/04/self-produced-kpop-idols
+403	https://www.allkpop.com/article/2021/03/kpop-photocard-collecting-culture
+403	https://www.allkpop.com/article/2021/05/kpop-streaming-culture
+403	https://www.allkpop.com/article/2021/06/kpop-cover-dance-culture
+403	https://www.allkpop.com/article/2021/09/how-long-does-a-kpop-comeback-take
+403	https://www.allkpop.com/article/2021/11/sm-sound-explained
+403	https://www.allkpop.com/article/2022/03/kpop-synchronization-analysis
+403	https://www.allkpop.com/article/2022/07/sm-songwriting-camp
+403	https://www.allkpop.com/article/2023/01/the-evolution-of-kpop-point-choreography
+403	https://www.allkpop.com/article/2pm-2am-hot-blood
+403	https://www.allkpop.com/article/akb48-influence-kpop
+403	https://www.allkpop.com/article/bigbang-formation-yg
+403	https://www.allkpop.com/article/bts-debut-history
+403	https://www.allkpop.com/article/daesang-vs-music-show-win
+403	https://www.allkpop.com/article/g-dragon-shaved-head
+403	https://www.allkpop.com/article/got7-international-members
+403	https://www.allkpop.com/article/jennie-human-gucci
+403	https://www.allkpop.com/article/jeongyeon-twice-nicknames
+403	https://www.allkpop.com/article/jonghyun-pianist
+403	https://www.allkpop.com/article/key-shinee-fashion
+403	https://www.allkpop.com/article/kpop-aegyo-explained
+403	https://www.allkpop.com/article/kpop-airport-fashion
+403	https://www.allkpop.com/article/kpop-album-types
+403	https://www.allkpop.com/article/kpop-album-unboxing-culture
+403	https://www.allkpop.com/article/kpop-big-3-big-4
+403	https://www.allkpop.com/article/kpop-comeback-era-culture
+403	https://www.allkpop.com/article/kpop-comeback-meaning
+403	https://www.allkpop.com/article/kpop-concept-explained
+403	https://www.allkpop.com/article/kpop-concert-fan-project
+403	https://www.allkpop.com/article/kpop-concert-standing-section
+403	https://www.allkpop.com/article/kpop-contract-termination-clauses
+403	https://www.allkpop.com/article/kpop-convenience-store-promos
+403	https://www.allkpop.com/article/kpop-coordi-culture
+403	https://www.allkpop.com/article/kpop-crack-videos
+403	https://www.allkpop.com/article/kpop-cross-label-collaboration-rumors
+403	https://www.allkpop.com/article/kpop-cute-concept
+403	https://www.allkpop.com/article/kpop-encore-culture
+403	https://www.allkpop.com/article/kpop-fan-terminology
+403	https://www.allkpop.com/article/kpop-fan-truck-protests
+403	https://www.allkpop.com/article/kpop-fanmeet-culture
+403	https://www.allkpop.com/article/kpop-fansite-master
+403	https://www.allkpop.com/article/kpop-fast-food-campaigns
+403	https://www.allkpop.com/article/kpop-girl-crush-concept
+403	https://www.allkpop.com/article/kpop-hi-touch-events
+403	https://www.allkpop.com/article/kpop-idol-dorm-life
+403	https://www.allkpop.com/article/kpop-idol-friendship-lines
+403	https://www.allkpop.com/article/kpop-idol-life-memes
+403	https://www.allkpop.com/article/kpop-idol-mandarin-attempts
+403	https://www.allkpop.com/article/kpop-idols-tteokbokki
+403	https://www.allkpop.com/article/kpop-japan-labels
+403	https://www.allkpop.com/article/kpop-japan-market-strategy
+403	https://www.allkpop.com/article/kpop-japanese-version-strategy
+403	https://www.allkpop.com/article/kpop-latin-america-fandom
+403	https://www.allkpop.com/article/kpop-line-terminology
+403	https://www.allkpop.com/article/kpop-mood-film-culture
+403	https://www.allkpop.com/article/kpop-multiple-album-versions
+403	https://www.allkpop.com/article/kpop-music-show-triple-crown
+403	https://www.allkpop.com/article/kpop-ot-meaning
+403	https://www.allkpop.com/article/kpop-ot-terminology
+403	https://www.allkpop.com/article/kpop-photocard-random
+403	https://www.allkpop.com/article/kpop-photocard-trading
+403	https://www.allkpop.com/article/kpop-plushie-merchandise
+403	https://www.allkpop.com/article/kpop-retro-concept-trend
+403	https://www.allkpop.com/article/kpop-samgyeopsal-culture
+403	https://www.allkpop.com/article/kpop-seasons-greetings
+403	https://www.allkpop.com/article/kpop-shipping-culture
+403	https://www.allkpop.com/article/kpop-sister-groups
+403	https://www.allkpop.com/article/kpop-soft-idol-meaning
+403	https://www.allkpop.com/article/kpop-stan-culture
+403	https://www.allkpop.com/article/kpop-subunit-explained
+403	https://www.allkpop.com/article/kpop-sunbae-hoobae
+403	https://www.allkpop.com/article/kpop-teaser-culture
+403	https://www.allkpop.com/article/kpop-tiktok-challenge-culture
+403	https://www.allkpop.com/article/kpop-trading-terms
+403	https://www.allkpop.com/article/kpop-trainee-age
+403	https://www.allkpop.com/article/kpop-trainee-life-rules
+403	https://www.allkpop.com/article/kpop-trainee-period-average
+403	https://www.allkpop.com/article/kpop-unboxing-video-culture
+403	https://www.allkpop.com/article/kpop-variety-games
+403	https://www.allkpop.com/article/kpop-variety-punishment-games
+403	https://www.allkpop.com/article/kpop-visual-position
+403	https://www.allkpop.com/article/maknae-on-top-kpop
+403	https://www.allkpop.com/article/mamamoo-musical-identity
+403	https://www.allkpop.com/article/mamamoo-retro-concept
+403	https://www.allkpop.com/article/music-show-re-entry-wins
+403	https://www.allkpop.com/article/nct-127-regular-english-strategy
+403	https://www.allkpop.com/article/pepero-day-kpop
+403	https://www.allkpop.com/article/sasaeng-merchandise-controversy
+403	https://www.allkpop.com/article/seventeen-self-production
+403	https://www.allkpop.com/article/shinee-jonghyun-vocalist
+403	https://www.allkpop.com/article/shinee-sherlock-legacy
+403	https://www.allkpop.com/article/shinee-syndrome
+403	https://www.allkpop.com/article/super-junior-member-history
+403	https://www.allkpop.com/article/t-ara-member-history
+403	https://www.allkpop.com/article/vixx-concept-dol
+403	https://www.allkpop.com/article/vixx-concept-idol
+error	https://www.gaonchart.co.kr/

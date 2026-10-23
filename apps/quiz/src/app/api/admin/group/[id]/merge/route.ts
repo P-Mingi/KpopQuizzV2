@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { recordSlugRedirect } from '@/lib/seo/slug-redirects';
 
 import type { NextRequest } from 'next/server';
 
@@ -36,6 +37,13 @@ export async function POST(
 
   const adminDb = createServiceRoleClient();
 
+  // SEO Mission 3 D1: the source group's URLs (/<slug>-quiz, -trivia, /blindtest/group-<slug>)
+  // must 301 to the target's once the source row is gone. Read both slugs before the delete.
+  const { data: slugRows } = await adminDb.from('groups').select('id, slug').in('id', [sourceGroupId, targetGroupId]);
+  const slugOf = (gid: number): string | null => ((slugRows ?? []) as Array<{ id: number; slug: string }>).find((g) => g.id === gid)?.slug ?? null;
+  const sourceSlug = slugOf(sourceGroupId);
+  const targetSlug = slugOf(targetGroupId);
+
   // Move all quizzes from source to target
   const { error: moveError } = await adminDb
     .from('quizzes')
@@ -57,6 +65,9 @@ export async function POST(
     console.error('Failed to delete source group:', deleteError);
     return NextResponse.json({ error: 'Failed to delete duplicate group' }, { status: 500 });
   }
+
+  // Fail soft: until docs/pending-migrations/seo-watch.sql is applied this records nothing.
+  if (sourceSlug && targetSlug) await recordSlugRedirect(adminDb, 'group', sourceSlug, targetSlug);
 
   // Recalculate quiz_count on target group
   const { count } = await adminDb
