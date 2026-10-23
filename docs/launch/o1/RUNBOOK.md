@@ -57,7 +57,7 @@ organization mailboxes, the daily dated with the kpop bank tool, the indexing sw
 Who: owner. Do: A2 backup of today first (below), then `sql1 docs/pending-migrations/s4/S4-revoke-public-execute.sql` (one transaction, idempotent, it aborts and changes nothing if its self-check fails). Read `docs/pending-migrations/s4/README.md`
 (caller map, the four functions it keeps, the smoke list). It is independent of run O1 and of the code: it needs no deploy.
 Check: the verify query in the file's header gives 28 rows, anon `f`, authenticated `f`, service_role `t`; then the smoke of the README (play a quiz, like and unlike, `/blindtest`, the daily quiz, create a quiz while signed in).
-Back: `sql1 docs/pending-migrations/s4/S4-revoke-public-execute.rollback.sql` if a server path fails with `permission denied for function`. After D2 (008) run the same verify query again (see D2: 008 hands one function back to PUBLIC).
+Back: `sql1 docs/pending-migrations/s4/S4-revoke-public-execute.rollback.sql` if a server path fails with `permission denied for function`. After D2 (008) run the same verify query again: it must still read `28|28` (008 keeps the 7 argument `merge_anon_passport` for `service_role` only).
 
 **A1  Set up.**
 Who: owner. Do: open `ENV.md` and `SQL-ORDER.md`; make the folder `~/kpq-launch` (snapshots, outside the repo); check `psql --version` and `pg_dump --version` (15 or later).
@@ -95,14 +95,15 @@ Check: V1 (60 pages, only live numbers differ); Vercel kpop project, Deployments
 Back: Vercel, Deployments, previous production deployment, Instant Rollback; then revert the merge on `main` through a PR.
 Note: from this deploy on, the admin "set quiz of the day" and "auto select" write their log row with no unique index to match until E (P3). Do not use them in between (ROLLBACK.md section 2).
 
-**A6  The new cron entry.**
-Who: owner (or ORCH). Do: open `apps/quiz/vercel.json` on `main` and check the `crons` list contains, besides today's fifteen: `/api/cron/passport-deletions` at `50 3 * * *` (its route exists, `apps/quiz/src/app/api/cron/passport-deletions`; it does nothing until 016 and Mission U part D are both applied).
-On 2026-10-23 it is still NOT in the file (the file is on the HOT list; request F0-7 asked ORCH to add it when free). If it is missing, add it in a small PR and merge it before K.
-The manifest also names `/api/cron/ensure-daily-opening` (`12 0 * * *`, O6) and `/api/cron/passport-cleanup` (`55 3 * * *`, B4), but neither route exists in the code of 2026-10-23: do not add them until their route does (an entry for a missing route is a daily 404). The openings are after launch anyway.
+**A6  The two new cron entries.**
+Who: owner (or ORCH). Do: open `apps/quiz/vercel.json` on `main` and check the `crons` list contains, besides today's fifteen, these two (the exact lines are in `docs/o1/requests/L1.md`, request 2):
+`/api/cron/passport-deletions` at `50 3 * * *` (route `apps/quiz/src/app/api/cron/passport-deletions`; it does nothing until 016 and Mission U part D are both applied) and
+`/api/cron/passport-cleanup` at `55 3 * * *` (route `apps/quiz/src/app/api/cron/passport-cleanup`; Bearer `CRON_SECRET`, hub only: it calls `passport_cleanup()` of SQL 006 and deletes hand-off codes older than a day and hand-off events older than 90 days).
+If either is missing, add it in a small PR and merge it before K. `passport-cleanup` needs SQL 006 (phase B): until 006 is applied it answers 500 `{"error":"cleanup_failed"}` at 03:55 UTC, which only shows as an error line in the hub project's cron log; merge the entry after 006 to keep the log clean.
 Every cron fires in all three projects; each route answers `{"skipped": true}` on a site that is not its own.
-Check: Vercel kpop project, Settings, Cron Jobs lists 16 jobs after the next deploy. Back: revert the PR.
+Check: Vercel kpop project, Settings, Cron Jobs lists 17 jobs after the next deploy; in the fanquiz project `curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fanquiz.org/api/cron/passport-cleanup` answers `{"codesDeleted":0,"eventsDeleted":0}` (then `unset CRON_SECRET`), and the same call on `https://otakuquiz.org` answers `{"skipped":true}`. Back: revert the PR.
 
-**A7  What is decided and what is left.** The end of this file (section "Owner decisions") lists the decisions of 2026-10-23 already applied here and the few points still open (T0, the registry values, the cron entries, the hub privacy text). Settle the open ones before K.
+**A7  What is decided and what is left.** The end of this file (section "Owner decisions") lists the decisions of 2026-10-23 already applied here and the few points still open (T0, the cron entries, the hub privacy text). Settle the open ones before K.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -172,10 +173,8 @@ Back: n/a.
 
 **D2  Apply.**
 Do: A2 backup of today; `sql1 $M/008-write-locks.sql` in the quietest hour, not near a cron.
-Check: V4 after (signatures equal to `functions-before.txt` except `merge_anon_passport` gaining `p_site`; 5 triggers; live proof with a throwaway account: play, like, unlike, create; xp and counters move as before); V1; counters audit of V0.
-S4 after 008: `docs/pending-migrations/multisite/008-write-locks.sql` ends by granting the 7 argument `merge_anon_passport` to PUBLIC again (`docs/pending-migrations/s4/README.md`, "Interaction with run O1"; the fix for the file is with ORCH). Right after 008, run
-`q "select has_function_privilege('anon', 'public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text)'::regprocedure, 'EXECUTE')"`; if it prints `t`, close it with
-`q "revoke execute on function public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) from public, anon, authenticated; grant execute on function public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) to service_role"` and check it prints `f`.
+Check: V4 after (signatures equal to `functions-before.txt` except `merge_anon_passport` gaining `p_site`; 5 triggers; live proof with a throwaway account: play, like, unlike, create; xp and counters move as before); the A0 query of VERIFY (`28|28`); V1; counters audit of V0.
+S4 after 008: nothing to do. The 008 on `o1/integration` replaces `merge_anon_passport` with the 7 argument version for `service_role` only, so the S4 state holds; V4 shows its ACL as `{postgres=X/postgres,service_role=X/postgres}` and A0's query still reads `28|28`.
 Back: `sql1 $M/008-write-locks.rollback.sql` (before launch only).
 
 **D3  Watch 24 hours**: V4 live proof again the next day; Runtime Logs quiet; counters audit at or under baseline.
@@ -319,9 +318,9 @@ L09 to L11 are not part of the launch (section "After launch" of `SQL-ORDER.md`)
 **K1  Go / no-go (the evening before).** All true, or the date moves:
 - V1 to V7 passed in their phases; the last daily watch is clean; V9 passes for the three projects.
 - `ls $M/launch/` shows L01 to L08 and L12 with their rollbacks, `shasum` equals `MANIFEST.json` (J2) and `grep -l '^-- DRAFTS' $M/launch/*.sql` prints nothing.
-- `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is either set or accepted. Decided (D-099): the kpopquiz brand files are used on the new sites for now (logo, favicon; the OG images that carry "KpopQuiz" are regenerated with the site's name by a code lane);
-  the IndexNow keys exist (ENV.md 1.7) but `seo.indexNowKey` of the two registry entries is still `null` in code until a code lane sets the two values; `seo.organization.email` of the two entries is still `null` until a code lane sets `contact@otakuquiz.org` and `contact@fanquiz.org`
-  (the mailboxes exist, H5); vocabulary texts, theme values, the mascot placeholder (G18), the hub level titles: each set or accepted.
+- `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is either set or accepted. Set in code (lane L1): the IndexNow keys (`seo.indexNowKey`: `760f9a9459d4db0bd8a08f13a0f1ec6e` for anime, `339dab142e51883ae3a2c7e4737254e4` for hub, ENV.md 1.7)
+  and `seo.organization.email` (`contact@otakuquiz.org`, `contact@fanquiz.org`; the mailboxes exist, H5). Decided (D-099): the kpopquiz brand files serve the new sites for now (logo, favicon, touch and manifest icons: copies in `apps/quiz/public/brand/anime/` and `apps/quiz/public/brand/hub/`);
+  the default share image of each site says its own name (OtakuQuiz, FanQuiz), generated by `apps/quiz/e2e/o1/L1/brand-og.mjs`. Still to set or accept: vocabulary texts, theme values, the mascot placeholder (G18), the hub level titles.
 - The hub privacy text (`docs/o1/reports/H1/privacy-draft.md`, 18 OWNER points) is decided and wired, or the hub `/privacy` stays noindex (it is the kpop copy until then).
 - The Team e-mail domain is `team.otakuquiz.org` with no mail (decided). The anime daily plan of J4 exists. `QOTD_ROTATION_FIX=1` is set on the `otakuquiz` project.
 - Yesterday's backup exists (A2). A person is free for 72 hours to watch.
@@ -382,11 +381,13 @@ Do: (1) Sign in on otakuquiz.org with your admin account and, in the browser con
 Check: no error in the three projects' Runtime Logs for 30 minutes; V8 leak lines are 0. Then announce (X1's waitlist e-mail script is owner-run and is not on the launch path).
 Back: ROLLBACK.md section 3.
 
-**K10  Open indexing on the two new sites (last step of the day; decided: the indexing step comes after everything else).**
-In the code of 2026-10-23 the staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every answer of an anime or hub build carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`). With `NET_INDEXING=1` the header entry disappears and each page speaks for itself:
-home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex. The kpop build ignores the variable.
-Do: only when K9 is clean. Set `NET_INDEXING` = `1` (Production) in the `otakuquiz` and `fanquiz` projects, redeploy both (Deployments, Redeploy of the latest main build); there is no code to merge. In Search Console add the two properties and submit `https://otakuquiz.org/sitemap.xml` and `https://fanquiz.org/sitemap.xml`.
-Check: V10 "Before indexing is open ... after K10 it must be gone" on the home, `/series`, a series page and a quiz; `/settings`, `/me`, `/admin` stay noindex. Back: remove the variable, redeploy the two projects (the sites close again at once; pages already crawled drop out slowly).
+**K10  Open indexing on the two new sites (the very last step of launch day, after K9 and everything else; decided D-099).**
+The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every answer of an anime or hub build carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`).
+The indexing step is therefore two things that are one change: the variable `NET_INDEXING=1` on the two new projects, and the removal of the `X-Robots-Tag` rule, which is already conditional on that variable in `next.config.ts` (`INDEXING_OPEN`): with the variable set, the build has no such rule. There is no code to edit or merge, and the kpop build never had the rule.
+With `NET_INDEXING=1` each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex. The kpop build ignores the variable.
+Do: only when K9 is clean and nothing else is left for the day. Set `NET_INDEXING` = `1` (Production) in the `otakuquiz` and `fanquiz` projects (not in `kpopquiz`), redeploy both (Deployments, Redeploy of the latest main build). In Search Console add the two properties and submit `https://otakuquiz.org/sitemap.xml` and `https://fanquiz.org/sitemap.xml`.
+Check: V10 "Before indexing is open ... after K10 it must be gone" on the home, `/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/admin` stay noindex. Each domain answers its own IndexNow key file only (`curl -sS -o /dev/null -w '%{http_code}\n' https://otakuquiz.org/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` prints 200, the same path on `https://fanquiz.org` and `https://kpopquiz.org` prints 404, and likewise for the other two keys; this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
+Back: remove the variable, redeploy the two projects (the sites close again at once; pages already crawled drop out slowly).
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -397,7 +398,7 @@ which is an SEO field of kpopquiz.org: the owner gave that approval on 2026-10-2
 
 **L1  Hour 0 to +1.** V10, V11 items 1 to 4. Watch sign-ups on anime, Google sign-in errors, the Team accounts absent from `/leaderboard`.
 
-**L2  +24 hours (after the first 00:05 UTC cron).** V11 in full: today's `qotd_log` has one `kpop` and one `anime` row; `/daily` on both redirects to its own quiz; `ensure-daily-opening` returned a value or null without error.
+**L2  +24 hours (after the first 00:05 UTC cron).** V11 in full: today's `qotd_log` has one `kpop` and one `anime` row; `/daily` on both redirects to its own quiz.
 
 **L3  Network flags, one per day, in this order.**
 1. Day 1: `NEXT_PUBLIC_NET_FOOTER=1` on the three projects; redeploy; V1 on kpop shows only the footer line and the Organization data (approved by the owner: organization data in kpopquiz.org's footer, yes). Back: remove, redeploy.
@@ -414,7 +415,8 @@ After that the remaining work is the backlog in `docs/o1/RAPPORT-FINAL.md` secti
 ## After launch (not on the launch path, decided D-099)
 
 - **L09 openings** (K4; needs L04, 014 and Mission U part B, Deezer): the openings blind test. **L10 formats** (K3; needs L04, 013). **L11 crossover quiz** (X1; needs 002a and Mission U part C), then `NEXT_PUBLIC_NET_FACTS=1` (L3 step 4). None of these files exists yet; `L12` does not wait for them.
-- IndexNow submissions for the two new sites (the submitter posts for kpopquiz.org only), the registry values of K1, the 54 rejected cast facts, the small leftovers of `RAPPORT-FINAL.md`.
+- **O6, the daily opening**: the cron route `ensure-daily-opening` and its `vercel.json` entry belong to lane O6 and come after launch with L09 (the table of 014 exists, nothing calls it at launch). Do not add an entry for a route that does not exist.
+- IndexNow submissions for the two new sites (the submitter posts for kpopquiz.org only), the remaining registry values of K1, the 54 rejected cast facts, the small leftovers of `RAPPORT-FINAL.md`.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -432,13 +434,12 @@ Taken on 2026-10-23 (LEDGER D-099) and applied in this kit:
 8. Organization data in kpopquiz.org's footer: yes (L3, step 1).
 9. The indexing step (`NET_INDEXING=1`, which also removes the `X-Robots-Tag` header) comes last on launch day (K10).
 10. L03 and L06 are written; L09, L10, L11 leave the launch path.
-11. Brand: the kpopquiz brand files serve the new sites for now.
+11. Brand: the kpopquiz brand files serve the new sites for now; the default share image of each new site carries the site's own name (generated by `apps/quiz/e2e/o1/L1/brand-og.mjs`).
 
 Still to decide or do (the owner, a code lane or ORCH):
 
 - **T0** and the day of E (the daily window): the owner.
-- **Cron entries** (A6): `passport-deletions` still to add to `apps/quiz/vercel.json` (the file is on the HOT list); `ensure-daily-opening` and `passport-cleanup` have no route yet.
-- **Registry values**: `seo.indexNowKey` and `seo.organization.email` of anime and hub in `apps/quiz/src/lib/site/registry.ts` (a code lane; K1). The IndexNow submitter `apps/quiz/src/lib/indexnow.ts` posts for kpopquiz.org only: submitting URLs for the new sites is a later code change.
-- **008 and S4**: the one line of `008-write-locks.sql` that grants `merge_anon_passport` to PUBLIC (D2 gives the workaround; ORCH owns the fix).
-- **The hub privacy text** and its controller (the 18 OWNER points of K1), the logos, OG images and theme values (K1).
+- **Cron entries** (A6): `passport-deletions` and `passport-cleanup` still to add to `apps/quiz/vercel.json` (the exact lines are in `docs/o1/requests/L1.md`, request 2); `ensure-daily-opening` is O6's, after launch.
+- **IndexNow submitter**: `apps/quiz/src/lib/indexnow.ts` posts for kpopquiz.org only: submitting URLs for the new sites is a later code change. The registry keys and mailboxes are set (K1).
+- **The hub privacy text** and its controller (the 18 OWNER points of K1), the own logos and theme values (K1; the share images say the site's name already).
 - **Mission U part D** before 016 (A4, G2).

@@ -20,7 +20,7 @@ The query is in the header of `docs/pending-migrations/s4/S4-revoke-public-execu
 
     q "select count(*) filter (where not has_function_privilege('anon', p.oid, 'EXECUTE') and not has_function_privilege('authenticated', p.oid, 'EXECUTE') and has_function_privilege('service_role', p.oid, 'EXECUTE')), count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('award_xp', 'award_bt_xp', 'award_daily_capped_byeol', 'award_first_time_byeol', 'award_like_xp', 'dev_award_byeol', 'dev_open_card_pack', 'dev_open_starter_pack', 'create_quiz_bypass', 'merge_anon_passport', 'record_bt_play', 'record_game_play', 'update_player_rank', 'update_player_streak', 'grant_streak_badges', 'emit_activity', 'fanout_followed_new_quiz', 'generate_daily_challenges', 'ensure_daily_blindtest', 'ensure_daily_debate', 'reconcile_quiz_counters', 'recalculate_difficulty', 'increment_game_play_count', 'increment_tot_appear', 'increment_tot_category_plays', 'increment_tot_pick', 'tier_list_bump_view', 'get_daily_bt_leaderboard')"
 
-Expect `28|28` (every one of the 28 closed to anon and authenticated, open to service_role). After 008 the 7 argument `merge_anon_passport` replaces the 6 argument one and 008 hands it back to PUBLIC: the line then reads `27|28` until you close it as RUNBOOK D2 says, then `28|28` again.
+Expect `28|28` (every one of the 28 closed to anon and authenticated, open to service_role). After 008 the 7 argument `merge_anon_passport` replaces the 6 argument one for `service_role` only: the line still reads `28|28`.
 The four kept functions (`record_play`, `increment_like_count`, `decrement_like_count`, `get_personality_counts`) stay executable by anon and authenticated.
 
 ## V0. Baseline, before anything (save it)
@@ -157,7 +157,7 @@ After 008:
 
     q "select proname, pg_get_function_identity_arguments(oid), prosecdef, proconfig, proacl from pg_proc where pronamespace='public'::regnamespace and proname in ('award_xp','record_play','handle_new_quiz','increment_like_count','decrement_like_count','notify_badge_earned','notify_group_quiz_alerts','cast_duel_vote','passport_on_battle_result','record_bt_play','merge_anon_passport','ensure_daily_quiz') order by proname, oid" > ~/kpq-launch/functions-after008.txt
     diff ~/kpq-launch/functions-before.txt ~/kpq-launch/functions-after008.txt
-Expect exactly one changed line: `merge_anon_passport` gains the 7th argument `p_site text`; the ACL is still `{=X/postgres,postgres=X/postgres,service_role=X/postgres}`.
+Expect exactly one changed line: `merge_anon_passport` gains the 7th argument `p_site text`; the ACL is `{postgres=X/postgres,service_role=X/postgres}` before and after (no `=X`: S4 came first and 008 keeps it closed).
 
     q "select tgname from pg_trigger where tgname in ('on_quiz_insert','trg_notify_badge_earned','group_quiz_alerts_on_insert','group_quiz_alerts_on_publish','trg_passport_on_battle_result') order by 1"     # 5 rows
 
@@ -306,7 +306,7 @@ brand, subject, button and footer are the site's own and the link goes to `https
 
 Each time:
 1. V10 loop, quickly. 2. Vercel, each project, Runtime Logs: errors in the last hour (compare with the previous hour; any new error type is a finding).
-3. Cron Jobs: `ensure-daily-quiz` on kpop and anime (00:05 UTC; on anime it answers 500 when the day has no quiz, RUNBOOK J4), `passport-deletions` (03:50) once it is in `vercel.json`; the other routes answer `{"skipped":true}` on a site that is not theirs.
+3. Cron Jobs: `ensure-daily-quiz` on kpop and anime (00:05 UTC; on anime it answers 500 when the day has no quiz, RUNBOOK J4), `passport-deletions` (03:50) and `passport-cleanup` (03:55, answers `{"codesDeleted":...}` on the hub) once they are in `vercel.json`; the other routes answer `{"skipped":true}` on a site that is not theirs.
 4. `q "select featured_date, site_id from public.qotd_log order by featured_date desc, site_id limit 4"`: today's date has one `kpop` and one `anime` row.
 5. `q "select site_id, count(*) from public.world_memberships group by 1 order by 1"`, `q "select src_site, dst_site, step, sum(n) from public.bridge_daily group by 1,2,3 order by 1,2,3"`:
    numbers only, small at first; no row of the 31 Team accounts in a leaderboard.

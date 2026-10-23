@@ -3,7 +3,7 @@
 // prepareDestination, the calls of next/dist/server/lib/router-utils), so what passes here
 // is what `next start` does with the same list.
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -17,8 +17,8 @@ import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/l
 import { REGISTRY } from './registry';
 import {
   INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES,
-  SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, internalPath,
-  isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, middlewareStep, redirectsFor, rewritesFor,
+  SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
+  isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor,
   siteStaticParams,
 } from './routing';
 import { SITE_IDS } from './types';
@@ -182,7 +182,10 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['anime', '/site.webmanifest', '/brand/anime/site.webmanifest'],
     ['anime', '/brand/anime/favicon.ico', null],
     ['anime', '/fonts/Pretendard-Regular-latin.woff2', null],
-    ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', null],
+    // Each site answers its own IndexNow key file and no other: the other keys go to the site's own 404.
+    ['anime', '/760f9a9459d4db0bd8a08f13a0f1ec6e.txt', null],
+    ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', '/sites/anime/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt'],
+    ['anime', '/339dab142e51883ae3a2c7e4737254e4.txt', '/sites/anime/339dab142e51883ae3a2c7e4737254e4.txt'],
     ['anime', '/x.png', null],
     ['anime', '/q/x.png', null],
     ['hub', '/', '/sites/hub'],
@@ -195,6 +198,9 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['hub', '/auth/start', null],
     ['hub', '/favicon.ico', '/brand/hub/favicon.ico'],
     ['hub', '/site.webmanifest', '/brand/hub/site.webmanifest'],
+    ['hub', '/339dab142e51883ae3a2c7e4737254e4.txt', null],
+    ['hub', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', '/sites/hub/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt'],
+    ['hub', '/760f9a9459d4db0bd8a08f13a0f1ec6e.txt', '/sites/hub/760f9a9459d4db0bd8a08f13a0f1ec6e.txt'],
   ];
 
   it.each(cases)('%s %s', (site, path, want) => {
@@ -210,7 +216,7 @@ describe('anime and hub rewrites (Next matcher)', () => {
       // Only the catch-all and the home rule read a public path; the root-file and brand rules
       // read a dotted path the catch-all skips; the pretty rules read the prefixed path.
       for (const r of rewritesFor(site).slice(2)) {
-        expect(PER_SITE_ROOT_FILES.includes(r.source) || PER_SITE_BRAND_FILES.includes(r.source) || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
+        expect(PER_SITE_ROOT_FILES.includes(r.source) || PER_SITE_BRAND_FILES.includes(r.source) || INDEXNOW_KEY_FILE_RE.test(r.source) || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
       }
       for (const f of PER_SITE_BRAND_FILES) {
         expect(rewritesFor(site).filter((r) => r.source === f), f).toEqual([{ source: f, destination: brandPath(site, f) }]);
@@ -247,7 +253,7 @@ function answer(site: SiteId, pathname: string, files: ReadonlySet<string>, dyna
 }
 
 describe('after the filesystem: no unmatched path reaches a kpop page (Next matcher)', () => {
-  const files = new Set(['/fonts/x.woff2', '/brand/anime/favicon.svg', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', '/auth/confirm']);
+  const files = new Set(['/fonts/x.woff2', '/brand/anime/favicon.svg', '/760f9a9459d4db0bd8a08f13a0f1ec6e.txt', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', '/auth/confirm']);
   // The dynamic routes a path could meet once no rule took it: the shared API and auth handlers,
   // and the kpop pages the afterFiles rule must keep out of reach ((site)/[slug], (site)/q/[slug]).
   // Framework paths (/_next, /_vercel, the dev overlay) are served before any page route.
@@ -267,7 +273,8 @@ describe('after the filesystem: no unmatched path reaches a kpop page (Next matc
     ['anime', '/apple-touch-icon.png', 'site /sites/anime/brand/anime/apple-touch-icon.png'],
     ['anime', '/favicon.svg', 'file /brand/anime/favicon.svg'],
     ['anime', '/fonts/x.woff2', 'file /fonts/x.woff2'],
-    ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', 'file /4b2f9a7ce8d1465fb0a3e6c95d47128a.txt'],
+    ['anime', '/760f9a9459d4db0bd8a08f13a0f1ec6e.txt', 'file /760f9a9459d4db0bd8a08f13a0f1ec6e.txt'],
+    ['anime', '/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt', 'site /sites/anime/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt'],
     ['anime', '/auth/confirm', 'file /auth/confirm'],
     ['anime', '/api/n/me', 'route /api/n/me'],
     ['anime', '/api/og/one-piece-quiz', 'route /api/og/one-piece-quiz'],
@@ -374,10 +381,15 @@ describe('the route map of anime and hub', () => {
     expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt']);
   });
 
-  it('the brand files are every root file of public/ but the IndexNow key files', () => {
+  it('the brand files are every root file of public/ but the IndexNow key files, which are one per site', () => {
     const root = readdirSync(PUBLIC_DIR).filter((f) => statSync(join(PUBLIC_DIR, f)).isFile()).map((f) => `/${f}`);
     const keys = root.filter((f) => INDEXNOW_KEY_FILE_RE.test(f));
-    expect(keys).toEqual([`/${REGISTRY.kpop.seo.indexNowKey}.txt`]);
+    // The three key files, one per site, each holding its site's key and nothing else.
+    expect([...keys].sort()).toEqual(SITE_IDS.map((id) => `/${REGISTRY[id].seo.indexNowKey}.txt`).sort());
+    for (const id of SITE_IDS) {
+      const file = indexNowKeyFile(id)!;
+      expect(readFileSync(join(PUBLIC_DIR, file), 'utf8').trim(), file).toBe(REGISTRY[id].seo.indexNowKey);
+    }
     expect([...PER_SITE_BRAND_FILES].sort()).toEqual(root.filter((f) => !keys.includes(f)).sort());
     expect(new Set(PER_SITE_BRAND_FILES).size).toBe(PER_SITE_BRAND_FILES.length);
     for (const f of PER_SITE_BRAND_FILES) expect(PER_SITE_ROOT_FILES.includes(f), f).toBe(false);
@@ -391,6 +403,111 @@ describe('the route map of anime and hub', () => {
         expect(PER_SITE_BRAND_FILES.includes(path.slice(`/brand/${site}`.length)), path).toBe(true);
       }
     }
+  });
+});
+
+describe('IndexNow key files: each site answers only its own (lane L1)', () => {
+  const NEXT_CONFIG = fileURLToPath(new URL('../../../next.config.ts', import.meta.url));
+  const REQUEST_L1 = fileURLToPath(new URL('../../../../../docs/o1/requests/L1.md', import.meta.url));
+  const allKeyFiles = SITE_IDS.map((id) => indexNowKeyFile(id)!);
+
+  /**
+   * Where a request for a root key file ends on `build`, in Next's order: the beforeFiles rewrites, then the exact
+   * filesystem match (all three key files sit in public/). anime and hub: rewritesFor. kpop: only the patch of
+   * docs/o1/requests/L1.md, keyFileBlocksFor('kpop') as beforeFiles in next.config.ts.
+   */
+  function keyAnswer(build: SiteId, path: string): string {
+    const before = build === 'kpop' ? keyFileBlocksFor('kpop') : rewritesFor(build);
+    const p1 = resolve(before, path) ?? path;
+    if (new Set(allKeyFiles).has(p1)) return `file ${p1}`;
+    return `site ${p1}`;
+  }
+
+  it('the three keys are distinct 32 hex characters and the files are named after them', () => {
+    const keys = SITE_IDS.map((id) => REGISTRY[id].seo.indexNowKey);
+    expect(new Set(keys).size).toBe(3);
+    for (const k of keys) expect(k, String(k)).toMatch(/^[0-9a-f]{32}$/);
+    expect(REGISTRY.kpop.seo.indexNowKey).toBe('4b2f9a7ce8d1465fb0a3e6c95d47128a');
+    expect(REGISTRY.anime.seo.indexNowKey).toBe('760f9a9459d4db0bd8a08f13a0f1ec6e');
+    expect(REGISTRY.hub.seo.indexNowKey).toBe('339dab142e51883ae3a2c7e4737254e4');
+  });
+
+  it.each(SITE_IDS.flatMap((build) => SITE_IDS.map((owner) => [build, owner] as const)))('%s build, key file of %s', (build, owner) => {
+    const file = indexNowKeyFile(owner)!;
+    if (build === owner) expect(keyAnswer(build, file)).toBe(`file ${file}`);
+    else expect(keyAnswer(build, file)).toBe(`site /sites/${build}${file}`);
+  });
+
+  it('a build rewrites exactly the two key files that are not its own, to a path under its own /sites folder', () => {
+    for (const build of SITE_IDS) {
+      const blocks = keyFileBlocksFor(build);
+      expect(blocks.map((b) => b.source).sort()).toEqual(allKeyFiles.filter((f) => f !== indexNowKeyFile(build)).sort());
+      for (const b of blocks) expect(b.destination).toBe(`/sites/${build}${b.source}`);
+      for (const b of blocks) expect(() => getPathMatch(b.source, { strict: true })).not.toThrow();
+    }
+    // anime and hub carry them in rewritesFor; kpop's rewritesFor stays empty (the patch adds them in next.config.ts).
+    for (const build of ['anime', 'hub'] as const) {
+      for (const b of keyFileBlocksFor(build)) expect(rewritesFor(build)).toContainEqual(b);
+    }
+    expect(rewritesFor('kpop')).toEqual([]);
+  });
+
+  it('the destination is a 404 on every build: the kpop guard refuses /sites, the others reach [...rest]', () => {
+    expect(isServedSite('kpop', 'kpop')).toBe(false);
+    expect(readFileSync(join(APP_DIR, 'sites/[site]/[...rest]/page.tsx'), 'utf8')).toContain('notFound()');
+    const layout = readFileSync(join(APP_DIR, 'sites/[site]/layout.tsx'), 'utf8');
+    expect(layout).toContain('isServedSite');
+    expect(layout).toContain('notFound()');
+  });
+
+  it('kpop blocks the two foreign keys by next.config.ts (patch in docs/o1/requests/L1.md until ORCH applies it)', () => {
+    const wired = readFileSync(NEXT_CONFIG, 'utf8').includes("keyFileBlocksFor('kpop')");
+    const requested = existsSync(REQUEST_L1) && readFileSync(REQUEST_L1, 'utf8').includes("keyFileBlocksFor('kpop')");
+    expect(wired || requested, 'neither next.config.ts nor docs/o1/requests/L1.md has the kpop patch').toBe(true);
+  });
+});
+
+describe('brand files of anime and hub (lane L1, owner decision D-099)', () => {
+  // The kpopquiz brand files serve the new sites for now; the root files that are K-pop art, not brand, stay without a copy
+  // (the site's 404, never kpop's bytes). The share image and the manifest are the site's own.
+  const KPOP_ART = ['/verse-favicon.svg', '/blindtest-header.jpg', '/rabbit-source.webp'];
+  const OWN = ['/og-default.png', '/site.webmanifest'];
+  const folder = (site: SiteId): string => join(PUBLIC_DIR, 'brand', site);
+
+  it.each(['anime', 'hub'] as const)('%s: every brand file of the root of public/ has a file in public/brand/%s, so none answers a 404', (site) => {
+    for (const f of PER_SITE_BRAND_FILES) {
+      if (KPOP_ART.includes(f)) expect(() => statSync(join(folder(site), f)), `${site} ${f} must not exist`).toThrow();
+      else expect(statSync(join(folder(site), f)).isFile(), `${site} ${f}`).toBe(true);
+    }
+  });
+
+  it.each(['anime', 'hub'] as const)('%s: the icons, logos and favicons are kpopquiz\'s bytes, the share image and manifest are not', (site) => {
+    for (const f of PER_SITE_BRAND_FILES.filter((x) => !KPOP_ART.includes(x) && !OWN.includes(x))) {
+      expect(readFileSync(join(folder(site), f)).equals(readFileSync(join(PUBLIC_DIR, f))), `${site} ${f}`).toBe(true);
+    }
+    expect(readFileSync(join(folder(site), 'og-default.png')).equals(readFileSync(join(PUBLIC_DIR, 'og-default.png')))).toBe(false);
+  });
+
+  it.each(['anime', 'hub'] as const)('%s: og-default.png is 1200 by 630 and the manifest names the site and points at existing icons', (site) => {
+    const png = readFileSync(join(folder(site), 'og-default.png'));
+    expect(png.subarray(1, 4).toString()).toBe('PNG');
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
+    const manifest = JSON.parse(readFileSync(join(folder(site), 'site.webmanifest'), 'utf8')) as { name: string; short_name: string; description: string; icons: { src: string }[] };
+    expect(manifest.name).toBe(REGISTRY[site].brand.name);
+    expect(manifest.short_name).toBe(REGISTRY[site].brand.shortName);
+    expect(JSON.stringify(manifest)).not.toMatch(/kpop|k-pop/i);
+    for (const icon of manifest.icons) {
+      expect(PER_SITE_BRAND_FILES.includes(icon.src), icon.src).toBe(true);
+      expect(statSync(join(folder(site), icon.src)).isFile(), icon.src).toBe(true);
+    }
+  });
+
+  it('the share image of the new sites is generated by e2e/o1/L1/brand-og.mjs, which has the site name and not kpop', () => {
+    const script = readFileSync(fileURLToPath(new URL('../../../e2e/o1/L1/brand-og.mjs', import.meta.url)), 'utf8');
+    expect(script).toContain("head: 'otaku', tail: 'quiz'");
+    expect(script).toContain("head: 'fan', tail: 'quiz'");
+    const words = script.slice(script.indexOf('const SITES = {'), script.indexOf('function font('));
+    expect(words).not.toMatch(/kpop|k-pop/i);
   });
 });
 

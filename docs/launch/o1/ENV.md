@@ -89,13 +89,13 @@ An IndexNow key is a public value (it is served as `/<key>.txt`), so it lives in
 
 | site | domain | key file (the file holds the key, no newline) | registry field |
 |---|---|---|---|
-| anime | otakuquiz.org | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://otakuquiz.org/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` | `seo.indexNowKey` of `anime` in `apps/quiz/src/lib/site/registry.ts` (still `null`: a code lane sets it) |
-| hub | fanquiz.org | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://fanquiz.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` (still `null`) |
+| anime | otakuquiz.org | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://otakuquiz.org/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` | `seo.indexNowKey` of `anime` in `apps/quiz/src/lib/site/registry.ts` (set, lane L1) |
+| hub | fanquiz.org | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://fanquiz.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` (set, lane L1) |
 | kpop | kpopquiz.org | `apps/quiz/public/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt` (as before) | `seo.indexNowKey` of `kpop` and `INDEXNOW_KEY` in `apps/quiz/src/lib/indexnow.ts` |
 
-kpopquiz.org serves its key the same way: a static file in `public/`, which the three builds share (`routes.md`: all builds serve all key files, harmless, a key only proves control of the host that lists it). So each key answers on every domain, and the file is the one the engine fetches on its own domain. Making a key answer on its own domain only would need a rewrite in `next.config.ts`, which is not part of this kit.
+Each key file is a static file in `public/`, which the three builds share, so a plain build would answer all three keys on every domain. Each site answers only its own: on anime and hub `routing.ts` (`keyFileBlocksFor`, inside `rewritesFor`) sends the two foreign key files to the site's 404; on kpop the same rewrites need the small patch of `next.config.ts` in `docs/o1/requests/L1.md` (request 1), which ORCH applies before the merge. Until that patch is on `main`, kpopquiz.org also answers the two new keys (harmless: a key proves control of the host that lists it).
 The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpop, 1.5). The two new keys are not secrets and need nothing in Vercel.
-Organization mailboxes (public values, set in the registry by a code lane, `seo.organization.email`): `contact@otakuquiz.org` for anime, `contact@fanquiz.org` for hub. They must exist before launch (RUNBOOK H5). The Team addresses `<username>@team.otakuquiz.org` must not receive mail: no MX record and no mailbox for `team.otakuquiz.org`.
+Organization mailboxes (public values, set in the registry by lane L1, `seo.organization.email`): `contact@otakuquiz.org` for anime, `contact@fanquiz.org` for hub. They must exist before launch (RUNBOOK H5). The Team addresses `<username>@team.otakuquiz.org` must not receive mail: no MX record and no mailbox for `team.otakuquiz.org`.
 
 ## 2. Supabase
 
