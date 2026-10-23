@@ -50,7 +50,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     eyebrow: hubEyebrow(published),
     intro: hubIntro(group.name, published, group.seo_intro),
     startLabel: t('hub.start'),
-    heroArt: <TitleCard title={group.name} />,
+    heroArt: <TitleCard title={group.name} slug={group.slug} />,
     heroFacts: <SeriesFacts series={series} sources={hub.sources} name={group.name} />,
     blindtest: href ? { href } : null,
     triviaAvailable: facts.length >= SERIES_TRIVIA_MIN,
@@ -75,7 +75,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
       </>
     ),
     faqs: seriesFaqs(hub, site.brand),
-    related: related.map((r) => ({ ...r, art: <TitleCard title={r.name} variant="mono" /> })),
+    related: related.map((r) => ({ ...r, art: <TitleCard title={r.name} slug={r.slug} variant="mono" /> })),
     growthWords: growthWords(),
     labels: labels(),
   };
@@ -91,7 +91,7 @@ export function buildMixSlots(group: Group, site: SlotSite): HubSlots {
     h1: { main: t('mix.h1'), tail: t('mix.tail') },
     intro: t('mix.lede', { brand: site.brand }),
     startLabel: t('hub.start'),
-    heroArt: <TitleCard title={group.name} />,
+    heroArt: <TitleCard title={group.name} slug={group.slug} />,
     blindtest: null,
     triviaAvailable: false,
     faqs: [],
@@ -123,7 +123,7 @@ export function buildTriviaVariant(hub: SeriesHub, site: SlotSite): TriviaVarian
     ctaText: t('trivia.cta', { name }),
     ctaLink: t('trivia.play', { name }),
     sourcesTitle: t('trivia.sourcesTitle'),
-    logo: <TitleCard title={name} />,
+    logo: <TitleCard title={name} slug={hub.group.slug} />,
     aboutType: 'TVSeries',
   };
 }

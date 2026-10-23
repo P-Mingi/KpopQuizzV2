@@ -44,6 +44,21 @@ const GROUP_PHOTO_FILE: Record<string, string> = {
   'wonder-girls': 'Wonder Girls.jpg',
 };
 
+/**
+ * Run O1, lane O2: the series art of a build whose site is not kpop (a picture drawn from the slug, in place of a photo or
+ * initials). The art is anime-only code, so no shared component imports it: a shared component reads it from this slot, empty
+ * on kpop for every build and for ever (nothing on kpop sets it), and the anime-only components/anime/register-art.tsx fills it
+ * (the anime layout imports it and mounts components/anime/art-registry.tsx, so the server and the client graphs both fill it
+ * before the first component of the site renders). The kpop client graph and its chunks stay what they were before the art
+ * (e2e/o1/O2/kpop-chunk-count.sh).
+ */
+export const SERIES_ART: {
+  /** A square picture of a series for a row, a rail, a chip or a thumb (the monogram of its title on the colour of its slug). */
+  avatar: ((slug: string, title: string) => React.ReactElement) | null;
+  /** Dresses the element UxQuizCard drew for a quiz with the art of its series, when the card has no picture of its own. */
+  dress: ((card: React.ReactElement, quiz: { group_slug: string; group_name: string; quiz_type: string }) => React.ReactElement) | null;
+} = { avatar: null, dress: null };
+
 /** Public URL of a group's photo (encoded for spaces, quotes and parentheses), or null.
  *  The site's own file first, else the group's Commons photo in Supabase Storage
  *  (group-photo-credits.ts, owner request 2026-10-06). */

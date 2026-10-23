@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { formatCount } from '@/lib/utils';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
-import { groupPhotoUrl, photoFocal } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, photoFocal, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_GLYPH, TYPE_GLYPHS } from '@/lib/ux-v1/a0/type-glyphs';
 
 /** The type glyph of the typographic cover (own tiny map: this card is imported by
@@ -107,10 +107,11 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
     </>
   );
   const cls = ['ux-qcard', preview ? 'is-preview' : '', className ?? ''].filter(Boolean).join(' ');
-  if (preview) {
-    return <div className={cls} role="img" aria-label={previewLabel ?? `Preview: ${quiz.title}, ${quiz.group_name}, ${level.label}`}>{body}</div>;
-  }
-  return <Link href={`/q/${quiz.slug}`} className={cls}>{body}</Link>;
+  const card = preview
+    ? <div className={cls} role="img" aria-label={previewLabel ?? `Preview: ${quiz.title}, ${quiz.group_name}, ${level.label}`}>{body}</div>
+    : <Link href={`/q/${quiz.slug}`} className={cls}>{body}</Link>;
+  // Run O1, lane O2: on the anime build the slot dresses a card with no picture of its own (empty on kpop: lib/ux-v1/a0/group-photos.ts).
+  return SERIES_ART.dress ? SERIES_ART.dress(card, quiz) : card;
 }
 
 /** Card grid: 4 columns (3 under 1100), a snap scroller on phones, or with

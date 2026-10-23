@@ -80,3 +80,39 @@ html.ux-v1[data-site="anime"] .anime-o2-fact-list a { color: var(--ux-pink-ink);
   html.ux-v1[data-site="anime"] .anime-o2-credit { display: none; }
   html.ux-v1[data-site="anime"] .anime-o2-arc-quizzes { margin-left: 0; }
 }
+
+/* Series art (lane O2): one colour, one pattern and the title of a series, in place of the grey initials and the empty cover
+   blocks. The art is an SVG that fills the box it is put in; the boxes below give it its shape. A name is never cut with an
+   ellipsis: it wraps (a title clamps only beyond four lines). */
+html.ux-v1[data-site="anime"] .anime-o2-art { display: block; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-text { font-family: var(--ux-font-display, inherit); font-weight: 800; letter-spacing: 0; }
+
+/* The quiz card: the art strip over the type and the title. */
+html.ux-v1[data-site="anime"] .anime-o2-art-cov { aspect-ratio: 320 / 104; }
+html.ux-v1[data-site="anime"] .anime-o2-art-strip { display: block; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-sq { display: none; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-type { display: flex; align-items: center; gap: 6px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-type svg { flex: 0 0 auto; width: 16px; height: 16px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-name { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; -webkit-line-clamp: 4; line-clamp: 4; }
+
+/* Rails and rows. */
+html.ux-v1[data-site="anime"] .anime-o2-art-item { width: 140px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-item .anime-o2-art-name { text-wrap: balance; }
+html.ux-v1[data-site="anime"] .anime-o2-art-thumb { display: block; flex: 0 0 auto; width: 56px; height: 56px; border-radius: 12px; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-row { display: block; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-meta { white-space: normal; overflow: visible; text-overflow: clip; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px 4px 4px; border: 1px solid var(--ux-line); border-radius: 999px; background: var(--ux-raised); color: var(--ux-ink); font-size: 14px; font-weight: 600; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill:hover { border-color: var(--ux-pink-line); }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill-av { display: block; flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill-name { min-width: 0; overflow-wrap: anywhere; }
+
+/* The character tiles: the name wraps under its monogram. */
+html.ux-v1[data-site="anime"] .anime-o2-tile { width: 104px; }
+html.ux-v1[data-site="anime"] .anime-o2-tile > span:last-child { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  /* The stacked phone list keeps the cover a 96 px square: the avatar form of the art replaces the strip. */
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-cov { aspect-ratio: 1; }
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-strip { display: none; }
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-sq { display: block; }
+}

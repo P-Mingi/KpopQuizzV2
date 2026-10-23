@@ -3,7 +3,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
 import { getTriviaEligibleGroups } from '@/lib/db/queries/trivia';
-import { GroupLogo } from '@/components/ui/group-logo';
+import { SeriesArt } from '@/components/anime/series-art';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
@@ -56,13 +56,7 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
           {eligible.map(({ group, factCount }) => (
             <li key={group.id}>
               <Link href={`/${group.slug}-trivia`} className="trivia-hub-card">
-                <GroupLogo
-                  groupName={group.name}
-                  logoUrl={group.logo_url}
-                  displayColor={group.display_color}
-                  textColor={group.text_color}
-                  size={40}
-                />
+                <span className="anime-o2-art-row" aria-hidden="true"><SeriesArt slug={group.slug} title={group.name} size="avatar" /></span>
                 <div className="trivia-hub-card-body">
                   <p className="trivia-hub-card-name">{group.name}</p>
                   <p className="trivia-hub-card-meta">{factCount} fun facts</p>

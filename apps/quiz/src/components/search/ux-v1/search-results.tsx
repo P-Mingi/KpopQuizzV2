@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { photoFocal } from '@/lib/ux-v1/a0/group-photos';
+import { photoFocal, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { flatRows, normalizeQuery, resultSummary } from '@/lib/ux-v1/p11/search-model';
 
 import type { P11SearchResult } from '@/lib/ux-v1/p11/search-model';
@@ -193,7 +193,7 @@ export function SearchResults({ query, onNavigate }: SearchResultsProps): React.
             {shown.groups.map((g, gi) => (
               <li key={g.slug}>
                 <Link {...row(g.href, gi)}>
-                  <Thumb src={g.photo} initials={g.initials} seed={g.slug} />
+                  {SERIES_ART.avatar && !g.photo ? <span className="ux-srow-th p11-sth anime-o2-art-search" aria-hidden="true">{SERIES_ART.avatar(g.slug, g.name)}</span> : <Thumb src={g.photo} initials={g.initials} seed={g.slug} />}
                   <span className="p11-st">{g.name}</span>
                   <small>{g.sub}</small>
                 </Link>

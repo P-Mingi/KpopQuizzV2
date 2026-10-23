@@ -7,6 +7,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { useAnnounce } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
+import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { p2Href, p2Query } from '@/lib/ux-v1/p2/filters';
 
 import { isPlainClick, useP2Nav } from './nav-context';
@@ -84,7 +85,7 @@ export function P2Results({ children, filters, ids, hasNext, pageCount }: Props)
   return (
     <div className={['p2-results', pending ? 'is-pending' : ''].filter(Boolean).join(' ')} aria-busy={pending || loading} data-ready={ready ? '' : undefined}>
       <div ref={gridRef}>
-        <UxQuizGrid stack className="p2-grid">
+        <UxQuizGrid stack className={SERIES_ART.dress ? 'p2-grid anime-o2-art-stack' : 'p2-grid'}>
           {children}
           {extra.map((q) => <UxQuizCard key={q.id} quiz={q} />)}
         </UxQuizGrid>
