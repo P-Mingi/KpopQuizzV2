@@ -31,7 +31,7 @@ export const THRESHOLDS = {
 };
 
 export const BANNED_HOSTS = ['myanimelist.net', 'jikan.moe', 'fandom.com', 'animethemes.moe', 'kprofiles.com', 'anilist.co', 'sporcle.com'];
-export const SOURCE_HOSTS = { wikipedia: ['wikipedia.org'], wikidata: ['wikidata.org'], musicbrainz: ['musicbrainz.org'] };
+export const SOURCE_HOSTS = { wikipedia: ['wikipedia.org'], wikidata: ['wikidata.org'], musicbrainz: ['musicbrainz.org'], press: ['oricon.co.jp', 'animenewsnetwork.com'] };
 
 export const CODES = {
   C1: 'schema valid, 4 distinct options, one right answer',

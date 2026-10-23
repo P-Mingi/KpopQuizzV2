@@ -234,6 +234,23 @@ test('C10: a question source outside the quiz sources fails; http fails; a banne
   assert.match(codeOf(http, 'C10').notes.map((n) => n.message).join(' | '), /not https/);
 });
 
+test('C10: Oricon and Anime News Network are allowed quiz sources (press); a look-alike host still fails', () => {
+  const ok = runWith(({ read, write }) => {
+    const q = read(REL.quiz);
+    q.sources[0].url = 'https://www.animenewsnetwork.com/encyclopedia/anime.php?id=1';
+    q.questions.forEach((x) => { x.source_url = q.sources[0].url; });
+    write(REL.quiz, q);
+  }, [REL.quiz]);
+  assert.equal(codeOf(ok, 'C10').notes.filter((n) => /not Wikipedia/.test(n.message)).length, 0);
+  const bad = runWith(({ read, write }) => {
+    const q = read(REL.quiz);
+    q.sources[0].url = 'https://animenewsnetwork.com.example.org/x';
+    q.questions.forEach((x) => { x.source_url = q.sources[0].url; });
+    write(REL.quiz, q);
+  }, [REL.quiz]);
+  assert.match(codeOf(bad, 'C10').notes.map((n) => n.message).join(' | '), /not Wikipedia, Wikidata, MusicBrainz, Oricon, Anime News Network/);
+});
+
 test('C11: a double hyphen fails; C12: a flag emoji and a keycap fail; URLs and excerpts are not scanned for dashes', () => {
   const dash = runWith(({ read, write }) => { const q = read(REL.quiz); q.questions[0].fun_fact = 'Obata -- the artist -- drew it.'; write(REL.quiz, q); }, [REL.quiz]);
   assert.equal(codeOf(dash, 'C11').pass, false);

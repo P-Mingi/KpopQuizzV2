@@ -31,6 +31,16 @@ export function loadRegistry(contractDir = CONTRACT_DIR) {
       registry[name] = JSON.parse(readFileSync(join(dir, name), 'utf8'));
     }
   }
+  extendFactSourceKinds(registry);
+  return registry;
+}
+
+/** Owner decision D-105: "press" (Oricon, Anime News Network) is a source kind of a fact, kept in the files only. The contract
+ * schema (docs/o1/contracts/schemas/fact.schema.json, owned by ORCH, see docs/o1/requests/K1.md) lists four kinds; the tools add
+ * the fifth here so the contract file does not have to change before ORCH merges the request. */
+export function extendFactSourceKinds(registry) {
+  const kinds = registry['fact.schema.json']?.properties?.sources?.items?.properties?.source;
+  if (kinds && Array.isArray(kinds.enum) && !kinds.enum.includes('press')) kinds.enum = [...kinds.enum, 'press'];
   return registry;
 }
 

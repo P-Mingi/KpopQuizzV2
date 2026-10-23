@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "『ONE PIECE』（ワンピース）は、尾田栄一郎による日本の少年漫画"
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Written and illustrated by Eiichiro Oda"
   },
   {
@@ -95,7 +97,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "in the shōnen manga anthology Weekly Shōnen Jump since July 22, 1997"
   },
   {
@@ -123,9 +126,15 @@
         "url": "https://en.wikipedia.org/wiki/One_Piece",
         "ref": "1379784013",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://one-piece.com/",
+        "fetched_at": "2026-10-23T17:27:34Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "By July 3, 2026, a total of 115 volumes have been released."
   },
   {
@@ -359,7 +368,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Believe\" | Folder 5 | Meredith McCoy | 48-115"
   },
   {
@@ -401,7 +411,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Wake Up!\" | AAA | 629-686"
   },
   {
@@ -441,7 +452,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Memories\" | Maki Otsuki | Brina Palencia | 1-30"
   },
   {
@@ -480,7 +492,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Dear Sunrise\" | Maki Otsuki | 1089-1122"
   },
   {
@@ -593,7 +606,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "By March 2026, it had over 600 million copies in circulation worldwide"
   },
   {
@@ -620,7 +634,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "In 2015 and 2022, it set the Guinness World Record for \"most copies published for the same comic book series by a single author\""
   },
   {
@@ -648,7 +663,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a young man whose body has the properties of rubber after unintentionally eating the Gum-Gum Fruit"
   },
   {
@@ -678,7 +694,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kohei Tanaka and Shiro Hamaguchi composed the score for One Piece"
   },
   {
@@ -705,7 +722,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "which reduced the first 143 episodes into 104"
   },
   {
@@ -735,7 +753,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "1-47, 1000 | 48 | 2"
   },
   {
@@ -765,7 +784,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "licensed for an English-language release in North America and the United Kingdom by Viz Media"
   },
   {
@@ -792,7 +812,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Netflix released a live-action TV series in 2023."
   },
   {
@@ -819,7 +840,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "shifted its broadcast schedule to a semi-seasonal format in April 2026"
   },
   {
@@ -846,7 +868,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "It resumed with the Elbaph arc on April 5, 2026"
   },
   {
@@ -874,7 +897,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the deceased King of the Pirates Gold Roger's ultimate treasure known as the \"One Piece\""
   },
   {
@@ -911,7 +935,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the cook and modified human Sanji; the anthropomorphic reindeer and doctor Tony Tony Chopper"
   },
   {
@@ -941,7 +966,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "20 | Wano Country | 197 | July 7, 2019"
   },
   {
@@ -971,7 +997,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "5 | TV Original | 13 | November 3, 2002"
   },
   {
@@ -998,7 +1025,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Another anime series produced by Wit Studio is scheduled to premiere in 2027."
   },
   {
@@ -1032,7 +1060,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the series' main protagonist, a young pirate who wishes to succeed Gold Roger, the deceased King of the Pirates, by finding his treasure"
   },
   {
@@ -1066,7 +1095,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the three-sword-wielding combatant Roronoa Zoro (sometimes referred to as Roronoa Zolo in the English manga)"
   },
   {
@@ -1100,7 +1130,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q2321523: fictional character from One Piece, Japanese label シャンクス"
   },
   {
@@ -1134,7 +1165,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q2619344: fictional character from One Piece, Japanese label ゴール・D・ロジャー"
   },
   {
@@ -1168,7 +1200,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
   },
   {
@@ -1202,7 +1235,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Orange Town is a town that was under the control of Buggy's Band of Pirates, until they were defeated by Luffy, Zoro and Nami."
   },
   {
@@ -1236,7 +1270,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "East Blue is the birthplace of Luffy, Zoro, Nami, and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
   },
   {
@@ -1264,7 +1299,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The Baratie is an ocean-going restaurant where Sanji worked."
   },
   {
@@ -1298,7 +1334,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Shanks Bartholomew Kuma, Smoker, Whitebeard, Koby</"
   },
   {
@@ -1332,7 +1369,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q2727057: fictional character from One Piece, English label or alias Smoker, Japanese label スモーカー"
   },
   {
@@ -1360,7 +1398,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "commonly known simply as \"Dragon the Revolutionary\", is the father of Monkey D. Luffy and the son of the"
   },
   {
@@ -1394,7 +1433,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Cobra and Titi's daughter and the princess of Alabasta."
   },
   {
@@ -1428,7 +1468,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kureha (くれは): She is a doctor in her 100s who took in Tony Tony Chopper following Hiriluk's death. She and Tony Tony Chopper were responsible for curing Nami"
   },
   {
@@ -1462,7 +1503,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q2726975: fictional character from One Piece, Japanese label クロコダイル"
   },
   {
@@ -1490,7 +1532,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Portgas D. Rouge (ポートガス・D・ルージュ, Pōtogasu Dī Rūju): She was the lover of Gol D. Roger and the mother of Portgas D. Ace. Portgas delayed her pregnancy for twenty"
   },
   {
@@ -1524,7 +1567,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
   },
   {
@@ -1552,7 +1596,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was the \"God\" of Skypiea. He originates from Birka before destroying it, arriving at Skypiea, and annexing the region from Gan Fall. Though \"God\""
   },
   {
@@ -1586,7 +1631,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Family which was led by Franky before joining the Straw Hat Crew. The group include:"
   },
   {
@@ -1620,7 +1666,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "with Hattori, Foxy Arlong, Eneru, Don Krieg (Bottom) <"
   },
   {
@@ -1654,7 +1701,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
   },
   {
@@ -1688,7 +1736,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q3997231: fictional character from One Piece, Japanese label トラファルガー・ロー"
   },
   {
@@ -1722,7 +1771,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q5148704: fictional character from One Piece, English label or alias Eustass Kid, Japanese label ユースタス・キッド"
   },
   {
@@ -1756,7 +1806,8 @@
         "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "'s attendants in her castle, where she works as a lady's maid. Genista is voiced by Ikue Ōtani in the original"
   },
   {
@@ -1790,7 +1841,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q2720493: fictional character from One Piece, English label or alias Edward Newgate, Japanese label 白ひげ"
   },
   {
@@ -1824,7 +1876,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q858559: fictional character from One Piece, Japanese label サカズキ"
   },
   {
@@ -1858,7 +1911,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q1404614: fictional character from One Piece, Japanese label ドンキホーテ・ドフラミンゴ"
   },
   {
@@ -1886,7 +1940,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the chief of staff of the Revolutionary Army and sworn brother to Monkey D. Luffy and Portgas D. Ace. Introduced as a noble from the Goa Kingdom"
   },
   {
@@ -1920,7 +1975,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q25399069: fictional character from One Piece, English label or alias Charlotte Linlin, Japanese label シャーロット・リンリン"
   },
   {
@@ -1954,7 +2010,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wikidata Q22933371: fictional character from One Piece, English label or alias Kaido, Japanese label カイドウ"
   },
   {
@@ -1982,7 +2039,8 @@
         "fetched_at": "2026-10-20T21:40:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
   }
 ]

@@ -28,7 +28,7 @@ export function c10(item, ctx) {
     if (!/^https:\/\//i.test(s)) { r.fail(path, `the link ${s} is not https`); return; }
     if (BANNED_HOSTS.some((b) => hostIs(host, b))) { r.fail(path, `${host} is a banned source`); return; }
     const inFactSource = /^\/facts\/[0-9]+\/sources\/[0-9]+\/url$/.test(path);
-    if (!inFactSource && !allowed(host)) r.fail(path, `${host} is not Wikipedia, Wikidata, MusicBrainz or an official site cited by the facts`);
+    if (!inFactSource && !allowed(host)) r.fail(path, `${host} is not Wikipedia, Wikidata, MusicBrainz, Oricon, Anime News Network or an official site cited by the facts`);
   });
   if (item.kind === 'quiz' || item.kind === 'daily') {
     const urls = new Set((Array.isArray(item.data?.sources) ? item.data.sources : []).map((s) => s?.url));

@@ -355,7 +355,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The opening theme \"The Day\", performed by Porno Graffitti"
   },
   {
@@ -396,7 +397,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the ending theme \"Heroes\", performed by Brian the Sun"
   },
   {
@@ -429,7 +431,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Hepburn: Boku no Hīrō Akademia"
   },
   {
@@ -454,9 +457,26 @@
         "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
         "ref": "1381034934",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18047903",
+        "ref": "Q18047903",
+        "fetched_at": "2026-10-23T17:22:55Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/shonenjump/chapters/my-hero-academia",
+        "fetched_at": "2026-10-23T17:24:20Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=16757",
+        "fetched_at": "2026-10-23T17:24:20Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a Japanese manga series written and illustrated by Kōhei Horikoshi"
   },
   {
@@ -481,9 +501,21 @@
         "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
         "ref": "1381034934",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18047903",
+        "ref": "Q18047903",
+        "fetched_at": "2026-10-23T17:22:55Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=16757",
+        "fetched_at": "2026-10-23T17:24:20Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "from July 2014 to August 2024"
   },
   {
@@ -508,6 +540,11 @@
         "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
         "ref": "1381034934",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/press-release/2024-08-05/my-hero-academia-reaches-its-conclusion-after-10-years-of-serialization/.213978",
+        "fetched_at": "2026-10-23T17:24:20Z"
       }
     ],
     "status": "draft",
@@ -656,9 +693,21 @@
         "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
         "ref": "1380752995",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63686324",
+        "ref": "Q63686324",
+        "fetched_at": "2026-10-23T17:23:05Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33714",
+        "fetched_at": "2026-10-23T17:24:20Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kenji Nagasaki"
   },
   {
@@ -685,7 +734,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "premiered on May 2, 2026"
   },
   {
@@ -710,6 +760,11 @@
         "url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
         "ref": "1381034934",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-04-03/my-hero-academia-tops-100-million-copies-in-circulation-worldwide/.209519",
+        "fetched_at": "2026-10-23T17:24:20Z"
       }
     ],
     "status": "draft",
@@ -742,7 +797,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "including the Sugoi Japan Award and Harvey Award for Best Manga"
   },
   {
@@ -769,7 +825,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "which temporarily shifts the title of the series to My Villain Academia"
   },
   {
@@ -796,7 +853,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "about 80% of the human population has gained superpowers"
   },
   {
@@ -828,7 +886,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "four animated films, subtitled Two Heroes, Heroes Rising, World Heroes' Mission, and You're Next"
   },
   {
@@ -855,7 +914,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Vigilantes (2016-2022)"
   },
   {
@@ -883,7 +943,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a boy who was born without a Quirk"
   },
   {
@@ -910,7 +971,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A live-action film by Legendary Entertainment is in development."
   },
   {
@@ -938,7 +1000,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Midoriya Izuku) / Deku (デク)"
   },
   {
@@ -966,7 +1029,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Kacchan (かっちゃん, Katchan) / Dynamight (ダイナマイト, Dainamaito)"
   },
   {
@@ -994,7 +1058,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Uravity (ウラビティ, Urabiti)"
   },
   {
@@ -1022,7 +1087,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Shoto (ショート, Shōto)"
   },
   {
@@ -1050,7 +1116,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Ingenium (インゲニウム, Ingeniumu)"
   },
   {
@@ -1078,7 +1145,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Red Riot (烈怒頼雄斗(レッドライオット), Reddo Raiotto)"
   },
   {
@@ -1106,7 +1174,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Creati (クリエイティ, Kurieiti)"
   },
   {
@@ -1134,7 +1203,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Froppy (フロッピー, Furoppi)"
   },
   {
@@ -1162,7 +1232,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Chargebolt (チャージズマ, Chājizuma)"
   },
   {
@@ -1190,7 +1261,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Tsukuyomi (ツクヨミ)"
   },
   {
@@ -1218,7 +1290,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Pinky (ピンキー, Pinkī)"
   },
   {
@@ -1246,7 +1319,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Earphone Jack (イヤホン = ジャック, Iyahon Jakku)"
   },
   {
@@ -1274,7 +1348,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Grape Juice (グレープジュース, Gurēpu Jūsu)"
   },
   {
@@ -1302,7 +1377,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ All Might (オールマイト, Ōru Maito)"
   },
   {
@@ -1330,7 +1406,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Eraser Head (イレイザーヘッド, Ireizā Heddo)"
   },
   {
@@ -1358,7 +1435,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Shūzenji Chiyo) / Recovery Girl (リカバリーガール, Rikabarī Gāru)"
   },
   {
@@ -1386,7 +1464,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Yamada Hizashi) / Present Mic (プレゼントマイク, Purezento Maiku)"
   },
   {
@@ -1414,7 +1493,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Izuku's mother. Initially supportive of her son's dreams, the constant villain attacks on U.A. make her briefly doubt the safety of the school. Her unnamed"
   },
   {
@@ -1442,7 +1522,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Endeavor (エンデヴァー, Endevā)"
   },
   {
@@ -1470,7 +1551,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ NightHide (ナイトハイド, Naitohaido)"
   },
   {
@@ -1498,7 +1580,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Akaguro Chizome) / Stain (ステイン, Sutein)"
   },
   {
@@ -1526,7 +1609,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Tenko Shimura (志村 転弧, Shimura Tenko) / Tomura Shigaraki (死柄木 弔, Shigaraki Tomura)"
   },
   {
@@ -1554,7 +1638,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kurogiri ( 黒霧; lit. ' Black Fog ')"
   },
   {
@@ -1582,7 +1667,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Lemillion (ルミリオン, Rumirion)"
   },
   {
@@ -1610,7 +1696,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Toya Todoroki (轟 燈矢, Todoroki Tōya) / Dabi (荼毘)"
   },
   {
@@ -1638,7 +1725,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The archnemesis of Ochaco Uraraka, a demented yandere-type girl who is able to assume the physical appearance of another with her Quirk Transform"
   },
   {
@@ -1666,7 +1754,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Jin Bubaigawara (分倍河原 仁, Bubaigawara Jin) / Twice (トゥワイス, Tuwaisu)"
   },
   {
@@ -1694,7 +1783,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The unnamed former crime boss of the Shie Hassaikai, Overhaul's foster father, and Eri's maternal grandfather. After refusing to consent to Overhaul's inhumane"
   },
   {
@@ -1722,7 +1812,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "/ Hawks (ホークス, Hōkusu)"
   },
   {
@@ -1750,7 +1841,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The young granddaughter of the Shie Hassaikai's former crime boss. She was abused and experimented on by Overhaul to create the Quirk-destroying drug that he"
   }
 ]

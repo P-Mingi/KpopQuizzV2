@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also alternatively translated as Only I Level Up (Korean: 나 혼자만 레벨업; RR: Na Honjaman Rebereop)"
   },
   {
@@ -56,7 +57,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also alternatively translated as Only I Level Up (Korean: 나 혼자만 레벨업; RR: Na Honjaman Rebereop)"
   },
   {
@@ -89,7 +91,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Kakao's digital comic and fiction platform KakaoPage beginning on July 25, 2016"
   },
   {
@@ -114,6 +117,11 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2022-07-25/solo-leveling-manhwa-artist-dubu-passes-away/.188004",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
     "status": "draft",
@@ -141,9 +149,16 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65551313",
+        "ref": "Q65551313",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "later published by D&C Media under their Papyrus label since November 4, 2016"
   },
   {
@@ -168,6 +183,11 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=25998",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
     "status": "draft",
@@ -224,7 +244,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the webtoon's first season concluded on March 19, 2020, followed by its second season, which was released from August 2020 to December 2021"
   },
   {
@@ -249,9 +270,21 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q112898063",
+        "ref": "Q112898063",
+        "fetched_at": "2026-10-23T17:29:56Z"
+      },
+      {
+        "source": "official",
+        "url": "https://sololeveling-anime.net/",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "It is produced by A-1 Pictures and directed by Shunsuke Nakashige"
   },
   {
@@ -276,9 +309,20 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
         "ref": "1373093955",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://sololeveling-anime.net/",
+        "fetched_at": "2026-10-23T17:29:56Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=26000",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "directed by Shunsuke Nakashige, with Noboru Kimura writing the scripts"
   },
   {
@@ -305,6 +349,11 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
         "ref": "1373093955",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=26000",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
     "status": "draft",
@@ -334,6 +383,11 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2",
         "ref": "1361222047",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32617",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
     "status": "draft",
@@ -365,7 +419,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A sequel anime film, subtitled Beyond the System, has been announced."
   },
   {
@@ -390,9 +445,16 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q112898063",
+        "ref": "Q112898063",
+        "fetched_at": "2026-10-23T17:29:56Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Episodes: 25"
   },
   {
@@ -422,7 +484,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the ending theme song is \"Request\" performed by Krage"
   },
   {
@@ -452,7 +515,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Reawaker\" performed by LiSA (feat. Felix of Stray Kids)"
   },
   {
@@ -479,7 +543,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "recap special covering the first seven episodes of the season"
   },
   {
@@ -506,7 +571,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was screened along with the first two episodes of the second season in Japan from November 29 to December 12, 2024"
   },
   {
@@ -533,7 +599,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Anime of the Year"
   },
   {
@@ -560,7 +627,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "In April 2023, Kakao announced a sequel titled Solo Leveling: Ragnarok."
   },
   {
@@ -587,7 +655,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An anime television series adaptation was announced at Anime Expo 2022."
   },
   {
@@ -613,7 +682,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "『劇場版 俺だけレベルアップな件 -Beyond the System-』制作決定！"
   },
   {
@@ -727,7 +797,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a notoriously weak E ranked hunter named Sung Jin-woo finds himself in a seemingly endless struggle for survival"
   },
   {
@@ -755,7 +826,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Blood-Red Commander\"; high-ranking knight with exceptional swordsmanship"
   },
   {
@@ -783,7 +855,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "S-Rank Hunter specializing in swordsmanship"
   },
   {
@@ -811,7 +884,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Strongest in America; Rulers' vessel; nicknamed \"Goliath\""
   },
   {
@@ -839,7 +913,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"King of the Dead and the Monarch of Shadows\""
   },
   {
@@ -867,7 +942,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"King of Dragons\"; Monarch of Destruction; strongest Monarch; final antagonist"
   },
   {
@@ -895,7 +971,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the protagonist of the series. Originally known as the weakest E-Rank South Korean Hunter, he gets the chance of a lifetime"
   },
   {
@@ -923,7 +1000,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Japanese name: Aoi Mizushino (水篠 葵, Mizushino Aoi)"
   },
   {
@@ -951,7 +1029,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Jin-woo and Jin-ah's mother. Four years before the events of the main storyline, she suddenly became ill with Eternal"
   },
   {
@@ -979,7 +1058,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a D-Rank Hunter, is Jin-woo's sworn brother and a righteous man. He hails from a wealthy family and eventually becomes the"
   },
   {
@@ -1007,7 +1087,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean B-Rank Hunter who specializes in healing magic. She is one of Jin-woo's friends during his days as an E-Rank Hunter."
   },
   {
@@ -1035,7 +1116,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a C-Rank Hunter and a kumdo teacher. He is one of Jin-woo's old friends, having known him since he was an E-Rank Hunter"
   },
   {
@@ -1063,7 +1145,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the Blood-Red Commander, is a high-ranking knight with exceptional swordsmanship and loyalty, holding the position of marshal that rivals Beru but is"
   },
   {
@@ -1091,7 +1174,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter who specializes in swordsmanship. She is the only female S-Rank in the country. She has a rare condition"
   },
   {
@@ -1119,7 +1203,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter and the Chairman of the Korean Hunters Association, the government agency responsible for overseeing all"
   },
   {
@@ -1147,7 +1232,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter who specializes in transformation magic. He is the Guild Master of the White Tiger Guild. He is also"
   },
   {
@@ -1175,7 +1261,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter who specializes in fire magic. He is the Guild Master of the Hunters Guild."
   },
   {
@@ -1203,7 +1290,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a B-Rank Hunter who works as an inspector for the Korean Hunters Association's Surveillance Team. He is secretly a hitman"
   },
   {
@@ -1231,7 +1319,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter who specializes in healing magic. He is an old friend of Baek and dies during the 4th Jeju Island"
   },
   {
@@ -1259,7 +1348,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an ant shadow that was extracted from the Ant King, a powerful S-Rank beast that killed Goto Ryuji and incapacitated Cha Hae-in before Jin-woo managed"
   },
   {
@@ -1287,7 +1377,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a servant of Ashborn and the strongest shadow in existence, holding the position of Grand Marshal. Bellion was born eons ago from the fruit of the"
   },
   {
@@ -1315,7 +1406,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the King of the Dead and the Monarch of Shadows. He is also the strongest Ruler and the Greatest Fragment of Brilliant Light. After spending"
   },
   {
@@ -1343,7 +1435,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter, Kyung-hye's husband, and Jin-woo and Jin-ah's father. Ten years before the events of the main"
   },
   {
@@ -1371,7 +1464,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the 16-year old son (21 in Ragnarok) of Sung Jin-woo and Cha Hae-in and the protagonist of the sequel series Solo Leveling"
   },
   {
@@ -1399,7 +1493,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the strongest hunters in America and one of the five National Level Hunters, ranking 1st in the world. He is also a Rulers'"
   },
   {
@@ -1427,7 +1522,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the strongest hunter in China and one of the five National Level Hunters, ranking 2nd in the world. He is also a Rulers' vessel and is the"
   },
   {
@@ -1455,7 +1551,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the strongest hunters in America and one of the five National Level Hunters, ranking 3rd in the world. He is also a"
   },
   {
@@ -1483,7 +1580,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the strongest hunter in India and one of the five National Level Hunters, ranking 4th in the world. He is also a Rulers' vessel"
   },
   {
@@ -1511,7 +1609,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the strongest hunter in Germany, ranking 12th in the world. Despite being the best in his homeland, Lennart is not particularly"
   },
   {
@@ -1539,7 +1638,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the strongest hunter in Japan. Despite not being strong compared to the National Level Hunters, Goto is egotistical and has a callous"
   },
   {
@@ -1567,7 +1667,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Korean S-Rank Hunter who specializes in archery magic. He is the Guild Master of the Fiend Guild."
   },
   {
@@ -1595,7 +1696,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a tank class Korean S-Rank Hunter who specializes in gigantification. He is the Guild Master of the Fame Guild."
   },
   {
@@ -1623,7 +1725,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the King of Dragons and the Monarch of Destruction and the strongest Monarch. He is also the leader of the Monarchs which makes him the final"
   },
   {
@@ -1651,7 +1754,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the King of Beasts and the Fang Monarch, who begins investigating Jinwoo along with Sillad, after his success on Jeju Island."
   },
   {
@@ -1679,7 +1783,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the King of Snow Folk and the Frost Monarch, who begins investigating Jinwoo along with Rakan, after his success on Jeju Island."
   },
   {
@@ -1707,7 +1812,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Queen of Insects and the Monarch of Plagues, who teams up with Rakan and Tarnak during the Japan Crisis."
   }
 ]

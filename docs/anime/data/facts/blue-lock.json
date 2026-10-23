@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "ブルーロック (Burū Rokku)"
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura"
   },
   {
@@ -95,7 +97,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Kodansha's Weekly Shōnen Magazine since August 2018"
   },
   {
@@ -128,7 +131,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "40 tankōbon volumes as of August 2026"
   },
   {
@@ -180,9 +184,15 @@
         "url": "https://en.wikipedia.org/wiki/Blue_Lock",
         "ref": "1380484703",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://news.kodansha.co.jp/comics/8841",
+        "fetched_at": "2026-10-23T17:31:20Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "won the 45th Kodansha Manga Award in the shōnen category in 2021"
   },
   {
@@ -207,9 +217,21 @@
         "url": "https://en.wikipedia.org/wiki/Blue_Lock",
         "ref": "1380484703",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108059214",
+        "ref": "Q108059214",
+        "fetched_at": "2026-10-23T17:30:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.bluelock-pr.com/tv1st/",
+        "fetched_at": "2026-10-23T17:32:13Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "produced by Eight Bit and directed by Tetsuaki Watanabe"
   },
   {
@@ -295,7 +317,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a third season covering the 'Neo Egoist League' story arc was announced"
   },
   {
@@ -322,7 +345,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a film adaptation of the Episode Nagi manga which released in Japanese theaters on April 19, 2024"
   },
   {
@@ -354,7 +378,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The second opening theme song is 'Judgement' by Ash Da Hero"
   },
   {
@@ -384,7 +409,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "performed by Unison Square Garden, while the ending theme song is 'One', performed by Snow Man"
   },
   {
@@ -411,7 +437,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "training regimen designed to create the world's greatest egotistical striker"
   },
   {
@@ -479,7 +506,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is selected for the Blue Lock program despite his team's failure to qualify for high school nationals, personally chosen by"
   },
   {
@@ -507,7 +535,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a forward known for his exceptional dribbling skills, enabling him to maneuver past opponents with ease. Initially"
   },
   {
@@ -535,7 +564,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a naturally gifted forward recruited into competitive football by Reo Mikage, with whom he formed a dominant high"
   },
   {
@@ -563,7 +593,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "initially had very little satisfaction in life due to everything simply being easily obtainable due to his parents'"
   },
   {
@@ -591,7 +622,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a self-described \"football superhero\" with strong morals regarding football, he emphasizes fair play on field"
   },
   {
@@ -619,7 +651,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Known for his incredibly selfish and egotistical attitude, Shōei Barō (馬狼 照英, Barō Shōei) desires to be the center-stage and main star of the field, caring for"
   },
   {
@@ -647,7 +680,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The number one ranked player in Blue Lock, and Sae Itoshi's brother, as well as Isagi's rival from the Second Selection onwards. His skills are very similar to"
   },
   {
@@ -675,7 +709,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a football strategist who co-developed the Blue Lock program alongside Noel Noa. His philosophy centers on cultivating"
   },
   {
@@ -703,7 +738,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the key figures who created Blue Lock program and chose Ego to become the manager despite being a previously"
   },
   {
@@ -731,7 +767,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A chaotic but talented player who idolizes Sae Itoshi but dislikes Rin. To appease Sae's demands for playing in the U-20 match, he also joins the U-20 squad"
   },
   {
@@ -759,7 +796,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the highest ranked player in Japan's U-20 team, and Rin Itoshi's brother. Considered to be one of the World's 11, the best"
   },
   {
@@ -787,7 +825,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a German forward for Bastard München and member of the New Generation World XI. As Bastard München's core"
   }
 ]

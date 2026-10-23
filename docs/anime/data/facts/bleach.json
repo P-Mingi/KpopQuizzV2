@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "BLEACH 千年血戦篇, Burīchi Sennen Kessen-hen"
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written and illustrated by Tite Kubo"
   },
   {
@@ -95,7 +97,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from August 2001 to August 2016"
   },
   {
@@ -128,7 +131,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "chapters collected in 74 tankōbon volumes"
   },
   {
@@ -153,6 +157,11 @@
         "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
         "ref": "1372127035",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/press-release/2022-10-04/viz-media-disney-and-hulu-announce-streaming-partnership-for-tite-kubo-long-awaited-final-arc-for-/.190476",
+        "fetched_at": "2026-10-23T17:29:04Z"
       }
     ],
     "status": "draft",
@@ -215,7 +224,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "It was produced by Studio Pierrot and directed by Noriyuki Abe"
   },
   {
@@ -240,9 +250,16 @@
         "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
         "ref": "1377360344",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q112631839",
+        "ref": "Q112631839",
+        "fetched_at": "2026-10-23T17:27:51Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Tomohisa Taguchi replaced Noriyuki Abe as the series director at Pierrot"
   },
   {
@@ -378,7 +395,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Several anime exclusive story arcs are introduced during the series."
   },
   {
@@ -421,7 +439,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Used as opening theme for episodes 1-25"
   },
   {
@@ -464,7 +483,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Used as ending theme for episodes 1-13"
   },
   {
@@ -507,7 +527,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Used as ending theme for episodes 355-366"
   },
   {
@@ -643,7 +664,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The first film, Bleach: Memories of Nobody, was released in Japan on December 16, 2006"
   },
   {
@@ -671,7 +693,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "who obtains the powers of a Soul Reaper"
   },
   {
@@ -699,7 +722,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the main protagonist of the Bleach franchise. A tall orange-haired high school student, Ichigo becomes a"
   },
   {
@@ -727,7 +751,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Soul Reaper,(死神, Shinigami, literally 'Death God'), who is assigned hollow extermination duties in Karakura Town."
   },
   {
@@ -755,7 +780,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a long-time classmate of Ichigo and one of his closest friends. She used to have a crush on Ichigo since the beginning"
   },
   {
@@ -783,7 +809,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Quincy, a descendant of a line of near-extinct, priest-like, hollow-hunting archers, who were historical enemies of the"
   },
   {
@@ -811,7 +838,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "better known as Chad (チャド, Chado), is one of Ichigo's friends at school. He is of mixed Japanese/Mexican heritage and a"
   },
   {
@@ -839,7 +867,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the owner of the Urahara Shop, whose habit of wearing traditional Japanese wooden sandals and a bucket hat earned him"
   },
   {
@@ -867,7 +896,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is, at the beginning of the series, the unassuming father of Ichigo, Karin and Yuzu, and the head of the family. Later"
   },
   {
@@ -895,7 +925,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the first Mod-Soul to appear in Bleach, designated an Underpod (部下強化型（アンダーポッド）, Andāpoddo; Japanese for \"Lower Part-Strengthened Form\") model with"
   },
   {
@@ -923,7 +954,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "and Yuzu Kurosaki (黒崎 遊子, Kurosaki Yuzu), are Ichigo's younger sisters. While Karin is typically cynical and sarcastic"
   },
   {
@@ -951,7 +983,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a good friend of Ichigo Kurosaki and the best friend of Orihime Inoue. She has known both since she was young"
   },
   {
@@ -979,7 +1012,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Soul Reaper of Squad 6 in the Gotei 13. When he was first introduced he played an antagonistic role as he was sent to"
   },
   {
@@ -1007,7 +1041,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an old friend of Urahara Shop owner Kisuke Urahara, and so uses it as a place of residence when she is not"
   },
   {
@@ -1035,7 +1070,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Kaien and Kūkaku's younger brother. He is the leader of a gang, who all ride large boars. Incidentally, Ganju's boar"
   },
   {
@@ -1063,7 +1099,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a fireworks expert, the younger sister of Kaien and the older sister of Ganju. She lives with her family in themed houses"
   },
   {
@@ -1091,7 +1128,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the primary antagonist of the pre-timeskip half of the Bleach series. While introduced as the captain of Squad Five"
   },
   {
@@ -1119,7 +1157,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Leader of the Bounts who planned to destroy the entire Soul Society through the Jōkaishō, the device that created the"
   },
   {
@@ -1147,7 +1186,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the de facto leader of the Vizards and a friend of Urahara's. He is somewhat comical, adding a bit of levity to"
   },
   {
@@ -1175,7 +1215,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Mod-Soul. She has escaped from the Soul Society and is wanted by Kagerōza Inaba. She is actually the result of Project"
   },
   {
@@ -1203,7 +1244,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the leader of Xcution. In the past, he was the first Substitute Soul Reaper before he went into hiding upon learning that he"
   },
   {
@@ -1231,7 +1273,8 @@
         "fetched_at": "2026-10-20T20:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the primary antagonist of the post-timeskip half, is the sovereign of the Wandenreich and"
   }
 ]
