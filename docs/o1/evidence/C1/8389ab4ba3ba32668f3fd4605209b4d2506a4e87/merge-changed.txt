@@ -1,0 +1,15 @@
+apps/quiz/src/app/sites/[site]/(anime)/about/page.tsx
+apps/quiz/src/app/sites/[site]/(anime)/faq/page.tsx
+apps/quiz/src/app/sites/[site]/(anime)/search/page.tsx
+apps/quiz/src/app/sites/[site]/(anime)/trivia/page.tsx
+apps/quiz/src/components/blindtest/ux-v1/hub.tsx
+apps/quiz/src/components/create/ux-v1/details.tsx
+apps/quiz/src/components/create/ux-v1/group-field.tsx
+apps/quiz/src/components/profile/ux-v1/settings.tsx
+apps/quiz/src/lib/db/queries/community.ts
+apps/quiz/src/lib/editorial/surfaces/war.ts
+apps/quiz/src/lib/ux-v1/p1/home-data.ts
+apps/quiz/src/lib/ux-v1/p5/view.ts
+apps/quiz/src/lib/ux-v1/p8/feed.ts
+apps/quiz/src/styles/sites/anime/c1.css
+docs/o1/reports/C1/tour.html

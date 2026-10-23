@@ -478,7 +478,8 @@
   "C2": [
     "apps/quiz/e2e/o1/C2/**",
     "apps/quiz/src/**",
-    "docs/o1/reports/C2/**"
+    "docs/o1/reports/C2/**",
+    "docs/pending-migrations/s4/**"
   ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
