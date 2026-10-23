@@ -690,7 +690,8 @@ function LegacySettingsPage(): React.ReactElement {
       </div>
 
       <p className="text-xs text-tertiary mt-6 text-center">
-        Need to delete your account? Contact us.
+        Need to delete your account? We delete accounts by hand. Send a request from the contact page and we
+        delete your account within 30 days. Your published quizzes are deleted with it.
       </p>
     </div>
   );
