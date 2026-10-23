@@ -2,6 +2,7 @@ import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { getSourcedTrivia } from '@/lib/trivia/sourced/store';
 import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
@@ -124,7 +125,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     // SEO Mission 1 (owner, 2026-10-14): the editorial policy and its dated corrections log.
-    { url: `${SITE_URL}/editorial-policy`, lastModified: new Date('2026-10-14'), changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${SITE_URL}/editorial-policy`, lastModified: new Date('2026-10-15'), changeFrequency: 'monthly', priority: 0.4 },
     { url: `${SITE_URL}/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE_URL}/contact`, lastModified: STATIC_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
@@ -319,7 +320,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
 
       // general-kpop trivia is noindex until verified (owner, 2026-10-14), so it is not listed.
-      if (triviaEligibleGroupIds.has(g.id) && g.slug !== 'general-kpop') {
+      // SEO Mission 2, part E: a sourced trivia page renders whatever the fan facts say, and its
+      // lastmod is the day its fact file was reviewed (the content date), not a quiz date.
+      const sourcedTrivia = getSourcedTrivia(g.slug);
+      if (sourcedTrivia) {
+        entries.push({
+          url: `${SITE_URL}/${g.slug}-trivia`,
+          lastModified: new Date(sourcedTrivia.reviewed),
+          changeFrequency: 'monthly' as const,
+          priority: 0.6,
+        });
+      } else if (triviaEligibleGroupIds.has(g.id) && g.slug !== 'general-kpop') {
         entries.push({
           url: `${SITE_URL}/${g.slug}-trivia`,
           lastModified: groupDate,

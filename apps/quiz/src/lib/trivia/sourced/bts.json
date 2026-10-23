@@ -1,0 +1,1127 @@
+{
+  "version": 1,
+  "group": "bts",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/BTS",
+  "officialSite": "https://ibighit.com/en/bts/",
+  "wikidata": "Q13580495",
+  "members": [
+    "RM",
+    "Jin",
+    "Suga",
+    "J-Hope",
+    "Jimin",
+    "V",
+    "Jungkook"
+  ],
+  "groupsData": {
+    "name": "BTS",
+    "generation": "3rd Gen",
+    "memberCount": 7,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "bts-members",
+      "level": "easy",
+      "question": "How many members are in BTS?",
+      "answer": "Seven",
+      "text": "BTS has seven members: RM, Jin, Suga, J-Hope, Jimin, V and Jungkook.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://bts-official.jp/profile/",
+          "type": "official",
+          "publisher": "BTS Japan official site",
+          "title": "BTS profile (BIGHIT MUSIC)"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q13580495",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-fandom",
+      "level": "easy",
+      "question": "What is the BTS fandom called?",
+      "answer": "ARMY",
+      "text": "The BTS fandom is called ARMY, short for Adorable Representative M.C. for Youth.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://bts-official.jp/profile/",
+          "type": "official",
+          "publisher": "BTS Japan official site",
+          "title": "BTS profile (BIGHIT MUSIC)"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-leader",
+      "level": "easy",
+      "question": "Who is the leader of BTS?",
+      "answer": "RM",
+      "text": "RM is the leader of BTS.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/RM_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "RM (rapper)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-oldest",
+      "level": "easy",
+      "question": "Who is the oldest member of BTS?",
+      "answer": "Jin",
+      "text": "Jin is the oldest member of BTS, born on December 4, 1992.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Jin_(singer)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jin (singer)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-debut-year",
+      "level": "easy",
+      "question": "In what year did BTS debut?",
+      "answer": "2013",
+      "text": "BTS debuted on June 13, 2013.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q13580495",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "BTS"
+        },
+        {
+          "url": "https://bts-official.jp/profile/",
+          "type": "official",
+          "publisher": "BTS Japan official site",
+          "title": "BTS profile (BIGHIT MUSIC)"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-name",
+      "level": "easy",
+      "question": "What does the name BTS stand for in Korean?",
+      "answer": "Bangtan Sonyeondan",
+      "text": "BTS stands for Bangtan Sonyeondan, Korean for Bulletproof Boy Scouts.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-debut-song",
+      "level": "easy",
+      "question": "What was the debut single of BTS?",
+      "answer": "No More Dream",
+      "text": "BTS made their stage debut in June 2013 with the single No More Dream.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2_Cool_4_Skool",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "2 Cool 4 Skool"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-dynamite-english",
+      "level": "easy",
+      "question": "Which BTS single was the group's first song fully in English?",
+      "answer": "Dynamite",
+      "text": "Dynamite, released in 2020, was the first all-English single by BTS.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-dynamite-tops-hot-100-chart/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Dynamite' Blasts in at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-my-universe",
+      "level": "easy",
+      "question": "Which British band recorded My Universe with BTS?",
+      "answer": "Coldplay",
+      "text": "Coldplay and BTS released My Universe together on September 24, 2021.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/My_Universe_(song)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "My Universe (song)"
+        },
+        {
+          "url": "https://www.billboard.com/pro/coldplay-bts-my-universe-tops-billboard-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Coldplay & BTS' 'My Universe' Blasts Off at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-halsey",
+      "level": "easy",
+      "question": "Which singer is featured on the BTS song Boy With Luv?",
+      "answer": "Halsey",
+      "text": "Boy With Luv, a 2019 single by BTS, features the singer Halsey.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Boy_with_Luv",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Boy with Luv"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-agency",
+      "level": "easy",
+      "question": "Which company formed BTS?",
+      "answer": "Big Hit Entertainment",
+      "text": "BTS was formed in 2010 by Big Hit Entertainment, whose music label is now BIGHIT MUSIC, part of HYBE.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hybe_Corporation",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Hybe Corporation"
+        },
+        {
+          "url": "https://bts-official.jp/profile/",
+          "type": "official",
+          "publisher": "BTS Japan official site",
+          "title": "BTS profile (BIGHIT MUSIC)"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-arirang",
+      "level": "easy",
+      "question": "Which BTS studio album came out on March 20, 2026?",
+      "answer": "ARIRANG",
+      "text": "ARIRANG, released by BTS on March 20, 2026, is the group's first studio album since Be in 2020.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Arirang_(album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Arirang (album)"
+        },
+        {
+          "url": "https://www.billboard.com/music/chart-beat/bts-arirang-no1-billboard-200-albums-chart-1236209566/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS Earns 7th No. 1 Album on Billboard 200 With 'ARIRANG'"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rap-monster",
+      "level": "medium",
+      "question": "Which stage name did RM of BTS use before changing it to RM in 2017?",
+      "answer": "Rap Monster",
+      "text": "RM, the leader of BTS, performed as Rap Monster until he formally changed his stage name to RM in November 2017.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/RM_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "RM (rapper)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-agust-d",
+      "level": "medium",
+      "question": "Under which alias does Suga of BTS release solo music?",
+      "answer": "Agust D",
+      "text": "Suga of BTS adopted the alias Agust D in 2016, from DT for Daegu Town and Suga spelled backwards.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Suga_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Suga (rapper)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-2cool4skool",
+      "level": "medium",
+      "question": "What is the name of the BTS debut single album?",
+      "answer": "2 Cool 4 Skool",
+      "text": "2 Cool 4 Skool, the debut single album of BTS, was released on June 12, 2013.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2_Cool_4_Skool",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "2 Cool 4 Skool"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-beyond-the-scene",
+      "level": "medium",
+      "question": "In what year did BTS add Beyond the Scene as a meaning of their name?",
+      "answer": "2017",
+      "text": "In July 2017, BTS announced that their name would also stand for Beyond the Scene.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-un-speech",
+      "level": "medium",
+      "question": "Which BTS member spoke at the UN General Assembly in September 2018?",
+      "answer": "RM",
+      "text": "RM spoke for BTS at the UN General Assembly on September 24, 2018, at the launch of Generation Unlimited, a UNICEF partnership for young people's education and jobs.",
+      "sources": [
+        {
+          "url": "https://www.unicef.org/press-releases/we-have-learned-love-ourselves-so-now-i-urge-you-speak-yourself",
+          "type": "official",
+          "publisher": "UNICEF",
+          "title": "Remarks by BTS' Kim Nam Jun (RM) at the launch of Generation Unlimited"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-love-myself",
+      "level": "medium",
+      "question": "Which campaign did BTS launch with UNICEF in 2017?",
+      "answer": "Love Myself",
+      "text": "BTS partnered with UNICEF in 2017 on Love Myself, a campaign against violence and bullying.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-indigo",
+      "level": "medium",
+      "question": "Which BTS member released the solo album Indigo in December 2022?",
+      "answer": "RM",
+      "text": "Indigo, released on December 2, 2022, is the debut studio album of RM of BTS.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indigo_(RM_album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Indigo (RM album)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-jack-in-the-box",
+      "level": "medium",
+      "question": "Which BTS member released the album Jack in the Box in 2022?",
+      "answer": "J-Hope",
+      "text": "J-Hope of BTS released his debut studio album, Jack in the Box, on July 15, 2022.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jack_in_the_Box_(album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jack in the Box (album)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-astronaut",
+      "level": "medium",
+      "question": "Which BTS member released the solo single The Astronaut?",
+      "answer": "Jin",
+      "text": "Jin of BTS released The Astronaut, his debut solo single, on October 28, 2022. Coldplay co-wrote the song.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/The_Astronaut_(song)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "The Astronaut (song)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-face",
+      "level": "medium",
+      "question": "Which BTS member released the album Face in 2023?",
+      "answer": "Jimin",
+      "text": "Face, the debut studio album of Jimin of BTS, was released on March 24, 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Face_(Jimin_album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Face (Jimin album)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-layover",
+      "level": "medium",
+      "question": "Which BTS member released the EP Layover in 2023?",
+      "answer": "V",
+      "text": "Layover, the debut EP of V of BTS, was released on September 8, 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Layover_(album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Layover (album)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-seven",
+      "level": "medium",
+      "question": "Which BTS member released the single Seven featuring Latto?",
+      "answer": "Jungkook",
+      "text": "Jungkook of BTS released Seven, featuring Latto, on July 14, 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Seven_(Jungkook_song)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Seven (Jung Kook song)"
+        },
+        {
+          "url": "https://www.billboard.com/music/chart-beat/jung-kook-latto-seven-number-one-debut-hot-100-jason-aldean-1235377400/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Jung Kook's 'Seven' Debuts at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-neuron",
+      "level": "medium",
+      "question": "Which underground dance team was J-Hope part of before BTS?",
+      "answer": "Neuron",
+      "text": "Before debuting with BTS, J-Hope was part of an underground dance team called Neuron.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/J-Hope",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "J-Hope"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-saxophone",
+      "level": "medium",
+      "question": "Which instrument did V of BTS take lessons in during middle school?",
+      "answer": "The saxophone",
+      "text": "V of BTS took saxophone lessons in early middle school.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/V_(singer)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "V (singer)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-hybe",
+      "level": "medium",
+      "question": "What did Big Hit Entertainment, the company behind BTS, rebrand as in 2021?",
+      "answer": "HYBE",
+      "text": "Big Hit Entertainment, the company that formed BTS, rebranded as HYBE in March 2021.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hybe_Corporation",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Hybe Corporation"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-wembley",
+      "level": "medium",
+      "question": "Which London stadium did BTS sell out in 2019?",
+      "answer": "Wembley Stadium",
+      "text": "In 2019, BTS became the first non-English-speaking and Asian act to sell out concerts at Wembley Stadium in London.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-m-countdown",
+      "level": "hard",
+      "question": "On which music show did BTS make their debut stage?",
+      "answer": "M Countdown",
+      "text": "BTS made their stage debut on M Countdown on June 13, 2013.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-gloss",
+      "level": "hard",
+      "question": "Under which name was Suga active as an underground rapper before BTS?",
+      "answer": "Gloss",
+      "text": "Before signing with Big Hit, Suga of BTS was active as an underground rapper under the name Gloss.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Suga_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Suga (rapper)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-runch-randa",
+      "level": "hard",
+      "question": "Which name did RM use in the underground hip-hop scene as a teenager?",
+      "answer": "Runch Randa",
+      "text": "RM of BTS started in the underground Korean hip-hop scene as a teenager, under the name Runch Randa.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/RM_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "RM (rapper)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rm-2010",
+      "level": "hard",
+      "question": "In what year did RM join Big Hit, the company that built BTS around him?",
+      "answer": "2010",
+      "text": "RM joined Big Hit in 2010, and BTS was formed that year as a hip hop group around him.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/RM_(rapper)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "RM (rapper)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-superstar-k",
+      "level": "hard",
+      "question": "Which TV talent show did Jungkook of BTS audition for in 2011?",
+      "answer": "Superstar K",
+      "text": "In 2011, Jungkook of BTS auditioned for the talent show Superstar K in Daegu, and was not selected.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jungkook",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jungkook"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-busan-arts",
+      "level": "hard",
+      "question": "At which high school did Jimin of BTS study contemporary dance?",
+      "answer": "Busan High School of Arts",
+      "text": "Before becoming a trainee, Jimin of BTS studied contemporary dance at Busan High School of Arts.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jimin",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jimin"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-demian",
+      "level": "hard",
+      "question": "Which novel shaped the 2016 BTS album Wings?",
+      "answer": "Demian, by Hermann Hesse",
+      "text": "Wings, the 2016 BTS album, is heavily influenced by Hermann Hesse's coming of age novel Demian.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Wings_(BTS_album)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Wings (BTS album)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-omelas",
+      "level": "hard",
+      "question": "Which short story inspired the music video for the BTS song Spring Day?",
+      "answer": "The Ones Who Walk Away from Omelas, by Ursula K. Le Guin",
+      "text": "The Spring Day music video by BTS was inspired by Ursula K. Le Guin's 1973 short story The Ones Who Walk Away from Omelas.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Spring_Day_(BTS_song)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Spring Day (BTS song)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-order-of-merit",
+      "level": "hard",
+      "question": "Which South Korean state honor did BTS receive in 2018 as its youngest recipients?",
+      "answer": "The Order of Cultural Merit",
+      "text": "In 2018, BTS became the youngest recipients of the Order of Cultural Merit, a South Korean state honor, for spreading Korean culture and language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-first-grammy-nod",
+      "level": "hard",
+      "question": "Which song earned BTS their first Grammy nomination?",
+      "answer": "Dynamite",
+      "text": "Dynamite earned BTS their first Grammy nomination, for Best Pop Duo/Group Performance at the 63rd Grammy Awards.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        },
+        {
+          "url": "https://bts-official.jp/profile/",
+          "type": "official",
+          "publisher": "BTS Japan official site",
+          "title": "BTS profile (BIGHIT MUSIC)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-queen-wembley",
+      "level": "hard",
+      "question": "Which BTS member led the crowd in Freddie Mercury's ay-oh chant at Wembley Stadium?",
+      "answer": "Jin",
+      "text": "At the 2019 BTS concert at Wembley Stadium, Jin paid tribute to Queen by leading the crowd in Freddie Mercury's ay-oh chant.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/BTS",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "BTS"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-seven-offers",
+      "level": "hard",
+      "question": "Which BTS member chose Big Hit after receiving offers from seven companies?",
+      "answer": "Jungkook",
+      "text": "After his 2011 audition, Jungkook of BTS received casting offers from seven entertainment companies and chose Big Hit after seeing RM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jungkook",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jungkook"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-hyyh2",
+      "level": "records",
+      "question": "Which album was the first BTS entry on the Billboard 200?",
+      "answer": "The Most Beautiful Moment in Life, Pt. 2",
+      "text": "The Most Beautiful Moment in Life, Pt. 2 debuted at No. 171 on the Billboard 200 in December 2015, the first BTS album on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-most-beautiful-moment-in-life-pt-2-billboard-200-charts/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS Break Into Billboard 200 With 'The Most Beautiful Moment in Life, Pt. 2'"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-dna",
+      "level": "records",
+      "question": "Which song was the first BTS entry on the Billboard Hot 100?",
+      "answer": "DNA",
+      "text": "DNA debuted at No. 85 on the Billboard Hot 100 in 2017, the first BTS song on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-dna-first-billboard-hot-100-hit/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS's 'DNA': First Billboard Hot 100 Hit for K-Pop Group"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-ly-her",
+      "level": "records",
+      "question": "Which BTS album was the first K-pop album in the Billboard 200 top 10?",
+      "answer": "Love Yourself: Her",
+      "text": "Love Yourself: Her by BTS debuted at No. 7 on the Billboard 200 in 2017, the first top 10 for a K-pop act on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-dna-first-billboard-hot-100-hit/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS's 'DNA': First Billboard Hot 100 Hit for K-Pop Group"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-ly-tear",
+      "level": "records",
+      "question": "Which BTS album was the first K-pop album to reach No. 1 on the Billboard 200?",
+      "answer": "Love Yourself: Tear",
+      "text": "Love Yourself: Tear by BTS became the first K-pop album to reach No. 1 on the Billboard 200, in 2018.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-love-yourself-tear-first-k-pop-album-no-1-billboard-200/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Love Yourself: Tear' Hits No. 1 on Billboard 200"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-dynamite",
+      "level": "records",
+      "question": "Which song made BTS the first all-South Korean group to top the Billboard Hot 100?",
+      "answer": "Dynamite",
+      "text": "Dynamite debuted at No. 1 on the Billboard Hot 100 dated September 5, 2020, making BTS the first all-South Korean group to lead the chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-dynamite-tops-hot-100-chart/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Dynamite' Blasts in at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-life-goes-on",
+      "level": "records",
+      "question": "Which BTS song was the first Billboard Hot 100 No. 1 sung mostly in Korean?",
+      "answer": "Life Goes On",
+      "text": "Life Goes On by BTS debuted at No. 1 on the Billboard Hot 100 dated December 5, 2020, the first No. 1 in the chart's history sung predominantly in Korean.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-life-goes-on-number-one-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Life Goes On' Launches as Historic No. 1 on Billboard Hot 100"
+        },
+        {
+          "url": "https://www.billboard.com/pro/coldplay-bts-my-universe-tops-billboard-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Coldplay & BTS' 'My Universe' Blasts Off at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-butter",
+      "level": "records",
+      "question": "How many weeks did the BTS song Butter spend at No. 1 on the Billboard Hot 100?",
+      "answer": "Ten",
+      "text": "Butter by BTS spent ten weeks at No. 1 on the Billboard Hot 100 in 2021.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-butter-tops-hot-100-tenth-week/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Butter' Rebounds for 10th Week Atop Billboard Hot 100"
+        },
+        {
+          "url": "https://www.billboard.com/pro/coldplay-bts-my-universe-tops-billboard-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Coldplay & BTS' 'My Universe' Blasts Off at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-ptd",
+      "level": "records",
+      "question": "Which BTS song replaced Butter at No. 1 on the Billboard Hot 100 in July 2021?",
+      "answer": "Permission to Dance",
+      "text": "Permission to Dance debuted at No. 1 on the Billboard Hot 100 dated July 24, 2021, replacing the BTS song Butter at the top.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/bts-permission-to-dance-number-one-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS' 'Permission to Dance' Debuts at No. 1 on Billboard Hot 100"
+        },
+        {
+          "url": "https://www.billboard.com/pro/coldplay-bts-my-universe-tops-billboard-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Coldplay & BTS' 'My Universe' Blasts Off at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-my-universe",
+      "level": "records",
+      "question": "Which collaboration gave BTS their sixth Billboard Hot 100 No. 1?",
+      "answer": "My Universe, with Coldplay",
+      "text": "My Universe, by Coldplay and BTS, debuted at No. 1 on the Billboard Hot 100 dated October 9, 2021, the sixth No. 1 for BTS.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/pro/coldplay-bts-my-universe-tops-billboard-hot-100/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Coldplay & BTS' 'My Universe' Blasts Off at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-arirang",
+      "level": "records",
+      "question": "Which album gave BTS their seventh No. 1 on the Billboard 200?",
+      "answer": "ARIRANG",
+      "text": "ARIRANG debuted at No. 1 on the Billboard 200 dated April 4, 2026, the seventh No. 1 album for BTS, with 641,000 equivalent album units in its first week.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/bts-arirang-no1-billboard-200-albums-chart-1236209566/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BTS Earns 7th No. 1 Album on Billboard 200 With 'ARIRANG'"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-like-crazy",
+      "level": "records",
+      "question": "Which BTS member was the first South Korean soloist to top the Billboard Hot 100?",
+      "answer": "Jimin, with Like Crazy",
+      "text": "Like Crazy debuted at No. 1 on the Billboard Hot 100 dated April 8, 2023, making Jimin of BTS the first South Korean solo artist to lead the chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/jimin-like-crazy-debuts-number-one-first-bts-solo-hot-100-1235297097/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Jimin's 'Like Crazy' Debuts Atop Billboard Hot 100, First Solo No. 1 for a BTS Member"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Jimin",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Jimin"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "bts-rec-seven",
+      "level": "records",
+      "question": "Which BTS member became the second with a solo Billboard Hot 100 No. 1?",
+      "answer": "Jungkook, with Seven",
+      "text": "Seven, featuring Latto, debuted at No. 1 on the Billboard Hot 100 in July 2023, making Jungkook the second BTS member with a Hot 100 No. 1.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/jung-kook-latto-seven-number-one-debut-hot-100-jason-aldean-1235377400/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Jung Kook's 'Seven' Debuts at No. 1 on Billboard Hot 100"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}

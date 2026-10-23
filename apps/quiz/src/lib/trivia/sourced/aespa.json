@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "group": "aespa",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/Aespa",
+  "officialSite": "https://aespa.com/",
+  "wikidata": "Q100877982",
+  "members": [
+    "Karina",
+    "Giselle",
+    "Winter",
+    "Ningning"
+  ],
+  "groupsData": {
+    "name": "aespa",
+    "generation": "4th Gen",
+    "memberCount": 4,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "aespa-members",
+      "level": "easy",
+      "question": "How many members are in aespa?",
+      "answer": "Four",
+      "text": "aespa has four members: Karina, Giselle, Winter and Ningning.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q100877982",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "aespa"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-agency",
+      "level": "easy",
+      "question": "Which company formed aespa?",
+      "answer": "SM Entertainment",
+      "text": "aespa is a girl group formed by SM Entertainment.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q100877982",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "aespa"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-debut-year",
+      "level": "easy",
+      "question": "In what year did aespa debut?",
+      "answer": "2020",
+      "text": "aespa debuted in 2020 as SM Entertainment's first new girl group since Red Velvet in 2014.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q100877982",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "aespa"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-debut-single",
+      "level": "easy",
+      "question": "What was the debut single of aespa?",
+      "answer": "Black Mamba",
+      "text": "aespa debuted with the single Black Mamba.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-supernova-mama",
+      "level": "medium",
+      "question": "Which aespa song won Song of the Year at the 2024 MAMA Awards?",
+      "answer": "Supernova",
+      "text": "Supernova, the lead single of the aespa album Armageddon, won Song of the Year at the 2024 MAMA Awards and the 2024 Melon Music Awards.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-armageddon",
+      "level": "medium",
+      "question": "What is the name of the first aespa studio album?",
+      "answer": "Armageddon",
+      "text": "aespa released their first studio album, Armageddon, in May 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-savage-ep",
+      "level": "medium",
+      "question": "What was the first EP released by aespa?",
+      "answer": "Savage",
+      "text": "aespa released their first EP, Savage, on October 5, 2021.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-name",
+      "level": "medium",
+      "question": "Which words does the name aespa combine?",
+      "answer": "Avatar, experience and aspect",
+      "text": "The name aespa combines the initials of avatar and experience with the English word aspect.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-next-level-kma",
+      "level": "medium",
+      "question": "Which aespa song won Song of the Year at the 19th Korean Music Awards?",
+      "answer": "Next Level",
+      "text": "Next Level, released by aespa in May 2021, won the grand prize for Song of the Year at the 19th Korean Music Awards.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-ningning-rookies",
+      "level": "hard",
+      "question": "Which aespa member was introduced in SM Rookies in 2016?",
+      "answer": "Ningning",
+      "text": "Ningning of aespa was introduced as a member of SM Entertainment's pre-debut team SM Rookies on September 19, 2016.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-karina-want",
+      "level": "hard",
+      "question": "In whose music video did Karina of aespa appear in February 2019?",
+      "answer": "Taemin's Want",
+      "text": "Karina of aespa appeared in the music video for Want by her labelmate Taemin in February 2019.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-macys",
+      "level": "hard",
+      "question": "Which American parade did aespa perform at in November 2021?",
+      "answer": "The Macy's Thanksgiving Day Parade",
+      "text": "aespa performed at the 95th Macy's Thanksgiving Day Parade in November 2021, the first Korean girl group to perform at the parade.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-first-win",
+      "level": "hard",
+      "question": "On which music show did aespa earn their first win?",
+      "answer": "Inkigayo",
+      "text": "aespa earned their first music show win on SBS's Inkigayo on January 17, 2021.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-forever-remake",
+      "level": "hard",
+      "question": "Which 2000 SM Entertainment song did aespa remake in February 2021?",
+      "answer": "Forever",
+      "text": "aespa released a remake of Forever, a song first sung by Yoo Young-jin for SM Entertainment's 2000 holiday album, in February 2021.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-dreams-come-true",
+      "level": "hard",
+      "question": "Which S.E.S. song did aespa remake in December 2021?",
+      "answer": "Dreams Come True",
+      "text": "aespa released a remake of the S.E.S. song Dreams Come True in December 2021, as part of SM Entertainment's Remastering Project.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-savage",
+      "level": "records",
+      "question": "At what position did the aespa EP Savage enter the Billboard 200?",
+      "answer": "No. 20",
+      "text": "Savage entered the Billboard 200 at No. 20 in 2021, the first aespa album on that chart and the highest-charting debut album by a K-pop girl group there at the time.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-girls",
+      "level": "records",
+      "question": "Which aespa album was the group's first top 10 on the Billboard 200?",
+      "answer": "Girls",
+      "text": "Girls by aespa debuted at No. 3 on the Billboard 200 dated July 23, 2022, the group's first top 10 on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/bad-bunny-un-verano-sin-ti-billboard-200-number-1-five-weeks-1235115269/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Bad Bunny Holds Atop Billboard 200 Chart for Fifth Week With 'Un Verano Sin Ti'"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-my-world",
+      "level": "records",
+      "question": "At what position did the aespa EP My World debut on the Billboard 200?",
+      "answer": "No. 9",
+      "text": "My World by aespa debuted at No. 9 on the Billboard 200 in 2023, the group's second top 10 album on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/lil-uzi-vert-pink-tape-number-one-billboard-200-debut-1235369002/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Lil Uzi Vert's 'Pink Tape' Debuts at No. 1 on Billboard 200"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-supernova",
+      "level": "records",
+      "question": "For how many weeks did the aespa song Supernova top the Circle Digital Chart?",
+      "answer": "Eleven",
+      "text": "Supernova by aespa topped South Korea's Circle Digital Chart for eleven weeks in 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-whiplash",
+      "level": "records",
+      "question": "Which aespa song was the group's first top 10 hit on the Billboard Global 200?",
+      "answer": "Whiplash",
+      "text": "Whiplash, the lead single of the fifth aespa EP, reached No. 8 on the Billboard Global 200 in October 2024, the group's first top 10 there.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "aespa-rec-next-level",
+      "level": "records",
+      "question": "Which aespa single was the group's first top five hit in South Korea?",
+      "answer": "Next Level",
+      "text": "Next Level by aespa peaked at No. 2 on the Gaon Digital Chart, now the Circle Digital Chart, the group's first top five hit in South Korea.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Aespa",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Aespa"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}

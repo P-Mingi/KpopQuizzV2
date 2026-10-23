@@ -2873,6 +2873,42 @@ a.game-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px
 }
 
 /* ---------------------------------------------------------------------------
+   SEO Mission 2 E - sourced trivia page (/[group]-trivia built from the fact
+   store). A question and answer bank: each answer sits in the server HTML,
+   blurred until hover, tap or keyboard focus, or until "Show all answers" is
+   ticked (CSS only, no script). Source links stay next to each answer.
+   --------------------------------------------------------------------------- */
+.st-answer-block { font-size: 1rem; line-height: 1.6; color: var(--txt2); max-width: 36rem; margin: 0 auto; }
+.st-reviewed { font-size: 0.8rem; color: var(--txt3); margin: 10px 0 0; }
+.st-reviewed a, .st-howto a, .st-sources a, .st-src a { color: var(--txt1); text-decoration: underline; text-underline-offset: 2px; }
+.st-reviewed a:hover, .st-howto a:hover, .st-sources a:hover, .st-src a:hover { color: var(--brand); }
+.st-toc ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; list-style: none; padding: 0; margin: 24px 0 32px; }
+.st-toc a { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; font-size: 0.8rem; color: var(--txt2); }
+.st-toc a:hover { border-color: var(--border-h); color: var(--txt1); }
+.st-banks { position: relative; }
+.st-reveal-input { position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0; }
+.st-reveal-label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 100px; font-size: 0.85rem; font-weight: 600; color: var(--txt1); cursor: pointer; }
+.st-reveal-label::before { content: ""; width: 16px; height: 16px; border: 1.5px solid var(--txt3); border-radius: 4px; flex-shrink: 0; }
+.st-reveal-input:checked + .st-reveal-label::before { background: var(--brand); border-color: var(--brand); }
+.st-reveal-input:focus-visible + .st-reveal-label { outline: 2px solid var(--brand); outline-offset: 2px; }
+.st-bank-intro { font-size: 0.9rem; line-height: 1.55; color: var(--txt2); margin: -6px 0 16px; }
+.st-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.st-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; scroll-margin-top: 80px; }
+.st-q { font-size: 1rem; font-weight: 700; line-height: 1.35; color: var(--txt1); margin: 0 0 10px; }
+.st-a { filter: blur(6px); transition: filter 160ms ease; cursor: pointer; border-radius: 8px; }
+.st-a:hover, .st-a:focus, .st-a:focus-within, .st-reveal-input:checked ~ .st-bank .st-a { filter: none; }
+.st-a:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+.st-answer { margin: 0 0 4px; font-size: 0.95rem; color: var(--txt1); }
+.st-answer-label { color: var(--txt3); font-weight: 500; }
+.st-text { margin: 0 0 6px; font-size: 0.9rem; line-height: 1.55; color: var(--txt2); }
+.st-src { margin: 0; font-size: 0.78rem; color: var(--txt3); }
+.st-howto p, .st-sources p { font-size: 0.95rem; line-height: 1.6; color: var(--txt2); margin: 12px 0; max-width: 66ch; }
+.st-steps { padding-left: 1.25rem; margin: 12px 0; display: grid; gap: 10px; font-size: 0.95rem; line-height: 1.55; color: var(--txt2); max-width: 66ch; }
+.st-steps strong { color: var(--txt1); }
+.st-source-list { list-style: disc; padding-left: 1.25rem; margin: 12px 0 0; display: grid; gap: 4px; font-size: 0.85rem; color: var(--txt2); overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .st-a { transition: none; } }
+
+/* ---------------------------------------------------------------------------
    J3 - /trivia hub + the trivia entry-point cards (quiz detail, group hub).
    Same surface/border/14px-radius/pink-lift language as .quiz-card.
    --------------------------------------------------------------------------- */
