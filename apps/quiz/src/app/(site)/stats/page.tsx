@@ -5,6 +5,8 @@ import { Mascot } from '@/components/ui/mascot';
 import { getSiteStats, getQuizScoreExtremes } from '@/lib/db/queries/stats';
 import { getFandomWarMap } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
+import { CiteLicence } from '@/components/cite/cite-licence';
+import { DATA_LICENCE } from '@/lib/seo/org';
 
 import type { Metadata } from 'next';
 import type { SiteStats, QuizExtremes } from '@/lib/db/queries/stats';
@@ -172,6 +174,7 @@ export default async function StatsPage(): Promise<React.ReactElement> {
       url: 'https://kpopquiz.org',
     },
     dateModified: stats.updatedAt,
+    license: DATA_LICENCE.url,
     temporalCoverage: `2024/${new Date().getFullYear()}`,
     variableMeasured: [
       { '@type': 'PropertyValue', name: 'Total Quizzes', value: stats.totalQuizzes },
@@ -189,7 +192,8 @@ export default async function StatsPage(): Promise<React.ReactElement> {
     description: 'Original K-pop fan data from kpopquiz.org: most-played fandoms this week, hardest and easiest quizzes by real average score, and fan duel verdicts.',
     isPartOf: { '@type': 'WebSite', name: 'KpopQuiz', url: 'https://kpopquiz.org' },
     dateModified: stats.updatedAt,
-    license: 'https://kpopquiz.org/stats',
+    // SEO Mission 3, part F.3: the licence the page states (it pointed at the page itself).
+    license: DATA_LICENCE.url,
   };
 
   const breadcrumbLd = {
@@ -446,6 +450,9 @@ export default async function StatsPage(): Promise<React.ReactElement> {
         <Link href="/stats" className="stats-cite-link">kpopquiz.org/stats</Link>. Figures are first-party
         and refresh hourly; each section is stamped with the date it was measured.
       </p>
+
+      {/* SEO Mission 3, part F.3: the licence block (credit line, CC BY 4.0, press contact). */}
+      <CiteLicence credit={`Source: kpopquiz.org K-pop Quiz Statistics, ${asOf}`} />
     </div>
   );
 }

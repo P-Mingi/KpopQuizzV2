@@ -56,6 +56,8 @@ export const KNOWN_ROUTES = [
   // One '/data' prefix covers both via startsWith.
   '/data',
   '/pt',
+  // SEO Mission 3, part F.2: the press kit.
+  '/press',
 ];
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new

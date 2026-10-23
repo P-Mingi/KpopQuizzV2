@@ -1,4 +1,5 @@
 import { P4QuizPage } from '@/components/quiz/ux-v1/quiz-page';
+import { P4EmbedButton } from '@/components/quiz/ux-v1/embed-island';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -138,6 +139,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       groupQuizCount={groupQuizCount}
       articleLinks={getGroupArticleLinks(quiz.group_slug).map((l) => ({ slug: l.slug, label: l.label }))}
       creator={creator}
+      embedAction={<P4EmbedButton slug={quiz.slug} title={quiz.title} />}
     />
   );
 }
