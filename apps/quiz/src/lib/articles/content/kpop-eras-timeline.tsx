@@ -1,66 +1,64 @@
 import Link from 'next/link';
 
+import { GENERATIONS_HUB_PATH, eraYears, generationData, ordinal } from '@/lib/generations/generations';
+
+// SEO Mission 2, part C point 5 (owner, 2026-10-15): this page answers "when did I become a
+// fan"; the generations cluster belongs to the hub (GENERATIONS_HUB_PATH), linked here with the
+// anchor "K-pop generations timeline". The year ranges and era markers come from the hub's own
+// file (lib/generations/group-generations.json), so the two pages give the same years. The
+// typed group counts ("87 groups", "16 and 17 groups") and an unsourced "fan fact" are gone.
+
 export function ArticleBody(): React.ReactElement {
+  const { eras } = generationData();
   return (
     <>
       <p className="art-lead">
-        K-pop is usually split into five generations, each spanning roughly five
-        to eight years. The group you first fell for places you on that timeline:
-        2nd gen for the Wonder Girls and Big Bang era, 3rd gen for BTS and TWICE,
-        4th gen for aespa and Stray Kids, and 5th gen for the newest debuts. Here
-        is the timeline, with a quiz to test where you really started.
+        K-pop fans sort themselves by era: the generation of the first group you followed in real time
+        is where you started. Four generations are well established, and groups that debuted from 2023
+        are often called a 5th, a label that is not official. Here are the approximate years, with a
+        quiz to test where you really started.
       </p>
 
-      <h2 id="timeline">What are the K-pop generations, by year?</h2>
+      <h2 id="timeline">When did each K-pop era start?</h2>
       <p>
-        Generation boundaries are approximate and fans debate the edges, but the
-        broad ranges below are widely accepted. The group counts come from the
-        kpopquiz.org database, which tracks 87 groups across all generations.
+        Era boundaries are approximate and fans debate the edges. The years below are the debut years
+        our <Link href={GENERATIONS_HUB_PATH}>K-pop generations timeline</Link> uses, where every
+        range and every group label names its source.
       </p>
       <div className="art-table-wrap">
         <table className="art-table">
           <thead>
-            <tr><th>Generation</th><th>Approx. years</th><th>Groups on platform</th><th>Era markers</th></tr>
+            <tr><th scope="col">Era</th><th scope="col">Approx. debut years</th><th scope="col">Era markers</th></tr>
           </thead>
           <tbody>
-            <tr><td>1st gen</td><td>1996 - 2003</td><td>Legacy acts</td><td>H.O.T., S.E.S., the idol template begins</td></tr>
-            <tr><td>2nd gen</td><td>2004 - 2011</td><td>10</td><td>Big Bang, Girls&apos; Generation, global YouTube reach</td></tr>
-            <tr><td>3rd gen</td><td>2012 - 2017</td><td>16</td><td>BTS, TWICE, EXO, worldwide breakthrough</td></tr>
-            <tr><td>4th gen</td><td>2018 - 2022</td><td>17</td><td>aespa, Stray Kids, ATEEZ, self-producing acts</td></tr>
-            <tr><td>5th gen</td><td>2023 - present</td><td>9</td><td>The newest debuts and rookie fandoms</td></tr>
+            {eras.map((e) => (
+              <tr key={e.generation}>
+                <td>{ordinal(e.generation)} gen{e.official ? '' : ' (not official)'}</td>
+                <td>{eraYears(e)}</td>
+                <td>{e.examples.slice(0, 4).join(', ')}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
-      <p className="art-highlight">
-        <strong>Platform note:</strong> kpopquiz.org tracks 87 groups in total.
-        The 3rd and 4th generations are the most represented, with 16 and 17
-        groups respectively. For the full generation-by-generation breakdown with
-        key groups, read the{' '}
-        <Link href="/articles/kpop-generations-explained">complete K-pop generations guide</Link>.
-      </p>
 
       <h2 id="which-gen">How do I know which K-pop generation I started in?</h2>
       <p>
         Think about the first group whose comeback you followed in real time, not
         one you discovered later. That group&apos;s generation is your entry
-        point. Many fans are surprised to learn their favorite is a generation
-        older or newer than they assumed.
-      </p>
-      <p className="art-highlight">
-        <strong>Fan fact:</strong> the generation you start in tends to shape your
-        taste for years, but most long-term fans end up following groups across
-        two or three generations.
+        point, and it may be older or newer than you assumed. To check a group, find it in the table of
+        every group&apos;s generation on the <Link href={`${GENERATIONS_HUB_PATH}#my-group`}>K-pop generations</Link> page.
       </p>
 
       <h2 id="test">How can I test my K-pop era knowledge?</h2>
       <p>
         The blind test lets you filter by generation, so you can play only the
-        era you grew up on or challenge yourself on the others. For a deeper dive
-        into how the generations are defined, read the full generations guide.
+        era you grew up on or challenge yourself on the others. For how the
+        generations are defined and why their edges are debated, read the full generations guide.
       </p>
       <div className="art-cta-inline">
         <Link href="/blindtest" className="art-cta-btn">Play by generation</Link>
-        <Link href="/articles/kpop-generations-explained" className="art-cta-btn art-cta-secondary">Generations explained</Link>
+        <Link href={GENERATIONS_HUB_PATH} className="art-cta-btn art-cta-secondary">Generations explained</Link>
       </div>
     </>
   );

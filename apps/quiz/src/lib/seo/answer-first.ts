@@ -1,3 +1,5 @@
+import { generationAnswerText, generationLead, groupGeneration } from '@/lib/generations/generations';
+
 import type { Group } from '@/lib/db/types';
 
 // W8 - ANSWER-FIRST + QUERY FAN-OUT (docs/PLAY-GEO-AEO-AUDIT.md G2).
@@ -59,6 +61,23 @@ export function countWords(s: string): number {
 }
 
 /**
+ * The group's generation in words (SEO Mission 2, part C; owner, 2026-10-15). It comes from
+ * the generation file (lib/generations/generations.ts), the same field the generations hub
+ * reads, with its confidence level and its sources. A group the file does not cover keeps
+ * today's sentence from groups.generation; a group the file covers without a label (a solo
+ * artist) gets no sentence.
+ */
+export function generationSentence(g: { slug: string; name: string; generation?: string | null }, kind: 'lead' | 'answer'): string | null {
+  const rec = groupGeneration(g.slug);
+  if (rec) {
+    if (!rec.label) return null;
+    return kind === 'lead' ? generationLead(g.name, rec.label) : generationAnswerText(g.name, rec.label);
+  }
+  if (!g.generation) return null;
+  return kind === 'lead' ? `${g.name} belongs to the ${g.generation} of K-pop.` : `${g.name} is a ${g.generation} K-pop group.`;
+}
+
+/**
  * The 40-60 word direct answer, built from whatever is actually known.
  *
  * Clauses are added in descending order of how often a fan asks them, and the builder
@@ -79,7 +98,8 @@ export function buildAnswerFirst(group: Group, facts: GroupFacts): string {
   if (year) parts.push(`They debuted in ${year}.`);
   const fandom = realFandom(g.fandom_name);
   if (fandom) parts.push(`Their fandom is called ${fandom}.`);
-  if (g.generation) parts.push(`${g.name} belongs to the ${g.generation} of K-pop.`);
+  const genLead = generationSentence(g, 'lead');
+  if (genLead) parts.push(genLead);
   if (g.origin_country) parts.push(`The group is from ${g.origin_country}.`);
 
   parts.push(
@@ -127,10 +147,11 @@ export function buildAnswerChunks(group: Group, facts: GroupFacts): AnswerChunk[
       answer: `${g.name}'s fandom is called ${fandom}.`,
     });
   }
-  if (g.generation) {
+  const genAnswer = generationSentence(g, 'answer');
+  if (genAnswer) {
     chunks.push({
       question: `What generation is ${g.name}?`,
-      answer: `${g.name} is a ${g.generation} K-pop group.`,
+      answer: genAnswer,
     });
   }
   if (g.origin_country) {
