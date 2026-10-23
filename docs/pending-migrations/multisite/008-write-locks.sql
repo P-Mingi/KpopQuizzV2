@@ -5,7 +5,7 @@
 --         notify_badge_earned, notify_group_quiz_alerts, cast_duel_vote, passport_on_battle_result and record_bt_play
 --         with CREATE OR REPLACE (signature, return type, SECURITY DEFINER, search_path setting and ACL are today's,
 --         read from the production schema dump of G3), and drops then recreates merge_anon_passport as the 7-argument
---         form with p_site text DEFAULT 'kpop' (ACL restored as today: PUBLIC and service_role).
+--         form with p_site text DEFAULT 'kpop' (ACL: service_role only, as S4 left it).
 -- How:    each function first finds the world of the thing it writes: the quiz's site_id (record_play,
 --         increment_like_count, decrement_like_count, handle_new_quiz, notify_group_quiz_alerts), the badge's site_id
 --         (notify_badge_earned), the group's site_id (cast_duel_vote, passport_on_battle_result via the battle's quiz
@@ -35,7 +35,7 @@
 -- Needs:  002a (site_id columns), 003, 007 (bump_world_counter), 004 (passport_prefs). Rolled back before 007 and 003.
 -- Verify: select proname, pg_get_function_identity_arguments(oid), prosecdef from pg_proc where pronamespace = 'public'::regnamespace and proname in ('award_xp', 'record_play', 'handle_new_quiz', 'increment_like_count', 'decrement_like_count', 'notify_badge_earned', 'notify_group_quiz_alerts', 'cast_duel_vote', 'passport_on_battle_result', 'record_bt_play', 'merge_anon_passport') order by 1;   expect 11 rows, prosecdef t, merge_anon_passport with 7 arguments
 --         select tgname from pg_trigger where tgname in ('on_quiz_insert', 'trg_notify_badge_earned', 'group_quiz_alerts_on_insert', 'group_quiz_alerts_on_publish', 'trg_passport_on_battle_result');   expect 5 rows
---         select proacl from pg_proc where proname = 'merge_anon_passport';   expect {=X/postgres,postgres=X/postgres,service_role=X/postgres}
+--         select proacl from pg_proc where proname = 'merge_anon_passport';   expect {postgres=X/postgres,service_role=X/postgres}
 --         the equivalence batch (apps/quiz/e2e/o1/B3/equivalence.sh) gives the same md5 before and after this file
 -- Undo:   008-write-locks.rollback.sql (today's definitions verbatim from the production dump, never a reconstruction).
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
@@ -762,8 +762,8 @@ BEGIN
 END;
 $function$;
 
-REVOKE EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) FROM anon, authenticated;
-GRANT EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) TO PUBLIC, service_role;
+REVOKE EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb, text) TO service_role;
 
 -- Self-check: 11 functions, all SECURITY DEFINER, the ACL of merge_anon_passport as production has it, the 5 triggers still there.
 do $$

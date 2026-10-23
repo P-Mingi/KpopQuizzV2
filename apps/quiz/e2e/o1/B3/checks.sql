@@ -149,8 +149,8 @@ select pg_temp.chk('acl PUBLIC cannot execute the new functions',
                                 'passport_issue_code', 'passport_redeem_code', 'passport_log_event', 'passport_cleanup', 'award_world_xp',
                                 'bump_world_counter', 'public_passport', 'my_passport', 'update_my_membership', 'set_passport_prefs')
               and exists (select 1 from aclexplode(coalesce(p.proacl, acldefault('f', p.proowner))) a where a.grantee = 0 and a.privilege_type = 'EXECUTE')));
-select pg_temp.chk('acl merge_anon_passport: anon and authenticated revoked, PUBLIC and service_role keep EXECUTE',
-  (select p.proacl::text from pg_proc p where p.proname = 'merge_anon_passport' and p.pronamespace = 'public'::regnamespace) = '{=X/postgres,postgres=X/postgres,service_role=X/postgres}',
+select pg_temp.chk('acl merge_anon_passport: PUBLIC, anon and authenticated revoked, service_role keeps EXECUTE (S4, D-100)',
+  (select p.proacl::text from pg_proc p where p.proname = 'merge_anon_passport' and p.pronamespace = 'public'::regnamespace) = '{postgres=X/postgres,service_role=X/postgres}',
   (select p.proacl::text from pg_proc p where p.proname = 'merge_anon_passport' and p.pronamespace = 'public'::regnamespace));
 select pg_temp.chk('acl passport schema and tables closed to anon and authenticated',
   not has_schema_privilege('anon', 'passport', 'usage') and not has_schema_privilege('authenticated', 'passport', 'usage')
