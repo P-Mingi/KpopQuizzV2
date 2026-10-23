@@ -116,6 +116,23 @@ export function retiredFeatureAnswer(pathname: string): LegacyAnswer | null {
  * The middleware's answer for a retired URL (the /battle?quiz= read aside), or null when the
  * path is not one. `prettyUrlsLive` as in legacyNameAllAnswer.
  */
+// The Portuguese mirror (/pt, retired 2026-10-23 at the owner's request): each of its pages
+// was a translation of an English page, which is its exact successor (301). Any other /pt
+// path was never a page: it answers 404 like an unknown URL; /pt/games stays 410 above.
+export const PORTUGUESE_PAGES = [
+  '/', '/about', '/articles', '/blindtest', '/easy-kpop-quizzes', '/faq', '/guess-the-kpop-idol',
+  '/hard-kpop-quizzes', '/kpop-quiz-2026', '/kpop-true-or-false', '/leaderboard', '/quizzes', '/stats',
+] as const;
+
+/** 301 from a page of the retired Portuguese mirror to its English page, or null. */
+export function portugueseAnswer(pathname: string): LegacyAnswer | null {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+  if (path === '/pt') return { status: 301, location: '/' };
+  if (!path.startsWith('/pt/')) return null;
+  const english = path.slice(3);
+  return (PORTUGUESE_PAGES as readonly string[]).includes(english) && english !== '/' ? { status: 301, location: english } : null;
+}
+
 export function legacyAnswer(pathname: string, prettyUrlsLive: boolean): LegacyAnswer | null {
-  return legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname);
+  return legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname) ?? portugueseAnswer(pathname);
 }
