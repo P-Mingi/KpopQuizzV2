@@ -16,6 +16,12 @@ Where a result is "the same as V0", compare with the numbers you saved in `~/kpq
 
 ## A0. S4, right after step A0 (and again after 008)
 
+**V-S4 (must pass, fails loudly otherwise).** S4 was applied in production on 2026-10-23 at 14:53 UTC. This check raises, and psql exits
+non-zero, if any of the 28 functions S4 closed is executable again by anon or authenticated, if service_role lost EXECUTE on one, or
+if one of the 28 is missing. Expect the notice `V-S4 ok: 28 functions closed to anon and authenticated, open to service_role`.
+
+    psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
+
 The query is in the header of `docs/pending-migrations/s4/S4-revoke-public-execute.sql`; run it as one command:
 
     q "select count(*) filter (where not has_function_privilege('anon', p.oid, 'EXECUTE') and not has_function_privilege('authenticated', p.oid, 'EXECUTE') and has_function_privilege('service_role', p.oid, 'EXECUTE')), count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('award_xp', 'award_bt_xp', 'award_daily_capped_byeol', 'award_first_time_byeol', 'award_like_xp', 'dev_award_byeol', 'dev_open_card_pack', 'dev_open_starter_pack', 'create_quiz_bypass', 'merge_anon_passport', 'record_bt_play', 'record_game_play', 'update_player_rank', 'update_player_streak', 'grant_streak_badges', 'emit_activity', 'fanout_followed_new_quiz', 'generate_daily_challenges', 'ensure_daily_blindtest', 'ensure_daily_debate', 'reconcile_quiz_counters', 'recalculate_difficulty', 'increment_game_play_count', 'increment_tot_appear', 'increment_tot_category_plays', 'increment_tot_pick', 'tier_list_bump_view', 'get_daily_bt_leaderboard')"
@@ -131,6 +137,10 @@ traffic, Vercel "Runtime Logs" for kpop must show no new error type, and the cou
 
 ## V4. 008, write locks (by T-14)
 
+Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
+
+    psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
+
 Gate before applying (production's functions must still be the ones the evidence was made on):
 
     q "select '@@@' || p.proname || E'\n' || p.prosrc || E'\n;;;;\n' from pg_proc p where p.pronamespace='public'::regnamespace and p.proname in ('award_xp','record_play','handle_new_quiz','increment_like_count','decrement_like_count','notify_badge_earned','notify_group_quiz_alerts','cast_duel_vote','passport_on_battle_result','record_bt_play','merge_anon_passport') order by p.proname, p.oid" > ~/kpq-launch/prod-functions.txt
@@ -189,6 +199,10 @@ Vercel, project kpop, Cron Jobs: `ensure-daily-quiz` shows a success at 00:05.
 
 ## V6. 011 to 016 (P5, after the 3 day watch)
 
+Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
+
+    psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
+
     q "select relname, relrowsecurity from pg_class where relnamespace='public'::regnamespace and relname in ('series','arcs','characters','episodes','series_themes','series_progress','favourite_characters') order by 1"   # 7 rows, t
     q "select count(*) from public.series"                                                                                     # 0 (011)
     q "select pg_get_constraintdef(oid) from pg_constraint where conname='trivia_entity_kind_check'"                           # the ten kinds
@@ -220,6 +234,10 @@ All of:
 6. V1 shows kpopquiz.org unchanged.
 
 ## V8. Launch SQL (launch day), after each file
+
+Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
+
+    psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
 
 Run `content-verify.sql` after L04 to L08 and compare with `expected-counts.json`:
 
