@@ -105,7 +105,8 @@ for (const theme of THEMES) {
       await expect(page).toHaveTitle(/^K-pop Quizzes: \d+\+ Free Fan-Made Tests, Every Group/);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^Browse \d+\+ free K-pop quizzes made by fans\./);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/quizzes$/);
-      await expect(page.locator('link[rel="alternate"][hreflang="pt-BR"]')).toHaveAttribute('href', /\/pt\/quizzes$/);
+      // Portuguese mirror retired (owner, 2026-10-23): no pt-BR alternate any more.
+      await expect(page.locator('link[rel="alternate"][hreflang="pt-BR"]')).toHaveCount(0);
       await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('h1')).toHaveText('K-pop quizzes');
