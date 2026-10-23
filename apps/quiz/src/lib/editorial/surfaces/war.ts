@@ -1,4 +1,6 @@
 import { getTeamIds } from '@/lib/editorial/accounts';
+import { forSite, siteScoped } from '@/lib/site/scope';
+import { createPublicReadClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
 // The fandom war RPC for every reader (F5 brief rule 2: editorial accounts are left
@@ -39,12 +41,26 @@ export async function warExcludesTeam(): Promise<boolean> {
   return (await getTeamIds()).size > 0;
 }
 
-/** Calls the war map RPC with `p_limit`, the team left out when warExcludesTeam(). */
+/**
+ * The war map RPC counts the plays of every group of the database. With the site scope on (a world site, or kpop with
+ * SITE_SCOPE on) the rows are kept to the groups of this site, so a kpop board never lists an anime series. The scope off
+ * (kpop today): the rows are returned untouched, no extra read. A failed groups read fails closed (an error, no rows).
+ */
+async function ownSiteRows(res: RpcResult): Promise<RpcResult> {
+  if (!siteScoped() || res.error || !Array.isArray(res.data) || res.data.length === 0) return res;
+  const rows = res.data as Array<{ slug: string }>;
+  const own = await forSite(createPublicReadClient().from('groups').select('slug')).in('slug', rows.map((r) => r.slug));
+  if (own.error || !own.data) return { data: null, error: { message: `war map site scope: ${own.error?.message ?? 'no rows'}` } };
+  const slugs = new Set((own.data as Array<{ slug: string }>).map((g) => g.slug));
+  return { ...res, data: rows.filter((r) => slugs.has(r.slug)) };
+}
+
+/** Calls the war map RPC with `p_limit`, the team left out when warExcludesTeam(), the groups of this site only (ownSiteRows). */
 export async function rpcFandomWar(db: WarRpcClient, pLimit: number): Promise<RpcResult> {
-  if (!(await warExcludesTeam())) return db.rpc(WAR_RPC, { p_limit: pLimit });
+  if (!(await warExcludesTeam())) return ownSiteRows(await db.rpc(WAR_RPC, { p_limit: pLimit }));
   const res = await db.rpc(WAR_RPC_NO_TEAM, { p_limit: pLimit });
-  if (res.error && isMissingFunction(res.error, res.status)) return db.rpc(WAR_RPC, { p_limit: pLimit });
-  return res;
+  if (res.error && isMissingFunction(res.error, res.status)) return ownSiteRows(await db.rpc(WAR_RPC, { p_limit: pLimit }));
+  return ownSiteRows(res);
 }
 
 /** Cache key parts for a war map cache: unchanged with the flag off, a separate entry with it on

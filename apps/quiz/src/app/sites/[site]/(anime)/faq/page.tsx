@@ -78,7 +78,7 @@ export default function FaqPage(): React.ReactElement {
     <div className="py-8 max-w-2xl mx-auto">
       {/* Header */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] text-xs font-semibold">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] anime-c1-pill text-xs font-semibold">
           Help center
         </span>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
@@ -97,7 +97,7 @@ export default function FaqPage(): React.ReactElement {
             <summary className="faq-summary flex items-center justify-between gap-3 cursor-pointer list-none px-4 py-3.5">
               <span className="text-sm font-semibold text-[var(--text-primary)]">{f.q}</span>
               <svg
-                className="faq-chevron shrink-0 text-[var(--text-tertiary)] transition-transform duration-200"
+                className="faq-chevron shrink-0 text-[var(--text-tertiary)] anime-c1-quiet transition-transform duration-200"
                 width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
               >
                 <path d="m6 9 6 6 6-6" />
@@ -111,9 +111,9 @@ export default function FaqPage(): React.ReactElement {
       </div>
 
       {/* Still need help */}
-      <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)]">
+      <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)] anime-c1-quiet">
         Still have a question?{' '}
-        <Link href="/contact" className="font-medium text-[var(--accent)] hover:underline">
+        <Link href="/contact" className="font-medium text-[var(--accent)] anime-c1-link hover:underline">
           Get in touch
         </Link>
       </p>

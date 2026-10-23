@@ -141,7 +141,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
         <div className="mt-6 flex flex-col gap-8">
           {quizzes.length > 0 && (
             <section>
-              <p className="sec-label">Quizzes</p>
+              <p className="sec-label anime-c1-quiet">Quizzes</p>
               <div className="cards-grid">
                 {quizzes.map((q, i) => <QuizCard key={q.id} quiz={q} index={i} />)}
               </div>
@@ -150,35 +150,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
 
           {groups.length > 0 && (
             <section>
-              <p className="sec-label">Fandom spaces</p>
-              <div className="flex flex-wrap gap-2">
-                {groups.map((g) => (
-                  <Link key={`space-${g.id}`} href={`/verse/${g.slug}`} className="px-4 py-2 rounded-full text-sm font-semibold border transition-opacity hover:opacity-85"
-                    style={{ borderColor: '#7c5cfc', color: '#7c5cfc' }}>
-                    {g.fandom_name ?? g.name} · the {g.name} home
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {groups.length > 0 && (
-            <section>
-              <p className="sec-label">Fandom spaces</p>
-              <div className="flex flex-wrap gap-2">
-                {groups.map((g) => (
-                  <Link key={`space-${g.id}`} href={`/verse/${g.slug}`} className="px-4 py-2 rounded-full text-sm font-semibold border transition-opacity hover:opacity-85"
-                    style={{ borderColor: '#7c5cfc', color: '#7c5cfc' }}>
-                    {g.fandom_name ?? g.name} · the {g.name} home
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {groups.length > 0 && (
-            <section>
-              <p className="sec-label">Series</p>
+              <p className="sec-label anime-c1-quiet">Series</p>
               <div className="flex flex-wrap gap-2">
                 {groups.map((g) => (
                   <Link key={g.id} href={`/quizzes?series=${g.slug}`} className="anime-o2-art-pill">
@@ -192,7 +164,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
 
           {people.length > 0 && (
             <section>
-              <p className="sec-label">People</p>
+              <p className="sec-label anime-c1-quiet">People</p>
               <div className="flex flex-col gap-2">
                 {people.map((p) => {
                   const level = getLevelInfo(p.xp).level;
@@ -242,7 +214,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
           </div>
           {fbQuizzes.length > 0 && (
             <section>
-              <p className="sec-label">Popular quizzes</p>
+              <p className="sec-label anime-c1-quiet">Popular quizzes</p>
               <div className="cards-grid">
                 {fbQuizzes.map((q, i) => <QuizCard key={q.id} quiz={q} index={i} />)}
               </div>
