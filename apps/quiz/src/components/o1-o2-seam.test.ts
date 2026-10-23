@@ -74,7 +74,15 @@ describe('the slot', () => {
     expect(SERIES_ART).toEqual({ avatar: null, dress: null });
   });
 
+  it('stays empty on a kpop build even when the registrar module is evaluated (Next loads every route module at start, D-097)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'kpop');
+    const { SERIES_ART } = await import('@/lib/ux-v1/a0/group-photos');
+    await import('./anime/register-art');
+    expect(SERIES_ART).toEqual({ avatar: null, dress: null });
+  });
+
   it('is filled by the registrar with the art of a series and the dressing of a card', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
     const { SERIES_ART } = await import('@/lib/ux-v1/a0/group-photos');
     await import('./anime/register-art');
     const art = renderToStaticMarkup(SERIES_ART.avatar!('death-note', 'Death Note'));
@@ -84,6 +92,7 @@ describe('the slot', () => {
   });
 
   it('leaves a card with a picture of its own, and anything it does not know, as it is', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
     await import('./anime/register-art');
     const { UxQuizCard } = await import('@/components/ux-v1/quiz-card');
     const { SERIES_ART } = await import('@/lib/ux-v1/a0/group-photos');
