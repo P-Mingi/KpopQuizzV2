@@ -66,14 +66,14 @@
         "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
       },
       {
-        "question": "Which ending of the 2011 anime was performed by Yuzu featuring Hyadain?",
+        "question": "Which duo sang the last three endings of the 2011 Hunter x Hunter anime?",
         "options": [
-          "Just Awake",
-          "Reason",
-          "Nagareboshi Kirari",
-          "Hyori Ittai"
+          "Yuzu",
+          "Kinki Kids",
+          "Kiroro",
+          "Ikimono-gakari"
         ],
-        "correct": 3,
+        "correct": 0,
         "kind": "music",
         "spoiler": {
           "arc": 0,
@@ -1052,7 +1052,7 @@
         "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
       },
       {
-        "question": "Which artist performed Hyori Ittai together with Hyadain, an ending of the 2011 Hunter x Hunter anime?",
+        "question": "Which duo performed Hyori Ittai, the final ending of the 2011 Hunter x Hunter anime?",
         "options": [
           "Masatoshi Ono",
           "Aimer",

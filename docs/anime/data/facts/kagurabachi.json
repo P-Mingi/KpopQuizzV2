@@ -233,15 +233,12 @@
       "kind": "series",
       "group_slug": "kagurabachi"
     },
-    "field": "arc_list",
+    "field": "chapters_collected",
     "value": [
-      "1: Cloud Gouger (chapters 1 to 18)",
-      "2: Rakuzaichi (chapters 19 to 46)",
-      "3: Samura and the Sword Bearers (chapters 47 to 74)",
-      "4: Kamunabi Headquarters (chapters 75 to 113)",
-      "5: Irishima Talks and Smelting (chapters from 114)"
+      "Volumes 1 to 12 hold chapters 1 to 113",
+      "Chapter 114 is the first not yet collected in a volume"
     ],
-    "text": "No source names the story arcs, so these five blocks follow the published volume summaries; volumes 1 to 12 hold chapters 1 to 113 and later chapters are not yet collected.",
+    "text": "The twelve collected volumes run from chapter 1 to chapter 113, so chapter 114 is the first one still waiting for its volume.",
     "category": "history",
     "load_bearing": false,
     "spoiler": {
@@ -257,7 +254,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "These chapters have yet to be published in a tankobon volume. 114. Kunishige Rokuhira"
+    "excerpt": "These chapters have yet to be published in a tankōbon volume."
   },
   {
     "id": "kagurabachi-cast-list-009",

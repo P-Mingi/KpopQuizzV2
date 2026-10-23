@@ -165,3 +165,17 @@ test('K3: a bad daily row is refused: wrong count, a tag above arc 0, a bad cate
   assert.throws(run([dailyRow({ group_slug: 'nope' })]), /no series file/);
   assert.throws(run([dailyRow(), dailyRow()]), /duplicate title/);
 });
+
+test('a verified fact becomes a published trivia row, a rejected one is hidden, a draft one stays draft; a reload only moves draft rows up', () => {
+  const dir = dataDir([
+    fact('test-show-a-001', 'series', null, 'titles', { text: 'A verified sentence.', status: 'verified', verified_at: '2026-10-23T10:00:00Z' }),
+    fact('test-show-b-002', 'series', null, 'author', { text: 'A draft sentence.' }),
+    fact('test-show-c-003', 'series', null, 'studio', { text: 'A rejected sentence.', status: 'rejected' }),
+  ]);
+  const plan = buildDataPlan(readDataDir(dir));
+  const by = Object.fromEntries(plan.trivia.map((t) => [t.fact, t.status]));
+  assert.deepEqual(by, { 'A verified sentence.': 'published', 'A draft sentence.': 'draft', 'A rejected sentence.': 'hidden' });
+  const sql = renderDataSql(plan);
+  assert.match(sql, /update public\.trivia t set status = v\.status, updated_at = now\(\) from _k1_trivia v where .* and t\.status = 'draft' and v\.status in \('published', 'hidden'\);/);
+  assert.equal(renderDataSql(plan), sql);
+});

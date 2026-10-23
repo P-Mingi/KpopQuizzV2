@@ -2,11 +2,11 @@
  "site": "anime",
  "account": "oq_creator_25",
  "group_slug": "kagurabachi",
- "title": "Cloud Gouger to Smelting: Kagurabachi Odds and Ends",
- "slug": "cloud-gouger-to-smelting-kagurabachi-odds-and-ends",
- "description": "Nine mixed questions on the story blocks, the blade Chihiro carries, a subspace technique and the style built around speed.",
+ "title": "Swords and Sorcerers: Kagurabachi Odds and Ends",
+ "slug": "swords-and-sorcerers-kagurabachi-odds-and-ends",
+ "description": "Nine mixed questions on the setting, a sorcerer agency, the reach of the series, the blade Chihiro carries, a subspace technique and the style built around speed.",
  "quiz_type": "multiple_choice",
- "difficulty": "hard",
+ "difficulty": "medium",
  "language": "en",
  "title_gives_nothing_away": true,
  "sources": [
@@ -16,81 +16,81 @@
    "url": "https://en.wikipedia.org/wiki/Kagurabachi"
   }
  ],
- "notes": "Mixed quiz: arc 0 block names (008), the Enten fact (013, arc 1), the Storehouse fact (014, arc 2) and the Iai White Purity fact (015, arc 3). Level 3, manga scope. Blade names Tobimune and Magatsumi come from the series characters file.",
+ "notes": "Mixed quiz: arc 0 facts (setting 010, page views 011, Kamunabi 012, creator 002), the Enten fact (013, arc 1), the Storehouse fact (014, arc 2) and the Iai White Purity fact (015, arc 3). Level 3, manga scope. Blade names Tobimune and Magatsumi come from the series characters file. Facts re-check: the former four questions on the story block names are replaced because no allowed source names those blocks; title and slug changed with them.",
  "questions": [
   {
-   "question": "Which block covers chapters 1 to 18?",
+   "question": "How many years after the end of the Seitei War does the story take place?",
    "options": [
-    "Rakuzaichi",
-    "Kamunabi Headquarters",
-    "Cloud Gouger",
-    "Irishima Talks and Smelting"
+    "8 years",
+    "12 years",
+    "18 years",
+    "25 years"
    ],
    "correct": 2,
-   "kind": "arc",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-arc-structure-008"
+    "kagurabachi-setting-war-010"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
   {
-   "question": "Which block covers chapters 19 to 46?",
+   "question": "What is the Kamunabi in the story?",
    "options": [
-    "Rakuzaichi",
-    "Cloud Gouger",
-    "Kamunabi Headquarters",
-    "Irishima Talks and Smelting"
-   ],
-   "correct": 0,
-   "kind": "arc",
-   "spoiler": {
-    "arc": 0,
-    "scope": "manga"
-   },
-   "fact_ids": [
-    "kagurabachi-arc-structure-008"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
-  },
-  {
-   "question": "Which block covers chapters 47 to 74?",
-   "options": [
-    "Cloud Gouger",
-    "Kamunabi Headquarters",
-    "Irishima Talks and Smelting",
-    "Samura and the Sword Bearers"
-   ],
-   "correct": 3,
-   "kind": "arc",
-   "spoiler": {
-    "arc": 0,
-    "scope": "manga"
-   },
-   "fact_ids": [
-    "kagurabachi-arc-structure-008"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
-  },
-  {
-   "question": "Which block starts at chapter 114?",
-   "options": [
-    "Cloud Gouger",
-    "Irishima Talks and Smelting",
-    "Rakuzaichi",
-    "Kamunabi Headquarters"
+    "A rival clan of swordsmiths",
+    "A state-run organization of sorcerers",
+    "A black market auction house",
+    "A school for young blade bearers"
    ],
    "correct": 1,
-   "kind": "arc",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-arc-structure-008"
+    "kagurabachi-kamunabi-agency-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "About how many page views did the series have on Manga Plus by April 2024?",
+   "options": [
+    "Over 9 million",
+    "Over 29 million",
+    "Over 99 million",
+    "Over 199 million"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-page-views-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Who writes and draws Kagurabachi?",
+   "options": [
+    "Yukinobu Tatsu",
+    "Takeru Hokazono",
+    "Naoya Matsumoto",
+    "Tatsuki Fujimoto"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-creator-002"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },

@@ -1024,6 +1024,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q477948",
+        "ref": "Q477948",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1052,10 +1058,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q858432",
+        "ref": "Q858432",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
-    "excerpt": "Monkey D. Luffy is the series' main protagonist, a young pirate who wishes to succeed Gold Roger, the deceased King of the Pirates, by finding his treasure"
+    "excerpt": "the three-sword-wielding combatant Roronoa Zoro (sometimes referred to as Roronoa Zolo in the English manga)"
   },
   {
     "id": "one-piece-shanks-name-033",
@@ -1076,6 +1088,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2321523",
+        "ref": "Q2321523",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1083,7 +1101,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Lord of the Coast (近海の主, Kinkai no Nushi): A Sea King who inhabits the waters near Windmill Village. He tried to devour Luffy, but was saved by Shanks, ending"
+    "excerpt": "Wikidata Q2321523: fictional character from One Piece, Japanese label シャンクス"
   },
   {
     "id": "one-piece-gol-d-roger-name-034",
@@ -1104,6 +1122,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2619344",
+        "ref": "Q2619344",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1111,7 +1135,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "East Blue is the birthplace of Luffy, Zoro, Nami, and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+    "excerpt": "Wikidata Q2619344: fictional character from One Piece, Japanese label ゴール・D・ロジャー"
   },
   {
     "id": "one-piece-nami-name-035",
@@ -1136,6 +1160,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q877964",
+        "ref": "Q877964",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1164,6 +1194,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2605496",
+        "ref": "Q2605496",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1192,6 +1228,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1078696",
+        "ref": "Q1078696",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1248,6 +1290,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2640110",
+        "ref": "Q2640110",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1272,6 +1320,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2727057",
+        "ref": "Q2727057",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1279,7 +1333,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Mr. 11: A member of Baroque Works agent who was captured by Smoker. While Smoker and his men were ashore, Mr. 11 was killed by Mr. Mellow of the Billions. 11"
+    "excerpt": "Wikidata Q2727057: fictional character from One Piece, English label or alias Smoker, Japanese label スモーカー"
   },
   {
     "id": "one-piece-monkey-d-dragon-name-041",
@@ -1332,6 +1386,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2486996",
+        "ref": "Q2486996",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1360,6 +1420,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1152213",
+        "ref": "Q1152213",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1384,6 +1450,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2726975",
+        "ref": "Q2726975",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1391,7 +1463,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Wany (ワーニー, Wānī): A crocodile-boar who serves as Wanda's mode of transportation. Wany's vocal effects are provided by Takahiro Fujimoto in the original"
+    "excerpt": "Wikidata Q2726975: fictional character from One Piece, Japanese label クロコダイル"
   },
   {
     "id": "one-piece-portgas-d-ace-name-045",
@@ -1444,6 +1516,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1190653",
+        "ref": "Q1190653",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1500,6 +1578,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1190670",
+        "ref": "Q1190670",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1528,6 +1612,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3938161",
+        "ref": "Q3938161",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1556,6 +1646,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4376780",
+        "ref": "Q4376780",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1580,6 +1676,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3997231",
+        "ref": "Q3997231",
+        "fetched_at": "2026-10-23T14:18:30Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1587,7 +1689,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Caesar Clown (シーザー・クラウン, Shīzā Kuraun) is a psychopathic former Marine scientist capable of transforming into gas due to the Logia-type Gas-Gas Fruit (ガスガスの実"
+    "excerpt": "Wikidata Q3997231: fictional character from One Piece, Japanese label トラファルガー・ロー"
   },
   {
     "id": "one-piece-eustass-kid-name-052",
@@ -1608,6 +1710,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5148704",
+        "ref": "Q5148704",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1615,7 +1723,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Allen Divers of Anime News Network comments that the male character designs of One Piece are \"often quite varied and unique\", while the female ones become \"a"
+    "excerpt": "Wikidata Q5148704: fictional character from One Piece, English label or alias Eustass Kid, Japanese label ユースタス・キッド"
   },
   {
     "id": "one-piece-boa-hancock-name-053",
@@ -1640,6 +1748,12 @@
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2359852",
+        "ref": "Q2359852",
+        "fetched_at": "2026-10-23T14:15:07Z"
       }
     ],
     "status": "draft",
@@ -1664,6 +1778,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2720493",
+        "ref": "Q2720493",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1671,7 +1791,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "As children they came to Wano Country, where they became retrainers of Kozuki Oden, whom years later they accompanied on his journey at sea as crew members of"
+    "excerpt": "Wikidata Q2720493: fictional character from One Piece, English label or alias Edward Newgate, Japanese label 白ひげ"
   },
   {
     "id": "one-piece-sakazuki-name-055",
@@ -1692,6 +1812,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q858559",
+        "ref": "Q858559",
+        "fetched_at": "2026-10-23T14:18:30Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1699,7 +1825,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Roji (ロジ): Roji is a housewife who is the sister-in-law of Nico Olvia and the aunt of Nico Robin. She was abusive towards Robin and treated her like a slave."
+    "excerpt": "Wikidata Q858559: fictional character from One Piece, Japanese label サカズキ"
   },
   {
     "id": "one-piece-donquixote-doflamingo-name-056",
@@ -1720,6 +1846,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1404614",
+        "ref": "Q1404614",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1727,7 +1859,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Caesar Clown (シーザー・クラウン, Shīzā Kuraun) is a psychopathic former Marine scientist capable of transforming into gas due to the Logia-type Gas-Gas Fruit (ガスガスの実"
+    "excerpt": "Wikidata Q1404614: fictional character from One Piece, Japanese label ドンキホーテ・ドフラミンゴ"
   },
   {
     "id": "one-piece-sabo-name-057",
@@ -1776,6 +1908,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q25399069",
+        "ref": "Q25399069",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1783,7 +1921,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Two years later, the Straw Hats gain a new fleet, called the Straw Hat Grand Fleet, consisting of 5,640 pirates from seven different crews; Luffy objects to"
+    "excerpt": "Wikidata Q25399069: fictional character from One Piece, English label or alias Charlotte Linlin, Japanese label シャーロット・リンリン"
   },
   {
     "id": "one-piece-kaido-name-059",
@@ -1804,6 +1942,12 @@
     },
     "sources": [
       {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933371",
+        "ref": "Q22933371",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
         "ref": "1380127867",
@@ -1811,7 +1955,7 @@
       }
     ],
     "status": "draft",
-    "excerpt": "Yamato (ヤマト), also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
+    "excerpt": "Wikidata Q22933371: fictional character from One Piece, English label or alias Kaido, Japanese label カイドウ"
   },
   {
     "id": "one-piece-yamato-name-060",
