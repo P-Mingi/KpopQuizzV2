@@ -152,7 +152,8 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
         <Breadcrumbs
           items={[
             { label: 'Home', href: '/' },
-            { label: 'Blind Test' },
+            { label: 'K-pop games', href: '/kpop-games' },
+            { label: 'Blind test' },
           ]}
         />
       </div>

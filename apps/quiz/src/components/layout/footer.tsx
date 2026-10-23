@@ -15,6 +15,7 @@ export function Footer(): React.ReactElement {
     { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
     { label: 'Trivia', href: '/trivia' },
     { label: 'Blindtest', href: '/blindtest' },
+    { label: 'K-pop games', href: '/kpop-games' },
     ...(verseHidden() ? [] : [{ label: 'Fandoms', href: '/verse' }]),
     { label: 'Leaderboard', href: '/leaderboard' },
     { label: 'Stats', href: '/stats' },
