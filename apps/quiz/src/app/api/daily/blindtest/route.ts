@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { withoutKpdhCover } from '@/lib/blind-test-curated';
+import { withoutHiddenCover } from '@/lib/blind-test-curated';
+import { hiddenCoverSongIds, withCoverSwitch } from '@/lib/song-cover-overrides';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 // N2.1 - GET /api/daily/blindtest
@@ -121,6 +122,10 @@ export async function GET(): Promise<NextResponse> {
     .limit(1500);
   const pool = (poolRows ?? []) as SongRow[];
 
+  // The owner's manual cover switches (cached, fail soft: empty while the SQL is not run), read
+  // alongside the Deezer re-fetch below.
+  const coverSwitches = hiddenCoverSongIds();
+
   // 4. Re-fetch fresh preview URLs + covers from Deezer (stored links expire).
   await Promise.all(
     selected.map(async (song) => {
@@ -137,8 +142,10 @@ export async function GET(): Promise<NextResponse> {
   );
 
   // 5. Build questions in the stored order, using the stored type per song. A KPop Demon Hunters
-  //    song never shows its cover, the film key art (COMMON rule 10, F6d): covers null for it only.
-  const questions: Question[] = selected.map(withoutKpdhCover).map((song, i) => {
+  //    song or a soundtrack (drama, film, series OST) never shows its cover, the show's key art
+  //    (COMMON rule 10, F6d, Mission U part C): covers null for those only.
+  const switches = await coverSwitches;
+  const questions: Question[] = selected.map((song) => withoutHiddenCover(withCoverSwitch(song, switches))).map((song, i) => {
     const type: 'artist' | 'title' = questionTypes[i] === 'title' ? 'title' : 'artist';
     if (type === 'artist') {
       const wrongs = song.wrong_answers_artist?.length >= 3 ? song.wrong_answers_artist : fallbackWrongArtists(song, pool);
