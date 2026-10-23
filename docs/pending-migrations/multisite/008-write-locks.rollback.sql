@@ -2,11 +2,11 @@
 --
 -- What:   puts back today's definition of the 11 functions, each copied verbatim from the production schema dump of
 --         G3 (CREATE OR REPLACE keeps their ACL), drops the 7-argument merge_anon_passport and recreates the
---         6-argument one with its ACL (PUBLIC and service_role; anon and authenticated revoked, as migration 087 left it).
+--         6-argument one with its ACL (service_role only, as S4 left it).
 -- Why:    the rollback of manifest.md row 12. Rollbacks run in reverse order: this one first, then 007.
 -- Rows:   11 functions replaced; no table, row or column is touched.
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and prosrc like '%bump_world_counter%';   expect 0
---         select pg_get_function_identity_arguments(oid), proacl from pg_proc where proname = 'merge_anon_passport';   expect the 6-argument form, {=X/postgres,postgres=X/postgres,service_role=X/postgres}
+--         select pg_get_function_identity_arguments(oid), proacl from pg_proc where proname = 'merge_anon_passport';   expect the 6-argument form, {postgres=X/postgres,service_role=X/postgres}
 --         a catalog dump (pg_dump --schema-only) of public equals the one taken before 003
 -- Undo:   run 008-write-locks.sql again.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
@@ -474,5 +474,5 @@ BEGIN
 END;
 $function$;
 
-REVOKE EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb) FROM anon, authenticated;
-GRANT EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb) TO PUBLIC, service_role;
+REVOKE EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.merge_anon_passport(uuid, integer, integer, integer, integer, jsonb) TO service_role;
