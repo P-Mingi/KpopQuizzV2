@@ -470,7 +470,9 @@
     "docs/o1/reports/L1/**",
     "docs/launch/**",
     "docs/pending-migrations/multisite/launch/**",
-    "apps/quiz/public/*.txt"
+    "apps/quiz/public/*.txt",
+    "apps/quiz/public/brand/anime/**",
+    "apps/quiz/public/brand/hub/**"
   ],
   "C1": [
     "apps/quiz/e2e/o1/C1/**",
