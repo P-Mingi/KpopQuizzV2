@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -60,8 +62,13 @@ describe('the series art', () => {
   });
 });
 
+// The anime layout fills the SERIES_ART slot of lib/ux-v1/a0/group-photos.ts (register-art), which the shared components read.
 describe('the shared components on a build of the anime site', () => {
-  beforeEach(() => { vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime'); vi.resetModules(); });
+  beforeEach(async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    vi.resetModules();
+    await import('./register-art');
+  });
   afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
   it('the quiz card shows the art strip, the quiz type and the whole title, and no empty block', async () => {
@@ -87,10 +94,11 @@ describe('the shared components on a build of the anime site', () => {
     expect(html(h(UxQuizCard, { quiz: CARD, preview: true }))).toContain('role="img" aria-label="Preview: Death Note Basics');
   });
 
-  it('the stacked phone list marks its grid', async () => {
-    const { UxQuizGrid } = await import('@/components/ux-v1/quiz-card');
-    expect(html(h(UxQuizGrid, { stack: true, children: null }))).toContain('anime-o2-art-stack');
-    expect(html(h(UxQuizGrid, { children: null }))).not.toContain('anime-o2-art-stack');
+  it('the stacked phone list marks its grid, and only on a build with the art', async () => {
+    const source = readFileSync(fileURLToPath(new URL('../quizzes/ux-v1/results.tsx', import.meta.url)), 'utf8');
+    expect(source).toContain("className={SERIES_ART.dress ? 'p2-grid anime-o2-art-stack' : 'p2-grid'}");
+    const css = readFileSync(fileURLToPath(new URL('../../styles/sites/anime/o2.css', import.meta.url)), 'utf8');
+    expect(css).toContain('.anime-o2-art-stack .anime-o2-art-sq { display: block; }');
   });
 
   it('the series rail shows the art, not the initials, and lets the name wrap', async () => {

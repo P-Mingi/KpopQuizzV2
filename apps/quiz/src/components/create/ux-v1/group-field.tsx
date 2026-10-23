@@ -2,10 +2,8 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
-import { SeriesArt } from '@/components/anime/series-art';
 import { Icon } from '@/components/ux-v1/icon';
-import { IS_KPOP } from '@/lib/site/genre';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 
 import { visibleGroups } from '@/lib/ux-v1/p5/view';
 
@@ -38,8 +36,8 @@ function Initials({ name }: { name: string }): React.ReactElement {
 
 export function GroupAvatar({ slug, name }: { slug: string | null; name: string }): React.ReactElement {
   const photo = groupPhotoUrl(slug);
-  // Run O1, lane O2: on a site that is not kpop a series with no photo shows its art (anime-only module).
-  if (!IS_KPOP && !photo && slug) return <span className="ux-gav p5-gav" aria-hidden="true"><SeriesArt slug={slug} title={name} size="avatar" /></span>;
+  // Run O1, lane O2: on a build that has the series art (lib/ux-v1/a0/group-photos.ts: never kpop) a series with no photo shows its art.
+  if (SERIES_ART.avatar && !photo && slug) return <span className="ux-gav p5-gav" aria-hidden="true">{SERIES_ART.avatar(slug, name)}</span>;
   return (
     <span className="ux-gav p5-gav" style={photo ? { backgroundImage: `url("${photo}")` } : undefined} aria-hidden="true">
       {photo ? null : <Initials name={name} />}

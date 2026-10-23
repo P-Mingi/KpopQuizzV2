@@ -20,6 +20,10 @@ import { UX_V1 } from '@/lib/ux-v1';
 // The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
 // flag-off pages never download it; only a tiny loader sits in this layout's bundle.
 import { UxShell } from '@/components/layout/ux-v1/ux-shell';
+// Run O1, lane O2: the series art. register-art fills the SERIES_ART slot of lib/ux-v1/a0/group-photos.ts in the server graph, ArtRegistry in the
+// client graph (first node below, before the shell); no shared component imports the art. Anime-only modules: this layout is not kpop's.
+import '@/components/anime/register-art';
+import { ArtRegistry } from '@/components/anime/art-registry';
 
 // RENDER-FIX: the site chrome. Moved OUT of the root layout so the root can drop
 // its one dynamic call (await headers() for the embed branch) and let every route
@@ -53,6 +57,7 @@ export default async function SiteLayout({ children, params }: { children: React
   if (!isServedSite(site)) notFound();
   return (
     <>
+      <ArtRegistry />
       {/* Site-wide JSON-LD lives with the chrome (moved from the root layout), so
           /embed - which is outside this group - never carries these nav labels. */}
       <script

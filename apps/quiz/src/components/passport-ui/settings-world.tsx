@@ -8,12 +8,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { SeriesArt } from '@/components/anime/series-art';
 import { OshiTag } from '@/components/passport-ui/oshi-tag';
 import { useSpoilerProgress } from '@/components/spoilers/use-spoiler-progress';
 import { Icon } from '@/components/ux-v1/icon';
 import { canPickOshi } from '@/lib/passport-ui/oshi';
 import { fmt } from '@/lib/passport-ui/fmt';
+import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 
 import type { OshiCharacter } from '@/lib/passport-ui/oshi';
 import type { SettingsWorld } from '@/lib/passport-ui/settings-world';
@@ -43,7 +43,7 @@ export function WorldSeriesSection({ world, picked, names, onAdd, onRemove, sinc
           const name = names.get(slug) ?? slug;
           return (
             <span key={slug} className="p10-gchip">
-              <span className="ux-gav" aria-hidden="true"><SeriesArt slug={slug} title={name} size="avatar" /></span>
+              <span className="ux-gav" aria-hidden="true">{SERIES_ART.avatar ? SERIES_ART.avatar(slug, name) : name.slice(0, 1)}</span>
               {name}{i === 0 ? ` · ${w.mainTag}` : ''}
               <button type="button" className="p10-gchip-x" aria-label={`Remove ${name}`} onClick={() => onRemove(slug)}><Icon name="x" size="sm" /></button>
             </span>
