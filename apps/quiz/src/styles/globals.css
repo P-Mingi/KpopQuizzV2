@@ -4774,6 +4774,13 @@ blockquote.ped-body { border-left: 2.5px solid var(--verse-accent); padding-left
 .bt-choice-mark.ok { color: var(--correct); }
 .bt-choice-mark.no { color: var(--wrong); }
 
+/* Deezer attribution (components/deezer-attribution.tsx) on every screen that plays a
+   Deezer preview: the base layout here, each surface sets its colour and spacing. The
+   logo scales with the line's font size. */
+.dz-attr { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 8px; margin: 0; font-size: 12px; line-height: 1.5; text-align: center; }
+.dz-attr-logo { display: block; flex: none; width: auto; height: 1.4em; max-width: none; }
+.bt-dz { color: var(--txt2); margin: 0 0 4px; }
+
 /* ---- RESULTS ---- */
 .bt-results { display: flex; flex-direction: column; }
 .bt-result-card { border-radius: 20px; border: 1px solid var(--border); background: linear-gradient(160deg, var(--brand-light), var(--surface) 70%); padding: 26px 20px 20px; text-align: center; box-shadow: var(--shadow-card); }
