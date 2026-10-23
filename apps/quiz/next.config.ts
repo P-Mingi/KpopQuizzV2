@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { SITE_ID } from './src/lib/site/registry';
-import { afterFilesFor, fallbackFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
+import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -109,14 +109,17 @@ const nextConfig: NextConfig = {
     if (SITE_ID !== 'kpop') {
       return { beforeFiles: [...rewritesFor(SITE_ID)], afterFiles: [...afterFilesFor(SITE_ID)], fallback: [...fallbackFor(SITE_ID)] };
     }
-    if (!UX_V12_ON) return [];
-    return [
+    // Run O1 (lane L1): kpopquiz.org answers its own IndexNow key file only; the other two key files of public/ are its 404.
+    // The V12 pretty URLs below stay afterFiles rules, as the plain array they were.
+    const indexNowBlocks = [...keyFileBlocksFor('kpop')];
+    const v12Rewrites = !UX_V12_ON ? [] : [
       {
         source: '/:group(bts|blackpink|stray-kids|twice|aespa|newjeans|seventeen|exo|g-i-dle|ive|le-sserafim|red-velvet|ateez|enhypen|txt|itzy|shinee)-name-all-members',
         destination: '/name-all/:group?via=pretty',
       },
       { source: `/which-:group(${WMA})-member-are-you`, destination: '/personality/:group' },
     ];
+    return { beforeFiles: indexNowBlocks, afterFiles: v12Rewrites };
   },
   images: {
     formats: ['image/avif', 'image/webp'],
