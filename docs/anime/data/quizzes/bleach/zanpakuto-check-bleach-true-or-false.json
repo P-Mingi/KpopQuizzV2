@@ -37,17 +37,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
     },
     {
-      "question": "By 2022 the manga had more than 300 million copies in circulation worldwide.",
+      "question": "The second opening of the original anime, D-tecnoLife, is sung by Aqua Timez.",
       "correct": false,
-      "kind": "manga",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "bleach-copies-circulation-005"
+        "bleach-opening-themes-013"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
     },
     {
       "question": "The finished manga was collected in 74 tankōbon volumes.",
@@ -158,5 +158,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a number, a name or a place)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a number, a name or a place). K1 rewrite: blocked statement rewritten on verified fact 013."
 }
