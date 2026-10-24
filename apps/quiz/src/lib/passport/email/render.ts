@@ -2,7 +2,7 @@
 // on purpose: the very same file runs in the Supabase Edge Function send-email (Deno cannot import from apps/quiz), so
 // supabase/functions/send-email/render.ts is a byte-identical copy and render.test.ts fails when the two drift.
 //
-//  - renderEmail(...)   anime and hub: magicLink, signup, emailChange, reauth (a code) and, on the hub, deletionScheduled.
+//  - renderEmail(...)   anime and hub: magicLink, signup, emailChange, reauth (a code) and, on the hub and kpop, deletionScheduled.
 //  - renderKpop(...)    kpopquiz.org: the text Supabase Auth sends today, byte for byte (its default templates, with the
 //                        link and the numbers of the Send Email Hook payload put where {{ .ConfirmationURL }} etc. stood).
 //  - hook helpers       the site of a redirect URL, the confirm link, the Standard Webhooks signature check.
@@ -42,7 +42,7 @@ export interface RenderInput {
   readonly link?: string;
   /** The six-digit code (reauth). */
   readonly code?: string;
-  /** Hub deletionScheduled: the date the deletion runs, already formatted by the caller. */
+  /** deletionScheduled (hub and kpop): the date the deletion runs, already formatted by the caller. */
   readonly date?: string;
 }
 
@@ -110,7 +110,9 @@ function button(brand: MailBrand, href: string, label: string): string {
 /** Anime and hub emails. Throws when a copy key, the link or the code is missing (a bad template never goes out half empty). */
 export function renderEmail(input: RenderInput): RenderedMail {
   const { kind, brand, copy } = input;
-  if (brand.id === 'kpop') throw new Error('renderEmail does not render kpop: use renderKpop');
+  // kpopquiz.org keeps the text Supabase Auth sends today (renderKpop); the one email renderEmail renders for it is the
+  // "deletion scheduled" notice of the passport deletion (owner decision of 2026-10-24), which is not an Auth email.
+  if (brand.id === 'kpop' && kind !== 'deletionScheduled') throw new Error('renderEmail does not render kpop: use renderKpop');
   const vars: Record<string, string> = { brand: brand.name, network: brand.network, domain: brand.domain };
   if (input.date !== undefined) vars.date = input.date;
   const subject = fill(need(copy, `email.${kind}.subject`), vars);
@@ -119,7 +121,7 @@ export function renderEmail(input: RenderInput): RenderedMail {
   let text: string;
 
   if (kind === 'deletionScheduled') {
-    if (brand.id !== 'hub') throw new Error('deletionScheduled is a hub email');
+    if (brand.id === 'anime') throw new Error('deletionScheduled is a hub and kpop email');
     const link = input.link;
     if (!link) throw new Error('deletionScheduled needs the link to cancel');
     const body = fill(need(copy, 'email.deletionScheduled.body'), vars);

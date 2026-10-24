@@ -3,15 +3,20 @@
 // answers 404 outside the hub. The database work is the SQL functions of 016 (service role only); this file adds the session checks.
 //
 //   POST /api/passport/delete  401 | 403 reauth | 400 confirm | request, global sign-out, notice, revalidate | 200 {runAfter}
+//   GET  /api/passport/delete  401 | 200 {pending, runAfter?}   (kpop only: what the settings screen shows as "cancel")
 //   POST /api/passport/cancel  401 | 200 {cancelled}
 //   POST /api/passport/leave   401 | 403 reauth | 400 confirm | 409 last_world | leave, revalidate | 200 {counts}
 //   GET  /api/cron/passport-deletions  Bearer CRON_SECRET else 401 | hub only | 200 {processed, failed}
+//
+// The hub answers these routes always. The kpop build answers delete and cancel (and the GET) only when NEXT_PUBLIC_NET_DELETION is on
+// (owner decision of 2026-10-24: Settings > "Delete account" on kpopquiz.org starts the passport deletion); with the flag off kpop
+// answers 404 as before. Leave stays on the hub, and so does the cron.
 //
 // Never logged or returned: an address, a username, a user id. The log line carries the route, the outcome and the site.
 
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { cronSkipFor } from '@/lib/site/cron';
-import { REGISTRY, SITE_ID } from '@/lib/site/registry';
+import { REGISTRY, SITE_ID, flagOn } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
@@ -35,11 +40,19 @@ export interface AccountCtx {
   readonly now?: () => number;
   /** Purges the member's /u page on these sites. notifyRevalidate by default, deferred. */
   readonly notify?: (username: string, sites: readonly SiteId[]) => Promise<unknown>;
-  /** The neutral notice of a scheduled deletion. sendDeletionNotice by default, deferred. */
-  readonly sendNotice?: (to: string, runAfter: string) => Promise<unknown>;
+  /** The neutral notice of a scheduled deletion (the site it was asked from decides the brand). sendDeletionNotice by default, deferred. */
+  readonly sendNotice?: (to: string, runAfter: string, site: SiteId) => Promise<unknown>;
+  /** NEXT_PUBLIC_NET_DELETION: the kpop build answers delete, cancel and the status read. Read from the environment by default. */
+  readonly kpopDeletion?: boolean;
 }
 
 export { leavableSites };
+
+/** The hub always; kpop only with NEXT_PUBLIC_NET_DELETION on. Anime and every other build: no. */
+export function accountRoutesOpen(site: SiteId, kpopDeletion?: boolean): boolean {
+  if (site === 'hub') return true;
+  return site === 'kpop' && (kpopDeletion ?? flagOn(process.env.NEXT_PUBLIC_NET_DELETION));
+}
 
 type Supabase = Awaited<ReturnType<typeof createServerClient>>;
 
@@ -92,7 +105,7 @@ function deferNotify(ctx: AccountCtx, username: string, sites: readonly SiteId[]
 
 export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
-  if (site !== 'hub') return notFound();
+  if (!accountRoutesOpen(site, ctx.kpopDeletion)) return notFound();
   const env = ctx.env ?? (process.env as NetOriginEnv);
   if (!originOk(request, site, env)) return json(403, { error: 'origin' });
 
@@ -134,8 +147,8 @@ export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): 
   }
   if (caller.email) {
     const to = caller.email;
-    const send = ctx.sendNotice ?? ((addr: string, at: string) => sendDeletionNotice(addr, at));
-    defer(() => send(to, runAfter));
+    const send = ctx.sendNotice ?? ((addr: string, at: string, from: SiteId) => sendDeletionNotice(addr, at, undefined, undefined, from));
+    defer(() => send(to, runAfter, site));
   }
   deferNotify(ctx, username, sites.length > 0 ? sites : [site]);
   log('delete', 'ok', site);
@@ -149,7 +162,7 @@ export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): 
 
 export async function handleCancel(request: NextRequest, ctx: AccountCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
-  if (site !== 'hub') return notFound();
+  if (!accountRoutesOpen(site, ctx.kpopDeletion)) return notFound();
   const env = ctx.env ?? (process.env as NetOriginEnv);
   if (!originOk(request, site, env)) return json(403, { error: 'origin' });
 
@@ -168,6 +181,25 @@ export async function handleCancel(request: NextRequest, ctx: AccountCtx = {}): 
   log('cancel', cancelled ? 'ok' : 'nothing_pending', site);
   const res: CancelResponse = { cancelled };
   return json(200, { ...res });
+}
+
+/** GET /api/passport/delete: is a deletion pending for the signed-in member, and when does it run. 401 | 200 {pending, runAfter?}. */
+export async function handleDeletionStatus(request: NextRequest, ctx: AccountCtx = {}): Promise<NextResponse> {
+  const site = ctx.site ?? SITE_ID;
+  if (!accountRoutesOpen(site, ctx.kpopDeletion)) return notFound();
+  const env = ctx.env ?? (process.env as NetOriginEnv);
+  if (!originOk(request, site, env)) return json(403, { error: 'origin' });
+
+  const supabase = await createServerClient();
+  const caller = await callerOf(supabase);
+  if (!caller) return json(401, { error: 'unauthenticated' });
+  const { data, error } = await createServiceRoleClient().rpc('passport_deletion_status', { p_user: caller.id });
+  if (error) {
+    log('status', 'failed', site);
+    return json(500, { error: 'server' });
+  }
+  if (typeof data !== 'string') return json(200, { pending: false });
+  return json(200, { pending: true, runAfter: new Date(data).toISOString() });
 }
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -24,6 +24,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { isSoundEnabled, setSoundEnabled } from '@/lib/sounds';
 import { AVATAR_PRESETS, AVATAR_PRESET_KEYS, NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
 import { BIAS_MAX, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX } from '@/lib/passport-themes';
+import { flagOn } from '@/lib/site/registry';
 import { applyTheme, storedTheme } from '@/lib/ux-v1/a0/theme';
 import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl } from '@/lib/ux-v1/p10/passport-model';
@@ -43,6 +44,11 @@ import type { SettingsWorld } from '@/lib/passport-ui/settings-world';
 // by the load effect), so no kpop page reaches them.
 type WorldKit = typeof import('@/components/passport-ui/world-settings-kit');
 const WorldSeriesSection = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.WorldSeriesSection), { ssr: false });
+// Run O1, lot (e), lane B7 (owner decision of 2026-10-24): with NEXT_PUBLIC_NET_DELETION on, "Delete account" starts the passport
+// deletion (components/passport-ui/account-deletion, next/dynamic: no kpop page reaches it while the flag is off). Off: the row and the
+// sheet below keep today's text (by hand, contact page, 30 days).
+const NET_DELETION = flagOn(process.env.NEXT_PUBLIC_NET_DELETION);
+const AccountDeletion = dynamic(() => import('@/components/passport-ui/account-deletion').then((m) => m.AccountDeletion), { ssr: false });
 const OshiPicker = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.OshiPicker), { ssr: false });
 const WorldAccountRows = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.WorldAccountRows), { ssr: false });
 
@@ -590,10 +596,12 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void signOut(); }}>Sign out</button>
           </div>
           )}
+          {NET_DELETION ? <AccountDeletion username={base?.username ?? form.username} /> : (
           <div className="p10-srow">
             <span className="p10-srow-g"><b className="p10-danger">Delete account</b><small>Removes your passport. Your published quizzes are deleted with it.</small></span>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm p10-danger" onClick={() => setDeleteOpen(true)} aria-haspopup="dialog">Delete</button>
           </div>
+          )}
         </div>
       </section>
 
@@ -622,7 +630,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         onPick={(slug) => { if (!form.ult_groups.includes(slug) && form.ult_groups.length < ULT_MAX) set('ult_groups', [...form.ult_groups, slug]); setGroupOpen(false); }}
         {...(world ? { labels: { title: world.words.addSeries, search: fmt(world.words.seriesSearch, { count: data.groups.length }), none: world.words.noSeries } } : {})}
       />
-      <ConfirmSheet
+      {NET_DELETION ? null : <ConfirmSheet
         open={deleteOpen}
         title="Delete your account?"
         body={<>Your passport, scores and badges are removed. We delete accounts by hand. Send a request from the contact page and we delete your account within 30 days. Your published quizzes are deleted with it.</>}
@@ -630,7 +638,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         cancelLabel="Keep my account"
         onConfirm={() => { setDeleteOpen(false); router.push('/contact'); }}
         onCancel={() => setDeleteOpen(false)}
-      />
+      />}
     </UxPage>
   );
 }
