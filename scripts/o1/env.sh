@@ -32,4 +32,16 @@ case "$target" in
 esac
 export O1_ENV="$target"
 export NEXT_TELEMETRY_DISABLED=1
-exec "$@"
+# D-113 (owner, 2026-10-25): no secret is ever shown, in a log, a report or an agent's transcript. Everything the command prints
+# goes through o1_mask: any postgres URL, the database password and the values of the key and secret variables become [masked].
+# The command keeps its stdin and its exit code.
+o1_mask() {
+  perl -pe 'BEGIN { $| = 1; my @n = grep { /(KEY|SECRET|TOKEN|PASSWORD|DB_URL|SALT)/ } keys %ENV;
+    @s = sort { length($b) <=> length($a) } grep { length($_) >= 8 } map { $ENV{$_} } @n;
+    for (@n) { push @s, $1 if $_ =~ /DB_URL/ && $ENV{$_} =~ m{://[^:/\s]+:([^@\s]+)@} && length($1) >= 6 } }
+    for my $v (@s) { s/\Q$v\E/[masked]/g } s{postgres(?:ql)?://\S+}{postgresql://[masked]}g;'
+}
+"$@" 2> >(o1_mask >&2) | o1_mask
+rc=${PIPESTATUS[0]}
+wait
+exit "$rc"

@@ -416,6 +416,7 @@ After that the remaining work is the backlog in `docs/o1/RAPPORT-FINAL.md` secti
 
 - **L09 openings** (K4; needs L04, 014 and Mission U part B, Deezer): the openings blind test. **L10 formats** (K3; needs L04, 013). **L11 crossover quiz** (X1; needs 002a and Mission U part C), then `NEXT_PUBLIC_NET_FACTS=1` (L3 step 4). None of these files exists yet; `L12` does not wait for them.
 - **O6, the daily opening**: the cron route `ensure-daily-opening` and its `vercel.json` entry belong to lane O6 and come after launch with L09 (the table of 014 exists, nothing calls it at launch). Do not add an entry for a route that does not exist.
+- **Test branches, once the launch is stable (owner, D-113)**: the owner deletes the Supabase branches `o1-dev` and `o1-scratch` (Supabase dashboard, Branches). They hold only test accounts and the public catalogue; with them gone, their database password opens nothing. Then remove the Preview variables of `o1/integration` on the three Vercel projects (they point at `o1-dev`).
 - IndexNow submissions for the two new sites (the submitter posts for kpopquiz.org only), the remaining registry values of K1, the 54 rejected cast facts, the small leftovers of `RAPPORT-FINAL.md`.
 
 ---------------------------------------------------------------------------------------------------------------------------------
