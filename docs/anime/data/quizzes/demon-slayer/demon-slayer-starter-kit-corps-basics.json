@@ -129,24 +129,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
     },
     {
-      "question": "How many episodes does season 1 of Demon Slayer have?",
+      "question": "In which magazine did the Demon Slayer manga run?",
       "options": [
-        "12",
-        "26",
-        "18",
-        "24"
+        "Weekly Shonen Magazine",
+        "Weekly Shonen Sunday",
+        "Monthly Shonen Gangan",
+        "Weekly Shonen Jump"
       ],
-      "correct": 1,
-      "fun_fact": "Season 1 adapts manga chapters 1 to 54.",
-      "kind": "episode",
+      "correct": 3,
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-season-1-010"
+        "demon-slayer-manga-run-004"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
     },
     {
       "question": "Which sense helps Tanjiro track demons and sense how other people feel?",
@@ -220,15 +219,10 @@
       "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
     },
     {
-      "id": "S3",
-      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 1",
-      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
-    },
-    {
       "id": "S4",
       "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
       "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only."
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked question rewritten on verified fact 004."
 }
