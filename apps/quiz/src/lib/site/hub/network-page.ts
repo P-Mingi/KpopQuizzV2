@@ -114,7 +114,7 @@ export const PRIVACY_SECTIONS: readonly PrivacySection[] = [
       p('privacy.services.p4'),
     ],
   },
-  { title: 'privacy.delete.title', blocks: [p('privacy.delete.p1'), p('privacy.delete.p2'), p('privacy.delete.p3'), p('privacy.delete.p4')] },
+  { title: 'privacy.delete.title', blocks: [p('privacy.delete.p1'), p('privacy.delete.p2'), p('privacy.delete.p3'), p('privacy.delete.p4'), p('privacy.delete.p5')] },
   { title: 'privacy.retention.title', blocks: [p('privacy.retention.p1'), p('privacy.retention.p2')] },
   { title: 'privacy.rights.title', blocks: [p('privacy.rights.p1'), p('privacy.rights.p2'), p('privacy.rights.p3')] },
   { title: 'privacy.children.title', blocks: [p('privacy.children.p1')] },
@@ -162,3 +162,20 @@ export function privacyUrl(): string {
  * rules may name only `anime-h1-*` classes (tokens.md 3.3 rule 6); the hub uses `hub-h1-*`. Same markup, one prefix per build.
  */
 export const POLICY_CLASS: 'hub-h1' | 'anime-h1' = SITE_ID === 'anime' ? 'anime-h1' : 'hub-h1';
+
+// ---------------------------------------------------------------------------------------------------------------------------
+// The legal notice (mentions légales, /legal): its keys in reading order. The page (app/(site)/legal/page.tsx) prints each of them once
+// and nothing else. The three LEGAL_PLACEHOLDER_KEYS hold a fact the owner has not given yet, each written once, as a [BRACKETED] line.
+
+export type LegalKey = Extract<keyof typeof H1, `legal.${string}`>;
+
+export const LEGAL_PLACEHOLDER_KEYS = ['legal.form', 'legal.siren', 'legal.director'] as const satisfies readonly LegalKey[];
+
+export const LEGAL_KEYS: readonly LegalKey[] = [
+  'legal.metaTitle', 'legal.metaDescription', 'legal.h1', 'legal.sub', 'legal.lede',
+  'legal.publisher.title', 'legal.publisher.p1', 'legal.publisher.formLabel', 'legal.form', 'legal.publisher.sirenLabel', 'legal.siren',
+  'legal.publisher.emailLabel',
+  'legal.director.title', 'legal.director.p1', 'legal.director',
+  'legal.host.title', 'legal.host.p1', 'legal.host.name', 'legal.host.address', 'legal.host.phoneLabel', 'legal.host.phone',
+  'legal.data.title', 'legal.data.p1', 'legal.data.link',
+];

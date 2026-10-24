@@ -26,7 +26,7 @@ const ROOT = join(__dirname, '../../../../../..');
 const COOKIES = readFileSync(join(ROOT, 'docs/o1/contracts/cookies.md'), 'utf8');
 const KEYS = Object.keys(COPY).filter((k) => k.startsWith('privacy.')) as (keyof typeof COPY)[];
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
-const CONTROLLER = '[NOM OU SOCIÉTÉ, PAYS, ADRESSE POSTALE]';
+const CONTROLLER = 'Nuri, 6 rue Rémusat, 75016 Paris, France';
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
@@ -154,19 +154,21 @@ describe('point 1: closed is a draft, open is the policy', () => {
   it('the sitemap of the hub: not listed while closed, listed with the launch date once open', async () => {
     expect((await hubSitemap('', '2026-11-01')).map((e) => e.path)).toEqual(['/']);
     const open = await hubSitemap('1', '2026-11-01');
-    expect(open.map((e) => e.path)).toEqual(['/', '/privacy']);
+    expect(open.map((e) => e.path)).toEqual(['/', '/privacy', '/legal']);
     expect(open[1]!.lastModified?.toISOString()).toBe('2026-11-01T00:00:00.000Z');
+    expect(open[2]!.lastModified?.toISOString()).toBe('2026-11-01T00:00:00.000Z');
   });
 });
 
-// Point 2: the controller, one key.
+// Point 2 (second pass, owner 2026-10-24): the controller, one key, now the owner's name and postal address.
 describe('point 2: the controller', () => {
-  it('prints the placeholder line exactly, from the one key privacy.controller', async () => {
+  it('prints the name and address exactly, from the one key privacy.controller, and no placeholder is left', async () => {
     expect(COPY['privacy.controller']).toBe(CONTROLLER);
-    expect(KEYS.filter((k) => COPY[k].includes('NOM OU SOCI'))).toEqual(['privacy.controller']);
+    expect(KEYS.filter((k) => COPY[k].includes('Rémusat'))).toEqual(['privacy.controller']);
     const { text } = await render();
     expect(text).toContain(`${ht('privacy.who.p3')} ${CONTROLLER}`);
     expect(text.split(CONTROLLER)).toHaveLength(2);
+    expect(text).not.toMatch(/\[[A-ZÉ ,]+\]/);
   });
 });
 
@@ -308,14 +310,30 @@ describe('point 11: services and hosting', () => {
   });
 });
 
-// Points 12 and 13: deletion, pinned to the code (policy.test.ts pins the constants to the SQL).
+// Points 12 and 13 (second pass, owner 2026-10-24): the owner's path, pinned to the code (policy.test.ts pins the constants to the SQL).
 describe('points 12 and 13: deleting', () => {
+  const SETTINGS = readFileSync(join(__dirname, '../../../components/profile/ux-v1/settings.tsx'), 'utf8');
+  /** The label of the delete row of the KpopQuiz settings, read from the component (lane B7 builds what it opens). */
+  const settingsLabel = (): string => /<b className="p10-danger">([^<]+)<\/b>/.exec(SETTINGS)![1]!;
+
+  it('names the label that the KpopQuiz settings component prints, read from the file', async () => {
+    expect(settingsLabel()).toBe('Delete account');
+    const { text } = await render();
+    expect(text).toContain(`open Settings and choose "${settingsLabel()}".`);
+    expect(KEYS.map((k) => COPY[k]).join(' ')).not.toContain('Delete my account');
+  });
+  it('says the path: any site settings, the @username, a fresh sign-in, signed out everywhere, an email, the grace days to cancel by signing in', async () => {
+    const { text } = await render();
+    expect(text).toContain('You can delete your whole passport from the settings of any site.');
+    expect(text).toContain(`You type your @username to confirm, and you must have signed in within the last ${PASSPORT_SECONDS.freshSignIn / 60} minutes. You are signed out everywhere and we send you an email.`);
+    expect(text).toContain(`You then have ${DELETION_GRACE_DAYS} days to change your mind: sign in again and the deletion is cancelled. When the ${DELETION_GRACE_DAYS} days are over, everything is deleted.`);
+  });
   it('says the grace days and the default for the quizzes that the code says', async () => {
     const { text } = await render();
     expect(KEEP_QUIZZES_DEFAULT).toBe(true);
-    expect(text).toContain(`Your data is deleted after ${DELETION_GRACE_DAYS} days, and you can cancel before then.`);
+    expect(DELETION_GRACE_DAYS).toBe(7);
+    expect(text).toContain(`You then have ${DELETION_GRACE_DAYS} days`);
     expect(text).toContain('The quizzes you published are kept under "deleted user" unless you ask to remove them too.');
-    expect(text).toContain(`signed in within the last ${PASSPORT_SECONDS.freshSignIn / 60} minutes`);
   });
   it('lists the sites you can leave from the code, and not KpopQuiz', async () => {
     const { text } = await render();
@@ -323,10 +341,6 @@ describe('points 12 and 13: deleting', () => {
     expect(leave).toEqual(['OtakuQuiz']);
     expect(text).toContain(`You can leave ${leave.join(' and ')}.`);
     expect(text).toContain('you cannot leave KpopQuiz');
-  });
-  it('says how to delete a KpopQuiz only account', async () => {
-    const { text } = await render();
-    expect(text).toContain('If you only have a KpopQuiz account, open KpopQuiz Settings and choose "Delete my account".');
   });
 });
 
@@ -374,6 +388,7 @@ describe('the wiring', () => {
     expect(O1_VALUE_ENVS).toEqual([{ name: 'NET_LAUNCH_DATE', scope: 'server', lane: 'L1' }]);
     expect(O1_FLAGS.map((f) => f.name)).not.toContain('NET_LAUNCH_DATE');
     expect(O1_FLAGS.map((f) => f.name)).toContain('NET_INDEXING');
+    expect(O1_FLAGS).toContainEqual({ name: 'NEXT_PUBLIC_NET_PRIVACY', scope: 'public', lane: 'H1', reserved: false });
   });
 
   it('the anime sheet repeats only rules the hub sheet has (the anime build reads only its own folder)', () => {

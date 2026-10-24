@@ -30,6 +30,9 @@ const KPOP = SITE_ID === 'kpop';
 const FLAGS = { v1: true, v12: true } as const;
 // Run O1 (B6): the one anonymous cross-site link (link-allowlist.json "footer"), off unless the flag is on.
 const NET_FOOTER = flagOn(process.env.NEXT_PUBLIC_NET_FOOTER);
+// Run O1 (H1): the "Legal notice" link beside Privacy. On anime and hub it is a normal link of the route map ('/legal' is allowed there);
+// on kpop it appears only with NEXT_PUBLIC_NET_PRIVACY on, so the kpop footer is today's with the flag off.
+const NET_PRIVACY = flagOn(process.env.NEXT_PUBLIC_NET_PRIVACY);
 
 /** One internal link: shown when its feature is on and the site's route map has its path. */
 function link(label: string, href: string, feature: boolean = true): FooterLink[] {
@@ -77,6 +80,7 @@ function columns(showFandoms: boolean): FooterCol[] {
       ...link('Editorial policy', '/editorial-policy'),
       ...link('Contact', '/contact'),
       ...link('Privacy', '/privacy'),
+      ...(KPOP && !NET_PRIVACY ? [] : link('Legal notice', '/legal')),
       ...link('Terms', '/terms'),
       ...link('DMCA', '/dmca'),
     ] },
