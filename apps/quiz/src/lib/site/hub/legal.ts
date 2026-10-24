@@ -1,5 +1,5 @@
 // Run O1, lot (d), lane H1: the legal notice (mentions légales) of the three sites. Pure: every string is a legal.* key of
-// copy/hub/h1.ts (plus privacy.controller, which holds the publisher's name and address once), the site name and domain come from the
+// copy/hub/h1.ts (legal.publisher is the publisher's name and address; privacy.controller is the same person for the privacy policy), the site name and domain come from the
 // registry, the contact mailbox and the place of the privacy policy follow the site: kpopquiz.org keeps its own mailbox and its own
 // /privacy, OtakuQuiz and FanQuiz print the network mailbox and link the network policy.
 
@@ -25,12 +25,7 @@ export function lt(key: LegalKey): string {
   return ht(key);
 }
 
-/** The publisher line: the controller of the privacy policy (name and postal address, written once in privacy.controller). */
-export function legalPublisher(): string {
-  return ht('privacy.controller');
-}
-
-/** The [BRACKETED] lines that are still printed, in page order: empty once the owner has filled the three keys. */
+/** The [BRACKETED] lines that are still printed, in page order: empty once the owner has filled the phone. */
 export function legalPlaceholders(): string[] {
   return LEGAL_PLACEHOLDER_KEYS.map((k) => COPY[k]).filter((v) => /^\[[^\]]+\]$/.test(v));
 }

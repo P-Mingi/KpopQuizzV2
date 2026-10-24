@@ -8,8 +8,8 @@
 // mailbox, {date} the launch date, and the numbers the code decides ({ticketMinutes}, {codeSeconds}, {logDays}, {graceDays},
 // {freshMinutes}, {minAge}). No site name, domain or number of those is written in this file.
 // The legal.* keys are the one text of the legal notice (mentions légales, /legal, on the three sites). Placeholders: {site} and {siteDomain}
-// (the site that serves the page, from the registry). The three keys legal.form, legal.siren and legal.director are the only places the
-// owner's missing facts are written, as [BRACKETED] capitals; lib/site/hub/legal.ts refuses a launch build while one is left.
+// (the site that serves the page, from the registry). The publisher is Louis Pecchia, entrepreneur individuel (owner, 2026-10-25); the only fact still missing is
+// legal.phone, written once as a [BRACKETED] capital; lib/site/hub/legal.ts refuses a launch build while one is left.
 export const COPY = {
   'home.h1': 'One account for the fan quiz sites',
   'home.lede': '{network} is the home of one account shared by the fan quiz sites. Make it once, use it on every site.',
@@ -47,7 +47,9 @@ export const COPY = {
   'privacy.h1': 'Privacy',
   'privacy.updated': 'In force since {date}.',
   'privacy.lede': 'What {network} and its sites do with your data, in plain English.',
-  'privacy.controller': 'Nuri, 6 rue Rémusat, 75016 Paris, France',
+  'privacy.controller': 'Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634, {email}',
+  'privacy.who.legal': 'The publisher and the host of the sites are named in the legal notice.',
+  'privacy.who.legalLink': 'Read the legal notice',
   'privacy.who.title': 'Who runs this',
   'privacy.who.p1': '{network} ({domain}) is the home of one account shared by three fan quiz sites: {sites}. They are separate websites run by the same owner.',
   'privacy.who.p2': 'You make your account once and use it on any of the sites.',
@@ -131,7 +133,7 @@ export const COPY = {
   'legal.publisher.title': 'Publisher',
   'legal.publisher.p1': '{site} ({siteDomain}) is published by:',
   'legal.publisher.formLabel': 'Legal form:',
-  'legal.publisher.sirenLabel': 'SIREN:',
+  'legal.publisher.phoneLabel': 'Phone:',
   'legal.publisher.emailLabel': 'Email:',
   'legal.director.title': 'Publication director',
   'legal.director.p1': 'The publication director is:',
@@ -144,7 +146,10 @@ export const COPY = {
   'legal.data.title': 'Personal data',
   'legal.data.p1': 'What {site} does with your personal data, and how to use your rights, is in the privacy policy.',
   'legal.data.link': 'Read the privacy policy',
-  'legal.form': '[FORME JURIDIQUE]',
-  'legal.siren': '[SIREN]',
-  'legal.director': '[DIRECTEUR DE LA PUBLICATION]',
+  'legal.publisher': 'Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France',
+  'legal.form': 'Entrepreneur individuel (EI)',
+  'legal.siren': 'SIREN 109 686 634, SIRET du siège 109 686 634 00014',
+  'legal.vat': 'TVA non applicable, article 293 B du CGI',
+  'legal.director': 'Louis Pecchia',
+  'legal.phone': '[TELEPHONE]',
 } as const;
