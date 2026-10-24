@@ -28,21 +28,21 @@
         "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
       },
       {
-        "question": "Mid-2026 figures put the worldwide circulation of the Hunter x Hunter manga at which level?",
+        "question": "In which month and year did the second anime finish its run on Nippon TV?",
         "options": [
-          "250 million copies",
-          "30 million copies",
-          "100 million copies",
-          "60 million copies"
+          "December 2011",
+          "September 2014",
+          "June 2012",
+          "March 2013"
         ],
-        "correct": 2,
-        "kind": "manga",
+        "correct": 1,
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "hunter-x-hunter-copies-in-circulation-005"
+          "hunter-x-hunter-second-anime-2011-008"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
       },
@@ -197,15 +197,15 @@
         "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
       },
       {
-        "question": "The manga won the Shogakukan Manga Award in 2010.",
+        "question": "The first of the four OVA episodes was shown at Jump Festa in November 2018.",
         "correct": false,
-        "kind": "manga",
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "haikyu-manga-award-006"
+          "haikyu-first-ova-020"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
       },
@@ -249,15 +249,15 @@
         "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
       },
       {
-        "question": "By December 2025 the manga was in circulation at under ten million copies.",
-        "correct": false,
-        "kind": "manga",
+        "question": "Besides winning Best Boy, Hinata was also up for Best Protagonist at the fifth Crunchyroll Anime Awards.",
+        "correct": true,
+        "kind": "character",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "haikyu-copies-circulation-005"
+          "haikyu-hinata-best-boy-019"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
       },
@@ -313,7 +313,7 @@
       {
         "question": "Which series is this?",
         "clues": [
-          "The webtoon had 4.5 billion views worldwide by February 2020",
+          "Telecom Animation Film made its first anime season",
           "It was among the first webtoons with an official English translation, from July 2014",
           "The Answer Studio made its second anime season"
         ],
@@ -330,7 +330,7 @@
           "scope": "both"
         },
         "fact_ids": [
-          "tower-of-god-total-views-005",
+          "tower-of-god-anime-season-one-008",
           "tower-of-god-english-release-006",
           "tower-of-god-anime-season-two-009"
         ],
@@ -470,7 +470,7 @@
       {
         "question": "Which series is this?",
         "clues": [
-          "Its manga won the print category of the Next Manga Award in August 2021",
+          "Its Japanese title is written inside corner brackets",
           "A live-action series debuted on 28 November 2024",
           "By December 2025 it had more than 25 million copies in circulation"
         ],
@@ -487,7 +487,7 @@
           "scope": "both"
         },
         "fact_ids": [
-          "oshi-no-ko-next-manga-award-006",
+          "oshi-no-ko-japanese-title-001",
           "oshi-no-ko-live-action-020",
           "oshi-no-ko-copies-circulation-005"
         ],
@@ -498,7 +498,7 @@
         "clues": [
           "Its manga reached 139 collected volumes by March 2026",
           "It moved from a weekly to a monthly magazine in 2005",
-          "By August 2023 it had more than 120 million copies in circulation"
+          "Hirohiko Araki wrote and drew the whole manga himself"
         ],
         "options": [
           "One Piece",
@@ -515,7 +515,7 @@
         "fact_ids": [
           "jojo-volume-count-004",
           "jojo-magazine-move-003",
-          "jojo-copies-circulation-005"
+          "jojo-manga-creator-002"
         ],
         "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
       }
@@ -566,7 +566,7 @@
   {
     "site": "anime",
     "title": "Titans True or False",
-    "description": "Eight statements about the author, the studios and the schedule of Attack on Titan: true or false?",
+    "description": "Eight statements about the author, the characters, the records and the schedule of Attack on Titan: true or false?",
     "group_slug": "attack-on-titan",
     "quiz_type": "true_false",
     "difficulty": "medium",
@@ -599,17 +599,17 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
       },
       {
-        "question": "Wit Studio animated the first three seasons of the anime.",
+        "question": "Armin Arlert is a main character of Attack on Titan.",
         "correct": true,
-        "kind": "production",
+        "kind": "character",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "attack-on-titan-animation-studios-018"
+          "attack-on-titan-armin-arlert-name-033"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
       },
       {
         "question": "The manga ran in Shueisha's monthly Bessatsu Shonen Magazine.",
@@ -651,17 +651,17 @@
         "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
       },
       {
-        "question": "Season 3 aired its first 12 episodes in the summer of 2018 and then paused for months.",
+        "question": "The show once held a Guinness record for demand among anime series, and later lost the broader animated TV title to another series in 2024.",
         "correct": true,
-        "kind": "episode",
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "attack-on-titan-season-three-split-026"
+          "attack-on-titan-guinness-record-024"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
       },
       {
         "question": "The finished manga was collected in 40 volumes.",
@@ -692,11 +692,6 @@
         "id": "S3",
         "title": "Wikipedia: Attack on Titan",
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
-      },
-      {
-        "id": "S4",
-        "title": "Wikipedia: Attack on Titan season 3",
-        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
       }
     ]
   },
@@ -888,22 +883,23 @@
           "scope": "both"
         },
         "fact_ids": [
-          "naruto-episode-total-008"
+          "naruto-tv-naruto-006",
+          "naruto-tv-shippuden-007"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
       },
       {
-        "question": "Of the first anime's 220 episodes, 85 follow the manga and 135 were made only for television.",
+        "question": "Hero's Come Back!! by nobodyknows+ accompanied the first fifty episodes of Shippuden.",
         "correct": false,
-        "kind": "episode",
+        "kind": "music",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "naruto-original-episodes-023"
+          "naruto-first-shippuden-opening-027"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+        "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
       },
       {
         "question": "Hayato Date is the director of both Naruto and Naruto: Shippuden.",
@@ -1001,6 +997,11 @@
         "id": "S3",
         "title": "naruto-official.com: /en",
         "url": "https://naruto-official.com/en"
+      },
+      {
+        "id": "S4",
+        "title": "Wikipedia: NARUTO -ナルト- 疾風伝",
+        "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
       }
     ]
   },
@@ -1238,21 +1239,21 @@
         "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
       },
       {
-        "question": "As of June 2026, more than how many copies of the manga were in circulation worldwide?",
+        "question": "In which year did the Blue Lock manga win the shonen prize at the Kodansha Manga Award?",
         "options": [
-          "Two hundred million",
-          "Twenty million",
-          "Five million",
-          "Sixty million"
+          "2019",
+          "2023",
+          "2021",
+          "2017"
         ],
-        "correct": 3,
+        "correct": 2,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "blue-lock-copies-circulation-005"
+          "blue-lock-kodansha-award-006"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
       },
@@ -1571,7 +1572,7 @@
   },
   {
     "site": "anime",
-    "title": "Steel, Sales and Two Directors",
+    "title": "Steel, Prizes and Two Directors",
     "description": "Eight questions on the manga, the 2003 anime and Brotherhood: who made them and what they won.",
     "group_slug": "fullmetal-alchemist",
     "quiz_type": "multiple_choice",
@@ -1693,23 +1694,23 @@
         "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
       },
       {
-        "question": "Worldwide sales of the manga have passed how many copies?",
+        "question": "In which month of 2003 did the first Fullmetal Alchemist TV anime begin broadcasting?",
         "options": [
-          "30 million",
-          "150 million",
-          "90 million",
-          "60 million"
+          "April",
+          "July",
+          "October",
+          "January"
         ],
         "correct": 2,
-        "kind": "manga",
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "fullmetal-alchemist-copies-sold-005"
+          "fullmetal-alchemist-anime-2003-run-007"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+        "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
       },
       {
         "question": "How many episodes did the 2003 Fullmetal Alchemist anime run for?",
@@ -1956,191 +1957,6 @@
   },
   {
     "site": "anime",
-    "title": "Inside the Walls: Seasons and Records",
-    "description": "Eight questions on seasons, directors and records of the Attack on Titan anime and manga.",
-    "group_slug": "attack-on-titan",
-    "quiz_type": "multiple_choice",
-    "difficulty": "medium",
-    "category": "series_specific",
-    "questions": [
-      {
-        "question": "The first season of 25 episodes in 2013 covered how many of the manga's first chapters?",
-        "options": [
-          "34",
-          "54",
-          "60",
-          "25"
-        ],
-        "correct": 0,
-        "kind": "episode",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-season-one-span-001"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
-      },
-      {
-        "question": "In which year did the manga win the Kodansha Manga Award for best shonen title?",
-        "options": [
-          "2009",
-          "2015",
-          "2011",
-          "2013"
-        ],
-        "correct": 2,
-        "kind": "manga",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-kodansha-award-023"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
-      },
-      {
-        "question": "When did season 3 return from its pause to air its remaining ten episodes?",
-        "options": [
-          "January 2019",
-          "July 2019",
-          "April 2019",
-          "October 2018"
-        ],
-        "correct": 2,
-        "kind": "episode",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-season-three-split-026"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
-      },
-      {
-        "question": "How many episodes does the TV series reach across its four seasons, counting the episodic cut of the last two specials?",
-        "options": [
-          "75",
-          "100",
-          "87",
-          "94"
-        ],
-        "correct": 3,
-        "kind": "episode",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-episode-count-017"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
-      },
-      {
-        "question": "The first print of volume 12 topped how many copies?",
-        "options": [
-          "Two million",
-          "Five million",
-          "Five hundred thousand",
-          "One million"
-        ],
-        "correct": 0,
-        "kind": "manga",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-volume-twelve-print-run-022"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
-      },
-      {
-        "question": "Who directed the first three seasons of the anime?",
-        "options": [
-          "Haruo Sotozaki",
-          "Tetsuro Araki",
-          "Yuichiro Hayashi",
-          "Shinichiro Watanabe"
-        ],
-        "correct": 1,
-        "kind": "production",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-series-directors-019"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
-      },
-      {
-        "question": "Which studio took over the animation for the final season?",
-        "options": [
-          "Wit Studio",
-          "Bones",
-          "MAPPA",
-          "Madhouse"
-        ],
-        "correct": 2,
-        "kind": "production",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-animation-studios-018"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
-      },
-      {
-        "question": "What did the show once hold a Guinness record for?",
-        "options": [
-          "Most episodes in a season",
-          "Demand among anime series",
-          "Most dubbed languages",
-          "Longest opening song"
-        ],
-        "correct": 1,
-        "kind": "episode",
-        "spoiler": {
-          "arc": 0,
-          "scope": "both"
-        },
-        "fact_ids": [
-          "attack-on-titan-guinness-record-024"
-        ],
-        "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
-      }
-    ],
-    "sources": [
-      {
-        "id": "S1",
-        "title": "Wikipedia: Attack on Titan season 1",
-        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
-      },
-      {
-        "id": "S2",
-        "title": "Wikipedia: Attack on Titan",
-        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
-      },
-      {
-        "id": "S3",
-        "title": "Wikipedia: Attack on Titan season 3",
-        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
-      },
-      {
-        "id": "S4",
-        "title": "Wikipedia: Attack on Titan (TV series)",
-        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
-      }
-    ]
-  },
-  {
-    "site": "anime",
     "title": "Longship Statements: True or False",
     "description": "Eight statements about the manga, its arcs and the first season songs of Vinland Saga.",
     "group_slug": "vinland-saga",
@@ -2273,7 +2089,7 @@
   },
   {
     "site": "anime",
-    "title": "Chapter 179 and a Film on the Way",
+    "title": "Two Webtoon Seasons and a Film on the Way",
     "description": "Eight questions on the webtoon, the anime staff and the plans for a film of Solo Leveling.",
     "group_slug": "solo-leveling",
     "quiz_type": "multiple_choice",
@@ -2300,21 +2116,21 @@
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
       },
       {
-        "question": "At which chapter number does the webtoon end, counting both of its seasons?",
+        "question": "When did the first season of the Solo Leveling webtoon wrap up?",
         "options": [
-          "179",
-          "200",
-          "250",
-          "120"
+          "July 2019",
+          "March 2020",
+          "November 2020",
+          "January 2021"
         ],
-        "correct": 0,
+        "correct": 1,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "solo-leveling-webtoon-chapters-007"
+          "solo-leveling-webtoon-seasons-008"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
       },
@@ -2780,15 +2596,15 @@
         "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
       },
       {
-        "question": "The manga won the Sugoi Japan Award in 2016 and a Manga Barcelona prize in 2017.",
+        "question": "In Japan the title of One-Punch Man is read Wanpanman.",
         "correct": true,
-        "kind": "manga",
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "one-punch-man-award-2017-011"
+          "one-punch-man-native-title-001"
         ],
         "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
       },
@@ -2832,17 +2648,17 @@
         "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
       },
       {
-        "question": "By July 2026 the redrawn manga had passed 38 million copies in circulation.",
+        "question": "Madhouse animated season 1 of the anime under the director Shingo Natsume.",
         "correct": true,
-        "kind": "manga",
+        "kind": "production",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "one-punch-man-copies-circulation-006"
+          "one-punch-man-anime-season-one-007"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+        "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
       },
       {
         "question": "The story began as a novel written by One.",
@@ -3095,40 +2911,40 @@
         "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
       },
       {
-        "question": "In magazine form the story had 60 chapters. Into how many did the book editions regroup them?",
+        "question": "In which month and year did the first Sailor Moon anime finish its run on TV Asahi?",
         "options": [
-          "120",
-          "45",
-          "52",
-          "18"
+          "March 1992",
+          "December 1996",
+          "February 1997",
+          "July 1998"
         ],
         "correct": 2,
-        "kind": "manga",
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "sailor-moon-chapters-reorganized-005"
+          "sailor-moon-anime-run-008"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+        "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
       },
       {
-        "question": "Worldwide, the manga has passed how many copies sold?",
+        "question": "In which month and year did Kodansha's Nakayoshi start running the Sailor Moon manga?",
         "options": [
-          "120 million",
-          "15 million",
-          "4 million",
-          "46 million"
+          "September 1989",
+          "April 1994",
+          "October 1990",
+          "December 1991"
         ],
         "correct": 3,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "sailor-moon-manga-copies-006"
+          "sailor-moon-manga-serialization-003"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
       },
@@ -3302,17 +3118,17 @@
         "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
       },
       {
-        "question": "The Oshi no Ko manga won the Next Manga Award in 2018.",
+        "question": "The Blue Lock manga won the shojo prize at the 45th Kodansha Manga Award in 2021.",
         "correct": false,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "oshi-no-ko-next-manga-award-006"
+          "blue-lock-kodansha-award-006"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+        "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
       },
       {
         "question": "The Tokyo Anime Award Festival named Spy x Family its Animation of the Year.",
@@ -3368,11 +3184,6 @@
         "url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
       },
       {
-        "id": "S6",
-        "title": "Wikipedia: Oshi no Ko",
-        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
-      },
-      {
         "id": "S7",
         "title": "Wikipedia: Spy × Family (TV series)",
         "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
@@ -3381,6 +3192,11 @@
         "id": "S8",
         "title": "Wikipedia: Neon Genesis Evangelion",
         "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+      },
+      {
+        "id": "S9",
+        "title": "Wikipedia: Blue Lock",
+        "url": "https://en.wikipedia.org/wiki/Blue_Lock"
       }
     ]
   },
@@ -3470,21 +3286,21 @@
         "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
       },
       {
-        "question": "How many chapters does the original Dragon Ball manga reach?",
+        "question": "In which year did the original Dragon Ball manga finish its run in Weekly Shonen Jump?",
         "options": [
-          "600",
-          "519",
-          "705",
-          "420"
+          "1995",
+          "1989",
+          "1999",
+          "1992"
         ],
-        "correct": 1,
+        "correct": 0,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "dragon-ball-manga-volumes-chapters-015"
+          "dragon-ball-manga-run-013"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
       },
@@ -3508,23 +3324,23 @@
         "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
       },
       {
-        "question": "Roughly how many copies of the original manga have sold in Japan alone?",
+        "question": "How many episodes did Dragon Ball Daima air in all?",
         "options": [
-          "About 50 million",
-          "A bit over 160 million",
-          "About 220 million",
-          "About 100 million"
+          "20",
+          "13",
+          "26",
+          "50"
         ],
-        "correct": 1,
-        "kind": "manga",
+        "correct": 0,
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "dragon-ball-copies-sold-022"
+          "dragon-ball-daima-tv-run-019"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+        "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
       },
       {
         "question": "In which month did Dragon Ball Daima finish its run?",
@@ -3984,7 +3800,7 @@
         "clues": [
           "It was the first anime on the schedule when Adult Swim launched",
           "Hajime Yatate is a shared pen name for its staff",
-          "The voice of Faye won best voice actor at the 1999 Anime Grand Prix"
+          "Its first ending has vocals by Mai Yamane and is one of the few songs in the series sung in Japanese"
         ],
         "options": [
           "Death Note",
@@ -4001,7 +3817,7 @@
         "fact_ids": [
           "cowboy-bebop-adult-swim-debut-013",
           "cowboy-bebop-creator-credit-003",
-          "cowboy-bebop-grand-prix-1999-012"
+          "cowboy-bebop-ending-real-folk-blues-010"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
       },
@@ -4036,7 +3852,7 @@
         "clues": [
           "Three Japanese voice actors play the three members of its main household",
           "It was named Animation of the Year by the Tokyo Anime Award Festival",
-          "New manga chapters appear every other week on a Shueisha app"
+          "A line about a girl liking peanuts was the most trending phrase of 2022 among Japanese Generation Z"
         ],
         "options": [
           "Dandadan",
@@ -4053,7 +3869,7 @@
         "fact_ids": [
           "spy-x-family-voice-cast-019",
           "spy-x-family-anime-award-017",
-          "spy-x-family-magazine-run-003"
+          "spy-x-family-anya-peanuts-018"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
       },
@@ -4113,7 +3929,7 @@
         "question": "Which series is this?",
         "clues": [
           "Its manga won the Harvey Award for best manga each year from 2021 to 2023",
-          "Kensuke Ushio composed the music of its anime",
+          "Every episode of its anime closes with its own ending song by a different artist",
           "Its anime ran for 12 episodes in late 2022"
         ],
         "options": [
@@ -4130,7 +3946,7 @@
         },
         "fact_ids": [
           "chainsaw-man-awards-007",
-          "chainsaw-man-anime-staff-009",
+          "chainsaw-man-ending-themes-016",
           "chainsaw-man-anime-run-010"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
@@ -4356,7 +4172,7 @@
   },
   {
     "site": "anime",
-    "title": "Four and a Half Billion Views Up the Tower",
+    "title": "Up the Tower: Webtoon, Seasons and Songs",
     "description": "Eight questions on the webtoon, its English release and the two anime seasons of Tower of God.",
     "group_slug": "tower-of-god",
     "quiz_type": "multiple_choice",
@@ -4364,23 +4180,23 @@
     "category": "series_specific",
     "questions": [
       {
-        "question": "By February 2020, how many views had the Tower of God webtoon racked up worldwide?",
+        "question": "In which month of 2020 did season one of the Tower of God anime finish airing in Japan?",
         "options": [
-          "450 million",
-          "1.2 billion",
-          "12 billion",
-          "4.5 billion"
+          "March",
+          "June",
+          "September",
+          "December"
         ],
-        "correct": 3,
-        "kind": "manga",
+        "correct": 1,
+        "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "tower-of-god-total-views-005"
+          "tower-of-god-anime-season-one-008"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+        "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
       },
       {
         "question": "Through which platform did Tower of God get an official English translation from July 2014?",
@@ -4526,13 +4342,18 @@
         "id": "S2",
         "title": "Wikipedia: Tower of God season 2",
         "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+      },
+      {
+        "id": "S3",
+        "title": "Wikipedia: Tower of God season 1",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
       }
     ]
   },
   {
     "site": "anime",
     "title": "Sessions in the Solar System: True or False",
-    "description": "Eight statements about the broadcast, the music and the honours of Cowboy Bebop.",
+    "description": "Eight statements about the broadcast, the music and the makers of Cowboy Bebop.",
     "group_slug": "cowboy-bebop",
     "quiz_type": "true_false",
     "difficulty": "hard",
@@ -4565,30 +4386,30 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
       },
       {
-        "question": "Spike Spiegel was voted best male character at the 1999 Anime Grand Prix.",
+        "question": "The Real Folk Blues, the first ending theme, is one of the few songs in the series sung in Japanese.",
         "correct": true,
-        "kind": "character",
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "cowboy-bebop-grand-prix-1999-012"
+          "cowboy-bebop-ending-real-folk-blues-010"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+        "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       },
       {
-        "question": "Megumi Hayashibara, who voices Spike, won best voice actor at the 1999 Anime Grand Prix.",
+        "question": "The opening theme, Tank!, is a slow ballad with lead vocals.",
         "correct": false,
-        "kind": "character",
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "cowboy-bebop-grand-prix-1999-012"
+          "cowboy-bebop-opening-tank-009"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+        "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       },
       {
         "question": "The Japanese title is a katakana version of Cowboy Bebop.",
@@ -4653,6 +4474,11 @@
         "id": "S2",
         "title": "Wikipedia: Cowboy Bebop",
         "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+      },
+      {
+        "id": "S3",
+        "title": "Wikipedia: Music of Cowboy Bebop",
+        "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       }
     ]
   },
@@ -4928,21 +4754,21 @@
         "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
       },
       {
-        "question": "Which prize did the manga win in August 2021?",
+        "question": "Aka Akasaka wrote the story of the Oshi no Ko manga. Who drew it?",
         "options": [
-          "The Next Manga Award, print category",
-          "The Eisner Award",
-          "The Harvey Award",
-          "The Kodansha Manga Award"
+          "Tatsuya Endo",
+          "Mengo Yokoyari",
+          "Koyoharu Gotouge",
+          "Gege Akutami"
         ],
-        "correct": 0,
+        "correct": 1,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "oshi-no-ko-next-manga-award-006"
+          "oshi-no-ko-manga-creators-002"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
       },
@@ -5270,15 +5096,15 @@
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
       },
       {
-        "question": "Season 1 of the anime aired in October 2024.",
+        "question": "Season 1 of the anime opens with Request by Krage.",
         "correct": false,
-        "kind": "episode",
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "solo-leveling-season-one-span-011"
+          "solo-leveling-themes-season-one-015"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
       },
@@ -5309,15 +5135,15 @@
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
       },
       {
-        "question": "The Solo Leveling webtoon comes to a close after chapter 179.",
+        "question": "The second season of the webtoon ran from August 2020 until December 2021.",
         "correct": true,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "solo-leveling-webtoon-chapters-007"
+          "solo-leveling-webtoon-seasons-008"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
       },
@@ -5434,23 +5260,23 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
       },
       {
-        "question": "Susumu Mitsunaka directed the early seasons of which series?",
+        "question": "MAPPA produced the television anime of which series?",
         "options": [
-          "Spy x Family",
-          "Blue Lock",
-          "Haikyu!!",
-          "Naruto"
+          "Chainsaw Man",
+          "Dandadan",
+          "Solo Leveling",
+          "Death Note"
         ],
-        "correct": 2,
+        "correct": 0,
         "kind": "production",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "haikyu-anime-staff-009"
+          "chainsaw-man-anime-studio-008"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+        "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
       },
       {
         "question": "Haruo Sotozaki directed the TV anime of which series at Ufotable?",
@@ -5472,23 +5298,23 @@
         "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
       },
       {
-        "question": "Which series did Bones animate for seven seasons before Bones Film made the last one?",
+        "question": "Wit Studio and CloverWorks share the animation of which series?",
         "options": [
-          "Fullmetal Alchemist",
-          "Haikyu!!",
-          "Hunter x Hunter",
-          "My Hero Academia"
+          "Oshi no Ko",
+          "Blue Lock",
+          "Dandadan",
+          "Spy x Family"
         ],
         "correct": 3,
         "kind": "production",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "my-hero-academia-animation-studio-020"
+          "spy-x-family-anime-studios-005"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+        "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
       },
       {
         "question": "Noriyuki Abe directed the original anime of which series at Studio Pierrot?",
@@ -5532,24 +5358,24 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
       },
       {
-        "id": "S5",
-        "title": "Wikipedia: List of Haikyu!! episodes",
-        "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
-      },
-      {
         "id": "S6",
         "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba (TV series)",
         "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
       },
       {
-        "id": "S7",
-        "title": "Wikipedia: My Hero Academia (TV series)",
-        "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
-      },
-      {
         "id": "S8",
         "title": "Wikipedia: Bleach (TV series)",
         "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+      },
+      {
+        "id": "S9",
+        "title": "Wikipedia: Chainsaw Man (TV series)",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+      },
+      {
+        "id": "S10",
+        "title": "Wikipedia: Spy × Family (TV series)",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
       }
     ]
   },
@@ -5576,7 +5402,7 @@
         "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
       },
       {
-        "question": "The Bleach manga won the shonen prize at the 50th Shogakukan Manga Award in 2010.",
+        "question": "Tite Kubo wrote the Bleach manga, but a different artist drew it.",
         "correct": false,
         "kind": "manga",
         "spoiler": {
@@ -5584,7 +5410,7 @@
           "scope": "both"
         },
         "fact_ids": [
-          "bleach-shogakukan-award-006"
+          "bleach-manga-creator-002"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
       },
@@ -5880,15 +5706,15 @@
         "source_url": "https://en.wikipedia.org/wiki/Death_Note"
       },
       {
-        "question": "Studio Pierrot made the Death Note anime.",
+        "question": "Another Note, a prose spin-off by Nisio Isin, came out in 2016.",
         "correct": false,
-        "kind": "production",
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "death-note-anime-staff-005"
+          "death-note-another-note-018"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Death_Note"
       },
@@ -5997,7 +5823,7 @@
   {
     "site": "anime",
     "title": "Odd One Out: Episodes, Networks and Studios",
-    "description": "Eight puzzles on first-season lengths, TV networks, studios and release status.",
+    "description": "Eight puzzles on first-season lengths, premiere years, TV networks, studios, sales and release status.",
     "group_slug": "anime-mix",
     "quiz_type": "intruder",
     "difficulty": "medium",
@@ -6034,40 +5860,40 @@
         "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
       },
       {
-        "question": "Three of these anime have a first season of 26 episodes. Which one does not?",
+        "question": "Three of these anime premiered in 2022. Which one did not?",
         "options": [
           {
-            "label": "Frieren"
+            "label": "Oshi no Ko"
           },
           {
-            "label": "Neon Genesis Evangelion"
+            "label": "Spy x Family"
           },
           {
-            "label": "Demon Slayer"
+            "label": "Chainsaw Man"
           },
           {
-            "label": "Cowboy Bebop"
+            "label": "Blue Lock"
           }
         ],
         "correct": 0,
         "kind": "odd_one_out",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "frieren-anime-season-one-008",
-          "demon-slayer-season-1-010",
-          "evangelion-broadcast-run-003",
-          "cowboy-bebop-episode-count-004"
+          "oshi-no-ko-anime-season-one-008",
+          "spy-x-family-anime-run-007",
+          "chainsaw-man-anime-run-010",
+          "blue-lock-anime-season-one-008"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+        "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
       },
       {
         "question": "Three of these anime had a first season of fewer than 15 episodes. Which one did not?",
         "options": [
           {
-            "label": "Solo Leveling"
+            "label": "Dandadan"
           },
           {
             "label": "Death Note"
@@ -6083,12 +5909,12 @@
         "kind": "odd_one_out",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
           "death-note-anime-run-006",
           "oshi-no-ko-anime-season-one-008",
-          "solo-leveling-season-one-span-011",
+          "dandadan-anime-season-one-009",
           "tower-of-god-anime-season-one-008"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Death_Note"
@@ -6124,34 +5950,34 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
       },
       {
-        "question": "Which of these four manga is still below 100 million copies in circulation?",
+        "question": "Three of these manga have passed 20 million copies in circulation. Which one has not?",
         "options": [
           {
-            "label": "Bleach"
+            "label": "Oshi no Ko"
           },
           {
-            "label": "Hunter x Hunter"
+            "label": "Death Note"
           },
           {
-            "label": "Jujutsu Kaisen"
+            "label": "Spy x Family"
           },
           {
-            "label": "Chainsaw Man"
+            "label": "Kagurabachi"
           }
         ],
         "correct": 3,
         "kind": "odd_one_out",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "chainsaw-man-copies-006",
-          "bleach-copies-circulation-005",
-          "jujutsu-kaisen-copies-in-circulation-023",
-          "hunter-x-hunter-copies-in-circulation-005"
+          "oshi-no-ko-copies-circulation-005",
+          "death-note-copies-in-print-012",
+          "spy-x-family-copies-in-print-012",
+          "kagurabachi-circulation-005"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+        "source_url": "https://en.wikipedia.org/wiki/Death_Note"
       },
       {
         "question": "Three of these anime aired on TV Tokyo. Which one did not?",
@@ -6184,32 +6010,32 @@
         "source_url": "https://en.wikipedia.org/wiki/Death_Note"
       },
       {
-        "question": "Three of these anime aired on Fuji Television. Which one did not?",
+        "question": "Three of these anime began airing in the 1990s. Which one did not?",
         "options": [
           {
-            "label": "Hunter x Hunter"
-          },
-          {
-            "label": "One Piece"
-          },
-          {
-            "label": "Dragon Ball"
+            "label": "Cowboy Bebop"
           },
           {
             "label": "Neon Genesis Evangelion"
+          },
+          {
+            "label": "Sailor Moon"
+          },
+          {
+            "label": "Bleach"
           }
         ],
         "correct": 3,
         "kind": "odd_one_out",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
+          "cowboy-bebop-tv-tokyo-run-005",
           "evangelion-broadcast-run-003",
-          "dragon-ball-dragon-ball-tv-run-016",
-          "one-piece-anime-studio-005",
-          "hunter-x-hunter-first-anime-1999-007"
+          "sailor-moon-anime-run-008",
+          "bleach-anime-production-007"
         ],
         "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
       },
@@ -6226,20 +6052,20 @@
             "label": "Blue Lock"
           },
           {
-            "label": "Death Note"
+            "label": "Hunter x Hunter (2011)"
           }
         ],
         "correct": 2,
         "kind": "odd_one_out",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
           "blue-lock-anime-studio-director-007",
-          "death-note-anime-staff-005",
           "one-punch-man-anime-season-one-007",
-          "frieren-anime-season-one-008"
+          "frieren-anime-season-one-008",
+          "hunter-x-hunter-second-anime-2011-008"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
       }
@@ -6249,11 +6075,6 @@
         "id": "S1",
         "title": "Wikipedia: Tower of God season 1",
         "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
-      },
-      {
-        "id": "S2",
-        "title": "Wikipedia: Frieren (TV series)",
-        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
       },
       {
         "id": "S3",
@@ -6266,11 +6087,6 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
       },
       {
-        "id": "S5",
-        "title": "Wikipedia: Chainsaw Man",
-        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
-      },
-      {
         "id": "S6",
         "title": "Wikipedia: List of Neon Genesis Evangelion episodes",
         "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
@@ -6279,6 +6095,11 @@
         "id": "S7",
         "title": "Wikipedia: Blue Lock",
         "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+      },
+      {
+        "id": "S8",
+        "title": "Wikipedia: List of Oshi no Ko episodes",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
       }
     ]
   },
@@ -6370,20 +6191,20 @@
         "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
       },
       {
-        "question": "More than 36 million copies of the manga were in circulation by June 2026.",
+        "question": "The Japanese title of Chainsaw Man is read Chensō Man.",
         "correct": true,
-        "kind": "manga",
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "chainsaw-man-copies-006"
+          "chainsaw-man-japanese-title-001"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+        "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
       },
       {
-        "question": "The first part of the manga ran in Shonen Jump+.",
+        "question": "Tatsuki Fujimoto wrote the Chainsaw Man manga, but another artist drew it.",
         "correct": false,
         "kind": "manga",
         "spoiler": {
@@ -6391,7 +6212,7 @@
           "scope": "both"
         },
         "fact_ids": [
-          "chainsaw-man-magazines-003"
+          "chainsaw-man-manga-creator-002"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
       }
@@ -6495,21 +6316,21 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
       },
       {
-        "question": "About how many copies of the manga were in circulation by March 2025?",
+        "question": "Besides Dandadan, which spelling do English editions also use for the title?",
         "options": [
-          "More than forty million",
-          "More than a hundred million",
-          "More than ten million",
-          "About one million"
+          "Dandy Dan",
+          "Dan Dan Da",
+          "Dan Da Dan",
+          "Dan Dandan"
         ],
         "correct": 2,
-        "kind": "manga",
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "dandadan-copies-circulation-005"
+          "dandadan-native-title-001"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Dandadan"
       },
@@ -6797,8 +6618,8 @@
         "question": "Who is this character?",
         "clues": [
           "A bounty hunter in 2071",
-          "Voted best male character at the 1999 Anime Grand Prix",
-          "Lives aboard a ship called the Bebop"
+          "Lives aboard a ship called the Bebop",
+          "A main character in an anime scored by Yoko Kanno and the band Seatbelts"
         ],
         "options": [
           "Spike Spiegel",
@@ -6810,11 +6631,12 @@
         "kind": "character",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
           "cowboy-bebop-setting-premise-007",
-          "cowboy-bebop-grand-prix-1999-012"
+          "cowboy-bebop-composer-seatbelts-008",
+          "cowboy-bebop-spike-spiegel-name-016"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
       },
@@ -7013,8 +6835,8 @@
   },
   {
     "site": "anime",
-    "title": "Episode 1180 and Still Sailing",
-    "description": "Eight questions on the volume count, the episode count, the endings and the records of One Piece.",
+    "title": "Volume 115 and Still Sailing",
+    "description": "Eight questions on the volume count, the music, the records and the planned remake of One Piece.",
     "group_slug": "one-piece",
     "quiz_type": "multiple_choice",
     "difficulty": "easy",
@@ -7040,42 +6862,42 @@
         "source_url": "https://en.wikipedia.org/wiki/One_Piece"
       },
       {
-        "question": "By late September 2026, how many episodes had the One Piece anime reached?",
+        "question": "How many episodes does Season 5, called TV Original, have on the home media release?",
         "options": [
-          "1180",
-          "1250",
-          "1100",
-          "1000"
+          "9",
+          "18",
+          "13",
+          "26"
         ],
-        "correct": 0,
+        "correct": 2,
         "kind": "episode",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "one-piece-anime-size-006"
+          "one-piece-tv-original-season-029"
         ],
         "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
       },
       {
-        "question": "Into how many seasons is the anime grouped on its Japanese home video release?",
+        "question": "Which opening made a comeback for episode 1000?",
         "options": [
-          "18",
-          "22",
-          "30",
-          "12"
+          "Hikari e",
+          "Believe",
+          "We Are!",
+          "Brand New World"
         ],
-        "correct": 1,
-        "kind": "episode",
+        "correct": 2,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "one-piece-anime-size-006"
+          "one-piece-we-are-episode-1000-021"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
+        "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
       },
       {
         "question": "Wit Studio's second One Piece anime adaptation is planned for which year?",
@@ -7477,7 +7299,7 @@
         "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
       },
       {
-        "question": "The manga won its first prizes only in 2024.",
+        "question": "Kanehito Yamada draws the Frieren manga, while Tsukasa Abe writes it.",
         "correct": false,
         "kind": "manga",
         "spoiler": {
@@ -7485,7 +7307,7 @@
           "scope": "both"
         },
         "fact_ids": [
-          "frieren-manga-awards-006"
+          "frieren-manga-creators-002"
         ],
         "source_url": "https://en.wikipedia.org/wiki/Frieren"
       }
@@ -7516,7 +7338,7 @@
         "question": "Which series is this?",
         "clues": [
           "Its second anime opened with Hero's Come Back!!",
-          "Its manga closed with 700 chapters in 72 volumes",
+          "Its manga was serialized from 1999 until 2014, about fifteen years",
           "Hayato Date directed both of its TV series at Studio Pierrot"
         ],
         "options": [
@@ -7533,8 +7355,9 @@
         },
         "fact_ids": [
           "naruto-first-shippuden-opening-027",
-          "naruto-manga-size-005",
-          "naruto-tv-naruto-006"
+          "naruto-manga-run-004",
+          "naruto-tv-naruto-006",
+          "naruto-tv-shippuden-007"
         ],
         "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
       },
@@ -7569,7 +7392,7 @@
         "clues": [
           "Its author named Jean as his favourite character",
           "Its anime opened on 7 April 2013 with 25 episodes",
-          "Wit Studio animated three of its four seasons"
+          "Tetsuro Araki directed its first three seasons"
         ],
         "options": [
           "Attack on Titan",
@@ -7586,14 +7409,14 @@
         "fact_ids": [
           "attack-on-titan-creator-favourite-028",
           "attack-on-titan-anime-premiere-016",
-          "attack-on-titan-animation-studios-018"
+          "attack-on-titan-series-directors-019"
         ],
         "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
       },
       {
         "question": "Which series is this?",
         "clues": [
-          "Its manga fills 23 volumes and 205 chapters",
+          "Its manga fills 23 volumes, released between June 2016 and December 2020",
           "Yuki Kajiura and Go Shiina share the music of its anime",
           "Its first opening won best theme song at the 2019 Newtype Anime Awards"
         ],
@@ -7611,7 +7434,6 @@
         },
         "fact_ids": [
           "demon-slayer-volumes-005",
-          "demon-slayer-chapters-006",
           "demon-slayer-composers-017",
           "demon-slayer-gurenge-award-018"
         ],
@@ -7647,7 +7469,7 @@
         "question": "Which series is this?",
         "clues": [
           "Roughly four in five people in its world have a Quirk",
-          "Bones Film made its last anime season",
+          "Four animated films have been released, starting with Two Heroes",
           "The spin-off Vigilantes ran from 2016 to 2022"
         ],
         "options": [
@@ -7664,7 +7486,7 @@
         },
         "fact_ids": [
           "my-hero-academia-quirk-world-026",
-          "my-hero-academia-animation-studio-020",
+          "my-hero-academia-anime-films-027",
           "my-hero-academia-vigilantes-spinoff-028"
         ],
         "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
@@ -7775,12 +7597,12 @@
     "category": "series_specific",
     "questions": [
       {
-        "question": "How many episodes does season 1 of the Demon Slayer anime run for?",
+        "question": "On what date did the Demon Slayer TV anime launch?",
         "options": [
-          "12",
-          "13",
-          "26",
-          "24"
+          "29 June 2019",
+          "6 April 2020",
+          "6 April 2019",
+          "5 October 2019"
         ],
         "correct": 2,
         "kind": "episode",
@@ -7789,9 +7611,9 @@
           "scope": "both"
         },
         "fact_ids": [
-          "demon-slayer-season-1-010"
+          "demon-slayer-tv-start-008"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+        "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
       },
       {
         "question": "The Mugen Train Arc occupies which range of episodes?",
@@ -7832,23 +7654,23 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
       },
       {
-        "question": "Which manga chapters does season 1 adapt?",
+        "question": "At which 2019 awards did Gurenge, the first opening, win the best theme song prize?",
         "options": [
-          "Chapters 1 to 26",
-          "Chapters 1 to 205",
-          "Chapters 1 to 100",
-          "Chapters 1 to 54"
+          "Crunchyroll Anime Awards",
+          "Newtype Anime Awards",
+          "Tokyo Anime Award Festival",
+          "Anime Grand Prix"
         ],
-        "correct": 3,
-        "kind": "arc",
+        "correct": 1,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "demon-slayer-season-1-010"
+          "demon-slayer-gurenge-award-018"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+        "source_url": "https://en.wikipedia.org/wiki/Gurenge"
       },
       {
         "question": "Before the TV broadcast, the first five episodes ran in Japanese cinemas billed as what?",
@@ -7908,23 +7730,23 @@
         "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
       },
       {
-        "question": "How many manga chapters does the whole Demon Slayer story run to?",
+        "question": "Who shares the music of the Demon Slayer TV anime with Go Shiina?",
         "options": [
-          "205",
-          "160",
-          "120",
-          "250"
+          "Yoko Kanno",
+          "Evan Call",
+          "Yuki Kajiura",
+          "Hiroyuki Sawano"
         ],
-        "correct": 0,
-        "kind": "manga",
+        "correct": 2,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "demon-slayer-chapters-006"
+          "demon-slayer-composers-017"
         ],
-        "source_url": "https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83"
+        "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
       }
     ],
     "sources": [
@@ -7944,9 +7766,9 @@
         "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
       },
       {
-        "id": "S4",
-        "title": "Wikipedia (ja): 鬼滅の刃",
-        "url": "https://ja.wikipedia.org/wiki/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83"
+        "id": "S5",
+        "title": "Wikipedia: Gurenge",
+        "url": "https://en.wikipedia.org/wiki/Gurenge"
       }
     ]
   },
@@ -8132,8 +7954,8 @@
   },
   {
     "site": "anime",
-    "title": "Quirks, Seasons and a Bonus Special",
-    "description": "Eight questions on the production, the awards and the run of My Hero Academia.",
+    "title": "Directors, Awards and Theme Songs",
+    "description": "Eight questions on the staff, the awards, the songs and the run of My Hero Academia.",
     "group_slug": "my-hero-academia",
     "quiz_type": "multiple_choice",
     "difficulty": "medium",
@@ -8216,23 +8038,23 @@
         "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
       },
       {
-        "question": "Which magazine ran the manga from start to finish?",
+        "question": "Which singer performed Bokurano, an opening of season 6 of the anime?",
         "options": [
-          "Shonen Jump+",
-          "Jump Giga",
-          "Weekly Shonen Jump",
-          "Monthly Afternoon"
+          "Yoasobi",
+          "Vaundy",
+          "Creepy Nuts",
+          "Eve"
         ],
-        "correct": 2,
-        "kind": "manga",
+        "correct": 3,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "my-hero-academia-magazine-publisher-016"
+          "my-hero-academia-opening-themes-011"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+        "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
       },
       {
         "question": "How many animated films have been released?",
@@ -8254,40 +8076,40 @@
         "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
       },
       {
-        "question": "Which studio produced the final season of the anime?",
+        "question": "Which band performed Shout Baby, an ending of season 4?",
         "options": [
-          "Studio Pierrot",
-          "A-1 Pictures",
-          "Bones Film",
-          "Bones"
+          "Vaundy",
+          "Ryokuōshoku Shakai",
+          "Spitz",
+          "Bump of Chicken"
         ],
-        "correct": 2,
-        "kind": "production",
+        "correct": 1,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "my-hero-academia-animation-studio-020"
+          "my-hero-academia-ending-themes-012"
         ],
         "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
       },
       {
-        "question": "In which month did the anime begin airing in 2016?",
+        "question": "Which band performed Polaris, an opening of season 4?",
         "options": [
-          "October",
-          "April",
-          "January",
-          "July"
+          "Kana-Boon",
+          "Uverworld",
+          "Blue Encount",
+          "Man with a Mission"
         ],
-        "correct": 1,
-        "kind": "episode",
+        "correct": 2,
+        "kind": "music",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "anime"
         },
         "fact_ids": [
-          "my-hero-academia-anime-run-018"
+          "my-hero-academia-opening-themes-011"
         ],
         "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
       }
@@ -8367,17 +8189,17 @@
         "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
       },
       {
-        "question": "The Spy x Family manga began in March 2019.",
+        "question": "The Chainsaw Man manga ended its serialization on 25 March 2026.",
         "correct": true,
         "kind": "manga",
         "spoiler": {
           "arc": 0,
-          "scope": "both"
+          "scope": "manga"
         },
         "fact_ids": [
-          "spy-x-family-magazine-run-003"
+          "chainsaw-man-manga-run-004"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
       },
       {
         "question": "The Attack on Titan manga ended in April 2013.",
@@ -8441,11 +8263,6 @@
         "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
       },
       {
-        "id": "S5",
-        "title": "Wikipedia: Spy × Family",
-        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
-      },
-      {
         "id": "S6",
         "title": "Wikipedia: Attack on Titan",
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
@@ -8459,6 +8276,11 @@
         "id": "S8",
         "title": "Wikipedia: Fullmetal Alchemist: Brotherhood",
         "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
+      },
+      {
+        "id": "S9",
+        "title": "Wikipedia: Chainsaw Man",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
       }
     ]
   },
@@ -8960,23 +8782,23 @@
         "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
       },
       {
-        "question": "How often does Shueisha publish new chapters of the manga on Shonen Jump+?",
+        "question": "Which writing system is used for the Japanese title of Spy x Family?",
         "options": [
-          "Once a month",
-          "Every week",
-          "Every other week",
-          "Every day"
+          "Hiragana",
+          "Kanji",
+          "Hangul",
+          "Katakana"
         ],
-        "correct": 2,
-        "kind": "manga",
+        "correct": 3,
+        "kind": "lore",
         "spoiler": {
           "arc": 0,
           "scope": "both"
         },
         "fact_ids": [
-          "spy-x-family-magazine-run-003"
+          "spy-x-family-japanese-title-001"
         ],
-        "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+        "source_url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY"
       }
     ],
     "sources": [
@@ -8989,6 +8811,11 @@
         "id": "S2",
         "title": "Wikipedia: Spy × Family",
         "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+      },
+      {
+        "id": "S3",
+        "title": "Wikipedia: SPY×FAMILY",
+        "url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY"
       }
     ]
   }
