@@ -30,44 +30,42 @@
       "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
     },
     {
-      "question": "In which magazine did the original Dragon Ball manga run?",
+      "question": "On which television network did the first Dragon Ball anime air?",
       "options": [
-        "Weekly Shonen Magazine",
-        "V Jump",
-        "Monthly Shonen Sunday",
-        "Weekly Shonen Jump"
+        "TV Tokyo",
+        "NHK",
+        "Fuji Television",
+        "TV Asahi"
       ],
-      "correct": 3,
-      "fun_fact": "Shueisha published it and collected it in book form.",
-      "kind": "production",
+      "correct": 2,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "anime"
       },
       "fact_ids": [
-        "dragon-ball-magazine-publisher-014"
+        "dragon-ball-dragon-ball-tv-run-016"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
     },
     {
-      "question": "The original Dragon Ball manga was bound in how many volumes?",
+      "question": "In which year did Dragon Ball Z end its run?",
       "options": [
-        "27",
-        "42",
-        "52",
-        "72"
+        "1996",
+        "1989",
+        "1993",
+        "1999"
       ],
-      "correct": 1,
-      "fun_fact": "It reached 519 chapters.",
-      "kind": "production",
+      "correct": 0,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "anime"
       },
       "fact_ids": [
-        "dragon-ball-manga-volumes-chapters-015"
+        "dragon-ball-z-tv-run-017"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z"
     },
     {
       "question": "Which studio produced the Dragon Ball anime television series?",
@@ -230,5 +228,5 @@
       "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only."
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts 016 and 017."
 }
