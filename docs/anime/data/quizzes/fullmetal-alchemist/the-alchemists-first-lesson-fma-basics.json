@@ -183,23 +183,23 @@
    "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
   },
   {
-   "question": "How many copies of the manga have sold worldwide?",
+   "question": "Which pair of networks broadcast the first TV anime?",
    "options": [
-    "Over 5 million",
-    "Over 90 million",
-    "Over 30 million",
-    "Over 150 million"
+    "NHK and TV Asahi",
+    "Fuji TV and NTV",
+    "MBS and TBS",
+    "TV Tokyo and Nippon TV"
    ],
-   "correct": 1,
-   "kind": "manga",
+   "correct": 2,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "fullmetal-alchemist-copies-sold-005"
+    "fullmetal-alchemist-anime-2003-run-007"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
   }
  ],
  "sources": [
@@ -219,5 +219,5 @@
    "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
   }
  ],
- "notes": "Starter: arc 0 facts only (001 to 008, 010, 011, 004 to 006). Creator, magazine, publisher, volumes, sales, award, studio and episode counts."
+ "notes": "Starter: arc 0 facts only (001 to 004, 006 to 008, 010, 011). Creator, magazine, publisher, volumes, studio, broadcast networks and episode counts. K1 rewrite: blocked question rewritten on verified fact 007."
 }
