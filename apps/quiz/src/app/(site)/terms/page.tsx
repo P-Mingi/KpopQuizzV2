@@ -12,7 +12,7 @@ export default function TermsPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Terms of Service</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
+      <p className="text-sm text-secondary mb-8">Last updated: October 24, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
         Welcome to KpopQuiz (kpopquiz.org). By using our platform, you agree to these terms.
@@ -27,7 +27,7 @@ export default function TermsPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">2. Your account</h2>
       <p className="text-sm text-secondary leading-relaxed">
         You can sign in using Google or Discord. You are responsible for your account activity. You must
-        be at least 13 years old to use KpopQuiz. If you are under 18, you confirm you have parental or
+        be at least 15 years old to use KpopQuiz. If you are under 18, you confirm you have parental or
         guardian consent.
       </p>
 

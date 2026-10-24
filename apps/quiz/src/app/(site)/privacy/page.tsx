@@ -13,7 +13,7 @@ export default function PrivacyPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: October 15, 2026</p>
+      <p className="text-sm text-secondary mb-8">Last updated: October 24, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
         KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
@@ -114,8 +114,8 @@ export default function PrivacyPage(): React.ReactElement {
 
       <h2 className="text-lg font-medium mt-8 mb-3">7. Children&apos;s privacy</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        KpopQuiz is not directed at children under 13. If you are under 13, please do not create an
-        account. If we learn that we have collected data from a child under 13, we will delete it promptly.
+        KpopQuiz is not directed at children under 15. If you are under 15, please do not create an
+        account. If we learn that we have collected data from a child under 15, we will delete it promptly.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">8. Your rights</h2>
