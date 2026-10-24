@@ -73,16 +73,17 @@ export async function kpopRows<T>(db: ScopeDb, table: BankTable, columns: string
 
 export interface BankGroup { id: number; slug: string; name: string }
 export interface BankQuiz { title: string; questions: Array<{ question?: string }> }
+export interface BankRow extends BankQuiz { scheduled_date: string | null; category: string; group_id: number | null; status: string }
 export interface OpenBankRow { id: string; title: string; group_id: number | null; category: string; scheduled_date: string | null; status: string }
 
 /** The kpop groups (slug to id for a lot, names for the topic check). */
 export const kpopGroups = (db: ScopeDb): Promise<BankGroup[]> => kpopRows<BankGroup>(db, 'groups', 'id, slug, name');
 
 /** What a new lot is checked against: the kpop groups, every kpop bank row and every published kpop quiz. */
-export async function kpopLintContext(db: ScopeDb): Promise<{ groups: BankGroup[]; bank: BankQuiz[]; quizzes: BankQuiz[] }> {
+export async function kpopLintContext(db: ScopeDb): Promise<{ groups: BankGroup[]; bank: BankRow[]; quizzes: BankQuiz[] }> {
   const [groups, bank, quizzes] = await Promise.all([
     kpopGroups(db),
-    kpopRows<BankQuiz>(db, 'quiz_bank', 'title, questions'),
+    kpopRows<BankRow>(db, 'quiz_bank', 'title, questions, scheduled_date, category, group_id, status'),
     kpopRows<BankQuiz>(db, 'quizzes', 'title, questions', (q) => q.eq('status', 'published')),
   ]);
   return { groups, bank, quizzes };
