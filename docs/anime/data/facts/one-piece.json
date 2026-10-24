@@ -163,6 +163,11 @@
         "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
         "ref": "1381099585",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.oricon.co.jp/news/2210264/full/",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
     "status": "draft",

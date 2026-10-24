@@ -180,8 +180,8 @@
       "group_slug": "fullmetal-alchemist"
     },
     "field": "awards",
-    "value": "Shogakukan Manga Award (shōnen), 2004",
-    "text": "In 2004 the manga won the 49th Shogakukan Manga Award in the shōnen category.",
+    "value": "49th Shogakukan Manga Award, January 2004",
+    "text": "In January 2004 the manga won the 49th Shogakukan Manga Award.",
     "category": "achievements",
     "load_bearing": true,
     "spoiler": {
@@ -194,10 +194,16 @@
         "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
         "ref": "1379208505",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.hagaren.jp/box/history/index.html",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "It received the 49th Shogakukan Manga Award for the shōnen category in 2004"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "2004年 1月 原作「鋼の錬金術師」第49回小学館漫画賞受賞"
   },
   {
     "id": "fullmetal-alchemist-anime-2003-run-007",

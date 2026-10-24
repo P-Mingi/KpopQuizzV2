@@ -143,8 +143,8 @@
       "group_slug": "blue-lock"
     },
     "field": "copies",
-    "value": "over 65 million worldwide",
-    "text": "More than sixty-five million copies of the manga were in circulation worldwide.",
+    "value": "over 60 million copies as of June 2026",
+    "text": "As of June 2026 the manga had passed sixty million copies in circulation worldwide.",
     "category": "achievements",
     "load_bearing": true,
     "spoiler": {
@@ -157,10 +157,15 @@
         "url": "https://en.wikipedia.org/wiki/Blue_Lock",
         "ref": "1380484703",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/press-release/2026-06-08/blue-lock-season-3-officially-titled-blue-lock-neo-egoist-league/.238286",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
     "status": "draft",
-    "excerpt": "over 65 million copies in circulation worldwide"
+    "excerpt": "surpassed 60 million copies in circulation worldwide as of June 2026"
   },
   {
     "id": "blue-lock-kodansha-award-006",
@@ -256,9 +261,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes",
         "ref": "1374283835",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q117353182",
+        "ref": "Q117353182",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
     "excerpt": "ran for 24 episodes from October 9, 2022, to March 26, 2023"
   },
   {

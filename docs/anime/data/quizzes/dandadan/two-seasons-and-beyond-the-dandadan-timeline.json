@@ -11,14 +11,14 @@
  "title_gives_nothing_away": true,
  "questions": [
   {
-   "question": "On which date did season two end?",
+   "question": "How many episodes did season two run for?",
    "options": [
-    "December 20, 2024",
-    "June 27, 2025",
-    "September 19, 2025",
-    "December 26, 2025"
+    "12",
+    "10",
+    "24",
+    "26"
    ],
-   "correct": 2,
+   "correct": 0,
    "kind": "episode",
    "spoiler": {
     "arc": 2,
@@ -32,9 +32,9 @@
   {
    "question": "On which date did season two begin?",
    "options": [
-    "October 4, 2024",
+    "October 3, 2024",
     "January 11, 2025",
-    "July 4, 2025",
+    "July 3, 2025",
     "April 6, 2021"
    ],
    "correct": 2,

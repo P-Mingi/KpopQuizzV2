@@ -1238,12 +1238,12 @@
         "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
       },
       {
-        "question": "More than how many copies of the manga were in circulation worldwide?",
+        "question": "As of June 2026, more than how many copies of the manga were in circulation worldwide?",
         "options": [
           "Two hundred million",
           "Twenty million",
           "Five million",
-          "Sixty-five million"
+          "Sixty million"
         ],
         "correct": 3,
         "kind": "manga",
@@ -2780,7 +2780,7 @@
         "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
       },
       {
-        "question": "In 2017 the manga won both the Sugoi Japan Award and a Manga Barcelona prize.",
+        "question": "The manga won the Sugoi Japan Award in 2016 and a Manga Barcelona prize in 2017.",
         "correct": true,
         "kind": "manga",
         "spoiler": {
@@ -6554,7 +6554,7 @@
       {
         "question": "On which date did season one of the Dandadan anime begin?",
         "options": [
-          "4 October 2024",
+          "3 October 2024",
           "7 January 2024",
           "20 December 2024",
           "6 April 2021"
@@ -8315,7 +8315,7 @@
     "category": "true_false",
     "questions": [
       {
-        "question": "Season one of the Dandadan anime began airing on 4 October 2024.",
+        "question": "Season one of the Dandadan anime began airing on 3 October 2024.",
         "correct": true,
         "kind": "episode",
         "spoiler": {

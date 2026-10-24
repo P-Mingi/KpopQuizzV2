@@ -273,8 +273,8 @@
       "group_slug": "dandadan"
     },
     "field": "anime_s1",
-    "value": "12 episodes, 4 October to 20 December 2024",
-    "text": "Season one ran twelve episodes from October 4 to December 20, 2024.",
+    "value": "12 episodes, from 3 October 2024",
+    "text": "Season one ran twelve episodes and began on October 3, 2024, in a Thursday slot just after midnight.",
     "category": "history",
     "load_bearing": true,
     "spoiler": {
@@ -287,10 +287,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
         "ref": "1378501554",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/news/182/",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "originally released from October 4 to December 20, 2024"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "10月3日から毎週木曜深夜0：26～"
   },
   {
     "id": "dandadan-anime-season-two-010",
@@ -300,8 +306,8 @@
       "group_slug": "dandadan"
     },
     "field": "anime_s2",
-    "value": "12 episodes, 4 July to 19 September 2025",
-    "text": "Season two ran twelve episodes from July 4 to September 19, 2025.",
+    "value": "12 episodes, from 3 July 2025",
+    "text": "Season two ran twelve episodes and began on July 3, 2025, again in a Thursday slot just after midnight.",
     "category": "history",
     "load_bearing": true,
     "spoiler": {
@@ -314,10 +320,22 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
         "ref": "1378501554",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/news/1527/",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131472106",
+        "ref": "Q131472106",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "originally released from July 4 to September 19, 2025"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "2025年7月3日から毎週木曜深夜0時26分"
   },
   {
     "id": "dandadan-season-two-directors-011",

@@ -552,9 +552,16 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
         "ref": "1379816935",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22126305",
+        "ref": "Q22126305",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
     "excerpt": "The series premiered on April 7, 2013"
   },
   {
@@ -581,7 +588,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "94 + 3 OADs"
   },
   {

@@ -143,8 +143,8 @@
       "group_slug": "frieren"
     },
     "field": "copies",
-    "value": "over 35 million copies by January 2026",
-    "text": "By January 2026 the manga had passed 35 million copies in circulation.",
+    "value": "over 30 million copies as of January 2026",
+    "text": "As of January 2026 the manga had passed thirty million copies in circulation worldwide.",
     "category": "achievements",
     "load_bearing": true,
     "spoiler": {
@@ -157,10 +157,15 @@
         "url": "https://en.wikipedia.org/wiki/Frieren",
         "ref": "1381100921",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-01-19/frieren-beyond-journey-end-anime-original-mini-anime-continues/.233250",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
     "status": "draft",
-    "excerpt": "over 35 million copies in circulation"
+    "excerpt": "The manga has exceeded 30 million copies in circulation worldwide."
   },
   {
     "id": "frieren-manga-awards-006",
