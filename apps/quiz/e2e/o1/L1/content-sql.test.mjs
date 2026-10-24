@@ -139,8 +139,9 @@ test('the real data folder generates in both modes and the manifest matches the 
     assert.match(manifest.input_sha256, /^[0-9a-f]{64}$/);
     for (const f of manifest.files) assert.equal(createHash('sha256').update(readFileSync(join(out, f.name))).digest('hex'), f.sha256);
     if (drafts) {
-      assert.equal(r.counts.quizzes, 150);
-      assert.equal(r.counts.daily, 100);
+      // D-109: 12 quizzes and 1 daily row withdrawn (docs/anime/data/withdrawn), owner rule of 2026-10-24.
+      assert.equal(r.counts.quizzes, 138);
+      assert.equal(r.counts.daily, 99);
       assert.match(readFileSync(join(out, 'L07-K2-catalogue.sql'), 'utf8'), /^-- DRAFTS/);
     } else {
       assert.doesNotMatch(readFileSync(join(out, 'L04-K1-series.sql'), 'utf8'), /^-- DRAFTS/);
