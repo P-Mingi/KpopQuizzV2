@@ -20,6 +20,15 @@ export default function PrivacyPage(): React.ReactElement {
         use it, and your rights.
       </p>
 
+      <h2 className="text-lg font-medium mt-8 mb-3">Who is responsible</h2>
+      <p className="text-sm text-secondary leading-relaxed">
+        The data controller (responsable du traitement) is Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves,
+        13100 Aix-en-Provence, France, SIREN 109 686 634. Contact:{' '}
+        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">contact@kpopquiz.org</a>.
+        See also the{' '}
+        <Link href="/legal" className="text-primary underline hover:no-underline">legal notice</Link>.
+      </p>
+
       <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
       <p className="text-sm text-secondary leading-relaxed">
         When you sign in with Google or Discord, we receive:
