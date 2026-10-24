@@ -128,7 +128,7 @@ are removed and nothing is reserved for them (the anime and kpop welcome cards w
 | `hub.h1` | nav: home; actions: the slots of the twin `ux-nav-actions.tsx` the hub keeps (account, passport, settings, signOut, signIn); tab: home, you (TWINS row H-0: the twin shell, N removes the quiz items) | |
 | `hub.h1` | home: h1, lede, sitesTitle, cardOpen, sharesTitle | |
 | `hub.h1` | shares: one key per line of "What your passport shares" | S (H1 test: the home block equals the /privacy block word for word) |
-| `hub.h1` | privacy: h1, updated, kpopParagraph | S (G16 texts) |
+| `hub.h1` | privacy: metaTitle, metaDescription, draftBanner, h1, updated, lede, controller, who.*, account.*, shared.*, keeps.*, audience.*, cookies.*, services.*, delete.*, retention.*, rights.*, children.*, law.*, contact.*, notice.* (final text, owner 2026-10-24; D-108) | S |
 | `hub.h1` | passport: title, since, level, levelPrivate, change, memberships, membershipsHint, moreSites, cardShownOnly, open, otherSites, otherSitesVisit | |
 | `hub.h1` | tabs: overview, quizzes, history, badges (the twin `passport.tsx` tabs) | |
 | `hub.h1` | filter: site, type, all | |
