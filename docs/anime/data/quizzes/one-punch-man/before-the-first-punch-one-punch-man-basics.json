@@ -87,40 +87,43 @@
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
   },
   {
-   "question": "How many collected volumes had the remake reached by early July 2026?",
+   "question": "Which of these characters is a main character of the series?",
    "options": [
-    "27",
-    "37",
-    "47",
-    "55"
+    "Bang",
+    "Genos",
+    "King",
+    "Atomic Samurai"
    ],
    "correct": 1,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-volume-count-005"
+    "one-punch-man-genos-name-017",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-king-name-020",
+    "one-punch-man-atomic-samurai-name-022"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
   {
-   "question": "By July 2026 the redrawn manga had passed how many copies in circulation?",
+   "question": "How is the Japanese title ワンパンマン read?",
    "options": [
-    "3.8 million",
-    "13 million",
-    "380 million",
-    "38 million"
+    "Punchiman",
+    "Ichigekiman",
+    "Wanpanman",
+    "Hitopanman"
    ],
-   "correct": 3,
-   "kind": "manga",
+   "correct": 2,
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-copies-circulation-006"
+    "one-punch-man-native-title-001"
    ],
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
   },
@@ -218,5 +221,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   }
  ],
- "notes": "Starter: arc 0 facts only (001, 002, 003, 004, 005, 006, 007, 010, 014). Creators, webcomic start, publisher, volumes, circulation, studio, episode count, the Anpanman wordplay and the Kamen Rider joke."
+ "notes": "Starter: arc 0 facts only (001, 002, 003, 004, 007, 010, 014 and the cast facts 017, 020, 021, 022). Creators, webcomic start, publisher, studio, episode count, how the title is read, a main character, the Anpanman wordplay and the Kamen Rider joke. K1 rewrite: blocked questions rewritten on verified facts."
 }
