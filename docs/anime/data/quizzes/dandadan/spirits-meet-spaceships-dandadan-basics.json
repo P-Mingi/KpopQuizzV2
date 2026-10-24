@@ -87,42 +87,45 @@
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
   {
-   "question": "How many copies were in circulation by March 2025?",
+   "question": "How do English editions also write the title?",
    "options": [
-    "More than 500,000",
-    "More than 3 million",
-    "More than 10 million",
-    "More than 100 million"
+    "Dandan Da",
+    "Dan Dan Dan",
+    "Da Dan Dan",
+    "Dan Da Dan"
    ],
-   "correct": 2,
-   "kind": "manga",
+   "correct": 3,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-copies-circulation-005"
+    "dandadan-native-title-001"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
   {
-   "question": "Which award did the manga earn in 2026, at its 71st edition?",
+   "question": "Which of these characters is a main character of Dandadan?",
    "options": [
-    "Kodansha Manga Award",
-    "Shogakukan Manga Award",
-    "Tezuka Osamu Cultural Prize",
-    "Eisner Award"
+    "Seiko Ayase",
+    "Momo Ayase",
+    "Aira Shiratori",
+    "Jin Enjoji"
    ],
    "correct": 1,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-shogakukan-award-006"
+    "dandadan-momo-ayase-name-021",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-jin-enjoji-name-028"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
   {
    "question": "Which studio animated the show?",
@@ -218,5 +221,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   }
  ],
- "notes": "Starter: arc 0 facts only (002 to 009, 019, 020). Creator, platform, English publisher, volumes, circulation, award, studio, season one and the job of one grandmother (a level 0 character)."
+ "notes": "Starter: arc 0 facts only (001 to 004, 007 to 009, 019, 020, 021, 024, 025, 028). Creator, platform, English publisher, volumes, the English spelling of the title, studio, season one, the job of one grandmother and one main character (level 0 characters). K1 rewrite: blocked questions rewritten on verified facts 001 and the character name facts."
 }
