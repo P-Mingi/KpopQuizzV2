@@ -4,7 +4,7 @@
   "group_slug": "my-hero-academia",
   "title": "Plus Ultra Starter: My Hero Academia Basics",
   "slug": "plus-ultra-starter-my-hero-academia-basics",
-  "description": "Ten spoiler-free questions on the creator, the magazine, the studio and the world of Quirks.",
+  "description": "Ten spoiler-free questions on the creator, the manga's run, the anime, its songs and the world of Quirks.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -30,22 +30,22 @@
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "Which magazine ran the My Hero Academia manga from start to finish?",
+      "question": "How is My Hero Academia titled in Japan, written in Latin letters?",
       "options": [
-        "Weekly Shonen Magazine",
-        "Bessatsu Shonen Magazine",
-        "Weekly Shonen Jump",
-        "Monthly Shonen Sunday"
+        "Boku no Hīrō Akademia",
+        "Watashi no Hīrō Akademia",
+        "Boku no Hīrō Gakuen",
+        "Ore no Hīrō Daigaku"
       ],
-      "correct": 2,
-      "fun_fact": "Shueisha published it.",
-      "kind": "production",
+      "correct": 0,
+      "fun_fact": "In Japan the series is titled 僕のヒーローアカデミア.",
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "both"
       },
       "fact_ids": [
-        "my-hero-academia-magazine-publisher-016"
+        "my-hero-academia-japanese-title-013"
       ],
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
@@ -89,61 +89,62 @@
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "In which year did the My Hero Academia anime begin?",
+      "question": "Which company has a live-action My Hero Academia film in development?",
       "options": [
-        "2014",
-        "2018",
-        "2016",
-        "2020"
+        "Lionsgate",
+        "Blumhouse",
+        "A24",
+        "Legendary Entertainment"
       ],
-      "correct": 2,
-      "fun_fact": "It began on 3 April 2016.",
+      "correct": 3,
+      "fun_fact": "The film from Legendary Entertainment has been announced.",
       "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "my-hero-academia-anime-run-018"
+        "my-hero-academia-live-action-film-030"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "How many episodes does the My Hero Academia anime have over eight seasons, not counting a bonus special?",
+      "question": "Which band performed the season 6 opening Hitamuki?",
       "options": [
-        "91",
-        "130",
-        "170",
-        "213"
-      ],
-      "correct": 2,
-      "kind": "episode",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "my-hero-academia-episode-count-019"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
-    },
-    {
-      "question": "Which studio animated My Hero Academia for seven seasons?",
-      "options": [
-        "Bones",
-        "MAPPA",
-        "Wit Studio",
-        "Ufotable"
+        "Super Beaver",
+        "Blue Encount",
+        "Kana-Boon",
+        "Uverworld"
       ],
       "correct": 0,
-      "fun_fact": "Bones Film produced the last season.",
-      "kind": "production",
+      "fun_fact": "Hitamuki by Super Beaver is opening 10, used in season 6.",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "my-hero-academia-animation-studio-020"
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which band performed Ashiato, an ending of season 5?",
+      "options": [
+        "Omoinotake",
+        "the Peggies",
+        "Six Lounge",
+        "Zarame"
+      ],
+      "correct": 1,
+      "fun_fact": "Ashiato by the Peggies is ending 8, used in season 5.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
       ],
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
@@ -219,5 +220,5 @@
       "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only."
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts (011, 012, 013, 030)."
 }

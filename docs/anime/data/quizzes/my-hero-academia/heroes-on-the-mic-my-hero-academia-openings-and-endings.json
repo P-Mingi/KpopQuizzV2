@@ -4,7 +4,7 @@
   "group_slug": "my-hero-academia",
   "title": "Heroes on the Mic: My Hero Academia Openings and Endings",
   "slug": "heroes-on-the-mic-my-hero-academia-openings-and-endings",
-  "description": "Who directed it, who animated the last season and who sang the openings and endings across eight seasons.",
+  "description": "Who directed it and who sang the openings and endings across eight seasons.",
   "quiz_type": "multiple_choice",
   "difficulty": "medium",
   "language": "en",
@@ -30,21 +30,21 @@
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-      "question": "Which studio produced the last season, season 8?",
+      "question": "Who performed Long Hope Philia, an ending of season 3?",
       "options": [
-        "Bones Film",
-        "MAPPA",
-        "Wit Studio",
-        "Science SARU"
+        "Soshi Sakiyama",
+        "Kiro Akiyama",
+        "Masaki Suda",
+        "Sayuri"
       ],
-      "correct": 0,
-      "kind": "production",
+      "correct": 2,
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "my-hero-academia-animation-studio-020"
+        "my-hero-academia-ending-themes-012"
       ],
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
@@ -208,5 +208,5 @@
       "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     }
   ],
-  "notes": "All facts at arc 0, no character named."
+  "notes": "All facts at arc 0, no character named. K1 rewrite: blocked questions rewritten on verified facts (012)."
 }
