@@ -37,15 +37,15 @@
    "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
   },
   {
-   "question": "The manga took the 61st Shogakukan Manga Award in the shōnen category in 2016.",
+   "question": "The first two seasons each switched songs halfway through, so every season has two openings and two endings.",
    "correct": true,
-   "kind": "manga",
+   "kind": "music",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "haikyu-manga-award-006"
+    "haikyu-themes-seasons-one-two-013"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
   },
@@ -76,28 +76,28 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
   },
   {
-   "question": "Masako Satō directed the early seasons and Susumu Mitsunaka took over for the fourth.",
+   "question": "The manga reached television in autumn 2014 through Production I.G.",
    "correct": false,
    "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "haikyu-anime-staff-009"
+    "haikyu-anime-season-one-007"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
   },
   {
-   "question": "Yuki Hayashi and Asami Tachibana composed the music of the anime.",
+   "question": "The TV anime has seven opening songs and seven ending songs.",
    "correct": true,
    "kind": "music",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "haikyu-anime-staff-009"
+    "haikyu-anime-totals-008"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
   },
@@ -153,5 +153,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
   }
  ],
- "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a publisher, an episode count, a name, an edition or an event)."
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a publisher, an episode count, a name, an edition, a season or an event). K1 rewrite: blocked questions rewritten on verified facts (007, 008, 013)."
 }
