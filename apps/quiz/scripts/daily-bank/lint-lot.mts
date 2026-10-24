@@ -9,9 +9,12 @@
 //   no forbidden word, a unique title within 45 characters that is not "{group} quiz", a
 //   real group slug, the schedule (no gap, no duplicate date, no same group or category two
 //   days running, at most 3 quizzes of a group in 7 days), and duplicates against the 100+
-//   bank quizzes and every published quiz (normalized text).
+//   bank quizzes and every published quiz (normalized text). Kpop only: the groups, bank rows
+//   and published quizzes it reads are kpopquiz.org's (src/lib/daily-bank/kpop-scope.ts).
 
-import { fetchAll, loadLots, norm, readClient } from './lib.mts';
+import { kpopLintContext } from '../../src/lib/daily-bank/kpop-scope';
+
+import { loadLots, norm, readClient } from './lib.mts';
 
 import type { LotQuiz, McQuestion, TfQuestion } from './lib.mts';
 
@@ -88,12 +91,7 @@ async function main(): Promise<void> {
   if (files.length === 0) throw new Error('usage: lint-lot.mts <lot.json> [...]');
   const lot = loadLots(files).sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date));
 
-  const db = readClient();
-  const [groups, bank, quizzes] = await Promise.all([
-    fetchAll<{ id: number; slug: string; name: string }>((f, t) => db.from('groups').select('id, slug, name').range(f, t)),
-    fetchAll<{ title: string; questions: Array<{ question?: string }> }>((f, t) => db.from('quiz_bank').select('title, questions').range(f, t)),
-    fetchAll<{ title: string; questions: Array<{ question?: string }> }>((f, t) => db.from('quizzes').select('title, questions').eq('status', 'published').order('id').range(f, t)),
-  ]);
+  const { groups, bank, quizzes } = await kpopLintContext(readClient());
   const slugs = new Map(groups.map((g) => [g.slug, g]));
   const seenTitles = new Set([...bank, ...quizzes].map((q) => norm(q.title)));
   const seenTopics = [...bank, ...quizzes].map((q) => ({ title: q.title, words: topicWords(q.title) }));
