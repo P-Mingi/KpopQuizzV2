@@ -4,7 +4,7 @@
  "group_slug": "one-piece",
  "title": "Raising the Flag: One Piece Basics",
  "slug": "raising-the-flag-one-piece-basics",
- "description": "Ten easy questions on the creator, the start year, the volumes, the studio, the channel, the sales, the record, Luffy's body and the live-action series.",
+ "description": "Ten easy questions on the creator, the start year, the volumes, an ending song, the treasure, the sales, the record, Luffy's body, the live-action series and the first opening.",
  "quiz_type": "multiple_choice",
  "difficulty": "easy",
  "language": "en",
@@ -21,7 +21,7 @@
    "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
   }
  ],
- "notes": "Starter: arc 0 facts only (002, 003, 004, 005, 010, 016, 017, 018, 023). Creator, manga year, volumes, studio, channel, circulation, the Guinness years, the rubber body, the Netflix year and the first opening.",
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 013, 016, 017, 018, 023, 026, 010). Creator, manga year, volumes, an ending, the Roger treasure, circulation, the Guinness years, the rubber body, the Netflix year and the first opening. K1 rewrite: blocked questions rewritten on verified facts 013 and 026.",
  "questions": [
   {
    "question": "Who is the one person behind both the writing and the drawing of the One Piece manga?",
@@ -81,42 +81,42 @@
    "source_url": "https://en.wikipedia.org/wiki/One_Piece"
   },
   {
-   "question": "Which studio makes the One Piece TV anime?",
+   "question": "Which group performed ending 17 of the anime, Asu wa Kuru Kara?",
    "options": [
-    "Madhouse",
-    "Toei Animation",
-    "MAPPA",
-    "CloverWorks"
+    "Triplane",
+    "TVXQ",
+    "Muque",
+    "Asia Engineer"
    ],
    "correct": 1,
-   "kind": "production",
+   "kind": "music",
    "spoiler": {
     "arc": 0,
     "scope": "anime"
    },
    "fact_ids": [
-    "one-piece-anime-studio-005"
+    "one-piece-themes-ed-b-013"
    ],
    "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
   },
   {
-   "question": "On which channel did the One Piece TV anime begin in 1999?",
+   "question": "Luffy sails after a treasure left behind by the late King of the Pirates. What is this treasure named?",
    "options": [
-    "TV Tokyo",
-    "Fuji Television",
-    "Nippon Television",
-    "NHK General TV"
+    "The Straw Hat",
+    "The One Piece",
+    "The Grand Line",
+    "The Pirate Crown"
    ],
    "correct": 1,
-   "kind": "production",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
-    "scope": "anime"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-piece-anime-studio-005"
+    "one-piece-roger-treasure-026"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
   },
   {
    "question": "About how many copies of the manga were in worldwide circulation by spring 2026?",

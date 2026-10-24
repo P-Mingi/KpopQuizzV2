@@ -26,7 +26,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
   }
  ],
- "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 006, 017, 018, 020, 023, 030); each false one changes a single detail (a year, a channel, what the record was for, a count, a status).",
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 017, 018, 020, 023, 024, 029, 030); each false one changes a single detail (a year, what the record was for, a count, a status). K1 rewrite: blocked questions rewritten on verified facts 024 and 029.",
  "questions": [
   {
    "question": "Eiichiro Oda is the one person behind both the writing and the drawing of the One Piece manga.",
@@ -68,7 +68,7 @@
    "source_url": "https://en.wikipedia.org/wiki/One_Piece"
   },
   {
-   "question": "The anime began on Fuji Television in the autumn of 1997.",
+   "question": "From April 2026 the anime has aired in four split cours each year.",
    "correct": false,
    "kind": "production",
    "spoiler": {
@@ -76,12 +76,12 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "one-piece-anime-studio-005"
+    "one-piece-semi-seasonal-format-024"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
   },
   {
-   "question": "The anime had reached 1180 episodes by late September 2026.",
+   "question": "Season 5 of the home media release is titled TV Original, because its 13 episodes are new stories made for the anime.",
    "correct": true,
    "kind": "episode",
    "spoiler": {
@@ -89,7 +89,7 @@
     "scope": "anime"
    },
    "fact_ids": [
-    "one-piece-anime-size-006"
+    "one-piece-tv-original-season-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
   },
