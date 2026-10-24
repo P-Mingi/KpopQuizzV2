@@ -4,7 +4,7 @@
  "group_slug": "death-note",
  "title": "Before and After Episode 26: Death Note by Part",
  "slug": "before-and-after-episode-26-death-note-by-part",
- "description": "Ten questions on where the anime splits in two, the Shinigami of each half and the people who only matter in the later story.",
+ "description": "Ten questions on the Shinigami of each half, the detective, Wammy's House and the people who only matter in the later story.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
@@ -12,54 +12,52 @@
  "sources": [
   {
    "id": "S1",
-   "title": "Wikipedia: Death Note (2006 TV series)",
-   "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
-  },
-  {
-   "id": "S2",
    "title": "Wikipedia: List of Death Note characters",
    "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }
  ],
- "notes": "The title names no character of Part II. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 2 both, now arc 2 both.",
+ "notes": "The title names no character of Part II. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. K1 rewrite: blocked questions rewritten on verified facts 015, 036, 037, 038 and 039.",
  "questions": [
   {
-   "question": "Which episode closes Part I of the anime?",
+   "question": "Which of these characters is listed as a main character of Death Note?",
    "options": [
-    "24",
-    "25",
-    "26",
-    "37"
+    "Teru Mikami",
+    "Sidoh",
+    "Near",
+    "Kiyomi Takada"
    ],
    "correct": 2,
-   "kind": "arc",
+   "kind": "character",
    "spoiler": {
     "arc": 2,
-    "scope": "anime"
+    "scope": "both"
    },
    "fact_ids": [
-    "death-note-anime-parts-007"
+    "death-note-near-name-039",
+    "death-note-teru-mikami-name-038",
+    "death-note-sidoh-name-037",
+    "death-note-kiyomi-takada-name-036"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
   {
-   "question": "Which episodes does Part II of the anime hold?",
+   "question": "What does the scrawny detective L do in his chair?",
    "options": [
-    "27 to 37",
-    "26 to 37",
-    "25 to 37",
-    "27 to 36"
+    "He crouches in it",
+    "He sits up straight in it",
+    "He leans back in it",
+    "He spins around in it"
    ],
    "correct": 0,
-   "kind": "arc",
+   "kind": "character",
    "spoiler": {
-    "arc": 2,
-    "scope": "anime"
+    "arc": 0,
+    "scope": "both"
    },
    "fact_ids": [
-    "death-note-anime-parts-007"
+    "death-note-l-habits-015"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
   {
    "question": "Which Shinigami delivers a Death Note to Misa Amane in the first half?",

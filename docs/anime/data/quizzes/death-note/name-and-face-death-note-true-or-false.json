@@ -31,7 +31,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }
  ],
- "notes": "Statements restate arc 0 fact texts (001, 002, 003, 004, 005, 006, 011, 013, 014, 019); each false one changes a single detail (a swapped role, a count, a year, the rule, the platform).",
+ "notes": "Statements restate arc 0 fact texts (001, 002, 003, 004, 006, 011, 012, 013, 014, 019); each false one changes a single detail (a swapped role, a count, a year, the rule, the platform). K1 rewrite: blocked statement rewritten on verified fact 012.",
  "questions": [
   {
    "question": "The Japanese title, Desu Nōto, is simply the English name spelled in katakana.",
@@ -86,15 +86,15 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters"
   },
   {
-   "question": "Studio Madhouse made the TV adaptation, with Tetsurō Araki as director.",
+   "question": "Circulation passed thirty million copies by spring 2015.",
    "correct": true,
-   "kind": "production",
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "anime"
+    "scope": "manga"
    },
    "fact_ids": [
-    "death-note-anime-staff-005"
+    "death-note-copies-in-print-012"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Death_Note"
   },
