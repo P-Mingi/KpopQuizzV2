@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState } from 'react';
 
+import { PassportNotice } from '@/components/passport-ui/passport-notice';
 import { Icon } from '@/components/ux-v1/icon';
 import { Sheet } from '@/components/ux-v1/sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
@@ -28,7 +29,7 @@ async function supabase(): Promise<ReturnType<typeof import('@/lib/supabase/clie
 
 type Pending = 'google' | 'email' | null;
 
-export function WorldSignInSheet({ open, request, onClose, inline, words = WORLD }: { open: boolean; request: SignInRequest; onClose: () => void; inline?: boolean; words?: SignInWords | undefined }): React.ReactElement | null {
+export function WorldSignInSheet({ open, request, onClose, inline, words = WORLD, notice = <PassportNotice /> }: { open: boolean; request: SignInRequest; onClose: () => void; inline?: boolean; words?: SignInWords | undefined; notice?: React.ReactNode }): React.ReactElement | null {
   const toast = useUxToast();
   const uid = useId().replace(/:/g, '');
   const [pending, setPending] = useState<Pending>(null);
@@ -93,6 +94,7 @@ export function WorldSignInSheet({ open, request, onClose, inline, words = WORLD
       {error ? <p className="ux-err" role="alert">{error}</p> : null}
       <p className="ux-help">{words.network}</p>
       <p className="ux-help">{words.privacy}</p>
+      {notice}
     </Sheet>
   );
 }
