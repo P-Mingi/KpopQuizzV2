@@ -44,7 +44,8 @@ export function collectFiles(paths) {
     const st = statSync(p);
     if (st.isDirectory()) {
       for (const name of readdirSync(p).sort()) {
-        if (name.startsWith('.') || name === 'node_modules') continue;
+        // A withdrawn quiz or daily row (owner, 2026-10-24) is kept for the record, never checked nor compared (C9) with the live corpus.
+        if (name.startsWith('.') || name === 'node_modules' || name === 'withdrawn') continue;
         walk(join(p, name), false);
       }
     } else if (p.endsWith('.json')) {
