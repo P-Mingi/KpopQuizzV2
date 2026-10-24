@@ -15,15 +15,19 @@ const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(
 
 describe('the facts', () => {
   it('names the publisher, the host and the mailbox of the brief', () => {
-    expect(LEGAL.publisher).toBe('Nuri, 6 rue Rémusat, 75016 Paris, France');
+    expect(LEGAL.publisher).toBe('Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France');
+    expect(LEGAL.form).toBe('Entrepreneur individuel (EI)');
+    expect(LEGAL.siren).toBe('SIREN 109 686 634, SIRET du siège 109 686 634 00014');
+    expect(LEGAL.vat).toBe('TVA non applicable, article 293 B du CGI');
+    expect(LEGAL.director).toBe('Louis Pecchia');
     expect(LEGAL.email).toBe('contact@kpopquiz.org');
     expect(LEGAL.privacyUrl).toBe('https://kpopquiz.org/privacy');
     expect(LEGAL.host).toEqual({ name: 'Vercel Inc.', address: '440 N Barranca Avenue #4133, Covina, CA 91723, United States', phone: '+1 559 288 7060' });
   });
 
-  it('keeps the three facts the owner has not given as placeholders, each written once, in this file only', () => {
-    expect([LEGAL.form, LEGAL.siren, LEGAL.director]).toEqual(['[FORME JURIDIQUE]', '[SIREN]', '[DIRECTEUR DE LA PUBLICATION]']);
-    expect(legalPlaceholders()).toEqual(['[FORME JURIDIQUE]', '[SIREN]', '[DIRECTEUR DE LA PUBLICATION]']);
+  it('keeps the fact the owner has not given (the phone) as a placeholder, written once, in this file only', () => {
+    expect(LEGAL.phone).toBe('[TELEPHONE]');
+    expect(legalPlaceholders()).toEqual(['[TELEPHONE]']);
     expect(legalIsComplete()).toBe(false);
     const lib = readFileSync(join(SRC, 'lib/legal-notice.ts'), 'utf8');
     const page = readFileSync(join(SRC, 'app/(site)/legal/page.tsx'), 'utf8');
@@ -33,8 +37,13 @@ describe('the facts', () => {
     }
   });
 
+  it('names no trade name and no RCS: the register knows only the EI', () => {
+    const lib = readFileSync(join(SRC, 'lib/legal-notice.ts'), 'utf8');
+    expect(lib).not.toMatch(/Nuri|Rémusat|75016|RCS|gmail/i);
+  });
+
   it('uses the plain voice: no dash, no emoji', () => {
-    for (const v of [LEGAL.description, LEGAL.lede, LEGAL.title, LEGAL.sub, LEGAL.publisher, LEGAL.host.address, LEGAL.host.phone]) {
+    for (const v of [LEGAL.description, LEGAL.lede, LEGAL.title, LEGAL.sub, LEGAL.publisher, LEGAL.form, LEGAL.siren, LEGAL.vat, LEGAL.director, LEGAL.host.address, LEGAL.host.phone]) {
       expect(v).not.toMatch(DASHES);
       expect(v).not.toMatch(/\p{Extended_Pictographic}/u);
     }
@@ -55,10 +64,9 @@ describe('the page', () => {
     expect(html.match(/<h1\b/g)).toHaveLength(1);
     expect(html).toContain('>Legal notice</h1>');
     expect(html).toContain('<p lang="fr" class="text-sm text-secondary mb-8">Mentions légales</p>');
-    expect(text).toContain('KpopQuiz (kpopquiz.org) is published by: Nuri, 6 rue Rémusat, 75016 Paris, France');
-    expect(text).toContain('Legal form: [FORME JURIDIQUE]');
-    expect(text).toContain('SIREN: [SIREN]');
-    expect(text).toContain('The publication director is: [DIRECTEUR DE LA PUBLICATION]');
+    expect(text).toContain('KpopQuiz (kpopquiz.org) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France');
+    expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: [TELEPHONE]');
+    expect(text).toContain('The publication director is: Louis Pecchia');
     expect(text).toContain('KpopQuiz is hosted by: Vercel Inc. 440 N Barranca Avenue #4133, Covina, CA 91723, United States Phone: +1 559 288 7060');
     expect(html).toContain('href="mailto:contact@kpopquiz.org"');
     expect(html).toContain('href="https://kpopquiz.org/privacy"');

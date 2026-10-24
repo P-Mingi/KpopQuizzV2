@@ -1,6 +1,7 @@
 // The legal notice (mentions légales) of kpopquiz.org, /legal: French law (LCEN, article 6) asks every website to name its publisher,
-// its publication director and its host. One place for the text and for the facts the owner still has to give: the three
-// [BRACKETED] lines below are each written once. While one is left the page says noindex and stays out of the sitemap.
+// its publication director and its host. One place for the text and for the facts the owner still has to give: a
+// [BRACKETED] line below is written once. While one is left the page says noindex and stays out of the sitemap.
+// Publisher (owner, 2026-10-25): the register names Louis Pecchia, entrepreneur individuel; no trade register line (an EI is not in it).
 // (The same notice is on OtakuQuiz and FanQuiz in the run O1 tree, which reads these strings from its copy file.)
 
 export const LEGAL = {
@@ -14,11 +15,13 @@ export const LEGAL = {
   sub: 'Mentions légales',
   description: 'Legal notice (mentions légales) of KpopQuiz: who publishes kpopquiz.org, the publication director, the host and where to read the privacy policy.',
   lede: 'The information that French law asks every website to give (article 6 of the LCEN, the law of 21 June 2004 on confidence in the digital economy) about KpopQuiz (kpopquiz.org).',
-  publisher: 'Nuri, 6 rue Rémusat, 75016 Paris, France',
-  // The facts the owner has not given yet, one line each, replaced before this page is meant to be found.
-  form: '[FORME JURIDIQUE]',
-  siren: '[SIREN]',
-  director: '[DIRECTEUR DE LA PUBLICATION]',
+  publisher: 'Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France',
+  form: 'Entrepreneur individuel (EI)',
+  siren: 'SIREN 109 686 634, SIRET du siège 109 686 634 00014',
+  vat: 'TVA non applicable, article 293 B du CGI',
+  director: 'Louis Pecchia',
+  // The fact the owner has not given yet, replaced before this page is meant to be found.
+  phone: '[TELEPHONE]',
   host: {
     name: 'Vercel Inc.',
     // Printed on vercel.com/legal/privacy-notice (address) and vercel.com/legal/dmca-policy (the only number vercel.com prints).
@@ -27,9 +30,9 @@ export const LEGAL = {
   },
 } as const;
 
-/** The [BRACKETED] lines still printed on the page: empty once the owner has filled the three facts. */
+/** The [BRACKETED] lines still printed on the page: empty once the owner has filled every fact. */
 export function legalPlaceholders(): string[] {
-  return [LEGAL.form, LEGAL.siren, LEGAL.director].filter((v) => /^\[[^\]]+\]$/.test(v));
+  return [LEGAL.form, LEGAL.siren, LEGAL.director, LEGAL.phone].filter((v) => /^\[[^\]]+\]$/.test(v));
 }
 
 /** True when the page can be found by search engines: no placeholder is left. */

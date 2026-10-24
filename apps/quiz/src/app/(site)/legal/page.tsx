@@ -27,7 +27,9 @@ export default function LegalPage(): React.ReactElement {
       <ul className={`${P} list-disc pl-5 mt-2 space-y-1`}>
         <li>{LEGAL.publisher}</li>
         <li>Legal form: {LEGAL.form}</li>
-        <li>SIREN: {LEGAL.siren}</li>
+        <li>{LEGAL.siren}</li>
+        <li>{LEGAL.vat}</li>
+        <li>Phone: {LEGAL.phone}</li>
         <li>Email: <a href={`mailto:${LEGAL.email}`} className={LINK}>{LEGAL.email}</a></li>
       </ul>
 
