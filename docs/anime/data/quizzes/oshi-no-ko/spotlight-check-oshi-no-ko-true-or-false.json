@@ -63,15 +63,15 @@
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
   },
   {
-   "question": "In August 2021 the manga won the digital category of the Next Manga Award.",
+   "question": "Shueisha's Weekly Young Jump published the manga between April 2020 and November 2025.",
    "correct": false,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "oshi-no-ko-next-manga-award-006"
+    "oshi-no-ko-magazine-run-003"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
   },
@@ -158,5 +158,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
   }
  ],
- "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a role, a number, a category, a title or a band). The past-life twist is not touched."
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a role, a number, a category, a title or a band). The past-life twist is not touched. K1 rewrite: blocked statement rewritten on verified fact 003."
 }

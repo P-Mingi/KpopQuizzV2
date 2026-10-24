@@ -106,21 +106,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
   },
   {
-   "question": "Which award did the manga win in August 2021, in its print category?",
+   "question": "What kind of brackets enclose the Japanese title of the manga?",
    "options": [
-    "Eisner Award",
-    "Kodansha Manga Award",
-    "Tezuka Osamu Cultural Prize",
-    "Next Manga Award"
+    "Round brackets",
+    "Corner brackets",
+    "Curly braces",
+    "Angle brackets"
    ],
-   "correct": 3,
-   "kind": "manga",
+   "correct": 1,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "oshi-no-ko-next-manga-award-006"
+    "oshi-no-ko-japanese-title-001"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
   },
@@ -218,5 +218,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
   }
  ],
- "notes": "Starter: arc 0 facts only (002 to 006, 007, 008, 009, 020). No character is named and the past-life twist is not touched."
+ "notes": "Starter: arc 0 facts only (001 to 005, 007, 008, 009, 020). No character is named and the past-life twist is not touched. K1 rewrite: blocked question rewritten on verified fact 001."
 }

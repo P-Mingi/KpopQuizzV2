@@ -4,7 +4,7 @@
  "group_slug": "oshi-no-ko",
  "title": "Three Seasons in the Spotlight: The Timeline",
  "slug": "three-seasons-in-the-spotlight-the-timeline",
- "description": "Ten questions on how the story splits by season, from the first reveal to the announced final season.",
+ "description": "Ten questions on how the story splits by season, from the first reveal to the third season and its songs.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
@@ -106,42 +106,42 @@
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
   },
   {
-   "question": "How many episodes did the third season run?",
+   "question": "On which date did the first season end?",
    "options": [
-    "10",
-    "13",
-    "11",
-    "24"
+    "September 6, 2023",
+    "June 28, 2023",
+    "March 25, 2023",
+    "July 12, 2023"
    ],
-   "correct": 2,
+   "correct": 1,
    "kind": "episode",
    "spoiler": {
-    "arc": 3,
+    "arc": 0,
     "scope": "anime"
    },
    "fact_ids": [
-    "oshi-no-ko-anime-season-three-011"
+    "oshi-no-ko-anime-season-one-008"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
   },
   {
-   "question": "What has been announced after season three?",
+   "question": "Which act performs Burning, the ending of season two?",
    "options": [
-    "A fourth and final season",
-    "A cooking spin-off",
-    "A space-opera reboot",
-    "A silent-film remake"
+    "Queen Bee",
+    "Hitsujibungaku",
+    "Natori",
+    "YOASOBI"
    ],
-   "correct": 0,
-   "kind": "arc",
+   "correct": 1,
+   "kind": "music",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "oshi-no-ko-anime-season-three-011"
+    "oshi-no-ko-themes-season-two-013"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
   },
   {
    "question": "Which act performs Test Me, the opening of season three?",
@@ -182,21 +182,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
   },
   {
-   "question": "How many episodes do the three seasons have in all?",
+   "question": "On which date did the second season end?",
    "options": [
-    "24",
-    "33",
-    "48",
-    "35"
+    "September 4, 2024",
+    "October 6, 2024",
+    "November 28, 2024",
+    "June 28, 2024"
    ],
-   "correct": 3,
-   "kind": "arc",
+   "correct": 1,
+   "kind": "episode",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "oshi-no-ko-arc-structure-015"
+    "oshi-no-ko-anime-season-two-010"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
   }
@@ -218,5 +218,5 @@
    "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
   }
  ],
- "notes": "Arc quiz: arcs 1 to 3 are the three seasons. Tags follow the cited facts: 018 arc 1 (the premise, which names the twist, so it stays above arc 0), 010 and 013 arc 2, 011, 014 and 015 arc 3."
+ "notes": "Arc quiz: arcs 1 to 3 are the three seasons. Tags follow the cited facts: 018 arc 1 (the premise, which names the twist, so it stays above arc 0), 008 arc 0, 010 and 013 arc 2, 014 arc 3. K1 rewrite: blocked questions rewritten on verified facts 008, 010 and 013."
 }
