@@ -28,6 +28,7 @@ function Text({ k }: { k: PrivacyKey }): React.ReactElement {
 
 function Block({ block }: { block: PrivacyBlock }): React.ReactElement {
   if (block.kind === 'shares') return <HubShares />;
+  if (block.kind === 'legal') return <p className={`${POLICY_CLASS}-prose`}>{ht(block.key)} <a href="/legal">{ht(block.link)}</a></p>;
   if (block.kind === 'signins') return <ul className={`${POLICY_CLASS}-prose-list`}>{signInItems().map((item) => <li key={item.id}>{item.text}</li>)}</ul>;
   if (block.kind === 'list') return <ul className={`${POLICY_CLASS}-prose-list`}>{block.keys.map((k) => <li key={k}><Text k={k} /></li>)}</ul>;
   return <p className={`${POLICY_CLASS}-prose`}><Text k={block.key} /></p>;

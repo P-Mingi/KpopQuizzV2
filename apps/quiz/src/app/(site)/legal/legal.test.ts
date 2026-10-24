@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -11,14 +11,15 @@ import { REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 // Lot (d), H1 (owner, 2026-10-24, brief H1-legal.md): the legal notice of the three sites. One route, the kpop one, is the source; the
-// OtakuQuiz and FanQuiz page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts), the facts the owner still has to give are
-// three [BRACKETED] lines written once each, and a build with NET_INDEXING on refuses to print one.
+// OtakuQuiz and FanQuiz page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
+// individuel (owner, 2026-10-25), the one fact still missing (the phone) is a [BRACKETED] line written once, and a build with NET_INDEXING on
+// refuses to print it.
 
 const SRC = join(__dirname, '../../..');
 const read = (rel: string): string => readFileSync(join(SRC, rel), 'utf8');
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
 const KEYS = Object.keys(COPY).filter((k) => k.startsWith('legal.')) as (keyof typeof COPY)[];
-const PLACEHOLDERS = ['[FORME JURIDIQUE]', '[SIREN]', '[DIRECTEUR DE LA PUBLICATION]'];
+const PLACEHOLDERS = ['[TELEPHONE]'];
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('@/copy/hub/h1'); });
 
@@ -34,7 +35,7 @@ async function render(site: Site, env: Env = {}) {
   vi.stubEnv('NET_INDEXING', env.indexing ?? '');
   if (env.filled) {
     const real = await vi.importActual<typeof import('@/copy/hub/h1')>('@/copy/hub/h1');
-    vi.doMock('@/copy/hub/h1', () => ({ COPY: { ...real.COPY, 'legal.form': 'SAS', 'legal.siren': '123 456 789', 'legal.director': 'Nuri' } }));
+    vi.doMock('@/copy/hub/h1', () => ({ COPY: { ...real.COPY, 'legal.phone': '+33 4 00 00 00 00' } }));
   }
   const page = await import('./page');
   const html = renderToStaticMarkup(page.default());
@@ -80,6 +81,22 @@ describe('the keys and the one copy file', () => {
   });
 });
 
+/** Every file under src/ that is not a test. */
+function sourceFiles(dir: string): string[] {
+  return readdirSync(dir).flatMap((name) => {
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) return sourceFiles(full);
+    return /\.test\.tsx?$/.test(name) ? [] : [full];
+  });
+}
+
+describe('the old publisher is gone', () => {
+  it('no file of src/ outside the tests says Nuri, Rémusat or 75016, in copy, code or comments', () => {
+    const hits = sourceFiles(SRC).filter((f) => /Nuri|Rémusat|Remusat|75016/i.test(readFileSync(f, 'utf8')));
+    expect(hits).toEqual([]);
+  });
+});
+
 describe('the page, on each site', () => {
   for (const site of ['kpop', 'anime', 'hub'] as const) {
     const reg = REGISTRY[site];
@@ -89,10 +106,10 @@ describe('the page, on each site', () => {
       expect(html.match(/<h1\b/g)).toHaveLength(1);
       expect(html).toContain('<h1 class="text-2xl font-medium mb-2">Legal notice</h1>');
       expect(html).toContain('<p lang="fr" class="text-sm text-secondary mb-8">Mentions légales</p>');
-      expect(text).toContain(`${reg.brand.name} (${reg.domain}) is published by: Nuri, 6 rue Rémusat, 75016 Paris, France`);
-      expect(text).toContain('Legal form: [FORME JURIDIQUE]');
-      expect(text).toContain('SIREN: [SIREN]');
-      expect(text).toContain('The publication director is: [DIRECTEUR DE LA PUBLICATION]');
+      expect(text).toContain(`${reg.brand.name} (${reg.domain}) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France`);
+      expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: [TELEPHONE] Email:');
+      expect(text).toContain('The publication director is: Louis Pecchia');
+      expect(text).not.toMatch(/RCS|gmail/i);
       expect(text).toContain(`${reg.brand.name} is hosted by: Vercel Inc. 440 N Barranca Avenue #4133, Covina, CA 91723, United States Phone: +1 559 288 7060`);
       expect(text).toContain('article 6 of the LCEN');
       expect(text).not.toMatch(DASHES);
@@ -161,22 +178,21 @@ describe('the metadata', () => {
   it('open with a placeholder printed: the build fails and the message names the keys', async () => {
     for (const site of ['anime', 'hub'] as const) {
       const { page } = await render(site, { indexing: '1' });
-      expect(() => page.generateMetadata(), site).toThrow(/NET_INDEXING is on[\s\S]*\[FORME JURIDIQUE\], \[SIREN\], \[DIRECTEUR DE LA PUBLICATION\][\s\S]*legal\.form, legal\.siren, legal\.director/);
+      expect(() => page.generateMetadata(), site).toThrow(/NET_INDEXING is on[\s\S]*\[TELEPHONE\][\s\S]*legal\.phone/);
     }
   });
 
-  it('open with the three facts filled: indexable, nothing in brackets is printed', async () => {
+  it('open with the phone filled: indexable, nothing in brackets is printed', async () => {
     for (const site of ['anime', 'hub'] as const) {
       const { page, text } = await render(site, { indexing: '1', filled: true });
       expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
-      expect(text).toContain('Legal form: SAS');
-      expect(text).toContain('SIREN: 123 456 789');
-      expect(text).toContain('The publication director is: Nuri');
+      expect(text).toContain('Phone: +33 4 00 00 00 00');
+      expect(text).toContain('The publication director is: Louis Pecchia');
       expect(text).not.toMatch(/\[[A-ZÉ ]+\]/);
     }
   });
 
-  it('kpop with the three facts filled: indexable', async () => {
+  it('kpop with the phone filled: indexable', async () => {
     const { page } = await render('kpop', { filled: true });
     expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
   });
@@ -188,8 +204,8 @@ describe('the launch gate', () => {
     expect(legalPlaceholders()).toEqual(PLACEHOLDERS);
     expect(() => legalLaunchGate(false, PLACEHOLDERS)).not.toThrow();
     expect(() => legalLaunchGate(true, [])).not.toThrow();
-    expect(() => legalLaunchGate(true, ['[SIREN]'])).toThrow(/\[SIREN\]/);
-    expect(() => legalLaunchGate(true)).toThrow(/legal\.form/);
+    expect(() => legalLaunchGate(true, ['[TELEPHONE]'])).toThrow(/\[TELEPHONE\]/);
+    expect(() => legalLaunchGate(true)).toThrow(/legal\.phone/);
   });
 
   it('reads NET_INDEXING by default: 1 and true open it, anything else does not', async () => {
@@ -205,7 +221,7 @@ describe('the launch gate', () => {
   it('the real copy prints no placeholder when this build has NET_INDEXING on', async () => {
     const { flagOn } = await import('@/lib/site/registry');
     const { legalPlaceholders } = await import('@/lib/site/hub/legal');
-    if (flagOn(process.env.NET_INDEXING)) expect(legalPlaceholders(), 'fill legal.form, legal.siren and legal.director before launch').toEqual([]);
+    if (flagOn(process.env.NET_INDEXING)) expect(legalPlaceholders(), 'fill legal.phone before launch').toEqual([]);
   });
 });
 

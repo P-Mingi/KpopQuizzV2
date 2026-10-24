@@ -2,7 +2,7 @@
 // the OtakuQuiz and FanQuiz page (app/sites/[site]/legal/page.tsx) re-exports it (rule 18). Every string is a legal.* key of
 // copy/hub/h1.ts, the site name and domain come from the registry (lib/site/hub/legal.ts). On kpopquiz.org the route answers only while
 // NEXT_PUBLIC_NET_PRIVACY is on (lib/route-allowlist.ts); the markup is the one of the other legal pages (terms, dmca).
-import { legalEmail, legalLaunchGate, legalPlaceholders, legalPrivacyUrl, legalPublisher, lt } from '@/lib/site/hub/legal';
+import { legalEmail, legalLaunchGate, legalPlaceholders, legalPrivacyUrl, lt } from '@/lib/site/hub/legal';
 import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
@@ -34,9 +34,11 @@ export default function LegalPage(): React.ReactElement {
       <h2 className={H2}>{lt('legal.publisher.title')}</h2>
       <p className={P}>{lt('legal.publisher.p1')}</p>
       <ul className={`${P} list-disc pl-5 mt-2 space-y-1`}>
-        <li>{legalPublisher()}</li>
+        <li>{lt('legal.publisher')}</li>
         <li>{lt('legal.publisher.formLabel')} {lt('legal.form')}</li>
-        <li>{lt('legal.publisher.sirenLabel')} {lt('legal.siren')}</li>
+        <li>{lt('legal.siren')}</li>
+        <li>{lt('legal.vat')}</li>
+        <li>{lt('legal.publisher.phoneLabel')} {lt('legal.phone')}</li>
         <li>{lt('legal.publisher.emailLabel')} <a href={`mailto:${email}`} className={LINK}>{email}</a></li>
       </ul>
 

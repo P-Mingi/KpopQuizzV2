@@ -26,7 +26,7 @@ const ROOT = join(__dirname, '../../../../../..');
 const COOKIES = readFileSync(join(ROOT, 'docs/o1/contracts/cookies.md'), 'utf8');
 const KEYS = Object.keys(COPY).filter((k) => k.startsWith('privacy.')) as (keyof typeof COPY)[];
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
-const CONTROLLER = 'Nuri, 6 rue Rémusat, 75016 Paris, France';
+const CONTROLLER = 'Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634, contact@fanquiz.org';
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
@@ -56,7 +56,7 @@ describe('the keys', () => {
     const listed = new Set<string>([
       ...Object.values(PRIVACY_PAGE), ...PRIVACY_NOTICE, 'privacy.notice.link', 'privacy.notice.full',
       'privacy.account.google', 'privacy.account.discord', 'privacy.account.email', 'privacy.account.or',
-      ...PRIVACY_SECTIONS.flatMap((s) => [s.title, ...s.blocks.flatMap((b) => (b.kind === 'p' ? [b.key] : b.kind === 'list' ? b.keys : []))]),
+      ...PRIVACY_SECTIONS.flatMap((s) => [s.title, ...s.blocks.flatMap((b) => (b.kind === 'p' ? [b.key] : b.kind === 'list' ? b.keys : b.kind === 'legal' ? [b.key, b.link] : []))]),
     ]);
     expect([...listed].sort()).toEqual([...KEYS].sort());
   });
@@ -163,11 +163,14 @@ describe('point 1: closed is a draft, open is the policy', () => {
 // Point 2 (second pass, owner 2026-10-24): the controller, one key, now the owner's name and postal address.
 describe('point 2: the controller', () => {
   it('prints the name and address exactly, from the one key privacy.controller, and no placeholder is left', async () => {
-    expect(COPY['privacy.controller']).toBe(CONTROLLER);
-    expect(KEYS.filter((k) => COPY[k].includes('Rémusat'))).toEqual(['privacy.controller']);
-    const { text } = await render();
+    expect(ht('privacy.controller')).toBe(CONTROLLER);
+    expect(KEYS.filter((k) => COPY[k].includes('Pecchia'))).toEqual(['privacy.controller']);
+    const { text, html } = await render();
     expect(text).toContain(`${ht('privacy.who.p3')} ${CONTROLLER}`);
     expect(text.split(CONTROLLER)).toHaveLength(2);
+    expect(html).toContain('href="mailto:contact@fanquiz.org"');
+    expect(html).toContain('<a href="/legal">Read the legal notice</a>');
+    expect(text).not.toMatch(/Nuri|Rémusat|75016|gmail/i);
     expect(text).not.toMatch(/\[[A-ZÉ ,]+\]/);
   });
 });

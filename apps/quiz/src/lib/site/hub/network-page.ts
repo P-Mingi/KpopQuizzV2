@@ -51,11 +51,12 @@ export const SHARES_HIDES = ['shares.hidesEmail', 'shares.hidesSignIn', 'shares.
 // The privacy page: its keys in reading order. The page (components/hub/hub-privacy.tsx) renders this list and nothing else, so a
 // key that is not listed here is not on the page. Owner's answers of 2026-10-24: docs/o1/briefs/H1-privacy.md.
 
-/** One block of a section: a paragraph, a bullet list, the sign-in methods of the sites, or the "What your passport shares" block. */
+/** One block of a section: a paragraph, a bullet list, the sign-in methods of the sites, the pointer to the legal notice, or the "What your passport shares" block. */
 export type PrivacyBlock =
   | { readonly kind: 'p'; readonly key: PrivacyKey }
   | { readonly kind: 'list'; readonly keys: readonly PrivacyKey[] }
   | { readonly kind: 'signins' }
+  | { readonly kind: 'legal'; readonly key: PrivacyKey; readonly link: PrivacyKey }
   | { readonly kind: 'shares' };
 export type PrivacyKey = Extract<keyof typeof H1, `privacy.${string}`>;
 
@@ -74,14 +75,14 @@ export const PRIVACY_PAGE = {
   updated: 'privacy.updated',
 } as const satisfies Record<string, PrivacyKey>;
 
-/** The data controller line: one key, filled by the owner before launch. */
+/** The data controller line: one key (Louis Pecchia, entrepreneur individuel; owner, 2026-10-25). */
 export const PRIVACY_CONTROLLER = 'privacy.controller' as const satisfies PrivacyKey;
 
 const p = (key: PrivacyKey): PrivacyBlock => ({ kind: 'p', key });
 const list = (...keys: PrivacyKey[]): PrivacyBlock => ({ kind: 'list', keys });
 
 export const PRIVACY_SECTIONS: readonly PrivacySection[] = [
-  { title: 'privacy.who.title', blocks: [p('privacy.who.p1'), p('privacy.who.p2'), p('privacy.who.p3'), p(PRIVACY_CONTROLLER)] },
+  { title: 'privacy.who.title', blocks: [p('privacy.who.p1'), p('privacy.who.p2'), p('privacy.who.p3'), p(PRIVACY_CONTROLLER), { kind: 'legal', key: 'privacy.who.legal', link: 'privacy.who.legalLink' }] },
   { title: 'privacy.account.title', blocks: [p('privacy.account.intro'), { kind: 'signins' }, p('privacy.account.p1'), p('privacy.account.p2')] },
   // The block in the middle is the one of the network page, from the same component and the same copy keys.
   { title: 'privacy.shared.title', blocks: [p('privacy.shared.p1'), { kind: 'shares' }, p('privacy.shared.p2'), p('privacy.shared.p3')] },
@@ -165,16 +166,16 @@ export const POLICY_CLASS: 'hub-h1' | 'anime-h1' = SITE_ID === 'anime' ? 'anime-
 
 // ---------------------------------------------------------------------------------------------------------------------------
 // The legal notice (mentions légales, /legal): its keys in reading order. The page (app/(site)/legal/page.tsx) prints each of them once
-// and nothing else. The three LEGAL_PLACEHOLDER_KEYS hold a fact the owner has not given yet, each written once, as a [BRACKETED] line.
+// and nothing else. LEGAL_PLACEHOLDER_KEYS holds the one fact the owner has not given yet (the phone), written once, as a [BRACKETED] line.
 
 export type LegalKey = Extract<keyof typeof H1, `legal.${string}`>;
 
-export const LEGAL_PLACEHOLDER_KEYS = ['legal.form', 'legal.siren', 'legal.director'] as const satisfies readonly LegalKey[];
+export const LEGAL_PLACEHOLDER_KEYS = ['legal.phone'] as const satisfies readonly LegalKey[];
 
 export const LEGAL_KEYS: readonly LegalKey[] = [
   'legal.metaTitle', 'legal.metaDescription', 'legal.h1', 'legal.sub', 'legal.lede',
-  'legal.publisher.title', 'legal.publisher.p1', 'legal.publisher.formLabel', 'legal.form', 'legal.publisher.sirenLabel', 'legal.siren',
-  'legal.publisher.emailLabel',
+  'legal.publisher.title', 'legal.publisher.p1', 'legal.publisher', 'legal.publisher.formLabel', 'legal.form', 'legal.siren', 'legal.vat',
+  'legal.publisher.phoneLabel', 'legal.phone', 'legal.publisher.emailLabel',
   'legal.director.title', 'legal.director.p1', 'legal.director',
   'legal.host.title', 'legal.host.p1', 'legal.host.name', 'legal.host.address', 'legal.host.phoneLabel', 'legal.host.phone',
   'legal.data.title', 'legal.data.p1', 'legal.data.link',
