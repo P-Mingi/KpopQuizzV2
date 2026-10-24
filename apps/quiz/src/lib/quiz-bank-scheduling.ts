@@ -375,3 +375,19 @@ export function pickCatalogQotd(
   const top = ranked[0]!;
   return { id: top.q.id, score: top.s };
 }
+
+/**
+ * Mission U (owner, 2026-10-15): under this many open bank rows (verified or scheduled),
+ * the cron response and /admin/quiz-bank show a refill alert. 30 rows is a month of daily
+ * quizzes: enough time to write, source and review the next lot before the bank runs dry
+ * (it ran down to 4 rows in October 2026 with no warning).
+ */
+export const BANK_REFILL_THRESHOLD = 30;
+
+/** The refill alert for `open` open rows, or null when the bank holds enough. */
+export function bankRefillAlert(open: number): string | null {
+  if (open >= BANK_REFILL_THRESHOLD) return null;
+  return open <= 0
+    ? 'The quiz bank is empty: the quiz of the day now falls back to catalog quizzes. Add a verified lot.'
+    : `Only ${open} quiz${open === 1 ? '' : 'zes'} left in the bank (under ${BANK_REFILL_THRESHOLD}): about ${open} day${open === 1 ? '' : 's'} of quizzes of the day. Add a verified lot.`;
+}

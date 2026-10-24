@@ -1,0 +1,664 @@
+[
+  {
+    "scheduled_date": "2026-10-24",
+    "title": "ILLIT: Magnetic Debut Quiz",
+    "description": "Ten easy questions on ILLIT's debut: R U Next?, Belift Lab, the five members, Magnetic and their first EPs.",
+    "group_slug": "illit",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which TV channel aired R U Next?, the 2023 survival show that formed ILLIT?",
+        "options": [
+          "Mnet",
+          "JTBC",
+          "SBS",
+          "KBS2"
+        ],
+        "correct": 1,
+        "fun_fact": "The show ran for ten episodes from June to September 2023, with 22 contestants competing for a place in the group.",
+        "source": "https://en.wikipedia.org/wiki/Illit"
+      },
+      {
+        "question": "Which HYBE label manages ILLIT?",
+        "options": [
+          "Source Music",
+          "ADOR",
+          "Belift Lab",
+          "Pledis Entertainment"
+        ],
+        "correct": 2,
+        "fun_fact": "Belift Lab also manages the boy group ENHYPEN, which it formed through the 2020 survival show I-Land.",
+        "source": "https://en.wikipedia.org/wiki/Belift_Lab"
+      },
+      {
+        "question": "Which HYBE chairman took part as a producer on ILLIT's debut EP?",
+        "options": [
+          "Park Jin-young",
+          "Lee Soo-man",
+          "Yang Hyun-suk",
+          "Bang Si-hyuk"
+        ],
+        "correct": 3,
+        "fun_fact": "The EP came out on March 25, 2024, the date of the group's official debut.",
+        "source": "https://en.wikipedia.org/wiki/Illit"
+      },
+      {
+        "question": "What is the title of ILLIT's debut EP?",
+        "options": [
+          "Super Real Me",
+          "I'll Like You",
+          "Bomb",
+          "Not Cute Anymore"
+        ],
+        "correct": 0,
+        "fun_fact": "Super Real Me sold more than 380,000 physical copies worldwide in its first week and passed 500,000 by the end of April 2024.",
+        "source": "https://en.wikipedia.org/wiki/Super_Real_Me"
+      },
+      {
+        "question": "Which Super Real Me track got its own music video on April 17, 2024?",
+        "options": [
+          "Cherish (My Love)",
+          "Lucky Girl Syndrome",
+          "Do the Dance",
+          "Almond Chocolate"
+        ],
+        "correct": 1,
+        "fun_fact": "The debut EP has four tracks, in this order: My World, Magnetic, Midnight Fiction and Lucky Girl Syndrome.",
+        "source": "https://en.wikipedia.org/wiki/Super_Real_Me"
+      },
+      {
+        "question": "Magnetic was the first K-pop group debut song on the Billboard Hot 100. Where did it enter?",
+        "options": [
+          "No. 1",
+          "No. 45",
+          "No. 91",
+          "No. 100"
+        ],
+        "correct": 2,
+        "fun_fact": "Billboard named ILLIT its first-ever K-Pop Rookie of the Month, for June 2024.",
+        "source": "https://www.billboard.com/music/pop/illit-kpop-rookie-of-the-month-june-2024-magnetic-1235718156/"
+      },
+      {
+        "question": "Where did ILLIT make their first public appearance as a group, before their debut?",
+        "options": [
+          "Paris Fashion Week",
+          "Coachella",
+          "MAMA Awards",
+          "KCON Los Angeles"
+        ],
+        "correct": 0,
+        "fun_fact": "They attended the Acne Studios show there, then became the faces of the brand's SS24 global campaign in March 2024.",
+        "source": "https://en.wikipedia.org/wiki/Illit"
+      },
+      {
+        "question": "Which of these singers is a member of ILLIT?",
+        "options": [
+          "Hanni",
+          "Wonyoung",
+          "Karina",
+          "Iroha"
+        ],
+        "correct": 3,
+        "fun_fact": "Belift Lab's official profile lists five members: Yunah, Minju, Moka, Wonhee and Iroha.",
+        "source": "https://beliftlab.com/artist/profile/Illit"
+      },
+      {
+        "question": "According to Belift Lab, ILLIT's name joins the phrase I will with which pronoun?",
+        "options": [
+          "It",
+          "Us",
+          "You",
+          "Me"
+        ],
+        "correct": 0,
+        "fun_fact": "Belift Lab says I will stands for an independent, adventurous spirit, while It symbolizes something unique.",
+        "source": "https://beliftlab.com/artist/profile/Illit"
+      },
+      {
+        "question": "Which song led the second ILLIT EP, I'll Like You, in October 2024?",
+        "options": [
+          "Magnetic",
+          "Lucky Girl Syndrome",
+          "Do the Dance",
+          "Cherish (My Love)"
+        ],
+        "correct": 3,
+        "fun_fact": "An English version of Tick-Tack from the same EP, titled Baby It's Both, featured American singer Ava Max.",
+        "source": "https://en.wikipedia.org/wiki/I%27ll_Like_You"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Illit",
+      "https://beliftlab.com/artist/profile/Illit",
+      "https://en.wikipedia.org/wiki/Belift_Lab",
+      "https://en.wikipedia.org/wiki/Super_Real_Me",
+      "https://en.wikipedia.org/wiki/Magnetic_(Illit_song)",
+      "https://www.billboard.com/music/pop/illit-kpop-rookie-of-the-month-june-2024-magnetic-1235718156/",
+      "https://www.billboard.com/music/chart-beat/illit-hot-100-debut-magnetic-1235657757/",
+      "https://koreajoongangdaily.joins.com/news/2024-02-13/entertainment/kpop/ILLIT-girl-group-from-R-U-Next-to-debut-under-HYBE-in-March/1979559",
+      "https://www.nme.com/news/music/hybe-latest-girl-group-illit-acne-studios-global-campaign-3601685",
+      "https://en.wikipedia.org/wiki/I%27ll_Like_You",
+      "https://www.wikidata.org/wiki/Q122179261"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-25",
+    "title": "K-pop at Big Sporting Events",
+    "description": "From the World Cup and the Olympics to esports finals: ten easy questions on Korean music stars who took part in big sporting events.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which BTS member performed Dreamers at the 2022 FIFA World Cup opening ceremony in Qatar?",
+        "options": [
+          "Jimin",
+          "V",
+          "Jungkook",
+          "Jin"
+        ],
+        "correct": 2,
+        "fun_fact": "Dreamers features Qatari singer Fahad Al Kubaisi and was part of the tournament's official soundtrack.",
+        "source": "https://en.wikipedia.org/wiki/Dreamers_(Jung_Kook_song)"
+      },
+      {
+        "question": "Which 2NE1 leader performed The Baddest Female at the PyeongChang 2018 Winter Olympics closing ceremony?",
+        "options": [
+          "CL",
+          "Dara",
+          "Bom",
+          "Minzy"
+        ],
+        "correct": 0,
+        "fun_fact": "EXO also performed Growl and Power in the same concert section, and DJ Martin Garrix headlined the afterparty.",
+        "source": "https://en.wikipedia.org/wiki/2018_Winter_Olympics_closing_ceremony"
+      },
+      {
+        "question": "Which girl group sang Gods, the theme song of the 2023 League of Legends World Championship?",
+        "options": [
+          "aespa",
+          "NewJeans",
+          "IVE",
+          "LE SSERAFIM"
+        ],
+        "correct": 1,
+        "fun_fact": "The South Korean team T1 went on to win that year's tournament.",
+        "source": "https://en.wikipedia.org/wiki/2023_League_of_Legends_World_Championship"
+      },
+      {
+        "question": "Which boy group carried the PyeongChang 2018 Olympic flame together in Seoul on January 13, 2018?",
+        "options": [
+          "TXT",
+          "ENHYPEN",
+          "ATEEZ",
+          "Monsta X"
+        ],
+        "correct": 3,
+        "fun_fact": "Their third Japanese single followed on January 31 and featured Spotlight, the first original song they recorded in Japanese.",
+        "source": "https://en.wikipedia.org/wiki/Monsta_X"
+      },
+      {
+        "question": "Which band sang Hand in Hand, the theme song of the 1988 Seoul Olympics?",
+        "options": [
+          "Koreana",
+          "Seo Taiji and Boys",
+          "H.O.T.",
+          "Sechs Kies"
+        ],
+        "correct": 0,
+        "fun_fact": "The song was composed and produced by Giorgio Moroder, with English lyrics by Tom Whitlock.",
+        "source": "https://en.wikipedia.org/wiki/Hand_in_Hand_(Olympic_theme_song)"
+      },
+      {
+        "question": "Which two K-pop boy groups performed at the closing ceremony of the 2018 Asian Games in Jakarta?",
+        "options": [
+          "EXO and NCT 127",
+          "SHINee and WINNER",
+          "BTS and GOT7",
+          "Super Junior and iKON"
+        ],
+        "correct": 3,
+        "fun_fact": "Indian singer Sidharth Slathia also performed at the ceremony, alongside Indonesian artists.",
+        "source": "https://en.wikipedia.org/wiki/2018_Asian_Games_closing_ceremony"
+      },
+      {
+        "question": "Which group sang Only One, the official theme song of the 2014 Incheon Asian Games?",
+        "options": [
+          "TVXQ",
+          "Super Junior",
+          "JYJ",
+          "SHINee"
+        ],
+        "correct": 2,
+        "fun_fact": "They performed it in a medley with Flame and Empty during the torch relay section of the opening ceremony.",
+        "source": "https://en.wikipedia.org/wiki/2014_Asian_Games_opening_ceremony"
+      },
+      {
+        "question": "Which singer closed the 2014 Asian Games opening ceremony alongside pianist Lang Lang?",
+        "options": [
+          "Rain",
+          "BoA",
+          "G-Dragon",
+          "Psy"
+        ],
+        "correct": 3,
+        "fun_fact": "He performed a remake of his early single Champion and his global hit Gangnam Style.",
+        "source": "https://en.wikipedia.org/wiki/2014_Asian_Games_opening_ceremony"
+      },
+      {
+        "question": "Which BTS member served as a torchbearer for the Paris 2024 Summer Olympics?",
+        "options": [
+          "RM",
+          "Suga",
+          "Jin",
+          "J-Hope"
+        ],
+        "correct": 2,
+        "fun_fact": "He carried the flame for the South Korean delegation, then launched his solo variety show Run Jin in August 2024.",
+        "source": "https://en.wikipedia.org/wiki/Jin_(singer)"
+      },
+      {
+        "question": "Which EXO member represented Heartsteel, the virtual boy band unveiled at the 2023 League of Legends Worlds?",
+        "options": [
+          "Kai",
+          "Baekhyun",
+          "Chanyeol",
+          "D.O."
+        ],
+        "correct": 1,
+        "fun_fact": "The virtual group's other human counterparts were ØZI, Tobi Lou and Cal Scruby.",
+        "source": "https://en.wikipedia.org/wiki/2023_League_of_Legends_World_Championship"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Dreamers_(Jung_Kook_song)",
+      "https://en.wikipedia.org/wiki/2018_Winter_Olympics_closing_ceremony",
+      "https://en.wikipedia.org/wiki/2023_League_of_Legends_World_Championship",
+      "https://en.wikipedia.org/wiki/Monsta_X",
+      "https://en.wikipedia.org/wiki/Ateez",
+      "https://en.wikipedia.org/wiki/Tomorrow_X_Together",
+      "https://en.wikipedia.org/wiki/Enhypen",
+      "https://en.wikipedia.org/wiki/Hand_in_Hand_(Olympic_theme_song)",
+      "https://en.wikipedia.org/wiki/2018_Asian_Games_closing_ceremony",
+      "https://en.wikipedia.org/wiki/2014_Asian_Games_opening_ceremony",
+      "https://en.wikipedia.org/wiki/Jin_(singer)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-26",
+    "title": "BTS: The Dynamite to Proof Era",
+    "description": "Ten questions on BTS from 2020 to 2022: Dynamite, BE and Life Goes On, Butter, Permission to Dance, My Universe and Proof.",
+    "group_slug": "bts",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "In 2020, Dynamite made BTS the first all-South Korean act to top which chart?",
+        "options": [
+          "Billboard 200",
+          "Billboard Hot 100",
+          "Oricon Albums Chart",
+          "Circle Album Chart"
+        ],
+        "correct": 1,
+        "fun_fact": "Dynamite was the band's first song fully recorded in English, and it sold 265,000 downloads in its first US week.",
+        "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"
+      },
+      {
+        "question": "Dynamite earned BTS their first Grammy nomination. In which category?",
+        "options": [
+          "Best New Artist",
+          "Album of the Year",
+          "Best Pop Duo/Group Performance",
+          "Record of the Year"
+        ],
+        "correct": 2,
+        "fun_fact": "The nomination, at the 63rd Annual Grammy Awards, made BTS the first Korean pop act nominated for a Grammy.",
+        "source": "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)"
+      },
+      {
+        "question": "Which song was the lead single of BE, released in November 2020?",
+        "options": [
+          "Life Goes On",
+          "Blue & Grey",
+          "Telepathy",
+          "Fly to My Room"
+        ],
+        "correct": 0,
+        "fun_fact": "Life Goes On became the first primarily Korean-language song to debut at No. 1 on the Billboard Hot 100.",
+        "source": "https://en.wikipedia.org/wiki/Life_Goes_On_(BTS_song)"
+      },
+      {
+        "question": "Which member directed the music video for Life Goes On, the BE lead single?",
+        "options": [
+          "RM",
+          "V",
+          "Jimin",
+          "Jungkook"
+        ],
+        "correct": 3,
+        "fun_fact": "On BE, Jimin handled A&R as the link between the group and their label, while V and RM supervised graphics and design.",
+        "source": "https://en.wikipedia.org/wiki/Be_(BTS_album)"
+      },
+      {
+        "question": "How many non-consecutive weeks did Butter spend at No. 1 on the Billboard Hot 100?",
+        "options": [
+          "Three",
+          "Six",
+          "Ten",
+          "Seventeen"
+        ],
+        "correct": 2,
+        "fun_fact": "Its video drew 108.2 million YouTube views in 24 hours and set four Guinness World Records.",
+        "source": "https://en.wikipedia.org/wiki/Butter_(song)"
+      },
+      {
+        "question": "Which British singer is among the writers of Permission to Dance (2021)?",
+        "options": [
+          "Harry Styles",
+          "Ed Sheeran",
+          "Sam Smith",
+          "Lewis Capaldi"
+        ],
+        "correct": 1,
+        "fun_fact": "Its video uses sign language in the choreography, and BTS performed it at the 76th United Nations General Assembly.",
+        "source": "https://en.wikipedia.org/wiki/Permission_to_Dance"
+      },
+      {
+        "question": "Which band teamed up with BTS on My Universe, a Billboard Hot 100 No. 1 in 2021?",
+        "options": [
+          "Maroon 5",
+          "Imagine Dragons",
+          "OneRepublic",
+          "Coldplay"
+        ],
+        "correct": 3,
+        "fun_fact": "No song billed to two lead groups had reached No. 1 on the Hot 100 before it, and it gave BTS their sixth US chart-topper.",
+        "source": "https://en.wikipedia.org/wiki/My_Universe_(song)"
+      },
+      {
+        "question": "Which song was the lead single of Proof, BTS's 2022 anthology album?",
+        "options": [
+          "Yet to Come",
+          "Run BTS",
+          "For Youth",
+          "Young Love"
+        ],
+        "correct": 0,
+        "fun_fact": "It was BTS's first original Korean-language single since Life Goes On, co-written by RM, Suga and J-Hope.",
+        "source": "https://en.wikipedia.org/wiki/Yet_to_Come_(The_Most_Beautiful_Moment)"
+      },
+      {
+        "question": "In which US city did the Permission to Dance on Stage concerts end in April 2022?",
+        "options": [
+          "Los Angeles",
+          "Las Vegas",
+          "New York",
+          "Chicago"
+        ],
+        "correct": 1,
+        "fun_fact": "BTS played four nights to about 200,000 fans at Allegiant Stadium, setting the all-time Billboard box office record for Las Vegas.",
+        "source": "https://en.wikipedia.org/wiki/Permission_to_Dance_on_Stage"
+      },
+      {
+        "question": "In October 2022, BTS gave a concert in which city to support its bid to host the 2030 World Expo?",
+        "options": [
+          "Busan",
+          "Seoul",
+          "Incheon",
+          "Daegu"
+        ],
+        "correct": 0,
+        "fun_fact": "The October 15 concert was held under the banner Yet to Come.",
+        "source": "https://en.wikipedia.org/wiki/BTS"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Dynamite_(BTS_song)",
+      "https://en.wikipedia.org/wiki/Life_Goes_On_(BTS_song)",
+      "https://en.wikipedia.org/wiki/Be_(BTS_album)",
+      "https://en.wikipedia.org/wiki/Butter_(song)",
+      "https://en.wikipedia.org/wiki/Permission_to_Dance",
+      "https://en.wikipedia.org/wiki/My_Universe_(song)",
+      "https://en.wikipedia.org/wiki/Proof_(album)",
+      "https://en.wikipedia.org/wiki/Yet_to_Come_(The_Most_Beautiful_Moment)",
+      "https://en.wikipedia.org/wiki/Permission_to_Dance_on_Stage",
+      "https://en.wikipedia.org/wiki/BTS"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-27",
+    "title": "K-pop Weather and Season Songs",
+    "description": "Spring Day, Hot Summer, The First Snow: ten easy questions on K-pop songs and albums named after weather and seasons.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which group released Spring Day in February 2017?",
+        "options": [
+          "EXO",
+          "BTS",
+          "SEVENTEEN",
+          "GOT7"
+        ],
+        "correct": 1,
+        "fun_fact": "RM and Suga are among its writers, and it led You Never Walk Alone, the 2017 repackage of Wings.",
+        "source": "https://en.wikipedia.org/wiki/Spring_Day_(song)"
+      },
+      {
+        "question": "EXO's 2013 winter EP Miracles in December has a track named after a snowfall. Which one?",
+        "options": [
+          "The First Snow",
+          "Christmas Day",
+          "The Star",
+          "My Turn to Cry"
+        ],
+        "correct": 0,
+        "fun_fact": "It became a Korean favorite for the first snowfall of the year, and in 2023, a decade on, it climbed to No. 1 on the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Miracles_in_December"
+      },
+      {
+        "question": "Which BIGBANG song has a Korean title that means Spring Summer Fall Winter?",
+        "options": [
+          "Haru Haru",
+          "Lies",
+          "Still Life",
+          "Fantastic Baby"
+        ],
+        "correct": 2,
+        "fun_fact": "Released on April 5, 2022, it was their first release in four years, following Flower Road in 2018.",
+        "source": "https://en.wikipedia.org/wiki/Still_Life_(BigBang_song)"
+      },
+      {
+        "question": "Which Stray Kids lead single from August 2021 takes its English title from thunder?",
+        "options": [
+          "God's Menu",
+          "Maniac",
+          "S-Class",
+          "Thunderous"
+        ],
+        "correct": 3,
+        "fun_fact": "Its Korean title, Sori-kkun, refers to a pansori singer, and the track mixes trap with Korean traditional music.",
+        "source": "https://en.wikipedia.org/wiki/Thunderous"
+      },
+      {
+        "question": "Which girl group released a Korean version of Hot Summer in June 2011?",
+        "options": [
+          "f(x)",
+          "Wonder Girls",
+          "KARA",
+          "Girls' Generation"
+        ],
+        "correct": 0,
+        "fun_fact": "The song was first recorded by German pop group Monrose in 2007.",
+        "source": "https://en.wikipedia.org/wiki/Hot_Summer_(song)"
+      },
+      {
+        "question": "Which Red Velvet summer EP from August 2018 was led by Power Up?",
+        "options": [
+          "The Red Summer",
+          "Rookie",
+          "The ReVe Festival",
+          "Summer Magic"
+        ],
+        "correct": 3,
+        "fun_fact": "It also included an English version of Bad Boy, the group's first song released in English.",
+        "source": "https://en.wikipedia.org/wiki/Summer_Magic_(EP)"
+      },
+      {
+        "question": "What was the title of the TWICE summer reissue from July 2018, led by Dance the Night Away?",
+        "options": [
+          "Twicetagram",
+          "Fancy You",
+          "Summer Nights",
+          "Page Two"
+        ],
+        "correct": 2,
+        "fun_fact": "It expanded their EP What Is Love?, and the lead single's music video was filmed in Japan.",
+        "source": "https://en.wikipedia.org/wiki/Summer_Nights_(EP)"
+      },
+      {
+        "question": "Which girl group released Sunny Summer in July 2018?",
+        "options": [
+          "Apink",
+          "Oh My Girl",
+          "Lovelyz",
+          "GFRIEND"
+        ],
+        "correct": 3,
+        "fun_fact": "Source Music released it as the title track of the group's seventh EP, also named Sunny Summer.",
+        "source": "https://en.wikipedia.org/wiki/Sunny_Summer_(song)"
+      },
+      {
+        "question": "Which Girls' Generation member released the solo song Rain in February 2016?",
+        "options": [
+          "Yoona",
+          "Tiffany",
+          "Taeyeon",
+          "Seohyun"
+        ],
+        "correct": 2,
+        "fun_fact": "Rain and its B-side Secret opened SM Station, the weekly digital music project of SM Entertainment.",
+        "source": "https://en.wikipedia.org/wiki/Rain_(Taeyeon_song)"
+      },
+      {
+        "question": "Which boy group released Spring Breeze as the lead single of its only studio album in 2018?",
+        "options": [
+          "X1",
+          "Wanna One",
+          "NU'EST",
+          "Golden Child"
+        ],
+        "correct": 1,
+        "fun_fact": "The album was the group's final release before it disbanded in January 2019.",
+        "source": "https://en.wikipedia.org/wiki/1%C2%B9%C2%B9%3D1_(Power_of_Destiny)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Spring_Day_(song)",
+      "https://en.wikipedia.org/wiki/Miracles_in_December",
+      "https://en.wikipedia.org/wiki/Still_Life_(BigBang_song)",
+      "https://en.wikipedia.org/wiki/Thunderous",
+      "https://en.wikipedia.org/wiki/Hot_Summer_(song)",
+      "https://en.wikipedia.org/wiki/Summer_Magic_(EP)",
+      "https://en.wikipedia.org/wiki/Summer_Nights_(EP)",
+      "https://en.wikipedia.org/wiki/Sunny_Summer_(song)",
+      "https://en.wikipedia.org/wiki/Rain_(Taeyeon_song)",
+      "https://en.wikipedia.org/wiki/1%C2%B9%C2%B9%3D1_(Power_of_Destiny)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-10-28",
+    "title": "K-pop First Studio Albums True or False",
+    "description": "Ten true or false statements about the first full-length albums of K-pop groups, from Super Junior and BIGBANG to i-dle.",
+    "group_slug": null,
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "The first studio album by Girls' Generation was The Boys.",
+        "correct": false,
+        "fun_fact": "Their first studio album was the self-titled Girls' Generation, released by SM Entertainment on November 1, 2007.",
+        "source": "https://en.wikipedia.org/wiki/Girls%27_Generation_(2007_album)"
+      },
+      {
+        "question": "BIGBANG's first studio album, BigBang Vol.1, came out in 2006.",
+        "correct": true,
+        "fun_fact": "It was released on December 22, 2006, through YG Entertainment and went on to sell more than 110,000 copies.",
+        "source": "https://en.wikipedia.org/wiki/Big_Bang_Vol.1"
+      },
+      {
+        "question": "SHINee's first studio album was The Shinee World.",
+        "correct": true,
+        "fun_fact": "Released in August 2008, it was led by Love Like Oxygen, a remake of a song by Danish singer Martin Hoberg Hedegaard.",
+        "source": "https://en.wikipedia.org/wiki/The_Shinee_World"
+      },
+      {
+        "question": "2NE1's first studio album was Crush.",
+        "correct": false,
+        "fun_fact": "Their first studio album was To Anyone in 2010; Crush, released in 2014, was their second and final one.",
+        "source": "https://en.wikipedia.org/wiki/Crush_(2NE1_album)"
+      },
+      {
+        "question": "EXO's first studio album was XOXO.",
+        "correct": true,
+        "fun_fact": "XOXO came out in June 2013 and won Album of the Year at the 2013 Mnet Asian Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/XOXO_(Exo_album)"
+      },
+      {
+        "question": "BTS's first Korean studio album was Wings.",
+        "correct": false,
+        "fun_fact": "Their debut studio album was Dark & Wild, released in August 2014 with Danger as its lead single.",
+        "source": "https://en.wikipedia.org/wiki/Dark_%26_Wild"
+      },
+      {
+        "question": "MAMAMOO's first studio album was Melting.",
+        "correct": true,
+        "fun_fact": "Melting arrived on February 26, 2016, and its single You're the Best gave the group its first music show win.",
+        "source": "https://en.wikipedia.org/wiki/Melting_(album)"
+      },
+      {
+        "question": "Super Junior's first studio album was Sorry, Sorry.",
+        "correct": false,
+        "fun_fact": "Their first album was Twins, released on November 28, 2005; Sorry, Sorry, from March 2009, was their third.",
+        "source": "https://en.wikipedia.org/wiki/Super_Junior"
+      },
+      {
+        "question": "Stray Kids' first studio album was 5-Star.",
+        "correct": false,
+        "fun_fact": "Their first full-length album was Go Live, released on June 17, 2020, with the lead single God's Menu.",
+        "source": "https://en.wikipedia.org/wiki/Go_Live_(album)"
+      },
+      {
+        "question": "i-dle's first studio album, released when the group was still called (G)I-DLE, was I Never Die.",
+        "correct": true,
+        "fun_fact": "Released in 2022, it was led by Tomboy, which reached No. 1 on the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/I-dle"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Girls%27_Generation_(2007_album)",
+      "https://en.wikipedia.org/wiki/Girls%27_Generation",
+      "https://en.wikipedia.org/wiki/Big_Bang_Vol.1",
+      "https://en.wikipedia.org/wiki/The_Shinee_World",
+      "https://en.wikipedia.org/wiki/Crush_(2NE1_album)",
+      "https://en.wikipedia.org/wiki/To_Anyone",
+      "https://en.wikipedia.org/wiki/XOXO_(Exo_album)",
+      "https://en.wikipedia.org/wiki/Exo",
+      "https://en.wikipedia.org/wiki/Dark_%26_Wild",
+      "https://en.wikipedia.org/wiki/Wings_(BTS_album)",
+      "https://en.wikipedia.org/wiki/Melting_(album)",
+      "https://en.wikipedia.org/wiki/Super_Junior",
+      "https://en.wikipedia.org/wiki/Go_Live_(album)",
+      "https://en.wikipedia.org/wiki/5-Star_(Stray_Kids_album)",
+      "https://en.wikipedia.org/wiki/I-dle"
+    ]
+  }
+]

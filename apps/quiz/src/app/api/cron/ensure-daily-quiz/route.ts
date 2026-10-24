@@ -4,7 +4,7 @@ import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
 import { SITE } from '@/lib/site/registry';
 import { NextResponse } from 'next/server';
 
-import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
+import { bankRefillAlert, qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
 import { rotateQotd, supabaseQotdStore } from '@/lib/ux-v1/p1/qotd-rotation';
 
 import type { NextRequest } from 'next/server';
@@ -36,6 +36,19 @@ import type { NextRequest } from 'next/server';
  */
 export const dynamic = 'force-dynamic';
 
+/**
+ * Mission U (owner, 2026-10-15): the open bank rows left after today's run, and the refill
+ * alert under BANK_REFILL_THRESHOLD. Logged and returned so a cron run shows it; a failed
+ * count never fails the run.
+ */
+async function bankStatus(supabase: ReturnType<typeof createServiceRoleClient>): Promise<{ bank_open?: number; refill_alert?: string }> {
+  const { count, error } = await supabase.from('quiz_bank').select('id', { count: 'exact', head: true }).in('status', ['verified', 'scheduled']);
+  if (error || typeof count !== 'number') return {};
+  const alert = bankRefillAlert(count);
+  if (alert) console.warn(`[ensure-daily-quiz] ${alert}`);
+  return alert ? { bank_open: count, refill_alert: alert } : { bank_open: count };
+}
+
 export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (!isCronAuthorized(req)) {
@@ -49,10 +62,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     try {
       const result = await rotateQotd(supabaseQotdStore(supabase, SITE.id), today);
       console.log(`[ensure-daily-quiz] ${today}: ${result.method}${result.quizId ? ` ${result.quizId}` : ''}`);
+      const bank = await bankStatus(supabase);
       if (result.method === 'none') {
-        return NextResponse.json({ ok: false, date: today, method: result.method, reason: result.reason }, { status: 500 });
+        return NextResponse.json({ ok: false, date: today, method: result.method, reason: result.reason, ...bank }, { status: 500 });
       }
-      return NextResponse.json({ ok: true, date: today, method: result.method, quiz_id: result.quizId });
+      return NextResponse.json({ ok: true, date: today, method: result.method, quiz_id: result.quizId, ...bank });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error('[ensure-daily-quiz]', message);
@@ -67,5 +81,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   console.log(`[ensure-daily-quiz] ensured daily quiz for ${today}`);
-  return NextResponse.json({ ok: true, date: today });
+  return NextResponse.json({ ok: true, date: today, ...(await bankStatus(supabase)) });
 }

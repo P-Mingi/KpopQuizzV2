@@ -10,7 +10,8 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { getSpace } from '@/lib/verse/space';
 import { listPublishedPages } from '@/lib/verse/pages/data';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
-import { withoutKpdhCover } from '@/lib/blind-test-curated';
+import { withoutHiddenCover } from '@/lib/blind-test-curated';
+import { hiddenCoverSongIds, withCoverSwitch } from '@/lib/song-cover-overrides';
 
 import type { Metadata } from 'next';
 
@@ -66,17 +67,20 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
   if (!song) notFound();
 
   const db = createPublicReadClient();
-  const [{ data: bt }, { data: override }, pages] = await Promise.all([
+  const [{ data: bt }, { data: override }, pages, coverSwitches] = await Promise.all([
     db.from('blind_test_songs').select('youtube_id, clip_chorus').eq('group_id', space.group.id).eq('status', 'active').ilike('title', song.title).limit(1).maybeSingle(),
     db.from('entity_overrides').select('value').eq('entity_type', 'song').eq('entity_id', song.id).eq('field', 'youtube_url').maybeSingle(),
     listPublishedPages(space.group.id),
+    // The owner's manual cover switches (cached, fail soft: empty while the SQL is not run).
+    hiddenCoverSongIds(),
   ]);
   const blind = bt as { youtube_id: string | null; clip_chorus: number | null } | null;
   const curated = (override as { value: string | null } | null)?.value ?? null;
   const story = pages.find((p) => p.kind === 'song_story' && normalize(p.title) === normalize(song.title)) ?? null;
   const album = song.album_name ? space.albums.find((a) => normalize(a.title) === normalize(song.album_name!)) ?? null : null;
-  // A KPop Demon Hunters song never shows its cover, the film key art (COMMON rule 10, F6d).
-  const covers = withoutKpdhCover(song);
+  // A KPop Demon Hunters song or a soundtrack (drama, film, series OST) never shows its cover, the
+  // show's key art (COMMON rule 10, F6d, Mission U part C): the existing no-cover disc instead.
+  const covers = withoutHiddenCover(withCoverSwitch(song, coverSwitches));
   const cover = [covers.album_cover_big, covers.album_cover_medium].find((u) => u && isConfiguredImageHost(u)) ?? null;
   const duration = fmtDuration(song.duration);
 
