@@ -6,6 +6,8 @@
 import { questionIssues, isQuestionValid } from '@/lib/quiz-validation';
 import { blankQuestionFor } from '@/lib/quiz-question';
 
+import { SITE, SITE_ID } from '@/lib/site/registry';
+
 import { MIN_QUESTIONS, MIN_TITLE, hasGroupChosen } from './funnel';
 
 import type { QuestionData } from '@/lib/quiz-question';
@@ -42,15 +44,57 @@ export const DIFFICULTY_HELP: Record<string, string> = {
   hard: 'Hard: only the most dedicated fans will pass.',
 };
 
+/** The words of step 1 for this build's site. kpop returns today's literals (group, artist, K-pop); a world site names its own
+ *  topic (series) and has no fandom war, and a site without image quizzes does not offer the image type. */
+const WORLD_EXAMPLES: Record<string, string> = {
+  multiple_choice: 'Who is the captain of the Straw Hat Pirates?',
+  true_false: 'Naruto Uzumaki is the sixth Hokage.',
+  guess_from_clues: 'Clue 1: first appears in episode 1',
+  intruder: 'Three Straw Hats, one who is not',
+};
+export function typeRowsFor(): TypeRow[] {
+  if (SITE_ID === 'kpop') return TYPE_ROWS;
+  return TYPE_ROWS.filter((t) => t.value !== 'image' || SITE.features.imageQuiz).map((t) => ({ ...t, example: WORLD_EXAMPLES[t.value] ?? t.example }));
+}
+export function difficultyHelpFor(key: string): string | undefined {
+  if (SITE_ID === 'kpop') return DIFFICULTY_HELP[key];
+  const topic = SITE.vocabulary.topic;
+  return ({ easy: 'Easy: any fan can pass.', medium: `Medium: fans who follow the ${topic} will pass.`, hard: 'Hard: only the most dedicated fans will pass.' } as Record<string, string>)[key];
+}
+export interface TopicCopy {
+  label: string; manySp: string; pickToContinue: string; loadFailed: string; newLabel: string; createButton: string; newChip: string; searchAnother: string;
+  search: (n: number) => string; all: (n: number) => string; listLabel: string; noMatch: string; newPlaceholder: string;
+  titlePlaceholder: string | null; aboutPlaceholder: string | null;
+}
+export function topicCopy(): TopicCopy {
+  if (SITE_ID === 'kpop') {
+    return {
+      label: 'Group', manySp: ' groups', pickToContinue: 'Pick a group to continue.', loadFailed: 'The group list did not load. Reload the page to pick a group.',
+      newLabel: 'New group or artist', createButton: 'Create group', newChip: 'new group', searchAnother: 'Search another group',
+      search: (n) => `Search ${n} groups`, all: (n) => `All ${n} groups`, listLabel: 'Groups', noMatch: 'No group matches. Use New group or artist above.',
+      newPlaceholder: 'e.g. Cortis', titlePlaceholder: null, aboutPlaceholder: null,
+    };
+  }
+  const one = SITE.vocabulary.topic;
+  const many = SITE.vocabulary.topicPlural;
+  const Cap = one.charAt(0).toUpperCase() + one.slice(1);
+  return {
+    label: Cap, manySp: ` ${many}`, pickToContinue: `Pick a ${one} to continue.`, loadFailed: `The ${one} list did not load. Reload the page to pick a ${one}.`,
+    newLabel: `New ${one}`, createButton: `Create ${one}`, newChip: `new ${one}`, searchAnother: `Search another ${one}`,
+    search: (n) => `Search ${n} ${many}`, all: (n) => `All ${n} ${many}`, listLabel: Cap, noMatch: `No ${one} matches. Use New ${one} above.`,
+    newPlaceholder: 'e.g. Frieren', titlePlaceholder: 'e.g. Only real fans can pass this', aboutPlaceholder: 'e.g. My hardest quiz yet, focused on the arcs most fans skip.',
+  };
+}
+
 /** Help line under the group field. */
 export function groupHelp(s: FunnelState, groups: FunnelGroup[]): string {
   const g = groups.find((x) => x.slug === s.group_slug);
   if (g) {
     const fandom = g.fandom_name && g.fandom_name !== 'fan' ? g.fandom_name : `${g.name} fans`;
-    return `Your quiz appears on the ${g.name} page and counts for ${fandom} in the fandom war.`;
+    return SITE.features.fandomWar ? `Your quiz appears on the ${g.name} page and counts for ${fandom} in the fandom war.` : `Your quiz appears on the ${g.name} page.`;
   }
-  if (s.newGroup) return `${s.newGroup} is a new group: it is added with your quiz and checked by our team.`;
-  return 'Pick the group or artist your quiz is about.';
+  if (s.newGroup) return `${s.newGroup} is a new ${SITE_ID === 'kpop' ? 'group' : SITE.vocabulary.topic}: it is added with your quiz and checked by our team.`;
+  return SITE_ID === 'kpop' ? 'Pick the group or artist your quiz is about.' : `Pick the ${SITE.vocabulary.topic} your quiz is about.`;
 }
 
 // ---- step 2: row status words ----

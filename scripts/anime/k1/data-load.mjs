@@ -8,7 +8,7 @@
 // characters (group_id, slug), series_themes (group_id, kind, number), entity_sources (entity_type, entity_id, field,
 // source), trivia (entity_kind, entity_id, normalised fact)), and rows of a series that are no longer in its files
 // are removed (arcs, characters, themes, still-draft trivia), so a second run changes nothing.
-// A group's colour pair (the file's, else the placeholder below) is written only when the group row is created. Trivia status is never reset by a reload (a published row stays published).
+// A group's colour pair (the file's, else the placeholder below) is written only when the group row is created. Trivia status follows the fact only upward: a still-draft row of a verified fact becomes published and one of a rejected fact becomes hidden; a published or hidden row is never moved back by a reload.
 //
 // Lane K2 extension (optional files of the same directory): creators.json (the 30 Team creators and the OtakuQuiz Team
 // account, creator-profile.schema.json) and quizzes/<series>/*.json (quiz drafts, quiz-draft.schema.json). With
@@ -32,7 +32,8 @@ export const PLACEHOLDER_COLORS = { display: '#1A1A1A', text: '#FFFFFF' };
 
 const SLUG_RE = /^[a-z0-9-]{1,60}$/;
 const ENTITY_TYPE = { series: 'series', character: 'character', arc: 'arc', theme: 'series_theme', episode: 'episode' };
-const TRIVIA_STATUS = { draft: 'draft', verified: 'draft', rejected: 'hidden' };
+// Owner decision (facts re-check): a verified fact is a published trivia row; a rejected one is hidden; a draft one stays draft.
+const TRIVIA_STATUS = { draft: 'draft', verified: 'published', rejected: 'hidden' };
 
 /** Reads every series file of the directory (and its facts file). Throws on a missing facts file or a slug mismatch. */
 export function readDataDir(dir) {
@@ -208,6 +209,8 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily
       if (fact.entity.group_slug !== slug) throw new Error(`fact ${fact.id}: group_slug differs from ${slug}`);
       const entityId = kind === 'series' ? slug : String(fact.entity.ref);
       for (const s of fact.sources) {
+        // press (Oricon, Anime News Network) is kept in the files only: entity_sources_source_check does not know it
+        if (s.source === 'press') continue;
         const key = `${ENTITY_TYPE[kind]}|${entityId}|${fact.field}|${s.source}`;
         if (seenSrc.has(key)) throw new Error(`fact ${fact.id}: entity_sources slot ${key} is already used`);
         seenSrc.add(key);
@@ -217,7 +220,7 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily
         const key = `${kind}|${entityId}|${fact.text.trim().toLowerCase()}`;
         if (seenTrivia.has(key)) throw new Error(`fact ${fact.id}: duplicate trivia text`);
         seenTrivia.add(key);
-        trivia.push({ slug, entity_kind: kind, entity_id: entityId, fact: fact.text.trim(), category: fact.category, source: fact.sources[0].source, source_url: fact.sources[0].url, status: TRIVIA_STATUS[fact.status] ?? 'draft' });
+        trivia.push({ slug, entity_kind: kind, entity_id: entityId, fact: fact.text.trim(), category: fact.category, source: (fact.sources.find((x) => x.source !== 'press') ?? fact.sources[0]).source, source_url: (fact.sources.find((x) => x.source !== 'press') ?? fact.sources[0]).url, status: TRIVIA_STATUS[fact.status] ?? 'draft' });
       }
     }
   }
@@ -348,6 +351,7 @@ export function renderDataSql(plan) {
   }
   const key = (a, b) => `${a}.entity_kind = ${b}.entity_kind and ${a}.entity_id = ${b}.entity_id and md5(btrim(lower(${a}.fact))) = md5(btrim(lower(${b}.fact)))`;
   out.push(`update public.trivia t set category = v.category, source = v.source, source_url = v.source_url, updated_at = now() from _k1_trivia v where t.site_id = ${sqlText(SITE)} and ${key('t', 'v')} and (t.category, t.source, t.source_url) is distinct from (v.category, v.source, v.source_url);`);
+  out.push(`update public.trivia t set status = v.status, updated_at = now() from _k1_trivia v where t.site_id = ${sqlText(SITE)} and ${key('t', 'v')} and t.status = 'draft' and v.status in ('published', 'hidden');`);
   out.push(`insert into public.trivia (entity_kind, entity_id, group_id, fact, category, source, source_url, lang, status, site_id) select v.entity_kind, v.entity_id, g.id, v.fact, v.category, v.source, v.source_url, 'en', v.status, ${sqlText(SITE)} from _k1_trivia v join public.groups g on g.slug = v.group_slug and g.site_id = ${sqlText(SITE)} where not exists (select 1 from public.trivia t where ${key('t', 'v')});`);
   out.push(`delete from public.trivia t where t.site_id = ${sqlText(SITE)} and t.status = 'draft' and t.created_by is null and t.group_id in (select id from public.groups where site_id = ${sqlText(SITE)} and slug in (${plan.groups.map((g) => sqlText(g.slug)).join(', ')})) and not exists (select 1 from _k1_trivia v where ${key('t', 'v')});`);
 

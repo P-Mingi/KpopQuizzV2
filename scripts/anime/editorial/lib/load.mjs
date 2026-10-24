@@ -114,7 +114,7 @@ function cleanFact(raw, keyId) {
         }
         if (!('source' in c) && typeof c.url === 'string') {
           const h = hostOf(c.url);
-          const kind = h.endsWith('wikipedia.org') ? 'wikipedia' : h.endsWith('wikidata.org') ? 'wikidata' : h.endsWith('musicbrainz.org') ? 'musicbrainz' : 'official';
+          const kind = h.endsWith('wikipedia.org') ? 'wikipedia' : h.endsWith('wikidata.org') ? 'wikidata' : h.endsWith('musicbrainz.org') ? 'musicbrainz' : (h.endsWith('oricon.co.jp') || h.endsWith('animenewsnetwork.com')) ? 'press' : 'official';
           aliases.push('source kind read from the host');
           c.source = kind;
         }

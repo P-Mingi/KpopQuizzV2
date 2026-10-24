@@ -78,3 +78,4 @@
 | 2026-10-20T11:34:38Z | o1-dev | docs/pending-migrations/multisite/015-spoilers.sql | fe121c6504dd1f90 | ok |
 | 2026-10-21T08:35:01Z | dev | docs/pending-migrations/multisite/015-spoilers.sql | re-applied by ORCH (changed in place by lot a, D-073; migrate-dev skips an applied name) | ok |
 | 2026-10-21T20:01:54Z | o1-dev | docs/pending-migrations/multisite/016-passport-deletion.sql | 0519926461060b3a | ok |
+| 2026-10-23T17:45:43Z | o1-dev | docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql | 89680ba4458946ce | failed rc=3 |

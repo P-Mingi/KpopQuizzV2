@@ -6,3 +6,4 @@ html.ux-v1[data-site="anime"] .anime-c1-quiet { color: var(--ux-muted); }
 html.ux-v1[data-site="anime"] .anime-c1-link { color: var(--ux-pink-ink); }
 html.ux-v1[data-site="anime"] .anime-c1-crumbs ol { color: var(--ux-muted); }
 html.ux-v1[data-site="anime"] .anime-c1-crumbs a { color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-c1-pill { color: var(--ux-ink); }

@@ -1,4 +1,4 @@
-// node --test apps/quiz/e2e/o1/L1/   (no database, no network: in-memory data and a temp folder)
+// node --test apps/quiz/e2e/o1/L1/content-sql.test.mjs   (no database, no network: in-memory data and a temp folder)
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -95,6 +95,9 @@ test('a verified fact becomes published trivia, a draft stays draft', () => {
   assert.match(l05, /'A verified line\.', 'history', 'wikipedia', 'https:\/\/en\.wikipedia\.org\/wiki\/Test', 'published'\)/);
   assert.match(l05, /'A draft line\.', 'history', 'wikipedia', 'https:\/\/en\.wikipedia\.org\/wiki\/Test', 'draft'\)/);
   assert.doesNotMatch(l05, /A rejected line/);
+  // a draft row left by an earlier run is promoted when its fact is verified now, and never demoted
+  assert.match(l05, /update public\.trivia t set status = 'published'[^\n]*v\.status = 'published' and t\.status = 'draft' and t\.created_by is null;/);
+  assert.doesNotMatch(l05, /set status = '(draft|hidden)'/);
 });
 
 test('the cut covers the whole loader output and is deterministic', () => {
@@ -120,8 +123,8 @@ test('rollbacks refuse when data was written', () => {
 
 test('teamEmail and the arguments', () => {
   assert.equal(teamEmail('oq_creator_01'), 'oq_creator_01@team.otakuquiz.org');
-  assert.equal(parseArgs([]).out, 'docs/launch/o1/sql');
-  assert.equal(parseArgs(['--drafts']).out, 'docs/launch/o1/sql-drafts');
+  assert.equal(parseArgs([]).out, 'docs/pending-migrations/multisite/launch');
+  assert.equal(parseArgs(['--drafts']).out, 'docs/pending-migrations/multisite/launch');
   assert.throws(() => parseArgs(['--nope']), /unknown argument/);
 });
 

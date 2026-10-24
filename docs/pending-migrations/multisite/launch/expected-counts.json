@@ -1,0 +1,40 @@
+{
+  "mode": "verified",
+  "selection": {
+    "mode": "verified",
+    "series": {
+      "total": 30,
+      "loaded": 30
+    },
+    "facts": {
+      "total": 1228,
+      "loaded": 1058
+    },
+    "quizzes": {
+      "total": 150,
+      "loaded": 72
+    },
+    "daily": {
+      "total": 100,
+      "loaded": 37
+    },
+    "creators": {
+      "total": 31,
+      "loaded": 31
+    }
+  },
+  "counts": {
+    "groups": 30,
+    "series": 30,
+    "arcs": 249,
+    "characters": 600,
+    "themes": 427,
+    "trivia": 1032,
+    "entity_sources": 1348,
+    "creators": 31,
+    "quizzes": 72,
+    "questions": 691,
+    "daily": 37,
+    "daily_questions": 296
+  }
+}

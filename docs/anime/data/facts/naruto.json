@@ -27,7 +27,8 @@
     "fetched_at": "2026-10-20T16:40:09Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "NARUTO -ナルト- Genre Adventure"
  },
  {
@@ -62,7 +63,8 @@
     "fetched_at": "2026-10-20T16:40:10Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "written and illustrated by Masashi Kishimoto"
  },
  {
@@ -97,7 +99,8 @@
     "fetched_at": "2026-10-20T16:40:10Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Weekly Shōnen Jump from September 1999 to November 2014"
  },
  {
@@ -130,7 +133,8 @@
     "fetched_at": "2026-10-20T16:40:10Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "from September 21, 1999"
  },
  {
@@ -189,7 +193,8 @@
     "fetched_at": "2026-10-20T16:42:04Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "aired in Japan from October 3, 2002, to February 8, 2007"
  },
  {
@@ -221,7 +226,8 @@
     "fetched_at": "2026-10-20T16:42:13Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "It aired on TV Tokyo from February 15, 2007, to March 23, 2017"
  },
  {
@@ -246,6 +252,11 @@
     "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
     "ref": "1381022376",
     "fetched_at": "2026-10-20T16:47:57Z"
+   },
+   {
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/news/2017-03-23/naruto-shippuden-anime-ending-on-500th-episode-confirmed/.113787",
+    "fetched_at": "2026-10-23T17:26:53Z"
    }
   ],
   "status": "draft",
@@ -278,7 +289,8 @@
     "fetched_at": "2026-10-20T16:42:12Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "NARUTO BORUTO -NARUTO NEXT GENERATIONS- BORUTO -TWO BLUE VORTEX- RELATED TITLES ANIME NARUTO NARUTO SHIPPUDEN BORUTO"
  },
  {
@@ -324,16 +336,16 @@
   },
   "field": "arcs_part_two_a",
   "value": [
-   "8: Kazekage Rescue, episodes 221-252",
-   "9: Distant Reunion, episodes 253-273",
-   "10: Twelve Guardian Ninja, episodes 274-291, anime only",
-   "11: Hidan and Kakuzu, the Immortal Destroyers, episodes 292-308",
-   "12: Appearance of the Three-Tails, episodes 309-332, anime only",
-   "13: Master's Prophecy and Vengeance, episodes 333-363",
-   "14: Activation of the Six-Tails, episodes 364-371, anime only",
-   "15: Two Saviors, episodes 372-395",
-   "16: Past Chapter: Konoha's Trail, episodes 396-416, anime only",
-   "17: Five Kage Gather, episodes 417-441"
+   "8: Kazekage Rescue, Shippuden episodes 1-32",
+   "9: Distant Reunion, Shippuden episodes 33-53",
+   "10: Twelve Guardian Ninja, Shippuden episodes 54-71, anime only",
+   "11: Hidan and Kakuzu, the Immortal Destroyers, Shippuden episodes 72-88",
+   "12: Appearance of the Three-Tails, Shippuden episodes 89-112, anime only",
+   "13: Master's Prophecy and Vengeance, Shippuden episodes 113-143",
+   "14: Activation of the Six-Tails, Shippuden episodes 144-151, anime only",
+   "15: Two Saviors, Shippuden episodes 152-175",
+   "16: Past Chapter: Konoha's Trail, Shippuden episodes 176-196, anime only",
+   "17: Five Kage Gather, Shippuden episodes 197-221"
   ],
   "category": "history",
   "load_bearing": true,
@@ -361,16 +373,16 @@
   },
   "field": "arcs_part_two_b",
   "value": [
-   "18: Paradise Life on Board, episodes 442-462, anime only",
-   "19: Mastering the Nine-Tails and a Fateful Meeting, episodes 463-495",
-   "20: Seven Ninja Swordsmen, episodes 496-509",
-   "21: Chikara, episodes 510-515, anime only",
-   "22: Shinobi World War: Attackers From Afar, episodes 516-540",
-   "23: Shinobi World War: Sasuke and Itachi, episodes 541-568",
-   "24: Kakashi ANBU Chapter: Shinobi in Darkness, episodes 569-581, anime only",
-   "25: Shinobi World War: Team 7 Again, episodes 582-592",
-   "26: Shinobi World War: Obito Uchiha, episodes 593-613",
-   "27: Naruto's Back: Trail of Comrades, episodes 614-633, anime only"
+   "18: Paradise Life on Board, Shippuden episodes 222-242, anime only",
+   "19: Mastering the Nine-Tails and a Fateful Meeting, Shippuden episodes 243-275",
+   "20: Seven Ninja Swordsmen, Shippuden episodes 276-289",
+   "21: Chikara, Shippuden episodes 290-295, anime only",
+   "22: Shinobi World War: Attackers From Afar, Shippuden episodes 296-320",
+   "23: Shinobi World War: Sasuke and Itachi, Shippuden episodes 321-348",
+   "24: Kakashi ANBU Chapter: Shinobi in Darkness, Shippuden episodes 349-361, anime only",
+   "25: Shinobi World War: Team 7 Again, Shippuden episodes 362-372",
+   "26: Shinobi World War: Obito Uchiha, Shippuden episodes 373-393",
+   "27: Naruto's Back: Trail of Comrades, Shippuden episodes 394-413, anime only"
   ],
   "category": "history",
   "load_bearing": true,
@@ -398,15 +410,15 @@
   },
   "field": "arcs_part_two_c",
   "value": [
-   "28: Infinite Tsukuyomi Activated, episodes 634-651",
-   "29: Jiraiya Ninja Scrolls: Tale of the Hero Naruto, episodes 652-670, anime only",
-   "30: Itachi's True Story: Light and Darkness, episodes 671-678, anime only",
-   "31: Origin of Ninshu: Indra and Asura, episodes 679-689, anime only",
-   "32: Naruto and Sasuke, episodes 690-699",
-   "33: Childhood Chapter, episodes 700-703, anime only",
-   "34: Sasuke's True Story: Dawn Chapter, episodes 704-708",
-   "35: Shikamaru's Secret: Cloud in the Silent Dark, episodes 709-713",
-   "36: Konoha Secret: Wedding Day, episodes 714-720"
+   "28: Infinite Tsukuyomi Activated, Shippuden episodes 414-431",
+   "29: Jiraiya Ninja Scrolls: Tale of the Hero Naruto, Shippuden episodes 432-450, anime only",
+   "30: Itachi's True Story: Light and Darkness, Shippuden episodes 451-458, anime only",
+   "31: Origin of Ninshu: Indra and Asura, Shippuden episodes 459-469, anime only",
+   "32: Naruto and Sasuke, Shippuden episodes 470-479",
+   "33: Childhood Chapter, Shippuden episodes 480-483, anime only",
+   "34: Sasuke's True Story: Dawn Chapter, Shippuden episodes 484-488",
+   "35: Shikamaru's Secret: Cloud in the Silent Dark, Shippuden episodes 489-493",
+   "36: Konoha Secret: Wedding Day, Shippuden episodes 494-500"
   ],
   "category": "history",
   "load_bearing": true,
@@ -451,7 +463,8 @@
     "fetched_at": "2026-10-20T16:43:37Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Naruto Next Generations (2016-23)"
  },
  {
@@ -598,7 +611,8 @@
     "fetched_at": "2026-10-20T16:42:45Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "ユラユラ"
  },
  {
@@ -645,7 +659,8 @@
     "fetched_at": "2026-10-20T16:42:20Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "ブラッドサーキュレーター"
  },
  {
@@ -687,7 +702,8 @@
     "fetched_at": "2026-10-20T16:42:45Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Yellow moon"
  },
  {
@@ -734,7 +750,8 @@
     "fetched_at": "2026-10-20T16:42:20Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "言葉のいらない約束"
  },
  {
@@ -781,7 +798,8 @@
     "fetched_at": "2026-10-20T16:42:20Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "ピノとアメリ"
  },
  {
@@ -835,7 +853,8 @@
     "fetched_at": "2026-10-20T16:40:09Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Kishimoto had requested that Nishio be given this role"
  },
  {
@@ -889,7 +908,8 @@
     "fetched_at": "2026-10-20T16:44:31Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "改心した長門による"
  },
  {
@@ -916,7 +936,8 @@
     "fetched_at": "2026-10-20T16:42:20Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "1-30 Hero's Come Back!! nobodyknows+"
  },
  {
@@ -943,7 +964,8 @@
     "fetched_at": "2026-10-20T16:42:45Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Yellow moon Akeboshi"
  },
  {
@@ -970,7 +992,8 @@
     "fetched_at": "2026-10-20T16:43:37Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "In July 2019, the series was transferred to Shueisha's monthly magazine"
  },
  {
@@ -1025,7 +1048,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the titular character and main protagonist of the Naruto franchise. He was the first character created by"
  },
  {
@@ -1053,7 +1077,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is Naruto Uzumaki's main rival and best friend. He was designed by Kishimoto as a \"cool genius\" since he felt this was"
  },
  {
@@ -1081,7 +1106,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a member of Team 7, Naruto's classmate and Sasuke's love interest. While creating the character, Kishimoto has"
  },
  {
@@ -1109,7 +1135,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the easygoing, tardy, smart leader of Team 7, consisting of Naruto Uzumaki, Sasuke Uchiha and Sakura Haruno."
  },
  {
@@ -1137,7 +1164,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a Konohagakure chunin and instructor at the Ninja Academy, a school for prospective ninja. Masashi Kishimoto's initial"
  },
  {
@@ -1165,7 +1193,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "the Third Hokage (三代目火影, Sandaime Hokage), has been the longest-ruling Hokage, being forced to return to duty"
  },
  {
@@ -1193,7 +1222,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "named after Konohagakure, is the grandson of the Third Hokage Hiruzen Sarutobi. He strives to replace his"
  },
  {
@@ -1221,7 +1251,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "was a Konohagakure ninja, being not only Naruto Uzumaki's teacher but also Minato Namikaze's teacher. Kishimoto has commented that out of all"
  },
  {
@@ -1249,7 +1280,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is an S-ranked criminal who served as the primary antagonist of Part I of the Naruto series, having previously affiliated with the Akatsuki."
  },
  {
@@ -1277,7 +1309,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the youngest of the three siblings, created as a foil to Naruto Uzumaki, with a similar background yet a highly divergent personality. Before"
  },
  {
@@ -1305,7 +1338,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a member of Team Guy and the favorite student of team leader Might Guy. In the ninja academy, Rock Lee was unable to use"
  },
  {
@@ -1333,7 +1367,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "was a member of Team Guy and a child prodigy of the Hyuga clan, as well as Hinata's cousin. As he was the only ninja of his"
  },
  {
@@ -1361,7 +1396,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a member of Team 8, Sakura and Ino's best friend and Naruto's love interest. She suffers from a serious lack of"
  },
  {
@@ -1389,7 +1425,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a member of Team 10, Naruto's friend and Temari's love interest. Creator Kishimoto has noted that he \"likes\""
  },
  {
@@ -1417,7 +1454,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "\" redirects here. For the Japanese actor nicknamed \"Maito gai\", see Akira Kobayashi."
  },
  {
@@ -1445,7 +1483,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a former member of Kirigakure's Seven Swordsmen of the Mist, a group of ninja that use particularly large swords in"
  },
  {
@@ -1473,7 +1512,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is Zabuza Momochi's most faithful follower. Before he started working for Zabuza, Haku lived as an orphan. His father killed his mother when it was"
  },
  {
@@ -1501,7 +1541,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a spy who works as Orochimaru's right hand, though he acts on his own whims. As a child with no memory of his past"
  },
  {
@@ -1529,7 +1570,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the most powerful of the Tailed Beasts. Used by Madara in his"
  },
  {
@@ -1557,7 +1599,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "as well as her former teammates Jiraiya and Orochimaru, is a former student of Hiruzen Sarutobi. Despite looking like a"
  },
  {
@@ -1585,7 +1628,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a former ninja of Konohagakure, the older brother of Sasuke Uchiha, and the partner of Kisame Hoshigaki. Though"
  },
  {
@@ -1613,7 +1657,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a former ninja of Kirigakure and partnered to Itachi Uchiha, having a unique appearance with pale blue skin, a"
  },
  {
@@ -1641,7 +1686,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is a ninja from the village of Kumogakure and the Jinchuriki of Gyūki-the Eight-Tails. He is also the adopted brother of Ay, the"
  },
  {
@@ -1667,9 +1713,16 @@
     "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
     "ref": "1379776183",
     "fetched_at": "2026-10-20T16:44:01Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q718509",
+    "ref": "Q718509",
+    "fetched_at": "2026-10-23T14:15:07Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "primarily known under the alias of Pain (ペイン, Pein), is the founder and recognized leader of the Akatsuki, he is the partner of Konan, with"
  },
  {
@@ -1697,7 +1750,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "the Fourth Hokage (四代目火影, Yondaime Hokage), is Naruto Uzumaki's father and Kushina's husband. Although Naruto and"
  },
  {
@@ -1725,7 +1779,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is one of the co-founders of the Hidden Leaf Village along with Hashirama Senju, the two later revealed to be"
  },
  {
@@ -1753,7 +1808,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "also known under his alias Tobi (トビ) is the true leader of the Akatsuki and the primary antagonist for most of Part II of"
  },
  {
@@ -1781,7 +1837,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "Ōtsutsuki Kaguya) is the central underlying antagonist of the Naruto series and a member of the main family of the Ōtsutsuki clan."
  },
  {
@@ -1809,7 +1866,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the titular character and main protagonist of the Boruto franchise, he is son of Naruto Uzumaki and Hinata Hyuga"
  },
  {
@@ -1837,7 +1895,8 @@
     "fetched_at": "2026-10-20T16:44:01Z"
    }
   ],
-  "status": "draft",
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "is the daughter of Sasuke Uchiha and Sakura Haruno. She seems to have inherited traits from both her parents, like her"
  }
 ]

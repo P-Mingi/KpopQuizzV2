@@ -4,7 +4,7 @@
  "group_slug": "omniscient-readers-viewpoint",
  "title": "Forty-Eight Episodes to a Block: Omniscient Reader's Viewpoint Odds and Ends",
  "slug": "forty-eight-episodes-to-a-block-omniscient-readers-viewpoint-odds-and-ends",
- "description": "Nine mixed questions on the five blocks of the webtoon, the novel's chapter count, the English licence and one number about a fighter who starts over.",
+ "description": "Eight mixed questions on the five blocks of the webtoon, the novel chapter count and the English licence.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
@@ -31,7 +31,7 @@
    "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   }
  ],
- "notes": "Mixed quiz: arc 0 facts (005, 006, 008, 009, 012) plus the regression count (015, arc 2). Level 2 from fact 015. Block names are the five arc names stored in fact 012.",
+ "notes": "Mixed quiz: arc 0 facts (005, 006, 008, 009, 012) plus the regression count (015, arc 2). Level 2 from fact 015. Block names are the five arc names stored in fact 012. Facts re-check: the question on the regression count is dropped because that fact is rejected (the source is off by one at best); the quiz keeps 8 questions.",
  "questions": [
   {
    "question": "How many episodes does the first block of the webtoon cover?",
@@ -108,25 +108,6 @@
     "omniscient-readers-viewpoint-arc-structure-012"
    ],
    "source_url": "https://comic.naver.com/webtoon/list?titleId=747269"
-  },
-  {
-   "question": "How many times had Yoo Joonghyuk's power to start over been used before Dokja's story begins in the web novel?",
-   "options": [
-    "863",
-    "1,863",
-    "1,368",
-    "3,149"
-   ],
-   "correct": 1,
-   "kind": "lore",
-   "spoiler": {
-    "arc": 2,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "omniscient-readers-viewpoint-regression-count-015"
-   ],
-   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
   {
    "question": "The 551-chapter count of the main web novel leaves out what?",

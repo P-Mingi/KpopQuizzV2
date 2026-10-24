@@ -21,6 +21,8 @@ import { isKnownRouteWith } from '../route-allowlist';
 
 import { REGISTRY, SITE_ID } from './registry';
 
+import { SITE_IDS } from './types';
+
 import type { RoutePattern, SiteId } from './types';
 
 /** The folder of every anime and hub page: app/sites/[site]/... */
@@ -60,8 +62,31 @@ export const PER_SITE_BRAND_FILES: readonly string[] = [
   '/blindtest-header.jpg', '/rabbit-source.webp',
 ];
 
-/** An IndexNow key file at the root of public/ (shared by the three builds, routes.md). */
+/** An IndexNow key file at the root of public/ (one per site, `/<seo.indexNowKey>.txt`). */
 export const INDEXNOW_KEY_FILE_RE = /^\/[0-9a-f]{32}\.txt$/;
+
+/** The root path of the IndexNow key file of `site`, or null when the site has no key. */
+export function indexNowKeyFile(site: SiteId): string | null {
+  const key = REGISTRY[site].seo.indexNowKey;
+  return key === null ? null : `/${key}.txt`;
+}
+
+/**
+ * Every key file sits in public/, so every build would serve all three (a key only proves control of the host
+ * that lists it, but a site must answer its own and no other: owner decision, lane L1). These beforeFiles
+ * rewrites send the key file of each OTHER site to `/sites/<site>/<key>.txt`: on anime and hub that is the site's own
+ * [...rest] page (its 404), on kpop the layout guard of app/sites/[site] (404 on every build). The rewrite runs
+ * before the filesystem check, so the public file is never reached. rewritesFor adds them on anime and hub; the
+ * kpop build adds them in next.config.ts (docs/o1/requests/L1.md, the patch), nothing else changes there.
+ */
+export function keyFileBlocksFor(site: SiteId): readonly SiteRewrite[] {
+  const out: SiteRewrite[] = [];
+  for (const other of SITE_IDS) {
+    const file = other === site ? null : indexNowKeyFile(other);
+    if (file !== null) out.push({ source: file, destination: `${SITES_PREFIX}/${site}${file}` });
+  }
+  return out;
+}
 
 /**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
@@ -112,6 +137,7 @@ export function internalPath(site: SiteId, pathname: string): string {
  *   2. '/' (not caught by 1) becomes /sites/<site>;
  *   3. the per-site root files (dotted, so not caught by 1) go to their /sites/<site> routes;
  *   3b. the root brand files (dotted too) go to the site's public/brand/<site>/ file;
+ *   3c. the key files of the other sites (dotted too) go to the site's own 404 (keyFileBlocksFor);
  *   4. the pretty URLs match the already prefixed path.
  * A dotted path these rules leave (a shared public file, or none) then meets Next's filesystem
  * check, and what that check does not serve meets afterFilesFor before any dynamic route.
@@ -124,6 +150,7 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
     { source: '/', destination: base },
     ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
     ...PER_SITE_BRAND_FILES.map((f) => ({ source: f, destination: brandPath(site, f) })),
+    ...keyFileBlocksFor(site),
     ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
   ];
 }

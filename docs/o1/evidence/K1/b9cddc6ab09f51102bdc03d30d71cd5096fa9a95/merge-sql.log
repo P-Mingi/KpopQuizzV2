@@ -1,0 +1,3 @@
+psql:docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql:63: ERROR:  L02: the Team auth users are missing (run team-auth.mjs first)
+CONTEXTE : PL/pgSQL function inline_code_block line 35 at RAISE
+failed rc=3: docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql on o1-dev

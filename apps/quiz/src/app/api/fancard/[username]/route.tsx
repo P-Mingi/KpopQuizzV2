@@ -8,6 +8,7 @@ import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
 import { AVATAR_PRESETS } from '@/lib/passport-flair';
+import { SITE } from '@/lib/site/registry';
 import { formatCount } from '@/lib/utils';
 
 import type { NextRequest } from 'next/server';
@@ -128,7 +129,7 @@ export async function GET(
             FAN CARD
           </div>
           <div style={{ display: 'flex', fontSize: px(13), color: LABEL, marginTop: px(10), fontFamily: BODY_FAMILY }}>
-            kpopquiz.org
+            {SITE.domain}
           </div>
         </div>
       ),
@@ -297,7 +298,7 @@ export async function GET(
 
         {/* Footer */}
         <div style={{ display: 'flex', position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center', justifyContent: 'space-between', padding: `${px(12)}px ${px(20)}px`, borderTop: `1px solid ${FOOTER_BORDER}` }}>
-          <div style={{ display: 'flex', fontSize: px(10.5), color: FOOTER_TXT }}>kpopquiz.org/u/{profile.username}</div>
+          <div style={{ display: 'flex', fontSize: px(10.5), color: FOOTER_TXT }}>{`${SITE.domain}/u/${profile.username}`}</div>
           <Barcode />
         </div>
       </div>

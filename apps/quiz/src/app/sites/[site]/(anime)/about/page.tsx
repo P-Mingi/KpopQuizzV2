@@ -94,11 +94,11 @@ export default async function AboutPage(): Promise<React.ReactElement> {
     <div className="py-8 max-w-2xl mx-auto">
       {/* Hero */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] text-xs font-semibold">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] anime-c1-pill text-xs font-semibold">
           Made by fans, for fans
         </span>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
-          About <span className="text-[var(--accent)]">OtakuQuiz</span>
+          About <span className="text-[var(--accent)] anime-c1-link">OtakuQuiz</span>
         </h1>
         <p className="mt-3 text-[15px] leading-relaxed text-[var(--text-secondary)]">
           
@@ -114,8 +114,8 @@ export default async function AboutPage(): Promise<React.ReactElement> {
             key={s.label}
             className="rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] px-3 py-4 text-center"
           >
-            <p className="text-xl font-extrabold text-[var(--accent)]">{s.num}</p>
-            <p className="mt-1 text-[11px] text-[var(--text-tertiary)]">{s.label}</p>
+            <p className="text-xl font-extrabold text-[var(--accent)] anime-c1-link">{s.num}</p>
+            <p className="mt-1 text-[11px] text-[var(--text-tertiary)] anime-c1-quiet">{s.label}</p>
           </div>
         ))}
       </div>
@@ -149,7 +149,7 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           <p>
             Facts on our pages come from official sources, Wikidata, MusicBrainz and Wikipedia, and every correction is
             logged with its date. Read the{' '}
-            <Link href="/editorial-policy" className="font-medium text-[var(--accent)] hover:underline">editorial policy</Link>
+            <Link href="/editorial-policy" className="font-medium text-[var(--accent)] anime-c1-link hover:underline">editorial policy</Link>
             {' '}for the details.
           </p>
         </div>
@@ -157,14 +157,14 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">How can I contact you?</h2>
           <p>
             Write to{' '}
-            <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-[var(--accent)] hover:underline">{CONTACT_EMAIL}</a>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-[var(--accent)] anime-c1-link hover:underline">{CONTACT_EMAIL}</a>
             {' '}for questions, corrections or press requests.
           </p>
         </div>
       </section>
 
       {/* Features */}
-      <h2 className="mt-9 mb-3 text-sm font-bold uppercase tracking-wide text-[var(--text-tertiary)]">
+      <h2 className="mt-9 mb-3 text-sm font-bold uppercase tracking-wide text-[var(--text-tertiary)] anime-c1-quiet">
         What you can do
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -173,7 +173,7 @@ export default async function AboutPage(): Promise<React.ReactElement> {
             key={f.title}
             className="flex gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] p-4"
           >
-            <span className="shrink-0 grid place-items-center w-9 h-9 rounded-lg bg-[var(--accent-bg)] text-[var(--accent)]">
+            <span className="shrink-0 grid place-items-center w-9 h-9 rounded-lg bg-[var(--accent-bg)] text-[var(--accent)] anime-c1-link">
               {f.icon}
             </span>
             <div>
@@ -187,19 +187,14 @@ export default async function AboutPage(): Promise<React.ReactElement> {
       {/* CTA */}
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/quizzes" className="btn-primary">Browse quizzes</Link>
-        <Link href="/create" className="btn-outline">Create a quiz</Link>
+        <Link href="/create" className="btn-outline anime-c1-link">Create a quiz</Link>
       </div>
 
-      {/* Cross-link to FAQ + Stats */}
-      <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)]">
+      {/* Cross-link to the FAQ (the /stats page is a kpop page: not on this site) */}
+      <p className="mt-8 text-center text-[13px] text-[var(--text-tertiary)] anime-c1-quiet">
         Got a question?{' '}
-        <Link href="/faq" className="font-medium text-[var(--accent)] hover:underline">
+        <Link href="/faq" className="font-medium text-[var(--accent)] anime-c1-link hover:underline">
           Read the FAQ
-        </Link>
-        {' '}or explore our{' '}
-        <Link href="/stats" className="font-medium text-[var(--accent)] hover:underline">
-          
-          anime fan data
         </Link>
         .
       </p>

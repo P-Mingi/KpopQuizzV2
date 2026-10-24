@@ -1,0 +1,134 @@
+# parity verdict, rules q0a-g0-v3, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
+DIFFERENT / status 200/200
+  node 286
+    A: <a class="p1-gitem" href="/bts-quiz">
+    B: <a class="p1-gitem anime-o2-art-item" href="/bts-quiz">
+  node 290
+    A: <span class="p1-gn">
+    B: <span class="p1-gn anime-o2-art-name">
+  node 295
+    A: <a class="p1-gitem" href="/blackpink-quiz">
+    B: <a class="p1-gitem anime-o2-art-item" href="/blackpink-quiz">
+  node 299
+    A: <span class="p1-gn">
+    B: <span class="p1-gn anime-o2-art-name">
+  node 304
+    A: <a class="p1-gitem" href="/cortis-quiz">
+    B: <a class="p1-gitem anime-o2-art-item" href="/cortis-quiz">
+  node 308
+    A: <span class="p1-gn">
+    B: <span class="p1-gn anime-o2-art-name">
+IDENTICAL /quizzes status 200/200 css 3
+IDENTICAL /groups status 200/200 css 3
+IDENTICAL /trending status 200/200 css 3
+IDENTICAL /bts-quiz status 200/200 css 3
+IDENTICAL /blackpink-quiz status 200/200 css 3
+IDENTICAL /stray-kids-quiz status 200/200 css 3
+IDENTICAL /seventeen-quiz status 200/200 css 3
+IDENTICAL /cortis-quiz status 200/200 css 3
+IDENTICAL /twice-quiz status 200/200 css 3
+IDENTICAL /newjeans-quiz status 200/200 css 3
+IDENTICAL /trivia status 200/200 css 3
+IDENTICAL /bts-trivia status 200/200 css 3
+IDENTICAL /blackpink-trivia status 200/200 css 3
+IDENTICAL /q/ultimate-bts-era-quiz-only-real-armys-survive status 200/200 css 3
+IDENTICAL /q/skz-true-or-false-only-real-stays-pass status 200/200 css 3
+IDENTICAL /q/blackpink-ultimate-fan-challenge status 200/200 css 3
+IDENTICAL /q/are-you-a-real-coer status 200/200 css 3
+IDENTICAL /q/illit-fans-here status 200/200 css 3
+DIFFERENT /q/babymonster-quiz status 200/200
+  node 294
+    A: <div class="p4-mine" data-testid="p4-mine">
+    B: <div class="ux-rows">
+  node 295
+    A: <span class="p4-grow">
+    B: <div class="p4-hrow">
+  node 296
+    A: Play to put your name on this board.</span>
+    B: <span class="p4-rk">
+  node 297
+    A: </div>
+    B: 1</span>
+  node 298
+    A: </section>
+    B: <span class="ux-ava" style="width:32px;height:32px;font-size:13px" aria-hidden="true">
+  node 299
+    A: <section class="ux-sec p4-dyk" aria-label="Did you know?">
+    B: ?</span>
+IDENTICAL /q/le-sserafim-members-and-music-quiz status 200/200 css 3
+IDENTICAL /q/one-for-sones status 200/200 css 3
+IDENTICAL /q/twice-true-or-false status 200/200 css 3
+IDENTICAL /q/how-well-do-you-know-txt status 200/200 css 3
+IDENTICAL /q/enhypen-debut-and-beyond-quiz status 200/200 css 3
+IDENTICAL /q/k-pop-company-quiz-match-the-group-to-the-label status 200/200 css 3
+IDENTICAL /blindtest status 200/200 css 3
+IDENTICAL /blindtest/classic status 200/200 css 3
+IDENTICAL /blindtest/intro-challenge status 200/200 css 3
+IDENTICAL /blindtest/group-bts status 200/200 css 3
+IDENTICAL /guess-the-kpop-song status 200/200 css 3
+IDENTICAL /pt status 200/200 css 3
+IDENTICAL /pt/blindtest status 200/200 css 3
+IDENTICAL /pt/quizzes status 200/200 css 3
+IDENTICAL /pt/faq status 200/200 css 3
+IDENTICAL /pt/leaderboard status 200/200 css 3
+IDENTICAL /fr/blind-test-kpop status 200/200 css 3
+IDENTICAL /es/adivina-la-cancion-kpop status 200/200 css 3
+IDENTICAL /id/tebak-lagu-kpop status 200/200 css 3
+IDENTICAL /guess-the-kpop-idol status 200/200 css 3
+DIFFERENT /kpop-true-or-false status 200/200
+  node 271
+    A: <div class="ux-qcov">
+    B: <div class="ux-qcov anime-o2-art-cov">
+  node 272
+    A: <div class="ux-qcov-fb">
+    B: <span class="anime-o2-art-strip">
+  node 273
+    A: <span class="ux-fbn">
+    B: <svg class="anime-o2-art anime-o2-art-card" viewBox="0 0 320 104" preserveAspectRatio="xMidYMid slice" focusable="false" data-art="crimson" data-pattern="lattice" role="img" aria-label="General K-pop">
+  node 274
+    A: <svg class="ux-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    B: <rect width="320" height="104" fill="#AA263C">
+  node 275
+    A: <rect x="3" y="7" width="18" height="10" rx="5"/>
+    B: </rect>
+  node 276
+    A: <circle cx="15.5" cy="12" r="2.6"/>
+    B: <circle cx="300.79999999999995" cy="6.24" r="93.60000000000001" fill="#FFFFFF" opacity="0.07">
+IDENTICAL /easy-kpop-quizzes status 200/200 css 3
+IDENTICAL /hard-kpop-quizzes status 200/200 css 3
+DIFFERENT /kpop-quiz-2026 status 200/200
+  node 322
+    A: <div class="ux-qcov">
+    B: <div class="ux-qcov anime-o2-art-cov">
+  node 323
+    A: <div class="ux-qcov-fb">
+    B: <span class="anime-o2-art-strip">
+  node 324
+    A: <span class="ux-fbn">
+    B: <svg class="anime-o2-art anime-o2-art-card" viewBox="0 0 320 104" preserveAspectRatio="xMidYMid slice" focusable="false" data-art="crimson" data-pattern="lattice" role="img" aria-label="General K-pop">
+  node 325
+    A: <svg class="ux-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    B: <rect width="320" height="104" fill="#AA263C">
+  node 326
+    A: <circle cx="6" cy="7" r="1.2"/>
+    B: </rect>
+  node 327
+    A: <circle cx="6" cy="12" r="1.2"/>
+    B: <circle cx="300.79999999999995" cy="6.24" r="93.60000000000001" fill="#FFFFFF" opacity="0.07">
+IDENTICAL /kpop-demon-hunters-quiz status 200/200 css 3
+IDENTICAL /which-bts-member-are-you status 200/200 css 3
+IDENTICAL /bts-name-all-members status 200/200 css 3
+IDENTICAL /about status 200/200 css 3
+IDENTICAL /editorial-policy status 200/200 css 3
+IDENTICAL /privacy status 200/200 css 3
+IDENTICAL /terms status 200/200 css 3
+IDENTICAL /faq status 200/200 css 3
+IDENTICAL /contact status 200/200 css 3
+IDENTICAL /leaderboard status 200/200 css 3
+IDENTICAL /articles status 200/200 css 3
+IDENTICAL /daily status 307/307
+IDENTICAL /an-unknown-o1-parity-path status 500/500
+IDENTICAL /sitemap.xml status 200/200
+IDENTICAL /robots.txt status 200/200
+IDENTICAL /llms.txt status 200/200
+identical: false (4 of 60 pages differ)

@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "ハンター×ハンター"
   },
   {
@@ -62,7 +63,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The Hunter × Hunter manga series, created by Yoshihiro Togashi"
   },
   {
@@ -95,7 +97,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump since March 1998"
   },
   {
@@ -120,9 +123,21 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q696071",
+        "ref": "Q696071",
+        "fetched_at": "2026-10-23T17:30:10Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-06-30/hunter-x-hunter-manga-tops-100-million-copies-in-circulation/.239123",
+        "fetched_at": "2026-10-23T17:31:21Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "As of July 3, 2026, 39 volumes have been released"
   },
   {
@@ -147,6 +162,11 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-06-30/hunter-x-hunter-manga-tops-100-million-copies-in-circulation/.239123",
+        "fetched_at": "2026-10-23T17:31:21Z"
       }
     ],
     "status": "draft",
@@ -176,7 +196,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "resumed on October 24, 2022, after a hiatus of three years and eleven months"
   },
   {
@@ -201,9 +222,16 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21232458",
+        "ref": "Q21232458",
+        "fetched_at": "2026-10-23T17:30:10Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "62-episode anime television series adaptation"
   },
   {
@@ -255,6 +283,11 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
         "ref": "1380133331",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=13262",
+        "fetched_at": "2026-10-23T17:30:45Z"
       }
     ],
     "status": "draft",
@@ -284,7 +317,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "a complete reboot starting from the beginning of the original manga, with no connection to the first anime television series from 1999"
   },
   {
@@ -375,7 +409,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "to travel to the forbidden Dark Continent"
   },
   {
@@ -405,7 +440,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Departure!\" and \"Departure! -Second Version-\""
   },
   {
@@ -421,9 +457,9 @@
       "ED 2: Hunting for Your Dream - Galneryus (27-58)",
       "ED 3: Reason - Yuzu (59-75)",
       "ED 4: Nagareboshi Kirari - Yuzu (76-98)",
-      "ED 5: Hyōri Ittai - Yuzu featuring Hyadain (99-146)"
+      "ED 5: Hyōri Ittai - Yuzu (99-146)"
     ],
-    "text": "Five endings were used: Just Awake, Hunting for Your Dream, Reason, Nagareboshi Kirari and Hyōri Ittai, the last one by Yuzu featuring Hyadain.",
+    "text": "Five endings were used: Just Awake, Hunting for Your Dream, Reason, Nagareboshi Kirari and Hyōri Ittai, the last three all sung by the duo Yuzu.",
     "category": "music",
     "load_bearing": false,
     "spoiler": {
@@ -434,12 +470,19 @@
       {
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)",
-        "ref": "1380133331",
-        "fetched_at": "2026-10-20T18:30:00Z"
+        "ref": "1381279135",
+        "fetched_at": "2026-10-23T14:22:54Z"
+      },
+      {
+        "source": "musicbrainz",
+        "url": "https://musicbrainz.org/release-group/45660776-29ac-4d3d-b2d7-86865d568ba4",
+        "ref": "45660776-29ac-4d3d-b2d7-86865d568ba4",
+        "fetched_at": "2026-10-23T14:22:54Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "\"Hyōri Ittai\" by Yuzu featuring Hyadain"
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Hyōri Ittai\" ( 表裏一体; lit. ' Two Sides of the Same Coin '), also performed by Yuzu (episodes 99-146)"
   },
   {
     "id": "hunter-x-hunter-two-films-2013-016",
@@ -468,7 +511,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "two animated theatrical films released in 2013"
   },
   {
@@ -572,7 +616,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "sole survivor of the Kurta Clan (クルタ族, Kuruta-zoku), a race with treasured irises that turn scarlet in times of anger"
   },
   {
@@ -600,7 +645,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Chimera Ant King (キメラアントの王, Kimerānto no Ō) and the most powerful of the Queen's offspring"
   },
   {
@@ -628,7 +674,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an athletic, naive, and friendly boy. Having spent a lot of time in the woods as a child, he gets"
   },
   {
@@ -656,7 +703,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is initially introduced as a cheeky, cheerful and mischievous boy who befriends Gon during the Hunter Exam. His"
   },
   {
@@ -684,7 +732,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the sole survivor of the Kurta Clan (クルタ族, Kuruta-zoku), a race with treasured irises that turn scarlet in times of anger or emotional"
   },
   {
@@ -712,7 +761,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an older-looking young man that befriends Gon, Kurapika and Killua during the Hunter Exam. After"
   },
   {
@@ -740,7 +790,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a mysterious magician that magic tricks with violence and delights in battling those he considers strong to the point"
   },
   {
@@ -768,7 +819,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Killua's eldest brother, an experienced and expert assassin who played a part in Killua's training and"
   },
   {
@@ -796,7 +848,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Chairman of the Selection Committee for the Hunter Exam. Presiding over it, he has final authority over every"
   },
   {
@@ -824,7 +877,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Double Star Ruins Hunter and Gon's father and motivation to become a Hunter. He left Whale Island to become a Hunter"
   },
   {
@@ -852,7 +906,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Killua's father. A silent, pensive figure, Killua's interaction with him seems limited. He allows Killua to go"
   },
   {
@@ -880,7 +935,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the very first Hunter introduced in the story. A student of Ging Freecss, Gon's father, he traveled to Whale Island three years prior to"
   },
   {
@@ -908,7 +964,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the founder and leader of the Phantom Troupe, bearing the number 0, and is considered by its members as"
   },
   {
@@ -936,7 +993,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the original members hailing from Meteor City and bears the number 2 in the Troupe. He's physically the"
   },
   {
@@ -964,7 +1022,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is incredibly loyal to Chrollo and is one of the original members from Meteor City, bearing the number 3. Physically, she is the"
   },
   {
@@ -992,7 +1051,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the original members of the Troupe from Meteor City and bears the number 11 in the Troupe. Out of all, he is the strongest in"
   },
   {
@@ -1020,7 +1080,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Double Star Stone Hunter who Gon and Killua team up with in Greed Island. Although she appears to be a"
   },
   {
@@ -1048,7 +1109,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Chimera Ant King (キメラアントの王, Kimerānto no Ō) and the most powerful of the Queen's offspring. Forcing himself"
   },
   {
@@ -1076,7 +1138,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as \"Pitou\" (ピトー, Pitō), is a kemonomimi-themed Chimera Ant and the firstborn of the Royal Guards. Pitou is one of"
   },
   {
@@ -1104,7 +1167,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a blind girl from the Republic of East Gorteau and reigning world champion of Gungi (軍儀), a board game created in the country. When Meruem took"
   },
   {
@@ -1132,7 +1196,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Triple Star Hunter and Vice Chairman of the Hunter Association. A member of the Zodiacs, his code name is the"
   },
   {
@@ -1160,7 +1225,8 @@
         "fetched_at": "2026-10-20T18:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the second youngest sibling of Killua. While the other members of the Zoldyck family refer to Alluka as male or"
   }
 ]

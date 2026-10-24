@@ -71,6 +71,9 @@ merged="$(git rev-parse HEAD)"
 # The lane's SQL (numbered and launch files) in the order of the manifest, which migrate-dev.sh enforces.
 sql=""
 for f in $(grep -oE 'docs/pending-migrations/multisite/[A-Za-z0-9_./-]+\.sql' "$RUN/contracts/manifest.md" | grep -v '\.rollback\.sql$'); do
+  # D-106: launch files (L02 to L12) are rehearsed on o1-scratch and applied in production on launch day; o1-dev gets the content
+  # through scripts/anime/k1/load-fixtures.mjs, so they are never applied to o1-dev here (L01 is, it holds the sites rows).
+  case "$f" in */launch/L01-*) ;; */launch/L*) continue ;; esac
   grep -qxF "$f" "$LOG/merge-changed.txt" && sql="$sql $f"
 done
 if [ -n "$sql" ]; then

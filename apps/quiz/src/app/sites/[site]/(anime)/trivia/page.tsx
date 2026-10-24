@@ -2,7 +2,10 @@
 import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
 
-import { getTriviaEligibleGroups } from '@/lib/db/queries/trivia';
+import { getSeriesDirectory } from '@/lib/anime/directory';
+import { getSeriesHub } from '@/lib/anime/series';
+import { uniqueFacts } from '@/lib/anime/series-model';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { SeriesArt } from '@/components/anime/series-art';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -31,19 +34,31 @@ export const metadata: Metadata = {
   },
 };
 
+// The series that have a trivia page: the same gate as /{series}-trivia (the series' stored, sourced facts, at least
+// TRIVIA_MIN_FACTS unique ones), so this list never links to a page that answers 404. The kpop hub counts the facts
+// of the quizzes' questions instead, which is not what an anime series page is built from.
+async function getEligibleSeries(): Promise<TriviaEligibleGroup[]> {
+  const directory = await getSeriesDirectory();
+  const hubs = await Promise.all(directory.map((row) => getSeriesHub(row.group.slug)));
+  return hubs
+    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length }] : []))
+    .filter((row) => row.factCount >= TRIVIA_MIN_FACTS)
+    .sort((a, b) => b.factCount - a.factCount || a.group.name.localeCompare(b.group.name, 'en'));
+}
+
 export default async function TriviaHubPage(): Promise<React.ReactElement> {
   const eligible = await safeFetch(
-    getTriviaEligibleGroups(),
+    getEligibleSeries(),
     [] as TriviaEligibleGroup[],
-    '[trivia-hub] getTriviaEligibleGroups',
+    '[trivia-hub] getEligibleSeries',
   );
 
   return (
     <div className="trivia-hub">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Trivia' }]} />
+      <div className="anime-c1-crumbs"><Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Trivia' }]} /></div>
 
       <header className="trivia-hub-head">
-        <h1 className="trivia-hub-title">anime trivia and fun facts</h1>
+        <h1 className="trivia-hub-title">Anime trivia and fun facts</h1>
         <p className="trivia-hub-intro">
           
           Surprising facts about your favorite anime series: their origins, characters, music, and
@@ -59,7 +74,7 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
                 <span className="anime-o2-art-row" aria-hidden="true"><SeriesArt slug={group.slug} title={group.name} size="avatar" /></span>
                 <div className="trivia-hub-card-body">
                   <p className="trivia-hub-card-name">{group.name}</p>
-                  <p className="trivia-hub-card-meta">{factCount} fun facts</p>
+                  <p className="trivia-hub-card-meta anime-c1-quiet">{factCount} fun facts</p>
                 </div>
                 <svg
                   className="trivia-hub-card-arrow"
@@ -77,7 +92,7 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
         </ul>
       ) : (
         <p className="trivia-hub-intro" style={{ marginTop: 24 }}>
-          Trivia pages are coming soon. Check back shortly.
+          Series trivia pages are on their way. In the meantime, browse the series and play a quiz.
         </p>
       )}
 

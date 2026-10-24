@@ -247,7 +247,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Makafushigi Adventure!\" by Hiroki Takahashi"
   },
   {
@@ -278,7 +279,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Cha-La Head-Cha-La\" by Hironobu Kageyama"
   },
   {
@@ -318,7 +320,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Hello Hello Hello\" by Good Morning America (#1-12)"
   },
   {
@@ -347,7 +350,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The opening theme song is \"Jaka Jaan\" by German record producer Zedd"
   },
   {
@@ -380,7 +384,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "ドラゴンボール Doragon Bōru"
   },
   {
@@ -405,9 +410,21 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
         "ref": "1381000548",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2020",
+        "ref": "Q2020",
+        "fetched_at": "2026-10-23T17:23:32Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297",
+        "fetched_at": "2026-10-23T17:24:48Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Written and illustrated by Akira Toriyama"
   },
   {
@@ -459,6 +476,11 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
         "ref": "1381000548",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297",
+        "fetched_at": "2026-10-23T17:24:48Z"
       }
     ],
     "status": "draft",
@@ -579,9 +601,21 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)",
         "ref": "1380689066",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q19839121",
+        "ref": "Q19839121",
+        "fetched_at": "2026-10-23T17:23:32Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17006",
+        "fetched_at": "2026-10-23T17:24:22Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "July 5, 2015 (2015-07-05) - March 25, 2018 (2018-03-25)"
   },
   {
@@ -609,9 +643,21 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
         "ref": "1378491353",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123022503",
+        "ref": "Q123022503",
+        "fetched_at": "2026-10-23T17:23:32Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=30298",
+        "fetched_at": "2026-10-23T17:24:23Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "October 11, 2024 (2024-10-11) - February 28, 2025 (2025-02-28)"
   },
   {
@@ -636,9 +682,21 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
         "ref": "1379753684",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q477916",
+        "ref": "Q477916",
+        "fetched_at": "2026-10-23T17:23:32Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=243",
+        "fetched_at": "2026-10-23T17:24:19Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Dragon Ball Z (DBZ) is a Japanese anime television series produced by Toei Animation"
   },
   {
@@ -668,7 +726,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "written by Akira Toriyama and illustrated by Toyotarou"
   },
   {
@@ -722,7 +781,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Dragon Ball was originally inspired by the classical 16th-century Chinese novel Journey to the West"
   },
   {
@@ -750,7 +810,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Goku being Sun Wukong (\"Son Goku\" in Japanese)"
   },
   {
@@ -777,7 +838,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the second and last to have a story directly conceived for it by franchise creator Akira Toriyama"
   },
   {
@@ -804,7 +866,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "currently on hiatus following Toriyama's death in March 2024"
   },
   {
@@ -832,7 +895,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Frieza is a pun on freezer"
   },
   {
@@ -859,7 +923,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was released on December 14, 2018"
   },
   {
@@ -886,7 +951,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was released on June 11, 2022"
   },
   {
@@ -913,7 +979,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Dragon Ball Z Kai (2009-2015)"
   },
   {
@@ -941,7 +1008,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Black (ゴクウブラック, Gokū Burakku), or simply Black, is an entity who is identical to Son Goku in appearance. He arrives on an alternate future Earth"
   },
   {
@@ -969,7 +1037,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "first appears as a teenager using the Dragon Radar, a device she created to detect the energy signal emitted by Dragon Balls. She is led to"
   },
   {
@@ -997,7 +1066,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Turtle Hermit\"), also known as Muten-Rōshi (武天老師; lit \"Heavenly Old Martial Arts Master\"), which is rendered as \"Master Roshi\" in the"
   },
   {
@@ -1025,7 +1095,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "known as Zedaki in the Harmony Gold dub, is introduced as a desert bandit alongside his companion Puar, trying to steal Goku and"
   },
   {
@@ -1053,7 +1124,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "named Mao-Mao in the Harmony Gold dub, is a shapeshifting, anthropomorphic pig that uses his abilities for his greedy desires. He and Puar"
   },
   {
@@ -1081,7 +1153,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Goku's wife, Gohan and Goten's mother, and Pan's grandmother. She and Goku first meet as children when her father, the Ox-King, asks Goku to"
   },
   {
@@ -1109,7 +1182,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "in the English anime dub, is a small impish blue creature who is the leader of the Pilaf Gang (ピラフ一味, Pirafu Ichimi) and"
   },
   {
@@ -1137,7 +1211,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Goku's best friend and one of the most talented martial artists on Earth. A monk who shaves his head for the sake of his training"
   },
   {
@@ -1165,7 +1240,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "in the Funimation anime dub and also known as Shinto in the Harmony Gold dub, is first introduced, having been"
   },
   {
@@ -1193,7 +1269,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "or Piccolo Daimaō (ピッコロ大魔王, Pikkoro Daimaō; \"The Great Demon King Piccolo\") in Japanese, was conceived by Toriyama as a truly evil opponent for"
   },
   {
@@ -1221,7 +1298,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the spawn of King Piccolo, created to get revenge on Goku in the wake of his death, and subsequently assumes the role as the \"evil"
   },
   {
@@ -1249,7 +1327,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as Raditz the Runt, is a Saiyan warrior and Goku's older brother. Raditz is one of the few remaining Saiyans following the"
   },
   {
@@ -1277,7 +1356,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the last prince of the Saiyan warrior people, and the fourth generation of the Saiyan royal bloodline to bear his namesake. He is"
   },
   {
@@ -1305,7 +1385,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Goku's eldest son with Chi-Chi, who first appears at the age of four. He is kidnapped by Goku's brother, Raditz, and locked up in a space"
   },
   {
@@ -1333,7 +1414,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "first appears on Planet Namek, where he systematically eradicates most of the native Namekian population to obtain the Dragon Balls so that he can wish"
   },
   {
@@ -1361,7 +1443,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a child of the Great Elder of Namek. He was saved from Frieza's henchman Dodoria by Gohan and Krillin as a child and taken into their care."
   },
   {
@@ -1389,7 +1472,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "first appears as a mysterious young man who easily defeats Frieza and his father King Cold prior to Goku's return to Earth from"
   },
   {
@@ -1417,7 +1501,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Red Ribbon Android created by Doctor Gero, and the sister of Android 17. After"
   },
   {
@@ -1445,7 +1530,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is Doctor Gero's ultimate creation, who was created to get revenge on Goku. He is an artificial life form created using the cells of several"
   },
   {
@@ -1473,7 +1559,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "known as Hercule in some of Funimation's dub and in Viz's English manga, is a flamboyant martial artist who becomes a"
   },
   {
@@ -1501,7 +1588,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is one of the most popular characters in the series. Japanese fans voted Goten the sixth most popular character of the Dragon Ball series in a 2004 poll."
   },
   {
@@ -1529,7 +1617,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the daughter of Mr. Satan. She is a martial artist but surpasses her father in strength. She uses her abilities to fight crime in the"
   },
   {
@@ -1557,7 +1646,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Goku and Piccolo teach Goten and Trunks the fusion technique, which allows them to form a single being, Gotenks"
   },
   {
@@ -1585,7 +1675,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a deity who appears in the fourteenth and fifteenth Dragon Ball Z films, as well as in Dragon Ball Super. A purple catlike being, he is"
   },
   {
@@ -1613,7 +1704,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an angelic being who appears in the fourteenth and fifteenth Dragon Ball Z films, as well as in Dragon Ball Super. A tall teal humanoid"
   },
   {
@@ -1641,7 +1733,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as Hit the Infallible (百発百中のヒット, Hyappatsuhyakuchuu no Hitto) and as the Legendary Assassin (伝説の殺し屋, Densetsu no Koroshi-ya), is"
   },
   {
@@ -1669,7 +1762,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Goku Black (ゴクウブラック, Gokū Burakku), or simply Black, is an entity who is identical to Son Goku in appearance. He arrives on an alternate future Earth"
   },
   {
@@ -1697,7 +1791,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also referred to as \"Jiren The Gray\" (灰色のジレン, Haiiro no Jiren), is a member of the Pride Troopers. His quiet, stoic demeanor is a glimpse of his"
   },
   {
@@ -1725,7 +1820,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the main antagonist of Dragon Ball Daima and the former Supreme Demon King who ascended following Dabura's death. He was formerly the"
   },
   {
@@ -1753,7 +1849,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a demon gunman who appears in Dragon Ball Daima and serves as a guide and pilot for the main characters. Glorio has light blue skin"
   }
 ]

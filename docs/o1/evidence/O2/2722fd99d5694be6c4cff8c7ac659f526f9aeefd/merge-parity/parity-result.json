@@ -1,0 +1,639 @@
+{
+ "rules": "q0a-g0-v3",
+ "identical": false,
+ "rows": [
+  {
+   "page": "/",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 286,
+     "a": "<a class=\"p1-gitem\" href=\"/bts-quiz\">",
+     "b": "<a class=\"p1-gitem anime-o2-art-item\" href=\"/bts-quiz\">"
+    },
+    {
+     "at": 290,
+     "a": "<span class=\"p1-gn\">",
+     "b": "<span class=\"p1-gn anime-o2-art-name\">"
+    },
+    {
+     "at": 295,
+     "a": "<a class=\"p1-gitem\" href=\"/blackpink-quiz\">",
+     "b": "<a class=\"p1-gitem anime-o2-art-item\" href=\"/blackpink-quiz\">"
+    },
+    {
+     "at": 299,
+     "a": "<span class=\"p1-gn\">",
+     "b": "<span class=\"p1-gn anime-o2-art-name\">"
+    },
+    {
+     "at": 304,
+     "a": "<a class=\"p1-gitem\" href=\"/cortis-quiz\">",
+     "b": "<a class=\"p1-gitem anime-o2-art-item\" href=\"/cortis-quiz\">"
+    },
+    {
+     "at": 308,
+     "a": "<span class=\"p1-gn\">",
+     "b": "<span class=\"p1-gn anime-o2-art-name\">"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/groups",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/trending",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blackpink-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/stray-kids-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/seventeen-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/cortis-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/twice-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/newjeans-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blackpink-trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/skz-true-or-false-only-real-stays-pass",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/blackpink-ultimate-fan-challenge",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/are-you-a-real-coer",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/illit-fans-here",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/babymonster-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 294,
+     "a": "<div class=\"p4-mine\" data-testid=\"p4-mine\">",
+     "b": "<div class=\"ux-rows\">"
+    },
+    {
+     "at": 295,
+     "a": "<span class=\"p4-grow\">",
+     "b": "<div class=\"p4-hrow\">"
+    },
+    {
+     "at": 296,
+     "a": "Play to put your name on this board.</span>",
+     "b": "<span class=\"p4-rk\">"
+    },
+    {
+     "at": 297,
+     "a": "</div>",
+     "b": "1</span>"
+    },
+    {
+     "at": 298,
+     "a": "</section>",
+     "b": "<span class=\"ux-ava\" style=\"width:32px;height:32px;font-size:13px\" aria-hidden=\"true\">"
+    },
+    {
+     "at": 299,
+     "a": "<section class=\"ux-sec p4-dyk\" aria-label=\"Did you know?\">",
+     "b": "?</span>"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/le-sserafim-members-and-music-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/one-for-sones",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/twice-true-or-false",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/how-well-do-you-know-txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/enhypen-debut-and-beyond-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/q/k-pop-company-quiz-match-the-group-to-the-label",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/classic",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/intro-challenge",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/group-bts",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-song",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/fr/blind-test-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/es/adivina-la-cancion-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/id/tebak-lagu-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-idol",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-true-or-false",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 271,
+     "a": "<div class=\"ux-qcov\">",
+     "b": "<div class=\"ux-qcov anime-o2-art-cov\">"
+    },
+    {
+     "at": 272,
+     "a": "<div class=\"ux-qcov-fb\">",
+     "b": "<span class=\"anime-o2-art-strip\">"
+    },
+    {
+     "at": 273,
+     "a": "<span class=\"ux-fbn\">",
+     "b": "<svg class=\"anime-o2-art anime-o2-art-card\" viewBox=\"0 0 320 104\" preserveAspectRatio=\"xMidYMid slice\" focusable=\"false\" data-art=\"crimson\" data-pattern=\"lattice\" role=\"img\" aria-label=\"General K-pop\">"
+    },
+    {
+     "at": 274,
+     "a": "<svg class=\"ux-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">",
+     "b": "<rect width=\"320\" height=\"104\" fill=\"#AA263C\">"
+    },
+    {
+     "at": 275,
+     "a": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"10\" rx=\"5\"/>",
+     "b": "</rect>"
+    },
+    {
+     "at": 276,
+     "a": "<circle cx=\"15.5\" cy=\"12\" r=\"2.6\"/>",
+     "b": "<circle cx=\"300.79999999999995\" cy=\"6.24\" r=\"93.60000000000001\" fill=\"#FFFFFF\" opacity=\"0.07\">"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/easy-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/hard-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-quiz-2026",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": 322,
+     "a": "<div class=\"ux-qcov\">",
+     "b": "<div class=\"ux-qcov anime-o2-art-cov\">"
+    },
+    {
+     "at": 323,
+     "a": "<div class=\"ux-qcov-fb\">",
+     "b": "<span class=\"anime-o2-art-strip\">"
+    },
+    {
+     "at": 324,
+     "a": "<span class=\"ux-fbn\">",
+     "b": "<svg class=\"anime-o2-art anime-o2-art-card\" viewBox=\"0 0 320 104\" preserveAspectRatio=\"xMidYMid slice\" focusable=\"false\" data-art=\"crimson\" data-pattern=\"lattice\" role=\"img\" aria-label=\"General K-pop\">"
+    },
+    {
+     "at": 325,
+     "a": "<svg class=\"ux-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">",
+     "b": "<rect width=\"320\" height=\"104\" fill=\"#AA263C\">"
+    },
+    {
+     "at": 326,
+     "a": "<circle cx=\"6\" cy=\"7\" r=\"1.2\"/>",
+     "b": "</rect>"
+    },
+    {
+     "at": 327,
+     "a": "<circle cx=\"6\" cy=\"12\" r=\"1.2\"/>",
+     "b": "<circle cx=\"300.79999999999995\" cy=\"6.24\" r=\"93.60000000000001\" fill=\"#FFFFFF\" opacity=\"0.07\">"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/kpop-demon-hunters-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/which-bts-member-are-you",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-name-all-members",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/about",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/editorial-policy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/privacy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/terms",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/contact",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/articles",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/daily",
+   "status": "307/307",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/an-unknown-o1-parity-path",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/sitemap.xml",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/robots.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/llms.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  }
+ ]
+}

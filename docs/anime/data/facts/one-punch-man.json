@@ -29,7 +29,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "One-Punch Man (ワンパンマン, Wanpanman) is a Japanese manga series created by One"
   },
   {
@@ -67,7 +68,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A digital manga remake, illustrated by Yusuke Murata"
   },
   {
@@ -92,9 +94,16 @@
         "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
         "ref": "1379606340",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22341676",
+        "ref": "Q22341676",
+        "fetched_at": "2026-10-23T17:28:20Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "originally released as a webcomic in early 2009"
   },
   {
@@ -126,7 +135,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "published on Shueisha's Tonari no Young Jump website since June 14, 2012"
   },
   {
@@ -212,7 +222,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The first season was directed by Shingo Natsume at Madhouse"
   },
   {
@@ -244,7 +255,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The season is animated by J.C. Staff, with Chikara Sakurai replacing Shingo Natsume as series director"
   },
   {
@@ -276,7 +288,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The season's first cours aired from October 12 to December 29, 2025"
   },
   {
@@ -303,7 +316,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Wanpanman is a play on the long-running children's character Anpanman"
   },
   {
@@ -366,7 +380,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The opening theme song is performed by JAM Project, while the ending theme song is performed by Hiroko Moriguchi"
   },
   {
@@ -403,7 +418,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The first opening theme song is \"Get No Satisfied!\", performed by JAM Project featuring Babymetal"
   },
   {
@@ -431,7 +447,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The Mumen in Mumen Rider's name translates to \"no driver's license\""
   },
   {
@@ -509,7 +526,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "enters the Hero Association with a score of 71. Despite achieving exceptional results in the physical portion of the entrance examination, his poor"
   },
   {
@@ -542,7 +560,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a 19-year-old cyborg who becomes Saitama's disciple after bearing witness to Saitama's easy victory over Mosquito Girl. Four years"
   },
   {
@@ -575,7 +594,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is voiced by Yuichi Nakamura in the original Japanese version and by Robbie Daymond in the English dub."
   },
   {
@@ -608,7 +628,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is first introduced as a ninja bodyguard for the rich man Zeniru, when he is deployed to fight the"
   },
   {
@@ -641,7 +662,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "ranked 7 at the time of the S-class meeting, is a hero with large claw-scars down the left side of his face. The association believes"
   },
   {
@@ -674,7 +696,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "who goes by the hero name Silverfang (シルバーファング, Shirubā Fangu; anime: Silver Fang), at rank 3, is an expert martial artist who runs a dojo"
   },
   {
@@ -707,7 +730,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is voiced by Kenjiro Tsuda in the original Japanese version and by Kyle Hebert in the English dub."
   },
   {
@@ -740,7 +764,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is voiced by Aoi Yūki in the original Japanese version. In the English dub, she is voiced by Marieve Herington in Season 1 and Corina Boettger in"
   },
   {
@@ -773,7 +798,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a self-titled Hero Hunter (ヒーロー狩り, Hīrō Gari) and a former disciple, and adopted grandson of Bang before he was expelled for"
   },
   {
@@ -806,7 +832,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "- Estimated disaster level: \"Dragon+/God\" is a cyclops-like alien with spiky hair whose armor limits his abilities. He is the leader of the"
   },
   {
@@ -839,7 +866,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is voiced by Saori Hayami in the original Japanese version and by Laura Post in the English dub."
   },
   {
@@ -872,7 +900,8 @@
         "fetched_at": "2026-10-20T22:00:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the top superhero in the Hero Association who can also use a teleportation suit. His whereabouts are currently unknown and it is said"
   }
 ]

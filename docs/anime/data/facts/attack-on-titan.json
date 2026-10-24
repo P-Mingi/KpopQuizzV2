@@ -147,7 +147,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Above and Below\" (天地, Tenchi) \"Judgment\" (断罪, Danzai)"
   },
   {
@@ -268,7 +269,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Guren no Yumiya\" by Linked Horizon"
   },
   {
@@ -305,7 +307,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "\"Utsukushiki Zankoku na Sekai\" by Yōko Hikasa"
   },
   {
@@ -338,7 +341,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "lit. 'The Advancing Giant'"
   },
   {
@@ -363,9 +367,21 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
         "ref": "1379110502",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a Japanese manga series written and illustrated by Hajime Isayama"
   },
   {
@@ -390,9 +406,16 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
         "ref": "1379110502",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "from September 2009 to April 2021"
   },
   {
@@ -417,9 +440,21 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
         "ref": "1379110502",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "serialized in Kodansha's monthly magazine Bessatsu Shōnen Magazine"
   },
   {
@@ -444,9 +479,21 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
         "ref": "1379110502",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "with its chapters collected in 34 tankōbon volumes"
   },
   {
@@ -471,9 +518,16 @@
         "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA",
         "ref": "111292624",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "全139話"
   },
   {
@@ -579,9 +633,15 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
         "ref": "1379816935",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shingeki.tv/news/archives/5436",
+        "fetched_at": "2026-10-23T17:26:11Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Tetsurō Araki (S1-3)"
   },
   {
@@ -606,9 +666,16 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
         "ref": "1379816935",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22126305",
+        "ref": "Q22126305",
+        "fetched_at": "2026-10-23T17:22:24Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "concluded on November 5, 2023"
   },
   {
@@ -662,7 +729,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "given a first printing of 2.2 million copies"
   },
   {
@@ -689,7 +757,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "35th Kodansha Manga Award"
   },
   {
@@ -716,7 +785,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "broke the Guinness World Record for the \"most in-demand anime TV show\""
   },
   {
@@ -743,7 +813,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was released on November 8, 2024"
   },
   {
@@ -798,7 +869,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "was modeled after middleweight mixed martial artist Yushin Okami"
   },
   {
@@ -826,7 +898,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "That would be Jean."
   },
   {
@@ -854,7 +927,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Levi was modeled after the Watchmen character Rorschach"
   },
   {
@@ -882,7 +956,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Attack Titan (進撃の巨人, Shingeki no Kyojin)"
   },
   {
@@ -910,7 +985,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Eren Yēgā; alt. Eren Jaeger)"
   },
   {
@@ -938,7 +1014,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Mikasa Akkāman; alt. Mikasa Ackermann, Mikasa Azumabito)"
   },
   {
@@ -966,7 +1043,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Arumin Arureruto; alt. Armin Arlelt)"
   },
   {
@@ -994,7 +1072,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Rivai Akkāman; alt. Levi Ackermann)"
   },
   {
@@ -1022,7 +1101,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "57th Expedition Beyond the Walls, Part 4\". Attack on Titan. September 27, 2014. Adult Swim."
   },
   {
@@ -1050,7 +1130,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Hanji Zoe; alt. Zoë Hange, Zoe Hans)"
   },
   {
@@ -1078,7 +1159,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Jan Kirushutain; alt. Jean Kirschtein)"
   },
   {
@@ -1106,7 +1188,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Konī Supuringā; alt. Conny Springer)"
   },
   {
@@ -1134,7 +1217,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Sasha Burausu; alt. Sasha Braus)"
   },
   {
@@ -1162,7 +1246,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kurisuta Renzu; alt. Christa Lenz)"
   },
   {
@@ -1190,7 +1275,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is voiced by Saki Fujita in the Japanese version and by Elizabeth Maxwell in the English version."
   },
   {
@@ -1218,7 +1304,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Reiner is a member of the Marleyan military's Warrior Unit and is the holder of the Armoured Titan (鎧の巨人, Yoroi no Kyojin). As the leader of the infiltration"
   },
   {
@@ -1246,7 +1333,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Berutoruto Fūbā; alt. Bertholdt Hoover)"
   },
   {
@@ -1274,7 +1362,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An Eldian cadet of the Marleyan Warriors, Annie is introduced as a cadet in the 104th Training Corps, where she graduated ranking 4th in her class. She has"
   },
   {
@@ -1302,7 +1391,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Maruko Botto; alt. Marco Bodt)"
   },
   {
@@ -1330,7 +1420,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Kīsu Shādisu; alt. Keith Sadies)"
   },
   {
@@ -1358,7 +1449,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A Garrison soldier who saves Eren and Mikasa during the attack on Shiganshina. While Eren finishes cadet training, Hannes becomes a Garrison squad leader. He"
   },
   {
@@ -1386,7 +1478,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Dotto Pikushisu; alt. Dot Pyxis)"
   },
   {
@@ -1414,7 +1507,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Mike Zakariasu; alt. Miche Zacharius)"
   },
   {
@@ -1442,7 +1536,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Petora Raru; alt. Petra Rall)"
   },
   {
@@ -1470,7 +1565,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Jīku Yēgā; alt. Zeke Jaeger, Zeke Fritz)"
   },
   {
@@ -1498,7 +1594,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "隊長, Kenī Akkāman-taichō; alt. Kenny Ackermann)"
   },
   {
@@ -1526,7 +1623,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Aurille is a noble who is loyal to King Fritz and Rod Reiss. When it came to Erwin Smith's trial where he is accused of not giving Eren Yeager to the Royal"
   },
   {
@@ -1554,7 +1652,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Gurisha Yēgā; alt. Grisha Jaeger)"
   },
   {
@@ -1582,7 +1681,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Karura Yēgā; alt. Carla Jaeger)"
   },
   {
@@ -1610,8 +1710,9 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "In 854, she discovers two escaped Marleyan children, Gabi Braun and Falco Grice, and kindly invites them home to eat with her family. When the Blouse family"
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Gabi Braun ( ガビ・ブラウン, Gabi Buraun) An overachieving, overconfident, bold and zealous Warrior candidate"
   },
   {
     "id": "attack-on-titan-falco-grice-name-057",
@@ -1638,7 +1739,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A timid, kind-hearted Warrior candidate and nephew of the condemned Eldian Restorationist member Grice, competing with Gabi (whom he also has a crush on) to"
   },
   {
@@ -1666,7 +1768,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Pieck is known for her intelligence and perceptiveness, and is able to transform into the Cart Titan to transport"
   },
   {
@@ -1694,7 +1797,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Porco is a holder of the Jaw Titan and the younger brother of Marcel Galliard, who previously held the Jaw Titan"
   },
   {
@@ -1722,7 +1826,8 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The patriarch of the Tybur family and the true commander-in-chief of Marley prior to his death, Willy's ancestors orchestrated the downfall of the Eldian"
   }
 ]
