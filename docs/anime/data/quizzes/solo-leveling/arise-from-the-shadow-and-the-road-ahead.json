@@ -4,68 +4,71 @@
   "group_slug": "solo-leveling",
   "title": "Arise from the Shadow and the Road Ahead",
   "slug": "arise-from-the-shadow-and-the-road-ahead",
-  "description": "Season 2, the recap specials, the compilation film and the sequel: nine questions on what came after the first season and what is announced next.",
+  "description": "Season 2, the recap special, the compilation film, the sequel and the Monarchs: ten questions on what came after the first season and what is announced next.",
   "quiz_type": "multiple_choice",
   "difficulty": "hard",
   "language": "en",
   "title_gives_nothing_away": true,
   "questions": [
     {
-      "question": "What subtitle does Season 2 carry?",
+      "question": "Which song opens Season 2?",
       "options": [
-        "Beyond the System",
-        "ReAwakening",
-        "Arise from the Shadow",
-        "Rise of the Monarch"
+        "Level",
+        "Reawaker",
+        "Request",
+        "Un-Apex"
       ],
-      "correct": 2,
-      "kind": "arc",
+      "correct": 1,
+      "kind": "music",
       "spoiler": {
         "arc": 2,
         "scope": "anime"
       },
       "fact_ids": [
-        "solo-leveling-season-two-span-012"
+        "solo-leveling-themes-season-two-016"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
     },
     {
-      "question": "How many new episodes did Season 2 bring?",
+      "question": "How can fans follow the story after Season 2 for now?",
       "options": [
-        "13",
-        "12",
-        "10",
-        "24"
+        "As a third TV season",
+        "As a webtoon",
+        "As an audio drama",
+        "As a live-action series"
       ],
-      "correct": 0,
+      "correct": 1,
       "kind": "arc",
       "spoiler": {
-        "arc": 2,
-        "scope": "anime"
+        "arc": 3,
+        "scope": "manga"
       },
       "fact_ids": [
-        "solo-leveling-season-two-span-012"
+        "solo-leveling-after-season-two-013"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
-      "question": "In which month did Season 2 premiere?",
+      "question": "Who is counted as the most powerful of all the Monarchs?",
       "options": [
-        "April",
-        "July",
-        "January",
-        "October"
+        "Rakan",
+        "Sillad",
+        "Antares",
+        "Querehsha"
       ],
       "correct": 2,
-      "kind": "arc",
+      "kind": "character",
       "spoiler": {
-        "arc": 2,
-        "scope": "anime"
+        "arc": 3,
+        "scope": "manga"
       },
       "fact_ids": [
-        "solo-leveling-season-two-span-012"
+        "solo-leveling-antares-title-030",
+        "solo-leveling-rakan-name-058",
+        "solo-leveling-sillad-name-059",
+        "solo-leveling-querehsha-name-060"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2"
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
       "question": "Which recap special covered the first seven episodes?",
@@ -161,6 +164,48 @@
         "solo-leveling-thomas-andre-nickname-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which title does Ashborn hold?",
+      "options": [
+        "King of Dragons",
+        "Sovereign of Flames",
+        "Lord of Winter",
+        "Monarch of Shadows"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "solo-leveling-ashborn-title-029",
+        "solo-leveling-antares-title-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which of these characters is a main character of Solo Leveling?",
+      "options": [
+        "Liu Zhigang",
+        "Christopher Reed",
+        "Sung Suho",
+        "Lim Tae-gyu"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "solo-leveling-sung-suho-name-048",
+        "solo-leveling-liu-zhigang-name-050",
+        "solo-leveling-christopher-reed-name-051",
+        "solo-leveling-lim-tae-gyu-name-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     }
   ],
   "sources": [
@@ -185,5 +230,5 @@
       "url": "https://sololeveling-anime.net/"
     }
   ],
-  "notes": "Arc quiz: tags run from arc 0 to arc 3 (After Season 2, manga). Season 2 facts are arc 2; the sequel webtoon and Thomas Andre are arc 3 manga."
+  "notes": "Arc quiz: tags run from arc 0 to arc 3 (After Season 2, manga). Season 2 facts are arc 2; the sequel webtoon, Thomas Andre and the Monarchs are arc 3 manga. K1 rewrite: blocked questions rewritten on verified facts 013, 016, 029, 030 and the character name facts."
 }

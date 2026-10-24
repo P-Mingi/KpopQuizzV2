@@ -11,7 +11,7 @@
   "title_gives_nothing_away": true,
   "questions": [
     {
-      "question": "The webtoon ends at chapter number 179.",
+      "question": "The webtoon opened on KakaoPage in March 2018.",
       "correct": true,
       "kind": "manga",
       "spoiler": {
@@ -19,7 +19,7 @@
         "scope": "both"
       },
       "fact_ids": [
-        "solo-leveling-webtoon-chapters-007"
+        "solo-leveling-webtoon-run-006"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
@@ -37,30 +37,30 @@
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
-      "question": "Season 1 of the anime aired from January to March 2024.",
+      "question": "In print, the novel has been available starting in November 2016.",
       "correct": true,
-      "kind": "episode",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "solo-leveling-season-one-span-011"
+        "solo-leveling-novel-publisher-005"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
-      "question": "Season 1 of the anime ran for 13 episodes.",
+      "question": "The second season of the comic ran from August 2020 until December 2022.",
       "correct": false,
-      "kind": "episode",
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "manga"
       },
       "fact_ids": [
-        "solo-leveling-season-one-span-011"
+        "solo-leveling-webtoon-seasons-008"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
       "question": "Noboru Kimura directed the anime.",
@@ -102,15 +102,15 @@
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
     {
-      "question": "The comic version of the story was drawn by Dubu.",
+      "question": "The first season of the comic wrapped up in March 2020.",
       "correct": true,
-      "kind": "production",
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "manga"
       },
       "fact_ids": [
-        "solo-leveling-webtoon-artist-004"
+        "solo-leveling-webtoon-seasons-008"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
     },
@@ -153,5 +153,5 @@
       "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a name or a place)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a name or a place). K1 rewrite: blocked statements rewritten on verified facts 005, 006 and 008."
 }
