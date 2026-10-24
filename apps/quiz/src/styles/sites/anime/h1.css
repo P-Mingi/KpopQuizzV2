@@ -1,0 +1,22 @@
+/* Run O1, lot (d), lane H1: the network privacy page is served by the anime build too (components/hub/hub-privacy.tsx, same markup as
+   the hub, canonical on the hub). The anime build reads only styles/sites/anime/, so the rules that page uses are repeated here under
+   the anime scope: the "What your passport shares" block, the draft banner, the policy headings, paragraphs and lists. Same classes
+   (anime-h1-*), same --ux-* tokens, local --anime-gap. Keep it in step with the same rules of styles/sites/hub/h1.css. */
+
+html.ux-v1[data-site="anime"] {
+  --anime-gap: 16px;
+}
+
+html.ux-v1[data-site="anime"] .anime-h1-shares-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px var(--anime-gap); }
+html.ux-v1[data-site="anime"] .anime-h1-shares-h { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-h1-shares-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; line-height: 1.45; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-h1-shares-list li { position: relative; padding-left: 22px; }
+html.ux-v1[data-site="anime"] .anime-h1-shares-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 10px; height: 10px; border-radius: 999px; }
+html.ux-v1[data-site="anime"] .anime-h1-shares-sees li::before { background: var(--ux-ok); }
+html.ux-v1[data-site="anime"] .anime-h1-shares-hides li::before { background: var(--ux-no); }
+html.ux-v1[data-site="anime"] .anime-h1-draft { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--ux-warn); border-radius: 12px; background: var(--ux-surface); color: var(--ux-ink); font-size: 15px; line-height: 1.45; }
+html.ux-v1[data-site="anime"] .anime-h1-draft strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ux-warn); }
+html.ux-v1[data-site="anime"] .anime-h1-policy-h { margin: 0 0 8px; font-size: 20px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-h1-prose { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-h1-prose-list { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; line-height: 1.55; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="anime"] .anime-h1-policy .anime-h1-shares { margin: 0 0 12px; }

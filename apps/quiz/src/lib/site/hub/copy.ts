@@ -2,20 +2,30 @@
 // hub brand and the words of a site come from the registry (NETWORK, siteConfig), never from the copy text.
 
 import { COPY as H1 } from '@/copy/hub/h1';
+import { HANDOFF_LOG_DAYS, DELETION_GRACE_DAYS, leavableSites } from '@/lib/passport/deletion/policy';
+import { PASSPORT_SECONDS } from '@/lib/passport/types';
+import { formatLaunchDate } from '@/lib/site/indexing';
 import { NETWORK, siteConfig } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 export type HubCopyKey = keyof typeof H1;
 export type HubCopyVars = Readonly<Record<string, string | number>>;
 
+/** "A", "A and B", "A, B and C". */
+function andList(names: readonly string[]): string {
+  return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : (names[0] ?? '');
+}
+
 /** The sites of the network, in display order, with their domains: "A (a.org), B (b.org) and C (c.org)". */
 function siteList(): string {
-  const labels = SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteConfig(id).domain})`);
-  return labels.length > 1 ? `${labels.slice(0, -1).join(', ')} and ${labels[labels.length - 1]}` : (labels[0] ?? '');
+  return andList(SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteConfig(id).domain})`));
 }
 
 /** The mailbox of the hub (contact@ its own host, as the other legal pages print it). */
 export const HUB_EMAIL = `contact@${siteConfig('hub').domain}`;
+
+/** The minimum age on the three sites (owner, 2026-10-24). */
+export const MIN_AGE = 15;
 
 const BASE_VARS: HubCopyVars = {
   network: NETWORK.name,
@@ -24,6 +34,20 @@ const BASE_VARS: HubCopyVars = {
   // The privacy draft (privacy.*): the three sites with their domains, and the hub mailbox.
   sites: siteList(),
   email: HUB_EMAIL,
+  // Two of the three sites by name (the cookies and the sign-in methods that belong to one site only).
+  kpopName: siteConfig('kpop').brand.name,
+  animeName: siteConfig('anime').brand.name,
+  // The sites a member can leave (everything but kpop).
+  leavable: andList(leavableSites().map((id) => siteConfig(id).brand.name)),
+  // The numbers the code decides (lib/passport/types.ts PASSPORT_SECONDS, lib/passport/deletion/policy.ts), never typed in the copy.
+  ticketMinutes: PASSPORT_SECONDS.ticket / 60,
+  codeSeconds: PASSPORT_SECONDS.code,
+  freshMinutes: PASSPORT_SECONDS.freshSignIn / 60,
+  logDays: HANDOFF_LOG_DAYS,
+  graceDays: DELETION_GRACE_DAYS,
+  minAge: MIN_AGE,
+  // The launch date (NET_LAUNCH_DATE), "24 October 2026"; empty while it is missing (the page prints the line only when it has one).
+  date: formatLaunchDate(process.env.NET_LAUNCH_DATE) ?? '',
 };
 
 /** `{name}` placeholders replaced from `vars` then from the base vars; an unknown placeholder is left as written. */

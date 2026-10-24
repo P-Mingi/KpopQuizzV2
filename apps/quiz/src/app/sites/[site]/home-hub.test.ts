@@ -128,9 +128,14 @@ describe('what your passport shares', () => {
     expect(privacyHtml.match(/<h1\b/g)).toHaveLength(1);
   });
 
-  it('is not on the privacy page of the other builds', async () => {
+  // Owner decision 2026-10-24 (docs/o1/briefs/H1-privacy.md): /privacy of the anime build serves the network policy, so the block is
+  // there too, word for word the hub's (this test said "not on the other builds" while the anime page was its own text).
+  it('is the same block on the privacy page of the anime build', async () => {
+    const hub = await load('hub');
+    const hubBlock = sharesBlock(renderToStaticMarkup(hub.privacy.default()));
     const { privacy } = await load('anime');
-    expect(renderToStaticMarkup(privacy.default())).not.toContain('data-hub-shares');
+    // the anime sheet styles anime-h1-* classes only (tokens.md 3.3 rule 6): the markup is the hub's with that prefix
+    expect(sharesBlock(renderToStaticMarkup(privacy.default()).replace(/anime-h1-/g, 'hub-h1-'))).toBe(hubBlock);
   });
 });
 

@@ -1,186 +1,25 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/privacy/page.tsx, rows 26, H-2: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
 import { HubPrivacy } from '@/components/hub/hub-privacy';
 import { ht } from '@/lib/site/hub/copy';
-import { PRIVACY_PAGE } from '@/lib/site/hub/network-page';
-import { robotsFor } from '@/lib/site/indexing';
-import { SITE } from '@/lib/site/registry';
+import { PRIVACY_PAGE, privacyUrl } from '@/lib/site/hub/network-page';
+import { launchDateOrThrow, robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
 
-const ANIME_METADATA: Metadata = {
-  title: 'Privacy Policy',
-  // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
-  description: `${SITE.brand.name} privacy policy: the data we collect when you sign in and play, how we use it, what stays private, and how to see or delete your data.`,
-  robots: robotsFor(true),
-  alternates: { canonical: '/privacy' },
-};
-
-// Lot (d), H1: the hub serves the DRAFT of the network policy (copy keys privacy.*), closed to search engines until the owner
-// validates the text; any other build keeps the page below.
-const HUB_DRAFT_METADATA: Metadata = {
-  title: ht(PRIVACY_PAGE.metaTitle),
-  description: ht(PRIVACY_PAGE.metaDescription),
-  robots: { index: false, follow: true },
-  alternates: { canonical: '/privacy' },
-};
-
+// Lot (d), H1: the hub and the anime build both serve the network policy (HubPrivacy, copy keys privacy.*); its canonical is the
+// hub's page. While the network is closed (NET_INDEXING off) the page is a draft: banner, noindex, not in the sitemap. Once it
+// is open it is indexable, and a build with NET_INDEXING on and no valid NET_LAUNCH_DATE fails here (launchDateOrThrow): Next calls
+// generateMetadata while it builds the page.
 export function generateMetadata(): Metadata {
-  return SITE.id === 'hub' ? HUB_DRAFT_METADATA : ANIME_METADATA;
+  launchDateOrThrow();
+  return {
+    title: ht(PRIVACY_PAGE.metaTitle),
+    description: ht(PRIVACY_PAGE.metaDescription),
+    robots: robotsFor(true),
+    alternates: { canonical: privacyUrl() },
+  };
 }
 
-// What the site signs in with, from its registry (anime and hub: Google and an email link, no Discord).
-const HAS_DISCORD = SITE.auth.providers.includes('discord');
-const SIGN_IN = HAS_DISCORD ? 'Google or Discord' : 'Google';
-const SIGN_IN_SERVICES = HAS_DISCORD ? 'Google OAuth and Discord OAuth' : 'Google OAuth';
-
-// The mailbox of the site (contact@ its own host), as the contact and terms pages print it.
-const CONTACT = `contact@${SITE.domain}`;
-
 export default function PrivacyPage(): React.ReactElement {
-  if (SITE.id === 'hub') return <HubPrivacy />;
-  return (
-    <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
-
-      <p className="text-sm text-secondary leading-relaxed">
-        {SITE.brand.name} ({SITE.domain}) respects your privacy. This policy explains what data we collect, how we
-        use it, and your rights.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        When you sign in with {SIGN_IN}, we receive:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Your email address</li>
-        <li>Your display name</li>
-        <li>Your profile picture URL (if available)</li>
-      </ul>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        We do not receive or store your {SIGN_IN} password.
-      </p>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        When you use {SITE.brand.name}, we also collect:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Quizzes you create (questions, answers, settings)</li>
-        <li>Quiz play records (score, time taken, date)</li>
-        <li>Likes you give to quizzes</li>
-        <li>Your username, display name, bio, and avatar URL (as set by you in Settings)</li>
-        <li>Your XP, level, and badges (calculated from your activity)</li>
-      </ul>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">2. How we use your data</h2>
-      <p className="text-sm text-secondary leading-relaxed">We use your data to:</p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Display your profile and quizzes to other users</li>
-        <li>Calculate scores, rankings, XP, and leaderboards</li>
-        <li>Show quiz statistics (play counts, average scores, pass rates)</li>
-        <li>Generate Quiz of the Day selections</li>
-        <li>Improve the platform and fix bugs</li>
-      </ul>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        We do not sell, rent, or share your personal data with third parties for marketing purposes.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">3. Cookies and local storage</h2>
-      <p className="text-sm text-secondary leading-relaxed">{SITE.brand.name} uses:</p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Authentication cookies (managed by Supabase) to keep you signed in</li>
-        <li>No tracking cookies</li>
-        <li>No third-party analytics cookies</li>
-        <li>Local storage for UI preferences (such as dismissed banners)</li>
-      </ul>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">4. Third-party services</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        We use the following third-party services:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Supabase (database and authentication) - stores your account and quiz data</li>
-        <li>Vercel (hosting) - serves the website</li>
-        <li>{SIGN_IN_SERVICES} - for sign-in only</li>
-      </ul>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        Each of these services has their own privacy policy. We encourage you to review them.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">5. Data visibility</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        By default, the following is publicly visible to all users:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Your username and display name</li>
-        <li>Your avatar</li>
-        <li>Quizzes you create</li>
-        <li>Your XP level and badges</li>
-        <li>Your play statistics</li>
-      </ul>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        The following is private and never shared:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Your email address</li>
-        <li>Your OAuth provider details</li>
-        <li>Your specific play-by-play history on other users&apos; quizzes</li>
-      </ul>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">6. Data retention</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        Your data is retained as long as your account is active. If you want to delete your account and all
-        associated data, contact us at{' '}
-        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
-          {CONTACT}
-        </a>{' '}
-        and we will process your request within 30 days.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">7. Children&apos;s privacy</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        {SITE.brand.name} is not directed at children under 13. If you are under 13, please do not create an
-        account. If we learn that we have collected data from a child under 13, we will delete it promptly.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">8. Your rights</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        Depending on your location, you may have the right to:
-      </p>
-      <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
-        <li>Access the data we hold about you</li>
-        <li>Request correction of inaccurate data</li>
-        <li>Request deletion of your data</li>
-        <li>Object to certain uses of your data</li>
-      </ul>
-      <p className="text-sm text-secondary leading-relaxed mt-3">
-        To exercise these rights, contact us at{' '}
-        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
-          {CONTACT}
-        </a>
-        .
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">9. Security</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        We use industry-standard security practices including encrypted connections (HTTPS), secure
-        authentication (OAuth 2.0), and row-level security on our database. However, no system is 100%
-        secure, and we cannot guarantee absolute security.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">10. Changes to this policy</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        We may update this policy from time to time. Changes will be reflected by the &quot;Last
-        updated&quot; date at the top of this page.
-      </p>
-
-      <h2 className="text-lg font-medium mt-8 mb-3">11. Contact</h2>
-      <p className="text-sm text-secondary leading-relaxed">
-        For privacy-related questions or data requests, contact us at{' '}
-        <a href={`mailto:${CONTACT}`} className="text-primary underline hover:no-underline">
-          {CONTACT}
-        </a>
-        .
-      </p>
-    </div>
-  );
+  return <HubPrivacy />;
 }

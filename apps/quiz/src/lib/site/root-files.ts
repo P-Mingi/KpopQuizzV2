@@ -7,6 +7,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
 
+import { indexingOpenFor, parseLaunchDate } from './indexing';
 import { forSite } from './scope';
 
 import type { MetadataRoute } from 'next';
@@ -61,7 +62,7 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
 
 /**
  * The URLs a non-kpop site lists, in the order a crawler should meet them.
- *   hub:   its home (its /privacy is a noindex draft, so it stays out until the owner validates the text).
+ *   hub:   its home, and its /privacy once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
  *   anime: its home, /series, every series hub that has at least `seo.minPublishedForIndexableHub` published quizzes
  *          (below it the hub page is noindex, so it stays out), then every published quiz of the site, newest first.
  * A read that fails is not swallowed into a half list: the error reaches the caller, which answers 500 and lets the
@@ -69,9 +70,12 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
  */
 export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createPublicReadClient()): Promise<SitemapEntry[]> {
   if (site.id === 'hub') {
-    // /privacy is the network policy DRAFT, noindex until the owner validates the text (app/sites/[site]/privacy/page.tsx
-    // HUB_DRAFT_METADATA): a noindex URL stays out of the sitemap. Add it back with the day that metadata says index.
-    return [{ path: '/', changeFrequency: 'weekly', priority: 1 }];
+    // /privacy is the network policy. While the network is closed it is a noindex draft (app/sites/[site]/privacy/page.tsx), and a
+    // noindex URL stays out of the sitemap; once NET_INDEXING opens the site it is indexable, dated NET_LAUNCH_DATE, and listed.
+    const home: SitemapEntry = { path: '/', changeFrequency: 'weekly', priority: 1 };
+    if (!indexingOpenFor(site.id)) return [home];
+    const launch = parseLaunchDate(process.env.NET_LAUNCH_DATE);
+    return [home, { path: '/privacy', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 }];
   }
   if (site.id !== 'anime') throw new Error('sitemapEntriesFor: kpop has app/sitemap.ts');
   const home: SitemapEntry[] = [

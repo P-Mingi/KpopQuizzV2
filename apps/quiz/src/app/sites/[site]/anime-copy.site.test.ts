@@ -1,5 +1,7 @@
-// Run O1, lane O1: the anime pages that were copies of the kpop ones (about, editorial policy, privacy, contact, terms) and
+// Run O1, lane O1: the anime pages that were copies of the kpop ones (about, editorial policy, contact, terms) and
 // the 404 of anime and hub name no K-pop, no KpopQuiz, no kpop host, no Discord, no stats page and no mailbox of kpopquiz.org.
+// Lot (d), H1 (owner, 2026-10-24): /privacy is no longer one of them. Anime and hub both serve the network policy, which names the
+// three sites (KpopQuiz, OtakuQuiz, FanQuiz) and their sign-in methods; its test is the last describe of this file.
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -28,7 +30,6 @@ describe('the anime pages that were kpop copies', () => {
     ['editorial policy', () => import('./(anime)/editorial-policy/page') as never],
     ['contact', () => import('./(anime)/contact/page') as never],
     ['terms', () => import('./(anime)/terms/page') as never],
-    ['privacy', () => import('./privacy/page') as never],
   ];
   for (const [name, load] of pages) {
     it(`${name}: no kpop word, host or mailbox${name === 'contact' ? ' (the Reddit link is the one allowed leftover)' : ''}`, async () => {
@@ -41,13 +42,34 @@ describe('the anime pages that were kpop copies', () => {
       if (/mailto:/.test(html)) expect(html).toContain('@otakuquiz.org');
     });
   }
+});
 
-  it('privacy on the hub names FanQuiz and its own mailbox', async () => {
-    const mod = await onSite('hub', () => import('./privacy/page'));
-    const html = renderToString(mod.default() as React.ReactElement);
-    expect(html).toContain('FanQuiz');
-    expect(html).toContain('mailto:contact@fanquiz.org');
-    expect(html).not.toMatch(/kpopquiz|KpopQuiz/);
+// The network policy (owner, 2026-10-24): the same text on the hub and on the anime build, naming the three sites from the registry,
+// with the mailbox of the hub; the only place of the anime build that may name KpopQuiz and Discord (the sign-in methods of KpopQuiz).
+describe('the network privacy policy on the hub and on anime', () => {
+  it('names the three sites with their domains and the mailbox of the hub, and no dash', async () => {
+    const { REGISTRY } = await import('@/lib/site/registry');
+    for (const site of ['hub', 'anime'] as const) {
+      const mod = await onSite(site, () => import('./privacy/page'));
+      const html = renderToString(mod.default() as React.ReactElement);
+      for (const s of Object.values(REGISTRY)) {
+        expect(html, `${site}: ${s.brand.name}`).toContain(s.brand.name);
+        expect(html, `${site}: ${s.domain}`).toContain(s.domain);
+      }
+      expect(html).toContain('mailto:contact@fanquiz.org');
+      expect(html).not.toContain('@kpopquiz.org');
+      expect(html).not.toContain('@otakuquiz.org');
+      expect(html).not.toMatch(DASHES);
+    }
+  });
+
+  it('is one text: the anime page and the hub page render the same markup (class prefix aside), canonical on the hub', async () => {
+    const hub = await onSite('hub', () => import('./privacy/page'));
+    const hubHtml = renderToString(hub.default() as React.ReactElement);
+    const anime = await onSite('anime', () => import('./privacy/page'));
+    expect(renderToString(anime.default() as React.ReactElement).replace(/anime-h1-/g, 'hub-h1-')).toBe(hubHtml);
+    expect(anime.generateMetadata().alternates?.canonical).toBe('https://fanquiz.org/privacy');
+    expect(hub.generateMetadata().alternates?.canonical).toBe('https://fanquiz.org/privacy');
   });
 });
 

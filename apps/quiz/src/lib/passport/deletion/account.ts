@@ -21,6 +21,8 @@ import { notifyRevalidate } from '../revalidate';
 import { signOut } from '../signout';
 import { PASSPORT_SECONDS } from '../types';
 
+import { leavableSites } from './policy';
+
 import type { NextRequest, NextResponse } from 'next/server';
 import type { NetOriginEnv } from '@/lib/site/registry';
 import type { SiteId } from '@/lib/site/types';
@@ -37,10 +39,7 @@ export interface AccountCtx {
   readonly sendNotice?: (to: string, runAfter: string) => Promise<unknown>;
 }
 
-/** The worlds a member can leave: every world site except kpop (apis.md 3.6). */
-export function leavableSites(): readonly SiteId[] {
-  return SITE_IDS.filter((id) => REGISTRY[id].kind === 'world' && id !== 'kpop');
-}
+export { leavableSites };
 
 type Supabase = Awaited<ReturnType<typeof createServerClient>>;
 
