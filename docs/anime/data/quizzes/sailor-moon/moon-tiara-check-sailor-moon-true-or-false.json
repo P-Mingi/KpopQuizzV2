@@ -4,7 +4,7 @@
  "group_slug": "sailor-moon",
  "title": "Moon Tiara Check: Sailor Moon True or False",
  "slug": "moon-tiara-check-sailor-moon-true-or-false",
- "description": "Ten statements on the manga, its magazine, volumes, sales and prize, the 1992 anime and Sailor Moon Crystal. Some are one detail off, so read closely.",
+ "description": "Ten statements on the manga, its magazine, volumes and prize, the 1992 anime and Sailor Moon Crystal. Some are one detail off, so read closely.",
  "quiz_type": "true_false",
  "difficulty": "medium",
  "language": "en",
@@ -89,17 +89,17 @@
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
   },
   {
-   "question": "The manga has passed 46 million copies sold worldwide, among the best sellers in shōjo history.",
+   "question": "Sailor Moon Crystal's third season adapts the manga's Infinity arc.",
    "correct": true,
-   "kind": "manga",
+   "kind": "arc",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "anime"
    },
    "fact_ids": [
-    "sailor-moon-manga-copies-006"
+    "sailor-moon-crystal-run-011"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
   },
   {
    "question": "The original manga edition filled 28 volumes, released between July 1992 and April 1997.",
@@ -158,5 +158,5 @@
    "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
   }
  ],
- "notes": "Statements restate arc 0 fact texts (002, 003, 004, 006, 007, 008, 011); each false one changes a single detail (a role, a magazine, a number, an award or an episode count)."
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 007, 008, 011); each false one changes a single detail (a role, a magazine, a number, an award or an episode count). K1 rewrite: blocked sales statement replaced on verified fact 011."
 }
