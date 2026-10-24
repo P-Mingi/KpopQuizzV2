@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { bankRefillAlert, validateSchedule } from '@/lib/quiz-bank-scheduling';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 
@@ -59,8 +60,8 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
     return { total, ...byStatus };
   }, [entries]);
 
-  // Mission U (owner, 2026-10-15): the refill alert, from the same rows the page shows.
-  const refillAlert = bankRefillAlert(entries.filter((e) => e.status === 'verified' || e.status === 'scheduled').length);
+  // Mission U (owner, 2026-10-15): the refill alert, from the same rows the page shows (Run O1: the page reads the build's site only; the alert names it off kpop).
+  const refillAlert = bankRefillAlert(entries.filter((e) => e.status === 'verified' || e.status === 'scheduled').length, SITE_ID);
 
   const updateEntry = useCallback(async (id: string, patch: Partial<QuizBankEntry>) => {
     setSavingId(id);

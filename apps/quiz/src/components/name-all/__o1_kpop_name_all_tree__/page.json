@@ -865,6 +865,7 @@
    "lib/site/registry.ts",
    "lib/site/scope.ts",
    "lib/site/types.ts",
+   "lib/soundtrack-album.ts",
    "lib/supabase/server.ts",
    "lib/ux-v1.ts",
    "lib/ux-v1/a0/icons.ts",

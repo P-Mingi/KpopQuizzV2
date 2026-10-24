@@ -384,10 +384,15 @@ export function pickCatalogQotd(
  */
 export const BANK_REFILL_THRESHOLD = 30;
 
-/** The refill alert for `open` open rows, or null when the bank holds enough. */
-export function bankRefillAlert(open: number): string | null {
+/**
+ * The refill alert for `open` open rows, or null when the bank holds enough. Run O1: `site` names the bank on a build other
+ * than kpop ("The anime quiz bank is empty"); the kpop text is main's, unchanged.
+ */
+export function bankRefillAlert(open: number, site: string = 'kpop'): string | null {
   if (open >= BANK_REFILL_THRESHOLD) return null;
+  const bank = site === 'kpop' ? 'the bank' : `the ${site} bank`;
+  const Bank = site === 'kpop' ? 'The quiz bank' : `The ${site} quiz bank`;
   return open <= 0
-    ? 'The quiz bank is empty: the quiz of the day now falls back to catalog quizzes. Add a verified lot.'
-    : `Only ${open} quiz${open === 1 ? '' : 'zes'} left in the bank (under ${BANK_REFILL_THRESHOLD}): about ${open} day${open === 1 ? '' : 's'} of quizzes of the day. Add a verified lot.`;
+    ? `${Bank} is empty: the quiz of the day now falls back to catalog quizzes. Add a verified lot.`
+    : `Only ${open} quiz${open === 1 ? '' : 'zes'} left in ${bank} (under ${BANK_REFILL_THRESHOLD}): about ${open} day${open === 1 ? '' : 's'} of quizzes of the day. Add a verified lot.`;
 }

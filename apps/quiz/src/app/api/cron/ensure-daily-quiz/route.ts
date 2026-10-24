@@ -2,6 +2,7 @@ import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
 import { SITE } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 import { NextResponse } from 'next/server';
 
 import { bankRefillAlert, qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -39,12 +40,13 @@ export const dynamic = 'force-dynamic';
 /**
  * Mission U (owner, 2026-10-15): the open bank rows left after today's run, and the refill
  * alert under BANK_REFILL_THRESHOLD. Logged and returned so a cron run shows it; a failed
- * count never fails the run.
+ * count never fails the run. Run O1: the count is per site (forSite on the build's site: the kpop build with SITE_SCOPE off
+ * sends main's exact query), and the alert names the site off kpop.
  */
 async function bankStatus(supabase: ReturnType<typeof createServiceRoleClient>): Promise<{ bank_open?: number; refill_alert?: string }> {
-  const { count, error } = await supabase.from('quiz_bank').select('id', { count: 'exact', head: true }).in('status', ['verified', 'scheduled']);
+  const { count, error } = await forSite(supabase.from('quiz_bank').select('id', { count: 'exact', head: true }), SITE.id).in('status', ['verified', 'scheduled']);
   if (error || typeof count !== 'number') return {};
-  const alert = bankRefillAlert(count);
+  const alert = bankRefillAlert(count, SITE.id);
   if (alert) console.warn(`[ensure-daily-quiz] ${alert}`);
   return alert ? { bank_open: count, refill_alert: alert } : { bank_open: count };
 }
