@@ -106,23 +106,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-      "question": "As of January 2026, how many copies of the manga had passed into circulation?",
+      "question": "In which month of 2024 did the first anime season finish airing?",
       "options": [
-        "5 million",
-        "15 million",
-        "100 million",
-        "30 million"
+        "June",
+        "March",
+        "December",
+        "September"
       ],
-      "correct": 3,
-      "kind": "manga",
+      "correct": 1,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "frieren-copies-circulation-005"
+        "frieren-anime-season-one-008"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
       "question": "Which studio made the first anime season?",
@@ -218,5 +218,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only. Creators, magazine, volumes, sales, studio and the age of the elf."
+  "notes": "Starter: every question cites an arc 0 fact only. Creators, magazine, volumes, studio, the first season and the age of the elf. K1 rewrite: blocked questions rewritten on verified facts (008)."
 }
