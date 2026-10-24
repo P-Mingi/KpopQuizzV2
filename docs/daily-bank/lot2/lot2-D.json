@@ -1,0 +1,661 @@
+[
+  {
+    "scheduled_date": "2026-11-28",
+    "title": "ATEEZ: The Golden Hour Era",
+    "description": "Ten questions on the first three parts of ATEEZ's Golden Hour series (2024 to 2025): Work, Ice on My Teeth, Lemon Drop, charts and festivals.",
+    "group_slug": "ateez",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which song led Golden Hour: Part.1, the ATEEZ EP released on May 31, 2024?",
+        "options": [
+          "Bouncy (K-Hot Chilli Peppers)",
+          "Work",
+          "Crazy Form",
+          "Guerrilla"
+        ],
+        "correct": 1,
+        "fun_fact": "Part.1 was the group's tenth EP and opened the Golden Hour series. It debuted at No. 2 on the Billboard 200 and sold over 1.5 million copies in its first week.",
+        "source": "https://en.wikipedia.org/wiki/Ateez"
+      },
+      {
+        "question": "In the Work music video, ATEEZ take on odd jobs such as diner shifts and mining for what?",
+        "options": [
+          "Diamonds",
+          "Coal",
+          "Gold",
+          "Silver"
+        ],
+        "correct": 2,
+        "fun_fact": "The choreography for Work was co-created by member San, and the song came out the same day as its parent EP.",
+        "source": "https://en.wikipedia.org/wiki/Work_(Ateez_song)"
+      },
+      {
+        "question": "Which American rapper joined ATEEZ on Work Pt.4, a remix released in August 2024?",
+        "options": [
+          "G-Eazy",
+          "Pitbull",
+          "Flo Rida",
+          "Jack Harlow"
+        ],
+        "correct": 0,
+        "fun_fact": "Work got three official remixes. The first, Work Pt.2, paired the group with Dutch DJ Don Diablo on June 5, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Work_(Ateez_song)"
+      },
+      {
+        "question": "Where did Golden Hour: Part.2 debut on the US Billboard 200 in November 2024?",
+        "options": [
+          "No. 3",
+          "No. 1",
+          "No. 2",
+          "No. 5"
+        ],
+        "correct": 1,
+        "fun_fact": "The EP earned 184,000 equivalent album units in its first week, giving ATEEZ a second No. 1 after The World EP.Fin: Will in 2023.",
+        "source": "https://www.koreatimes.co.kr/www/art/2024/11/398_386975.html"
+      },
+      {
+        "question": "Ice on My Teeth pairs an R&B foundation with which string instrument?",
+        "options": [
+          "Cello",
+          "Harp",
+          "Gayageum",
+          "Violin"
+        ],
+        "correct": 3,
+        "fun_fact": "Released on November 15, 2024, the song led the eleventh EP, Golden Hour: Part.2. Yunho described it as a song about knowing your worth.",
+        "source": "https://en.wikipedia.org/wiki/Ice_on_My_Teeth"
+      },
+      {
+        "question": "Which ATEEZ single became the group's first entry on the Billboard Hot 100, in June 2025?",
+        "options": [
+          "Lemon Drop",
+          "Ice on My Teeth",
+          "Work",
+          "Crazy Form"
+        ],
+        "correct": 0,
+        "fun_fact": "It entered at No. 69, making ATEEZ the third Korean boy band to reach the Hot 100. It led Golden Hour: Part.3, released June 13, 2025.",
+        "source": "https://en.wikipedia.org/wiki/Golden_Hour:_Part.3"
+      },
+      {
+        "question": "Which title song led the In Your Fantasy Edition of Golden Hour: Part.3 in July 2025?",
+        "options": [
+          "Wave",
+          "Adrenaline",
+          "In Your Fantasy",
+          "Answer"
+        ],
+        "correct": 2,
+        "fun_fact": "The deluxe edition came out on July 11, 2025, and its title song entered the Billboard Hot 100 at No. 68, weeks after Lemon Drop.",
+        "source": "https://en.wikipedia.org/wiki/Ateez"
+      },
+      {
+        "question": "ATEEZ played which US festival in April 2024, a first for any K-pop boy group?",
+        "options": [
+          "Lollapalooza",
+          "Austin City Limits",
+          "Governors Ball",
+          "Coachella"
+        ],
+        "correct": 3,
+        "fun_fact": "They played the festival on April 12 and 19, 2024, and on April 20 they threw the first pitch at a Los Angeles Dodgers game.",
+        "source": "https://en.wikipedia.org/wiki/Ateez"
+      },
+      {
+        "question": "ATEEZ headlined the Mawazine festival on June 23, 2024. In which country is the festival held?",
+        "options": [
+          "Egypt",
+          "Morocco",
+          "Saudi Arabia",
+          "Tunisia"
+        ],
+        "correct": 1,
+        "fun_fact": "Mawazine takes place in Rabat. ATEEZ were the first K-pop act to headline it, years after filming their debut video in the Moroccan Sahara.",
+        "source": "https://en.wikipedia.org/wiki/Mawazine"
+      },
+      {
+        "question": "On the 2025 European leg of the Towards the Light: Will to Power tour, ATEEZ sold out which Paris venue?",
+        "options": [
+          "Accor Arena",
+          "Stade de France",
+          "Paris La Défense Arena",
+          "Zénith Paris"
+        ],
+        "correct": 2,
+        "fun_fact": "ATEEZ became the first K-pop group to headline a sold-out show at this arena, which is billed as the largest indoor venue in Europe.",
+        "source": "https://en.wikipedia.org/wiki/Ateez"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Ateez",
+      "https://en.wikipedia.org/wiki/Golden_Hour:_Part.1",
+      "https://en.wikipedia.org/wiki/Work_(Ateez_song)",
+      "https://en.wikipedia.org/wiki/Golden_Hour:_Part.2",
+      "https://www.koreatimes.co.kr/www/art/2024/11/398_386975.html",
+      "https://en.wikipedia.org/wiki/Ice_on_My_Teeth",
+      "https://en.wikipedia.org/wiki/Golden_Hour:_Part.3",
+      "https://en.wikipedia.org/wiki/Lemon_Drop_(song)",
+      "https://en.wikipedia.org/wiki/Mawazine"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-29",
+    "title": "Wonder Girls True or False",
+    "description": "Ten true or false statements on Wonder Girls, from the 2007 JYP debut and Tell Me to the US tour, the Reboot band era and the 2017 farewell.",
+    "group_slug": "wonder-girls",
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Wonder Girls made their February 2007 debut with the single Tell Me.",
+        "correct": false,
+        "fun_fact": "Their debut single was Irony, from the EP The Wonder Begins. Tell Me arrived later in 2007 as the lead single of The Wonder Years.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "Before their debut, the members were introduced to viewers in a TV show called MTV Wonder Girls.",
+        "correct": true,
+        "fun_fact": "At their first showcase in the MTV studio, the group covered Don't Cha by the Pussycat Dolls alongside original songs such as Irony.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "Tell Me, the group's 2007 hit, samples the 1986 song Two of Hearts by Stacey Q.",
+        "correct": true,
+        "fun_fact": "Written and produced by Park Jin-young, Tell Me spent six non-consecutive weeks at No. 1 on KBS's Music Bank.",
+        "source": "https://en.wikipedia.org/wiki/Tell_Me_(Wonder_Girls_song)"
+      },
+      {
+        "question": "So Hot was first released in 2009, after the group had begun its US activities.",
+        "correct": false,
+        "fun_fact": "So Hot came out on May 22, 2008, four months before Nobody, and it topped online charts soon after its release.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "On the 2009 Jonas Brothers World Tour, Wonder Girls opened only 13 of the North American shows.",
+        "correct": false,
+        "fun_fact": "The group was first booked for 13 dates but ended up joining the Jonas Brothers for a total of 45 concerts.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "The 2010 single 2 Different Tears was recorded in Korean, English and Japanese.",
+        "correct": false,
+        "fun_fact": "It was recorded in Korean, English and Chinese, and its video features cameos by Park Jin-young and comedian Bobby Lee.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "In 2012, the group starred in a TV movie, The Wonder Girls, broadcast on the US channel TeenNick.",
+        "correct": true,
+        "fun_fact": "The film premiered on February 2, 2012 and featured Like Money, an English-language song that had not been released yet.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      },
+      {
+        "question": "In the band lineup of the 2015 album Reboot, Sunmi was the group's drummer.",
+        "correct": false,
+        "fun_fact": "Sunmi played bass, Yubin drums, Hyerim guitar and Yeeun piano. I Feel You served as the album's lead single.",
+        "source": "https://en.wikipedia.org/wiki/Reboot_(Wonder_Girls_album)"
+      },
+      {
+        "question": "Why So Lonely, released in July 2016, was the first Wonder Girls single not written by J.Y. Park.",
+        "correct": true,
+        "fun_fact": "Hyerim, Sunmi and Yubin wrote it with Hong Ji-sang, and the reggae-pop track went to No. 1 on the Gaon Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Why_So_Lonely"
+      },
+      {
+        "question": "The group's final single, Draw Me, came out in February 2017 to celebrate ten years since their debut.",
+        "correct": true,
+        "fun_fact": "Draw Me was released on February 10, 2017, about two weeks after JYP Entertainment announced the end of the group.",
+        "source": "https://en.wikipedia.org/wiki/Wonder_Girls"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Wonder_Girls",
+      "https://www.wikidata.org/wiki/Q476119",
+      "https://en.wikipedia.org/wiki/Tell_Me_(Wonder_Girls_song)",
+      "https://en.wikipedia.org/wiki/Reboot_(Wonder_Girls_album)",
+      "https://en.wikipedia.org/wiki/Why_So_Lonely"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-30",
+    "title": "Red Velvet: From Happiness to Cosmic",
+    "description": "Ten easy questions on Red Velvet's first ten years with SM, from the 2014 debut Happiness to Feel My Rhythm, Chill Kill and Cosmic.",
+    "group_slug": "red-velvet",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which single did Red Velvet debut with in August 2014?",
+        "options": [
+          "Be Natural",
+          "Dumb Dumb",
+          "Automatic",
+          "Happiness"
+        ],
+        "correct": 3,
+        "fun_fact": "Chad Hugo of The Neptunes co-produced the song, and the four-member group gave its debut stage on KBS's Music Bank.",
+        "source": "https://en.wikipedia.org/wiki/Happiness_(Red_Velvet_song)"
+      },
+      {
+        "question": "Which member joined Red Velvet in March 2015, turning the quartet into a five-piece?",
+        "options": [
+          "Yeri",
+          "Wendy",
+          "Seulgi",
+          "Joy"
+        ],
+        "correct": 0,
+        "fun_fact": "She was introduced just before the first EP, Ice Cream Cake, whose title track video was filmed in a desert near Palmdale, California.",
+        "source": "https://en.wikipedia.org/wiki/Ice_Cream_Cake_(song)"
+      },
+      {
+        "question": "Which 2016 EP put the spotlight on Red Velvet's softer, R&B-leaning velvet concept, after the album The Red?",
+        "options": [
+          "Rookie",
+          "The Velvet",
+          "Russian Roulette",
+          "Queendom"
+        ],
+        "correct": 1,
+        "fun_fact": "Released on March 17, 2016 and led by One of These Nights, it answered The Red, which had shown the group's brighter red concept.",
+        "source": "https://en.wikipedia.org/wiki/Red_Velvet_(group)"
+      },
+      {
+        "question": "Which Red Velvet song, first released in 2016, was later heard in the animated film Trolls World Tour?",
+        "options": [
+          "Bad Boy",
+          "Peek-a-Boo",
+          "Russian Roulette",
+          "Feel My Rhythm"
+        ],
+        "correct": 2,
+        "fun_fact": "It led the group's third EP in September 2016, and its cartoon-style video shows the members playing tricks on each other.",
+        "source": "https://en.wikipedia.org/wiki/Russian_Roulette_(Red_Velvet_song)"
+      },
+      {
+        "question": "In April 2018, Red Velvet sang Bad Boy at the concert Spring Is Coming. In which city was it held?",
+        "options": [
+          "Seoul",
+          "Incheon",
+          "Busan",
+          "Pyongyang"
+        ],
+        "correct": 3,
+        "fun_fact": "The show made Red Velvet the first SM Entertainment act in fifteen years, since Shinhwa, to perform in North Korea.",
+        "source": "https://en.wikipedia.org/wiki/Bad_Boy_(Red_Velvet_song)"
+      },
+      {
+        "question": "Feel My Rhythm (2022) samples Air on the G String by which composer?",
+        "options": [
+          "Mozart",
+          "Beethoven",
+          "Vivaldi",
+          "Bach"
+        ],
+        "correct": 3,
+        "fun_fact": "The music video is staged like an opera and pays homage to famous artworks such as The Swing and Ophelia.",
+        "source": "https://en.wikipedia.org/wiki/Feel_My_Rhythm"
+      },
+      {
+        "question": "Chill Kill, released in November 2023, was Red Velvet's first Korean studio album since which year?",
+        "options": [
+          "2015",
+          "2017",
+          "2019",
+          "2021"
+        ],
+        "correct": 1,
+        "fun_fact": "The previous one was Perfect Velvet in 2017. Chill Kill holds ten tracks, led by the title song of the same name.",
+        "source": "https://en.wikipedia.org/wiki/Red_Velvet_(group)"
+      },
+      {
+        "question": "Which EP did Red Velvet release in June 2024, shortly before the group's 10th anniversary?",
+        "options": [
+          "Queendom",
+          "Cosmic",
+          "Summer Magic",
+          "Velvet Summer"
+        ],
+        "correct": 1,
+        "fun_fact": "A new version with the extra song Sweet Dreams came out on August 1, 2024, to mark the 10th anniversary.",
+        "source": "https://en.wikipedia.org/wiki/Cosmic_(EP)"
+      },
+      {
+        "question": "With which EP did the sub-unit Irene & Seulgi debut in July 2020?",
+        "options": [
+          "Queendom",
+          "Tilt",
+          "Monster",
+          "Rookie"
+        ],
+        "correct": 2,
+        "fun_fact": "Their cover of S.E.S.'s Be Natural as SM Rookies helped inspire the unit, which returned with the EP Tilt in May 2025.",
+        "source": "https://en.wikipedia.org/wiki/Red_Velvet_%E2%80%93_Irene_%26_Seulgi"
+      },
+      {
+        "question": "What was the name of Red Velvet's first solo concert, held in August 2017?",
+        "options": [
+          "Red Room",
+          "La Rouge",
+          "Redmare",
+          "R to V"
+        ],
+        "correct": 0,
+        "fun_fact": "A third show was added because of demand, and the Red Room concerts were later taken to Japan in 2018.",
+        "source": "https://en.wikipedia.org/wiki/Red_Velvet_(group)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Red_Velvet_(group)",
+      "https://www.wikidata.org/wiki/Q17466114",
+      "https://en.wikipedia.org/wiki/Happiness_(Red_Velvet_song)",
+      "https://en.wikipedia.org/wiki/Ice_Cream_Cake_(song)",
+      "https://en.wikipedia.org/wiki/Russian_Roulette_(Red_Velvet_song)",
+      "https://en.wikipedia.org/wiki/Bad_Boy_(Red_Velvet_song)",
+      "https://en.wikipedia.org/wiki/Feel_My_Rhythm",
+      "https://en.wikipedia.org/wiki/Chill_Kill",
+      "https://en.wikipedia.org/wiki/Cosmic_(EP)",
+      "https://en.wikipedia.org/wiki/Red_Velvet_%E2%80%93_Irene_%26_Seulgi"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-01",
+    "title": "K-pop Groups That Debuted in 2025",
+    "description": "Hard questions on K-pop groups that debuted in 2025: the labels behind them, the shows that formed them and the releases they debuted with.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Which agency launched Hearts2Hearts, who debuted on February 24, 2025 with The Chase?",
+        "options": [
+          "JYP Entertainment",
+          "SM Entertainment",
+          "Starship Entertainment",
+          "Cube Entertainment"
+        ],
+        "correct": 1,
+        "fun_fact": "The group name contains S2, a nod to a heart emoticon, and the group was first revealed by a surprise trailer at an SM Town concert in January 2025.",
+        "source": "https://en.wikipedia.org/wiki/Hearts2Hearts"
+      },
+      {
+        "question": "KiiiKiii debuted in March 2025 with the EP Uncut Gem. Which label formed the group?",
+        "options": [
+          "Starship Entertainment",
+          "Woollim Entertainment",
+          "Pledis Entertainment",
+          "FNC Entertainment"
+        ],
+        "correct": 0,
+        "fun_fact": "The name plays on kiki, a Korean sound for giggling, and on the English word key.",
+        "source": "https://en.wikipedia.org/wiki/KiiiKiii"
+      },
+      {
+        "question": "Which song led KickFlip's debut EP, Flip It, Kick It!, released in January 2025?",
+        "options": [
+          "Eye-Poppin'",
+          "Mama Said",
+          "Rendezvous",
+          "Chan-Ran"
+        ],
+        "correct": 1,
+        "fun_fact": "J.Y. Park first teased the group at the 2024 MAMA Awards in Los Angeles, and its name comes from a skateboarding trick.",
+        "source": "https://en.wikipedia.org/wiki/KickFlip"
+      },
+      {
+        "question": "With which single did BigHit Music's CORTIS officially debut on August 18, 2025?",
+        "options": [
+          "Fashion",
+          "RedRed",
+          "Pretty Please",
+          "What You Want"
+        ],
+        "correct": 3,
+        "fun_fact": "The choreography for the debut single is danced on treadmills. CORTIS is BigHit Music's third group after BTS and Tomorrow X Together.",
+        "source": "https://en.wikipedia.org/wiki/Cortis"
+      },
+      {
+        "question": "Which label formed ALLDAY PROJECT, a co-ed group that debuted in June 2025 with the single album Famous?",
+        "options": [
+          "P Nation",
+          "KQ Entertainment",
+          "The Black Label",
+          "Antenna"
+        ],
+        "correct": 2,
+        "fun_fact": "The name AllDay was reportedly coined by will.i.am of Black Eyed Peas when he first saw the five members together.",
+        "source": "https://en.wikipedia.org/wiki/AllDay_Project"
+      },
+      {
+        "question": "Through which SBS survival show was AHOF formed before its July 2025 debut?",
+        "options": [
+          "Project 7",
+          "Universe League",
+          "Debut's Plan",
+          "Boys Planet"
+        ],
+        "correct": 1,
+        "fun_fact": "AHOF stands for All-time Hall Of Famer, and it sounds like the Korean word for nine, a nod to the group's nine members.",
+        "source": "https://en.wikipedia.org/wiki/AHOF"
+      },
+      {
+        "question": "Which boy group came out of JTBC's Project 7 and debuted in April 2025 with the EP Eternalt?",
+        "options": [
+          "Close Your Eyes",
+          "IDID",
+          "NouerA",
+          "AxMxP"
+        ],
+        "correct": 0,
+        "fun_fact": "The group is managed by Uncore, a label set up by SLL and YG Plus, and won its first music show trophy six days after debut.",
+        "source": "https://en.wikipedia.org/wiki/Close_Your_Eyes_(group)"
+      },
+      {
+        "question": "IDID, formed through Starship's show Debut's Plan, debuted in September 2025 with which EP?",
+        "options": [
+          "I Did It.",
+          "Uncut Gem",
+          "Push Back",
+          "Who We Are"
+        ],
+        "correct": 0,
+        "fun_fact": "IDID was Starship's first new boy group in five years, since Cravity, and the debut EP was led by the single Chan-Ran.",
+        "source": "https://en.wikipedia.org/wiki/Idid_(group)"
+      },
+      {
+        "question": "Baby DONT Cry, a P Nation girl group, debuted on June 23, 2025 with which single album?",
+        "options": [
+          "Girls Never Die",
+          "Supernatural",
+          "Lucky Girl Syndrome",
+          "F Girl"
+        ],
+        "correct": 3,
+        "fun_fact": "Its title song of the same name pushes back against judging people only by their achievements and numbers.",
+        "source": "https://en.wikipedia.org/wiki/Baby_Dont_Cry"
+      },
+      {
+        "question": "AtHeart, who debuted in August 2025 with the EP Plot Twist, were formed by which American agency?",
+        "options": [
+          "Hi-Hat Entertainment",
+          "Modhaus",
+          "Titan Content",
+          "Beat Interactive"
+        ],
+        "correct": 2,
+        "fun_fact": "Titan Content was co-founded in November 2023 by Nikki Semin-Han, a former chief executive of SM Entertainment.",
+        "source": "https://en.wikipedia.org/wiki/AtHeart"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Hearts2Hearts",
+      "https://www.wikidata.org/wiki/Q131746784",
+      "https://en.wikipedia.org/wiki/KiiiKiii",
+      "https://www.wikidata.org/wiki/Q132526762",
+      "https://en.wikipedia.org/wiki/KickFlip",
+      "https://www.wikidata.org/wiki/Q131722593",
+      "https://en.wikipedia.org/wiki/Cortis",
+      "https://www.wikidata.org/wiki/Q135668928",
+      "https://en.wikipedia.org/wiki/AllDay_Project",
+      "https://www.wikidata.org/wiki/Q134986635",
+      "https://en.wikipedia.org/wiki/AHOF",
+      "https://en.wikipedia.org/wiki/Close_Your_Eyes_(group)",
+      "https://www.wikidata.org/wiki/Q131689681",
+      "https://en.wikipedia.org/wiki/Idid_(group)",
+      "https://www.wikidata.org/wiki/Q135466598",
+      "https://en.wikipedia.org/wiki/P_Nation",
+      "https://en.wikipedia.org/wiki/Baby_Dont_Cry",
+      "https://en.wikipedia.org/wiki/AtHeart",
+      "https://www.wikidata.org/wiki/Q28700294",
+      "https://en.wikipedia.org/wiki/2025_in_South_Korean_music"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-02",
+    "title": "K-pop Winter and Christmas Songs",
+    "description": "A festive, easy quiz: match ten K-pop winter and Christmas releases, from BoA's Merry-Chri to GOT7's Winter Heptagon, with the acts behind them.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which girl group released Merry & Happy, a Christmas reissue of its first studio album, in December 2017?",
+        "options": [
+          "Red Velvet",
+          "Apink",
+          "GFriend",
+          "TWICE"
+        ],
+        "correct": 3,
+        "fun_fact": "The reissue of Twicetagram added two new songs: Heart Shaker and the title song Merry & Happy, written by J.Y. Park.",
+        "source": "https://en.wikipedia.org/wiki/Merry_%26_Happy"
+      },
+      {
+        "question": "Christmas EveL, a holiday single album from November 2021, comes from which boy band?",
+        "options": [
+          "ATEEZ",
+          "The Boyz",
+          "TXT",
+          "Stray Kids"
+        ],
+        "correct": 3,
+        "fun_fact": "The title is read as Christmas Evil, and Winter Falls served as its second lead single.",
+        "source": "https://en.wikipedia.org/wiki/Christmas_EveL"
+      },
+      {
+        "question": "Which NCT unit released the special winter EP Candy in December 2022?",
+        "options": [
+          "NCT Dream",
+          "NCT 127",
+          "WayV",
+          "NCT Wish"
+        ],
+        "correct": 0,
+        "fun_fact": "The title song remakes Candy, a 1996 hit by H.O.T., and all six tracks on the EP have a Christmas theme.",
+        "source": "https://en.wikipedia.org/wiki/Candy_(EP)"
+      },
+      {
+        "question": "Which SM singer released the Christmas EP This Christmas: Winter Is Coming in 2017?",
+        "options": [
+          "Taeyeon",
+          "Kyuhyun",
+          "Wendy",
+          "Hyoyeon"
+        ],
+        "correct": 0,
+        "fun_fact": "To promote it, she held three Christmas concerts called The Magic of Christmas Time from December 22 to 24, 2017.",
+        "source": "https://en.wikipedia.org/wiki/This_Christmas:_Winter_Is_Coming"
+      },
+      {
+        "question": "Which singer-songwriter released Winter Flower, featuring RM of BTS, in January 2020?",
+        "options": [
+          "Heize",
+          "Younha",
+          "Lee Hi",
+          "Baek Ye-rin"
+        ],
+        "correct": 1,
+        "fun_fact": "RM helped write the lyrics, and because of their schedules the two made the song remotely, by phone and email.",
+        "source": "https://en.wikipedia.org/wiki/Winter_Flower"
+      },
+      {
+        "question": "Who sang Merry Christmas Ahead, the 2010 holiday song featuring Thunder of MBLAQ?",
+        "options": [
+          "Ailee",
+          "Hyuna",
+          "IU",
+          "Gummy"
+        ],
+        "correct": 2,
+        "fun_fact": "It first appeared as a B-side on her EP Real, and it has re-entered Korean charts in December year after year.",
+        "source": "https://en.wikipedia.org/wiki/Merry_Christmas_Ahead"
+      },
+      {
+        "question": "Which group reunited in January 2025 with Winter Heptagon, an EP led by Python?",
+        "options": [
+          "BTOB",
+          "2PM",
+          "GOT7",
+          "Highlight"
+        ],
+        "correct": 2,
+        "fun_fact": "The members wrote and composed every song, and the release, the first in three years, coincided with the group's 11th anniversary.",
+        "source": "https://en.wikipedia.org/wiki/Winter_Heptagon"
+      },
+      {
+        "question": "Merry-Chri, a 2004 single that became a Christmas favorite in Japan, was released by which singer?",
+        "options": [
+          "Lee Hyori",
+          "BoA",
+          "Sunmi",
+          "Ailee"
+        ],
+        "correct": 1,
+        "fun_fact": "She wrote the Korean lyrics herself, and the American rock band Weezer later recorded a cover of the song.",
+        "source": "https://en.wikipedia.org/wiki/Meri_Kuri"
+      },
+      {
+        "question": "Red Velvet teamed up with which girl group on Beautiful Christmas, lead single of 2022 Winter SM Town: SMCU Palace?",
+        "options": [
+          "f(x)",
+          "S.E.S.",
+          "aespa",
+          "Hearts2Hearts"
+        ],
+        "correct": 2,
+        "fun_fact": "The album was SM Town's tenth winter album, released on December 26, 2022, and 58 of the label's artists took part in it.",
+        "source": "https://en.wikipedia.org/wiki/2022_Winter_SM_Town:_SMCU_Palace"
+      },
+      {
+        "question": "Which BTS member sang Christmas Tree for the soundtrack of the 2021 drama Our Beloved Summer?",
+        "options": [
+          "Jin",
+          "V",
+          "Jimin",
+          "Jungkook"
+        ],
+        "correct": 1,
+        "fun_fact": "The song was released on December 24, 2021, Christmas Eve, by Most Contents.",
+        "source": "https://en.wikipedia.org/wiki/Christmas_Tree_(V_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Merry_%26_Happy",
+      "https://en.wikipedia.org/wiki/Christmas_EveL",
+      "https://en.wikipedia.org/wiki/Candy_(EP)",
+      "https://en.wikipedia.org/wiki/This_Christmas:_Winter_Is_Coming",
+      "https://en.wikipedia.org/wiki/Winter_Flower",
+      "https://en.wikipedia.org/wiki/Merry_Christmas_Ahead",
+      "https://en.wikipedia.org/wiki/Winter_Heptagon",
+      "https://en.wikipedia.org/wiki/Meri_Kuri",
+      "https://en.wikipedia.org/wiki/2022_Winter_SM_Town:_SMCU_Palace",
+      "https://en.wikipedia.org/wiki/Christmas_Tree_(V_song)"
+    ]
+  }
+]
