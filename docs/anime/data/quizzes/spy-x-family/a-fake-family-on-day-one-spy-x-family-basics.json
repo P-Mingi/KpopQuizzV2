@@ -4,7 +4,7 @@
  "group_slug": "spy-x-family",
  "title": "A Fake Family on Day One: Spy x Family Basics",
  "slug": "a-fake-family-on-day-one-spy-x-family-basics",
- "description": "Ten easy questions on the creator, the start years, the volumes, the studios, the broadcaster, the film and the family's jobs.",
+ "description": "Ten easy questions on the creator, the circulation, the volumes, the studios, the broadcaster, the film and the family's jobs.",
  "quiz_type": "multiple_choice",
  "difficulty": "easy",
  "language": "en",
@@ -26,7 +26,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
   }
  ],
- "notes": "Starter: arc 0 facts only (002, 003, 004, 005, 007, 013, 014, 016, 020). Creator, manga year, volumes, studios, broadcaster, episode count, Anya's gift, Yor's day job, the handler and the film year.",
+ "notes": "Starter: arc 0 facts only (002, 004, 005, 007, 012, 013, 014, 016, 020). Creator, circulation, volumes, studios, broadcaster, episode count, Anya's gift, Yor's day job, the handler and the film year. K1 rewrite: blocked questions rewritten on verified facts.",
  "questions": [
   {
    "question": "Who both writes and draws the Spy x Family manga?",
@@ -48,21 +48,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
   },
   {
-   "question": "In which year did the Spy x Family manga begin?",
+   "question": "By April 2026, circulation of the manga had climbed past how many copies?",
    "options": [
-    "2019",
-    "2017",
-    "2021",
-    "2022"
+    "12 million",
+    "24 million",
+    "42 million",
+    "84 million"
    ],
-   "correct": 0,
+   "correct": 2,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "spy-x-family-magazine-run-003"
+    "spy-x-family-copies-in-print-012"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
   },
