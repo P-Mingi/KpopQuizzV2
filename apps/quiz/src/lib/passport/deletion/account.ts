@@ -2,7 +2,7 @@
 // around these handlers (rule 18: the three builds share this code, never a copy). Every handler reads the build's site first and
 // answers 404 outside the hub. The database work is the SQL functions of 016 (service role only); this file adds the session checks.
 //
-//   POST /api/passport/delete  401 | 403 reauth | 400 confirm | request, global sign-out, notice, revalidate | 200 {runAfter}
+//   POST /api/passport/delete  401 | 403 reauth | 400 confirm | 409 staff_account or manual_deletion | 500 | request, global sign-out, notice, revalidate | 200 {runAfter}
 //   GET  /api/passport/delete  401 | 200 {pending, runAfter?}   (kpop only: what the settings screen shows as "cancel")
 //   POST /api/passport/cancel  401 | 200 {cancelled}
 //   POST /api/passport/leave   401 | 403 reauth | 400 confirm | 409 last_world | leave, revalidate | 200 {counts}
@@ -103,6 +103,40 @@ function deferNotify(ctx: AccountCtx, username: string, sites: readonly SiteId[]
 // 3.4 POST /api/passport/delete
 // ---------------------------------------------------------------------------------------------------------------
 
+// The three refusals of public.admin_delete_account (docs/pending-migrations/account-deletion.sql, part D), asked before the request is
+// recorded: a staff account would be told "deletion scheduled" and then never deleted. A read error throws, the caller answers 500.
+export type DeletionRefusal = 'staff_account' | 'manual_deletion';
+
+async function exists(query: PromiseLike<{ data: unknown; error: unknown }>): Promise<boolean> {
+  const { data, error } = await query;
+  if (error) throw new Error('refusal read failed');
+  return Array.isArray(data) && data.length > 0;
+}
+
+/** A quiz of the user that the deletion would delete (all of them with keep off, only drafts and removed ones with keep on) and that quiz_bank links. */
+async function bankLinkedQuiz(admin: ReturnType<typeof createServiceRoleClient>, userId: string, keep: boolean): Promise<boolean> {
+  const PAGE = 1000;
+  const CHUNK = 100;
+  for (let from = 0; ; from += PAGE) {
+    const base = admin.from('quizzes').select('id').eq('creator_id', userId);
+    const { data, error } = await (keep ? base.in('status', ['draft', 'removed']) : base).order('id').range(from, from + PAGE - 1);
+    if (error) throw new Error('refusal read failed');
+    const ids = (Array.isArray(data) ? data : []).map((r) => (r as { id?: unknown }).id).filter((i): i is string => typeof i === 'string');
+    for (let i = 0; i < ids.length; i += CHUNK) {
+      if (await exists(admin.from('quiz_bank').select('published_quiz_id').in('published_quiz_id', ids.slice(i, i + CHUNK)).limit(1))) return true;
+    }
+    if (ids.length < PAGE) return false;
+  }
+}
+
+export async function deletionRefusal(userId: string, keepQuizzes: boolean): Promise<DeletionRefusal | null> {
+  const admin = createServiceRoleClient();
+  if (await exists(admin.from('editorial_accounts').select('user_id').eq('user_id', userId).limit(1))) return 'staff_account';
+  if (await exists(admin.from('editorial_drafts').select('id').eq('reviewed_by', userId).not('status', 'in', '(draft,rejected)').limit(1))) return 'staff_account';
+  if (await bankLinkedQuiz(admin, userId, keepQuizzes)) return 'manual_deletion';
+  return null;
+}
+
 export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (!accountRoutesOpen(site, ctx.kpopDeletion)) return notFound();
@@ -125,6 +159,18 @@ export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): 
   if (!username || body.confirm !== `@${username}`) {
     log('delete', 'confirm', site);
     return json(400, { error: 'confirm' });
+  }
+
+  let refusal: DeletionRefusal | null;
+  try {
+    refusal = await deletionRefusal(caller.id, body.keepQuizzes);
+  } catch {
+    log('delete', 'refusal_check_failed', site);
+    return json(500, { error: 'server' });
+  }
+  if (refusal) {
+    log('delete', refusal, site);
+    return json(409, { error: refusal });
   }
 
   const sites = await memberSites(caller.id);

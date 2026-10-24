@@ -13,6 +13,11 @@ const state = vi.hoisted(() => ({
   calls: [] as Array<{ fn: string; args: Record<string, unknown> }>,
   signOuts: [] as unknown[],
   signOutResult: { error: null } as { error: unknown },
+  editorial: false,
+  reviewer: false,
+  quizzes: [] as Array<{ id: string; status: string }>,
+  bank: [] as string[],
+  readError: null as string | null,
 }));
 
 vi.mock('@/lib/supabase/server', () => {
@@ -21,17 +26,25 @@ vi.mock('@/lib/supabase/server', () => {
     if (fn === 'passport_due_deletions') return { data: state.due, error: null };
     return state.rpc[fn] ?? { data: null, error: null };
   };
-  const from = (table: string) => ({
-    select: () => ({
-      eq: () => {
-        const q = {
-          maybeSingle: async () => ({ data: table === 'profiles' && state.username ? { username: state.username } : null, error: null }),
-          then: (resolve: (v: unknown) => void) => resolve({ data: table === 'world_memberships' ? state.memberships : [], error: null }),
-        };
-        return q;
-      },
-    }),
-  });
+  const from = (table: string) => {
+    let statuses: string[] | null = null;
+    let ids: string[] | null = null;
+    const rows = (): unknown[] => {
+      if (table === 'world_memberships') return state.memberships;
+      if (table === 'editorial_accounts') return state.editorial ? [{ user_id: 'user-1' }] : [];
+      if (table === 'editorial_drafts') return state.reviewer ? [{ id: 'd1' }] : [];
+      if (table === 'quizzes') return state.quizzes.filter((q) => !statuses || statuses.includes(q.status)).map((q) => ({ id: q.id }));
+      if (table === 'quiz_bank') return state.bank.filter((b) => ids?.includes(b)).map((b) => ({ published_quiz_id: b }));
+      return [];
+    };
+    const q: Record<string, unknown> = {
+      maybeSingle: async () => ({ data: table === 'profiles' && state.username ? { username: state.username } : null, error: null }),
+      then: (resolve: (v: unknown) => void) => resolve(state.readError === table ? { data: null, error: { message: 'boom' } } : { data: rows(), error: null }),
+    };
+    for (const m of ['select', 'eq', 'not', 'order', 'range', 'limit']) q[m] = () => q;
+    q.in = (col: string, v: string[]) => { if (col === 'status') statuses = v; else ids = v; return q; };
+    return q;
+  };
   return {
     createServerClient: async () => ({
       auth: {
@@ -81,6 +94,11 @@ beforeEach(() => {
   state.calls = [];
   state.signOuts = [];
   state.signOutResult = { error: null };
+  state.editorial = false;
+  state.reviewer = false;
+  state.quizzes = [];
+  state.bank = [];
+  state.readError = null;
 });
 
 function expectPrivate(res: Response): void {
@@ -202,6 +220,89 @@ describe('POST /api/passport/delete', () => {
     const res = await handleDelete(post('/api/passport/delete', ok), ctx());
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ runAfter: '2026-10-28T12:00:00.000Z' });
+  });
+
+  describe('staff accounts and bank-linked quizzes are refused up front (apis.md 3.4, SQL part D)', () => {
+    const start = (body: unknown = ok) => {
+      signedIn();
+      state.rpc.passport_request_deletion = { data: '2026-10-28T12:00:00+00:00', error: null };
+      return handleDelete(post('/api/passport/delete', body), ctx());
+    };
+    const untouched = async (): Promise<void> => {
+      expect(calls('passport_request_deletion')).toEqual([]);
+      expect(state.signOuts).toEqual([]);
+      await new Promise((r) => setTimeout(r, 20));
+      expect(calls('notice')).toHaveLength(0);
+      expect(calls('notify')).toHaveLength(0);
+    };
+
+    it('409 staff_account for an editorial account: no rpc, no sign-out, no email', async () => {
+      state.editorial = true;
+      const res = await start();
+      expect(res.status).toBe(409);
+      expect(await res.json()).toEqual({ error: 'staff_account' });
+      await untouched();
+    });
+
+    it('409 staff_account for the reviewer of approved or published drafts', async () => {
+      state.reviewer = true;
+      const res = await start();
+      expect(res.status).toBe(409);
+      expect(await res.json()).toEqual({ error: 'staff_account' });
+      await untouched();
+    });
+
+    it('409 manual_deletion for a bank-linked quiz that would be deleted (keepQuizzes false)', async () => {
+      state.quizzes = [{ id: 'q1', status: 'published' }];
+      state.bank = ['q1'];
+      const res = await start({ keepQuizzes: false, confirm: '@fan_one' });
+      expect(res.status).toBe(409);
+      expect(await res.json()).toEqual({ error: 'manual_deletion' });
+      await untouched();
+    });
+
+    it('keepQuizzes true: a bank-linked published quiz is kept, so 200; a bank-linked draft or removed quiz still refuses', async () => {
+      state.quizzes = [{ id: 'q1', status: 'published' }];
+      state.bank = ['q1'];
+      expect((await start()).status).toBe(200);
+      state.quizzes = [{ id: 'q1', status: 'published' }, { id: 'q2', status: 'removed' }];
+      state.bank = ['q2'];
+      state.calls = [];
+      state.signOuts = [];
+      const res = await start();
+      expect(res.status).toBe(409);
+      expect(await res.json()).toEqual({ error: 'manual_deletion' });
+      await untouched();
+    });
+
+    it('a quiz that is not linked from the bank never refuses', async () => {
+      state.quizzes = [{ id: 'q1', status: 'draft' }];
+      state.bank = ['other'];
+      expect((await start({ keepQuizzes: false, confirm: '@fan_one' })).status).toBe(200);
+    });
+
+    it('500 server when a check cannot be read: nothing done', async () => {
+      for (const table of ['editorial_accounts', 'editorial_drafts', 'quizzes']) {
+        state.calls = [];
+        state.readError = table;
+        state.quizzes = [{ id: 'q1', status: 'draft' }];
+        const res = await start({ keepQuizzes: false, confirm: '@fan_one' });
+        expect(res.status, table).toBe(500);
+        expect(await res.json()).toEqual({ error: 'server' });
+        await untouched();
+      }
+      state.readError = 'quiz_bank';
+      state.quizzes = [{ id: 'q1', status: 'draft' }];
+      expect((await start({ keepQuizzes: false, confirm: '@fan_one' })).status).toBe(500);
+    });
+
+    it('a normal user is unchanged: 200 with the request, the sign-out and the notice', async () => {
+      const res = await start();
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ runAfter: '2026-10-28T12:00:00.000Z' });
+      expect(calls('passport_request_deletion')).toHaveLength(1);
+      expect(state.signOuts).toEqual([{ scope: 'global' }]);
+    });
   });
 
   it('never returns or logs an address', async () => {
