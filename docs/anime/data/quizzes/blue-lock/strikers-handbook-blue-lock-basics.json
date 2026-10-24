@@ -106,12 +106,12 @@
    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
   {
-   "question": "How many copies of the manga were in circulation worldwide?",
+   "question": "As of June 2026, how many copies of the manga were in circulation worldwide?",
    "options": [
-    "More than 6.5 million",
-    "More than 650 million",
+    "More than 6 million",
+    "More than 600 million",
     "More than 1 million",
-    "More than 65 million"
+    "More than 60 million"
    ],
    "correct": 3,
    "kind": "manga",

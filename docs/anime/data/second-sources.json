@@ -9,6 +9,15 @@
     "check": "The anime TV series item gives the end date November 5, 2023."
   },
   {
+    "fact_id": "attack-on-titan-anime-premiere-016",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q22126305",
+    "ref": "Q22126305",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 2013-04-07",
+    "check": "Wikidata gives April 7, 2013 as the start; ANN lists April 6 for the same late-night broadcast."
+  },
+  {
     "fact_id": "attack-on-titan-chapter-count-015",
     "source": "wikidata",
     "url": "https://www.wikidata.org/wiki/Q586025",
@@ -103,6 +112,15 @@
     "check": "VIZ press release hosted on ANN, dated 2022-10-04, states over 130 million copies in print."
   },
   {
+    "fact_id": "blue-lock-anime-season-one-008",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q117353182",
+    "ref": "Q117353182",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 2022-10-09; end time (P582): 2023-03-26; episodes (P1113): 24",
+    "check": "The season item gives 24 episodes from October 9, 2022 to March 26, 2023."
+  },
+  {
     "fact_id": "blue-lock-anime-studio-director-007",
     "source": "official",
     "url": "https://tv.bluelock-pr.com/tv1st/",
@@ -118,6 +136,14 @@
     "fetched_at": "2026-10-23T17:30:24Z",
     "excerpt": "director (P57): Tetsuaki Watanabe; production company (P272): Eight Bit",
     "check": "The anime TV series item lists Eight Bit as studio and Tetsuaki Watanabe as director."
+  },
+  {
+    "fact_id": "blue-lock-copies-circulation-005",
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/press-release/2026-06-08/blue-lock-season-3-officially-titled-blue-lock-neo-egoist-league/.238286",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "surpassed 60 million copies in circulation worldwide as of June 2026",
+    "check": "The publisher release carried by ANN dates the 60 million milestone to June 2026."
   },
   {
     "fact_id": "blue-lock-kodansha-award-006",
@@ -194,6 +220,31 @@
     "fetched_at": "2026-10-23T17:24:39Z",
     "excerpt": "number of parts of this work (P2635): 24",
     "check": "The Wikidata manga item states 24 as the number of parts of the work (volume count)."
+  },
+  {
+    "fact_id": "dandadan-anime-season-one-009",
+    "source": "official",
+    "url": "https://anime-dandadan.com/news/182/",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "10月3日から毎週木曜深夜0：26～MBS/TBS系28局「スーパーアニメイズムTURBO」枠にて全国同時放送開始",
+    "check": "The official news names October 3, 2024 as the first broadcast day, Thursday at 0:26."
+  },
+  {
+    "fact_id": "dandadan-anime-season-two-010",
+    "source": "official",
+    "url": "https://anime-dandadan.com/news/1527/",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "2025年7月3日から毎週木曜深夜0時26分～MBS/TBS系28局“スーパーアニメイズムTURBO”枠にて全国同時放送開始",
+    "check": "The official news names July 3, 2025 as the first broadcast day."
+  },
+  {
+    "fact_id": "dandadan-anime-season-two-010",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q131472106",
+    "ref": "Q131472106",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 2025-07-03; episodes (P1113): 12",
+    "check": "The season item gives 12 episodes starting July 3, 2025."
   },
   {
     "fact_id": "dandadan-anime-studio-director-008",
@@ -286,12 +337,46 @@
     "check": "Wikidata item for Dragon Ball Daima has 20 episodes, 2024-10-11 to 2025-02-28."
   },
   {
+    "fact_id": "dragon-ball-dragon-ball-tv-run-016",
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=243",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "Number of episodes: 153 Vintage: 1986-02-26 to 1989-04-19",
+    "check": "ANN gives 153 episodes from February 26, 1986 to April 19, 1989."
+  },
+  {
+    "fact_id": "dragon-ball-dragon-ball-tv-run-016",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q239506",
+    "ref": "Q239506",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 1986-02-26; end time (P582): 1989-04-12; episodes (P1113): 153",
+    "check": "The item gives 153 episodes from February 26, 1986 and an end in April 1989."
+  },
+  {
     "fact_id": "dragon-ball-magazine-publisher-014",
     "source": "press",
     "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297",
     "fetched_at": "2026-10-23T17:24:48Z",
     "excerpt": "serialized in [Weekly Shonen Jump] ... Publisher: Shueisha",
     "check": "ANN manga entry shows serialization in Weekly Shonen Jump and Shueisha as publisher."
+  },
+  {
+    "fact_id": "dragon-ball-manga-run-013",
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "Vintage: 1984-11-20 to 1995-05-23 (serialized in Shonen Jump 1984 #51-1995 #25)",
+    "check": "ANN gives the same release dates, with the issue numbers."
+  },
+  {
+    "fact_id": "dragon-ball-manga-run-013",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q15051307",
+    "ref": "Q15051307",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 1984-11-20; end time (P582): 1995-05-23",
+    "check": "The manga item gives the release dates of the first and last Shonen Jump issues."
   },
   {
     "fact_id": "dragon-ball-series-creator-012",
@@ -326,6 +411,31 @@
     "fetched_at": "2026-10-23T17:23:32Z",
     "excerpt": "P1113 131; P580 2015-07-05; P582 2018-03-25",
     "check": "Wikidata item for the Dragon Ball Super TV series has 131 episodes, 2015-07-05 to 2018-03-25."
+  },
+  {
+    "fact_id": "dragon-ball-z-tv-run-017",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q477916",
+    "ref": "Q477916",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 1989-04-26; end time (P582): 1996-01-31; episodes (P1113): 291",
+    "check": "The item gives 291 episodes from April 26, 1989 to January 31, 1996."
+  },
+  {
+    "fact_id": "frieren-copies-circulation-005",
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/news/2026-01-19/frieren-beyond-journey-end-anime-original-mini-anime-continues/.233250",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "The manga has exceeded 30 million copies in circulation worldwide.",
+    "check": "The January 19, 2026 news, relaying the anime website, gives over 30 million."
+  },
+  {
+    "fact_id": "fullmetal-alchemist-manga-award-006",
+    "source": "official",
+    "url": "https://www.hagaren.jp/box/history/index.html",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "2004年 1月 原作「鋼の錬金術師」第49回小学館漫画賞受賞",
+    "check": "The official history page dates the 49th Shogakukan Manga Award to January 2004."
   },
   {
     "fact_id": "haikyu-anime-season-three-010",
@@ -367,6 +477,15 @@
     "fetched_at": "2026-10-23T17:30:10Z",
     "excerpt": "P1113 62; P449 Fuji Television; P580 1999-10-16; P582 2001-03-31",
     "check": "Wikidata item for the 1999 series has 62 episodes, Fuji Television, 1999-10-16 to 2001-03-31."
+  },
+  {
+    "fact_id": "hunter-x-hunter-second-anime-2011-008",
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q70209136",
+    "ref": "Q70209136",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "start time (P580): 2011-10-02; end time (P582): 2014-09-24; episodes (P1113): 148",
+    "check": "The item gives 148 episodes from October 2011 to September 2014."
   },
   {
     "fact_id": "hunter-x-hunter-volume-count-004",
@@ -469,12 +588,28 @@
     "check": "ANN states the Shippuden finale was the 720th episode overall of the Naruto anime."
   },
   {
+    "fact_id": "one-piece-anime-studio-005",
+    "source": "press",
+    "url": "https://www.oricon.co.jp/news/2210264/full/",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "1999年10月20日（水）に放送を開始したアニメ『ワンピース』",
+    "check": "Oricon dates the start of the TV anime to Wednesday, October 20, 1999."
+  },
+  {
     "fact_id": "one-piece-manga-volumes-004",
     "source": "official",
     "url": "https://one-piece.com/",
     "fetched_at": "2026-10-23T17:27:34Z",
     "excerpt": "『ONE PIECE』最新115巻が発売中 2026/07/03",
     "check": "Official site home page lists volume 115 as the latest, released July 3, 2026."
+  },
+  {
+    "fact_id": "one-punch-man-award-2017-011",
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/press-release/2016-04-17/sugoi-japan-awards-2016/.101170",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "announced on March 22, One-Punch Man won the Manga genre; Manga Winner: One-Punch Man",
+    "check": "The organizers release dates the Sugoi Japan manga win to the 2016 awards."
   },
   {
     "fact_id": "one-punch-man-webcomic-start-003",
@@ -542,6 +677,14 @@
     "fetched_at": "2026-10-23T17:28:06Z",
     "excerpt": "1993年(平成5年) 第17回 講談社漫画賞 ... 少女部門 『 美少女戦士セーラームーン 』 著: 武内直子 なかよし",
     "check": "Kodansha award history lists Sailor Moon (Takeuchi, Nakayoshi) as the 17th Kodansha Manga Award shojo winner in 1993."
+  },
+  {
+    "fact_id": "sailor-moon-manga-volumes-004",
+    "source": "official",
+    "url": "https://www.kodansha.co.jp/comic/products/0000027326",
+    "fetched_at": "2026-10-24T16:30:00Z",
+    "excerpt": "美少女戦士セ－ラ－ム－ン（１８）〈完〉 発売日 1997年04月02日",
+    "check": "The publisher page for the last volume 18 gives the release date April 2, 1997; volume 1 came out in July 1992."
   },
   {
     "fact_id": "solo-leveling-anime-director-010",

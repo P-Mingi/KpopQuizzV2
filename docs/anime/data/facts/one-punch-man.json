@@ -328,8 +328,8 @@
       "group_slug": "one-punch-man"
     },
     "field": "awards",
-    "value": "Sugoi Japan Award and Manga Barcelona seinen prize, 2017",
-    "text": "In 2017 the manga took home both the Sugoi Japan Award and the seinen category prize at Manga Barcelona.",
+    "value": "Sugoi Japan Award 2016 and Manga Barcelona seinen prize 2017",
+    "text": "The manga won the Sugoi Japan Award in 2016 and the seinen category prize at Manga Barcelona in 2017.",
     "category": "achievements",
     "load_bearing": true,
     "spoiler": {
@@ -342,10 +342,15 @@
         "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
         "ref": "1379606340",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/press-release/2016-04-17/sugoi-japan-awards-2016/.101170",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
     "status": "draft",
-    "excerpt": "The manga won the Sugoi Japan Award and the Spanish Manga Barcelona award for the seinen category in 2017"
+    "excerpt": "won the Manga genre; Sugoi Japan Awards 2016; Manga Winner: One-Punch Man"
   },
   {
     "id": "one-punch-man-themes-season-one-012",

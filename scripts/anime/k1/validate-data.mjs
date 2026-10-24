@@ -29,6 +29,8 @@ const args = process.argv.slice(2);
 const tierCounts = args.includes('--tier-counts');
 const dataDir = resolve(ROOT, args.find((a) => !a.startsWith('--')) ?? 'docs/anime/data');
 
+import { meetsTwoSourceRule } from '../editorial/lib/strong-source.mjs';
+
 const { tsImport } = await import('tsx/esm/api');
 const { validate } = await tsImport(resolve(ROOT, 'apps/quiz/scripts/o1/contract/json-schema.ts'), import.meta.url);
 
@@ -135,7 +137,14 @@ for (const slug of slugs) {
       const ids = new Set(); const slots2 = new Set();
       facts.forEach((f, i) => {
         const { excerpt, ...rest } = f;
-        for (const e of validate('fact.schema.json', rest, registry)) msgs.push(`fact ${f.id ?? i} ${e.path || '/'}: ${e.message}`);
+        // Owner rule C2 (2026-10-24): the contract schema asks Wikidata or official on a verified load bearing fact; an Oricon source on a
+        // sales figure or an ANN source on an announcement counts too (strong-source.mjs). The schema cannot be edited, so that one
+        // "contains" error is dropped when the rule is met.
+        const c2Met = f.status === 'verified' && f.load_bearing === true && meetsTwoSourceRule(f);
+        for (const e of validate('fact.schema.json', rest, registry)) {
+          if (c2Met && e.path === '/sources' && /contains rule/.test(e.message)) continue;
+          msgs.push(`fact ${f.id ?? i} ${e.path || '/'}: ${e.message}`);
+        }
         if (typeof excerpt !== 'string' || excerpt.length === 0 || excerpt.length > 160 || /[\n\r]/.test(excerpt)) msgs.push(`fact ${f.id}: excerpt must be one line of 1 to 160 characters`);
         if (ids.has(f.id)) msgs.push(`duplicate fact id ${f.id}`);
         ids.add(f.id);

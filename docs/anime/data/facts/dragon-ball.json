@@ -435,8 +435,8 @@
       "group_slug": "dragon-ball"
     },
     "field": "manga_run",
-    "value": "December 1984 to June 1995",
-    "text": "The original manga ran for a little over ten years in Weekly Shonen Jump, starting in December 1984.",
+    "value": "November 20, 1984 to May 23, 1995",
+    "text": "The original manga ran for a little over ten years in Weekly Shonen Jump, from November 1984 to May 1995 by release date.",
     "category": "history",
     "load_bearing": true,
     "spoiler": {
@@ -449,10 +449,22 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
         "ref": "1381000548",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q15051307",
+        "ref": "Q15051307",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "serialized in the manga anthology Weekly Shōnen Jump from December 3, 1984, to June 5, 1995"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "1984-11-20 to 1995-05-23 (serialized in Shonen Jump 1984 #51-1995 #25)"
   },
   {
     "id": "dragon-ball-magazine-publisher-014",
@@ -513,7 +525,7 @@
         "fetched_at": "2026-10-20T17:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "rejected",
     "excerpt": "The 519 individual chapters were collected in 42 tankōbon volumes"
   },
   {
@@ -526,9 +538,9 @@
     "field": "db_tv_run",
     "value": [
       "153 episodes",
-      "February 26, 1986 to April 19, 1989"
+      "February 26, 1986 to April 1989"
     ],
-    "text": "The first anime ran for 153 episodes, from February 1986 to April 1989, on Fuji Television.",
+    "text": "The first anime ran for 153 episodes, from February 26, 1986 to April 1989, on Fuji Television.",
     "category": "history",
     "load_bearing": true,
     "spoiler": {
@@ -541,10 +553,22 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)",
         "ref": "1379753661",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q239506",
+        "ref": "Q239506",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=243",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "February 26, 1986 (1986-02-26) - April 19, 1989 (1989-04-19)"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "1986-02-26 to 1989-04-19, 153 episodes"
   },
   {
     "id": "dragon-ball-z-tv-run-017",
@@ -571,9 +595,16 @@
         "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Z",
         "ref": "1379753684",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q477916",
+        "ref": "Q477916",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
     "excerpt": "No. of episodes | 291"
   },
   {

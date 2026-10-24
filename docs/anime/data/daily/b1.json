@@ -2401,9 +2401,9 @@
     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
    },
    {
-    "question": "By January 2026, how many copies of the Frieren manga were in circulation?",
+    "question": "As of January 2026, how many copies of the Frieren manga were in circulation?",
     "options": [
-     "35 million",
+     "30 million",
      "3 million",
      "10 million",
      "80 million"
@@ -9446,12 +9446,12 @@
     "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
    },
    {
-    "question": "On which date did season one of the Dandadan anime end?",
+    "question": "On which date did the first season of the Dandadan anime begin its TV run?",
     "options": [
      "28 December 2022",
      "27 March 2023",
      "31 March 2024",
-     "20 December 2024"
+     "3 October 2024"
     ],
     "correct": 3,
     "kind": "episode",

@@ -1,0 +1,219 @@
+[
+  {
+    "fact_id": "attack-on-titan-anime-premiere-016",
+    "before": "April 7, 2013",
+    "after": "April 7, 2013",
+    "source": "https://www.wikidata.org/wiki/Q22126305",
+    "status": "kept",
+    "fact_status": "verified",
+    "reason": "Wikidata and Wikipedia agree on April 7, 2013; ANN gives the previous broadcast day of a late-night slot. The calendar date is kept."
+  },
+  {
+    "fact_id": "attack-on-titan-episode-count-017",
+    "before": 94,
+    "after": "rejected",
+    "source": "https://www.wikidata.org/wiki/Q22126305",
+    "status": "rejected",
+    "fact_status": "rejected",
+    "reason": "Wikidata says 88 episodes, Wikipedia 94 plus 3 OADs; the total depends on how the Final Chapters specials are counted and no official total was reachable. Nothing settles it."
+  },
+  {
+    "fact_id": "blue-lock-anime-season-one-008",
+    "before": "24 episodes, 9 October 2022 to 26 March 2023",
+    "after": "24 episodes, 9 October 2022 to 26 March 2023",
+    "source": "https://www.wikidata.org/wiki/Q117353182",
+    "status": "kept",
+    "fact_status": "verified",
+    "reason": "Wikidata and Wikipedia agree on October 9; ANN lists October 8, the broadcast day of a late-night slot. The calendar date is kept."
+  },
+  {
+    "fact_id": "blue-lock-copies-circulation-005",
+    "before": "over 65 million worldwide",
+    "after": "over 60 million copies as of June 2026",
+    "source": "https://www.animenewsnetwork.com/press-release/2026-06-08/blue-lock-season-3-officially-titled-blue-lock-neo-egoist-league/.238286",
+    "status": "dated",
+    "fact_status": "draft",
+    "reason": "The publisher release is dated June 2026 and says over 60 million; the 65 million of Wikipedia is a later figure (August 2026). The older, publisher-dated figure is written with its date."
+  },
+  {
+    "fact_id": "dandadan-anime-season-one-009",
+    "before": "12 episodes, 4 October to 20 December 2024",
+    "after": "12 episodes, from 3 October 2024",
+    "source": "https://anime-dandadan.com/news/182/",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "The official site gives October 3 (Thursday 0:26); Wikipedia says October 4. The official date wins and the unconfirmed end date is dropped."
+  },
+  {
+    "fact_id": "dandadan-anime-season-two-010",
+    "before": "12 episodes, 4 July to 19 September 2025",
+    "after": "12 episodes, from 3 July 2025",
+    "source": "https://anime-dandadan.com/news/1527/",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "The official site and Wikidata give July 3; Wikipedia says July 4. The official date wins and the unconfirmed end date is dropped."
+  },
+  {
+    "fact_id": "demon-slayer-season-2-013",
+    "before": "18 episodes, chapters 54-97",
+    "after": "rejected",
+    "source": "https://www.wikidata.org/wiki/Q105847067",
+    "status": "rejected",
+    "fact_status": "rejected",
+    "reason": "Wikidata counts 11 episodes (Entertainment District Arc), Wikipedia 18 (Mugen Train TV arc 7 plus 11); the boundary of season 2 is a grouping choice and no official count was found. Nothing settles it."
+  },
+  {
+    "fact_id": "dragon-ball-dragon-ball-tv-run-016",
+    "before": [
+      "153 episodes",
+      "February 26, 1986 to April 19, 1989"
+    ],
+    "after": [
+      "153 episodes",
+      "February 26, 1986 to April 1989"
+    ],
+    "source": "https://www.wikidata.org/wiki/Q239506",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "Wikidata ends the run on April 12, 1989 while ANN and Wikipedia say April 19; only the month (April 1989) is common to all, so the value is written to the month."
+  },
+  {
+    "fact_id": "dragon-ball-manga-run-013",
+    "before": "December 1984 to June 1995",
+    "after": "November 20, 1984 to May 23, 1995",
+    "source": "https://www.wikidata.org/wiki/Q15051307",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "Wikidata and ANN agree on the release dates; Wikipedia gives the issue cover dates (December 3, 1984 and June 5, 1995). Wikidata ranks above Wikipedia."
+  },
+  {
+    "fact_id": "dragon-ball-manga-volumes-chapters-015",
+    "before": [
+      "519 chapters",
+      "42 volumes"
+    ],
+    "after": "rejected",
+    "source": "https://www.wikidata.org/wiki/Q15051307",
+    "status": "rejected",
+    "fact_status": "rejected",
+    "reason": "Wikidata and ANN count 520 chapters, Wikipedia 519; the extra one may be a special and no official chapter total was found. Nothing settles it."
+  },
+  {
+    "fact_id": "dragon-ball-z-tv-run-017",
+    "before": [
+      "291 episodes",
+      "April 26, 1989 to January 31, 1996"
+    ],
+    "after": [
+      "291 episodes",
+      "April 26, 1989 to January 31, 1996"
+    ],
+    "source": "https://www.wikidata.org/wiki/Q477916",
+    "status": "kept",
+    "fact_status": "verified",
+    "reason": "Wikidata and Wikipedia agree on April 26, 1989; ANN lists April 19. Wikidata ranks above the press page."
+  },
+  {
+    "fact_id": "frieren-copies-circulation-005",
+    "before": "over 35 million copies by January 2026",
+    "after": "over 30 million copies as of January 2026",
+    "source": "https://www.animenewsnetwork.com/news/2026-01-19/frieren-beyond-journey-end-anime-original-mini-anime-continues/.233250",
+    "status": "dated",
+    "fact_status": "draft",
+    "reason": "The January 2026 news relaying the official anime site says over 30 million; the 35 million of Wikipedia is not carried by an official page. The dated, official figure is written."
+  },
+  {
+    "fact_id": "fullmetal-alchemist-manga-award-006",
+    "before": "Shogakukan Manga Award (shōnen), 2004",
+    "after": "49th Shogakukan Manga Award, January 2004",
+    "source": "https://www.hagaren.jp/box/history/index.html",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "The official page confirms the 49th award in January 2004 but not the category; the shonen category is dropped from the value."
+  },
+  {
+    "fact_id": "hunter-x-hunter-second-anime-2011-008",
+    "before": "Madhouse, Nippon TV, October 2011 to September 2014, 148 episodes",
+    "after": "Madhouse, Nippon TV, October 2011 to September 2014, 148 episodes",
+    "source": "https://www.wikidata.org/wiki/Q70209136",
+    "status": "kept",
+    "fact_status": "verified",
+    "reason": "Wikidata and Wikipedia agree on October 2011 to September 2014; the ANN end date of October 2014 is the outlier."
+  },
+  {
+    "fact_id": "jujutsu-kaisen-chapter-count-011",
+    "before": 271,
+    "after": 271,
+    "source": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6",
+    "status": "kept",
+    "fact_status": "draft",
+    "reason": "No official or Wikidata chapter total exists; Japanese Wikipedia says 271 and Oricon confirms the final issue of September 30, 2024. ANN counts 275 titles, which includes extras. 271 is kept and the fact stays single source."
+  },
+  {
+    "fact_id": "my-hero-academia-episode-count-019",
+    "before": [
+      "170 episodes",
+      "8 seasons",
+      "1 bonus special"
+    ],
+    "after": [
+      "170 episodes",
+      "8 seasons",
+      "1 bonus special"
+    ],
+    "source": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+    "status": "kept",
+    "fact_status": "draft",
+    "reason": "The Wikidata value of 138 is out of date (the end of season 6, with a stale qualifier); Wikipedia cites the official designation 170 plus one special. 170 is kept and the fact stays single source."
+  },
+  {
+    "fact_id": "one-piece-anime-size-006",
+    "before": [
+      "1180 episodes by late September 2026",
+      "22 seasons, per the Japanese home video release"
+    ],
+    "after": [
+      "1180 episodes by late September 2026",
+      "22 seasons, per the Japanese home video release"
+    ],
+    "source": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes",
+    "status": "kept",
+    "fact_status": "draft",
+    "reason": "The fact is already dated (1180 episodes as of late September 2026, Wikipedia); the Wikidata 1169 is an older count of a running show. It is kept and stays single source."
+  },
+  {
+    "fact_id": "one-piece-anime-studio-005",
+    "before": [
+      "Toei Animation",
+      "Fuji Television",
+      "premiered October 1999"
+    ],
+    "after": [
+      "Toei Animation",
+      "Fuji Television",
+      "premiered October 1999"
+    ],
+    "source": "https://www.oricon.co.jp/news/2210264/full/",
+    "status": "kept",
+    "fact_status": "draft",
+    "reason": "Oricon (and ANN) date the premiere to October 20, 1999; the Wikidata date of December 12 belongs to a qualified statement. October 1999 is kept."
+  },
+  {
+    "fact_id": "one-punch-man-award-2017-011",
+    "before": "Sugoi Japan Award and Manga Barcelona seinen prize, 2017",
+    "after": "Sugoi Japan Award 2016 and Manga Barcelona seinen prize 2017",
+    "source": "https://www.animenewsnetwork.com/press-release/2016-04-17/sugoi-japan-awards-2016/.101170",
+    "status": "changed",
+    "fact_status": "draft",
+    "reason": "The Sugoi Japan release dates the manga win to 2016 (results announced March 22, 2016); Wikipedia dates the Manga Barcelona prize to 2017. Each award now carries its own year."
+  },
+  {
+    "fact_id": "sailor-moon-manga-volumes-004",
+    "before": "18 volumes, 6 July 1992 to 4 April 1997",
+    "after": "18 volumes, July 1992 to April 1997",
+    "source": "https://www.kodansha.co.jp/comic/products/0000027326",
+    "status": "changed",
+    "fact_status": "verified",
+    "reason": "The publisher pages give July 1, 1992 and April 2, 1997; Wikipedia says July 6 and April 4. The month is common to all, and one official page per fact is loadable, so the value is written to the month and cites the page of the last volume."
+  }
+]

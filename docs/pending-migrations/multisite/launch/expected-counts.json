@@ -8,11 +8,11 @@
     },
     "facts": {
       "total": 1228,
-      "loaded": 1058
+      "loaded": 1071
     },
     "quizzes": {
       "total": 150,
-      "loaded": 72
+      "loaded": 76
     },
     "daily": {
       "total": 100,
@@ -29,11 +29,11 @@
     "arcs": 249,
     "characters": 600,
     "themes": 427,
-    "trivia": 1032,
-    "entity_sources": 1348,
+    "trivia": 1045,
+    "entity_sources": 1372,
     "creators": 31,
-    "quizzes": 72,
-    "questions": 691,
+    "quizzes": 76,
+    "questions": 730,
     "daily": 37,
     "daily_questions": 296
   }

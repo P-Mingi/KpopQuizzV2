@@ -106,12 +106,12 @@
       "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-      "question": "By January 2026, how many copies of the manga had passed into circulation?",
+      "question": "As of January 2026, how many copies of the manga had passed into circulation?",
       "options": [
         "5 million",
         "15 million",
         "100 million",
-        "35 million"
+        "30 million"
       ],
       "correct": 3,
       "kind": "manga",

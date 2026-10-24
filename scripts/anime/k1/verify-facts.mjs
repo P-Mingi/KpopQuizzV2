@@ -7,7 +7,8 @@
 // Dry run by default: it prints what it would do and writes nothing. With --apply it sets every fact of
 // <data>/facts/*.json that is not rejected to status "verified" and stamps verified_at (one timestamp for the whole
 // run). A rejected fact is never touched; a fact that is already verified keeps its verified_at.
-// The sourcing rule of the editorial check (C2) wants two sources, one of them Wikidata or official, on a verified
+// The sourcing rule of the editorial check (C2) wants two sources, one of them strong (Wikidata, official, and under the
+// owner rule of 2026-10-24 Oricon for a sales figure or Anime News Network for an announcement), on a verified
 // load bearing fact. The run lists the facts that lack the second source. By default they are verified like the others
 // (the owner's decision is "every fact that is not rejected"); with --hold-single-source they stay draft instead, so
 // that `check.mjs` has nothing to fail on.
@@ -17,14 +18,13 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { meetsTwoSourceRule } from '../editorial/lib/strong-source.mjs';
 
-const STRONG = new Set(['wikidata', 'official']);
 
-/** True when a load bearing fact lacks the second source (two sources, one of them Wikidata or official). */
+/** True when a load bearing fact lacks the second source (two sources, one of them strong: rule C2, see strong-source.mjs). */
 export function lacksSecondSource(f) {
   if (f.load_bearing !== true) return false;
-  const s = Array.isArray(f.sources) ? f.sources : [];
-  return !(s.length >= 2 && s.some((x) => STRONG.has(x?.source)));
+  return !meetsTwoSourceRule(f);
 }
 
 /** Rewrites a facts file in the layout it already has (JSON.stringify with 1, 2 or 4 spaces, with or without a final newline). */
@@ -79,7 +79,7 @@ function main(argv) {
   const verb = apply ? 'verified' : 'would verify';
   console.log(`${apply ? 'APPLY' : 'DRY RUN'} ${dataDir}`);
   console.log(`${r.facts} facts in ${r.files} files: ${verb} ${r.toVerify}, already verified ${r.alreadyVerified}, rejected and untouched ${r.rejected}${r.draftHeld ? `, held as draft ${r.draftHeld}` : ''}`);
-  console.log(`load bearing facts without a second Wikidata or official source (check C2 fails them once verified): ${r.singleSource.length}${flags.has('--hold-single-source') ? ' (held)' : ''}`);
+  console.log(`load bearing facts without a second source with a strong one (check C2 fails them once verified): ${r.singleSource.length}${flags.has('--hold-single-source') ? ' (held)' : ''}`);
   const shown = flags.has('--list') ? r.singleSource : r.singleSource.slice(0, 15);
   if (shown.length > 0) console.log(`${shown.map((x) => `  ${x}`).join('\n')}${shown.length < r.singleSource.length ? `\n  ... and ${r.singleSource.length - shown.length} more (--list shows all)` : ''}`);
   if (!apply) console.log('Nothing written. Add --apply to write the files.');

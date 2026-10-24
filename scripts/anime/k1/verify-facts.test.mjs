@@ -39,3 +39,13 @@ test('a load bearing fact without a second Wikidata or official source is listed
   assert.deepEqual(r.singleSource, ['a-1']); assert.equal(r.draftHeld, 1); assert.equal(r.toVerify, 1);
   assert.deepEqual(JSON.parse(readFileSync(join(d, 'facts', 'a.json'), 'utf8')).map((f) => f.status), ['draft', 'verified']);
 });
+
+test('owner rule C2: Oricon is a strong second source for a copies fact, ANN for a season fact, and not the other way round', () => {
+  const press = (host) => ({ source: 'press', url: `https://${host}/x`, fetched_at: '2026-10-20T10:00:00Z' });
+  const wp = { source: 'wikipedia', url: 'https://en.wikipedia.org/wiki/X', ref: '1', fetched_at: '2026-10-20T10:00:00Z' };
+  assert.equal(lacksSecondSource(fact('c', { load_bearing: true, field: 'copies', sources: [wp, press('www.oricon.co.jp')] })), false);
+  assert.equal(lacksSecondSource(fact('c', { load_bearing: true, field: 'copies', sources: [wp, press('www.animenewsnetwork.com')] })), true);
+  assert.equal(lacksSecondSource(fact('s', { load_bearing: true, field: 'anime_s3', sources: [wp, press('www.animenewsnetwork.com')] })), false);
+  assert.equal(lacksSecondSource(fact('s', { load_bearing: true, field: 'anime_s3', sources: [wp, press('www.oricon.co.jp')] })), true);
+  assert.equal(lacksSecondSource(fact('d', { load_bearing: true, field: 'director', sources: [wp, press('www.animenewsnetwork.com')] })), true);
+});

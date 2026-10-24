@@ -114,7 +114,7 @@
       "group_slug": "sailor-moon"
     },
     "field": "volumes",
-    "value": "18 volumes, 6 July 1992 to 4 April 1997",
+    "value": "18 volumes, July 1992 to April 1997",
     "text": "The original edition filled 18 volumes, released between July 1992 and April 1997.",
     "category": "history",
     "load_bearing": true,
@@ -128,10 +128,16 @@
         "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
         "ref": "1380981876",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000027326",
+        "fetched_at": "2026-10-24T16:30:00Z"
       }
     ],
-    "status": "draft",
-    "excerpt": "published in 18 tankōbon volumes by Kodansha from July 6, 1992, to April 4, 1997"
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "美少女戦士セ－ラ－ム－ン（１８）〈完〉 発売日 1997年04月02日"
   },
   {
     "id": "sailor-moon-chapters-reorganized-005",

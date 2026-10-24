@@ -4,6 +4,7 @@ import { basename } from 'node:path';
 import { validate } from './schema.mjs';
 import { hostIs, hostOf, normalize } from './text.mjs';
 import { SOURCE_HOSTS } from './thresholds.mjs';
+import { isStrongSource } from './strong-source.mjs';
 import { Result, citedFacts, factsOfItem, factsOfSlug, isMixSlug, isObj, optionTexts, questionsOf, shapeOfQuestion } from './checks-base.mjs';
 
 // Lane quotas of the K1 brief by series tier (characters, facts): reported as warnings, never as failures.
@@ -102,10 +103,10 @@ export function sourcingProblems(fact, ctx) {
     urls.add(s.url);
   });
   if (fact?.load_bearing === true) {
-    const strong = sources.some((s) => s?.source === 'wikidata' || s?.source === 'official');
+    const strong = sources.some((s) => isStrongSource(s, fact));
     const ok = sources.length >= 2 && strong;
     if (!ok) {
-      const msg = 'a load bearing fact needs 2 sources, one of them Wikidata or official';
+      const msg = 'a load bearing fact needs 2 sources, one of them strong (Wikidata, official, Oricon for a sales figure, Anime News Network for an announcement)';
       if (fact.status === 'verified') fails.push(msg); else warns.push(`${msg} before it can be verified`);
     }
   }
