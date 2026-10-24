@@ -15,9 +15,10 @@ import { useUxToast } from '@/components/ux-v1/toast';
 import { COPY } from '@/copy/kpop/b7';
 import { clearMe } from '@/lib/auth/use-me';
 import { fmt } from '@/lib/passport-ui/fmt';
+import { SITE } from '@/lib/site/registry';
 import { createBrowserClient } from '@/lib/supabase/client';
 
-type Problem = 'confirm' | 'reauth' | 'server' | null;
+type Problem = 'confirm' | 'reauth' | 'server' | 'staff' | 'manual' | null;
 
 /** `2026-10-28`: the UTC date of an ISO time. */
 function day(iso: string): string {
@@ -73,7 +74,11 @@ export function AccountDeletion({ username }: { username: string }): React.React
         router.push('/');
         return;
       }
-      setProblem(res.status === 403 ? 'reauth' : res.status === 400 ? 'confirm' : 'server');
+      let refusal = '';
+      if (res.status === 409) {
+        try { refusal = String(((await res.json()) as { error?: unknown }).error ?? ''); } catch { /* no body */ }
+      }
+      setProblem(res.status === 403 ? 'reauth' : res.status === 400 ? 'confirm' : refusal === 'staff_account' ? 'staff' : refusal === 'manual_deletion' ? 'manual' : 'server');
     } catch {
       setProblem('server');
     } finally {
@@ -102,7 +107,13 @@ export function AccountDeletion({ username }: { username: string }): React.React
     }
   };
 
-  const message = problem === 'confirm' ? COPY['delete.errConfirm'] : problem === 'reauth' ? COPY['delete.errReauth'] : problem === 'server' ? COPY['delete.errServer'] : null;
+  const contact = SITE.seo.organization.email ?? '';
+  const message = problem === 'confirm' ? COPY['delete.errConfirm']
+    : problem === 'reauth' ? COPY['delete.errReauth']
+    : problem === 'server' ? COPY['delete.errServer']
+    : problem === 'staff' ? fmt(COPY['delete.errStaff'], { contact })
+    : problem === 'manual' ? fmt(COPY['delete.errManual'], { contact })
+    : null;
 
   return (
     <>

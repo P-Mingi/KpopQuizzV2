@@ -17,14 +17,14 @@ vi.mock('@/lib/supabase/server', () => {
     state.calls.push({ fn, args });
     return state.rpc[fn] ?? { data: null, error: null };
   };
-  const from = (table: string) => ({
-    select: () => ({
-      eq: () => ({
-        maybeSingle: async () => ({ data: table === 'profiles' ? { username: 'kfan' } : null, error: null }),
-        then: (resolve: (v: unknown) => void) => resolve({ data: table === 'world_memberships' ? state.memberships : [], error: null }),
-      }),
-    }),
-  });
+  const from = (table: string) => {
+    const q: Record<string, unknown> = {
+      maybeSingle: async () => ({ data: table === 'profiles' ? { username: 'kfan' } : null, error: null }),
+      then: (resolve: (v: unknown) => void) => resolve({ data: table === 'world_memberships' ? state.memberships : [], error: null }),
+    };
+    for (const m of ['select', 'eq', 'in', 'not', 'order', 'range', 'limit']) q[m] = () => q;
+    return q;
+  };
   return {
     createServerClient: async () => ({
       auth: { getUser: async () => ({ data: { user: state.user } }), signOut: async (o: unknown) => { state.signOuts.push(o); return { error: null }; } },
