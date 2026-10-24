@@ -4,87 +4,91 @@
  "group_slug": "blue-lock",
  "title": "Full Time Mix: Blue Lock Odds and Ends",
  "slug": "full-time-mix-blue-lock-odds-and-ends",
- "description": "Nine mixed questions on season two, its songs, the announced third season and one name from the cast list.",
+ "description": "Ten mixed questions on the manga and its award, the film, the songs of two seasons, the announced third season and a few names from the cast.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
  "title_gives_nothing_away": true,
  "questions": [
   {
-   "question": "What is the subtitle of season two?",
+   "question": "Which edition of the Kodansha Manga Award gave the manga its shōnen prize in 2021?",
    "options": [
-    "vs. All Stars",
-    "vs. Europe XI",
-    "vs. U-20 Japan",
-    "vs. Last Chance"
+    "41st",
+    "43rd",
+    "45th",
+    "47th"
    ],
    "correct": 2,
-   "kind": "arc",
+   "kind": "manga",
    "spoiler": {
-    "arc": 2,
-    "scope": "anime"
+    "arc": 0,
+    "scope": "manga"
    },
    "fact_ids": [
-    "blue-lock-anime-season-two-009"
+    "blue-lock-kodansha-award-006"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
   {
-   "question": "How many episodes did season two add?",
+   "question": "In which month of 2024 did the film Blue Lock: Episode Nagi reach Japanese cinemas?",
    "options": [
-    "12",
-    "13",
-    "24",
-    "14"
-   ],
-   "correct": 3,
-   "kind": "episode",
-   "spoiler": {
-    "arc": 2,
-    "scope": "anime"
-   },
-   "fact_ids": [
-    "blue-lock-anime-season-two-009"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
-  },
-  {
-   "question": "How many episodes does the anime have in total after season two?",
-   "options": [
-    "24",
-    "36",
-    "38",
-    "48"
-   ],
-   "correct": 2,
-   "kind": "episode",
-   "spoiler": {
-    "arc": 2,
-    "scope": "anime"
-   },
-   "fact_ids": [
-    "blue-lock-anime-season-two-009"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
-  },
-  {
-   "question": "In which month of 2024 did the vs. U-20 Japan season start?",
-   "options": [
-    "January",
     "April",
-    "October",
-    "July"
+    "January",
+    "July",
+    "October"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-film-episode-nagi-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which of these songs is an ending of season one rather than an opening?",
+   "options": [
+    "Chaos ga Kiwamaru",
+    "Judgement",
+    "Winner",
+    "Bōjaku no Charisma"
    ],
    "correct": 2,
-   "kind": "episode",
+   "kind": "music",
    "spoiler": {
     "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "blue-lock-anime-season-two-009"
+    "blue-lock-themes-season-one-012",
+    "blue-lock-themes-season-two-013"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which of these characters is listed as a main character rather than a supporting one?",
+   "options": [
+    "Meguru Bachira",
+    "Rin Itoshi",
+    "Seishirō Nagi",
+    "Reo Mikage"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-meguru-bachira-name-017",
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-reo-mikage-name-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
   {
    "question": "Which band performs Bōjaku no Charisma, the opening of season two?",
@@ -183,6 +187,25 @@
     "blue-lock-michael-kaiser-name-027"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "In which month of 2018 did Weekly Shōnen Magazine start carrying the manga?",
+   "options": [
+    "March",
+    "May",
+    "August",
+    "November"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   }
  ],
  "sources": [
@@ -195,7 +218,12 @@
    "id": "S2",
    "title": "Wikipedia: List of Blue Lock characters",
    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
   }
  ],
- "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 both, now arc 3 both."
+ "notes": "K1 rewrite: blocked questions rewritten on verified facts 003, 006, 011, 012, 013 and the character facts 017, 018, 019, 022. Cast-list fact retired earlier; each character question cites the per-character facts."
 }

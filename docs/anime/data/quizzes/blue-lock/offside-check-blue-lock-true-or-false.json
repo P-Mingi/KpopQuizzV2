@@ -76,17 +76,17 @@
    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
   {
-   "question": "As of June 2026, more than one hundred million copies of the manga were in circulation worldwide.",
+   "question": "Season one used two openings, Chaos ga Kiwamaru and Winner, and two endings, Judgement and Numbness Like a Ginger.",
    "correct": false,
-   "kind": "manga",
+   "kind": "music",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "blue-lock-copies-circulation-005"
+    "blue-lock-themes-season-one-012"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   },
   {
    "question": "The manga won the shōnen prize at the 45th Kodansha Manga Award in 2021.",
@@ -153,5 +153,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   }
  ],
- "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a role, a magazine, a number, a studio or a year)."
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a role, a magazine, a number, a studio or a year). K1 rewrite: blocked statement rewritten on verified fact 012."
 }
