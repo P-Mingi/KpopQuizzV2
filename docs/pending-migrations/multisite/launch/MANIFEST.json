@@ -1,6 +1,6 @@
 {
   "mode": "verified",
-  "input_sha256": "0d38ac3df9e059863997e672ded7b356d2043edb43ead7b0049b32acf1b76329",
+  "input_sha256": "e0f34d3ce03e0472f0d61a67efdda679298ea2da4b237b17a74f63f9cebbb93e",
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
@@ -28,19 +28,19 @@
     },
     {
       "name": "L07-K2-catalogue.sql",
-      "sha256": "185e827c1ac303f5663e4b1bb830b67219a95e73d96a5cb2d9ba62c9f13f3867"
+      "sha256": "b7f361bb76d1cd5c9d103d148e486bb0e2833ca08fe7cbe323236eaae072db40"
     },
     {
       "name": "L07-K2-catalogue.rollback.sql",
-      "sha256": "22ccf21125f21ce56f28b78e62d6cd7ddd746e85cc171d766356d4125cebbda7"
+      "sha256": "be6c37eddbd19b8921e2c036ba14d84d99017c196108f4b5c51882b5086f84d5"
     },
     {
       "name": "L08-K3-daily-bank.sql",
-      "sha256": "3e037e761ea1a4266ff3b44fa5bf44d227894f1d8737a82e84df11fe9fe3e607"
+      "sha256": "61287b11976a099352965bd4ba2d56d4ec088c050129d459f66a1106f0fc2aa6"
     },
     {
       "name": "L08-K3-daily-bank.rollback.sql",
-      "sha256": "6512dbfbfa6f8a2619cdbfa876b78ef94178999530048daa43987486baa85f3b"
+      "sha256": "812e6cb1ac9e8e62c8335d5cf8732a2dd8ddc41b64c88c3cc9589cb57ebc0913"
     },
     {
       "name": "L12-L1-sites-live.sql",
