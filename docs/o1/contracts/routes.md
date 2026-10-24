@@ -206,7 +206,7 @@ BACKLOG; `/which-character/x` mirrors kpop's `/personality/x`): its page sets th
 | `/login` | `login/page.tsx` | H1 |
 | `/directory` | `directory/page.tsx` (optional, noindex, nofollow) | H1 |
 | `/auth/*`, `/api/*` | shared handlers | B4, B6, B7 |
-| `/robots.txt`, `/sitemap.xml` (`/`, and `/privacy` once NET_INDEXING is on; while it is off `/privacy` is a noindex draft, D-108), `/llms.txt` | route handlers as on anime | H1 |
+| `/robots.txt`, `/sitemap.xml` (`/`, and `/privacy` and `/legal` once NET_INDEXING is on; while it is off they are noindex drafts, D-108, D-111), `/legal` (anime and hub; kpop only with NEXT_PUBLIC_NET_PRIVACY, `lib/route-allowlist.ts` NET_PRIVACY_ROUTES), `/llms.txt` | route handlers as on anime | H1 |
 
 Reserved for P2, 404 now: `/auth/start`, `/auth/continue` (no handler exists). Later, not in the run: `/join/{code}`,
 `/search`, `/cup`.

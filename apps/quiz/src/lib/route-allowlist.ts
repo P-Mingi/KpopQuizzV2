@@ -100,21 +100,29 @@ function isV12PrettyUrl(pathname: string): boolean {
   );
 }
 
-// Every flag-only prefix, v11 and v12. This is the list the build-time guard
+// Run O1, lane H1 (NEXT_PUBLIC_NET_PRIVACY, default off): the legal notice of kpopquiz.org, /legal. The page file always exists (the anime and
+// hub pages re-export it), but the kpop build answers it only with the flag on; off, it answers 404 like any unknown URL, as today.
+// Same inline flag test as flagOn() in lib/site/registry.ts, which this import-free module cannot import.
+const NET_PRIVACY_ROUTES = ['/legal'];
+const NET_PRIVACY_ON =
+  process.env.NEXT_PUBLIC_NET_PRIVACY === '1' || process.env.NEXT_PUBLIC_NET_PRIVACY === 'true';
+
+// Every flag-only prefix, v11 and v12 (and the H1 one, which the guard skips the same way). This is the list the build-time guard
 // (scripts/check-route-allowlist.mts) reads to skip pages that are unreachable on
 // purpose while their flag is off; isKnownRoute() below still opens the v11 ones with
 // NEXT_PUBLIC_UX_V1 alone and the v12 ones only with both flags.
-export const UX_V1_ROUTES = [...UX_V11_ROUTES, ...UX_V12_ROUTES];
+export const UX_V1_ROUTES = [...UX_V11_ROUTES, ...UX_V12_ROUTES, ...NET_PRIVACY_ROUTES];
 
 /**
  * The allowlist decision for an explicit flag state. isKnownRoute() calls it with the
  * build's flags; tests call it with each combination.
  */
-export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: boolean }): boolean {
+export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: boolean; netPrivacy?: boolean }): boolean {
   if (pathname === '/') return true;
   // Group landing pages are generated: /bts-quiz, /twice-trivia, and so on.
   if (pathname.endsWith('-quiz')) return true;
   if (pathname.endsWith('-trivia')) return true;
+  if ((flags.netPrivacy ?? NET_PRIVACY_ON) && NET_PRIVACY_ROUTES.some((r) => pathname === r)) return true;
   if (flags.v1 && UX_V11_ROUTES.some((r) => pathname.startsWith(r))) return true;
   if (flags.v1 && flags.v12) {
     if (UX_V12_ROUTES.some((r) => pathname.startsWith(r))) return true;

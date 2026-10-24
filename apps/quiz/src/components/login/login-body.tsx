@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { fmt } from '@/lib/passport-ui/fmt';
@@ -11,6 +11,11 @@ import type { SignInWords } from '@/lib/passport-ui/words';
 type Pending = 'google' | 'discord' | 'email' | null;
 
 const STATS: readonly (readonly [string, string])[] = [['Fan-made', 'quizzes'], ['Blind', 'tests'], ['Free', 'forever']];
+
+// Run O1 (H1, owner 2026-10-24): behind NEXT_PUBLIC_NET_PRIVACY the kpop login page shows the same short passport notice as the other sites.
+// Loaded lazily and rendered only with the flag on (inline flag test: no registry import in the kpop client bundle).
+const NET_PRIVACY = process.env.NEXT_PUBLIC_NET_PRIVACY === '1' || process.env.NEXT_PUBLIC_NET_PRIVACY === 'true';
+const PassportNotice = lazy(() => import('@/components/passport-ui/passport-notice').then((m) => ({ default: m.PassportNotice })));
 
 // 4-point sparkle, reused for the brand mark + decorative stars.
 const SPARKLE = 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z';
@@ -223,6 +228,8 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
           </div>
             </>
           )}
+
+          {!words && NET_PRIVACY ? <Suspense fallback={null}><PassportNotice className="auth-note" /></Suspense> : null}
 
           {words && !words.hasTerms ? (
             <p className="auth-tos anime-c1-quiet hub-c1-quiet">

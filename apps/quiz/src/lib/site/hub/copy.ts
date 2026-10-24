@@ -5,7 +5,7 @@ import { COPY as H1 } from '@/copy/hub/h1';
 import { HANDOFF_LOG_DAYS, DELETION_GRACE_DAYS, leavableSites } from '@/lib/passport/deletion/policy';
 import { PASSPORT_SECONDS } from '@/lib/passport/types';
 import { formatLaunchDate } from '@/lib/site/indexing';
-import { NETWORK, siteConfig } from '@/lib/site/registry';
+import { NETWORK, SITE, siteConfig } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 export type HubCopyKey = keyof typeof H1;
@@ -31,6 +31,9 @@ const BASE_VARS: HubCopyVars = {
   network: NETWORK.name,
   brand: siteConfig('hub').brand.name,
   domain: siteConfig('hub').domain,
+  // The legal notice (legal.*): the site that serves the page, from the registry.
+  site: SITE.brand.name,
+  siteDomain: SITE.domain,
   // The privacy draft (privacy.*): the three sites with their domains, and the hub mailbox.
   sites: siteList(),
   email: HUB_EMAIL,

@@ -167,7 +167,7 @@ const ANIME: SiteConfig = {
       '/name-all/{series}/{set}', '/daily', '/opening-of-the-day',
       '/create/**', '/me', '/u/{username}', '/settings/**', '/login', '/onboarding/**',
       '/notifications', '/search', '/community/**', '/about', '/editorial-policy', '/privacy',
-      '/terms', '/contact', '/admin/**',
+      '/terms', '/contact', '/admin/**', '/legal',
       // CR-001 (rule 18): the twins of the browse, help and board pages (TWINS rows 31 to 36).
       '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
       '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
@@ -240,7 +240,7 @@ const HUB: SiteConfig = {
   },
   features: { ...ALL_OFF, passportPages: true, directory: false },
   routes: {
-    allow: ['/', '/privacy', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
+    allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
   },
   seo: {
     titleTemplate: '%s | FanQuiz',
@@ -361,6 +361,7 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'PASSPORT_CONTINUE', scope: 'server', lane: 'B4', reserved: true },
   { name: 'PASSPORT_SEED', scope: 'server', lane: 'B4', reserved: true },
   { name: 'NET_INDEXING', scope: 'server', lane: 'L1', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_PRIVACY', scope: 'public', lane: 'H1', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */

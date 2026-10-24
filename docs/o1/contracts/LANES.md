@@ -92,7 +92,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | O5 | 013 | 14, 15 | anime.o5 | none | none | none | none |
 | O6 | 014 | 11, 12, 13 | anime.o6 | /api/cron/ensure-daily-opening | none | none | none |
 | P1 | none | 16, 17, 18, 19, 20 | anime.p1 | none | none | none | none |
-| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8 | hub.h1 | none | none | none | none |
+| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, 26d | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY | none |
 | E1b | 012 | 29 | anime.e1b | none | none | none | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
 | L1 | L12 | none | kpop.l1 | /admin/network | none | NET_INDEXING | none |

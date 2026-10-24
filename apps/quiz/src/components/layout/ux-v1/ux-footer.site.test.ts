@@ -60,7 +60,8 @@ describe('UxFooter', () => {
   it('hub: only the links of its route map', async () => {
     const html = await footer('hub', true);
     const hrefs = anchorHrefs(html).filter((x) => x.startsWith('/'));
-    for (const x of hrefs) expect(['/', '/privacy', '/passport', '/login', '/directory'], x).toContain(x);
+    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/passport', '/login', '/directory'], x).toContain(x);
     expect(hrefs).toContain('/privacy');
+    expect(hrefs).toContain('/legal');
   });
 });

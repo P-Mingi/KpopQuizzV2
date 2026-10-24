@@ -906,6 +906,27 @@
       "notes": "Page-local body (request F0-9)."
     },
     {
+      "id": "26d",
+      "site": "anime",
+      "route": "/legal",
+      "file": "apps/quiz/src/app/sites/[site]/legal/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/legal/page.tsx",
+      "mustImport": [
+        "@/app/(site)/legal/page"
+      ],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "The legal notice (mentions légales). The file re-exports the kpop page, which reads its site from the registry. The file is shared with row H-10."
+    },
+    {
       "id": "27",
       "site": "anime",
       "route": "404",
@@ -1591,6 +1612,27 @@
       ],
       "owner": "O1",
       "body": "none"
+    },
+    {
+      "id": "H-10",
+      "site": "hub",
+      "route": "/legal",
+      "file": "apps/quiz/src/app/sites/[site]/legal/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/legal/page.tsx",
+      "mustImport": [
+        "@/app/(site)/legal/page"
+      ],
+      "renders": [
+        "the sections of the twin page"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "shared",
+      "notes": "The legal notice (mentions légales), the same file as row 26d."
     }
   ]
 }
