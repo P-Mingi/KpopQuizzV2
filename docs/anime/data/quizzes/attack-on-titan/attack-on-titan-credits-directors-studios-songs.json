@@ -145,24 +145,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-      "question": "How many episodes of season 3 aired in the summer of 2018 before the pause until April 2019?",
+      "question": "Which band performed the season 3 ending Name of Love?",
       "options": [
-        "10",
-        "22",
-        "25",
-        "12"
+        "SiM",
+        "Cinema Staff",
+        "Shinsei Kamattechan",
+        "Linked Horizon"
       ],
-      "correct": 3,
-      "fun_fact": "The remaining 10 episodes arrived in April 2019.",
-      "kind": "episode",
+      "correct": 1,
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "attack-on-titan-season-three-split-026"
+        "attack-on-titan-ending-themes-009"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
       "question": "The show once held a Guinness record for what?",
@@ -211,15 +210,10 @@
       "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-      "id": "S2",
-      "title": "Wikipedia: Attack on Titan season 3",
-      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
-    },
-    {
       "id": "S3",
       "title": "Wikipedia: Attack on Titan",
       "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
     }
   ],
-  "notes": "All facts at arc 0, no character named."
+  "notes": "All facts at arc 0, no character named. K1 rewrite: blocked question rewritten on verified fact 009."
 }
