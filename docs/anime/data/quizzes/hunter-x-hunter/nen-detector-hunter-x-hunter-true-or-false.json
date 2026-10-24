@@ -37,17 +37,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
     {
-      "question": "By June 2026 the manga had passed 500 million copies in circulation around the world.",
+      "question": "The 2011 anime alternates between five versions of one opening.",
       "correct": false,
-      "kind": "manga",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "hunter-x-hunter-copies-in-circulation-005"
+        "hunter-x-hunter-opening-themes-014"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
     },
     {
       "question": "The collected edition stood at 39 volumes as of July 2026.",
@@ -115,17 +115,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
     },
     {
-      "question": "Hiroshi Kōjina directed the 2011 anime.",
+      "question": "The Japanese title is read Hantā Hantā.",
       "correct": true,
-      "kind": "production",
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-anime-director-009"
+        "hunter-x-hunter-japanese-title-001"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
     {
       "question": "Two animated theatrical films reached cinemas in 2010.",
@@ -158,5 +158,5 @@
       "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a number, a channel or a year)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a number, a channel or a year). K1 rewrite: blocked statements rewritten on verified facts 001 and 014."
 }
