@@ -6,6 +6,7 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
 import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
 import { isDuplicateMode } from '@/lib/growth/bt-mode-pool';
@@ -129,6 +130,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/contact`, lastModified: STATIC_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/privacy`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
+    // The legal notice joins the sitemap once its [BRACKETED] facts are filled (until then the page is noindex).
+    ...(legalIsComplete() ? [{ url: `${SITE_URL}/legal`, lastModified: new Date(LEGAL.written), changeFrequency: 'yearly' as const, priority: 0.3 }] : []),
     { url: `${SITE_URL}/dmca`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     // SEO P0.1 (owner: make /news rank): now indexable (was robots.index=false), so

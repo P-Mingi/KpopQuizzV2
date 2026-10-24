@@ -49,6 +49,7 @@ function columns(showFandoms: boolean): FooterCol[] {
       { label: 'Editorial policy', href: '/editorial-policy' },
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy', href: '/privacy' },
+      { label: 'Legal notice', href: '/legal' },
       { label: 'Terms', href: '/terms' },
       { label: 'DMCA', href: '/dmca' },
     ] },
