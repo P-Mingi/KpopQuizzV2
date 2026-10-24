@@ -79,7 +79,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | B4 | 006 | 37 | kpop.b4, anime.b4, hub.b4 | /auth/passport/out, /auth/arrive, /auth/authorize, /auth/land, /api/passport/redeem, /api/passport/after-signin, /api/passport/revalidate, /api/cron/passport-cleanup | safeReturnTo | PASSPORT_JUMP, PASSPORT_CONTINUE, PASSPORT_SEED | none |
 | B5 | 008, 009, 010 | none | none | none | getQuizOfTheDay | none | none |
 | B6 | none | none | kpop.b6, anime.b6 | /api/n/me, /api/n/b | bridgeHref, editorialHref, eligibleFor, canShow, NetLink | NEXT_PUBLIC_NET_BEACON, NEXT_PUBLIC_NET_FOOTER, NEXT_PUBLIC_NET_MENU | none |
-| B7 | 016, L03 | 37 | anime.b7, hub.b7 | /auth/confirm, /api/passport/delete, /api/passport/cancel, /api/passport/leave, /api/cron/passport-deletions | none | none | none |
+| B7 | 016, L03 | 37 | anime.b7, hub.b7 | /auth/confirm, /api/passport/delete, /api/passport/cancel, /api/passport/leave, /api/cron/passport-deletions | none | NEXT_PUBLIC_NET_DELETION | none |
 | E1a | none | none | none | none | none | none | fact, review packet |
 | K1 | 011, L04, L05 | none | none | none | none | none | fact |
 | K2 | L02, L07 | none | none | none | none | none | quiz draft, creator profile |
