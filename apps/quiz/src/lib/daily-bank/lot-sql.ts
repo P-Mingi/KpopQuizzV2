@@ -84,7 +84,15 @@ begin
     raise exception 'daily bank lot ${lotN}: a row of this lot is not a kpop row, nothing applied';
   end if;
 end $$;
-
+${review.includes('{') ? `
+-- Check: the review is recorded. While {REVIEWER} or {REVIEW_DATE} is still in the notes, nothing is applied.
+do $$
+begin
+  if exists (select 1 from public.quiz_bank qb where qb.verified_at = now() and qb.verification_notes ~ '[{](REVIEWER|REVIEW_DATE)[}]') then
+    raise exception 'daily bank lot ${lotN}: review not recorded (replace {REVIEWER} and {REVIEW_DATE}), nothing applied';
+  end if;
+end $$;
+` : ''}
 -- Check: one kpop row per date, no clash with a row already scheduled on these dates.
 select scheduled_date, count(*) from public.quiz_bank qb
 where scheduled_date between ${sqlText(first)} and ${sqlText(last)} and status in ('verified', 'scheduled') and ${kpopRowSql('qb')}

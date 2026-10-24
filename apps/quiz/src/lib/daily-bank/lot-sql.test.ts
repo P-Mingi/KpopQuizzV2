@@ -58,6 +58,10 @@ describe('buildLotSql', () => {
     const draft = buildLotSql('2', lot, idOf);
     expect(draft.sql).toContain('-- REVIEW NOT RECORDED');
     expect(draft.sql).toContain('checked by {REVIEWER} on {REVIEW_DATE}.');
+    // The draft refuses to apply until the review is written in.
+    expect(draft.sql).toContain("raise exception 'daily bank lot 2: review not recorded");
+    expect(draft.sql.indexOf('review not recorded (')).toBeLessThan(draft.sql.indexOf('commit;'));
+    expect(out.sql).not.toContain('review not recorded');
     expect(`${out.sql}${out.rollback}${draft.sql}`).not.toMatch(/[\u2013\u2014]/);
   });
 });
