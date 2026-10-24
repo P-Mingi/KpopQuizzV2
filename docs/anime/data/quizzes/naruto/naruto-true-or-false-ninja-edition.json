@@ -24,32 +24,32 @@
       "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
-      "question": "The Naruto manga closed with 800 chapters gathered into 72 collected volumes.",
-      "correct": false,
-      "fun_fact": "The manga closed with 700 chapters.",
+      "question": "The manga is written NARUTO -ナルト- in Japanese.",
+      "correct": true,
+      "fun_fact": "Its second anime series is titled Naruto: Shippuden.",
       "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-manga-size-005"
+        "naruto-titles-001"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
-      "question": "Counting both series, the Naruto anime adds up to 720 episodes.",
-      "correct": true,
-      "fun_fact": "That is 220 episodes of Naruto and 500 of Shippuden.",
-      "kind": "episode",
+      "question": "Diver, an opening of Naruto: Shippuden, was performed by Joe Inoue.",
+      "correct": false,
+      "fun_fact": "Diver was by Nico Touches the Walls. Joe Inoue sang Closer.",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-episode-total-008"
+        "naruto-themes-op-part-two-019"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
     },
     {
       "question": "Naruto: Shippuden has 220 episodes.",
@@ -66,17 +66,18 @@
       "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
     },
     {
-      "question": "Of the first anime's 220 episodes, 135 follow the manga and the other 85 are original stories.",
+      "question": "The second opening of Naruto was Haruka Kanata by Asian Kung-Fu Generation.",
       "correct": true,
-      "kind": "episode",
+      "fun_fact": "Haruka Kanata accompanied episodes 26 to 53.",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "naruto-original-episodes-023"
+        "naruto-themes-op-part-one-018"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
     },
     {
       "question": "Madhouse is the studio that made the Naruto anime.",
@@ -133,18 +134,18 @@
       "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
     },
     {
-      "question": "Volumes 1 to 27 of the manga follow Naruto as a teenager.",
+      "question": "Naruto: Shippuden began airing in 2002.",
       "correct": false,
-      "fun_fact": "Volumes 1 to 27 follow Naruto as a child. The teenage years fill volumes 28 to 72.",
-      "kind": "production",
+      "fun_fact": "Naruto: Shippuden has 500 episodes, made by Studio Pierrot.",
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-part-one-volumes-025"
+        "naruto-tv-shippuden-007"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
     }
   ],
   "sources": [
@@ -169,5 +170,5 @@
       "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
     }
   ],
-  "notes": "Statements mirror the fact texts; false ones change one detail."
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts 001, 007, 018, 019."
 }
