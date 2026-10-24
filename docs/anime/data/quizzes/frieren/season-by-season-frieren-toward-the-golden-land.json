@@ -4,30 +4,30 @@
   "group_slug": "frieren",
   "title": "Season by Season: Frieren Toward the Golden Land",
   "slug": "season-by-season-frieren-toward-the-golden-land",
-  "description": "Eight questions on how the anime splits into seasons, who directs the second one and what is announced next.",
+  "description": "Ten questions on how the anime splits into seasons, who directs the second one, how the first one ended and what is announced next.",
   "quiz_type": "multiple_choice",
   "difficulty": "hard",
   "language": "en",
   "title_gives_nothing_away": true,
   "questions": [
     {
-      "question": "Which episodes make up season 2?",
+      "question": "Which song is the ending of season 2?",
       "options": [
-        "Episodes 1 to 28",
-        "Episodes 29 to 38",
-        "Episodes 29 to 48",
-        "Episodes 28 to 38"
+        "Anytime Anywhere",
+        "Bliss",
+        "Lulu.",
+        "The Story of Us"
       ],
-      "correct": 1,
-      "kind": "arc",
+      "correct": 3,
+      "kind": "music",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "frieren-arc-structure-014"
+        "frieren-ending-themes-013"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
       "question": "How many episodes does season 2 have?",
@@ -40,13 +40,13 @@
       "correct": 3,
       "kind": "arc",
       "spoiler": {
-        "arc": 3,
+        "arc": 2,
         "scope": "anime"
       },
       "fact_ids": [
-        "frieren-arc-structure-014"
+        "frieren-anime-season-two-009"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
       "question": "Who directs season 2?",
@@ -87,23 +87,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
-      "question": "Which arc is the next one for the anime?",
+      "question": "Which arc is season 3 set to cover?",
       "options": [
-        "Golden Land",
         "Silver Coast",
+        "Golden Land",
         "Crystal Desert",
         "Iron Bridge"
       ],
-      "correct": 0,
+      "correct": 1,
       "kind": "arc",
       "spoiler": {
         "arc": 3,
         "scope": "anime"
       },
       "fact_ids": [
-        "frieren-arc-structure-014"
+        "frieren-season-three-golden-land-010"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
       "question": "When is season 3 set to premiere?",
@@ -144,31 +144,64 @@
       "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-      "question": "Which of these awards did the manga win in 2021?",
+      "question": "In which month of 2023 did the Spell That Does OOO shorts start?",
       "options": [
-        "14th Manga Taishō",
-        "69th Shogakukan Manga Award",
-        "48th Kodansha Manga Award",
-        "50th Shogakukan Manga Award"
+        "January",
+        "October",
+        "July",
+        "December"
       ],
-      "correct": 0,
-      "kind": "manga",
+      "correct": 1,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "anime"
       },
       "fact_ids": [
-        "frieren-manga-awards-006"
+        "frieren-spell-shorts-017"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "When was a third season announced?",
+      "options": [
+        "Before season one began",
+        "During season one",
+        "Two years after season two",
+        "Right after season two"
+      ],
+      "correct": 3,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-season-three-golden-land-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Season one and season two together add up to how many episodes?",
+      "options": [
+        "38",
+        "28",
+        "48",
+        "10"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-two-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     }
   ],
   "sources": [
-    {
-      "id": "S1",
-      "title": "Wikipedia: List of Frieren episodes",
-      "url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
-    },
     {
       "id": "S2",
       "title": "Wikipedia: Frieren (TV series)",
@@ -180,5 +213,5 @@
       "url": "https://en.wikipedia.org/wiki/Frieren"
     }
   ],
-  "notes": "Arc quiz: tags run from arc 0 to arc 3 (Golden Land, planned). Season facts 009, 010 and 014; the manga break and awards are arc 0 manga facts."
+  "notes": "Arc quiz: tags run from arc 0 to arc 3 (Golden Land, planned). Season facts 009, 010, 013 and 017; the manga break is an arc 0 manga fact. K1 rewrite: blocked questions rewritten on verified facts."
 }

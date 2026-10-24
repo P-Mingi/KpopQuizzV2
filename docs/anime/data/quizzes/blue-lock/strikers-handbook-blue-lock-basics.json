@@ -106,21 +106,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
   {
-   "question": "As of June 2026, how many copies of the manga were in circulation worldwide?",
+   "question": "Blue Lock is spelled ブルーロック in which Japanese writing system?",
    "options": [
-    "More than 6 million",
-    "More than 600 million",
-    "More than 1 million",
-    "More than 60 million"
+    "Hiragana",
+    "Kanji",
+    "Katakana",
+    "Romaji"
    ],
-   "correct": 3,
-   "kind": "manga",
+   "correct": 2,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "blue-lock-copies-circulation-005"
+    "blue-lock-native-title-001"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
@@ -213,5 +213,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   }
  ],
- "notes": "Starter: arc 0 facts only (002 to 008, 014). Creators, magazine, publisher, volumes, circulation, award, studio, season one and the premise."
+ "notes": "Starter: arc 0 facts only (001 to 004, 006 to 008, 014). Creators, magazine, publisher, volumes, award, studio, season one, the premise and the Japanese title. K1 rewrite: blocked question rewritten on verified fact 001."
 }

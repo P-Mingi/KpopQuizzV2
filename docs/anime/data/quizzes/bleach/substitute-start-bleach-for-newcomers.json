@@ -87,23 +87,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
     },
     {
-      "question": "By 2022, more than how many copies of the manga were in circulation worldwide?",
+      "question": "How is the Japanese title of Bleach read?",
       "options": [
-        "130 million",
-        "30 million",
-        "60 million",
-        "300 million"
+        "Burīsu",
+        "Berīchi",
+        "Burīshu",
+        "Burīchi"
       ],
-      "correct": 0,
-      "kind": "manga",
+      "correct": 3,
+      "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "bleach-copies-circulation-005"
+        "bleach-japanese-title-001"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
     },
     {
       "question": "Which studio made the first Bleach anime?",
@@ -182,21 +182,21 @@
       "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
     },
     {
-      "question": "In which year did the manga win the shōnen prize at the 50th Shogakukan Manga Award?",
+      "question": "In which year did Bleach begin in Weekly Shōnen Jump?",
       "options": [
-        "2005",
         "2001",
-        "2010",
-        "2016"
+        "1998",
+        "2005",
+        "2009"
       ],
       "correct": 0,
       "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "both"
       },
       "fact_ids": [
-        "bleach-shogakukan-award-006"
+        "bleach-magazine-run-003"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
     }
@@ -213,5 +213,5 @@
       "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine, volumes, sales, the first anime and the 2005 award."
+  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine, start year, volumes, the Japanese title, the first anime and the source of Ichigo's powers. K1 rewrite: blocked questions rewritten on verified facts 001 and 003."
 }

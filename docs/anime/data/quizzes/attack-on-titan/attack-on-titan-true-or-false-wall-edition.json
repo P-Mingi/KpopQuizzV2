@@ -64,7 +64,7 @@
       "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-      "question": "Wit Studio animated the first three seasons of Attack on Titan, and MAPPA took over for the final season.",
+      "question": "Tetsuro Araki directed the first three seasons of Attack on Titan, and Yuichiro Hayashi directed the fourth.",
       "correct": true,
       "kind": "production",
       "spoiler": {
@@ -72,23 +72,22 @@
         "scope": "anime"
       },
       "fact_ids": [
-        "attack-on-titan-animation-studios-018"
+        "attack-on-titan-series-directors-019"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-      "question": "MAPPA animated the first three seasons of Attack on Titan.",
+      "question": "Eren's Titan form was drawn after a real middleweight boxer, Yushin Okami.",
       "correct": false,
-      "fun_fact": "Wit Studio animated the first three. MAPPA took over for the final season.",
-      "kind": "production",
+      "kind": "character",
       "spoiler": {
-        "arc": 0,
-        "scope": "anime"
+        "arc": 1,
+        "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-animation-studios-018"
+        "attack-on-titan-eren-titan-model-027"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     },
     {
       "question": "The Japanese title 進撃の巨人 translates roughly as The Advancing Giant.",
@@ -167,5 +166,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     }
   ],
-  "notes": "Statements mirror the fact texts; false ones change one detail."
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts 019 and 027."
 }

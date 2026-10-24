@@ -4,7 +4,7 @@
  "group_slug": "spy-x-family",
  "title": "Cover Story or Truth: Spy x Family True or False",
  "slug": "cover-story-or-truth-spy-x-family-true-or-false",
- "description": "Ten statements on the creator, the magazine, the volumes, the studios, the directors, the broadcast, the film, the award and the mission. Some are one detail off, so read closely.",
+ "description": "Ten statements on the creator, the Japanese title, the volumes, the studios, the directors, the broadcast, the film, the award, the peanut line and the mission. Some are one detail off, so read closely.",
  "quiz_type": "true_false",
  "difficulty": "medium",
  "language": "en",
@@ -24,9 +24,14 @@
    "id": "S3",
    "title": "Wikipedia: List of Spy × Family characters",
    "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Japanese Wikipedia: SPY×FAMILY",
+   "url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY"
   }
  ],
- "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 006, 007, 016, 017, 020); each false one changes a single detail (a frequency, a count, a director's season, a year, the handler).",
+ "notes": "Statements restate arc 0 fact texts (001, 002, 004, 005, 006, 007, 016, 017, 018, 020); each false one changes a single detail (a script, a count, a director's season, a year, the handler). K1 rewrite: blocked questions rewritten on verified facts.",
  "questions": [
   {
    "question": "Tatsuya Endo both writes and draws the Spy x Family manga.",
@@ -42,30 +47,30 @@
    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
   },
   {
-   "question": "Shueisha publishes the manga every week on its Shōnen Jump+ app.",
+   "question": "In Japan the title is written スパイファミリー, a hiragana spelling of the English words spy and family.",
    "correct": false,
-   "kind": "manga",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "spy-x-family-magazine-run-003"
+    "spy-x-family-japanese-title-001"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+   "source_url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY"
   },
   {
-   "question": "The run in Shōnen Jump+ began in March 2019.",
+   "question": "In a survey of Generation Z in Japan, the line about Anya liking peanuts came out as the most trending phrase of 2022.",
    "correct": true,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "anime"
    },
    "fact_ids": [
-    "spy-x-family-magazine-run-003"
+    "spy-x-family-anya-peanuts-018"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
   },
   {
    "question": "By the spring of 2026 the chapters filled twenty-seven collected volumes.",

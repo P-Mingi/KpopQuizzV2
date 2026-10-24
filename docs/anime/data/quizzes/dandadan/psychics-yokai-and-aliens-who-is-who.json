@@ -74,21 +74,24 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
   {
-   "question": "Who takes hold of Okarun and gives him his strange abilities?",
+   "question": "Which of these characters is an antagonist of Dandadan?",
    "options": [
-    "Acrobatic Silky",
-    "Turbo Granny",
     "Seiko Ayase",
+    "Aira Shiratori",
+    "Jin Enjoji",
     "Alien Serpo"
    ],
-   "correct": 1,
+   "correct": 3,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-okarun-possession-018"
+    "dandadan-alien-serpo-name-027",
+    "dandadan-seiko-ayase-name-024",
+    "dandadan-aira-shiratori-name-025",
+    "dandadan-jin-enjoji-name-028"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
@@ -232,5 +235,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   }
  ],
- "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 1 both. K1 rewrite: blocked question rewritten on verified facts 024, 025, 027, 028."
 }

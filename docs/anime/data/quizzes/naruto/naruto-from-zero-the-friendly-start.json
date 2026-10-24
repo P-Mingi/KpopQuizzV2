@@ -51,22 +51,22 @@
       "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
-      "question": "The Naruto manga was collected into how many volumes?",
+      "question": "For about how many years did the Naruto manga run in Weekly Shonen Jump?",
       "options": [
-        "60",
-        "66",
-        "72",
-        "80"
+        "Fifteen years",
+        "Five years",
+        "Ten years",
+        "Twenty years"
       ],
-      "correct": 2,
-      "fun_fact": "The manga closed with 700 chapters gathered into 72 collected volumes.",
+      "correct": 0,
+      "fun_fact": "Naruto ran from late September 1999 to mid November 2014.",
       "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-manga-size-005"
+        "naruto-manga-run-004"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
@@ -99,15 +99,14 @@
         "720"
       ],
       "correct": 2,
-      "fun_fact": "The second series, Shippuden, adds 500 more, for 720 episodes in total.",
+      "fun_fact": "Studio Pierrot made it, directed by Hayato Date.",
       "kind": "episode",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-tv-naruto-006",
-        "naruto-episode-total-008"
+        "naruto-tv-naruto-006"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
     },
@@ -152,24 +151,24 @@
       "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
     },
     {
-      "question": "Of the first anime's 220 episodes, how many are original stories made only for TV?",
+      "question": "What is the title of the second Naruto anime series?",
       "options": [
-        "85",
-        "135",
-        "45",
-        "100"
+        "Naruto: Blazing Wind",
+        "Naruto: Leaf Legends",
+        "Naruto: Next Chapter",
+        "Naruto: Shippuden"
       ],
-      "correct": 0,
-      "fun_fact": "The first 135 episodes follow the manga, and the other 85 are stories made only for television.",
-      "kind": "episode",
+      "correct": 3,
+      "fun_fact": "The manga itself is written NARUTO -ナルト- in Japanese.",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "naruto-original-episodes-023"
+        "naruto-titles-001"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
       "question": "Which of these titles belongs to the Naruto franchise?",
@@ -192,24 +191,24 @@
       "source_url": "https://naruto-official.com/en"
     },
     {
-      "question": "The manga is split in two parts. Which volumes make up Part II?",
+      "question": "In which year did Naruto: Shippuden finish its run on TV?",
       "options": [
-        "28 to 72",
-        "1 to 27",
-        "20 to 60",
-        "30 to 72"
+        "2012",
+        "2017",
+        "2014",
+        "2020"
       ],
-      "correct": 0,
-      "fun_fact": "Volumes 1 to 27 follow Naruto as a child, and volumes 28 to 72 follow him as a teenager.",
-      "kind": "production",
+      "correct": 1,
+      "fun_fact": "Shippuden ran from 2007 to 2017 and has 500 episodes.",
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "naruto-part-one-volumes-025"
+        "naruto-tv-shippuden-007"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
     }
   ],
   "sources": [
@@ -229,5 +228,5 @@
       "url": "https://naruto-official.com/en"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only."
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts 001, 004, 006, 007."
 }

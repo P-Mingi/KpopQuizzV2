@@ -106,21 +106,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
   },
   {
-   "question": "How many copies of the manga have been sold worldwide?",
+   "question": "In which year did the manga end its run in Nakayoshi?",
    "options": [
-    "Over 4.6 million",
-    "Over 14 million",
-    "Over 460 million",
-    "Over 46 million"
+    "1994",
+    "1997",
+    "1999",
+    "2001"
    ],
-   "correct": 3,
+   "correct": 1,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "sailor-moon-manga-copies-006"
+    "sailor-moon-manga-serialization-003"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
   },
@@ -213,5 +213,5 @@
    "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
   }
  ],
- "notes": "Starter: arc 0 facts only (002, 003, 004, 006, 007, 008). Manga author, magazine, publisher, start year, volumes, circulation, prize, then the 1992 anime studio, channel and episode count."
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 007, 008). Manga author, magazine, publisher, start and end year, volumes, prize, then the 1992 anime studio, channel and episode count. K1 rewrite: blocked sales question replaced on verified fact 003."
 }

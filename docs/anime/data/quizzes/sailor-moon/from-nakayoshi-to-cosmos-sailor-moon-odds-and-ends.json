@@ -4,47 +4,47 @@
  "group_slug": "sailor-moon",
  "title": "From Nakayoshi to Cosmos: Sailor Moon Odds and Ends",
  "slug": "from-nakayoshi-to-cosmos-sailor-moon-odds-and-ends",
- "description": "Nine mixed questions on chapter counts, the English titles, the arcs and seasons, the Crystal films and the songs of the last season.",
+ "description": "Ten mixed questions on the English titles, the arcs and seasons, the Crystal films and the songs of the last season.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
  "title_gives_nothing_away": true,
  "questions": [
   {
-   "question": "How many chapters did the manga have in magazine form before the book editions regrouped them?",
+   "question": "How many story arcs does the Sailor Moon manga have?",
    "options": [
-    "18",
-    "60",
-    "46",
-    "200"
+    "Three",
+    "Five",
+    "Seven",
+    "Four"
    ],
    "correct": 1,
-   "kind": "manga",
+   "kind": "arc",
    "spoiler": {
-    "arc": 0,
-    "scope": "manga"
+    "arc": 5,
+    "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-chapters-reorganized-005"
+    "sailor-moon-arc-season-split-009"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
   },
   {
-   "question": "How many chapters did the book editions of the manga regroup them into?",
+   "question": "Which episodes make up Sailor Moon SuperS in the 1992 anime?",
    "options": [
-    "18",
-    "52",
-    "39",
-    "60"
+    "47 to 89",
+    "90 to 127",
+    "167 to 200",
+    "128 to 166"
    ],
-   "correct": 1,
-   "kind": "manga",
+   "correct": 3,
+   "kind": "episode",
    "spoiler": {
-    "arc": 0,
-    "scope": "manga"
+    "arc": 5,
+    "scope": "both"
    },
    "fact_ids": [
-    "sailor-moon-chapters-reorganized-005"
+    "sailor-moon-arc-season-split-009"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
   },
@@ -181,6 +181,25 @@
     "sailor-moon-themes-final-season-014"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Into how many parts is each Crystal film split?",
+   "options": [
+    "Two",
+    "Three",
+    "Four",
+    "Six"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
   }
  ],
  "sources": [
@@ -200,5 +219,5 @@
    "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
   }
  ],
- "notes": "Mixed quiz across the three works. Facts 001 and 005 are arc 0, 012 is arc 4, 009 and 014 are arc 5 (arc and season list, last season songs), so the quiz level is 5."
+ "notes": "Mixed quiz across the three works. Fact 001 is arc 0, 012 is arc 4, 009 and 014 are arc 5 (arc and season list, last season songs), so the quiz level is 5. K1 rewrite: blocked chapter questions replaced on verified facts 009 and 012."
 }

@@ -4,7 +4,7 @@
  "group_slug": "apothecary-diaries",
  "title": "From Narō to Season Three: Apothecary Diaries Odds and Ends",
  "slug": "from-naro-to-season-three-apothecary-diaries-odds-and-ends",
- "description": "Nine mixed questions on the early publishing history, the dates of seasons two and three, who makes season three and its songs.",
+ "description": "Ten mixed questions on the title, the early publishing history, the manga adaptations, the dates of season two and the songs of the second and third seasons.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
@@ -52,19 +52,18 @@
    "question": "On which date did season two of The Apothecary Diaries return?",
    "options": [
     "October 22, 2023",
+    "March 24, 2024",
     "July 4, 2025",
-    "October 2, 2026",
     "January 10, 2025"
    ],
    "correct": 3,
    "kind": "episode",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "apothecary-diaries-anime-season-two-007",
-    "apothecary-diaries-anime-season-three-008"
+    "apothecary-diaries-anime-season-two-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
   },
@@ -74,17 +73,16 @@
     "July 4, 2025",
     "March 24, 2024",
     "January 10, 2025",
-    "October 2, 2026"
+    "October 22, 2023"
    ],
    "correct": 0,
    "kind": "episode",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "apothecary-diaries-anime-season-two-007",
-    "apothecary-diaries-anime-season-three-008"
+    "apothecary-diaries-anime-season-two-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
   },
@@ -108,60 +106,59 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
   },
   {
-   "question": "On which date did season three of The Apothecary Diaries premiere?",
+   "question": "How can the Japanese title Kusuriya no Hitorigoto be read in English?",
    "options": [
-    "January 10, 2025",
-    "July 4, 2025",
-    "April 2027",
-    "October 2, 2026"
+    "Apothecary's Secret",
+    "Healer's Diary",
+    "Herbalist's Lament",
+    "Apothecary's Soliloquy"
    ],
    "correct": 3,
-   "kind": "episode",
-   "spoiler": {
-    "arc": 3,
-    "scope": "anime"
-   },
-   "fact_ids": [
-    "apothecary-diaries-anime-season-two-007",
-    "apothecary-diaries-anime-season-three-008"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
-  },
-  {
-   "question": "Which studio alone produces season three?",
-   "options": [
-    "OLM",
-    "Toho Animation Studio",
-    "Madhouse",
-    "Bones"
-   ],
-   "correct": 0,
    "kind": "production",
    "spoiler": {
-    "arc": 3,
-    "scope": "anime"
+    "arc": 0,
+    "scope": "both"
    },
    "fact_ids": [
-    "apothecary-diaries-anime-season-three-008"
+    "apothecary-diaries-title-native-001"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
   },
   {
-   "question": "When is the second part of season three planned?",
+   "question": "Under which title does Minoji Kurata's manga run in Monthly Sunday Gene-X?",
    "options": [
-    "January 2025",
-    "April 2027",
-    "October 2026",
-    "July 2027"
+    "Maomao's Notes on the Inner Palace",
+    "Jinshi's Diary of the Rear Palace",
+    "Notes of the Pure Consort",
+    "The Herbalist's Palace Records"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-gene-x-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Who performs Hitorigoto, an ending of season two?",
+   "options": [
+    "Dai Hirai",
+    "Omoinotake",
+    "Aina the End",
+    "Lilas Ikuta"
    ],
    "correct": 1,
-   "kind": "episode",
+   "kind": "music",
    "spoiler": {
-    "arc": 3,
+    "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "apothecary-diaries-anime-season-three-008"
+    "apothecary-diaries-themes-season-two-012"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
   },
@@ -183,6 +180,25 @@
     "apothecary-diaries-themes-season-three-013"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "On which date did Nekokurage's manga adaptation begin in Monthly Big Gangan?",
+   "options": [
+    "August 19, 2017",
+    "August 29, 2014",
+    "May 25, 2017",
+    "October 22, 2023"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-big-gangan-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
   }
  ],
  "sources": [
@@ -197,5 +213,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
   }
  ],
- "notes": "Mixed quiz: arc 0 publishing facts (003, 005), season 2 dates (007, arc 2) and season 3 facts (008 and 013, arc 3). Level 3."
+ "notes": "Mixed quiz: arc 0 facts (001, 003, 004, 005), season 2 dates and songs (007, 012, arc 2) and the season 3 ending (013, arc 3). Level 3. K1 rewrite: blocked season 3 questions rewritten on verified facts 001, 004, 005, 007 and 012."
 }

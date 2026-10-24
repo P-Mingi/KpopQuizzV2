@@ -4,7 +4,7 @@
  "group_slug": "death-note",
  "title": "Nightmare, Hormone and Madhouse: Death Note Behind the Screen",
  "slug": "nightmare-hormone-and-madhouse-death-note-behind-the-screen",
- "description": "Ten questions on the studio, the director, the channel, the two bands and the composer, plus the prose spin-off and the American licence.",
+ "description": "Ten questions on the broadcaster, the channel dates, the two bands and the composer, plus the magazine publisher, the prose spin-off and the American licence.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
@@ -21,7 +21,7 @@
    "url": "https://en.wikipedia.org/wiki/Death_Note"
   }
  ],
- "notes": "Production and music quiz on arc 0 facts (005, 006, 010, 018, 020). Artists only, no lyrics, no song titles as distractors. Aimer and milet in one question come from the facts of another series in the same data set.",
+ "notes": "Production and music quiz on arc 0 facts (003, 006, 010, 018, 020). Artists only, no lyrics, no song titles as distractors. Aimer and milet in one question come from the facts of another series in the same data set. K1 rewrite: blocked question rewritten on verified fact 003.",
  "questions": [
   {
    "question": "Which band performed the first opening of the Death Note anime?",
@@ -119,21 +119,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
   },
   {
-   "question": "Which studio made the Death Note TV adaptation?",
+   "question": "Which company serialized the Death Note story in Weekly Shōnen Jump?",
    "options": [
+    "Kodansha",
     "Shueisha",
-    "Viz Media",
-    "Nippon Television",
-    "Madhouse"
+    "Shogakukan",
+    "Square Enix"
    ],
-   "correct": 3,
-   "kind": "production",
+   "correct": 1,
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "anime"
+    "scope": "manga"
    },
    "fact_ids": [
-    "death-note-anime-staff-005"
+    "death-note-magazine-run-003"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Death_Note"
   },

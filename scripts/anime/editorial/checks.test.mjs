@@ -311,3 +311,17 @@ test('C5: a fact that names a higher level character without the tag fails', () 
   const report = runWith(({ read, write }) => { const f = read(REL.facts); f.facts[0].text = 'Tsugumi Ohba wrote the story of Death Note, in which Mello hunts the case.'; write(REL.facts, f); }, [REL.facts]);
   assert.match(codeOf(report, 'C5').notes[0].message, /names Mello \(spoiler level 2\)/);
 });
+
+test('a folder named withdrawn is never collected (owner, 2026-10-24)', async () => {
+  const { collectFiles } = await import('./lib/load.mjs');
+  const { mkdtempSync, mkdirSync, writeFileSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const d = mkdtempSync(join(tmpdir(), 'withdrawn-'));
+  mkdirSync(join(d, 'withdrawn', 'quizzes'), { recursive: true });
+  writeFileSync(join(d, 'withdrawn', 'quizzes', 'x.json'), '{}');
+  writeFileSync(join(d, 'live.json'), '{}');
+  const files = [...collectFiles([d]).values()].map((f) => f.path);
+  assert.equal(files.length, 1);
+  assert.ok(files[0].endsWith('live.json'));
+});

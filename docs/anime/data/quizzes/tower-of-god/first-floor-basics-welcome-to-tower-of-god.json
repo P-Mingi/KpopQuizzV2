@@ -4,7 +4,7 @@
  "group_slug": "tower-of-god",
  "title": "First Floor Basics: Welcome to the Tower",
  "slug": "first-floor-basics-welcome-to-tower-of-god",
- "description": "Ten easy questions on the creator, the webtoon launch, the English release and the first anime season. No story knowledge needed.",
+ "description": "Ten easy questions on the creator, the webtoon launch, the English release, the Tower's Irregulars and the first anime season. No story knowledge needed.",
  "quiz_type": "multiple_choice",
  "difficulty": "easy",
  "language": "en",
@@ -68,40 +68,40 @@
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "How many printed volumes has Young Com gathered the chapters into?",
+   "question": "What are the rare people who open the Tower's doors themselves called?",
    "options": [
-    "8",
-    "35",
-    "50",
-    "20"
+    "Rankers",
+    "Regulars",
+    "Irregulars",
+    "Guides"
    ],
-   "correct": 3,
-   "kind": "manga",
+   "correct": 2,
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-volume-count-004"
+    "tower-of-god-regulars-irregulars-018"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "How many views had readers around the world racked up by February 2020?",
+   "question": "In which month of 2020 did the anime reach screens?",
    "options": [
-    "450 million",
-    "1.2 billion",
-    "9 billion",
-    "4.5 billion"
+    "April",
+    "July",
+    "October",
+    "January"
    ],
-   "correct": 3,
-   "kind": "manga",
+   "correct": 0,
+   "kind": "episode",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "tower-of-god-total-views-005"
+    "tower-of-god-anime-announcement-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
@@ -218,5 +218,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
   }
  ],
- "notes": "Starter: arc 0 facts only (002 to 008, 017). Pen name, real name, platform, year, volumes, views, English release, anime reveal, season one and shinsu."
+ "notes": "Starter: arc 0 facts only (001, 002, 003, 006, 007, 008, 017, 018). Pen name, real name, platform, English release, anime reveal and screen month, season one, shinsu, the Irregulars and the Korean title. K1 rewrite: blocked volume and view questions replaced on verified facts 018 and 007."
 }

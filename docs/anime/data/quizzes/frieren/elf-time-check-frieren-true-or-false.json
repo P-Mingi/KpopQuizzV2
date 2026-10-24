@@ -76,17 +76,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
-      "question": "As of January 2026 the manga had passed 30 million copies in circulation.",
+      "question": "The anime has used three opening songs, two in season one and one in season two.",
       "correct": true,
-      "kind": "manga",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "frieren-copies-circulation-005"
+        "frieren-opening-themes-012"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
       "question": "Madhouse made the first anime season, with Keiichirō Saitō directing.",
@@ -158,5 +158,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a year, a number or a name)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a year, a number or a name). K1 rewrite: blocked questions rewritten on verified facts (012)."
 }

@@ -37,28 +37,28 @@
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "Young Com has gathered the chapters into 20 printed volumes.",
+   "question": "Rankers are the climbers who reach the top of the Tower.",
    "correct": true,
-   "kind": "manga",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-volume-count-004"
+    "tower-of-god-regulars-irregulars-018"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "By February 2020 readers had racked up 4.5 billion views of the webtoon.",
+   "question": "Kazuyoshi Takeuchi was the chief director of season two.",
    "correct": true,
-   "kind": "manga",
+   "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "tower-of-god-total-views-005"
+    "tower-of-god-anime-staff-010"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
@@ -154,5 +154,5 @@
    "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
   }
  ],
- "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a platform, a number, a studio, a year or a term)."
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a platform, a number, a studio, a year or a term). K1 rewrite: blocked statements replaced on verified facts 018 and 010."
 }

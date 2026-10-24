@@ -4,19 +4,19 @@
   "group_slug": "hunter-x-hunter",
   "title": "Behind the Madhouse Curtain: Screens, Songs and Films",
   "slug": "behind-the-madhouse-curtain-screens-songs-and-films",
-  "description": "Eight questions on the director, the channels, the opening and ending songs and the two films of 2013.",
+  "description": "Ten questions on the channels, the opening and ending songs, the run dates and the two films of 2013.",
   "quiz_type": "multiple_choice",
   "difficulty": "medium",
   "language": "en",
   "title_gives_nothing_away": true,
   "questions": [
     {
-      "question": "Who directed the 2011 anime?",
+      "question": "In which year did the 2011 anime finish its run?",
       "options": [
-        "Shinichirō Watanabe",
-        "Hiroshi Kōjina",
-        "Mamoru Hosoda",
-        "Satoshi Kon"
+        "2013",
+        "2014",
+        "2015",
+        "2016"
       ],
       "correct": 1,
       "kind": "production",
@@ -25,9 +25,9 @@
         "scope": "anime"
       },
       "fact_ids": [
-        "hunter-x-hunter-anime-director-009"
+        "hunter-x-hunter-second-anime-2011-008"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
     {
       "question": "Who sings the opening of the 2011 anime?",
@@ -161,6 +161,44 @@
         "hunter-x-hunter-second-anime-2011-008"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    },
+    {
+      "question": "Which ending was sung by Galneryus?",
+      "options": [
+        "Just Awake",
+        "Reason",
+        "Hyōri Ittai",
+        "Hunting for Your Dream"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-ending-themes-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which band sang the first ending, Just Awake?",
+      "options": [
+        "Man With A Mission",
+        "Maximum the Hormone",
+        "Fear, and Loathing in Las Vegas",
+        "Ling Tosite Sigure"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-ending-themes-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
     }
   ],
   "sources": [
@@ -175,5 +213,5 @@
       "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     }
   ],
-  "notes": "All facts are arc 0 (007, 008, 009, 014, 015, 016). Song titles come from the opening and ending facts; no lyrics."
+  "notes": "All facts are arc 0 (007, 008, 014, 015, 016). Song titles come from the opening and ending facts; no lyrics. K1 rewrite: blocked question rewritten on verified fact 008, two questions added on 015."
 }

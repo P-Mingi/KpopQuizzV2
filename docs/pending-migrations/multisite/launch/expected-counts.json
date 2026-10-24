@@ -11,12 +11,12 @@
       "loaded": 1071
     },
     "quizzes": {
-      "total": 150,
-      "loaded": 76
+      "total": 138,
+      "loaded": 138
     },
     "daily": {
-      "total": 100,
-      "loaded": 37
+      "total": 99,
+      "loaded": 99
     },
     "creators": {
       "total": 31,
@@ -32,9 +32,9 @@
     "trivia": 1045,
     "entity_sources": 1372,
     "creators": 31,
-    "quizzes": 76,
-    "questions": 730,
-    "daily": 37,
-    "daily_questions": 296
+    "quizzes": 138,
+    "questions": 1350,
+    "daily": 99,
+    "daily_questions": 792
   }
 }

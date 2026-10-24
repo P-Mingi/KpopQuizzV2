@@ -4,7 +4,7 @@
  "group_slug": "dandadan",
  "title": "Two Seasons and Beyond: The Dandadan Timeline",
  "slug": "two-seasons-and-beyond-the-dandadan-timeline",
- "description": "Ten questions on season two, its directors and songs, the announced third season and the manga material still to come.",
+ "description": "Ten questions on season two, its songs, the announced third season and the characters who come from the manga material still to come.",
  "quiz_type": "multiple_choice",
  "difficulty": "hard",
  "language": "en",
@@ -49,42 +49,45 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   },
   {
-   "question": "Who took over as director for season two?",
+   "question": "Only one of these characters is a supporting character, not an antagonist. Which one?",
    "options": [
-    "Abel Góngora",
-    "Takashi Sano",
-    "Daisuke Hiramaki",
-    "Susumu Mitsunaka"
+    "Evil Eye",
+    "Reiko Kashima",
+    "Count Saint-Germain",
+    "Rin Sawaki"
    ],
-   "correct": 0,
-   "kind": "production",
+   "correct": 3,
+   "kind": "character",
    "spoiler": {
-    "arc": 2,
-    "scope": "anime"
+    "arc": 3,
+    "scope": "both"
    },
    "fact_ids": [
-    "dandadan-season-two-directors-011"
+    "dandadan-rin-sawaki-name-032",
+    "dandadan-evil-eye-name-030",
+    "dandadan-reiko-kashima-name-037",
+    "dandadan-count-saint-germain-name-038"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   },
   {
-   "question": "Who co-directed season two alongside Abel Góngora?",
+   "question": "Season two again aired just after midnight. On which weekday?",
    "options": [
-    "Fūga Yamashiro",
-    "Takashi Sano",
-    "Daisuke Hiramaki",
-    "Seiji Mizushima"
+    "Thursday",
+    "Tuesday",
+    "Saturday",
+    "Sunday"
    ],
    "correct": 0,
-   "kind": "production",
+   "kind": "episode",
    "spoiler": {
     "arc": 2,
     "scope": "anime"
    },
    "fact_ids": [
-    "dandadan-season-two-directors-011"
+    "dandadan-anime-season-two-010"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   },
   {
    "question": "In which year is the premiere of the announced third season planned?",
@@ -144,21 +147,21 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   },
   {
-   "question": "What does the third arc cover, after the two TV seasons?",
+   "question": "When was the third season announced?",
    "options": [
-    "Manga not yet animated",
-    "A third TV season",
-    "A feature film",
-    "An original anime"
+    "Before season two began",
+    "After the season two finale",
+    "During the season one finale",
+    "Before season one aired"
    ],
-   "correct": 0,
-   "kind": "arc",
+   "correct": 1,
+   "kind": "episode",
    "spoiler": {
-    "arc": 3,
-    "scope": "both"
+    "arc": 2,
+    "scope": "anime"
    },
    "fact_ids": [
-    "dandadan-arc-structure-015"
+    "dandadan-season-three-012"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   },
@@ -216,14 +219,9 @@
   },
   {
    "id": "S2",
-   "title": "Wikipedia: Dandadan",
-   "url": "https://en.wikipedia.org/wiki/Dandadan"
-  },
-  {
-   "id": "S3",
    "title": "Wikipedia: List of Dandadan characters",
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
   }
  ],
- "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 manga, now arc 3 manga."
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 3 manga, now arc 3 manga. K1 rewrite: blocked questions rewritten on verified facts 010, 012, 030, 032, 037, 038."
 }

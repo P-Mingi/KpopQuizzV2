@@ -4,7 +4,7 @@
  "group_slug": "one-punch-man",
  "title": "Punch or Bluff: One-Punch Man True or False",
  "slug": "punch-or-bluff-one-punch-man-true-or-false",
- "description": "Ten statements on the creators, the webcomic, the remake, the awards and the first season. Some are one detail off, so read closely.",
+ "description": "Ten statements on the creators, the webcomic, the remake, the cast and the first season. Some are one detail off, so read closely.",
  "quiz_type": "true_false",
  "difficulty": "medium",
  "language": "en",
@@ -76,30 +76,30 @@
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
   },
   {
-   "question": "The remake had reached 27 collected volumes by early July 2026.",
+   "question": "Saitama is a supporting character of One-Punch Man.",
    "correct": false,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-volume-count-005"
+    "one-punch-man-saitama-name-016"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
   {
-   "question": "The remake had reached 37 collected volumes by early July 2026.",
+   "question": "King is a supporting character of One-Punch Man.",
    "correct": true,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-volume-count-005"
+    "one-punch-man-king-name-020"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   },
   {
    "question": "Murata's redrawn version has appeared on Shueisha's Weekly Shōnen Jump site since 14 June 2012.",
@@ -128,17 +128,17 @@
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
   },
   {
-   "question": "In 2017 the manga took home both the Eisner Award and the seinen category prize at Manga Barcelona.",
+   "question": "Tatsumaki is a main character of One-Punch Man.",
    "correct": false,
-   "kind": "manga",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "manga"
+    "scope": "both"
    },
    "fact_ids": [
-    "one-punch-man-award-2017-011"
+    "one-punch-man-tatsumaki-name-023"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   }
  ],
  "sources": [
@@ -151,7 +151,12 @@
    "id": "S2",
    "title": "Wikipedia: One-Punch Man season 1",
    "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
   }
  ],
- "notes": "Statements restate arc 0 fact texts (002, 003, 004, 005, 007, 011); each false one changes a single detail (a role swap, a year, a magazine, a number or an award)."
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 007, 016, 020, 023); each false one changes a single detail (a role swap, a year, a magazine or a character role). K1 rewrite: blocked questions rewritten on verified facts."
 }

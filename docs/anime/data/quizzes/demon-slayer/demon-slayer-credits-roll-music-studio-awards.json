@@ -185,24 +185,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
     },
     {
-      "question": "How many manga chapters does season 1 adapt, counting from chapter 1?",
+      "question": "Which song is the ending of season 3?",
       "options": [
-        "26",
-        "97",
-        "127",
-        "54"
+        "Shirogane",
+        "Homura",
+        "Koi Kogare",
+        "Kamado Tanjiro no Uta"
       ],
-      "correct": 3,
-      "fun_fact": "Season 1 ran for 26 episodes.",
-      "kind": "production",
+      "correct": 2,
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "demon-slayer-season-1-010"
+        "demon-slayer-themes-season-3-021"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
     }
   ],
   "sources": [
@@ -237,5 +236,5 @@
       "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
     }
   ],
-  "notes": "All facts at arc 0, no character named."
+  "notes": "All facts at arc 0, no character named. K1 rewrite: blocked question rewritten on verified fact 021."
 }

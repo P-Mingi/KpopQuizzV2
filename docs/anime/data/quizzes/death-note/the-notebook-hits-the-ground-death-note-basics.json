@@ -4,7 +4,7 @@
  "group_slug": "death-note",
  "title": "The Notebook Hits the Ground: Death Note Basics",
  "slug": "the-notebook-hits-the-ground-death-note-basics",
- "description": "Ten easy questions on the artist, the publisher, the studio, the director, the counts, the apples and the American film.",
+ "description": "Ten easy questions on the artist, the publisher, the episode and chapter counts, the circulation, the apples, L's sweets and the American film.",
  "quiz_type": "multiple_choice",
  "difficulty": "easy",
  "language": "en",
@@ -26,7 +26,7 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   }
  ],
- "notes": "Starter: arc 0 facts only (002, 003, 004, 005, 006, 013, 014, 019). Artist, publisher, studio, director, episode and chapter counts, the start year, apples, the face rule and the Netflix year.",
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 006, 012, 013, 014, 015, 019). Artist, publisher, episode and chapter counts, the start year, circulation, apples, L's sweets, the face rule and the Netflix year. K1 rewrite: blocked questions rewritten on verified facts 012 and 015.",
  "questions": [
   {
    "question": "Who draws the Death Note manga?",
@@ -67,40 +67,40 @@
    "source_url": "https://en.wikipedia.org/wiki/Death_Note"
   },
   {
-   "question": "Which studio made the Death Note TV anime?",
+   "question": "What does the detective L eat without end?",
    "options": [
-    "Shueisha",
-    "Viz Media",
-    "Nippon Television",
-    "Madhouse"
-   ],
-   "correct": 3,
-   "kind": "production",
-   "spoiler": {
-    "arc": 0,
-    "scope": "anime"
-   },
-   "fact_ids": [
-    "death-note-anime-staff-005"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
-  },
-  {
-   "question": "Who directed the Death Note TV anime?",
-   "options": [
-    "Takeshi Obata",
-    "Tetsurō Araki",
-    "Tsugumi Ohba",
-    "Nisio Isin"
+    "Plain rice",
+    "Sweets",
+    "Fried chicken",
+    "Pickled plums"
    ],
    "correct": 1,
-   "kind": "production",
+   "kind": "character",
    "spoiler": {
     "arc": 0,
-    "scope": "anime"
+    "scope": "both"
    },
    "fact_ids": [
-    "death-note-anime-staff-005"
+    "death-note-l-habits-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "By spring 2015, how many copies of the Death Note manga had passed in circulation?",
+   "options": [
+    "More than 10 million",
+    "More than 60 million",
+    "More than 30 million",
+    "More than 120 million"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-copies-in-print-012"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Death_Note"
   },

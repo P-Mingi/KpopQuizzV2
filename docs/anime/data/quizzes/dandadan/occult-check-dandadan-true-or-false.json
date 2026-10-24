@@ -76,28 +76,28 @@
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
   {
-   "question": "More than one hundred million copies were in circulation by March 2025.",
+   "question": "Season one opens with Otonoke by Zutomayo and closes with Taidada by Creepy Nuts.",
    "correct": false,
-   "kind": "manga",
+   "kind": "music",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "dandadan-copies-circulation-005"
+    "dandadan-themes-season-one-013"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   },
   {
-   "question": "In 2026 the manga earned the Shogakukan Manga Award, its 71st edition.",
+   "question": "Viz Media releases the manga in English in North America.",
    "correct": true,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "dandadan-shogakukan-award-006"
+    "dandadan-english-publisher-020"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
@@ -153,5 +153,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   }
  ],
- "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a name, a publisher, a number, a category or an episode count)."
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a name, a publisher, a number, a category or an episode count). K1 rewrite: blocked questions rewritten on verified facts 013 and 020."
 }

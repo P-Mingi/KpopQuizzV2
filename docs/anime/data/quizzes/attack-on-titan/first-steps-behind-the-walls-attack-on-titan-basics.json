@@ -109,42 +109,42 @@
       "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-      "question": "Which studio animated the first three seasons of Attack on Titan?",
+      "question": "How many other manga have matched the first print of volume 12 of Attack on Titan?",
       "options": [
-        "MAPPA",
-        "Wit Studio",
-        "Bones",
-        "Ufotable"
+        "One",
+        "Two",
+        "Three",
+        "Five"
       ],
       "correct": 1,
       "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "manga"
       },
       "fact_ids": [
-        "attack-on-titan-animation-studios-018"
+        "attack-on-titan-volume-twelve-print-run-022"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
     },
     {
-      "question": "Which studio took over for the final season of Attack on Titan?",
+      "question": "In which year did the Attack on Titan manga reach its finale?",
       "options": [
-        "Wit Studio",
-        "Madhouse",
-        "MAPPA",
-        "Studio Pierrot"
+        "2019",
+        "2020",
+        "2021",
+        "2023"
       ],
       "correct": 2,
-      "kind": "production",
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "attack-on-titan-animation-studios-018"
+        "attack-on-titan-manga-run-012"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
     },
     {
       "question": "The Japanese title 進撃の巨人 translates roughly as what?",
@@ -227,5 +227,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only."
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts 022 and 012."
 }

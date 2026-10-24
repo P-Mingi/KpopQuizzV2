@@ -4,7 +4,7 @@
   "group_slug": "jojo",
   "title": "Ora or Muda: True or False",
   "slug": "ora-or-muda-jojo-true-or-false",
-  "description": "Ten statements about the manga, its magazines and the TV anime. Some are one detail off, so read closely.",
+  "description": "Ten statements about the manga, its magazines, the first anime season and two characters. Some are one detail off, so read closely.",
   "quiz_type": "true_false",
   "difficulty": "easy",
   "language": "en",
@@ -76,43 +76,43 @@
       "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
     },
     {
-      "question": "By August 2023 the manga had more than 120 million copies in circulation.",
+      "question": "JoJo's Bizarre Adventure is called ジョジョの奇妙な冒険 in Japan, read JoJo no Kimyō na Bōken.",
       "correct": true,
-      "kind": "manga",
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "jojo-copies-circulation-005"
+        "jojo-japanese-title-001"
       ],
       "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
     },
     {
-      "question": "By October 2026 the TV anime counted 195 episodes over six seasons.",
+      "question": "Dio Brando is an antagonist of JoJo's Bizarre Adventure.",
       "correct": true,
-      "kind": "episode",
+      "kind": "character",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "jojo-anime-production-008"
+        "jojo-dio-brando-name-022"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
     {
-      "question": "David Production has made the TV anime since October 2002.",
+      "question": "Jonathan Joestar is an antagonist of JoJo's Bizarre Adventure.",
       "correct": false,
-      "kind": "production",
+      "kind": "character",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "jojo-anime-production-008"
+        "jojo-jonathan-joestar-name-021"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     },
     {
       "question": "The first season of the anime used a single opening song.",
@@ -149,14 +149,14 @@
     },
     {
       "id": "S2",
-      "title": "Wikipedia: JoJo's Bizarre Adventure (TV series)",
-      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+      "title": "Wikipedia: JoJo's Bizarre Adventure season 1",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
     },
     {
       "id": "S3",
-      "title": "Wikipedia: JoJo's Bizarre Adventure season 1",
-      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+      "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a publisher or a count)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a publisher, a count or a role). K1 rewrite: blocked questions rewritten on verified facts 001, 021 and 022."
 }

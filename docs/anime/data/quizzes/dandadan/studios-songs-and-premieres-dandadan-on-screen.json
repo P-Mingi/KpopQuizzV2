@@ -144,21 +144,21 @@
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
   {
-   "question": "Which edition of the Shogakukan Manga Award did the manga earn in 2026?",
+   "question": "At which edition of the Manga Barcelona festival did the series win in 2025?",
    "options": [
-    "51st",
-    "61st",
-    "81st",
-    "71st"
+    "11th",
+    "21st",
+    "31st",
+    "41st"
    ],
-   "correct": 3,
+   "correct": 2,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "dandadan-shogakukan-award-006"
+    "dandadan-manga-barcelona-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Dandadan"
   },
@@ -213,5 +213,5 @@
    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
   }
  ],
- "notes": "All facts arc 0 (003, 006, 007, 008, 009, 013, 001). Names, dates and song titles only, no lyrics."
+ "notes": "All facts arc 0 (003, 006, 007, 008, 009, 013, 001). Names, dates and song titles only, no lyrics. K1 rewrite: blocked question rewritten on verified fact 007."
 }

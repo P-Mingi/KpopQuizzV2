@@ -24,18 +24,18 @@
       "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
     },
     {
-      "question": "The Jujutsu Kaisen story closed after 300 chapters, bound in 30 volumes.",
+      "question": "The manga's worldwide circulation, digital editions included, has stayed below 100 million copies.",
       "correct": false,
-      "fun_fact": "The story closed after 271 chapters.",
+      "fun_fact": "The manga has passed 150 million copies worldwide, digital editions included.",
       "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "jujutsu-kaisen-chapter-count-011"
+        "jujutsu-kaisen-copies-in-circulation-023"
       ],
-      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
     },
     {
       "question": "MAPPA is the animation studio behind all three TV seasons of Jujutsu Kaisen.",
@@ -153,11 +153,6 @@
       "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
     },
     {
-      "id": "S2",
-      "title": "Japanese Wikipedia: 呪術廻戦",
-      "url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
-    },
-    {
       "id": "S3",
       "title": "Wikipedia: Jujutsu Kaisen (TV series)",
       "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
@@ -178,5 +173,5 @@
       "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
     }
   ],
-  "notes": "Statements mirror the fact texts; false ones change one detail."
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked statement rewritten on verified fact 023."
 }

@@ -106,21 +106,21 @@
       "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
     {
-      "question": "By June 2026, how many copies of the manga had passed into circulation worldwide?",
+      "question": "In which month did the manga start in Weekly Shōnen Jump in 1998?",
       "options": [
-        "50 million",
-        "25 million",
-        "100 million",
-        "200 million"
+        "January",
+        "March",
+        "June",
+        "October"
       ],
-      "correct": 2,
+      "correct": 1,
       "kind": "manga",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "hunter-x-hunter-copies-in-circulation-005"
+        "hunter-x-hunter-magazine-publisher-003"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
@@ -218,5 +218,5 @@
       "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine, sales, volumes, studio and the 2011 reboot."
+  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine, volumes, studio and the 2011 reboot. K1 rewrite: blocked question rewritten on verified fact 003."
 }

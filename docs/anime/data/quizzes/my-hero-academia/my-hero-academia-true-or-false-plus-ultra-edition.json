@@ -38,42 +38,41 @@
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "The My Hero Academia anime comes to 170 episodes over eight seasons, plus a single bonus special.",
+      "question": "The My Hero Academia manga has won both a Sugoi Japan Award and a Harvey Award.",
       "correct": true,
-      "kind": "episode",
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "manga"
       },
       "fact_ids": [
-        "my-hero-academia-episode-count-019"
+        "my-hero-academia-awards-024"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "Wit Studio animated My Hero Academia for seven seasons.",
+      "question": "The spin-off manga Vigilantes ran between 2016 and 2019.",
       "correct": false,
-      "fun_fact": "Bones animated seven seasons, and Bones Film produced the last one.",
-      "kind": "production",
+      "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "manga"
       },
       "fact_ids": [
-        "my-hero-academia-animation-studio-020"
+        "my-hero-academia-vigilantes-spinoff-028"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "Bones animated the show for seven seasons, and Bones Film produced the last one.",
+      "question": "Dish performed the opening No.1 in season 5.",
       "correct": true,
-      "kind": "production",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "my-hero-academia-animation-studio-020"
+        "my-hero-academia-opening-themes-011"
       ],
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
@@ -118,31 +117,30 @@
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
     },
     {
-      "question": "The My Hero Academia anime began on 3 April 2012.",
+      "question": "Zarame performed Tsubomi, an ending of season 7.",
       "correct": false,
-      "fun_fact": "It began on 3 April 2016.",
-      "kind": "production",
+      "kind": "music",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "my-hero-academia-anime-run-018"
+        "my-hero-academia-ending-themes-012"
       ],
       "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-      "question": "Shueisha's Weekly Shonen Jump ran the My Hero Academia manga from start to finish.",
-      "correct": true,
-      "kind": "production",
+      "question": "Blue Encount performed the season 4 opening Starmarker.",
+      "correct": false,
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "anime"
       },
       "fact_ids": [
-        "my-hero-academia-magazine-publisher-016"
+        "my-hero-academia-opening-themes-011"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     }
   ],
   "sources": [
@@ -157,5 +155,5 @@
       "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     }
   ],
-  "notes": "Statements mirror the fact texts; false ones change one detail."
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts (011, 012, 024, 028)."
 }

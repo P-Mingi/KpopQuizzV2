@@ -37,18 +37,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
     },
     {
-      "question": "The original Dragon Ball manga reached 400 chapters, bound in 42 volumes.",
+      "question": "The franchise is called ドラゴンボール in Japan, read Dorakon Bōru.",
       "correct": false,
-      "fun_fact": "It reached 519 chapters.",
       "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "both"
       },
       "fact_ids": [
-        "dragon-ball-manga-volumes-chapters-015"
+        "dragon-ball-japanese-title-011"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+      "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(TV_series)"
     },
     {
       "question": "The first Dragon Ball anime ran for 153 episodes on Fuji Television.",
@@ -171,5 +170,5 @@
       "url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima"
     }
   ],
-  "notes": "Statements mirror the fact texts; false ones change one detail."
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked question rewritten on verified fact 011."
 }
