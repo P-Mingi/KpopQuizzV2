@@ -24,15 +24,15 @@
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-      "question": "The second part of the manga stayed in Weekly Shōnen Jump.",
+      "question": "The manga won the 66th Shogakukan Manga Award for shojo manga in 2021.",
       "correct": false,
       "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "manga"
       },
       "fact_ids": [
-        "chainsaw-man-magazines-003"
+        "chainsaw-man-awards-007"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
@@ -102,15 +102,15 @@
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-      "question": "Kensuke Ushio directed the television series.",
+      "question": "The Japanese title is read Chensō Boy.",
       "correct": false,
-      "kind": "production",
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "chainsaw-man-anime-staff-009"
+        "chainsaw-man-japanese-title-001"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
@@ -128,17 +128,17 @@
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
     {
-      "question": "By June 2026 more than 360 million copies of the manga were in circulation.",
-      "correct": false,
-      "kind": "manga",
+      "question": "The television anime ended on 28 December 2022.",
+      "correct": true,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "chainsaw-man-copies-006"
+        "chainsaw-man-anime-run-010"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     }
   ],
   "sources": [
@@ -153,5 +153,5 @@
       "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     }
   ],
-  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a year, a number or a name)."
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (an award category, a year, a number or a reading of the title). K1 rewrite: blocked statements rewritten on verified facts 001, 007 and 010."
 }

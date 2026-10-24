@@ -4,7 +4,7 @@
   "group_slug": "chainsaw-man",
   "title": "Pull the Cord: Chainsaw Man Basics",
   "slug": "pull-the-cord-chainsaw-man-basics",
-  "description": "Ten easy questions on the creator, the magazines, the studio and the numbers behind the manga and the 2022 anime. No story knowledge needed.",
+  "description": "Ten easy questions on the creator, the awards, the studio and the numbers behind the manga and the 2022 anime. No story knowledge needed.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -30,42 +30,42 @@
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-      "question": "Which magazine carried the first part of the manga?",
+      "question": "Which award did the manga win for the best manga every year from 2021 to 2023?",
       "options": [
-        "Weekly Shōnen Magazine",
-        "Weekly Shōnen Jump",
-        "Weekly Shōnen Sunday",
-        "Monthly Shōnen Gangan"
+        "Eisner Awards",
+        "Kodansha Manga Awards",
+        "Harvey Awards",
+        "Seiun Awards"
       ],
-      "correct": 1,
+      "correct": 2,
       "kind": "manga",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "manga"
       },
       "fact_ids": [
-        "chainsaw-man-magazines-003"
+        "chainsaw-man-awards-007"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-      "question": "Where did the second part of the manga move to?",
+      "question": "In which month of 2022 did the television anime start airing?",
       "options": [
-        "A weekly magazine of another publisher",
-        "The Shōnen Jump+ app",
-        "A monthly paper magazine",
-        "A web novel site"
+        "September",
+        "November",
+        "December",
+        "October"
       ],
-      "correct": 1,
-      "kind": "manga",
+      "correct": 3,
+      "kind": "episode",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "chainsaw-man-magazines-003"
+        "chainsaw-man-anime-run-010"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
     {
       "question": "In which year did the manga begin?",
@@ -106,23 +106,24 @@
       "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-      "question": "By June 2026, more than how many copies of the manga were in circulation?",
+      "question": "Which song is the ending of the final episode, episode 12?",
       "options": [
-        "10 million",
-        "60 million",
-        "36 million",
-        "100 million"
+        "Chainsaw Blood",
+        "Zanki",
+        "Kick Back",
+        "Violence"
       ],
-      "correct": 2,
-      "kind": "manga",
+      "correct": 1,
+      "kind": "music",
       "spoiler": {
         "arc": 0,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "chainsaw-man-copies-006"
+        "chainsaw-man-ending-themes-016",
+        "chainsaw-man-anime-run-010"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
     {
       "question": "Which studio produced the television anime?",
@@ -218,5 +219,5 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
     }
   ],
-  "notes": "Starter: every question cites an arc 0 fact only. No violence is described; all questions are about publication and production."
+  "notes": "Starter: every question cites an arc 0 fact only. No violence is described; all questions are about publication and production. K1 rewrite: blocked questions rewritten on verified facts 007, 010 and 016."
 }
