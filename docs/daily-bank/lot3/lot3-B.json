@@ -1,0 +1,708 @@
+[
+  {
+    "scheduled_date": "2026-12-08",
+    "title": "MAMAMOO: From Mr. Ambiguous to Starry Night",
+    "description": "From their 2014 debut EP to Starry Night, Hip, Mamamoo+ and solo careers: ten questions on MAMAMOO's music and milestones.",
+    "group_slug": "mamamoo",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Mr. Ambiguous led MAMAMOO's June 2014 debut EP. What was that EP called?",
+        "options": [
+          "Hello",
+          "Piano Man",
+          "Purple",
+          "Memory"
+        ],
+        "correct": 0,
+        "fun_fact": "The song turned out to be a surprise success for the members, who had expected its very personal style to limit its reach.",
+        "source": "https://en.wikipedia.org/wiki/Hello_(Mamamoo_EP)"
+      },
+      {
+        "question": "Um Oh Ah Yeh, MAMAMOO's 2015 sleeper hit, was the lead single of which EP?",
+        "options": [
+          "Pink Funky",
+          "Piano Man",
+          "Memory",
+          "Purple"
+        ],
+        "correct": 0,
+        "fun_fact": "Solar, Moonbyul and Hwasa share writing credits on it, and the video has three members disguised as men, complete with wigs and beards.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Funky"
+      },
+      {
+        "question": "In August 2016, MAMAMOO split into a vocal pair and a rap pair for two singles. Who formed the rap pair?",
+        "options": [
+          "Solar and Wheein",
+          "Wheein and Hwasa",
+          "Moonbyul and Hwasa",
+          "Solar and Moonbyul"
+        ],
+        "correct": 2,
+        "fun_fact": "The rap pair released Dab Dab, while Solar and Wheein put out Angel on the same day, August 31, 2016.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo"
+      },
+      {
+        "question": "Which MAMAMOO song did the group re-record in Japanese for its first Japanese single in October 2018?",
+        "options": [
+          "Décalcomanie",
+          "Starry Night",
+          "Um Oh Ah Yeh",
+          "Yes I Am"
+        ],
+        "correct": 0,
+        "fun_fact": "The Korean original had led their 2016 EP Memory, and the Japanese single reached No. 11 on the weekly Oricon Singles Chart.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo"
+      },
+      {
+        "question": "Starry Night (2018) led which EP, MAMAMOO's first No. 1 on the Gaon Album Chart?",
+        "options": [
+          "Red Moon",
+          "White Wind",
+          "Yellow Flower",
+          "Blue;s"
+        ],
+        "correct": 2,
+        "fun_fact": "That EP opened the Four Seasons, Four Colors series, which continued in July 2018 with Red Moon and its lead single Egotistic.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo"
+      },
+      {
+        "question": "MAMAMOO released Hip in November 2019, soon after winning which Mnet competition show?",
+        "options": [
+          "Road to Kingdom",
+          "Queendom",
+          "Girls Planet 999",
+          "Produce 48"
+        ],
+        "correct": 1,
+        "fun_fact": "Hip went on to give the group its first No. 1 on Billboard's World Digital Song Sales chart.",
+        "source": "https://en.wikipedia.org/wiki/Hip_(song)"
+      },
+      {
+        "question": "Which MAMAMOO member made her solo debut in April 2018 with Easy, featuring Sik-K?",
+        "options": [
+          "Moonbyul",
+          "Solar",
+          "Wheein",
+          "Hwasa"
+        ],
+        "correct": 2,
+        "fun_fact": "Easy peaked at No. 3 in South Korea, and her first studio album, In the Mood, followed in October 2023.",
+        "source": "https://en.wikipedia.org/wiki/Wheein"
+      },
+      {
+        "question": "Which two members formed Mamamoo+, the group's first official subunit, in 2022?",
+        "options": [
+          "Moonbyul and Hwasa",
+          "Wheein and Hwasa",
+          "Solar and Wheein",
+          "Solar and Moonbyul"
+        ],
+        "correct": 3,
+        "fun_fact": "Two Rabbits was one of the names the duo weighed before choosing Mamamoo+, and it ended up as the title of their first EP in August 2023.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo%2B"
+      },
+      {
+        "question": "What was the name of MAMAMOO's first world tour, which ran from 2022 to 2023?",
+        "options": [
+          "4Seasons F/W",
+          "My Con World Tour",
+          "Moosical",
+          "4ward World Tour"
+        ],
+        "correct": 1,
+        "fun_fact": "It opened with three Seoul shows in November 2022, went through Asia and the United States, and closed with encore concerts in Seoul in June 2023.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo"
+      },
+      {
+        "question": "Solar starred in the 2024 Korean run of the musical Notre-Dame de Paris. Which role did she play?",
+        "options": [
+          "Fleur-de-Lys",
+          "Elphaba",
+          "Christine",
+          "Esmeralda"
+        ],
+        "correct": 3,
+        "fun_fact": "The part earned her a Female Rookie of the Year nomination at the 18th Daegu International Musical Awards in July 2024.",
+        "source": "https://en.wikipedia.org/wiki/Solar_(singer)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Hello_(Mamamoo_EP)",
+      "https://en.wikipedia.org/wiki/Pink_Funky",
+      "https://en.wikipedia.org/wiki/Mamamoo",
+      "https://en.wikipedia.org/wiki/Hip_(song)",
+      "https://en.wikipedia.org/wiki/Wheein",
+      "https://en.wikipedia.org/wiki/Mamamoo%2B",
+      "https://en.wikipedia.org/wiki/Solar_(singer)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-09",
+    "title": "SHINee: The Odd Era of 2015",
+    "description": "SHINee in 2015: the album Odd, its lead single View, the August repackage, a year-end award and the tour where View premiered.",
+    "group_slug": "shinee",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Ahead of View's release, which member said he was worried about how its new sound would be received?",
+        "options": [
+          "Onew",
+          "Key",
+          "Taemin",
+          "Minho"
+        ],
+        "correct": 3,
+        "fun_fact": "His worry came from how far the style strayed from their earlier songs, a contrast the album title Odd points to.",
+        "source": "https://en.wikipedia.org/wiki/View_(Shinee_song)"
+      },
+      {
+        "question": "View, the lead single of Odd, is built mainly on which dance genre?",
+        "options": [
+          "Trap",
+          "Moombahton",
+          "Drum and bass",
+          "Deep house"
+        ],
+        "correct": 3,
+        "fun_fact": "Its lyrics are about love sharpening every sense, and Billboard later named it among the greatest K-pop songs of the 2010s.",
+        "source": "https://en.wikipedia.org/wiki/View_(Shinee_song)"
+      },
+      {
+        "question": "Which SHINee member wrote the lyrics of View?",
+        "options": [
+          "Key",
+          "Jonghyun",
+          "Minho",
+          "Onew"
+        ],
+        "correct": 1,
+        "fun_fact": "He also helped write and compose Odd Eye, the R&B track that opens the album.",
+        "source": "https://en.wikipedia.org/wiki/Odd_(album)"
+      },
+      {
+        "question": "Who created the choreography for View?",
+        "options": [
+          "Misha Gabriel",
+          "Tony Testa",
+          "Rino Nakasone",
+          "Ian Eastwood"
+        ],
+        "correct": 3,
+        "fun_fact": "Instead of SHINee's trademark sharp, tightly drilled moves, he built the routine around a relaxed groove that highlights how the members work together.",
+        "source": "https://en.wikipedia.org/wiki/Shinee"
+      },
+      {
+        "question": "In which country was the music video for View filmed?",
+        "options": [
+          "Thailand",
+          "Australia",
+          "Japan",
+          "United States"
+        ],
+        "correct": 0,
+        "fun_fact": "No video by a South Korean act drew more YouTube views in May 2015, and in it a crowd of female fans carries the members off.",
+        "source": "https://en.wikipedia.org/wiki/View_(Shinee_song)"
+      },
+      {
+        "question": "On which music show did View win its first trophy, on May 27, 2015?",
+        "options": [
+          "Show Champion",
+          "Music Bank",
+          "Inkigayo",
+          "M Countdown"
+        ],
+        "correct": 0,
+        "fun_fact": "The song collected nine music show wins in all, the last of them on The Show on June 9, 2015.",
+        "source": "https://en.wikipedia.org/wiki/Odd_(album)"
+      },
+      {
+        "question": "What title did SHINee give the August 2015 repackage of Odd, which added four new songs?",
+        "options": [
+          "Atlantis",
+          "1 and 1",
+          "Married to the Music",
+          "The Story of Light Epilogue"
+        ],
+        "correct": 2,
+        "fun_fact": "Billboard's Jeff Benjamin heard its title track move from a beatbox-heavy hip hop opening to a funk chorus with horn blasts.",
+        "source": "https://en.wikipedia.org/wiki/Odd_(album)"
+      },
+      {
+        "question": "Which award did View win at the 2015 Mnet Asian Music Awards?",
+        "options": [
+          "Song of the Year",
+          "Album of the Year",
+          "Best Dance Performance, Male Group",
+          "Best Male Group"
+        ],
+        "correct": 2,
+        "fun_fact": "View was also up for Song of the Year that night, and later for the Digital Bonsang at the 30th Golden Disc Awards.",
+        "source": "https://en.wikipedia.org/wiki/View_(Shinee_song)"
+      },
+      {
+        "question": "Which member's ideas inspired the vintage, old-school costumes SHINee wore in the Odd era?",
+        "options": [
+          "Key",
+          "Minho",
+          "Taemin",
+          "Onew"
+        ],
+        "correct": 0,
+        "fun_fact": "By his account, Odd was also the first time the group helped steer its own album, down to choosing the concept and the lead single.",
+        "source": "https://en.wikipedia.org/wiki/Shinee"
+      },
+      {
+        "question": "SHINee first performed View live at the Seoul opening of which concert tour, in May 2015?",
+        "options": [
+          "SHINee World 2016",
+          "SHINee World IV",
+          "SHINee World V",
+          "SHINee World III"
+        ],
+        "correct": 1,
+        "fun_fact": "It opened with three nights in Seoul in mid-May 2015 and wrapped up in Shanghai five months later.",
+        "source": "https://en.wikipedia.org/wiki/Shinee_World_IV"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Odd_(album)",
+      "https://en.wikipedia.org/wiki/View_(Shinee_song)",
+      "https://en.wikipedia.org/wiki/Shinee",
+      "https://en.wikipedia.org/wiki/Shinee_World_IV"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-10",
+    "title": "K-pop Songs of 2015",
+    "description": "Ten singles from 2015, from Crazy in February to Daddy at year's end: can you match each song to the act that released it?",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which girl group released Crazy, the title track of its sixth EP, in February 2015?",
+        "options": [
+          "Brown Eyed Girls",
+          "EXID",
+          "4Minute",
+          "Secret"
+        ],
+        "correct": 2,
+        "fun_fact": "The EP topped Billboard's World Albums chart, and the ballad Cold Rain had come out first, in January 2015.",
+        "source": "https://en.wikipedia.org/wiki/Crazy_(4Minute_EP)"
+      },
+      {
+        "question": "Only You, the lead single of the March 2015 EP Colors, was released by which girl group?",
+        "options": [
+          "Sistar",
+          "AOA",
+          "Girl's Day",
+          "miss A"
+        ],
+        "correct": 3,
+        "fun_fact": "Black Eyed Pilseung composed it and co-wrote its lyrics, and it held No. 1 on the Gaon Digital Chart for two weeks.",
+        "source": "https://en.wikipedia.org/wiki/Only_You_(Miss_A_song)"
+      },
+      {
+        "question": "Shake It, produced by Duble Sidekick, was a June 2015 single by which girl group?",
+        "options": [
+          "Apink",
+          "EXID",
+          "Sistar",
+          "AOA"
+        ],
+        "correct": 2,
+        "fun_fact": "Its first trophy came on M Countdown on July 2, 2015, followed by wins on Music Bank, Inkigayo and Show Champion.",
+        "source": "https://en.wikipedia.org/wiki/Shake_It_(EP)"
+      },
+      {
+        "question": "Remember, a July 2015 single co-written by Shinsadong Tiger, came from which girl group?",
+        "options": [
+          "Lovelyz",
+          "GFriend",
+          "Oh My Girl",
+          "Apink"
+        ],
+        "correct": 3,
+        "fun_fact": "It was the title track of Pink Memory, the group's second full-length album.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Memory"
+      },
+      {
+        "question": "Hoya of Infinite makes a cameo in the video for which girl group's 2015 hit Ah-Choo?",
+        "options": [
+          "Lovelyz",
+          "Oh My Girl",
+          "CLC",
+          "April"
+        ],
+        "correct": 0,
+        "fun_fact": "Ah-Choo led the group's first EP in October 2015 and was still on major Korean charts in early 2016.",
+        "source": "https://en.wikipedia.org/wiki/Lovelyz"
+      },
+      {
+        "question": "Which YG boy group debuted with the single My Type on September 15, 2015?",
+        "options": [
+          "Monsta X",
+          "WINNER",
+          "iKON",
+          "SEVENTEEN"
+        ],
+        "correct": 2,
+        "fun_fact": "Its video drew over 1.7 million YouTube views in a day, and it won on Music Core on September 26, before the group's first official live stage.",
+        "source": "https://en.wikipedia.org/wiki/Welcome_Back_(iKon_album)"
+      },
+      {
+        "question": "Which singer released Mind Your Own Business as the title track of her first full-length album, Vivid, in 2015?",
+        "options": [
+          "Lee Hi",
+          "Ailee",
+          "Hyolyn",
+          "Baek A-yeon"
+        ],
+        "correct": 1,
+        "fun_fact": "Show Champion gave the Vivid era its first music show win on October 7, 2015, just a week after the album came out.",
+        "source": "https://en.wikipedia.org/wiki/Vivid_(Ailee_album)"
+      },
+      {
+        "question": "Which singer made her solo debut in October 2015 with I, an EP led by a song of the same name?",
+        "options": [
+          "IU",
+          "Taeyeon",
+          "Sunmi",
+          "Hyuna"
+        ],
+        "correct": 1,
+        "fun_fact": "Rapper Verbal Jint features on the title track, and the EP entered Billboard's World Albums chart at No. 1.",
+        "source": "https://en.wikipedia.org/wiki/I_(Taeyeon_EP)"
+      },
+      {
+        "question": "Chained Up, the title track of a second studio album released in November 2015, is by which boy group?",
+        "options": [
+          "VIXX",
+          "Infinite",
+          "B.A.P",
+          "BTOB"
+        ],
+        "correct": 0,
+        "fun_fact": "It took its first music show win on The Show on November 17, 2015, and the album opened at No. 3 on Billboard's World Albums chart.",
+        "source": "https://en.wikipedia.org/wiki/Chained_Up"
+      },
+      {
+        "question": "Who released Daddy, a single featuring CL of 2NE1, at the end of 2015?",
+        "options": [
+          "G-Dragon",
+          "Psy",
+          "Zico",
+          "Jay Park"
+        ],
+        "correct": 1,
+        "fun_fact": "It borrows a hook from will.i.am's 2007 song I Got It from My Mama and became his third No. 1 on the Gaon Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Daddy_(Psy_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Crazy_(4Minute_EP)",
+      "https://en.wikipedia.org/wiki/Only_You_(Miss_A_song)",
+      "https://en.wikipedia.org/wiki/Shake_It_(EP)",
+      "https://en.wikipedia.org/wiki/Pink_Memory",
+      "https://en.wikipedia.org/wiki/Lovelyz",
+      "https://en.wikipedia.org/wiki/Welcome_Back_(iKon_album)",
+      "https://en.wikipedia.org/wiki/Vivid_(Ailee_album)",
+      "https://en.wikipedia.org/wiki/I_(Taeyeon_EP)",
+      "https://en.wikipedia.org/wiki/Chained_Up",
+      "https://en.wikipedia.org/wiki/Daddy_(Psy_song)",
+      "https://en.wikipedia.org/wiki/Ailee"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-11",
+    "title": "K-pop Songs on the Phone",
+    "description": "Texts to a crush, a phone promo, an ex who should not call and a wrong number: ten K-pop songs and releases tied to calls, texts and mobiles.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "IU's 2018 single Bbibbi is named after the Korean word for which device?",
+        "options": [
+          "A fax machine",
+          "A walkie-talkie",
+          "A pager",
+          "A landline"
+        ],
+        "correct": 2,
+        "fun_fact": "IU released it partly to mark ten years since her debut, and it entered the Gaon Digital Chart at No. 1.",
+        "source": "https://en.wikipedia.org/wiki/Bbibbi"
+      },
+      {
+        "question": "Which group shot the video for its 2023 single ETA entirely on an iPhone 14 Pro?",
+        "options": [
+          "LE SSERAFIM",
+          "IVE",
+          "NewJeans",
+          "aespa"
+        ],
+        "correct": 2,
+        "fun_fact": "Made with Apple, the video was filmed in Barcelona, and the song itself is an upbeat Baltimore club track.",
+        "source": "https://en.wikipedia.org/wiki/ETA_(song)"
+      },
+      {
+        "question": "Which boy band released Wrong Number as a single in 2008?",
+        "options": [
+          "Super Junior",
+          "TVXQ",
+          "BIGBANG",
+          "SS501"
+        ],
+        "correct": 1,
+        "fun_fact": "It was the second of two promoted singles from the album Mirotic, coming after the title song.",
+        "source": "https://en.wikipedia.org/wiki/Mirotic_(album)"
+      },
+      {
+        "question": "Call Call Call! was the lead single of the first Japanese EP by which boy band, released in May 2018?",
+        "options": [
+          "SEVENTEEN",
+          "NCT 127",
+          "Stray Kids",
+          "The Boyz"
+        ],
+        "correct": 0,
+        "fun_fact": "Released by Pledis Japan, We Make You climbed as high as second place on Oricon's weekly ranking and lasted 74 weeks on it.",
+        "source": "https://en.wikipedia.org/wiki/We_Make_You"
+      },
+      {
+        "question": "Which girl group joined BIGBANG on Lollipop, a 2009 song made to promote an LG phone?",
+        "options": [
+          "KARA",
+          "Girls' Generation",
+          "2NE1",
+          "Wonder Girls"
+        ],
+        "correct": 2,
+        "fun_fact": "It borrows from the 1958 hit of the same name, and it spent four weeks at No. 1 on the Mnet music portal.",
+        "source": "https://en.wikipedia.org/wiki/Lollipop_(BigBang_and_2NE1_song)"
+      },
+      {
+        "question": "Don't Text Me is a track on I Am, the May 2018 debut EP of which girl group?",
+        "options": [
+          "Weki Meki",
+          "fromis_9",
+          "LOONA",
+          "(G)I-DLE"
+        ],
+        "correct": 3,
+        "fun_fact": "The six-track EP was led by Latata, which member Soyeon composed with Big Sancho.",
+        "source": "https://en.wikipedia.org/wiki/I_Am_(EP)"
+      },
+      {
+        "question": "Which Super Junior member sang Whatcha Doin', a 2018 duet with Chung Ha about failing to reach someone?",
+        "options": [
+          "Yesung",
+          "Donghae",
+          "Ryeowook",
+          "Kyuhyun"
+        ],
+        "correct": 0,
+        "fun_fact": "The Korean title translates as Where are you now?, and he co-wrote the lyrics with Min Yeon-jae.",
+        "source": "https://en.wikipedia.org/wiki/Whatcha_Doin%27_(song)"
+      },
+      {
+        "question": "Which boy group set up a hotline with member voice messages before its November 2024 single album Last Bell?",
+        "options": [
+          "RIIZE",
+          "TWS",
+          "BOYNEXTDOOR",
+          "ZEROBASEONE"
+        ],
+        "correct": 1,
+        "fun_fact": "Demand swamped the line: within 10 minutes of the number going up, more than 10,000 fans got through and tens of thousands more calls failed.",
+        "source": "https://en.wikipedia.org/wiki/Last_Bell"
+      },
+      {
+        "question": "Which boy band released Don't Call Me, a 2021 song warning an ex not to phone again?",
+        "options": [
+          "SHINee",
+          "NCT 127",
+          "Super Junior",
+          "EXO"
+        ],
+        "correct": 0,
+        "fun_fact": "The song was first meant for their labelmate BoA, and it led their seventh Korean studio album, which shares its name.",
+        "source": "https://en.wikipedia.org/wiki/Don%27t_Call_Me_(Shinee_song)"
+      },
+      {
+        "question": "IU's 2019 hit Blueming, about sending little texts to a crush, was a single from which EP?",
+        "options": [
+          "Palette",
+          "Chat-Shire",
+          "Modern Times",
+          "Love Poem"
+        ],
+        "correct": 3,
+        "fun_fact": "It debuted at No. 1 on the Gaon Digital Chart and won the Digital Daesang at the 35th Golden Disc Awards in January 2021.",
+        "source": "https://en.wikipedia.org/wiki/Blueming_(song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Bbibbi",
+      "https://en.wikipedia.org/wiki/ETA_(song)",
+      "https://en.wikipedia.org/wiki/Mirotic_(album)",
+      "https://en.wikipedia.org/wiki/We_Make_You",
+      "https://en.wikipedia.org/wiki/I_Am_(EP)",
+      "https://en.wikipedia.org/wiki/Whatcha_Doin%27_(song)",
+      "https://en.wikipedia.org/wiki/Last_Bell",
+      "https://en.wikipedia.org/wiki/Lollipop_(BigBang_and_2NE1_song)",
+      "https://en.wikipedia.org/wiki/Don%27t_Call_Me_(Shinee_song)",
+      "https://en.wikipedia.org/wiki/Shinee",
+      "https://en.wikipedia.org/wiki/Blueming_(song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-12",
+    "title": "STAYC: From So Bad to Cheeky Icy Thang",
+    "description": "STAYC basics: what their name means, their sound, their fandom, a 2025 tour and their singles and albums from 2021 to 2024.",
+    "group_slug": "stayc",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "What does the name STAYC stand for?",
+        "options": [
+          "Stay Young Chic",
+          "Star to a Young Culture",
+          "Stars of Young Crush",
+          "Stay All Your Choices"
+        ],
+        "correct": 1,
+        "fun_fact": "Before the name was announced, the trainees were known as High Up Girls, after their agency.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "What was the name of STAYC's second world tour, which opened in Seoul in April 2025?",
+        "options": [
+          "Stay Tuned",
+          "Stay Forever",
+          "Stay With Me",
+          "Stay Young"
+        ],
+        "correct": 0,
+        "fun_fact": "Both Seoul shows, at Olympic Hall on April 12 and 13, sold out once general ticket sales opened.",
+        "source": "https://www.highup-ent.com/en/stayc-kicks-off-second-world-tour-stay-tuned-in-seoul-this-april-tickets-sell-out-instantly/"
+      },
+      {
+        "question": "Before STAYC's debut, which term did their producers use to describe the group's sound?",
+        "options": [
+          "Teen Fresh",
+          "Teen Crush",
+          "Girl Crush",
+          "Fresh Pop"
+        ],
+        "correct": 0,
+        "fun_fact": "The term joins teen and fresh to stress each member's vocal color, and it later named a 2023 EP and their first world tour.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "What is the name of STAYC's fandom?",
+        "options": [
+          "STAY",
+          "Sweetie",
+          "SWITH",
+          "Starlight"
+        ],
+        "correct": 2,
+        "fun_fact": "STAYC met SWITH at their first fan meeting, Stay Cool Party, held at Sejong University's Ocean Hall on October 9, 2022.",
+        "source": "https://www.highup-ent.com/en/%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%94%A8-%EB%8D%B0%EB%B7%94-%EC%B2%AB-%ED%8C%AC%EB%AF%B8%ED%8C%85-stay-cool-party-%EC%84%B1%EB%A3%8C-%EC%82%AC%EB%9E%91-%EB%8A%90%EA%BC%88/"
+      },
+      {
+        "question": "Which song led Staydom, STAYC's April 2021 single album?",
+        "options": [
+          "Bebe",
+          "Beautiful Monster",
+          "Like This",
+          "ASAP"
+        ],
+        "correct": 3,
+        "fun_fact": "The ASAP video needed only nine days to hit 20 million views, and the song made it onto Billboard's K-pop 100.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "Which song gave STAYC their first music show trophy, on The Show in September 2021?",
+        "options": [
+          "So Bad",
+          "ASAP",
+          "Run2U",
+          "Stereotype"
+        ],
+        "correct": 3,
+        "fun_fact": "It led their first EP, also called Stereotype, and its video hit 30 million views three weeks after release.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "Run2U, released in February 2022, was the lead single of which STAYC EP?",
+        "options": [
+          "Young-Luv.com",
+          "We Need Love",
+          "Stay Alive",
+          "S"
+        ],
+        "correct": 0,
+        "fun_fact": "It became their first album to debut at No. 1 on the Gaon Album Chart.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "With which single did STAYC make their Japanese debut in November 2022?",
+        "options": [
+          "GPT",
+          "Bubble",
+          "Mwuah",
+          "Poppy"
+        ],
+        "correct": 3,
+        "fun_fact": "Oricon's weekly singles chart lists Poppy's best position as No. 13, and the song also made the Billboard Japan Hot 100.",
+        "source": "https://en.wikipedia.org/wiki/STAYC"
+      },
+      {
+        "question": "What was the title of STAYC's February 2023 single album, named after its lead single?",
+        "options": [
+          "Bubble",
+          "Teddy Bear",
+          "Bebe",
+          "Beautiful Monster"
+        ],
+        "correct": 1,
+        "fun_fact": "Described as a pop punk song with a hopeful message, the title track climbed to No. 4 on the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Teddy_Bear_(STAYC_song)"
+      },
+      {
+        "question": "Cheeky Icy Thang led STAYC's first studio album in July 2024. What is the album called?",
+        "options": [
+          "Stay Alive",
+          "We Need Love",
+          "Metamorphic",
+          "I Want It"
+        ],
+        "correct": 2,
+        "fun_fact": "The album holds 14 tracks, and the group ran a pop-up store in Seoul to celebrate its release.",
+        "source": "https://en.wikipedia.org/wiki/Metamorphic_(album)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/STAYC",
+      "https://www.highup-ent.com/en/stayc-kicks-off-second-world-tour-stay-tuned-in-seoul-this-april-tickets-sell-out-instantly/",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20250211/stayc-to-kick-off-world-tour-with-seoul-concert-in-april",
+      "https://www.highup-ent.com/en/%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%94%A8-%EB%8D%B0%EB%B7%94-%EC%B2%AB-%ED%8C%AC%EB%AF%B8%ED%8C%85-stay-cool-party-%EC%84%B1%EB%A3%8C-%EC%82%AC%EB%9E%91-%EB%8A%90%EA%BC%88/",
+      "https://en.wikipedia.org/wiki/Teddy_Bear_(STAYC_song)",
+      "https://en.wikipedia.org/wiki/Metamorphic_(album)",
+      "https://www.highup-ent.com/en/stayc/",
+      "https://www.nme.com/features/music-interviews/stayc-interview-meteoric-rise-run2u-viral-hit-catchphrase-identity-future-sound-3191926"
+    ]
+  }
+]

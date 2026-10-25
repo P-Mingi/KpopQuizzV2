@@ -1,0 +1,666 @@
+[
+  {
+    "scheduled_date": "2026-12-13",
+    "title": "Apink True or False",
+    "description": "Ten true or false statements on Apink: the debut EP, hits like Mr. Chu, LUV and Dumhdurum, Japanese singles and the duo Apink Chobom.",
+    "group_slug": "apink",
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Apink's debut EP, released in 2011, was titled Seven Springs of Apink.",
+        "correct": true,
+        "fun_fact": "It came out on April 19, 2011, led by Mollayo, or I Don't Know, and Lee Gi-kwang of Beast appears in its music video.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "NoNoNo was the title track of Une Année, Apink's first studio album.",
+        "correct": false,
+        "fun_fact": "Une Année arrived in May 2012 with Hush as its title song. NoNoNo came out in July 2013 as the lead single of the EP Secret Garden.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "Apink's 2014 hit Mr. Chu was composed by Duble Sidekick.",
+        "correct": true,
+        "fun_fact": "Digipedi directed its tennis-themed video, and Gaon's year-end chart placed it eighth among the best-selling digital songs of 2014.",
+        "source": "https://en.wikipedia.org/wiki/Mr._Chu"
+      },
+      {
+        "question": "Pink LUV, Apink's fifth EP, debuted at No. 1 on the Gaon Album Chart.",
+        "correct": true,
+        "fun_fact": "Shinsadong Tiger composed the title song LUV, which earned Apink triple crowns on The Show, Show! Music Core and Inkigayo.",
+        "source": "https://en.wikipedia.org/wiki/Pink_Luv"
+      },
+      {
+        "question": "Apink's first Japanese single, released in October 2014, was a Japanese version of Mr. Chu.",
+        "correct": false,
+        "fun_fact": "Their Japanese debut single was NoNoNo, which reached No. 4 on Oricon's weekly chart. A Japanese Mr. Chu followed in February 2015.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "Apink's 2016 Japanese song Brand New Days was used as the opening theme of an anime series.",
+        "correct": true,
+        "fun_fact": "The series was Rilu Rilu Fairilu, and the group released the song's music video on February 25, 2016.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "Apink held their first headlining concert, Pink Paradise, at Jamsil Indoor Stadium.",
+        "correct": false,
+        "fun_fact": "Pink Paradise took place at Olympic Hall on January 30 and 31, 2015, and its 7,200 tickets went in two minutes. Jamsil hosted their second concert.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "Dumhdurum, the 2020 lead single of the EP Look, reached No. 1 on the Gaon Digital Chart.",
+        "correct": false,
+        "fun_fact": "It entered at No. 4 and peaked at No. 2, and in its second week of promotion Apink won on all six weekly music shows.",
+        "source": "https://en.wikipedia.org/wiki/Look_(EP)"
+      },
+      {
+        "question": "Apink Chobom, the duo of Chorong and Bomi, debuted in July 2022 with the single album Dilemma.",
+        "correct": false,
+        "fun_fact": "Their debut single album was Copycat, a nu-disco track. The two began preparing it once Apink had wrapped up promotions for Dilemma.",
+        "source": "https://en.wikipedia.org/wiki/Copycat_(Apink_Chobom_song)"
+      },
+      {
+        "question": "Apink marked their first anniversary with a song named after the date of their debut.",
+        "correct": true,
+        "fun_fact": "Leader Park Cho-rong wrote its lyrics and Kim Jin-hwan composed it. Later anniversary songs include Promise U, The Wave and Thank You.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Apink",
+      "https://en.wikipedia.org/wiki/Mr._Chu",
+      "https://en.wikipedia.org/wiki/Pink_Luv",
+      "https://en.wikipedia.org/wiki/Look_(EP)",
+      "https://en.wikipedia.org/wiki/Copycat_(Apink_Chobom_song)",
+      "https://en.wikipedia.org/wiki/Seven_Springs_of_Apink",
+      "https://en.wikipedia.org/wiki/Secret_Garden_(Apink_EP)",
+      "https://en.wikipedia.org/wiki/Une_Ann%C3%A9e",
+      "https://en.wikipedia.org/wiki/Apink_discography",
+      "https://www.wikidata.org/wiki/Q483286"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-14",
+    "title": "NCT 127: The Sticker Era",
+    "description": "Ten questions on NCT 127's 2021 album Sticker: the lead single, its video, chart and sales numbers, the repackage and the world tour.",
+    "group_slug": "nct-127",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which instrument stands out in the sound of NCT 127's 2021 single Sticker?",
+        "options": [
+          "Violin",
+          "Flute",
+          "Saxophone",
+          "Harmonica"
+        ],
+        "correct": 1,
+        "fun_fact": "Its co-composer Dem Jointz had worked on three earlier NCT 127 singles: Cherry Bomb, Kick It and Punch.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(song)"
+      },
+      {
+        "question": "Which two NCT 127 members co-wrote the lyrics of Sticker with Yoo Young-jin?",
+        "options": [
+          "Haechan and Jungwoo",
+          "Doyoung and Jaehyun",
+          "Johnny and Yuta",
+          "Taeyong and Mark"
+        ],
+        "correct": 3,
+        "fun_fact": "Yoo Young-jin urged the group's two rappers to write their own verses so the track would sound like NCT.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(song)"
+      },
+      {
+        "question": "What concept does the music video for Sticker follow?",
+        "options": [
+          "A haunted boarding school",
+          "An underwater city",
+          "A medieval royal court",
+          "A futuristic space cowboy world"
+        ],
+        "correct": 3,
+        "fun_fact": "Its neon-lit sets mix CGI with video game touches, a look NME compared to Las Vegas.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(song)"
+      },
+      {
+        "question": "In 2021, the single Sticker gave NCT 127 their first entry on which Billboard chart?",
+        "options": [
+          "Billboard 200",
+          "Billboard Global 200",
+          "Billboard Hot 100",
+          "World Digital Song Sales"
+        ],
+        "correct": 1,
+        "fun_fact": "It peaked at No. 101 there, and it also opened at No. 5 on World Digital Song Sales, the group's eleventh top-five entry on that list.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(song)"
+      },
+      {
+        "question": "By its release day in September 2021, roughly how many pre-orders had Sticker gathered?",
+        "options": [
+          "900,000",
+          "1.5 million",
+          "2.2 million",
+          "3.5 million"
+        ],
+        "correct": 2,
+        "fun_fact": "That was more than four times the group's previous best of about 530,000 pre-orders, set by Neo Zone.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(album)"
+      },
+      {
+        "question": "Which single led the October 2021 repackage of Sticker?",
+        "options": [
+          "Ay-Yo",
+          "Lemonade",
+          "Breakfast",
+          "Favorite (Vampire)"
+        ],
+        "correct": 3,
+        "fun_fact": "Kenzie, Darkchild and Rodnae Chikk Bell wrote it, and in November 2021 it won twice on M Countdown and once on Show! Music Core.",
+        "source": "https://en.wikipedia.org/wiki/Favorite_(Vampire)"
+      },
+      {
+        "question": "What was the name of the tour NCT 127 launched in December 2021 in support of Sticker?",
+        "options": [
+          "Neo City: The Origin",
+          "Neo City: The Unity",
+          "Neo City: The Link",
+          "Neo City: The Momentum"
+        ],
+        "correct": 2,
+        "fun_fact": "Running until January 2023, the tour played 28 shows in 17 cities and drew more than 700,000 spectators.",
+        "source": "https://en.wikipedia.org/wiki/Neo_City_%E2%80%93_The_Link"
+      },
+      {
+        "question": "Which Seoul venue hosted the December 2021 opening shows of NCT 127's tour for Sticker?",
+        "options": [
+          "Gocheok Sky Dome",
+          "Jamsil Indoor Stadium",
+          "KSPO Dome",
+          "Seoul World Cup Stadium"
+        ],
+        "correct": 0,
+        "fun_fact": "Under COVID-19 rules only 5,000 fans were let in and shouting was banned, so the crowd cheered by clapping.",
+        "source": "https://en.wikipedia.org/wiki/Neo_City_%E2%80%93_The_Link"
+      },
+      {
+        "question": "Sticker, released on September 17, 2021, is which of NCT 127's Korean-language studio albums?",
+        "options": [
+          "Their first",
+          "Their second",
+          "Their third",
+          "Their fourth"
+        ],
+        "correct": 2,
+        "fun_fact": "It followed the Korean albums Regular-Irregular and Neo Zone (March 2020), and the Japanese EP Loveholic had come out earlier in 2021, in February.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(album)"
+      },
+      {
+        "question": "On which American talk show did NCT 127 perform Sticker when the album came out in September 2021?",
+        "options": [
+          "The Late Late Show with James Corden",
+          "The Late Show with Stephen Colbert",
+          "The Tonight Show Starring Jimmy Fallon",
+          "Jimmy Kimmel Live!"
+        ],
+        "correct": 0,
+        "fun_fact": "Before release, a teaser called Who Is Sticker cast the members as engineering students by day and computer hackers by night.",
+        "source": "https://en.wikipedia.org/wiki/Sticker_(album)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Sticker_(song)",
+      "https://en.wikipedia.org/wiki/Sticker_(album)",
+      "https://en.wikipedia.org/wiki/Favorite_(Vampire)",
+      "https://en.wikipedia.org/wiki/Neo_City_%E2%80%93_The_Link",
+      "https://en.wikipedia.org/wiki/NCT_127",
+      "https://en.wikipedia.org/wiki/NCT_127_discography"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-15",
+    "title": "Korea's Year-End Chart Toppers",
+    "description": "Ten years of South Korea's biggest hits: name the song or artist that ended each year at No. 1 on the Gaon, now Circle, Digital Chart.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Which song finished first on the Gaon Digital Chart's year-end ranking for 2011?",
+        "options": [
+          "Lonely",
+          "Roly-Poly",
+          "Pinocchio (Danger)",
+          "Tonight"
+        ],
+        "correct": 1,
+        "fun_fact": "T-ara's song never reached No. 1 on a weekly or monthly Gaon chart that year, yet it still led the full-year ranking.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2011"
+      },
+      {
+        "question": "Which song topped the Gaon Digital Chart's year-end list for 2013?",
+        "options": [
+          "Gentleman",
+          "Bom Bom Bom",
+          "Gone Not Around Any Longer",
+          "What's Your Name?"
+        ],
+        "correct": 0,
+        "fun_fact": "Psy's single held the weekly top spot for two weeks in April 2013 and was also the best performer of that month.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2013"
+      },
+      {
+        "question": "Which song ranked No. 1 on the Gaon Digital Chart's year-end list for 2014?",
+        "options": [
+          "Eyes, Nose, Lips",
+          "Some",
+          "Wild Flower",
+          "A Midsummer Night's Sweetness"
+        ],
+        "correct": 1,
+        "fun_fact": "The duet by Soyou and Junggigo spent two weeks at No. 1 in February 2014 and was that month's top song as well.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2014"
+      },
+      {
+        "question": "Which BIGBANG single was the Gaon Digital Chart's best-performing song of 2015?",
+        "options": [
+          "Loser",
+          "Bae Bae",
+          "Bang Bang Bang",
+          "Sober"
+        ],
+        "correct": 2,
+        "fun_fact": "G-Dragon wrote and composed it with Teddy Park, and Gaon counted 1,581,284 downloads of it over the year.",
+        "source": "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)"
+      },
+      {
+        "question": "Which singer had the Gaon Digital Chart's best-performing song of 2017?",
+        "options": [
+          "Ailee",
+          "IU",
+          "Crush",
+          "Heize"
+        ],
+        "correct": 0,
+        "fun_fact": "Her song for the drama Guardian: The Lonely and Great God, composed by the duo Rocoberry, led Gaon's yearly digital, download and streaming charts.",
+        "source": "https://en.wikipedia.org/wiki/I_Will_Go_to_You_Like_the_First_Snow"
+      },
+      {
+        "question": "Which song was the Gaon Digital Chart's best-performing single of 2019?",
+        "options": [
+          "The Day Was Beautiful",
+          "Four Seasons",
+          "2002",
+          "Boy with Luv"
+        ],
+        "correct": 2,
+        "fun_fact": "Sung by English singer Anne-Marie, it was the first foreign song to end a year at the top of the chart, and it also led the June 2019 monthly chart.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2019"
+      },
+      {
+        "question": "Which artist had the Gaon Digital Chart's best-performing song of 2020?",
+        "options": [
+          "Changmo",
+          "Jo Jung-suk",
+          "Zico",
+          "Jang Beom-june"
+        ],
+        "correct": 2,
+        "fun_fact": "His single Any Song spent seven weeks at No. 1 on the weekly chart in 2020, and Changmo's Meteor came second for the year.",
+        "source": "https://en.wikipedia.org/wiki/Circle_Digital_Chart"
+      },
+      {
+        "question": "Which song was the Gaon Digital Chart's year-end No. 1 for 2021?",
+        "options": [
+          "Rollin'",
+          "Celebrity",
+          "Dynamite",
+          "Next Level"
+        ],
+        "correct": 1,
+        "fun_fact": "IU's single held No. 1 for six weeks from late January 2021, and she spent twelve weeks on top that year with four different songs.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2021"
+      },
+      {
+        "question": "Which song topped the Circle Digital Chart's year-end list for 2022?",
+        "options": [
+          "Tomboy",
+          "Eleven",
+          "Still Life",
+          "Love Dive"
+        ],
+        "correct": 3,
+        "fun_fact": "IVE's song held No. 1 for four weeks in a row, a run the group matched later that year with After Like.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Circle_Digital_Chart_number_ones_of_2022"
+      },
+      {
+        "question": "Which song was the Circle Digital Chart's year-end No. 1 for 2025?",
+        "options": [
+          "APT.",
+          "Whiplash",
+          "Home Sweet Home",
+          "Drowning"
+        ],
+        "correct": 3,
+        "fun_fact": "Woodz first released it on his 2023 EP OO-LI, and it reached No. 1 on the weekly chart in May 2025, more than two years later.",
+        "source": "https://en.wikipedia.org/wiki/Woodz"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2011",
+      "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2013",
+      "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2014",
+      "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)",
+      "https://en.wikipedia.org/wiki/I_Will_Go_to_You_Like_the_First_Snow",
+      "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2019",
+      "https://en.wikipedia.org/wiki/Circle_Digital_Chart",
+      "https://en.wikipedia.org/wiki/List_of_Gaon_Digital_Chart_number_ones_of_2021",
+      "https://en.wikipedia.org/wiki/List_of_Circle_Digital_Chart_number_ones_of_2022",
+      "https://en.wikipedia.org/wiki/Woodz",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2011&hitYear=2011&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2013&hitYear=2013&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2014&hitYear=2014&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2015&hitYear=2015&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2017&hitYear=2017&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2019&hitYear=2019&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2020&hitYear=2020&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2021&hitYear=2021&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2022&hitYear=2022&termGbn=year&yearTime=3",
+      "https://circlechart.kr/page_chart/onoff.circle?nationGbn=T&serviceGbn=ALL&targetTime=2025&hitYear=2025&termGbn=year&yearTime=3"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-16",
+    "title": "NCT DREAM: From Chewing Gum to Smoothie",
+    "description": "Ten easy questions on NCT DREAM: the label, the first win, the old graduation rule, singles from Ridin' to Smoothie and the members.",
+    "group_slug": "nct-dream",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which agency formed NCT DREAM as a unit of NCT?",
+        "options": [
+          "SM Entertainment",
+          "JYP Entertainment",
+          "YG Entertainment",
+          "HYBE"
+        ],
+        "correct": 0,
+        "fun_fact": "NCT DREAM was the third NCT sub-unit to debut, after NCT U and NCT 127.",
+        "source": "https://en.wikipedia.org/wiki/NCT_Dream"
+      },
+      {
+        "question": "With which song did NCT DREAM win their first music show trophy, in February 2017?",
+        "options": [
+          "Chewing Gum",
+          "Go",
+          "We Young",
+          "My First and Last"
+        ],
+        "correct": 3,
+        "fun_fact": "The win came on February 14, 2017, on the 100th episode of The Show, and the song led their single album The First.",
+        "source": "https://en.wikipedia.org/wiki/NCT_Dream"
+      },
+      {
+        "question": "In which year did SM end NCT DREAM's graduation system?",
+        "options": [
+          "2018",
+          "2019",
+          "2020",
+          "2021"
+        ],
+        "correct": 2,
+        "fun_fact": "Mark, who had left under the old rule on December 31, 2018, rejoined the unit once the change took effect.",
+        "source": "https://en.wikipedia.org/wiki/NCT_Dream"
+      },
+      {
+        "question": "Which EP was announced as Mark's last comeback with NCT DREAM before his graduation?",
+        "options": [
+          "We Young",
+          "We Go Up",
+          "We Boom",
+          "Reload"
+        ],
+        "correct": 1,
+        "fun_fact": "Released in September 2018, it included a Mandarin version of its title song and became the unit's second No. 1 on the Gaon Album Chart.",
+        "source": "https://en.wikipedia.org/wiki/We_Go_Up_(NCT_Dream_EP)"
+      },
+      {
+        "question": "Ridin' was the lead single of which 2020 NCT DREAM EP?",
+        "options": [
+          "We Boom",
+          "Beatbox",
+          "Hello Future",
+          "Reload"
+        ],
+        "correct": 3,
+        "fun_fact": "Recorded by the six members of the time, the five-track EP took the group to No. 1 on Billboard's Emerging Artists chart for the first time.",
+        "source": "https://en.wikipedia.org/wiki/Reload_(EP)"
+      },
+      {
+        "question": "In the 2024 video for Smoothie, NCT DREAM play a real-life version of which mobile game?",
+        "options": [
+          "Fruit Ninja",
+          "Angry Birds",
+          "Temple Run",
+          "Subway Surfers"
+        ],
+        "correct": 0,
+        "fun_fact": "Smoothie led the EP Dream()scape, a title pronounced dream escape, released on March 25, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Dream%28%29scape"
+      },
+      {
+        "question": "In April 2022, Glitch Mode became NCT DREAM's first entry on which US chart?",
+        "options": [
+          "Billboard Heatseekers Albums",
+          "Billboard 200",
+          "Billboard World Albums",
+          "Billboard Hot 100"
+        ],
+        "correct": 1,
+        "fun_fact": "The second studio album entered at No. 50, and at home it opened at No. 1 on the monthly Gaon chart with 1,646,949 copies sold.",
+        "source": "https://en.wikipedia.org/wiki/Glitch_Mode"
+      },
+      {
+        "question": "Which of these idols is a member of NCT DREAM?",
+        "options": [
+          "Johnny",
+          "Renjun",
+          "Doyoung",
+          "Yuta"
+        ],
+        "correct": 1,
+        "fun_fact": "Renjun was one of the five new faces who joined Mark and Haechan when SM announced NCT DREAM in August 2016.",
+        "source": "https://en.wikipedia.org/wiki/NCT_Dream"
+      },
+      {
+        "question": "Which NCT DREAM member teamed up with Jeno in NCT JNJM, the NCT unit formed in 2026?",
+        "options": [
+          "Jaemin",
+          "Chenle",
+          "Jisung",
+          "Haechan"
+        ],
+        "correct": 0,
+        "fun_fact": "NCT JNJM became NCT's seventh sub-unit and released its first EP, Both Sides, on February 23, 2026.",
+        "source": "https://en.wikipedia.org/wiki/NCT_JNJM"
+      },
+      {
+        "question": "NCT DREAM sang Trigger the Fever as the official song of which 2017 tournament in South Korea?",
+        "options": [
+          "Asian Games",
+          "Winter Universiade",
+          "FIFA U-20 World Cup",
+          "AFC Asian Cup"
+        ],
+        "correct": 2,
+        "fun_fact": "The unit served as the tournament's official ambassadors and sang the song at its opening ceremony.",
+        "source": "https://en.wikipedia.org/wiki/NCT_Dream"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/NCT_Dream",
+      "https://en.wikipedia.org/wiki/We_Go_Up_(NCT_Dream_EP)",
+      "https://en.wikipedia.org/wiki/Reload_(EP)",
+      "https://en.wikipedia.org/wiki/Dream%28%29scape",
+      "https://en.wikipedia.org/wiki/Glitch_Mode",
+      "https://en.wikipedia.org/wiki/NCT_(group)",
+      "https://www.wikidata.org/wiki/Q47002841",
+      "https://www.smentertainment.com/en/artist/",
+      "https://en.wikipedia.org/wiki/NCT_JNJM"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-17",
+    "title": "K-pop Songs With Foreign Titles",
+    "description": "Ten K-pop songs with titles in Spanish, French, Italian, Japanese and more: match each one to the artist or album behind it.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which group released Hola Hola as the title track of its 2017 debut EP?",
+        "options": [
+          "Pentagon",
+          "Golden Child",
+          "The Boyz",
+          "KARD"
+        ],
+        "correct": 3,
+        "fun_fact": "The music video shows the members traveling through Los Angeles, Las Vegas, Mexico and Brazil.",
+        "source": "https://en.wikipedia.org/wiki/Hola_Hola_(Kard_song)"
+      },
+      {
+        "question": "Which girl group released the single Adios in August 2019?",
+        "options": [
+          "EVERGLOW",
+          "Weki Meki",
+          "Cherry Bullet",
+          "Rocket Punch"
+        ],
+        "correct": 0,
+        "fun_fact": "It led the single album Hush. On Billboard's World Digital Song Sales it got as high as No. 2 and charted for six weeks in all.",
+        "source": "https://en.wikipedia.org/wiki/Everglow"
+      },
+      {
+        "question": "Senorita (2019) was the title track of which (G)I-DLE EP?",
+        "options": [
+          "I Am",
+          "I Made",
+          "I Trust",
+          "I Burn"
+        ],
+        "correct": 1,
+        "fun_fact": "Soyeon wrote the lyrics and produced it with Big Sancho, using castanets and brass to give it a flamenco flavor.",
+        "source": "https://en.wikipedia.org/wiki/Senorita_((G)I-dle_song)"
+      },
+      {
+        "question": "Mamacita (2014) led the seventh Korean studio album of which boy group?",
+        "options": [
+          "2PM",
+          "TVXQ",
+          "Shinhwa",
+          "Super Junior"
+        ],
+        "correct": 3,
+        "fun_fact": "Teddy Riley co-composed it, and the western-themed video casts the members as a sheriff, a matador and a robber, among others.",
+        "source": "https://en.wikipedia.org/wiki/Mamacita_(Super_Junior_song)"
+      },
+      {
+        "question": "Which girl group released Mamma Mia in August 2014, its first release with Heo Youngji?",
+        "options": [
+          "After School",
+          "Rainbow",
+          "Secret",
+          "KARA"
+        ],
+        "correct": 3,
+        "fun_fact": "Duble Sidekick composed the song, which led the EP Day & Night. Heo Youngji had won her spot on the TV show Kara Project.",
+        "source": "https://en.wikipedia.org/wiki/Day_%26_Night_(Kara_EP)"
+      },
+      {
+        "question": "Bon Voyage, released in September 2020, marked the solo debut of which Oh My Girl member?",
+        "options": [
+          "YooA",
+          "Arin",
+          "Hyojung",
+          "Seunghee"
+        ],
+        "correct": 0,
+        "fun_fact": "It was a five-song EP from WM Entertainment, led by a title track of the same name.",
+        "source": "https://en.wikipedia.org/wiki/Bon_Voyage_(EP)"
+      },
+      {
+        "question": "Coup d'Etat (2013) was the title track of which rapper's second studio album?",
+        "options": [
+          "Zico",
+          "T.O.P",
+          "G-Dragon",
+          "Jay Park"
+        ],
+        "correct": 2,
+        "fun_fact": "American DJs Diplo and Baauer feature on it as co-producers, and it samples Gil Scott-Heron's The Revolution Will Not Be Televised.",
+        "source": "https://en.wikipedia.org/wiki/Coup_d%27Etat_(song)"
+      },
+      {
+        "question": "Which group's 2022 single Maison takes its title from the French word for home?",
+        "options": [
+          "Dreamcatcher",
+          "Weeekly",
+          "Billlie",
+          "Purple Kiss"
+        ],
+        "correct": 0,
+        "fun_fact": "A coded teaser hid the title before release, and the song pleads for the Earth to be saved from global warming and pollution.",
+        "source": "https://en.wikipedia.org/wiki/Apocalypse:_Save_Us"
+      },
+      {
+        "question": "Suki to Iwasetai, a Japanese title meaning Tell Me You Love Me, was the 2019 Japanese debut single of which group?",
+        "options": [
+          "Kep1er",
+          "IZ*ONE",
+          "TWICE",
+          "NiziU"
+        ],
+        "correct": 1,
+        "fun_fact": "Yasushi Akimoto produced it and wrote its lyrics, and it entered Oricon's weekly singles chart at No. 2 with 221,640 copies sold.",
+        "source": "https://en.wikipedia.org/wiki/Suki_to_Iwasetai"
+      },
+      {
+        "question": "Luna, a 2021 lead single that sets gayageum strings over trap beats, is by which boy group?",
+        "options": [
+          "CIX",
+          "VERIVERY",
+          "ONEUS",
+          "Cravity"
+        ],
+        "correct": 2,
+        "fun_fact": "It led the EP Blood Moon and brought the group its first music show win, on Show Champion on November 17, 2021.",
+        "source": "https://en.wikipedia.org/wiki/Blood_Moon_(EP)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Hola_Hola_(Kard_song)",
+      "https://en.wikipedia.org/wiki/Everglow",
+      "https://en.wikipedia.org/wiki/Senorita_((G)I-dle_song)",
+      "https://en.wikipedia.org/wiki/Mamacita_(Super_Junior_song)",
+      "https://en.wikipedia.org/wiki/Day_%26_Night_(Kara_EP)",
+      "https://en.wikipedia.org/wiki/Bon_Voyage_(EP)",
+      "https://en.wikipedia.org/wiki/Coup_d%27Etat_(song)",
+      "https://en.wikipedia.org/wiki/Apocalypse:_Save_Us",
+      "https://en.wikipedia.org/wiki/Suki_to_Iwasetai",
+      "https://en.wikipedia.org/wiki/Blood_Moon_(EP)",
+      "https://en.wikipedia.org/wiki/Kard_(group)",
+      "https://en.wikipedia.org/wiki/Oh_My_Girl",
+      "https://en.wikipedia.org/wiki/I-dle_discography",
+      "https://en.wikipedia.org/wiki/Oneus"
+    ]
+  }
+]
