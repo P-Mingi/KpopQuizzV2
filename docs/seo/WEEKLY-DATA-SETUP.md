@@ -1,18 +1,20 @@
-# Données SEO de la semaine et e-mail du lundi: la mise en place
+# Données SEO de la semaine: la mise en place
 
 SEO Mission 3, partie C. Version du 15 octobre 2026.
 
 Ce que ça fait, une fois branché:
 - Chaque lundi à 10 h UTC, le site lit Search Console (requête, page, pays, appareil) et Bing
   Webmaster (requêtes, pages, requête par page, liens entrants) et range tout dans la base.
-- Chaque lundi à 11 h UTC, tu reçois un e-mail court (15 lignes au plus), à toi seul.
 - Une fois par mois, tu déposes l'export Bing AI Performance sur /admin/seo/import et la part de
   citations par famille de requêtes se calcule seule.
 
 Tant que rien n'est branché, rien ne casse: le job écrit "clé absente" dans ses journaux et
-s'arrête proprement. Aucun e-mail ne part sans les trois variables Resend de l'étape 3.
+s'arrête proprement.
 
-Temps total pour toi: environ 35 minutes, une seule fois.
+Pas d'e-mail du lundi (owner, 2026-10-25: pas de Resend). Le job qui l'envoyait est retiré;
+le texte du rapport reste construit par `lib/seo/weekly/report.ts`, pour une page d'admin plus tard.
+
+Temps total pour toi: environ 25 minutes, une seule fois.
 
 Règle pour les secrets: ils vont uniquement dans les variables d'environnement de Vercel. Jamais
 dans le dépôt, jamais dans un e-mail, jamais dans un chat (même avec le worker).
@@ -88,26 +90,7 @@ Ce que l'API de Bing donne, et ce qu'elle ne donne pas:
   fait le lien, son texte.
 - Non: ni pays, ni appareil. L'API ne les fournit pas. Les lignes Bing n'ont donc pas ces colonnes.
 
-## Étape 3. Resend: l'e-mail du lundi (10 min)
-
-1. Ouvre **resend.com** et connecte-toi.
-2. **Domains**: vérifie que **kpopquiz.org** est marqué **Verified**.
-   S'il n'y est pas: **Add Domain** > `kpopquiz.org` > ajoute chez ton registrar les
-   enregistrements DNS que Resend affiche > **Verify**. Ça peut prendre jusqu'à une heure.
-3. **API Keys** > **Create API Key**:
-   - Name: `kpopquiz-seo-report`.
-   - Permission: **Sending access**, domaine **kpopquiz.org**.
-   - Clique **Add**, copie la clé (elle ne s'affiche qu'une fois).
-4. Dans Vercel, **Settings** > **Environment Variables**, trois variables, **Production**:
-   - `RESEND_API_KEY`: la clé.
-   - `SEO_REPORT_FROM`: l'expéditeur, sur ton domaine vérifié. Par exemple
-     `KpopQuiz SEO <hello@kpopquiz.org>`.
-   - `SEO_REPORT_TO`: ton adresse à toi. Une seule adresse: le code refuse une liste, et
-     l'e-mail ne part jamais à quelqu'un d'autre.
-5. Vercel > **Deployments** > sur le dernier déploiement de production, **...** > **Redeploy**.
-   Les variables ne comptent qu'après un nouveau déploiement.
-
-## Étape 4. Le premier essai (une commande)
+## Étape 3. Le premier essai (une commande)
 
 D'abord, dans un terminal, mets le secret des crons dans une variable (Vercel > **Settings** >
 **Environment Variables** > `CRON_SECRET` > l'œil pour voir la valeur):
@@ -124,36 +107,6 @@ curl -s -H "Authorization: Bearer $CRON_SECRET" https://kpopquiz.org/api/cron/se
 
 La réponse dit pour chaque source `ok`, `skipped` (et pourquoi) ou `error` (et le code).
 
-Voir l'e-mail sans l'envoyer:
-
-```bash
-curl -s -H "Authorization: Bearer $CRON_SECRET" "https://kpopquiz.org/api/cron/seo-weekly-report?dry=1"
-```
-
-**La commande du premier e-mail de test, envoyé à toi seul:**
-
-```bash
-curl -s -H "Authorization: Bearer $CRON_SECRET" "https://kpopquiz.org/api/cron/seo-weekly-report?force=1"
-```
-
-Réponse attendue: `"sent":true`. Si elle contient `"missing"`, la liste nomme les variables qui
-manquent (jamais leur valeur). `force=1` permet un renvoi le même jour; sans lui, le job n'envoie
-qu'un e-mail par période de 20 heures.
-
-Sur ton ordinateur, sans rien envoyer, un aperçu avec des données d'exemple:
-
-```bash
-cd apps/quiz && npx tsx scripts/seo-weekly-email-preview.mts
-```
-
-## Étape 5. Rien d'autre à faire pour les contrôles de nuit
-
-La ligne "contrôles de nuit" lit le dernier passage programmé de `seo-gates.yml` sur GitHub. Le
-dépôt est public et Vercel donne son nom au site tout seul, donc il n'y a rien à régler.
-Seulement si l'e-mail affiche "contrôles de nuit (GitHub illisible)" plusieurs lundis de suite:
-ajoute `SEO_GITHUB_REPO` (valeur: `propriétaire/nom` du dépôt) et, si GitHub limite les appels,
-`SEO_GITHUB_TOKEN` (un jeton GitHub "fine-grained" en lecture seule sur Actions).
-
 ## Chaque mois: l'import Bing AI Performance (4 min)
 
 1. Bing Webmaster > **AI Performance**.
@@ -169,30 +122,6 @@ Les familles sont les clusters de `docs/seo/TARGETS.md`. Une requête qui n'entr
 cluster va dans "Autres requêtes". Pour mieux classer, ajoute la requête à la bonne ligne de
 TARGETS.md: le calcul suit.
 
-## Ce que dit l'e-mail du lundi
-
-Au plus 15 lignes, dans cet ordre:
-1. Les clics de la semaine sur Google et Bing, et l'écart avec la semaine d'avant.
-2. Les lignes rouges, celles qui demandent une action:
-   - contrôles de nuit en échec, ou aucun contrôle depuis 3 jours;
-   - alertes IndexNow des 7 derniers jours (partie A);
-   - une URL qui a reçu un lien (selon Bing) et ne répond plus 200 ou 301;
-   - une page du top 20 qui perd plus de 30 % de ses clics (si elle en avait au moins 20).
-3. Hausses et baisses de clics par requête (5 clics d'écart au moins).
-4. Cannibalisation: une requête d'un cluster de TARGETS.md où deux URL se partagent les
-   impressions (chacune 10 impressions et 10 % au moins).
-5. Requêtes nouvelles sans page cible: 30 impressions au moins, absentes des 4 semaines d'avant,
-   hors de tout cluster de TARGETS.md.
-6. Nouveaux domaines référents (liens vus par Bing). Les intégrations: aucun journal `partner=`
-   n'existe encore dans le site, l'e-mail le dit.
-7. Les 5 pages à rafraîchir: celles qui ont perdu le plus de clics.
-8. Les événements des 14 prochains jours, lus dans `docs/seo/CALENDAR.md` (partie E).
-9. "Non branché": ce qui manque encore (une clé, une table, un fichier).
-10. Le lien vers /admin/seo/import.
-
-Si TARGETS.md ou CALENDAR.md n'est pas lisible, la section qui en a besoin est sautée et la
-ligne "Non branché" le dit.
-
 ## Récapitulatif des variables (Vercel, Production)
 
 | Variable | Obligatoire | D'où elle vient |
@@ -201,12 +130,7 @@ ligne "Non branché" le dit.
 | `GSC_SITE_URL` | non (défaut `sc-domain:kpopquiz.org`) | ta propriété Search Console |
 | `BING_WEBMASTER_API_KEY` | pour Bing | étape 2 |
 | `BING_SITE_URL` | non (défaut `https://kpopquiz.org/`) | l'adresse du site dans Bing |
-| `RESEND_API_KEY` | pour l'e-mail | étape 3 |
-| `SEO_REPORT_FROM` | pour l'e-mail | une adresse de ton domaine vérifié |
-| `SEO_REPORT_TO` | pour l'e-mail | ton adresse, une seule |
-| `SEO_GITHUB_REPO` | non | seulement si GitHub reste illisible |
-| `SEO_GITHUB_TOKEN` | non | seulement si GitHub limite les appels |
-| `CRON_SECRET` | existe déjà | protège les deux jobs |
+| `CRON_SECRET` | existe déjà | protège le job |
 
 ## Ce qui n'est pas couvert, dit franchement
 
@@ -215,5 +139,5 @@ ligne "Non branché" le dit.
 - Ahrefs Webmaster Tools (optionnel dans le plan) n'est pas branché: il faudrait une clé.
 - Les données Search Console du dimanche peuvent être incomplètes le lundi matin. Le job relit
   la semaine d'avant chaque lundi et remplace ses chiffres par les chiffres définitifs.
-- Aucune donnée personnelle d'utilisateur n'entre dans l'e-mail ni dans les journaux: seulement
+- Aucune donnée personnelle d'utilisateur n'entre dans la base ni dans les journaux: seulement
   des requêtes agrégées par Google et Bing, des pages publiques et des compteurs.

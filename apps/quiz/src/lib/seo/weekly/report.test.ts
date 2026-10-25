@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import { buildReport, cannibalisation, fr, MAX_LINES, newQueriesWithoutTarget, pageDrops, pathOf, refreshCandidates } from './report';
-import { renderEmail } from './email';
 import { gatherWeeklyInput, linkSummary, parseNightly, githubRepo, checkLinkedUrls } from './report-data';
 import { CALENDAR_MD, memoryWeeklyReader, SAMPLE_LINKS, SAMPLE_ROWS, TARGETS_MD } from './fixtures';
 import { parseTargets } from './targets';
@@ -155,9 +154,6 @@ describe('buildReport', () => {
       'Détail et import Bing AI du mois: https://kpopquiz.org/admin/seo/import',
     ]);
     expect(text.some((t) => DASHES.test(t))).toBe(false);
-    const email = renderEmail(m);
-    expect(email.text.split('\n')).toHaveLength(m.lines.length);
-    expect(email.html.match(/<p /g)).toHaveLength(m.lines.length);
   });
 });
 

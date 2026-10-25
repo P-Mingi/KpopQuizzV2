@@ -1,5 +1,5 @@
-// Fixtures of the weekly SEO data (SEO Mission 3, part C), for the unit tests and the e-mail
-// preview script (scripts/seo-weekly-email-preview.mts). Never imported by app code.
+// Fixtures of the weekly SEO data (SEO Mission 3, part C), for the unit tests. Never
+// imported by app code.
 //
 // The API answers follow the shapes of the official references (Search Console
 // searchAnalytics.query; Microsoft Learn's JSON samples for the Bing Webmaster API). The Bing AI
