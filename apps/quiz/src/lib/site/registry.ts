@@ -56,6 +56,19 @@ const KPOP_DARK: ThemeTokens = {
   'on-accent': '#FFFFFF',
 };
 
+// The hub has no colour of its own (docs/o1/design/fanquiz-hub/Plan.dc.html): its accent family is ink on cream, so its chrome shows no pink.
+// styles/sites/hub/tokens.css declares the same values (a test compares them); everything else is the kpop value.
+const HUB_LIGHT: ThemeTokens = {
+  ...KPOP_LIGHT,
+  pink: '#1F1B17', 'pink-fill': '#1F1B17', 'pink-fill-h': '#3A332C', 'pink-ink': '#1F1B17',
+  'pink-soft': '#F1EFEA', 'pink-soft-ink': '#1F1B17', 'pink-line': '#E5E0DA', 'on-accent': '#FAF8F5',
+};
+const HUB_DARK: ThemeTokens = {
+  ...KPOP_DARK,
+  pink: '#F3F0EB', 'pink-fill': '#F3F0EB', 'pink-fill-h': '#D8D3CC', 'pink-ink': '#F3F0EB',
+  'pink-soft': '#232120', 'pink-soft-ink': '#F3F0EB', 'pink-line': '#35312E', 'on-accent': '#141312',
+};
+
 const KPOP: SiteConfig = {
   id: 'kpop',
   kind: 'world',
@@ -259,7 +272,7 @@ const HUB: SiteConfig = {
     llmsTxt: { title: 'fanquiz.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
-  theme: { light: KPOP_LIGHT, dark: KPOP_DARK, fontDisplay: 'Inter' },
+  theme: { light: HUB_LIGHT, dark: HUB_DARK, fontDisplay: 'Inter' },
   // The passport level is private and shown only on /passport (P); placeholder ladder.
   levelTitles: { 1: { en: 'Member' } },
   auth: {

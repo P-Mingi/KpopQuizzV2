@@ -214,7 +214,8 @@ describe('point 5: the sites you joined line', () => {
     expect(src('lib/site/hub/network-page.ts')).toContain("'shares.seesSites'");
     expect(src('components/hub/hub-shares.tsx')).toContain('SHARES_SEES');
     expect(src('components/hub/hub-privacy.tsx')).toContain('<HubShares />');
-    expect(src('app/sites/[site]/home-hub.tsx')).toContain('<HubShares />');
+    // lot H2a: the home reads the block in the look of the new design, from the same component and the same keys
+    expect(src('components/hub/home/home-community.tsx')).toContain('<HubShares variant="home" />');
   });
   it('is printed on the page', async () => {
     const { text } = await render();

@@ -24,6 +24,11 @@ export interface UxClientShellProps {
   /** The Verse is public (lib/verse/visibility, server env): footer "Fandoms" link. */
   showFandoms: boolean;
   year: number;
+  /**
+   * Run O1 (H2a): the home of the hub brings its own top bar, <main> and footer (docs/o1/design/fanquiz-hub/), so on `/` the shell keeps only
+   * its providers (sign-in sheet, toasts), the skip link and the focus rule. Only the hub layout sets it; absent, the shell is the one it always was.
+   */
+  bare?: boolean;
 }
 
 /** Footer per world, like the legacy SiteFooter: none on the builder canvas, the
@@ -42,7 +47,19 @@ function Footer({ showFandoms, year }: { showFandoms: boolean; year: number }): 
  * loaded through UxShellLoader (next/dynamic) so its code ships only to pages
  * that render it (flag on). The page itself arrives as server-rendered children.
  */
-export function UxClientShell({ children, showFandoms, year }: UxClientShellProps): React.ReactElement {
+export function UxClientShell({ children, showFandoms, year, bare }: UxClientShellProps): React.ReactElement {
+  const pathname = usePathname() || '/';
+  if (bare && pathname === '/') {
+    return (
+      <UxProviders>
+        <div className="ux-app">
+          <a className="ux-skip" href="#main">Skip to content</a>
+          {children}
+          <UxRouteFocus />
+        </div>
+      </UxProviders>
+    );
+  }
   return (
     <UxProviders>
       <div className="ux-app">

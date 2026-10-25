@@ -29,17 +29,24 @@ export interface SummaryMembership {
   readonly banned_at: string | null;
 }
 
+/** The world sites the fan joined (activated, not banned). */
+function joinedRows(rows: readonly SummaryMembership[]): SummaryMembership[] {
+  return rows.filter((r) => isSiteId(r.site_id) && REGISTRY[r.site_id].kind === 'world' && r.activated_at !== null && r.banned_at === null);
+}
+
+/** The xp of the passport: every joined site's xp added up. kpop keeps its xp on profiles (its membership columns are NULL), every other world on its membership. */
+export function passportXp(profile: SummaryProfile | null, rows: readonly SummaryMembership[]): number {
+  return Math.max(0, profile?.xp ?? 0) + joinedRows(rows).reduce((sum, r) => sum + (r.site_id === 'kpop' ? 0 : Math.max(0, r.xp ?? 0)), 0);
+}
+
 /** Pure part: the profile and the membership rows to the summary. Null when there is no username yet. */
 export function buildPassportSummary(profile: SummaryProfile | null, rows: readonly SummaryMembership[]): HubPassportSummary | null {
   const username = profile?.username?.trim();
   if (!profile || !username) return null;
-  const joined = rows.filter((r) => isSiteId(r.site_id) && REGISTRY[r.site_id].kind === 'world' && r.activated_at !== null && r.banned_at === null);
-  // kpop keeps its xp on profiles (its membership columns are NULL); every other world keeps it on its membership.
-  const xp = Math.max(0, profile.xp ?? 0) + joined.reduce((sum, r) => sum + (r.site_id === 'kpop' ? 0 : Math.max(0, r.xp ?? 0)), 0);
-  const ids = joined.map((r) => r.site_id as SiteId);
+  const ids = joinedRows(rows).map((r) => r.site_id as SiteId);
   return {
     username,
-    level: getLevelInfo(xp, 'hub').level,
+    level: getLevelInfo(passportXp(profile, rows), 'hub').level,
     sites: SITE_IDS.filter((id) => ids.includes(id)).map((id) => ({ id, name: REGISTRY[id].brand.name })),
   };
 }

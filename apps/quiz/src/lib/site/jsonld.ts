@@ -55,3 +55,13 @@ export function organizationJsonLdFor(site: SiteConfig = SITE): Record<string, u
     ...(org.email ? { email: org.email } : {}),
   };
 }
+
+/** An ItemList of links: the Hot now list of the hub home (lot H2a). Each item is a name and the URL of the page it points to. */
+export function itemListJsonLd(name: string, items: readonly { readonly name: string; readonly url: string }[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, url: item.url })),
+  };
+}
