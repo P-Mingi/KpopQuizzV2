@@ -2666,7 +2666,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T18:43:55.000Z",
-    "excerpt": "appearing in the form of a ten-year-old girl in white with a mirror"
+    "excerpt": "Kanna is Naraku's first detachment, appearing in the form of a ten-year-old girl in white with a mirror"
   },
   {
     "id": "inuyasha-bankotsu-name-084",
@@ -2760,5 +2760,39 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:43:55.000Z",
     "excerpt": "calling himself Naraku's \"essence\" and eighth detachment"
+  },
+  {
+    "id": "inuyasha-yashahime-premiere-087",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "tv_start",
+    "value": "October 3, 2020",
+    "text": "The sequel spin-off Yashahime: Princess Half-Demon premiered on October 3, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97171756",
+        "ref": "Q97171756",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:30:00.000Z",
+    "excerpt": "It premiered on October 3, 2020"
   }
 ]

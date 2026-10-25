@@ -157,7 +157,7 @@
       "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
     },
     {
-      "question": "What is the title of the epilogue chapter that Takahashi published in February 2013?",
+      "question": "What is the title of the epilogue chapter that Takahashi published to raise funds after the 2011 earthquake?",
       "options": [
         "The Last Well",
         "Ever After",
@@ -209,7 +209,8 @@
         "scope": "anime"
       },
       "fact_ids": [
-        "inuyasha-yasha-announced-046"
+        "inuyasha-yasha-announced-046",
+        "inuyasha-yashahime-premiere-087"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
     }
