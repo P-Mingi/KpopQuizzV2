@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FanQuiz home, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&amp;display=swap">
+<style>
+body{margin:0;background:#FAF8F5}
+a{color:#1F1B17}a:hover{color:#6B655E}
+.fq-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fq-rail{scrollbar-width:none}.fq-rail::-webkit-scrollbar{display:none}
+button:focus-visible,a:focus-visible{outline:3px solid #1F1B17;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 3300px; box-sizing: border-box; background: #FAF8F5; color: #1F1B17; font-family: 'DM Sans', 'Pretendard', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased">
+
+<header style="position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: rgba(250,248,245,.94); border-bottom: 1px solid #ECE8E3">
+  <a href="#" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #1F1B17">
+    <span aria-hidden="true" style="position: relative; width: 32px; height: 32px; border-radius: 9px; background: #1F1B17; color: #FAF8F5; display: grid; place-items: center; font-weight: 800; font-size: 16px">F<span style="position: absolute; right: 4px; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; background: #E8457A"></span><span style="position: absolute; right: 11px; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; background: #F97316"></span></span>
+    <span style="font-weight: 800; font-size: 18px">FanQuiz</span>
+  </a>
+  <div style="display: flex; gap: 8px">
+    <button type="button" aria-label="Search both sites" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE8E3; background: #FFFFFF; display: grid; place-items: center; color: #1F1B17"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></button>
+    <button type="button" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 0; background: #1F1B17; color: #FAF8F5; font: inherit; font-weight: 700; font-size: 15px">Sign in</button>
+  </div>
+</header>
+
+<section style="padding: 24px 16px 8px; display: flex; flex-direction: column; gap: 16px">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B655E">Two fandoms, one passport</p>
+    <h1 style="margin: 0; font-size: 34px; line-height: 1.06; letter-spacing: -0.03em; font-weight: 800">Quizzes for K-pop and anime fans</h1>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <a href="#" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 20px; background: #FCE8EF; text-decoration: none; color: #1F1B17; min-height: 150px; box-sizing: border-box">
+      <span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 10px; background: #D13A6E; color: #FFFFFF; display: grid; place-items: center; font-weight: 800">K</span>
+      <span style="font-size: 18px; font-weight: 800">KpopQuiz</span>
+      <span style="font-size: 13px; color: #8A2A4C; font-weight: 600">482 quizzes</span>
+      <span style="margin-top: auto; font-size: 14px; font-weight: 700; color: #8A2A4C">Enter</span>
+    </a>
+    <a href="#" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 20px; background: #FFF1E6; text-decoration: none; color: #1F1B17; min-height: 150px; box-sizing: border-box">
+      <span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 10px; background: #C2410C; color: #FFFFFF; display: grid; place-items: center; font-weight: 800">O</span>
+      <span style="font-size: 18px; font-weight: 800">OtakuQuiz</span>
+      <span style="font-size: 13px; color: #9A3412; font-weight: 600">138 quizzes · 31 series</span>
+      <span style="margin-top: auto; font-size: 14px; font-weight: 700; color: #9A3412">Enter</span>
+    </a>
+  </div>
+  <button type="button" style="min-height: 48px; border-radius: 999px; border: 1.5px solid #1F1B17; background: #FFFFFF; color: #1F1B17; font: inherit; font-weight: 700; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; gap: 10px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>Surprise me</button>
+</section>
+
+<section aria-labelledby="m-today" style="padding: 28px 0 8px; display: flex; flex-direction: column; gap: 12px">
+  <div style="padding: 0 16px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+    <h2 id="m-today" style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em">Today</h2>
+    <span style="font-size: 13px; color: #6B655E">Swipe</span>
+  </div>
+  <div class="fq-rail" style="display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 16px 8px">
+    <article style="flex: 0 0 260px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #ECE8E3; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #8A2A4C"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #D13A6E"></span>Quiz of the day</span>
+      <h3 style="margin: 0; font-size: 17px; line-height: 1.3; font-weight: 700">ZEROBASEONE: From Boys Planet to In Bloom</h3>
+      <span style="font-size: 13px; color: #6B655E">10 questions · Easy</span>
+      <a href="#" style="margin-top: 4px; display: flex; justify-content: center; align-items: center; min-height: 44px; border-radius: 999px; background: #D13A6E; color: #FFFFFF; text-decoration: none; font-weight: 700">Play</a>
+    </article>
+    <article style="flex: 0 0 260px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #ECE8E3; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #9A3412"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #C2410C"></span>Quiz of the day</span>
+      <h3 style="margin: 0; font-size: 17px; line-height: 1.3; font-weight: 700">Journey's Beginning: Frieren Basics</h3>
+      <span style="font-size: 13px; color: #6B655E">10 questions · Easy</span>
+      <a href="#" style="margin-top: 4px; display: flex; justify-content: center; align-items: center; min-height: 44px; border-radius: 999px; background: #C2410C; color: #FFFFFF; text-decoration: none; font-weight: 700">Play</a>
+    </article>
+    <article style="flex: 0 0 260px; scroll-snap-align: start; background: linear-gradient(140deg, #FCE8EF 0%, #F6EEF8 100%); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 12px; font-weight: 700; color: #8A2A4C">Blindtest of the day</span>
+      <h3 style="margin: 0; font-size: 17px; line-height: 1.3; font-weight: 700">5 songs, 10 seconds each</h3>
+      <span style="font-size: 13px; color: #6B655E">KpopQuiz · audio only</span>
+      <a href="#" style="margin-top: 4px; display: flex; justify-content: center; align-items: center; min-height: 44px; border-radius: 999px; background: #1F1B17; color: #FAF8F5; text-decoration: none; font-weight: 700">Listen</a>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="m-quick" style="padding: 24px 16px 8px; display: flex; flex-direction: column; gap: 12px">
+  <h2 id="m-quick" style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em">60 seconds</h2>
+  <article style="background: #FFFFFF; border: 1px solid #ECE8E3; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #6B655E">Quick question</span>
+    <h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 700">ITZY's 2022 single Cheshire borrows the concept of a famous cat from which story?</h3>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+        <button type="button" onClick="{{o.pick}}" style="min-height: 48px; padding: 10px 14px; border-radius: 14px; border: 1.5px solid {{o.bd}}; background: {{o.bg}}; opacity: {{o.op}}; color: #1F1B17; font: inherit; font-size: 15px; font-weight: 600; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px">{{o.label}}<span style="font-size: 12px; font-weight: 700; color: {{o.markColor}}">{{o.mark}}</span></button>
+      </sc-for>
+    </div>
+    <sc-if value="{{answered}}" hint-placeholder-val="{{false}}">
+      <div role="status" style="padding: 12px 14px; border-radius: 14px; background: #F1EFEA; display: flex; flex-direction: column; gap: 6px">
+        <strong style="color: {{resultColor}}">{{resultTitle}}</strong>
+        <span style="font-size: 14px; line-height: 1.5">ITZY borrowed the Cheshire Cat from Alice in Wonderland to express an ambiguous feeling.</span>
+        <a href="#" style="font-weight: 700; color: #8A2A4C; text-decoration: none">Play the full quiz</a>
+      </div>
+    </sc-if>
+  </article>
+  <article style="background: #FFFFFF; border: 1px solid #ECE8E3; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #6B655E">Did you know · anime</span>
+    <p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 600">In Japan, Frieren is called Sōsō no Furīren, which literally means Frieren at the Funeral.</p>
+    <a href="#" style="font-size: 14px; font-weight: 700; color: #9A3412; text-decoration: none">More anime trivia</a>
+  </article>
+</section>
+
+<section aria-labelledby="m-hot" style="padding: 24px 16px 8px; display: flex; flex-direction: column; gap: 12px">
+  <h2 id="m-hot" style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em">Hot right now</h2>
+  <div role="group" aria-label="Filter by site" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 999px; background: #F1EFEA">
+    <sc-for list="{{chips}}" as="c" hint-placeholder-count="3">
+      <button type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="min-height: 40px; border-radius: 999px; border: 0; background: {{c.bg}}; box-shadow: {{c.shadow}}; color: #1F1B17; font: inherit; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: {{c.dot}}"></span>{{c.label}}</button>
+    </sc-for>
+  </div>
+  <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+    <sc-for list="{{trending}}" as="q" hint-placeholder-count="6">
+      <li>
+        <a href="#" style="display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #ECE8E3; text-decoration: none; color: #1F1B17">
+          <span style="flex: 0 0 auto; width: 20px; font-weight: 800; color: #6B655E; text-align: right; font-variant-numeric: tabular-nums">{{q.rank}}</span>
+          <span aria-hidden="true" style="flex: 0 0 auto; width: 48px; height: 48px; border-radius: 14px; background: {{q.soft}}; color: {{q.ink}}; display: grid; place-items: center; font-weight: 800; font-size: 15px">{{q.tile}}</span>
+          <span style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+            <span style="font-size: 12px; font-weight: 700; color: {{q.ink}}">{{q.siteName}} · {{q.group}}</span>
+            <span class="fq-clamp" style="font-size: 15px; line-height: 1.3; font-weight: 700">{{q.title}}</span>
+            <span style="font-size: 12px; color: #6B655E">{{q.meta}} · {{q.stat}}</span>
+          </span>
+        </a>
+      </li>
+    </sc-for>
+  </ol>
+</section>
+
+<section aria-labelledby="m-start" style="padding: 24px 16px 8px; display: flex; flex-direction: column; gap: 12px">
+  <h2 id="m-start" style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em">New here? Start easy</h2>
+  <a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 1px solid #ECE8E3; text-decoration: none; color: #1F1B17">
+    <span style="font-size: 12px; font-weight: 700; color: #8A2A4C">First K-pop quiz</span>
+    <span style="font-size: 16px; font-weight: 700">K-pop company quiz - match the group to the label</span>
+  </a>
+  <a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 1px solid #ECE8E3; text-decoration: none; color: #1F1B17">
+    <span style="font-size: 12px; font-weight: 700; color: #9A3412">First anime quiz</span>
+    <span style="font-size: 16px; font-weight: 700">Raising the Flag: One Piece Basics</span>
+  </a>
+</section>
+
+<section aria-labelledby="m-cross" style="padding: 24px 16px 8px">
+  <div style="border-radius: 22px; background: #1F1B17; color: #FAF8F5; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #C9C2B8">Crossover</span>
+    <h2 id="m-cross" style="margin: 0; font-size: 22px; font-weight: 800">When K-pop meets anime</h2>
+    <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 14px; background: #2A2622; text-decoration: none; color: #FAF8F5"><span style="font-size: 12px; font-weight: 700; color: #FF9DBC">KpopQuiz</span><span style="font-weight: 700">KPop Demon Hunters Quiz</span></a>
+    <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 14px; background: #2A2622; text-decoration: none; color: #FAF8F5"><span style="font-size: 12px; font-weight: 700; color: #FDBA74">OtakuQuiz</span><span style="font-weight: 700">One Opening, Many Endings: Chainsaw Man Theme Songs</span></a>
+  </div>
+</section>
+
+<section aria-labelledby="m-pass" style="padding: 24px 16px 32px">
+  <div style="background: #FFFFFF; border: 1px solid #ECE8E3; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+    <h2 id="m-pass" style="margin: 0; font-size: 20px; font-weight: 800">One passport for both sites</h2>
+    <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #6B655E">Your level, streaks and badges follow you. Other sites never see your email or how you sign in.</p>
+    <button type="button" style="min-height: 48px; border-radius: 999px; border: 0; background: #1F1B17; color: #FAF8F5; font: inherit; font-weight: 700; font-size: 16px">Sign in or create a passport</button>
+  </div>
+</section>
+
+<footer style="border-top: 1px solid #ECE8E3; background: #F1EFEA; padding: 24px 16px; display: flex; flex-wrap: wrap; gap: 12px 20px; font-size: 14px">
+  <a href="#" style="text-decoration: none">KpopQuiz</a>
+  <a href="#" style="text-decoration: none">OtakuQuiz</a>
+  <a href="#" style="text-decoration: none">Privacy</a>
+  <a href="#" style="text-decoration: none">Legal notice</a>
+  <span style="color: #6B655E">hello@kpopquiz.org</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { filter: 'all', answer: null }; }
+  renderVals() {
+    var self = this;
+    var K = { siteName: 'KpopQuiz', soft: '#FCE8EF', ink: '#8A2A4C' };
+    var A = { siteName: 'OtakuQuiz', soft: '#FFF1E6', ink: '#9A3412' };
+    function card(site, tile, group, title, meta, stat) { return Object.assign({}, site, { tile: tile, group: group, title: title, meta: meta, stat: stat }); }
+    var kpop = [
+      card(K, 'BTS', 'BTS', 'Ultimate BTS era quiz - only real ARMYs survive', 'Medium', '2.7k plays'),
+      card(K, 'SK', 'Stray Kids', 'SKZ true or false - only real STAYs pass', 'Easy', '2.1k plays'),
+      card(K, 'BP', 'BLACKPINK', 'BLACKPINK ultimate fan challenge', 'Medium', '1.7k plays'),
+      card(K, 'K', 'K-pop', 'K-pop company quiz - match the group to the label', 'Easy', '1.7k plays'),
+      card(K, 'K', 'K-pop', 'Which K-pop group debuted first? Timeline challenge', 'Medium', '1.3k plays'),
+      card(K, 'IL', 'ILLIT', 'are u a real GLLIT?!!', 'Easy', '1.1k plays')
+    ];
+    var anime = [
+      card(A, 'DN', 'Death Note', 'Name and Face: Death Note True or False', 'Medium', 'New'),
+      card(A, 'OP', 'One Piece', 'Raising the Flag: One Piece Basics', 'Easy', 'New'),
+      card(A, 'CM', 'Chainsaw Man', 'One Opening, Many Endings: Chainsaw Man Theme Songs', 'Medium', 'New'),
+      card(A, 'Fr', 'Frieren', "Journey's Beginning: Frieren Basics", 'Easy', 'New'),
+      card(A, 'SF', 'Spy x Family', 'Cover Story or Truth: Spy x Family True or False', 'Medium', 'New'),
+      card(A, 'Ha', 'Haikyu!!', 'Four Seasons and a Finale: The Haikyu!! Timeline', 'Hard', 'New')
+    ];
+    var f = this.state.filter, list;
+    if (f === 'kpop') list = kpop; else if (f === 'anime') list = anime; else { list = []; for (var i = 0; i < 3; i++) { list.push(kpop[i]); list.push(anime[i]); } }
+    var trending = list.map(function (q, i) { return Object.assign({}, q, { rank: i + 1 }); });
+    var chips = [['all', 'All', '#1F1B17'], ['kpop', 'K-pop', '#D13A6E'], ['anime', 'Anime', '#C2410C']].map(function (c) {
+      var on = f === c[0];
+      return { label: c[1], dot: c[2], pressed: on ? 'true' : 'false', bg: on ? '#FFFFFF' : 'transparent', shadow: on ? '0 1px 2px rgba(31,27,23,.08), 0 4px 12px rgba(31,27,23,.08)' : 'none', pick: function () { self.setState({ filter: c[0] }); } };
+    });
+    var labels = ['Puss in Boots', 'The Jungle Book', 'Alice in Wonderland', 'The Wizard of Oz'], correct = 2, ans = this.state.answer, answered = ans !== null;
+    var options = labels.map(function (l, i) {
+      var bg = '#FFFFFF', bd = '#E5E0DA', op = 1, mark = '', markColor = '#1F1B17';
+      if (answered) {
+        if (i === correct) { bg = '#E9F4EC'; bd = '#257547'; mark = 'Right answer'; markColor = '#257547'; }
+        else if (i === ans) { bg = '#FBECEA'; bd = '#B83A34'; mark = 'Your pick'; markColor = '#B83A34'; }
+        else op = 0.55;
+      }
+      return { label: l, bg: bg, bd: bd, op: op, mark: mark, markColor: markColor, pick: function () { if (self.state.answer === null) self.setState({ answer: i }); } };
+    });
+    return {
+      trending: trending, chips: chips, options: options, answered: answered,
+      resultTitle: answered ? (ans === correct ? 'Right, well played.' : 'Not this time.') : '',
+      resultColor: answered ? (ans === correct ? '#257547' : '#B83A34') : '#1F1B17'
+    };
+  }
+}
+</script>
+</body>
+</html>
