@@ -15,6 +15,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'death-note': 'anime_manga',
   'demon-slayer': 'anime_manga',
   'detective-conan': 'anime_manga',
+  'dr-stone': 'anime_manga',
   'dragon-ball': 'franchise',
   'evangelion': 'anime_original',
   'fairy-tail': 'anime_manga',

@@ -1,0 +1,2870 @@
+[
+  {
+    "id": "dr-stone-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "title_native",
+    "value": [
+      "Dr.STONE",
+      "Dr. Stone"
+    ],
+    "text": "The title is written in capitals as Dr.STONE in Japan, and English texts use the spaced form Dr. Stone.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Dr. Stone (stylized as Dr.STONE)"
+  },
+  {
+    "id": "dr-stone-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "author",
+    "value": [
+      "Riichiro Inagaki",
+      "Boichi"
+    ],
+    "text": "Riichiro Inagaki wrote the story of the manga and the South Korean artist Boichi drew every page.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/dr-stone",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "written by Riichiro Inagaki and illustrated by the South Korean artist Boichi"
+  },
+  {
+    "id": "dr-stone-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump",
+    "text": "The manga ran in Weekly Shōnen Jump for the whole of its serialization.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q38275959",
+        "ref": "Q38275959",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump"
+  },
+  {
+    "id": "dr-stone-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "publisher",
+    "value": "Shueisha",
+    "text": "Shueisha is the Japanese publisher of the collected volumes, which appear under its Jump Comics imprint.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Shueisha"
+  },
+  {
+    "id": "dr-stone-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "manga_start",
+    "value": "March 6, 2017",
+    "text": "The first chapter appeared in Weekly Shōnen Jump on March 6, 2017.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q38275959",
+        "ref": "Q38275959",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=20337",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "from March 6, 2017, to March 7, 2022"
+  },
+  {
+    "id": "dr-stone-manga-end-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "manga_run",
+    "value": [
+      "March 6, 2017",
+      "March 7, 2022"
+    ],
+    "text": "Serialization lasted five years: it began on March 6, 2017 and finished on March 7, 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=20337",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "serialized for five years"
+  },
+  {
+    "id": "dr-stone-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "volumes",
+    "value": 27,
+    "text": "The manga fills 27 collected volumes, the last of them published in April 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/dr-stone",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=20337",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "A 27th tankōbon volume was released on April 4, 2024"
+  },
+  {
+    "id": "dr-stone-chapters-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "chapters_collected",
+    "value": 232,
+    "text": "The 232 weekly chapters of the main story were first collected in 26 volumes between July 2017 and July 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Shueisha collected its 232 individual chapters in 26 tankōbon volumes"
+  },
+  {
+    "id": "dr-stone-setting-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "premise",
+    "value": [
+      "Green flash",
+      "3,700 years"
+    ],
+    "text": "A green flash turns the whole human race to stone, and the story begins about 3,700 years later when a teenage genius wakes up alone.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "petrified in stone for 3,719 years"
+  },
+  {
+    "id": "dr-stone-inspiration-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "inspiration",
+    "value": "Agon Kongo",
+    "text": "Inagaki says the personality of Senku was meant to resemble Agon Kongo, a character from his earlier sports manga Eyeshield 21.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "closely resembled the character Agon Kongo from his own manga serialization Eyeshield 21"
+  },
+  {
+    "id": "dr-stone-influence-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "background",
+    "value": "Video Girl Ai",
+    "text": "The author names the older manga Video Girl Ai as a major influence on how the story developed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Video Girl Ai was a series that had a significant impact"
+  },
+  {
+    "id": "dr-stone-editor-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "planning",
+    "value": "Chosen by the editor",
+    "text": "Dr. Stone was one of several story pitches Inagaki showed his editor, who picked it because he could not guess where it would go.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "chose it because he had no idea how it would develop"
+  },
+  {
+    "id": "dr-stone-boichi-joined-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "creator",
+    "value": "Boichi",
+    "text": "Boichi was asked to draw the series around the time Inagaki finished the storyboards of the third chapter, and Inagaki was already a fan of his art.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "was approached around the time Inagaki"
+  },
+  {
+    "id": "dr-stone-award-shogakukan-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "manga_award",
+    "value": [
+      "64th Shogakukan Manga Award",
+      "shonen category",
+      "2019"
+    ],
+    "text": "In 2019 the manga won the 64th Shogakukan Manga Award in the shonen category.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shogakukan-comic.jp/news/15958",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "won the 64th Shogakukan Manga Award for the shōnen category"
+  },
+  {
+    "id": "dr-stone-copies-2026-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "copies",
+    "value": "Over 20 million",
+    "text": "As of March 2026 the manga had more than 20 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "over 20 million copies in circulation by March 2026"
+  },
+  {
+    "id": "dr-stone-award-crunchyroll-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_award",
+    "value": "Best Protagonist",
+    "text": "In 2020 the 4th Crunchyroll Anime Awards named Senku the Best Protagonist.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Senku won the \"Best Protagonist\" category at the 4th Crunchyroll Anime Awards"
+  },
+  {
+    "id": "dr-stone-buzzword-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "buzzword",
+    "value": "This is exhilarating",
+    "text": "Senku's signature cry of excitement made the 2019 anime buzzword list compiled by Gadget Tsūshin.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Senku's catchphrase \"This is exhilarating!\""
+  },
+  {
+    "id": "dr-stone-netflix-2019-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "popularity",
+    "value": "Eighth most watched on Netflix Japan in 2019",
+    "text": "Dr. Stone ranked eighth among the anime series that Japanese Netflix viewers watched the most in 2019.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "eighth most watched anime series on Netflix in Japan in 2019"
+  },
+  {
+    "id": "dr-stone-viz-licence-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "english_licence",
+    "value": "Viz Media",
+    "text": "Viz Media licensed the manga for North America, and its 26 first volumes came out from September 2018 to July 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/dr-stone",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "The 26 volumes were released from September 4, 2018, to July 4, 2023"
+  },
+  {
+    "id": "dr-stone-mangaplus-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "english_release",
+    "value": "Manga Plus",
+    "text": "Shueisha began publishing the manga in English at the same time as in Japan on its Manga Plus site and app in January 2019.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Shueisha began to simulpublish the series in English on the website and app Manga Plus in January 2019"
+  },
+  {
+    "id": "dr-stone-anime-start-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_start",
+    "value": "July 5, 2019",
+    "text": "The anime adaptation premiered on July 5, 2019, on Tokyo MX and other networks.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61041618",
+        "ref": "Q61041618",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "The first season aired from July 5 to December 13, 2019"
+  },
+  {
+    "id": "dr-stone-anime-studio-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_studio",
+    "value": "TMS Entertainment",
+    "text": "TMS Entertainment produced the anime, with 8PAN and later Die4Studio also credited on some seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61041618",
+        "ref": "Q61041618",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "TMS Entertainment 8PAN"
+  },
+  {
+    "id": "dr-stone-anime-directors-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Shinya Iino",
+      "Shūhei Matsushita"
+    ],
+    "text": "Shinya Iino directed the first two seasons, then Shūhei Matsushita took over for the special and for seasons three and four.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Directed by Shinya Iino"
+  },
+  {
+    "id": "dr-stone-anime-announced-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_announced",
+    "value": "November 19, 2018",
+    "text": "Weekly Shōnen Jump announced the anime adaptation on November 19, 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "announced in Weekly Shōnen Jump on November 19, 2018"
+  },
+  {
+    "id": "dr-stone-composers-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "composers",
+    "value": [
+      "Tatsuya Kato",
+      "Hiroaki Tsutsumi",
+      "Yuki Kanesaka"
+    ],
+    "text": "A trio of composers wrote the score together: Tatsuya Kato, Hiroaki Tsutsumi and Yuki Kanesaka.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22942",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Tatsuya Kato, Hiroaki Tsutsumi, and Yuki Kanesaka composed the series' music"
+  },
+  {
+    "id": "dr-stone-season-1-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "season_1",
+    "value": [
+      "Season 1",
+      "24 episodes",
+      "July 5, 2019",
+      "December 13, 2019"
+    ],
+    "text": "The first season ran for 24 episodes, from July 5 to December 13, 2019.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "July 5, 2019 (2019-07-05) December 13, 2019 (2019-12-13)"
+  },
+  {
+    "id": "dr-stone-season-2-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "season_2",
+    "value": [
+      "Stone Wars",
+      "11 episodes",
+      "January 14, 2021",
+      "March 25, 2021"
+    ],
+    "text": "The second season, Stone Wars, has 11 episodes and aired from January 14 to March 25, 2021.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "the second season aired for eleven episodes from January 14 to March 25, 2021"
+  },
+  {
+    "id": "dr-stone-ryusui-special-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "bonus_special",
+    "value": [
+      "Dr. Stone: Ryusui",
+      "July 10, 2022"
+    ],
+    "text": "A television special about Ryusui Nanami aired on July 10, 2022, between the second and third seasons.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "premiered on July 10, 2022"
+  },
+  {
+    "id": "dr-stone-season-3-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "season_3",
+    "value": [
+      "New World",
+      "22 episodes",
+      "April 6, 2023",
+      "December 21, 2023"
+    ],
+    "text": "The third season, New World, has 22 episodes in two cours: April to June 2023 and October to December 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "April 6, 2023 (2023-04-06) June 15, 2023 (2023-06-15)"
+  },
+  {
+    "id": "dr-stone-season-4-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "season_4",
+    "value": [
+      "Science Future",
+      "37 episodes",
+      "January 9, 2025",
+      "June 25, 2026"
+    ],
+    "text": "The fourth and final season, Science Future, has 37 episodes in three cours between January 2025 and June 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "The season comprises 37 episodes split across three cours"
+  },
+  {
+    "id": "dr-stone-episodes-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "episodes",
+    "value": 94,
+    "text": "The anime runs for 4 seasons and 94 episodes in all, plus one television special.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Episodes 94 + SP"
+  },
+  {
+    "id": "dr-stone-anime-end-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_end",
+    "value": "June 25, 2026",
+    "text": "The last episode of the anime aired on June 25, 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "June 25, 2026 (2026-06-25)"
+  },
+  {
+    "id": "dr-stone-ann-finale-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "ending_theme",
+    "value": "Good Morning World!",
+    "text": "For the very last episode the ending song was the show's first opening, Good Morning World!, according to the encyclopedia of Anime News Network.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=37873",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Ending Theme : #2: \"Good Morning World!\" by BURNOUT SYNDROMES (ep 37)"
+  },
+  {
+    "id": "dr-stone-spinoff-byakuya-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Dr. Stone Reboot: Byakuya",
+      "nine chapters",
+      "October 28, 2019"
+    ],
+    "text": "A nine chapter spin-off, Reboot: Byakuya, ran in Weekly Shōnen Jump between October 28 and December 23, 2019.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "A nine-chapter spin-off, Dr. Stone Reboot: Byakuya"
+  },
+  {
+    "id": "dr-stone-spinoff-4d-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "spinoff",
+    "value": [
+      "Dr. Stone: 4D Science",
+      "three chapters",
+      "November 6, 2023"
+    ],
+    "text": "A three chapter follow-up, 4D Science, set after the finale ran from November 6 to December 25, 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "A three-chapter spin-off, Dr. Stone: 4D Science"
+  },
+  {
+    "id": "dr-stone-terraforming-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "new_anime",
+    "value": [
+      "Terraforming",
+      "announced October 2026"
+    ],
+    "text": "In October 2026 a new anime was announced that will adapt the Terraforming one-shot, which is set after the main story.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "At the \"Stone Fes. 2026\" event in October 2026, a new sequel was announced"
+  },
+  {
+    "id": "dr-stone-game-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "franchise_titles",
+    "value": [
+      "Dr. Stone: Battle Craft",
+      "September 1, 2021"
+    ],
+    "text": "A strategy smartphone game, Battle Craft, was released in Japan on September 1, 2021 by Poppin Games Japan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "It was released on September 1, 2021"
+  },
+  {
+    "id": "dr-stone-toonami-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "english_dub",
+    "value": "Toonami",
+    "text": "The English dub began on Adult Swim's Toonami block on August 25, 2019, and Crunchyroll streams the series worldwide outside Asia.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "began airing on Adult Swim's Toonami programming block on August 25, 2019"
+  },
+  {
+    "id": "dr-stone-themes-s1-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP1: Good Morning World! (Burnout Syndromes)",
+      "ED1: Life (Rude-α)",
+      "OP2: Sangenshoku (Pelican Fanclub)",
+      "ED2: Yume no Youna (Saeki YouthK)"
+    ],
+    "text": "Season one used Good Morning World! and then Sangenshoku as openings, with Life and Yume no Youna as endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "The first opening theme is \"Good Morning World!\", performed by Burnout Syndromes"
+  },
+  {
+    "id": "dr-stone-themes-s2-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP3: Rakuen (Fujifabric)",
+      "ED3: Koe? (Hatena)"
+    ],
+    "text": "Stone Wars was opened by Rakuen of Fujifabric and closed by Koe? of Hatena.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22942",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "performed by Fujifabric"
+  },
+  {
+    "id": "dr-stone-themes-s3-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP4: Wasuregataki (Huwie Ishizaki)",
+      "ED4: Where Do We Go? (Okamoto's)",
+      "OP5: Haruka (Ryujin Kiyoshi)",
+      "ED5: Suki ni Shinayo (Anly)"
+    ],
+    "text": "New World had two cours with two song pairs: Wasuregataki with Where Do We Go?, then Haruka with Suki ni Shinayo.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=25068",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "performed by Huwie Ishizaki"
+  },
+  {
+    "id": "dr-stone-themes-s4-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "themes_s4",
+    "value": [
+      "OP6: Casanova Posse (ALI)",
+      "ED6: Rolling Stone (Breimen)",
+      "OP7: Supernova (Kana-Boon)",
+      "ED7: No Man's World (Otoha)",
+      "OP8: Skins (Asian Kung-Fu Generation)",
+      "ED8: Rocket (Burnout Syndromes)"
+    ],
+    "text": "Science Future had three cours of songs, from Casanova Posse up to Skins by Asian Kung-Fu Generation and Rocket by Burnout Syndromes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=37873",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "the opening theme is \"Skins\""
+  },
+  {
+    "id": "dr-stone-arc-list-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1: episodes 1 to 24",
+      "Stone Wars: episodes 25 to 35",
+      "TV special",
+      "New World: episodes 36 to 57",
+      "Science Future: episodes 58 to 94"
+    ],
+    "text": "The anime is cut into five parts: season one, Stone Wars, a television special, New World and Science Future.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Season 1 (2019)"
+  },
+  {
+    "id": "dr-stone-senku-ishigami-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "senku-ishigami"
+    },
+    "field": "name",
+    "value": [
+      "Senku Ishigami",
+      "石神 千空"
+    ],
+    "text": "Senku Ishigami is a teenage prodigy of science who sets out to rebuild civilization after waking in the Stone World.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "is a teenage prodigy who excels in multiple fields of science"
+  },
+  {
+    "id": "dr-stone-senku-ishigami-interest-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "senku-ishigami"
+    },
+    "field": "specialty",
+    "value": "Astronomy and space exploration",
+    "text": "Astronomy and exploring space are the favorite fields of science for Senku.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "special love of astronomy and space exploration"
+  },
+  {
+    "id": "dr-stone-senku-ishigami-voice-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "senku-ishigami"
+    },
+    "field": "voice_cast",
+    "value": "Yūsuke Kobayashi",
+    "text": "Yūsuke Kobayashi voices Senku in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Yūsuke Kobayashi"
+  },
+  {
+    "id": "dr-stone-taiju-oki-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "taiju-oki"
+    },
+    "field": "name",
+    "value": [
+      "Taiju Oki",
+      "大木 大樹"
+    ],
+    "text": "Taiju Oki is Senku's best friend, a gentle giant whom Senku teases as a big oaf.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Senku's best friend, whom Senku refers to as a \"big oaf\""
+  },
+  {
+    "id": "dr-stone-taiju-oki-voice-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "taiju-oki"
+    },
+    "field": "voice_cast",
+    "value": "Makoto Furukawa",
+    "text": "Makoto Furukawa voices Taiju in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Makoto Furukawa"
+  },
+  {
+    "id": "dr-stone-yuzuriha-ogawa-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "yuzuriha-ogawa"
+    },
+    "field": "name",
+    "value": [
+      "Yuzuriha Ogawa",
+      "小川 杠"
+    ],
+    "text": "Yuzuriha Ogawa is a cheerful girl from the handicrafts club who dreams of becoming a fashion designer.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "goal of becoming a fashion designer"
+  },
+  {
+    "id": "dr-stone-tsukasa-shishio-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "tsukasa-shishio"
+    },
+    "field": "name",
+    "value": [
+      "Tsukasa Shishio",
+      "獅子王 司"
+    ],
+    "text": "Tsukasa Shishio is a young mixed martial arts star nicknamed the strongest primate high schooler, and he can fell a lion with a single blow.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "physically powerful enough to kill a lion with one punch"
+  },
+  {
+    "id": "dr-stone-tsukasa-shishio-pelt-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "tsukasa-shishio"
+    },
+    "field": "style",
+    "value": "Wears a lion pelt",
+    "text": "Tsukasa drapes himself in the skin of a male lion that he hunted down himself.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "wears the pelt of the male lion he killed while hunting"
+  },
+  {
+    "id": "dr-stone-tsukasa-shishio-voice-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "tsukasa-shishio"
+    },
+    "field": "voice_cast",
+    "value": "Yuichi Nakamura",
+    "text": "Yuichi Nakamura voices Tsukasa in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Yuichi Nakamura"
+  },
+  {
+    "id": "dr-stone-kohaku-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kohaku"
+    },
+    "field": "name",
+    "value": [
+      "Kohaku",
+      "コハク"
+    ],
+    "text": "Kohaku is the strongest warrior of Ishigami Village and the first villager that Senku meets.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "strongest warrior of Ishigami Village"
+  },
+  {
+    "id": "dr-stone-chrome-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "chrome"
+    },
+    "field": "name",
+    "value": [
+      "Chrome",
+      "クロム"
+    ],
+    "text": "Chrome is a boy of Ishigami Village who calls himself a sorcerer after mistaking basic science for magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "self-proclaimed sorcerer"
+  },
+  {
+    "id": "dr-stone-chrome-hobby-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "chrome"
+    },
+    "field": "habits",
+    "value": "Rock collecting",
+    "text": "Chrome likes collecting rocks and managing chemical reactions.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "His hobby of rock collecting"
+  },
+  {
+    "id": "dr-stone-suika-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "suika"
+    },
+    "field": "name",
+    "value": [
+      "Suika",
+      "スイカ"
+    ],
+    "text": "Suika is a young girl who keeps a watermelon on her head to hide her fuzzy sickness.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "wears a watermelon on her head"
+  },
+  {
+    "id": "dr-stone-gen-asagiri-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "gen-asagiri"
+    },
+    "field": "name",
+    "value": [
+      "Gen Asagiri",
+      "浅霧 幻"
+    ],
+    "text": "Gen Asagiri is a silver-tongued mentalist from the old world who always walks barefoot in a yukata.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "silver-tongued self-help guru who styles himself as a mentalist"
+  },
+  {
+    "id": "dr-stone-gen-asagiri-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "gen-asagiri"
+    },
+    "field": "voice_cast",
+    "value": "Kengo Kawanishi",
+    "text": "Kengo Kawanishi voices Gen in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Kengo Kawanishi"
+  },
+  {
+    "id": "dr-stone-ryusui-nanami-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ryusui-nanami"
+    },
+    "field": "name",
+    "value": [
+      "Ryusui Nanami",
+      "七海 龍水"
+    ],
+    "text": "Ryusui Nanami is the rich heir of the Nanami Conglomerate and an expert sailor who captains the ship Perseus.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "expert sailor, he was made the Captain of the Perseus"
+  },
+  {
+    "id": "dr-stone-ryusui-nanami-models-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ryusui-nanami"
+    },
+    "field": "background",
+    "value": "Spends allowance on model ships",
+    "text": "Model ships are what Ryusui buys with his pocket money.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "spends his allowance on model ships"
+  },
+  {
+    "id": "dr-stone-hyoga-akatsuki-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "hyoga-akatsuki"
+    },
+    "field": "name",
+    "value": [
+      "Hyoga Akatsuki",
+      "暁 氷月"
+    ],
+    "text": "Hyoga Akatsuki is a tall spear fighter of the Tsukasa Empire who believes in social Darwinism.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "tall and fairly built spear-armed man"
+  },
+  {
+    "id": "dr-stone-hyoga-akatsuki-voice-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "hyoga-akatsuki"
+    },
+    "field": "voice_cast",
+    "value": "Akira Ishida",
+    "text": "Akira Ishida voices Hyoga in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Akira Ishida"
+  },
+  {
+    "id": "dr-stone-ukyo-saionji-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ukyo-saionji"
+    },
+    "field": "name",
+    "value": [
+      "Ukyo Saionji",
+      "西園寺 羽京"
+    ],
+    "text": "Ukyo Saionji is a former navy sonar operator with sensitive hearing and a talent for languages who became an expert archer.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "SDF Navy sailor and submarine sonar operator"
+  },
+  {
+    "id": "dr-stone-francois-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "francois"
+    },
+    "field": "name",
+    "value": [
+      "Francois",
+      "フランソワ"
+    ],
+    "text": "Francois is the butler and chef of Ryusui, who baked the first bread of the Stone World.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "butler and chef of Ryusui"
+  },
+  {
+    "id": "dr-stone-kaseki-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kaseki"
+    },
+    "field": "name",
+    "value": [
+      "Kaseki",
+      "カセキ"
+    ],
+    "text": "Kaseki is a muscular elderly craftsman who builds glass and engines from the drawings of Senku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "elderly but ripped artisan from Ishigami Village"
+  },
+  {
+    "id": "dr-stone-ruri-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ruri"
+    },
+    "field": "name",
+    "value": [
+      "Ruri",
+      "ルリ"
+    ],
+    "text": "Ruri is the high priestess of Ishigami Village and the older sister of Kohaku, whose illness drives the first goal of the Kingdom of Science.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Kohaku's older sister and Ishigami Village's high priestess"
+  },
+  {
+    "id": "dr-stone-kokuyo-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kokuyo"
+    },
+    "field": "name",
+    "value": [
+      "Kokuyo",
+      "コクヨウ"
+    ],
+    "text": "Kokuyo is the bearded village chief when Senku wakes up, and the father of Kohaku and Ruri.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "father of Kohaku and Ruri"
+  },
+  {
+    "id": "dr-stone-byakuya-ishigami-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "byakuya-ishigami"
+    },
+    "field": "name",
+    "value": [
+      "Byakuya Ishigami",
+      "石神 百夜"
+    ],
+    "text": "Byakuya Ishigami is Senku's adoptive father, an astronaut on the International Space Station who founded Ishigami Village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "adoptive father of Senku, a former teacher"
+  },
+  {
+    "id": "dr-stone-dr-xeno-name-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "dr-xeno"
+    },
+    "field": "name",
+    "value": [
+      "Dr. Xeno Houston Wingfield",
+      "ゼノ・ヒューストン・ウィングフィールド"
+    ],
+    "text": "Dr. Xeno is a former NASA scientist who leads the colony in the United States and rivals Senku in genius.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "former NASA scientist"
+  },
+  {
+    "id": "dr-stone-stanley-snyder-name-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "stanley-snyder"
+    },
+    "field": "name",
+    "value": [
+      "Stanley Snyder",
+      "スタンリー・スナイダー"
+    ],
+    "text": "Stanley Snyder is a soldier and the second in command of Dr. Xeno.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "military operative and Dr. Xeno's second-in-command"
+  },
+  {
+    "id": "dr-stone-mirai-shishio-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "mirai-shishio"
+    },
+    "field": "name",
+    "value": [
+      "Mirai Shishio",
+      "獅子王 未来"
+    ],
+    "text": "Mirai Shishio is the younger sister of Tsukasa, who was brain-dead from an accident before the petrification.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "brain-dead following a car accident"
+  },
+  {
+    "id": "dr-stone-why-man-name-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "why-man"
+    },
+    "field": "name",
+    "value": [
+      "Why-Man",
+      "ホワイマン"
+    ],
+    "text": "Why-Man is the name Ryusui gives to whoever petrifies humanity from the surface of the Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "perpetrator petrifying humanity from the surface of the Moon"
+  },
+  {
+    "id": "dr-stone-first-episodes-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "titles",
+    "value": [
+      "Stone World",
+      "King of the Stone World",
+      "Weapons of Science"
+    ],
+    "text": "The first three episodes are titled Stone World, King of the Stone World and Weapons of Science.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "\"King of the Stone World\""
+  },
+  {
+    "id": "dr-stone-last-episodes-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "tv_episodes",
+    "value": [
+      "Why-Man",
+      "Ushers of an Exhilarating Future"
+    ],
+    "text": "The anime ends with two episodes titled Why-Man and Ushers of an Exhilarating Future.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
+        "ref": "1361616710",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "\"Ushers of an Exhilarating Future\""
+  },
+  {
+    "id": "dr-stone-platinum-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "treasure",
+    "value": "Platinum",
+    "text": "On a nearby island, a stock of platinum left by Senku's adoptive father can serve as a catalyst to mass-produce the revival fluid.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Byakuya had left platinum which can be used as catalyst to mass-produce revival fluid"
+  },
+  {
+    "id": "dr-stone-moon-rocket-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "mission",
+    "value": "A rocket to the Moon",
+    "text": "Late in the story the Kingdom of Science builds a rocket so that a crew can travel to the Moon and find the source of the petrification.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "they finally build a rocket for Senku, Kohaku, and Stanley to board"
+  },
+  {
+    "id": "dr-stone-suika-wave-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "suika"
+    },
+    "field": "role",
+    "value": "The only one awake after the second wave",
+    "text": "After a second worldwide petrification, only Suika remains awake, revived by the forces of nature, and she works for years to learn how to make nitric acid.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Only Suika is left alive, having been revived by the forces of nature"
+  },
+  {
+    "id": "dr-stone-why-man-nature-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "why-man"
+    },
+    "field": "origin",
+    "value": "Consciousness of the petrification devices",
+    "text": "Why-Man turns out to be the shared consciousness of all the thinking petrification devices that crossed the galaxy for ages.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "the consciousness of all the sentient petrification devices"
+  },
+  {
+    "id": "dr-stone-tsukasa-shishio-motive-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "tsukasa-shishio"
+    },
+    "field": "motivation",
+    "value": "A new world ruled by strength",
+    "text": "Tsukasa wants a world order ruled by power and strength, and he smashes the petrified adults he meets so that they cannot get in his way.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "new world order based on power and strength"
+  },
+  {
+    "id": "dr-stone-senku-ishigami-fake-death-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "senku-ishigami"
+    },
+    "field": "mission",
+    "value": "Faking his death",
+    "text": "Senku fakes his own death so that Tsukasa stops hunting him, and then befriends the people of Ishigami Village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "faking his death to keep Tsukasa from hunting him"
+  },
+  {
+    "id": "dr-stone-gen-asagiri-defect-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "gen-asagiri"
+    },
+    "field": "role",
+    "value": "Joins the Kingdom of Science",
+    "text": "Gen was revived by Tsukasa to confirm Senku's death, but after seeing what Senku achieves he joins the Kingdom of Science.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Gen ends up defecting to the Kingdom of Science"
+  },
+  {
+    "id": "dr-stone-ibara-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ibara"
+    },
+    "field": "name",
+    "value": [
+      "Ibara",
+      "イバラ"
+    ],
+    "text": "Ibara is the minister of the Petrification Kingdom, who seized power and used the Petrification Device against anyone who threatened him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "used the Petrification Device to petrify him"
+  },
+  {
+    "id": "dr-stone-soyuz-name-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "soyuz"
+    },
+    "field": "name",
+    "value": [
+      "Soyuz",
+      "ソユーズ"
+    ],
+    "text": "Soyuz is a barefoot strongman with a photographic memory and an X-shaped scar, and he later leads the Petrification Kingdom.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "great photographic memory"
+  },
+  {
+    "id": "dr-stone-taiju-oki-strength-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "taiju-oki"
+    },
+    "field": "power",
+    "value": "Incredible strength and stamina",
+    "text": "Taiju has enormous strength and almost endless stamina, yet he is a pacifist who has never thrown a punch.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "incredible strength and seemingly limitless stamina"
+  },
+  {
+    "id": "dr-stone-taiju-oki-love-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "taiju-oki"
+    },
+    "field": "motivation",
+    "value": "Yuzuriha",
+    "text": "Taiju has fallen for Yuzuriha, and there is nothing he would not do to look after her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "He is in love with Yuzuriha and will do anything to take care of her"
+  },
+  {
+    "id": "dr-stone-yuzuriha-ogawa-talent-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "yuzuriha-ogawa"
+    },
+    "field": "talent",
+    "value": "Stitching and clothwork",
+    "text": "Yuzuriha is exceptionally good at crafts such as sewing and working with cloth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "exceptionally talented at arts like stitching and clothwork"
+  },
+  {
+    "id": "dr-stone-kohaku-gag-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kohaku"
+    },
+    "field": "habits",
+    "value": "Insulted as a gorilla",
+    "text": "A running joke has people insult Kohaku's femininity by comparing her to a gorilla or a lioness.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "femininity is insulted for being called a gorilla or a lioness"
+  },
+  {
+    "id": "dr-stone-kohaku-sister-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kohaku"
+    },
+    "field": "role",
+    "value": "Younger sister of Ruri",
+    "text": "Kohaku is the younger sister of Ruri, the priestess of Ishigami Village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "Ruri's younger sister"
+  },
+  {
+    "id": "dr-stone-suika-lenses-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "suika"
+    },
+    "field": "talent",
+    "value": "Customized lenses",
+    "text": "Senku fits the watermelon helmet of Suika with lenses made to measure, and she often scouts for him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "outfitted her watermelon helmet with customized lenses"
+  },
+  {
+    "id": "dr-stone-kaseki-craft-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "kaseki"
+    },
+    "field": "occupation",
+    "value": "Artisan",
+    "text": "Kaseki designed and built much of Ishigami Village, and he shapes items from Senku's drawings such as glass, engines and vacuum tubes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "designed and built much of Ishigami Village"
+  },
+  {
+    "id": "dr-stone-ruri-stories-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "ruri"
+    },
+    "field": "role",
+    "value": "Keeper of the Hundred Stories",
+    "text": "Ruri keeps the Hundred Stories, the village legends, for future generations.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "tasked with preserving the Hundred Stories"
+  },
+  {
+    "id": "dr-stone-chrome-partner-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dr-stone",
+      "ref": "chrome"
+    },
+    "field": "role",
+    "value": "Senku's partner",
+    "text": "Chrome learns of the wonders of old science and becomes the partner of Senku in rediscovering them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters",
+        "ref": "1377940548",
+        "fetched_at": "2026-10-25T17:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:20:57.000Z",
+    "excerpt": "becomes Senku's partner"
+  }
+]

@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "dr-stone",
+  "title": "Dr. Stone Quiz: Petrified for 3,700 Years, Rebuilt with Science",
+  "slug": "petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz",
+  "description": "Ten easy questions on the creators, the awards, the first season and the first cast of Dr. Stone. No spoilers beyond the very first episodes.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 4. Arc 0 facts only, characters of the opening episodes. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dr. Stone",
+      "url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Dr. Stone characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Dr. Stone episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who draws the Dr. Stone manga, while Riichiro Inagaki writes the story?",
+      "options": [
+        "Boichi",
+        "Yusuke Murata",
+        "Sui Ishida",
+        "Takeshi Obata"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-creators-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "The story picks up roughly how long after the green flash petrifies humanity?",
+      "options": [
+        "About 37 years",
+        "About 3,700 years",
+        "About 37,000 years",
+        "About 370 years"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-setting-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "After hunting, Tsukasa wears the skin of which animal?",
+      "options": [
+        "A wolf",
+        "A tiger",
+        "A bear",
+        "A lion"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-tsukasa-shishio-pelt-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Senku teases his best friend as a big oaf. Who is that friend?",
+      "options": [
+        "Kokuyo",
+        "Tsukasa Shishio",
+        "Chrome",
+        "Taiju Oki"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-taiju-oki-name-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Which company licensed the Dr. Stone manga for North America?",
+      "options": [
+        "Seven Seas",
+        "Kodansha USA",
+        "Yen Press",
+        "Viz Media"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-viz-licence-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "Inagaki says the personality of Senku echoes which character of his earlier manga Eyeshield 21?",
+      "options": [
+        "Monta Mizumachi",
+        "Sena Kobayakawa",
+        "Agon Kongo",
+        "Yoichi Hiruma"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-inspiration-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "Which prize did the manga win in 2019?",
+      "options": [
+        "Kodansha Manga Award",
+        "Shogakukan Manga Award",
+        "Tezuka Osamu Cultural Prize",
+        "Eisner Award"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-award-shogakukan-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "The season that aired from July to December 2019 was made of how many episodes?",
+      "options": [
+        "13",
+        "26",
+        "24",
+        "12"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-season-1-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    },
+    {
+      "question": "Which band performed the first opening, Good Morning World!?",
+      "options": [
+        "Kana-Boon",
+        "Burnout Syndromes",
+        "Fujifabric",
+        "Pelican Fanclub"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-themes-s1-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "What career does Yuzuriha dream of?",
+      "options": [
+        "Chef",
+        "Fashion designer",
+        "Pilot",
+        "Doctor"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-yuzuriha-ogawa-name-049"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    }
+  ]
+}

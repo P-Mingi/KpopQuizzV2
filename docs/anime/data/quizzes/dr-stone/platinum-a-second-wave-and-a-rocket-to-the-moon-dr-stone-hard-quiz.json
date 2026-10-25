@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "dr-stone",
+  "title": "Dr. Stone Hard Quiz: Platinum, a Second Wave and a Rocket to the Moon",
+  "slug": "platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz",
+  "description": "Ten hard questions on the late story of Dr. Stone, from Treasure Island to the American colony and the last episodes. Spoilers up to the end of the anime and the sequel chapters.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 4 and 5), spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dr. Stone",
+      "url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Dr. Stone characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Dr. Stone episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Byakuya left a stock of which metal on an island, to be used as a catalyst for the revival fluid?",
+      "options": [
+        "Copper",
+        "Platinum",
+        "Titanium",
+        "Gold"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-platinum-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "Who is the only person still awake after the second worldwide petrification?",
+      "options": [
+        "Senku",
+        "Suika",
+        "Kohaku",
+        "Chelsea"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-suika-wave-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "Which former NASA scientist leads the colony in the United States?",
+      "options": [
+        "Dr. Volkov",
+        "Dr. Xeno",
+        "Dr. Ishigami",
+        "Dr. Nanami"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-dr-xeno-name-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is the second in command of the American colony?",
+      "options": [
+        "Joel Gear",
+        "Brody Dudley",
+        "Stanley Snyder",
+        "Carlos Barrios"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-stanley-snyder-name-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Which minister seizes power in the Petrification Kingdom and uses the Petrification Device on those who threaten him?",
+      "options": [
+        "Ibara",
+        "Matsukaze",
+        "Kirisame",
+        "Oarashi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-ibara-name-082"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Which barefoot villager with a photographic memory ends up leading the Petrification Kingdom?",
+      "options": [
+        "Magma",
+        "Soyuz",
+        "Amaryllis",
+        "Moz"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-soyuz-name-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "What turns out to be hidden behind the name Why-Man?",
+      "options": [
+        "A secret army of the Tsukasa Empire",
+        "The shared consciousness of the petrification devices",
+        "A rival scientist on the Moon",
+        "An artificial intelligence made by NASA"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-why-man-nature-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Which name is given to whoever petrifies humanity from the surface of the Moon?",
+      "options": [
+        "Why-Man",
+        "Moon-Man",
+        "Stone-Man",
+        "Who-Man"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-why-man-name-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "What is the title of the very last episode of the anime?",
+      "options": [
+        "Giant Step",
+        "Ushers of an Exhilarating Future",
+        "Beyond the New World",
+        "Prologue of Dr. Stone"
+      ],
+      "correct": 1,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-last-episodes-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    },
+    {
+      "question": "Which three chapter spin-off, set after the main finale, ran in late 2023?",
+      "options": [
+        "Dr. Stone: Ryusui",
+        "Dr. Stone: 4D Science",
+        "Dr. Stone: Terraforming",
+        "Dr. Stone: Reboot Byakuya"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-spinoff-4d-035"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    }
+  ]
+}

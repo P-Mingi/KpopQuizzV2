@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "dr-stone",
+  "title": "Dr. Stone in Numbers: Volumes, Episodes and Millions of Copies",
+  "slug": "dr-stone-in-numbers-volumes-episodes-and-millions-of-copies",
+  "description": "Ten questions where the answer is a number: volumes, chapters, episodes, prizes and print figures of Dr. Stone. Some late figures hint at how the story ends.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Numbers format: every answer is a figure from a cited fact; the circulation figure is dated March 2026.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Dr. Stone",
+      "url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Dr. Stone episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many collected volumes does the manga fill?",
+      "options": [
+        "26",
+        "21",
+        "32",
+        "27"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-volumes-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "How many weekly chapters make up the main story?",
+      "options": [
+        "232",
+        "276",
+        "205",
+        "180"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-chapters-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "How many episodes does the whole anime have, not counting its special?",
+      "options": [
+        "75",
+        "57",
+        "112",
+        "94"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-episodes-031"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "How many episodes does the second season, Stone Wars, have?",
+      "options": [
+        "13",
+        "11",
+        "24",
+        "9"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-season-2-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "How many episodes does New World have across its two cours?",
+      "options": [
+        "22",
+        "37",
+        "12",
+        "24"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-season-3-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    },
+    {
+      "question": "How many episodes are in the fourth and final season?",
+      "options": [
+        "37",
+        "24",
+        "48",
+        "13"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-season-4-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+    },
+    {
+      "question": "As of March 2026, the manga had passed how many copies in circulation?",
+      "options": [
+        "10 million",
+        "20 million",
+        "5 million",
+        "40 million"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-copies-2026-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "The manga won which numbered edition of the Shogakukan Manga Award?",
+      "options": [
+        "The 74th",
+        "The 54th",
+        "The 64th",
+        "The 44th"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "dr-stone-award-shogakukan-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "At which numbered Crunchyroll Anime Awards did Senku win Best Protagonist?",
+      "options": [
+        "The 2nd",
+        "The 4th",
+        "The 6th",
+        "The 8th"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-award-crunchyroll-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    },
+    {
+      "question": "Where did the show rank among the most watched anime on Netflix in Japan in 2019?",
+      "options": [
+        "Tenth",
+        "Eighth",
+        "Second",
+        "Fourth"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "dr-stone-netflix-2019-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+    }
+  ]
+}
