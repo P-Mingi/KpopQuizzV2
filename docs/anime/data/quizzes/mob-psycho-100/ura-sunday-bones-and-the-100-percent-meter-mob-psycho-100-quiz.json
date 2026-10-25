@@ -4,7 +4,7 @@
   "group_slug": "mob-psycho-100",
   "title": "Mob Psycho 100 Quiz: Ura Sunday, Bones and the 100% Meter",
   "slug": "ura-sunday-bones-and-the-100-percent-meter-mob-psycho-100-quiz",
-  "description": "Ten easy questions on the creator, the studio, the staff, the first opening, the consultation office and the emotion meter. No story knowledge needed, and no spoilers.",
+  "description": "Ten easy questions on where the manga began, the studio, the consultation office, the emotion meter and the awards. No story knowledge needed, and no spoilers.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -21,27 +21,8 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     }
   ],
-  "notes": "New series batch 1. Arc 0 facts only: production, premise and music. The season count is dated (as of October 2026).",
+  "notes": "New series batch 1. Arc 0 facts only: production, premise and awards. The season count is dated (as of October 2026).",
   "questions": [
-    {
-      "question": "Who created Mob Psycho 100?",
-      "options": [
-        "Tatsuki Fujimoto",
-        "Gege Akutami",
-        "ONE",
-        "Sui Ishida"
-      ],
-      "correct": 2,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 0,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "mob-psycho-100-manga-creator-002"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
-    },
     {
       "question": "On which Shogakukan website did the webcomic begin?",
       "options": [
@@ -62,6 +43,25 @@
       "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
     },
     {
+      "question": "Which mobile app also carried the manga?",
+      "options": [
+        "Pixiv Comic",
+        "Line Manga",
+        "MangaONE",
+        "Comico"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-manga-app-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
       "question": "Which studio animated the series?",
       "options": [
         "Pierrot",
@@ -77,63 +77,6 @@
       },
       "fact_ids": [
         "mob-psycho-100-anime-studio-007"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
-    },
-    {
-      "question": "Who directed the anime?",
-      "options": [
-        "Shinichirō Watanabe",
-        "Yuzuru Tachikawa",
-        "Gorō Taniguchi",
-        "Tomohiko Itō"
-      ],
-      "correct": 1,
-      "kind": "production",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "mob-psycho-100-anime-director-008"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
-    },
-    {
-      "question": "Which composer wrote the score of Mob Psycho 100?",
-      "options": [
-        "Kenji Kawai",
-        "Yuki Kajiura",
-        "Yoko Kanno",
-        "Hiroyuki Sawano"
-      ],
-      "correct": 0,
-      "kind": "music",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "mob-psycho-100-anime-composer-010"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
-    },
-    {
-      "question": "Which group performs the opening song 99 of the first season?",
-      "options": [
-        "All Off",
-        "Sajou no Hana",
-        "Mob Choir",
-        "Österreich"
-      ],
-      "correct": 2,
-      "kind": "music",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "mob-psycho-100-theme-op-028"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
     },
@@ -212,6 +155,63 @@
         "mob-psycho-100-body-improvement-club-024"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which other famous series was created by the same author?",
+      "options": [
+        "Dr. Stone",
+        "One-Punch Man",
+        "Dandadan",
+        "Blue Lock"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-same-creator-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which company publishes the manga in English?",
+      "options": [
+        "Dark Horse Comics",
+        "Viz Media",
+        "Yen Press",
+        "Kodansha USA"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-english-manga-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which of these did the anime win at the first Crunchyroll Anime Awards?",
+      "options": [
+        "Best Opening",
+        "Best Score",
+        "Best Director",
+        "Best Fight Scene"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-crunchyroll-awards-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
     }
   ]
 }

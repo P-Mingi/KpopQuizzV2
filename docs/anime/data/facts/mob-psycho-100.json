@@ -108,7 +108,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "serialization_app",
+    "field": "manga",
     "value": "MangaONE",
     "text": "The series was also published on the mobile app MangaONE.",
     "category": "fun",
@@ -513,7 +513,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "live_action_release",
+    "field": "broadcast",
     "value": [
       "Netflix",
       "TV Tokyo"
@@ -572,7 +572,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "creator_other_work",
+    "field": "creator",
     "value": "One-Punch Man",
     "text": "ONE is also the creator of the original One-Punch Man.",
     "category": "fun",
@@ -633,7 +633,7 @@
       "Best Action",
       "Best Fight Scene"
     ],
-    "text": "At the first Crunchyroll Anime Awards, the anime won Best Action and Best Fight Scene.",
+    "text": "At the first Crunchyroll Anime Awards, the anime won two prizes, Best Action and Best Fight Scene.",
     "category": "achievements",
     "load_bearing": false,
     "spoiler": {
@@ -715,7 +715,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "business",
+    "field": "occupation",
     "value": "Spirits and Such Consultation Office",
     "text": "Reigen runs the Spirits and Such Consultation Office, a low-cost advice business where Mob works for 300 yen an hour.",
     "category": "fun",
@@ -743,7 +743,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "club",
+    "field": "organization",
     "value": "Body Improvement Club",
     "text": "The Body Improvement Club is a fitness club that took over the room of the Telepathy Club.",
     "category": "fun",
@@ -771,7 +771,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "power_meter",
+    "field": "power",
     "value": "100%",
     "text": "When Mob's emotions reach 100%, he unleashes his full powers.",
     "category": "fun",
@@ -799,7 +799,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "power_meter_max",
+    "field": "powers",
     "value": "???%",
     "text": "The mark ???% stands for an unconscious state of power that goes far beyond Mob's normal limits.",
     "category": "fun",
@@ -827,7 +827,7 @@
       "kind": "series",
       "group_slug": "mob-psycho-100"
     },
-    "field": "organization_claw",
+    "field": "terms",
     "value": "Claw",
     "text": "Claw is a criminal group of espers that aims at world domination and is led by Touichirou Suzuki.",
     "category": "fun",
@@ -1596,7 +1596,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "shigeo-kageyama"
     },
-    "field": "control",
+    "field": "habits",
     "value": "Suppresses his emotions",
     "text": "Mob keeps his feelings under tight control, because they power his abilities.",
     "category": "fun",
@@ -1654,7 +1654,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "ritsu-kageyama"
     },
-    "field": "school",
+    "field": "occupation",
     "value": "Seventh-grader on the Student Council",
     "text": "Ritsu is a seventh-grade student and a member of the Student Council.",
     "category": "fun",
@@ -1712,7 +1712,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "teruki-hanazawa"
     },
-    "field": "school",
+    "field": "reputation",
     "value": "Hidden boss of Black Vinegar Middle School",
     "text": "Teruki is known as the hidden boss of Black Vinegar Middle School.",
     "category": "fun",
@@ -1741,7 +1741,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "dimple"
     },
-    "field": "nature",
+    "field": "origin",
     "value": "Evil spirit",
     "text": "Dimple is an evil spirit who can take over bodies, though he cannot possess powerful psychics without their permission.",
     "category": "fun",
@@ -1770,7 +1770,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "tsubomi-takane"
     },
-    "field": "bond",
+    "field": "role",
     "value": "Childhood friend and crush",
     "text": "Tsubomi Takane is the childhood friend that Mob has a crush on.",
     "category": "fun",
@@ -1799,7 +1799,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "musashi-goda"
     },
-    "field": "club",
+    "field": "organization",
     "value": "Founder of the Body Improvement Club",
     "text": "Musashi Goda founded the Body Improvement Club and serves as its president.",
     "category": "fun",
@@ -1828,7 +1828,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "tome-kurata"
     },
-    "field": "club",
+    "field": "organization",
     "value": "Founder of the Telepathy Club",
     "text": "Tome Kurata founded the Telepathy Club and is its president.",
     "category": "fun",
@@ -1857,7 +1857,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "tenga-onigawara"
     },
-    "field": "rumor",
+    "field": "reputation",
     "value": "White T-Poison",
     "text": "By accident, Tenga Onigawara starts the rumor called White T-Poison.",
     "category": "fun",
@@ -1886,7 +1886,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "touichirou-suzuki"
     },
-    "field": "group",
+    "field": "organization",
     "value": "Leader of Claw",
     "text": "Touichirou Suzuki founded Claw to take over the world.",
     "category": "fun",
@@ -1915,7 +1915,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "katsuya-serizawa"
     },
-    "field": "room",
+    "field": "background",
     "value": "Afraid of his own power",
     "text": "Serizawa stayed shut in his room because he feared his powers might get out of control.",
     "category": "fun",
@@ -1973,7 +1973,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "toshiki-minegishi"
     },
-    "field": "trade",
+    "field": "occupation",
     "value": "Plants, then florist",
     "text": "Minegishi controls plants, and after his defeat he becomes a florist.",
     "category": "fun",
@@ -2060,7 +2060,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "shou-suzuki"
     },
-    "field": "bond",
+    "field": "role",
     "value": "Opposes his father",
     "text": "Shou is the son of the head of Claw but stands against his father, and he is a close friend of Ritsu.",
     "category": "fun",
@@ -2118,7 +2118,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "megumu-koyama"
     },
-    "field": "attacks",
+    "field": "technique",
     "value": "Telekinetic Helix and Energy Bomb",
     "text": "Koyama fights with attacks named Telekinetic Helix and Energy Bomb.",
     "category": "fun",
@@ -2147,7 +2147,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "ichi-mezato"
     },
-    "field": "cult",
+    "field": "organization",
     "value": "Psycho Helmet Cult",
     "text": "Mezato took part in founding the Psycho Helmet Cult.",
     "category": "fun",
@@ -2176,7 +2176,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "kenji-mitsuura"
     },
-    "field": "goal",
+    "field": "motivation",
     "value": "Artificial psychic powers",
     "text": "Mitsuura wished to create psychic powers by artificial means.",
     "category": "fun",

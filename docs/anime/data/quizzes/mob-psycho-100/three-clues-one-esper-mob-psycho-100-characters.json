@@ -4,7 +4,7 @@
   "group_slug": "mob-psycho-100",
   "title": "Three Clues, One Esper: Mob Psycho 100 Characters",
   "slug": "three-clues-one-esper-mob-psycho-100-characters",
-  "description": "Three clues, four names. The first clue is the vaguest, and most questions have a clue in Japanese. Mild spoilers from the first season only.",
+  "description": "Three clues, four names. The first clue is the vaguest and the last one gives it away. Mild spoilers from the first season only.",
   "quiz_type": "guess_from_clues",
   "difficulty": "medium",
   "language": "en",
@@ -19,11 +19,11 @@
   "notes": "Characters of levels 0 and 1 only (level 1 quiz). Distractors are characters of the same levels.",
   "questions": [
     {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
-        "Runs a consultation business",
-        "Written 霊幻 新隆 in Japanese",
-        "Says he is a psychic but has no powers"
+        "Runs the Spirits and Such Consultation Office",
+        "Says he is a medium",
+        "Has no psychic powers at all"
       ],
       "options": [
         "Musashi Goda",
@@ -45,36 +45,11 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     },
     {
-      "question": "Who is this?",
-      "clues": [
-        "Mob's younger brother",
-        "A seventh-grade student",
-        "A member of the Student Council"
-      ],
-      "options": [
-        "Teruki Hanazawa",
-        "Tenga Onigawara",
-        "Tome Kurata",
-        "Ritsu Kageyama"
-      ],
-      "correct": 3,
-      "kind": "character",
-      "spoiler": {
-        "arc": 1,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "mob-psycho-100-character-name-035",
-        "mob-psycho-100-character-detail-055"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
-    },
-    {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
         "An evil spirit",
-        "Written エクボ in Japanese",
-        "Can take over human bodies"
+        "Can take over human bodies",
+        "Needs permission to take over a strong psychic"
       ],
       "options": [
         "Dimple",
@@ -95,86 +70,11 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     },
     {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
-        "Mob's childhood friend",
-        "Written 高嶺 ツボミ in Japanese",
-        "Values hard work over talent"
-      ],
-      "options": [
-        "Tome Kurata",
-        "Musashi Goda",
-        "Tsubomi Takane",
-        "Ritsu Kageyama"
-      ],
-      "correct": 2,
-      "kind": "character",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "mob-psycho-100-character-name-038",
-        "mob-psycho-100-character-detail-059"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
-    },
-    {
-      "question": "Who is this?",
-      "clues": [
-        "Founded a club for fitness",
-        "Kind-hearted with a strong sense of justice",
-        "Written 郷田 武蔵 in Japanese"
-      ],
-      "options": [
-        "Tome Kurata",
-        "Musashi Goda",
-        "Hiroshi Shibata",
-        "Tenga Onigawara"
-      ],
-      "correct": 1,
-      "kind": "character",
-      "spoiler": {
-        "arc": 1,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "mob-psycho-100-character-name-039",
-        "mob-psycho-100-character-detail-060"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
-    },
-    {
-      "question": "Who is this?",
-      "clues": [
-        "Founded a club of dreamers",
-        "Passionate about telepathy",
-        "Written 暗田 トメ in Japanese"
-      ],
-      "options": [
-        "Tome Kurata",
-        "Musashi Goda",
-        "Tsubomi Takane",
-        "Dimple"
-      ],
-      "correct": 0,
-      "kind": "character",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "mob-psycho-100-character-name-040",
-        "mob-psycho-100-character-detail-061"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
-    },
-    {
-      "question": "Who is this?",
-      "clues": [
-        "The hidden boss of Black Vinegar Middle School",
-        "A powerful telekinetic esper",
-        "Written 花沢 輝気 in Japanese"
+        "A student at Black Vinegar Middle School",
+        "Known as its hidden boss",
+        "A powerful telekinetic esper"
       ],
       "options": [
         "Ritsu Kageyama",
@@ -195,17 +95,17 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     },
     {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
-        "A bodyguard in Claw",
-        "Never left his room as he feared his powers",
-        "Written 芹沢 克也 in Japanese"
+        "A member of Claw",
+        "Keeps his eyelids shut for much of the day",
+        "Teleports and predicts movements"
       ],
       "options": [
-        "Ryo Shimazaki",
-        "Hiroshi Shibata",
-        "Touichirou Suzuki",
-        "Katsuya Serizawa"
+        "Nozomu Hatori",
+        "Toshiki Minegishi",
+        "Katsuya Serizawa",
+        "Ryo Shimazaki"
       ],
       "correct": 3,
       "kind": "character",
@@ -214,17 +114,42 @@
         "scope": "both"
       },
       "fact_ids": [
-        "mob-psycho-100-character-name-043",
-        "mob-psycho-100-character-detail-064"
+        "mob-psycho-100-character-name-044",
+        "mob-psycho-100-character-detail-065"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     },
     {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
-        "A member of the Ultimate 5 of Claw",
-        "Uses his powers on technology",
-        "Written 羽鳥 希 in Japanese"
+        "A member of Claw",
+        "Controls plants",
+        "Becomes a florist after his defeat"
+      ],
+      "options": [
+        "Toshiki Minegishi",
+        "Hiroshi Shibata",
+        "Nozomu Hatori",
+        "Ryo Shimazaki"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-name-045",
+        "mob-psycho-100-character-detail-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which esper fits these three clues?",
+      "clues": [
+        "A member of Claw",
+        "Controls technology",
+        "Ends up as a helicopter pilot in the anime"
       ],
       "options": [
         "Toshiki Minegishi",
@@ -245,17 +170,42 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     },
     {
-      "question": "Who is this?",
+      "question": "Which esper fits these three clues?",
       "clues": [
-        "Belongs to the Ultimate 5 of Claw",
-        "Keeps his eyelids shut for much of the day",
-        "Has a special ability called Mind's Eye"
+        "A bodyguard in Claw",
+        "Feared his own powers",
+        "Never left his room"
       ],
       "options": [
         "Ryo Shimazaki",
-        "Nozomu Hatori",
-        "Toshiki Minegishi",
-        "Katsuya Serizawa"
+        "Hiroshi Shibata",
+        "Katsuya Serizawa",
+        "Touichirou Suzuki"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-name-043",
+        "mob-psycho-100-character-detail-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which esper fits these three clues?",
+      "clues": [
+        "Founded a fitness club",
+        "Kind-hearted",
+        "Has a strong sense of justice"
+      ],
+      "options": [
+        "Musashi Goda",
+        "Tome Kurata",
+        "Hiroshi Shibata",
+        "Tenga Onigawara"
       ],
       "correct": 0,
       "kind": "character",
@@ -264,8 +214,60 @@
         "scope": "both"
       },
       "fact_ids": [
-        "mob-psycho-100-character-name-044",
-        "mob-psycho-100-character-detail-065"
+        "mob-psycho-100-character-name-039",
+        "mob-psycho-100-character-detail-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which esper fits these three clues?",
+      "clues": [
+        "Founded a school club",
+        "Passionate about telepathy",
+        "Lost the club room to a fitness club"
+      ],
+      "options": [
+        "Musashi Goda",
+        "Tsubomi Takane",
+        "Dimple",
+        "Tome Kurata"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-name-040",
+        "mob-psycho-100-character-detail-061",
+        "mob-psycho-100-body-improvement-club-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which esper fits these three clues?",
+      "clues": [
+        "A seventh-grade student",
+        "A member of the Student Council",
+        "His powers develop as the series goes on"
+      ],
+      "options": [
+        "Teruki Hanazawa",
+        "Ritsu Kageyama",
+        "Tenga Onigawara",
+        "Tome Kurata"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-name-035",
+        "mob-psycho-100-character-detail-055",
+        "mob-psycho-100-character-detail-056"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
     }
