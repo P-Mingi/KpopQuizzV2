@@ -822,5 +822,175 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Known as the Sword Master (剣聖, Kensei), Akemura is the strongest Enchanted Blade wielder and is eternally bound to Magatsumi (勾罪)-also called the Shinuchi"
+  },
+  {
+    "id": "kagurabachi-sorcery-bureau-prewar-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "background",
+    "value": "Sorcery Bureau",
+    "text": "The Sorcery Bureau was a state sorcery department that already existed ahead of the war.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "a government sorcery-focused division that existed before the Seitei War"
+  },
+  {
+    "id": "kagurabachi-hishaku-murder-blades-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "role",
+    "value": "Hishaku",
+    "text": "The Hishaku, a band of criminal sorcerers, killed the swordsmith Kunishige and carried off his six blades.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "who murdered Kunishige Rokuhira and stole his six Enchanted Blades"
+  },
+  {
+    "id": "kagurabachi-kunishige-hidden-home-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "kunishige-rokuhira"
+    },
+    "field": "background",
+    "value": "hidden place after the war",
+    "text": "Once the war was over, Azami helped Kunishige settle somewhere out of sight.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "He helped Kunishige find a hidden place to reside following the Seitei War"
+  },
+  {
+    "id": "kagurabachi-ibuki-killed-after-murder-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "occupation",
+    "value": "Ibuki Misaka",
+    "text": "Ibuki Misaka, who had given up the sword, was killed by the Hishaku swordsman Hokuto soon after Kunishige died.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "He was assassinated by Hokuto of the Hishaku shortly after Kunishige Rokuhira was murdered"
+  },
+  {
+    "id": "kagurabachi-ibuki-quit-swordsmanship-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "origin",
+    "value": "Ibuki quit swordsmanship",
+    "text": "When the war was over, the Cloud Gouger bearer Ibuki stopped fighting and lost his drive.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:31Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:31.000Z",
+    "excerpt": "Following the Seitei War, Ibuki abandoned swordsmanship and lost the will to fight"
+  },
+  {
+    "id": "kagurabachi-chihiro-revenge-quest-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "chihiro-rokuhira"
+    },
+    "field": "motivation",
+    "value": "avenge his father",
+    "text": "Chihiro starts a quest for revenge once his father is killed, hoping to win back the other stolen blades.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:44.000Z",
+    "excerpt": "he embarks on a quest to avenge his father's murder and reclaim the six other stolen Enchanted Blades"
   }
 ]

@@ -1,0 +1,260 @@
+{
+ "site": "anime",
+ "account": "oq_creator_24",
+ "group_slug": "evangelion",
+ "title": "Which Came First? Evangelion Angels, Episodes and Films",
+ "slug": "which-came-first-evangelion-angels-episodes-and-films",
+ "description": "Ten which-came-first questions: Angels by their numbers, pilot numbers, episodes and release dates from the 1993 start to the Rebuild films. Light spoilers: names films but no plot twists.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Which-came-first format: four things in each question, the earliest (or latest, when the question says so) is right.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Angels (Neon Genesis Evangelion)",
+   "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Neon Genesis Evangelion episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Neon Genesis Evangelion characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: The End of Evangelion",
+   "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Angels are numbered in the TV series. Which of these four has the lowest number?",
+   "options": [
+    "Israfel",
+    "Gaghiel",
+    "Shamshel",
+    "Sachiel"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-sachiel-number-3-029",
+    "evangelion-shamshel-number-4-030",
+    "evangelion-gaghiel-number-6-032",
+    "evangelion-israfel-number-7-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)"
+  },
+  {
+   "question": "Looking at Evangelion's release history, which of these four milestones comes earliest?",
+   "options": [
+    "The Netflix worldwide premiere",
+    "The End of Evangelion",
+    "The TV season finishing on TV Tokyo",
+    "The first Rebuild film"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003",
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-rebuild-films-009",
+    "evangelion-netflix-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "Among these Angels of the TV series, which one has the smallest number?",
+   "options": [
+    "Matarael",
+    "Israfel",
+    "Sandalphon",
+    "Ramiel"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-ramiel-number-5-031",
+    "evangelion-israfel-number-7-033",
+    "evangelion-sandalphon-number-8-034",
+    "evangelion-matarael-number-9-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)"
+  },
+  {
+   "question": "On the road from first idea to cinema release, which of these steps happened first?",
+   "options": [
+    "The first Rebuild film opens",
+    "The End of Evangelion reaches cinemas",
+    "Anno starts shaping the project",
+    "The first TV episode airs"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-production-start-010",
+    "evangelion-broadcast-run-003",
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "The alternate ending came to cinemas in several steps. Which release came first?",
+   "options": [
+    "Death & Rebirth",
+    "The first Rebuild film",
+    "Revival of Evangelion",
+    "The End of Evangelion"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-film-release-order-028",
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "Four episodes of the TV series are described below. Which one comes first?",
+   "options": [
+    "The episode with Eva-01's rampage",
+    "The episode where Anno digs into Rei",
+    "The episode that turns the show inward",
+    "The episode voted best-loved by fans"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-episode-14-rei-focus-044",
+    "evangelion-episode-16-inward-turn-045",
+    "evangelion-episode-18-rampage-046",
+    "evangelion-episode-24-best-loved-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Among these later Angels, which one is numbered lowest?",
+   "options": [
+    "Zeruel",
+    "Sahaquiel",
+    "Arael",
+    "Ireul"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-sahaquiel-number-10-036",
+    "evangelion-ireul-number-11-037",
+    "evangelion-zeruel-number-14-038",
+    "evangelion-arael-number-15-039"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)"
+  },
+  {
+   "question": "Pilots carry numbered titles such as First Child. Which of these pilots has the lowest number?",
+   "options": [
+    "Asuka Langley Soryu",
+    "Shinji Ikari",
+    "Kaworu Nagisa",
+    "Toji Suzuhara"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-asuka-second-child-040",
+    "evangelion-shinji-third-child-041",
+    "evangelion-toji-fourth-child-042",
+    "evangelion-kaworu-fifth-child-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+  },
+  {
+   "question": "Four milestones are listed. Which is the most recent one?",
+   "options": [
+    "The End of Evangelion",
+    "The second Rebuild film, where Mari debuts",
+    "The TV season finishing on TV Tokyo",
+    "The first Rebuild film"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-broadcast-run-003",
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-rebuild-films-009",
+    "evangelion-mari-debut-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+  },
+  {
+   "question": "Now four other milestones: which of them is the latest of all?",
+   "options": [
+    "The last Rebuild film",
+    "The second Rebuild film, where Mari debuts",
+    "The Netflix worldwide premiere",
+    "The End of Evangelion"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-end-of-evangelion-film-008",
+    "evangelion-mari-debut-014",
+    "evangelion-netflix-premiere-012",
+    "evangelion-rebuild-films-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
+  }
+ ]
+}

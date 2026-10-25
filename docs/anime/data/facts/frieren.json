@@ -1223,5 +1223,719 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as Macht of Golden Land, is the last surviving member of the Seven Sages of Destruction. For ages, he was trapped in his self-created Golden"
+  },
+  {
+    "id": "frieren-himmel-party-hero-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "himmel"
+    },
+    "field": "role",
+    "value": "hero of the group",
+    "text": "Himmel was the leader and hero of the old party that beat the Demon King.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "He was the hero of the group and a self-proclaimed handsome man"
+  },
+  {
+    "id": "frieren-heiter-drinking-priest-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "heiter"
+    },
+    "field": "role",
+    "value": "alcohol-loving priest",
+    "text": "Heiter, a priest with a fondness for drink, took part in the old Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A human member of the Hero Party, who was an alcohol-loving priest"
+  },
+  {
+    "id": "frieren-eisen-party-dwarf-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "eisen"
+    },
+    "field": "role",
+    "value": "dwarf",
+    "text": "Eisen, a dwarf, was the third veteran of the Hero Party alongside Himmel and Heiter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A member of the Hero Party. He is a dwarf"
+  },
+  {
+    "id": "frieren-stark-warrior-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "stark"
+    },
+    "field": "role",
+    "value": "young warrior",
+    "text": "Stark fights with weapons at the front line instead of using spells; the dwarf Eisen brought him up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A young warrior who Eisen raised"
+  },
+  {
+    "id": "frieren-fern-mage-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "organization",
+    "value": "powerful young mage",
+    "text": "Fern is a gifted young spellcaster, taught by Frieren.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A powerful young mage and Frieren's apprentice"
+  },
+  {
+    "id": "frieren-frieren-mage-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "role",
+    "value": "elven mage",
+    "text": "Frieren is a mage of the elf race, and a former companion of the old Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "An elven mage over a thousand years old"
+  },
+  {
+    "id": "frieren-serie-elf-mage-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "serie"
+    },
+    "field": "role",
+    "value": "ancient elf mage",
+    "text": "Serie is a very old elf who works with magic and founded the Continental Magic Association.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Serie is an ancient elf mage who has existed since time immemorial"
+  },
+  {
+    "id": "frieren-aura-sage-demon-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "aura"
+    },
+    "field": "role",
+    "value": "Seven Sages of Destruction",
+    "text": "Aura is a demon and one of the Seven Sages of Destruction, an old enemy of the Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A member of the Seven Sages of Destruction and an old nemesis of Frieren"
+  },
+  {
+    "id": "frieren-lugner-aura-demon-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "role",
+    "value": "demon serving under Aura",
+    "text": "Lügner is a demon who acts as a peace envoy while taking his orders from Aura.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A demon serving under Aura"
+  },
+  {
+    "id": "frieren-linie-assistant-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "ability",
+    "value": "reads mana of her opponent",
+    "text": "Linie is a demon, an assistant of Lügner, who reads her foe's mana and turns it against them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "She is a demon capable of reading her opponent's mana"
+  },
+  {
+    "id": "frieren-draht-assistant-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "organization",
+    "value": "one of Lügner's assistants",
+    "text": "Draht is another helper of Lügner and goes after Frieren while she is locked up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "One of Lügner's assistants, who enters Frieren's prison cell"
+  },
+  {
+    "id": "frieren-revolte-demon-general-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "revolte"
+    },
+    "field": "role",
+    "value": "four-handed demon general",
+    "text": "Revolte is a demon general with four arms, the lower body of a snake and four magic swords.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "he is a four-handed demon general and tactician"
+  },
+  {
+    "id": "frieren-land-exam-mage-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "land"
+    },
+    "field": "role",
+    "value": "Fern's teammate",
+    "text": "Land is a careful mage who is on a team with Fern in the exam and uses clones.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Land is Fern's teammate, a cautious and calculating mage"
+  },
+  {
+    "id": "frieren-genau-proctor-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "occupation",
+    "value": "proctor of the First Exam",
+    "text": "Genau is a first-class mage who runs the opening stage of the exam instead of taking it.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A first-class mage and the proctor of the First Exam in First-Class Mage Examination"
+  },
+  {
+    "id": "frieren-edel-second-class-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "background",
+    "value": "second-class mage",
+    "text": "Edel is a hypnosis mage of the second class who joins the exam as a candidate.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A level-headed second-class mage participating in the exam"
+  },
+  {
+    "id": "frieren-kanne-third-class-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "kanne"
+    },
+    "field": "role",
+    "value": "third-class mage",
+    "text": "Kanne is a shy water mage ranked only third-class, and a teammate of Frieren in the exam.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A timid third-class mage who can control water"
+  },
+  {
+    "id": "frieren-richter-denken-team-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "origin",
+    "value": "Denken's teammate",
+    "text": "Richter, who repairs staves in his own shop, is a second-class mage in the same exam team as Denken.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A second-class mage participating in the exam and Denken's teammate"
+  },
+  {
+    "id": "frieren-laufen-denken-team-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "setting",
+    "value": "movement magic",
+    "text": "Laufen is fast on her feet thanks to movement magic, and she is in Denken's group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A second-class mage in Denken's team who specializes in movement magic"
+  },
+  {
+    "id": "frieren-methode-denken-team-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "methode"
+    },
+    "field": "role",
+    "value": "teamed up with Denken",
+    "text": "Methode, who also uses binding spells and healing, joined forces with Denken in the second stage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Methode later teamed up with Denken and others during the second stage"
+  },
+  {
+    "id": "frieren-sages-powerful-demons-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "terms",
+    "value": "powerful demons",
+    "text": "The Demon King led demons, and his strongest commanders were a group of seven, each ruling a region.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "powerful demons who controlled key regions of the continent"
+  },
+  {
+    "id": "frieren-ubel-exam-mage-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "ubel"
+    },
+    "field": "role",
+    "value": "grants her promotion",
+    "text": "Übel takes the exam as a candidate and uses a cleaving spell; Serie later promotes her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "During the first-class mage examination, Serie recognizes her prowess and grants her promotion"
+  },
+  {
+    "id": "frieren-wirbel-exam-mage-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "wirbel"
+    },
+    "field": "role",
+    "value": "to become first-class",
+    "text": "Wirbel, who captains the Northern Magic Corps, sits the exam as a candidate to reach the top class.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "takes part in the exam to become first-class"
+  },
+  {
+    "id": "frieren-scharf-second-class-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "specialty",
+    "value": "Wirbel's teammates",
+    "text": "Scharf is a second-class mage on Wirbel's team who can turn flower petals into blades.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "A second-class mage and one of Wirbel's teammates"
+  },
+  {
+    "id": "frieren-ehre-second-class-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "talent",
+    "value": "in Wirbel's team",
+    "text": "Ehre, granddaughter of Lernen, is a second-class mage on Wirbel's team who commands stone.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "A powerful second-class mage who is in Wirbel's team with Scharf"
+  },
+  {
+    "id": "frieren-qual-sealed-070",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "style",
+    "value": "sealed away by the Hero Party",
+    "text": "The demon Qual was so strong that the old Hero Party could not defeat him and sealed him away instead.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T19:01:39Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:03:39.000Z",
+    "excerpt": "the Hero Party sealed him away as he was too strong to defeat"
   }
 ]

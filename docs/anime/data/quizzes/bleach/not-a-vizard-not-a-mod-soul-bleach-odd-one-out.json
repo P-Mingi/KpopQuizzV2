@@ -1,0 +1,327 @@
+{
+ "site": "anime",
+ "account": "oq_creator_11",
+ "group_slug": "bleach",
+ "title": "Not a Vizard, Not a Mod-Soul: Bleach Odd One Out",
+ "slug": "not-a-vizard-not-a-mod-soul-bleach-odd-one-out",
+ "description": "Ten rounds of four names or titles where one does not belong: the Kurosaki home, Ichigo's classmates, the Urahara Shop, Mod-Souls, Bounts, Quincy, Vizards, swords, films and songs. Light spoilers up to the early Arrancar saga.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider; every option is a character, term, film or song from Bleach.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Bleach characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Bleach (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Bleach soundtracks",
+   "url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these belong to the Kurosaki household. Which one is only a friend of Ichigo?",
+   "options": [
+    {
+     "label": "Isshin Kurosaki"
+    },
+    {
+     "label": "Yuzu Kurosaki"
+    },
+    {
+     "label": "Tatsuki Arisawa"
+    },
+    {
+     "label": "Karin Kurosaki"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-karin-yuzu-sisters-041",
+    "bleach-isshin-family-head-042",
+    "bleach-tatsuki-friend-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these sit in Ichigo's school class. Which one runs a shop instead?",
+   "options": [
+    {
+     "label": "Chizuru Honshō"
+    },
+    {
+     "label": "Keigo Asano"
+    },
+    {
+     "label": "Mizuiro Kojima"
+    },
+    {
+     "label": "Kisuke Urahara"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-keigo-classmate-068",
+    "bleach-mizuiro-classmate-069",
+    "bleach-chizuru-classmate-070",
+    "bleach-kisuke-shop-owner-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these work at the Urahara Shop. Which one is a Quincy archer who does not?",
+   "options": [
+    {
+     "label": "Tessai Tsukabishi"
+    },
+    {
+     "label": "Uryū Ishida"
+    },
+    {
+     "label": "Ururu Tsumugiya"
+    },
+    {
+     "label": "Jinta Hanakari"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-tessai-shop-assistant-048",
+    "bleach-jinta-shop-boy-071",
+    "bleach-ururu-shop-girl-072",
+    "bleach-uryu-quincy-057"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these are Mod-Souls, souls that live in plush bodies. Which one is a human classmate of Ichigo?",
+   "options": [
+    {
+     "label": "Kon"
+    },
+    {
+     "label": "Ririn"
+    },
+    {
+     "label": "Orihime Inoue"
+    },
+    {
+     "label": "Kurōdo"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-kon-first-modsoul-051",
+    "bleach-kurodo-modsoul-052",
+    "bleach-ririn-modsoul-leader-053",
+    "bleach-orihime-inoue-name-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these belong to the Bounts of the anime-only arc. Which one is a Shiba of the Soul Society?",
+   "options": [
+    {
+     "label": "Yoshino Sōma"
+    },
+    {
+     "label": "Ganju Shiba"
+    },
+    {
+     "label": "Gō Koga"
+    },
+    {
+     "label": "Jin Kariya"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-kariya-bount-leader-054",
+    "bleach-koga-bount-073",
+    "bleach-yoshino-bount-074",
+    "bleach-ganju-shiba-name-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these come from the Quincy line. Which one does not?",
+   "options": [
+    {
+     "label": "Yasutora Sado"
+    },
+    {
+     "label": "Ryūken Ishida"
+    },
+    {
+     "label": "Sōken Ishida"
+    },
+    {
+     "label": "Uryū Ishida"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-uryu-quincy-057",
+    "bleach-ryuken-quincy-075",
+    "bleach-soken-quincy-mentor-076",
+    "bleach-yasutora-sado-name-025"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these are names of zanpakutō. Which one is the word for the artificial body a Soul Reaper wears among humans?",
+   "options": [
+    {
+     "label": "Katen Kyōkotsu"
+    },
+    {
+     "label": "Gigai"
+    },
+    {
+     "label": "Hyōrinmaru"
+    },
+    {
+     "label": "Zabimaru"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-zabimaru-blade-080",
+    "bleach-hyorinmaru-blade-081",
+    "bleach-katen-kyokotsu-blade-082",
+    "bleach-gigai-term-067"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these are Vizards. Which one only helped the Vizards escape?",
+   "options": [
+    {
+     "label": "Yoruichi Shihōin"
+    },
+    {
+     "label": "Hachigen Ushōda"
+    },
+    {
+     "label": "Shinji Hirako"
+    },
+    {
+     "label": "Kensei Muguruma"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 6,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-shinji-vizard-leader-077",
+    "bleach-kensei-vizard-078",
+    "bleach-hachi-vizard-079",
+    "bleach-yoruichi-helped-vizards-063"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three of these are titles of Bleach films. Which one is the title of a TV series?",
+   "options": [
+    {
+     "label": "Thousand-Year Blood War"
+    },
+    {
+     "label": "The DiamondDust Rebellion"
+    },
+    {
+     "label": "Hell Verse"
+    },
+    {
+     "label": "Memories of Nobody"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "bleach-four-films-019",
+    "bleach-blood-war-sequel-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
+  },
+  {
+   "question": "Three of these were opening songs of the original anime. Which one was an ending?",
+   "options": [
+    {
+     "label": "Alones"
+    },
+    {
+     "label": "Ichirin no Hana"
+    },
+    {
+     "label": "Rolling Star"
+    },
+    {
+     "label": "Hōkiboshi"
+    }
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "bleach-opening-themes-013",
+    "bleach-ending-themes-first-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+  }
+ ]
+}
