@@ -12,7 +12,8 @@ import { SITE_IDS } from '@/lib/site/types';
 
 // Lot (d), H1 (owner, 2026-10-24, brief H1-legal.md): the legal notice of the three sites. One route, the kpop one, is the source; the
 // OtakuQuiz and FanQuiz page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
-// individuel (owner, 2026-10-25), the one fact still missing (the phone) is a [BRACKETED] line written once, and a build with NET_INDEXING on
+// individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25): the real copy holds no placeholder. The launch gate stays, and
+// the tests that need a [BRACKETED] line printed mock 'legal.phone' as '[TELEPHONE]' (render option `placeholder`); a build with NET_INDEXING on
 // refuses to print it.
 
 const SRC = join(__dirname, '../../..');
@@ -20,11 +21,18 @@ const read = (rel: string): string => readFileSync(join(SRC, rel), 'utf8');
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
 const KEYS = Object.keys(COPY).filter((k) => k.startsWith('legal.')) as (keyof typeof COPY)[];
 const PLACEHOLDERS = ['[TELEPHONE]'];
+const PHONE = '+33 7 81 55 70 19';
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('@/copy/hub/h1'); });
 
 type Site = 'kpop' | 'anime' | 'hub';
-interface Env { indexing?: '1' | ''; filled?: boolean }
+interface Env { indexing?: '1' | ''; placeholder?: boolean }
+
+/** Mocks the copy file so that 'legal.phone' is the [TELEPHONE] placeholder the real copy no longer holds (the module cache is reset first). */
+async function mockPlaceholder(): Promise<void> {
+  const real = await vi.importActual<typeof import('@/copy/hub/h1')>('@/copy/hub/h1');
+  vi.doMock('@/copy/hub/h1', () => ({ COPY: { ...real.COPY, 'legal.phone': PLACEHOLDERS[0] } }));
+}
 
 /** The page of a build of `site`, rendered; `text` is the markup as plain text. */
 async function render(site: Site, env: Env = {}) {
@@ -33,10 +41,7 @@ async function render(site: Site, env: Env = {}) {
   vi.doUnmock('@/copy/hub/h1');
   if (site !== 'kpop') vi.stubEnv('NEXT_PUBLIC_SITE_ID', site);
   vi.stubEnv('NET_INDEXING', env.indexing ?? '');
-  if (env.filled) {
-    const real = await vi.importActual<typeof import('@/copy/hub/h1')>('@/copy/hub/h1');
-    vi.doMock('@/copy/hub/h1', () => ({ COPY: { ...real.COPY, 'legal.phone': '+33 4 00 00 00 00' } }));
-  }
+  if (env.placeholder) await mockPlaceholder();
   const page = await import('./page');
   const html = renderToStaticMarkup(page.default());
   const text = html
@@ -53,11 +58,13 @@ describe('the keys and the one copy file', () => {
     for (const k of KEYS) expect(page.includes(`'${k}'`), k).toBe(true);
   });
 
-  it('keep the plain voice: no dash, no emoji, every placeholder filled', () => {
+  it('keep the plain voice: no dash, no emoji, and the real copy holds no placeholder', () => {
     for (const k of KEYS) {
       expect(COPY[k], k).not.toMatch(DASHES);
       expect(COPY[k], k).not.toMatch(/\p{Extended_Pictographic}/u);
+      expect(COPY[k], k).not.toMatch(/^\[[^\]]+\]$/);
     }
+    expect(COPY['legal.phone']).toBe(PHONE);
   });
 
   it('write no site name or domain: they come from the registry', () => {
@@ -68,12 +75,13 @@ describe('the keys and the one copy file', () => {
     }
   });
 
-  it('the page, the twin and the helpers hold no copy of their own: the placeholders are written once each, in the copy file', () => {
-    expect(KEYS.filter((k) => /^\[[^\]]+\]$/.test(COPY[k])).sort()).toEqual([...LEGAL_PLACEHOLDER_KEYS].sort());
-    expect(LEGAL_PLACEHOLDER_KEYS.map((k) => COPY[k])).toEqual(PLACEHOLDERS);
+  it('the page, the twin and the helpers hold no copy of their own: no placeholder is written in the copy file or anywhere else, the gate watches the key', () => {
+    expect(KEYS.filter((k) => /^\[[^\]]+\]$/.test(COPY[k]))).toEqual([]);
+    expect([...LEGAL_PLACEHOLDER_KEYS]).toEqual(['legal.phone']);
+    for (const k of LEGAL_PLACEHOLDER_KEYS) expect(KEYS, k).toContain(k);
     const copyFile = read('copy/hub/h1.ts');
     for (const p of PLACEHOLDERS) {
-      expect(copyFile.split(`'${p}'`), p).toHaveLength(2);
+      expect(copyFile.includes(`'${p}'`), `${p} in copy/hub/h1.ts`).toBe(false);
       for (const f of ['app/(site)/legal/page.tsx', 'app/sites/[site]/legal/page.tsx', 'lib/site/hub/legal.ts', 'lib/site/hub/network-page.ts']) {
         expect(read(f).includes(p), `${p} in ${f}`).toBe(false);
       }
@@ -107,7 +115,7 @@ describe('the page, on each site', () => {
       expect(html).toContain('<h1 class="text-2xl font-medium mb-2">Legal notice</h1>');
       expect(html).toContain('<p lang="fr" class="text-sm text-secondary mb-8">Mentions légales</p>');
       expect(text).toContain(`${reg.brand.name} (${reg.domain}) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France`);
-      expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: [TELEPHONE] Email:');
+      expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: +33 7 81 55 70 19 Email:');
       expect(text).toContain('The publication director is: Louis Pecchia');
       expect(text).not.toMatch(/RCS|gmail/i);
       expect(text).toContain(`${reg.brand.name} is hosted by: Vercel Inc. 440 N Barranca Avenue #4133, Covina, CA 91723, United States Phone: +1 559 288 7060`);
@@ -118,9 +126,17 @@ describe('the page, on each site', () => {
       }
     });
 
-    it(`${site}: each placeholder is printed once`, async () => {
+    it(`${site}: the page prints the phone once, with the publisher, and no placeholder`, async () => {
       const { text } = await render(site);
+      expect(text.split(PHONE), PHONE).toHaveLength(2);
+      expect(text).toContain(`Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: ${PHONE}`);
+      expect(text).not.toMatch(/\[[A-ZÉ ]+\]/);
+    });
+
+    it(`${site}: with a placeholder mocked in, each placeholder is printed once`, async () => {
+      const { text } = await render(site, { placeholder: true });
       for (const p of PLACEHOLDERS) expect(text.split(p), p).toHaveLength(2);
+      expect(text).toContain('Phone: [TELEPHONE] Email:');
     });
   }
 
@@ -163,43 +179,54 @@ describe('the metadata', () => {
     });
   }
 
-  it('closed (anime, hub): noindex, nofollow, and the build does not fail while a placeholder is printed', async () => {
+  it('closed (anime, hub): noindex, nofollow, and the build does not fail, with a placeholder printed or not', async () => {
     for (const site of ['anime', 'hub'] as const) {
-      const { page } = await render(site, { indexing: '' });
-      expect(page.generateMetadata().robots).toEqual({ index: false, follow: false });
+      for (const placeholder of [true, false]) {
+        const { page } = await render(site, { indexing: '', placeholder });
+        expect(page.generateMetadata().robots, `${site} placeholder ${placeholder}`).toEqual({ index: false, follow: false });
+      }
     }
   });
 
   it('a placeholder still printed: kpop says noindex too, so nothing half written is indexed', async () => {
-    const { page } = await render('kpop');
+    const { page } = await render('kpop', { placeholder: true });
     expect(page.generateMetadata().robots).toEqual({ index: false, follow: true });
   });
 
   it('open with a placeholder printed: the build fails and the message names the keys', async () => {
     for (const site of ['anime', 'hub'] as const) {
-      const { page } = await render(site, { indexing: '1' });
+      const { page } = await render(site, { indexing: '1', placeholder: true });
       expect(() => page.generateMetadata(), site).toThrow(/NET_INDEXING is on[\s\S]*\[TELEPHONE\][\s\S]*legal\.phone/);
     }
   });
 
-  it('open with the phone filled: indexable, nothing in brackets is printed', async () => {
+  it('the real copy, anime and hub open: no placeholder, indexable, the build does not fail, the phone is printed', async () => {
     for (const site of ['anime', 'hub'] as const) {
-      const { page, text } = await render(site, { indexing: '1', filled: true });
+      const { page, text } = await render(site, { indexing: '1' });
+      expect(() => page.generateMetadata(), site).not.toThrow();
       expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
-      expect(text).toContain('Phone: +33 4 00 00 00 00');
+      expect(text).toContain(`Phone: ${PHONE}`);
       expect(text).toContain('The publication director is: Louis Pecchia');
       expect(text).not.toMatch(/\[[A-ZÉ ]+\]/);
     }
   });
 
-  it('kpop with the phone filled: indexable', async () => {
-    const { page } = await render('kpop', { filled: true });
+  it('the real copy, kpop with the flag: no placeholder, indexable', async () => {
+    const { page } = await render('kpop', { indexing: '1' });
+    expect(() => page.generateMetadata()).not.toThrow();
+    expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
+  });
+
+  it('the real copy, kpop without the flag: indexable too (kpop is never closed by it)', async () => {
+    const { page } = await render('kpop');
     expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
   });
 });
 
 describe('the launch gate', () => {
   it('fails only when NET_INDEXING is on and a placeholder is left', async () => {
+    vi.resetModules();
+    await mockPlaceholder();
     const { legalLaunchGate, legalPlaceholders } = await import('@/lib/site/hub/legal');
     expect(legalPlaceholders()).toEqual(PLACEHOLDERS);
     expect(() => legalLaunchGate(false, PLACEHOLDERS)).not.toThrow();
@@ -208,9 +235,18 @@ describe('the launch gate', () => {
     expect(() => legalLaunchGate(true)).toThrow(/legal\.phone/);
   });
 
+  it('the real copy leaves nothing for the gate: it never throws, open or closed', async () => {
+    const { legalLaunchGate, legalPlaceholders } = await import('@/lib/site/hub/legal');
+    expect(legalPlaceholders()).toEqual([]);
+    expect(() => legalLaunchGate(true)).not.toThrow();
+    expect(() => legalLaunchGate(false)).not.toThrow();
+  });
+
   it('reads NET_INDEXING by default: 1 and true open it, anything else does not', async () => {
     for (const [v, throws] of [['1', true], ['true', true], ['0', false], ['', false], ['yes', false]] as const) {
       vi.resetModules();
+      vi.doUnmock('@/copy/hub/h1');
+      await mockPlaceholder();
       vi.stubEnv('NET_INDEXING', v);
       const { legalLaunchGate } = await import('@/lib/site/hub/legal');
       if (throws) expect(() => legalLaunchGate(), v).toThrow(); else expect(() => legalLaunchGate(), v).not.toThrow();
@@ -218,10 +254,9 @@ describe('the launch gate', () => {
   });
 
   // The test that keeps launch from going out with a placeholder: it fails on the build that has NET_INDEXING on and still prints one.
-  it('the real copy prints no placeholder when this build has NET_INDEXING on', async () => {
-    const { flagOn } = await import('@/lib/site/registry');
+  it('the real copy prints no placeholder, whatever NET_INDEXING says', async () => {
     const { legalPlaceholders } = await import('@/lib/site/hub/legal');
-    if (flagOn(process.env.NET_INDEXING)) expect(legalPlaceholders(), 'fill legal.phone before launch').toEqual([]);
+    expect(legalPlaceholders(), 'fill legal.phone before launch').toEqual([]);
   });
 });
 

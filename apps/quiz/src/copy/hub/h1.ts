@@ -8,8 +8,8 @@
 // mailbox, {date} the launch date, and the numbers the code decides ({ticketMinutes}, {codeSeconds}, {logDays}, {graceDays},
 // {freshMinutes}, {minAge}). No site name, domain or number of those is written in this file.
 // The legal.* keys are the one text of the legal notice (mentions légales, /legal, on the three sites). Placeholders: {site} and {siteDomain}
-// (the site that serves the page, from the registry). The publisher is Louis Pecchia, entrepreneur individuel (owner, 2026-10-25); the only fact still missing is
-// legal.phone, written once as a [BRACKETED] capital; lib/site/hub/legal.ts refuses a launch build while one is left.
+// (the site that serves the page, from the registry). The publisher is Louis Pecchia, entrepreneur individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25), so
+// no [BRACKETED] placeholder is left; lib/site/hub/legal.ts still refuses a launch build if one is ever written back (LEGAL_PLACEHOLDER_KEYS).
 export const COPY = {
   'home.h1': 'One account for the fan quiz sites',
   'home.lede': '{network} is the home of one account shared by the fan quiz sites. Make it once, use it on every site.',
@@ -151,5 +151,5 @@ export const COPY = {
   'legal.siren': 'SIREN 109 686 634, SIRET du siège 109 686 634 00014',
   'legal.vat': 'TVA non applicable, article 293 B du CGI',
   'legal.director': 'Louis Pecchia',
-  'legal.phone': '[TELEPHONE]',
+  'legal.phone': '+33 7 81 55 70 19',
 } as const;
