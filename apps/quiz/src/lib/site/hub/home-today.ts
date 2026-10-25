@@ -1,15 +1,38 @@
-// Run O1, lot H2a: the data of "Today" (the quiz of the day of each site, the blindtest of the day, the debate of the day). The body
-// returns the design's sample; lot H2b reads the daily banks and the debates table and keeps the shape (HomeToday).
+// Run O1, lot H2c: the data of "Today": the quiz of the day of each bank, the blind test of the day (K-pop, audio only, the real preview
+// of its first song), the debate of the day, and the next change of the picks (the daily cron, 00:05 UTC, on a Paris clock). A part with
+// no data is left out; a Today with no quiz, no blind test and no debate is null and the block disappears.
 
-import type { HomeToday } from './home-types';
+import { getBlindtest, getDailyQuizzes, getDebate, getRotation } from './data';
+import { plainTime } from './home-map';
+import { safeBlock } from './home-safe';
 
-export async function loadHomeToday(): Promise<HomeToday> {
+import type { HubDailyQuiz } from './data';
+import type { HomeToday, HomeTodayQuiz } from './home-types';
+
+/** "10 questions · Easy" (the site's name is added by the page). The link enters the daily run, so the streak of the fan counts. */
+export function toTodayQuiz(q: HubDailyQuiz): HomeTodayQuiz {
   return {
-    quizzes: [
-      { site: 'kpop', title: 'ZEROBASEONE: From Boys Planet to In Bloom', meta: '10 questions · Easy', path: '/daily' },
-      { site: 'anime', title: "Journey's Beginning: Frieren Basics", meta: '10 questions · Easy', path: '/daily' },
-    ],
-    blindtest: { site: 'kpop', path: '/blindtest/daily', songs: 5, seconds: 10 },
-    debate: { site: 'kpop', title: 'Best title track of 2025 so far?', path: '/community' },
+    site: q.site,
+    title: q.title,
+    meta: [q.questionCount > 0 ? `${q.questionCount} questions` : '', q.difficulty].filter(Boolean).join(' · '),
+    path: `${q.path}?daily=quiz`,
   };
+}
+
+async function readToday(): Promise<HomeToday | null> {
+  const [daily, blindtest, debate, rotation] = await Promise.all([getDailyQuizzes(), getBlindtest(), getDebate(), getRotation()]);
+  const quizzes = [daily?.kpop, daily?.anime].filter((q): q is HubDailyQuiz => !!q).map(toTodayQuiz);
+  if (quizzes.length === 0 && !blindtest && !debate) return null;
+  return {
+    quizzes,
+    blindtest: blindtest
+      ? { site: blindtest.site, path: blindtest.path, songs: blindtest.songCount, seconds: blindtest.clipSeconds, previewUrl: blindtest.previewUrl }
+      : null,
+    debate: debate ? { site: debate.site, title: debate.question, path: debate.path } : null,
+    rotation: { nextAt: rotation.nextAt, parisTime: plainTime(rotation.parisTime) },
+  };
+}
+
+export async function loadHomeToday(): Promise<HomeToday | null> {
+  return safeBlock('today', readToday, null);
 }

@@ -109,6 +109,16 @@ describe('anime and hub renderers', () => {
       }
     });
 
+    it(`${site}: the rabbit of the network stands before the name, from the site's own address`, () => {
+      const rabbit = `<img src="${brand.url}/mascot/mascot-default.png" width="28" height="28" alt="" style="vertical-align:middle;border:0;margin-right:8px">`;
+      for (const kind of kinds) {
+        const out = renderEmail({ kind, brand, copy, link: `${brand.url}/auth/confirm?token_hash=abc&type=magiclink&next=%2F` });
+        expect(out.html).toContain(`color:${brand.accent}">${rabbit}${brand.name}</td></tr>`);
+        expect(out.html.split('mascot-default.png')).toHaveLength(2);
+        expect(out.text).not.toContain('mascot');
+      }
+    });
+
     it(`${site}: reauth shows the code and no link`, () => {
       const out = renderEmail({ kind: 'reauth', brand, copy, code: '654321' });
       expect(out.html).toContain('654321');

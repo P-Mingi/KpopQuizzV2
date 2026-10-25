@@ -1,15 +1,21 @@
-// Run O1, lot H2a: the data of the Crossover block (quizzes marked crossover, three shown, changed every week, and one fact that links
-// the two worlds). The body returns the design's sample; lot H2b reads the marked list and keeps the shape (HomeCrossover).
+// Run O1, lot H2c: the data of the Crossover block (three picks of the editorial list, changed every week, and one sourced fact that
+// links the two worlds), from getCrossover. Null when nothing can be shown (the block disappears).
+
+import { getCrossover } from './data';
+import { pathOf } from './home-map';
+import { safeBlock } from './home-safe';
 
 import type { HomeCrossover } from './home-types';
 
-export async function loadHomeCrossover(): Promise<HomeCrossover> {
+async function readCrossover(): Promise<HomeCrossover | null> {
+  const crossover = await getCrossover();
+  if (!crossover || crossover.quizzes.length === 0) return null;
   return {
-    fact: 'IVE sang Will, the opening theme of Pokémon Horizons, released on April 12, 2024.',
-    cards: [
-      { site: 'kpop', title: 'KPop Demon Hunters Quiz', sub: 'The animated film and its songs', path: '/kpop-demon-hunters-quiz' },
-      { site: 'anime', title: 'One Opening, Many Endings: Chainsaw Man Theme Songs', sub: 'Medium · for music fans', path: '/q/one-opening-many-endings-chainsaw-man-theme-songs' },
-      { site: 'kpop', title: 'K-pop Songs About Magic', sub: 'Easy · spells, wishes and fairy tales', path: '/q/kpop-songs-about-magic' },
-    ],
+    fact: crossover.fact ? crossover.fact.text : null,
+    cards: crossover.quizzes.map((q) => ({ site: q.site, title: q.title, sub: [q.meta, q.line].filter(Boolean).join(' · '), path: pathOf(q.href) })),
   };
+}
+
+export async function loadHomeCrossover(): Promise<HomeCrossover | null> {
+  return safeBlock('crossover', readCrossover, null);
 }

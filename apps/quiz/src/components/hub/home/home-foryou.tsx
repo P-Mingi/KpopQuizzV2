@@ -1,6 +1,8 @@
 // Run O1, lot H2a: "For you" (signed in: continue, the next one in the fandom, the bridge to the other site) or "New here? Start easy"
 // (signed out: the friendliest first quiz of each site, and a card that leads to the passport). The phone board shows Start easy as two
 // plain cards.
+// Lot H2c: a signed-in fan with nothing to continue yet sees Start easy (without the passport card: they have one); a block with no
+// cards at all is left out.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
@@ -29,8 +31,8 @@ function Card({ card, bridge, phoneShort }: { card: HomeForYouCard; bridge: bool
   );
 }
 
-export function HomeForYou({ data, viewer }: { data: HomeForYouData; viewer: HomeViewer | null }): React.ReactElement {
-  if (viewer) {
+export function HomeForYou({ data, viewer }: { data: HomeForYouData; viewer: HomeViewer | null }): React.ReactElement | null {
+  if (viewer && data.signedIn.length > 0) {
     return (
       <section aria-labelledby="you-h" className="hub-h2-sec">
         <div className="hub-h2-block">
@@ -45,6 +47,7 @@ export function HomeForYou({ data, viewer }: { data: HomeForYouData; viewer: Hom
       </section>
     );
   }
+  if (data.signedOut.length === 0) return null;
   return (
     <section aria-labelledby="start-h" className="hub-h2-sec">
       <div className="hub-h2-block">
@@ -54,11 +57,13 @@ export function HomeForYou({ data, viewer }: { data: HomeForYouData; viewer: Hom
         </div>
         <div className="hub-h2-you-grid">
           {data.signedOut.map((card) => <Card key={card.title} card={card} bridge={false} phoneShort />)}
-          <div className="hub-h2-save">
-            <span className="hub-h2-save-l">{ht('hp.start.saveLabel')}</span>
-            <span className="hub-h2-save-t">{ht('hp.start.saveText')}</span>
-            <HomeSignIn label={ht('hp.start.create')} sheetTitle={ht('home.signInSheetTitle')} sheetSub={ht('home.signInSheetSub')} className="hub-h2-solid-md hub-h2-btn" />
-          </div>
+          {viewer ? null : (
+            <div className="hub-h2-save">
+              <span className="hub-h2-save-l">{ht('hp.start.saveLabel')}</span>
+              <span className="hub-h2-save-t">{ht('hp.start.saveText')}</span>
+              <HomeSignIn label={ht('hp.start.create')} sheetTitle={ht('home.signInSheetTitle')} sheetSub={ht('home.signInSheetSub')} className="hub-h2-solid-md hub-h2-btn" />
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 // Run O1, lot H2a: "60 seconds": one playable question and the sourced facts (a K-pop one and an anime one on the desktop board, the
 // anime one on the phone board), each with the way to the trivia page of its own site.
+// Lot H2c: the question and each fact are left out when there is none, and the grid adapts.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
@@ -31,30 +32,34 @@ export function HomeQuick({ quick }: { quick: HomeQuickData }): React.ReactEleme
         <span className="hub-h2-sub hub-h2-quick-sub">{ht('hp.quick.sub')}</span>
       </div>
       <div className="hub-h2-quick-grid">
-        <HomeQuestion
-          site={q.site}
-          text={q.text}
-          options={q.options}
-          correct={q.correct}
-          explain={q.explain}
-          explainShort={q.explainShort}
-          href={homeUrl(q)}
-          fromLabel={ht('hp.quick.from', { title: q.source })}
-          labels={{
-            question: ht('hp.quick.label'),
-            right: ht('hp.quick.right'),
-            wrong: ht('hp.quick.wrong'),
-            markRight: ht('hp.quick.markRight'),
-            markPick: ht('hp.quick.markPick'),
-            again: ht('hp.quick.again'),
-            full: ht('hp.quick.full', { name: siteName(q.site) }),
-            fullShort: ht('hp.quick.fullShort'),
-          }}
-        />
-        <article className="hub-h2-qcard hub-h2-nophone">
-          <span className="hub-h2-ql">{ht('hp.quick.dyk')}</span>
-          {quick.facts.map((f, i) => <Fact key={f.site} fact={f} first={i < quick.facts.length - 1} />)}
-        </article>
+        {q ? (
+          <HomeQuestion
+            site={q.site}
+            text={q.text}
+            options={q.options}
+            correct={q.correct}
+            explain={q.explain}
+            explainShort={q.explainShort}
+            href={homeUrl(q)}
+            fromLabel={ht('hp.quick.from', { title: q.source })}
+            labels={{
+              question: ht('hp.quick.label'),
+              right: ht('hp.quick.right'),
+              wrong: ht('hp.quick.wrong'),
+              markRight: ht('hp.quick.markRight'),
+              markPick: ht('hp.quick.markPick'),
+              again: ht('hp.quick.again'),
+              full: ht('hp.quick.full', { name: siteName(q.site) }),
+              fullShort: ht('hp.quick.fullShort'),
+            }}
+          />
+        ) : null}
+        {quick.facts.length > 0 ? (
+          <article className="hub-h2-qcard hub-h2-nophone">
+            <span className="hub-h2-ql">{ht('hp.quick.dyk')}</span>
+            {quick.facts.map((f, i) => <Fact key={f.site} fact={f} first={i < quick.facts.length - 1} />)}
+          </article>
+        ) : null}
         {anime ? (
           <article className={`hub-h2-qcard hub-h2-dyk-m ${siteClass('anime')}`}>
             <span className="hub-h2-ql">{ht('hp.quick.dykAnime')}</span>

@@ -2,7 +2,10 @@
 // it: it draws from the pool the server sends (the 200 best quizzes of both sites, surprise.ts), never a quiz already played, and never
 // the same site twice in a row.
 
-import type { HubSite, HubSurpriseCard } from './types';
+import type { HubSite } from './types';
+
+/** What the draw needs of a card: the page may hold a slimmer card than the module's (id, site and what it shows). */
+export interface DrawCard { readonly id: string; readonly site: HubSite }
 
 export interface SurpriseDrawOptions {
   /** Quiz ids to leave out (the quizzes a signed-in fan already played). */
@@ -17,7 +20,7 @@ export interface SurpriseDrawOptions {
  * One quiz of the pool. Played quizzes are removed first (when that would empty the pool, they are kept: a fan who played everything
  * still gets a quiz). The other site than the last one is then preferred; when the pool holds only the last site, it is used.
  */
-export function pickSurprise(pool: readonly HubSurpriseCard[], opts: SurpriseDrawOptions = {}): HubSurpriseCard | null {
+export function pickSurprise<T extends DrawCard>(pool: readonly T[], opts: SurpriseDrawOptions = {}): T | null {
   if (pool.length === 0) return null;
   const played = new Set(opts.playedIds ?? []);
   const fresh = pool.filter((c) => !played.has(c.id));

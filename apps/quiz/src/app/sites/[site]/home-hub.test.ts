@@ -4,14 +4,39 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { COPY } from '@/copy/hub/h1';
 
 // Lot H2a: the new FanQuiz home of the hub build (docs/o1/design/fanquiz-hub/), block by block. Supabase is a fake; no network, no write.
+// Lot H2c: the blocks read the modules of lib/site/hub/data/ (lot H2b), which are replaced here by the design's sample data in their own
+// shapes (lib/site/hub/home-samples.test-support.ts, tests only); a test sets a block to null to see it leave the page.
 // The registry reads the site of the build when it loads, so each test loads the modules after setting NEXT_PUBLIC_SITE_ID.
 // next/font only runs inside the Next compiler, so the font module is replaced by its one field the page reads.
 
 vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' } }));
 
+// The data modules: each answers what `blocks[name]` holds (the samples by default), `undefined` meaning the sample and null the missing block.
+const blocks = vi.hoisted(() => ({ values: {} as Record<string, unknown>, calls: [] as Array<[string, unknown]> }));
+vi.mock('@/lib/site/hub/data', async () => {
+  const s = await import('@/lib/site/hub/home-samples.test-support');
+  const samples: Record<string, () => unknown> = {
+    getDoors: s.sampleDoors, getDailyQuizzes: s.sampleDaily, getBlindtest: s.sampleBlindtest, getDebate: s.sampleDebate, getRotation: s.sampleRotation,
+    getSixtySeconds: s.sampleSixty, getDidYouKnow: s.sampleDyk, getHot: s.sampleHot, getStartEasy: s.sampleStartEasy, getForYou: s.sampleForYou,
+    getCrossover: s.sampleCrossover, getTopFans: s.sampleTopFans, getSurprise: s.sampleSurprise,
+  };
+  const out: Record<string, unknown> = {};
+  for (const [name, sample] of Object.entries(samples)) {
+    out[name] = async (opts: unknown) => {
+      blocks.calls.push([name, opts]);
+      const v = blocks.values[name];
+      if (v instanceof Error) throw v;
+      return v === undefined ? sample() : v;
+    };
+  }
+  return out;
+});
+
+const TODAY = new Date().toISOString().slice(0, 10);
+
 const fake = vi.hoisted(() => ({
   user: null as { id: string } | null,
-  profile: { data: { username: 'mingi', xp: 90000 }, error: null } as { data: unknown; error: unknown },
+  profile: { data: { username: 'mingi', xp: 90000, daily_streak: 6, last_daily_date: new Date().toISOString().slice(0, 10) }, error: null } as { data: unknown; error: unknown },
   memberships: { data: [] as unknown[], error: null } as { data: unknown; error: unknown },
   throwOn: null as null | 'client' | 'auth' | 'from',
 }));
@@ -41,7 +66,7 @@ const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(
 
 const MEMBERSHIPS = [
   { site_id: 'kpop', xp: null, activated_at: '2026-01-01T00:00:00Z', banned_at: null },
-  { site_id: 'anime', xp: 80, activated_at: '2026-10-01T00:00:00Z', banned_at: null },
+  { site_id: 'anime', xp: 80, activated_at: '2026-10-01T00:00:00Z', banned_at: null, daily_streak: 2, last_daily_date: TODAY },
 ];
 
 async function load(site: 'hub' | 'anime' = 'hub', indexing: '1' | '' = '1') {
@@ -72,8 +97,10 @@ function block(html: string, open: string, tag: string): string {
 }
 
 beforeEach(() => {
+  blocks.values = {};
+  blocks.calls = [];
   fake.user = null;
-  fake.profile = { data: { username: 'mingi', xp: 90000 }, error: null };
+  fake.profile = { data: { username: 'mingi', xp: 90000, daily_streak: 6, last_daily_date: TODAY }, error: null };
   fake.memberships = { data: MEMBERSHIPS, error: null };
   fake.throwOn = null;
 });
@@ -90,7 +117,8 @@ describe('the top bar', () => {
     for (const [href, label] of [['#today', 'Today'], ['#hot', 'Hot now'], ['#top', 'Top fans']] as const) expect(nav).toMatch(new RegExp(`<a href="${href}"[^>]*>${label}</a>`));
     expect(nav).toContain('href="https://kpopquiz.org/"');
     expect(nav).toContain('href="https://otakuquiz.org/"');
-    expect(nav).toContain('aria-label="Search both sites"');
+    // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), no longer a button without action
+    expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn">/);
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
   });
 
@@ -158,17 +186,23 @@ describe('Today', () => {
     expect(count(today, /Quiz of the day/g)).toBe(2);
     expect(today).toContain('ZEROBASEONE: From Boys Planet to In Bloom');
     expect(today).toContain('Journey&#x27;s Beginning: Frieren Basics');
-    expect(today).toContain('href="https://kpopquiz.org/daily"');
-    expect(today).toContain('href="https://otakuquiz.org/daily"');
+    // the real slug of each bank, entering the daily run (?daily=quiz), never the /daily redirect
+    expect(today).toContain('href="https://kpopquiz.org/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
+    expect(today).toContain('href="https://otakuquiz.org/q/journeys-beginning-frieren-basics?daily=quiz"');
     expect(today).toContain('Blindtest of the day');
-    expect(today).toContain('5 songs, 10 seconds each');
+    // the real size of the set (10 songs), not the design's 5
+    expect(today).toContain('10 songs, 10 seconds each');
     expect(today).toContain('aria-label="Play a 10 second preview"');
-    expect(today).toContain('Song 1 of 5 · press play');
-    expect(today).toContain('Guess all 5 songs');
+    expect(today).toContain('Song 1 of 10 · press play');
+    expect(today).toContain('Guess all 10 songs');
+    expect(today).toContain('href="https://kpopquiz.org/blindtest?daily=true"');
+    expect(today).toContain('href="https://kpopquiz.org/community"');
     expect(today).toContain('Debate of the day');
     expect(today).toContain('Best title track of 2025 so far?');
     expect(today).toContain('KpopQuiz community · one vote, then see what fans think');
-    expect(today).toContain('New picks in a few hours (2:05, Paris time)');
+    // the rotation is 00:05 UTC: the Paris time printed is the real one (1:05 in winter, 2:05 in summer), from the data module
+    expect(today).toContain('New picks in a few hours (1:05, Paris time)');
+    expect(today).not.toContain('2:05');
   });
 
   it('shows the streaks only when signed in', async () => {
@@ -229,19 +263,37 @@ describe('For you and Start easy', () => {
     expect(html).toContain('New here? Start easy');
     expect(html).toContain('First K-pop quiz · KpopQuiz');
     expect(html).toContain('First anime quiz · OtakuQuiz');
+    expect(html).toContain('Easy · 1.7k plays');
+    expect(html).toContain('Easy · New');
+    expect(html).toContain('href="https://kpopquiz.org/q/kpop-company-quiz"');
     expect(html).toContain('Save your progress');
     expect(html).toMatch(/<button[^>]*>Create my passport<\/button>/);
     expect(html).not.toContain('For you, ');
   });
 
-  it('signed in: For you with the username, and the bridge to the other site', async () => {
+  it('signed in: For you with the username, the next quiz of the fandom and the bridge to the other site', async () => {
     fake.user = { id: 'u-1' };
     const html = await renderHome();
     expect(html).toContain('For you, mingi');
-    expect(html).toContain('Continue · KpopQuiz');
+    expect(html).toContain('Next for a Stray Kids fan · KpopQuiz');
     expect(html).toContain('Stray Kids fans also play · OtakuQuiz');
+    expect(html).toContain('href="https://otakuquiz.org/q/first-steps-into-jujutsu-kaisen"');
+    // no Continue card is invented: the run in progress lives in the browser of each site
+    expect(html).not.toContain('Continue ·');
     expect(count(html, /hub-h2-fcard-bridge/g)).toBe(1);
     expect(html).not.toContain('New here? Start easy');
+    // the fan's id, checked by the session, is what the data module is asked for
+    expect(blocks.calls).toContainEqual(['getForYou', { userId: 'u-1' }]);
+  });
+
+  it('signed in with nothing played yet: Start easy, without the passport card the fan already has', async () => {
+    fake.user = { id: 'u-1' };
+    blocks.values.getForYou = null;
+    const html = await renderHome();
+    expect(html).toContain('New here? Start easy');
+    expect(html).toContain('First K-pop quiz · KpopQuiz');
+    expect(html).not.toContain('Save your progress');
+    expect(html).not.toContain('For you, ');
   });
 });
 
@@ -253,6 +305,8 @@ describe('Crossover', () => {
     expect(count(cross, /class="hub-h2-xcard/g)).toBe(3);
     expect(cross).toContain('IVE sang Will, the opening theme of Pok');
     expect(cross).toContain('href="https://kpopquiz.org/kpop-demon-hunters-quiz"');
+    expect(cross).toContain('Six questions · The animated film and its songs');
+    expect(cross).toContain('href="https://otakuquiz.org/q/one-opening-many-endings-chainsaw-man-theme-songs"');
   });
 });
 
@@ -332,6 +386,7 @@ describe('every link is the canonical page of its own site', () => {
     const { registry } = await load();
     const hrefs = [...html.matchAll(/ href="([^"]+)"/g)].map((m) => m[1]!);
     const own = new Set(['/', '/privacy', '/legal', '/passport', '#today', '#hot', '#top', '#passport', '#main']);
+    expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h)) continue;
       const origin = new URL(h).origin;
@@ -343,8 +398,9 @@ describe('every link is the canonical page of its own site', () => {
   it('follows the dev origins outside production', async () => {
     vi.stubEnv('NEXT_PUBLIC_NET_ORIGINS', 'kpop=http://kpop.localhost:3000,anime=http://anime.localhost:3001');
     const html = await renderHome();
-    expect(html).toContain('href="http://kpop.localhost:3000/daily"');
-    expect(html).toContain('href="http://anime.localhost:3001/daily"');
+    expect(html).toContain('href="http://kpop.localhost:3000/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
+    expect(html).toContain('href="http://anime.localhost:3001/q/journeys-beginning-frieren-basics?daily=quiz"');
+    expect(html).toContain('href="http://kpop.localhost:3000/search"');
     vi.unstubAllEnvs();
   });
 });
@@ -383,12 +439,135 @@ describe('the account state', () => {
       () => { fake.memberships = { data: null, error: { message: 'no such table' } }; },
     ];
     for (const [i, fail] of failures.entries()) {
-      fake.profile = { data: { username: 'mingi', xp: 1 }, error: null };
+      fake.profile = { data: { username: 'mingi', xp: 1, daily_streak: 0, last_daily_date: null }, error: null };
       fake.memberships = { data: MEMBERSHIPS, error: null };
       fake.throwOn = null;
       fail();
       expect(await renderHome(), `failure ${i}`).toBe(signedOut);
     }
+  });
+});
+
+describe('a block with no data leaves the page, and its grid adapts', () => {
+  const none = async (...names: string[]): Promise<string> => {
+    for (const n of names) blocks.values[n] = null;
+    return renderHome();
+  };
+
+  it('every module null: the page still renders the title, the footer and the passport', async () => {
+    const html = await none('getDoors', 'getDailyQuizzes', 'getBlindtest', 'getDebate', 'getSixtySeconds', 'getDidYouKnow', 'getHot', 'getStartEasy', 'getForYou', 'getCrossover', 'getTopFans', 'getSurprise');
+    expect(count(html, /<h1\b/g)).toBe(1);
+    expect(html).toContain('<article id="passport"');
+    expect(html).toContain('<footer class="hub-h2-foot"');
+    for (const gone of ['<section id="today"', '<section id="hot"', 'hub-h2-door ', 'hub-h2-surprise', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', '<article id="top"', 'aria-labelledby="start-h"']) {
+      expect(html, gone).not.toContain(gone);
+    }
+    // the links of the bar to blocks that are not there go with them
+    const nav = block(html, '<header class="hub-h2-head"', 'header');
+    for (const a of ['#today', '#hot', '#top']) expect(nav).not.toContain(`href="${a}"`);
+    expect(count(html, /application\/ld\+json/g)).toBe(1);
+  });
+
+  it('an error in a module is a missing block, never a 500', async () => {
+    blocks.values.getHot = new Error('db down');
+    blocks.values.getDoors = new Error('db down');
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const html = await renderHome();
+    quiet.mockRestore();
+    expect(html).not.toContain('<section id="hot"');
+    expect(html).not.toContain('hub-h2-door ');
+    expect(html).toContain('<section id="today"');
+  });
+
+  it('Today: a card goes when its data goes, and with all three the section goes', async () => {
+    const noBt = block(await none('getBlindtest'), '<section id="today"', 'section');
+    expect(noBt).not.toContain('Blindtest of the day');
+    expect(noBt).toContain('Debate of the day');
+    expect(count(noBt, /Quiz of the day/g)).toBe(2);
+    blocks.values = {};
+    const noDebate = block(await none('getDebate'), '<section id="today"', 'section');
+    expect(noDebate).not.toContain('Debate of the day');
+    expect(noDebate).toContain('Blindtest of the day');
+    blocks.values = { getDailyQuizzes: { kpop: null, anime: (await import('@/lib/site/hub/home-samples.test-support')).sampleDaily().anime } };
+    const oneQuiz = block(await renderHome(), '<section id="today"', 'section');
+    expect(count(oneQuiz, /Quiz of the day/g)).toBe(1);
+    expect(oneQuiz).toContain('Frieren');
+    blocks.values = {};
+    expect(await none('getDailyQuizzes', 'getBlindtest', 'getDebate')).not.toContain('<section id="today"');
+  });
+
+  it('60 seconds: the question and the facts are independent, and with none the section goes', async () => {
+    const noQuestion = block(await none('getSixtySeconds'), '<section aria-labelledby="quick-h"', 'section');
+    expect(noQuestion).not.toContain('Quick question');
+    expect(noQuestion).toContain('Did you know');
+    blocks.values = {};
+    const noFacts = block(await none('getDidYouKnow'), '<section aria-labelledby="quick-h"', 'section');
+    expect(noFacts).toContain('Quick question');
+    expect(noFacts).not.toContain('Did you know');
+    blocks.values = {};
+    expect(await none('getSixtySeconds', 'getDidYouKnow')).not.toContain('aria-labelledby="quick-h"');
+  });
+
+  it('Crossover: without the sourced fact the line goes, the cards stay', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    blocks.values.getCrossover = { ...s.sampleCrossover(), fact: null };
+    const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
+    expect(cross).not.toContain('hub-h2-x-fact');
+    expect(count(cross, /class="hub-h2-xcard/g)).toBe(3);
+  });
+
+  it('Top fans: no public fan, no card; the passport stays', async () => {
+    const html = await none('getTopFans');
+    expect(html).not.toContain('<article id="top"');
+    expect(html).toContain('<article id="passport"');
+  });
+
+  it('a fan who keeps the level private shows no level', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const top = s.sampleTopFans();
+    blocks.values.getTopFans = { ...top, fans: top.fans.map((f, i) => (i === 0 ? { ...f, level: null } : f)) };
+    const html = block(await renderHome(), '<article id="top"', 'article');
+    expect(count(html, /class="hub-h2-fan-lv"/g)).toBe(4);
+  });
+
+  it('a door with no featured quiz has no Top now box', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const doors = s.sampleDoors();
+    blocks.values.getDoors = { ...doors, anime: { ...doors.anime, featured: null } };
+    const html = await renderHome();
+    expect(count(html, /class="hub-h2-spot"/g)).toBe(1);
+    expect(html).not.toContain('>Just added</span>');
+  });
+});
+
+describe('the doors tell the real counts', () => {
+  it('prints the counts of the module, in the pills and on the phone line', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const doors = s.sampleDoors();
+    blocks.values.getDoors = { kpop: { ...doors.kpop, quizCount: 474, topicCount: 48 }, anime: { ...doors.anime, quizCount: 234, topicCount: 50, featuredLabel: 'Top now' } };
+    const html = await renderHome();
+    expect(html).toContain('>474 quizzes</span>');
+    expect(html).toContain('>234 quizzes</span>');
+    expect(html).toContain('>50 series</span>');
+    expect(html).toContain('>234 quizzes · 50 series</span>');
+    expect(html).not.toContain('New site');
+    expect(html).toContain('>Top now</span>');
+  });
+});
+
+describe('Surprise me', () => {
+  it('draws from the pool of the data module, with the played quizzes of the fan', async () => {
+    fake.user = { id: 'u-1' };
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    blocks.values.getSurprise = { ...s.sampleSurprise(), playedIds: ['kpop:kpop-company-quiz'] };
+    const html = await renderHome();
+    expect(blocks.calls).toContainEqual(['getSurprise', { userId: 'u-1' }]);
+    expect(html).toContain('Surprise me');
+  });
+
+  it('is left out with no pool', async () => {
+    blocks.values.getSurprise = null;
+    expect(await renderHome()).not.toContain('Surprise me');
   });
 });
 

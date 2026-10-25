@@ -2,9 +2,10 @@
 
 // Run O1, lot H2a: "Hot right now": the filter (All, one site, the other) and the ranked list. The three lists are in the page, the
 // chips only switch which one is shown (the design's script); each card links to the canonical page of its quiz on its own site.
-import { useState } from 'react';
-
+import { useHotFilter } from './home-filter';
 import { siteClass } from './site-class';
+
+import type { HotFilterId } from './home-filter';
 
 export interface HotCard {
   readonly site: 'kpop' | 'anime';
@@ -38,11 +39,10 @@ interface HomeHotProps {
   };
 }
 
-type Filter = 'all' | 'kpop' | 'anime';
-
 export function HomeHot({ lists, allLinks, labels }: HomeHotProps): React.ReactElement {
-  const [filter, setFilter] = useState<Filter>('all');
-  const chips: { id: Filter; long: string; short: string; dot: string }[] = [
+  // The filter is shared with the search button of the top bar (home-filter.tsx).
+  const { filter, setFilter } = useHotFilter();
+  const chips: { id: HotFilterId; long: string; short: string; dot: string }[] = [
     { id: 'all', long: labels.all, short: labels.all, dot: '' },
     { id: 'kpop', long: labels.kpop, short: labels.kpopShort, dot: ' hub-h2-segdot-k' },
     { id: 'anime', long: labels.anime, short: labels.animeShort, dot: ' hub-h2-segdot-a' },

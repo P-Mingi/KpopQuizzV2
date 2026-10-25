@@ -2,11 +2,14 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { createElement } from 'react';
 import { describe, expect, it } from 'vitest';
 
+import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
+
 import { HomeBlindtest } from './home-blindtest';
-import { minutesToReset, resetText } from './home-countdown';
+import { HomeCountdown, minutesToReset, resetText } from './home-countdown';
+import { HomeFilterProvider, HomeSearch, searchSite } from './home-filter';
 import { HomeHot } from './home-hot';
 import { HomeQuestion } from './home-question';
-import { HomeSurprise, nextPick } from './home-surprise';
+import { HomeSurprise } from './home-surprise';
 
 import type { HotCard } from './home-hot';
 
@@ -14,23 +17,12 @@ import type { HotCard } from './home-hot';
 // and the rules of their small logic; the clicks themselves are driven in a browser (docs/o1/reports/H2/).
 
 describe('Surprise me', () => {
-  it('never gives the same quiz twice in a row, and always stays inside the pool', () => {
-    for (let size = 2; size <= 12; size++) {
-      for (let cur = 0; cur < size; cur++) {
-        for (const r of [0, 0.2, 0.5, 0.99999]) {
-          const next = nextPick(cur, size, () => r);
-          expect(next).not.toBe(cur);
-          expect(next).toBeGreaterThanOrEqual(0);
-          expect(next).toBeLessThan(size);
-        }
-      }
-    }
-    expect(nextPick(null, 12, () => 0.5)).toBe(6);
-  });
+  const card = (id: string, site: 'kpop' | 'anime') => ({ id, tile: id.toUpperCase(), title: `Quiz ${id}`, href: `https://x.test/${id}`, site, pickLabel: `Your random pick on ${site}` });
 
   it('prints the button and the sentence, and no pick card, before the first click', () => {
     const html = renderToStaticMarkup(createElement(HomeSurprise, {
-      pool: [{ tile: 'BTS', title: 'A quiz', href: 'https://kpopquiz.org/q/a', site: 'kpop', pickLabel: 'Your random pick on KpopQuiz' }],
+      pool: [card('a', 'kpop')],
+      playedIds: [],
       labels: { button: 'Surprise me', note: 'A random quiz.', play: 'Play', another: 'Another' },
     }));
     expect(html).toContain('Surprise me');
@@ -38,36 +30,83 @@ describe('Surprise me', () => {
     expect(html).not.toContain('role="status"');
     expect(html).not.toContain('Another');
   });
+
+  it('prints nothing with no pool', () => {
+    const html = renderToStaticMarkup(createElement(HomeSurprise, {
+      pool: [], playedIds: [], labels: { button: 'Surprise me', note: 'A random quiz.', play: 'Play', another: 'Another' },
+    }));
+    expect(html).toBe('');
+  });
+
+  it('draws with pickSurprise of the data module: never a played quiz, never the same site twice in a row', () => {
+    const pool = [card('k1', 'kpop'), card('k2', 'kpop'), card('a1', 'anime'), card('a2', 'anime')];
+    let last: 'kpop' | 'anime' | null = null;
+    for (let i = 0; i < 50; i++) {
+      const pick: ReturnType<typeof card> | null = pickSurprise(pool, { playedIds: ['k1', 'a1'], lastSite: last });
+      expect(pick).not.toBeNull();
+      expect(['k1', 'a1']).not.toContain(pick!.id);
+      if (last) expect(pick!.site).not.toBe(last);
+      last = pick!.site;
+    }
+  });
 });
 
-describe('the countdown to 2:05, Paris time', () => {
+describe('the search button follows the Hot now filter', () => {
+  it('opens the search of OtakuQuiz on the OtakuQuiz filter and the search of KpopQuiz on the two others', () => {
+    expect(searchSite('all')).toBe('kpop');
+    expect(searchSite('kpop')).toBe('kpop');
+    expect(searchSite('anime')).toBe('anime');
+  });
+
+  it('starts on the search page of KpopQuiz (the filter is All), as a link with the design label', () => {
+    const html = renderToStaticMarkup(createElement(HomeFilterProvider, null, createElement(HomeSearch, { hrefs: { kpop: 'https://k.test/search', anime: 'https://a.test/search' }, label: 'Search both sites' })));
+    expect(html).toBe('<a href="https://k.test/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></a>');
+  });
+});
+
+describe('the countdown to the rotation (00:05 UTC)', () => {
   const at = (iso: string): Date => new Date(iso);
-  it('counts to the next 2:05 in Paris, summer and winter time', () => {
-    // 2026-07-01 is summer time (UTC+2): 00:05 UTC is 02:05 in Paris, which is a full day away
-    expect(minutesToReset(at('2026-07-01T00:05:00Z'))).toBe(1440);
-    expect(minutesToReset(at('2026-07-01T00:00:00Z'))).toBe(5);
-    expect(minutesToReset(at('2026-07-01T10:05:00Z'))).toBe(14 * 60);
-    // 2026-12-01 is winter time (UTC+1): 01:05 UTC is 02:05 in Paris
-    expect(minutesToReset(at('2026-12-01T01:05:00Z'))).toBe(1440);
-    expect(minutesToReset(at('2026-12-01T12:00:00Z'))).toBe(13 * 60 + 5);
+  const NEXT = '2026-07-02T00:05:00.000Z';
+  it('counts to the real instant, summer and winter alike', () => {
+    // the picks change at 00:05 UTC whatever the Paris clock says (2:05 in summer, 1:05 in winter)
+    expect(minutesToReset(at('2026-07-01T00:05:00Z'), NEXT)).toBe(1440);
+    expect(minutesToReset(at('2026-07-01T00:00:00Z'), '2026-07-01T00:05:00.000Z')).toBe(5);
+    expect(minutesToReset(at('2026-07-01T10:05:00Z'), NEXT)).toBe(14 * 60);
+    expect(minutesToReset(at('2026-12-01T01:05:00Z'), '2026-12-02T00:05:00.000Z')).toBe(23 * 60);
+    expect(minutesToReset(at('2026-12-01T12:00:00Z'), '2026-12-02T00:05:00.000Z')).toBe(12 * 60 + 5);
+  });
+
+  it('rolls to the next day once the instant has passed, as a page left open overnight does', () => {
+    expect(minutesToReset(at('2026-07-02T00:04:30Z'), NEXT)).toBe(1);
+    expect(minutesToReset(at('2026-07-02T00:05:00Z'), NEXT)).toBe(1440);
+    expect(minutesToReset(at('2026-07-02T00:06:00Z'), NEXT)).toBe(1439);
+    expect(minutesToReset(at('2026-07-05T12:05:00Z'), NEXT)).toBe(12 * 60);
   });
 
   it('writes the time as "8 h 47 min"', () => {
-    expect(resetText(at('2026-07-01T10:05:00Z'))).toBe('14 h 0 min');
-    expect(resetText(at('2026-07-01T09:00:00Z'))).toBe('15 h 5 min');
+    expect(resetText(at('2026-07-01T10:05:00Z'), NEXT)).toBe('14 h 0 min');
+    expect(resetText(at('2026-07-01T09:00:00Z'), NEXT)).toBe('15 h 5 min');
+  });
+
+  it('prints the words of the server before the clock takes over, with the Paris time of the module', () => {
+    const html = renderToStaticMarkup(createElement(HomeCountdown, { template: 'New picks in {time} (1:05, Paris time)', fallback: 'a few hours', nextAt: NEXT }));
+    expect(html).toContain('New picks in a few hours (1:05, Paris time)');
   });
 });
 
 describe('the blindtest player', () => {
-  it('starts on "press play" with a full labelled button and an empty bar', () => {
+  it('starts on "press play" with a full labelled button and an empty bar, and loads no sound', () => {
     const html = renderToStaticMarkup(createElement(HomeBlindtest, {
-      songs: 5, seconds: 10,
-      labels: { playAria: 'Play a 10 second preview', pauseAria: 'Pause the preview', press: 'Song 1 of 5 · press play', playing: 'x {sec}', done: 'y {rest}' },
+      songs: 10, seconds: 10, previewUrl: 'https://cdn.test/first.mp3',
+      labels: { playAria: 'Play a 10 second preview', pauseAria: 'Pause the preview', press: 'Song 1 of 10 · press play', playing: 'x {sec}', done: 'y {rest}' },
     }));
     expect(html).toContain('aria-label="Play a 10 second preview"');
-    expect(html).toContain('Song 1 of 5 · press play');
+    expect(html).toContain('Song 1 of 10 · press play');
     expect(html).toContain('style="width:0%"');
     expect(html).toContain('<path d="M7 4.5v15l13-7.5z"></path>');
+    // the preview address is not in the markup (an audio element is made on the first press only)
+    expect(html).not.toContain('first.mp3');
+    expect(html).not.toContain('<audio');
   });
 });
 

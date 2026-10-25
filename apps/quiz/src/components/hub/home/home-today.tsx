@@ -1,5 +1,6 @@
 // Run O1, lot H2a: "Today": the quiz of the day of each site, the blindtest of the day (KpopQuiz, audio only), the debate of the day.
 // Streaks show when signed in. On the phone board the cards are a rail to swipe, with no debate and no player.
+// Lot H2c: each card is left out when its data is missing (no quiz in a bank, no blind test set, no debate), and the grid adapts.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
@@ -18,13 +19,17 @@ function streakText(days: number): string {
 
 export function HomeToday({ today, viewer }: { today: HomeTodayData; viewer: HomeViewer | null }): React.ReactElement {
   const bt = today.blindtest;
-  const btName = siteName(bt.site);
+  const debate = today.debate;
   const streak = (site: HomeSite): number => viewer?.streaks[site] ?? 0;
   return (
     <section id="today" aria-labelledby="today-h" className="hub-h2-sec hub-h2-today">
       <div className="hub-h2-sec-h">
         <h2 id="today-h" className="hub-h2-h2">{ht('hp.today.title')}</h2>
-        <HomeCountdown template={ht('hp.today.resets', { time: '{time}' })} fallback={ht('hp.today.resetsFallback')} />
+        <HomeCountdown
+          template={ht('hp.today.resets', { time: '{time}', paris: today.rotation.parisTime })}
+          fallback={ht('hp.today.resetsFallback')}
+          nextAt={today.rotation.nextAt}
+        />
         <span className="hub-h2-swipe hub-h2-phoneonly">{ht('hp.today.swipe')}</span>
       </div>
       <div className="hub-h2-today-grid">
@@ -40,31 +45,36 @@ export function HomeToday({ today, viewer }: { today: HomeTodayData; viewer: Hom
           </article>
         ))}
 
-        <article className={`hub-h2-tcard hub-h2-tcard-bt ${siteClass(bt.site)}`}>
-          <span className="hub-h2-qlabel"><NoteIcon />{ht('hp.today.btLabel')}</span>
-          <h3 className="hub-h2-tcard-h">{ht('hp.today.btTitle', { songs: bt.songs, seconds: bt.seconds })}</h3>
-          <p className="hub-h2-tcard-meta"><Dual desktop={ht('hp.today.btMeta', { name: btName })} phone={ht('hp.today.btMetaPhone', { name: btName })} /></p>
-          <HomeBlindtest
-            songs={bt.songs}
-            seconds={bt.seconds}
-            labels={{
-              playAria: ht('hp.bt.playAria', { seconds: bt.seconds }),
-              pauseAria: ht('hp.bt.pauseAria'),
-              press: ht('hp.bt.press', { songs: bt.songs }),
-              playing: ht('hp.bt.playing', { songs: bt.songs, seconds: bt.seconds, sec: '{sec}' }),
-              done: ht('hp.bt.done', { rest: '{rest}', name: btName }),
-            }}
-          />
-          <a href={homeUrl(bt)} className="hub-h2-guess">{ht('hp.bt.guess', { songs: bt.songs })}</a>
-          <a href={homeUrl(bt)} className="hub-h2-listen hub-h2-btn">{ht('hp.bt.listen')}</a>
-        </article>
+        {bt ? (
+          <article className={`hub-h2-tcard hub-h2-tcard-bt ${siteClass(bt.site)}`}>
+            <span className="hub-h2-qlabel"><NoteIcon />{ht('hp.today.btLabel')}</span>
+            <h3 className="hub-h2-tcard-h">{ht('hp.today.btTitle', { songs: bt.songs, seconds: bt.seconds })}</h3>
+            <p className="hub-h2-tcard-meta"><Dual desktop={ht('hp.today.btMeta', { name: siteName(bt.site) })} phone={ht('hp.today.btMetaPhone', { name: siteName(bt.site) })} /></p>
+            <HomeBlindtest
+              songs={bt.songs}
+              seconds={bt.seconds}
+              previewUrl={bt.previewUrl}
+              labels={{
+                playAria: ht('hp.bt.playAria', { seconds: bt.seconds }),
+                pauseAria: ht('hp.bt.pauseAria'),
+                press: ht('hp.bt.press', { songs: bt.songs }),
+                playing: ht('hp.bt.playing', { songs: bt.songs, seconds: bt.seconds, sec: '{sec}' }),
+                done: ht('hp.bt.done', { rest: '{rest}', name: siteName(bt.site) }),
+              }}
+            />
+            <a href={homeUrl(bt)} className="hub-h2-guess">{ht('hp.bt.guess', { songs: bt.songs })}</a>
+            <a href={homeUrl(bt)} className="hub-h2-listen hub-h2-btn">{ht('hp.bt.listen')}</a>
+          </article>
+        ) : null}
 
-        <article className="hub-h2-tcard hub-h2-card hub-h2-tcard-debate">
-          <span className="hub-h2-qlabel hub-h2-qlabel-muted"><ChatIcon />{ht('hp.today.debateLabel')}</span>
-          <h3 className="hub-h2-tcard-h">{today.debate.title}</h3>
-          <p className="hub-h2-tcard-meta">{ht('hp.today.debateMeta', { name: siteName(today.debate.site) })}</p>
-          <a href={homeUrl(today.debate)} className="hub-h2-vote hub-h2-btn">{ht('hp.today.vote')}</a>
-        </article>
+        {debate ? (
+          <article className="hub-h2-tcard hub-h2-card hub-h2-tcard-debate">
+            <span className="hub-h2-qlabel hub-h2-qlabel-muted"><ChatIcon />{ht('hp.today.debateLabel')}</span>
+            <h3 className="hub-h2-tcard-h">{debate.title}</h3>
+            <p className="hub-h2-tcard-meta">{ht('hp.today.debateMeta', { name: siteName(debate.site) })}</p>
+            <a href={homeUrl(debate)} className="hub-h2-vote hub-h2-btn">{ht('hp.today.vote')}</a>
+          </article>
+        ) : null}
       </div>
     </section>
   );

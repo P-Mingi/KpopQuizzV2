@@ -57,7 +57,8 @@ describe('the sites list comes from the registry', () => {
       ...readdirSync(`${SRC}components/hub`).filter((f) => f.endsWith('.tsx') && !f.endsWith('.test.tsx')).map((f) => `components/hub/${f}`),
       // lot H2a: the blocks of the new home and their loaders
       ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f) && !f.endsWith('.test.ts')).map((f) => `components/hub/home/${f}`),
-      ...readdirSync(`${SRC}lib/site/hub`).filter((f) => /^home-.*\.ts$/.test(f) && !f.endsWith('.test.ts')).map((f) => `lib/site/hub/${f}`),
+      // (the design's sample data of lot H2c is a test file: it names the sites on purpose, and no render path imports it)
+      ...readdirSync(`${SRC}lib/site/hub`).filter((f) => /^home-.*\.ts$/.test(f) && !f.endsWith('.test.ts') && !f.includes('.test-support.')).map((f) => `lib/site/hub/${f}`),
     ];
     const words = [
       ...Object.values(REGISTRY).flatMap((s) => [s.url, s.domain, s.brand.name, s.brand.name.toLowerCase()]),

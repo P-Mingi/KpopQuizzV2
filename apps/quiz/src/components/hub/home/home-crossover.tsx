@@ -16,7 +16,7 @@ export function HomeCrossover({ data }: { data: HomeCrossoverData }): React.Reac
             <span className="hub-h2-x-eyebrow">{ht('hp.cross.eyebrow')}</span>
             <h2 id="cross-h" className="hub-h2-h2">{ht('hp.cross.title')}</h2>
           </div>
-          <span className="hub-h2-x-fact">{data.fact}</span>
+          {data.fact ? <span className="hub-h2-x-fact">{data.fact}</span> : null}
         </div>
         <div className="hub-h2-x-grid">
           {data.cards.map((card) => (

@@ -1,12 +1,16 @@
 'use client';
 
 // Run O1, lot H2a: the preview player of the blindtest card (the design's script: press play, ten seconds count, then "Song 1 done").
-// It plays no sound yet: the real preview arrives with the blindtest data of lot H2b.
+// Lot H2c: it plays the real preview of the first song of the day (`previewUrl`, audio only: no title, no artist, no cover reaches the
+// page) and stops at the clip length. Nothing is loaded before the first press. If the browser refuses the sound, the player goes back
+// to "press play".
 import { useEffect, useRef, useState } from 'react';
 
 interface HomeBlindtestProps {
   readonly songs: number;
   readonly seconds: number;
+  /** The preview of the first song of the day (about 30 seconds long; the player plays the first `seconds`). */
+  readonly previewUrl: string;
   readonly labels: {
     readonly playAria: string;
     readonly pauseAria: string;
@@ -19,21 +23,27 @@ interface HomeBlindtestProps {
   };
 }
 
-export function HomeBlindtest({ songs, seconds, labels }: HomeBlindtestProps): React.ReactElement {
+export function HomeBlindtest({ songs, seconds, previewUrl, labels }: HomeBlindtestProps): React.ReactElement {
   const [playing, setPlaying] = useState(false);
   const [sec, setSec] = useState(0);
   const timer = useRef<number | null>(null);
+  const audio = useRef<HTMLAudioElement | null>(null);
   const stop = (): void => {
     if (timer.current !== null) {
       window.clearInterval(timer.current);
       timer.current = null;
     }
   };
-  useEffect(() => stop, []);
+  useEffect(() => () => {
+    stop();
+    audio.current?.pause();
+    audio.current = null;
+  }, []);
 
   const toggle = (): void => {
     if (playing) {
       stop();
+      audio.current?.pause();
       setPlaying(false);
       return;
     }
@@ -41,11 +51,28 @@ export function HomeBlindtest({ songs, seconds, labels }: HomeBlindtestProps): R
     setPlaying(true);
     setSec(start);
     stop();
+    // The sound starts on the press (a user gesture), where the clip left off.
+    const el = audio.current ?? new Audio(previewUrl);
+    audio.current = el;
+    el.preload = 'auto';
+    try {
+      el.currentTime = start;
+    } catch {
+      // not seekable yet: it then starts from the beginning, like a first press
+    }
+    const refused = (): void => {
+      stop();
+      el.pause();
+      setSec(0);
+      setPlaying(false);
+    };
+    el.play().catch(refused);
     let at = start;
     timer.current = window.setInterval(() => {
       at += 1;
       if (at >= seconds) {
         stop();
+        el.pause();
         setSec(seconds);
         setPlaying(false);
       } else {

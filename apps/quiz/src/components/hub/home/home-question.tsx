@@ -54,10 +54,12 @@ export function HomeQuestion(props: HomeQuestionProps): React.ReactElement {
       {answered ? (
         <div role="status" className="hub-h2-result">
           <strong className={`hub-h2-result-t ${answer === correct ? 'hub-h2-result-t-ok' : 'hub-h2-result-t-no'}`}>{answer === correct ? labels.right : labels.wrong}</strong>
-          <span className="hub-h2-result-x">
-            <span className="hub-h2-nophone">{props.explain}</span>
-            <span className="hub-h2-phoneonly">{props.explainShort}</span>
-          </span>
+          {props.explain ? (
+            <span className="hub-h2-result-x">
+              <span className="hub-h2-nophone">{props.explain}</span>
+              <span className="hub-h2-phoneonly">{props.explainShort}</span>
+            </span>
+          ) : null}
           <div className="hub-h2-result-act">
             <a href={props.href} className="hub-h2-full">
               <span className="hub-h2-nophone">{labels.full}</span>

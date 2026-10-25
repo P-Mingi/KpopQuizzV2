@@ -83,6 +83,12 @@ export function privacyUrl(brand: MailBrand): string {
   return `${brand.url}${brand.privacyPath}`;
 }
 
+/** The rabbit before the name of OtakuQuiz and FanQuiz (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
+function mark(brand: MailBrand): string {
+  if (brand.id !== 'anime' && brand.id !== 'hub') return '';
+  return `<img src="${esc(brand.url)}/mascot/mascot-default.png" width="28" height="28" alt="" style="vertical-align:middle;border:0;margin-right:8px">`;
+}
+
 function shell(brand: MailBrand, inner: string, copy: MailCopy, vars: Readonly<Record<string, string>>): string {
   const network = esc(fill(need(copy, 'email.footerNetwork'), vars));
   const privacy = esc(fill(need(copy, 'email.footerPrivacy'), vars));
@@ -92,7 +98,7 @@ function shell(brand: MailBrand, inner: string, copy: MailCopy, vars: Readonly<R
     '<body style="margin:0;padding:24px;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;color:#1a1a22">\n' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">\n' +
     '<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:12px;padding:32px">\n' +
-    `<tr><td style="font-size:14px;font-weight:700;letter-spacing:.02em;color:${brand.accent}">${esc(brand.name)}</td></tr>\n` +
+    `<tr><td style="font-size:14px;font-weight:700;letter-spacing:.02em;color:${brand.accent}">${mark(brand)}${esc(brand.name)}</td></tr>\n` +
     `${inner}\n` +
     `<tr><td style="padding-top:28px;font-size:12px;line-height:18px;color:#5c5d6b">${network}<br>` +
     `<a href="${esc(privacyUrl(brand))}" style="color:#5c5d6b">${privacy}</a></td></tr>\n` +

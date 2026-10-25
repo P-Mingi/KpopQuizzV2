@@ -1,6 +1,7 @@
 // Run O1, lot H2a: "Top fans this week" and the passport: the five best fans of the week on both sites; beside them the passport, which
 // says what the other sites see and never see (HubShares, the same block as the privacy page) and opens the sign-in sheet, or, signed in,
 // shows the level, the progress and the streak of each site. The phone board has only the passport, without the two columns.
+// Lot H2c: the board is left out while no fan has made a profile public; the passport then takes the row.
 import { HubShares } from '@/components/hub/hub-shares';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl, HOME_SITES } from '@/lib/site/hub/home-types';
@@ -29,7 +30,7 @@ function Fans({ fans, viewer }: { fans: readonly HomeFan[]; viewer: HomeViewer |
               <span className={`hub-h2-fan-dot${f.onKpop ? ' hub-h2-fan-dot-k' : ''}`} />
               <span className={`hub-h2-fan-dot${f.onAnime ? ' hub-h2-fan-dot-a' : ''}`} />
             </span>
-            <span className="hub-h2-fan-lv">{ht('hp.top.lv', { level: f.level })}</span>
+            {f.level !== null ? <span className="hub-h2-fan-lv">{ht('hp.top.lv', { level: f.level })}</span> : null}
           </li>
         ))}
       </ol>
@@ -81,7 +82,7 @@ function Passport({ viewer }: { viewer: HomeViewer | null }): React.ReactElement
 export function HomeCommunity({ fans, viewer }: { fans: readonly HomeFan[]; viewer: HomeViewer | null }): React.ReactElement {
   return (
     <section className="hub-h2-duo">
-      <Fans fans={fans} viewer={viewer} />
+      {fans.length > 0 ? <Fans fans={fans} viewer={viewer} /> : null}
       <Passport viewer={viewer} />
     </section>
   );

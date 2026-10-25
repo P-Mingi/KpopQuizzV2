@@ -9,12 +9,13 @@ import { Dual, RabbitWhite } from './home-ui';
 import { siteName } from './home-names';
 import { siteClass } from './site-class';
 
-import type { HomeDoor, HomeQuiz } from '@/lib/site/hub/home-types';
+import type { HomeDoor, HomeSurprise as HomeSurpriseData } from '@/lib/site/hub/home-types';
 import type { SurprisePick } from './home-surprise';
 
-/** The Surprise me pool: every quiz of both lists, with the link on its own site. */
-export function surprisePool(quizzes: readonly HomeQuiz[]): SurprisePick[] {
-  return quizzes.map((q) => ({
+/** The Surprise me pool: the quizzes of the data module, each with the link on its own site. */
+export function surprisePool(surprise: HomeSurpriseData): SurprisePick[] {
+  return surprise.pool.map((q) => ({
+    id: q.id,
     tile: q.tile,
     title: q.title,
     href: homeUrl(q),
@@ -38,10 +39,12 @@ function Door({ door }: { door: HomeDoor }): React.ReactElement {
         {door.chips.map((chip) => <span key={chip} className="hub-h2-chip">{chip}</span>)}
       </div>
       <span className="hub-h2-phoneline">{door.phoneLine}</span>
-      <div className="hub-h2-spot">
-        <span className="hub-h2-spot-l">{door.spotlight.label}</span>
-        <span className="hub-h2-spot-t hub-h2-clamp">{door.spotlight.title}</span>
-      </div>
+      {door.spotlight ? (
+        <div className="hub-h2-spot">
+          <span className="hub-h2-spot-l">{door.spotlight.label}</span>
+          <span className="hub-h2-spot-t hub-h2-clamp">{door.spotlight.title}</span>
+        </div>
+      ) : null}
       <a href={homeUrl({ site: door.site, path: '/' })} className="hub-h2-enter hub-h2-btn">
         <Dual desktop={ht('hp.door.enter', { name: door.name })} phone={ht('hp.door.enterShort')} />
         <ArrowIcon />
@@ -50,7 +53,7 @@ function Door({ door }: { door: HomeDoor }): React.ReactElement {
   );
 }
 
-export function HomeHero({ doors, pool }: { doors: readonly HomeDoor[]; pool: readonly SurprisePick[] }): React.ReactElement {
+export function HomeHero({ doors, pool, playedIds }: { doors: readonly HomeDoor[]; pool: readonly SurprisePick[]; playedIds: readonly string[] }): React.ReactElement {
   return (
     <section aria-labelledby="hero-h" className="hub-h2-hero">
       <div className="hub-h2-hero-text">
@@ -58,11 +61,14 @@ export function HomeHero({ doors, pool }: { doors: readonly HomeDoor[]; pool: re
         <h1 id="hero-h" className="hub-h2-h1">{ht('hp.hero.h1')}</h1>
         <p className="hub-h2-lede">{ht('hp.hero.lede')}</p>
       </div>
-      <div className="hub-h2-doors">
-        {doors.map((door) => <Door key={door.site} door={door} />)}
-      </div>
+      {doors.length > 0 ? (
+        <div className="hub-h2-doors">
+          {doors.map((door) => <Door key={door.site} door={door} />)}
+        </div>
+      ) : null}
       <HomeSurprise
         pool={pool}
+        playedIds={playedIds}
         labels={{ button: ht('hp.surprise.button'), note: ht('hp.surprise.note'), play: ht('hp.surprise.play'), another: ht('hp.surprise.another') }}
       />
     </section>

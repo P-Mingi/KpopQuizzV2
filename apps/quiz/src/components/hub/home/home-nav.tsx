@@ -4,15 +4,22 @@
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl, HOME_SITES } from '@/lib/site/hub/home-types';
 
+import { HomeSearch } from './home-filter';
 import { HomeSignIn } from './home-signin';
 import { hubName, siteName } from './home-names';
-import { SearchIcon } from './home-icons';
 import { RabbitMark } from './home-ui';
 import { siteClass } from './site-class';
 
 import type { HomeViewer } from '@/lib/site/hub/home-types';
 
-export function HomeNav({ viewer }: { viewer: HomeViewer | null }): React.ReactElement {
+/** Which sections of the page exist: a link to a block that is not there is left out. */
+export interface HomeSections {
+  readonly today: boolean;
+  readonly hot: boolean;
+  readonly top: boolean;
+}
+
+export function HomeNav({ viewer, sections }: { viewer: HomeViewer | null; sections: HomeSections }): React.ReactElement {
   return (
     <header className="hub-h2-head">
       <nav aria-label={ht('hp.nav.main')} className="hub-h2-nav">
@@ -21,10 +28,10 @@ export function HomeNav({ viewer }: { viewer: HomeViewer | null }): React.ReactE
           <span className="hub-h2-brand-name">{hubName()}</span>
         </a>
         <div className="hub-h2-links">
-          <a href="#today" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.today')}</a>
-          <a href="#hot" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.hot')}</a>
-          <a href="#top" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.top')}</a>
-          <span aria-hidden="true" className="hub-h2-sep" />
+          {sections.today ? <a href="#today" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.today')}</a> : null}
+          {sections.hot ? <a href="#hot" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.hot')}</a> : null}
+          {sections.top ? <a href="#top" className="hub-h2-pill hub-h2-btn">{ht('hp.nav.top')}</a> : null}
+          {sections.today || sections.hot || sections.top ? <span aria-hidden="true" className="hub-h2-sep" /> : null}
           {HOME_SITES.map((site) => (
             <a key={site} href={homeUrl({ site, path: '/' })} className={`hub-h2-sitepill hub-h2-btn ${siteClass(site)}`}>
               <span aria-hidden="true" className="hub-h2-dot9" />{siteName(site)}
@@ -32,7 +39,10 @@ export function HomeNav({ viewer }: { viewer: HomeViewer | null }): React.ReactE
           ))}
         </div>
         <div className="hub-h2-actions">
-          <button type="button" aria-label={ht('hp.nav.search')} className="hub-h2-iconbtn hub-h2-btn"><SearchIcon /></button>
+          <HomeSearch
+            hrefs={{ kpop: homeUrl({ site: 'kpop', path: '/search' }), anime: homeUrl({ site: 'anime', path: '/search' }) }}
+            label={ht('hp.nav.search')}
+          />
           {viewer ? (
             <a href="#passport" className="hub-h2-me">
               <span aria-hidden="true" className="hub-h2-me-av">{viewer.username.charAt(0).toUpperCase()}</span>{ht('hp.nav.level', { level: viewer.level })}

@@ -33,7 +33,7 @@ export const COPY = {
   'hp.surprise.play': 'Play',
   'hp.surprise.another': 'Another',
   'hp.today.title': 'Today',
-  'hp.today.resets': 'New picks in {time} (2:05, Paris time)',
+  'hp.today.resets': 'New picks in {time} ({paris}, Paris time)',
   'hp.today.resetsFallback': 'a few hours',
   'hp.today.swipe': 'Swipe',
   'hp.today.qotd': 'Quiz of the day',

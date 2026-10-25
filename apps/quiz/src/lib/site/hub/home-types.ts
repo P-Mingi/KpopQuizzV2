@@ -1,6 +1,7 @@
 // Run O1, lot H2a: the shapes of the new FanQuiz home (docs/o1/design/fanquiz-hub/). Each block of the page takes its data from
-// one loader (home-*.ts) that returns one of these shapes. The H2a bodies return the design's sample data; lot H2b replaces the
-// bodies with real data and keeps the shapes. Pure types and two pure helpers: no site name or origin is written here.
+// one loader (home-*.ts) that returns one of these shapes. Lot H2c: every loader maps its module of lib/site/hub/data/ (lot H2b) to
+// its shape; a block with no data is null (or empty) and the page leaves it out, as the design's sc-if does. Pure types and two pure
+// helpers: no site name or origin is written here.
 
 import { netOrigin } from '@/lib/site/registry';
 
@@ -40,12 +41,12 @@ export interface HomeDoor {
   readonly site: HomeSite;
   readonly name: string;
   readonly tagline: string;
-  /** The pills of the desktop card ("482 quizzes", "Daily blindtest"). */
+  /** The pills of the desktop card ("N quizzes", "Daily blindtest"). */
   readonly chips: readonly string[];
-  /** The one line of the phone card ("482 quizzes", "138 quizzes · 31 series"). */
+  /** The one line of the phone card ("N quizzes", "N quizzes · N series"). */
   readonly phoneLine: string;
-  /** "Top now" or "Just added", then the quiz. */
-  readonly spotlight: { readonly label: string; readonly title: string; readonly path: string };
+  /** "Top now" or "Just added", then the quiz; null when the site has no quiz to feature (the box then disappears). */
+  readonly spotlight: { readonly label: string; readonly title: string; readonly path: string } | null;
 }
 
 export interface HomeTodayQuiz extends HomeLink {
@@ -54,10 +55,33 @@ export interface HomeTodayQuiz extends HomeLink {
   readonly meta: string;
 }
 
+/** The blind test of the day: K-pop, audio only; `previewUrl` is the 10 second preview of its first song. */
+export interface HomeBlindtest {
+  readonly site: HomeSite;
+  readonly path: string;
+  readonly songs: number;
+  readonly seconds: number;
+  readonly previewUrl: string;
+}
+
+export interface HomeDebate {
+  readonly site: HomeSite;
+  readonly title: string;
+  readonly path: string;
+}
+
+/** The next change of the daily picks: the instant (ISO) the countdown aims at, and the same time on a Paris clock ("2:05", "1:05"). */
+export interface HomeRotation {
+  readonly nextAt: string;
+  readonly parisTime: string;
+}
+
+/** Each part may be missing (no quiz of the day in a bank, no blind test, no debate): its card is left out. */
 export interface HomeToday {
   readonly quizzes: readonly HomeTodayQuiz[];
-  readonly blindtest: { readonly site: HomeSite; readonly path: string; readonly songs: number; readonly seconds: number };
-  readonly debate: { readonly site: HomeSite; readonly title: string; readonly path: string };
+  readonly blindtest: HomeBlindtest | null;
+  readonly debate: HomeDebate | null;
+  readonly rotation: HomeRotation;
 }
 
 export interface HomeQuestion {
@@ -68,6 +92,7 @@ export interface HomeQuestion {
   readonly text: string;
   readonly options: readonly string[];
   readonly correct: number;
+  /** The story shown after the answer; '' when the question has none. */
   readonly explain: string;
   readonly explainShort: string;
 }
@@ -79,11 +104,15 @@ export interface HomeFact extends HomeLink {
 }
 
 export interface HomeQuick {
-  readonly question: HomeQuestion;
+  /** Null when no question qualifies (the card is left out). */
+  readonly question: HomeQuestion | null;
+  /** Zero, one or two facts (K-pop, anime). */
   readonly facts: readonly HomeFact[];
 }
 
+/** The three lists of the filter chips, each in rank order: `all` already alternates the two sites. */
 export interface HomeHot {
+  readonly all: readonly HomeQuiz[];
   readonly kpop: readonly HomeQuiz[];
   readonly anime: readonly HomeQuiz[];
   readonly allPaths: Readonly<Record<HomeSite, string>>;
@@ -113,18 +142,20 @@ export interface HomeCrossoverCard extends HomeLink {
 }
 
 export interface HomeCrossover {
-  readonly fact: string;
+  /** The fact that links the two worlds; null when no sourced one is available (the line is left out). */
+  readonly fact: string | null;
   readonly cards: readonly HomeCrossoverCard[];
 }
 
 export interface HomeFan {
   readonly handle: string;
-  readonly level: number;
+  /** The passport level; null while the fan keeps it private. */
+  readonly level: number | null;
   readonly onKpop: boolean;
   readonly onAnime: boolean;
 }
 
-/** The signed-in fan: from the passport, with the numbers the design shows as samples until lot H2b. */
+/** The signed-in fan: the passport (username, level, sites joined), the progress to the next level and the daily streak of each site. */
 export interface HomeViewer {
   readonly username: string;
   readonly level: number;
@@ -139,14 +170,20 @@ export function homeUrl(link: HomeLink): string {
   return `${netOrigin(link.site, { NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV })}${link.path}`;
 }
 
-/** The Hot now list of a filter: both sites alternate, the first three of each (the design's script), or the six of one site. */
-export function hotList(hot: Pick<HomeHot, 'kpop' | 'anime'>, filter: HotFilter): readonly HomeQuiz[] {
-  if (filter === 'kpop') return hot.kpop.slice(0, 6);
-  if (filter === 'anime') return hot.anime.slice(0, 6);
-  const out: HomeQuiz[] = [];
-  for (let i = 0; i < 3; i++) {
-    if (hot.kpop[i]) out.push(hot.kpop[i]!);
-    if (hot.anime[i]) out.push(hot.anime[i]!);
-  }
-  return out;
+/** The Hot now list of a filter. */
+export function hotList(hot: Pick<HomeHot, 'all' | 'kpop' | 'anime'>, filter: HotFilter): readonly HomeQuiz[] {
+  return hot[filter];
+}
+
+/** One quiz of the Surprise me pool: the 200 best quizzes of both sites. */
+export interface HomeSurpriseCard extends HomeLink {
+  readonly id: string;
+  readonly tile: string;
+  readonly title: string;
+}
+
+export interface HomeSurprise {
+  readonly pool: readonly HomeSurpriseCard[];
+  /** Quiz ids the signed-in fan already played (empty for a guest). */
+  readonly playedIds: readonly string[];
 }
