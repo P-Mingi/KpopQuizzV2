@@ -4,7 +4,6 @@ import { Mascot } from '@/components/ui/mascot';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { verseHidden } from '@/lib/verse/visibility';
 import { ThemeToggle } from './theme-toggle';
-import { LocaleSwitcher } from './locale-switcher';
 
 export function Footer(): React.ReactElement {
   // Owner request (2026-09-19): the "Fandoms" (Verse) link is dropped from the
@@ -92,7 +91,6 @@ export function Footer(): React.ReactElement {
         <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 9, color: 'var(--txt2)' }}>{'\u00A9'} {new Date().getFullYear()} kpopquiz.org</span>
           <span className="footer-theme" style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-            <LocaleSwitcher />
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--txt3)' }}>Theme</span>
             <ThemeToggle />
           </span>

@@ -168,11 +168,13 @@ describe('V12 routes: known only with both flags on', () => {
   });
 
   it('existing routes do not depend on the flags', () => {
-    for (const p of ['/', '/bts-quiz', '/twice-trivia', '/blindtest', '/blindtest/kpop-hits-2025', '/pt/blindtest',
+    for (const p of ['/', '/bts-quiz', '/twice-trivia', '/blindtest', '/blindtest/kpop-hits-2025',
       '/quizzes', '/kpop-demon-hunters-quiz']) {
       for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(true);
     }
-    for (const p of ['/games', '/fr', '/idols', '/frances']) {
+    // The Portuguese mirror was retired on 2026-10-23 (owner): /pt pages are no longer routes
+    // (the middleware 301s each former page to its English page before this check).
+    for (const p of ['/games', '/fr', '/idols', '/frances', '/pt', '/pt/blindtest', '/pt/quizzes']) {
       for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(false);
     }
   });

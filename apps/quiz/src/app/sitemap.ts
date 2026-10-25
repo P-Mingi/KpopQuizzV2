@@ -49,9 +49,6 @@ const CATALOG_PATHS = new Set<string>([
   '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/stats',
-  '/pt', '/pt/quizzes', '/pt/blindtest', '/pt/leaderboard', '/pt/stats',
-  '/pt/easy-kpop-quizzes', '/pt/hard-kpop-quizzes', '/pt/kpop-quiz-2026',
-  '/pt/guess-the-kpop-idol', '/pt/kpop-true-or-false',
 ].map((p) => `${SITE_URL}${p}`));
 
 /**
@@ -140,20 +137,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Workstream T0 monthly Pulse index. Per-month reports are appended below.
     { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },
 
-    // Portuguese (pt-BR) - live, reviewed, indexable
-    { url: `${SITE_URL}/pt`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.9 },
-    { url: `${SITE_URL}/pt/quizzes`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${SITE_URL}/pt/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${SITE_URL}/pt/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${SITE_URL}/pt/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${SITE_URL}/pt/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/pt/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${SITE_URL}/pt/kpop-quiz-2026`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/pt/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${SITE_URL}/pt/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
   ];
 
   const articlePages: MetadataRoute.Sitemap = ARTICLES.filter((a) => !a.noindex).map((a) => ({

@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     canonical: '/about',
     languages: {
       en: '/about',
-      'pt-BR': '/pt/about',
       'x-default': '/about',
     },
   },

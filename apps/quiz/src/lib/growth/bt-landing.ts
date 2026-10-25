@@ -12,8 +12,7 @@
 // that needs a number is left out when the number could not be read.
 //
 // The four pages form their own hreflang cluster (x-default = the English page).
-// /blindtest keeps its own en / pt-BR pair and is not part of it. fr, es and id are
-// NOT locales of lib/i18n/config.ts: only these landings exist in those languages.
+// /blindtest is not part of it. Only these landings exist in fr, es and id.
 //
 // Client-safe: plain data and pure functions.
 

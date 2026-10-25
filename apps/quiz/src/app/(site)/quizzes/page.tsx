@@ -79,7 +79,6 @@ export async function generateMetadata(
       ...(canonical === '/quizzes' ? {
         languages: {
           en: '/quizzes',
-          'pt-BR': '/pt/quizzes',
           'x-default': '/quizzes',
         },
       } : {}),
