@@ -1,0 +1,25 @@
+/* Run O1, lot H2a: the tokens of the hub. The hub has no colour of its own: its chrome is ink on cream (docs/o1/design/fanquiz-hub/Plan.dc.html,
+   "Le hub est neutre"). The accent family the shell paints its navigation, its active pill, its primary buttons and its focus ring with is
+   therefore ink here, and cream on ink for the text on it; the pink of KpopQuiz and the orange of OtakuQuiz exist only on what belongs to
+   those sites (--hub-k-* and --hub-a-* in h2.css). Same values as the hub entry of lib/site/registry.ts (a test compares them). A name set in
+   one theme is set in all three blocks (tokens.md 3.2). */
+
+html.ux-v1[data-site="hub"] {
+  --ux-pink: #1F1B17; --ux-pink-fill: #1F1B17; --ux-pink-fill-h: #3A332C; --ux-pink-ink: #1F1B17;
+  --ux-pink-soft: #F1EFEA; --ux-pink-soft-ink: #1F1B17; --ux-pink-line: #E5E0DA;
+  --ux-on-accent: #FAF8F5;
+}
+
+html.ux-v1.dark[data-site="hub"] {
+  --ux-pink: #F3F0EB; --ux-pink-fill: #F3F0EB; --ux-pink-fill-h: #D8D3CC; --ux-pink-ink: #F3F0EB;
+  --ux-pink-soft: #232120; --ux-pink-soft-ink: #F3F0EB; --ux-pink-line: #35312E;
+  --ux-on-accent: #141312;
+}
+
+@media (prefers-color-scheme: dark) {
+  html.ux-v1[data-site="hub"]:not(.light) {
+    --ux-pink: #F3F0EB; --ux-pink-fill: #F3F0EB; --ux-pink-fill-h: #D8D3CC; --ux-pink-ink: #F3F0EB;
+    --ux-pink-soft: #232120; --ux-pink-soft-ink: #F3F0EB; --ux-pink-line: #35312E;
+    --ux-on-accent: #141312;
+  }
+}
