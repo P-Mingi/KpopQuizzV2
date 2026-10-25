@@ -19,7 +19,6 @@ export const metadata: Metadata = {
     canonical: '/kpop-quiz-2026',
     languages: {
       en: '/kpop-quiz-2026',
-      'pt-BR': '/pt/kpop-quiz-2026',
       'x-default': '/kpop-quiz-2026',
     },
   },
