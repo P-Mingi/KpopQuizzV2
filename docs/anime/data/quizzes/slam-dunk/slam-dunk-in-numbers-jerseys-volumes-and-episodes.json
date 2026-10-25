@@ -20,6 +20,11 @@
       "id": "S2",
       "title": "Wikipedia: Slam Dunk (manga)",
       "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "title": "Wikipedia: The First Slam Dunk",
+      "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+      "id": "S3"
     }
   ],
   "questions": [
@@ -138,12 +143,12 @@
       "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
     },
     {
-      "question": "How many chapters make up the manga?",
+      "question": "In which year did the manga begin in Weekly Shonen Jump?",
       "options": [
-        "231",
-        "276",
-        "180",
-        "312"
+        "1988",
+        "1990",
+        "1992",
+        "1994"
       ],
       "correct": 1,
       "kind": "manga",
@@ -152,47 +157,47 @@
         "scope": "manga"
       },
       "fact_ids": [
-        "slam-dunk-chapters-008"
+        "slam-dunk-manga-start-005"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
     },
     {
-      "question": "As of 2025, how many copies were in circulation worldwide?",
+      "question": "In which year did the TV anime start airing?",
       "options": [
-        "100 million",
-        "50 million",
-        "185 million",
-        "250 million"
+        "1990",
+        "1991",
+        "1993",
+        "1995"
       ],
       "correct": 2,
-      "kind": "manga",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "anime"
       },
       "fact_ids": [
-        "slam-dunk-copies-2025-020"
+        "slam-dunk-anime-run-027"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
     },
     {
-      "question": "On how many chalkboards was the epilogue 10 Days After drawn?",
+      "question": "In which year was The First Slam Dunk released in Japanese cinemas?",
       "options": [
-        "9",
-        "15",
-        "23",
-        "31"
+        "2023",
+        "2022",
+        "2021",
+        "2020"
       ],
-      "correct": 2,
-      "kind": "manga",
+      "correct": 1,
+      "kind": "production",
       "spoiler": {
-        "arc": 3,
-        "scope": "manga"
+        "arc": 0,
+        "scope": "anime"
       },
       "fact_ids": [
-        "slam-dunk-ten-days-after-025"
+        "slam-dunk-ichi-release-038"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
     },
     {
       "question": "Which numbered Shogakukan Manga Award did the series win in 1994?",
