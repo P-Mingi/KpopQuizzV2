@@ -27,6 +27,7 @@ two existing series as models (D/series/death-note.json, D/facts/death-note.json
 Replace it with the next unused one of this list, in order, and say so: Assassination Classroom, The Promised Neverland, Hell's
 Paradise, Yu Yu Hakusho, Bungo Stray Dogs (D/series tells you which ones are already used).
 ## Checks
+After adding series: regenerate the slug to type map (`pnpm -C apps/quiz exec tsx scripts/gen-series-types.mts`) and commit it.
 `node scripts/anime/editorial/check.mjs D`: 0 fail; `node --test scripts/anime/editorial/*.test.mjs scripts/anime/k1/*.test.mjs` green;
 `node scripts/anime/k1/validate-data.mjs` no new line; load D on o1-scratch (`node scripts/anime/k1/load-fixtures.mjs scratch --data D`).
 Update the counts of apps/quiz/e2e/o1/L1/content-sql.test.mjs is ORCH's: give the new totals instead.
