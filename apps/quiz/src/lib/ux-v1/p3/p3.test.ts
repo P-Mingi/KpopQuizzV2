@@ -6,7 +6,7 @@ vi.mock('@/lib/error-handling', () => ({
 }));
 
 import { isMissingTable, parseGroupId } from './alerts';
-import { FailedRenderError, READ_FAILED, failClosed, failedReads, read } from './reads';
+import { READ_FAILED, failClosed, failedReads, read, readAll } from './reads';
 import { mergeHubFaqs } from './faq';
 import { verseSpaceOpen } from './verse';
 import {
@@ -246,10 +246,32 @@ describe('fail-closed reads (a failed read is never cached)', () => {
     expect(failedReads({ a: [], b: READ_FAILED, c: null, d: READ_FAILED })).toEqual(['b', 'd']);
   });
 
-  it('at request time a failed read fails the render (the last good ISR page stays)', async () => {
+  // Owner, 2026-10-25: "never a 500". A render that still misses a read after its retry is
+  // served degraded with a 60 s revalidate at request time too (it used to throw, which was a
+  // 500 whenever no good page was cached yet, as right after every deploy).
+  it('at request time a failed read serves the page degraded, never a 500', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     await expect(failClosed('/groups', [])).resolves.toBeUndefined();
-    await expect(failClosed('/groups', ['getGroupsIndex'])).rejects.toBeInstanceOf(FailedRenderError);
-    await expect(failClosed('/bts-quiz', ['getHubQuizzes', 'getGroupsIndex'])).rejects.toThrow('getHubQuizzes, getGroupsIndex');
+    expect(warn).not.toHaveBeenCalled();
+    await expect(failClosed('/groups', ['getGroupsIndex'])).resolves.toBeUndefined();
+    await expect(failClosed('/bts-quiz', ['getHubQuizzes', 'getGroupsIndex'])).resolves.toBeUndefined();
+    expect(warn).toHaveBeenLastCalledWith(expect.stringContaining('getHubQuizzes, getGroupsIndex'));
+    expect(warn).toHaveBeenLastCalledWith(expect.stringContaining('60s revalidate'));
+    warn.mockRestore();
+  });
+
+  it('readAll tries each failed read once more, and only the failed ones', async () => {
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const calls = { a: 0, b: 0, c: 0 };
+    const got = await readAll({
+      a: () => { calls.a += 1; return read(Promise.resolve(['ok']), 'a'); },
+      b: () => { calls.b += 1; return read(calls.b === 1 ? Promise.reject(new Error('timeout')) : Promise.resolve(7), 'b'); },
+      c: () => { calls.c += 1; return read(Promise.reject(new Error('down')), 'c'); },
+    }, 0);
+    expect(got).toEqual({ a: ['ok'], b: 7, c: READ_FAILED });
+    expect(calls).toEqual({ a: 1, b: 2, c: 2 });
+    expect(failedReads(got)).toEqual(['c']);
+    quiet.mockRestore();
   });
 
   it('during next build it does not throw (a DB blip never fails a deploy)', async () => {
