@@ -1,0 +1,227 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "gintama",
+  "title": "Gintama Quiz: Silver Souls, Aliens in Edo and 201 First Episodes",
+  "slug": "silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz",
+  "description": "Ten easy questions on the title, the setting, the studio, the manga and the live action film. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 3. Arc 0 facts only: title, setting, production and music. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Gintama",
+      "url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Gintama (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Anime News Network: Gintama (TV)",
+      "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Gintama characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "The title Gintama literally translates as what?",
+      "options": [
+        "Silver Soul",
+        "Silver Sword",
+        "Golden Samurai",
+        "Iron Spirit"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-japanese-title-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "In which magazine did the Gintama manga start?",
+      "options": [
+        "Weekly Shōnen Sunday",
+        "Weekly Shōnen Magazine",
+        "Monthly Shōnen Ace",
+        "Weekly Shōnen Jump"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "gintama-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "The aliens who conquer Japan in Gintama go by what name?",
+      "options": [
+        "Kaientai",
+        "Joi",
+        "Shinsengumi",
+        "Amanto"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-setting-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "Before it was shortened to Gintama, the series was titled what?",
+      "options": [
+        "Yorozuya Gin-san",
+        "Silver Haired Hero",
+        "Edo Sky Samurai",
+        "Odd Jobs of the Shogun"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "gintama-first-title-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "Which studio animated the original 201 episode TV series?",
+      "options": [
+        "Madhouse",
+        "Sunrise",
+        "Bones",
+        "Studio Pierrot"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-studios-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    },
+    {
+      "question": "The first TV series ran for how many episodes?",
+      "options": [
+        "253",
+        "201",
+        "101",
+        "151"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-series-1-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    },
+    {
+      "question": "How many tankobon volumes does the finished manga fill?",
+      "options": [
+        "61",
+        "77",
+        "72",
+        "85"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "gintama-volumes-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "Who plays Gintoki in the live-action film?",
+      "options": [
+        "Tori Matsuzaka",
+        "Kento Yamazaki",
+        "Takeru Satoh",
+        "Shun Oguri"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-live-action-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "Which singer performed the very first opening theme, Pray?",
+      "options": [
+        "FLiP",
+        "Tommy Heavenly6",
+        "DOES",
+        "Prague"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-openings-1-025"
+      ],
+      "source_url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236"
+    },
+    {
+      "question": "Which voice actor plays Gintoki in Japanese?",
+      "options": [
+        "Hiroshi Kamiya",
+        "Mamoru Miyano",
+        "Tomokazu Sugita",
+        "Junichi Suwabe"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-gintoki-sakata-voice-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ]
+}

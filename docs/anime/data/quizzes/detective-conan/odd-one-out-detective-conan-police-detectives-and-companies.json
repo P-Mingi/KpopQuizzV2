@@ -1,0 +1,330 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "detective-conan",
+  "title": "Odd One Out: Detective Conan Police, Detectives and Companies",
+  "slug": "odd-one-out-detective-conan-police-detectives-and-companies",
+  "description": "Four choices, one that does not belong. Officers, young detectives, singers, companies and voice actors. Light spoilers up to the first reveals.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider, every label from the series data.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Case Closed characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Case Closed (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Minami Takayama",
+      "url": "https://en.wikipedia.org/wiki/Minami_Takayama"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Three of these characters work for the police. Which one is a criminal?",
+      "options": [
+        {
+          "label": "Juzo Megure"
+        },
+        {
+          "label": "Gin"
+        },
+        {
+          "label": "Ninzaburo Shiratori"
+        },
+        {
+          "label": "Wataru Takagi"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-gin-name-065",
+        "detective-conan-juzo-megure-name-056",
+        "detective-conan-wataru-takagi-name-058",
+        "detective-conan-ninzaburo-shiratori-name-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these are members of the Junior Detective League. Which one is not?",
+      "options": [
+        {
+          "label": "Genta Kojima"
+        },
+        {
+          "label": "Sonoko Suzuki"
+        },
+        {
+          "label": "Ayumi Yoshida"
+        },
+        {
+          "label": "Mitsuhiko Tsuburaya"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-sonoko-suzuki-name-080",
+        "detective-conan-genta-kojima-name-050",
+        "detective-conan-mitsuhiko-tsuburaya-name-052",
+        "detective-conan-ayumi-yoshida-name-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these belong to Ran's family. Which one does not?",
+      "options": [
+        {
+          "label": "Heiji Hattori"
+        },
+        {
+          "label": "Eri Kisaki"
+        },
+        {
+          "label": "Kogoro Mori"
+        },
+        {
+          "label": "Ran Mori"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-heiji-hattori-name-040",
+        "detective-conan-ran-mori-name-035",
+        "detective-conan-kogoro-mori-name-038",
+        "detective-conan-eri-kisaki-name-082"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these characters are detectives. Which one is an inventor?",
+      "options": [
+        {
+          "label": "Conan Edogawa"
+        },
+        {
+          "label": "Heiji Hattori"
+        },
+        {
+          "label": "Kogoro Mori"
+        },
+        {
+          "label": "Hiroshi Agasa"
+        }
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-hiroshi-agasa-name-048",
+        "detective-conan-kogoro-mori-name-038",
+        "detective-conan-heiji-hattori-name-040",
+        "detective-conan-conan-edogawa-name-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these companies made the Japanese original. Which one dubbed it for North America?",
+      "options": [
+        {
+          "label": "Yomiuri Telecasting Corporation"
+        },
+        {
+          "label": "TMS Entertainment"
+        },
+        {
+          "label": "Shogakukan"
+        },
+        {
+          "label": "Funimation"
+        }
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-english-dub-025",
+        "detective-conan-anime-studio-008",
+        "detective-conan-broadcaster-009",
+        "detective-conan-publisher-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    },
+    {
+      "question": "Three of these sang theme songs of the anime. Which one is the voice of the hero?",
+      "options": [
+        {
+          "label": "Ziggy"
+        },
+        {
+          "label": "The High-Lows"
+        },
+        {
+          "label": "Minami Takayama"
+        },
+        {
+          "label": "Mai Kuraki"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-conan-edogawa-voice-034",
+        "detective-conan-first-opening-017",
+        "detective-conan-first-ending-018",
+        "detective-conan-guinness-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Minami_Takayama"
+    },
+    {
+      "question": "Three of these inspired Aoyama's series. Which one is his earlier series?",
+      "options": [
+        {
+          "label": "Magic Kaito"
+        },
+        {
+          "label": "Akira Kurosawa"
+        },
+        {
+          "label": "Sherlock Holmes"
+        },
+        {
+          "label": "Arsène Lupin"
+        }
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-kaito-kid-origin-064",
+        "detective-conan-inspiration-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these voice actors play police officers. Which one voices Ai Haibara?",
+      "options": [
+        {
+          "label": "Atsuko Yuya"
+        },
+        {
+          "label": "Megumi Hayashibara"
+        },
+        {
+          "label": "Chafurin"
+        },
+        {
+          "label": "Wataru Takagi"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-ai-haibara-voice-047",
+        "detective-conan-juzo-megure-voice-057",
+        "detective-conan-miwako-sato-voice-061",
+        "detective-conan-wataru-takagi-voice-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these are linked to the Black Organization. Which one is a thief?",
+      "options": [
+        {
+          "label": "Ai Haibara"
+        },
+        {
+          "label": "Kaito Kid"
+        },
+        {
+          "label": "Vermouth"
+        },
+        {
+          "label": "Gin"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-kaito-kid-name-063",
+        "detective-conan-gin-name-065",
+        "detective-conan-vermouth-name-068",
+        "detective-conan-ai-haibara-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Three of these are members of the Junior Detective League. Which one is an FBI agent?",
+      "options": [
+        {
+          "label": "Genta Kojima"
+        },
+        {
+          "label": "Ayumi Yoshida"
+        },
+        {
+          "label": "Ai Haibara"
+        },
+        {
+          "label": "Jodie Starling"
+        }
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-jodie-starling-name-078",
+        "detective-conan-genta-kojima-name-050",
+        "detective-conan-ayumi-yoshida-name-054",
+        "detective-conan-ai-haibara-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    }
+  ]
+}

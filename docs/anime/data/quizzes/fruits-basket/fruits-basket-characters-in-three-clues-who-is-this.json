@@ -1,0 +1,274 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fruits-basket",
+  "title": "Fruits Basket Characters in Three Clues: Who Is This?",
+  "slug": "fruits-basket-characters-in-three-clues-who-is-this",
+  "description": "Ten characters, three clues each, from the hint that is hard to read to the one that gives it away. Light spoilers up to the second season.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; the character is never named in a clue.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Fruits Basket characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She has lost her parents and is still a high school student.",
+        "She keeps house for her hosts in exchange for a roof.",
+        "A rice ball was her part in the childhood game."
+      ],
+      "options": [
+        "Arisa Uotani",
+        "Tohru Honda",
+        "Kisa Sohma",
+        "Saki Hanajima"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-tohru-honda-name-030",
+        "fruits-basket-tohru-honda-onigiri-031"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The animal that curses him is a rat.",
+        "His older brother is a flamboyant snake.",
+        "Nobunaga Shimazaki voices him in the 2019 anime."
+      ],
+      "options": [
+        "Kyo Sohma",
+        "Yuki Sohma",
+        "Momiji Sohma",
+        "Hatsuharu Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-yuki-sohma-name-033",
+        "fruits-basket-ayame-sohma-name-048",
+        "fruits-basket-yuki-sohma-voice-034"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is cursed by an animal that is not in the zodiac.",
+        "Legend says another animal tricked his animal out of a feast.",
+        "Yuma Uchida voices him in the 2019 anime."
+      ],
+      "options": [
+        "Yuki Sohma",
+        "Kyo Sohma",
+        "Ayame Sohma",
+        "Hatori Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-kyo-sohma-name-035",
+        "fruits-basket-kyo-sohma-legend-036",
+        "fruits-basket-kyo-sohma-voice-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the owner of the house where the story's heroine ends up living.",
+        "His name is linked to the tenth month, the autumn showers month.",
+        "The animal of his month is a dog."
+      ],
+      "options": [
+        "Hatori Sohma",
+        "Shigure Sohma",
+        "Ritsu Sohma",
+        "Ayame Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-shigure-sohma-name-040",
+        "fruits-basket-shigure-sohma-name-meaning-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This man has very long silver hair.",
+        "He is the older brother of a boy admired at school.",
+        "His animal form is a snake."
+      ],
+      "options": [
+        "Hatori Sohma",
+        "Ayame Sohma",
+        "Hatsuharu Sohma",
+        "Shigure Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-ayame-sohma-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the dragon of the zodiac, but his animal form is a seahorse.",
+        "He looks after the health of the whole family.",
+        "He wipes the memories of outsiders who find out the secret."
+      ],
+      "options": [
+        "Ayame Sohma",
+        "Hatori Sohma",
+        "Ritsu Sohma",
+        "Shigure Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-hatori-sohma-name-050",
+        "fruits-basket-hatori-sohma-doctor-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This boy is the rabbit of the zodiac.",
+        "His mother comes from Germany.",
+        "Megumi Han voices him in the 2019 anime."
+      ],
+      "options": [
+        "Hiro Sohma",
+        "Momiji Sohma",
+        "Kisa Sohma",
+        "Hatsuharu Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-momiji-sohma-name-055",
+        "fruits-basket-momiji-sohma-heritage-056",
+        "fruits-basket-momiji-sohma-voice-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The animal that curses him is a ram, which some call a sheep.",
+        "He cares more about Kisa than about anything else.",
+        "Yō Taichi voices him in the 2019 anime."
+      ],
+      "options": [
+        "Momiji Sohma",
+        "Hiro Sohma",
+        "Ritsu Sohma",
+        "Hatsuharu Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-hiro-sohma-name-062",
+        "fruits-basket-hiro-sohma-voice-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She used to be in a gang.",
+        "She is one of the heroine's closest friends.",
+        "Atsumi Tanezaki voices her in the 2019 anime."
+      ],
+      "options": [
+        "Saki Hanajima",
+        "Arisa Uotani",
+        "Kisa Sohma",
+        "Kagura Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-arisa-uotani-name-069",
+        "fruits-basket-arisa-uotani-voice-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is a psychic.",
+        "She senses the waves of the people around her.",
+        "She is one of the heroine's best friends."
+      ],
+      "options": [
+        "Arisa Uotani",
+        "Saki Hanajima",
+        "Kisa Sohma",
+        "Kagura Sohma"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-saki-hanajima-name-071",
+        "fruits-basket-saki-hanajima-voice-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    }
+  ]
+}

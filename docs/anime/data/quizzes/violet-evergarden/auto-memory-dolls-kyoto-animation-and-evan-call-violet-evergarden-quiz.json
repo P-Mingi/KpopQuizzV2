@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "violet-evergarden",
+  "title": "Violet Evergarden Quiz: Auto Memory Dolls, Kyoto Animation and Evan Call",
+  "slug": "auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz",
+  "description": "Ten easy questions on the novels, the studio, the music and the job of a Doll. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 3. Arc 0 facts only: production, music and the set-up. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Violet Evergarden",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who wrote the light novels behind Violet Evergarden?",
+      "options": [
+        "Reki Kawahara",
+        "Kana Akatsuki",
+        "Tappei Nagatsuki",
+        "Kugane Maruyama"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "violet-evergarden-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Which animation studio also published the original novels under its own label?",
+      "options": [
+        "Kyoto Animation",
+        "Studio Ghibli",
+        "ufotable",
+        "A-1 Pictures"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-publisher-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "In the story, what does an Auto Memory Doll do for a living?",
+      "options": [
+        "A messenger who rides airships",
+        "A clockwork nurse for soldiers",
+        "A puppet that performs on stage",
+        "A ghostwriter who writes letters for clients"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-premise-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Whose score fills the soundtrack album Automemories?",
+      "options": [
+        "Yoko Kanno",
+        "Yuki Kajiura",
+        "Hiroyuki Sawano",
+        "Evan Call"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-composer-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who sings the opening theme, Sincerely?",
+      "options": [
+        "Aimer",
+        "LiSA",
+        "True",
+        "Eir Aoi"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-opening-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Which voice actress sings the ending theme, Michishirube?",
+      "options": [
+        "Aoi Yuki",
+        "Minori Chihara",
+        "Nana Mizuki",
+        "Yui Horie"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-ending-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "In which year did the TV anime air?",
+      "options": [
+        "2018",
+        "2015",
+        "2016",
+        "2020"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-tv-run-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "How many episodes does the TV series have?",
+      "options": [
+        "12",
+        "13",
+        "24",
+        "26"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-episodes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "For which company does Violet work as a Doll?",
+      "options": [
+        "Leiden Express",
+        "Telesis Courier Guild",
+        "CH Postal Company",
+        "Ever Post"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-premise-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "The light novel won the grand prize of which award?",
+      "options": [
+        "The Sneaker Grand Prix",
+        "The Fantasia Grand Prize",
+        "The Kyoto Animation Award",
+        "The Dengeki Novel Prize"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "violet-evergarden-award-novel-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ]
+}

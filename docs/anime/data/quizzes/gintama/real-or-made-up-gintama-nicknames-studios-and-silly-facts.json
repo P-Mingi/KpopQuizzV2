@@ -1,0 +1,169 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "gintama",
+  "title": "Real or Made Up: Gintama Nicknames, Studios and Silly Facts",
+  "slug": "real-or-made-up-gintama-nicknames-studios-and-silly-facts",
+  "description": "Ten statements about Gintama, some true and some invented. Decide which is which. No spoilers.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: five true and five invented statements. Every statement rests on a cited fact.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Gintama characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Gintama",
+      "url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Gintama (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Katsura is nicknamed Zura, a word that means wig.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-kotaro-katsura-zura-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Elizabeth, the pet of Katsura, talks by holding up signboards.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-elizabeth-signs-045",
+        "gintama-elizabeth-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Yorozuya means store of ten thousand businesses.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-yorozuya-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "The Gintama manga was serialized in Weekly Shōnen Sunday.",
+      "correct": false,
+      "fun_fact": "It was serialized in Weekly Shōnen Jump.",
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "gintama-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    },
+    {
+      "question": "Sunrise animated the first Gintama TV series.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-studios-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    },
+    {
+      "question": "Kagura belongs to the Joi clan of aliens.",
+      "correct": false,
+      "fun_fact": "Kagura is from the Yato clan.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-kagura-name-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Toshiro Hijikata is the commander of the Shinsengumi.",
+      "correct": false,
+      "fun_fact": "Hijikata is the vice commander; Isao Kondo is the commander.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-toshiro-hijikata-name-052",
+        "gintama-isao-kondo-name-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Sagaru Yamazaki is a spy who is often caught playing tennis.",
+      "correct": false,
+      "fun_fact": "He is often caught playing badminton.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-sagaru-yamazaki-name-056"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "The first Gintama TV series has 101 episodes.",
+      "correct": false,
+      "fun_fact": "The first series has 201 episodes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "gintama-series-1-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+    },
+    {
+      "question": "Shun Oguri plays Gintoki in the live-action film.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-live-action-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Gintama"
+    }
+  ]
+}

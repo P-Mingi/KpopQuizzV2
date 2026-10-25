@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "gintama",
+  "title": "Gintama Hard Quiz: Tenshouin Naraku, a Teacher's Name and a Borrowed Arm",
+  "slug": "tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz",
+  "description": "Ten hard questions on the villains of the final arcs and the family secrets behind the Yorozuya. Spoilers for the whole story, up to the Silver Soul Arc.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arc 7 and the secrets of the main cast). Spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Gintama characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Utsuro is the founder of which organization?",
+      "options": [
+        "The Hyakka",
+        "The Kiheitai",
+        "Tenshouin Naraku",
+        "The Harusame"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-utsuro-name-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Under which earlier name was Utsuro known?",
+      "options": [
+        "Kotaro Katsura",
+        "Tatsuma Sakamoto",
+        "Oboro",
+        "Shoyo Yoshida"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-utsuro-past-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Shoyo Yoshida taught which three people the ways of the samurai?",
+      "options": [
+        "Gintoki, Hijikata and Okita",
+        "Gintoki, Katsura and Takasugi",
+        "Gintoki, Kamui and Umibozu",
+        "Katsura, Sakamoto and Kondo"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-shoyo-yoshida-name-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "The name Shoyo Yoshida is based on which real historical figure?",
+      "options": [
+        "Kondo Isami",
+        "Yoshida Shoin",
+        "Sakamoto Ryoma",
+        "Takasugi Shinsaku"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-utsuro-past-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "What is Oboro's position in Tenshouin Naraku?",
+      "options": [
+        "Its treasurer and spy chief",
+        "Leader in Utsuro's absence and strongest of the Three Wings",
+        "A hostage held by its members",
+        "Its youngest and weakest recruit"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-oboro-name-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who took the original arm of Umibozu, which he now replaces with a mechanical one?",
+      "options": [
+        "His daughter Kagura",
+        "His student Gintoki",
+        "His son Kamui",
+        "His rival Takasugi"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-umibozu-arm-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Whom was Kyubei Yagyu protecting when she lost her left eye?",
+      "options": [
+        "Tae",
+        "Otose",
+        "Kagura",
+        "Tsukuyo"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-kyubei-yagyu-name-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "What is Otose's real name?",
+      "options": [
+        "Ayame Sarutobi",
+        "Tae Shimura",
+        "Mitsuba Okita",
+        "Ayano Terada"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-otose-real-name-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Tsukuyo leads which group of assassins?",
+      "options": [
+        "The Shinsengumi",
+        "The Kaientai",
+        "The Kiheitai",
+        "The Hyakka"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-tsukuyo-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Which faction does Shinsuke Takasugi lead?",
+      "options": [
+        "The Kaientai",
+        "The Hyakka",
+        "The Kiheitai",
+        "The Harusame"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-shinsuke-takasugi-name-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ]
+}
