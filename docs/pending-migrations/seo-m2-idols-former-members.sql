@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25 (idols 115 and 36 inactive; departures confirmed by the press: Heeseung on 2026-03-10, Danielle on 2025-12-29).
 -- OWNER-GATED. Marks two former members as inactive in public.idols, the table that feeds
 -- Name all members, the hub member rows and every other surface that lists current members.
 -- Both Wikidata and the Wikipedia Members sections list them as former members:

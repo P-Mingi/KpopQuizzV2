@@ -34,7 +34,7 @@ import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
-import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
+import { READ_FAILED, failClosed, failedReads, read, readAll } from '@/lib/ux-v1/p3/reads';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 import {
   categoryTexts,
@@ -87,32 +87,32 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const g = group as GroupRow;
   const relatedSlugs = RELATED_GROUPS[g.slug] ?? [];
 
-  // Every read fails closed (reads.ts): a read that failed or timed out never
-  // reaches the ISR cache as an empty block, a hub without its quizzes, an FAQ
-  // without its facts or a side column without today's links.
+  // Every read goes through reads.ts: a read that failed or timed out is tried once
+  // more, and if it still fails the hub is served without that block with a 60 s
+  // revalidate (never a 500, never cached for an hour as the truth).
   const r = {
     // Today's reads (same functions, same args): they feed the locked SEO parts.
-    initialQuizzes: read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
-    newestQuizzes: read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
-    relatedQuizzes: read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
-    triviaAvailable: read(hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
-    nameAllGame: read(getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
-    blindtest: read(getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
-    warRank: read(getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
-    fanKnowledge: read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
-    comeback: read(getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
-    mvPulse: read(getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
-    contentDate: read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
+    initialQuizzes: () => read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
+    newestQuizzes: () => read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
+    relatedQuizzes: () => read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
+    triviaAvailable: () => read(hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
+    nameAllGame: () => read(getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
+    blindtest: () => read(getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
+    warRank: () => read(getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
+    fanKnowledge: () => read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
+    comeback: () => read(getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
+    mvPulse: () => read(getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
+    contentDate: () => read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
     // v11 reads (lib/ux-v1/p3/data.ts).
-    quizzes: read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
-    index: read(getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
-    playable: read(getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
-    comments: read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
+    quizzes: () => read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
+    index: () => read(getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
+    playable: () => read(getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
+    comments: () => read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
   };
-  const got = Object.fromEntries(await Promise.all(Object.entries(r).map(async ([k, p]) => [k, await p] as const))) as { [K in keyof typeof r]: Awaited<(typeof r)[K]> };
+  const got = await readAll(r);
   await failClosed(`/${g.slug}-quiz`, failedReads(got));
-  // Reached with a failed read only in a degraded `next build` prerender, which
-  // never happens for hubs (no build-time params); the fallbacks keep types sound.
+  // A read that still failed after its retry: the block is left out (the fallbacks
+  // below), and failClosed() has set the 60 s revalidate.
   const ok = <T,>(v: T | typeof READ_FAILED, fallback: T): T => (v === READ_FAILED ? fallback : v);
   const initialQuizzes = ok(got.initialQuizzes, []);
   const newestQuizzes = ok(got.newestQuizzes, []);

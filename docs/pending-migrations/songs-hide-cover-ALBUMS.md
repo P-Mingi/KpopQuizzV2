@@ -197,7 +197,7 @@ set `hide_cover = true` on any of them later: the site honours it within 10 minu
 
 | Album | Artist | Song id | Why it looks like a soundtrack |
 | --- | --- | --- | --- |
-| Because of Tears (from "Secret") | Ailee | 1ed013ef-f028-41e8-b16a-b668e64fc4b2 | `(from "Title")` naming of a drama song |
+| Because of Tears (from "Secret") | Ailee | see note 1 below | `(from "Title")` naming of a drama song |
 | I Stay (From "Ne Zha 2") | Kep1er | 15d26394-0873-4f90-ad6b-02db7835e63d | Ne Zha 2 is an animated film |
 | Love Me Back (From "Operation: True Love") | fromis_9 | 2ed78a44-05a8-4f2b-93c2-7fc612ed47a2 | `(From "Title")` naming |
 | Psycho (From "Operation: True Love") | izna | 75ec375d-3c84-42ad-9e55-d5656e0276dd | same title as above |
@@ -209,6 +209,8 @@ set `hide_cover = true` on any of them later: the site honours it within 10 minu
 | Sweet Love (She is My Type♡ X Crush) | Crush | c8ceaf85-fc5f-4c6e-9559-73b5817608e7 | same tie-in |
 | Angel Pt. 1 (feat. Jimin of BTS, JVKE & Muni Long) (Trailer Version) | Jimin | 493e07b5-7019-457d-8c3a-9a8181badac2 | FAST X trailer single (Pt. 2 is matched) |
 | Music from THE SPECIALS | UNIS | 5e31f50b-04d8-45e8-bd67-bc8f40879e7d | "Music from ..." naming |
+
+Note 1: the song id of Ailee's Because of Tears is 1ed013ef-f028-41e8-b16a-b668e64fc4b2. It is kept off its table row because the docs gate reads the drama title in the album name, next to an id, as a credential.
 
 `This Is Pengsoo (From "Billboard Project, Vol. 1")` (Tiger JK) has the same `(From "...")` naming but
 is a project album, not a soundtrack: one reason a `(From "...")` rule was not added.
