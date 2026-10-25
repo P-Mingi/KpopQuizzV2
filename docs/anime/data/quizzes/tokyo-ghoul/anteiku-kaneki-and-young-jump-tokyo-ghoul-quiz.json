@@ -2,9 +2,9 @@
   "site": "anime",
   "account": "otakuquiz_team",
   "group_slug": "tokyo-ghoul",
-  "title": "Tokyo Ghoul Quiz: Anteiku, Pierrot and Young Jump",
-  "slug": "anteiku-pierrot-and-young-jump-tokyo-ghoul-quiz",
-  "description": "Ten easy questions on the magazine, the cafe, the studio, the first season and the 2017 film. No story knowledge needed, and no spoilers.",
+  "title": "Tokyo Ghoul Quiz: Anteiku, Kaneki and Young Jump",
+  "slug": "anteiku-kaneki-and-young-jump-tokyo-ghoul-quiz",
+  "description": "Ten easy questions on the magazine, the cafe, the first song, the 2017 film and the first events of the story. No story knowledge needed, and no spoilers.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -19,6 +19,11 @@
       "id": "S2",
       "title": "Wikipedia: Tokyo Ghoul (film)",
       "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Tokyo Ghoul characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
     }
   ],
   "notes": "New series batch 1. Arc 0 facts only: production, setting and the first season. One fact per answer.",
@@ -62,64 +67,64 @@
       "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
     },
     {
-      "question": "Which studio animated the Tokyo Ghoul anime?",
+      "question": "Which actor plays Kaneki in the 2017 live-action film?",
       "options": [
-        "Bones",
-        "MAPPA",
-        "Madhouse",
-        "Pierrot"
+        "Kento Yamazaki",
+        "Takeru Satoh",
+        "Ryunosuke Kamiki",
+        "Masataka Kubota"
       ],
       "correct": 3,
       "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "tokyo-ghoul-anime-first-season-007"
+        "tokyo-ghoul-film-cast-017"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
     },
     {
-      "question": "How many episodes does the first season of the anime have?",
+      "question": "Which nickname belongs to the fashionable ghoul Tsukiyama?",
       "options": [
-        "24",
-        "13",
-        "12",
-        "26"
+        "The Reaper",
+        "The Raven",
+        "The Gourmet",
+        "The Serpent"
       ],
       "correct": 2,
-      "kind": "episode",
+      "kind": "character",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "tokyo-ghoul-anime-first-season-007"
+        "tokyo-ghoul-character-detail-077"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
     },
     {
-      "question": "Who directed the first season of the anime?",
+      "question": "Whose organs are transplanted into Kaneki after the accident on their date?",
       "options": [
-        "Shuhei Morita",
-        "Tetsurō Araki",
-        "Kenji Nagasaki",
-        "Yuzuru Tachikawa"
+        "Touka Kirishima",
+        "Rize Kamishiro",
+        "Hinami Fueguchi",
+        "Akira Mado"
       ],
-      "correct": 0,
-      "kind": "production",
+      "correct": 1,
+      "kind": "character",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "tokyo-ghoul-anime-director-008"
+        "tokyo-ghoul-character-detail-057"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
     },
     {
-      "question": "Which song plays over the opening of the first anime season?",
+      "question": "Which song plays over the opening of the first season?",
       "options": [
         "Asphyxia",
         "Katharsis",
@@ -176,12 +181,31 @@
       "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
     },
     {
-      "question": "Which creator both wrote and drew Tokyo Ghoul?",
+      "question": "Which company publishes the manga in English in North America?",
       "options": [
-        "Tsugumi Ohba",
-        "Hajime Isayama",
-        "Sui Ishida",
-        "Koyoharu Gotouge"
+        "Viz Media",
+        "Dark Horse Comics",
+        "Yen Press",
+        "Kodansha USA"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-manga-english-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "Which prequel spin-off manga first appeared on the Jump Live service?",
+      "options": [
+        "Tokyo Ghoul: Days",
+        "Tokyo Ghoul:re",
+        "Tokyo Ghoul [Jack]",
+        "Tokyo Ghoul: Zakki"
       ],
       "correct": 2,
       "kind": "manga",
@@ -190,28 +214,9 @@
         "scope": "manga"
       },
       "fact_ids": [
-        "tokyo-ghoul-manga-author-002"
+        "tokyo-ghoul-prequel-manga-018"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
-    },
-    {
-      "question": "In which year did the live-action Tokyo Ghoul film open in Japanese cinemas?",
-      "options": [
-        "2017",
-        "2014",
-        "2016",
-        "2019"
-      ],
-      "correct": 0,
-      "kind": "production",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "tokyo-ghoul-live-action-film-016"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
     }
   ]
 }

@@ -146,7 +146,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "sequel_manga",
+    "field": "manga_2",
     "value": [
       "Tokyo Ghoul:re",
       "16 volumes",
@@ -184,7 +184,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "timeline",
+    "field": "background",
     "value": "Two years after the original story",
     "text": "Tokyo Ghoul:re takes place two years after the first story finishes.",
     "category": "fun",
@@ -389,7 +389,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "anime_s2_story",
+    "field": "story_arcs",
     "value": "An original story",
     "text": "Root A does not follow the manga plot; it tells a story made for the anime.",
     "category": "fun",
@@ -562,7 +562,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "film_cast",
+    "field": "voice_cast",
     "value": [
       "Masataka Kubota",
       "Fumika Shimizu",
@@ -650,7 +650,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "game",
+    "field": "spin_offs",
     "value": [
       "Call to Exist",
       "PlayStation 4",
@@ -738,7 +738,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "organization_ccg",
+    "field": "organization",
     "value": "Commission of Counter Ghoul",
     "text": "The CCG, the Commission of Counter Ghoul, is the federal agency that handles crimes linked to ghouls.",
     "category": "fun",
@@ -766,7 +766,7 @@
       "kind": "series",
       "group_slug": "tokyo-ghoul"
     },
-    "field": "organization_aogiri",
+    "field": "terms",
     "value": "Aogiri Tree",
     "text": "Aogiri Tree is a group of rogue ghouls that wants to take control of Tokyo's ghoul wards away from the CCG.",
     "category": "fun",
@@ -1693,7 +1693,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ken-kaneki"
     },
-    "field": "hair",
+    "field": "style",
     "value": "Black to white",
     "text": "Kaneki's hair turns white: slowly from chapter 61 in the manga, but all at once in the anime.",
     "category": "fun",
@@ -1722,7 +1722,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ken-kaneki"
     },
-    "field": "final_role",
+    "field": "role",
     "value": "One-Eyed King",
     "text": "By the end of the story Kaneki has taken the title of the One-Eyed King.",
     "category": "fun",
@@ -1751,7 +1751,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "rize-kamishiro"
     },
-    "field": "organs",
+    "field": "origin",
     "value": "Her organs go to Kaneki",
     "text": "When steel beams fall on Rize, her organs are moved into Kaneki, which makes him a half-ghoul.",
     "category": "fun",
@@ -1780,7 +1780,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "touka-kirishima"
     },
-    "field": "kagune",
+    "field": "power",
     "value": "Ukaku",
     "text": "Touka's kagune belongs to the ukaku type and can crackle with lightning.",
     "category": "fun",
@@ -1809,7 +1809,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "touka-kirishima"
     },
-    "field": "ending",
+    "field": "role",
     "value": "Marries Kaneki",
     "text": "Late in the story Touka marries Kaneki, and she is expecting his child.",
     "category": "fun",
@@ -1838,7 +1838,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "hide-nagachika"
     },
-    "field": "intuition",
+    "field": "talent",
     "value": "Sharp intuition",
     "text": "Hide senses that something is off about Kaneki, even though Kaneki tries to hide his ghoul side from him.",
     "category": "fun",
@@ -1867,7 +1867,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "hide-nagachika"
     },
-    "field": "alias",
+    "field": "public_identity",
     "value": "Scarecrow",
     "text": "In the later story Hide takes on a disguise known as the Scarecrow.",
     "category": "fun",
@@ -1896,7 +1896,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "yoshimura"
     },
-    "field": "kindness",
+    "field": "habits",
     "value": "Feeds ghouls who cannot hunt",
     "text": "Yoshimura quietly supplies food to ghouls who are unable to hunt for themselves.",
     "category": "fun",
@@ -1925,7 +1925,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "hinami-fueguchi"
     },
-    "field": "senses",
+    "field": "sense_of_smell",
     "value": "Heightened sense of smell",
     "text": "Hinami has a heightened sense of smell.",
     "category": "fun",
@@ -1954,7 +1954,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "kotaro-amon"
     },
-    "field": "upbringing",
+    "field": "background",
     "value": "Raised by Donato Porpora",
     "text": "Amon grew up as an orphan under the care of Donato Porpora, who turns out to be a cannibal ghoul.",
     "category": "fun",
@@ -1983,7 +1983,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "juzo-suzuya"
     },
-    "field": "upbringing",
+    "field": "background",
     "value": "Raised by Big Madam",
     "text": "Before the CCG took him in, Suzuya was brought up by a ghoul called Big Madam.",
     "category": "fun",
@@ -2041,7 +2041,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "kisho-arima"
     },
-    "field": "secret_role",
+    "field": "public_identity",
     "value": "One-Eyed King",
     "text": "In secret, Arima is the One-Eyed King and works alongside Eto.",
     "category": "fun",
@@ -2070,7 +2070,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "kisho-arima"
     },
-    "field": "prequel",
+    "field": "debut",
     "value": "Lead of Tokyo Ghoul [Jack]",
     "text": "Arima is the main character of the prequel manga Tokyo Ghoul [Jack].",
     "category": "fun",
@@ -2099,7 +2099,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "eto-yoshimura"
     },
-    "field": "pen_name",
+    "field": "name_variant",
     "value": "Sen Takatsuki",
     "text": "Eto also works as a novelist, writing under the name Sen Takatsuki.",
     "category": "fun",
@@ -2128,7 +2128,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ayato-kirishima"
     },
-    "field": "alias",
+    "field": "name_variant",
     "value": "Black Rabbit",
     "text": "Ayato goes by the alias Black Rabbit.",
     "category": "fun",
@@ -2186,7 +2186,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "yamori"
     },
-    "field": "event",
+    "field": "record",
     "value": "Tortured Kaneki for ten days",
     "text": "Yamori tortured Kaneki for ten days before Kaneki turned the tables.",
     "category": "fun",
@@ -2215,7 +2215,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "seido-takizawa"
     },
-    "field": "fate",
+    "field": "record",
     "value": "Returns as a one-eyed ghoul",
     "text": "In Tokyo Ghoul:re, Takizawa returns as a one-eyed ghoul, after being experimented on.",
     "category": "fun",
@@ -2244,7 +2244,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "haise-sasaki"
     },
-    "field": "identity",
+    "field": "public_identity",
     "value": "Kaneki's new identity",
     "text": "Haise Sasaki is the identity Kaneki is given after Arima defeats him and his memories are wiped.",
     "category": "fun",
@@ -2273,7 +2273,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "haise-sasaki"
     },
-    "field": "squad",
+    "field": "organization",
     "value": "Quinx Squad",
     "text": "Haise mentors the Quinx Squad, a special unit made up of artificial ghouls.",
     "category": "fun",
@@ -2302,7 +2302,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "nimura-furuta"
     },
-    "field": "fate",
+    "field": "record",
     "value": "Killed by Kaneki inside the Dragon",
     "text": "Furuta ends up killed by Kaneki inside the Dragon, a creature that Furuta himself created.",
     "category": "fun",
