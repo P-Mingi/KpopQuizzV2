@@ -3,9 +3,8 @@
 20 daily quizzes for 2026-12-03 to 2026-12-22, one per day, published by the KpopQuizz Team
 account as public /q/ pages, right after lot 2 (2026-11-13 to 2026-12-02). Without this lot the
 bank is empty from 2026-12-03. SQL: `docs/pending-migrations/daily-bank-2026-12-lot3.sql` and its
-rollback. It is a DRAFT: the review is not recorded yet, so the SQL stops with an error and changes
-nothing if someone runs it. Applied in production by Claude only on the owner's go, after the
-review. Lots 1 and 2 are not touched.
+rollback. Owner-gated: reviewed by the owner on 2026-10-25 on the review page, applied in
+production by Claude only on the owner's go, after lot 2. Lots 1 and 2 are not touched.
 
 Kpop only, as for lot 2: the tools that checked and wrote this lot read kpopquiz.org rows only
 (`apps/quiz/src/lib/daily-bank/kpop-scope.ts`), the SQL names no `site_id`, a check after the
@@ -73,12 +72,13 @@ The source files of the lot are `lot3-A.json` to `lot3-D.json` (regenerate the S
 
 ## Pour le propriétaire
 
-1. Relecture : la page de relecture du lot 3 montre les 26 points signalés et 50 questions tirées
-   au hasard. Le lien est donné dans la PR.
-2. Après votre « go » : je régénère le SQL avec votre nom et la date de relecture, puis Claude
-   l'applique en production et vérifie ligne par ligne (20 lignes, une par date du 3 au 22
-   décembre, 200 questions), comme pour les lots 1 et 2. Le lot 2 doit être appliqué avant ou en
-   même temps. À faire avant le 3 décembre, 1 h 05 heure de Paris (le cron du quiz du jour tourne
-   à 00 h 05 UTC). Retour arrière : `daily-bank-2026-12-lot3-rollback.sql`.
+1. Relecture faite : le lot est relu par Louis Pecchia le 2026-10-25 sur la page de relecture (les
+   26 points signalés et 50 questions tirées au hasard). Le SQL final l'inscrit sur chaque quiz :
+   « checked by Louis Pecchia on 2026-10-25 ».
+2. Le SQL n'est pas lancé à la main : Claude applique `daily-bank-2026-12-lot3.sql` en production
+   après le lot 2, puis vérifie ligne par ligne (20 lignes, une par date du 3 au 22 décembre, 200
+   questions, titres, groupes et notes de relecture). À faire avant le 3 décembre, 1 h 05 heure de
+   Paris (le cron du quiz du jour tourne à 00 h 05 UTC). Retour arrière :
+   `daily-bank-2026-12-lot3-rollback.sql`.
 3. Le 3 décembre au matin, ouvrir /daily : le quiz du jour doit être
    « ITZY: From Debut to Born to Be ».
